@@ -4685,11 +4685,11 @@ export default function App() {
   return (
     <div style={{minHeight:"100vh",background:K.body,color:K.text,fontFamily:"'Inter', 'Segoe UI', system-ui, sans-serif"}}>
 
-      {/* Kibana-style top bar (dark header) */}
-      <header style={{background:K.headerBg,color:K.headerText,padding:"0 24px",display:"flex",alignItems:"center",height:48,boxShadow:K.shadowMd}}>
-        <div style={{display:"flex",alignItems:"center",gap:12}}>
-          <PipelineLogo size={28} light/>
-          <span style={{fontWeight:600,fontSize:14,letterSpacing:"-0.01em"}}>AWS → Elastic Load Generator</span>
+      {/* Top bar: taller, bigger logo, app name in caps */}
+      <header style={{background:K.headerBg,color:K.headerText,padding:"0 24px",display:"flex",alignItems:"center",height:72,boxShadow:K.shadowMd}}>
+        <div style={{display:"flex",alignItems:"center",gap:16}}>
+          <PipelineLogo size={44} light/>
+          <span style={{fontWeight:600,fontSize:20,letterSpacing:"-0.01em",textTransform:"uppercase"}}>AWS → Elastic Load Generator</span>
         </div>
         <div style={{marginLeft:"auto",display:"flex",alignItems:"center",gap:16}}>
           <span style={{fontSize:12,color:K.headerSubdued}}>{totalSelected} / {totalServices} services</span>
@@ -4702,10 +4702,10 @@ export default function App() {
       {/* Page content — Kibana content area */}
       <main style={{padding:"24px 24px 48px",maxWidth:1280,margin:"0 auto"}}>
         <div style={{marginBottom:24}}>
-          <h1 style={{fontSize:22,fontWeight:600,color:K.textHeading,letterSpacing:"-0.02em",marginBottom:4}}>
+          <h1 style={{fontSize:18,fontWeight:600,color:K.textHeading,letterSpacing:"-0.02em",marginBottom:6}}>
             Generate and ship AWS logs &amp; metrics to Elastic
           </h1>
-          <p style={{fontSize:14,color:K.textSubdued,maxWidth:560}}>
+          <p style={{fontSize:14,color:K.textSubdued,width:"100%",maxWidth:"100%"}}>
             {totalServices} AWS services across 14 groups · ECS-compliant · Per-service ingestion (S3, CloudWatch, API, Firehose, OTel). Ships directly to Elasticsearch.
           </p>
         </div>
