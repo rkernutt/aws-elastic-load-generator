@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "organizations"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "organizations": {
-      "action": "AttachPolicy",
-      "account_id": "501938274650",
+      "action": "DetachPolicy",
+      "account_id": "164820739518",
       "account_name": "shared-services",
-      "organizational_unit": "Security",
-      "policy_id": "p-20hyeswl",
-      "policy_type": "SERVICE_CONTROL_POLICY",
-      "policy_name": "TagCompliance"
+      "organizational_unit": "Sandbox",
+      "policy_id": "p-0igyrdaz",
+      "policy_type": "TAG_POLICY",
+      "policy_name": "DenyRootUserActions"
     }
   },
   "event": {
-    "action": "AttachPolicy",
+    "action": "DetachPolicy",
     "outcome": "success",
     "category": "iam",
     "dataset": "aws.organizations",
     "provider": "organizations.amazonaws.com"
   },
-  "message": "Organizations AttachPolicy: Sandbox",
+  "message": "Organizations DetachPolicy: Root",
   "log": {
     "level": "info"
   }

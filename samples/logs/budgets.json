@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "budgets"
@@ -14,16 +14,16 @@
   "aws": {
     "budgets": {
       "budget_name": "rds-cluster",
-      "budget_type": "SAVINGS_PLANS_UTILIZATION",
+      "budget_type": "RI_UTILIZATION",
       "time_period": "ANNUALLY",
       "currency": "USD",
-      "budget_limit": 8516.7,
-      "actual_spend": 4130.6,
-      "forecasted_spend": 4750.19,
+      "budget_limit": 7745.81,
+      "actual_spend": 6188.9,
+      "forecasted_spend": 7117.24,
       "threshold_exceeded": false,
-      "threshold_percentage": 70,
-      "notification_type": "ACTUAL",
-      "subscribers": "finance@company.com"
+      "threshold_percentage": 50,
+      "notification_type": "FORECASTED",
+      "subscribers": "ops@company.com"
     }
   },
   "event": {
@@ -32,7 +32,7 @@
     "dataset": "aws.budgets",
     "provider": "budgets.amazonaws.com"
   },
-  "message": "Budget OK: rds-cluster at 4131/8517 (49%)",
+  "message": "Budget OK: rds-cluster at 6189/7746 (80%)",
   "log": {
     "level": "info"
   }

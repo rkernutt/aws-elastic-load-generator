@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,24 +13,25 @@
   },
   "aws": {
     "codeartifact": {
-      "domain_name": "internal",
-      "repository_name": "npm-store",
-      "package_format": "nuget",
+      "domain_name": "platform",
+      "repository_name": "maven-central",
+      "package_format": "npm",
       "package_name": "my-lib",
-      "package_version": "2.13.4",
-      "action": "PublishPackageVersion",
-      "download_size_bytes": 47706585,
+      "package_version": "4.5.7",
+      "action": "CopyPackageVersions",
+      "asset_name": "my-lib-4.5.7.tgz",
+      "download_size_bytes": 25836228,
       "upstream_repository": "pypi-upstream"
     }
   },
   "event": {
-    "action": "PublishPackageVersion",
+    "action": "CopyPackageVersions",
     "outcome": "success",
     "category": "package",
     "dataset": "aws.codeartifact",
     "provider": "codeartifact.amazonaws.com"
   },
-  "message": "CodeArtifact PublishPackageVersion: my-lib@2.13.4 [nuget] in internal/npm-store",
+  "message": "CodeArtifact CopyPackageVersions: my-lib@4.5.7 [npm] in platform/maven-central",
   "log": {
     "level": "info"
   }

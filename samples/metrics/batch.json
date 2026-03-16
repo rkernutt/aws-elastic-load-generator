@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "batch"
@@ -13,53 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "JobQueueName": "data-export-queue",
-      "JobDefinition": "data-export"
+      "JobQueueName": "report-generation-queue",
+      "JobDefinition": "report-generation"
     },
     "batch": {
       "job": {
-        "name": "data-export",
-        "id": "dym9vtsa-mzof",
-        "status": "FAILED"
+        "name": "report-generation",
+        "id": "2qxmxhp2-2dqi",
+        "status": "SUCCEEDED"
       },
-      "job_queue": "data-export-queue",
-      "compute_environment": "ce-ondemand",
+      "job_queue": "report-generation-queue",
+      "compute_environment": "ce-spot",
       "structured_logging": false,
       "metrics": {
         "PendingJobCount": {
-          "avg": 48
+          "avg": 15
         },
         "RunnableJobCount": {
-          "avg": 9
+          "avg": 17
         },
         "RunningJobCount": {
-          "avg": 44
+          "avg": 35
         },
         "SucceededJobCount": {
-          "sum": 0
+          "sum": 28
         },
         "FailedJobCount": {
-          "sum": 4
+          "sum": 0
+        },
+        "elapsedTime": 675,
+        "Duration": {
+          "avg": 675
         }
       }
     }
   },
   "log": {
-    "level": "error"
+    "level": "info"
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "process",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 4881000000000
+    "duration": 675000000000
   },
-  "message": "Spot instance reclaimed during execution",
-  "error": {
-    "code": "JobFailed",
-    "message": "IAM role permission denied",
-    "type": "process"
-  },
+  "message": "Container started on ECS instance",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.batch",

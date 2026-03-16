@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "sagemaker"
@@ -13,59 +13,59 @@
   },
   "aws": {
     "sagemaker": {
-      "domain_id": "d-dp2icox5k4",
-      "domain_name": "risk-models",
-      "user_profile": "alice-ds",
+      "domain_id": "d-9j9d55b5ka",
+      "domain_name": "cv-team",
+      "user_profile": "bob-ml",
       "job": {
-        "name": "lstm-timeseries-hyperparametertuning-r0hlf2",
-        "type": "HyperparameterTuning",
-        "arn": "arn:aws:sagemaker:us-east-1:738291046572:training-job/lstm-timeseries-hyperparametertuning-r0hlf2"
+        "name": "lstm-timeseries-pipeline-qg64kh",
+        "type": "Pipeline",
+        "arn": "arn:aws:sagemaker:us-east-1:293847561023:training-job/lstm-timeseries-pipeline-qg64kh"
       },
       "model": {
         "name": "lstm-timeseries",
-        "version": 23
+        "version": 15
       },
       "pipeline": {
-        "name": "model-training-pipeline",
-        "execution_id": "pipe-fl68bskbmah"
+        "name": "feature-engineering-pipeline",
+        "execution_id": "pipe-xefwgcahq6"
       },
       "instance": {
         "type": "ml.g4dn.xlarge",
-        "count": 4
+        "count": 1
       },
       "metrics": {
-        "training_loss": 0.5997,
-        "accuracy": 0.8302,
-        "epoch": 100,
-        "gpu_utilization_pct": 99,
-        "cpu_utilization_pct": 70
+        "training_loss": 0.2077,
+        "accuracy": 0.7634,
+        "epoch": 81,
+        "gpu_utilization_pct": 61,
+        "cpu_utilization_pct": 85
       },
       "studio": {
-        "space_name": "ds-platform",
-        "app_type": "JupyterServer",
+        "space_name": "risk-models",
+        "app_type": "RSession",
         "app_name": "default",
-        "lifecycle_config": true,
-        "continuous_logging": false
+        "lifecycle_config": false,
+        "continuous_logging": true
       },
       "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 676
+          "sum": 865
         },
         "ModelLatency": {
-          "avg": 150,
-          "p99": 450
+          "avg": 103,
+          "p99": 309
         },
         "GPUUtilization": {
-          "avg": 79
+          "avg": 42
         },
         "CPUUtilization": {
-          "avg": 41
+          "avg": 53
         },
         "DiskUtilization": {
-          "avg": 18
+          "avg": 21
         },
         "MemoryUtilization": {
-          "avg": 69
+          "avg": 52
         },
         "Invocations4XXError": {
           "sum": 0
@@ -80,17 +80,17 @@
     "level": "info"
   },
   "user": {
-    "name": "alice-ds"
+    "name": "bob-ml"
   },
   "event": {
-    "action": "LifecycleConfigOnStart",
-    "duration": 1384054000000,
+    "action": "AppDeleted",
+    "duration": 3014424000000,
     "outcome": "success",
     "category": "machine_learning",
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "Endpoint InService: latency p50=12ms p99=47ms",
+  "message": "{\"domainId\":\"d-9j9d55b5ka\",\"space\":\"risk-models\",\"appType\":\"RSession\",\"user\":\"bob-ml\",\"level\":\"INFO\",\"message\":\"Training job succeeded\",\"timestamp\":\"2026-03-16T16:55:00.054Z\",\"event\":\"AppDeleted\"}",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.sagemaker",

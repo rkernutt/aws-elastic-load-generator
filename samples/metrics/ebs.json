@@ -1,12 +1,12 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
-    "availability_zone": "eu-west-2b",
+    "region": "us-east-1",
+    "availability_zone": "us-east-1a",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "ebs"
@@ -14,53 +14,50 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-vrw81v9725s",
+      "VolumeId": "vol-soc1ylpib5n",
       "VolumeType": "sc1"
     },
     "ebs": {
-      "volume_id": "vol-vrw81v9725s",
-      "modification_state": "optimizing",
-      "original_volume_type": "st1",
-      "target_volume_type": "gp3",
-      "original_size_gb": 500,
-      "target_size_gb": 550,
-      "original_iops": 15236,
-      "target_iops": 13721,
-      "progress_percent": 36,
-      "event_type": "modification",
+      "volume_id": "vol-soc1ylpib5n",
+      "volume_type": "sc1",
+      "size_gb": 20,
+      "availability_zone": "us-east-1a",
+      "previous_state": "available",
+      "current_state": "available",
+      "event_type": "state_change",
       "metrics": {
         "VolumeReadOps": {
-          "sum": 184
+          "sum": 4578
         },
         "VolumeWriteOps": {
-          "sum": 7009
+          "sum": 3492
         },
         "VolumeReadBytes": {
-          "sum": 376307841
+          "sum": 116118726
         },
         "VolumeWriteBytes": {
-          "sum": 467698104
+          "sum": 403711852
         },
         "VolumeTotalReadTime": {
-          "sum": 1.424
+          "sum": 5.643
         },
         "VolumeTotalWriteTime": {
-          "sum": 5.306
+          "sum": 3.462
         },
         "VolumeIdleTime": {
-          "sum": 59.517
+          "sum": 21.221
         },
         "VolumeQueueLength": {
           "avg": 8
         },
         "VolumeThroughputPercentage": {
-          "avg": 43.349
+          "avg": 79.036
         },
         "VolumeConsumedReadWriteOps": {
-          "sum": 2197
+          "sum": 2063
         },
         "BurstBalance": {
-          "avg": 76
+          "avg": 81
         }
       }
     }
@@ -71,7 +68,7 @@
     "dataset": "aws.ebs",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "EBS volume vol-vrw81v9725s modification: st1/500GB -> gp3/550GB [optimizing]",
+  "message": "EBS volume vol-soc1ylpib5n state change: available -> available",
   "log": {
     "level": "info"
   },

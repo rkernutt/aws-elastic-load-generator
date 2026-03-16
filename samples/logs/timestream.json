@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "timestream"
@@ -13,29 +13,23 @@
   },
   "aws": {
     "timestream": {
-      "database_name": "iot-metrics",
-      "table_name": "cpu_metrics",
+      "database_name": "financial-ticks",
+      "table_name": "device_telemetry",
       "operation": "Query",
       "records_ingested": 0,
-      "rows_returned": 5169,
-      "duration_ms": 4604,
-      "error_code": "RejectedRecordsException"
+      "rows_returned": 8643,
+      "duration_ms": 1132
     }
   },
   "event": {
-    "duration": 4603750000,
-    "outcome": "failure",
+    "duration": 1131700000,
+    "outcome": "success",
     "category": "database",
     "dataset": "aws.timestream",
     "provider": "timestream.amazonaws.com"
   },
-  "message": "Timestream Query FAILED on iot-metrics.cpu_metrics: Throttling",
+  "message": "Timestream Query on financial-ticks.device_telemetry: 1132ms",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "RejectedRecordsException",
-    "message": "Timestream operation failed",
-    "type": "db"
+    "level": "info"
   }
 }

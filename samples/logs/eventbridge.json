@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "events"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "EventBusName": "custom-events",
+      "EventBusName": "app-events",
       "RuleName": "cost-alert-rule"
     },
     "eventbridge": {
-      "event_bus": "custom-events",
+      "event_bus": "app-events",
       "rule": "cost-alert-rule",
       "source": "aws.ec2",
       "detail_type": "Health Event",
-      "targets_invoked": 4,
+      "targets_invoked": 1,
       "targets_failed": 0,
-      "event_id": "8x8dvmdf-dc24-ncf9-8lvs-1au6s2gnvc1",
+      "event_id": "yucgx616-bxwp-ahf4-eota-urlxm8p6pxj",
       "structured_logging": true,
       "metrics": {
         "Invocations": {
-          "sum": 5325
+          "sum": 8140
         },
         "FailedInvocations": {
           "sum": 0
         },
         "TriggeredRules": {
-          "sum": 351
+          "sum": 5
         },
         "MatchedEvents": {
-          "sum": 5603
+          "sum": 7557
         },
         "ThrottledRules": {
           "sum": 0
@@ -52,9 +52,9 @@
     "category": "process",
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 80000000
+    "duration": 95000000
   },
-  "message": "{\"id\":\"8x8dvmdf-dc24-ncf9-8lvs-1au6s2gnvc1\",\"source\":\"aws.ec2\",\"detailType\":\"Object Created\",\"rule\":\"cost-alert-rule\",\"eventBus\":\"custom-events\",\"message\":\"EventBridge event routed: aws.ec2 -> cost-alert-rule\",\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
+  "message": "{\"id\":\"yucgx616-bxwp-ahf4-eota-urlxm8p6pxj\",\"source\":\"aws.ec2\",\"detailType\":\"Order Placed\",\"rule\":\"cost-alert-rule\",\"eventBus\":\"app-events\",\"message\":\"EventBridge event routed: aws.ec2 -> cost-alert-rule\",\"timestamp\":\"2026-03-16T16:55:00.054Z\"}",
   "log": {
     "level": "info"
   }

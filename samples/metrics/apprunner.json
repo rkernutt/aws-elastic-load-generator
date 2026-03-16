@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,66 +13,71 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "webhook-handler"
+      "ServiceName": "web-api"
     },
     "apprunner": {
-      "service_name": "webhook-handler",
-      "service_arn": "arn:aws:apprunner:eu-west-2:293847561023:service/webhook-handler/ee0dfasczt",
+      "service_name": "web-api",
+      "service_arn": "arn:aws:apprunner:eu-west-2:293847561023:service/web-api/5py1btxhdbo",
       "structured_logging": true,
       "metrics": {
         "Requests": {
-          "sum": 764
+          "sum": 301
         },
         "2xxStatusResponses": {
-          "sum": 885
+          "sum": 0
         },
         "4xxStatusResponses": {
           "sum": 0
         },
         "5xxStatusResponses": {
-          "sum": 0
+          "sum": 3
         },
         "RequestLatency": {
-          "avg": 381,
-          "p99": 762
+          "avg": 2992,
+          "p99": 5984
         },
         "ActiveInstances": {
-          "avg": 6
+          "avg": 3
         },
         "CPUUtilization": {
-          "avg": 16.016
+          "avg": 63.274
         },
         "MemoryUtilization": {
-          "avg": 22.242
+          "avg": 31.922
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "PUT",
-      "bytes": 4154
+      "method": "GET",
+      "bytes": 3178
     },
     "response": {
-      "status_code": 200,
-      "bytes": 1426
+      "status_code": 503,
+      "bytes": 1013
     }
   },
   "url": {
-    "path": "/api/v1/products"
+    "path": "/api/v1/auth/login"
   },
   "client": {
-    "ip": "17.168.25.252"
+    "ip": "65.85.38.97"
   },
   "event": {
-    "duration": 381000000,
-    "outcome": "success",
+    "duration": 2992000000,
+    "outcome": "failure",
     "dataset": "aws.apprunner",
     "provider": "apprunner.amazonaws.com"
   },
-  "message": "{\"service\":\"webhook-handler\",\"status\":200,\"latency_ms\":381,\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
+  "message": "{\"service\":\"web-api\",\"status\":503,\"latency_ms\":2992,\"timestamp\":\"2026-03-16T16:55:00.054Z\"}",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "BadGateway",
+    "message": "HTTP 503",
+    "type": "server"
   },
   "data_stream": {
     "type": "metrics",

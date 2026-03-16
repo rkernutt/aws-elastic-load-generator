@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "neptune"
@@ -14,21 +14,21 @@
   "aws": {
     "neptune": {
       "cluster_id": "prod-neptune",
-      "query_language": "Gremlin",
-      "query": "g.V(userId).repeat(out('knows')).times(3).path()",
-      "duration_ms": 4654,
+      "query_language": "openCypher",
+      "query": "MATCH (n)-[r]->(m) WHERE n.id=$id RETURN n,r,m",
+      "duration_ms": 2577,
       "http_status": 200,
-      "db_connections": 110
+      "db_connections": 64
     }
   },
   "event": {
-    "duration": 4653535000,
+    "duration": 2576989000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.neptune",
     "provider": "neptune.amazonaws.com"
   },
-  "message": "Neptune Gremlin: 4654ms",
+  "message": "Neptune openCypher: 2577ms",
   "log": {
     "level": "info"
   }

@@ -1,16 +1,16 @@
 # ⚡ AWS → Elastic Load Generator
 
-**v7** — A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **134 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
+**v7.1** — A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **134 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
 
 Each service has its **correct real-world ingestion source** pre-configured — S3, CloudWatch, direct API, Firehose, **OTel** (OpenTelemetry), or **Elastic Agent** — matching how each service actually delivers data to Elastic in production. You can leave **Default (per-service)** or override all services to a single ingestion method (e.g. OTel) for testing. Switch between **Logs** and **Metrics** mode; only the 42 services with Elastic metrics support are selectable in Metrics mode.
 
 ---
 
-## What's New in v7
+## What's New in v7.1
 
-- **Performance & anomaly-detection metrics** — Added or expanded `event.duration` and `aws.<service>.metrics` across services so you can build Elastic visualizations and run ML anomaly detection on duration, utilization, throughput, and error rates. New or expanded metrics for: SNS, Athena, SageMaker (CloudWatch-style), Fargate, AutoScaling, ImageBuilder, Amazon MQ, AppSync, Bedrock, and Bedrock Agent.
-- **Glue: skewness & observability** — Glue generator now emits `aws.glue.metrics.driver.skewness.stage` and `skewness.job` (job performance), plus JVM heap usage and disk metrics (`jvm.heap.usage`, `diskSpaceUsed_MB`, etc.) aligned with AWS Glue Observability.
-- **Performance metrics plan** — [docs/PERFORMANCE-METRICS-PLAN.md](docs/PERFORMANCE-METRICS-PLAN.md) documents which fields are emitted for dashboards and ML, and which services were updated.
+- **Kibana-inspired UI** — The web UI has been redesigned to follow the **Kibana / Elastic UI (EUI)** design language: dark top bar (`#1D1E24`), light content background (`#F6F9FC`), EUI primary blue (`#0B64DD`) for actions and focus, and semantic colors for success, warning, and danger. Cards, form controls, buttons, and status pills now use EUI-aligned tokens for a consistent look when used alongside Kibana and Elastic Cloud.
+- **Design tokens** — A central `K` token set in the app aligns with EUI colors (backgrounds, borders, text, success/warning/danger) and spacing so future UI changes stay consistent with Elastic’s design system.
+- **Simplified layout** — Single dark header with logo and status; compact page title and description; main content in a constrained width with clear card hierarchy. Ship button label correctly reflects **Logs** vs **Metrics** mode.
 
 Older release notes: [Version What's New Archive](#version-whats-new-archive).
 
@@ -472,6 +472,12 @@ See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the contributor list.
 ---
 
 ## Version What's New Archive
+
+### What's New in v7
+
+- **Performance & anomaly-detection metrics** — Added or expanded `event.duration` and `aws.<service>.metrics` across services for Elastic visualizations and ML anomaly detection. New or expanded metrics for: SNS, Athena, SageMaker (CloudWatch-style), Fargate, AutoScaling, ImageBuilder, Amazon MQ, AppSync, Bedrock, and Bedrock Agent.
+- **Glue: skewness & observability** — Glue generator emits `aws.glue.metrics.driver.skewness.stage` and `skewness.job`, plus JVM heap and disk metrics aligned with AWS Glue Observability.
+- **Performance metrics plan** — [docs/PERFORMANCE-METRICS-PLAN.md](docs/PERFORMANCE-METRICS-PLAN.md) documents fields for dashboards and ML.
 
 ### What's New in v6
 

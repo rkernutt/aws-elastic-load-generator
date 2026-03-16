@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "elasticbeanstalk"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "my-web-app-production"
+      "EnvironmentName": "my-web-app-dev"
     },
     "elasticbeanstalk": {
       "application": "my-web-app",
-      "environment": "my-web-app-production",
-      "structured_logging": true,
-      "platform": "Docker",
-      "version_label": "v104",
+      "environment": "my-web-app-dev",
+      "structured_logging": false,
+      "platform": "Python 3.11",
+      "version_label": "v46",
       "metrics": {
         "EnvironmentHealth": {
-          "avg": 5
+          "avg": 0
         },
         "ApplicationRequests5xx": {
           "sum": 0
@@ -35,13 +35,13 @@
           "sum": 0
         },
         "ApplicationLatencyP99": {
-          "avg": 716
+          "avg": 511
         },
         "ApplicationLatencyP90": {
-          "avg": 379
+          "avg": 375
         },
         "InstancesOk": {
-          "avg": 7
+          "avg": 9
         },
         "InstancesDegraded": {
           "avg": 0
@@ -61,7 +61,7 @@
     "outcome": "success",
     "dataset": "aws.elasticbeanstalk",
     "provider": "elasticbeanstalk.amazonaws.com",
-    "duration": 111000000000
+    "duration": 60000000000
   },
-  "message": "{\"application\":\"my-web-app\",\"environment\":\"my-web-app-production\",\"status\":301,\"message\":\"Rolling update complete\",\"timestamp\":\"2026-03-16T15:20:27.243Z\"}"
+  "message": "Auto Scaling event: +2 instances"
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "managedblockchain"
@@ -13,17 +13,18 @@
   },
   "aws": {
     "managedblockchain": {
-      "network_id": "n-GGG45B5QLO",
-      "network_name": "supply-chain-net",
-      "framework": "Ethereum",
-      "framework_version": "Ethereum",
-      "member_id": "m-NKZXGWSN34J",
-      "member_name": "Bank-1",
-      "node_id": "nd-QKWP4WS5Z1",
-      "event_type": "ProposalCreated",
-      "proposal_id": "TM5AHXZUJR",
+      "network_id": "n-SHZC9K1J2T",
+      "network_name": "logistics-network",
+      "framework": "Hyperledger Fabric",
+      "framework_version": "2.2",
+      "member_id": "m-HSDZEJ5JLYK",
+      "member_name": "Company-A",
+      "node_id": "nd-PBIJYU4NOD",
+      "event_type": "TransactionSubmitted",
+      "transaction_id": "2052jjxpzaw",
+      "channel_name": "audit-channel",
       "status": "FAILED",
-      "error_code": "ThrottlingException"
+      "error_code": "IllegalActionException"
     }
   },
   "event": {
@@ -32,7 +33,7 @@
     "dataset": "aws.blockchain",
     "provider": "managedblockchain.amazonaws.com"
   },
-  "message": "ManagedBlockchain ProposalCreated FAILED [Ethereum]: Proposal rejected:",
+  "message": "ManagedBlockchain TransactionSubmitted FAILED [Hyperledger Fabric]: Proposal rejected:",
   "log": {
     "level": "error"
   },

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "identitycenter"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "iam_identity_center": {
-      "event_type": "Authenticate",
-      "user_name": "alice@corp.com",
-      "application_name": "Jira",
-      "permission_set": "PowerUserAccess",
-      "account_id": "501938274650",
+      "event_type": "MFAChallenge",
+      "user_name": "carol@corp.com",
+      "application_name": "GitHub Enterprise",
+      "permission_set": "BillingAccess",
+      "account_id": "814726593401",
       "mfa_authenticated": true
     }
   },
   "user": {
-    "name": "alice@corp.com"
+    "name": "carol@corp.com"
   },
   "source": {
-    "ip": "29.59.83.118"
+    "ip": "186.208.155.157"
   },
   "event": {
-    "action": "Authenticate",
+    "action": "MFAChallenge",
     "outcome": "success",
     "category": "authentication",
     "dataset": "aws.identitycenter",
     "provider": "sso.amazonaws.com"
   },
-  "message": "IAM Identity Center Authenticate: alice@corp.com -> Jira",
+  "message": "IAM Identity Center MFAChallenge: carol@corp.com -> GitHub Enterprise",
   "log": {
     "level": "info"
   }

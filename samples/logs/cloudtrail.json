@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,45 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "EventName": "CreateBucket",
-      "EventSource": "s3.amazonaws.com"
+      "EventName": "CreateUser",
+      "EventSource": "iam.amazonaws.com"
     },
     "cloudtrail": {
       "event_version": "1.08",
-      "event_id": "orlmthhx-6pgq-5v9r",
-      "event_name": "CreateBucket",
-      "event_source": "s3.amazonaws.com",
+      "event_id": "si7hihyt-2z1n-1n4k",
+      "event_name": "CreateUser",
+      "event_source": "iam.amazonaws.com",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "Q747HWP2-UCJ4-CEH1-7EQP-6UBSJAO6MDC",
+      "request_id": "GIBL8GEG-YX0G-NGW4-5I2L-JQTSG3VH9M",
       "api_version": "2012-10-17",
       "management_event": true,
       "read_only": false,
       "user_identity": {
         "type": "IAMUser",
-        "user_name": "alice",
+        "user_name": "deploy-bot",
         "account_id": "814726593401"
       },
-      "request_parameters": {
-        "bucketName": "my-bucket-wclkpa"
-      },
+      "request_parameters": {},
       "response_elements": {}
     }
   },
   "user": {
-    "name": "alice"
+    "name": "deploy-bot"
   },
   "source": {
-    "ip": "150.159.51.203"
+    "ip": "83.168.1.79"
   },
   "event": {
-    "action": "CreateBucket",
+    "action": "CreateUser",
     "outcome": "success",
     "category": "iam",
     "dataset": "aws.cloudtrail",
     "provider": "cloudtrail.amazonaws.com"
   },
-  "message": "alice performed CreateBucket via s3.amazonaws.com",
+  "message": "deploy-bot performed CreateUser via iam.amazonaws.com",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "iotcore"
@@ -15,28 +15,28 @@
     "iotcore": {
       "client_id": "camera-entrance",
       "thing_name": "camera-entrance",
-      "thing_group": "factory-sensors",
-      "action": "CONNECT",
+      "thing_group": "home-devices",
+      "action": "PUBLISH",
       "topic": "dt/home/thermostat/status",
       "protocol": "MQTT",
-      "qos": 0,
-      "message_bytes": 36522,
-      "policy_name": "SensorPolicy",
-      "structured_logging": true,
+      "qos": 1,
+      "message_bytes": 49394,
+      "policy_name": "FleetPolicy",
+      "structured_logging": false,
       "rules_evaluated": 4
     }
   },
   "source": {
-    "ip": "60.75.0.214"
+    "ip": "204.202.164.233"
   },
   "event": {
-    "action": "CONNECT",
+    "action": "PUBLISH",
     "outcome": "success",
     "category": "network",
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com"
   },
-  "message": "{\"clientId\":\"camera-entrance\",\"action\":\"CONNECT\",\"topic\":\"dt/home/thermostat/status\",\"message\":\"IoT Core CONNECT: camera-entrance on dt/home/thermostat/status\",\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
+  "message": "IoT Core PUBLISH: camera-entrance on dt/home/thermostat/status",
   "log": {
     "level": "info"
   }

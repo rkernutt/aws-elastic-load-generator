@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "codebuild"
@@ -13,55 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "ProjectName": "api-service-build"
+      "ProjectName": "infra-terraform"
     },
     "codebuild": {
-      "project_name": "api-service-build",
-      "build_id": "api-service-build:7z8soyow-jxhi",
-      "build_status": "FAILED",
-      "current_phase": "UPLOAD_ARTIFACTS",
-      "duration_seconds": 3444,
-      "queued_duration_seconds": 31,
-      "build_number": 3685,
+      "project_name": "infra-terraform",
+      "build_id": "infra-terraform:8coqypfc-2pit",
+      "build_status": "SUCCEEDED",
+      "current_phase": "POST_BUILD",
+      "duration_seconds": 548,
+      "queued_duration_seconds": 52,
+      "build_number": 1477,
       "initiator": "manual",
-      "source_version": "vypzzmkae5d",
+      "source_version": "f4j7btgpagg",
       "structured_logging": true,
       "metrics": {
         "Builds": {
           "sum": 1
         },
         "SucceededBuilds": {
-          "sum": 0
-        },
-        "FailedBuilds": {
           "sum": 1
         },
+        "FailedBuilds": {
+          "sum": 0
+        },
         "Duration": {
-          "avg": 3444
+          "avg": 548
         },
         "QueuedDuration": {
-          "avg": 36
+          "avg": 39
         },
         "BuildDuration": {
-          "avg": 3444
+          "avg": 548
         }
       }
     }
   },
   "event": {
-    "duration": 3444000000000,
-    "outcome": "failure",
+    "duration": 548000000000,
+    "outcome": "success",
     "category": "process",
     "dataset": "aws.codebuild",
     "provider": "codebuild.amazonaws.com"
   },
-  "message": "{\"buildId\":\"api-service-build:7z8soyow-jxhi\",\"project\":\"api-service-build\",\"phase\":\"UPLOAD_ARTIFACTS\",\"status\":\"FAILED\",\"durationSeconds\":3444,\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
+  "message": "{\"buildId\":\"infra-terraform:8coqypfc-2pit\",\"project\":\"infra-terraform\",\"phase\":\"POST_BUILD\",\"status\":\"SUCCEEDED\",\"durationSeconds\":548,\"timestamp\":\"2026-03-16T16:55:00.054Z\"}",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "BuildFailed",
-    "message": "CodeBuild failed at phase UPLOAD_ARTIFACTS",
-    "type": "build"
+    "level": "info"
   }
 }

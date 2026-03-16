@@ -437,9 +437,9 @@ function generateBatchLog(ts, er) {
   const jobName = rand(["nightly-etl","report-generation","data-export","ml-training-prep","cleanup-job"]);
   const jobQueue = `${jobName}-queue`;
   const jobId = `${randId(8)}-${randId(4)}`.toLowerCase();
-  const MSGS = { error:["Job failed with exit code 1","Container instance terminated unexpectedly","Job queue capacity exceeded","IAM role permission denied","Spot instance reclaimed during execution"],warn:["Job retry attempt 2/3","vCPU limit approaching: 980/1000","Job timeout warning: 80% elapsed"],info:["Job submitted to queue","Container started on ECS instance","Job completed successfully","Job definition registered"] };
-  const BATCH_ERROR_CODES = ["JobFailed","ContainerTerminated","CapacityExceeded","PermissionDenied","SpotReclaimed"];
   const durationSec = randInt(10, level === "error" ? 7200 : 3600);
+  const MSGS = { error:["Job run failed","Job failed with exit code 1","Container instance terminated unexpectedly","Job queue capacity exceeded","IAM role permission denied","Spot instance reclaimed during execution"],warn:["Job retry attempt 2/3","vCPU limit approaching: 980/1000","Job timeout warning: 80% elapsed"],info:["Job run started","Job run succeeded","Job submitted to queue","Container started on ECS instance","Job completed successfully","Job definition registered"] };
+  const BATCH_ERROR_CODES = ["JobFailed","ContainerTerminated","CapacityExceeded","PermissionDenied","SpotReclaimed"];
   const plainMessage = rand(MSGS[level]);
   const useStructuredLogging = Math.random() < 0.6;
   const message = useStructuredLogging ? JSON.stringify({ jobId, jobName, jobQueue, level, message: plainMessage, timestamp: new Date(ts).toISOString(), arrayIndex: randInt(0, 99) }) : plainMessage;
@@ -459,6 +459,8 @@ function generateBatchLog(ts, er) {
           RunningJobCount: { avg: randInt(0, 100) },
           SucceededJobCount: { sum: level==="error" ? 0 : randInt(1, 50) },
           FailedJobCount: { sum: level==="error" ? randInt(1, 5) : 0 },
+          elapsedTime: durationSec,
+          Duration: { avg: durationSec },
         }
       }
     },
@@ -1502,7 +1504,8 @@ function generateStepFunctionsLog(ts, er) {
   const state = rand(["ValidateInput","ProcessPayment","SendNotification","UpdateDatabase","HandleError"]);
   const dur = parseFloat(randFloat(0.1, isErr?600:30));
   const executionArn = `arn:aws:states:${region}:${acct.id}:execution:${machine}:${randId(8).toLowerCase()}`;
-  const plainMessage = isErr ? `Step Functions ${machine} FAILED at state ${state}: ${rand(["Lambda error","Timeout","States.TaskFailed"])}` : `Step Functions ${machine} SUCCEEDED in ${dur.toFixed(1)}s`;
+  const stepMsgPool = isErr ? ["Execution failed",`Step Functions ${machine} FAILED at state ${state}: ${rand(["Lambda error","Timeout","States.TaskFailed"])}`] : ["Execution started","Execution succeeded",`Step Functions ${machine} SUCCEEDED in ${dur.toFixed(1)}s`];
+  const plainMessage = rand(stepMsgPool);
   const useStructuredLogging = Math.random() < 0.55;
   const message = useStructuredLogging ? JSON.stringify({ executionArn, stateMachine: machine, state, status: isErr?"FAILED":"SUCCEEDED", durationSeconds: dur, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
@@ -1545,7 +1548,9 @@ function generateCodeBuildLog(ts, er) {
   const dur = randInt(30, isErr?3600:900);
   const phase = rand(["DOWNLOAD_SOURCE","INSTALL","PRE_BUILD","BUILD","POST_BUILD","UPLOAD_ARTIFACTS","COMPLETED"]);
   const buildId = `${project}:${randId(8)}-${randId(4)}`.toLowerCase();
-  const plainMessage = isErr ? `CodeBuild ${project} FAILED at phase ${phase} after ${dur}s` : `CodeBuild ${project} SUCCEEDED in ${dur}s`;
+  const phaseDur = randInt(5, 300);
+  const buildMsgs = isErr ? ["Build failed",`CodeBuild ${project} FAILED at phase ${phase} after ${dur}s`] : ["Build started","Build succeeded",`CodeBuild ${project} SUCCEEDED in ${dur}s`,`Phase ${phase} completed in ${phaseDur}s`];
+  const plainMessage = rand(buildMsgs);
   const useStructuredLogging = Math.random() < 0.55;
   const message = useStructuredLogging ? JSON.stringify({ buildId, project, phase, status: isErr?"FAILED":"SUCCEEDED", durationSeconds: dur, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
@@ -1587,7 +1592,8 @@ function generateCodePipelineLog(ts, er) {
   const pipeline = rand(["web-prod-pipeline","api-deploy","infra-pipeline","release-train","hotfix-pipeline"]);
   const stage = rand(["Source","Build","Test","Staging","Approval","Production"]);
   const executionId = randUUID();
-  const plainMessage = isErr ? `CodePipeline ${pipeline} FAILED at ${stage}` : `CodePipeline ${pipeline} SUCCEEDED`;
+  const pipelineMsgPool = isErr ? ["Pipeline execution failed",`CodePipeline ${pipeline} FAILED at ${stage}`] : ["Pipeline execution started","Pipeline execution succeeded",`CodePipeline ${pipeline} SUCCEEDED`];
+  const plainMessage = rand(pipelineMsgPool);
   const useStructuredLogging = Math.random() < 0.55;
   const message = useStructuredLogging ? JSON.stringify({ pipeline, executionId, stage, state: isErr?"Failed":"Succeeded", timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
@@ -1655,7 +1661,7 @@ function generateCodeDeployLog(ts, er) {
       }
     },
     "event": { duration:dur*1e9, outcome:isErr?"failure":"success", category:"process", dataset:"aws.codedeploy", provider:"codedeploy.amazonaws.com" },
-    "message": isErr ? `CodeDeploy ${app} FAILED at ${ev}: ${rand(["Script exited with code 1","Health check failed","Timeout"])}` : `CodeDeploy ${app} deployment SUCCEEDED in ${dur}s`,
+    "message": rand(isErr ? ["Deployment failed",`CodeDeploy ${app} FAILED at ${ev}: ${rand(["Script exited with code 1","Health check failed","Timeout"])}`] : ["Deployment started","Deployment succeeded",`CodeDeploy ${app} deployment SUCCEEDED in ${dur}s`]),
     "log": { level:isErr?"error":"info" },
     ...(isErr ? { error: { code: rand(["SCRIPT_FAILED","AGENT_ISSUE","HEALTH_CONSTRAINTS_INVALID"]), message: `CodeDeploy failed at ${ev}`, type: "deployment" } } : {})
   };
@@ -1819,14 +1825,36 @@ function generateEmrLog(ts, er) {
   const clusterId = `j-${randId(13)}`;
   const appId = `application_${Date.now()}_${randInt(1000,9999)}`;
   const executorCount = randInt(4, 64);
-  const MSGS = { info:["Stage 0 (Map) completed in 12.4s","Executor 7 registered with 4 cores and 8.0 GB RAM","Shuffle read: 2.3 GB, Shuffle write: 1.8 GB","Job submitted to YARN ResourceManager","Writing Parquet to s3://data-lake/processed/"],warn:["GC overhead limit approaching: 88% heap used","Executor 3 lost, rescheduling 12 tasks","Shuffle spill to disk: 4.1 GB (insufficient memory)"],error:["ExecutorLostFailure: Executor 11 exited with code 137 (OOMKilled)","Job aborted due to stage failure: Stage 3 failed 4 times","S3 access denied: s3://restricted-bucket/data/","YARN: Container killed on request. Exit code is 143"] };
-  const plainMessage = rand(MSGS[level]);
+  const runState = level === "error" ? "FAILED" : level === "warn" && Math.random() < 0.2 ? "WAITING" : Math.random() < 0.03 ? "RUNNING" : "SUCCEEDED";
   const durationSec = randInt(60, level==="error"?7200:3600);
+  const numCompletedTasks = randInt(10, 500);
+  const numFailedTasks = level === "error" ? randInt(1, 20) : 0;
+  const sparkStageMsg = () => `Stage ${randInt(0, 8)} (runJob) finished in ${randFloat(1.2, 45.5)} s`;
+  const sparkShuffleMsg = () => `Shuffle read: ${parseFloat(randFloat(0.1, 5.2)).toFixed(1)} GB, Shuffle write: ${parseFloat(randFloat(0.1, 4.8)).toFixed(1)} GB`;
+  const infoBase = ["Job run started","Job submitted to YARN ResourceManager","Writing Parquet to s3://data-lake/processed/"];
+  const infoSpark = ["Job run succeeded","Stage 0 (Map) completed in 12.4s", sparkStageMsg(), sparkShuffleMsg(),"Executor 7 registered with 4 cores and 8.0 GB RAM"];
+  const infoMsgs = app === "spark" ? [...infoBase, ...infoSpark] : [...infoBase, "Job run succeeded"];
+  const errorMsgs = ["Job run failed","ExecutorLostFailure: Executor 11 exited with code 137 (OOMKilled)","Job aborted due to stage failure: Stage 3 failed 4 times","S3 access denied: s3://restricted-bucket/data/","YARN: Container killed on request. Exit code is 143"];
+  const MSGS = { info: infoMsgs, warn:["GC overhead limit approaching: 88% heap used","Executor 3 lost, rescheduling 12 tasks","Shuffle spill to disk: 4.1 GB (insufficient memory)"], error: errorMsgs };
+  const plainMessage = rand(MSGS[level]);
   const useStructuredLogging = Math.random() < 0.6;
   const message = useStructuredLogging
     ? JSON.stringify({ clusterId, applicationId: appId, containerId: `container_${Date.now()}_${randInt(1,9999)}_01_${randInt(100000,999999)}`, logLevel: level.toUpperCase(), message: plainMessage, timestamp: new Date(ts).toISOString(), component: rand(["driver","executor","yarn","spark"]) })
     : plainMessage;
-  const emrMetrics = { executor_count: executorCount, running_step_count: level === "error" ? 0 : randInt(1, 5), failed_step_count: level === "error" ? randInt(1, 3) : 0, hdfs_utilization_pct: randInt(20, 95), yarn_memory_used_mb: randInt(1024, 65536) };
+  const heapUsage = randInt(25, 92) / 100;
+  const emrMetrics = {
+    executor_count: executorCount,
+    running_step_count: level === "error" ? 0 : randInt(1, 5),
+    failed_step_count: level === "error" ? randInt(1, 3) : 0,
+    hdfs_utilization_pct: randInt(20, 95),
+    yarn_memory_used_mb: randInt(1024, 65536),
+    elapsedTime: durationSec * 1000,
+    numCompletedTasks,
+    numFailedTasks,
+    jvm_heap_usage: heapUsage,
+    gc_time_ms: randInt(500, 45000),
+    numberAllExecutors: randInt(executorCount, executorCount * 2),
+  };
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"emr" } },
@@ -1838,7 +1866,7 @@ function generateEmrLog(ts, er) {
         release: `emr-6.${randInt(8,15)}.0`,
         instance_group: rand(["MASTER","CORE","TASK"]),
         executor_count: executorCount,
-        job: { name: job, id: appId },
+        job: { name: job, id: appId, run_state: runState },
         structured_logging: useStructuredLogging,
         metrics: emrMetrics,
       }
@@ -1864,7 +1892,13 @@ function generateGlueLog(ts, er) {
   const ERROR_CODES = ["GlueException","AccessDenied","ConnectionFailure","ResourceNotFound","ValidationException"];
   const ERROR_MSGS = ["Access Denied calling getDynamicFrame","ClassCastException: StringType to LongType","Connection to Redshift failed: max_connections exceeded","GlueException: Could not find table"];
   const isErr = level === "error";
-  const MSGS = { info:["Job run started with 10 DPUs","Reading from S3 path: s3://data-lake/raw/","Schema inferred: 47 columns detected","Writing 2,847,291 records to target","Crawler completed: 3 tables updated","Bookmark updated: processed up to offset 9823741"],warn:["Schema mismatch: column type changed","Null values in non-nullable column","DPU utilization at 94%","Duplicate primary keys detected"],error:ERROR_MSGS };
+  const sparkStageMsg = () => `Stage ${randInt(0, 8)} (runJob) finished in ${randFloat(1.2, 45.5)} s`;
+  const sparkShuffleMsg = () => `Shuffle read: ${parseFloat(randFloat(0.1, 5.2)).toFixed(1)} GB, Shuffle write: ${parseFloat(randFloat(0.1, 4.8)).toFixed(1)} GB`;
+  const infoBase = ["Job run started with 10 DPUs","Job run started","Reading from S3 path: s3://data-lake/raw/","Schema inferred: 47 columns detected","Writing 2,847,291 records to target","Crawler completed: 3 tables updated","Bookmark updated: processed up to offset 9823741"];
+  const infoSpark = ["Job run succeeded","Stage 0 (runJob) finished in 12.456 s", sparkStageMsg(), sparkShuffleMsg(),"Executor 3 registered with 4 cores and 8.0 GB RAM","Writing Parquet to s3://data-lake/processed/"];
+  const infoMsgs = jobType === "glueetl" ? [...infoBase, ...infoSpark] : infoBase;
+  const warnSpark = ["GC overhead limit approaching: 88% heap used","Shuffle spill to disk: 4.1 GB (insufficient memory)"];
+  const MSGS = { info: infoMsgs, warn: ["Schema mismatch: column type changed","Null values in non-nullable column","DPU utilization at 94%","Duplicate primary keys detected", ...(jobType === "glueetl" ? warnSpark : [])], error: [...ERROR_MSGS, "Job run failed"] };
   const plainMessage = rand(MSGS[level]);
   // Continuous logging: emit JSON in message so ingest pipeline can parse into glue.parsed
   const useContinuousLogging = Math.random() < 0.65;
@@ -1887,9 +1921,29 @@ function generateGlueLog(ts, er) {
   const diskAvailGB = Math.round((diskUsedGB / diskUsedPct) * (1 - diskUsedPct));
   const heapUsedBytes = randInt(512 * 1e6, 4 * 1e9);
   const heapAvailBytes = Math.round(heapUsedBytes * (1 - heapUsedPct) / heapUsedPct);
+  const numCompletedTasks = randInt(10, 500);
+  const numFailedTasks = isErr ? randInt(1, 20) : 0;
+  const numKilledTasks = isErr ? randInt(0, 5) : 0;
+  const numCompletedStages = randInt(1, 12);
+  const numberAllExecutors = randInt(dpus, dpus * 2);
+  const numberMaxNeededExecutors = randInt(numberAllExecutors, dpus * 3);
+  const bytesRead = Math.floor(recordsRead * randInt(50, 500)); // synthetic bytes from records
+  const bytesWritten = Math.floor(recordsWritten * randInt(50, 500));
   const glueMetrics = {
     driver: {
-      aggregate: { numRecords: recordsRead, numFailedRecords: recordsFailed },
+      aggregate: {
+        numRecords: recordsRead,
+        numFailedRecords: recordsFailed,
+        elapsedTime: durationSec * 1000, // CloudWatch: glue.driver.aggregate.elapsedTime in milliseconds
+        numCompletedTasks,
+        numFailedTasks,
+        numKilledTasks,
+        numCompletedStages,
+        bytesRead,
+        shuffleBytesWritten: randInt(0, Math.floor(bytesRead * 0.8)),
+        shuffleLocalBytesRead: randInt(0, Math.floor(bytesRead * 0.7)),
+        gc_time_ms: randInt(500, 45000),
+      },
       // AWS Glue Observability: glue.driver.memory.heap.* and glue.driver.memory.heap.used.percentage
       memory: {
         heap: {
@@ -1909,6 +1963,16 @@ function generateGlueLog(ts, er) {
         diskSpaceUsed_MB: randInt(128, 2048),
       },
       BlockManager: { disk: { diskSpaceUsed_MB: randInt(128, 2048) } },
+      ExecutorAllocationManager: {
+        executors: {
+          numberAllExecutors,
+          numberMaxNeededExecutors: numberMaxNeededExecutors,
+        },
+      },
+      // glue.driver.s3.filesystem.read_bytes / write_bytes (delta since last report)
+      s3: { filesystem: { read_bytes: randInt(0, bytesRead), write_bytes: randInt(0, bytesWritten) } },
+      // glue.driver.system.cpuSystemLoad (0–1)
+      system: { cpuSystemLoad: randInt(15, 85) / 100 },
       workerUtilization: randInt(40, 95) / 100,
       // AWS Glue Observability: glue.driver.skewness.stage, glue.driver.skewness.job (job_performance)
       skewness: {
@@ -1917,28 +1981,34 @@ function generateGlueLog(ts, er) {
       },
     },
     executor: {
-      aggregate: { numCompletedTasks: randInt(10, 500), numFailedTasks: isErr ? randInt(1, 20) : 0 },
+      aggregate: { numCompletedTasks, numFailedTasks, gc_time_ms: randInt(200, 60000) },
     },
-    // glue.ALL (executors aggregate) — same structure for executor memory/disk
+    // glue.ALL (executors aggregate) — same structure for executor memory/disk; jvm.heap.usage for dashboards
     ALL: {
       memory: {
         heap: { available: randInt(1e9, 16e9), used: randInt(512e6, 12e9), used_percentage: randInt(35, 88) },
         "non-heap": { available: randInt(128e6, 512e6), used: randInt(64e6, 256e6), used_percentage: randInt(25, 55) },
       },
+      jvm: { heap: { usage: randInt(35, 88) / 100 } },
       disk: {
         available_GB: randInt(100, 800),
         used_GB: randInt(50, 400),
         used_percentage: randInt(20, 75),
         diskSpaceUsed_MB: randInt(512, 4096),
       },
+      s3: { filesystem: { read_bytes: randInt(0, bytesRead), write_bytes: randInt(0, bytesWritten) } },
+      system: { cpuSystemLoad: randInt(20, 90) / 100 },
     },
   };
+  // Observability error category when job fails (see monitor-observability.html error categories)
+  const OBSERVABILITY_ERROR_CATEGORIES = ["OUT_OF_MEMORY_ERROR","PERMISSION_ERROR","CONNECTION_ERROR","RESOURCE_NOT_FOUND_ERROR","THROTTLING_ERROR","SYNTAX_ERROR","GLUE_OPERATION_TIMEOUT_ERROR","S3_ERROR","UNCLASSIFIED_SPARK_ERROR"];
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"glue" } },
     "aws": {
       dimensions: { JobName: job, JobRunId: runId, Type: jobType },
       glue: {
+        ...(isErr ? { error_category: rand(OBSERVABILITY_ERROR_CATEGORIES) } : {}),
         job: { name: job, run_id: runId, type: jobType, run_state: runState },
         database: db,
         table: rand(["events","users","transactions","sessions","products"]),
@@ -1978,7 +2048,7 @@ function generateSageMakerLog(ts, er) {
   const durationSec = parseFloat(randFloat(isErr ? 5 : 60, isErr ? 600 : 14400));
   const ERROR_CODES = ["CapacityError","ResourceNotFound","ValidationException","InternalServerError"];
   const ERROR_MSGS = ["Training job failed: CUDA out of memory","Endpoint creation failed: No capacity for ml.p4d.24xlarge","Model deployment failed: health check timeout"];
-  const MSGS = { info:["Training job started on ml.p3.2xlarge (4 GPUs)","Epoch 12/50 - loss: 0.2341, val_loss: 0.2518, accuracy: 0.9124","Model artifact uploaded to s3://models/output/","Endpoint InService: latency p50=12ms p99=47ms","Feature Store ingestion complete: 4,829,201 records","Model registered: fraud-detector v12 (AUC: 0.9923)"],warn:["GPU utilization low: 34%","Training loss plateau detected at epoch 28","Model drift detected: PSI=0.18","Spot instance interruption, checkpointing..."],error:ERROR_MSGS };
+  const MSGS = { info:["Training job started","Training job started on ml.p3.2xlarge (4 GPUs)","Training job succeeded","Epoch 12/50 - loss: 0.2341, val_loss: 0.2518, accuracy: 0.9124","Model artifact uploaded to s3://models/output/","Endpoint InService: latency p50=12ms p99=47ms","Feature Store ingestion complete: 4,829,201 records","Model registered: fraud-detector v12 (AUC: 0.9923)"],warn:["GPU utilization low: 34%","Training loss plateau detected at epoch 28","Model drift detected: PSI=0.18","Spot instance interruption, checkpointing..."],error:["Training job failed",...ERROR_MSGS] };
   const plainMessage = rand(MSGS[level]);
   const spaceName = rand(STUDIO_SPACES);
   const appType = rand(STUDIO_APP_TYPES);
@@ -2031,7 +2101,8 @@ function generateAthenaLog(ts, er) {
   const dur = parseFloat(randFloat(0.5, isErr?300:60)); const dataScanned = isErr?0:randInt(1024,10737418240);
   const queryId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}`.toLowerCase();
   const workgroup = rand(["primary","analytics","bi-users"]); const database = rand(["analytics","raw","staging"]);
-  const plainMessage = isErr ? `Athena query FAILED after ${dur.toFixed(1)}s: ${rand(["QUERY_TIMED_OUT","TABLE_NOT_FOUND","PERMISSION_DENIED"])}` : `Athena query SUCCEEDED in ${dur.toFixed(1)}s, scanned ${Math.round(dataScanned/1048576)}MB`;
+  const athenaMsgs = isErr ? ["Query failed",`Athena query FAILED after ${dur.toFixed(1)}s: ${rand(["QUERY_TIMED_OUT","TABLE_NOT_FOUND","PERMISSION_DENIED"])}`] : ["Query started","Query succeeded",`Athena query SUCCEEDED in ${dur.toFixed(1)}s, scanned ${Math.round(dataScanned/1048576)}MB`];
+  const plainMessage = rand(athenaMsgs);
   const useStructuredLogging = Math.random() < 0.55;
   const message = useStructuredLogging ? JSON.stringify({ queryId, workgroup, database, state: isErr?"FAILED":"SUCCEEDED", durationSeconds: dur, dataScannedBytes: dataScanned, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
@@ -2141,7 +2212,8 @@ function generateKinesisAnalyticsLog(ts, er) {
   const app = rand(["clickstream-analytics","fraud-detection-stream","real-time-metrics","session-aggregator","anomaly-detector"]);
   const rps = randInt(100, isErr?50000:10000);
   const lagMs = randInt(0, isErr?60000:1000);
-  const plainMessage = isErr ? `Kinesis Analytics ${app} error: ${rand(["CheckpointFailure","KPU_LIMIT_EXCEEDED","OOM"])}` : `Kinesis Analytics ${app}: ${rps} rec/s, lag ${randInt(0,500)}ms`;
+  const kinesisAnalyticsMsgs = isErr ? ["Application run failed","Checkpoint failed",`Kinesis Analytics ${app} error: ${rand(["CheckpointFailure","KPU_LIMIT_EXCEEDED","OOM"])}`] : ["Application run started","Checkpoint completed",`Kinesis Analytics ${app}: ${rps} rec/s, lag ${randInt(0,500)}ms`];
+  const plainMessage = rand(kinesisAnalyticsMsgs);
   const useStructuredLogging = Math.random() < 0.6;
   const message = useStructuredLogging ? JSON.stringify({ applicationName: app, recordsPerSecond: rps, inputWatermarkLagMs: lagMs, level: isErr?"error":"info", message: plainMessage, timestamp: new Date(ts).toISOString() }) : plainMessage;
   const metrics = { records_in_per_second: rps, input_watermark_lag_ms: lagMs, kpu_utilization_pct: randInt(20, isErr?99:80), checkpoint_duration_ms: randInt(100, isErr?30000:2000) };
@@ -3030,17 +3102,27 @@ function generateDataBrewLog(ts, er) {
   const recipe = rand(["clean-customer-data","normalize-dates","remove-pii","fix-encoding"]);
   const dur = randInt(30, isErr?3600:600);
   const rowsProcessed = isErr?0:randInt(1000,10000000);
+  const runState = isErr ? "FAILED" : Math.random() < 0.02 ? "RUNNING" : "SUCCEEDED";
+  const transformSteps = randInt(3, 25);
+  const databrewMsgs = isErr ? ["Job run failed",`DataBrew job ${recipe} FAILED on ${dataset}: ${rand(["Type mismatch","Access denied","Schema error"])}`] : ["Job run started","Job run succeeded",`DataBrew job ${recipe}: ${rowsProcessed.toLocaleString()} rows in ${dur}s`];
+  const plainMessage = rand(databrewMsgs);
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"databrew"}},
     "aws":{databrew:{project_name:`${dataset}-project`,recipe_name:recipe,
       job_name:`${recipe}-job`,job_type:rand(["RECIPE","PROFILE"]),
-      dataset_name:dataset,job_status:isErr?"FAILED":"SUCCEEDED",
+      dataset_name:dataset,job_status:isErr?"FAILED":"SUCCEEDED",run_state:runState,
       duration_seconds:dur,rows_processed:rowsProcessed,
-      transform_steps:randInt(3,25),
+      transform_steps:transformSteps,
       output_location:`s3://databrew-output/${dataset}/`,
-      error_message:isErr?rand(["Input dataset not found","Data type mismatch","Access denied"]):null}},
+      error_message:isErr?rand(["Input dataset not found","Data type mismatch","Access denied"]):null,
+      metrics:{
+        RowsProcessed:{sum:rowsProcessed},
+        DurationSeconds:{avg:dur},
+        TransformSteps:{avg:transformSteps},
+        JobSuccessCount:{sum:isErr?0:1},
+        JobFailureCount:{sum:isErr?1:0},
+      }}},
     "event":{duration:dur*1e9,outcome:isErr?"failure":"success",category:"process",dataset:"aws.databrew",provider:"databrew.amazonaws.com"},
-    "message":isErr?`DataBrew job ${recipe} FAILED on ${dataset}: ${rand(["Type mismatch","Access denied","Schema error"])}`:
-      `DataBrew job ${recipe}: ${rowsProcessed.toLocaleString()} rows in ${dur}s`,
+    "message":plainMessage,
     "log":{level:isErr?"error":"info"},
     ...(isErr ? { error: { code: "JobFailed", message: "DataBrew job failed", type: "process" } } : {})};
 }
@@ -3051,6 +3133,9 @@ function generateAppFlowLog(ts, er) {
   const src = rand(["Salesforce","HubSpot","Zendesk","Marketo","ServiceNow","Slack"]);
   const dst = rand(["S3","Redshift","Snowflake","Salesforce","EventBridge"]);
   const records = isErr?0:randInt(100,1000000);
+  const durationMs = randInt(1000, isErr?300000:60000);
+  const appflowMsgs = isErr ? ["Flow run failed",`AppFlow ${flow} (${src}->${dst}) FAILED: ${rand(["Credentials expired","Rate limit","Schema mismatch"])}`] : ["Flow run started","Flow run succeeded",`AppFlow ${flow}: ${records.toLocaleString()} records ${src}->${dst}`];
+  const plainMessage = rand(appflowMsgs);
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"appflow"}},
     "aws":{appflow:{flow_name:flow,
       flow_arn:`arn:aws:appflow:${region}:${acct.id}:flow/${flow}`,
@@ -3058,11 +3143,16 @@ function generateAppFlowLog(ts, er) {
       trigger_type:rand(["Scheduled","Event","OnDemand"]),
       execution_status:isErr?"ExecutionFailed":"ExecutionSuccessful",
       records_processed:records,
-      duration_ms:randInt(1000,isErr?300000:60000),
-      error_message:isErr?rand(["Credentials expired","Rate limit exceeded","Schema mismatch"]):null}},
-    "event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.appflow",provider:"appflow.amazonaws.com",duration:randInt(1000,isErr?300000:60000)*1e6},
-    "message":isErr?`AppFlow ${flow} (${src}->${dst}) FAILED: ${rand(["Credentials expired","Rate limit","Schema mismatch"])}`:
-      `AppFlow ${flow}: ${records.toLocaleString()} records ${src}->${dst}`,
+      duration_ms:durationMs,
+      error_message:isErr?rand(["Credentials expired","Rate limit exceeded","Schema mismatch"]):null,
+      metrics:{
+        RecordsProcessed:{sum:records},
+        DurationMs:{avg:durationMs},
+        ExecutionSuccessCount:{sum:isErr?0:1},
+        ExecutionFailureCount:{sum:isErr?1:0},
+      }}},
+    "event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.appflow",provider:"appflow.amazonaws.com",duration:durationMs*1e6},
+    "message":plainMessage,
     "log":{level:isErr?"error":"info"},
     ...(isErr ? { error: { code: "ExecutionFailed", message: "AppFlow execution failed", type: "integration" } } : {})};
 }
@@ -4148,7 +4238,42 @@ const INGESTION_META = {
   firehose:   { label:"Firehose",   color:"#F04E98", inputType:"aws-firehose" },
   api:        { label:"API",        color:"#00BFB3", inputType:"http_endpoint" },
   otel:       { label:"OTel",       color:"#93C90E", inputType:"opentelemetry" },
-  agent:      { label:"Agent",      color:"#a78bfa", inputType:"logfile" },
+  agent:      { label:"Agent",      color:"#8144CC", inputType:"logfile" },
+};
+
+// Kibana / EUI design tokens (Elastic UI Framework)
+const K = {
+  primary: "#0B64DD",
+  primaryText: "#1750BA",
+  body: "#F6F9FC",
+  plain: "#FFFFFF",
+  subdued: "#F6F9FC",
+  border: "#E3E8F2",
+  borderPlain: "#CAD3E2",
+  text: "#1D2A3E",
+  textHeading: "#111C2C",
+  textSubdued: "#516381",
+  success: "#008A5E",
+  successBg: "#E2F8F0",
+  successBorder: "#AEE8D2",
+  warning: "#966B03",
+  warningBg: "#FDF3D8",
+  warningBorder: "#FCD883",
+  danger: "#C61E25",
+  dangerBg: "#FFE8E5",
+  dangerBorder: "#FFC9C2",
+  accent: "#BC1E70",
+  accentSecondary: "#008B87",
+  highlight: "#E8F1FF",
+  controlBg: "#FFFFFF",
+  controlDisabled: "#ECF1F9",
+  radius: 6,
+  radiusSm: 4,
+  shadow: "0 1px 2px rgba(7,16,31,0.06)",
+  shadowMd: "0 2px 4px rgba(7,16,31,0.08)",
+  headerBg: "#1D1E24",
+  headerText: "#FFFFFF",
+  headerSubdued: "rgba(255,255,255,0.7)",
 };
 
 // Official AWS Architecture Icons (stored locally in public/aws-icons/). Service id → SVG filename. Fallback: keep Unicode icon.
@@ -4558,77 +4683,59 @@ export default function App() {
   const totalServices = ALL_SERVICE_IDS.length;
 
   return (
-    <div style={{minHeight:"100vh",background:"#e5e7eb",color:"#0f172a",fontFamily:"'Inter','Segoe UI',system-ui,sans-serif"}}>
+    <div style={{minHeight:"100vh",background:K.body,color:K.text,fontFamily:"'Inter', 'Segoe UI', system-ui, sans-serif"}}>
 
-      {/* Announcement bar */}
-      <div style={{background:"#ffffff",borderBottom:"1px solid #e2e8f0",padding:"8px 0",textAlign:"center"}}>
-        <span style={{fontSize:12,color:"#64748b"}}>
-          {["#FEC514","#F04E98","#1BA9F5","#00BFB3","#93C90E"].map((c,i)=>(
-            <span key={i} style={{color:c,marginRight:3}}>●</span>
-          ))}
-          {" "}{totalServices} AWS services · 14 themed groups · ECS-compliant · per-service ingestion defaults · ships directly to Elastic Cloud
-        </span>
-      </div>
-
-      {/* Nav */}
-      <nav style={{borderBottom:"1px solid #e2e8f0",padding:"0 40px",display:"flex",alignItems:"center",height:62,background:"#ffffff"}}>
-        <div style={{display:"flex",alignItems:"center",gap:11}}>
-          <PipelineLogo size={36}/>
-          <div>
-            <div style={{fontWeight:800,fontSize:15,color:"#0f172a",letterSpacing:"-0.02em",lineHeight:1.1}}>AWS → Elastic Load Generator</div>
-            <div style={{fontSize:10,color:"#64748b",letterSpacing:"0.04em"}}>AWS → Elastic Cloud</div>
-          </div>
+      {/* Kibana-style top bar (dark header) */}
+      <header style={{background:K.headerBg,color:K.headerText,padding:"0 24px",display:"flex",alignItems:"center",height:48,boxShadow:K.shadowMd}}>
+        <div style={{display:"flex",alignItems:"center",gap:12}}>
+          <PipelineLogo size={28} light/>
+          <span style={{fontWeight:600,fontSize:14,letterSpacing:"-0.01em"}}>AWS → Elastic Load Generator</span>
         </div>
         <div style={{marginLeft:"auto",display:"flex",alignItems:"center",gap:16}}>
-          <span style={{fontSize:12,color:"#64748b"}}>{totalSelected}/{totalServices} services</span>
-          {status==="running" && <StatusPill color="#f59e0b" dot>Shipping</StatusPill>}
-          {status==="done"    && <StatusPill color="#10b981">Complete</StatusPill>}
-          {status==="aborted" && <StatusPill color="#ef4444">Aborted</StatusPill>}
+          <span style={{fontSize:12,color:K.headerSubdued}}>{totalSelected} / {totalServices} services</span>
+          {status==="running" && <StatusPill color="#FACB3D" dot light>Shipping</StatusPill>}
+          {status==="done"    && <StatusPill color="#24C292" light>Complete</StatusPill>}
+          {status==="aborted" && <StatusPill color="#EE4C48" light>Aborted</StatusPill>}
         </div>
-      </nav>
+      </header>
 
-      {/* Hero */}
-      <div style={{textAlign:"center",padding:"36px 40px 24px"}}>
-        <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"#ffffff",border:"1px solid #e2e8f0",borderRadius:99,padding:"5px 16px",fontSize:12,color:"#64748b",marginBottom:16,boxShadow:"0 1px 2px rgba(0,0,0,0.04)"}}>
-          <PipelineLogo size={16}/> <span>Bulk AWS → Elastic Load Generator for Elastic Cloud</span>
+      {/* Page content — Kibana content area */}
+      <main style={{padding:"24px 24px 48px",maxWidth:1280,margin:"0 auto"}}>
+        <div style={{marginBottom:24}}>
+          <h1 style={{fontSize:22,fontWeight:600,color:K.textHeading,letterSpacing:"-0.02em",marginBottom:4}}>
+            Generate and ship AWS logs &amp; metrics to Elastic
+          </h1>
+          <p style={{fontSize:14,color:K.textSubdued,maxWidth:560}}>
+            {totalServices} AWS services across 14 groups · ECS-compliant · Per-service ingestion (S3, CloudWatch, API, Firehose, OTel). Ships directly to Elasticsearch.
+          </p>
         </div>
-        <h1 style={{fontSize:36,fontWeight:800,color:"#0f172a",letterSpacing:"-0.03em",lineHeight:1.12,marginBottom:10}}>
-          Generate &amp; ship<br/>
-          <span style={{background:"linear-gradient(90deg,#FEC514,#F04E98,#1BA9F5)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>
-            realistic AWS logs
-          </span>
-        </h1>
-        <p style={{color:"#475569",fontSize:14,maxWidth:580,margin:"0 auto"}}>
-          {totalServices} services across 14 groups — each pre-configured with its real-world ingestion source (S3, CloudWatch, API, Firehose, OTel). Override per-service or globally.
-        </p>
-      </div>
 
       {/* Main grid */}
-      <div style={{display:"grid",gridTemplateColumns:"1.2fr 1fr",gap:20,maxWidth:1220,margin:"0 auto",padding:"0 32px 60px",alignItems:"start"}}>
+      <div style={{display:"grid",gridTemplateColumns:"1.2fr 1fr",gap:16,alignItems:"start"}}>
 
         {/* LEFT — Service selection */}
         <div>
           <Card>
-            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14}}>
-              <span style={{fontSize:13,fontWeight:600,color:"#0f172a"}}>Select Services</span>
+            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
+              <span style={{fontSize:13,fontWeight:600,color:K.textHeading}}>Select Services</span>
               <div style={{display:"flex",gap:6,alignItems:"center"}}>
                 <QuickBtn onClick={selectAll}>All {totalServices}</QuickBtn>
                 <QuickBtn onClick={selectNone}>None</QuickBtn>
                 {totalSelected>0&&(
-                  <span style={{fontSize:11,fontWeight:600,color:"#10b981",background:"#10b98118",border:"1px solid #10b98144",borderRadius:99,padding:"2px 10px"}}>
+                  <span style={{fontSize:11,fontWeight:600,color:K.success,background:K.successBg,border:`1px solid ${K.successBorder}`,borderRadius:99,padding:"2px 10px"}}>
                     {totalSelected} selected
                   </span>
                 )}
               </div>
             </div>
             {/* Ingestion source legend */}
-            <div style={{display:"flex",flexWrap:"wrap",gap:6,marginBottom:12,padding:"8px 10px",background:"#f8fafc",borderRadius:8,border:"1px solid #e2e8f0"}}>
-              <span style={{fontSize:10,color:"#64748b",marginRight:4,alignSelf:"center"}}>Ingestion:</span>
+            <div style={{display:"flex",flexWrap:"wrap",gap:6,marginBottom:12,padding:"8px 10px",background:K.subdued,borderRadius:K.radiusSm,border:`1px solid ${K.border}`}}>
+              <span style={{fontSize:10,color:K.textSubdued,marginRight:4,alignSelf:"center"}}>Ingestion:</span>
               {Object.entries(INGESTION_META).map(([key,m])=>(
-                <span key={key} style={{fontSize:9,fontWeight:600,color:m.color,background:`${m.color}18`,border:`1px solid ${m.color}44`,borderRadius:4,padding:"2px 7px"}}>{m.label}</span>
+                <span key={key} style={{fontSize:9,fontWeight:600,color:m.color,background:`${m.color}18`,border:`1px solid ${m.color}44`,borderRadius:K.radiusSm,padding:"2px 7px"}}>{m.label}</span>
               ))}
               {ingestionSource!=="default"&&(
-                <span style={{fontSize:9,color:"#f59e0b",marginLeft:4,alignSelf:"center"}}>⚠ Override active: all services using {INGESTION_META[ingestionSource]?.label}</span>
+                <span style={{fontSize:9,color:K.warning,marginLeft:4,alignSelf:"center"}}>Override: all using {INGESTION_META[ingestionSource]?.label}</span>
               )}
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8}}>
@@ -4640,15 +4747,15 @@ export default function App() {
                 const someSel = selCount > 0 && !allSel;
                 const collapsed = collapsedGroups[group.id];
                 return (
-                  <div key={group.id} style={{border:`1px solid ${allSel?group.color+"88":someSel?group.color+"66":"#e2e8f0"}`,borderRadius:10,overflow:"hidden",background:allSel?`${group.color}12`:someSel?`${group.color}08`:"#ffffff",transition:"border-color 0.2s",boxShadow:"0 1px 2px rgba(0,0,0,0.04)"}}>
+                  <div key={group.id} style={{border:`1px solid ${allSel?group.color+"88":someSel?group.color+"66":K.border}`,borderRadius:K.radius,overflow:"hidden",background:allSel?`${group.color}12`:someSel?`${group.color}08`:K.plain,transition:"border-color 0.2s",boxShadow:K.shadow}}>
                     <div style={{display:"flex",alignItems:"center",gap:10,padding:"10px 14px",cursor:"pointer",userSelect:"none"}} onClick={()=>toggleCollapse(group.id)}>
                       {AWS_SERVICE_ICON_MAP[group.services[0]?.id] ? (
                         <img src={`${AWS_ICON_BASE}/${AWS_SERVICE_ICON_MAP[group.services[0].id]}.svg`} alt="" style={{ width:18, height:18, objectFit:"contain" }} />
                       ) : (
-                        <span style={{fontSize:14,minWidth:18,color:selCount>0?group.color:"#64748b"}}>{group.icon}</span>
+                        <span style={{fontSize:14,minWidth:18,color:selCount>0?group.color:K.textSubdued}}>{group.icon}</span>
                       )}
                       <span style={{fontSize:12,fontWeight:600,color:selCount>0?group.color:"#475569",flex:1}}>{group.label}</span>
-                      <span style={{fontSize:10,color:"#64748b"}}>{eventType==="metrics"?`${selectableInGroup.length} metrics` : `${group.services.length} services`}</span>
+                      <span style={{fontSize:10,color:K.textSubdued}}>{eventType==="metrics"?`${selectableInGroup.length} metrics` : `${group.services.length} services`}</span>
                       {selCount>0&&(
                         <span style={{fontSize:10,fontWeight:700,color:group.color,background:`${group.color}20`,border:`1px solid ${group.color}44`,borderRadius:99,padding:"1px 8px"}}>{selCount}/{selectableInGroup.length}</span>
                       )}
@@ -4666,9 +4773,9 @@ export default function App() {
                           const meta = INGESTION_META[src];
                           return (
                             <button key={svc.id} onClick={()=>!metricsDisabled&&toggleService(svc.id)} style={{
-                              border:`1px solid ${sel?group.color+"99":metricsDisabled?"#e2e8f0":"#cbd5e1"}`,
-                              borderRadius:8,padding:"9px 8px",
-                              background:sel?`${group.color}18`:metricsDisabled?"#e5e7eb":"#f8fafc",
+                              border:`1px solid ${sel?group.color+"99":metricsDisabled?K.border:K.borderPlain}`,
+                              borderRadius:K.radiusSm,padding:"8px",
+                              background:sel?`${group.color}18`:metricsDisabled?K.controlDisabled:K.subdued,
                               cursor:metricsDisabled?"not-allowed":"pointer",
                               textAlign:"left",transition:"all 0.15s",position:"relative",overflow:"hidden",
                               opacity:metricsDisabled?0.7:1,
@@ -4695,24 +4802,24 @@ export default function App() {
         </div>
 
         {/* RIGHT — Config + progress + log */}
-        <div style={{display:"flex",flexDirection:"column",gap:14,position:"sticky",top:16}}>
+        <div style={{display:"flex",flexDirection:"column",gap:14,position:"sticky",top:24}}>
 
           <Card>
             <CardHeader label="Volume & Settings"/>
             <div style={{display:"flex",flexDirection:"column",gap:16}}>
               <div>
-                <div style={{fontSize:11,fontWeight:600,color:"#475569",marginBottom:6}}>Event type</div>
-                <div style={{display:"inline-flex",borderRadius:8,border:"1px solid #e2e8f0",overflow:"hidden",background:"#f8fafc"}}>
+                <div style={{fontSize:12,fontWeight:500,color:K.textSubdued,marginBottom:6}}>Event type</div>
+                <div style={{display:"inline-flex",borderRadius:K.radiusSm,border:`1px solid ${K.border}`,overflow:"hidden",background:K.subdued}}>
                   <button onClick={()=>{ setEventType("logs"); }} style={{
-                    padding:"8px 16px",fontSize:12,fontWeight:600,cursor:"pointer",border:"none",fontFamily:"inherit",
-                    background:eventType==="logs"?"#ffffff":"transparent",color:eventType==="logs"?"#0f172a":"#64748b",transition:"all 0.15s",boxShadow:eventType==="logs"?"0 1px 2px rgba(0,0,0,0.05)":"none",
+                    padding:"6px 14px",fontSize:12,fontWeight:600,cursor:"pointer",border:"none",fontFamily:"inherit",
+                    background:eventType==="logs"?K.plain:"transparent",color:eventType==="logs"?K.textHeading:K.textSubdued,transition:"all 0.15s",boxShadow:eventType==="logs"?K.shadow:"none",
                   }}>Logs</button>
                   <button onClick={()=>{ setEventType("metrics"); setSelectedServices(prev=>prev.filter(id=>METRICS_SUPPORTED_SERVICE_IDS.has(id))); }} style={{
-                    padding:"8px 16px",fontSize:12,fontWeight:600,cursor:"pointer",border:"none",fontFamily:"inherit",
-                    background:eventType==="metrics"?"#ffffff":"transparent",color:eventType==="metrics"?"#0f172a":"#64748b",transition:"all 0.15s",boxShadow:eventType==="metrics"?"0 1px 2px rgba(0,0,0,0.05)":"none",
+                    padding:"6px 14px",fontSize:12,fontWeight:600,cursor:"pointer",border:"none",fontFamily:"inherit",
+                    background:eventType==="metrics"?K.plain:"transparent",color:eventType==="metrics"?K.textHeading:K.textSubdued,transition:"all 0.15s",boxShadow:eventType==="metrics"?K.shadow:"none",
                   }}>Metrics</button>
                 </div>
-                {eventType==="metrics"&&<div style={{fontSize:10,color:"#64748b",marginTop:4}}>Only services with metrics in the Elastic AWS integration are selectable. Index: metrics-aws.*</div>}
+                {eventType==="metrics"&&<div style={{fontSize:11,color:K.textSubdued,marginTop:4}}>Only services with metrics in the Elastic AWS integration. Index: metrics-aws.*</div>}
               </div>
               <SliderField label={eventType==="metrics"?"Metrics per service":"Logs per service"} value={logsPerService} min={50} max={5000} step={50}
                 onChange={setLogsPerService} display={`${logsPerService.toLocaleString()} docs`}
@@ -4740,8 +4847,8 @@ export default function App() {
               <Field label="Index prefix">
                 <input value={indexPrefix} onChange={e=>setIndexPrefix(e.target.value)}
                   placeholder="logs-aws" style={inputStyle}/>
-                <div style={{fontSize:10,color:"#64748b",marginTop:5}}>
-                  e.g. <span style={{color:"#7c3aed"}}>{indexPrefix}-lambda</span>, <span style={{color:"#7c3aed"}}>{indexPrefix}-guardduty</span>…
+                <div style={{fontSize:11,color:K.textSubdued,marginTop:5}}>
+                  e.g. <span style={{color:K.primaryText}}>{indexPrefix}-lambda</span>, <span style={{color:K.primaryText}}>{indexPrefix}-guardduty</span>…
                 </div>
               </Field>
               <Field label="Ingestion source">
@@ -4749,10 +4856,10 @@ export default function App() {
                   {/* Default option spanning full width */}
                   <button onClick={()=>setIngestionSource("default")} style={{
                     gridColumn:"1/-1",
-                    padding:"9px 12px",borderRadius:6,fontSize:11,fontWeight:700,cursor:"pointer",
-                    border:`1.5px solid ${ingestionSource==="default"?"#10b981":"#e2e8f0"}`,
-                    background:ingestionSource==="default"?"rgba(16,185,129,0.12)":"#f8fafc",
-                    color:ingestionSource==="default"?"#10b981":"#475569",
+                    padding:"8px 12px",borderRadius:K.radiusSm,fontSize:11,fontWeight:600,cursor:"pointer",
+                    border:`1px solid ${ingestionSource==="default"?K.success:K.border}`,
+                    background:ingestionSource==="default"?K.successBg:K.subdued,
+                    color:ingestionSource==="default"?K.success:K.textSubdued,
                     transition:"all 0.15s",display:"flex",alignItems:"center",gap:8,textAlign:"left",
                   }}>
                     <span style={{fontSize:14}}>⚙</span>
@@ -4763,7 +4870,7 @@ export default function App() {
                     {ingestionSource==="default" && <span style={{marginLeft:"auto",fontSize:11}}>✓</span>}
                   </button>
                 </div>
-                <div style={{fontSize:10,color:"#64748b",marginBottom:6,fontWeight:500}}>Override all services:</div>
+                <div style={{fontSize:11,color:K.textSubdued,marginBottom:6,fontWeight:500}}>Override all services:</div>
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:6}}>
                   {[
                     ["s3",         "S3 Bucket",    "#FF9900"],
@@ -4781,7 +4888,7 @@ export default function App() {
                     }}>{lbl}</button>
                   ))}
                 </div>
-                <div style={{fontSize:10,color:"#64748b",marginTop:8,padding:"6px 8px",background:"#f8fafc",borderRadius:6,border:"1px solid #e2e8f0"}}>
+                <div style={{fontSize:11,color:K.textSubdued,marginTop:8,padding:"8px 10px",background:K.subdued,borderRadius:K.radiusSm,border:`1px solid ${K.border}`}}>
                   {ingestionSource==="default" ? (
                     <span>Each service uses its correct real-world ingestion method. Badges on service cards show the source.</span>
                   ) : {
@@ -4801,21 +4908,21 @@ export default function App() {
             <button onClick={generatePreview} style={{...btnSecondary,flex:"0 0 auto"}}>Preview doc</button>
             {status==="running"
               ? <button onClick={()=>{abortRef.current=true;}} style={{...btnDanger,flex:1}}>Stop shipping</button>
-              : <button onClick={ship} disabled={!totalSelected||!elasticUrl||!apiKey} style={{...btnPrimary,flex:1,opacity:(totalSelected&&elasticUrl&&apiKey)?1:0.4,cursor:(totalSelected&&elasticUrl&&apiKey)?"pointer":"not-allowed"}}>
-                  ⚡ Ship {totalSelected>0?`${(totalSelected*logsPerService).toLocaleString()} logs`:"logs"}
+              : <button onClick={ship} disabled={!totalSelected||!elasticUrl||!apiKey} style={{...btnPrimary,flex:1,opacity:(totalSelected&&elasticUrl&&apiKey)?1:0.5,cursor:(totalSelected&&elasticUrl&&apiKey)?"pointer":"not-allowed"}}>
+                  ⚡ Ship {totalSelected>0?`${(totalSelected*logsPerService).toLocaleString()} ${eventType==="metrics"?"metrics":"logs"}`:(eventType==="metrics"?"metrics":"logs")}
                 </button>}
           </div>
 
           {status&&(
             <Card>
-              <CardHeader label="Progress" badge={`${pct}%`} badgeColor={pct===100?"#10b981":"#f59e0b"}/>
-              <div style={{height:6,background:"#e2e8f0",borderRadius:99,overflow:"hidden",marginBottom:14}}>
-                <div style={{height:"100%",width:`${pct}%`,background:"linear-gradient(90deg,#FEC514,#F04E98,#1BA9F5)",borderRadius:99,transition:"width 0.3s"}}/>
+              <CardHeader label="Progress" badge={`${pct}%`} badgeColor={pct===100?K.success:K.warning}/>
+              <div style={{height:6,background:K.border,borderRadius:99,overflow:"hidden",marginBottom:12}}>
+                <div style={{height:"100%",width:`${pct}%`,background:pct===100?K.success:K.primary,borderRadius:99,transition:"width 0.3s"}}/>
               </div>
-              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>
-                <StatCard label="Indexed" value={progress.sent.toLocaleString()} color="#10b981"/>
-                <StatCard label="Total" value={progress.total.toLocaleString()} color="#64748b"/>
-                <StatCard label="Errors" value={progress.errors.toLocaleString()} color={progress.errors>0?"#ef4444":"#94a3b8"}/>
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8}}>
+                <StatCard label="Indexed" value={progress.sent.toLocaleString()} color={K.success}/>
+                <StatCard label="Total" value={progress.total.toLocaleString()} color={K.textSubdued}/>
+                <StatCard label="Errors" value={progress.errors.toLocaleString()} color={progress.errors>0?K.danger:K.textSubdued}/>
               </div>
             </Card>
           )}
@@ -4823,39 +4930,40 @@ export default function App() {
           {preview&&(
             <Card>
               <CardHeader label="Sample Document"/>
-              <pre style={{fontSize:10,background:"#f8fafc",border:"1px solid #e2e8f0",borderRadius:8,padding:12,overflowX:"auto",color:"#475569",maxHeight:220,overflowY:"auto",lineHeight:1.6,fontFamily:"'JetBrains Mono','Fira Code',monospace"}}>{preview}</pre>
+              <pre style={{fontSize:10,background:K.subdued,border:`1px solid ${K.border}`,borderRadius:K.radiusSm,padding:12,overflowX:"auto",color:K.textSubdued,maxHeight:220,overflowY:"auto",lineHeight:1.6,fontFamily:"'JetBrains Mono','Fira Code',monospace"}}>{preview}</pre>
             </Card>
           )}
 
           <Card>
             <CardHeader label="Activity Log"/>
-            <div style={{background:"#f8fafc",border:"1px solid #e2e8f0",borderRadius:8,padding:"10px 12px",minHeight:72,maxHeight:240,overflowY:"auto",fontFamily:"'JetBrains Mono','Fira Code',monospace",fontSize:10,lineHeight:1.9}}>
+            <div style={{background:K.subdued,border:`1px solid ${K.border}`,borderRadius:K.radiusSm,padding:"10px 12px",minHeight:72,maxHeight:240,overflowY:"auto",fontFamily:"'JetBrains Mono','Fira Code',monospace",fontSize:10,lineHeight:1.9}}>
               {log.length===0
-                ? <span style={{color:"#94a3b8",fontStyle:"italic"}}>Waiting for activity…</span>
+                ? <span style={{color:K.textSubdued,fontStyle:"italic"}}>Waiting for activity…</span>
                 : log.map((e,i)=>(
-                  <div key={i} style={{color:{ok:"#10b981",error:"#ef4444",warn:"#f59e0b",info:"#64748b"}[e.type]||"#64748b"}}>
-                    <span style={{color:"#94a3b8"}}>[{e.ts}] </span>{e.msg}
+                  <div key={i} style={{color:{ok:K.success,error:K.danger,warn:K.warning,info:K.textSubdued}[e.type]||K.textSubdued}}>
+                    <span style={{color:K.textSubdued}}>[{e.ts}] </span>{e.msg}
                   </div>
                 ))}
             </div>
           </Card>
         </div>
       </div>
+      </main>
 
       <style dangerouslySetInnerHTML={{__html:`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         * { box-sizing: border-box; }
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-        input::placeholder { color: #94a3b8 !important; }
+        input::placeholder { color: #516381 !important; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #e5e7eb; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
-        input:focus { outline: none !important; border-color: #7c3aed !important; box-shadow: 0 0 0 3px rgba(124,58,237,0.15) !important; }
-        button { transition: all 0.15s; }
-        button:not(:disabled):hover { filter: brightness(0.97); transform: translateY(-1px); }
-        button:not(:disabled):active { transform: translateY(0); }
-        input[type=range] { -webkit-appearance:none; height:6px; border-radius:99px; background:#e2e8f0; outline:none; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:#7c3aed; cursor:pointer; border:2px solid #4f46e5; }
+        ::-webkit-scrollbar-track { background: #F6F9FC; }
+        ::-webkit-scrollbar-thumb { background: #CAD3E2; border-radius: 99px; }
+        input:focus { outline: none !important; border-color: #0B64DD !important; box-shadow: 0 0 0 2px rgba(11,100,221,0.2) !important; }
+        button { transition: background 0.15s, border-color 0.15s; }
+        button:not(:disabled):hover { background-color: rgba(23,80,186,0.04); }
+        button:not(:disabled):active { opacity: 0.9; }
+        input[type=range] { -webkit-appearance:none; height:6px; border-radius:99px; background:#E3E8F2; outline:none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:#0B64DD; cursor:pointer; border:2px solid #0B64DD; }
       `}}/>
     </div>
   );
@@ -4863,70 +4971,71 @@ export default function App() {
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
-const inputStyle = {width:"100%",background:"#ffffff",border:"1px solid #e2e8f0",borderRadius:8,padding:"9px 12px",color:"#0f172a",fontSize:13,fontFamily:"inherit",transition:"border-color 0.15s,box-shadow 0.15s"};
-const btnPrimary  = {padding:"11px 22px",borderRadius:8,fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:"inherit",border:"none",background:"linear-gradient(135deg,#7c3aed,#4f46e5)",color:"#fff"};
-const btnSecondary = {padding:"11px 18px",borderRadius:8,fontSize:14,fontWeight:500,cursor:"pointer",fontFamily:"inherit",background:"#f8fafc",border:"1px solid #cbd5e1",color:"#475569"};
-const btnDanger   = {padding:"11px 22px",borderRadius:8,fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:"inherit",border:"1px solid #fecaca",background:"#fef2f2",color:"#dc2626"};
+const inputStyle = {width:"100%",background:K.controlBg,border:`1px solid ${K.borderPlain}`,borderRadius:K.radiusSm,padding:"8px 12px",color:K.text,fontSize:13,fontFamily:"inherit",transition:"border-color 0.15s,box-shadow 0.15s"};
+const btnPrimary  = {padding:"10px 20px",borderRadius:K.radiusSm,fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:"inherit",border:"none",background:K.primary,color:"#fff"};
+const btnSecondary = {padding:"10px 16px",borderRadius:K.radiusSm,fontSize:13,fontWeight:500,cursor:"pointer",fontFamily:"inherit",background:K.subdued,border:`1px solid ${K.borderPlain}`,color:K.textSubdued};
+const btnDanger   = {padding:"10px 20px",borderRadius:K.radiusSm,fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:"inherit",border:`1px solid ${K.dangerBorder}`,background:K.dangerBg,color:K.danger};
 
 function Card({children,style={}}) {
-  return <div style={{background:"#ffffff",border:"1px solid #e2e8f0",borderRadius:14,padding:"18px",boxShadow:"0 1px 3px rgba(0,0,0,0.06)",...style}}>{children}</div>;
+  return <div style={{background:K.plain,border:`1px solid ${K.border}`,borderRadius:K.radius,padding:16,boxShadow:K.shadow,...style}}>{children}</div>;
 }
-function CardHeader({label,badge,badgeColor="#7c3aed"}) {
-  return <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14}}>
-    <span style={{fontSize:13,fontWeight:600,color:"#0f172a"}}>{label}</span>
-    {badge&&<span style={{fontSize:11,fontWeight:600,color:badgeColor,background:`${badgeColor}18`,border:`1px solid ${badgeColor}44`,borderRadius:99,padding:"2px 10px"}}>{badge}</span>}
+function CardHeader({label,badge,badgeColor}) {
+  const bc = badgeColor || K.primary;
+  return <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
+    <span style={{fontSize:13,fontWeight:600,color:K.textHeading}}>{label}</span>
+    {badge&&<span style={{fontSize:11,fontWeight:600,color:bc,background:`${bc}18`,border:`1px solid ${bc}44`,borderRadius:99,padding:"2px 8px"}}>{badge}</span>}
   </div>;
 }
 function QuickBtn({children,onClick}) {
-  return <button onClick={onClick} style={{fontSize:11,padding:"3px 10px",borderRadius:6,border:"1px solid #cbd5e1",background:"#f8fafc",color:"#64748b",cursor:"pointer",fontFamily:"inherit"}}>{children}</button>;
+  return <button onClick={onClick} style={{fontSize:11,padding:"4px 10px",borderRadius:K.radiusSm,border:`1px solid ${K.borderPlain}`,background:K.subdued,color:K.textSubdued,cursor:"pointer",fontFamily:"inherit",fontWeight:500}}>{children}</button>;
 }
-function StatusPill({children,color,dot}) {
-  return <span style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:12,fontWeight:500,color,background:`${color}18`,border:`1px solid ${color}44`,borderRadius:99,padding:"3px 10px"}}>
-    {dot&&<span style={{width:6,height:6,borderRadius:"50%",background:color,animation:"pulse 1.2s infinite"}}/>}{children}
+function StatusPill({children,color,dot,light}) {
+  const bg = light ? "rgba(255,255,255,0.12)" : `${color}18`;
+  const border = light ? "rgba(255,255,255,0.3)" : `${color}44`;
+  const textColor = light ? "#fff" : color;
+  return <span style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:12,fontWeight:500,color:textColor,background:bg,border:`1px solid ${border}`,borderRadius:99,padding:"3px 10px"}}>
+    {dot&&<span style={{width:6,height:6,borderRadius:"50%",background:textColor,animation:"pulse 1.2s infinite"}}/>}{children}
   </span>;
 }
 function Field({label,children}) {
-  return <div><div style={{fontSize:12,fontWeight:500,color:"#475569",marginBottom:6}}>{label}</div>{children}</div>;
+  return <div><div style={{fontSize:12,fontWeight:500,color:K.textSubdued,marginBottom:6}}>{label}</div>{children}</div>;
 }
 function SliderField({label,value,min,max,step,onChange,display,sublabel}) {
   return <div>
     <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
-      <span style={{fontSize:12,fontWeight:500,color:"#475569"}}>{label}</span>
-      <span style={{fontSize:12,fontWeight:600,color:"#7c3aed",background:"#f5f3ff",border:"1px solid #ddd6fe",borderRadius:6,padding:"2px 8px"}}>{display}</span>
+      <span style={{fontSize:12,fontWeight:500,color:K.textSubdued}}>{label}</span>
+      <span style={{fontSize:12,fontWeight:600,color:K.primaryText,background:K.highlight,border:`1px solid ${K.border}`,borderRadius:K.radiusSm,padding:"2px 8px"}}>{display}</span>
     </div>
-    <input type="range" min={min} max={max} step={step} value={value} onChange={e=>onChange(Number(e.target.value))} style={{width:"100%",accentColor:"#7c3aed",cursor:"pointer"}}/>
-    {sublabel&&<div style={{fontSize:11,color:"#64748b",marginTop:4}}>{sublabel}</div>}
+    <input type="range" min={min} max={max} step={step} value={value} onChange={e=>onChange(Number(e.target.value))} style={{width:"100%",accentColor:K.primary,cursor:"pointer"}}/>
+    {sublabel&&<div style={{fontSize:11,color:K.textSubdued,marginTop:4}}>{sublabel}</div>}
   </div>;
 }
 function StatCard({label,value,color}) {
-  return <div style={{background:"#f8fafc",border:"1px solid #e2e8f0",borderRadius:10,padding:"10px 12px"}}>
-    <div style={{fontSize:11,color:"#475569",marginBottom:4}}>{label}</div>
-    <div style={{fontSize:20,fontWeight:700,color}}>{value}</div>
+  return <div style={{background:K.subdued,border:`1px solid ${K.border}`,borderRadius:K.radiusSm,padding:"10px 12px"}}>
+    <div style={{fontSize:11,color:K.textSubdued,marginBottom:4}}>{label}</div>
+    <div style={{fontSize:18,fontWeight:700,color}}>{value}</div>
   </div>;
 }
-function PipelineLogo({size=32}) {
+function PipelineLogo({size=32, light=false}) {
+  const endFill = light ? "#1D1E24" : "#1e293b";
   return <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="4" cy="8"  r="2.8" fill="#FEC514"/>
-    <circle cx="4" cy="16" r="2.8" fill="#F04E98"/>
-    <circle cx="4" cy="24" r="2.8" fill="#1BA9F5"/>
-    <circle cx="4" cy="32" r="2.8" fill="#00BFB3"/>
-    <circle cx="4" cy="20" r="2.8" fill="#93C90E" opacity="0.85"/>
-    <line x1="7"  y1="8"  x2="18" y2="20" stroke="#FEC514" strokeWidth="1.6" strokeLinecap="round" opacity="0.9"/>
-    <line x1="7"  y1="16" x2="18" y2="20" stroke="#F04E98" strokeWidth="1.6" strokeLinecap="round" opacity="0.9"/>
-    <line x1="7"  y1="24" x2="18" y2="20" stroke="#1BA9F5" strokeWidth="1.6" strokeLinecap="round" opacity="0.9"/>
-    <line x1="7"  y1="32" x2="18" y2="20" stroke="#00BFB3" strokeWidth="1.6" strokeLinecap="round" opacity="0.9"/>
-    <line x1="7"  y1="20" x2="18" y2="20" stroke="#93C90E" strokeWidth="1.6" strokeLinecap="round" opacity="0.85"/>
+    <circle cx="4" cy="8"  r="2.8" fill={light?"#FEC514":"#FEC514"}/>
+    <circle cx="4" cy="16" r="2.8" fill={light?"#F04E98":"#F04E98"}/>
+    <circle cx="4" cy="24" r="2.8" fill={light?"#1BA9F5":"#1BA9F5"}/>
+    <circle cx="4" cy="32" r="2.8" fill={light?"#00BFB3":"#00BFB3"}/>
+    <circle cx="4" cy="20" r="2.8" fill={light?"#93C90E":"#93C90E"} opacity="0.85"/>
+    <line x1="7" y1="8"  x2="18" y2="20" stroke="#FEC514" strokeWidth="1.6" strokeLinecap="round" opacity={light?0.8:0.9}/>
+    <line x1="7" y1="16" x2="18" y2="20" stroke="#F04E98" strokeWidth="1.6" strokeLinecap="round" opacity={light?0.8:0.9}/>
+    <line x1="7" y1="24" x2="18" y2="20" stroke="#1BA9F5" strokeWidth="1.6" strokeLinecap="round" opacity={light?0.8:0.9}/>
+    <line x1="7" y1="32" x2="18" y2="20" stroke="#00BFB3" strokeWidth="1.6" strokeLinecap="round" opacity={light?0.8:0.9}/>
+    <line x1="7" y1="20" x2="18" y2="20" stroke="#93C90E" strokeWidth="1.6" strokeLinecap="round" opacity={light?0.8:0.85}/>
     <rect x="18.5" y="13.5" width="3" height="13" rx="1.5" fill="url(#cg)"/>
     <line x1="22" y1="20" x2="33" y2="20" stroke="white" strokeWidth="2.2" strokeLinecap="round" opacity="0.9"/>
     <circle cx="36" cy="20" r="3.5" fill="white" opacity="0.95"/>
-    <circle cx="36" cy="20" r="2"   fill="#1e293b"/>
-    <circle cx="36" cy="20" r="1"   fill="white" opacity="0.8"/>
+    <circle cx="36" cy="20" r="2" fill={endFill}/>
+    <circle cx="36" cy="20" r="1" fill="white" opacity="0.8"/>
     <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0%"   stopColor="#FEC514"/>
-      <stop offset="25%"  stopColor="#F04E98"/>
-      <stop offset="50%"  stopColor="#93C90E"/>
-      <stop offset="75%"  stopColor="#1BA9F5"/>
-      <stop offset="100%" stopColor="#00BFB3"/>
+      <stop offset="0%" stopColor="#FEC514"/><stop offset="25%" stopColor="#F04E98"/><stop offset="50%" stopColor="#93C90E"/><stop offset="75%" stopColor="#1BA9F5"/><stop offset="100%" stopColor="#00BFB3"/>
     </linearGradient></defs>
   </svg>;
 }

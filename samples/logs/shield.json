@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "shield"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "AttackVector": "SYN_FLOOD"
+      "AttackVector": "UDP_REFLECTION"
     },
     "shield": {
-      "attack_id": "bvcsrcjn-f7yq",
-      "attack_vector": "VOLUMETRIC",
+      "attack_id": "dim653xf-isf6",
+      "attack_vector": "HTTP_FLOOD",
       "mitigation_started": true,
       "subscription_type": "ADVANCED",
-      "protected_resource": "arn:aws:elasticloadbalancing:eu-west-2:814726593401:loadbalancer/app/prod/cgxr6bix4wn",
+      "protected_resource": "arn:aws:elasticloadbalancing:us-east-1:501938274650:loadbalancer/app/prod/yhv1gohyr5q",
       "metrics": {
         "DDoSAttackBitsPerSecond": {
-          "avg": 88126305228
+          "avg": 59209243449
         },
         "DDoSAttackPacketsPerSecond": {
-          "avg": 61394500
+          "avg": 32440444
         },
         "DDoSAttackRequestsPerSecond": {
-          "avg": 121257
+          "avg": 349274
         }
       }
     }
   },
   "network": {
-    "bytes": 410000698,
-    "packets": 236188
+    "bytes": 59666517,
+    "packets": 504903
   },
   "event": {
     "action": "ddos_detected",
@@ -45,13 +45,13 @@
     "dataset": "aws.shield",
     "provider": "shield.amazonaws.com"
   },
-  "message": "DDoS attack detected: SYN_FLOOD at 19.213Gbps - mitigation active",
+  "message": "DDoS attack detected: SYN_FLOOD at 40.535Gbps - mitigation active",
   "log": {
     "level": "warn"
   },
   "error": {
     "code": "DDoSAttack",
-    "message": "Attack vector: UDP_REFLECTION - mitigation active",
+    "message": "Attack vector: SYN_FLOOD - mitigation active",
     "type": "network"
   }
 }

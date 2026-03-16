@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "fargate"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "prod-cluster",
-      "TaskId": "c6c908ylwvp",
-      "TaskDefinition": "web-frontend:46"
+      "ClusterName": "staging-cluster",
+      "TaskId": "lj10hwvpf6",
+      "TaskDefinition": "scheduler:1"
     },
     "fargate": {
-      "cluster_name": "prod-cluster",
-      "task_id": "c6c908ylwvp",
-      "task_definition": "web-frontend:46",
-      "structured_logging": true,
-      "cpu_units": 2048,
+      "cluster_name": "staging-cluster",
+      "task_id": "lj10hwvpf6",
+      "task_definition": "scheduler:1",
+      "structured_logging": false,
+      "cpu_units": 512,
       "memory_mb": 1024,
       "platform_version": "1.4.0",
-      "cpu_utilized_percent": 34,
-      "memory_utilized_percent": 30,
+      "cpu_utilized_percent": 40,
+      "memory_utilized_percent": 42,
       "metrics": {
         "CPUUtilization": {
-          "avg": 0.34
+          "avg": 0.4
         },
         "MemoryUtilization": {
-          "avg": 0.3
+          "avg": 0.42
         },
         "RunningTaskCount": {
-          "avg": 10
+          "avg": 3
         },
         "PendingTaskCount": {
           "avg": 0
@@ -44,7 +44,7 @@
     }
   },
   "container": {
-    "name": "web-frontend"
+    "name": "scheduler"
   },
   "log": {
     "level": "info"
@@ -54,9 +54,9 @@
     "category": "container",
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 649000000000
+    "duration": 44000000000
   },
-  "message": "{\"cluster\":\"prod-cluster\",\"taskId\":\"c6c908ylwvp\",\"taskDefinition\":\"web-frontend:46\",\"container\":\"web-frontend\",\"level\":\"info\",\"message\":\"Scaling event: desired 3->5\",\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
+  "message": "Task deregistered gracefully",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.ecs_metrics",

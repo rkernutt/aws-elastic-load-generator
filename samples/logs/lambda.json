@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "lambda"
@@ -13,26 +13,27 @@
   },
   "aws": {
     "dimensions": {
-      "FunctionName": "user-auth",
-      "Resource": "user-auth:$LATEST",
-      "ExecutedVersion": "$LATEST"
+      "FunctionName": "data-pipeline",
+      "Resource": "data-pipeline:$LATEST",
+      "ExecutedVersion": "$LATEST",
+      "EventSourceMappingUUID": "qyp23k2u-mo9x-14wh-q1j3-5i62savpx46"
     },
     "lambda": {
       "function": {
-        "name": "user-auth",
+        "name": "data-pipeline",
         "version": "$LATEST",
-        "arn": "arn:aws:lambda:us-east-1:501938274650:function:user-auth"
+        "arn": "arn:aws:lambda:eu-west-2:814726593401:function:data-pipeline"
       },
-      "request_id": "0kshkzhp-stwx-x69q-3zqz-xebghf28q8",
-      "duration": 2052.365,
-      "memory_size_mb": 512,
-      "memory_used_mb": 465,
-      "log_group": "/aws/lambda/user-auth",
-      "log_stream": "2026-03-16/[$LATEST]efwgqknpp9d",
+      "request_id": "rv0xbpwd-azcx-l12p-kmxa-f1kaayknse",
+      "duration": 334.799,
+      "memory_size_mb": 1024,
+      "memory_used_mb": 262,
+      "log_group": "/aws/lambda/data-pipeline",
+      "log_stream": "2026-03-16/[$LATEST]h4jwmlpyxj5",
       "structured_logging": false,
       "metrics": {
         "Invocations": {
-          "sum": 96
+          "sum": 336
         },
         "Errors": {
           "sum": 0
@@ -41,36 +42,38 @@
           "sum": 0
         },
         "Duration": {
-          "avg": 2052.365,
-          "max": 2257.6014999999998,
-          "min": 1847.1284999999998
+          "avg": 334.799,
+          "max": 368.2789,
+          "min": 301.3191
         },
         "ConcurrentExecutions": {
-          "avg": 177
+          "avg": 193
         },
         "UnreservedConcurrentExecutions": {
-          "avg": 236
+          "avg": 333
         },
         "DeadLetterErrors": {
           "sum": 0
         },
-        "IteratorAge": {},
-        "memory_size_mb": 512
+        "IteratorAge": {
+          "avg": 2842
+        },
+        "memory_size_mb": 1024
       }
     }
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
-  "message": "[WARN]\t0kshkzhp-stwx-x69q-3zqz-xebghf28q8\tMemory usage at 80%",
+  "message": "[INFO]\trv0xbpwd-azcx-l12p-kmxa-f1kaayknse\tRequest received",
   "event": {
-    "duration": 2052364999.9999998,
+    "duration": 334799000,
     "outcome": "success",
     "dataset": "aws.lambda",
     "provider": "lambda.amazonaws.com"
   },
   "service": {
-    "name": "user-auth",
+    "name": "data-pipeline",
     "type": "lambda"
   }
 }

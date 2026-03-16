@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "dynamodb"
@@ -13,32 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "TableName": "sessions",
-      "Operation": "Scan"
+      "TableName": "orders",
+      "Operation": "DeleteItem"
     },
     "dynamodb": {
-      "table_name": "sessions",
-      "operation": "Scan",
-      "consumed_read_capacity_units": 2.845,
-      "consumed_write_capacity_units": 27.883,
-      "items_count": 550,
-      "structured_logging": false,
+      "table_name": "orders",
+      "operation": "DeleteItem",
+      "consumed_read_capacity_units": 20.041,
+      "consumed_write_capacity_units": 48.861,
+      "items_count": 656,
+      "structured_logging": true,
       "metrics": {
         "ConsumedReadCapacityUnits": {
-          "sum": 2.845
+          "sum": 20.041
         },
         "ConsumedWriteCapacityUnits": {
-          "sum": 27.883
+          "sum": 48.861
         },
         "ProvisionedReadCapacityUnits": {
-          "avg": 138
+          "avg": 6106
         },
         "ProvisionedWriteCapacityUnits": {
-          "avg": 4974
+          "avg": 3099
         },
         "SuccessfulRequestLatency": {
-          "avg": 7,
-          "p99": 49
+          "avg": 26,
+          "p99": 173
         },
         "SystemErrors": {
           "sum": 0
@@ -50,17 +50,17 @@
           "sum": 0
         },
         "TransactionConflict": {
-          "sum": 5
+          "sum": 0
         },
         "ReturnedItemCount": {
-          "avg": 319
+          "avg": 418
         }
       }
     }
   },
   "db": {
-    "name": "sessions",
-    "operation": "Scan",
+    "name": "orders",
+    "operation": "DeleteItem",
     "type": "nosql"
   },
   "event": {
@@ -68,9 +68,9 @@
     "category": "database",
     "dataset": "aws.dynamodb",
     "provider": "dynamodb.amazonaws.com",
-    "duration": 30000000
+    "duration": 26000000
   },
-  "message": "DynamoDB Scan sessions: consumed 2.845 RCU, 27.883 WCU",
+  "message": "{\"table\":\"orders\",\"operation\":\"DeleteItem\",\"consumedReadCapacityUnits\":20.041,\"consumedWriteCapacityUnits\":48.861,\"timestamp\":\"2026-03-16T16:55:00.054Z\"}",
   "log": {
     "level": "info"
   }

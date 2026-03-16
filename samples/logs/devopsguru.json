@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "devopsguru"
@@ -13,9 +13,9 @@
   },
   "aws": {
     "devopsguru": {
-      "insight_id": "m8g3t6nwoe",
-      "insight_type": "PROACTIVE",
-      "severity": "MEDIUM",
+      "insight_id": "pxdsqp2sth",
+      "insight_type": "REACTIVE",
+      "severity": "LOW",
       "resource_collection": {
         "cloud_formation": {
           "stack_names": [
@@ -29,15 +29,15 @@
           }
         ]
       },
-      "anomaly_id": "oedxkhsjb6o",
+      "anomaly_id": "08t0e7tdlclg",
       "anomaly_description": "SQS queue depth growing abnormally",
       "anomaly_sources": [
-        "rds-prod"
+        "sqs-orders"
       ],
-      "start_time": "2026-03-16T14:42:18.367Z",
-      "end_time": "2026-03-16T15:20:27.427Z",
+      "start_time": "2026-03-16T16:32:37.338Z",
+      "end_time": "2026-03-16T16:55:00.273Z",
       "status": "CLOSED",
-      "recommendation": "Review alarm thresholds",
+      "recommendation": "Enable enhanced monitoring",
       "ssm_ops_items": []
     }
   },
@@ -47,7 +47,7 @@
     "dataset": "aws.devopsguru",
     "provider": "devops-guru.amazonaws.com"
   },
-  "message": "DevOps Guru PROACTIVE insight [MEDIUM]: SQS queue depth growing abnormally",
+  "message": "DevOps Guru REACTIVE insight [LOW]: SQS queue depth growing abnormally",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "sqs"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "QueueName": "job-queue"
+      "QueueName": "email-queue"
     },
     "sqs": {
-      "queue_name": "job-queue",
-      "queue_url": "https://sqs.eu-west-2.amazonaws.com/164820739518/job-queue",
-      "messages_sent": 4187,
-      "messages_deleted": 243,
-      "approximate_number_of_messages": 324,
-      "approximate_age_of_oldest_message_seconds": 112,
+      "queue_name": "email-queue",
+      "queue_url": "https://sqs.eu-west-2.amazonaws.com/501938274650/email-queue",
+      "messages_sent": 4576,
+      "messages_deleted": 3817,
+      "approximate_number_of_messages": 241,
+      "approximate_age_of_oldest_message_seconds": 258,
       "is_dlq": false,
       "metrics": {
         "NumberOfMessagesSent": {
-          "sum": 4187
+          "sum": 4576
         },
         "NumberOfMessagesReceived": {
-          "sum": 668
+          "sum": 3908
         },
         "NumberOfMessagesDeleted": {
-          "sum": 243
+          "sum": 3817
         },
         "ApproximateNumberOfMessagesVisible": {
-          "avg": 139
+          "avg": 898
         },
         "ApproximateNumberOfMessagesNotVisible": {
           "avg": 62
         },
         "ApproximateNumberOfMessagesDelayed": {
-          "avg": 0
+          "avg": 34
         },
         "ApproximateAgeOfOldestMessage": {
-          "avg": 230
+          "avg": 258
         },
         "SentMessageSize": {
-          "avg": 6377
+          "avg": 73618
         },
         "NumberOfEmptyReceives": {
-          "sum": 5
+          "sum": 325
         }
       }
     }
@@ -59,9 +59,9 @@
     "category": "process",
     "dataset": "aws.sqs",
     "provider": "sqs.amazonaws.com",
-    "duration": 66000000
+    "duration": 17000000
   },
-  "message": "SQS job-queue: 4187 messages processed",
+  "message": "SQS email-queue: 4576 messages processed",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "lakeformation"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "lakeformation": {
-      "database": "curated",
-      "table": "clickstream",
+      "database": "analytics",
+      "table": "events",
       "action": "Grant",
-      "principal_arn": "arn:aws:iam::501938274650:role/glue-role",
+      "principal_arn": "arn:aws:iam::164820739518:role/analyst-role",
       "permissions": [
         "ALL"
       ],
-      "lf_tag_key": "team",
+      "lf_tag_key": "classification",
       "lf_tag_values": [
         "dev",
         "staging"
@@ -34,7 +34,7 @@
     "dataset": "aws.lakeformation",
     "provider": "lakeformation.amazonaws.com"
   },
-  "message": "Lake Formation Grant: ALL on curated.clickstream",
+  "message": "Lake Formation Grant: ALL on analytics.events",
   "log": {
     "level": "info"
   }

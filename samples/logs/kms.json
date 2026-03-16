@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,22 +13,22 @@
   },
   "aws": {
     "kms": {
-      "key_id": "8nusacj2-51pp-ws3l-k0eu-cqeux8jdlv5",
-      "key_alias": "alias/secrets-key",
-      "operation": "DescribeKey",
-      "principal_arn": "arn:aws:iam::738291046572:role/ecs-task-role",
+      "key_id": "bpjjf3ko-0ie7-u6ia-2mcm-l8nerxrnbs",
+      "key_alias": "alias/backup-key",
+      "operation": "ScheduleKeyDeletion",
+      "principal_arn": "arn:aws:iam::738291046572:user/alice",
       "key_state": "Enabled",
-      "encryption_algorithm": "SYMMETRIC_DEFAULT"
+      "encryption_algorithm": "RSAES_OAEP_SHA_256"
     }
   },
   "event": {
-    "action": "DescribeKey",
+    "action": "ScheduleKeyDeletion",
     "outcome": "success",
     "category": "iam",
     "dataset": "aws.kms",
     "provider": "kms.amazonaws.com"
   },
-  "message": "KMS DescribeKey: alias/secrets-key",
+  "message": "KMS ScheduleKeyDeletion: alias/backup-key",
   "log": {
     "level": "info"
   }

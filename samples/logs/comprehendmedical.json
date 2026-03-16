@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "comprehendmedical"
@@ -13,11 +13,12 @@
   },
   "aws": {
     "comprehendmedical": {
-      "operation": "DetectEntitiesV2",
-      "entities_detected": 19,
-      "phi_entities": 5,
-      "text_characters": 1934,
-      "data_access_role_arn": "arn:aws:iam::814726593401:role/ComprehendMedicalRole",
+      "operation": "InferICD10CM",
+      "entities_detected": 48,
+      "phi_entities": 9,
+      "icd10_concepts": 1,
+      "text_characters": 1158,
+      "data_access_role_arn": "arn:aws:iam::738291046572:role/ComprehendMedicalRole",
       "s3_bucket": "clinical-notes"
     }
   },
@@ -27,8 +28,8 @@
     "dataset": "aws.comprehendmedical",
     "provider": "comprehendmedical.amazonaws.com"
   },
-  "message": "Comprehend Medical DetectEntitiesV2: 19 entities, 5 PHI",
+  "message": "Comprehend Medical InferICD10CM: 48 entities, 9 PHI",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

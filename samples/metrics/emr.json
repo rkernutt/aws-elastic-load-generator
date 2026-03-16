@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "emr"
@@ -13,23 +13,30 @@
   },
   "aws": {
     "emr": {
-      "cluster_id": "j-SLMJCQCELJN",
-      "cluster_name": "log-enrichment-cluster",
-      "application": "spark",
-      "release": "emr-6.12.0",
+      "cluster_id": "j-DC1HKRU5XTP",
+      "cluster_name": "clickstream-processing-cluster",
+      "application": "flink",
+      "release": "emr-6.8.0",
       "instance_group": "TASK",
-      "executor_count": 53,
+      "executor_count": 46,
       "job": {
-        "name": "log-enrichment",
-        "id": "application_1773674427413_1785"
+        "name": "clickstream-processing",
+        "id": "application_1773680100233_6850",
+        "run_state": "SUCCEEDED"
       },
       "structured_logging": true,
       "metrics": {
-        "executor_count": 53,
-        "running_step_count": 3,
+        "executor_count": 46,
+        "running_step_count": 2,
         "failed_step_count": 0,
-        "hdfs_utilization_pct": 81,
-        "yarn_memory_used_mb": 48449
+        "hdfs_utilization_pct": 56,
+        "yarn_memory_used_mb": 33795,
+        "elapsedTime": 3436000,
+        "numCompletedTasks": 52,
+        "numFailedTasks": 0,
+        "jvm_heap_usage": 0.5,
+        "gc_time_ms": 29003,
+        "numberAllExecutors": 56
       }
     }
   },
@@ -41,9 +48,9 @@
     "category": "process",
     "dataset": "aws.emr",
     "provider": "elasticmapreduce.amazonaws.com",
-    "duration": 2413000000000
+    "duration": 3436000000000
   },
-  "message": "{\"clusterId\":\"j-SLMJCQCELJN\",\"applicationId\":\"application_1773674427413_1785\",\"containerId\":\"container_1773674427413_7290_01_236364\",\"logLevel\":\"INFO\",\"message\":\"Executor 7 registered with 4 cores and 8.0 GB RAM\",\"timestamp\":\"2026-03-16T15:20:27.243Z\",\"component\":\"executor\"}",
+  "message": "{\"clusterId\":\"j-DC1HKRU5XTP\",\"applicationId\":\"application_1773680100233_6850\",\"containerId\":\"container_1773680100233_2975_01_938284\",\"logLevel\":\"INFO\",\"message\":\"Job run succeeded\",\"timestamp\":\"2026-03-16T16:55:00.054Z\",\"component\":\"executor\"}",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.emr_metrics",

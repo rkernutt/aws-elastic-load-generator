@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "ecs"
@@ -13,33 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "staging",
-      "ServiceName": "worker"
+      "ClusterName": "prod-cluster",
+      "ServiceName": "api-backend"
     },
     "ecs": {
       "cluster": {
-        "name": "staging"
+        "name": "prod-cluster"
       },
       "service": {
-        "name": "worker"
+        "name": "api-backend"
       },
       "task": {
-        "id": "ay24jg0avt6",
-        "definition": "worker:47"
+        "id": "pl6pxog7g7i",
+        "definition": "api-backend:45"
       },
-      "structured_logging": false,
+      "structured_logging": true,
       "metrics": {
         "CPUUtilization": {
-          "avg": 39.159
+          "avg": 63.222
         },
         "MemoryUtilization": {
-          "avg": 47.499
+          "avg": 89.292
         },
         "RunningTaskCount": {
-          "avg": 1
+          "avg": 17
         },
         "PendingTaskCount": {
-          "avg": 0
+          "avg": 2
         },
         "ServiceCount": {
           "avg": 1
@@ -48,24 +48,29 @@
     }
   },
   "container": {
-    "name": "worker",
+    "name": "api-backend",
     "image": {
-      "name": "myrepo/worker:latest"
+      "name": "myrepo/api-backend:latest"
     }
   },
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 1347000000000
+    "duration": 214000000000
   },
-  "message": "Request processed",
+  "message": "{\"cluster\":\"prod-cluster\",\"service\":\"api-backend\",\"taskId\":\"pl6pxog7g7i\",\"container\":\"api-backend\",\"level\":\"error\",\"message\":\"Failed to pull image\",\"timestamp\":\"2026-03-16T16:55:00.054Z\"}",
   "service": {
-    "name": "worker",
+    "name": "api-backend",
     "type": "ecs"
+  },
+  "error": {
+    "code": "ContainerExitCode",
+    "message": "Failed to pull image",
+    "type": "container"
   },
   "data_stream": {
     "type": "metrics",

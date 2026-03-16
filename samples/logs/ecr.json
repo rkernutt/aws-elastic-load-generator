@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "ecr"
@@ -13,32 +13,26 @@
   },
   "aws": {
     "ecr": {
-      "repository_name": "nginx-custom",
-      "registry_id": "738291046572",
-      "image_tag": "sha-a3f1bc",
-      "image_digest": "sha256:95eko724gd",
-      "action": "delete",
-      "image_size_bytes": 136183584,
-      "pushed_by": "codebuild",
-      "scan_status": "COMPLETE_WITH_FINDINGS",
-      "finding_severity": "CRITICAL",
-      "finding_count": 14,
+      "repository_name": "web-app",
+      "registry_id": "501938274650",
+      "image_tag": "latest",
+      "image_digest": "sha256:t6kj7adt9l",
+      "action": "pull",
+      "image_size_bytes": 643982698,
+      "pushed_by": "developer",
+      "scan_status": "NOT_STARTED",
+      "finding_count": 0,
       "vulnerability_scan_enabled": true
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "package",
     "dataset": "aws.ecr",
     "provider": "ecr.amazonaws.com"
   },
-  "message": "ECR scan: nginx-custom:sha-a3f1bc found 4 vulnerabilities [HIGH]",
+  "message": "ECR pull: web-app:latest",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "ScanFindings",
-    "message": "ECR scan: nginx-custom:sha-a3f1bc found 4 vulnerabilities [HIGH]",
-    "type": "package"
+    "level": "info"
   }
 }

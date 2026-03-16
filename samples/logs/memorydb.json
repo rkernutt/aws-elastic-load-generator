@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "memorydb"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "memorydb": {
-      "cluster_name": "leaderboard",
-      "node_name": "leaderboard-0001-001",
+      "cluster_name": "session-store",
+      "node_name": "session-store-0001-001",
       "engine_version": "7.1",
-      "command": "SETEX",
-      "latency_us": 36.674,
-      "cache_hit_rate": 89.339,
-      "connected_clients": 336,
-      "used_memory_mb": 13300,
-      "replication_lag_ms": 33
+      "command": "XADD",
+      "latency_us": 19.813,
+      "cache_hit_rate": 82.21,
+      "connected_clients": 36,
+      "used_memory_mb": 12423,
+      "replication_lag_ms": 94
     }
   },
   "event": {
-    "duration": 36674,
+    "duration": 19813,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.memorydb",
     "provider": "memory-db.amazonaws.com"
   },
-  "message": "MemoryDB leaderboard SETEX: 36.67us",
+  "message": "MemoryDB session-store XADD: 19.81us",
   "log": {
     "level": "info"
   }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,79 +13,74 @@
   },
   "aws": {
     "dimensions": {
-      "DomainName": "prod-search-us-east-1",
+      "DomainName": "prod-search-eu-west-2",
       "ClientId": "293847561023"
     },
     "opensearch": {
-      "domain_name": "prod-search-us-east-1",
+      "domain_name": "prod-search-eu-west-2",
       "index": "app-logs",
       "operation": "index",
-      "took_ms": 23355,
+      "took_ms": 1314,
       "shards": {
         "total": 5,
-        "successful": 1,
-        "failed": 3
+        "successful": 5,
+        "failed": 0
       },
-      "hits_total": 0,
-      "status_code": 503,
+      "hits_total": 4846,
+      "status_code": 201,
       "metrics": {
         "CPUUtilization": {
-          "avg": 55.645
+          "avg": 45.857
         },
         "FreeStorageSpace": {
-          "avg": 44144900084
+          "avg": 193855238526
         },
         "ClusterStatus": {
-          "green": 0,
-          "yellow": 1,
+          "green": 1,
+          "yellow": 0,
           "red": 0
         },
         "Nodes": {
-          "avg": 6
+          "avg": 11
         },
         "SearchableDocuments": {
-          "avg": 608539430
+          "avg": 854257773
         },
         "IndexingLatency": {
-          "avg": 4694
+          "avg": 403
         },
         "SearchLatency": {
-          "avg": 199
+          "avg": 697
         },
         "IndexingRate": {
-          "avg": 12111
+          "avg": 23392
         },
         "SearchRate": {
-          "avg": 2285
+          "avg": 2682
         },
         "JVMMemoryPressure": {
-          "avg": 31.963
+          "avg": 48.626
         },
         "AutomatedSnapshotFailure": {
-          "sum": 1
+          "sum": 0
         }
       }
     }
   },
   "http": {
     "response": {
-      "status_code": 503
+      "status_code": 201
     }
   },
   "event": {
-    "duration": 23355088000,
-    "outcome": "failure",
+    "duration": 1314032000,
+    "outcome": "success",
     "category": "database",
     "dataset": "aws.opensearch",
     "provider": "es.amazonaws.com"
   },
-  "message": "OpenSearch index on app-logs failed [503] after 23355ms",
+  "message": "OpenSearch index on app-logs: 1314ms",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "503",
-    "message": "OpenSearch index failed",
-    "type": "db"
+    "level": "info"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "bedrock"
@@ -14,47 +14,42 @@
   "aws": {
     "bedrock": {
       "model_id": "amazon.titan-text-express-v1",
-      "invocation_latency_ms": 25557,
-      "input_token_count": 5435,
-      "output_token_count": 10,
-      "total_token_count": 5445,
-      "error_code": "ModelErrorException",
-      "use_case": "qa",
+      "invocation_latency_ms": 14344,
+      "input_token_count": 7153,
+      "output_token_count": 705,
+      "total_token_count": 7858,
+      "stop_reason": "end_turn",
+      "use_case": "text-generation",
       "guardrail_action": "INTERVENED",
       "metrics": {
         "Invocations": {
-          "sum": 466
+          "sum": 203
         },
         "InvocationLatency": {
-          "avg": 25557,
-          "p99": 51114
+          "avg": 14344,
+          "p99": 28688
         },
         "InputTokenCount": {
-          "sum": 5435
+          "sum": 7153
         },
         "OutputTokenCount": {
-          "sum": 10
+          "sum": 705
         },
         "Throttles": {
-          "sum": 10
+          "sum": 0
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "machine_learning",
     "dataset": "aws.bedrock",
     "provider": "bedrock.amazonaws.com",
-    "duration": 25557000000
+    "duration": 14344000000
   },
-  "message": "Bedrock titan invocation FAILED: ThrottlingException",
+  "message": "Bedrock titan 7153->705 tokens 14.34s",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ModelTimeoutException",
-    "message": "Bedrock invocation failed",
-    "type": "ml"
+    "level": "warn"
   }
 }

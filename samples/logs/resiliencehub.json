@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "resiliencehub"
@@ -13,34 +13,28 @@
   },
   "aws": {
     "resiliencehub": {
-      "app_arn": "arn:aws:resiliencehub:us-east-1:814726593401:app/eprfxu18j8s",
-      "app_name": "data-pipeline",
+      "app_arn": "arn:aws:resiliencehub:us-east-1:738291046572:app/w20rnysp6q",
+      "app_name": "ecommerce-platform",
       "operation": "CreateRecommendationTemplate",
-      "resiliency_score": 23,
-      "compliance_status": "POLICY_BREACHED",
-      "current_rto_seconds": 2365,
-      "target_rto_seconds": 1182,
-      "current_rpo_seconds": 77,
-      "target_rpo_seconds": 38,
-      "tier": "Important",
-      "disruption_type": "all",
-      "recommendation_count": 6,
-      "error_code": "ValidationException"
+      "resiliency_score": 83,
+      "compliance_status": "POLICY_MET",
+      "current_rto_seconds": 2655,
+      "target_rto_seconds": 5310,
+      "current_rpo_seconds": 1698,
+      "target_rpo_seconds": 3396,
+      "tier": "Non-Critical",
+      "disruption_type": "Hardware",
+      "recommendation_count": 1
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "process",
     "dataset": "aws.resiliencehub",
     "provider": "resiliencehub.amazonaws.com"
   },
-  "message": "Resilience Hub data-pipeline POLICY BREACHED [Important]: score=23, RTO 2365s exceeds target",
+  "message": "Resilience Hub ecommerce-platform [Non-Critical]: score=83, RTO=2655s, RPO=1698s",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "ResourceNotFoundException",
-    "message": "Resilience Hub policy breached",
-    "type": "resilience"
+    "level": "info"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,25 +13,31 @@
   },
   "aws": {
     "datasync": {
-      "task_arn": "arn:aws:datasync:us-east-1:164820739518:task/task-6j9gukg0mls",
-      "source_location_uri": "s3://source-bucket",
+      "task_arn": "arn:aws:datasync:us-east-1:164820739518:task/task-cyaic3n8bdw",
+      "source_location_uri": "nfs://on-prem-server/data",
       "destination_location_uri": "s3://prod-backup",
-      "status": "SUCCESS",
-      "files_transferred": 772742,
-      "bytes_transferred": 203680881844,
-      "files_failed": 0,
-      "duration_seconds": 520
+      "status": "ERROR",
+      "files_transferred": 0,
+      "bytes_transferred": 0,
+      "files_failed": 80,
+      "duration_seconds": 6819,
+      "error_code": "NfsPermissionError"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "file",
     "dataset": "aws.datasync",
     "provider": "datasync.amazonaws.com",
-    "duration": 520000000000
+    "duration": 6819000000000
   },
-  "message": "DataSync: 772,742 files transferred from s3:",
+  "message": "DataSync FAILED: S3 access denied",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "NetworkError",
+    "message": "DataSync task failed",
+    "type": "storage"
   }
 }

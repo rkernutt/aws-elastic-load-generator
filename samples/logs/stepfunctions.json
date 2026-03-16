@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "states"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "dimensions": {
-      "StateMachineArn": "arn:aws:states:us-east-1:738291046572:stateMachine:approval-workflow"
+      "StateMachineArn": "arn:aws:states:us-east-1:293847561023:stateMachine:user-onboarding"
     },
     "stepfunctions": {
-      "state_machine_name": "approval-workflow",
-      "state_machine_arn": "arn:aws:states:us-east-1:738291046572:stateMachine:approval-workflow",
-      "execution_arn": "arn:aws:states:us-east-1:738291046572:execution:approval-workflow:54hl3v0w",
-      "state_name": "ProcessPayment",
+      "state_machine_name": "user-onboarding",
+      "state_machine_arn": "arn:aws:states:us-east-1:293847561023:stateMachine:user-onboarding",
+      "execution_arn": "arn:aws:states:us-east-1:293847561023:execution:user-onboarding:h14ln7t3",
+      "state_name": "ValidateInput",
       "status": "SUCCEEDED",
-      "duration_seconds": 7.951,
-      "structured_logging": false,
+      "duration_seconds": 14.331,
+      "structured_logging": true,
       "metrics": {
         "ExecutionsStarted": {
-          "sum": 992
+          "sum": 2
         },
         "ExecutionsSucceeded": {
-          "sum": 768
+          "sum": 170
         },
         "ExecutionsFailed": {
           "sum": 0
         },
         "ExecutionsAborted": {
-          "sum": 2
+          "sum": 0
         },
         "ExecutionsTimedOut": {
           "sum": 0
@@ -43,20 +43,20 @@
           "sum": 0
         },
         "ExecutionTime": {
-          "avg": 7951,
-          "max": 15902
+          "avg": 14331,
+          "max": 28662
         }
       }
     }
   },
   "event": {
-    "duration": 7951000000,
+    "duration": 14331000000,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.stepfunctions",
     "provider": "states.amazonaws.com"
   },
-  "message": "Step Functions approval-workflow SUCCEEDED in 8.0s",
+  "message": "{\"executionArn\":\"arn:aws:states:us-east-1:293847561023:execution:user-onboarding:h14ln7t3\",\"stateMachine\":\"user-onboarding\",\"state\":\"ValidateInput\",\"status\":\"SUCCEEDED\",\"durationSeconds\":14.331,\"timestamp\":\"2026-03-16T16:55:00.054Z\"}",
   "log": {
     "level": "info"
   }

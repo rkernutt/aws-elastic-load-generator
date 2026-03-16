@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "pinpoint"
@@ -13,34 +13,28 @@
   },
   "aws": {
     "pinpoint": {
-      "application_id": "fa8y3b8l85e",
-      "event_type": "_campaign.send",
-      "channel": "VOICE",
-      "campaign_id": "syap8ovthhi",
-      "campaign_name": "re-engagement",
-      "journey_id": "k8ls24lya4",
-      "segment_id": "xcyb051o2po",
-      "endpoint_id": "user_ss88iwmll6",
-      "message_id": "8xw7zutc8z9",
-      "delivery_status": "DUPLICATE",
-      "status_message": "Address on suppression list",
-      "destination": "user_ss88iwmll6",
-      "iso_country_code": "FR"
+      "application_id": "96o7mbco3rs",
+      "event_type": "_email.send",
+      "channel": "EMAIL",
+      "campaign_id": "qyk5z3prgzo",
+      "campaign_name": "promo-black-friday",
+      "journey_id": "l759slh7nb8",
+      "segment_id": "3uisir1vru9",
+      "endpoint_id": "user_li49dbeb0i",
+      "message_id": "19u0p7vyz5ci",
+      "delivery_status": "PENDING",
+      "destination": "user_li49dbeb0i@example.com",
+      "iso_country_code": "AU"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "email",
     "dataset": "aws.pinpoint",
     "provider": "mobiletargeting.amazonaws.com"
   },
-  "message": "Pinpoint VOICE FAILED [re-engagement]: Invalid endpoint:",
+  "message": "Pinpoint _email.send [promo-black-friday]: user_li49dbeb0i via EMAIL",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "DeliveryFailure",
-    "message": "Pinpoint delivery failed",
-    "type": "messaging"
+    "level": "info"
   }
 }

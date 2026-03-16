@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "imagebuilder"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "container-base-pipeline",
+      "PipelineName": "golden-ami-pipeline",
       "Phase": "DISTRIBUTE"
     },
     "imagebuilder": {
-      "pipeline_name": "container-base-pipeline",
-      "image_version": "2.14.6/1",
+      "pipeline_name": "golden-ami-pipeline",
+      "image_version": "5.5.6/1",
       "phase": "DISTRIBUTE",
       "phase_status": "COMPLETED",
-      "duration_seconds": 1570,
-      "os": "RHEL 9",
-      "recipe_name": "docker-host",
-      "ami_id": "ami-f7de6q82",
+      "duration_seconds": 377,
+      "os": "Windows Server 2022",
+      "recipe_name": "web-server-recipe",
+      "ami_id": "ami-uzs595ef",
       "metrics": {
         "BuildDuration": {
-          "avg": 1570
+          "avg": 377
         },
         "ImageBuildSuccessCount": {
           "sum": 1
@@ -36,19 +36,19 @@
           "sum": 0
         },
         "ComponentBuildDuration": {
-          "avg": 665
+          "avg": 77
         }
       }
     }
   },
   "event": {
-    "duration": 1570000000000,
+    "duration": 377000000000,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.imagebuilder",
     "provider": "imagebuilder.amazonaws.com"
   },
-  "message": "Image Builder container-base-pipeline DISTRIBUTE COMPLETED in 1570s",
+  "message": "Image Builder golden-ami-pipeline DISTRIBUTE COMPLETED in 377s",
   "log": {
     "level": "info"
   }

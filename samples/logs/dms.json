@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,33 +13,27 @@
   },
   "aws": {
     "dms": {
-      "replication_task_id": "on-prem-to-rds",
+      "replication_task_id": "mongodb-to-documentdb",
       "migration_type": "full-load",
-      "source_engine": "postgresql",
-      "target_engine": "redshift",
+      "source_engine": "mongodb",
+      "target_engine": "aurora-postgresql",
       "replication_instance_class": "dms.r5.large",
-      "task_status": "Failed",
-      "full_load_rows_transferred": 0,
+      "task_status": "Load complete",
+      "full_load_rows_transferred": 7355931,
       "cdc_incoming_changes": 0,
       "latency_ms": 0,
-      "tables_loaded": 341,
-      "tables_errored": 2,
-      "error_message": "Column mapping failure"
+      "tables_loaded": 135,
+      "tables_errored": 0
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "database",
     "dataset": "aws.dms",
     "provider": "dms.amazonaws.com"
   },
-  "message": "DMS on-prem-to-rds FAILED (postgresql->redshift): Table mapping error",
-  "error": {
-    "code": "DMSError",
-    "message": "DMS task failed",
-    "type": "migration"
-  },
+  "message": "DMS mongodb-to-documentdb: 7,355,931 rows (mongodb->aurora-postgresql full-load)",
   "log": {
-    "level": "error"
+    "level": "info"
   }
 }

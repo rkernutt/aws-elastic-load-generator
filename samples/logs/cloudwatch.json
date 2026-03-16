@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "cloudwatchalarms"
@@ -13,33 +13,28 @@
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "high-cpu-alarm",
-      "alarm_state": "ALARM",
-      "previous_state": "INSUFFICIENT_DATA",
-      "namespace": "AWS/Lambda",
+      "alarm_name": "lambda-errors",
+      "alarm_state": "OK",
+      "previous_state": "ALARM",
+      "namespace": "Custom/Application",
       "metric_name": "RequestCount",
-      "threshold": 90,
-      "evaluation_periods": 1,
-      "metric_value": 33.79,
+      "threshold": 85,
+      "evaluation_periods": 3,
+      "metric_value": 56.891,
       "statistic": "Average",
-      "period_seconds": 3600,
-      "treat_missing_data": "breaching"
+      "period_seconds": 60,
+      "treat_missing_data": "missing"
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "failure",
+    "outcome": "success",
     "category": "configuration",
     "dataset": "aws.cloudwatch",
     "provider": "monitoring.amazonaws.com"
   },
-  "message": "CloudWatch alarm \"high-cpu-alarm\": ALARM (AWS/Lambda/RequestCount=33.8)",
+  "message": "CloudWatch alarm \"lambda-errors\": OK (Custom/Application/RequestCount=56.9)",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "AlarmTriggered",
-    "message": "Alarm high-cpu-alarm: ALARM",
-    "type": "monitoring"
+    "level": "info"
   }
 }

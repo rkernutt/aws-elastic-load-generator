@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "firehose"
@@ -17,25 +17,25 @@
     },
     "firehose": {
       "delivery_stream_name": "clickstream-backup",
-      "destination": "HTTPEndpoint",
-      "incoming_records": 46314,
-      "incoming_bytes": 80864244,
+      "destination": "Redshift",
+      "incoming_records": 6510,
+      "incoming_bytes": 1341060,
       "delivery_success": true,
-      "delivery_records": 46314,
-      "data_freshness_seconds": 187,
+      "delivery_records": 6510,
+      "data_freshness_seconds": 217,
       "metrics": {
         "IncomingRecords": {
-          "sum": 46314
+          "sum": 6510
         },
         "IncomingBytes": {
-          "sum": 60439770
+          "sum": 2825340
         },
         "DeliveryToS3_Records": {
           "sum": 0
         },
         "DeliveryToS3_Success": {},
         "DeliveryToRedshift_Records": {
-          "sum": 0
+          "sum": 6510
         },
         "DeliveryToElasticsearch_Records": {
           "sum": 0
@@ -44,10 +44,10 @@
           "sum": 0
         },
         "DataReadFromKinesisStream_Records": {
-          "sum": 46314
+          "sum": 6510
         },
         "DeliveryToS3_DataFreshness": {
-          "avg": 172
+          "avg": 298
         }
       }
     }
@@ -57,9 +57,9 @@
     "category": "process",
     "dataset": "aws.firehose",
     "provider": "firehose.amazonaws.com",
-    "duration": 36000000000
+    "duration": 22000000000
   },
-  "message": "Firehose clickstream-backup: 46314 records delivered",
+  "message": "Firehose clickstream-backup: 6510 records delivered",
   "log": {
     "level": "info"
   },

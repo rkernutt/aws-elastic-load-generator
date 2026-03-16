@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "waf"
@@ -14,79 +14,74 @@
   "aws": {
     "dimensions": {
       "WebACL": "admin-waf",
-      "Rule": "RateLimitRule",
+      "Rule": "AWSManagedRulesSQLiRuleSet",
       "Region": "us-east-1"
     },
     "waf": {
-      "web_acl_id": "eub617xm-8l28-31fo",
+      "web_acl_id": "hzg4bczw-9urj-5lgo",
       "web_acl_name": "admin-waf",
-      "terminating_rule_id": "RateLimitRule",
+      "terminating_rule_id": "AWSManagedRulesSQLiRuleSet",
       "rule_group_list": [
         {
-          "rule_group_id": "RateLimitRule",
-          "terminating_rule": "RateLimitRule",
+          "rule_group_id": "AWSManagedRulesSQLiRuleSet",
+          "terminating_rule": "AWSManagedRulesSQLiRuleSet",
           "rule_group_override_action": "NONE",
           "excluded_rules": []
         }
       ],
-      "action": "BLOCK",
+      "action": "ALLOW",
       "http_request": {
-        "client_ip": "214.78.209.66",
-        "country": "DE",
-        "uri": "/api/v1/users",
+        "client_ip": "52.65.160.85",
+        "country": "US",
+        "uri": "/api/v1/orders",
         "uri_query": "",
-        "method": "PATCH",
+        "method": "PUT",
         "headers": [
           {
             "name": "User-Agent",
-            "value": "python-requests/2.27.1"
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
           }
         ]
       },
       "http_source_name": "ALB",
       "metrics": {
         "AllowedRequests": {
-          "sum": 0
+          "sum": 6941
         },
         "BlockedRequests": {
-          "sum": 98
+          "sum": 0
         },
         "CountedRequests": {
-          "sum": 32
+          "sum": 35
         },
         "PassedRequests": {
-          "sum": 0
+          "sum": 9525
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "PUT",
-      "bytes": 258
+      "method": "PATCH",
+      "bytes": 4473
     },
-    "uri": "/api/v1/users"
+    "uri": "/api/v1/orders"
   },
   "client": {
-    "ip": "214.78.209.66"
+    "ip": "52.65.160.85"
   },
   "user_agent": {
-    "original": "python-requests/2.27.1"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
-    "action": "block",
-    "outcome": "failure",
+    "action": "allow",
+    "outcome": "success",
     "category": "intrusion_detection",
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com"
   },
-  "message": "WAF BLOCKED request - Rule: RateLimitRule",
+  "message": "WAF ALLOWED request - Rule: AWSManagedRulesSQLiRuleSet",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "WAFBlock",
-    "message": "Request blocked by rule: RateLimitRule",
-    "type": "security"
+    "level": "info"
   }
 }

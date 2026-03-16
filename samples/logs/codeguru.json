@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,16 +13,17 @@
   },
   "aws": {
     "codeguru": {
-      "product": "Reviewer",
+      "product": "Profiler",
       "repository_name": "backend-api",
-      "association_id": "31sbxl349n5",
-      "finding_id": "lqceunjpzse",
-      "category": "Security",
-      "severity": "Info",
-      "finding_description": "AWSBestPractices:S3BucketMissingServerSideEncryption",
-      "code_file": "server/routes.js",
-      "line_number": 210,
-      "pull_request_id": 138
+      "association_id": "0p2uycmex92n",
+      "finding_id": "sv3rcdzpcu",
+      "category": "IO",
+      "severity": "Medium",
+      "finding_description": "Database N+1 queries",
+      "code_file": "src/main/backendapi/Handler.java",
+      "line_number": 178,
+      "profiling_group": "backend-api-profiling",
+      "frame_percent": 49.275
     }
   },
   "event": {
@@ -31,7 +32,7 @@
     "dataset": "aws.codeguru",
     "provider": "codeguru.amazonaws.com"
   },
-  "message": "CodeGuru Reviewer [backend-api] Info: AWSBestPractices",
+  "message": "CodeGuru Profiler [backend-api] Medium: Database N+1 queries",
   "log": {
     "level": "info"
   }

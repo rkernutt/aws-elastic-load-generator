@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "servicecatalog"
@@ -13,29 +13,34 @@
   },
   "aws": {
     "servicecatalog": {
-      "operation": "UpdateProvisionedProduct",
-      "product_name": "S3 Static Site",
-      "product_id": "prod-8AEHT7TNJ1B",
-      "portfolio_id": "port-GU5BFI5QF5B",
-      "provisioned_product_name": "s3-static-site-3f9ugi",
-      "record_id": "rec-0UDWP6AMDNMA",
-      "status": "SUCCEEDED",
-      "requester_arn": "arn:aws:iam::164820739518:user/team-lead-bob",
-      "launch_role": "arn:aws:iam::123456789:role/ServiceCatalogLaunchRole"
+      "operation": "AssociatePrincipal",
+      "product_name": "Data Pipeline",
+      "product_id": "prod-XJ6GDF9NGRH",
+      "portfolio_id": "port-GCKGNNZZLJQ",
+      "provisioned_product_name": "data-pipeline-b93zbi",
+      "record_id": "rec-HPQ3UN2QJTH",
+      "status": "FAILED",
+      "requester_arn": "arn:aws:iam::501938274650:user/sre-carol",
+      "error": "Resource limit exceeded"
     }
   },
   "user": {
-    "name": "team-lead-bob"
+    "name": "sre-carol"
   },
   "event": {
-    "action": "UpdateProvisionedProduct",
-    "outcome": "success",
+    "action": "AssociatePrincipal",
+    "outcome": "failure",
     "category": "process",
     "dataset": "aws.servicecatalog",
     "provider": "servicecatalog.amazonaws.com"
   },
-  "message": "ServiceCatalog UpdateProvisionedProduct: team-lead-bob → S3 Static Site [SUCCEEDED]",
+  "message": "ServiceCatalog AssociatePrincipal FAILED [Data Pipeline]: Invalid params:",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ProvisioningFailed",
+    "message": "Service Catalog operation failed",
+    "type": "provisioning"
   }
 }

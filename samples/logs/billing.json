@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "billing"
@@ -13,41 +13,36 @@
   },
   "aws": {
     "billing": {
-      "service": "AmazonRDS",
-      "usage_type": "InstanceUsage",
-      "estimated_charges": 3692.945,
+      "service": "AWSDataTransfer",
+      "usage_type": "USE2-BoxUsage",
+      "estimated_charges": 457.168,
       "currency": "USD",
       "period_start": "2026-03-01",
-      "linked_account_id": "814726593401",
+      "linked_account_id": "293847561023",
       "dimensions": {
-        "Service": "AmazonRDS",
-        "LinkedAccount": "814726593401",
-        "UsageType": "InstanceUsage"
+        "Service": "AWSDataTransfer",
+        "LinkedAccount": "293847561023",
+        "UsageType": "USE2-BoxUsage"
       },
       "metrics": {
         "EstimatedCharges": {
-          "sum": 3692.945
+          "sum": 457.168
         },
         "NumberOfRequests": {
-          "sum": 659532
+          "sum": 468535
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "metric",
     "dataset": "aws.billing",
     "provider": "ce.amazonaws.com",
     "duration": 0
   },
-  "message": "Billing anomaly: AmazonRDS 3692.95 USD",
+  "message": "Billing: AWSDataTransfer 457.17 USD",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "BillingAnomaly",
-    "message": "Unusual cost detected",
-    "type": "billing"
+    "level": "info"
   }
 }

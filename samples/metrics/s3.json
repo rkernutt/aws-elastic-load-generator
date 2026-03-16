@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "s3"
@@ -13,105 +13,111 @@
   },
   "aws": {
     "dimensions": {
-      "BucketName": "media-uploads-us-east-1",
+      "BucketName": "artifacts-us-east-1",
       "StorageType": "StandardStorage"
     },
     "s3access": {
-      "bucket_owner": "293847561023",
-      "bucket": "media-uploads-us-east-1",
-      "remote_ip": "69.161.126.113",
-      "requester": "AIDAOW5B0JXYXKG",
-      "request_id": "KYXV8LWFOSB",
-      "operation": "REST.HEAD.OBJECT",
-      "key": "exports/diuyj2f9.json",
-      "request_uri": "/media-uploads-us-east-1/exports/diuyj2f9.json",
-      "http_status": 200,
-      "error_code": "-",
-      "bytes_sent": 947581059,
-      "object_size": "-",
-      "total_time": 48,
-      "turn_around_time": 38,
-      "referrer": "-",
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-      "host_id": "6SHH9AV6QDP+LG30VU",
+      "bucket_owner": "738291046572",
+      "bucket": "artifacts-us-east-1",
+      "remote_ip": "246.60.95.154",
+      "requester": "AIDA1TIHORWVZAP",
+      "request_id": "1REI18S3F8A",
+      "operation": "REST.GET.BUCKET",
+      "key": "-",
+      "request_uri": "/artifacts-us-east-1/data/p1ubx1b9.json",
+      "http_status": 400,
+      "error_code": "NoSuchKey",
+      "bytes_sent": 1054206263,
+      "object_size": 443188332,
+      "total_time": 907,
+      "turn_around_time": 725,
+      "referrer": "https://console.aws.amazon.com/s3/",
+      "user_agent": "Go-http-client/1.1",
+      "host_id": "HHR8MSQMW0Q+405V1Z",
       "signature_version": "SigV4",
       "authentication_type": "AuthHeader",
-      "host_header": "media-uploads-us-east-1.s3.us-east-1.amazonaws.com",
+      "host_header": "artifacts-us-east-1.s3.us-east-1.amazonaws.com",
       "tls_version": "TLSv1.2"
     },
     "s3": {
       "bucket": {
-        "name": "media-uploads-us-east-1",
-        "arn": "arn:aws:s3:::media-uploads-us-east-1"
+        "name": "artifacts-us-east-1",
+        "arn": "arn:aws:s3:::artifacts-us-east-1"
       },
       "object": {
-        "key": "exports/diuyj2f9.json",
-        "size": 866553977,
-        "etag": "n1wbvlidwbd"
+        "key": "data/p1ubx1b9.json",
+        "size": 646029845,
+        "etag": "o8xv19alfk"
       },
-      "operation": "REST.HEAD.OBJECT",
-      "request_id": "KYXV8LWFOSB",
+      "operation": "REST.GET.BUCKET",
+      "request_id": "1REI18S3F8A",
+      "error_code": "InternalError",
       "metrics": {
         "NumberOfObjects": {
-          "avg": 963697
+          "avg": 4720187
         },
         "BucketSizeBytes": {
-          "avg": 594663590218
+          "avg": 211467009349
         },
         "AllRequests": {
-          "sum": 62026
+          "sum": 59371
         },
         "GetRequests": {
-          "sum": 47266
+          "sum": 13927
         },
         "PutRequests": {
-          "sum": 2777
+          "sum": 12
         },
         "DeleteRequests": {
-          "sum": 644
+          "sum": 520
         },
         "4xxErrors": {
-          "sum": 0
+          "sum": 18
         },
         "5xxErrors": {
           "sum": 0
         },
         "FirstByteLatency": {
-          "avg": 73
+          "avg": 3445
         },
         "TotalRequestLatency": {
-          "avg": 143
+          "avg": 9959
         },
         "BytesDownloaded": {
-          "sum": 893489242
+          "sum": 741081470
         },
         "BytesUploaded": {
-          "sum": 53207662
+          "sum": 80692894
         }
       }
     }
   },
   "http": {
     "response": {
-      "status_code": 200,
-      "bytes": 947581059
+      "status_code": 400,
+      "bytes": 1054206263
     }
   },
   "client": {
-    "ip": "69.161.126.113"
+    "ip": "246.60.95.154"
   },
   "user_agent": {
-    "original": "curl/7.68.0"
+    "original": "Go-http-client/1.1"
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "file",
     "dataset": "aws.s3",
     "provider": "s3.amazonaws.com"
   },
-  "message": "REST.HEAD.OBJECT s3://media-uploads-us-east-1/exports/diuyj2f9.json 200",
+  "message": "REST.GET.BUCKET s3://artifacts-us-east-1/data/p1ubx1b9.json 400",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "InternalError",
+    "message": "S3 REST.GET.BUCKET failed: 400",
+    "type": "storage"
   },
   "data_stream": {
     "type": "metrics",

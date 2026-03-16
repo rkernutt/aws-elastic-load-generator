@@ -4,6 +4,8 @@ Ingest pipeline definitions for parsing **JSON from the log `message` field** fo
 
 **Full plan:** See [PLAN-PARSE-JSON-SERVICES.md](PLAN-PARSE-JSON-SERVICES.md) for all 23 services, pipeline IDs, target fields, index patterns, and example JSON keys.
 
+**Glue & SageMaker from CloudWatch:** For a step-by-step AWS + Elastic guide (enable logging, IAM, Fleet/Custom Logs integration, and these pipelines), see [docs/GUIDE-CLOUDWATCH-GLUE-SAGEMAKER-ELASTIC.md](../docs/GUIDE-CLOUDWATCH-GLUE-SAGEMAKER-ELASTIC.md).
+
 **Pipeline JSON files in this folder:**
 
 | Service | Pipeline ID | File |

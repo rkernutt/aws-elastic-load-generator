@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,50 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "CacheClusterId": "prod-redis-4",
-      "CacheNodeId": "0005"
+      "CacheClusterId": "prod-redis-5",
+      "CacheNodeId": "0002"
     },
     "elasticache": {
-      "cluster_id": "prod-redis-4",
-      "node_id": "0005",
+      "cluster_id": "prod-redis-5",
+      "node_id": "0002",
       "engine": "redis",
       "engine_version": "7.1.0",
       "replication_group_id": "prod-cache",
       "command": "ZADD",
-      "latency_us": 1911.675,
+      "latency_us": 44.198,
       "cache_hit": false,
-      "connected_clients": 177,
-      "used_memory_mb": 11093,
+      "connected_clients": 256,
+      "used_memory_mb": 16038,
       "metrics": {
         "CPUUtilization": {
-          "avg": 80.021
+          "avg": 39.327
         },
         "FreeableMemory": {
-          "avg": 5376444408
+          "avg": 2548009286
         },
         "NetworkBytesIn": {
-          "sum": 41440482
+          "sum": 82190348
         },
         "NetworkBytesOut": {
-          "sum": 85731675
+          "sum": 95475427
         },
         "CacheHits": {
-          "sum": 31837
+          "sum": 66557
         },
         "CacheMisses": {
-          "sum": 9278
+          "sum": 6157
         },
         "CurrConnections": {
-          "avg": 474
+          "avg": 87
         },
         "NewConnections": {
-          "sum": 2
+          "sum": 78
         },
         "Evictions": {
-          "sum": 108
+          "sum": 0
         },
         "ReplicationLag": {
-          "avg": 4.378
+          "avg": 0.115
         },
         "SaveInProgress": {
           "avg": 0
@@ -69,19 +69,14 @@
     "operation": "ZADD"
   },
   "event": {
-    "duration": 1911675,
-    "outcome": "failure",
+    "duration": 44198,
+    "outcome": "success",
     "category": "database",
     "dataset": "aws.elasticache",
     "provider": "elasticache.amazonaws.com"
   },
-  "message": "Redis ZADD failed: LOADING",
+  "message": "Redis ZADD 44.20us",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "RedisError",
-    "message": "LOADING",
-    "type": "db"
+    "level": "info"
   }
 }

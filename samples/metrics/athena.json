@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,50 +13,50 @@
   },
   "aws": {
     "athena": {
-      "query_id": "e0f6mile-3wok-j4ni-rges",
+      "query_id": "53qhrcua-8c1i-lmto-om9e",
       "workgroup": "bi-users",
-      "database": "raw",
+      "database": "staging",
       "state": "SUCCEEDED",
-      "duration_seconds": 48.959,
-      "data_scanned_bytes": 8678745763,
-      "data_scanned_mb": 8277,
-      "engine_version": "Athena engine version 3",
-      "structured_logging": true,
+      "duration_seconds": 51.616,
+      "data_scanned_bytes": 664708207,
+      "data_scanned_mb": 634,
+      "engine_version": "DuckDB 0.9.1",
+      "structured_logging": false,
       "metrics": {
         "DataScannedInBytes": {
-          "sum": 8678745763
+          "sum": 664708207
         },
         "EngineExecutionTimeInMillis": {
-          "avg": 48959,
-          "max": 73439
+          "avg": 51616,
+          "max": 77424
         },
         "ProcessedBytes": {
-          "sum": 8678745763
+          "sum": 664708207
         },
         "QueryQueueTimeInMillis": {
-          "avg": 48
+          "avg": 398
         },
         "TotalExecutionTimeInMillis": {
-          "avg": 48959
+          "avg": 51616
         },
         "QueryPlanningTimeInMillis": {
-          "avg": 27
+          "avg": 53
         }
       }
     }
   },
   "db": {
-    "statement": "SELECT p.name, count(o.id) FROM products p JOIN orders o ON p.id = o.product_id GROUP BY 1",
+    "statement": "SELECT user_id, sum(revenue) FROM transactions WHERE dt >= '2024-01-01' GROUP BY 1",
     "type": "sql"
   },
   "event": {
-    "duration": 48959000000,
+    "duration": 51616000000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.athena",
     "provider": "athena.amazonaws.com"
   },
-  "message": "{\"queryId\":\"e0f6mile-3wok-j4ni-rges\",\"workgroup\":\"bi-users\",\"database\":\"raw\",\"state\":\"SUCCEEDED\",\"durationSeconds\":48.959,\"dataScannedBytes\":8678745763,\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
+  "message": "Athena query SUCCEEDED in 51.6s, scanned 634MB",
   "log": {
     "level": "warn"
   },

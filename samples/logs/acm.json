@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "acm"
@@ -13,24 +13,29 @@
   },
   "aws": {
     "acm": {
-      "certificate_arn": "arn:aws:acm:eu-west-2:814726593401:certificate/81k7otjy-3peo",
-      "domain_name": "www.example.com",
-      "status": "ISSUED",
+      "certificate_arn": "arn:aws:acm:us-east-1:738291046572:certificate/brx1n655-vwav",
+      "domain_name": "api.example.com",
+      "status": "FAILED",
       "type": "AMAZON_ISSUED",
-      "days_to_expiry": 94,
+      "days_to_expiry": 0,
       "key_algorithm": "RSA_2048",
       "validation_method": "EMAIL",
-      "renewal_status": "SUCCESS"
+      "renewal_status": "FAILED"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "network",
     "dataset": "aws.acm",
     "provider": "acm.amazonaws.com"
   },
-  "message": "ACM certificate for www.example.com: ISSUED, 94d remaining",
+  "message": "ACM certificate for api.example.com: FAILED",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "FAILED",
+    "message": "Certificate api.example.com: FAILED",
+    "type": "certificate"
   }
 }

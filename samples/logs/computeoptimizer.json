@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,37 +13,42 @@
   },
   "aws": {
     "computeoptimizer": {
-      "resource_type": "LAMBDA_FUNCTION",
-      "resource_arn": "arn:aws:ec2:us-east-1:293847561023:instance/i-86a8ei1nvqs",
+      "resource_type": "EC2_INSTANCE",
+      "resource_arn": "arn:aws:ec2:us-east-1:293847561023:instance/i-74pwadikd1i",
       "finding": "OVERPROVISIONED",
       "current_configuration": {
         "instance_type": "c5.2xlarge",
-        "vcpu": 2,
-        "memory_gb": 82
+        "vcpu": 20,
+        "memory_gb": 104
       },
       "recommended_configuration": {
-        "instance_type": "t3.small",
-        "vcpu": 10,
-        "memory_gb": 29
+        "instance_type": "c5.xlarge",
+        "vcpu": 16,
+        "memory_gb": 8
       },
-      "estimated_monthly_savings_usd": 66.664,
-      "estimated_monthly_savings_percent": 30.421,
-      "lookback_period_days": 32,
+      "estimated_monthly_savings_usd": 215.687,
+      "estimated_monthly_savings_percent": 32.539,
+      "lookback_period_days": 14,
       "utilization": {
-        "cpu_max": 84.294,
-        "memory_max": 11.181
+        "cpu_max": 9.294,
+        "memory_max": 49.796
       },
-      "performance_risk": "High"
+      "performance_risk": "Medium"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "configuration",
     "dataset": "aws.computeoptimizer",
     "provider": "compute-optimizer.amazonaws.com"
   },
-  "message": "Compute Optimizer: LAMBDA_FUNCTION OVERPROVISIONED — downsize c5.2xlarge→t3.small, save 67/mo",
+  "message": "Compute Optimizer: EC2_INSTANCE OVERPROVISIONED — downsize c5.2xlarge→c5.xlarge, save 216/mo",
   "log": {
     "level": "info"
+  },
+  "error": {
+    "code": "OptimizerFinding",
+    "message": "Compute Optimizer finding",
+    "type": "configuration"
   }
 }

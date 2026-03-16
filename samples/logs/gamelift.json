@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,18 +13,19 @@
   },
   "aws": {
     "gamelift": {
-      "fleet_id": "fleet-f0jc6ftw",
-      "fleet_name": "matchmaking-fleet",
-      "event_type": "PlayerSessionCreated",
-      "game_session_id": "arn:aws:gamelift:eu-west-2::gamesession/matchmaking-fleet/dv1urirgais",
-      "player_session_id": "psess-fx0m38t29gp",
-      "current_player_sessions": 62,
+      "fleet_id": "fleet-dhsyaw7d",
+      "fleet_name": "us-east-realtime",
+      "event_type": "MatchmakingSucceeded",
+      "game_session_id": "arn:aws:gamelift:us-east-1::gamesession/us-east-realtime/34rx207mz1h",
+      "current_player_sessions": 5,
       "maximum_player_sessions": 100,
       "instance_type": "c5.xlarge",
-      "instance_count": 3,
-      "desired_instances": 4,
-      "idle_instances": 0,
-      "matchmaking_configuration": "BalancedMatch"
+      "instance_count": 6,
+      "desired_instances": 13,
+      "idle_instances": 7,
+      "matchmaking_configuration": "BalancedMatch",
+      "matchmaking_ticket_id": "q3qvxnwpgjj",
+      "matchmaking_duration_seconds": 54
     }
   },
   "event": {
@@ -33,7 +34,7 @@
     "dataset": "aws.gamelift",
     "provider": "gamelift.amazonaws.com"
   },
-  "message": "GameLift matchmaking-fleet: PlayerSessionCreated",
+  "message": "GameLift us-east-realtime: MatchmakingSucceeded",
   "log": {
     "level": "info"
   }

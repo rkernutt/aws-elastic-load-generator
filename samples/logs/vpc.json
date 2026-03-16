@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T15:20:27.243Z",
+  "@timestamp": "2026-03-16T16:55:00.054Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "vpc"
@@ -13,50 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "VpcId": "vpc-310dqkjk"
+      "VpcId": "vpc-q29ugb8j"
     },
     "vpcflow": {
       "version": "2",
-      "account_id": "814726593401",
-      "interface_id": "eni-wbs89pvb",
+      "account_id": "501938274650",
+      "interface_id": "eni-r512z86c",
       "action": "ACCEPT",
       "log_status": "OK",
-      "instance_id": "i-8w5iw3g8oxe",
-      "pkt_srcaddr": "97.229.86.85",
-      "pkt_dstaddr": "139.135.145.181",
-      "vpc_id": "vpc-310dqkjk",
-      "subnet_id": "subnet-taxlg8c2",
+      "instance_id": "i-3sym59096uw",
+      "pkt_srcaddr": "229.15.85.39",
+      "pkt_dstaddr": "37.232.70.36",
+      "vpc_id": "vpc-q29ugb8j",
+      "subnet_id": "subnet-hxmp531k",
       "type": "IPv4"
     },
     "vpc": {
       "action": "ACCEPT",
       "log_status": "OK",
-      "interface_id": "eni-wbs89pvb",
-      "vpc_id": "vpc-310dqkjk",
-      "subnet_id": "subnet-taxlg8c2",
-      "account_id": "814726593401",
+      "interface_id": "eni-r512z86c",
+      "vpc_id": "vpc-q29ugb8j",
+      "subnet_id": "subnet-hxmp531k",
+      "account_id": "501938274650",
       "metrics": {
         "BytesTransferred": {
-          "sum": 48979
+          "sum": 1837
         },
         "PacketsTransferred": {
-          "sum": 67
+          "sum": 26
         }
       }
     }
   },
   "source": {
-    "ip": "97.229.86.85",
-    "port": 6175
+    "ip": "229.15.85.39",
+    "port": 15052
   },
   "destination": {
-    "ip": "139.135.145.181",
+    "ip": "37.232.70.36",
     "port": 443
   },
   "network": {
-    "transport": "udp",
-    "bytes": 48979,
-    "packets": 67,
+    "transport": "tcp",
+    "bytes": 1837,
+    "packets": 26,
     "direction": "outbound"
   },
   "event": {
@@ -66,7 +66,7 @@
     "dataset": "aws.vpcflow",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "ACCEPT UDP 97.229.86.85:37061 -> 139.135.145.181:443 48979B 67pkts",
+  "message": "ACCEPT TCP 229.15.85.39:10459 -> 37.232.70.36:443 1837B 26pkts",
   "log": {
     "level": "info"
   }
