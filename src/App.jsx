@@ -4012,6 +4012,46 @@ const INGESTION_META = {
   agent:      { label:"Agent",      color:"#a78bfa", inputType:"logfile" },
 };
 
+// Official AWS Architecture Icons (stored locally in public/aws-icons/). Service id → SVG filename. Fallback: keep Unicode icon.
+const AWS_ICON_BASE = (typeof import.meta !== "undefined" && import.meta.env?.BASE_URL) ? import.meta.env.BASE_URL + "aws-icons" : "/aws-icons";
+const AWS_SERVICE_ICON_MAP = {
+  lambda: "AWSLambda", apigateway: "AmazonAPIGateway", vpc: "AmazonVirtualPrivateCloud", cloudtrail: "AWSCloudTrail",
+  rds: "AmazonRDS", ecs: "AmazonElasticContainerService", ec2: "AmazonEC2", eks: "AmazonElasticKubernetesService",
+  apprunner: "AWSAppRunner", batch: "AWSBatch", elasticbeanstalk: "AWSElasticBeanstalk", ecr: "AmazonElasticContainerRegistry",
+  fargate: "AWSFargate", autoscaling: "AmazonEC2AutoScaling", imagebuilder: "AmazonEC2ImageBuilder",
+  alb: "ElasticLoadBalancing", nlb: "ElasticLoadBalancing", cloudfront: "AmazonCloudFront", waf: "AWSWAF", wafv2: "AWSWAF",
+  route53: "AmazonRoute53", networkfirewall: "AWSNetworkFirewall", shield: "AWSShield", globalaccelerator: "AWSGlobalAccelerator",
+  transitgateway: "AWSTransitGateway", directconnect: "AWSDirectConnect", vpn: "AWSSitetoSiteVPN", privatelink: "AWSPrivateLink",
+  guardduty: "AmazonGuardDuty", securityhub: "AWSSecurityHub", macie: "AmazonMacie", inspector: "AmazonInspector",
+  config: "AWSConfig", accessanalyzer: "AWSIdentityandAccessManagement", cognito: "AmazonCognito", kms: "AWSKeyManagementService",
+  secretsmanager: "AWSSecretsManager", acm: "AWSCertificateManager", identitycenter: "AWSIAMIdentityCenter", detective: "AmazonDetective",
+  s3: "AmazonSimpleStorageService", dynamodb: "AmazonDynamoDB", elasticache: "AmazonElastiCache", redshift: "AmazonRedshift",
+  opensearch: "AmazonOpenSearchService", docdb: "AmazonDocumentDB", ebs: "AmazonElasticBlockStore", efs: "AmazonEFS",
+  fsx: "AmazonFSx", datasync: "AWSDataSync", backup: "AWSBackup", storagegateway: "AWSStorageGateway",
+  aurora: "AmazonAurora", neptune: "AmazonNeptune", timestream: "AmazonTimestream", qldb: "AmazonQuantumLedgerDatabase",
+  keyspaces: "AmazonKeyspaces", memorydb: "AmazonMemoryDB", kinesis: "AmazonKinesisDataStreams", firehose: "AmazonDataFirehose",
+  kinesisanalytics: "AmazonManagedServiceforApacheFlink", msk: "AmazonManagedStreamingforApacheKafka",
+  sqs: "AmazonSimpleQueueService", sns: "AmazonSimpleNotificationService", amazonmq: "AmazonMQ", eventbridge: "AmazonEventBridge",
+  stepfunctions: "AWSStepFunctions", appsync: "AWSAppSync", codebuild: "AWSCodeBuild", codepipeline: "AWSCodePipeline",
+  codedeploy: "AWSCodeDeploy", codecommit: "AWSCodeCommit", codeartifact: "AWSCodeArtifact", amplify: "AWSAmplify", xray: "AWSXRay",
+  emr: "AmazonEMR", glue: "AWSGlue", athena: "AmazonAthena", lakeformation: "AWSLakeFormation", quicksight: "AmazonQuickSuite",
+  databrew: "AWSGlueDataBrew", appflow: "AmazonAppFlow", sagemaker: "AmazonSageMaker", bedrock: "AmazonBedrock",
+  bedrockagent: "AmazonBedrockAgentCore", rekognition: "AmazonRekognition", textract: "AmazonTextract", comprehend: "AmazonComprehend",
+  translate: "AmazonTranslate", transcribe: "AmazonTranscribe", polly: "AmazonPolly", forecast: "AmazonForecast",
+  personalize: "AmazonPersonalize", lex: "AmazonLex", iotcore: "AWSIoTCore", greengrass: "AWSIoTGreengrass",
+  iotanalytics: "AmazonKinesisDataStreams", cloudformation: "AWSCloudFormation", ssm: "AWSSystemsManager",
+  cloudwatch: "AmazonCloudWatch", health: "AWSHealthDashboard", trustedadvisor: "AWSTrustedAdvisor", controltower: "AWSControlTower",
+  organizations: "AWSOrganizations", servicecatalog: "AWSServiceCatalog", servicequotas: "AWSConfig", computeoptimizer: "AWSComputeOptimizer",
+  budgets: "AWSBudgets", billing: "AWSCostExplorer", ram: "AWSResourceAccessManager", resiliencehub: "AWSResilienceHub",
+  migrationhub: "AWSMigrationHub", networkmanager: "AWSCloudWAN", dms: "AWSDatabaseMigrationService",
+  mediaconvert: "AWSElementalMediaConvert", medialive: "AWSElementalMediaLive", workspaces: "AmazonWorkSpaces",
+  connect: "AmazonConnect", appstream: "AmazonWorkSpaces", gamelift: "AmazonGameLiftServers", ses: "AmazonSimpleEmailService",
+  pinpoint: "AmazonPinpoint", transferfamily: "AWSTransferFamily", lightsail: "AmazonLightsail", frauddetector: "AmazonFraudDetector",
+  lookoutmetrics: "AmazonLookoutforMetrics", comprehendmedical: "AmazonComprehendMedical", locationservice: "AmazonLocationService",
+  managedblockchain: "AmazonManagedBlockchain", codeguru: "AmazonCodeGuru", devopsguru: "AmazonDevOpsGuru",
+  iotevents: "AWSIoTEvents", iotsitewise: "AWSIoTSiteWise", iotdefender: "AWSIoTDeviceDefender",
+};
+
 const SERVICE_GROUPS = [
   { id:"serverless", label:"Serverless & Core", color:"#FF9900", icon:"λ", services:[
     {id:"lambda",label:"Lambda",icon:"λ",desc:"Function execution logs"},
@@ -4463,7 +4503,11 @@ export default function App() {
                 return (
                   <div key={group.id} style={{border:`1px solid ${allSel?group.color+"88":someSel?group.color+"66":"#e2e8f0"}`,borderRadius:10,overflow:"hidden",background:allSel?`${group.color}12`:someSel?`${group.color}08`:"#ffffff",transition:"border-color 0.2s",boxShadow:"0 1px 2px rgba(0,0,0,0.04)"}}>
                     <div style={{display:"flex",alignItems:"center",gap:10,padding:"10px 14px",cursor:"pointer",userSelect:"none"}} onClick={()=>toggleCollapse(group.id)}>
-                      <span style={{fontSize:14,minWidth:18,color:selCount>0?group.color:"#64748b"}}>{group.icon}</span>
+                      {AWS_SERVICE_ICON_MAP[group.services[0]?.id] ? (
+                        <img src={`${AWS_ICON_BASE}/${AWS_SERVICE_ICON_MAP[group.services[0].id]}.svg`} alt="" style={{ width:18, height:18, objectFit:"contain" }} />
+                      ) : (
+                        <span style={{fontSize:14,minWidth:18,color:selCount>0?group.color:"#64748b"}}>{group.icon}</span>
+                      )}
                       <span style={{fontSize:12,fontWeight:600,color:selCount>0?group.color:"#475569",flex:1}}>{group.label}</span>
                       <span style={{fontSize:10,color:"#64748b"}}>{eventType==="metrics"?`${selectableInGroup.length} metrics` : `${group.services.length} services`}</span>
                       {selCount>0&&(
@@ -4491,7 +4535,11 @@ export default function App() {
                               opacity:metricsDisabled?0.7:1,
                             }}>
                               {sel&&<div style={{position:"absolute",top:0,left:0,right:0,height:2,background:group.color,borderRadius:"8px 8px 0 0"}}/>}
-                              <div style={{fontSize:15,marginBottom:4}}>{svc.icon}</div>
+                              {AWS_SERVICE_ICON_MAP[svc.id] ? (
+                                <img src={`${AWS_ICON_BASE}/${AWS_SERVICE_ICON_MAP[svc.id]}.svg`} alt="" style={{ width:28, height:28, objectFit:"contain" }} />
+                              ) : (
+                                <div style={{fontSize:15,marginBottom:4}}>{svc.icon}</div>
+                              )}
                               <div style={{fontSize:10,fontWeight:700,color:sel?group.color:metricsDisabled?"#94a3b8":"#475569",marginBottom:2}}>{svc.label}</div>
                               <div style={{fontSize:9,color:metricsDisabled?"#94a3b8":"#64748b",lineHeight:1.3,marginBottom:5}}>{svc.desc}</div>
                               {metricsDisabled ? <div style={{fontSize:9,color:"#94a3b8",fontWeight:600}}>No metrics</div> : <div style={{fontSize:9,fontWeight:600,color:meta?.color||"#64748b",background:`${meta?.color||"#64748b"}18`,border:`1px solid ${meta?.color||"#64748b"}44`,borderRadius:4,padding:"1px 5px",display:"inline-block"}}>{meta?.label||src}</div>}

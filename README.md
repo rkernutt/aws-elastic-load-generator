@@ -1,46 +1,57 @@
 # ⚡ AWS → Elastic Load Generator
 
-A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **109 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
+**v6** — A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **134 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
 
-Each service has its **correct real-world ingestion source** pre-configured — S3, CloudWatch, direct API, Firehose, **OTel** (OpenTelemetry), or **Elastic Agent** — matching how each service actually delivers data to Elastic in production. You can leave **Default (per-service)** or override all services to a single ingestion method (e.g. OTel) for testing.
+Each service has its **correct real-world ingestion source** pre-configured — S3, CloudWatch, direct API, Firehose, **OTel** (OpenTelemetry), or **Elastic Agent** — matching how each service actually delivers data to Elastic in production. You can leave **Default (per-service)** or override all services to a single ingestion method (e.g. OTel) for testing. Switch between **Logs** and **Metrics** mode; only services with Elastic metrics support are selectable in Metrics mode.
 
 ---
 
-## What's New in v4
+## What's New in v6
 
-- **Realistic account names** — all documents use a consistent fictitious AWS organisation (`globex-production`, `globex-staging`, `globex-development`, `globex-security-tooling`, `globex-shared-services`) with realistic 12-digit account IDs
-- **Focused region pool** — regions are now restricted to `eu-west-2` and `us-east-1` for coherent, consistent test data
-- **`event.dataset` on every document** — every generator sets the correct `event.dataset` (e.g. `aws.lambda`, `aws.guardduty`) so documents route to the right Elastic integration dashboards
-- **`event.provider` on every document** — every generator sets the corresponding AWS service endpoint (e.g. `lambda.amazonaws.com`, `guardduty.amazonaws.com`)
-- **ECS enrichment for non-integrated services** — services without a native Elastic integration now emit common ECS field groups (`error.*`, `user.*`, `source.ip`, `network.*`, `url.*`, `user_agent.original`, `file.*`, `process.*`, `host.*`) making them fully searchable in any ECS index
-- **`cloud.account.name` on every document** — all 109 generators include both `cloud.account.id` and `cloud.account.name`
+- **Logs / Metrics toggle** — Generate either log documents or metrics documents. In Metrics mode, only the 24 services with Elastic AWS metrics integration are selectable; index prefix defaults to `metrics-aws`.
+- **Official AWS service icons** — Service tiles use official AWS Architecture Icons stored locally (`public/aws-icons/`), copied from the `aws-icons` package at install time (no CDN).
+- **Sample data directory** — `samples/logs/` and `samples/metrics/` contain one sample document per service. Regenerate with `npm run samples`.
+- **Bedrock Agent & Billing** — Added Bedrock Agent and AWS Billing (logs and metrics) with Elastic integration alignment.
+- **Structured / continuous logging** — Many services (Lambda, API Gateway, RDS, ECS, EC2, EKS, Glue, EMR, SageMaker, and others) can emit JSON in the `message` field and optional metrics blocks, matching real-world continuous logging.
+- **Ingest pipeline plan** — [ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md](ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md) documents pipeline IDs, target fields, and index patterns for all services that emit parseable JSON messages; pipeline JSON files provided for Glue, Lambda, API Gateway, RDS, ECS, EMR, SageMaker.
+- **Reduced null fields** — Generated documents have `null` values stripped so output stays clean.
+- **Application rename** — Project and UI titled **AWS → Elastic Load Generator** (load, not log).
 
 ---
 
 ## What's New in v5 — Elastic integration alignment
 
-- **Data stream dataset mapping** — Services with an Elastic AWS integration now use the exact `data_stream.dataset` (and index suffix) from the [Elastic integrations repo](https://github.com/elastic/integrations/tree/main/packages/aws/data_stream), so generated logs populate the correct integration dashboards and rules.
+- **Data stream dataset mapping** — Services with an Elastic AWS integration use the exact `data_stream.dataset` (and index suffix) from the [Elastic integrations repo](https://github.com/elastic/integrations/tree/main/packages/aws/data_stream), so generated logs populate the correct integration dashboards and rules.
 - **Integration-backed services** — CloudTrail, VPC Flow, ALB/NLB, GuardDuty, S3 access, API Gateway, CloudFront, Lambda, Network Firewall, Security Hub, WAF, RDS, Route 53, EMR, EC2, ECS, Config, Inspector, DynamoDB, Redshift, EBS, Kinesis, MSK, SNS, SQS, Transit Gateway, VPN, AWS Health use the corresponding Elastic dataset where applicable.
-- **Services without an Elastic integration** — All other services still use `data_stream.dataset: aws.<service>` and ECS-style fields so they remain searchable in custom dashboards.
-- **ECS baseline for every service** — Every document is enriched with standard ECS fields when missing: `source.ip`, `destination.ip`, `network.transport` / `network.direction`, `host.name` / `host.hostname`, `process.name`, `user_agent.original`, `url.path` / `url.domain`, `error.message` (on failure), `user.name`, `service.name`, and `file.path` / `file.name` where relevant. All 109 services are searchable in ECS indices.
+- **Services without an Elastic integration** — All other services use `data_stream.dataset: aws.<service>` and ECS-style fields so they remain searchable in custom dashboards.
+- **ECS baseline for every service** — Every document is enriched with standard ECS fields when missing; all services are searchable in ECS indices.
+
+---
+
+## What's New in v4
+
+- **Realistic account names** — All documents use a consistent fictitious AWS organisation (`globex-production`, `globex-staging`, etc.) with realistic 12-digit account IDs.
+- **Focused region pool** — Regions restricted to `eu-west-2` and `us-east-1`.
+- **`event.dataset` and `event.provider`** on every document for correct routing to Elastic integration dashboards.
+- **ECS enrichment for non-integrated services** — Common ECS field groups so all services are searchable in ECS indices.
+- **`cloud.account.name`** on every document.
 
 ---
 
 ## What's New in v3
 
-- **`cloud.account.id` + `cloud.account.name`** added to all 109 generators
-- **CloudWatch dimension fields** (`aws.dimensions.*`) added to all CloudWatch-sourced services
-- **CloudWatch metric fields** (`aws.*.metrics.*`) added to all CloudWatch-sourced services using exact CloudWatch metric names (e.g. `aws.lambda.metrics.Errors.sum`, `aws.rds.metrics.CPUUtilization.avg`)
-- Lambda extended with full CloudWatch dimension set including `EventSourceMappingUUID` where applicable
+- **`cloud.account.id` + `cloud.account.name`** added to all generators.
+- **CloudWatch dimension fields** (`aws.dimensions.*`) and **CloudWatch metric fields** (`aws.*.metrics.*`) with exact CloudWatch metric names.
+- Lambda extended with full CloudWatch dimension set including `EventSourceMappingUUID` where applicable.
 
 ---
 
 ## What's New in v2
 
-- Per-service ingestion defaults — every service defaults to its correct `input.type`
-- Default (per-service) mode and ingestion override controls
-- Service card badges showing effective ingestion source
-- Override warning banner and activity log enhancement
+- Per-service ingestion defaults — every service defaults to its correct `input.type`.
+- Default (per-service) mode and ingestion override controls.
+- Service card badges showing effective ingestion source.
+- Override warning banner and activity log enhancement.
 
 ---
 
@@ -76,12 +87,12 @@ To stop Docker: `docker compose down`
 
 ## Usage
 
-1. **Select services** — toggle individual services, entire groups, or all 109 at once
+1. **Select services** — toggle individual services, entire groups, or all 134 at once
 2. **Configure volume** — set logs per service (50–5,000), error rate (0–50%), and batch size
 3. **Set ingestion source** — leave on **Default (per-service)** or override all services to a specific source
 4. **Connect to Elastic** — enter your Elasticsearch URL, API key, and index prefix
 5. **Preview a document** — click **Preview doc** to inspect a sample before shipping
-6. **Ship logs** — click ⚡ Ship Logs and watch real-time progress in the activity log
+6. **Ship** — click ⚡ **Ship** and watch real-time progress in the activity log (logs or metrics depending on mode)
 
 ### Getting an Elastic API Key
 
@@ -92,7 +103,7 @@ To stop Docker: `docker compose down`
 
 ### Index naming
 
-Indices follow the Elastic data stream dataset where applicable: `{prefix}-{dataset_suffix}`, e.g. `logs-aws-lambda`, `logs-aws-elb_logs` (for both ALB and NLB), `logs-aws-vpcflow`, `logs-aws-guardduty`. Services without a dedicated integration use `logs-aws-{service}`.
+Indices follow the Elastic data stream dataset where applicable: `{prefix}-{dataset_suffix}`. In **Logs** mode (default prefix `logs-aws`): e.g. `logs-aws-lambda`, `logs-aws-elb_logs`, `logs-aws-vpcflow`. In **Metrics** mode (prefix `metrics-aws`): e.g. `metrics-aws-lambda`, `metrics-aws-elb`. Services without a dedicated integration use `logs-aws-{service}` or `metrics-aws-{service}` as applicable.
 
 Timestamps are spread across the **last 24 hours** so data appears naturally in Kibana time-based views.
 
@@ -116,7 +127,7 @@ Generated documents are aligned with the **AWS** and **Custom AWS Logs** integra
 | Yes | `aws.securityhub_findings` | Security Hub |
 | Yes | `aws.waf` | WAF, WAF v2 |
 | Yes | `aws.rds`, `aws.ec2_logs`, `aws.ecs_metrics`, `aws.config`, `aws.inspector`, `aws.dynamodb`, `aws.redshift`, `aws.emr_logs`, `aws.route53_public_logs` | RDS, EC2, ECS, Config, Inspector, DynamoDB, Redshift, EMR, Route 53 |
-| No (ECS only) | `aws.<service>` | All other 80+ services (Batch, Beanstalk, App Runner, ECR, etc.) |
+| No (ECS only) | `aws.<service>` | All other 100+ services (Batch, Beanstalk, App Runner, ECR, etc.) |
 
 For integration-backed services, field names and nesting follow the integration’s index mappings so that pre-built dashboards and security rules work.
 
@@ -173,12 +184,12 @@ The app supports six **ingestion methods**. Each determines the `input.type` and
 
 | Method | `input.type` | Default for these services | Available as override |
 |--------|---------------|----------------------------|------------------------|
-| **S3** | `aws-s3` | CloudTrail, ALB, NLB, CloudFront, WAF, WAF v2, VPC Flow Logs, Network Firewall, S3 access logs | All 109 services |
-| **CloudWatch** | `aws-cloudwatch` | Lambda, API Gateway, RDS, ECS, EC2, EKS, Glue, SageMaker, and 80+ other services | All 109 services |
-| **API** | `http_endpoint` | GuardDuty, Security Hub, Inspector, Config, IAM Access Analyzer, Macie, Detective, Trusted Advisor, Compute Optimizer, Budgets, Billing, Service Quotas, Fraud Detector, X-Ray | All 109 services |
-| **Firehose** | `aws-firehose` | Kinesis Data Firehose only | All 109 services |
-| **OTel** | `opentelemetry` | — (override only) | All 109 services; adds `telemetry.sdk` and OTLP-style metadata |
-| **Elastic Agent** | `logfile` | — (override only) | All 109 services; documents as if from log files |
+| **S3** | `aws-s3` | CloudTrail, ALB, NLB, CloudFront, WAF, WAF v2, VPC Flow Logs, Network Firewall, S3 access logs | All 134 services |
+| **CloudWatch** | `aws-cloudwatch` | Lambda, API Gateway, RDS, ECS, EC2, EKS, Glue, SageMaker, and 80+ other services | All 134 services |
+| **API** | `http_endpoint` | GuardDuty, Security Hub, Inspector, Config, IAM Access Analyzer, Macie, Detective, Trusted Advisor, Compute Optimizer, Budgets, Billing, Service Quotas, Fraud Detector, X-Ray | All 134 services |
+| **Firehose** | `aws-firehose` | Kinesis Data Firehose only | All 134 services |
+| **OTel** | `opentelemetry` | — (override only) | All 134 services; adds `telemetry.sdk` and OTLP-style metadata |
+| **Elastic Agent** | `logfile` | — (override only) | All 134 services; documents as if from log files |
 
 When **Ingestion source** is **Default**, each service uses the method in the “Default for these services” column. When you select an **override**, every selected service uses that method (column “Available as override”).
 
@@ -226,7 +237,7 @@ Regions: `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 ---
 
-## Supported Services (109 total)
+## Supported Services (134 total)
 
 ### 1 · Serverless & Core
 | Service | Source | ECS Coverage |
@@ -431,10 +442,11 @@ Works with **Elastic Serverless** projects without code changes. Assign the **Ed
 
 | Setting | Default | Range | Description |
 |---|---|---|---|
-| Logs per service | 500 | 50–5,000 | Documents generated per selected service |
-| Error rate | 5% | 0–50% | Fraction of logs representing errors/failures |
+| Event type | Logs | Logs / Metrics | **Logs** = log documents (all 134 services). **Metrics** = metrics documents (24 services with Elastic metrics integration only). |
+| Logs/metrics per service | 500 | 50–5,000 | Documents generated per selected service |
+| Error rate | 5% | 0–50% | Fraction of documents representing errors/failures |
 | Batch size | 250 | 50–1,000 | Documents per `_bulk` API request |
-| Index prefix | `logs-aws` | — | Prefix for Elasticsearch index names |
+| Index prefix | `logs-aws` or `metrics-aws` | — | Prefix for index names; switches by event type (e.g. `metrics-aws` in Metrics mode). |
 | Ingestion source | Default | Default + 6 overrides | `input.type` stamped on every document |
 
 ---
