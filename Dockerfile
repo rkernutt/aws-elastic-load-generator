@@ -3,8 +3,9 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Install dependencies first (layer cache friendly)
+# Install dependencies first (layer cache friendly); copy scripts so postinstall (copy-icons) can run
 COPY package.json ./
+COPY scripts ./scripts
 RUN npm install
 
 # Copy source and build
