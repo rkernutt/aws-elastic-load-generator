@@ -2,7 +2,7 @@
 
 A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **109 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
 
-Each service has its **correct real-world ingestion source** pre-configured — S3, CloudWatch, direct API, or Firehose — matching how each service actually delivers data to Elastic in production.
+Each service has its **correct real-world ingestion source** pre-configured — S3, CloudWatch, direct API, Firehose, **OTel** (OpenTelemetry), or **Elastic Agent** — matching how each service actually delivers data to Elastic in production. You can leave **Default (per-service)** or override all services to a single ingestion method (e.g. OTel) for testing.
 
 ---
 
@@ -125,7 +125,7 @@ For integration-backed services, field names and nesting follow the integration�
 | Setting | Description |
 |--------|-------------|
 | **Index prefix** | Base name for indices (e.g. `logs-aws`). Final index = `{prefix}-{dataset_suffix}` (e.g. `logs-aws-elb_logs`). |
-| **Ingestion source** | **Default (per-service)** uses the native source for each service (S3, CloudWatch, API, Firehose). Override to force all services to a single source for testing. |
+| **Ingestion source** | **Default (per-service)** uses the native source for each service (S3, CloudWatch, API, Firehose). Override to force all services to a single source (including **OTel** or **Elastic Agent**) for testing. |
 | **data_stream.dataset** | Set automatically: integration-backed services use the Elastic dataset (e.g. `aws.cloudtrail`, `aws.vpcflow`); others use `aws.<service>`. |
 
 ---
@@ -165,27 +165,48 @@ Services without a native Elastic integration emit additional ECS field groups r
 
 ---
 
-## Ingestion Source
+## Ingestion methods
 
-### Default (per-service) mode
+The app supports six **ingestion methods**. Each determines the `input.type` and metadata (e.g. `telemetry.sdk` for OTel) stamped on generated documents.
 
-| Source | `input.type` | Services |
+### Ingestion method reference
+
+| Method | `input.type` | Default for these services | Available as override |
+|--------|---------------|----------------------------|------------------------|
+| **S3** | `aws-s3` | CloudTrail, ALB, NLB, CloudFront, WAF, WAF v2, VPC Flow Logs, Network Firewall, S3 access logs | All 109 services |
+| **CloudWatch** | `aws-cloudwatch` | Lambda, API Gateway, RDS, ECS, EC2, EKS, Glue, SageMaker, and 80+ other services | All 109 services |
+| **API** | `http_endpoint` | GuardDuty, Security Hub, Inspector, Config, IAM Access Analyzer, Macie, Detective, Trusted Advisor, Compute Optimizer, Budgets, Billing, Service Quotas, Fraud Detector, X-Ray | All 109 services |
+| **Firehose** | `aws-firehose` | Kinesis Data Firehose only | All 109 services |
+| **OTel** | `opentelemetry` | — (override only) | All 109 services; adds `telemetry.sdk` and OTLP-style metadata |
+| **Elastic Agent** | `logfile` | — (override only) | All 109 services; documents as if from log files |
+
+When **Ingestion source** is **Default**, each service uses the method in the “Default for these services” column. When you select an **override**, every selected service uses that method (column “Available as override”).
+
+### Default (per-service) — which service uses which method
+
+When **Ingestion source** is **Default**, each service uses the method that matches how that AWS service typically delivers data to Elastic:
+
+| Method | `input.type` | Services (default) |
 |---|---|---|
 | **S3** | `aws-s3` | CloudTrail, ALB, NLB, CloudFront, WAF, WAFv2, VPC Flow Logs, Network Firewall, S3 access logs |
 | **CloudWatch** | `aws-cloudwatch` | Lambda, API Gateway, RDS, Aurora, ECS, EKS, Fargate, EC2, and most other services |
 | **API** | `http_endpoint` | GuardDuty, Security Hub, Inspector, Config, IAM Access Analyzer, Macie, Detective, Trusted Advisor, Compute Optimizer, Budgets, Billing, Service Quotas, Fraud Detector, X-Ray |
 | **Firehose** | `aws-firehose` | Kinesis Data Firehose |
 
-### Override mode
+**OTel** and **Elastic Agent** are not assigned as a default to any single service; they are available only as overrides (see below).
 
-| Override | `input.type` | Use case |
+### Override mode — force one method for all services
+
+When you override **Ingestion source** to a specific method, **all** selected services generate documents with that method. Useful for testing a single pipeline (e.g. OTLP or Agent) with any mix of AWS services.
+
+| Override | `input.type` | Effect |
 |---|---|---|
-| S3 Bucket | `aws-s3` | All logs read from S3 via SQS notification |
-| CloudWatch | `aws-cloudwatch` | All logs polled from CloudWatch log groups |
-| Firehose | `aws-firehose` | All logs pushed via Firehose delivery stream |
-| API | `http_endpoint` | All logs via direct REST API ingestion |
-| OTel | `opentelemetry` | All logs via OTLP collector |
-| Elastic Agent | `logfile` | All logs collected from files by Elastic Agent |
+| S3 Bucket | `aws-s3` | All documents as if read from S3 via SQS notification |
+| CloudWatch | `aws-cloudwatch` | All documents as if polled from CloudWatch log groups |
+| Firehose | `aws-firehose` | All documents as if pushed via Firehose delivery stream |
+| API | `http_endpoint` | All documents as if ingested via direct REST API |
+| **OTel** | `opentelemetry` | **All services**; documents get `telemetry.sdk` and OTLP-style metadata (simulates ingestion via an OpenTelemetry collector). |
+| Elastic Agent | `logfile` | **All services**; documents as if collected from log files by Elastic Agent |
 
 ---
 
