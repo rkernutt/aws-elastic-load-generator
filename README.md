@@ -495,3 +495,14 @@ All log data goes directly from your browser → proxy → your Elastic deployme
 - **Host port**: 8765 (mapped to container port 80)
 - **Health check**: `GET /health` → 200 OK
 - **Processes**: nginx (serves the SPA) + Node.js proxy (forwards requests to Elastic)
+
+---
+
+## Contributors & acknowledgments
+
+This project was developed with **AI-assisted tooling** for transparency:
+
+- **[Cursor](https://cursor.com)** — Code generation, refactoring, and documentation were produced with the help of Cursor (AI pair programming in the editor). Cursor is listed as a contributor to reflect that.
+- **Human maintainer(s)** — You (the repo owner) remain the author and maintainer; commits and decisions are yours.
+
+See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the contributor list.
