@@ -1,0 +1,18 @@
+services:
+  aws-elastic-load-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: aws-elastic-load-generator:latest
+    container_name: aws-elastic-load-generator
+    ports:
+      - "8765:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    labels:
+      - "com.docker.description=AWS → Elastic Load Generator for Elastic Cloud"
