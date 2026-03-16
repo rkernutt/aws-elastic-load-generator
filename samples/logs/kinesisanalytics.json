@@ -1,0 +1,44 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "kinesisanalytics"
+    }
+  },
+  "aws": {
+    "kinesisanalytics": {
+      "application_name": "real-time-metrics",
+      "application_arn": "arn:aws:kinesisanalytics:us-east-1:814726593401:application/real-time-metrics",
+      "runtime": "SQL-1_0",
+      "records_per_second": 7059,
+      "input_watermark_lag_ms": 520,
+      "checkpointing_enabled": true,
+      "last_checkpoint_duration_ms": 279,
+      "kpu_count": 50,
+      "structured_logging": true,
+      "metrics": {
+        "records_in_per_second": 7059,
+        "input_watermark_lag_ms": 520,
+        "kpu_utilization_pct": 35,
+        "checkpoint_duration_ms": 1803
+      }
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "process",
+    "dataset": "aws.kinesisanalytics",
+    "provider": "kinesisanalytics.amazonaws.com",
+    "duration": 1372000000
+  },
+  "message": "{\"applicationName\":\"real-time-metrics\",\"recordsPerSecond\":7059,\"inputWatermarkLagMs\":520,\"level\":\"info\",\"message\":\"Kinesis Analytics real-time-metrics: 7059 rec/s, lag 113ms\",\"timestamp\":\"2026-03-16T13:32:45.355Z\"}",
+  "log": {
+    "level": "info"
+  }
+}

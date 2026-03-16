@@ -1,0 +1,54 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "devopsguru"
+    }
+  },
+  "aws": {
+    "devopsguru": {
+      "insight_id": "3h5xycewwm",
+      "insight_type": "REACTIVE",
+      "severity": "HIGH",
+      "resource_collection": {
+        "cloud_formation": {
+          "stack_names": [
+            "data-stack"
+          ]
+        },
+        "tags": [
+          {
+            "key": "environment",
+            "value": "production"
+          }
+        ]
+      },
+      "anomaly_id": "344q98px81s",
+      "anomaly_description": "SQS queue depth growing abnormally",
+      "anomaly_sources": [
+        "dynamodb-sessions"
+      ],
+      "start_time": "2026-03-16T13:01:19.757Z",
+      "end_time": "2026-03-16T13:32:45.556Z",
+      "status": "CLOSED",
+      "recommendation": "Review alarm thresholds",
+      "ssm_ops_items": []
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "process",
+    "dataset": "aws.devopsguru",
+    "provider": "devops-guru.amazonaws.com"
+  },
+  "message": "DevOps Guru REACTIVE insight [HIGH]: SQS queue depth growing abnormally",
+  "log": {
+    "level": "warn"
+  }
+}

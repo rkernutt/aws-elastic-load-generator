@@ -1,0 +1,39 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "budgets"
+    }
+  },
+  "aws": {
+    "budgets": {
+      "budget_name": "ec2-prod",
+      "budget_type": "RI_COVERAGE",
+      "time_period": "QUARTERLY",
+      "currency": "USD",
+      "budget_limit": 8644.24,
+      "actual_spend": 4503.65,
+      "forecasted_spend": 5179.2,
+      "threshold_exceeded": false,
+      "threshold_percentage": 50,
+      "notification_type": "ACTUAL",
+      "subscribers": "ops@company.com"
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "process",
+    "dataset": "aws.budgets",
+    "provider": "budgets.amazonaws.com"
+  },
+  "message": "Budget OK: ec2-prod at 4504/8644 (52%)",
+  "log": {
+    "level": "info"
+  }
+}

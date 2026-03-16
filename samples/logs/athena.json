@@ -1,0 +1,42 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "738291046572",
+      "name": "globex-development"
+    },
+    "service": {
+      "name": "athena"
+    }
+  },
+  "aws": {
+    "athena": {
+      "query_id": "mewx3klc-v7ze-skhr-jhln",
+      "workgroup": "analytics",
+      "database": "staging",
+      "state": "SUCCEEDED",
+      "duration_seconds": 35.768,
+      "data_scanned_bytes": 208454724,
+      "data_scanned_mb": 199,
+      "engine_version": "DuckDB 0.9.1",
+      "structured_logging": true
+    }
+  },
+  "db": {
+    "statement": "CREATE TABLE analytics.daily_summary AS SELECT * FROM raw.events",
+    "type": "sql"
+  },
+  "event": {
+    "duration": 35768000000,
+    "outcome": "success",
+    "category": "database",
+    "dataset": "aws.athena",
+    "provider": "athena.amazonaws.com"
+  },
+  "message": "{\"queryId\":\"mewx3klc-v7ze-skhr-jhln\",\"workgroup\":\"analytics\",\"database\":\"staging\",\"state\":\"SUCCEEDED\",\"durationSeconds\":35.768,\"dataScannedBytes\":208454724,\"timestamp\":\"2026-03-16T13:32:45.355Z\"}",
+  "log": {
+    "level": "warn"
+  }
+}

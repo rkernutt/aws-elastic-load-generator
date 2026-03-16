@@ -1,0 +1,78 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "rds"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "DBInstanceIdentifier": "prod-db-replica",
+      "DatabaseClass": "db.r6g.xlarge",
+      "EngineName": "postgres"
+    },
+    "rds": {
+      "instance_id": "prod-db-replica",
+      "engine": "postgres",
+      "engine_version": "15.4",
+      "query_time": 0.005,
+      "enhanced_monitoring": false,
+      "metrics": {
+        "CPUUtilization": {
+          "avg": 59.708
+        },
+        "DatabaseConnections": {
+          "avg": 129
+        },
+        "FreeStorageSpace": {
+          "avg": 1915097889
+        },
+        "ReadIOPS": {
+          "avg": 34
+        },
+        "WriteIOPS": {
+          "avg": 2889
+        },
+        "ReadLatency": {
+          "avg": 0.007
+        },
+        "WriteLatency": {
+          "avg": 0.012
+        },
+        "FreeableMemory": {
+          "avg": 2471873816
+        },
+        "NetworkReceiveThroughput": {
+          "avg": 2830823
+        },
+        "NetworkTransmitThroughput": {
+          "avg": 5754299
+        }
+      }
+    }
+  },
+  "db": {
+    "user": {
+      "name": "readonly"
+    },
+    "name": "analytics",
+    "statement": "DELETE FROM sessions WHERE VNBYVB",
+    "type": "sql"
+  },
+  "event": {
+    "duration": 5000000,
+    "outcome": "success",
+    "dataset": "aws.rds",
+    "provider": "rds.amazonaws.com"
+  },
+  "message": "Query executed in 0.005s by readonly",
+  "log": {
+    "level": "info"
+  }
+}

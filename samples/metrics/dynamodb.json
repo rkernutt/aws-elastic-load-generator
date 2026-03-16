@@ -1,0 +1,86 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "dynamodb"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "TableName": "events",
+      "Operation": "BatchWriteItem"
+    },
+    "dynamodb": {
+      "table_name": "events",
+      "operation": "BatchWriteItem",
+      "consumed_read_capacity_units": 19.052,
+      "consumed_write_capacity_units": 40.234,
+      "items_count": 702,
+      "structured_logging": false,
+      "metrics": {
+        "ConsumedReadCapacityUnits": {
+          "sum": 19.052
+        },
+        "ConsumedWriteCapacityUnits": {
+          "sum": 40.234
+        },
+        "ProvisionedReadCapacityUnits": {
+          "avg": 5831
+        },
+        "ProvisionedWriteCapacityUnits": {
+          "avg": 1553
+        },
+        "SuccessfulRequestLatency": {
+          "avg": 18,
+          "p99": 144
+        },
+        "SystemErrors": {
+          "sum": 0
+        },
+        "UserErrors": {
+          "sum": 0
+        },
+        "ThrottledRequests": {
+          "sum": 0
+        },
+        "TransactionConflict": {
+          "sum": 0
+        },
+        "ReturnedItemCount": {
+          "avg": 781
+        }
+      }
+    }
+  },
+  "db": {
+    "name": "events",
+    "operation": "BatchWriteItem",
+    "type": "nosql"
+  },
+  "event": {
+    "outcome": "success",
+    "category": "database",
+    "dataset": "aws.dynamodb",
+    "provider": "dynamodb.amazonaws.com",
+    "duration": 23000000
+  },
+  "message": "DynamoDB BatchWriteItem events: consumed 19.052 RCU, 40.234 WCU",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.dynamodb",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

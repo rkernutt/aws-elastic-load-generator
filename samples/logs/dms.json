@@ -1,0 +1,39 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "dms"
+    }
+  },
+  "aws": {
+    "dms": {
+      "replication_task_id": "on-prem-to-rds",
+      "migration_type": "cdc",
+      "source_engine": "sqlserver",
+      "target_engine": "redshift",
+      "replication_instance_class": "dms.r5.xlarge",
+      "task_status": "Load complete",
+      "full_load_rows_transferred": 4041989,
+      "cdc_incoming_changes": 59269,
+      "latency_ms": 1204,
+      "tables_loaded": 187,
+      "tables_errored": 0
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "database",
+    "dataset": "aws.dms",
+    "provider": "dms.amazonaws.com"
+  },
+  "message": "DMS on-prem-to-rds: 4,041,989 rows (sqlserver->redshift cdc)",
+  "log": {
+    "level": "info"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "738291046572",
+      "name": "globex-development"
+    },
+    "service": {
+      "name": "glue"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "JobName": "pii-masking",
+      "JobRunId": "jr_hbl65nrbzp8",
+      "Type": "pythonshell"
+    },
+    "glue": {
+      "job": {
+        "name": "pii-masking",
+        "run_id": "jr_hbl65nrbzp8",
+        "type": "pythonshell",
+        "run_state": "SUCCEEDED"
+      },
+      "database": "curated",
+      "table": "events",
+      "dpu_seconds": 12785,
+      "worker": {
+        "type": "G.2X",
+        "count": 5
+      },
+      "records": {
+        "read": 43414431,
+        "written": 42980286,
+        "errors": 0
+      },
+      "glue_version": "3.0",
+      "crawler_name": "curated-crawler",
+      "connection_name": "jdbc-staging",
+      "continuous_logging": true,
+      "metrics": {
+        "driver": {
+          "aggregate": {
+            "numRecords": 43414431,
+            "numFailedRecords": 0
+          },
+          "BlockManager": {
+            "disk": {
+              "diskSpaceUsed_MB": 367
+            }
+          }
+        },
+        "executor": {
+          "aggregate": {
+            "numCompletedTasks": 188,
+            "numFailedTasks": 0
+          }
+        }
+      }
+    }
+  },
+  "log": {
+    "level": "info"
+  },
+  "event": {
+    "duration": 6606000000000,
+    "outcome": "success",
+    "category": "process",
+    "dataset": "aws.glue",
+    "provider": "glue.amazonaws.com"
+  },
+  "message": "{\"jobName\":\"pii-masking\",\"jobRunId\":\"jr_hbl65nrbzp8\",\"level\":\"INFO\",\"message\":\"Schema inferred: 47 columns detected\",\"timestamp\":\"2026-03-16T13:32:45.355Z\",\"thread\":\"driver-bex4hilx\",\"logger\":\"org.apache.hadoop\"}"
+}

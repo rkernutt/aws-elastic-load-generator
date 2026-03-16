@@ -1,0 +1,49 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "computeoptimizer"
+    }
+  },
+  "aws": {
+    "computeoptimizer": {
+      "resource_type": "LAMBDA_FUNCTION",
+      "resource_arn": "arn:aws:ec2:us-east-1:164820739518:instance/i-lezfjpiyhpp",
+      "finding": "OPTIMIZED",
+      "current_configuration": {
+        "instance_type": "t3.large",
+        "vcpu": 13,
+        "memory_gb": 87
+      },
+      "recommended_configuration": {
+        "instance_type": "r5.medium",
+        "vcpu": 11,
+        "memory_gb": 17
+      },
+      "estimated_monthly_savings_usd": 0,
+      "estimated_monthly_savings_percent": 0,
+      "lookback_period_days": 32,
+      "utilization": {
+        "cpu_max": 46.191,
+        "memory_max": 19.635
+      },
+      "performance_risk": "Medium"
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "configuration",
+    "dataset": "aws.computeoptimizer",
+    "provider": "compute-optimizer.amazonaws.com"
+  },
+  "message": "Compute Optimizer: LAMBDA_FUNCTION OPTIMIZED (t3.large)",
+  "log": {
+    "level": "info"
+  }
+}

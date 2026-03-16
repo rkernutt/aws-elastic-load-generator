@@ -1,0 +1,44 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "wafv2"
+    }
+  },
+  "aws": {
+    "wafv2": {
+      "web_acl_name": "regional-waf",
+      "rule_group_name": "CustomRules",
+      "rule_name": "CrossSiteScripting_BODY",
+      "action": "ALLOW",
+      "terminating_rule_id": "CrossSiteScripting_BODY",
+      "source_ip": "42.187.119.158",
+      "country": "DE",
+      "uri": "/api/v1/products",
+      "method": "GET",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+      "request_id": "mla6bim7uds",
+      "labels": []
+    }
+  },
+  "source": {
+    "ip": "42.187.119.158"
+  },
+  "event": {
+    "action": "allow",
+    "outcome": "success",
+    "category": "intrusion_detection",
+    "dataset": "aws.waf",
+    "provider": "wafv2.amazonaws.com"
+  },
+  "message": "WAFv2 ALLOW [regional-waf] 42.187.119.158 GET /api/v1/search",
+  "log": {
+    "level": "info"
+  }
+}

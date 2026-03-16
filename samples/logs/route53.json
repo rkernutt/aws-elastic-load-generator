@@ -1,0 +1,64 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "route53"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "HostedZoneId": "Z6B51VQPABSE"
+    },
+    "route53": {
+      "query_name": "app.internal",
+      "query_type": "TXT",
+      "response_code": "NOERROR",
+      "edge_location": "IAD59",
+      "hosted_zone_id": "Z6B51VQPABSE",
+      "metrics": {
+        "DNSQueries": {
+          "sum": 74917
+        },
+        "HealthCheckStatus": {
+          "avg": 1
+        },
+        "HealthCheckPercentageHealthy": {
+          "avg": 96
+        },
+        "ConnectionTime": {
+          "avg": 10
+        },
+        "TimeToFirstByte": {
+          "avg": 83
+        }
+      }
+    }
+  },
+  "dns": {
+    "question": {
+      "name": "app.internal",
+      "type": "CNAME"
+    },
+    "response_code": "NOERROR"
+  },
+  "client": {
+    "ip": "169.230.135.57"
+  },
+  "event": {
+    "outcome": "success",
+    "category": "network",
+    "dataset": "aws.route53",
+    "provider": "route53.amazonaws.com",
+    "duration": 44000000
+  },
+  "message": "DNS MX query for api.example.com -> NOERROR",
+  "log": {
+    "level": "info"
+  }
+}

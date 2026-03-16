@@ -1,0 +1,95 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "redshift"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "ClusterIdentifier": "prod-dw-us-east-1",
+      "NodeID": "Compute-0"
+    },
+    "redshift": {
+      "cluster_id": "prod-dw-us-east-1",
+      "database": "analytics",
+      "user": "etl_user",
+      "pid": 64892,
+      "query_id": 3391802,
+      "duration_seconds": 4.778,
+      "rows_returned": 1479055,
+      "metrics": {
+        "CPUUtilization": {
+          "avg": 64.487
+        },
+        "PercentageDiskSpaceUsed": {
+          "avg": 35.542
+        },
+        "DatabaseConnections": {
+          "avg": 29
+        },
+        "HealthStatus": {
+          "avg": 1
+        },
+        "MaintenanceMode": {
+          "avg": 0
+        },
+        "ReadIOPS": {
+          "avg": 9023
+        },
+        "WriteIOPS": {
+          "avg": 9439
+        },
+        "ReadLatency": {
+          "avg": 0.074
+        },
+        "WriteLatency": {
+          "avg": 0.035
+        },
+        "NetworkReceiveThroughput": {
+          "avg": 9901493
+        },
+        "NetworkTransmitThroughput": {
+          "avg": 23565684
+        },
+        "QueriesCompletedPerSecond": {
+          "avg": 18.605
+        }
+      }
+    }
+  },
+  "db": {
+    "user": {
+      "name": "etl_user"
+    },
+    "name": "analytics",
+    "statement": "VACUUM DELETE ONLY dim_products TO 95 PERCENT",
+    "type": "sql"
+  },
+  "event": {
+    "duration": 4778000000,
+    "outcome": "success",
+    "category": "database",
+    "dataset": "aws.redshift",
+    "provider": "redshift.amazonaws.com"
+  },
+  "message": "Redshift query completed in 4.78s",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.redshift",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

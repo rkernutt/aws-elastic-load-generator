@@ -1,0 +1,49 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "frauddetector"
+    }
+  },
+  "aws": {
+    "frauddetector": {
+      "detector_id": "card-fraud-detector",
+      "detector_version_id": "3",
+      "event_id": "5y4ungllf1t",
+      "event_type": "wire_transfer",
+      "entity_type": "customer",
+      "entity_id": "entity_2z9s6o5q0n",
+      "outcomes": [
+        "APPROVE"
+      ],
+      "risk_score": 277,
+      "model_scores": {
+        "card-fraud-detector": 277
+      },
+      "used_rules": [
+        "block-high-risk"
+      ],
+      "ip_address": "79.121.123.227",
+      "event_variables": {
+        "billing_postal": "54427",
+        "phone_verified": "true"
+      }
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "intrusion_detection",
+    "dataset": "aws.frauddetector",
+    "provider": "frauddetector.amazonaws.com"
+  },
+  "message": "Fraud Detector APPROVE [card-fraud-detector]: entity entity_2z9s6o5q0n score 277/1000",
+  "log": {
+    "level": "info"
+  }
+}

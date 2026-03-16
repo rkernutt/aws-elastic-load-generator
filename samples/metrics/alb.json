@@ -1,0 +1,124 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "alb"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "LoadBalancer": "app/prod-alb-eu-west-2/8ps2byhd7x9",
+      "TargetGroup": "targetgroup/tg-api/2fad98c9o0r",
+      "AvailabilityZone": "eu-west-2c"
+    },
+    "elb": {
+      "name": "app/prod-alb-eu-west-2/8ps2byhd7x9",
+      "type": "application",
+      "target_group.arn": "arn:aws:elasticloadbalancing:eu-west-2:501938274650:targetgroup/tg-api/2fad98c9o0r",
+      "listener": "arn:aws:elasticloadbalancing:eu-west-2:501938274650:listener/app/prod-alb/kcagvg3zri/qinme77imw",
+      "protocol": "HTTPS",
+      "request_processing_time.sec": 0.492,
+      "backend_processing_time.sec": 0.936,
+      "response_processing_time.sec": 0.008,
+      "backend.ip": "224.8.228.87",
+      "backend.port": "6548",
+      "backend.http.response.status_code": 301,
+      "ssl_protocol": "TLSv1.3",
+      "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
+      "trace_id": "Root=1-6457LIE4-M43IVXW8WJC",
+      "target_port": "224.8.228.87:6548",
+      "target_status_code": "301"
+    },
+    "alb": {
+      "load_balancer": "app/prod-alb-eu-west-2/8ps2byhd7x9",
+      "target_group": "arn:aws:elasticloadbalancing:eu-west-2:501938274650:targetgroup/tg-api/2fad98c9o0r",
+      "request_processing_time": 0.492,
+      "ssl_protocol": "TLSv1.3",
+      "metrics": {
+        "ActiveConnectionCount": {
+          "sum": 4298
+        },
+        "NewConnectionCount": {
+          "sum": 389
+        },
+        "RequestCount": {
+          "sum": 7379
+        },
+        "HTTPCode_Target_2XX_Count": {
+          "sum": 0
+        },
+        "HTTPCode_Target_4XX_Count": {
+          "sum": 0
+        },
+        "HTTPCode_Target_5XX_Count": {
+          "sum": 0
+        },
+        "HTTPCode_ELB_5XX_Count": {
+          "sum": 0
+        },
+        "TargetResponseTime": {
+          "avg": 0.936,
+          "p99": 2.8080000000000003
+        },
+        "HealthyHostCount": {
+          "avg": 16
+        },
+        "UnHealthyHostCount": {
+          "avg": 0
+        },
+        "RejectedConnectionCount": {
+          "sum": 1
+        },
+        "ProcessedBytes": {
+          "sum": 938122832
+        }
+      }
+    }
+  },
+  "http": {
+    "request": {
+      "method": "PUT",
+      "bytes": 6024
+    },
+    "response": {
+      "status_code": 301,
+      "bytes": 39284
+    }
+  },
+  "url": {
+    "path": "/api/v1/auth/login",
+    "domain": "api.example.com"
+  },
+  "client": {
+    "ip": "144.222.186.132",
+    "port": 9201
+  },
+  "user_agent": {
+    "original": "Go-http-client/1.1"
+  },
+  "event": {
+    "duration": 1436000000,
+    "outcome": "success",
+    "dataset": "aws.elb_logs",
+    "provider": "elasticloadbalancing.amazonaws.com"
+  },
+  "message": "PUT /api/v1/auth/login 301 1436ms",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.elb",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

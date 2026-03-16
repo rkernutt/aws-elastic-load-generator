@@ -1,0 +1,41 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "macie"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "BucketName": "prod-data-us-east-1"
+    },
+    "macie": {
+      "finding_id": "zmlqd54s-x5zs-1tby",
+      "finding_type": "none",
+      "severity": "INFORMATIONAL",
+      "s3_bucket": {
+        "name": "prod-data-us-east-1",
+        "arn": "arn:aws:s3:::prod-data-us-east-1"
+      },
+      "occurrences": 0,
+      "sensitive_data_categories": []
+    }
+  },
+  "event": {
+    "kind": "alert",
+    "outcome": "success",
+    "category": "data",
+    "dataset": "aws.macie",
+    "provider": "macie2.amazonaws.com"
+  },
+  "message": "Macie scan complete: no sensitive data found",
+  "log": {
+    "level": "info"
+  }
+}

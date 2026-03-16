@@ -1,0 +1,56 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "config"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "ConfigRuleName": "mfa-enabled-for-iam-console",
+      "ResourceType": "AWS::S3::Bucket"
+    },
+    "config": {
+      "rule_name": "mfa-enabled-for-iam-console",
+      "compliance_type": "NON_COMPLIANT",
+      "resource_type": "AWS::S3::Bucket",
+      "resource_id": "sg-sor1dc11",
+      "annotation": "Encryption not enabled",
+      "metrics": {
+        "ComplianceByConfigRule": {
+          "avg": 0
+        },
+        "NonCompliantRules": {
+          "sum": 1
+        },
+        "CompliantRules": {
+          "sum": 0
+        },
+        "ConfigurationItemsRecorded": {
+          "sum": 92
+        }
+      }
+    }
+  },
+  "event": {
+    "outcome": "failure",
+    "category": "compliance",
+    "dataset": "aws.config",
+    "provider": "config.amazonaws.com"
+  },
+  "message": "Config rule FAILED: mfa-enabled-for-iam-console",
+  "log": {
+    "level": "warn"
+  },
+  "error": {
+    "code": "NonCompliant",
+    "message": "Config rule mfa-enabled-for-iam-console failed",
+    "type": "compliance"
+  }
+}

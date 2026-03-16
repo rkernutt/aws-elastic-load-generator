@@ -1,0 +1,50 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "shield"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "AttackVector": "NONE"
+    },
+    "shield": {
+      "mitigation_started": false,
+      "subscription_type": "ADVANCED",
+      "protected_resource": "arn:aws:elasticloadbalancing:eu-west-2:501938274650:loadbalancer/app/prod/xe811vxqg8e",
+      "metrics": {
+        "DDoSAttackBitsPerSecond": {
+          "avg": 0
+        },
+        "DDoSAttackPacketsPerSecond": {
+          "avg": 0
+        },
+        "DDoSAttackRequestsPerSecond": {
+          "avg": 0
+        }
+      }
+    }
+  },
+  "network": {
+    "bytes": 495530504,
+    "packets": 829176
+  },
+  "event": {
+    "action": "health_check",
+    "outcome": "success",
+    "category": "network",
+    "dataset": "aws.shield",
+    "provider": "shield.amazonaws.com"
+  },
+  "message": "Shield health check: protected resource OK",
+  "log": {
+    "level": "info"
+  }
+}

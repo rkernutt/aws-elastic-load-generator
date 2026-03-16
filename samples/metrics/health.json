@@ -1,0 +1,52 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "health"
+    }
+  },
+  "aws": {
+    "health": {
+      "event_arn": "arn:aws:health:eu-west-2::event/s3/w7wvla81/k48on9kx0fb",
+      "event_type_code": "AWS_S3_MAINTENANCE_SCHEDULED",
+      "event_type_category": "scheduledChange",
+      "service": "S3",
+      "region": "eu-west-2",
+      "status_code": "open",
+      "event_scope": "ACCOUNT",
+      "affected_entities_count": 29,
+      "description": "S3 Connectivity issues in eu-west-2"
+    }
+  },
+  "event": {
+    "kind": "alert",
+    "outcome": "failure",
+    "category": "configuration",
+    "dataset": "aws.health",
+    "provider": "health.amazonaws.com"
+  },
+  "message": "AWS Health: S3 service issue in eu-west-2 - Degraded performance",
+  "error": {
+    "code": "HealthIssue",
+    "message": "AWS Health service issue",
+    "type": "configuration"
+  },
+  "log": {
+    "level": "warn"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.awshealth",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

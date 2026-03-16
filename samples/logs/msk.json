@@ -1,0 +1,85 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "msk"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "Cluster Name": "prod-kafka-eu-west-2",
+      "Broker ID": "3",
+      "Topic": "notifications"
+    },
+    "msk": {
+      "cluster_name": "prod-kafka-eu-west-2",
+      "broker_id": 3,
+      "kafka_version": "3.5.1",
+      "topic": "notifications",
+      "partition": 2,
+      "offset": 93989188,
+      "consumer_group": "etl-pipeline",
+      "lag": 2,
+      "under_replicated_partitions": 0,
+      "metrics": {
+        "BytesInPerSec": {
+          "avg": 4850085
+        },
+        "BytesOutPerSec": {
+          "avg": 711676
+        },
+        "MessagesInPerSec": {
+          "avg": 13315
+        },
+        "UnderReplicatedPartitions": {
+          "avg": 0
+        },
+        "OfflinePartitionsCount": {
+          "avg": 0
+        },
+        "ActiveControllerCount": {
+          "avg": 1
+        },
+        "LeaderCount": {
+          "avg": 20
+        },
+        "NetworkProcessorAvgIdlePercent": {
+          "avg": 82.042
+        },
+        "RequestHandlerAvgIdlePercent": {
+          "avg": 66.818
+        },
+        "KafkaDataLogsDiskUsed": {
+          "avg": 20.679
+        },
+        "CpuUser": {
+          "avg": 10.691
+        },
+        "MemoryFree": {
+          "avg": 1970926214
+        }
+      }
+    }
+  },
+  "kafka": {
+    "topic": "notifications",
+    "partition": 2
+  },
+  "event": {
+    "outcome": "success",
+    "category": "process",
+    "dataset": "aws.msk",
+    "provider": "kafka.amazonaws.com",
+    "duration": 73000000
+  },
+  "message": "MSK notifications[2] offset=96130807",
+  "log": {
+    "level": "info"
+  }
+}

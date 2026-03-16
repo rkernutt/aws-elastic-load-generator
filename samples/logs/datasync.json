@@ -1,0 +1,37 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "datasync"
+    }
+  },
+  "aws": {
+    "datasync": {
+      "task_arn": "arn:aws:datasync:us-east-1:814726593401:task/task-1t16e8zpiid",
+      "source_location_uri": "nfs://on-prem-server/data",
+      "destination_location_uri": "s3://archive-bucket",
+      "status": "SUCCESS",
+      "files_transferred": 87459,
+      "bytes_transferred": 23526558459,
+      "files_failed": 0,
+      "duration_seconds": 2593
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "file",
+    "dataset": "aws.datasync",
+    "provider": "datasync.amazonaws.com",
+    "duration": 2593000000000
+  },
+  "message": "DataSync: 87,459 files transferred from nfs:",
+  "log": {
+    "level": "info"
+  }
+}

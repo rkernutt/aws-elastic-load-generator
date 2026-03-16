@@ -1,6 +1,24 @@
-# Elastic Ingest Pipelines (AWS Glue)
+# Elastic Ingest Pipelines (AWS Load Generator)
 
-Ingest pipeline definitions for parsing and enriching AWS Glue logs (and related streams) in Elastic.
+Ingest pipeline definitions for parsing **JSON from the log `message` field** for AWS services that emit structured/continuous logging. When `message` contains valid JSON, the parsed object is stored under a service-specific target field; when it does not, the document is unchanged (`ignore_failure: true`).
+
+**Full plan:** See [PLAN-PARSE-JSON-SERVICES.md](PLAN-PARSE-JSON-SERVICES.md) for all 23 services, pipeline IDs, target fields, index patterns, and example JSON keys.
+
+**Pipeline JSON files in this folder:**
+
+| Service | Pipeline ID | File |
+|--------|-------------|------|
+| Glue | `glue-parse-json-message` | [glue-parse-json-message.json](glue-parse-json-message.json) |
+| Lambda | `lambda-parse-json-message` | [lambda-parse-json-message.json](lambda-parse-json-message.json) |
+| API Gateway | `apigateway-parse-json-message` | [apigateway-parse-json-message.json](apigateway-parse-json-message.json) |
+| RDS | `rds-parse-json-message` | [rds-parse-json-message.json](rds-parse-json-message.json) |
+| ECS | `ecs-parse-json-message` | [ecs-parse-json-message.json](ecs-parse-json-message.json) |
+| EMR | `emr-parse-json-message` | [emr-parse-json-message.json](emr-parse-json-message.json) |
+| SageMaker | `sagemaker-parse-json-message` | [sagemaker-parse-json-message.json](sagemaker-parse-json-message.json) |
+
+For any other service (EC2, EKS, Batch, Fargate, Step Functions, CodeBuild, CodePipeline, Athena, EventBridge, DynamoDB, IoT Core, CloudFormation, SSM, Beanstalk, Kinesis Analytics), use the **processor template** in the plan and set `target_field` to `<service>.parsed`; then `PUT _ingest/pipeline/<pipeline-id>` with that body.
+
+---
 
 ## glue-parse-json-message
 
@@ -40,3 +58,25 @@ Use one of these so that Glue log documents are processed by the pipeline:
 ### Optional: ECS / aws.glue mapping
 
 If your Glue logs emit known JSON keys (e.g. `jobName`, `jobRunId`, `level`, `errorCode`), you can add processors to copy them into ECS or `aws.glue` (e.g. `glue.parsed.jobName` → `aws.glue.job.name`). Edit `glue-parse-json-message.json` and add `rename` or `set` processors after the `json` processor, then re-apply the pipeline.
+
+---
+
+## Applying any pipeline (API)
+
+Use the same pattern for every pipeline in this folder. Replace `<pipeline-id>` and the JSON file accordingly:
+
+```bash
+curl -X PUT "${ES_URL}/_ingest/pipeline/<pipeline-id>" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: ApiKey ${ES_API_KEY}" \
+  -d @<pipeline-id>.json
+```
+
+Example for Lambda:
+
+```bash
+curl -X PUT "${ES_URL}/_ingest/pipeline/lambda-parse-json-message" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: ApiKey ${ES_API_KEY}" \
+  -d @lambda-parse-json-message.json
+```

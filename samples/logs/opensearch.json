@@ -1,0 +1,86 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "opensearch"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "DomainName": "prod-search-eu-west-2",
+      "ClientId": "164820739518"
+    },
+    "opensearch": {
+      "domain_name": "prod-search-eu-west-2",
+      "index": "logs-2024",
+      "operation": "delete",
+      "took_ms": 1453,
+      "shards": {
+        "total": 5,
+        "successful": 5,
+        "failed": 0
+      },
+      "hits_total": 14630,
+      "status_code": 200,
+      "metrics": {
+        "CPUUtilization": {
+          "avg": 25.631
+        },
+        "FreeStorageSpace": {
+          "avg": 435472776451
+        },
+        "ClusterStatus": {
+          "green": 1,
+          "yellow": 0,
+          "red": 0
+        },
+        "Nodes": {
+          "avg": 4
+        },
+        "SearchableDocuments": {
+          "avg": 509110723
+        },
+        "IndexingLatency": {
+          "avg": 328
+        },
+        "SearchLatency": {
+          "avg": 733
+        },
+        "IndexingRate": {
+          "avg": 53802
+        },
+        "SearchRate": {
+          "avg": 4552
+        },
+        "JVMMemoryPressure": {
+          "avg": 63.444
+        },
+        "AutomatedSnapshotFailure": {
+          "sum": 0
+        }
+      }
+    }
+  },
+  "http": {
+    "response": {
+      "status_code": 200
+    }
+  },
+  "event": {
+    "duration": 1452618000,
+    "outcome": "success",
+    "category": "database",
+    "dataset": "aws.opensearch",
+    "provider": "es.amazonaws.com"
+  },
+  "message": "OpenSearch delete on logs-2024: 1453ms",
+  "log": {
+    "level": "info"
+  }
+}

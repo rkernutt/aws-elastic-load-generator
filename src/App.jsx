@@ -56,6 +56,9 @@ function generateLambdaLog(ts, er) {
   const MSGS = { INFO:["Request received","Processing complete","Cache hit","Event processed"],WARN:["Retry attempt 1/3","Memory usage at 80%","Slow query detected"],ERROR:["Unhandled exception","DB connection refused","Timeout after 30000ms"],DEBUG:["Entering handler","Parsed request body","Exiting with status 200"] };
   const logGroup = `/aws/lambda/${fn}`;
   const logStream = `${new Date(ts).toISOString().slice(0,10)}/[$LATEST]${randId(32).toLowerCase()}`;
+  const plainMessage = `[${level}]\t${rid}\t${rand(MSGS[level])}`;
+  const useStructuredLogging = Math.random() < 0.6;
+  const message = useStructuredLogging ? JSON.stringify({ requestId: rid, level, message: rand(MSGS[level]), timestamp: new Date(ts).toISOString(), duration_ms: Math.round(dur), memory_used_mb: memUsed }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"lambda" } },
@@ -69,6 +72,7 @@ function generateLambdaLog(ts, er) {
         memory_used_mb: memUsed,
         log_group: logGroup,
         log_stream: logStream,
+        structured_logging: useStructuredLogging,
         metrics: {
           Invocations: { sum: invocations },
           Errors: { sum: errors },
@@ -83,7 +87,7 @@ function generateLambdaLog(ts, er) {
       }
     },
     "log": { level: level.toLowerCase() },
-    "message": `[${level}]\t${rid}\t${rand(MSGS[level])}`,
+    "message": message,
     "event": { duration: dur * 1000000, outcome: level==="ERROR" ? "failure" : "success", dataset:"aws.lambda", provider:"lambda.amazonaws.com" },
     "service": { name:fn, type:"lambda" },
   };
@@ -99,6 +103,9 @@ function generateApiGatewayLog(ts, er) {
   const stage = rand(["prod","v1","v2","staging"]);
   const count = randInt(1, 1000);
   const requestId = `${randId(8)}-${randId(4)}`.toLowerCase();
+  const plainMessage = `${method} ${path} ${status} ${lat}ms`;
+  const useStructuredLogging = Math.random() < 0.55;
+  const message = useStructuredLogging ? JSON.stringify({ requestId, requestMethod: method, requestPath: path, status: status, responseLatency: lat, integrationLatency: integrationLat, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"apigateway" } },
@@ -109,6 +116,7 @@ function generateApiGatewayLog(ts, er) {
         api_id: apiId,
         api_name: apiName,
         stage,
+        structured_logging: useStructuredLogging,
         request: { http_method: method, path, protocol: "HTTP/1.1" },
         response: { status_code: status, integration_latency_ms: integrationLat, response_latency_ms: lat },
         metrics: {
@@ -125,7 +133,7 @@ function generateApiGatewayLog(ts, er) {
     "client": { ip:randIp() },
     "user_agent": { original:rand(USER_AGENTS) },
     "event": { duration:lat*1000000, outcome:status>=400?"failure":"success", dataset:"aws.apigateway_logs", provider:"apigateway.amazonaws.com" },
-    "message": `${method} ${path} ${status} ${lat}ms`,
+    "message": message,
     "log": { level:status>=500?"error":status>=400?"warn":"info" },
     ...(status >= 400 ? { error: { code: status >= 500 ? "InternalServerError" : status === 429 ? "ThrottlingException" : "BadRequest", message: `HTTP ${status}`, type: "server" } } : {})
   };
@@ -222,6 +230,9 @@ function generateRdsLog(ts, er) {
   const qt = parseFloat(randFloat(0.001, isErr?30:2)); const dbUser = rand(["appuser","readonly","admin","replica"]);
   const instanceId = `prod-db-${rand(["primary","replica","analytics"])}`;
   const engine = rand(["mysql","postgres","aurora-mysql"]);
+  const plainMessage = isErr ? rand(["ERROR 1045: Access denied","FATAL: role does not exist","ERROR 1213: Deadlock found"]) : `Query executed in ${qt}s by ${dbUser}`;
+  const useEnhancedMonitoring = Math.random() < 0.55;
+  const message = useEnhancedMonitoring ? JSON.stringify({ instanceId, engine, userId: dbUser, queryTime: qt, error: isErr ? plainMessage : null, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"rds" } },
@@ -230,6 +241,7 @@ function generateRdsLog(ts, er) {
       rds: {
         instance_id: instanceId, engine, engine_version: engine==="postgres"?"15.4":engine==="mysql"?"8.0.34":"8.0.mysql_aurora.3.04.0",
         query_time: qt,
+        enhanced_monitoring: useEnhancedMonitoring,
         metrics: {
           CPUUtilization: { avg: parseFloat(randFloat(1, isErr?95:60)) },
           DatabaseConnections: { avg: randInt(5, isErr?500:200) },
@@ -246,7 +258,7 @@ function generateRdsLog(ts, er) {
     },
     "db": { user:{ name:dbUser }, name:rand(["appdb","analytics","users","events"]), statement:rand(["SELECT * FROM users WHERE","INSERT INTO orders VALUES","UPDATE products SET price","DELETE FROM sessions WHERE"])+` ${randId(6)}`, type:"sql" },
     "event": { duration:qt*1000000000, outcome:isErr?"failure":"success", dataset:"aws.rds", provider:"rds.amazonaws.com" },
-    "message": isErr ? rand(["ERROR 1045: Access denied","FATAL: role does not exist","ERROR 1213: Deadlock found"]) : `Query executed in ${qt}s by ${dbUser}`,
+    "message": message,
     "log": { level:isErr?"error":qt>5?"warn":"info" },
     ...(isErr ? { error: { code: rand(["AccessDenied","RoleNotFound","DeadlockDetected"]), message: rand(["ERROR 1045: Access denied","FATAL: role does not exist","ERROR 1213: Deadlock found"]), type: "db" } } : {})
   };
@@ -260,6 +272,10 @@ function generateEcsLog(ts, er) {
   const MSGS = { error:["Container exited with code 1","OOMKilled","Health check failed","Failed to pull image"],warn:["High memory: 85%","Slow response","Retry 2/3","Connection pool exhausted"],info:["Task started","Health check passed","Request processed","Scaling event triggered"] };
   const ECS_ERROR_CODES = ["ContainerExitCode","OOMKilled","HealthCheckFailed","ImagePullFailed"];
   const durationSec = randInt(5, level === "error" ? 300 : 3600);
+  const taskId = randId(32).toLowerCase();
+  const plainMessage = rand(MSGS[level]);
+  const useStructuredLogging = Math.random() < 0.6;
+  const message = useStructuredLogging ? JSON.stringify({ cluster, service: svc, taskId, container: svc, level, message: plainMessage, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"ecs" } },
@@ -268,7 +284,8 @@ function generateEcsLog(ts, er) {
       ecs: {
         cluster: { name:cluster },
         service: { name:svc },
-        task: { id:randId(32).toLowerCase(), definition:`${svc}:${randInt(1,50)}` },
+        task: { id:taskId, definition:`${svc}:${randInt(1,50)}` },
+        structured_logging: useStructuredLogging,
         metrics: {
           CPUUtilization: { avg: parseFloat(randFloat(1, level==="error"?99:70)) },
           MemoryUtilization: { avg: parseFloat(randFloat(10, level==="error"?99:80)) },
@@ -281,7 +298,7 @@ function generateEcsLog(ts, er) {
     "container": { name:svc, image:{ name:`myrepo/${svc}:latest` } },
     "log": { level },
     "event": { outcome:level==="error"?"failure":"success", dataset:"aws.ecs", provider:"ecs.amazonaws.com", duration:durationSec * 1e9 },
-    "message": rand(MSGS[level]),
+    "message": message,
     "service": { name:svc, type:"ecs" },
     ...(level === "error" ? { error: { code: rand(ECS_ERROR_CODES), message: rand(MSGS.error), type: "container" } } : {})
   };
@@ -299,6 +316,9 @@ function generateEc2Log(ts, er) {
   const MSGS = { error:["kernel: Out of memory: Killed process","sshd: error: Could not load host key","Failed to start NetworkManager","disk I/O error on /dev/xvda1"],warn:["CPU steal time above threshold: 23%","High disk utilization: 88% full","Memory available below 512MB","SSH login from unknown IP"],info:["sshd: Accepted publickey for ec2-user","systemd: Started Amazon SSM Agent","cloud-init: modules done","awslogs: Starting daemon"] };
   const EC2_ERROR_CODES = ["StatusCheckFailed","StatusCheckFailed_Instance","InstanceReboot","SystemFailure"];
   const durationSec = randInt(60, 3600);
+  const plainMessage = rand(MSGS[level]);
+  const useStructuredLogging = Math.random() < 0.55;
+  const message = useStructuredLogging ? JSON.stringify({ instanceId, instanceType, level, message: plainMessage, timestamp: new Date(ts).toISOString(), component: rand(["syslog","cloud-init","sshd","awslogs"]) }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"ec2" }, instance:{ id:instanceId } },
@@ -306,6 +326,7 @@ function generateEc2Log(ts, er) {
       dimensions: { InstanceId:instanceId, InstanceType:instanceType, ImageId:`ami-${randId(8).toLowerCase()}`, AutoScalingGroupName:rand(["web-asg","api-asg","worker-asg",null]) },
       ec2: {
         instance_id: instanceId, instance_type: instanceType, ami_id:`ami-${randId(8).toLowerCase()}`,
+        structured_logging: useStructuredLogging,
         metrics: {
           CPUUtilization: { avg: parseFloat(randFloat(1, level==="error"?99:70)) },
           NetworkIn: { sum: randInt(1e6, 500e6) },
@@ -325,7 +346,7 @@ function generateEc2Log(ts, er) {
     "host": { hostname:`ip-${randIp().replace(/\./g,"-")}`, os:{ type:"linux" } },
     "log": { level },
     "event": { category:"host", outcome:level==="error"?"failure":"success", dataset:"aws.ec2", provider:"ec2.amazonaws.com", duration:durationSec * 1e9 },
-    "message": rand(MSGS[level]),
+    "message": message,
     ...(level === "error" ? { error: { code: rand(EC2_ERROR_CODES), message: rand(MSGS.error), type: "host" } } : {})
   };
 }
@@ -338,12 +359,16 @@ function generateEksLog(ts, er) {
   const MSGS = { error:["OOMKilled: container exceeded memory limit","CrashLoopBackOff: back-off restarting failed container","ImagePullBackOff: failed to pull image","Liveness probe failed","FailedScheduling: 0/12 nodes available"],warn:["PodDisruptionBudget violations detected","Node memory pressure detected","Evicted pod due to disk pressure","HPA scaling event: replicas 3->8"],info:["Pod scheduled on node","Container started","Endpoint slice updated","Deployment rollout complete","Service endpoint added"] };
   const EKS_ERROR_CODES = ["OOMKilled","CrashLoopBackOff","ImagePullBackOff","LivenessProbeFailed","FailedScheduling"];
   const durationSec = randInt(1, level === "error" ? 300 : 3600);
+  const plainMessage = rand(MSGS[level]);
+  const useStructuredLogging = Math.random() < 0.6;
+  const message = useStructuredLogging ? JSON.stringify({ cluster: clusterName, namespace: ns, pod, level, message: plainMessage, timestamp: new Date(ts).toISOString(), stream: rand(["stdout","stderr"]) }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"eks" } },
     "aws": {
       dimensions: { ClusterName:clusterName, NodeName:`ip-${randIp().replace(/\./g,"-")}.${region}.compute.internal` },
       eks: {
+        structured_logging: useStructuredLogging,
         cluster: { name:clusterName },
         node: { name:`ip-${randIp().replace(/\./g,"-")}.${region}.compute.internal` },
         metrics: {
@@ -360,7 +385,7 @@ function generateEksLog(ts, er) {
     "kubernetes": { namespace:ns, pod:{ name:pod }, container:{ name:pod.split("-")[0] }, labels:{ app:pod.split("-")[0], env:"prod" } },
     "log": { level },
     "event": { outcome:level==="error"?"failure":"success", category:"container", dataset:"aws.eks", provider:"eks.amazonaws.com", duration:durationSec * 1e9 },
-    "message": rand(MSGS[level]),
+    "message": message,
     ...(level === "error" ? { error: { code: rand(EKS_ERROR_CODES), message: rand(MSGS.error), type: "container" } } : {})
   };
 }
@@ -372,6 +397,9 @@ function generateAppRunnerLog(ts, er) {
   const status = isErr ? rand([500,502,503,504]) : rand([200,200,201,204]);
   const dur = randInt(5, isErr?8000:500);
   const APP_RUNNER_ERROR_CODES = ["InternalServerError","BadGateway","ServiceUnavailable","GatewayTimeout"];
+  const plainMessage = `${rand(HTTP_METHODS)} ${rand(HTTP_PATHS)} ${status} ${dur}ms`;
+  const useStructuredLogging = Math.random() < 0.55;
+  const message = useStructuredLogging ? JSON.stringify({ service: svc, status, latency_ms: dur, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"apprunner" } },
@@ -380,6 +408,7 @@ function generateAppRunnerLog(ts, er) {
       apprunner: {
         service_name: svc,
         service_arn: `arn:aws:apprunner:${region}:${acct.id}:service/${svc}/${randId(32).toLowerCase()}`,
+        structured_logging: useStructuredLogging,
         metrics: {
           Requests: { sum: randInt(1, 1000) },
           "2xxStatusResponses": { sum: status<300 ? randInt(1,1000) : 0 },
@@ -396,7 +425,7 @@ function generateAppRunnerLog(ts, er) {
     "url": { path:rand(HTTP_PATHS) },
     "client": { ip:randIp() },
     "event": { duration:dur*1000000, outcome:status>=400?"failure":"success", dataset:"aws.apprunner", provider:"apprunner.amazonaws.com" },
-    "message": `${rand(HTTP_METHODS)} ${rand(HTTP_PATHS)} ${status} ${dur}ms`,
+    "message": message,
     "log": { level:status>=500?"error":status>=400?"warn":"info" },
     ...(status >= 500 ? { error: { code: rand(APP_RUNNER_ERROR_CODES), message: `HTTP ${status}`, type: "server" } } : {})
   };
@@ -407,18 +436,23 @@ function generateBatchLog(ts, er) {
   const level = Math.random() < er ? "error" : Math.random() < 0.1 ? "warn" : "info";
   const jobName = rand(["nightly-etl","report-generation","data-export","ml-training-prep","cleanup-job"]);
   const jobQueue = `${jobName}-queue`;
+  const jobId = `${randId(8)}-${randId(4)}`.toLowerCase();
   const MSGS = { error:["Job failed with exit code 1","Container instance terminated unexpectedly","Job queue capacity exceeded","IAM role permission denied","Spot instance reclaimed during execution"],warn:["Job retry attempt 2/3","vCPU limit approaching: 980/1000","Job timeout warning: 80% elapsed"],info:["Job submitted to queue","Container started on ECS instance","Job completed successfully","Job definition registered"] };
   const BATCH_ERROR_CODES = ["JobFailed","ContainerTerminated","CapacityExceeded","PermissionDenied","SpotReclaimed"];
   const durationSec = randInt(10, level === "error" ? 7200 : 3600);
+  const plainMessage = rand(MSGS[level]);
+  const useStructuredLogging = Math.random() < 0.6;
+  const message = useStructuredLogging ? JSON.stringify({ jobId, jobName, jobQueue, level, message: plainMessage, timestamp: new Date(ts).toISOString(), arrayIndex: randInt(0, 99) }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"batch" } },
     "aws": {
       dimensions: { JobQueueName:jobQueue, JobDefinition:jobName },
       batch: {
-        job: { name:jobName, id:`${randId(8)}-${randId(4)}`.toLowerCase(), status:level==="error"?"FAILED":"SUCCEEDED" },
+        job: { name:jobName, id:jobId, status:level==="error"?"FAILED":"SUCCEEDED" },
         job_queue: jobQueue,
         compute_environment: `ce-${rand(["spot","ondemand"])}`,
+        structured_logging: useStructuredLogging,
         metrics: {
           PendingJobCount: { avg: randInt(0, 50) },
           RunnableJobCount: { avg: randInt(0, 20) },
@@ -430,7 +464,7 @@ function generateBatchLog(ts, er) {
     },
     "log": { level },
     "event": { outcome:level==="error"?"failure":"success", category:"process", dataset:"aws.batch", provider:"batch.amazonaws.com", duration:durationSec * 1e9 },
-    "message": rand(MSGS[level]),
+    "message": message,
     ...(level === "error" ? { error: { code: rand(BATCH_ERROR_CODES), message: rand(MSGS.error), type: "process" } } : {})
   };
 }
@@ -444,6 +478,9 @@ function generateBeanstalkLog(ts, er) {
   const MSGS = { error:["ERROR: Failed to deploy application version","ENV_ERROR: Deployment failed, rolling back","Application version rejected: validation failed"],warn:["WARN: Enhanced health reporting: Warning","CPU utilization above 75%","Response time above 3s threshold"],info:["Deployment completed successfully","Environment health: OK","Auto Scaling event: +2 instances","Rolling update complete"] };
   const BEANSTALK_ERROR_CODES = ["DeploymentFailed","Rollback","ValidationFailed"];
   const durationSec = randInt(5, isErr ? 600 : 120);
+  const plainMessage = rand(isErr?MSGS.error:status>=400?MSGS.warn:MSGS.info);
+  const useStructuredLogging = Math.random() < 0.55;
+  const message = useStructuredLogging ? JSON.stringify({ application: app, environment: env, status, message: plainMessage, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"elasticbeanstalk" } },
@@ -451,6 +488,7 @@ function generateBeanstalkLog(ts, er) {
       dimensions: { EnvironmentName:env },
       elasticbeanstalk: {
         application: app, environment: env,
+        structured_logging: useStructuredLogging,
         platform: rand(["Node.js 18","Python 3.11","Docker"]),
         version_label: `v${randInt(1,200)}`,
         metrics: {
@@ -468,7 +506,7 @@ function generateBeanstalkLog(ts, er) {
     "http": { response:{ status_code:status } },
     "log": { level:isErr?"error":"info" },
     "event": { outcome:isErr?"failure":"success", dataset:"aws.elasticbeanstalk", provider:"elasticbeanstalk.amazonaws.com", duration:durationSec * 1e9 },
-    "message": rand(isErr?MSGS.error:status>=400?MSGS.warn:MSGS.info),
+    "message": message,
     ...(isErr ? { error: { code: rand(BEANSTALK_ERROR_CODES), message: rand(MSGS.error), type: "application" } } : {})
   };
 }
@@ -1061,6 +1099,9 @@ function generateDynamoDbLog(ts, er) {
   const op = rand(["GetItem","PutItem","UpdateItem","DeleteItem","Query","Scan","BatchWriteItem"]);
   const rcu = parseFloat(randFloat(0.5, isErr?500:50));
   const wcu = parseFloat(randFloat(0.5, 50));
+  const plainMessage = isErr ? `DynamoDB ${op} ${table}: ${rand(["ProvisionedThroughputExceededException","ConditionalCheckFailedException","ResourceNotFoundException"])}` : `DynamoDB ${op} ${table}: consumed ${rcu} RCU, ${wcu} WCU`;
+  const useStructuredLogging = Math.random() < 0.55;
+  const message = useStructuredLogging ? JSON.stringify({ table, operation: op, consumedReadCapacityUnits: rcu, consumedWriteCapacityUnits: wcu, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"dynamodb" } },
@@ -1071,6 +1112,7 @@ function generateDynamoDbLog(ts, er) {
         consumed_read_capacity_units: rcu,
         consumed_write_capacity_units: wcu,
         items_count: randInt(0,1000),
+        structured_logging: useStructuredLogging,
         error_code: isErr?rand(["ProvisionedThroughputExceededException","ConditionalCheckFailedException","ResourceNotFoundException"]):null,
         metrics: {
           ConsumedReadCapacityUnits: { sum: rcu },
@@ -1088,7 +1130,7 @@ function generateDynamoDbLog(ts, er) {
     },
     "db": { name:table, operation:op, type:"nosql" },
     "event": { outcome:isErr?"failure":"success", category:"database", dataset:"aws.dynamodb", provider:"dynamodb.amazonaws.com", duration:randInt(1, isErr?500:50)*1e6 },
-    "message": isErr ? `DynamoDB ${op} on ${table} failed: ProvisionedThroughputExceededException` : `DynamoDB ${op} on ${table}: ${rcu} RCU consumed`,
+    "message": message,
     "log": { level:isErr?"error":rcu>100?"warn":"info" },
     ...(isErr ? { error: { code: rand(["ProvisionedThroughputExceededException","ConditionalCheckFailedException","ResourceNotFoundException"]), message: `DynamoDB ${op} failed`, type: "db" } } : {})
   };
@@ -1421,6 +1463,10 @@ function generateEventBridgeLog(ts, er) {
   const rule = rand(["order-created-rule","user-signup-trigger","scheduled-cleanup","cost-alert-rule","security-event-forwarder"]);
   const source = rand(["aws.ec2","aws.s3","custom.app","aws.health","com.partner.events"]);
   const eventBus = rand(["default","custom-events","app-events"]);
+  const eventId = randUUID();
+  const plainMessage = isErr ? `EventBridge rule ${rule}: target invocations failed` : `EventBridge event routed: ${source} -> ${rule}`;
+  const useStructuredLogging = Math.random() < 0.6;
+  const message = useStructuredLogging ? JSON.stringify({ id: eventId, source, detailType: rand(["EC2 Instance State-change Notification","Object Created","Order Placed","Health Event"]), rule, eventBus, message: plainMessage, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"events" } },
@@ -1430,7 +1476,8 @@ function generateEventBridgeLog(ts, er) {
         event_bus: eventBus, rule, source,
         detail_type: rand(["EC2 Instance State-change Notification","Object Created","Order Placed","Health Event"]),
         targets_invoked: randInt(1,5), targets_failed: isErr?randInt(1,3):0,
-        event_id: randUUID(),
+        event_id: eventId,
+        structured_logging: useStructuredLogging,
         metrics: {
           Invocations: { sum: randInt(1,10000) },
           FailedInvocations: { sum: isErr ? randInt(1,100) : 0 },
@@ -1442,7 +1489,7 @@ function generateEventBridgeLog(ts, er) {
       }
     },
     "event": { outcome:isErr?"failure":"success", category:"process", dataset:"aws.eventbridge", provider:"events.amazonaws.com", duration:randInt(1, isErr?5000:200)*1e6 },
-    "message": isErr ? `EventBridge rule ${rule}: target invocations failed` : `EventBridge event routed: ${source} -> ${rule}`,
+    "message": message,
     "log": { level:isErr?"error":"info" },
     ...(isErr ? { error: { code: "TargetInvocationFailed", message: "EventBridge target invocations failed", type: "event" } } : {})
   };
@@ -1454,6 +1501,10 @@ function generateStepFunctionsLog(ts, er) {
   const machine = rand(["order-fulfillment","user-onboarding","data-pipeline","approval-workflow","batch-processor"]);
   const state = rand(["ValidateInput","ProcessPayment","SendNotification","UpdateDatabase","HandleError"]);
   const dur = parseFloat(randFloat(0.1, isErr?600:30));
+  const executionArn = `arn:aws:states:${region}:${acct.id}:execution:${machine}:${randId(8).toLowerCase()}`;
+  const plainMessage = isErr ? `Step Functions ${machine} FAILED at state ${state}: ${rand(["Lambda error","Timeout","States.TaskFailed"])}` : `Step Functions ${machine} SUCCEEDED in ${dur.toFixed(1)}s`;
+  const useStructuredLogging = Math.random() < 0.55;
+  const message = useStructuredLogging ? JSON.stringify({ executionArn, stateMachine: machine, state, status: isErr?"FAILED":"SUCCEEDED", durationSeconds: dur, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"states" } },
@@ -1462,8 +1513,9 @@ function generateStepFunctionsLog(ts, er) {
       stepfunctions: {
         state_machine_name: machine,
         state_machine_arn: `arn:aws:states:${region}:${acct.id}:stateMachine:${machine}`,
-        execution_arn: `arn:aws:states:${region}:${acct.id}:execution:${machine}:${randId(8).toLowerCase()}`,
+        execution_arn: executionArn,
         state_name: state, status: isErr?"FAILED":"SUCCEEDED", duration_seconds: dur,
+        structured_logging: useStructuredLogging,
         metrics: {
           ExecutionsStarted: { sum: randInt(1,1000) },
           ExecutionsSucceeded: { sum: isErr ? 0 : randInt(1,1000) },
@@ -1476,7 +1528,7 @@ function generateStepFunctionsLog(ts, er) {
       }
     },
     "event": { duration:dur*1e9, outcome:isErr?"failure":"success", category:"process", dataset:"aws.stepfunctions", provider:"states.amazonaws.com" },
-    "message": isErr ? `Step Functions ${machine} FAILED at state ${state}: ${rand(["Lambda error","Timeout","States.TaskFailed"])}` : `Step Functions ${machine} SUCCEEDED in ${dur.toFixed(1)}s`,
+    "message": message,
     "log": { level:isErr?"error":"info" },
     ...(isErr ? { error: { code: "States.TaskFailed", message: `Step Functions failed at ${state}`, type: "workflow" } } : {})
   };
@@ -1492,6 +1544,10 @@ function generateCodeBuildLog(ts, er) {
   const project = rand(["web-app-build","api-service-build","infra-terraform","docker-build","test-runner","release-build"]);
   const dur = randInt(30, isErr?3600:900);
   const phase = rand(["DOWNLOAD_SOURCE","INSTALL","PRE_BUILD","BUILD","POST_BUILD","UPLOAD_ARTIFACTS","COMPLETED"]);
+  const buildId = `${project}:${randId(8)}-${randId(4)}`.toLowerCase();
+  const plainMessage = isErr ? `CodeBuild ${project} FAILED at phase ${phase} after ${dur}s` : `CodeBuild ${project} SUCCEEDED in ${dur}s`;
+  const useStructuredLogging = Math.random() < 0.55;
+  const message = useStructuredLogging ? JSON.stringify({ buildId, project, phase, status: isErr?"FAILED":"SUCCEEDED", durationSeconds: dur, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"codebuild" } },
@@ -1499,7 +1555,7 @@ function generateCodeBuildLog(ts, er) {
       dimensions: { ProjectName:project },
       codebuild: {
         project_name: project,
-        build_id: `${project}:${randId(8)}-${randId(4)}`.toLowerCase(),
+        build_id: buildId,
         build_status: isErr?"FAILED":"SUCCEEDED",
         current_phase: phase,
         duration_seconds: dur,
@@ -1507,6 +1563,7 @@ function generateCodeBuildLog(ts, er) {
         build_number: randInt(1,5000),
         initiator: rand(["codepipeline","github-webhook","manual"]),
         source_version: randId(40).toLowerCase(),
+        structured_logging: useStructuredLogging,
         metrics: {
           Builds: { sum: 1 },
           SucceededBuilds: { sum: isErr ? 0 : 1 },
@@ -1518,7 +1575,7 @@ function generateCodeBuildLog(ts, er) {
       }
     },
     "event": { duration:dur*1e9, outcome:isErr?"failure":"success", category:"process", dataset:"aws.codebuild", provider:"codebuild.amazonaws.com" },
-    "message": isErr ? `CodeBuild ${project} FAILED at phase ${phase} after ${dur}s` : `CodeBuild ${project} SUCCEEDED in ${dur}s`,
+    "message": message,
     "log": { level:isErr?"error":"info" },
     ...(isErr ? { error: { code: "BuildFailed", message: `CodeBuild failed at phase ${phase}`, type: "build" } } : {})
   };
@@ -1529,6 +1586,10 @@ function generateCodePipelineLog(ts, er) {
   const isErr = Math.random() < er;
   const pipeline = rand(["web-prod-pipeline","api-deploy","infra-pipeline","release-train","hotfix-pipeline"]);
   const stage = rand(["Source","Build","Test","Staging","Approval","Production"]);
+  const executionId = randUUID();
+  const plainMessage = isErr ? `CodePipeline ${pipeline} FAILED at ${stage}` : `CodePipeline ${pipeline} SUCCEEDED`;
+  const useStructuredLogging = Math.random() < 0.55;
+  const message = useStructuredLogging ? JSON.stringify({ pipeline, executionId, stage, state: isErr?"Failed":"Succeeded", timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"codepipeline" } },
@@ -1537,11 +1598,12 @@ function generateCodePipelineLog(ts, er) {
       codepipeline: {
         pipeline_name: pipeline,
         pipeline_arn: `arn:aws:codepipeline:${region}:${acct.id}:${pipeline}`,
-        execution_id: randUUID(),
+        execution_id: executionId,
         stage_name: stage,
         action_name: rand(["Source","CodeBuild","Deploy","Manual","Lambda"]),
         state: isErr?"Failed":"Succeeded",
         revision_id: randId(40).toLowerCase(),
+        structured_logging: useStructuredLogging,
         metrics: {
           PipelineExecutionAttempts: { sum: 1 },
           PipelineSuccessCount: { sum: isErr ? 0 : 1 },
@@ -1553,7 +1615,7 @@ function generateCodePipelineLog(ts, er) {
       }
     },
     "event": { outcome:isErr?"failure":"success", category:"process", dataset:"aws.codepipeline", provider:"codepipeline.amazonaws.com", duration:randInt(10, isErr?600:120)*1e9 },
-    "message": isErr ? `CodePipeline ${pipeline} stage ${stage} FAILED: ${rand(["Build error","Test failure","Approval rejected"])}` : `CodePipeline ${pipeline} stage ${stage} succeeded`,
+    "message": message,
     "log": { level:isErr?"error":"info" },
     ...(isErr ? { error: { code: "StageFailed", message: `Pipeline stage ${stage} failed`, type: "pipeline" } } : {})
   };
@@ -1910,7 +1972,21 @@ function generateAthenaLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const queries = ["SELECT date_trunc('day', event_time), count(*) FROM events GROUP BY 1","SELECT user_id, sum(revenue) FROM transactions WHERE dt >= '2024-01-01' GROUP BY 1","CREATE TABLE analytics.daily_summary AS SELECT * FROM raw.events","SELECT p.name, count(o.id) FROM products p JOIN orders o ON p.id = o.product_id GROUP BY 1"];
   const dur = parseFloat(randFloat(0.5, isErr?300:60)); const dataScanned = isErr?0:randInt(1024,10737418240);
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"athena"}},"aws":{athena:{query_id:`${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}`.toLowerCase(),workgroup:rand(["primary","analytics","bi-users"]),database:rand(["analytics","raw","staging"]),state:isErr?"FAILED":"SUCCEEDED",duration_seconds:dur,data_scanned_bytes:dataScanned,data_scanned_mb:Math.round(dataScanned/1048576),engine_version:rand(["Athena engine version 3","DuckDB 0.9.1"]),error_code:isErr?rand(["QUERY_TIMED_OUT","PERMISSION_DENIED","TABLE_NOT_FOUND"]):null}},"db":{statement:rand(queries),type:"sql"},"event":{duration:dur*1e9,outcome:isErr?"failure":"success",category:"database",dataset:"aws.athena",provider:"athena.amazonaws.com"},"message":isErr?`Athena query FAILED after ${dur.toFixed(1)}s: ${rand(["QUERY_TIMED_OUT","TABLE_NOT_FOUND","PERMISSION_DENIED"])}`:`Athena query SUCCEEDED in ${dur.toFixed(1)}s, scanned ${Math.round(dataScanned/1048576)}MB`,"log":{level:isErr?"error":dur>30?"warn":"info"},...(isErr?{error:{code:rand(["QUERY_TIMED_OUT","PERMISSION_DENIED","TABLE_NOT_FOUND"]),message:"Athena query failed",type:"db"}}:{}) };
+  const queryId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}`.toLowerCase();
+  const workgroup = rand(["primary","analytics","bi-users"]); const database = rand(["analytics","raw","staging"]);
+  const plainMessage = isErr ? `Athena query FAILED after ${dur.toFixed(1)}s: ${rand(["QUERY_TIMED_OUT","TABLE_NOT_FOUND","PERMISSION_DENIED"])}` : `Athena query SUCCEEDED in ${dur.toFixed(1)}s, scanned ${Math.round(dataScanned/1048576)}MB`;
+  const useStructuredLogging = Math.random() < 0.55;
+  const message = useStructuredLogging ? JSON.stringify({ queryId, workgroup, database, state: isErr?"FAILED":"SUCCEEDED", durationSeconds: dur, dataScannedBytes: dataScanned, timestamp: new Date(ts).toISOString() }) : plainMessage;
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"athena" } },
+    "aws": { athena: { query_id: queryId, workgroup, database, state: isErr?"FAILED":"SUCCEEDED", duration_seconds: dur, data_scanned_bytes: dataScanned, data_scanned_mb: Math.round(dataScanned/1048576), engine_version: rand(["Athena engine version 3","DuckDB 0.9.1"]), structured_logging: useStructuredLogging, error_code: isErr ? rand(["QUERY_TIMED_OUT","PERMISSION_DENIED","TABLE_NOT_FOUND"]) : null } },
+    "db": { statement: rand(queries), type: "sql" },
+    "event": { duration: dur*1e9, outcome: isErr?"failure":"success", category: "database", dataset: "aws.athena", provider: "athena.amazonaws.com" },
+    "message": message,
+    "log": { level: isErr?"error":dur>30?"warn":"info" },
+    ...(isErr ? { error: { code: rand(["QUERY_TIMED_OUT","PERMISSION_DENIED","TABLE_NOT_FOUND"]), message: "Athena query failed", type: "db" } } : {}),
+  };
 }
 
 function generateBedrockLog(ts, er) {
@@ -1988,7 +2064,34 @@ function generateKinesisAnalyticsLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const app = rand(["clickstream-analytics","fraud-detection-stream","real-time-metrics","session-aggregator","anomaly-detector"]);
   const rps = randInt(100, isErr?50000:10000);
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"kinesisanalytics"}},"aws":{kinesisanalytics:{application_name:app,application_arn:`arn:aws:kinesisanalytics:${region}:${acct.id}:application/${app}`,runtime:rand(["FLINK-1_18","FLINK-1_15","SQL-1_0"]),records_per_second:rps,input_watermark_lag_ms:randInt(0,isErr?60000:1000),checkpointing_enabled:true,last_checkpoint_duration_ms:randInt(100,isErr?30000:2000),kpu_count:randInt(1,64),error:isErr?rand(["CheckpointFailure","OutOfMemory","KPU_LIMIT_EXCEEDED"]):null}},"event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.kinesisanalytics",provider:"kinesisanalytics.amazonaws.com",duration:randInt(100,isErr?30000:2000)*1e6},"message":isErr?`Kinesis Analytics ${app} error: ${rand(["CheckpointFailure","KPU_LIMIT_EXCEEDED","OOM"])}`:`Kinesis Analytics ${app}: ${rps} rec/s, lag ${randInt(0,500)}ms`,"log":{level:isErr?"error":"info"},...(isErr ? { error: { code: rand(["CheckpointFailure","OutOfMemory","KPU_LIMIT_EXCEEDED"]), message: "Kinesis Analytics application error", type: "stream" } } : {}) };
+  const lagMs = randInt(0, isErr?60000:1000);
+  const plainMessage = isErr ? `Kinesis Analytics ${app} error: ${rand(["CheckpointFailure","KPU_LIMIT_EXCEEDED","OOM"])}` : `Kinesis Analytics ${app}: ${rps} rec/s, lag ${randInt(0,500)}ms`;
+  const useStructuredLogging = Math.random() < 0.6;
+  const message = useStructuredLogging ? JSON.stringify({ applicationName: app, recordsPerSecond: rps, inputWatermarkLagMs: lagMs, level: isErr?"error":"info", message: plainMessage, timestamp: new Date(ts).toISOString() }) : plainMessage;
+  const metrics = { records_in_per_second: rps, input_watermark_lag_ms: lagMs, kpu_utilization_pct: randInt(20, isErr?99:80), checkpoint_duration_ms: randInt(100, isErr?30000:2000) };
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"kinesisanalytics" } },
+    "aws": {
+      kinesisanalytics: {
+        application_name: app,
+        application_arn: `arn:aws:kinesisanalytics:${region}:${acct.id}:application/${app}`,
+        runtime: rand(["FLINK-1_18","FLINK-1_15","SQL-1_0"]),
+        records_per_second: rps,
+        input_watermark_lag_ms: lagMs,
+        checkpointing_enabled: true,
+        last_checkpoint_duration_ms: randInt(100, isErr?30000:2000),
+        kpu_count: randInt(1,64),
+        structured_logging: useStructuredLogging,
+        metrics,
+        error: isErr ? rand(["CheckpointFailure","OutOfMemory","KPU_LIMIT_EXCEEDED"]) : null,
+      }
+    },
+    "event": { outcome: isErr?"failure":"success", category:"process", dataset:"aws.kinesisanalytics", provider:"kinesisanalytics.amazonaws.com", duration: randInt(100, isErr?30000:2000)*1e6 },
+    "message": message,
+    "log": { level: isErr?"error":"info" },
+    ...(isErr ? { error: { code: rand(["CheckpointFailure","OutOfMemory","KPU_LIMIT_EXCEEDED"]), message: "Kinesis Analytics application error", type: "stream" } } : {}),
+  };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -2034,18 +2137,22 @@ function generateFargateLog(ts, er) {
   };
   const FARGATE_ERROR_CODES = ["TaskStopped","HealthCheckFailed","OOMKilled","ImagePullFailed","TaskStartFailed"];
   const durationSec = randInt(10, level === "error" ? 600 : 3600);
+  const plainMessage = rand(MSGS[level]);
+  const useStructuredLogging = Math.random() < 0.6;
+  const message = useStructuredLogging ? JSON.stringify({ cluster: clusterName, taskId, taskDefinition: taskDef, container: task, level, message: plainMessage, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"fargate"}},
     "aws":{
       dimensions: { ClusterName:clusterName, TaskId:taskId, TaskDefinition:taskDef },
       fargate:{cluster_name:clusterName,task_id:taskId,
         task_definition:taskDef,
+        structured_logging:useStructuredLogging,
         cpu_units:rand([256,512,1024,2048,4096]),memory_mb:rand([512,1024,2048,4096,8192]),
         platform_version:rand(["1.4.0","LATEST"]),
         cpu_utilized_percent:level==="error"?randInt(90,100):randInt(10,80),
         memory_utilized_percent:level==="error"?randInt(90,100):randInt(20,75)}},
     "container":{name:task},"log":{level},
     "event":{outcome:level==="error"?"failure":"success",category:"container",dataset:"aws.ecs_fargate",provider:"ecs.amazonaws.com",duration:durationSec*1e9},
-    "message":rand(MSGS[level]),
+    "message":message,
     ...(level === "error" ? { error: { code: rand(FARGATE_ERROR_CODES), message: rand(MSGS.error), type: "container" } } : {})};
 }
 
@@ -3029,18 +3136,21 @@ function generateIotCoreLog(ts, er) {
   const device = rand(["sensor-001","gateway-prod-1","thermostat-floor-3","camera-entrance","robot-arm-7"]);
   const action = rand(["CONNECT","DISCONNECT","PUBLISH","SUBSCRIBE","RECEIVE","REJECT"]);
   const topic = rand(["dt/factory/sensors/temperature","dt/home/thermostat/status","cmd/device/update","telemetry/metrics"]);
+  const plainMessage = isErr ? `IoT Core ${action} FAILED for ${device}: ${rand(["Unauthorized","Certificate revoked","Rate limited"])}` : `IoT Core ${action}: ${device} on ${topic}`;
+  const useStructuredLogging = Math.random() < 0.55;
+  const message = useStructuredLogging ? JSON.stringify({ clientId: device, action, topic, message: plainMessage, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"iotcore"}},
     "aws":{iotcore:{client_id:device,thing_name:device,
       thing_group:rand(["factory-sensors","home-devices","fleet","building-management"]),
       action,topic,protocol:rand(["MQTT","MQTT_WS","HTTP","LoRaWAN"]),
       qos:rand([0,1]),message_bytes:randInt(20,65536),
       policy_name:rand(["IoTDevicePolicy","FleetPolicy","SensorPolicy"]),
+      structured_logging:useStructuredLogging,
       error_code:isErr?rand(["UnauthorizedException","ThrottlingException","DeviceDisconnected"]):null,
       rules_evaluated:randInt(0,5)}},
     "source":{ip:randIp()},
     "event":{action,outcome:isErr?"failure":"success",category:"network",dataset:"aws.iot",provider:"iot.amazonaws.com"},
-    "message":isErr?`IoT Core ${action} FAILED for ${device}: ${rand(["Unauthorized","Certificate revoked","Rate limited"])}`:
-      `IoT Core ${action}: ${device} on ${topic}`,
+    "message":message,
     "log":{level:isErr?"error":"info"},
     ...(isErr?{error:{code:rand(["UnauthorizedException","ThrottlingException","DeviceDisconnected"]),message:"IoT Core operation failed",type:"iot"}}:{})};
 }
@@ -3097,16 +3207,19 @@ function generateCloudFormationLog(ts, er) {
   const status = isErr ? rand(["CREATE_FAILED","UPDATE_ROLLBACK_COMPLETE","DELETE_FAILED"]) :
     rand(["CREATE_COMPLETE","UPDATE_COMPLETE","DELETE_COMPLETE","CREATE_IN_PROGRESS"]);
   const resource = rand(["AWS::EC2::VPC","AWS::ECS::Service","AWS::RDS::DBInstance","AWS::Lambda::Function","AWS::IAM::Role"]);
+  const plainMessage = isErr ? `CloudFormation ${stack} ${status}: ${resource} failed - ${rand(["Capacity","IAM denied","Limit exceeded"])}` : `CloudFormation ${stack}: ${action} -> ${status}`;
+  const useStructuredLogging = Math.random() < 0.55;
+  const message = useStructuredLogging ? JSON.stringify({ stackName: stack, action, stackStatus: status, resourceType: resource, message: plainMessage, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"cloudformation"}},
     "aws":{cloudformation:{stack_name:stack,
       stack_id:`arn:aws:cloudformation:${region}:${acct.id}:stack/${stack}/${randId(8)}`.toLowerCase(),
       action,stack_status:status,resource_type:resource,
       logical_resource_id:rand(["WebServerASG","DatabaseCluster","ApiFunction","TaskRole","VPC"]),
       resource_status_reason:isErr?rand(["Resource creation failed","Insufficient capacity","IAM policy error"]):null,
-      drift_status:rand(["NOT_CHECKED","IN_SYNC","DRIFTED"])}},
+      drift_status:rand(["NOT_CHECKED","IN_SYNC","DRIFTED"]),
+      structured_logging:useStructuredLogging}},
     "event":{outcome:isErr?"failure":"success",category:"configuration",dataset:"aws.cloudformation",provider:"cloudformation.amazonaws.com"},
-    "message":isErr?`CloudFormation ${stack} ${status}: ${resource} failed - ${rand(["Capacity","IAM denied","Limit exceeded"])}`:
-      `CloudFormation ${stack}: ${action} -> ${status}`,
+    "message":message,
     ...(isErr?{error:{code:"StackError",message:"CloudFormation stack operation failed",type:"configuration"}}:{}),
     "log":{level:isErr?"error":"info"}};
 }
@@ -3116,17 +3229,21 @@ function generateSsmLog(ts, er) {
   const instance = `i-${randId(17).toLowerCase()}`;
   const action = rand(["RunCommand","StartSession","SendCommand","PatchInstance","GetParameter","PutParameter"]);
   const document = rand(["AWS-RunShellScript","AWS-RunPowerShellScript","AWS-ApplyPatchBaseline","AWS-ConfigureAWSPackage"]);
+  const commandId = `${randId(8)}-${randId(4)}-${randId(4)}`.toLowerCase();
+  const plainMessage = isErr ? `SSM ${action} FAILED on ${instance}: exit code ${rand([1,2,127])}` : `SSM ${action} on ${instance}: ${document}`;
+  const useStructuredLogging = Math.random() < 0.55;
+  const message = useStructuredLogging ? JSON.stringify({ commandId, documentName: document, instanceId: instance, action, status: isErr?"Failed":"Success", timestamp: new Date(ts).toISOString() }) : plainMessage;
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"systemsmanager"}},
-    "aws":{ssm:{command_id:`${randId(8)}-${randId(4)}-${randId(4)}`.toLowerCase(),
+    "aws":{ssm:{command_id:commandId,
       document_name:document,instance_id:instance,action,
       execution_status:isErr?"Failed":"Success",
       response_code:isErr?rand([1,2,127]):0,
       session_id:action==="StartSession"?randId(36).toLowerCase():null,
       parameter_name:action.includes("Parameter")?rand(["/prod/db/password","/prod/api/key"]):null,
-      patch_compliance:action.includes("Patch")?rand(["Compliant","NonCompliant","NotApplicable"]):null}},
+      patch_compliance:action.includes("Patch")?rand(["Compliant","NonCompliant","NotApplicable"]):null,
+      structured_logging:useStructuredLogging}},
     "event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.ssm",provider:"ssm.amazonaws.com"},
-    "message":isErr?`SSM ${action} FAILED on ${instance}: ${rand(["Exit code 1","Instance offline","Timeout"])}`:
-      `SSM ${action}: ${document} on ${instance} succeeded`,
+    "message":message,
     ...(isErr?{error:{code:"SSMError",message:"SSM command failed",type:"process"}}:{}),
     "log":{level:isErr?"error":"info"}};
 }
@@ -3217,6 +3334,7 @@ function generateControlTowerLog(ts, er) {
 }
 
 function generateOrganizationsLog(ts, er) {
+  const acct = randAccount();
   const isErr = Math.random() < er;
   const action = rand(["CreateAccount","MoveAccount","InviteAccountToOrganization","AttachPolicy","DetachPolicy","CreateOrganizationalUnit"]);
   const policyType = rand(["SERVICE_CONTROL_POLICY","TAG_POLICY","BACKUP_POLICY"]);
@@ -3730,6 +3848,7 @@ const ELASTIC_METRICS_DATASET_MAP = {
   networkfirewall: "aws.firewall",
   billing: "aws.billing",
 };
+export { GENERATORS, METRICS_SUPPORTED_SERVICE_IDS, ELASTIC_METRICS_DATASET_MAP, ELASTIC_DATASET_MAP };
 
 // ═══════════════════════════════════════════════════════════════════════════
 // DEFAULT INGESTION SOURCE PER SERVICE

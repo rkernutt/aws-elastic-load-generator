@@ -1,0 +1,64 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "cloudtrail"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "EventName": "CreateUser",
+      "EventSource": "iam.amazonaws.com"
+    },
+    "cloudtrail": {
+      "event_version": "1.08",
+      "event_id": "mqoerrxd-xsl8-24tq",
+      "event_name": "CreateUser",
+      "event_source": "iam.amazonaws.com",
+      "event_category": "Management",
+      "event_type": "AwsApiCall",
+      "request_id": "S6APG5D4-D3AA-MT49-9KHS-JLS9CNDWJW",
+      "api_version": "2012-10-17",
+      "management_event": true,
+      "read_only": false,
+      "user_identity": {
+        "type": "IAMUser",
+        "user_name": "deploy-bot",
+        "account_id": "814726593401"
+      },
+      "response_elements": {
+        "errorCode": "InvalidParameter"
+      },
+      "error_code": "InvalidParameter",
+      "error_message": "User is not authorized to perform this operation"
+    }
+  },
+  "user": {
+    "name": "deploy-bot"
+  },
+  "source": {
+    "ip": "213.206.152.88"
+  },
+  "event": {
+    "action": "CreateUser",
+    "outcome": "failure",
+    "category": "iam",
+    "dataset": "aws.cloudtrail",
+    "provider": "cloudtrail.amazonaws.com"
+  },
+  "message": "deploy-bot performed CreateUser via iam.amazonaws.com [DENIED]",
+  "log": {
+    "level": "warn"
+  },
+  "error": {
+    "code": "InvalidParameter",
+    "message": "User is not authorized to perform this operation",
+    "type": "access"
+  }
+}

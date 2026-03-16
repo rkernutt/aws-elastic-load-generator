@@ -1,0 +1,49 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "738291046572",
+      "name": "globex-development"
+    },
+    "service": {
+      "name": "ses"
+    }
+  },
+  "aws": {
+    "ses": {
+      "message_id": "2smiha33ms2.x3jo1w5uay@eu-west-2.amazonses.com",
+      "event_type": "Reject",
+      "from_address": "alerts@company.com",
+      "destination": "user_owy5xw@yahoo.com",
+      "configuration_set": "marketing",
+      "bounce": {},
+      "complaint": {},
+      "sending_account_id": "738291046572",
+      "delivery": {
+        "recipients": [
+          "user_owy5xw@yahoo.com"
+        ],
+        "timestamp": "2026-03-16T13:32:45.355Z",
+        "processing_time_ms": 1629,
+        "smtp_response": "250 2.0.0 OK"
+      }
+    }
+  },
+  "event": {
+    "outcome": "failure",
+    "category": "email",
+    "dataset": "aws.ses",
+    "provider": "email.amazonaws.com"
+  },
+  "message": "SES Reject: alerts@company.com -> user_owy5xw@yahoo.com",
+  "log": {
+    "level": "warn"
+  },
+  "error": {
+    "code": "SESDeliveryFailure",
+    "message": "SES delivery failed",
+    "type": "email"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "codedeploy"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "Application": "worker-service",
+      "DeploymentGroup": "staging"
+    },
+    "codedeploy": {
+      "application_name": "worker-service",
+      "deployment_group": "staging",
+      "deployment_id": "d-9SGW4OPKF",
+      "deployment_type": "IN_PLACE",
+      "lifecycle_event": "BeforeAllowTraffic",
+      "event_status": "Succeeded",
+      "duration_seconds": 469,
+      "instances_succeeded": 10,
+      "instances_failed": 0,
+      "metrics": {
+        "DeploymentAttempts": {
+          "sum": 1
+        },
+        "DeploymentSuccesses": {
+          "sum": 1
+        },
+        "DeploymentFailures": {
+          "sum": 0
+        },
+        "DeploymentDuration": {
+          "avg": 469
+        },
+        "InstanceSuccesses": {
+          "sum": 9
+        },
+        "InstanceFailures": {
+          "sum": 0
+        }
+      }
+    }
+  },
+  "event": {
+    "duration": 469000000000,
+    "outcome": "success",
+    "category": "process",
+    "dataset": "aws.codedeploy",
+    "provider": "codedeploy.amazonaws.com"
+  },
+  "message": "CodeDeploy worker-service deployment SUCCEEDED in 469s",
+  "log": {
+    "level": "info"
+  }
+}

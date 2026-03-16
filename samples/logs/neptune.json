@@ -1,0 +1,35 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "neptune"
+    }
+  },
+  "aws": {
+    "neptune": {
+      "cluster_id": "prod-neptune",
+      "query_language": "Gremlin",
+      "query": "g.V().hasLabel('user').out('follows').count()",
+      "duration_ms": 4277,
+      "http_status": 200,
+      "db_connections": 175
+    }
+  },
+  "event": {
+    "duration": 4277401000,
+    "outcome": "success",
+    "category": "database",
+    "dataset": "aws.neptune",
+    "provider": "neptune.amazonaws.com"
+  },
+  "message": "Neptune Gremlin: 4277ms",
+  "log": {
+    "level": "info"
+  }
+}

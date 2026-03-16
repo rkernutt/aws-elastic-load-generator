@@ -1,0 +1,47 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "codecommit"
+    }
+  },
+  "aws": {
+    "codecommit": {
+      "repository_name": "shared-libs",
+      "repository_arn": "arn:aws:codecommit:eu-west-2:164820739518:shared-libs",
+      "event_type": "ReferenceCreated",
+      "reference_name": "hotfix/payment-bug",
+      "commit_id": "bo26qnkmdwv",
+      "author": "github-actions",
+      "files_changed": 32,
+      "lines_added": 98,
+      "lines_deleted": 83,
+      "error_code": "InvalidBranchNameException"
+    }
+  },
+  "user": {
+    "name": "carol"
+  },
+  "event": {
+    "action": "ReferenceCreated",
+    "outcome": "failure",
+    "category": "process",
+    "dataset": "aws.codecommit",
+    "provider": "codecommit.amazonaws.com"
+  },
+  "message": "CodeCommit ReferenceCreated FAILED on shared-libs: Repository size limit",
+  "log": {
+    "level": "error"
+  },
+  "error": {
+    "code": "InvalidBranchNameException",
+    "message": "CodeCommit operation failed",
+    "type": "vcs"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "waf"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "WebACL": "prod-waf",
+      "Rule": "AWSManagedRulesKnownBadInputsRuleSet",
+      "Region": "us-east-1"
+    },
+    "waf": {
+      "web_acl_id": "ca2veqhd-zj8t-09wj",
+      "web_acl_name": "prod-waf",
+      "terminating_rule_id": "AWSManagedRulesKnownBadInputsRuleSet",
+      "rule_group_list": [
+        {
+          "rule_group_id": "AWSManagedRulesKnownBadInputsRuleSet",
+          "terminating_rule": "AWSManagedRulesKnownBadInputsRuleSet",
+          "rule_group_override_action": "NONE",
+          "excluded_rules": []
+        }
+      ],
+      "action": "ALLOW",
+      "http_request": {
+        "client_ip": "120.147.246.152",
+        "country": "DE",
+        "uri": "/api/v1/products",
+        "uri_query": "",
+        "method": "PUT",
+        "headers": [
+          {
+            "name": "User-Agent",
+            "value": "python-requests/2.27.1"
+          }
+        ]
+      },
+      "http_source_name": "ALB",
+      "metrics": {
+        "AllowedRequests": {
+          "sum": 5440
+        },
+        "BlockedRequests": {
+          "sum": 0
+        },
+        "CountedRequests": {
+          "sum": 33
+        },
+        "PassedRequests": {
+          "sum": 256
+        }
+      }
+    }
+  },
+  "http": {
+    "request": {
+      "method": "GET",
+      "bytes": 6359
+    },
+    "uri": "/api/v1/products"
+  },
+  "client": {
+    "ip": "120.147.246.152"
+  },
+  "user_agent": {
+    "original": "python-requests/2.27.1"
+  },
+  "event": {
+    "action": "allow",
+    "outcome": "success",
+    "category": "intrusion_detection",
+    "dataset": "aws.waf",
+    "provider": "wafv2.amazonaws.com"
+  },
+  "message": "WAF ALLOWED request - Rule: AWSManagedRulesKnownBadInputsRuleSet",
+  "log": {
+    "level": "info"
+  }
+}

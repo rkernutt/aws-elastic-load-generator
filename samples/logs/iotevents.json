@@ -1,0 +1,42 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "iotevents"
+    }
+  },
+  "aws": {
+    "iotevents": {
+      "detector_model_name": "pressure-monitor",
+      "detector_id": "zone-A",
+      "key_value": "zone-A",
+      "event_name": "AlarmActivated",
+      "from_state": "Normal",
+      "to_state": "Error",
+      "input_name": "HealthCheck",
+      "action_type": "SetVariable",
+      "error_code": "ThrottlingException"
+    }
+  },
+  "event": {
+    "outcome": "failure",
+    "category": "process",
+    "dataset": "aws.iotevents",
+    "provider": "iotevents.amazonaws.com"
+  },
+  "message": "IoT Events pressure-monitor/zone-A ERROR: State machine error:",
+  "log": {
+    "level": "error"
+  },
+  "error": {
+    "code": "ThrottlingException",
+    "message": "IoT Events error",
+    "type": "iot"
+  }
+}

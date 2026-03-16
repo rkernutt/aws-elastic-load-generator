@@ -1,0 +1,82 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "docdb"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "DBClusterIdentifier": "docdb-eu-west-2-cluster",
+      "Role": "READER"
+    },
+    "docdb": {
+      "cluster_id": "docdb-eu-west-2-cluster",
+      "database": "appdb",
+      "collection": "orders",
+      "operation": "insert",
+      "duration_ms": 374,
+      "documents_affected": 457,
+      "metrics": {
+        "CPUUtilization": {
+          "avg": 14.092
+        },
+        "DatabaseConnections": {
+          "avg": 4
+        },
+        "FreeLocalStorage": {
+          "avg": 57309582570
+        },
+        "FreeableMemory": {
+          "avg": 6122620123
+        },
+        "ReadIOPS": {
+          "avg": 2360
+        },
+        "WriteIOPS": {
+          "avg": 3526
+        },
+        "ReadLatency": {
+          "avg": 0.045
+        },
+        "WriteLatency": {
+          "avg": 0.023
+        },
+        "DocumentsInserted": {
+          "sum": 639
+        },
+        "DocumentsDeleted": {
+          "sum": 0
+        },
+        "DocumentsUpdated": {
+          "sum": 0
+        },
+        "DocumentsReturned": {
+          "sum": 0
+        }
+      }
+    }
+  },
+  "db": {
+    "name": "appdb",
+    "operation": "insert",
+    "type": "document"
+  },
+  "event": {
+    "duration": 373545000,
+    "outcome": "success",
+    "category": "database",
+    "dataset": "aws.docdb",
+    "provider": "docdb.amazonaws.com"
+  },
+  "message": "DocumentDB insert on orders: 373.5ms",
+  "log": {
+    "level": "info"
+  }
+}

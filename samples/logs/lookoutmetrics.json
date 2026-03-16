@@ -1,0 +1,41 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "lookoutmetrics"
+    }
+  },
+  "aws": {
+    "lookoutmetrics": {
+      "anomaly_detector_arn": "arn:aws:lookoutmetrics:eu-west-2:293847561023:AnomalyDetector:traffic-spike-detector",
+      "anomaly_group_id": "zu3emeoc0a",
+      "metric_name": "conversion_rate",
+      "severity": "LOW",
+      "anomaly_score": 25.731,
+      "relevant_dates": 7,
+      "impact_value": 27.382,
+      "expected_value": 4126.176,
+      "actual_value": 4581.126,
+      "dimension": {
+        "service": "checkout"
+      },
+      "sensitivity": "MEDIUM"
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "process",
+    "dataset": "aws.lookoutmetrics",
+    "provider": "lookoutmetrics.amazonaws.com"
+  },
+  "message": "Lookout for Metrics [traffic-spike-detector]: conversion_rate anomaly_score=26",
+  "log": {
+    "level": "info"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "autoscaling"
+    }
+  },
+  "aws": {
+    "autoscaling": {
+      "group_name": "web-asg",
+      "activity_id": "5afif389-gzyw-evyh",
+      "action_type": "Launch",
+      "instance_id": "i-tjesrqsvm2",
+      "instance_type": "t3.medium",
+      "desired_capacity": 8,
+      "min_size": 2,
+      "max_size": 50,
+      "current_capacity": 2,
+      "cause": "Scheduled action triggered",
+      "status_code": "Successful",
+      "launch_template": "web-lt:5"
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "host",
+    "dataset": "aws.autoscaling",
+    "provider": "autoscaling.amazonaws.com"
+  },
+  "message": "AutoScaling web-asg: Launch instance",
+  "log": {
+    "level": "info"
+  }
+}

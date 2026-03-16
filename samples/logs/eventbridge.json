@@ -1,0 +1,66 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "events"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "EventBusName": "default",
+      "RuleName": "security-event-forwarder"
+    },
+    "eventbridge": {
+      "event_bus": "default",
+      "rule": "security-event-forwarder",
+      "source": "aws.s3",
+      "detail_type": "Object Created",
+      "targets_invoked": 1,
+      "targets_failed": 3,
+      "event_id": "w4z54fcy-2axo-bas6-pmw0-6arzn8pde9x",
+      "structured_logging": true,
+      "metrics": {
+        "Invocations": {
+          "sum": 3165
+        },
+        "FailedInvocations": {
+          "sum": 90
+        },
+        "TriggeredRules": {
+          "sum": 815
+        },
+        "MatchedEvents": {
+          "sum": 1984
+        },
+        "ThrottledRules": {
+          "sum": 2
+        },
+        "DeadLetterInvocations": {
+          "sum": 8
+        }
+      }
+    }
+  },
+  "event": {
+    "outcome": "failure",
+    "category": "process",
+    "dataset": "aws.eventbridge",
+    "provider": "events.amazonaws.com",
+    "duration": 52000000
+  },
+  "message": "{\"id\":\"w4z54fcy-2axo-bas6-pmw0-6arzn8pde9x\",\"source\":\"aws.s3\",\"detailType\":\"Order Placed\",\"rule\":\"security-event-forwarder\",\"eventBus\":\"default\",\"message\":\"EventBridge rule security-event-forwarder: target invocations failed\",\"timestamp\":\"2026-03-16T13:32:45.355Z\"}",
+  "log": {
+    "level": "error"
+  },
+  "error": {
+    "code": "TargetInvocationFailed",
+    "message": "EventBridge target invocations failed",
+    "type": "event"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "description": "Parse JSON from the log message field (e.g. Lambda structured logging). Stores parsed object under lambda.parsed; non-JSON messages are left unchanged.",
+  "processors": [
+    {
+      "json": {
+        "field": "message",
+        "target_field": "lambda.parsed",
+        "ignore_failure": true
+      }
+    }
+  ]
+}

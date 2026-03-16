@@ -1,0 +1,77 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "sqs"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "QueueName": "webhook-events"
+    },
+    "sqs": {
+      "queue_name": "webhook-events",
+      "queue_url": "https://sqs.us-east-1.amazonaws.com/501938274650/webhook-events",
+      "messages_sent": 4862,
+      "messages_deleted": 134,
+      "approximate_number_of_messages": 133,
+      "approximate_age_of_oldest_message_seconds": 186,
+      "is_dlq": false,
+      "metrics": {
+        "NumberOfMessagesSent": {
+          "sum": 4862
+        },
+        "NumberOfMessagesReceived": {
+          "sum": 1574
+        },
+        "NumberOfMessagesDeleted": {
+          "sum": 134
+        },
+        "ApproximateNumberOfMessagesVisible": {
+          "avg": 929
+        },
+        "ApproximateNumberOfMessagesNotVisible": {
+          "avg": 28
+        },
+        "ApproximateNumberOfMessagesDelayed": {
+          "avg": 11
+        },
+        "ApproximateAgeOfOldestMessage": {
+          "avg": 108
+        },
+        "SentMessageSize": {
+          "avg": 68013
+        },
+        "NumberOfEmptyReceives": {
+          "sum": 971
+        }
+      }
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "process",
+    "dataset": "aws.sqs",
+    "provider": "sqs.amazonaws.com",
+    "duration": 151000000
+  },
+  "message": "SQS webhook-events: 4862 messages processed",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.sqs",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "codeartifact"
+    }
+  },
+  "aws": {
+    "codeartifact": {
+      "domain_name": "platform",
+      "repository_name": "nuget-store",
+      "package_format": "maven",
+      "package_name": "my-lib",
+      "package_version": "5.19.10",
+      "action": "CopyPackageVersions",
+      "download_size_bytes": 410976,
+      "upstream_repository": "pypi-upstream",
+      "error_code": "AccessDeniedException"
+    }
+  },
+  "event": {
+    "action": "CopyPackageVersions",
+    "outcome": "failure",
+    "category": "package",
+    "dataset": "aws.codeartifact",
+    "provider": "codeartifact.amazonaws.com"
+  },
+  "message": "CodeArtifact CopyPackageVersions FAILED: my-lib@5.19.10 in platform/nuget-store",
+  "log": {
+    "level": "error"
+  },
+  "error": {
+    "code": "ResourceNotFoundException",
+    "message": "CodeArtifact operation failed",
+    "type": "package"
+  }
+}

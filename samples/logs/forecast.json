@@ -1,0 +1,37 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "forecast"
+    }
+  },
+  "aws": {
+    "forecast": {
+      "dataset_group": "demand-forecast",
+      "predictor_name": "demand-forecast-predictor-v1",
+      "action": "CreateDatasetImportJob",
+      "algorithm": "CNN-QR",
+      "forecast_horizon": 90,
+      "weighted_quantile_loss": 0.216,
+      "duration_seconds": 2172,
+      "status": "ACTIVE"
+    }
+  },
+  "event": {
+    "duration": 2172000000000,
+    "outcome": "success",
+    "category": "machine_learning",
+    "dataset": "aws.forecast",
+    "provider": "forecast.amazonaws.com"
+  },
+  "message": "Forecast CreateDatasetImportJob: demand-forecast, WQL=0.151",
+  "log": {
+    "level": "info"
+  }
+}

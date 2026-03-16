@@ -1,0 +1,66 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "738291046572",
+      "name": "globex-development"
+    },
+    "service": {
+      "name": "firehose"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "DeliveryStreamName": "clickstream-backup"
+    },
+    "firehose": {
+      "delivery_stream_name": "clickstream-backup",
+      "destination": "HTTPEndpoint",
+      "incoming_records": 18745,
+      "incoming_bytes": 33459825,
+      "delivery_success": true,
+      "delivery_records": 18745,
+      "data_freshness_seconds": 290,
+      "metrics": {
+        "IncomingRecords": {
+          "sum": 18745
+        },
+        "IncomingBytes": {
+          "sum": 4498800
+        },
+        "DeliveryToS3_Records": {
+          "sum": 0
+        },
+        "DeliveryToS3_Success": {},
+        "DeliveryToRedshift_Records": {
+          "sum": 0
+        },
+        "DeliveryToElasticsearch_Records": {
+          "sum": 0
+        },
+        "FailedConversionRecords": {
+          "sum": 0
+        },
+        "DataReadFromKinesisStream_Records": {
+          "sum": 18745
+        },
+        "DeliveryToS3_DataFreshness": {
+          "avg": 259
+        }
+      }
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "process",
+    "dataset": "aws.firehose",
+    "provider": "firehose.amazonaws.com",
+    "duration": 31000000000
+  },
+  "message": "Firehose clickstream-backup: 18745 records delivered",
+  "log": {
+    "level": "info"
+  }
+}

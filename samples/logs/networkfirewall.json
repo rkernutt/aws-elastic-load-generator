@@ -1,0 +1,80 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "network-firewall"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "FirewallName": "fw-us-east-1",
+      "AvailabilityZone": "us-east-1b"
+    },
+    "firewall_logs": {
+      "flow_id": 163587,
+      "event_timestamp": "2026-03-16T13:32:45.355Z",
+      "action": "DROP",
+      "src_ip": "142.127.103.7",
+      "dest_ip": "98.96.134.122",
+      "src_port": 33860,
+      "dest_port": 443,
+      "protocol": "ICMP",
+      "firewall_name": "fw-us-east-1",
+      "availability_zone": "us-east-1b"
+    },
+    "network_firewall": {
+      "firewall_name": "fw-us-east-1",
+      "availability_zone": "us-east-1b",
+      "policy_name": "prod-fw-policy",
+      "metrics": {
+        "DroppedPackets": {
+          "sum": 277
+        },
+        "PassedPackets": {
+          "sum": 0
+        },
+        "RejectedPackets": {
+          "sum": 0
+        },
+        "Packets": {
+          "sum": 28926
+        }
+      }
+    }
+  },
+  "source": {
+    "ip": "142.127.103.7",
+    "port": 33860
+  },
+  "destination": {
+    "ip": "98.96.134.122",
+    "port": 443
+  },
+  "network": {
+    "transport": "icmp",
+    "bytes": 34714,
+    "packets": 25
+  },
+  "event": {
+    "action": "drop",
+    "outcome": "failure",
+    "category": "network",
+    "dataset": "aws.firewall_logs",
+    "provider": "network-firewall.amazonaws.com"
+  },
+  "message": "DROP ICMP flow",
+  "log": {
+    "level": "warn"
+  },
+  "error": {
+    "code": "FlowDropped",
+    "message": "Packet dropped by firewall rule",
+    "type": "network"
+  }
+}

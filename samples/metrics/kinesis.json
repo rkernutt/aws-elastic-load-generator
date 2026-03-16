@@ -1,0 +1,82 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "kinesis"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "StreamName": "user-events",
+      "ShardId": "shardId-000000000013"
+    },
+    "kinesis": {
+      "stream_name": "user-events",
+      "shard_id": "shardId-000000000000",
+      "sequence_number": "POIFVCA7MW",
+      "partition_key": "69um98or",
+      "incoming_records": 4392,
+      "incoming_bytes": 80082,
+      "iterator_age_ms": 651,
+      "write_provisioned_throughput_exceeded": false,
+      "metrics": {
+        "IncomingRecords": {
+          "sum": 6481
+        },
+        "IncomingBytes": {
+          "sum": 3318948
+        },
+        "OutgoingRecords": {
+          "sum": 3332
+        },
+        "OutgoingBytes": {
+          "sum": 3729706
+        },
+        "WriteProvisionedThroughputExceeded": {
+          "sum": 0
+        },
+        "ReadProvisionedThroughputExceeded": {
+          "sum": 0
+        },
+        "IteratorAgeMilliseconds": {
+          "avg": 30
+        },
+        "GetRecords_IteratorAgeMilliseconds": {
+          "avg": 459
+        },
+        "PutRecord_Success": {
+          "sum": 7157
+        },
+        "PutRecords_Success": {
+          "sum": 338
+        }
+      }
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "process",
+    "dataset": "aws.kinesis",
+    "provider": "kinesis.amazonaws.com",
+    "duration": 4450000000
+  },
+  "message": "Kinesis user-events: 6509 records ingested",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.kinesis",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "cloudwatchalarms"
+    }
+  },
+  "aws": {
+    "cloudwatch": {
+      "alarm_name": "high-cpu-alarm",
+      "alarm_state": "OK",
+      "previous_state": "OK",
+      "namespace": "AWS/Lambda",
+      "metric_name": "QueueDepth",
+      "threshold": 95,
+      "evaluation_periods": 1,
+      "metric_value": 17.606,
+      "statistic": "Sum",
+      "period_seconds": 60,
+      "treat_missing_data": "notBreaching"
+    }
+  },
+  "event": {
+    "kind": "alert",
+    "outcome": "success",
+    "category": "configuration",
+    "dataset": "aws.cloudwatch",
+    "provider": "monitoring.amazonaws.com"
+  },
+  "message": "CloudWatch alarm \"high-cpu-alarm\": OK (AWS/Lambda/QueueDepth=17.6)",
+  "log": {
+    "level": "info"
+  }
+}

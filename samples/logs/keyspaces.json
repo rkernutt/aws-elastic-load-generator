@@ -1,0 +1,43 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "keyspaces"
+    }
+  },
+  "aws": {
+    "keyspaces": {
+      "keyspace_name": "analytics",
+      "table_name": "users",
+      "operation": "BATCH",
+      "read_capacity_units": 0,
+      "write_capacity_units": 0,
+      "rows_returned": 0,
+      "duration_ms": 4088,
+      "cql_version": "3.11.2",
+      "error_code": "TimeoutException"
+    }
+  },
+  "event": {
+    "duration": 4087945000,
+    "outcome": "failure",
+    "category": "database",
+    "dataset": "aws.keyspaces",
+    "provider": "cassandra.amazonaws.com"
+  },
+  "message": "Keyspaces BATCH on analytics.users FAILED: Write conflict",
+  "log": {
+    "level": "error"
+  },
+  "error": {
+    "code": "ProvisionedThroughputExceededException",
+    "message": "Keyspaces operation failed",
+    "type": "db"
+  }
+}

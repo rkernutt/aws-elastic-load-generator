@@ -1,0 +1,64 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "sagemaker"
+    }
+  },
+  "aws": {
+    "sagemaker": {
+      "domain_id": "d-q6mpqmoirz",
+      "domain_name": "risk-models",
+      "user_profile": "dan-platform",
+      "job": {
+        "name": "lstm-timeseries-hyperparametertuning-d6farl",
+        "type": "HyperparameterTuning",
+        "arn": "arn:aws:sagemaker:us-east-1:501938274650:training-job/lstm-timeseries-hyperparametertuning-d6farl"
+      },
+      "model": {
+        "name": "lstm-timeseries",
+        "version": 13
+      },
+      "pipeline": {
+        "name": "model-training-pipeline",
+        "execution_id": "pipe-88wcp990tv3"
+      },
+      "instance": {
+        "type": "ml.m5.xlarge",
+        "count": 1
+      },
+      "metrics": {
+        "training_loss": 0.4159,
+        "accuracy": 0.7835,
+        "epoch": 6,
+        "gpu_utilization_pct": 91,
+        "cpu_utilization_pct": 76
+      },
+      "studio": {
+        "lifecycle_config": false,
+        "continuous_logging": false
+      }
+    }
+  },
+  "log": {
+    "level": "warn"
+  },
+  "user": {
+    "name": "dan-platform"
+  },
+  "event": {
+    "action": "TrainingJobCompleted",
+    "duration": 10919676000000,
+    "outcome": "success",
+    "category": "machine_learning",
+    "dataset": "aws.sagemaker",
+    "provider": "sagemaker.amazonaws.com"
+  },
+  "message": "Training loss plateau detected at epoch 28"
+}

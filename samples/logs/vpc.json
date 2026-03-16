@@ -1,0 +1,72 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "vpc"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "VpcId": "vpc-39zxg5jh"
+    },
+    "vpcflow": {
+      "version": "2",
+      "account_id": "293847561023",
+      "interface_id": "eni-az77jdmj",
+      "action": "ACCEPT",
+      "log_status": "OK",
+      "pkt_srcaddr": "65.169.129.203",
+      "pkt_dstaddr": "197.74.221.200",
+      "vpc_id": "vpc-39zxg5jh",
+      "subnet_id": "subnet-f4l82xww",
+      "type": "IPv4"
+    },
+    "vpc": {
+      "action": "ACCEPT",
+      "log_status": "OK",
+      "interface_id": "eni-az77jdmj",
+      "vpc_id": "vpc-39zxg5jh",
+      "subnet_id": "subnet-f4l82xww",
+      "account_id": "293847561023",
+      "metrics": {
+        "BytesTransferred": {
+          "sum": 52991
+        },
+        "PacketsTransferred": {
+          "sum": 56
+        }
+      }
+    }
+  },
+  "source": {
+    "ip": "65.169.129.203",
+    "port": 58783
+  },
+  "destination": {
+    "ip": "197.74.221.200",
+    "port": 22
+  },
+  "network": {
+    "transport": "tcp",
+    "bytes": 52991,
+    "packets": 56,
+    "direction": "outbound"
+  },
+  "event": {
+    "action": "accept",
+    "outcome": "success",
+    "category": "network",
+    "dataset": "aws.vpcflow",
+    "provider": "ec2.amazonaws.com"
+  },
+  "message": "ACCEPT TCP 65.169.129.203:23027 -> 197.74.221.200:22 52991B 56pkts",
+  "log": {
+    "level": "info"
+  }
+}

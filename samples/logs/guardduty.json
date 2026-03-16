@@ -1,0 +1,74 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "guardduty"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "DetectorId": "21dxhzf5mpx"
+    },
+    "guardduty": {
+      "schema_version": "2.0",
+      "account_id": "164820739518",
+      "region": "eu-west-2",
+      "partition": "aws",
+      "id": "4y3gzpsvrsf",
+      "arn": "arn:aws:guardduty:eu-west-2:164820739518:detector/21dxhzf5mpx/finding/4y3gzpsvrsf",
+      "type": "UnauthorizedAccess:EC2/SSHBruteForce",
+      "title": "EC2 SSHBruteForce",
+      "description": "Routine check completed.",
+      "created_at": "2026-03-16T13:32:45.355Z",
+      "updated_at": "2026-03-16T13:32:45.355Z",
+      "severity": 0,
+      "confidence": 84.35,
+      "finding_id": "4y3gzpsvrsf",
+      "finding_type": "UnauthorizedAccess:EC2/SSHBruteForce",
+      "detector_id": "21dxhzf5mpx",
+      "resource_type": "AccessKey",
+      "action_type": "NETWORK_CONNECTION",
+      "count": 295,
+      "metrics": {
+        "FindingCount": {
+          "sum": 0
+        },
+        "HighSeverityFindingCount": {
+          "sum": 0
+        },
+        "MediumSeverityFindingCount": {
+          "sum": 0
+        },
+        "LowSeverityFindingCount": {
+          "sum": 0
+        }
+      }
+    }
+  },
+  "threat": {
+    "indicator": [
+      {
+        "type": "domain",
+        "value": "159.236.225.8"
+      }
+    ]
+  },
+  "event": {
+    "kind": "alert",
+    "severity": 0,
+    "outcome": "success",
+    "category": "intrusion_detection",
+    "dataset": "aws.guardduty",
+    "provider": "guardduty.amazonaws.com"
+  },
+  "message": "GuardDuty: no threats detected",
+  "log": {
+    "level": "info"
+  }
+}

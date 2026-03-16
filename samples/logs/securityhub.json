@@ -1,0 +1,74 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "securityhub"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "ComplianceStandard": "pci-dss",
+      "ControlId": "CIS.4.6"
+    },
+    "securityhub_findings": {
+      "id": "0PO4X400-8FTP-MVCE-FADM-7S1C4SCD4FG",
+      "aws_account_id": "164820739518",
+      "description": "Security check failed: CIS.4.6 - Default security group allows all traffic",
+      "created_at": "2026-03-16T11:47:14.019Z",
+      "first_observed_at": "2026-03-16T11:47:14.019Z",
+      "last_observed_at": "2026-03-16T13:32:45.355Z",
+      "generator": {
+        "id": "CIS.4.6"
+      },
+      "compliance": {
+        "security_control_id": "CIS.4.6",
+        "status": "FAILED"
+      },
+      "criticality": 4,
+      "confidence": 95
+    },
+    "securityhub": {
+      "finding_id": "arn:aws:securityhub:us-east-1:164820739518:finding/0PO4X400-8FTP-MVCE-FADM-7S1C4SCD4FG",
+      "standard": "aws-foundational-security-best-practices",
+      "control_id": "CIS.4.6",
+      "compliance_status": "FAILED",
+      "severity_label": "MEDIUM",
+      "workflow_status": "RESOLVED",
+      "account_id": "164820739518",
+      "metrics": {
+        "Findings": {
+          "sum": 55
+        },
+        "FailedChecks": {
+          "sum": 38
+        },
+        "PassedChecks": {
+          "sum": 0
+        }
+      }
+    }
+  },
+  "event": {
+    "kind": "alert",
+    "severity": 4,
+    "outcome": "failure",
+    "category": "compliance",
+    "dataset": "aws.securityhub_findings",
+    "provider": "securityhub.amazonaws.com"
+  },
+  "message": "Security Hub [MEDIUM]: Compliance check failed",
+  "log": {
+    "level": "info"
+  },
+  "error": {
+    "code": "ComplianceFailed",
+    "message": "Control CIS.4.6 failed",
+    "type": "compliance"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "elasticache"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "CacheClusterId": "prod-redis-5",
+      "CacheNodeId": "0003"
+    },
+    "elasticache": {
+      "cluster_id": "prod-redis-5",
+      "node_id": "0003",
+      "engine": "redis",
+      "engine_version": "7.1.0",
+      "replication_group_id": "prod-cache",
+      "command": "EXPIRE",
+      "latency_us": 15.387,
+      "cache_hit": true,
+      "connected_clients": 304,
+      "used_memory_mb": 14840,
+      "metrics": {
+        "CPUUtilization": {
+          "avg": 5.837
+        },
+        "FreeableMemory": {
+          "avg": 227328803
+        },
+        "NetworkBytesIn": {
+          "sum": 75713110
+        },
+        "NetworkBytesOut": {
+          "sum": 11814221
+        },
+        "CacheHits": {
+          "sum": 36614
+        },
+        "CacheMisses": {
+          "sum": 5829
+        },
+        "CurrConnections": {
+          "avg": 321
+        },
+        "NewConnections": {
+          "sum": 11
+        },
+        "Evictions": {
+          "sum": 0
+        },
+        "ReplicationLag": {
+          "avg": 0.276
+        },
+        "SaveInProgress": {
+          "avg": 0
+        }
+      }
+    }
+  },
+  "db": {
+    "type": "keyvalue",
+    "operation": "EXPIRE"
+  },
+  "event": {
+    "duration": 15387,
+    "outcome": "success",
+    "category": "database",
+    "dataset": "aws.elasticache",
+    "provider": "elasticache.amazonaws.com"
+  },
+  "message": "Redis EXPIRE 15.39us",
+  "log": {
+    "level": "info"
+  }
+}

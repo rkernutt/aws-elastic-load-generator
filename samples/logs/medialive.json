@@ -1,0 +1,42 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "medialive"
+    }
+  },
+  "aws": {
+    "medialive": {
+      "channel_id": "SA5U5710YA",
+      "channel_name": "concert-stream",
+      "channel_state": "ERROR",
+      "pipeline": "PIPELINE_0",
+      "input_type": "RTP_PUSH",
+      "output_type": "RTMP",
+      "video_bitrate_kbps": 516,
+      "input_loss_frames": 937,
+      "encoder_fps": 20
+    }
+  },
+  "event": {
+    "outcome": "failure",
+    "category": "process",
+    "dataset": "aws.medialive",
+    "provider": "medialive.amazonaws.com"
+  },
+  "message": "Audio track desync detected",
+  "log": {
+    "level": "error"
+  },
+  "error": {
+    "code": "MediaLiveError",
+    "message": "Encoder error: resolution mismatch",
+    "type": "media"
+  }
+}

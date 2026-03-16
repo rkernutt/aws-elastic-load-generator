@@ -1,0 +1,75 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "nlb"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "LoadBalancer": "net/prod-nlb-us-east-1/jg4batz7fzk",
+      "Protocol": "TLS",
+      "Port": "3306"
+    },
+    "elb": {
+      "name": "net/prod-nlb-us-east-1/jg4batz7fzk",
+      "type": "network",
+      "listener": "arn:aws:elasticloadbalancing:us-east-1:293847561023:listener/net/prod-nlb/vn52dyjsy5/o1yf8hcpesd",
+      "protocol": "TLS",
+      "connection_duration.sec": 1.861,
+      "tls.cipher_suite": "ECDHE-RSA-AES128-GCM-SHA256",
+      "tls.protocol_version": "TLSv1.3",
+      "backend.ip": "240.50.192.124",
+      "backend.port": "3306",
+      "received_bytes": 639273,
+      "sent_bytes": 822302
+    },
+    "nlb": {
+      "load_balancer": "net/prod-nlb-us-east-1/jg4batz7fzk",
+      "listener_port": 3306,
+      "protocol": "TLS",
+      "connection_duration_ms": 1861,
+      "tls_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
+      "tls_protocol": "TLSv1.3",
+      "target_ip": "240.50.192.124",
+      "target_port": 3306,
+      "connection_log_status": "success",
+      "bytes": 639273,
+      "packets": 66
+    }
+  },
+  "source": {
+    "ip": "158.11.225.119",
+    "port": 26226
+  },
+  "network": {
+    "transport": "tls",
+    "bytes": 639273
+  },
+  "event": {
+    "outcome": "success",
+    "category": "network",
+    "dataset": "aws.elb_logs",
+    "provider": "elasticloadbalancing.amazonaws.com",
+    "duration": 1861000000
+  },
+  "message": "NLB TLS:3306 639273B in 1861ms",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.elb",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

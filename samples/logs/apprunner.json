@@ -1,0 +1,77 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "apprunner"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "ServiceName": "web-api"
+    },
+    "apprunner": {
+      "service_name": "web-api",
+      "service_arn": "arn:aws:apprunner:us-east-1:293847561023:service/web-api/19pagl4ic0v",
+      "structured_logging": false,
+      "metrics": {
+        "Requests": {
+          "sum": 772
+        },
+        "2xxStatusResponses": {
+          "sum": 129
+        },
+        "4xxStatusResponses": {
+          "sum": 0
+        },
+        "5xxStatusResponses": {
+          "sum": 0
+        },
+        "RequestLatency": {
+          "avg": 232,
+          "p99": 464
+        },
+        "ActiveInstances": {
+          "avg": 9
+        },
+        "CPUUtilization": {
+          "avg": 58.287
+        },
+        "MemoryUtilization": {
+          "avg": 53.059
+        }
+      }
+    }
+  },
+  "http": {
+    "request": {
+      "method": "POST",
+      "bytes": 2060
+    },
+    "response": {
+      "status_code": 201,
+      "bytes": 4278
+    }
+  },
+  "url": {
+    "path": "/api/v1/users"
+  },
+  "client": {
+    "ip": "169.21.13.22"
+  },
+  "event": {
+    "duration": 232000000,
+    "outcome": "success",
+    "dataset": "aws.apprunner",
+    "provider": "apprunner.amazonaws.com"
+  },
+  "message": "PATCH /api/v1/users 201 232ms",
+  "log": {
+    "level": "info"
+  }
+}

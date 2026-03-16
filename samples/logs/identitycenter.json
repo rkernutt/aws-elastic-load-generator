@@ -1,0 +1,41 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "identitycenter"
+    }
+  },
+  "aws": {
+    "iam_identity_center": {
+      "event_type": "AssignPermissionSet",
+      "user_name": "bob@corp.com",
+      "application_name": "DataDog",
+      "permission_set": "ReadOnlyAccess",
+      "account_id": "814726593401",
+      "mfa_authenticated": true
+    }
+  },
+  "user": {
+    "name": "bob@corp.com"
+  },
+  "source": {
+    "ip": "5.233.131.171"
+  },
+  "event": {
+    "action": "AssignPermissionSet",
+    "outcome": "success",
+    "category": "authentication",
+    "dataset": "aws.identitycenter",
+    "provider": "sso.amazonaws.com"
+  },
+  "message": "IAM Identity Center AssignPermissionSet: bob@corp.com -> DataDog",
+  "log": {
+    "level": "info"
+  }
+}

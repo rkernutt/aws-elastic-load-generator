@@ -1,0 +1,73 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "xray"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "GroupName": "Default",
+      "ServiceType": "client"
+    },
+    "xray": {
+      "trace_id": "1-69b8067d-i7auq7fb3xk",
+      "segment_id": "eqosjdda07g",
+      "parent_id": "h983dkfkuz",
+      "service": {
+        "name": "db-proxy",
+        "type": "AWS::EC2::Instance"
+      },
+      "duration": 1.47,
+      "http": {
+        "request": {
+          "method": "PUT",
+          "url": "/api/v1/auth/login"
+        },
+        "response": {
+          "status": 200
+        }
+      },
+      "fault": false,
+      "annotations": {
+        "env": "prod",
+        "version": "v17"
+      },
+      "metrics": {
+        "ErrorRate": {
+          "avg": 0.216
+        },
+        "FaultRate": {
+          "avg": 0.472
+        },
+        "ThrottleRate": {
+          "avg": 1.481
+        },
+        "TotalCount": {
+          "sum": 628
+        },
+        "Latency": {
+          "avg": 1470,
+          "p99": 4410
+        }
+      }
+    }
+  },
+  "event": {
+    "duration": 1470000000,
+    "outcome": "success",
+    "category": "network",
+    "dataset": "aws.xray",
+    "provider": "xray.amazonaws.com"
+  },
+  "message": "X-Ray trace: db-proxy 1.470s",
+  "log": {
+    "level": "info"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "states"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "StateMachineArn": "arn:aws:states:eu-west-2:814726593401:stateMachine:data-pipeline"
+    },
+    "stepfunctions": {
+      "state_machine_name": "data-pipeline",
+      "state_machine_arn": "arn:aws:states:eu-west-2:814726593401:stateMachine:data-pipeline",
+      "execution_arn": "arn:aws:states:eu-west-2:814726593401:execution:data-pipeline:jzr7chz9",
+      "state_name": "ProcessPayment",
+      "status": "SUCCEEDED",
+      "duration_seconds": 16.595,
+      "structured_logging": false,
+      "metrics": {
+        "ExecutionsStarted": {
+          "sum": 109
+        },
+        "ExecutionsSucceeded": {
+          "sum": 784
+        },
+        "ExecutionsFailed": {
+          "sum": 0
+        },
+        "ExecutionsAborted": {
+          "sum": 3
+        },
+        "ExecutionsTimedOut": {
+          "sum": 0
+        },
+        "ExecutionThrottled": {
+          "sum": 0
+        },
+        "ExecutionTime": {
+          "avg": 16595,
+          "max": 33190
+        }
+      }
+    }
+  },
+  "event": {
+    "duration": 16594999999.999998,
+    "outcome": "success",
+    "category": "process",
+    "dataset": "aws.stepfunctions",
+    "provider": "states.amazonaws.com"
+  },
+  "message": "Step Functions data-pipeline SUCCEEDED in 16.6s",
+  "log": {
+    "level": "info"
+  }
+}

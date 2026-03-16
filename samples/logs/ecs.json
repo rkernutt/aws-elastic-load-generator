@@ -1,0 +1,70 @@
+{
+  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "ecs"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "ClusterName": "workers",
+      "ServiceName": "web-frontend"
+    },
+    "ecs": {
+      "cluster": {
+        "name": "workers"
+      },
+      "service": {
+        "name": "web-frontend"
+      },
+      "task": {
+        "id": "7566uvnnxk2",
+        "definition": "web-frontend:32"
+      },
+      "structured_logging": true,
+      "metrics": {
+        "CPUUtilization": {
+          "avg": 8.025
+        },
+        "MemoryUtilization": {
+          "avg": 15.082
+        },
+        "RunningTaskCount": {
+          "avg": 14
+        },
+        "PendingTaskCount": {
+          "avg": 0
+        },
+        "ServiceCount": {
+          "avg": 1
+        }
+      }
+    }
+  },
+  "container": {
+    "name": "web-frontend",
+    "image": {
+      "name": "myrepo/web-frontend:latest"
+    }
+  },
+  "log": {
+    "level": "warn"
+  },
+  "event": {
+    "outcome": "success",
+    "dataset": "aws.ecs",
+    "provider": "ecs.amazonaws.com",
+    "duration": 1839000000000
+  },
+  "message": "{\"cluster\":\"workers\",\"service\":\"web-frontend\",\"taskId\":\"7566uvnnxk2\",\"container\":\"web-frontend\",\"level\":\"warn\",\"message\":\"Slow response\",\"timestamp\":\"2026-03-16T13:32:45.355Z\"}",
+  "service": {
+    "name": "web-frontend",
+    "type": "ecs"
+  }
+}
