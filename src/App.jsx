@@ -3828,25 +3828,32 @@ const ELASTIC_DATASET_MAP = {
 // See: https://github.com/elastic/integrations/tree/main/packages/aws (manifest policy_templates).
 // ═══════════════════════════════════════════════════════════════════════════
 
+// Services that have metrics in the Elastic AWS integration (or expose CloudWatch metrics). See Elastic docs & integration data streams.
 const METRICS_SUPPORTED_SERVICE_IDS = new Set([
-  "lambda", "apigateway", "rds", "ec2", "ecs", "alb", "nlb", "dynamodb", "redshift", "ebs",
-  "kinesis", "msk", "sns", "sqs", "s3", "cloudwatch", "transitgateway", "vpn", "waf", "wafv2",
-  "networkfirewall", "emr", "health", "billing",
+  "lambda", "apigateway", "rds", "ec2", "ecs", "fargate", "alb", "nlb", "dynamodb", "redshift", "ebs", "aurora",
+  "kinesis", "msk", "firehose", "sns", "sqs", "s3", "cloudwatch", "transitgateway", "vpn", "waf", "wafv2",
+  "networkfirewall", "emr", "health", "billing", "cloudfront", "stepfunctions", "eventbridge", "eks", "glue",
+  "sagemaker", "bedrock", "bedrockagent",
+  "athena", "elasticache", "opensearch", "docdb", "codebuild", "batch", "apprunner",
 ]);
 
 // Dataset for metrics mode when it differs from logs (ELASTIC_DATASET_MAP). Omitted = use ELASTIC_DATASET_MAP.
 const ELASTIC_METRICS_DATASET_MAP = {
-  lambda:       "aws.lambda",           // logs: aws.lambda_logs
+  lambda:       "aws.lambda",
   apigateway:   "aws.apigateway_metrics",
   ecs:          "aws.ecs_metrics",
+  fargate:      "aws.ecs_metrics",
   msk:          "aws.kafka_metrics",
   emr:          "aws.emr_metrics",
   s3:           "aws.s3_daily_storage",
   cloudwatch:   "aws.cloudwatch_metrics",
-  alb:          "aws.elb",              // ELB metrics (ALB/NLB share)
+  alb:          "aws.elb",
   nlb:          "aws.elb",
   networkfirewall: "aws.firewall",
-  billing: "aws.billing",
+  billing:      "aws.billing",
+  sagemaker:    "aws.sagemaker",
+  bedrock:      "aws.bedrock",
+  bedrockagent: "aws.bedrockagent",
 };
 export { GENERATORS, METRICS_SUPPORTED_SERVICE_IDS, ELASTIC_METRICS_DATASET_MAP, ELASTIC_DATASET_MAP };
 
@@ -4419,7 +4426,7 @@ export default function App() {
   const totalServices = ALL_SERVICE_IDS.length;
 
   return (
-    <div style={{minHeight:"100vh",background:"#f1f5f9",color:"#0f172a",fontFamily:"'Inter','Segoe UI',system-ui,sans-serif"}}>
+    <div style={{minHeight:"100vh",background:"#e5e7eb",color:"#0f172a",fontFamily:"'Inter','Segoe UI',system-ui,sans-serif"}}>
 
       {/* Announcement bar */}
       <div style={{background:"#ffffff",borderBottom:"1px solid #e2e8f0",padding:"8px 0",textAlign:"center"}}>
@@ -4529,7 +4536,7 @@ export default function App() {
                             <button key={svc.id} onClick={()=>!metricsDisabled&&toggleService(svc.id)} style={{
                               border:`1px solid ${sel?group.color+"99":metricsDisabled?"#e2e8f0":"#cbd5e1"}`,
                               borderRadius:8,padding:"9px 8px",
-                              background:sel?`${group.color}18`:metricsDisabled?"#f1f5f9":"#f8fafc",
+                              background:sel?`${group.color}18`:metricsDisabled?"#e5e7eb":"#f8fafc",
                               cursor:metricsDisabled?"not-allowed":"pointer",
                               textAlign:"left",transition:"all 0.15s",position:"relative",overflow:"hidden",
                               opacity:metricsDisabled?0.7:1,
@@ -4709,7 +4716,7 @@ export default function App() {
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
         input::placeholder { color: #94a3b8 !important; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-track { background: #e5e7eb; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
         input:focus { outline: none !important; border-color: #7c3aed !important; box-shadow: 0 0 0 3px rgba(124,58,237,0.15) !important; }
         button { transition: all 0.15s; }

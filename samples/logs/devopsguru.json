@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,13 +13,13 @@
   },
   "aws": {
     "devopsguru": {
-      "insight_id": "3h5xycewwm",
-      "insight_type": "REACTIVE",
-      "severity": "HIGH",
+      "insight_id": "q4avtpv2hra",
+      "insight_type": "PROACTIVE",
+      "severity": "LOW",
       "resource_collection": {
         "cloud_formation": {
           "stack_names": [
-            "data-stack"
+            "prod-stack"
           ]
         },
         "tags": [
@@ -29,15 +29,15 @@
           }
         ]
       },
-      "anomaly_id": "344q98px81s",
-      "anomaly_description": "SQS queue depth growing abnormally",
+      "anomaly_id": "f7nkfqfwzfn",
+      "anomaly_description": "DynamoDB throttling pattern detected",
       "anomaly_sources": [
-        "dynamodb-sessions"
+        "elasticache-cache"
       ],
-      "start_time": "2026-03-16T13:01:19.757Z",
-      "end_time": "2026-03-16T13:32:45.556Z",
+      "start_time": "2026-03-16T14:20:03.442Z",
+      "end_time": "2026-03-16T14:23:43.555Z",
       "status": "CLOSED",
-      "recommendation": "Review alarm thresholds",
+      "recommendation": "Scale up resource",
       "ssm_ops_items": []
     }
   },
@@ -47,8 +47,8 @@
     "dataset": "aws.devopsguru",
     "provider": "devops-guru.amazonaws.com"
   },
-  "message": "DevOps Guru REACTIVE insight [HIGH]: SQS queue depth growing abnormally",
+  "message": "DevOps Guru PROACTIVE insight [LOW]: DynamoDB throttling pattern detected",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

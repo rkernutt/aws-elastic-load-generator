@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -15,20 +15,25 @@
     "trustedadvisor": {
       "check_name": "Amazon S3 Bucket Versioning",
       "category": "fault_tolerance",
-      "status": "ok",
-      "affected_resource": "i-xf0g68ea4rs",
-      "flagged_resources": 0
+      "status": "warning",
+      "affected_resource": "i-qu2l170fc0l",
+      "flagged_resources": 18
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "success",
+    "outcome": "failure",
     "category": "configuration",
     "dataset": "aws.trustedadvisor",
     "provider": "trustedadvisor.amazonaws.com"
   },
-  "message": "Trusted Advisor OK: Amazon S3 Bucket Versioning",
+  "message": "Trusted Advisor [WARNING]: Amazon S3 Bucket Versioning - 7 resources affected",
+  "error": {
+    "code": "TrustedAdvisorFinding",
+    "message": "Amazon S3 Bucket Versioning: warning",
+    "type": "configuration"
+  },
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

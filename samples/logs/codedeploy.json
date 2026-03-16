@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,50 +13,56 @@
   },
   "aws": {
     "dimensions": {
-      "Application": "worker-service",
-      "DeploymentGroup": "staging"
+      "Application": "api-service",
+      "DeploymentGroup": "canary"
     },
     "codedeploy": {
-      "application_name": "worker-service",
-      "deployment_group": "staging",
-      "deployment_id": "d-9SGW4OPKF",
+      "application_name": "api-service",
+      "deployment_group": "canary",
+      "deployment_id": "d-DV7ZWVMLQ",
       "deployment_type": "IN_PLACE",
-      "lifecycle_event": "BeforeAllowTraffic",
-      "event_status": "Succeeded",
-      "duration_seconds": 469,
-      "instances_succeeded": 10,
-      "instances_failed": 0,
+      "lifecycle_event": "AfterInstall",
+      "event_status": "Failed",
+      "duration_seconds": 605,
+      "error_code": "HEALTH_CONSTRAINTS_INVALID",
+      "instances_succeeded": 0,
+      "instances_failed": 2,
       "metrics": {
         "DeploymentAttempts": {
           "sum": 1
         },
         "DeploymentSuccesses": {
-          "sum": 1
+          "sum": 0
         },
         "DeploymentFailures": {
-          "sum": 0
+          "sum": 1
         },
         "DeploymentDuration": {
-          "avg": 469
+          "avg": 605
         },
         "InstanceSuccesses": {
-          "sum": 9
+          "sum": 2
         },
         "InstanceFailures": {
-          "sum": 0
+          "sum": 3
         }
       }
     }
   },
   "event": {
-    "duration": 469000000000,
-    "outcome": "success",
+    "duration": 605000000000,
+    "outcome": "failure",
     "category": "process",
     "dataset": "aws.codedeploy",
     "provider": "codedeploy.amazonaws.com"
   },
-  "message": "CodeDeploy worker-service deployment SUCCEEDED in 469s",
+  "message": "CodeDeploy api-service FAILED at AfterInstall: Timeout",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "HEALTH_CONSTRAINTS_INVALID",
+    "message": "CodeDeploy failed at AfterInstall",
+    "type": "deployment"
   }
 }

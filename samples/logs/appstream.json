@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "appstream"
@@ -13,18 +13,20 @@
   },
   "aws": {
     "appstream": {
-      "stack_name": "dev-tools-stack",
+      "stack_name": "secure-access",
       "fleet_name": "always-on-fleet",
-      "user_id": "user_s24uem9y@company.com",
-      "session_id": "ig09kaywnes",
-      "event_type": "FILE_UPLOAD",
-      "instance_type": "stream.compute.large",
-      "idle_disconnect_timeout_minutes": 60,
+      "user_id": "user_dezftnjn@company.com",
+      "session_id": "hpmm8silgfv",
+      "event_type": "SESSION_ENDED",
+      "instance_type": "stream.memory.xlarge",
+      "session_duration_minutes": 281,
+      "storage_connector": "HomeFolder",
+      "idle_disconnect_timeout_minutes": 30,
       "max_user_duration_hours": 2
     }
   },
   "user": {
-    "name": "user_s24uem9y@company.com"
+    "name": "user_dezftnjn@company.com"
   },
   "event": {
     "outcome": "success",
@@ -32,7 +34,7 @@
     "dataset": "aws.appstream",
     "provider": "appstream2.amazonaws.com"
   },
-  "message": "AppStream FILE_UPLOAD: user_s24uem9y@company.com [dev-tools-stack]",
+  "message": "AppStream SESSION_ENDED: user_dezftnjn@company.com [secure-access]",
   "log": {
     "level": "info"
   }

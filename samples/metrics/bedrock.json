@@ -1,0 +1,46 @@
+{
+  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "bedrock"
+    }
+  },
+  "aws": {
+    "bedrock": {
+      "model_id": "anthropic.claude-3-5-sonnet-20241022-v2:0",
+      "invocation_latency_ms": 3725,
+      "input_token_count": 6222,
+      "output_token_count": 2717,
+      "total_token_count": 8939,
+      "stop_reason": "end_turn",
+      "use_case": "qa",
+      "guardrail_action": "INTERVENED"
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "machine_learning",
+    "dataset": "aws.bedrock",
+    "provider": "bedrock.amazonaws.com",
+    "duration": 3725000000
+  },
+  "message": "Bedrock claude 6222->2717 tokens 3.73s",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.bedrock",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

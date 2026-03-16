@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -14,59 +14,59 @@
   "aws": {
     "dimensions": {
       "GroupName": "Default",
-      "ServiceType": "client"
+      "ServiceType": "AWS::EC2::Instance"
     },
     "xray": {
-      "trace_id": "1-69b8067d-i7auq7fb3xk",
-      "segment_id": "eqosjdda07g",
-      "parent_id": "h983dkfkuz",
+      "trace_id": "1-69b8126f-e66e0fjvfr6",
+      "segment_id": "y4trm4uvfx",
+      "parent_id": "4kz5ozb1k5",
       "service": {
-        "name": "db-proxy",
-        "type": "AWS::EC2::Instance"
+        "name": "cache-layer",
+        "type": "client"
       },
-      "duration": 1.47,
+      "duration": 4.285,
       "http": {
         "request": {
           "method": "PUT",
           "url": "/api/v1/auth/login"
         },
         "response": {
-          "status": 200
+          "status": 201
         }
       },
       "fault": false,
       "annotations": {
         "env": "prod",
-        "version": "v17"
+        "version": "v12"
       },
       "metrics": {
         "ErrorRate": {
-          "avg": 0.216
+          "avg": 0.604
         },
         "FaultRate": {
-          "avg": 0.472
+          "avg": 0.14
         },
         "ThrottleRate": {
-          "avg": 1.481
+          "avg": 1.555
         },
         "TotalCount": {
-          "sum": 628
+          "sum": 1612
         },
         "Latency": {
-          "avg": 1470,
-          "p99": 4410
+          "avg": 4285,
+          "p99": 12855
         }
       }
     }
   },
   "event": {
-    "duration": 1470000000,
+    "duration": 4285000000,
     "outcome": "success",
     "category": "network",
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray trace: db-proxy 1.470s",
+  "message": "X-Ray trace: cache-layer 4.285s",
   "log": {
     "level": "info"
   }

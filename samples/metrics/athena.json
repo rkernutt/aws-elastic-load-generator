@@ -1,0 +1,51 @@
+{
+  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "athena"
+    }
+  },
+  "aws": {
+    "athena": {
+      "query_id": "3b4a7vwn-l7l7-hcxq-o7uz",
+      "workgroup": "analytics",
+      "database": "staging",
+      "state": "SUCCEEDED",
+      "duration_seconds": 40.325,
+      "data_scanned_bytes": 8203172816,
+      "data_scanned_mb": 7823,
+      "engine_version": "Athena engine version 3",
+      "structured_logging": true
+    }
+  },
+  "db": {
+    "statement": "SELECT p.name, count(o.id) FROM products p JOIN orders o ON p.id = o.product_id GROUP BY 1",
+    "type": "sql"
+  },
+  "event": {
+    "duration": 40325000000,
+    "outcome": "success",
+    "category": "database",
+    "dataset": "aws.athena",
+    "provider": "athena.amazonaws.com"
+  },
+  "message": "{\"queryId\":\"3b4a7vwn-l7l7-hcxq-o7uz\",\"workgroup\":\"analytics\",\"database\":\"staging\",\"state\":\"SUCCEEDED\",\"durationSeconds\":40.325,\"dataScannedBytes\":8203172816,\"timestamp\":\"2026-03-16T14:23:43.329Z\"}",
+  "log": {
+    "level": "warn"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.athena",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

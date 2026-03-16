@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "systemsmanager"
@@ -13,23 +13,29 @@
   },
   "aws": {
     "ssm": {
-      "command_id": "nu0e8p87-ov3t-h4n9",
-      "document_name": "AWS-ApplyPatchBaseline",
-      "instance_id": "i-jc45l8ug5ei",
-      "action": "SendCommand",
-      "execution_status": "Success",
-      "response_code": 0,
+      "command_id": "5ocerx4q-w9m5-w7lh",
+      "document_name": "AWS-ConfigureAWSPackage",
+      "instance_id": "i-c59sme8kd3t",
+      "action": "PatchInstance",
+      "execution_status": "Failed",
+      "response_code": 2,
+      "patch_compliance": "NotApplicable",
       "structured_logging": true
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "process",
     "dataset": "aws.ssm",
     "provider": "ssm.amazonaws.com"
   },
-  "message": "{\"commandId\":\"nu0e8p87-ov3t-h4n9\",\"documentName\":\"AWS-ApplyPatchBaseline\",\"instanceId\":\"i-jc45l8ug5ei\",\"action\":\"SendCommand\",\"status\":\"Success\",\"timestamp\":\"2026-03-16T13:32:45.355Z\"}",
+  "message": "{\"commandId\":\"5ocerx4q-w9m5-w7lh\",\"documentName\":\"AWS-ConfigureAWSPackage\",\"instanceId\":\"i-c59sme8kd3t\",\"action\":\"PatchInstance\",\"status\":\"Failed\",\"timestamp\":\"2026-03-16T14:23:43.329Z\"}",
+  "error": {
+    "code": "SSMError",
+    "message": "SSM command failed",
+    "type": "process"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

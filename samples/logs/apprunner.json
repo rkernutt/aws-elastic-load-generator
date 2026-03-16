@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "apprunner"
@@ -13,18 +13,18 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "web-api"
+      "ServiceName": "frontend"
     },
     "apprunner": {
-      "service_name": "web-api",
-      "service_arn": "arn:aws:apprunner:us-east-1:293847561023:service/web-api/19pagl4ic0v",
-      "structured_logging": false,
+      "service_name": "frontend",
+      "service_arn": "arn:aws:apprunner:us-east-1:164820739518:service/frontend/vrt3ybnqge",
+      "structured_logging": true,
       "metrics": {
         "Requests": {
-          "sum": 772
+          "sum": 676
         },
         "2xxStatusResponses": {
-          "sum": 129
+          "sum": 67
         },
         "4xxStatusResponses": {
           "sum": 0
@@ -33,44 +33,44 @@
           "sum": 0
         },
         "RequestLatency": {
-          "avg": 232,
-          "p99": 464
+          "avg": 94,
+          "p99": 188
         },
         "ActiveInstances": {
-          "avg": 9
+          "avg": 3
         },
         "CPUUtilization": {
-          "avg": 58.287
+          "avg": 15.024
         },
         "MemoryUtilization": {
-          "avg": 53.059
+          "avg": 43.375
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "POST",
-      "bytes": 2060
+      "method": "PATCH",
+      "bytes": 3447
     },
     "response": {
-      "status_code": 201,
-      "bytes": 4278
+      "status_code": 204,
+      "bytes": 1658
     }
   },
   "url": {
     "path": "/api/v1/users"
   },
   "client": {
-    "ip": "169.21.13.22"
+    "ip": "111.148.31.82"
   },
   "event": {
-    "duration": 232000000,
+    "duration": 94000000,
     "outcome": "success",
     "dataset": "aws.apprunner",
     "provider": "apprunner.amazonaws.com"
   },
-  "message": "PATCH /api/v1/users 201 232ms",
+  "message": "{\"service\":\"frontend\",\"status\":204,\"latency_ms\":94,\"timestamp\":\"2026-03-16T14:23:43.329Z\"}",
   "log": {
     "level": "info"
   }

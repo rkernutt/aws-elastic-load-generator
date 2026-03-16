@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "dynamodb"
@@ -14,31 +14,31 @@
   "aws": {
     "dimensions": {
       "TableName": "events",
-      "Operation": "BatchWriteItem"
+      "Operation": "DeleteItem"
     },
     "dynamodb": {
       "table_name": "events",
-      "operation": "BatchWriteItem",
-      "consumed_read_capacity_units": 19.052,
-      "consumed_write_capacity_units": 40.234,
-      "items_count": 702,
+      "operation": "DeleteItem",
+      "consumed_read_capacity_units": 40.76,
+      "consumed_write_capacity_units": 41.609,
+      "items_count": 510,
       "structured_logging": false,
       "metrics": {
         "ConsumedReadCapacityUnits": {
-          "sum": 19.052
+          "sum": 40.76
         },
         "ConsumedWriteCapacityUnits": {
-          "sum": 40.234
+          "sum": 41.609
         },
         "ProvisionedReadCapacityUnits": {
-          "avg": 5831
+          "avg": 6518
         },
         "ProvisionedWriteCapacityUnits": {
-          "avg": 1553
+          "avg": 3764
         },
         "SuccessfulRequestLatency": {
-          "avg": 18,
-          "p99": 144
+          "avg": 36,
+          "p99": 186
         },
         "SystemErrors": {
           "sum": 0
@@ -53,14 +53,14 @@
           "sum": 0
         },
         "ReturnedItemCount": {
-          "avg": 781
+          "avg": 841
         }
       }
     }
   },
   "db": {
     "name": "events",
-    "operation": "BatchWriteItem",
+    "operation": "DeleteItem",
     "type": "nosql"
   },
   "event": {
@@ -68,9 +68,9 @@
     "category": "database",
     "dataset": "aws.dynamodb",
     "provider": "dynamodb.amazonaws.com",
-    "duration": 23000000
+    "duration": 17000000
   },
-  "message": "DynamoDB BatchWriteItem events: consumed 19.052 RCU, 40.234 WCU",
+  "message": "DynamoDB DeleteItem events: consumed 40.76 RCU, 41.609 WCU",
   "log": {
     "level": "info"
   },

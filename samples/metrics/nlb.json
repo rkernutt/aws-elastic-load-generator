@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "nlb"
@@ -13,53 +13,53 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "net/prod-nlb-us-east-1/jg4batz7fzk",
+      "LoadBalancer": "net/prod-nlb-us-east-1/lk49ps9lpo",
       "Protocol": "TLS",
-      "Port": "3306"
+      "Port": "6379"
     },
     "elb": {
-      "name": "net/prod-nlb-us-east-1/jg4batz7fzk",
+      "name": "net/prod-nlb-us-east-1/lk49ps9lpo",
       "type": "network",
-      "listener": "arn:aws:elasticloadbalancing:us-east-1:293847561023:listener/net/prod-nlb/vn52dyjsy5/o1yf8hcpesd",
+      "listener": "arn:aws:elasticloadbalancing:us-east-1:738291046572:listener/net/prod-nlb/uy44cu6nt6/m00q9gc80p",
       "protocol": "TLS",
-      "connection_duration.sec": 1.861,
+      "connection_duration.sec": 4.666,
       "tls.cipher_suite": "ECDHE-RSA-AES128-GCM-SHA256",
       "tls.protocol_version": "TLSv1.3",
-      "backend.ip": "240.50.192.124",
-      "backend.port": "3306",
-      "received_bytes": 639273,
-      "sent_bytes": 822302
+      "backend.ip": "13.149.58.247",
+      "backend.port": "6379",
+      "received_bytes": 283293,
+      "sent_bytes": 877602
     },
     "nlb": {
-      "load_balancer": "net/prod-nlb-us-east-1/jg4batz7fzk",
-      "listener_port": 3306,
+      "load_balancer": "net/prod-nlb-us-east-1/lk49ps9lpo",
+      "listener_port": 6379,
       "protocol": "TLS",
-      "connection_duration_ms": 1861,
+      "connection_duration_ms": 4666,
       "tls_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
       "tls_protocol": "TLSv1.3",
-      "target_ip": "240.50.192.124",
-      "target_port": 3306,
+      "target_ip": "13.149.58.247",
+      "target_port": 6379,
       "connection_log_status": "success",
-      "bytes": 639273,
-      "packets": 66
+      "bytes": 283293,
+      "packets": 31
     }
   },
   "source": {
-    "ip": "158.11.225.119",
-    "port": 26226
+    "ip": "241.204.66.133",
+    "port": 10159
   },
   "network": {
     "transport": "tls",
-    "bytes": 639273
+    "bytes": 283293
   },
   "event": {
     "outcome": "success",
     "category": "network",
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com",
-    "duration": 1861000000
+    "duration": 4666000000
   },
-  "message": "NLB TLS:3306 639273B in 1861ms",
+  "message": "NLB TLS:6379 283293B in 4666ms",
   "log": {
     "level": "info"
   },

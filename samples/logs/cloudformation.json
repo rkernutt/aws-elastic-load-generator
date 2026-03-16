@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "cloudformation"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "cloudformation": {
-      "stack_name": "api-gateway-stack",
-      "stack_id": "arn:aws:cloudformation:us-east-1:814726593401:stack/api-gateway-stack/x5h3krxv",
+      "stack_name": "prod-web-stack",
+      "stack_id": "arn:aws:cloudformation:us-east-1:738291046572:stack/prod-web-stack/udfdw0e5",
       "action": "DETECT_DRIFT",
-      "stack_status": "UPDATE_COMPLETE",
+      "stack_status": "DELETE_COMPLETE",
       "resource_type": "AWS::IAM::Role",
       "logical_resource_id": "ApiFunction",
       "drift_status": "IN_SYNC",
-      "structured_logging": true
+      "structured_logging": false
     }
   },
   "event": {
@@ -29,7 +29,7 @@
     "dataset": "aws.cloudformation",
     "provider": "cloudformation.amazonaws.com"
   },
-  "message": "{\"stackName\":\"api-gateway-stack\",\"action\":\"DETECT_DRIFT\",\"stackStatus\":\"UPDATE_COMPLETE\",\"resourceType\":\"AWS::IAM::Role\",\"message\":\"CloudFormation api-gateway-stack: DETECT_DRIFT -> UPDATE_COMPLETE\",\"timestamp\":\"2026-03-16T13:32:45.355Z\"}",
+  "message": "CloudFormation prod-web-stack: DETECT_DRIFT -> DELETE_COMPLETE",
   "log": {
     "level": "info"
   }

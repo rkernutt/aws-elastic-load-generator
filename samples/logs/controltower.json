@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "controltower"
@@ -13,23 +13,29 @@
   },
   "aws": {
     "controltower": {
-      "operation_id": "1s7j3ys5x5d",
-      "action": "RegisterOrganizationalUnit",
-      "account_id": "293847561023",
+      "operation_id": "9fgppwajhqe",
+      "action": "UpdateLandingZone",
+      "account_id": "814726593401",
       "organizational_unit": "Workloads",
-      "guardrail_compliance": "COMPLIANT",
-      "landing_zone_version": "3.1",
-      "status": "SUCCEEDED"
+      "guardrail_compliance": "NONCOMPLIANT",
+      "landing_zone_version": "3.2",
+      "status": "FAILED",
+      "error_message": "Compliance check failed"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "configuration",
     "dataset": "aws.controltower",
     "provider": "controltower.amazonaws.com"
   },
-  "message": "Control Tower RegisterOrganizationalUnit: SUCCEEDED",
+  "message": "Control Tower UpdateLandingZone FAILED: Enrollment failed",
+  "error": {
+    "code": "ControlTowerError",
+    "message": "Control Tower operation failed",
+    "type": "configuration"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

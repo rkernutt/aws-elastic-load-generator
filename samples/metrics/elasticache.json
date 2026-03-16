@@ -1,0 +1,91 @@
+{
+  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "elasticache"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "CacheClusterId": "prod-redis-2",
+      "CacheNodeId": "0002"
+    },
+    "elasticache": {
+      "cluster_id": "prod-redis-2",
+      "node_id": "0002",
+      "engine": "redis",
+      "engine_version": "7.1.0",
+      "replication_group_id": "prod-cache",
+      "command": "ZRANGE",
+      "latency_us": 25.556,
+      "cache_hit": true,
+      "connected_clients": 363,
+      "used_memory_mb": 8810,
+      "metrics": {
+        "CPUUtilization": {
+          "avg": 21.244
+        },
+        "FreeableMemory": {
+          "avg": 7760685479
+        },
+        "NetworkBytesIn": {
+          "sum": 29536096
+        },
+        "NetworkBytesOut": {
+          "sum": 77306007
+        },
+        "CacheHits": {
+          "sum": 10127
+        },
+        "CacheMisses": {
+          "sum": 4529
+        },
+        "CurrConnections": {
+          "avg": 200
+        },
+        "NewConnections": {
+          "sum": 57
+        },
+        "Evictions": {
+          "sum": 0
+        },
+        "ReplicationLag": {
+          "avg": 0.998
+        },
+        "SaveInProgress": {
+          "avg": 0
+        }
+      }
+    }
+  },
+  "db": {
+    "type": "keyvalue",
+    "operation": "ZRANGE"
+  },
+  "event": {
+    "duration": 25556,
+    "outcome": "success",
+    "category": "database",
+    "dataset": "aws.elasticache",
+    "provider": "elasticache.amazonaws.com"
+  },
+  "message": "Redis ZRANGE 25.56us",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.elasticache",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

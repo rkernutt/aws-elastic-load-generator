@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "privatelink"
@@ -13,27 +13,22 @@
   },
   "aws": {
     "privatelink": {
-      "endpoint_id": "vpce-mnuzo18h9b",
-      "service_name": "com.amazonaws.vpce.eu-west-2.dynamodb",
-      "endpoint_type": "GatewayLoadBalancer",
-      "vpc_id": "vpc-5kdwuie5",
-      "state": "failed",
-      "private_dns_enabled": false
+      "endpoint_id": "vpce-58qyg83ybx3",
+      "service_name": "com.amazonaws.vpce.us-east-1.dynamodb",
+      "endpoint_type": "Interface",
+      "vpc_id": "vpc-vi54hwfs",
+      "state": "pending",
+      "private_dns_enabled": true
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "network",
     "dataset": "aws.privatelink",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "PrivateLink endpoint vpce-mnuzo18h9b: failed - Service unavailable",
+  "message": "PrivateLink endpoint vpce-58qyg83ybx3 for com.amazonaws.vpce.us-east-1.dynamodb: pending",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "failed",
-    "message": "PrivateLink endpoint vpce-mnuzo18h9b: failed",
-    "type": "network"
+    "level": "info"
   }
 }

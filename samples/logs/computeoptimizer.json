@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,27 +13,27 @@
   },
   "aws": {
     "computeoptimizer": {
-      "resource_type": "LAMBDA_FUNCTION",
-      "resource_arn": "arn:aws:ec2:us-east-1:164820739518:instance/i-lezfjpiyhpp",
+      "resource_type": "EC2_INSTANCE",
+      "resource_arn": "arn:aws:ec2:us-east-1:164820739518:instance/i-2aq9hbeje9x",
       "finding": "OPTIMIZED",
       "current_configuration": {
         "instance_type": "t3.large",
-        "vcpu": 13,
-        "memory_gb": 87
+        "vcpu": 31,
+        "memory_gb": 66
       },
       "recommended_configuration": {
-        "instance_type": "r5.medium",
-        "vcpu": 11,
-        "memory_gb": 17
+        "instance_type": "t3.small",
+        "vcpu": 15,
+        "memory_gb": 44
       },
       "estimated_monthly_savings_usd": 0,
       "estimated_monthly_savings_percent": 0,
-      "lookback_period_days": 32,
+      "lookback_period_days": 14,
       "utilization": {
-        "cpu_max": 46.191,
-        "memory_max": 19.635
+        "cpu_max": 27.641,
+        "memory_max": 59.756
       },
-      "performance_risk": "Medium"
+      "performance_risk": "Low"
     }
   },
   "event": {
@@ -42,7 +42,7 @@
     "dataset": "aws.computeoptimizer",
     "provider": "compute-optimizer.amazonaws.com"
   },
-  "message": "Compute Optimizer: LAMBDA_FUNCTION OPTIMIZED (t3.large)",
+  "message": "Compute Optimizer: EC2_INSTANCE OPTIMIZED (t3.large)",
   "log": {
     "level": "info"
   }

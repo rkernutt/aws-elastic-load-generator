@@ -1,0 +1,91 @@
+{
+  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "738291046572",
+      "name": "globex-development"
+    },
+    "service": {
+      "name": "docdb"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "DBClusterIdentifier": "docdb-eu-west-2-cluster",
+      "Role": "READER"
+    },
+    "docdb": {
+      "cluster_id": "docdb-eu-west-2-cluster",
+      "database": "appdb",
+      "collection": "products",
+      "operation": "update",
+      "duration_ms": 193,
+      "documents_affected": 963,
+      "metrics": {
+        "CPUUtilization": {
+          "avg": 6.031
+        },
+        "DatabaseConnections": {
+          "avg": 64
+        },
+        "FreeLocalStorage": {
+          "avg": 98733289681
+        },
+        "FreeableMemory": {
+          "avg": 724697901
+        },
+        "ReadIOPS": {
+          "avg": 3361
+        },
+        "WriteIOPS": {
+          "avg": 4820
+        },
+        "ReadLatency": {
+          "avg": 0.045
+        },
+        "WriteLatency": {
+          "avg": 0.029
+        },
+        "DocumentsInserted": {
+          "sum": 0
+        },
+        "DocumentsDeleted": {
+          "sum": 0
+        },
+        "DocumentsUpdated": {
+          "sum": 342
+        },
+        "DocumentsReturned": {
+          "sum": 0
+        }
+      }
+    }
+  },
+  "db": {
+    "name": "appdb",
+    "operation": "update",
+    "type": "document"
+  },
+  "event": {
+    "duration": 193166000,
+    "outcome": "success",
+    "category": "database",
+    "dataset": "aws.docdb",
+    "provider": "docdb.amazonaws.com"
+  },
+  "message": "DocumentDB update on products: 193.2ms",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.docdb",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

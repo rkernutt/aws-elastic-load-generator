@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,35 +13,30 @@
   },
   "aws": {
     "codecommit": {
-      "repository_name": "shared-libs",
-      "repository_arn": "arn:aws:codecommit:eu-west-2:164820739518:shared-libs",
-      "event_type": "ReferenceCreated",
-      "reference_name": "hotfix/payment-bug",
-      "commit_id": "bo26qnkmdwv",
-      "author": "github-actions",
-      "files_changed": 32,
-      "lines_added": 98,
-      "lines_deleted": 83,
-      "error_code": "InvalidBranchNameException"
+      "repository_name": "ml-models",
+      "repository_arn": "arn:aws:codecommit:us-east-1:164820739518:ml-models",
+      "event_type": "PullRequestCreated",
+      "reference_name": "main",
+      "commit_id": "5r0njvdvuw",
+      "author": "alice",
+      "files_changed": 13,
+      "lines_added": 111,
+      "lines_deleted": 91,
+      "pull_request_id": "297"
     }
   },
   "user": {
-    "name": "carol"
+    "name": "alice"
   },
   "event": {
-    "action": "ReferenceCreated",
-    "outcome": "failure",
+    "action": "PullRequestCreated",
+    "outcome": "success",
     "category": "process",
     "dataset": "aws.codecommit",
     "provider": "codecommit.amazonaws.com"
   },
-  "message": "CodeCommit ReferenceCreated FAILED on shared-libs: Repository size limit",
+  "message": "CodeCommit PullRequestCreated: ml-models/main",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "InvalidBranchNameException",
-    "message": "CodeCommit operation failed",
-    "type": "vcs"
+    "level": "info"
   }
 }

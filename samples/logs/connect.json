@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,30 +13,30 @@
   },
   "aws": {
     "connect": {
-      "instance_id": "awcsq95pt1n",
-      "contact_id": "g3ndirq4-q4a2-oedy",
-      "channel": "TASK",
-      "initiation_method": "INBOUND_CALL",
-      "queue_name": "Priority-Enterprise",
-      "agent_id": "agent-alice",
-      "duration_seconds": 609,
-      "hold_duration_seconds": 63,
-      "queue_wait_time_seconds": 24,
-      "disconnect_reason": "CUSTOMER_DISCONNECT",
+      "instance_id": "7czsrwltppa",
+      "contact_id": "np0ds68h-daw6-hxy5",
+      "channel": "CHAT",
+      "initiation_method": "DISCONNECT",
+      "queue_name": "Sales",
+      "agent_id": "agent-bob",
+      "duration_seconds": 180,
+      "hold_duration_seconds": 13,
+      "queue_wait_time_seconds": 293,
+      "disconnect_reason": "EXPIRED",
       "sentiment_overall": "POSITIVE",
       "contact_lens_enabled": false,
-      "lex_bot_interacted": true
+      "lex_bot_interacted": false
     }
   },
   "event": {
-    "duration": 609000000000,
+    "duration": 180000000000,
     "outcome": "success",
     "category": "session",
     "dataset": "aws.connect",
     "provider": "connect.amazonaws.com"
   },
-  "message": "Connect INBOUND_CALL: Priority-Enterprise agent=agent-alice, 609s, POSITIVE",
+  "message": "Connect DISCONNECT: Sales agent=agent-bob, 180s, POSITIVE",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

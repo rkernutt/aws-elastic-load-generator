@@ -1,0 +1,70 @@
+{
+  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "events"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "EventBusName": "custom-events",
+      "RuleName": "cost-alert-rule"
+    },
+    "eventbridge": {
+      "event_bus": "custom-events",
+      "rule": "cost-alert-rule",
+      "source": "aws.ec2",
+      "detail_type": "Health Event",
+      "targets_invoked": 1,
+      "targets_failed": 0,
+      "event_id": "y5oo6jg1-xhgb-53yl-qqrh-nb8r719j0k",
+      "structured_logging": false,
+      "metrics": {
+        "Invocations": {
+          "sum": 8279
+        },
+        "FailedInvocations": {
+          "sum": 0
+        },
+        "TriggeredRules": {
+          "sum": 762
+        },
+        "MatchedEvents": {
+          "sum": 9151
+        },
+        "ThrottledRules": {
+          "sum": 0
+        },
+        "DeadLetterInvocations": {
+          "sum": 0
+        }
+      }
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "process",
+    "dataset": "aws.eventbridge",
+    "provider": "events.amazonaws.com",
+    "duration": 100000000
+  },
+  "message": "EventBridge event routed: aws.ec2 -> cost-alert-rule",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.eventbridge",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

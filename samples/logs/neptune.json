@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "neptune"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "neptune": {
-      "cluster_id": "prod-neptune",
-      "query_language": "Gremlin",
-      "query": "g.V().hasLabel('user').out('follows').count()",
-      "duration_ms": 4277,
+      "cluster_id": "fraud-graph",
+      "query_language": "SPARQL",
+      "query": "SELECT ?entity WHERE { ?entity rdf:type :Product }",
+      "duration_ms": 3547,
       "http_status": 200,
-      "db_connections": 175
+      "db_connections": 4
     }
   },
   "event": {
-    "duration": 4277401000,
+    "duration": 3546612000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.neptune",
     "provider": "neptune.amazonaws.com"
   },
-  "message": "Neptune Gremlin: 4277ms",
+  "message": "Neptune SPARQL: 3547ms",
   "log": {
     "level": "info"
   }

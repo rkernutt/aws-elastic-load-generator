@@ -1,0 +1,52 @@
+{
+  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "bedrock-agent"
+    }
+  },
+  "aws": {
+    "bedrockagent": {
+      "agent_id": "TITBJFHXRTXI",
+      "agent_alias_id": "LIVE",
+      "session_id": "p16fm1wrkfp",
+      "action": "Retrieve",
+      "knowledge_base_id": "KBQPPHGKXO1",
+      "input_token_count": 3580,
+      "output_token_count": 1713,
+      "invocation_latency_ms": 796,
+      "orchestration_trace": {
+        "model_invocation": {
+          "model_arn": "arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-5-sonnet-v2"
+        }
+      },
+      "guardrail_action": "NONE"
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "machine_learning",
+    "dataset": "aws.bedrockagent",
+    "provider": "bedrock-agent-runtime.amazonaws.com",
+    "duration": 796000000
+  },
+  "message": "Bedrock Agent TITBJFHXRTXI: Retrieve 3580→1713 tokens 0.80s",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.bedrockagent",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

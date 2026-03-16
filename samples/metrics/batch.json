@@ -1,0 +1,67 @@
+{
+  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "batch"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "JobQueueName": "ml-training-prep-queue",
+      "JobDefinition": "ml-training-prep"
+    },
+    "batch": {
+      "job": {
+        "name": "ml-training-prep",
+        "id": "i9nj0uqf-l2v8",
+        "status": "SUCCEEDED"
+      },
+      "job_queue": "ml-training-prep-queue",
+      "compute_environment": "ce-ondemand",
+      "structured_logging": true,
+      "metrics": {
+        "PendingJobCount": {
+          "avg": 27
+        },
+        "RunnableJobCount": {
+          "avg": 16
+        },
+        "RunningJobCount": {
+          "avg": 87
+        },
+        "SucceededJobCount": {
+          "sum": 35
+        },
+        "FailedJobCount": {
+          "sum": 0
+        }
+      }
+    }
+  },
+  "log": {
+    "level": "info"
+  },
+  "event": {
+    "outcome": "success",
+    "category": "process",
+    "dataset": "aws.batch",
+    "provider": "batch.amazonaws.com",
+    "duration": 2889000000000
+  },
+  "message": "{\"jobId\":\"i9nj0uqf-l2v8\",\"jobName\":\"ml-training-prep\",\"jobQueue\":\"ml-training-prep-queue\",\"level\":\"info\",\"message\":\"Job completed successfully\",\"timestamp\":\"2026-03-16T14:23:43.329Z\",\"arrayIndex\":58}",
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.batch",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

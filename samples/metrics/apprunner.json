@@ -1,0 +1,86 @@
+{
+  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "apprunner"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "ServiceName": "frontend"
+    },
+    "apprunner": {
+      "service_name": "frontend",
+      "service_arn": "arn:aws:apprunner:us-east-1:164820739518:service/frontend/vrt3ybnqge",
+      "structured_logging": true,
+      "metrics": {
+        "Requests": {
+          "sum": 676
+        },
+        "2xxStatusResponses": {
+          "sum": 67
+        },
+        "4xxStatusResponses": {
+          "sum": 0
+        },
+        "5xxStatusResponses": {
+          "sum": 0
+        },
+        "RequestLatency": {
+          "avg": 94,
+          "p99": 188
+        },
+        "ActiveInstances": {
+          "avg": 3
+        },
+        "CPUUtilization": {
+          "avg": 15.024
+        },
+        "MemoryUtilization": {
+          "avg": 43.375
+        }
+      }
+    }
+  },
+  "http": {
+    "request": {
+      "method": "PATCH",
+      "bytes": 3447
+    },
+    "response": {
+      "status_code": 204,
+      "bytes": 1658
+    }
+  },
+  "url": {
+    "path": "/api/v1/users"
+  },
+  "client": {
+    "ip": "111.148.31.82"
+  },
+  "event": {
+    "duration": 94000000,
+    "outcome": "success",
+    "dataset": "aws.apprunner",
+    "provider": "apprunner.amazonaws.com"
+  },
+  "message": "{\"service\":\"frontend\",\"status\":204,\"latency_ms\":94,\"timestamp\":\"2026-03-16T14:23:43.329Z\"}",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.apprunner",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

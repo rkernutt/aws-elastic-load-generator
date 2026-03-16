@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "lambda"
@@ -21,35 +21,35 @@
       "function": {
         "name": "api-handler",
         "version": "$LATEST",
-        "arn": "arn:aws:lambda:eu-west-2:164820739518:function:api-handler"
+        "arn": "arn:aws:lambda:eu-west-2:814726593401:function:api-handler"
       },
-      "request_id": "rzcqq33l-gs0q-ja14-pqii-mpkil885en8",
-      "duration": 2638.965,
+      "request_id": "fazziawn-27vg-d15t-bkll-z439y8fmcn",
+      "duration": 855.973,
       "memory_size_mb": 3008,
-      "memory_used_mb": 2993,
+      "memory_used_mb": 630,
       "log_group": "/aws/lambda/api-handler",
-      "log_stream": "2026-03-16/[$LATEST]rx5onkiubae",
-      "structured_logging": true,
+      "log_stream": "2026-03-16/[$LATEST]ndrhcucdu2a",
+      "structured_logging": false,
       "metrics": {
         "Invocations": {
-          "sum": 108
+          "sum": 407
         },
         "Errors": {
-          "sum": 0
+          "sum": 12
         },
         "Throttles": {
-          "sum": 0
+          "sum": 5
         },
         "Duration": {
-          "avg": 2638.965,
-          "max": 2902.8615000000004,
-          "min": 2375.0685000000003
+          "avg": 855.973,
+          "max": 941.5703,
+          "min": 770.3756999999999
         },
         "ConcurrentExecutions": {
-          "avg": 83
+          "avg": 136
         },
         "UnreservedConcurrentExecutions": {
-          "avg": 193
+          "avg": 129
         },
         "DeadLetterErrors": {
           "sum": 0
@@ -60,12 +60,12 @@
     }
   },
   "log": {
-    "level": "info"
+    "level": "error"
   },
-  "message": "{\"requestId\":\"rzcqq33l-gs0q-ja14-pqii-mpkil885en8\",\"level\":\"INFO\",\"message\":\"Cache hit\",\"timestamp\":\"2026-03-16T13:32:45.355Z\",\"duration_ms\":2639,\"memory_used_mb\":2993}",
+  "message": "[ERROR]\tfazziawn-27vg-d15t-bkll-z439y8fmcn\tTimeout after 30000ms",
   "event": {
-    "duration": 2638965000,
-    "outcome": "success",
+    "duration": 855973000,
+    "outcome": "failure",
     "dataset": "aws.lambda",
     "provider": "lambda.amazonaws.com"
   },

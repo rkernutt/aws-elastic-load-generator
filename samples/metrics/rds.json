@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "rds"
@@ -14,45 +14,45 @@
   "aws": {
     "dimensions": {
       "DBInstanceIdentifier": "prod-db-replica",
-      "DatabaseClass": "db.r6g.xlarge",
+      "DatabaseClass": "db.r5.large",
       "EngineName": "postgres"
     },
     "rds": {
       "instance_id": "prod-db-replica",
       "engine": "postgres",
       "engine_version": "15.4",
-      "query_time": 0.005,
-      "enhanced_monitoring": false,
+      "query_time": 1.282,
+      "enhanced_monitoring": true,
       "metrics": {
         "CPUUtilization": {
-          "avg": 59.708
+          "avg": 40.716
         },
         "DatabaseConnections": {
-          "avg": 129
+          "avg": 171
         },
         "FreeStorageSpace": {
-          "avg": 1915097889
+          "avg": 43206963244
         },
         "ReadIOPS": {
-          "avg": 34
+          "avg": 400
         },
         "WriteIOPS": {
-          "avg": 2889
+          "avg": 1599
         },
         "ReadLatency": {
-          "avg": 0.007
+          "avg": 0.003
         },
         "WriteLatency": {
-          "avg": 0.012
+          "avg": 0.006
         },
         "FreeableMemory": {
-          "avg": 2471873816
+          "avg": 7592777715
         },
         "NetworkReceiveThroughput": {
-          "avg": 2830823
+          "avg": 9823707
         },
         "NetworkTransmitThroughput": {
-          "avg": 5754299
+          "avg": 9668805
         }
       }
     }
@@ -61,17 +61,17 @@
     "user": {
       "name": "readonly"
     },
-    "name": "analytics",
-    "statement": "DELETE FROM sessions WHERE VNBYVB",
+    "name": "users",
+    "statement": "DELETE FROM sessions WHERE N09ZB2",
     "type": "sql"
   },
   "event": {
-    "duration": 5000000,
+    "duration": 1282000000,
     "outcome": "success",
     "dataset": "aws.rds",
     "provider": "rds.amazonaws.com"
   },
-  "message": "Query executed in 0.005s by readonly",
+  "message": "{\"instanceId\":\"prod-db-replica\",\"engine\":\"postgres\",\"userId\":\"readonly\",\"queryTime\":1.282,\"error\":null,\"timestamp\":\"2026-03-16T14:23:43.329Z\"}",
   "log": {
     "level": "info"
   },

@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,24 +13,24 @@
   },
   "aws": {
     "forecast": {
-      "dataset_group": "demand-forecast",
-      "predictor_name": "demand-forecast-predictor-v1",
+      "dataset_group": "energy-consumption",
+      "predictor_name": "energy-consumption-predictor-v11",
       "action": "CreateDatasetImportJob",
-      "algorithm": "CNN-QR",
-      "forecast_horizon": 90,
-      "weighted_quantile_loss": 0.216,
-      "duration_seconds": 2172,
+      "algorithm": "NPTS",
+      "forecast_horizon": 30,
+      "weighted_quantile_loss": 0.182,
+      "duration_seconds": 5325,
       "status": "ACTIVE"
     }
   },
   "event": {
-    "duration": 2172000000000,
+    "duration": 5325000000000,
     "outcome": "success",
     "category": "machine_learning",
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com"
   },
-  "message": "Forecast CreateDatasetImportJob: demand-forecast, WQL=0.151",
+  "message": "Forecast CreateDatasetImportJob: energy-consumption, WQL=0.223",
   "log": {
     "level": "info"
   }

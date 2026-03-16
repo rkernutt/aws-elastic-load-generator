@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "sqs"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "QueueName": "webhook-events"
+      "QueueName": "email-queue"
     },
     "sqs": {
-      "queue_name": "webhook-events",
-      "queue_url": "https://sqs.us-east-1.amazonaws.com/501938274650/webhook-events",
-      "messages_sent": 4862,
-      "messages_deleted": 134,
-      "approximate_number_of_messages": 133,
-      "approximate_age_of_oldest_message_seconds": 186,
+      "queue_name": "email-queue",
+      "queue_url": "https://sqs.us-east-1.amazonaws.com/164820739518/email-queue",
+      "messages_sent": 1942,
+      "messages_deleted": 415,
+      "approximate_number_of_messages": 949,
+      "approximate_age_of_oldest_message_seconds": 0,
       "is_dlq": false,
       "metrics": {
         "NumberOfMessagesSent": {
-          "sum": 4862
+          "sum": 1942
         },
         "NumberOfMessagesReceived": {
-          "sum": 1574
+          "sum": 672
         },
         "NumberOfMessagesDeleted": {
-          "sum": 134
+          "sum": 415
         },
         "ApproximateNumberOfMessagesVisible": {
-          "avg": 929
+          "avg": 516
         },
         "ApproximateNumberOfMessagesNotVisible": {
-          "avg": 28
+          "avg": 76
         },
         "ApproximateNumberOfMessagesDelayed": {
-          "avg": 11
+          "avg": 2
         },
         "ApproximateAgeOfOldestMessage": {
-          "avg": 108
+          "avg": 264
         },
         "SentMessageSize": {
-          "avg": 68013
+          "avg": 46435
         },
         "NumberOfEmptyReceives": {
-          "sum": 971
+          "sum": 881
         }
       }
     }
@@ -59,9 +59,9 @@
     "category": "process",
     "dataset": "aws.sqs",
     "provider": "sqs.amazonaws.com",
-    "duration": 151000000
+    "duration": 324000000
   },
-  "message": "SQS webhook-events: 4862 messages processed",
+  "message": "SQS email-queue: 1942 messages processed",
   "log": {
     "level": "info"
   }

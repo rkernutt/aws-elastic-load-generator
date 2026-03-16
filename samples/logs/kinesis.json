@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "kinesis"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "StreamName": "user-events",
-      "ShardId": "shardId-000000000013"
+      "StreamName": "transaction-feed",
+      "ShardId": "shardId-000000000006"
     },
     "kinesis": {
-      "stream_name": "user-events",
-      "shard_id": "shardId-000000000000",
-      "sequence_number": "POIFVCA7MW",
-      "partition_key": "69um98or",
-      "incoming_records": 4392,
-      "incoming_bytes": 80082,
-      "iterator_age_ms": 651,
+      "stream_name": "transaction-feed",
+      "shard_id": "shardId-000000000010",
+      "sequence_number": "J2A5MA0WZXE",
+      "partition_key": "1s0be1xm",
+      "incoming_records": 15,
+      "incoming_bytes": 360806,
+      "iterator_age_ms": 462,
       "write_provisioned_throughput_exceeded": false,
       "metrics": {
         "IncomingRecords": {
-          "sum": 6481
+          "sum": 2443
         },
         "IncomingBytes": {
-          "sum": 3318948
+          "sum": 7877285
         },
         "OutgoingRecords": {
-          "sum": 3332
+          "sum": 2100
         },
         "OutgoingBytes": {
-          "sum": 3729706
+          "sum": 5920089
         },
         "WriteProvisionedThroughputExceeded": {
           "sum": 0
@@ -45,16 +45,16 @@
           "sum": 0
         },
         "IteratorAgeMilliseconds": {
-          "avg": 30
+          "avg": 152
         },
         "GetRecords_IteratorAgeMilliseconds": {
-          "avg": 459
+          "avg": 363
         },
         "PutRecord_Success": {
-          "sum": 7157
+          "sum": 3142
         },
         "PutRecords_Success": {
-          "sum": 338
+          "sum": 3976
         }
       }
     }
@@ -64,9 +64,9 @@
     "category": "process",
     "dataset": "aws.kinesis",
     "provider": "kinesis.amazonaws.com",
-    "duration": 4450000000
+    "duration": 2405000000
   },
-  "message": "Kinesis user-events: 6509 records ingested",
+  "message": "Kinesis transaction-feed: 5358 records ingested",
   "log": {
     "level": "info"
   }

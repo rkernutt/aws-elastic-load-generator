@@ -1,0 +1,95 @@
+{
+  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "opensearch"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "DomainName": "prod-search-eu-west-2",
+      "ClientId": "293847561023"
+    },
+    "opensearch": {
+      "domain_name": "prod-search-eu-west-2",
+      "index": "traces",
+      "operation": "index",
+      "took_ms": 283,
+      "shards": {
+        "total": 5,
+        "successful": 5,
+        "failed": 0
+      },
+      "hits_total": 16628,
+      "status_code": 201,
+      "metrics": {
+        "CPUUtilization": {
+          "avg": 26.987
+        },
+        "FreeStorageSpace": {
+          "avg": 194968987801
+        },
+        "ClusterStatus": {
+          "green": 1,
+          "yellow": 0,
+          "red": 0
+        },
+        "Nodes": {
+          "avg": 20
+        },
+        "SearchableDocuments": {
+          "avg": 459759626
+        },
+        "IndexingLatency": {
+          "avg": 194
+        },
+        "SearchLatency": {
+          "avg": 509
+        },
+        "IndexingRate": {
+          "avg": 85187
+        },
+        "SearchRate": {
+          "avg": 2237
+        },
+        "JVMMemoryPressure": {
+          "avg": 11.174
+        },
+        "AutomatedSnapshotFailure": {
+          "sum": 0
+        }
+      }
+    }
+  },
+  "http": {
+    "response": {
+      "status_code": 201
+    }
+  },
+  "event": {
+    "duration": 282740000,
+    "outcome": "success",
+    "category": "database",
+    "dataset": "aws.opensearch",
+    "provider": "es.amazonaws.com"
+  },
+  "message": "OpenSearch index on traces: 283ms",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.opensearch",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

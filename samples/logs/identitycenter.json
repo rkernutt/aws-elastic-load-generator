@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "identitycenter"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "iam_identity_center": {
-      "event_type": "AssignPermissionSet",
-      "user_name": "bob@corp.com",
-      "application_name": "DataDog",
-      "permission_set": "ReadOnlyAccess",
-      "account_id": "814726593401",
+      "event_type": "Authorize",
+      "user_name": "alice@corp.com",
+      "application_name": "Slack",
+      "permission_set": "BillingAccess",
+      "account_id": "738291046572",
       "mfa_authenticated": true
     }
   },
   "user": {
-    "name": "bob@corp.com"
+    "name": "alice@corp.com"
   },
   "source": {
-    "ip": "5.233.131.171"
+    "ip": "20.107.145.82"
   },
   "event": {
-    "action": "AssignPermissionSet",
+    "action": "Authorize",
     "outcome": "success",
     "category": "authentication",
     "dataset": "aws.identitycenter",
     "provider": "sso.amazonaws.com"
   },
-  "message": "IAM Identity Center AssignPermissionSet: bob@corp.com -> DataDog",
+  "message": "IAM Identity Center Authorize: alice@corp.com -> Slack",
   "log": {
     "level": "info"
   }

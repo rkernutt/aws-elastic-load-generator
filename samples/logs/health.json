@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,31 +13,26 @@
   },
   "aws": {
     "health": {
-      "event_arn": "arn:aws:health:eu-west-2::event/s3/w7wvla81/k48on9kx0fb",
-      "event_type_code": "AWS_S3_MAINTENANCE_SCHEDULED",
+      "event_arn": "arn:aws:health:eu-west-2::event/sqs/43quaft1/2503x3hl4dv",
+      "event_type_code": "AWS_SQS_OPERATIONAL_ISSUE",
       "event_type_category": "scheduledChange",
-      "service": "S3",
+      "service": "SQS",
       "region": "eu-west-2",
-      "status_code": "open",
+      "status_code": "resolved",
       "event_scope": "ACCOUNT",
-      "affected_entities_count": 29,
-      "description": "S3 Connectivity issues in eu-west-2"
+      "affected_entities_count": 25,
+      "description": "SQS Scheduled maintenance in eu-west-2"
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "failure",
+    "outcome": "success",
     "category": "configuration",
     "dataset": "aws.health",
     "provider": "health.amazonaws.com"
   },
-  "message": "AWS Health: S3 service issue in eu-west-2 - Degraded performance",
-  "error": {
-    "code": "HealthIssue",
-    "message": "AWS Health service issue",
-    "type": "configuration"
-  },
+  "message": "AWS Health: SQS event resolved in eu-west-2",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

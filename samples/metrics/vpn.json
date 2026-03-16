@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,27 +13,32 @@
   },
   "aws": {
     "vpn": {
-      "vpn_connection_id": "vpn-tvz5kug7",
-      "vpn_gateway_id": "vgw-dwpc3a3r",
-      "customer_gateway_ip": "185.140.182.44",
-      "tunnel_state": "UP",
-      "tunnel_outside_ip": "107.141.45.94",
+      "vpn_connection_id": "vpn-spdlno7p",
+      "vpn_gateway_id": "vgw-i5a160lr",
+      "customer_gateway_ip": "97.217.68.108",
+      "tunnel_state": "DOWN",
+      "tunnel_outside_ip": "116.32.142.108",
       "tunnel_inside_cidr": "169.254.11.0/30",
-      "phase1_status": "ESTABLISHED",
-      "phase2_status": "ESTABLISHED",
-      "bytes_in": 40911505,
-      "bytes_out": 22371776
+      "phase1_status": "FAILED",
+      "phase2_status": "FAILED",
+      "bytes_in": 14810404,
+      "bytes_out": 15694040
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "network",
     "dataset": "aws.vpn",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "Site-to-Site VPN vpn-tvz5kug7 tunnel UP",
+  "message": "Site-to-Site VPN vpn-spdlno7p tunnel DOWN - IKE negotiation failed",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "TunnelDown",
+    "message": "VPN tunnel DOWN - IKE negotiation failed",
+    "type": "network"
   },
   "data_stream": {
     "type": "metrics",

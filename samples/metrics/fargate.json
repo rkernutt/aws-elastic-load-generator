@@ -1,0 +1,55 @@
+{
+  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "fargate"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "ClusterName": "staging-cluster",
+      "TaskId": "yq0udvho4sc",
+      "TaskDefinition": "data-processor:11"
+    },
+    "fargate": {
+      "cluster_name": "staging-cluster",
+      "task_id": "yq0udvho4sc",
+      "task_definition": "data-processor:11",
+      "structured_logging": true,
+      "cpu_units": 4096,
+      "memory_mb": 1024,
+      "platform_version": "1.4.0",
+      "cpu_utilized_percent": 43,
+      "memory_utilized_percent": 66
+    }
+  },
+  "container": {
+    "name": "data-processor"
+  },
+  "log": {
+    "level": "info"
+  },
+  "event": {
+    "outcome": "success",
+    "category": "container",
+    "dataset": "aws.ecs_fargate",
+    "provider": "ecs.amazonaws.com",
+    "duration": 3545000000000
+  },
+  "message": "{\"cluster\":\"staging-cluster\",\"taskId\":\"yq0udvho4sc\",\"taskDefinition\":\"data-processor:11\",\"container\":\"data-processor\",\"level\":\"info\",\"message\":\"Task started successfully\",\"timestamp\":\"2026-03-16T14:23:43.329Z\"}",
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.ecs_metrics",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

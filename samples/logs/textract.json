@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "textract"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "textract": {
-      "operation": "DetectDocumentText",
-      "document_type": "invoice",
-      "pages_processed": 41,
-      "blocks_detected": 6478,
-      "words_detected": 19188,
-      "form_key_value_pairs": 0,
-      "tables_detected": 0,
-      "confidence_mean": 85.651
+      "operation": "AnalyzeDocument",
+      "document_type": "bank-statement",
+      "pages_processed": 45,
+      "blocks_detected": 2835,
+      "words_detected": 19890,
+      "form_key_value_pairs": 39,
+      "tables_detected": 5,
+      "confidence_mean": 92.519
     }
   },
   "event": {
@@ -29,7 +29,7 @@
     "dataset": "aws.textract",
     "provider": "textract.amazonaws.com"
   },
-  "message": "Textract DetectDocumentText: invoice, 41 pages, 10619 words",
+  "message": "Textract AnalyzeDocument: bank-statement, 45 pages, 14940 words",
   "log": {
     "level": "info"
   }

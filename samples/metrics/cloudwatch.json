@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "cloudwatchalarms"
@@ -13,29 +13,34 @@
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "high-cpu-alarm",
-      "alarm_state": "OK",
+      "alarm_name": "lambda-errors",
+      "alarm_state": "INSUFFICIENT_DATA",
       "previous_state": "OK",
-      "namespace": "AWS/Lambda",
-      "metric_name": "QueueDepth",
+      "namespace": "AWS/ApplicationELB",
+      "metric_name": "Duration",
       "threshold": 95,
       "evaluation_periods": 1,
-      "metric_value": 17.606,
-      "statistic": "Sum",
+      "metric_value": 21.986,
+      "statistic": "Maximum",
       "period_seconds": 60,
       "treat_missing_data": "notBreaching"
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "success",
+    "outcome": "failure",
     "category": "configuration",
     "dataset": "aws.cloudwatch",
     "provider": "monitoring.amazonaws.com"
   },
-  "message": "CloudWatch alarm \"high-cpu-alarm\": OK (AWS/Lambda/QueueDepth=17.6)",
+  "message": "CloudWatch alarm \"lambda-errors\": INSUFFICIENT_DATA (AWS/ApplicationELB/Duration=22.0)",
   "log": {
     "level": "info"
+  },
+  "error": {
+    "code": "AlarmTriggered",
+    "message": "Alarm lambda-errors: INSUFFICIENT_DATA",
+    "type": "monitoring"
   },
   "data_stream": {
     "type": "metrics",

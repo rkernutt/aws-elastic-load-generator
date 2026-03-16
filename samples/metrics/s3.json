@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "s3"
@@ -13,62 +13,62 @@
   },
   "aws": {
     "dimensions": {
-      "BucketName": "prod-assets-eu-west-2",
+      "BucketName": "media-uploads-us-east-1",
       "StorageType": "StandardStorage"
     },
     "s3access": {
-      "bucket_owner": "501938274650",
-      "bucket": "prod-assets-eu-west-2",
-      "remote_ip": "53.209.104.60",
-      "requester": "AIDAB7XW2K4R9UA",
-      "request_id": "92J7492NZIR",
-      "operation": "REST.PUT.OBJECT",
-      "key": "reports/j5nkbcxy.zip",
-      "request_uri": "/prod-assets-eu-west-2/reports/j5nkbcxy.zip",
-      "http_status": 200,
+      "bucket_owner": "738291046572",
+      "bucket": "media-uploads-us-east-1",
+      "remote_ip": "223.35.4.106",
+      "requester": "AIDA0GEB5ZGHN4D",
+      "request_id": "Q3Y1POKGNO",
+      "operation": "REST.GET.OBJECT",
+      "key": "exports/kga7njez.zip",
+      "request_uri": "/media-uploads-us-east-1/exports/kga7njez.zip",
+      "http_status": 206,
       "error_code": "-",
-      "bytes_sent": 65287482,
-      "object_size": "-",
-      "total_time": 442,
-      "turn_around_time": 353,
+      "bytes_sent": 647031461,
+      "object_size": 178285795,
+      "total_time": 398,
+      "turn_around_time": 318,
       "referrer": "-",
-      "user_agent": "python-requests/2.27.1",
-      "host_id": "32X7D7D5YOK+9J2DUB",
+      "user_agent": "Go-http-client/1.1",
+      "host_id": "JT7O5B7A3CG+PTB3D8",
       "signature_version": "SigV4",
       "authentication_type": "AuthHeader",
-      "host_header": "prod-assets-eu-west-2.s3.eu-west-2.amazonaws.com",
+      "host_header": "media-uploads-us-east-1.s3.us-east-1.amazonaws.com",
       "tls_version": "TLSv1.2"
     },
     "s3": {
       "bucket": {
-        "name": "prod-assets-eu-west-2",
-        "arn": "arn:aws:s3:::prod-assets-eu-west-2"
+        "name": "media-uploads-us-east-1",
+        "arn": "arn:aws:s3:::media-uploads-us-east-1"
       },
       "object": {
-        "key": "reports/j5nkbcxy.zip",
-        "size": 416146062,
-        "etag": "w9vd3ecgcf"
+        "key": "exports/kga7njez.zip",
+        "size": 515327669,
+        "etag": "m31gzvjtm4q"
       },
-      "operation": "REST.PUT.OBJECT",
-      "request_id": "92J7492NZIR",
+      "operation": "REST.GET.OBJECT",
+      "request_id": "Q3Y1POKGNO",
       "metrics": {
         "NumberOfObjects": {
-          "avg": 9446987
+          "avg": 9950510
         },
         "BucketSizeBytes": {
-          "avg": 388451057059
+          "avg": 112722274286
         },
         "AllRequests": {
-          "sum": 68064
+          "sum": 43933
         },
         "GetRequests": {
-          "sum": 2341
+          "sum": 32348
         },
         "PutRequests": {
-          "sum": 6409
+          "sum": 6415
         },
         "DeleteRequests": {
-          "sum": 170
+          "sum": 982
         },
         "4xxErrors": {
           "sum": 0
@@ -77,31 +77,31 @@
           "sum": 0
         },
         "FirstByteLatency": {
-          "avg": 54
+          "avg": 120
         },
         "TotalRequestLatency": {
-          "avg": 443
+          "avg": 112
         },
         "BytesDownloaded": {
-          "sum": 680166249
+          "sum": 922496231
         },
         "BytesUploaded": {
-          "sum": 37360776
+          "sum": 91921749
         }
       }
     }
   },
   "http": {
     "response": {
-      "status_code": 200,
-      "bytes": 65287482
+      "status_code": 206,
+      "bytes": 647031461
     }
   },
   "client": {
-    "ip": "53.209.104.60"
+    "ip": "223.35.4.106"
   },
   "user_agent": {
-    "original": "curl/7.68.0"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
     "outcome": "success",
@@ -109,7 +109,7 @@
     "dataset": "aws.s3",
     "provider": "s3.amazonaws.com"
   },
-  "message": "REST.PUT.OBJECT s3://prod-assets-eu-west-2/reports/j5nkbcxy.zip 200",
+  "message": "REST.GET.OBJECT s3://media-uploads-us-east-1/exports/kga7njez.zip 206",
   "log": {
     "level": "info"
   },

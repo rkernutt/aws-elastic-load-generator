@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "ecs"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "workers",
-      "ServiceName": "web-frontend"
+      "ClusterName": "prod-cluster",
+      "ServiceName": "scheduler"
     },
     "ecs": {
       "cluster": {
-        "name": "workers"
+        "name": "prod-cluster"
       },
       "service": {
-        "name": "web-frontend"
+        "name": "scheduler"
       },
       "task": {
-        "id": "7566uvnnxk2",
-        "definition": "web-frontend:32"
+        "id": "pvmmff6vsth",
+        "definition": "scheduler:32"
       },
       "structured_logging": true,
       "metrics": {
         "CPUUtilization": {
-          "avg": 8.025
+          "avg": 46.485
         },
         "MemoryUtilization": {
-          "avg": 15.082
+          "avg": 56.367
         },
         "RunningTaskCount": {
-          "avg": 14
+          "avg": 7
         },
         "PendingTaskCount": {
           "avg": 0
@@ -48,23 +48,23 @@
     }
   },
   "container": {
-    "name": "web-frontend",
+    "name": "scheduler",
     "image": {
-      "name": "myrepo/web-frontend:latest"
+      "name": "myrepo/scheduler:latest"
     }
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "event": {
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 1839000000000
+    "duration": 109000000000
   },
-  "message": "{\"cluster\":\"workers\",\"service\":\"web-frontend\",\"taskId\":\"7566uvnnxk2\",\"container\":\"web-frontend\",\"level\":\"warn\",\"message\":\"Slow response\",\"timestamp\":\"2026-03-16T13:32:45.355Z\"}",
+  "message": "{\"cluster\":\"prod-cluster\",\"service\":\"scheduler\",\"taskId\":\"pvmmff6vsth\",\"container\":\"scheduler\",\"level\":\"info\",\"message\":\"Health check passed\",\"timestamp\":\"2026-03-16T14:23:43.329Z\"}",
   "service": {
-    "name": "web-frontend",
+    "name": "scheduler",
     "type": "ecs"
   },
   "data_stream": {

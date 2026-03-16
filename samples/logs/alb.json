@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "alb"
@@ -13,42 +13,42 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "app/prod-alb-eu-west-2/8ps2byhd7x9",
-      "TargetGroup": "targetgroup/tg-api/2fad98c9o0r",
-      "AvailabilityZone": "eu-west-2c"
+      "LoadBalancer": "app/prod-alb-eu-west-2/xebv7s13hq",
+      "TargetGroup": "targetgroup/tg-admin/bwrj7upgry",
+      "AvailabilityZone": "eu-west-2a"
     },
     "elb": {
-      "name": "app/prod-alb-eu-west-2/8ps2byhd7x9",
+      "name": "app/prod-alb-eu-west-2/xebv7s13hq",
       "type": "application",
-      "target_group.arn": "arn:aws:elasticloadbalancing:eu-west-2:501938274650:targetgroup/tg-api/2fad98c9o0r",
-      "listener": "arn:aws:elasticloadbalancing:eu-west-2:501938274650:listener/app/prod-alb/kcagvg3zri/qinme77imw",
+      "target_group.arn": "arn:aws:elasticloadbalancing:eu-west-2:738291046572:targetgroup/tg-admin/bwrj7upgry",
+      "listener": "arn:aws:elasticloadbalancing:eu-west-2:738291046572:listener/app/prod-alb/h8f572zj51/fpdyrbqwo7",
       "protocol": "HTTPS",
-      "request_processing_time.sec": 0.492,
-      "backend_processing_time.sec": 0.936,
-      "response_processing_time.sec": 0.008,
-      "backend.ip": "224.8.228.87",
-      "backend.port": "6548",
+      "request_processing_time.sec": 0.225,
+      "backend_processing_time.sec": 1.592,
+      "response_processing_time.sec": 0.054,
+      "backend.ip": "103.7.47.113",
+      "backend.port": "6162",
       "backend.http.response.status_code": 301,
       "ssl_protocol": "TLSv1.3",
       "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
-      "trace_id": "Root=1-6457LIE4-M43IVXW8WJC",
-      "target_port": "224.8.228.87:6548",
+      "trace_id": "Root=1-6KVPAVC2-TED0Y7PDTG",
+      "target_port": "103.7.47.113:6162",
       "target_status_code": "301"
     },
     "alb": {
-      "load_balancer": "app/prod-alb-eu-west-2/8ps2byhd7x9",
-      "target_group": "arn:aws:elasticloadbalancing:eu-west-2:501938274650:targetgroup/tg-api/2fad98c9o0r",
-      "request_processing_time": 0.492,
+      "load_balancer": "app/prod-alb-eu-west-2/xebv7s13hq",
+      "target_group": "arn:aws:elasticloadbalancing:eu-west-2:738291046572:targetgroup/tg-admin/bwrj7upgry",
+      "request_processing_time": 0.225,
       "ssl_protocol": "TLSv1.3",
       "metrics": {
         "ActiveConnectionCount": {
-          "sum": 4298
+          "sum": 3684
         },
         "NewConnectionCount": {
-          "sum": 389
+          "sum": 79
         },
         "RequestCount": {
-          "sum": 7379
+          "sum": 2372
         },
         "HTTPCode_Target_2XX_Count": {
           "sum": 0
@@ -63,52 +63,52 @@
           "sum": 0
         },
         "TargetResponseTime": {
-          "avg": 0.936,
-          "p99": 2.8080000000000003
+          "avg": 1.592,
+          "p99": 4.776
         },
         "HealthyHostCount": {
-          "avg": 16
+          "avg": 14
         },
         "UnHealthyHostCount": {
           "avg": 0
         },
         "RejectedConnectionCount": {
-          "sum": 1
+          "sum": 6
         },
         "ProcessedBytes": {
-          "sum": 938122832
+          "sum": 876250144
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "PUT",
-      "bytes": 6024
+      "method": "DELETE",
+      "bytes": 3562
     },
     "response": {
       "status_code": 301,
-      "bytes": 39284
+      "bytes": 3121
     }
   },
   "url": {
-    "path": "/api/v1/auth/login",
+    "path": "/health",
     "domain": "api.example.com"
   },
   "client": {
-    "ip": "144.222.186.132",
-    "port": 9201
+    "ip": "208.203.26.209",
+    "port": 31223
   },
   "user_agent": {
-    "original": "Go-http-client/1.1"
+    "original": "curl/7.68.0"
   },
   "event": {
-    "duration": 1436000000,
+    "duration": 1871000000.0000002,
     "outcome": "success",
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com"
   },
-  "message": "PUT /api/v1/auth/login 301 1436ms",
+  "message": "DELETE /health 301 1871ms",
   "log": {
     "level": "info"
   }

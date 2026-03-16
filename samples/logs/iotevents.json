@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "iotevents"
@@ -14,29 +14,25 @@
   "aws": {
     "iotevents": {
       "detector_model_name": "pressure-monitor",
-      "detector_id": "zone-A",
-      "key_value": "zone-A",
-      "event_name": "AlarmActivated",
+      "detector_id": "unit-02",
+      "key_value": "unit-02",
+      "event_name": "TriggerFired",
       "from_state": "Normal",
-      "to_state": "Error",
-      "input_name": "HealthCheck",
+      "to_state": "Alarm",
+      "input_name": "CommandInput",
       "action_type": "SetVariable",
-      "error_code": "ThrottlingException"
+      "timer_name": "idleTimer",
+      "condition_expression": "$input.SensorInput.temperature > 85"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "process",
     "dataset": "aws.iotevents",
     "provider": "iotevents.amazonaws.com"
   },
-  "message": "IoT Events pressure-monitor/zone-A ERROR: State machine error:",
+  "message": "IoT Events pressure-monitor/unit-02: Normal → Alarm [TriggerFired]",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ThrottlingException",
-    "message": "IoT Events error",
-    "type": "iot"
+    "level": "warn"
   }
 }

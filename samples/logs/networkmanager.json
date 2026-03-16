@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,33 +13,27 @@
   },
   "aws": {
     "networkmanager": {
-      "global_network_id": "network-xflowmnjpd",
-      "global_network_name": "global-network-dr",
-      "event_type": "CONNECTION_STATUS_DOWN",
-      "device_id": "device-ghj4rp9ooq",
-      "link_id": "link-a5mb76zyp7q",
-      "site_id": "site-xa2bt4d18ak",
-      "site_name": "colo-frankfurt",
+      "global_network_id": "network-7wm0ax1pxyb",
+      "global_network_name": "enterprise-wan",
+      "event_type": "LINK_STATUS_DOWN",
+      "device_id": "device-djthoq7l12w",
+      "link_id": "link-q0ticobkd7",
+      "site_id": "site-wposhzzg48",
+      "site_name": "branch-tokyo",
       "bandwidth_mbps": 1000,
-      "provider": "Zayo",
-      "type": "broadband",
-      "state": "DOWN",
-      "error_code": "ValidationException"
+      "provider": "NTT",
+      "type": "mpls",
+      "state": "UP"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "network",
     "dataset": "aws.networkmanager",
     "provider": "networkmanager.amazonaws.com"
   },
-  "message": "Network Manager CONNECTION_STATUS_DOWN [global-network-dr]: connection degraded",
+  "message": "Network Manager LINK_STATUS_DOWN [enterprise-wan]: dc-us-east link UP",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ResourceNotFoundException",
-    "message": "Network Manager connection degraded",
-    "type": "network"
+    "level": "warn"
   }
 }

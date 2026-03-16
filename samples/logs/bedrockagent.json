@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "bedrock-agent"
@@ -13,13 +13,19 @@
   },
   "aws": {
     "bedrockagent": {
-      "agent_id": "TZH4UOP9OXAF",
-      "agent_alias_id": "TSTALIASID",
-      "session_id": "0mx9gvsfurvb",
-      "action": "InvokeAgent",
-      "input_token_count": 2987,
-      "output_token_count": 1506,
-      "invocation_latency_ms": 3438,
+      "agent_id": "TITBJFHXRTXI",
+      "agent_alias_id": "LIVE",
+      "session_id": "p16fm1wrkfp",
+      "action": "Retrieve",
+      "knowledge_base_id": "KBQPPHGKXO1",
+      "input_token_count": 3580,
+      "output_token_count": 1713,
+      "invocation_latency_ms": 796,
+      "orchestration_trace": {
+        "model_invocation": {
+          "model_arn": "arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-5-sonnet-v2"
+        }
+      },
       "guardrail_action": "NONE"
     }
   },
@@ -28,9 +34,9 @@
     "category": "machine_learning",
     "dataset": "aws.bedrockagent",
     "provider": "bedrock-agent-runtime.amazonaws.com",
-    "duration": 3438000000
+    "duration": 796000000
   },
-  "message": "Bedrock Agent TZH4UOP9OXAF: InvokeAgent 2987→1506 tokens 3.44s",
+  "message": "Bedrock Agent TITBJFHXRTXI: Retrieve 3580→1713 tokens 0.80s",
   "log": {
     "level": "info"
   }

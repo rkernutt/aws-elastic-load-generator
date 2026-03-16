@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "iotcore": {
-      "client_id": "gateway-prod-1",
-      "thing_name": "gateway-prod-1",
+      "client_id": "thermostat-floor-3",
+      "thing_name": "thermostat-floor-3",
       "thing_group": "home-devices",
-      "action": "REJECT",
-      "topic": "cmd/device/update",
+      "action": "CONNECT",
+      "topic": "dt/home/thermostat/status",
       "protocol": "LoRaWAN",
       "qos": 1,
-      "message_bytes": 37764,
+      "message_bytes": 64984,
       "policy_name": "FleetPolicy",
-      "structured_logging": true,
-      "rules_evaluated": 5
+      "structured_logging": false,
+      "rules_evaluated": 1
     }
   },
   "source": {
-    "ip": "221.58.8.34"
+    "ip": "89.253.41.4"
   },
   "event": {
-    "action": "REJECT",
+    "action": "CONNECT",
     "outcome": "success",
     "category": "network",
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com"
   },
-  "message": "{\"clientId\":\"gateway-prod-1\",\"action\":\"REJECT\",\"topic\":\"cmd/device/update\",\"message\":\"IoT Core REJECT: gateway-prod-1 on cmd/device/update\",\"timestamp\":\"2026-03-16T13:32:45.355Z\"}",
+  "message": "IoT Core CONNECT: thermostat-floor-3 on dt/home/thermostat/status",
   "log": {
     "level": "info"
   }

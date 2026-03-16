@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "backup"
@@ -13,30 +13,24 @@
   },
   "aws": {
     "backup": {
-      "backup_job_id": "sl620pda-le2k-uq96",
+      "backup_job_id": "4w4puiej-ystb-3xvh",
       "backup_plan_name": "weekly-cold",
-      "resource_type": "EFS",
-      "backup_vault_name": "compliance-vault",
-      "status": "FAILED",
-      "backup_size_gb": 0,
-      "lifecycle_delete_after_days": 365,
-      "error_code": "LIMIT_EXCEEDED"
+      "resource_type": "DynamoDB",
+      "backup_vault_name": "prod-vault",
+      "status": "COMPLETED",
+      "backup_size_gb": 1092.808,
+      "lifecycle_delete_after_days": 7
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "file",
     "dataset": "aws.backup",
     "provider": "backup.amazonaws.com",
-    "duration": 2512000000000
+    "duration": 2637000000000
   },
-  "message": "AWS Backup FAILED for fsx/fs-prod: IAM role insufficient",
+  "message": "AWS Backup COMPLETED: ec2/i-prod -> Default (1092.8GB)",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "LIMIT_EXCEEDED",
-    "message": "Backup job failed",
-    "type": "storage"
+    "level": "info"
   }
 }

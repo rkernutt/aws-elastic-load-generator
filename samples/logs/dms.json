@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "dms"
@@ -14,15 +14,15 @@
   "aws": {
     "dms": {
       "replication_task_id": "on-prem-to-rds",
-      "migration_type": "cdc",
+      "migration_type": "full-load-and-cdc",
       "source_engine": "sqlserver",
       "target_engine": "redshift",
-      "replication_instance_class": "dms.r5.xlarge",
+      "replication_instance_class": "dms.r5.large",
       "task_status": "Load complete",
-      "full_load_rows_transferred": 4041989,
-      "cdc_incoming_changes": 59269,
-      "latency_ms": 1204,
-      "tables_loaded": 187,
+      "full_load_rows_transferred": 3502791,
+      "cdc_incoming_changes": 51152,
+      "latency_ms": 640,
+      "tables_loaded": 179,
       "tables_errored": 0
     }
   },
@@ -32,7 +32,7 @@
     "dataset": "aws.dms",
     "provider": "dms.amazonaws.com"
   },
-  "message": "DMS on-prem-to-rds: 4,041,989 rows (sqlserver->redshift cdc)",
+  "message": "DMS on-prem-to-rds: 3,502,791 rows (sqlserver->redshift full-load-and-cdc)",
   "log": {
     "level": "info"
   }

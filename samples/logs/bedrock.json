@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "bedrock"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "bedrock": {
-      "model_id": "amazon.titan-text-express-v1",
-      "invocation_latency_ms": 8719,
-      "input_token_count": 7454,
-      "output_token_count": 824,
-      "total_token_count": 8278,
-      "stop_reason": "max_tokens",
-      "use_case": "classification",
-      "guardrail_action": "NONE"
+      "model_id": "anthropic.claude-3-5-sonnet-20241022-v2:0",
+      "invocation_latency_ms": 3725,
+      "input_token_count": 6222,
+      "output_token_count": 2717,
+      "total_token_count": 8939,
+      "stop_reason": "end_turn",
+      "use_case": "qa",
+      "guardrail_action": "INTERVENED"
     }
   },
   "event": {
@@ -28,9 +28,9 @@
     "category": "machine_learning",
     "dataset": "aws.bedrock",
     "provider": "bedrock.amazonaws.com",
-    "duration": 8719000000
+    "duration": 3725000000
   },
-  "message": "Bedrock titan 7454->824 tokens 8.72s",
+  "message": "Bedrock claude 6222->2717 tokens 3.73s",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "lakeformation"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "lakeformation": {
-      "database": "analytics",
+      "database": "curated",
       "table": "products",
-      "action": "Grant",
-      "principal_arn": "arn:aws:iam::738291046572:role/glue-role",
+      "action": "Revoke",
+      "principal_arn": "arn:aws:iam::501938274650:role/glue-role",
       "permissions": [
-        "ALL"
+        "SELECT"
       ],
-      "lf_tag_key": "environment",
+      "lf_tag_key": "classification",
       "lf_tag_values": [
         "dev",
         "staging"
@@ -28,13 +28,13 @@
     }
   },
   "event": {
-    "action": "Grant",
+    "action": "Revoke",
     "outcome": "success",
     "category": "iam",
     "dataset": "aws.lakeformation",
     "provider": "lakeformation.amazonaws.com"
   },
-  "message": "Lake Formation Grant: ALL on analytics.products",
+  "message": "Lake Formation Revoke: SELECT on curated.products",
   "log": {
     "level": "info"
   }

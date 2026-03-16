@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "sagemaker"
@@ -13,36 +13,39 @@
   },
   "aws": {
     "sagemaker": {
-      "domain_id": "d-q6mpqmoirz",
-      "domain_name": "risk-models",
-      "user_profile": "dan-platform",
+      "domain_id": "d-wrqadrr35v",
+      "domain_name": "ml-research",
+      "user_profile": "alice-ds",
       "job": {
-        "name": "lstm-timeseries-hyperparametertuning-d6farl",
-        "type": "HyperparameterTuning",
-        "arn": "arn:aws:sagemaker:us-east-1:501938274650:training-job/lstm-timeseries-hyperparametertuning-d6farl"
+        "name": "llama-finetuned-transform-ly5n8g",
+        "type": "Transform",
+        "arn": "arn:aws:sagemaker:eu-west-2:293847561023:training-job/llama-finetuned-transform-ly5n8g"
       },
       "model": {
-        "name": "lstm-timeseries",
-        "version": 13
+        "name": "llama-finetuned",
+        "version": 8
       },
       "pipeline": {
-        "name": "model-training-pipeline",
-        "execution_id": "pipe-88wcp990tv3"
+        "name": "feature-engineering-pipeline",
+        "execution_id": "pipe-vovn015y33a"
       },
       "instance": {
-        "type": "ml.m5.xlarge",
+        "type": "ml.p3.2xlarge",
         "count": 1
       },
       "metrics": {
-        "training_loss": 0.4159,
-        "accuracy": 0.7835,
-        "epoch": 6,
-        "gpu_utilization_pct": 91,
-        "cpu_utilization_pct": 76
+        "training_loss": 0.673,
+        "accuracy": 0.9512,
+        "epoch": 42,
+        "gpu_utilization_pct": 99,
+        "cpu_utilization_pct": 43
       },
       "studio": {
+        "space_name": "ml-research",
+        "app_type": "JupyterLab",
+        "app_name": "instance-euocyg4x",
         "lifecycle_config": false,
-        "continuous_logging": false
+        "continuous_logging": true
       }
     }
   },
@@ -50,15 +53,15 @@
     "level": "warn"
   },
   "user": {
-    "name": "dan-platform"
+    "name": "alice-ds"
   },
   "event": {
-    "action": "TrainingJobCompleted",
-    "duration": 10919676000000,
+    "action": "AppCreated",
+    "duration": 2517846000000,
     "outcome": "success",
     "category": "machine_learning",
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "Training loss plateau detected at epoch 28"
+  "message": "{\"domainId\":\"d-wrqadrr35v\",\"space\":\"ml-research\",\"appType\":\"JupyterLab\",\"user\":\"alice-ds\",\"level\":\"WARN\",\"message\":\"Spot instance interruption, checkpointing...\",\"timestamp\":\"2026-03-16T14:23:43.329Z\",\"event\":\"AppCreated\"}"
 }

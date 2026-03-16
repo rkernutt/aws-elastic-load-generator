@@ -1,0 +1,76 @@
+{
+  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "sagemaker"
+    }
+  },
+  "aws": {
+    "sagemaker": {
+      "domain_id": "d-wrqadrr35v",
+      "domain_name": "ml-research",
+      "user_profile": "alice-ds",
+      "job": {
+        "name": "llama-finetuned-transform-ly5n8g",
+        "type": "Transform",
+        "arn": "arn:aws:sagemaker:eu-west-2:293847561023:training-job/llama-finetuned-transform-ly5n8g"
+      },
+      "model": {
+        "name": "llama-finetuned",
+        "version": 8
+      },
+      "pipeline": {
+        "name": "feature-engineering-pipeline",
+        "execution_id": "pipe-vovn015y33a"
+      },
+      "instance": {
+        "type": "ml.p3.2xlarge",
+        "count": 1
+      },
+      "metrics": {
+        "training_loss": 0.673,
+        "accuracy": 0.9512,
+        "epoch": 42,
+        "gpu_utilization_pct": 99,
+        "cpu_utilization_pct": 43
+      },
+      "studio": {
+        "space_name": "ml-research",
+        "app_type": "JupyterLab",
+        "app_name": "instance-euocyg4x",
+        "lifecycle_config": false,
+        "continuous_logging": true
+      }
+    }
+  },
+  "log": {
+    "level": "warn"
+  },
+  "user": {
+    "name": "alice-ds"
+  },
+  "event": {
+    "action": "AppCreated",
+    "duration": 2517846000000,
+    "outcome": "success",
+    "category": "machine_learning",
+    "dataset": "aws.sagemaker",
+    "provider": "sagemaker.amazonaws.com"
+  },
+  "message": "{\"domainId\":\"d-wrqadrr35v\",\"space\":\"ml-research\",\"appType\":\"JupyterLab\",\"user\":\"alice-ds\",\"level\":\"WARN\",\"message\":\"Spot instance interruption, checkpointing...\",\"timestamp\":\"2026-03-16T14:23:43.329Z\",\"event\":\"AppCreated\"}",
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.sagemaker",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

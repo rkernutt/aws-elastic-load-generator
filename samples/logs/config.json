@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "config"
@@ -14,43 +14,38 @@
   "aws": {
     "dimensions": {
       "ConfigRuleName": "mfa-enabled-for-iam-console",
-      "ResourceType": "AWS::S3::Bucket"
+      "ResourceType": "AWS::EC2::Instance"
     },
     "config": {
       "rule_name": "mfa-enabled-for-iam-console",
-      "compliance_type": "NON_COMPLIANT",
-      "resource_type": "AWS::S3::Bucket",
-      "resource_id": "sg-sor1dc11",
-      "annotation": "Encryption not enabled",
+      "compliance_type": "COMPLIANT",
+      "resource_type": "AWS::EC2::Instance",
+      "resource_id": "s3-armideik",
+      "annotation": "Resource is compliant",
       "metrics": {
         "ComplianceByConfigRule": {
-          "avg": 0
+          "avg": 1
         },
         "NonCompliantRules": {
-          "sum": 1
-        },
-        "CompliantRules": {
           "sum": 0
         },
+        "CompliantRules": {
+          "sum": 1
+        },
         "ConfigurationItemsRecorded": {
-          "sum": 92
+          "sum": 3
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "compliance",
     "dataset": "aws.config",
     "provider": "config.amazonaws.com"
   },
-  "message": "Config rule FAILED: mfa-enabled-for-iam-console",
+  "message": "Config rule PASSED: mfa-enabled-for-iam-console",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "NonCompliant",
-    "message": "Config rule mfa-enabled-for-iam-console failed",
-    "type": "compliance"
+    "level": "info"
   }
 }

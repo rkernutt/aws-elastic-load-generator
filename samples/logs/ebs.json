@@ -1,12 +1,12 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
-    "availability_zone": "us-east-1b",
+    "availability_zone": "us-east-1c",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "ebs"
@@ -14,49 +14,50 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-royo9227zv",
-      "VolumeType": "io2"
+      "VolumeId": "vol-bjm2j7ak4mf",
+      "VolumeType": "io1"
     },
     "ebs": {
-      "volume_id": "vol-royo9227zv",
-      "volume_type": "io2",
-      "size_gb": 1000,
-      "snapshot_id": "snap-lloj1i59qo",
-      "snapshot_state": "pending",
-      "progress": "80%",
-      "duration_seconds": 201,
-      "encrypted": true,
-      "event_type": "snapshot",
+      "volume_id": "vol-bjm2j7ak4mf",
+      "modification_state": "optimizing",
+      "original_volume_type": "io1",
+      "target_volume_type": "io2",
+      "original_size_gb": 200,
+      "target_size_gb": 400,
+      "original_iops": 3724,
+      "target_iops": 9791,
+      "progress_percent": 28,
+      "event_type": "modification",
       "metrics": {
         "VolumeReadOps": {
-          "sum": 4201
+          "sum": 3975
         },
         "VolumeWriteOps": {
-          "sum": 8432
+          "sum": 6902
         },
         "VolumeReadBytes": {
-          "sum": 374829380
+          "sum": 137357093
         },
         "VolumeWriteBytes": {
-          "sum": 392018360
+          "sum": 281403550
         },
         "VolumeTotalReadTime": {
-          "sum": 3.867
+          "sum": 0.4
         },
         "VolumeTotalWriteTime": {
-          "sum": 6.211
+          "sum": 1.02
         },
         "VolumeIdleTime": {
-          "sum": 0.533
+          "sum": 3.18
         },
         "VolumeQueueLength": {
-          "avg": 5
+          "avg": 4
         },
         "VolumeThroughputPercentage": {
-          "avg": 75.969
+          "avg": 47.892
         },
         "VolumeConsumedReadWriteOps": {
-          "sum": 28894
+          "sum": 16710
         },
         "BurstBalance": {}
       }
@@ -68,7 +69,7 @@
     "dataset": "aws.ebs",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "EBS snapshot snap-lloj1i59qo of volume vol-royo9227zv [1000GB]: pending (80%)",
+  "message": "EBS volume vol-bjm2j7ak4mf modification: io1/200GB -> io2/400GB [optimizing]",
   "log": {
     "level": "info"
   }

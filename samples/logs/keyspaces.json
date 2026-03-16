@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "keyspaces"
@@ -13,31 +13,25 @@
   },
   "aws": {
     "keyspaces": {
-      "keyspace_name": "analytics",
-      "table_name": "users",
-      "operation": "BATCH",
-      "read_capacity_units": 0,
-      "write_capacity_units": 0,
+      "keyspace_name": "prod_keyspace",
+      "table_name": "sessions",
+      "operation": "DELETE",
+      "read_capacity_units": 42.605,
+      "write_capacity_units": 8.669,
       "rows_returned": 0,
-      "duration_ms": 4088,
-      "cql_version": "3.11.2",
-      "error_code": "TimeoutException"
+      "duration_ms": 25,
+      "cql_version": "3.11.2"
     }
   },
   "event": {
-    "duration": 4087945000,
-    "outcome": "failure",
+    "duration": 25062000,
+    "outcome": "success",
     "category": "database",
     "dataset": "aws.keyspaces",
     "provider": "cassandra.amazonaws.com"
   },
-  "message": "Keyspaces BATCH on analytics.users FAILED: Write conflict",
+  "message": "Keyspaces DELETE on prod_keyspace.sessions: 25ms",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ProvisionedThroughputExceededException",
-    "message": "Keyspaces operation failed",
-    "type": "db"
+    "level": "info"
   }
 }

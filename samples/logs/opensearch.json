@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "opensearch"
@@ -14,26 +14,26 @@
   "aws": {
     "dimensions": {
       "DomainName": "prod-search-eu-west-2",
-      "ClientId": "164820739518"
+      "ClientId": "293847561023"
     },
     "opensearch": {
       "domain_name": "prod-search-eu-west-2",
-      "index": "logs-2024",
-      "operation": "delete",
-      "took_ms": 1453,
+      "index": "traces",
+      "operation": "index",
+      "took_ms": 283,
       "shards": {
         "total": 5,
         "successful": 5,
         "failed": 0
       },
-      "hits_total": 14630,
-      "status_code": 200,
+      "hits_total": 16628,
+      "status_code": 201,
       "metrics": {
         "CPUUtilization": {
-          "avg": 25.631
+          "avg": 26.987
         },
         "FreeStorageSpace": {
-          "avg": 435472776451
+          "avg": 194968987801
         },
         "ClusterStatus": {
           "green": 1,
@@ -41,25 +41,25 @@
           "red": 0
         },
         "Nodes": {
-          "avg": 4
+          "avg": 20
         },
         "SearchableDocuments": {
-          "avg": 509110723
+          "avg": 459759626
         },
         "IndexingLatency": {
-          "avg": 328
+          "avg": 194
         },
         "SearchLatency": {
-          "avg": 733
+          "avg": 509
         },
         "IndexingRate": {
-          "avg": 53802
+          "avg": 85187
         },
         "SearchRate": {
-          "avg": 4552
+          "avg": 2237
         },
         "JVMMemoryPressure": {
-          "avg": 63.444
+          "avg": 11.174
         },
         "AutomatedSnapshotFailure": {
           "sum": 0
@@ -69,17 +69,17 @@
   },
   "http": {
     "response": {
-      "status_code": 200
+      "status_code": 201
     }
   },
   "event": {
-    "duration": 1452618000,
+    "duration": 282740000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.opensearch",
     "provider": "es.amazonaws.com"
   },
-  "message": "OpenSearch delete on logs-2024: 1453ms",
+  "message": "OpenSearch index on traces: 283ms",
   "log": {
     "level": "info"
   }

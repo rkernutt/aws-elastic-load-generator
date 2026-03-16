@@ -1,0 +1,46 @@
+{
+  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "aurora"
+    }
+  },
+  "aws": {
+    "aurora": {
+      "cluster_id": "prod-aurora-cluster",
+      "instance_id": "prod-aurora-cluster-instance-3",
+      "engine": "aurora-postgresql",
+      "engine_version": "15.4",
+      "replica_lag_seconds": 2.797,
+      "db_connections": 155,
+      "max_connections": 1000,
+      "failover_in_progress": false
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "database",
+    "dataset": "aws.aurora",
+    "provider": "rds.amazonaws.com",
+    "duration": 1000000000
+  },
+  "message": "Multi-AZ failover completed in 22s",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.aurora",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

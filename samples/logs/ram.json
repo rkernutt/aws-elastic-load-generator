@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "ram"
@@ -13,24 +13,23 @@
   },
   "aws": {
     "ram": {
-      "resource_share_arn": "arn:aws:ram:us-east-1:293847561023:resource-share/fybzbnxw01o",
+      "resource_share_arn": "arn:aws:ram:us-east-1:164820739518:resource-share/w58qwto5zwm",
       "resource_share_name": "shared-subnets",
-      "resource_type": "ec2:Subnet",
-      "action": "GetResourceShareInvitations",
-      "principal": "293847561023",
-      "allow_external_principals": false,
-      "status": "ACTIVE",
-      "invitation_status": "REJECTED"
+      "resource_type": "ram:ResourceShare",
+      "action": "CreateResourceShare",
+      "principal": "164820739518",
+      "allow_external_principals": true,
+      "status": "PENDING"
     }
   },
   "event": {
-    "action": "GetResourceShareInvitations",
+    "action": "CreateResourceShare",
     "outcome": "success",
     "category": "iam",
     "dataset": "aws.ram",
     "provider": "ram.amazonaws.com"
   },
-  "message": "RAM GetResourceShareInvitations: ec2:Subnet shared with account 293847561023",
+  "message": "RAM CreateResourceShare: ram:ResourceShare shared with account 164820739518",
   "log": {
     "level": "info"
   }

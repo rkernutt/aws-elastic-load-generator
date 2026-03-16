@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "codeartifact"
@@ -13,31 +13,25 @@
   },
   "aws": {
     "codeartifact": {
-      "domain_name": "platform",
+      "domain_name": "corp-packages",
       "repository_name": "nuget-store",
       "package_format": "maven",
-      "package_name": "my-lib",
-      "package_version": "5.19.10",
+      "package_name": "utils",
+      "package_version": "3.10.8",
       "action": "CopyPackageVersions",
-      "download_size_bytes": 410976,
-      "upstream_repository": "pypi-upstream",
-      "error_code": "AccessDeniedException"
+      "download_size_bytes": 44687099,
+      "upstream_repository": "pypi-upstream"
     }
   },
   "event": {
     "action": "CopyPackageVersions",
-    "outcome": "failure",
+    "outcome": "success",
     "category": "package",
     "dataset": "aws.codeartifact",
     "provider": "codeartifact.amazonaws.com"
   },
-  "message": "CodeArtifact CopyPackageVersions FAILED: my-lib@5.19.10 in platform/nuget-store",
+  "message": "CodeArtifact CopyPackageVersions: utils@3.10.8 [maven] in corp-packages/nuget-store",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ResourceNotFoundException",
-    "message": "CodeArtifact operation failed",
-    "type": "package"
+    "level": "info"
   }
 }

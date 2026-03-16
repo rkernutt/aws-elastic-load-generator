@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T13:32:45.355Z",
+  "@timestamp": "2026-03-16T14:23:43.329Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "codeguru"
@@ -14,16 +14,16 @@
   "aws": {
     "codeguru": {
       "product": "Profiler",
-      "repository_name": "backend-api",
-      "association_id": "flliivh21s",
-      "finding_id": "h5r8nk9ug1",
-      "category": "CPU",
-      "severity": "High",
-      "finding_description": "HighCPUFrames:Base64Encoding",
+      "repository_name": "data-pipeline",
+      "association_id": "edep3s7iml",
+      "finding_id": "1nuqtjt6emb",
+      "category": "Memory",
+      "severity": "Low",
+      "finding_description": "Excessive GC overhead",
       "code_file": "server/routes.js",
-      "line_number": 160,
-      "profiling_group": "backend-api-profiling",
-      "frame_percent": 2.287
+      "line_number": 186,
+      "profiling_group": "data-pipeline-profiling",
+      "frame_percent": 38.338
     }
   },
   "event": {
@@ -32,8 +32,8 @@
     "dataset": "aws.codeguru",
     "provider": "codeguru.amazonaws.com"
   },
-  "message": "CodeGuru Profiler [backend-api] High: HighCPUFrames",
+  "message": "CodeGuru Profiler [data-pipeline] Low: Excessive GC overhead",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }
