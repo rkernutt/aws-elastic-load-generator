@@ -1,6 +1,6 @@
 # ⚡ AWS → Elastic Load Generator
 
-A web UI for bulk-generating realistic AWS logs and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **109 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
+A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **109 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
 
 Each service has its **correct real-world ingestion source** pre-configured — S3, CloudWatch, direct API, or Firehose — matching how each service actually delivers data to Elastic in production.
 
