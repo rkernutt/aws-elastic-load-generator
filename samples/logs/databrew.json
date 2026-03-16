@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "databrew"
@@ -14,25 +14,25 @@
   "aws": {
     "databrew": {
       "project_name": "event-logs-project",
-      "recipe_name": "normalize-dates",
-      "job_name": "normalize-dates-job",
-      "job_type": "PROFILE",
+      "recipe_name": "remove-pii",
+      "job_name": "remove-pii-job",
+      "job_type": "RECIPE",
       "dataset_name": "event-logs",
       "job_status": "SUCCEEDED",
-      "duration_seconds": 549,
-      "rows_processed": 2705527,
-      "transform_steps": 15,
+      "duration_seconds": 574,
+      "rows_processed": 4831626,
+      "transform_steps": 20,
       "output_location": "s3://databrew-output/event-logs/"
     }
   },
   "event": {
-    "duration": 549000000000,
+    "duration": 574000000000,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.databrew",
     "provider": "databrew.amazonaws.com"
   },
-  "message": "DataBrew job normalize-dates: 2,705,527 rows in 549s",
+  "message": "DataBrew job remove-pii: 4,831,626 rows in 574s",
   "log": {
     "level": "info"
   }

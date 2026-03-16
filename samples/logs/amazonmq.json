@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "amazonmq"
@@ -13,25 +13,46 @@
   },
   "aws": {
     "amazonmq": {
-      "broker_id": "b-zb4tgha2-9z21",
-      "broker_name": "order-processor",
+      "broker_id": "b-gr806cfc-65i7",
+      "broker_name": "events-broker",
       "broker_engine": "ActiveMQ",
       "engine_version": "5.17.6",
-      "deployment_mode": "ACTIVE_STANDBY_MULTI_AZ",
+      "deployment_mode": "SINGLE_INSTANCE",
       "queue_name": "payment.queue",
-      "messages_in": 8769,
-      "messages_out": 1615,
-      "queue_depth": 4408,
-      "broker_memory_percent": 23
+      "messages_in": 2926,
+      "messages_out": 2659,
+      "queue_depth": 2435,
+      "broker_memory_percent": 23,
+      "metrics": {
+        "QueueDepth": {
+          "avg": 2435
+        },
+        "ProducerCount": {
+          "avg": 25
+        },
+        "ConsumerCount": {
+          "avg": 15
+        },
+        "MessageCount": {
+          "sum": 5585
+        },
+        "BrokerMemoryUsage": {
+          "avg": 23
+        },
+        "StorePercentUsage": {
+          "avg": 49
+        }
+      }
     }
   },
   "event": {
     "outcome": "success",
     "category": "process",
     "dataset": "aws.amazonmq",
-    "provider": "mq.amazonaws.com"
+    "provider": "mq.amazonaws.com",
+    "duration": 532000000
   },
-  "message": "Consumer registered",
+  "message": "Queue purged",
   "log": {
     "level": "info"
   }

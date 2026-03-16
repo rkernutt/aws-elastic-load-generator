@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "lex"
@@ -13,26 +13,32 @@
   },
   "aws": {
     "lex": {
-      "bot_id": "YT3ZS4R251",
-      "bot_name": "booking-assistant",
+      "bot_id": "2WHP7MGEXV",
+      "bot_name": "faq-bot",
       "bot_version": "DRAFT",
       "locale_id": "en_GB",
-      "session_id": "2o49d08tway",
+      "session_id": "likz7plkej",
       "input_transcript": "Cancel my order",
-      "intent_name": "OrderProduct",
-      "intent_nlu_confidence_score": 0.874,
-      "dialog_state": "Fulfilled",
-      "sentiment": "POSITIVE"
+      "intent_name": "CheckStatus",
+      "intent_nlu_confidence_score": 0.752,
+      "dialog_state": "Failed",
+      "sentiment": "NEGATIVE",
+      "error_code": "BadRequestException"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "machine_learning",
     "dataset": "aws.lex",
     "provider": "lex.amazonaws.com"
   },
-  "message": "Lex booking-assistant: intent=OrderProduct (87%)",
+  "message": "Lex faq-bot FAILED: intent CheckStatus - Slot validation failed",
+  "error": {
+    "code": "LexError",
+    "message": "Lex intent failed",
+    "type": "ml"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

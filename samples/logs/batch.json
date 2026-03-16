@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,46 +13,51 @@
   },
   "aws": {
     "dimensions": {
-      "JobQueueName": "ml-training-prep-queue",
-      "JobDefinition": "ml-training-prep"
+      "JobQueueName": "data-export-queue",
+      "JobDefinition": "data-export"
     },
     "batch": {
       "job": {
-        "name": "ml-training-prep",
-        "id": "i9nj0uqf-l2v8",
-        "status": "SUCCEEDED"
+        "name": "data-export",
+        "id": "dym9vtsa-mzof",
+        "status": "FAILED"
       },
-      "job_queue": "ml-training-prep-queue",
+      "job_queue": "data-export-queue",
       "compute_environment": "ce-ondemand",
-      "structured_logging": true,
+      "structured_logging": false,
       "metrics": {
         "PendingJobCount": {
-          "avg": 27
+          "avg": 48
         },
         "RunnableJobCount": {
-          "avg": 16
+          "avg": 9
         },
         "RunningJobCount": {
-          "avg": 87
+          "avg": 44
         },
         "SucceededJobCount": {
-          "sum": 35
+          "sum": 0
         },
         "FailedJobCount": {
-          "sum": 0
+          "sum": 4
         }
       }
     }
   },
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "process",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 2889000000000
+    "duration": 4881000000000
   },
-  "message": "{\"jobId\":\"i9nj0uqf-l2v8\",\"jobName\":\"ml-training-prep\",\"jobQueue\":\"ml-training-prep-queue\",\"level\":\"info\",\"message\":\"Job completed successfully\",\"timestamp\":\"2026-03-16T14:23:43.329Z\",\"arrayIndex\":58}"
+  "message": "Spot instance reclaimed during execution",
+  "error": {
+    "code": "JobFailed",
+    "message": "IAM role permission denied",
+    "type": "process"
+  }
 }

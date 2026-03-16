@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "trustedadvisor"
@@ -13,27 +13,22 @@
   },
   "aws": {
     "trustedadvisor": {
-      "check_name": "Amazon S3 Bucket Versioning",
-      "category": "fault_tolerance",
-      "status": "warning",
-      "affected_resource": "i-qu2l170fc0l",
-      "flagged_resources": 18
+      "check_name": "CloudTrail Logging",
+      "category": "security",
+      "status": "ok",
+      "affected_resource": "sg-n0x0g4q4",
+      "flagged_resources": 0
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "failure",
+    "outcome": "success",
     "category": "configuration",
     "dataset": "aws.trustedadvisor",
     "provider": "trustedadvisor.amazonaws.com"
   },
-  "message": "Trusted Advisor [WARNING]: Amazon S3 Bucket Versioning - 7 resources affected",
-  "error": {
-    "code": "TrustedAdvisorFinding",
-    "message": "Amazon S3 Bucket Versioning: warning",
-    "type": "configuration"
-  },
+  "message": "Trusted Advisor OK: CloudTrail Logging",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,28 +13,34 @@
   },
   "aws": {
     "pinpoint": {
-      "application_id": "u43ru131a3",
-      "event_type": "_sms.buffered",
-      "channel": "IN_APP",
-      "campaign_id": "0omckpepsnsd",
+      "application_id": "fa8y3b8l85e",
+      "event_type": "_campaign.send",
+      "channel": "VOICE",
+      "campaign_id": "syap8ovthhi",
       "campaign_name": "re-engagement",
-      "journey_id": "3jfcme5gx6v",
-      "segment_id": "swdlwv6val",
-      "endpoint_id": "user_8iynldmru6",
-      "message_id": "mw4y5o9wj",
-      "delivery_status": "PENDING",
-      "destination": "user_8iynldmru6",
+      "journey_id": "k8ls24lya4",
+      "segment_id": "xcyb051o2po",
+      "endpoint_id": "user_ss88iwmll6",
+      "message_id": "8xw7zutc8z9",
+      "delivery_status": "DUPLICATE",
+      "status_message": "Address on suppression list",
+      "destination": "user_ss88iwmll6",
       "iso_country_code": "FR"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "email",
     "dataset": "aws.pinpoint",
     "provider": "mobiletargeting.amazonaws.com"
   },
-  "message": "Pinpoint _sms.buffered [re-engagement]: user_8iynldmru6 via IN_APP",
+  "message": "Pinpoint VOICE FAILED [re-engagement]: Invalid endpoint:",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "DeliveryFailure",
+    "message": "Pinpoint delivery failed",
+    "type": "messaging"
   }
 }

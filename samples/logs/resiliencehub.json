@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "resiliencehub"
@@ -13,28 +13,34 @@
   },
   "aws": {
     "resiliencehub": {
-      "app_arn": "arn:aws:resiliencehub:eu-west-2:738291046572:app/kqpnee11n1q",
-      "app_name": "customer-portal",
-      "operation": "DeleteResiliencyPolicy",
-      "resiliency_score": 90,
-      "compliance_status": "POLICY_MET",
-      "current_rto_seconds": 689,
-      "target_rto_seconds": 1378,
-      "current_rpo_seconds": 2367,
-      "target_rpo_seconds": 4734,
+      "app_arn": "arn:aws:resiliencehub:us-east-1:814726593401:app/eprfxu18j8s",
+      "app_name": "data-pipeline",
+      "operation": "CreateRecommendationTemplate",
+      "resiliency_score": 23,
+      "compliance_status": "POLICY_BREACHED",
+      "current_rto_seconds": 2365,
+      "target_rto_seconds": 1182,
+      "current_rpo_seconds": 77,
+      "target_rpo_seconds": 38,
       "tier": "Important",
-      "disruption_type": "AZ",
-      "recommendation_count": 2
+      "disruption_type": "all",
+      "recommendation_count": 6,
+      "error_code": "ValidationException"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "process",
     "dataset": "aws.resiliencehub",
     "provider": "resiliencehub.amazonaws.com"
   },
-  "message": "Resilience Hub customer-portal [Important]: score=90, RTO=689s, RPO=2367s",
+  "message": "Resilience Hub data-pipeline POLICY BREACHED [Important]: score=23, RTO 2365s exceeds target",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "ResourceNotFoundException",
+    "message": "Resilience Hub policy breached",
+    "type": "resilience"
   }
 }

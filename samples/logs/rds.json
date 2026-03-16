@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "rds"
@@ -13,46 +13,46 @@
   },
   "aws": {
     "dimensions": {
-      "DBInstanceIdentifier": "prod-db-replica",
-      "DatabaseClass": "db.r5.large",
-      "EngineName": "postgres"
+      "DBInstanceIdentifier": "prod-db-analytics",
+      "DatabaseClass": "db.r6g.xlarge",
+      "EngineName": "aurora-mysql"
     },
     "rds": {
-      "instance_id": "prod-db-replica",
-      "engine": "postgres",
-      "engine_version": "15.4",
-      "query_time": 1.282,
+      "instance_id": "prod-db-analytics",
+      "engine": "aurora-mysql",
+      "engine_version": "8.0.mysql_aurora.3.04.0",
+      "query_time": 1.53,
       "enhanced_monitoring": true,
       "metrics": {
         "CPUUtilization": {
-          "avg": 40.716
+          "avg": 5.079
         },
         "DatabaseConnections": {
-          "avg": 171
+          "avg": 91
         },
         "FreeStorageSpace": {
-          "avg": 43206963244
+          "avg": 55052476973
         },
         "ReadIOPS": {
-          "avg": 400
+          "avg": 2866
         },
         "WriteIOPS": {
-          "avg": 1599
+          "avg": 2431
         },
         "ReadLatency": {
-          "avg": 0.003
+          "avg": 0.019
         },
         "WriteLatency": {
-          "avg": 0.006
+          "avg": 0.004
         },
         "FreeableMemory": {
-          "avg": 7592777715
+          "avg": 5856277044
         },
         "NetworkReceiveThroughput": {
-          "avg": 9823707
+          "avg": 31218
         },
         "NetworkTransmitThroughput": {
-          "avg": 9668805
+          "avg": 6970672
         }
       }
     }
@@ -61,17 +61,17 @@
     "user": {
       "name": "readonly"
     },
-    "name": "users",
-    "statement": "DELETE FROM sessions WHERE N09ZB2",
+    "name": "events",
+    "statement": "INSERT INTO orders VALUES 5ONDOH",
     "type": "sql"
   },
   "event": {
-    "duration": 1282000000,
+    "duration": 1530000000,
     "outcome": "success",
     "dataset": "aws.rds",
     "provider": "rds.amazonaws.com"
   },
-  "message": "{\"instanceId\":\"prod-db-replica\",\"engine\":\"postgres\",\"userId\":\"readonly\",\"queryTime\":1.282,\"error\":null,\"timestamp\":\"2026-03-16T14:23:43.329Z\"}",
+  "message": "{\"instanceId\":\"prod-db-analytics\",\"engine\":\"aurora-mysql\",\"userId\":\"readonly\",\"queryTime\":1.53,\"error\":null,\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
   "log": {
     "level": "info"
   }

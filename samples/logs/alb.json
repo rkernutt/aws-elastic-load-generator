@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "alb"
@@ -13,45 +13,45 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "app/prod-alb-eu-west-2/xebv7s13hq",
-      "TargetGroup": "targetgroup/tg-admin/bwrj7upgry",
-      "AvailabilityZone": "eu-west-2a"
+      "LoadBalancer": "app/prod-alb-eu-west-2/4oi2wfn9b1h",
+      "TargetGroup": "targetgroup/tg-api/g3j85c0oivf",
+      "AvailabilityZone": "eu-west-2b"
     },
     "elb": {
-      "name": "app/prod-alb-eu-west-2/xebv7s13hq",
+      "name": "app/prod-alb-eu-west-2/4oi2wfn9b1h",
       "type": "application",
-      "target_group.arn": "arn:aws:elasticloadbalancing:eu-west-2:738291046572:targetgroup/tg-admin/bwrj7upgry",
-      "listener": "arn:aws:elasticloadbalancing:eu-west-2:738291046572:listener/app/prod-alb/h8f572zj51/fpdyrbqwo7",
+      "target_group.arn": "arn:aws:elasticloadbalancing:eu-west-2:501938274650:targetgroup/tg-api/g3j85c0oivf",
+      "listener": "arn:aws:elasticloadbalancing:eu-west-2:501938274650:listener/app/prod-alb/fwrobtm9zwp/57ywqmxxoog",
       "protocol": "HTTPS",
-      "request_processing_time.sec": 0.225,
-      "backend_processing_time.sec": 1.592,
-      "response_processing_time.sec": 0.054,
-      "backend.ip": "103.7.47.113",
-      "backend.port": "6162",
-      "backend.http.response.status_code": 301,
+      "request_processing_time.sec": 0.074,
+      "backend_processing_time.sec": 1.507,
+      "response_processing_time.sec": 0.011,
+      "backend.ip": "59.74.187.186",
+      "backend.port": "7159",
+      "backend.http.response.status_code": 200,
       "ssl_protocol": "TLSv1.3",
       "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
-      "trace_id": "Root=1-6KVPAVC2-TED0Y7PDTG",
-      "target_port": "103.7.47.113:6162",
-      "target_status_code": "301"
+      "trace_id": "Root=1-RWE39FB9-OKQ0A8OQ7P",
+      "target_port": "59.74.187.186:7159",
+      "target_status_code": "200"
     },
     "alb": {
-      "load_balancer": "app/prod-alb-eu-west-2/xebv7s13hq",
-      "target_group": "arn:aws:elasticloadbalancing:eu-west-2:738291046572:targetgroup/tg-admin/bwrj7upgry",
-      "request_processing_time": 0.225,
+      "load_balancer": "app/prod-alb-eu-west-2/4oi2wfn9b1h",
+      "target_group": "arn:aws:elasticloadbalancing:eu-west-2:501938274650:targetgroup/tg-api/g3j85c0oivf",
+      "request_processing_time": 0.074,
       "ssl_protocol": "TLSv1.3",
       "metrics": {
         "ActiveConnectionCount": {
-          "sum": 3684
+          "sum": 1938
         },
         "NewConnectionCount": {
-          "sum": 79
+          "sum": 168
         },
         "RequestCount": {
-          "sum": 2372
+          "sum": 898
         },
         "HTTPCode_Target_2XX_Count": {
-          "sum": 0
+          "sum": 4683
         },
         "HTTPCode_Target_4XX_Count": {
           "sum": 0
@@ -63,32 +63,32 @@
           "sum": 0
         },
         "TargetResponseTime": {
-          "avg": 1.592,
-          "p99": 4.776
+          "avg": 1.507,
+          "p99": 4.521
         },
         "HealthyHostCount": {
-          "avg": 14
+          "avg": 19
         },
         "UnHealthyHostCount": {
           "avg": 0
         },
         "RejectedConnectionCount": {
-          "sum": 6
+          "sum": 0
         },
         "ProcessedBytes": {
-          "sum": 876250144
+          "sum": 16264895
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "DELETE",
-      "bytes": 3562
+      "method": "POST",
+      "bytes": 5395
     },
     "response": {
-      "status_code": 301,
-      "bytes": 3121
+      "status_code": 200,
+      "bytes": 49021
     }
   },
   "url": {
@@ -96,19 +96,19 @@
     "domain": "api.example.com"
   },
   "client": {
-    "ip": "208.203.26.209",
-    "port": 31223
+    "ip": "22.26.36.147",
+    "port": 52158
   },
   "user_agent": {
-    "original": "curl/7.68.0"
+    "original": "python-requests/2.27.1"
   },
   "event": {
-    "duration": 1871000000.0000002,
+    "duration": 1591999999.9999998,
     "outcome": "success",
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com"
   },
-  "message": "DELETE /health 301 1871ms",
+  "message": "POST /health 200 1592ms",
   "log": {
     "level": "info"
   }

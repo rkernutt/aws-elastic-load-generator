@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "globalaccelerator"
@@ -13,31 +13,26 @@
   },
   "aws": {
     "globalaccelerator": {
-      "accelerator_arn": "arn:aws:globalaccelerator::501938274650:accelerator/3dcqp3t0",
+      "accelerator_arn": "arn:aws:globalaccelerator::293847561023:accelerator/diza50g0",
       "listener_port": 443,
-      "protocol": "UDP",
+      "protocol": "TCP",
       "endpoint_group_region": "eu-west-2",
-      "endpoint_id": "us-east-1-nlb",
-      "endpoint_health": "UNHEALTHY",
-      "client_ip": "107.25.170.155",
-      "rtt_ms": 235,
-      "processing_time_ms": 14
+      "endpoint_id": "us-east-1-alb",
+      "endpoint_health": "HEALTHY",
+      "client_ip": "197.171.94.94",
+      "rtt_ms": 76,
+      "processing_time_ms": 12
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "network",
     "dataset": "aws.globalaccelerator",
     "provider": "globalaccelerator.amazonaws.com",
-    "duration": 235000000
+    "duration": 76000000
   },
-  "message": "Global Accelerator: us-east-1-nlb UNHEALTHY - traffic rerouting",
+  "message": "Global Accelerator: us-east-1-alb healthy, RTT 76ms",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "EndpointUnhealthy",
-    "message": "Endpoint us-east-1-nlb UNHEALTHY - traffic rerouting",
-    "type": "network"
+    "level": "info"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "managedblockchain"
@@ -13,26 +13,32 @@
   },
   "aws": {
     "managedblockchain": {
-      "network_id": "n-EK5UZNIF6LG",
+      "network_id": "n-GGG45B5QLO",
       "network_name": "supply-chain-net",
       "framework": "Ethereum",
       "framework_version": "Ethereum",
-      "member_id": "m-NBPK1DAZ1V",
-      "member_name": "Company-B",
-      "node_id": "nd-WH2PW94ITB",
+      "member_id": "m-NKZXGWSN34J",
+      "member_name": "Bank-1",
+      "node_id": "nd-QKWP4WS5Z1",
       "event_type": "ProposalCreated",
-      "proposal_id": "3WEIJZED5A3",
-      "status": "SUCCEEDED"
+      "proposal_id": "TM5AHXZUJR",
+      "status": "FAILED",
+      "error_code": "ThrottlingException"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "process",
     "dataset": "aws.blockchain",
     "provider": "managedblockchain.amazonaws.com"
   },
-  "message": "ManagedBlockchain ProposalCreated [Ethereum]: zed34d3gk...",
+  "message": "ManagedBlockchain ProposalCreated FAILED [Ethereum]: Proposal rejected:",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "BlockchainError",
+    "message": "Managed Blockchain operation failed",
+    "type": "process"
   }
 }

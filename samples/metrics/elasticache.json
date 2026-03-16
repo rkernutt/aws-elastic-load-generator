@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "elasticache"
@@ -13,50 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "CacheClusterId": "prod-redis-2",
-      "CacheNodeId": "0002"
+      "CacheClusterId": "prod-redis-4",
+      "CacheNodeId": "0005"
     },
     "elasticache": {
-      "cluster_id": "prod-redis-2",
-      "node_id": "0002",
+      "cluster_id": "prod-redis-4",
+      "node_id": "0005",
       "engine": "redis",
       "engine_version": "7.1.0",
       "replication_group_id": "prod-cache",
-      "command": "ZRANGE",
-      "latency_us": 25.556,
-      "cache_hit": true,
-      "connected_clients": 363,
-      "used_memory_mb": 8810,
+      "command": "ZADD",
+      "latency_us": 1911.675,
+      "cache_hit": false,
+      "connected_clients": 177,
+      "used_memory_mb": 11093,
       "metrics": {
         "CPUUtilization": {
-          "avg": 21.244
+          "avg": 80.021
         },
         "FreeableMemory": {
-          "avg": 7760685479
+          "avg": 5376444408
         },
         "NetworkBytesIn": {
-          "sum": 29536096
+          "sum": 41440482
         },
         "NetworkBytesOut": {
-          "sum": 77306007
+          "sum": 85731675
         },
         "CacheHits": {
-          "sum": 10127
+          "sum": 31837
         },
         "CacheMisses": {
-          "sum": 4529
+          "sum": 9278
         },
         "CurrConnections": {
-          "avg": 200
+          "avg": 474
         },
         "NewConnections": {
-          "sum": 57
+          "sum": 2
         },
         "Evictions": {
-          "sum": 0
+          "sum": 108
         },
         "ReplicationLag": {
-          "avg": 0.998
+          "avg": 4.378
         },
         "SaveInProgress": {
           "avg": 0
@@ -66,18 +66,23 @@
   },
   "db": {
     "type": "keyvalue",
-    "operation": "ZRANGE"
+    "operation": "ZADD"
   },
   "event": {
-    "duration": 25556,
-    "outcome": "success",
+    "duration": 1911675,
+    "outcome": "failure",
     "category": "database",
     "dataset": "aws.elasticache",
     "provider": "elasticache.amazonaws.com"
   },
-  "message": "Redis ZRANGE 25.56us",
+  "message": "Redis ZADD failed: LOADING",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "RedisError",
+    "message": "LOADING",
+    "type": "db"
   },
   "data_stream": {
     "type": "metrics",

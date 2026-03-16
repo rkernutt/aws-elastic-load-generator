@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "apprunner"
@@ -13,18 +13,18 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "frontend"
+      "ServiceName": "webhook-handler"
     },
     "apprunner": {
-      "service_name": "frontend",
-      "service_arn": "arn:aws:apprunner:us-east-1:164820739518:service/frontend/vrt3ybnqge",
+      "service_name": "webhook-handler",
+      "service_arn": "arn:aws:apprunner:eu-west-2:293847561023:service/webhook-handler/ee0dfasczt",
       "structured_logging": true,
       "metrics": {
         "Requests": {
-          "sum": 676
+          "sum": 764
         },
         "2xxStatusResponses": {
-          "sum": 67
+          "sum": 885
         },
         "4xxStatusResponses": {
           "sum": 0
@@ -33,44 +33,44 @@
           "sum": 0
         },
         "RequestLatency": {
-          "avg": 94,
-          "p99": 188
+          "avg": 381,
+          "p99": 762
         },
         "ActiveInstances": {
-          "avg": 3
+          "avg": 6
         },
         "CPUUtilization": {
-          "avg": 15.024
+          "avg": 16.016
         },
         "MemoryUtilization": {
-          "avg": 43.375
+          "avg": 22.242
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "PATCH",
-      "bytes": 3447
+      "method": "PUT",
+      "bytes": 4154
     },
     "response": {
-      "status_code": 204,
-      "bytes": 1658
+      "status_code": 200,
+      "bytes": 1426
     }
   },
   "url": {
-    "path": "/api/v1/users"
+    "path": "/api/v1/products"
   },
   "client": {
-    "ip": "111.148.31.82"
+    "ip": "17.168.25.252"
   },
   "event": {
-    "duration": 94000000,
+    "duration": 381000000,
     "outcome": "success",
     "dataset": "aws.apprunner",
     "provider": "apprunner.amazonaws.com"
   },
-  "message": "{\"service\":\"frontend\",\"status\":204,\"latency_ms\":94,\"timestamp\":\"2026-03-16T14:23:43.329Z\"}",
+  "message": "{\"service\":\"webhook-handler\",\"status\":200,\"latency_ms\":381,\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
   "log": {
     "level": "info"
   },

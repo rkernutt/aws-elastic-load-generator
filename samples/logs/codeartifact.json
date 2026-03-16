@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codeartifact"
@@ -13,24 +13,24 @@
   },
   "aws": {
     "codeartifact": {
-      "domain_name": "corp-packages",
-      "repository_name": "nuget-store",
-      "package_format": "maven",
-      "package_name": "utils",
-      "package_version": "3.10.8",
-      "action": "CopyPackageVersions",
-      "download_size_bytes": 44687099,
+      "domain_name": "internal",
+      "repository_name": "npm-store",
+      "package_format": "nuget",
+      "package_name": "my-lib",
+      "package_version": "2.13.4",
+      "action": "PublishPackageVersion",
+      "download_size_bytes": 47706585,
       "upstream_repository": "pypi-upstream"
     }
   },
   "event": {
-    "action": "CopyPackageVersions",
+    "action": "PublishPackageVersion",
     "outcome": "success",
     "category": "package",
     "dataset": "aws.codeartifact",
     "provider": "codeartifact.amazonaws.com"
   },
-  "message": "CodeArtifact CopyPackageVersions: utils@3.10.8 [maven] in corp-packages/nuget-store",
+  "message": "CodeArtifact PublishPackageVersion: my-lib@2.13.4 [nuget] in internal/npm-store",
   "log": {
     "level": "info"
   }

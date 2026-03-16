@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "cloudtrail"
@@ -13,43 +13,45 @@
   },
   "aws": {
     "dimensions": {
-      "EventName": "AssumeRole",
-      "EventSource": "sts.amazonaws.com"
+      "EventName": "CreateBucket",
+      "EventSource": "s3.amazonaws.com"
     },
     "cloudtrail": {
       "event_version": "1.08",
-      "event_id": "nv0112m8-3ls7-bjr3",
-      "event_name": "AssumeRole",
-      "event_source": "sts.amazonaws.com",
+      "event_id": "orlmthhx-6pgq-5v9r",
+      "event_name": "CreateBucket",
+      "event_source": "s3.amazonaws.com",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "I6R5075E-VBCK-PZOP-LOLJ-7O836J4QFD",
+      "request_id": "Q747HWP2-UCJ4-CEH1-7EQP-6UBSJAO6MDC",
       "api_version": "2012-10-17",
       "management_event": true,
       "read_only": false,
       "user_identity": {
         "type": "IAMUser",
-        "user_name": "deploy-bot",
-        "account_id": "293847561023"
+        "user_name": "alice",
+        "account_id": "814726593401"
       },
-      "request_parameters": {},
+      "request_parameters": {
+        "bucketName": "my-bucket-wclkpa"
+      },
       "response_elements": {}
     }
   },
   "user": {
-    "name": "deploy-bot"
+    "name": "alice"
   },
   "source": {
-    "ip": "31.35.132.113"
+    "ip": "150.159.51.203"
   },
   "event": {
-    "action": "AssumeRole",
+    "action": "CreateBucket",
     "outcome": "success",
     "category": "iam",
     "dataset": "aws.cloudtrail",
     "provider": "cloudtrail.amazonaws.com"
   },
-  "message": "deploy-bot performed AssumeRole via sts.amazonaws.com",
+  "message": "alice performed CreateBucket via s3.amazonaws.com",
   "log": {
     "level": "info"
   }

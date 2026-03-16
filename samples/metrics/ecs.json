@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "ecs"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "prod-cluster",
-      "ServiceName": "scheduler"
+      "ClusterName": "staging",
+      "ServiceName": "worker"
     },
     "ecs": {
       "cluster": {
-        "name": "prod-cluster"
+        "name": "staging"
       },
       "service": {
-        "name": "scheduler"
+        "name": "worker"
       },
       "task": {
-        "id": "pvmmff6vsth",
-        "definition": "scheduler:32"
+        "id": "ay24jg0avt6",
+        "definition": "worker:47"
       },
-      "structured_logging": true,
+      "structured_logging": false,
       "metrics": {
         "CPUUtilization": {
-          "avg": 46.485
+          "avg": 39.159
         },
         "MemoryUtilization": {
-          "avg": 56.367
+          "avg": 47.499
         },
         "RunningTaskCount": {
-          "avg": 7
+          "avg": 1
         },
         "PendingTaskCount": {
           "avg": 0
@@ -48,9 +48,9 @@
     }
   },
   "container": {
-    "name": "scheduler",
+    "name": "worker",
     "image": {
-      "name": "myrepo/scheduler:latest"
+      "name": "myrepo/worker:latest"
     }
   },
   "log": {
@@ -60,11 +60,11 @@
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 109000000000
+    "duration": 1347000000000
   },
-  "message": "{\"cluster\":\"prod-cluster\",\"service\":\"scheduler\",\"taskId\":\"pvmmff6vsth\",\"container\":\"scheduler\",\"level\":\"info\",\"message\":\"Health check passed\",\"timestamp\":\"2026-03-16T14:23:43.329Z\"}",
+  "message": "Request processed",
   "service": {
-    "name": "scheduler",
+    "name": "worker",
     "type": "ecs"
   },
   "data_stream": {

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "kms"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "kms": {
-      "key_id": "n23tkmhf-20hi-564s-hwah-9b776w3n1c",
-      "key_alias": "alias/prod-s3-key",
-      "operation": "EnableKeyRotation",
-      "principal_arn": "arn:aws:iam::501938274650:role/ecs-task-role",
+      "key_id": "8nusacj2-51pp-ws3l-k0eu-cqeux8jdlv5",
+      "key_alias": "alias/secrets-key",
+      "operation": "DescribeKey",
+      "principal_arn": "arn:aws:iam::738291046572:role/ecs-task-role",
       "key_state": "Enabled",
-      "encryption_algorithm": "RSAES_OAEP_SHA_256"
+      "encryption_algorithm": "SYMMETRIC_DEFAULT"
     }
   },
   "event": {
-    "action": "EnableKeyRotation",
+    "action": "DescribeKey",
     "outcome": "success",
     "category": "iam",
     "dataset": "aws.kms",
     "provider": "kms.amazonaws.com"
   },
-  "message": "KMS EnableKeyRotation: alias/prod-s3-key",
+  "message": "KMS DescribeKey: alias/secrets-key",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "servicecatalog"
@@ -13,27 +13,28 @@
   },
   "aws": {
     "servicecatalog": {
-      "operation": "ProvisionProduct",
-      "product_name": "Data Pipeline",
-      "product_id": "prod-LRME5T933RC",
-      "portfolio_id": "port-051XXLJFQLRG",
-      "provisioned_product_name": "data-pipeline-c714pd",
-      "record_id": "rec-MUB8L5T9AE",
+      "operation": "UpdateProvisionedProduct",
+      "product_name": "S3 Static Site",
+      "product_id": "prod-8AEHT7TNJ1B",
+      "portfolio_id": "port-GU5BFI5QF5B",
+      "provisioned_product_name": "s3-static-site-3f9ugi",
+      "record_id": "rec-0UDWP6AMDNMA",
       "status": "SUCCEEDED",
-      "requester_arn": "arn:aws:iam::814726593401:user/contractor-dan"
+      "requester_arn": "arn:aws:iam::164820739518:user/team-lead-bob",
+      "launch_role": "arn:aws:iam::123456789:role/ServiceCatalogLaunchRole"
     }
   },
   "user": {
-    "name": "contractor-dan"
+    "name": "team-lead-bob"
   },
   "event": {
-    "action": "ProvisionProduct",
+    "action": "UpdateProvisionedProduct",
     "outcome": "success",
     "category": "process",
     "dataset": "aws.servicecatalog",
     "provider": "servicecatalog.amazonaws.com"
   },
-  "message": "ServiceCatalog ProvisionProduct: contractor-dan → Data Pipeline [SUCCEEDED]",
+  "message": "ServiceCatalog UpdateProvisionedProduct: team-lead-bob → S3 Static Site [SUCCEEDED]",
   "log": {
     "level": "info"
   }

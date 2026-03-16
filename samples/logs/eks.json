@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "eks"
@@ -14,37 +14,37 @@
   "aws": {
     "dimensions": {
       "ClusterName": "prod-cluster-eu-west-2",
-      "NodeName": "ip-132-18-219-199.eu-west-2.compute.internal"
+      "NodeName": "ip-68-62-234-153.eu-west-2.compute.internal"
     },
     "eks": {
-      "structured_logging": true,
+      "structured_logging": false,
       "cluster": {
         "name": "prod-cluster-eu-west-2"
       },
       "node": {
-        "name": "ip-238-125-158-32.eu-west-2.compute.internal"
+        "name": "ip-216-186-139-217.eu-west-2.compute.internal"
       },
       "metrics": {
         "cluster_failed_node_count": {
-          "avg": 2
+          "avg": 0
         },
         "node_cpu_utilization": {
-          "avg": 70.154
+          "avg": 25.408
         },
         "node_memory_utilization": {
-          "avg": 81.377
+          "avg": 44.492
         },
         "pod_cpu_utilization": {
-          "avg": 1.618
+          "avg": 27.192
         },
         "pod_memory_utilization": {
-          "avg": 33.802
+          "avg": 17.486
         },
         "node_network_total_bytes": {
-          "sum": 494480804
+          "sum": 116469577
         },
         "pod_count": {
-          "avg": 19
+          "avg": 11
         }
       }
     }
@@ -52,7 +52,7 @@
   "kubernetes": {
     "namespace": "monitoring",
     "pod": {
-      "name": "web-hi2q7-lycd1"
+      "name": "web-rpwvs-glieb"
     },
     "container": {
       "name": "web"
@@ -63,19 +63,14 @@
     }
   },
   "log": {
-    "level": "error"
+    "level": "info"
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "container",
     "dataset": "aws.eks",
     "provider": "eks.amazonaws.com",
-    "duration": 290000000000
+    "duration": 503000000000
   },
-  "message": "{\"cluster\":\"prod-cluster-eu-west-2\",\"namespace\":\"monitoring\",\"pod\":\"web-hi2q7-lycd1\",\"level\":\"error\",\"message\":\"ImagePullBackOff: failed to pull image\",\"timestamp\":\"2026-03-16T14:23:43.329Z\",\"stream\":\"stderr\"}",
-  "error": {
-    "code": "FailedScheduling",
-    "message": "OOMKilled: container exceeded memory limit",
-    "type": "container"
-  }
+  "message": "Endpoint slice updated"
 }

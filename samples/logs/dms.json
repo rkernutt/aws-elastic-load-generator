@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "dms"
@@ -14,26 +14,32 @@
   "aws": {
     "dms": {
       "replication_task_id": "on-prem-to-rds",
-      "migration_type": "full-load-and-cdc",
-      "source_engine": "sqlserver",
+      "migration_type": "full-load",
+      "source_engine": "postgresql",
       "target_engine": "redshift",
       "replication_instance_class": "dms.r5.large",
-      "task_status": "Load complete",
-      "full_load_rows_transferred": 3502791,
-      "cdc_incoming_changes": 51152,
-      "latency_ms": 640,
-      "tables_loaded": 179,
-      "tables_errored": 0
+      "task_status": "Failed",
+      "full_load_rows_transferred": 0,
+      "cdc_incoming_changes": 0,
+      "latency_ms": 0,
+      "tables_loaded": 341,
+      "tables_errored": 2,
+      "error_message": "Column mapping failure"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "database",
     "dataset": "aws.dms",
     "provider": "dms.amazonaws.com"
   },
-  "message": "DMS on-prem-to-rds: 3,502,791 rows (sqlserver->redshift full-load-and-cdc)",
+  "message": "DMS on-prem-to-rds FAILED (postgresql->redshift): Table mapping error",
+  "error": {
+    "code": "DMSError",
+    "message": "DMS task failed",
+    "type": "migration"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

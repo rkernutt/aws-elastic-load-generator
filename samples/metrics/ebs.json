@@ -1,9 +1,9 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
-    "availability_zone": "us-east-1c",
+    "region": "eu-west-2",
+    "availability_zone": "eu-west-2b",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -14,52 +14,54 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-bjm2j7ak4mf",
-      "VolumeType": "io1"
+      "VolumeId": "vol-vrw81v9725s",
+      "VolumeType": "sc1"
     },
     "ebs": {
-      "volume_id": "vol-bjm2j7ak4mf",
+      "volume_id": "vol-vrw81v9725s",
       "modification_state": "optimizing",
-      "original_volume_type": "io1",
-      "target_volume_type": "io2",
-      "original_size_gb": 200,
-      "target_size_gb": 400,
-      "original_iops": 3724,
-      "target_iops": 9791,
-      "progress_percent": 28,
+      "original_volume_type": "st1",
+      "target_volume_type": "gp3",
+      "original_size_gb": 500,
+      "target_size_gb": 550,
+      "original_iops": 15236,
+      "target_iops": 13721,
+      "progress_percent": 36,
       "event_type": "modification",
       "metrics": {
         "VolumeReadOps": {
-          "sum": 3975
+          "sum": 184
         },
         "VolumeWriteOps": {
-          "sum": 6902
+          "sum": 7009
         },
         "VolumeReadBytes": {
-          "sum": 137357093
+          "sum": 376307841
         },
         "VolumeWriteBytes": {
-          "sum": 281403550
+          "sum": 467698104
         },
         "VolumeTotalReadTime": {
-          "sum": 0.4
+          "sum": 1.424
         },
         "VolumeTotalWriteTime": {
-          "sum": 1.02
+          "sum": 5.306
         },
         "VolumeIdleTime": {
-          "sum": 3.18
+          "sum": 59.517
         },
         "VolumeQueueLength": {
-          "avg": 4
+          "avg": 8
         },
         "VolumeThroughputPercentage": {
-          "avg": 47.892
+          "avg": 43.349
         },
         "VolumeConsumedReadWriteOps": {
-          "sum": 16710
+          "sum": 2197
         },
-        "BurstBalance": {}
+        "BurstBalance": {
+          "avg": 76
+        }
       }
     }
   },
@@ -69,7 +71,7 @@
     "dataset": "aws.ebs",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "EBS volume vol-bjm2j7ak4mf modification: io1/200GB -> io2/400GB [optimizing]",
+  "message": "EBS volume vol-vrw81v9725s modification: st1/500GB -> gp3/550GB [optimizing]",
   "log": {
     "level": "info"
   },

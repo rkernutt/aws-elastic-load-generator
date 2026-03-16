@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "codeguru"
@@ -13,17 +13,16 @@
   },
   "aws": {
     "codeguru": {
-      "product": "Profiler",
-      "repository_name": "data-pipeline",
-      "association_id": "edep3s7iml",
-      "finding_id": "1nuqtjt6emb",
-      "category": "Memory",
-      "severity": "Low",
-      "finding_description": "Excessive GC overhead",
+      "product": "Reviewer",
+      "repository_name": "backend-api",
+      "association_id": "31sbxl349n5",
+      "finding_id": "lqceunjpzse",
+      "category": "Security",
+      "severity": "Info",
+      "finding_description": "AWSBestPractices:S3BucketMissingServerSideEncryption",
       "code_file": "server/routes.js",
-      "line_number": 186,
-      "profiling_group": "data-pipeline-profiling",
-      "frame_percent": 38.338
+      "line_number": 210,
+      "pull_request_id": 138
     }
   },
   "event": {
@@ -32,7 +31,7 @@
     "dataset": "aws.codeguru",
     "provider": "codeguru.amazonaws.com"
   },
-  "message": "CodeGuru Profiler [data-pipeline] Low: Excessive GC overhead",
+  "message": "CodeGuru Reviewer [backend-api] Info: AWSBestPractices",
   "log": {
     "level": "info"
   }

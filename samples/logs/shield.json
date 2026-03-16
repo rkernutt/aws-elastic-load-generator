@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "shield"
@@ -13,38 +13,45 @@
   },
   "aws": {
     "dimensions": {
-      "AttackVector": "NONE"
+      "AttackVector": "SYN_FLOOD"
     },
     "shield": {
-      "mitigation_started": false,
+      "attack_id": "bvcsrcjn-f7yq",
+      "attack_vector": "VOLUMETRIC",
+      "mitigation_started": true,
       "subscription_type": "ADVANCED",
-      "protected_resource": "arn:aws:elasticloadbalancing:us-east-1:501938274650:loadbalancer/app/prod/2aetnxwllgc",
+      "protected_resource": "arn:aws:elasticloadbalancing:eu-west-2:814726593401:loadbalancer/app/prod/cgxr6bix4wn",
       "metrics": {
         "DDoSAttackBitsPerSecond": {
-          "avg": 0
+          "avg": 88126305228
         },
         "DDoSAttackPacketsPerSecond": {
-          "avg": 0
+          "avg": 61394500
         },
         "DDoSAttackRequestsPerSecond": {
-          "avg": 0
+          "avg": 121257
         }
       }
     }
   },
   "network": {
-    "bytes": 351160310,
-    "packets": 804974
+    "bytes": 410000698,
+    "packets": 236188
   },
   "event": {
-    "action": "health_check",
-    "outcome": "success",
+    "action": "ddos_detected",
+    "outcome": "failure",
     "category": "network",
     "dataset": "aws.shield",
     "provider": "shield.amazonaws.com"
   },
-  "message": "Shield health check: protected resource OK",
+  "message": "DDoS attack detected: SYN_FLOOD at 19.213Gbps - mitigation active",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "DDoSAttack",
+    "message": "Attack vector: UDP_REFLECTION - mitigation active",
+    "type": "network"
   }
 }

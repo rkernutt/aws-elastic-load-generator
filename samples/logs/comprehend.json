@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,22 +13,28 @@
   },
   "aws": {
     "comprehend": {
-      "operation": "DetectKeyPhrases",
-      "language_code": "es",
-      "text_bytes": 30548,
-      "entities_detected": 0,
-      "key_phrases_detected": 12,
-      "pii_entities_detected": 0
+      "operation": "DetectEntities",
+      "language_code": "it",
+      "text_bytes": 94633,
+      "entities_detected": 7,
+      "key_phrases_detected": 0,
+      "pii_entities_detected": 0,
+      "error_code": "UnsupportedLanguageException"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "machine_learning",
     "dataset": "aws.comprehend",
     "provider": "comprehend.amazonaws.com"
   },
-  "message": "Comprehend DetectKeyPhrases: lang=es",
+  "message": "Comprehend DetectEntities FAILED: Unsupported language",
+  "error": {
+    "code": "ComprehendError",
+    "message": "Comprehend operation failed",
+    "type": "ml"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

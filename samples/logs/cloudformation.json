@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "cloudformation"
@@ -14,13 +14,13 @@
   "aws": {
     "cloudformation": {
       "stack_name": "prod-web-stack",
-      "stack_id": "arn:aws:cloudformation:us-east-1:738291046572:stack/prod-web-stack/udfdw0e5",
-      "action": "DETECT_DRIFT",
+      "stack_id": "arn:aws:cloudformation:us-east-1:164820739518:stack/prod-web-stack/344jzxjt",
+      "action": "CREATE_STACK",
       "stack_status": "DELETE_COMPLETE",
-      "resource_type": "AWS::IAM::Role",
-      "logical_resource_id": "ApiFunction",
+      "resource_type": "AWS::EC2::VPC",
+      "logical_resource_id": "DatabaseCluster",
       "drift_status": "IN_SYNC",
-      "structured_logging": false
+      "structured_logging": true
     }
   },
   "event": {
@@ -29,7 +29,7 @@
     "dataset": "aws.cloudformation",
     "provider": "cloudformation.amazonaws.com"
   },
-  "message": "CloudFormation prod-web-stack: DETECT_DRIFT -> DELETE_COMPLETE",
+  "message": "{\"stackName\":\"prod-web-stack\",\"action\":\"CREATE_STACK\",\"stackStatus\":\"DELETE_COMPLETE\",\"resourceType\":\"AWS::EC2::VPC\",\"message\":\"CloudFormation prod-web-stack: CREATE_STACK -> DELETE_COMPLETE\",\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
   "log": {
     "level": "info"
   }

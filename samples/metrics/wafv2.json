@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "wafv2"
@@ -14,21 +14,21 @@
   "aws": {
     "wafv2": {
       "web_acl_name": "prod-api-acl",
-      "rule_group_name": "CustomRules",
-      "rule_name": "SQLi_QUERYARGUMENTS",
+      "rule_group_name": "RateBasedRule",
+      "rule_name": "NoUserAgent_HEADER",
       "action": "ALLOW",
-      "terminating_rule_id": "SQLi_QUERYARGUMENTS",
-      "source_ip": "231.100.16.184",
-      "country": "GB",
-      "uri": "/api/v1/orders",
-      "method": "PATCH",
-      "user_agent": "Go-http-client/1.1",
-      "request_id": "q5gsgxwf6gh",
+      "terminating_rule_id": "NoUserAgent_HEADER",
+      "source_ip": "27.179.207.227",
+      "country": "RU",
+      "uri": "/api/v1/search",
+      "method": "PUT",
+      "user_agent": "curl/7.68.0",
+      "request_id": "5osqj2618zv",
       "labels": []
     }
   },
   "source": {
-    "ip": "231.100.16.184"
+    "ip": "27.179.207.227"
   },
   "event": {
     "action": "allow",
@@ -37,7 +37,7 @@
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com"
   },
-  "message": "WAFv2 ALLOW [prod-api-acl] 231.100.16.184 DELETE /api/v1/users",
+  "message": "WAFv2 ALLOW [prod-api-acl] 27.179.207.227 PATCH /api/v1/users",
   "log": {
     "level": "info"
   },

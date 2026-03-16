@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,21 +13,19 @@
   },
   "aws": {
     "lightsail": {
-      "resource_name": "wordpress-prod",
-      "resource_type": "Instance",
+      "resource_name": "portfolio-site",
+      "resource_type": "Database",
       "bundle_id": "micro_2_0",
-      "blueprint": "amazon_linux_2",
+      "blueprint": "lamp",
       "state": "running",
-      "event_type": "ALERT_TRIGGERED",
-      "public_ip": "97.21.139.114",
+      "event_type": "SNAPSHOT_CREATED",
+      "public_ip": "214.130.14.118",
+      "snapshot_name": "portfolio-site-snap-67",
       "monthly_transfer": {
-        "used_gb": 540,
-        "limit_gb": 12288
+        "used_gb": 871,
+        "limit_gb": 3072
       },
-      "alert": {
-        "name": "StatusCheckFailed",
-        "threshold": 95
-      }
+      "alert": {}
     }
   },
   "event": {
@@ -36,7 +34,7 @@
     "dataset": "aws.lightsail",
     "provider": "lightsail.amazonaws.com"
   },
-  "message": "Lightsail wordpress-prod: ALERT_TRIGGERED [running]",
+  "message": "Lightsail portfolio-site: SNAPSHOT_CREATED [running]",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "lookoutmetrics"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "lookoutmetrics": {
-      "anomaly_detector_arn": "arn:aws:lookoutmetrics:eu-west-2:501938274650:AnomalyDetector:error-rate-monitor",
-      "anomaly_group_id": "swrwn7e5a6",
-      "metric_name": "api_calls",
+      "anomaly_detector_arn": "arn:aws:lookoutmetrics:eu-west-2:814726593401:AnomalyDetector:error-rate-monitor",
+      "anomaly_group_id": "dfzj2egkv5m",
+      "metric_name": "revenue",
       "severity": "LOW",
-      "anomaly_score": 18.656,
-      "relevant_dates": 30,
-      "impact_value": 15.582,
-      "expected_value": 6418.43,
-      "actual_value": 13457.218,
+      "anomaly_score": 17.885,
+      "relevant_dates": 3,
+      "impact_value": 146.955,
+      "expected_value": 1896.901,
+      "actual_value": 4313.094,
       "dimension": {
-        "service": "checkout"
+        "region": "us-east-1"
       },
-      "sensitivity": "MEDIUM"
+      "sensitivity": "HIGH"
     }
   },
   "event": {
@@ -34,7 +34,7 @@
     "dataset": "aws.lookoutmetrics",
     "provider": "lookoutmetrics.amazonaws.com"
   },
-  "message": "Lookout for Metrics [error-rate-monitor]: api_calls anomaly_score=19",
+  "message": "Lookout for Metrics [error-rate-monitor]: revenue anomaly_score=18",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "fargate"
@@ -13,24 +13,38 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "staging-cluster",
-      "TaskId": "yq0udvho4sc",
-      "TaskDefinition": "data-processor:11"
+      "ClusterName": "prod-cluster",
+      "TaskId": "c6c908ylwvp",
+      "TaskDefinition": "web-frontend:46"
     },
     "fargate": {
-      "cluster_name": "staging-cluster",
-      "task_id": "yq0udvho4sc",
-      "task_definition": "data-processor:11",
+      "cluster_name": "prod-cluster",
+      "task_id": "c6c908ylwvp",
+      "task_definition": "web-frontend:46",
       "structured_logging": true,
-      "cpu_units": 4096,
+      "cpu_units": 2048,
       "memory_mb": 1024,
       "platform_version": "1.4.0",
-      "cpu_utilized_percent": 43,
-      "memory_utilized_percent": 66
+      "cpu_utilized_percent": 34,
+      "memory_utilized_percent": 30,
+      "metrics": {
+        "CPUUtilization": {
+          "avg": 0.34
+        },
+        "MemoryUtilization": {
+          "avg": 0.3
+        },
+        "RunningTaskCount": {
+          "avg": 10
+        },
+        "PendingTaskCount": {
+          "avg": 0
+        }
+      }
     }
   },
   "container": {
-    "name": "data-processor"
+    "name": "web-frontend"
   },
   "log": {
     "level": "info"
@@ -40,9 +54,9 @@
     "category": "container",
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 3545000000000
+    "duration": 649000000000
   },
-  "message": "{\"cluster\":\"staging-cluster\",\"taskId\":\"yq0udvho4sc\",\"taskDefinition\":\"data-processor:11\",\"container\":\"data-processor\",\"level\":\"info\",\"message\":\"Task started successfully\",\"timestamp\":\"2026-03-16T14:23:43.329Z\"}",
+  "message": "{\"cluster\":\"prod-cluster\",\"taskId\":\"c6c908ylwvp\",\"taskDefinition\":\"web-frontend:46\",\"container\":\"web-frontend\",\"level\":\"info\",\"message\":\"Scaling event: desired 3->5\",\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.ecs_metrics",

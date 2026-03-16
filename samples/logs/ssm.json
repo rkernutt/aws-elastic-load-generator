@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "systemsmanager"
@@ -13,29 +13,24 @@
   },
   "aws": {
     "ssm": {
-      "command_id": "5ocerx4q-w9m5-w7lh",
-      "document_name": "AWS-ConfigureAWSPackage",
-      "instance_id": "i-c59sme8kd3t",
-      "action": "PatchInstance",
-      "execution_status": "Failed",
-      "response_code": 2,
-      "patch_compliance": "NotApplicable",
+      "command_id": "ym1x2gm2-qoqb-c8u2",
+      "document_name": "AWS-RunShellScript",
+      "instance_id": "i-nf4fo2l08xs",
+      "action": "GetParameter",
+      "execution_status": "Success",
+      "response_code": 0,
+      "parameter_name": "/prod/api/key",
       "structured_logging": true
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "process",
     "dataset": "aws.ssm",
     "provider": "ssm.amazonaws.com"
   },
-  "message": "{\"commandId\":\"5ocerx4q-w9m5-w7lh\",\"documentName\":\"AWS-ConfigureAWSPackage\",\"instanceId\":\"i-c59sme8kd3t\",\"action\":\"PatchInstance\",\"status\":\"Failed\",\"timestamp\":\"2026-03-16T14:23:43.329Z\"}",
-  "error": {
-    "code": "SSMError",
-    "message": "SSM command failed",
-    "type": "process"
-  },
+  "message": "{\"commandId\":\"ym1x2gm2-qoqb-c8u2\",\"documentName\":\"AWS-RunShellScript\",\"instanceId\":\"i-nf4fo2l08xs\",\"action\":\"GetParameter\",\"status\":\"Success\",\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
   "log": {
-    "level": "error"
+    "level": "info"
   }
 }

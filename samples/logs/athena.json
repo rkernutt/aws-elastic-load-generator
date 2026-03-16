@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "athena"
@@ -13,15 +13,36 @@
   },
   "aws": {
     "athena": {
-      "query_id": "3b4a7vwn-l7l7-hcxq-o7uz",
-      "workgroup": "analytics",
-      "database": "staging",
+      "query_id": "e0f6mile-3wok-j4ni-rges",
+      "workgroup": "bi-users",
+      "database": "raw",
       "state": "SUCCEEDED",
-      "duration_seconds": 40.325,
-      "data_scanned_bytes": 8203172816,
-      "data_scanned_mb": 7823,
+      "duration_seconds": 48.959,
+      "data_scanned_bytes": 8678745763,
+      "data_scanned_mb": 8277,
       "engine_version": "Athena engine version 3",
-      "structured_logging": true
+      "structured_logging": true,
+      "metrics": {
+        "DataScannedInBytes": {
+          "sum": 8678745763
+        },
+        "EngineExecutionTimeInMillis": {
+          "avg": 48959,
+          "max": 73439
+        },
+        "ProcessedBytes": {
+          "sum": 8678745763
+        },
+        "QueryQueueTimeInMillis": {
+          "avg": 48
+        },
+        "TotalExecutionTimeInMillis": {
+          "avg": 48959
+        },
+        "QueryPlanningTimeInMillis": {
+          "avg": 27
+        }
+      }
     }
   },
   "db": {
@@ -29,13 +50,13 @@
     "type": "sql"
   },
   "event": {
-    "duration": 40325000000,
+    "duration": 48959000000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.athena",
     "provider": "athena.amazonaws.com"
   },
-  "message": "{\"queryId\":\"3b4a7vwn-l7l7-hcxq-o7uz\",\"workgroup\":\"analytics\",\"database\":\"staging\",\"state\":\"SUCCEEDED\",\"durationSeconds\":40.325,\"dataScannedBytes\":8203172816,\"timestamp\":\"2026-03-16T14:23:43.329Z\"}",
+  "message": "{\"queryId\":\"e0f6mile-3wok-j4ni-rges\",\"workgroup\":\"bi-users\",\"database\":\"raw\",\"state\":\"SUCCEEDED\",\"durationSeconds\":48.959,\"dataScannedBytes\":8678745763,\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
   "log": {
     "level": "warn"
   }

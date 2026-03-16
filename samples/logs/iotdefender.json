@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "iotdefender"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "iotdefender": {
-      "thing_name": "controller-a4",
-      "audit_check_name": "REVOKED_CA_CERTIFICATE",
-      "finding_id": "0w0l230eq0w",
-      "severity": "LOW",
-      "violation_id": "fe7p9mdvftq",
-      "violation_type": "device-cert-expiring",
+      "thing_name": "sensor-001",
+      "audit_check_name": "LOGGING_DISABLED",
+      "finding_id": "nyehr7bdob",
+      "severity": "HIGH",
+      "violation_id": "aof4am8fxr7",
+      "violation_type": "large-msg-size",
       "security_profile_name": "baseline-security-profile",
-      "behavior_name": "msg-size",
-      "current_value": 730,
-      "threshold_value": 77,
-      "consecutive_datapoints_to_alarm": 2
+      "behavior_name": "data-bytes-out",
+      "current_value": 315,
+      "threshold_value": 47,
+      "consecutive_datapoints_to_alarm": 5
     }
   },
   "event": {
@@ -33,8 +33,8 @@
     "dataset": "aws.iotdefender",
     "provider": "iot.amazonaws.com"
   },
-  "message": "IoT Defender LOW [controller-a4]: REVOKED_CA_CERTIFICATE",
+  "message": "IoT Defender HIGH [sensor-001]: LOGGING_DISABLED",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "QueueName": "email-queue"
+      "QueueName": "job-queue"
     },
     "sqs": {
-      "queue_name": "email-queue",
-      "queue_url": "https://sqs.us-east-1.amazonaws.com/164820739518/email-queue",
-      "messages_sent": 1942,
-      "messages_deleted": 415,
-      "approximate_number_of_messages": 949,
-      "approximate_age_of_oldest_message_seconds": 0,
+      "queue_name": "job-queue",
+      "queue_url": "https://sqs.eu-west-2.amazonaws.com/164820739518/job-queue",
+      "messages_sent": 4187,
+      "messages_deleted": 243,
+      "approximate_number_of_messages": 324,
+      "approximate_age_of_oldest_message_seconds": 112,
       "is_dlq": false,
       "metrics": {
         "NumberOfMessagesSent": {
-          "sum": 1942
+          "sum": 4187
         },
         "NumberOfMessagesReceived": {
-          "sum": 672
+          "sum": 668
         },
         "NumberOfMessagesDeleted": {
-          "sum": 415
+          "sum": 243
         },
         "ApproximateNumberOfMessagesVisible": {
-          "avg": 516
+          "avg": 139
         },
         "ApproximateNumberOfMessagesNotVisible": {
-          "avg": 76
+          "avg": 62
         },
         "ApproximateNumberOfMessagesDelayed": {
-          "avg": 2
+          "avg": 0
         },
         "ApproximateAgeOfOldestMessage": {
-          "avg": 264
+          "avg": 230
         },
         "SentMessageSize": {
-          "avg": 46435
+          "avg": 6377
         },
         "NumberOfEmptyReceives": {
-          "sum": 881
+          "sum": 5
         }
       }
     }
@@ -59,9 +59,9 @@
     "category": "process",
     "dataset": "aws.sqs",
     "provider": "sqs.amazonaws.com",
-    "duration": 324000000
+    "duration": 66000000
   },
-  "message": "SQS email-queue: 1942 messages processed",
+  "message": "SQS job-queue: 4187 messages processed",
   "log": {
     "level": "info"
   }

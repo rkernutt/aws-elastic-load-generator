@@ -1880,14 +1880,57 @@ function generateGlueLog(ts, er) {
         ...(isErr ? { errorCode: rand(ERROR_CODES) } : {}),
       })
     : plainMessage;
-  // Job metrics (when "Enable job metrics" is on in Glue)
+  // Job metrics (when "Enable job metrics" is on in Glue) — align with AWS Glue Observability metric names
+  const heapUsedPct = randInt(25, 92) / 100;
+  const diskUsedPct = randInt(15, 85) / 100;
+  const diskUsedGB = randInt(20, 400);
+  const diskAvailGB = Math.round((diskUsedGB / diskUsedPct) * (1 - diskUsedPct));
+  const heapUsedBytes = randInt(512 * 1e6, 4 * 1e9);
+  const heapAvailBytes = Math.round(heapUsedBytes * (1 - heapUsedPct) / heapUsedPct);
   const glueMetrics = {
     driver: {
       aggregate: { numRecords: recordsRead, numFailedRecords: recordsFailed },
+      // AWS Glue Observability: glue.driver.memory.heap.* and glue.driver.memory.heap.used.percentage
+      memory: {
+        heap: {
+          available: heapAvailBytes,
+          used: heapUsedBytes,
+          used_percentage: Math.round(heapUsedPct * 100),
+        },
+        "non-heap": { available: randInt(64e6, 256e6), used: randInt(32e6, 128e6), used_percentage: randInt(20, 60) },
+      },
+      // Alias for dashboards expecting jvm.heap.usage (0–1)
+      jvm: { heap: { usage: heapUsedPct } },
+      // AWS Glue Observability: glue.driver.disk.available_GB, used_GB, used.percentage; plus Spark-style diskSpaceUsed_MB
+      disk: {
+        available_GB: diskAvailGB,
+        used_GB: diskUsedGB,
+        used_percentage: Math.round(diskUsedPct * 100),
+        diskSpaceUsed_MB: randInt(128, 2048),
+      },
       BlockManager: { disk: { diskSpaceUsed_MB: randInt(128, 2048) } },
+      workerUtilization: randInt(40, 95) / 100,
+      // AWS Glue Observability: glue.driver.skewness.stage, glue.driver.skewness.job (job_performance)
+      skewness: {
+        stage: parseFloat(randFloat(0, 2.5)),  // 0 = no skew; higher = max/median task duration ratio
+        job: parseFloat(randFloat(0, 2.2)),   // job-level skew (max weighted stage skewness)
+      },
     },
     executor: {
       aggregate: { numCompletedTasks: randInt(10, 500), numFailedTasks: isErr ? randInt(1, 20) : 0 },
+    },
+    // glue.ALL (executors aggregate) — same structure for executor memory/disk
+    ALL: {
+      memory: {
+        heap: { available: randInt(1e9, 16e9), used: randInt(512e6, 12e9), used_percentage: randInt(35, 88) },
+        "non-heap": { available: randInt(128e6, 512e6), used: randInt(64e6, 256e6), used_percentage: randInt(25, 55) },
+      },
+      disk: {
+        available_GB: randInt(100, 800),
+        used_GB: randInt(50, 400),
+        used_percentage: randInt(20, 75),
+        diskSpaceUsed_MB: randInt(512, 4096),
+      },
     },
   };
   return {
@@ -1944,6 +1987,10 @@ function generateSageMakerLog(ts, er) {
     ? JSON.stringify({ domainId, space: spaceName, appType, user, level: level.toUpperCase(), message: plainMessage, timestamp: new Date(ts).toISOString(), event: action })
     : plainMessage;
   const trainingMetrics = { training_loss: parseFloat((Math.random() * 0.8 + 0.05).toFixed(4)), accuracy: parseFloat((Math.random() * 0.3 + 0.7).toFixed(4)), epoch: randInt(1, 100), gpu_utilization_pct: randInt(40, 99), cpu_utilization_pct: randInt(30, 90) };
+  const invocations = randInt(1, 5000);
+  const modelLatencyMs = randInt(5, isErr ? 5000 : 200);
+  const gpuUtil = randInt(40, isErr ? 99 : 85);
+  const cpuUtil = randInt(30, isErr ? 95 : 75);
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"sagemaker" } },
@@ -1958,6 +2005,16 @@ function generateSageMakerLog(ts, er) {
         instance: { type: rand(["ml.p3.2xlarge","ml.g4dn.xlarge","ml.m5.xlarge"]), count: rand([1,1,2,4]) },
         metrics: trainingMetrics,
         studio: isStudio ? { space_name: spaceName, app_type: appType, app_name: rand(["default", `instance-${randId(8).toLowerCase()}`]), lifecycle_config: lifecycleConfig, continuous_logging: useStudioLogging } : { space_name: null, app_type: null, app_name: null, lifecycle_config: false, continuous_logging: false },
+        cloudwatch_metrics: {
+          Invocations: { sum: invocations },
+          ModelLatency: { avg: modelLatencyMs, p99: modelLatencyMs * 3 },
+          GPUUtilization: { avg: gpuUtil },
+          CPUUtilization: { avg: cpuUtil },
+          DiskUtilization: { avg: randInt(10, isErr ? 95 : 60) },
+          MemoryUtilization: { avg: randInt(50, isErr ? 98 : 80) },
+          Invocations4XXError: { sum: isErr && Math.random() < 0.3 ? randInt(1, 50) : 0 },
+          Invocations5XXError: { sum: isErr ? randInt(1, 100) : 0 },
+        },
       }
     },
     "log": { level },
@@ -1980,7 +2037,17 @@ function generateAthenaLog(ts, er) {
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"athena" } },
-    "aws": { athena: { query_id: queryId, workgroup, database, state: isErr?"FAILED":"SUCCEEDED", duration_seconds: dur, data_scanned_bytes: dataScanned, data_scanned_mb: Math.round(dataScanned/1048576), engine_version: rand(["Athena engine version 3","DuckDB 0.9.1"]), structured_logging: useStructuredLogging, error_code: isErr ? rand(["QUERY_TIMED_OUT","PERMISSION_DENIED","TABLE_NOT_FOUND"]) : null } },
+    "aws": { athena: {
+      query_id: queryId, workgroup, database, state: isErr?"FAILED":"SUCCEEDED", duration_seconds: dur, data_scanned_bytes: dataScanned, data_scanned_mb: Math.round(dataScanned/1048576), engine_version: rand(["Athena engine version 3","DuckDB 0.9.1"]), structured_logging: useStructuredLogging, error_code: isErr ? rand(["QUERY_TIMED_OUT","PERMISSION_DENIED","TABLE_NOT_FOUND"]) : null,
+      metrics: {
+        DataScannedInBytes: { sum: dataScanned },
+        EngineExecutionTimeInMillis: { avg: Math.round(dur * 1000), max: Math.round(dur * 1500) },
+        ProcessedBytes: { sum: dataScanned },
+        QueryQueueTimeInMillis: { avg: randInt(10, 500) },
+        TotalExecutionTimeInMillis: { avg: Math.round(dur * 1000) },
+        QueryPlanningTimeInMillis: { avg: randInt(5, 200) },
+      }
+    } },
     "db": { statement: rand(queries), type: "sql" },
     "event": { duration: dur*1e9, outcome: isErr?"failure":"success", category: "database", dataset: "aws.athena", provider: "athena.amazonaws.com" },
     "message": message,
@@ -1994,7 +2061,9 @@ function generateBedrockLog(ts, er) {
   const models = ["anthropic.claude-3-5-sonnet-20241022-v2:0","anthropic.claude-3-haiku-20240307-v1:0","amazon.titan-text-express-v1","meta.llama3-70b-instruct-v1:0","mistral.mixtral-8x7b-instruct-v0:1","amazon.nova-pro-v1:0"];
   const model = rand(models); const inputTokens = randInt(50,8000); const outputTokens = randInt(50,isErr?0:4000);
   const lat = parseFloat(randFloat(0.5, isErr?30:15));
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"bedrock"}},"aws":{bedrock:{model_id:model,invocation_latency_ms:Math.round(lat*1000),input_token_count:inputTokens,output_token_count:outputTokens,total_token_count:inputTokens+outputTokens,stop_reason:isErr?null:rand(["end_turn","max_tokens","stop_sequence"]),error_code:isErr?rand(["ThrottlingException","ModelTimeoutException","ModelErrorException"]):null,use_case:rand(["text-generation","summarization","classification","extraction","qa"]),guardrail_action:rand(["NONE","NONE","NONE","INTERVENED"])}},"event":{outcome:isErr?"failure":"success",category:"machine_learning",dataset:"aws.bedrock",provider:"bedrock.amazonaws.com",duration:lat*1e9},"message":isErr?`Bedrock ${model.split(".")[1].split("-")[0]} invocation FAILED: ${rand(["ThrottlingException","ModelTimeoutException"])}`:`Bedrock ${model.split(".")[1].split("-")[0]} ${inputTokens}->${outputTokens} tokens ${lat.toFixed(2)}s`,"log":{level:isErr?"error":lat>10?"warn":"info"},...(isErr?{error:{code:rand(["ThrottlingException","ModelTimeoutException","ModelErrorException"]),message:"Bedrock invocation failed",type:"ml"}}:{}) };
+  const invocations = randInt(1, 500);
+  const latencyMs = Math.round(lat * 1000);
+  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"bedrock"}},"aws":{bedrock:{model_id:model,invocation_latency_ms:latencyMs,input_token_count:inputTokens,output_token_count:outputTokens,total_token_count:inputTokens+outputTokens,stop_reason:isErr?null:rand(["end_turn","max_tokens","stop_sequence"]),error_code:isErr?rand(["ThrottlingException","ModelTimeoutException","ModelErrorException"]):null,use_case:rand(["text-generation","summarization","classification","extraction","qa"]),guardrail_action:rand(["NONE","NONE","NONE","INTERVENED"]),metrics:{Invocations:{sum:invocations},InvocationLatency:{avg:latencyMs,p99:latencyMs*2},InputTokenCount:{sum:inputTokens},OutputTokenCount:{sum:outputTokens},Throttles:{sum:isErr?randInt(1,20):0}}}},"event":{outcome:isErr?"failure":"success",category:"machine_learning",dataset:"aws.bedrock",provider:"bedrock.amazonaws.com",duration:lat*1e9},"message":isErr?`Bedrock ${model.split(".")[1].split("-")[0]} invocation FAILED: ${rand(["ThrottlingException","ModelTimeoutException"])}`:`Bedrock ${model.split(".")[1].split("-")[0]} ${inputTokens}->${outputTokens} tokens ${lat.toFixed(2)}s`,"log":{level:isErr?"error":lat>10?"warn":"info"},...(isErr?{error:{code:rand(["ThrottlingException","ModelTimeoutException","ModelErrorException"]),message:"Bedrock invocation failed",type:"ml"}}:{}) };
 }
 
 function generateBedrockAgentLog(ts, er) {
@@ -2006,6 +2075,7 @@ function generateBedrockAgentLog(ts, er) {
   const kbId = `KB${randId(9).toUpperCase()}`;
   const inputTokens = randInt(100, 4000); const outputTokens = randInt(50, isErr ? 0 : 2000);
   const dur = parseFloat(randFloat(0.3, isErr ? 15 : 8));
+  const latencyMs = Math.round(dur * 1000);
   return {
     "@timestamp": ts,
     "cloud": { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "bedrock-agent" } },
@@ -2018,10 +2088,16 @@ function generateBedrockAgentLog(ts, er) {
         knowledge_base_id: action === "Retrieve" ? kbId : null,
         input_token_count: inputTokens,
         output_token_count: outputTokens,
-        invocation_latency_ms: Math.round(dur * 1000),
+        invocation_latency_ms: latencyMs,
         orchestration_trace: rand([null, { model_invocation: { model_arn: `arn:aws:bedrock:${region}::foundation-model/anthropic.claude-3-5-sonnet-v2` } }]),
         guardrail_action: rand(["NONE", "NONE", "INTERVENED"]),
         error_code: isErr ? rand(["ValidationException", "ThrottlingException", "ServiceQuotaExceededException"]) : null,
+        metrics: {
+          Invocations: { sum: randInt(1, 200) },
+          InvocationLatency: { avg: latencyMs, p99: latencyMs * 2 },
+          InputTokenCount: { sum: inputTokens },
+          OutputTokenCount: { sum: outputTokens },
+        },
       },
     },
     "event": { outcome: isErr ? "failure" : "success", category: "machine_learning", dataset: "aws.bedrockagent", provider: "bedrock-agent-runtime.amazonaws.com", duration: dur * 1e9 },
@@ -2140,6 +2216,8 @@ function generateFargateLog(ts, er) {
   const plainMessage = rand(MSGS[level]);
   const useStructuredLogging = Math.random() < 0.6;
   const message = useStructuredLogging ? JSON.stringify({ cluster: clusterName, taskId, taskDefinition: taskDef, container: task, level, message: plainMessage, timestamp: new Date(ts).toISOString() }) : plainMessage;
+  const cpuPct = level==="error"?randInt(90,100):randInt(10,80);
+  const memPct = level==="error"?randInt(90,100):randInt(20,75);
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"fargate"}},
     "aws":{
       dimensions: { ClusterName:clusterName, TaskId:taskId, TaskDefinition:taskDef },
@@ -2148,8 +2226,14 @@ function generateFargateLog(ts, er) {
         structured_logging:useStructuredLogging,
         cpu_units:rand([256,512,1024,2048,4096]),memory_mb:rand([512,1024,2048,4096,8192]),
         platform_version:rand(["1.4.0","LATEST"]),
-        cpu_utilized_percent:level==="error"?randInt(90,100):randInt(10,80),
-        memory_utilized_percent:level==="error"?randInt(90,100):randInt(20,75)}},
+        cpu_utilized_percent:cpuPct,
+        memory_utilized_percent:memPct,
+        metrics:{
+          CPUUtilization: { avg: cpuPct / 100 },
+          MemoryUtilization: { avg: memPct / 100 },
+          RunningTaskCount: { avg: randInt(1, 20) },
+          PendingTaskCount: { avg: level==="error" ? randInt(1, 5) : 0 },
+        }}},
     "container":{name:task},"log":{level},
     "event":{outcome:level==="error"?"failure":"success",category:"container",dataset:"aws.ecs_fargate",provider:"ecs.amazonaws.com",duration:durationSec*1e9},
     "message":message,
@@ -2166,16 +2250,27 @@ function generateAutoScalingLog(ts, er) {
   const failReasons = ["No capacity","Launch template error","VPC limit"];
   const errMsg = isErr ? `AutoScaling ${asg}: ${action} FAILED - ${rand(failReasons)}` : null;
   const ASG_ERROR_CODES = ["InsufficientCapacity","LaunchTemplateError","VpcLimitExceeded"];
+  const desired = randInt(2, 20);
+  const inService = isErr ? Math.max(0, desired - randInt(1, 3)) : desired;
+  const activityDurationSec = randInt(30, 600);
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"autoscaling"}},
     "aws":{autoscaling:{group_name:asg,
       activity_id:`${randId(8)}-${randId(4)}-${randId(4)}`.toLowerCase(),
       action_type:action,instance_id:`i-${randId(17).toLowerCase()}`,
       instance_type:rand(["t3.medium","m5.xlarge","c5.2xlarge","r5.large"]),
-      desired_capacity:randInt(2,20),min_size:2,max_size:50,
-      current_capacity:randInt(2,20),cause:reason,
+      desired_capacity:desired,min_size:2,max_size:50,
+      current_capacity:inService,cause:reason,
       status_code:isErr?"Failed":"Successful",
-      launch_template:rand(["web-lt:5","api-lt:3","worker-lt:8"])}},
-    "event":{outcome:isErr?"failure":"success",category:"host",dataset:"aws.autoscaling",provider:"autoscaling.amazonaws.com"},
+      launch_template:rand(["web-lt:5","api-lt:3","worker-lt:8"]),
+      metrics:{
+        GroupDesiredCapacity: { avg: desired },
+        GroupInServiceInstances: { avg: inService },
+        GroupMinSize: { avg: 2 },
+        GroupMaxSize: { avg: 50 },
+        GroupPendingInstances: { avg: isErr ? randInt(1, 5) : 0 },
+        GroupTerminatingInstances: { avg: action==="Terminate" ? randInt(1, 3) : 0 },
+      }}},
+    "event":{outcome:isErr?"failure":"success",category:"host",dataset:"aws.autoscaling",provider:"autoscaling.amazonaws.com",duration:activityDurationSec*1e9},
     "message":isErr?errMsg:`AutoScaling ${asg}: ${action} instance`,
     "log":{level:isErr?"error":"info"},
     ...(isErr ? { error: { code: rand(ASG_ERROR_CODES), message: errMsg, type: "host" } } : {})};
@@ -2196,7 +2291,13 @@ function generateImageBuilderLog(ts, er) {
         phase,phase_status:isErr?"FAILED":"COMPLETED",duration_seconds:dur,
         os:rand(["Amazon Linux 2023","Ubuntu 22.04","Windows Server 2022","RHEL 9"]),
         recipe_name:rand(["web-server-recipe","hardened-base","docker-host"]),
-        ami_id:isErr?null:`ami-${randId(8).toLowerCase()}`}},
+        ami_id:isErr?null:`ami-${randId(8).toLowerCase()}`,
+        metrics:{
+          BuildDuration: { avg: dur },
+          ImageBuildSuccessCount: { sum: isErr ? 0 : 1 },
+          ImageBuildFailureCount: { sum: isErr ? 1 : 0 },
+          ComponentBuildDuration: { avg: randInt(60, Math.min(dur, 1200)) },
+        }}},
     "event":{duration:dur*1e9,outcome:isErr?"failure":"success",category:"process",dataset:"aws.imagebuilder",provider:"imagebuilder.amazonaws.com"},
     "message":isErr?errMsg:`Image Builder ${pipeline} ${phase} COMPLETED in ${dur}s`,
     "log":{level:isErr?"error":"info"},
@@ -2718,14 +2819,25 @@ function generateSnsLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const topic = rand(["order-notifications","user-alerts","system-events","security-alarms","deployment-events"]);
   const protocol = rand(["email","sqs","lambda","http","sms"]);
+  const published = randInt(1, 10000);
+  const delivered = isErr ? randInt(0, Math.max(0, published - 100)) : published;
+  const failed = published - delivered;
+  const deliveryLatencyMs = parseFloat(randFloat(5, isErr ? 30000 : 500));
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"sns"}},
     "aws":{sns:{topic_arn:`arn:aws:sns:${region}:${acct.id}:${topic}`,
       message_id:`${randId(8)}-${randId(4)}-${randId(4)}`.toLowerCase(),
       protocol,delivery_status:isErr?rand(["FAILED","THROTTLED"]):"SUCCESS",
       message_size_bytes:randInt(100,256000),delivery_attempt:isErr?randInt(1,3):1,
       status_code:isErr?rand([400,500,429]):200,
-      error_message:isErr?rand(["Endpoint disabled","HTTP timeout","Lambda error","SQS full"]):null}},
-    "event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.sns",provider:"sns.amazonaws.com"},
+      error_message:isErr?rand(["Endpoint disabled","HTTP timeout","Lambda error","SQS full"]):null,
+      metrics:{
+        NumberOfMessagesPublished: { sum: published },
+        NumberOfNotificationsDelivered: { sum: delivered },
+        NumberOfNotificationsFailed: { sum: failed },
+        PublishSize: { avg: randInt(200, 64000) },
+        SmsSuccessRate: { avg: protocol==="sms" ? parseFloat(randFloat(0.85, 1)) : null },
+      }}},
+    "event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.sns",provider:"sns.amazonaws.com",duration:deliveryLatencyMs*1e6},
     "message":isErr?`SNS delivery FAILED: ${topic} -> ${protocol}: ${rand(["Endpoint disabled","Timeout","Lambda error"])}`:
       `SNS delivered: ${topic} -> ${protocol} (${randInt(100,50000)}B)`,
     "log":{level:isErr?"warn":"info"},
@@ -2743,15 +2855,28 @@ function generateAmazonMqLog(ts, er) {
     info:["Message consumed successfully","Producer connected","Consumer registered","Queue purged"],
   };
   const level = isErr ? "error" : Math.random() < 0.1 ? "warn" : "info";
+  const messagesIn = randInt(0, 10000);
+  const messagesOut = randInt(0, 10000);
+  const queueDepth = isErr ? randInt(50000, 500000) : randInt(0, 5000);
+  const brokerMemPct = isErr ? randInt(80, 100) : randInt(20, 70);
+  const durSec = parseFloat(randFloat(0.01, isErr ? 30 : 2));
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"amazonmq"}},
     "aws":{amazonmq:{broker_id:`b-${randId(8)}-${randId(4)}`.toLowerCase(),
       broker_name:broker,broker_engine:brokerType,
       engine_version:brokerType==="ActiveMQ"?"5.17.6":"3.12.1",
       deployment_mode:rand(["SINGLE_INSTANCE","ACTIVE_STANDBY_MULTI_AZ"]),
-      queue_name:queue,messages_in:randInt(0,10000),messages_out:randInt(0,10000),
-      queue_depth:isErr?randInt(50000,500000):randInt(0,5000),
-      broker_memory_percent:isErr?randInt(80,100):randInt(20,70)}},
-    "event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.amazonmq",provider:"mq.amazonaws.com"},
+      queue_name:queue,messages_in:messagesIn,messages_out:messagesOut,
+      queue_depth:queueDepth,
+      broker_memory_percent:brokerMemPct,
+      metrics:{
+        QueueDepth: { avg: queueDepth },
+        ProducerCount: { avg: randInt(1, 50) },
+        ConsumerCount: { avg: randInt(1, 30) },
+        MessageCount: { sum: messagesIn + messagesOut },
+        BrokerMemoryUsage: { avg: brokerMemPct },
+        StorePercentUsage: { avg: isErr ? randInt(75, 98) : randInt(10, 60) },
+      }}},
+    "event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.amazonmq",provider:"mq.amazonaws.com",duration:durSec*1e9},
     "message":rand(MSGS[level]),
     "log":{level},
     ...(isErr ? { error: { code: "BrokerError", message: rand(MSGS.error), type: "messaging" } } : {})};
@@ -2764,12 +2889,19 @@ function generateAppSyncLog(ts, er) {
   const resolver = rand(["getUserById","listOrders","createProduct","updateInventory","searchItems"]);
   const dur = parseFloat(randFloat(1, isErr?5000:500));
   const status = isErr ? rand([400,401,403,500]) : 200;
+  const requestCount = randInt(1, 5000);
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"appsync"}},
     "aws":{appsync:{api_id:randId(26),api_name:api,
       operation_type:op,operation_name:resolver,
       data_source_type:rand(["AMAZON_DYNAMODB","AWS_LAMBDA","HTTP","AMAZON_ELASTICSEARCH"]),
       duration_ms:Math.round(dur),status_code:status,
-      error_type:isErr?rand(["UnauthorizedException","MappingTemplate","ExecutionTimeout","DatasourceError"]):null}},
+      error_type:isErr?rand(["UnauthorizedException","MappingTemplate","ExecutionTimeout","DatasourceError"]):null,
+      metrics:{
+        RequestCount: { sum: requestCount },
+        "4XXError": { sum: status>=400&&status<500 ? randInt(1, Math.floor(requestCount*0.1)) : 0 },
+        "5XXError": { sum: status>=500 ? randInt(1, Math.floor(requestCount*0.05)) : 0 },
+        Latency: { avg: dur, p99: dur * 2.5 },
+      }}},
     "http":{response:{status_code:status}},
     "event":{duration:dur*1e6,outcome:isErr?"failure":"success",category:"api",dataset:"aws.appsync",provider:"appsync.amazonaws.com"},
     "message":isErr?`AppSync ${op}.${resolver} FAILED [${status}]: ${rand(["Unauthorized","MappingTemplate error","DatasourceError"])}`:

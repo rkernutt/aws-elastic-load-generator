@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "firehose"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "DeliveryStreamName": "metrics-to-opensearch"
+      "DeliveryStreamName": "clickstream-backup"
     },
     "firehose": {
-      "delivery_stream_name": "metrics-to-opensearch",
-      "destination": "OpenSearch",
-      "incoming_records": 40867,
-      "incoming_bytes": 44422429,
+      "delivery_stream_name": "clickstream-backup",
+      "destination": "HTTPEndpoint",
+      "incoming_records": 46314,
+      "incoming_bytes": 80864244,
       "delivery_success": true,
-      "delivery_records": 40867,
-      "data_freshness_seconds": 288,
+      "delivery_records": 46314,
+      "data_freshness_seconds": 187,
       "metrics": {
         "IncomingRecords": {
-          "sum": 40867
+          "sum": 46314
         },
         "IncomingBytes": {
-          "sum": 74377940
+          "sum": 60439770
         },
         "DeliveryToS3_Records": {
           "sum": 0
@@ -38,16 +38,16 @@
           "sum": 0
         },
         "DeliveryToElasticsearch_Records": {
-          "sum": 40867
+          "sum": 0
         },
         "FailedConversionRecords": {
           "sum": 0
         },
         "DataReadFromKinesisStream_Records": {
-          "sum": 40867
+          "sum": 46314
         },
         "DeliveryToS3_DataFreshness": {
-          "avg": 117
+          "avg": 172
         }
       }
     }
@@ -57,9 +57,9 @@
     "category": "process",
     "dataset": "aws.firehose",
     "provider": "firehose.amazonaws.com",
-    "duration": 60000000000
+    "duration": 36000000000
   },
-  "message": "Firehose metrics-to-opensearch: 40867 records delivered",
+  "message": "Firehose clickstream-backup: 46314 records delivered",
   "log": {
     "level": "info"
   }

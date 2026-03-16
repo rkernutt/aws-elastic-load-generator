@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "ses"
@@ -13,37 +13,32 @@
   },
   "aws": {
     "ses": {
-      "message_id": "kht81fjfk1f.xmukzqoccb@eu-west-2.amazonses.com",
-      "event_type": "Reject",
-      "from_address": "alerts@company.com",
-      "destination": "user_epbb5g@gmail.com",
-      "configuration_set": "transactional",
+      "message_id": "q7nzo8863p.xk8y88az6x@us-east-1.amazonses.com",
+      "event_type": "Send",
+      "from_address": "no-reply@app.io",
+      "destination": "user_7wavqg@gmail.com",
+      "configuration_set": "marketing",
       "bounce": {},
       "complaint": {},
-      "sending_account_id": "501938274650",
+      "sending_account_id": "164820739518",
       "delivery": {
         "recipients": [
-          "user_epbb5g@gmail.com"
+          "user_7wavqg@gmail.com"
         ],
-        "timestamp": "2026-03-16T14:23:43.329Z",
-        "processing_time_ms": 1469,
+        "timestamp": "2026-03-16T15:20:27.243Z",
+        "processing_time_ms": 1178,
         "smtp_response": "250 2.0.0 OK"
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "email",
     "dataset": "aws.ses",
     "provider": "email.amazonaws.com"
   },
-  "message": "SES Reject: alerts@company.com -> user_epbb5g@gmail.com",
+  "message": "SES Send: no-reply@app.io -> user_7wavqg@gmail.com",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "SESDeliveryFailure",
-    "message": "SES delivery failed",
-    "type": "email"
+    "level": "info"
   }
 }

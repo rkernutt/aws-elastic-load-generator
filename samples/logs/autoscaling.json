@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "autoscaling"
@@ -13,27 +13,48 @@
   },
   "aws": {
     "autoscaling": {
-      "group_name": "spot-fleet",
-      "activity_id": "l4rveqyu-1jat-6fcd",
-      "action_type": "Launch",
-      "instance_id": "i-535obuyszwk",
-      "instance_type": "r5.large",
-      "desired_capacity": 16,
+      "group_name": "batch-asg",
+      "activity_id": "wbx82jxf-oog4-vv91",
+      "action_type": "Terminate",
+      "instance_id": "i-h96unkkb5ti",
+      "instance_type": "m5.xlarge",
+      "desired_capacity": 10,
       "min_size": 2,
       "max_size": 50,
-      "current_capacity": 18,
-      "cause": "Scheduled action triggered",
+      "current_capacity": 10,
+      "cause": "Spot interruption",
       "status_code": "Successful",
-      "launch_template": "worker-lt:8"
+      "launch_template": "worker-lt:8",
+      "metrics": {
+        "GroupDesiredCapacity": {
+          "avg": 10
+        },
+        "GroupInServiceInstances": {
+          "avg": 10
+        },
+        "GroupMinSize": {
+          "avg": 2
+        },
+        "GroupMaxSize": {
+          "avg": 50
+        },
+        "GroupPendingInstances": {
+          "avg": 0
+        },
+        "GroupTerminatingInstances": {
+          "avg": 2
+        }
+      }
     }
   },
   "event": {
     "outcome": "success",
     "category": "host",
     "dataset": "aws.autoscaling",
-    "provider": "autoscaling.amazonaws.com"
+    "provider": "autoscaling.amazonaws.com",
+    "duration": 105000000000
   },
-  "message": "AutoScaling spot-fleet: Launch instance",
+  "message": "AutoScaling batch-asg: Terminate instance",
   "log": {
     "level": "info"
   }

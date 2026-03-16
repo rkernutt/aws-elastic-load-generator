@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "bedrock"
@@ -13,26 +13,49 @@
   },
   "aws": {
     "bedrock": {
-      "model_id": "anthropic.claude-3-5-sonnet-20241022-v2:0",
-      "invocation_latency_ms": 3725,
-      "input_token_count": 6222,
-      "output_token_count": 2717,
-      "total_token_count": 8939,
-      "stop_reason": "end_turn",
+      "model_id": "amazon.titan-text-express-v1",
+      "invocation_latency_ms": 25557,
+      "input_token_count": 5435,
+      "output_token_count": 10,
+      "total_token_count": 5445,
+      "error_code": "ModelErrorException",
       "use_case": "qa",
-      "guardrail_action": "INTERVENED"
+      "guardrail_action": "INTERVENED",
+      "metrics": {
+        "Invocations": {
+          "sum": 466
+        },
+        "InvocationLatency": {
+          "avg": 25557,
+          "p99": 51114
+        },
+        "InputTokenCount": {
+          "sum": 5435
+        },
+        "OutputTokenCount": {
+          "sum": 10
+        },
+        "Throttles": {
+          "sum": 10
+        }
+      }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "machine_learning",
     "dataset": "aws.bedrock",
     "provider": "bedrock.amazonaws.com",
-    "duration": 3725000000
+    "duration": 25557000000
   },
-  "message": "Bedrock claude 6222->2717 tokens 3.73s",
+  "message": "Bedrock titan invocation FAILED: ThrottlingException",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ModelTimeoutException",
+    "message": "Bedrock invocation failed",
+    "type": "ml"
   },
   "data_stream": {
     "type": "metrics",

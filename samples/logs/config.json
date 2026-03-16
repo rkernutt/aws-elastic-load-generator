@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "config"
@@ -13,39 +13,44 @@
   },
   "aws": {
     "dimensions": {
-      "ConfigRuleName": "mfa-enabled-for-iam-console",
-      "ResourceType": "AWS::EC2::Instance"
+      "ConfigRuleName": "iam-password-policy",
+      "ResourceType": "AWS::EC2::SecurityGroup"
     },
     "config": {
-      "rule_name": "mfa-enabled-for-iam-console",
-      "compliance_type": "COMPLIANT",
-      "resource_type": "AWS::EC2::Instance",
-      "resource_id": "s3-armideik",
-      "annotation": "Resource is compliant",
+      "rule_name": "iam-password-policy",
+      "compliance_type": "NON_COMPLIANT",
+      "resource_type": "AWS::EC2::SecurityGroup",
+      "resource_id": "db-y4r7auws",
+      "annotation": "Public access enabled",
       "metrics": {
         "ComplianceByConfigRule": {
-          "avg": 1
+          "avg": 0
         },
         "NonCompliantRules": {
-          "sum": 0
-        },
-        "CompliantRules": {
           "sum": 1
         },
+        "CompliantRules": {
+          "sum": 0
+        },
         "ConfigurationItemsRecorded": {
-          "sum": 3
+          "sum": 98
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "compliance",
     "dataset": "aws.config",
     "provider": "config.amazonaws.com"
   },
-  "message": "Config rule PASSED: mfa-enabled-for-iam-console",
+  "message": "Config rule FAILED: iam-password-policy",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "NonCompliant",
+    "message": "Config rule iam-password-policy failed",
+    "type": "compliance"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "sns"
@@ -13,24 +13,46 @@
   },
   "aws": {
     "sns": {
-      "topic_arn": "arn:aws:sns:us-east-1:738291046572:security-alarms",
-      "message_id": "vl3qe7ci-mqo9-dx1c",
-      "protocol": "email",
-      "delivery_status": "SUCCESS",
-      "message_size_bytes": 247071,
-      "delivery_attempt": 1,
-      "status_code": 200
+      "topic_arn": "arn:aws:sns:eu-west-2:293847561023:user-alerts",
+      "message_id": "1hzg8ghy-u82j-6bi8",
+      "protocol": "lambda",
+      "delivery_status": "THROTTLED",
+      "message_size_bytes": 230953,
+      "delivery_attempt": 2,
+      "status_code": 500,
+      "error_message": "Lambda error",
+      "metrics": {
+        "NumberOfMessagesPublished": {
+          "sum": 1736
+        },
+        "NumberOfNotificationsDelivered": {
+          "sum": 724
+        },
+        "NumberOfNotificationsFailed": {
+          "sum": 1012
+        },
+        "PublishSize": {
+          "avg": 14995
+        },
+        "SmsSuccessRate": {}
+      }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "process",
     "dataset": "aws.sns",
-    "provider": "sns.amazonaws.com"
+    "provider": "sns.amazonaws.com",
+    "duration": 26840984000
   },
-  "message": "SNS delivered: security-alarms -> email (10326B)",
+  "message": "SNS delivery FAILED: user-alerts -> lambda: Lambda error",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "DeliveryFailure",
+    "message": "SNS delivery failed",
+    "type": "messaging"
   },
   "data_stream": {
     "type": "metrics",

@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -14,48 +14,48 @@
   "aws": {
     "dimensions": {
       "WebACL": "admin-waf",
-      "Rule": "GeoBlockRule",
+      "Rule": "RateLimitRule",
       "Region": "us-east-1"
     },
     "waf": {
-      "web_acl_id": "anv404pz-a1a2-240u",
+      "web_acl_id": "eub617xm-8l28-31fo",
       "web_acl_name": "admin-waf",
-      "terminating_rule_id": "GeoBlockRule",
+      "terminating_rule_id": "RateLimitRule",
       "rule_group_list": [
         {
-          "rule_group_id": "GeoBlockRule",
-          "terminating_rule": "GeoBlockRule",
+          "rule_group_id": "RateLimitRule",
+          "terminating_rule": "RateLimitRule",
           "rule_group_override_action": "NONE",
           "excluded_rules": []
         }
       ],
-      "action": "ALLOW",
+      "action": "BLOCK",
       "http_request": {
-        "client_ip": "138.147.49.139",
+        "client_ip": "214.78.209.66",
         "country": "DE",
-        "uri": "/api/v1/auth/login",
+        "uri": "/api/v1/users",
         "uri_query": "",
-        "method": "POST",
+        "method": "PATCH",
         "headers": [
           {
             "name": "User-Agent",
-            "value": "Go-http-client/1.1"
+            "value": "python-requests/2.27.1"
           }
         ]
       },
       "http_source_name": "ALB",
       "metrics": {
         "AllowedRequests": {
-          "sum": 1422
-        },
-        "BlockedRequests": {
           "sum": 0
         },
+        "BlockedRequests": {
+          "sum": 98
+        },
         "CountedRequests": {
-          "sum": 79
+          "sum": 32
         },
         "PassedRequests": {
-          "sum": 9772
+          "sum": 0
         }
       }
     }
@@ -63,26 +63,31 @@
   "http": {
     "request": {
       "method": "PUT",
-      "bytes": 8159
+      "bytes": 258
     },
-    "uri": "/api/v1/auth/login"
+    "uri": "/api/v1/users"
   },
   "client": {
-    "ip": "138.147.49.139"
+    "ip": "214.78.209.66"
   },
   "user_agent": {
-    "original": "Go-http-client/1.1"
+    "original": "python-requests/2.27.1"
   },
   "event": {
-    "action": "allow",
-    "outcome": "success",
+    "action": "block",
+    "outcome": "failure",
     "category": "intrusion_detection",
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com"
   },
-  "message": "WAF ALLOWED request - Rule: GeoBlockRule",
+  "message": "WAF BLOCKED request - Rule: RateLimitRule",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "WAFBlock",
+    "message": "Request blocked by rule: RateLimitRule",
+    "type": "security"
   },
   "data_stream": {
     "type": "metrics",

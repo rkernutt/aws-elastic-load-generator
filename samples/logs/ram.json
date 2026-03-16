@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "ram"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "ram": {
-      "resource_share_arn": "arn:aws:ram:us-east-1:164820739518:resource-share/w58qwto5zwm",
-      "resource_share_name": "shared-subnets",
-      "resource_type": "ram:ResourceShare",
-      "action": "CreateResourceShare",
-      "principal": "164820739518",
+      "resource_share_arn": "arn:aws:ram:us-east-1:814726593401:resource-share/x8ah6ldadgh",
+      "resource_share_name": "transit-gateway-share",
+      "resource_type": "networkmanager:CoreNetwork",
+      "action": "DisassociateResourceShare",
+      "principal": "814726593401",
       "allow_external_principals": true,
       "status": "PENDING"
     }
   },
   "event": {
-    "action": "CreateResourceShare",
+    "action": "DisassociateResourceShare",
     "outcome": "success",
     "category": "iam",
     "dataset": "aws.ram",
     "provider": "ram.amazonaws.com"
   },
-  "message": "RAM CreateResourceShare: ram:ResourceShare shared with account 164820739518",
+  "message": "RAM DisassociateResourceShare: networkmanager:CoreNetwork shared with account 814726593401",
   "log": {
     "level": "info"
   }

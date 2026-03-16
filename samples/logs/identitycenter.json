@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "identitycenter"
@@ -13,11 +13,11 @@
   },
   "aws": {
     "iam_identity_center": {
-      "event_type": "Authorize",
+      "event_type": "Authenticate",
       "user_name": "alice@corp.com",
-      "application_name": "Slack",
-      "permission_set": "BillingAccess",
-      "account_id": "738291046572",
+      "application_name": "Jira",
+      "permission_set": "PowerUserAccess",
+      "account_id": "501938274650",
       "mfa_authenticated": true
     }
   },
@@ -25,16 +25,16 @@
     "name": "alice@corp.com"
   },
   "source": {
-    "ip": "20.107.145.82"
+    "ip": "29.59.83.118"
   },
   "event": {
-    "action": "Authorize",
+    "action": "Authenticate",
     "outcome": "success",
     "category": "authentication",
     "dataset": "aws.identitycenter",
     "provider": "sso.amazonaws.com"
   },
-  "message": "IAM Identity Center Authorize: alice@corp.com -> Slack",
+  "message": "IAM Identity Center Authenticate: alice@corp.com -> Jira",
   "log": {
     "level": "info"
   }

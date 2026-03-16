@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,11 +13,10 @@
   },
   "aws": {
     "comprehendmedical": {
-      "operation": "InferRxNorm",
-      "entities_detected": 40,
-      "phi_entities": 9,
-      "rxnorm_concepts": 6,
-      "text_characters": 8179,
+      "operation": "DetectEntitiesV2",
+      "entities_detected": 19,
+      "phi_entities": 5,
+      "text_characters": 1934,
       "data_access_role_arn": "arn:aws:iam::814726593401:role/ComprehendMedicalRole",
       "s3_bucket": "clinical-notes"
     }
@@ -28,8 +27,8 @@
     "dataset": "aws.comprehendmedical",
     "provider": "comprehendmedical.amazonaws.com"
   },
-  "message": "Comprehend Medical InferRxNorm: 40 entities, 9 PHI",
+  "message": "Comprehend Medical DetectEntitiesV2: 19 entities, 5 PHI",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

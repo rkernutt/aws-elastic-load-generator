@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,24 +13,24 @@
   },
   "aws": {
     "forecast": {
-      "dataset_group": "energy-consumption",
-      "predictor_name": "energy-consumption-predictor-v11",
+      "dataset_group": "sales-prediction",
+      "predictor_name": "sales-prediction-predictor-v15",
       "action": "CreateDatasetImportJob",
-      "algorithm": "NPTS",
+      "algorithm": "ETS",
       "forecast_horizon": 30,
-      "weighted_quantile_loss": 0.182,
-      "duration_seconds": 5325,
+      "weighted_quantile_loss": 0.172,
+      "duration_seconds": 2637,
       "status": "ACTIVE"
     }
   },
   "event": {
-    "duration": 5325000000000,
+    "duration": 2637000000000,
     "outcome": "success",
     "category": "machine_learning",
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com"
   },
-  "message": "Forecast CreateDatasetImportJob: energy-consumption, WQL=0.223",
+  "message": "Forecast CreateDatasetImportJob: sales-prediction, WQL=0.204",
   "log": {
     "level": "info"
   }

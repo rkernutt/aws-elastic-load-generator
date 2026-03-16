@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "apigateway"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "ApiName": "prod-api",
+      "ApiName": "internal-api",
       "Stage": "staging",
       "Method": "DELETE",
-      "Resource": "/api/v1/products"
+      "Resource": "/health"
     },
     "apigateway": {
-      "request_id": "ldi5wldh-i4ir",
-      "api_id": "pfpq0vqkoz",
-      "api_name": "prod-api",
+      "request_id": "ny5mygpn-x7sr",
+      "api_id": "phjaixbnq0",
+      "api_name": "internal-api",
       "stage": "staging",
       "structured_logging": false,
       "request": {
         "http_method": "DELETE",
-        "path": "/api/v1/products",
+        "path": "/health",
         "protocol": "HTTP/1.1"
       },
       "response": {
-        "status_code": 200,
-        "integration_latency_ms": 416,
-        "response_latency_ms": 490
+        "status_code": 201,
+        "integration_latency_ms": 461,
+        "response_latency_ms": 543
       },
       "metrics": {
         "Count": {
-          "sum": 131
+          "sum": 980
         },
         "4xx": {
           "sum": 0
@@ -45,14 +45,14 @@
           "sum": 0
         },
         "Latency": {
-          "avg": 490,
-          "max": 735,
-          "min": 245
+          "avg": 543,
+          "max": 814.5,
+          "min": 271.5
         },
         "IntegrationLatency": {
-          "avg": 416,
-          "max": 637,
-          "min": 196
+          "avg": 461,
+          "max": 705,
+          "min": 217
         }
       }
     }
@@ -60,30 +60,30 @@
   "http": {
     "request": {
       "method": "DELETE",
-      "bytes": 4752
+      "bytes": 2981
     },
     "response": {
-      "status_code": 200,
-      "bytes": 8249
+      "status_code": 201,
+      "bytes": 4600
     }
   },
   "url": {
-    "path": "/api/v1/products",
-    "domain": "pfpq0vqkoz.execute-api.us-east-1.amazonaws.com"
+    "path": "/health",
+    "domain": "phjaixbnq0.execute-api.eu-west-2.amazonaws.com"
   },
   "client": {
-    "ip": "73.45.211.224"
+    "ip": "6.1.60.222"
   },
   "user_agent": {
-    "original": "curl/7.68.0"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
-    "duration": 490000000,
+    "duration": 543000000,
     "outcome": "success",
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "DELETE /api/v1/products 200 490ms",
+  "message": "DELETE /health 201 543ms",
   "log": {
     "level": "info"
   }

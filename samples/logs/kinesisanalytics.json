@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "kinesisanalytics"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "kinesisanalytics": {
-      "application_name": "fraud-detection-stream",
-      "application_arn": "arn:aws:kinesisanalytics:eu-west-2:164820739518:application/fraud-detection-stream",
+      "application_name": "real-time-metrics",
+      "application_arn": "arn:aws:kinesisanalytics:us-east-1:501938274650:application/real-time-metrics",
       "runtime": "FLINK-1_15",
-      "records_per_second": 1415,
-      "input_watermark_lag_ms": 484,
+      "records_per_second": 1335,
+      "input_watermark_lag_ms": 426,
       "checkpointing_enabled": true,
-      "last_checkpoint_duration_ms": 478,
-      "kpu_count": 5,
-      "structured_logging": false,
+      "last_checkpoint_duration_ms": 568,
+      "kpu_count": 53,
+      "structured_logging": true,
       "metrics": {
-        "records_in_per_second": 1415,
-        "input_watermark_lag_ms": 484,
-        "kpu_utilization_pct": 38,
-        "checkpoint_duration_ms": 606
+        "records_in_per_second": 1335,
+        "input_watermark_lag_ms": 426,
+        "kpu_utilization_pct": 24,
+        "checkpoint_duration_ms": 1272
       }
     }
   },
@@ -35,9 +35,9 @@
     "category": "process",
     "dataset": "aws.kinesisanalytics",
     "provider": "kinesisanalytics.amazonaws.com",
-    "duration": 562000000
+    "duration": 1888000000
   },
-  "message": "Kinesis Analytics fraud-detection-stream: 1415 rec/s, lag 266ms",
+  "message": "{\"applicationName\":\"real-time-metrics\",\"recordsPerSecond\":1335,\"inputWatermarkLagMs\":426,\"level\":\"info\",\"message\":\"Kinesis Analytics real-time-metrics: 1335 rec/s, lag 309ms\",\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
   "log": {
     "level": "info"
   }

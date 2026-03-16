@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "location"
@@ -13,20 +13,29 @@
   },
   "aws": {
     "locationservice": {
-      "operation": "CalculateRoute",
-      "route_calculator": "truck-router",
-      "distance_meters": 476993,
-      "duration_seconds": 3827
+      "operation": "GetDevicePosition",
+      "tracker_name": "delivery-devices",
+      "device_id": "device-lg7rwfa4",
+      "position": {
+        "lat": 67.39,
+        "lon": -84.696
+      },
+      "error_code": "ResourceNotFoundException"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "geo",
     "dataset": "aws.location",
     "provider": "geo.amazonaws.com"
   },
-  "message": "Location Service CalculateRoute: geofence check",
+  "message": "Location Service GetDevicePosition FAILED: Resource not found:",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ThrottlingException",
+    "message": "Location Service failed",
+    "type": "geo"
   }
 }

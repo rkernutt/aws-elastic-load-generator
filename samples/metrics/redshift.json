@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "redshift"
@@ -14,25 +14,25 @@
   "aws": {
     "dimensions": {
       "ClusterIdentifier": "prod-dw-us-east-1",
-      "NodeID": "Compute-1"
+      "NodeID": "Compute-0"
     },
     "redshift": {
       "cluster_id": "prod-dw-us-east-1",
       "database": "analytics",
-      "user": "etl_user",
-      "pid": 58108,
-      "query_id": 5980022,
-      "duration_seconds": 8.766,
-      "rows_returned": 4696031,
+      "user": "bi_service",
+      "pid": 33472,
+      "query_id": 7844703,
+      "duration_seconds": 58.477,
+      "rows_returned": 2729964,
       "metrics": {
         "CPUUtilization": {
-          "avg": 39.396
+          "avg": 41.813
         },
         "PercentageDiskSpaceUsed": {
-          "avg": 24.859
+          "avg": 50.335
         },
         "DatabaseConnections": {
-          "avg": 75
+          "avg": 47
         },
         "HealthStatus": {
           "avg": 1
@@ -41,45 +41,45 @@
           "avg": 0
         },
         "ReadIOPS": {
-          "avg": 9371
+          "avg": 1135
         },
         "WriteIOPS": {
-          "avg": 8384
+          "avg": 731
         },
         "ReadLatency": {
-          "avg": 0.029
+          "avg": 0.022
         },
         "WriteLatency": {
-          "avg": 0.037
+          "avg": 0.024
         },
         "NetworkReceiveThroughput": {
-          "avg": 81276794
+          "avg": 72233489
         },
         "NetworkTransmitThroughput": {
-          "avg": 12351585
+          "avg": 41514358
         },
         "QueriesCompletedPerSecond": {
-          "avg": 14.343
+          "avg": 95.033
         }
       }
     }
   },
   "db": {
     "user": {
-      "name": "etl_user"
+      "name": "bi_service"
     },
     "name": "analytics",
-    "statement": "COPY events FROM 's3://data-lake/events/' IAM_ROLE 'arn:aws:iam::...'",
+    "statement": "INSERT INTO staging_orders SELECT * FROM raw_orders WHERE processed_at IS NULL",
     "type": "sql"
   },
   "event": {
-    "duration": 8766000000,
+    "duration": 58477000000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.redshift",
     "provider": "redshift.amazonaws.com"
   },
-  "message": "Redshift query completed in 8.77s",
+  "message": "Redshift query completed in 58.48s",
   "log": {
     "level": "info"
   },

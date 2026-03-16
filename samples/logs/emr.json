@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "emr"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "emr": {
-      "cluster_id": "j-Y3CG6EUJ0V",
-      "cluster_name": "etl-daily-aggregation-cluster",
-      "application": "hadoop",
-      "release": "emr-6.9.0",
+      "cluster_id": "j-SLMJCQCELJN",
+      "cluster_name": "log-enrichment-cluster",
+      "application": "spark",
+      "release": "emr-6.12.0",
       "instance_group": "TASK",
-      "executor_count": 24,
+      "executor_count": 53,
       "job": {
-        "name": "etl-daily-aggregation",
-        "id": "application_1773671023534_4461"
+        "name": "log-enrichment",
+        "id": "application_1773674427413_1785"
       },
-      "structured_logging": false,
+      "structured_logging": true,
       "metrics": {
-        "executor_count": 24,
-        "running_step_count": 2,
+        "executor_count": 53,
+        "running_step_count": 3,
         "failed_step_count": 0,
-        "hdfs_utilization_pct": 37,
-        "yarn_memory_used_mb": 65438
+        "hdfs_utilization_pct": 81,
+        "yarn_memory_used_mb": 48449
       }
     }
   },
@@ -41,7 +41,7 @@
     "category": "process",
     "dataset": "aws.emr",
     "provider": "elasticmapreduce.amazonaws.com",
-    "duration": 2348000000000
+    "duration": 2413000000000
   },
-  "message": "Stage 0 (Map) completed in 12.4s"
+  "message": "{\"clusterId\":\"j-SLMJCQCELJN\",\"applicationId\":\"application_1773674427413_1785\",\"containerId\":\"container_1773674427413_7290_01_236364\",\"logLevel\":\"INFO\",\"message\":\"Executor 7 registered with 4 cores and 8.0 GB RAM\",\"timestamp\":\"2026-03-16T15:20:27.243Z\",\"component\":\"executor\"}"
 }

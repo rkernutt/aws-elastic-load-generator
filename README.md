@@ -1,57 +1,18 @@
 # ⚡ AWS → Elastic Load Generator
 
-**v6** — A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **134 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
+**v7** — A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **134 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
 
 Each service has its **correct real-world ingestion source** pre-configured — S3, CloudWatch, direct API, Firehose, **OTel** (OpenTelemetry), or **Elastic Agent** — matching how each service actually delivers data to Elastic in production. You can leave **Default (per-service)** or override all services to a single ingestion method (e.g. OTel) for testing. Switch between **Logs** and **Metrics** mode; only the 42 services with Elastic metrics support are selectable in Metrics mode.
 
 ---
 
-## What's New in v6
+## What's New in v7
 
-- **Logs / Metrics toggle** — Generate either log documents or metrics documents. In Metrics mode, only the 42 services with Elastic AWS metrics support are selectable; index prefix defaults to `metrics-aws`.
-- **Official AWS service icons** — Service tiles use official AWS Architecture Icons stored locally (`public/aws-icons/`), copied from the `aws-icons` package at install time (no CDN).
-- **Sample data directory** — `samples/logs/` and `samples/metrics/` contain one sample document per service. Regenerate with `npm run samples`.
-- **Bedrock Agent & Billing** — Added Bedrock Agent and AWS Billing (logs and metrics) with Elastic integration alignment.
-- **Structured / continuous logging** — Many services (Lambda, API Gateway, RDS, ECS, EC2, EKS, Glue, EMR, SageMaker, and others) can emit JSON in the `message` field and optional metrics blocks, matching real-world continuous logging.
-- **Ingest pipeline plan** — [ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md](ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md) documents pipeline IDs, target fields, and index patterns for all services that emit parseable JSON messages; pipeline JSON files provided for Glue, Lambda, API Gateway, RDS, ECS, EMR, SageMaker.
-- **Reduced null fields** — Generated documents have `null` values stripped so output stays clean.
-- **Application rename** — Project and UI titled **AWS → Elastic Load Generator** (load, not log).
+- **Performance & anomaly-detection metrics** — Added or expanded `event.duration` and `aws.<service>.metrics` across services so you can build Elastic visualizations and run ML anomaly detection on duration, utilization, throughput, and error rates. New or expanded metrics for: SNS, Athena, SageMaker (CloudWatch-style), Fargate, AutoScaling, ImageBuilder, Amazon MQ, AppSync, Bedrock, and Bedrock Agent.
+- **Glue: skewness & observability** — Glue generator now emits `aws.glue.metrics.driver.skewness.stage` and `skewness.job` (job performance), plus JVM heap usage and disk metrics (`jvm.heap.usage`, `diskSpaceUsed_MB`, etc.) aligned with AWS Glue Observability.
+- **Performance metrics plan** — [docs/PERFORMANCE-METRICS-PLAN.md](docs/PERFORMANCE-METRICS-PLAN.md) documents which fields are emitted for dashboards and ML, and which services were updated.
 
----
-
-## What's New in v5 — Elastic integration alignment
-
-- **Data stream dataset mapping** — Services with an Elastic AWS integration use the exact `data_stream.dataset` (and index suffix) from the [Elastic integrations repo](https://github.com/elastic/integrations/tree/main/packages/aws/data_stream), so generated logs populate the correct integration dashboards and rules.
-- **Integration-backed services** — CloudTrail, VPC Flow, ALB/NLB, GuardDuty, S3 access, API Gateway, CloudFront, Lambda, Network Firewall, Security Hub, WAF, RDS, Route 53, EMR, EC2, ECS, Config, Inspector, DynamoDB, Redshift, EBS, Kinesis, MSK, SNS, SQS, Transit Gateway, VPN, AWS Health use the corresponding Elastic dataset where applicable.
-- **Services without an Elastic integration** — All other services use `data_stream.dataset: aws.<service>` and ECS-style fields so they remain searchable in custom dashboards.
-- **ECS baseline for every service** — Every document is enriched with standard ECS fields when missing; all services are searchable in ECS indices.
-
----
-
-## What's New in v4
-
-- **Realistic account names** — All documents use a consistent fictitious AWS organisation (`globex-production`, `globex-staging`, etc.) with realistic 12-digit account IDs.
-- **Focused region pool** — Regions restricted to `eu-west-2` and `us-east-1`.
-- **`event.dataset` and `event.provider`** on every document for correct routing to Elastic integration dashboards.
-- **ECS enrichment for non-integrated services** — Common ECS field groups so all services are searchable in ECS indices.
-- **`cloud.account.name`** on every document.
-
----
-
-## What's New in v3
-
-- **`cloud.account.id` + `cloud.account.name`** added to all generators.
-- **CloudWatch dimension fields** (`aws.dimensions.*`) and **CloudWatch metric fields** (`aws.*.metrics.*`) with exact CloudWatch metric names.
-- Lambda extended with full CloudWatch dimension set including `EventSourceMappingUUID` where applicable.
-
----
-
-## What's New in v2
-
-- Per-service ingestion defaults — every service defaults to its correct `input.type`.
-- Default (per-service) mode and ingestion override controls.
-- Service card badges showing effective ingestion source.
-- Override warning banner and activity log enhancement.
+Older release notes: [Version What's New Archive](#version-whats-new-archive).
 
 ---
 
@@ -468,6 +429,7 @@ For services that emit **JSON in the `message` field** (structured/continuous lo
 
 - **Plan for all services:** [ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md](ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md) — pipeline IDs, target fields, index patterns, and example JSON keys for all 23 services.
 - **Definitions and how to apply:** [ingest-pipelines/README.md](ingest-pipelines/README.md) — pipeline JSON files for Glue, Lambda, API Gateway, RDS, ECS, EMR, and SageMaker; template for the rest.
+- **Performance & anomaly detection:** [docs/PERFORMANCE-METRICS-PLAN.md](docs/PERFORMANCE-METRICS-PLAN.md) — which metrics are emitted for visualizations and ML (duration, utilization, throughput, error rates).
 
 ---
 
@@ -506,3 +468,46 @@ This project was developed with **AI-assisted tooling** for transparency:
 - **Human maintainer(s)** — You (the repo owner) remain the author and maintainer; commits and decisions are yours.
 
 See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the contributor list.
+
+---
+
+## Version What's New Archive
+
+### What's New in v6
+
+- **Logs / Metrics toggle** — Generate either log documents or metrics documents. In Metrics mode, only the 42 services with Elastic AWS metrics support are selectable; index prefix defaults to `metrics-aws`.
+- **Official AWS service icons** — Service tiles use official AWS Architecture Icons stored locally (`public/aws-icons/`), copied from the `aws-icons` package at install time (no CDN).
+- **Sample data directory** — `samples/logs/` and `samples/metrics/` contain one sample document per service. Regenerate with `npm run samples`.
+- **Bedrock Agent & Billing** — Added Bedrock Agent and AWS Billing (logs and metrics) with Elastic integration alignment.
+- **Structured / continuous logging** — Many services (Lambda, API Gateway, RDS, ECS, EC2, EKS, Glue, EMR, SageMaker, and others) can emit JSON in the `message` field and optional metrics blocks, matching real-world continuous logging.
+- **Ingest pipeline plan** — [ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md](ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md) documents pipeline IDs, target fields, and index patterns for all services that emit parseable JSON messages; pipeline JSON files provided for Glue, Lambda, API Gateway, RDS, ECS, EMR, SageMaker.
+- **Reduced null fields** — Generated documents have `null` values stripped so output stays clean.
+- **Application rename** — Project and UI titled **AWS → Elastic Load Generator** (load, not log).
+
+### What's New in v5 — Elastic integration alignment
+
+- **Data stream dataset mapping** — Services with an Elastic AWS integration use the exact `data_stream.dataset` (and index suffix) from the [Elastic integrations repo](https://github.com/elastic/integrations/tree/main/packages/aws/data_stream), so generated logs populate the correct integration dashboards and rules.
+- **Integration-backed services** — CloudTrail, VPC Flow, ALB/NLB, GuardDuty, S3 access, API Gateway, CloudFront, Lambda, Network Firewall, Security Hub, WAF, RDS, Route 53, EMR, EC2, ECS, Config, Inspector, DynamoDB, Redshift, EBS, Kinesis, MSK, SNS, SQS, Transit Gateway, VPN, AWS Health use the corresponding Elastic dataset where applicable.
+- **Services without an Elastic integration** — All other services use `data_stream.dataset: aws.<service>` and ECS-style fields so they remain searchable in custom dashboards.
+- **ECS baseline for every service** — Every document is enriched with standard ECS fields when missing; all services are searchable in ECS indices.
+
+### What's New in v4
+
+- **Realistic account names** — All documents use a consistent fictitious AWS organisation (`globex-production`, `globex-staging`, etc.) with realistic 12-digit account IDs.
+- **Focused region pool** — Regions restricted to `eu-west-2` and `us-east-1`.
+- **`event.dataset` and `event.provider`** on every document for correct routing to Elastic integration dashboards.
+- **ECS enrichment for non-integrated services** — Common ECS field groups so all services are searchable in ECS indices.
+- **`cloud.account.name`** on every document.
+
+### What's New in v3
+
+- **`cloud.account.id` + `cloud.account.name`** added to all generators.
+- **CloudWatch dimension fields** (`aws.dimensions.*`) and **CloudWatch metric fields** (`aws.*.metrics.*`) with exact CloudWatch metric names.
+- Lambda extended with full CloudWatch dimension set including `EventSourceMappingUUID` where applicable.
+
+### What's New in v2
+
+- Per-service ingestion defaults — every service defaults to its correct `input.type`.
+- Default (per-service) mode and ingestion override controls.
+- Service card badges showing effective ingestion source.
+- Override warning banner and activity log enhancement.

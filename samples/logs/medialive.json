@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "medialive"
@@ -13,30 +13,25 @@
   },
   "aws": {
     "medialive": {
-      "channel_id": "S530G0ZQVGD",
+      "channel_id": "1C7TZWRK0MS",
       "channel_name": "live-news",
-      "channel_state": "ERROR",
-      "pipeline": "PIPELINE_0",
-      "input_type": "RTMP_PUSH",
-      "output_type": "MEDIAPACKAGE",
-      "video_bitrate_kbps": 726,
-      "input_loss_frames": 571,
-      "encoder_fps": 13
+      "channel_state": "RUNNING",
+      "pipeline": "PIPELINE_1",
+      "input_type": "MEDIACONNECT",
+      "output_type": "HLS",
+      "video_bitrate_kbps": 10841,
+      "input_loss_frames": 0,
+      "encoder_fps": 30
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "process",
     "dataset": "aws.medialive",
     "provider": "medialive.amazonaws.com"
   },
-  "message": "Encoder error: resolution mismatch",
+  "message": "Input switch to backup completed",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "MediaLiveError",
-    "message": "Audio track desync detected",
-    "type": "media"
+    "level": "info"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,50 +13,55 @@
   },
   "aws": {
     "dimensions": {
-      "ProjectName": "release-build"
+      "ProjectName": "api-service-build"
     },
     "codebuild": {
-      "project_name": "release-build",
-      "build_id": "release-build:oyy93dj8-wbbh",
-      "build_status": "SUCCEEDED",
-      "current_phase": "PRE_BUILD",
-      "duration_seconds": 675,
-      "queued_duration_seconds": 37,
-      "build_number": 339,
-      "initiator": "codepipeline",
-      "source_version": "j9fejfmz4m",
+      "project_name": "api-service-build",
+      "build_id": "api-service-build:7z8soyow-jxhi",
+      "build_status": "FAILED",
+      "current_phase": "UPLOAD_ARTIFACTS",
+      "duration_seconds": 3444,
+      "queued_duration_seconds": 31,
+      "build_number": 3685,
+      "initiator": "manual",
+      "source_version": "vypzzmkae5d",
       "structured_logging": true,
       "metrics": {
         "Builds": {
           "sum": 1
         },
         "SucceededBuilds": {
-          "sum": 1
-        },
-        "FailedBuilds": {
           "sum": 0
         },
+        "FailedBuilds": {
+          "sum": 1
+        },
         "Duration": {
-          "avg": 675
+          "avg": 3444
         },
         "QueuedDuration": {
-          "avg": 9
+          "avg": 36
         },
         "BuildDuration": {
-          "avg": 675
+          "avg": 3444
         }
       }
     }
   },
   "event": {
-    "duration": 675000000000,
-    "outcome": "success",
+    "duration": 3444000000000,
+    "outcome": "failure",
     "category": "process",
     "dataset": "aws.codebuild",
     "provider": "codebuild.amazonaws.com"
   },
-  "message": "{\"buildId\":\"release-build:oyy93dj8-wbbh\",\"project\":\"release-build\",\"phase\":\"PRE_BUILD\",\"status\":\"SUCCEEDED\",\"durationSeconds\":675,\"timestamp\":\"2026-03-16T14:23:43.329Z\"}",
+  "message": "{\"buildId\":\"api-service-build:7z8soyow-jxhi\",\"project\":\"api-service-build\",\"phase\":\"UPLOAD_ARTIFACTS\",\"status\":\"FAILED\",\"durationSeconds\":3444,\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "BuildFailed",
+    "message": "CodeBuild failed at phase UPLOAD_ARTIFACTS",
+    "type": "build"
   }
 }

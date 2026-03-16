@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "iotcore"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "iotcore": {
-      "client_id": "thermostat-floor-3",
-      "thing_name": "thermostat-floor-3",
-      "thing_group": "home-devices",
+      "client_id": "camera-entrance",
+      "thing_name": "camera-entrance",
+      "thing_group": "factory-sensors",
       "action": "CONNECT",
       "topic": "dt/home/thermostat/status",
-      "protocol": "LoRaWAN",
-      "qos": 1,
-      "message_bytes": 64984,
-      "policy_name": "FleetPolicy",
-      "structured_logging": false,
-      "rules_evaluated": 1
+      "protocol": "MQTT",
+      "qos": 0,
+      "message_bytes": 36522,
+      "policy_name": "SensorPolicy",
+      "structured_logging": true,
+      "rules_evaluated": 4
     }
   },
   "source": {
-    "ip": "89.253.41.4"
+    "ip": "60.75.0.214"
   },
   "event": {
     "action": "CONNECT",
@@ -36,7 +36,7 @@
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com"
   },
-  "message": "IoT Core CONNECT: thermostat-floor-3 on dt/home/thermostat/status",
+  "message": "{\"clientId\":\"camera-entrance\",\"action\":\"CONNECT\",\"topic\":\"dt/home/thermostat/status\",\"message\":\"IoT Core CONNECT: camera-entrance on dt/home/thermostat/status\",\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
   "log": {
     "level": "info"
   }

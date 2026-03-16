@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "mediaconvert"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "mediaconvert": {
-      "job_id": "3084835720-jyldcw",
-      "queue_arn": "arn:aws:mediaconvert:us-east-1:738291046572:queues/premium",
+      "job_id": "9277209353-u87kcn",
+      "queue_arn": "arn:aws:mediaconvert:us-east-1:293847561023:queues/premium",
       "job_status": "COMPLETE",
-      "output_group_type": "HLS",
-      "input_file": "s3://uploads/user-video.mp4",
-      "input_duration_minutes": 93.4,
-      "video_codec": "AV1",
-      "audio_codec": "AAC",
+      "output_group_type": "DASH",
+      "input_file": "s3://media-input/raw/interview.mov",
+      "input_duration_minutes": 65.129,
+      "video_codec": "MPEG2",
+      "audio_codec": "MP3",
       "width": 1280,
-      "height": 1080,
-      "bitrate_kbps": 3000,
-      "duration_seconds": 220
+      "height": 720,
+      "bitrate_kbps": 1500,
+      "duration_seconds": 333
     }
   },
   "event": {
-    "duration": 220000000000,
+    "duration": 333000000000,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.mediaconvert",
     "provider": "mediaconvert.amazonaws.com"
   },
-  "message": "MediaConvert job 3084835720-jyldcw COMPLETE: 93.4 min -> HLS",
+  "message": "MediaConvert job 9277209353-u87kcn COMPLETE: 65.1 min -> DASH",
   "log": {
     "level": "info"
   }

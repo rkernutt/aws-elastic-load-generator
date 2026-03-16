@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "events"
@@ -21,22 +21,22 @@
       "rule": "cost-alert-rule",
       "source": "aws.ec2",
       "detail_type": "Health Event",
-      "targets_invoked": 1,
+      "targets_invoked": 4,
       "targets_failed": 0,
-      "event_id": "y5oo6jg1-xhgb-53yl-qqrh-nb8r719j0k",
-      "structured_logging": false,
+      "event_id": "8x8dvmdf-dc24-ncf9-8lvs-1au6s2gnvc1",
+      "structured_logging": true,
       "metrics": {
         "Invocations": {
-          "sum": 8279
+          "sum": 5325
         },
         "FailedInvocations": {
           "sum": 0
         },
         "TriggeredRules": {
-          "sum": 762
+          "sum": 351
         },
         "MatchedEvents": {
-          "sum": 9151
+          "sum": 5603
         },
         "ThrottledRules": {
           "sum": 0
@@ -52,9 +52,9 @@
     "category": "process",
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 100000000
+    "duration": 80000000
   },
-  "message": "EventBridge event routed: aws.ec2 -> cost-alert-rule",
+  "message": "{\"id\":\"8x8dvmdf-dc24-ncf9-8lvs-1au6s2gnvc1\",\"source\":\"aws.ec2\",\"detailType\":\"Object Created\",\"rule\":\"cost-alert-rule\",\"eventBus\":\"custom-events\",\"message\":\"EventBridge event routed: aws.ec2 -> cost-alert-rule\",\"timestamp\":\"2026-03-16T15:20:27.243Z\"}",
   "log": {
     "level": "info"
   }

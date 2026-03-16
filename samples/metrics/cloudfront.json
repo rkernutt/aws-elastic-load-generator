@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "cloudfront"
@@ -13,51 +13,51 @@
   },
   "aws": {
     "dimensions": {
-      "DistributionId": "EABAVKIE5LXU",
+      "DistributionId": "EX1S2O4A8XSO",
       "Region": "Global"
     },
     "cloudfront_logs": {
-      "x_edge_location": "SFO",
-      "sc_bytes": 378504,
-      "c_ip": "8.31.237.29",
+      "x_edge_location": "GRU",
+      "sc_bytes": 7865,
+      "c_ip": "114.136.46.32",
       "cs_method": "GET",
-      "cs_uri_stem": "/assets/app.js",
-      "sc_status": "200",
-      "x_edge_request_id": "ECNX10FSH6S",
-      "time_taken": "0.224",
-      "x_edge_result_type": "Miss",
-      "x_edge_response_result_type": "Hit"
+      "cs_uri_stem": "/images/hero.webp",
+      "sc_status": "503",
+      "x_edge_request_id": "KQSPVZ10DMJ",
+      "time_taken": "1.380",
+      "x_edge_result_type": "Error",
+      "x_edge_response_result_type": "Error"
     },
     "cloudfront": {
-      "distribution_id": "EABAVKIE5LXU",
-      "edge_location": "SFO",
-      "result_type": "RefreshHit",
-      "edge_request_id": "ECNX10FSH6S",
-      "time_to_first_byte": 0.224,
+      "distribution_id": "EX1S2O4A8XSO",
+      "edge_location": "GRU",
+      "result_type": "Error",
+      "edge_request_id": "KQSPVZ10DMJ",
+      "time_to_first_byte": 1.38,
       "metrics": {
         "Requests": {
-          "sum": 16405
+          "sum": 14745
         },
         "BytesDownloaded": {
-          "sum": 1944861691
+          "sum": 8737522183
         },
         "BytesUploaded": {
-          "sum": 616987
+          "sum": 41629
         },
         "4xxErrorRate": {
-          "avg": 0.395
+          "avg": 0.206
         },
         "5xxErrorRate": {
-          "avg": 0
+          "avg": 3.594
         },
         "TotalErrorRate": {
-          "avg": 0.586
+          "avg": 3.263
         },
         "CacheHitRate": {
-          "avg": 68.65
+          "avg": 37.322
         },
         "OriginLatency": {
-          "avg": 67
+          "avg": 89
         }
       }
     }
@@ -65,30 +65,35 @@
   "http": {
     "request": {
       "method": "GET",
-      "bytes": 641
+      "bytes": 908
     },
     "response": {
-      "status_code": 200,
-      "bytes": 378504
+      "status_code": 503,
+      "bytes": 7865
     }
   },
   "url": {
-    "path": "/assets/app.js",
-    "domain": "dbx0kuob5h4.cloudfront.net"
+    "path": "/images/hero.webp",
+    "domain": "dpfntx0bmmk.cloudfront.net"
   },
   "client": {
-    "ip": "8.31.237.29"
+    "ip": "114.136.46.32"
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "web",
     "dataset": "aws.cloudfront_logs",
     "provider": "cloudfront.amazonaws.com",
-    "duration": 224000000
+    "duration": 1380000000
   },
-  "message": "GET /assets/app.js 200 [SFO]",
+  "message": "GET /images/hero.webp 503 [GRU]",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "OriginError",
+    "message": "HTTP 503",
+    "type": "server"
   },
   "data_stream": {
     "type": "metrics",

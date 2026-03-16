@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "backup"
@@ -13,12 +13,12 @@
   },
   "aws": {
     "backup": {
-      "backup_job_id": "4w4puiej-ystb-3xvh",
-      "backup_plan_name": "weekly-cold",
-      "resource_type": "DynamoDB",
-      "backup_vault_name": "prod-vault",
+      "backup_job_id": "i60u1msn-i5qv-e09f",
+      "backup_plan_name": "daily-backup-plan",
+      "resource_type": "RDS",
+      "backup_vault_name": "Default",
       "status": "COMPLETED",
-      "backup_size_gb": 1092.808,
+      "backup_size_gb": 1357.147,
       "lifecycle_delete_after_days": 7
     }
   },
@@ -27,9 +27,9 @@
     "category": "file",
     "dataset": "aws.backup",
     "provider": "backup.amazonaws.com",
-    "duration": 2637000000000
+    "duration": 732000000000
   },
-  "message": "AWS Backup COMPLETED: ec2/i-prod -> Default (1092.8GB)",
+  "message": "AWS Backup COMPLETED: dynamodb/users-table -> Default (1357.1GB)",
   "log": {
     "level": "info"
   }

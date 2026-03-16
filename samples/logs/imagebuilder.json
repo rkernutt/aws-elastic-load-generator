@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,28 +13,42 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "windows-hardened",
-      "Phase": "DEPROVISION"
+      "PipelineName": "container-base-pipeline",
+      "Phase": "DISTRIBUTE"
     },
     "imagebuilder": {
-      "pipeline_name": "windows-hardened",
-      "image_version": "2.17.6/1",
-      "phase": "DEPROVISION",
+      "pipeline_name": "container-base-pipeline",
+      "image_version": "2.14.6/1",
+      "phase": "DISTRIBUTE",
       "phase_status": "COMPLETED",
-      "duration_seconds": 1285,
+      "duration_seconds": 1570,
       "os": "RHEL 9",
-      "recipe_name": "web-server-recipe",
-      "ami_id": "ami-gwtwvf7x"
+      "recipe_name": "docker-host",
+      "ami_id": "ami-f7de6q82",
+      "metrics": {
+        "BuildDuration": {
+          "avg": 1570
+        },
+        "ImageBuildSuccessCount": {
+          "sum": 1
+        },
+        "ImageBuildFailureCount": {
+          "sum": 0
+        },
+        "ComponentBuildDuration": {
+          "avg": 665
+        }
+      }
     }
   },
   "event": {
-    "duration": 1285000000000,
+    "duration": 1570000000000,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.imagebuilder",
     "provider": "imagebuilder.amazonaws.com"
   },
-  "message": "Image Builder windows-hardened DEPROVISION COMPLETED in 1285s",
+  "message": "Image Builder container-base-pipeline DISTRIBUTE COMPLETED in 1570s",
   "log": {
     "level": "info"
   }

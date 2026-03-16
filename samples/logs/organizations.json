@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "organizations"
@@ -13,20 +13,23 @@
   },
   "aws": {
     "organizations": {
-      "action": "CreateAccount",
-      "account_id": "814726593401",
+      "action": "AttachPolicy",
+      "account_id": "501938274650",
       "account_name": "shared-services",
-      "organizational_unit": "Production"
+      "organizational_unit": "Security",
+      "policy_id": "p-20hyeswl",
+      "policy_type": "SERVICE_CONTROL_POLICY",
+      "policy_name": "TagCompliance"
     }
   },
   "event": {
-    "action": "CreateAccount",
+    "action": "AttachPolicy",
     "outcome": "success",
     "category": "iam",
     "dataset": "aws.organizations",
     "provider": "organizations.amazonaws.com"
   },
-  "message": "Organizations CreateAccount: Security",
+  "message": "Organizations AttachPolicy: Sandbox",
   "log": {
     "level": "info"
   }

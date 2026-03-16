@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "xray"
@@ -17,57 +17,62 @@
       "ServiceType": "AWS::EC2::Instance"
     },
     "xray": {
-      "trace_id": "1-69b8126f-e66e0fjvfr6",
-      "segment_id": "y4trm4uvfx",
-      "parent_id": "4kz5ozb1k5",
+      "trace_id": "1-69b81fbb-k0ekz8yo0k",
+      "segment_id": "hhff4o15j76",
+      "parent_id": "x4kl1an6z9b",
       "service": {
-        "name": "cache-layer",
-        "type": "client"
+        "name": "db-proxy",
+        "type": "AWS::Lambda::Function"
       },
-      "duration": 4.285,
+      "duration": 4.679,
       "http": {
         "request": {
-          "method": "PUT",
+          "method": "POST",
           "url": "/api/v1/auth/login"
         },
         "response": {
-          "status": 201
+          "status": 503
         }
       },
-      "fault": false,
+      "fault": true,
       "annotations": {
         "env": "prod",
-        "version": "v12"
+        "version": "v6"
       },
       "metrics": {
         "ErrorRate": {
-          "avg": 0.604
+          "avg": 11.349
         },
         "FaultRate": {
-          "avg": 0.14
+          "avg": 11.654
         },
         "ThrottleRate": {
-          "avg": 1.555
+          "avg": 0.109
         },
         "TotalCount": {
-          "sum": 1612
+          "sum": 3054
         },
         "Latency": {
-          "avg": 4285,
-          "p99": 12855
+          "avg": 4679,
+          "p99": 14037
         }
       }
     }
   },
   "event": {
-    "duration": 4285000000,
-    "outcome": "success",
+    "duration": 4679000000,
+    "outcome": "failure",
     "category": "network",
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray trace: cache-layer 4.285s",
+  "message": "X-Ray trace FAULT: db-proxy 4.679s [503]",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "TraceFault",
+    "message": "Trace fault: HTTP 503",
+    "type": "trace"
   }
 }

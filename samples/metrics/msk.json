@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "msk"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "Cluster Name": "prod-kafka-us-east-1",
-      "Broker ID": "2",
-      "Topic": "notifications"
+      "Cluster Name": "prod-kafka-eu-west-2",
+      "Broker ID": "5",
+      "Topic": "inventory-changes"
     },
     "msk": {
-      "cluster_name": "prod-kafka-us-east-1",
-      "broker_id": 2,
+      "cluster_name": "prod-kafka-eu-west-2",
+      "broker_id": 5,
       "kafka_version": "3.5.1",
-      "topic": "notifications",
-      "partition": 14,
-      "offset": 77720441,
-      "consumer_group": "alerting-service",
-      "lag": 34,
+      "topic": "inventory-changes",
+      "partition": 2,
+      "offset": 13981182,
+      "consumer_group": "analytics-consumer",
+      "lag": 71,
       "under_replicated_partitions": 0,
       "metrics": {
         "BytesInPerSec": {
-          "avg": 1227338
+          "avg": 5962598
         },
         "BytesOutPerSec": {
-          "avg": 3766825
+          "avg": 5098228
         },
         "MessagesInPerSec": {
-          "avg": 10718
+          "avg": 23182
         },
         "UnderReplicatedPartitions": {
           "avg": 0
@@ -47,38 +47,38 @@
           "avg": 1
         },
         "LeaderCount": {
-          "avg": 2
+          "avg": 64
         },
         "NetworkProcessorAvgIdlePercent": {
-          "avg": 46.835
+          "avg": 80.457
         },
         "RequestHandlerAvgIdlePercent": {
-          "avg": 82.574
+          "avg": 36.984
         },
         "KafkaDataLogsDiskUsed": {
-          "avg": 48.306
+          "avg": 18.99
         },
         "CpuUser": {
-          "avg": 45.507
+          "avg": 41.783
         },
         "MemoryFree": {
-          "avg": 7286794026
+          "avg": 3999143672
         }
       }
     }
   },
   "kafka": {
-    "topic": "notifications",
-    "partition": 14
+    "topic": "inventory-changes",
+    "partition": 2
   },
   "event": {
     "outcome": "success",
     "category": "process",
     "dataset": "aws.msk",
     "provider": "kafka.amazonaws.com",
-    "duration": 13000000
+    "duration": 62000000
   },
-  "message": "MSK notifications[14] offset=74207002",
+  "message": "MSK inventory-changes[2] offset=52465754",
   "log": {
     "level": "info"
   },

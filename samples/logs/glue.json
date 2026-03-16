@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "glue"
@@ -13,62 +13,111 @@
   },
   "aws": {
     "dimensions": {
-      "JobName": "data-quality",
-      "JobRunId": "jr_zt21vbs4oza",
-      "Type": "pythonshell"
+      "JobName": "incremental-sync",
+      "JobRunId": "jr_lxvm3l9swvc",
+      "Type": "glueetl"
     },
     "glue": {
       "job": {
-        "name": "data-quality",
-        "run_id": "jr_zt21vbs4oza",
-        "type": "pythonshell",
+        "name": "incremental-sync",
+        "run_id": "jr_lxvm3l9swvc",
+        "type": "glueetl",
         "run_state": "SUCCEEDED"
       },
-      "database": "curated",
-      "table": "users",
-      "dpu_seconds": 22480,
+      "database": "staging",
+      "table": "transactions",
+      "dpu_seconds": 2466,
       "worker": {
         "type": "G.1X",
-        "count": 20
+        "count": 2
       },
       "records": {
-        "read": 34552120,
-        "written": 34206598,
+        "read": 764371,
+        "written": 756727,
         "errors": 0
       },
       "glue_version": "4.0",
+      "crawler_name": "curated-crawler",
       "connection_name": "s3-data",
-      "continuous_logging": false,
+      "continuous_logging": true,
       "metrics": {
         "driver": {
           "aggregate": {
-            "numRecords": 34552120,
+            "numRecords": 764371,
             "numFailedRecords": 0
+          },
+          "memory": {
+            "heap": {
+              "available": 1536282450,
+              "used": 539774915,
+              "used_percentage": 26
+            },
+            "non-heap": {
+              "available": 217074392,
+              "used": 106881806,
+              "used_percentage": 36
+            }
+          },
+          "jvm": {
+            "heap": {
+              "usage": 0.26
+            }
+          },
+          "disk": {
+            "available_GB": 875,
+            "used_GB": 393,
+            "used_percentage": 31,
+            "diskSpaceUsed_MB": 592
           },
           "BlockManager": {
             "disk": {
-              "diskSpaceUsed_MB": 422
+              "diskSpaceUsed_MB": 1657
             }
+          },
+          "workerUtilization": 0.6,
+          "skewness": {
+            "stage": 1.412,
+            "job": 0.032
           }
         },
         "executor": {
           "aggregate": {
-            "numCompletedTasks": 175,
+            "numCompletedTasks": 193,
             "numFailedTasks": 0
+          }
+        },
+        "ALL": {
+          "memory": {
+            "heap": {
+              "available": 14306747822,
+              "used": 2081096143,
+              "used_percentage": 39
+            },
+            "non-heap": {
+              "available": 221381273,
+              "used": 84615391,
+              "used_percentage": 31
+            }
+          },
+          "disk": {
+            "available_GB": 212,
+            "used_GB": 108,
+            "used_percentage": 29,
+            "diskSpaceUsed_MB": 3949
           }
         }
       }
     }
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "event": {
-    "duration": 3296000000000,
+    "duration": 3462000000000,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.glue",
     "provider": "glue.amazonaws.com"
   },
-  "message": "DPU utilization at 94%"
+  "message": "{\"jobName\":\"incremental-sync\",\"jobRunId\":\"jr_lxvm3l9swvc\",\"level\":\"INFO\",\"message\":\"Bookmark updated: processed up to offset 9823741\",\"timestamp\":\"2026-03-16T15:20:27.243Z\",\"thread\":\"driver-zp0jhikb\",\"logger\":\"org.apache.spark\"}"
 }

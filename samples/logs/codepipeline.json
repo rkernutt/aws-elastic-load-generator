@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "codepipeline"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "web-prod-pipeline"
+      "PipelineName": "hotfix-pipeline"
     },
     "codepipeline": {
-      "pipeline_name": "web-prod-pipeline",
-      "pipeline_arn": "arn:aws:codepipeline:us-east-1:814726593401:web-prod-pipeline",
-      "execution_id": "oor5ny3k-mmgr-wvnx-xhq5-nzx3jty8fhs",
+      "pipeline_name": "hotfix-pipeline",
+      "pipeline_arn": "arn:aws:codepipeline:us-east-1:738291046572:hotfix-pipeline",
+      "execution_id": "9nrjh95w-vtie-frhh-va08-oirvryivjg",
       "stage_name": "Source",
-      "action_name": "Manual",
+      "action_name": "Deploy",
       "state": "Succeeded",
-      "revision_id": "mdqd12rl4yk",
-      "structured_logging": true,
+      "revision_id": "crpf0uczklr",
+      "structured_logging": false,
       "metrics": {
         "PipelineExecutionAttempts": {
           "sum": 1
@@ -51,9 +51,9 @@
     "category": "process",
     "dataset": "aws.codepipeline",
     "provider": "codepipeline.amazonaws.com",
-    "duration": 116000000000
+    "duration": 21000000000
   },
-  "message": "{\"pipeline\":\"web-prod-pipeline\",\"executionId\":\"oor5ny3k-mmgr-wvnx-xhq5-nzx3jty8fhs\",\"stage\":\"Source\",\"state\":\"Succeeded\",\"timestamp\":\"2026-03-16T14:23:43.329Z\"}",
+  "message": "CodePipeline hotfix-pipeline SUCCEEDED",
   "log": {
     "level": "info"
   }

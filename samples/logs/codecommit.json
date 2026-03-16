@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T14:23:43.329Z",
+  "@timestamp": "2026-03-16T15:20:27.243Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "codecommit"
@@ -13,29 +13,28 @@
   },
   "aws": {
     "codecommit": {
-      "repository_name": "ml-models",
-      "repository_arn": "arn:aws:codecommit:us-east-1:164820739518:ml-models",
-      "event_type": "PullRequestCreated",
-      "reference_name": "main",
-      "commit_id": "5r0njvdvuw",
+      "repository_name": "api-service",
+      "repository_arn": "arn:aws:codecommit:eu-west-2:501938274650:api-service",
+      "event_type": "ReferenceDeleted",
+      "reference_name": "hotfix/payment-bug",
+      "commit_id": "e2dndkms5es",
       "author": "alice",
-      "files_changed": 13,
-      "lines_added": 111,
-      "lines_deleted": 91,
-      "pull_request_id": "297"
+      "files_changed": 23,
+      "lines_added": 436,
+      "lines_deleted": 183
     }
   },
   "user": {
-    "name": "alice"
+    "name": "bob"
   },
   "event": {
-    "action": "PullRequestCreated",
+    "action": "ReferenceDeleted",
     "outcome": "success",
     "category": "process",
     "dataset": "aws.codecommit",
     "provider": "codecommit.amazonaws.com"
   },
-  "message": "CodeCommit PullRequestCreated: ml-models/main",
+  "message": "CodeCommit ReferenceDeleted: api-service/hotfix/payment-bug",
   "log": {
     "level": "info"
   }
