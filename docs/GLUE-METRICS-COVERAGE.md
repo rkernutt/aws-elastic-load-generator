@@ -1,5 +1,7 @@
 # Glue Metrics & Logs Coverage vs AWS Documentation
 
+> **Last updated:** 2026-03-17 (v7.5)
+
 This document maps the load generator’s Glue events to the official AWS Glue monitoring docs so you can see what’s covered and what’s optional or out of scope.
 
 **References:**

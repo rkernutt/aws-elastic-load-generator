@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import K from "./theme/index.js";
-import { rand, randInt, randIp, randId, randUUID, randAccount, randTs, REGIONS, USER_AGENTS, HTTP_METHODS, HTTP_PATHS, stripNulls } from "./helpers/index.js";
+import { rand, randInt, randIp, randId, randAccount, randTs, REGIONS, USER_AGENTS, HTTP_PATHS, stripNulls } from "./helpers/index.js";
 import { GENERATORS } from "./generators/index.js";
 import { ELASTIC_DATASET_MAP, ELASTIC_METRICS_DATASET_MAP, METRICS_SUPPORTED_SERVICE_IDS } from "./data/elasticMaps.js";
 import { SERVICE_INGESTION_DEFAULTS, INGESTION_META } from "./data/ingestion.js";
@@ -16,7 +16,10 @@ import styles from "./App.module.css";
 const LS_KEY = "awsElasticConfig";
 
 const savedConfig = (() => {
-  try { return JSON.parse(localStorage.getItem(LS_KEY) || "{}"); } catch { return {}; }
+  try { return JSON.parse(localStorage.getItem(LS_KEY) || "{}"); } catch (e) {
+    if (import.meta.env.DEV) console.warn("[LS] Failed to read saved config:", e);
+    return {};
+  }
 })();
 
 export default function App() {
@@ -50,7 +53,9 @@ export default function App() {
         elasticUrl, apiKey, logsIndexPrefix, metricsIndexPrefix,
         logsPerService, errorRate, batchSize, batchDelayMs, ingestionSource, eventType,
       }));
-    } catch { /* storage not available */ }
+    } catch (e) {
+      if (import.meta.env.DEV) console.warn("[LS] Failed to save config:", e);
+    }
   }, [elasticUrl, apiKey, logsIndexPrefix, metricsIndexPrefix, logsPerService, errorRate, batchSize, batchDelayMs, ingestionSource, eventType]);
 
   const clearSavedConfig = () => {
@@ -192,52 +197,70 @@ export default function App() {
         "x-elastic-url": url,
         "x-elastic-key": apiKey,
       };
-      const endDate = new Date(); const startDate = new Date(endDate.getTime()-86400000);
-      let totalSent=0, totalErrors=0;
+      const endDate = new Date();
+      const startDate = new Date(endDate.getTime() - 86400000);
       const totalLogs = selectedServices.length * logsPerService;
-      setProgress({sent:0,total:totalLogs,errors:0});
-      const eventLabel = eventType === "metrics" ? "metrics" : "logs";
-      addLog(`Starting: ${totalLogs.toLocaleString()} ${eventLabel} across ${selectedServices.length} service(s)`);
-      const effectivePrefix = indexPrefix;
-      for (const svc of selectedServices) {
-        if (abortRef.current) break;
+      setProgress({ sent:0, total:totalLogs, errors:0 });
+      addLog(`Starting: ${totalLogs.toLocaleString()} ${eventType === "metrics" ? "metrics" : "logs"} across ${selectedServices.length} service(s)`);
+      let totalSent = 0, totalErrors = 0;
+
+      /** Ships all batches for a single service. Returns { sent, errors }. */
+      const shipService = async (svc) => {
         const dataset = eventType === "metrics"
           ? (ELASTIC_METRICS_DATASET_MAP[svc] ?? ELASTIC_DATASET_MAP[svc] ?? `aws.${svc}`)
           : (ELASTIC_DATASET_MAP[svc] || `aws.${svc}`);
-        const indexSuffix = dataset.replace(/^aws\./, "");
-        const gen = GENERATORS[svc]; const indexName = `${effectivePrefix}.${indexSuffix}`;
+        const indexName = `${indexPrefix}.${dataset.replace(/^aws\./, "")}`;
         const src = getEffectiveSource(svc);
-        addLog(`▶ ${svc} → ${indexName} [${INGESTION_META[src]?.label||src}]`, "info");
-        const allDocs = Array.from({length:logsPerService}, () => stripNulls(enrichDoc(gen(randTs(startDate,endDate), errorRate), svc, src, eventType)));
-        let batchNum = 0;
-        for (let i=0; i<allDocs.length; i+=batchSize) {
+        addLog(`▶ ${svc} → ${indexName} [${INGESTION_META[src]?.label || src}]`, "info");
+        const allDocs = Array.from({ length: logsPerService }, () =>
+          stripNulls(enrichDoc(GENERATORS[svc](randTs(startDate, endDate), errorRate), svc, src, eventType))
+        );
+        let svcSent = 0, svcErrors = 0, batchNum = 0;
+        for (let i = 0; i < allDocs.length; i += batchSize) {
           if (abortRef.current) break;
           batchNum++;
-          const batch = allDocs.slice(i, i+batchSize);
-          const ndjson = batch.flatMap(doc => [JSON.stringify({create:{_index:indexName}}), JSON.stringify(doc)]).join("\n")+"\n";
+          const batch = allDocs.slice(i, i + batchSize);
+          const ndjson = batch.flatMap(doc => [JSON.stringify({ create:{ _index:indexName } }), JSON.stringify(doc)]).join("\n") + "\n";
           try {
-            const res  = await fetch(`/proxy/_bulk`, {method:"POST",headers,body:ndjson});
+            const res  = await fetch(`/proxy/_bulk`, { method:"POST", headers, body:ndjson });
             const json = await res.json();
-            if (!res.ok) { totalErrors+=batch.length; addLog(`  ✗ batch ${batchNum} failed: ${json.error?.reason||res.status}`,"error"); }
-            else {
-              const failedItems = json.items?.filter(i=>i.create?.error||i.index?.error)||[];
+            if (!res.ok) {
+              svcErrors += batch.length;
+              addLog(`  ✗ batch ${batchNum} failed: ${json.error?.reason || res.status}`, "error");
+            } else {
+              const failedItems = json.items?.filter(i => i.create?.error || i.index?.error) || [];
               const errs = failedItems.length;
-              totalErrors+=errs; totalSent+=batch.length-errs;
+              svcErrors += errs;
+              svcSent += batch.length - errs;
               if (errs > 0) {
                 const firstErr = failedItems[0]?.create?.error || failedItems[0]?.index?.error;
-                addLog(`  ✗ batch ${batchNum}: ${errs} errors — ${firstErr?.type}: ${firstErr?.reason?.substring(0,120)}`,"warn");
+                addLog(`  ✗ batch ${batchNum}: ${errs} errors — ${firstErr?.type}: ${firstErr?.reason?.substring(0, 120)}`, "warn");
               } else {
                 addLog(`  ✓ batch ${batchNum}: ${batch.length} indexed`, "ok");
               }
             }
-          } catch(e) { totalErrors+=batch.length; addLog(`  ✗ network error: ${e.message}`,"error"); }
-          setProgress({sent:totalSent,total:totalLogs,errors:totalErrors});
-          if (batchDelayMs > 0) await new Promise(r=>setTimeout(r, batchDelayMs));
+          } catch(e) {
+            svcErrors += batch.length;
+            addLog(`  ✗ network error: ${e.message}`, "error");
+          }
+          setProgress({ sent: totalSent + svcSent, total: totalLogs, errors: totalErrors + svcErrors });
+          if (batchDelayMs > 0) await new Promise(r => setTimeout(r, batchDelayMs));
         }
-        addLog(`✓ ${svc} complete`,"ok");
+        addLog(`✓ ${svc} complete`, "ok");
+        return { sent: svcSent, errors: svcErrors };
+      };
+
+      for (const svc of selectedServices) {
+        if (abortRef.current) break;
+        const { sent, errors } = await shipService(svc);
+        totalSent += sent;
+        totalErrors += errors;
       }
-      setStatus(abortRef.current?"aborted":"done");
-      addLog(abortRef.current?`Aborted. ${totalSent} shipped.`:`Done! ${totalSent.toLocaleString()} indexed, ${totalErrors} errors.`, totalErrors>0?"warn":"ok");
+      setStatus(abortRef.current ? "aborted" : "done");
+      addLog(
+        abortRef.current ? `Aborted. ${totalSent} shipped.` : `Done! ${totalSent.toLocaleString()} indexed, ${totalErrors} errors.`,
+        totalErrors > 0 ? "warn" : "ok"
+      );
     } catch(fatal) {
       setStatus("done");
       addLog(`Fatal error: ${fatal.message}`, "error");

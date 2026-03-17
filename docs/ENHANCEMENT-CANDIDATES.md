@@ -1,6 +1,10 @@
 # Services to Review for Further Enhancements
 
+> **Last updated:** 2026-03-17 (v7.5)
+
 This document lists services that could benefit from **Glue-style enhancements**: explicit job/run lifecycle signals in logs, richer observability metrics (CloudWatch/Spark-style), and framework-specific log message patterns. Use it to prioritize which generators to extend next.
+
+**Implemented in v7.5:** `event.duration` added to all IoT, management, end-user, and storage generators. Lambda START/END/REPORT log events. RDS Enhanced Monitoring OS metrics (`cpuUtilization`, `memory`, `disk`, `network`). See README “What’s New in v7.5”.
 
 **Implemented in v7.4:** EMR (run_state, message pool, metrics), Batch (message pool, elapsedTime/Duration), DataBrew (run_state, message pool, metrics), AppFlow (message pool, metrics), CodeBuild (Build started/succeeded/failed + phase-level messages), Athena (Query started/succeeded/failed), and SageMaker (job-type lifecycle messages: Training/Processing/Endpoint/Pipeline/Transform/HyperparameterTuning). See [IMPROVEMENT-SUGGESTIONS.md](IMPROVEMENT-SUGGESTIONS.md) and README “What’s New in v7.4”.
 

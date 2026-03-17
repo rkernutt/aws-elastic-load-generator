@@ -1,5 +1,7 @@
 # Performance & anomaly-detection metrics plan
 
+> **Last updated:** 2026-03-17 (v7.5)
+
 This document guides which fields the load generator emits so you can:
 
 - **Measure performance** — duration, latency (avg/p99), throughput, utilization %

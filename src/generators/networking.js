@@ -210,7 +210,7 @@ function generateWafLog(ts, er) {
     "http": { request:{ method:rand(HTTP_METHODS), bytes:randInt(100,10000) }, uri },
     "client": { ip:clientIp },
     "user_agent": { original:ua },
-    "event": { action:isBlock?"block":"allow", outcome:isBlock?"failure":"success", category:"intrusion_detection", dataset:"aws.waf", provider:"wafv2.amazonaws.com" },
+    "event": { action:isBlock?"block":"allow", outcome:isBlock?"failure":"success", category:"intrusion_detection", dataset:"aws.waf", provider:"wafv2.amazonaws.com", duration:randInt(1,isBlock?500:50)*1e6 },
     "message": `WAF ${isBlock?"BLOCKED":"ALLOWED"} request - Rule: ${rule}`,
     "log": { level:isBlock?"warn":"info" },
     ...(isBlock ? { error: { code: "WAFBlock", message: `Request blocked by rule: ${rule}`, type: "security" } } : {})
@@ -300,7 +300,7 @@ function generateNetworkFirewallLog(ts, er) {
     "source": { ip:srcIp, port:srcPort },
     "destination": { ip:dstIp, port:dstPort },
     "network": { transport:PROTOCOLS[proto]?.toLowerCase()||"tcp", bytes:randInt(64,65535), packets:randInt(1,50) },
-    "event": { action:action.toLowerCase(), outcome:action==="PASS"?"success":"failure", category:"network", dataset:"aws.firewall_logs", provider:"network-firewall.amazonaws.com" },
+    "event": { action:action.toLowerCase(), outcome:action==="PASS"?"success":"failure", category:"network", dataset:"aws.firewall_logs", provider:"network-firewall.amazonaws.com", duration:randInt(1,action==="DROP"?200:50)*1e6 },
     "message": `${action} ${PROTOCOLS[proto]||"TCP"} flow`,
     "log": { level:action==="DROP"?"warn":"info" },
     ...(action === "DROP" ? { error: { code: "FlowDropped", message: "Packet dropped by firewall rule", type: "network" } } : {})
@@ -330,7 +330,7 @@ function generateShieldLog(ts, er) {
       }
     },
     "network": { bytes:randInt(1e6,1e9), packets:randInt(1000,1000000) },
-    "event": { action:isAttack?"ddos_detected":"health_check", outcome:isAttack?"failure":"success", category:"network", dataset:"aws.shield", provider:"shield.amazonaws.com" },
+    "event": { action:isAttack?"ddos_detected":"health_check", outcome:isAttack?"failure":"success", category:"network", dataset:"aws.shield", provider:"shield.amazonaws.com", duration:randInt(1,isAttack?3600:60)*1e9 },
     "message": isAttack ? `DDoS attack detected: ${rand(vectors)} at ${randFloat(1,120)}Gbps - mitigation active` : `Shield health check: protected resource OK`,
     "log": { level:isAttack?"warn":"info" },
     ...(isAttack ? { error: { code: "DDoSAttack", message: `Attack vector: ${rand(vectors)} - mitigation active`, type: "network" } } : {})
@@ -540,7 +540,7 @@ function generateVpcFlowLog(ts, er) {
     "source": { ip:src, port:randInt(1024,65535) },
     "destination": { ip:dst, port:dstPort },
     "network": { transport:PROTOCOLS[proto]?.toLowerCase()||"tcp", bytes, packets:pkts, direction:rand(["inbound","outbound"]) },
-    "event": { action:action.toLowerCase(), outcome:action==="ACCEPT"?"success":"failure", category:"network", dataset:"aws.vpcflow", provider:"ec2.amazonaws.com" },
+    "event": { action:action.toLowerCase(), outcome:action==="ACCEPT"?"success":"failure", category:"network", dataset:"aws.vpcflow", provider:"ec2.amazonaws.com", duration:randInt(1,500)*1e6 },
     "message": `${action} ${PROTOCOLS[proto]||"TCP"} ${src}:${randInt(1024,65535)} -> ${dst}:${dstPort} ${bytes}B ${pkts}pkts`,
     "log": { level:action==="REJECT"?"warn":"info" },
     ...(action === "REJECT" ? { error: { code: "FlowRejected", message: "Security group or ACL rejected flow", type: "network" } } : {})

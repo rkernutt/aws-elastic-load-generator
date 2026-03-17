@@ -22,6 +22,16 @@ export const ACCOUNTS = [
 export const randAccount = () => rand(ACCOUNTS);
 export const randUUID = () => `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase();
 
+/**
+ * Returns common per-document setup values used by every generator.
+ * DRYs up the `region / acct / isErr` boilerplate across all 136 generators.
+ * @param {number} er - Error rate in [0,1].
+ * @returns {{ region: string, acct: {id:string,name:string}, isErr: boolean }}
+ */
+export function makeSetup(er) {
+  return { region: rand(REGIONS), acct: randAccount(), isErr: Math.random() < er };
+}
+
 /** Recursively remove object keys whose value is null so output has no pointless null fields. */
 export function stripNulls(obj) {
   if (obj === null || typeof obj !== "object") return obj;

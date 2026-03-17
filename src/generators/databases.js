@@ -340,9 +340,48 @@ function generateRdsLog(ts, er) {
   const qt = parseFloat(randFloat(0.001, isErr?30:2)); const dbUser = rand(["appuser","readonly","admin","replica"]);
   const instanceId = `prod-db-${rand(["primary","replica","analytics"])}`;
   const engine = rand(["mysql","postgres","aurora-mysql"]);
-  const plainMessage = isErr ? rand(["ERROR 1045: Access denied","FATAL: role does not exist","ERROR 1213: Deadlock found"]) : `Query executed in ${qt}s by ${dbUser}`;
   const useEnhancedMonitoring = Math.random() < 0.55;
-  const message = useEnhancedMonitoring ? JSON.stringify({ instanceId, engine, userId: dbUser, queryTime: qt, error: isErr ? plainMessage : null, timestamp: new Date(ts).toISOString() }) : plainMessage;
+
+  // Enhanced Monitoring (RDSOSMetrics) — OS-level metrics published every 1–60 s
+  const osMetrics = useEnhancedMonitoring ? {
+    cpuUtilization: {
+      guest:  parseFloat(randFloat(0, 2)),
+      irq:    parseFloat(randFloat(0, 1)),
+      system: parseFloat(randFloat(0.5, isErr?30:10)),
+      wait:   parseFloat(randFloat(0, isErr?20:5)),
+      idle:   parseFloat(randFloat(isErr?10:40, 95)),
+      user:   parseFloat(randFloat(1, isErr?60:40)),
+      total:  parseFloat(randFloat(5, isErr?90:60)),
+    },
+    memory: {
+      total:     randInt(4e9, 64e9),
+      free:      randInt(isErr?100e6:1e9, 8e9),
+      cached:    randInt(500e6, 8e9),
+      active:    randInt(1e9, 16e9),
+      inactive:  randInt(500e6, 4e9),
+      buffers:   randInt(50e6, 500e6),
+    },
+    disk: {
+      readIOsPS:    parseFloat(randFloat(0, 3000)),
+      writeIOsPS:   parseFloat(randFloat(0, 3000)),
+      readKbPS:     parseFloat(randFloat(0, 512000)),
+      writeKbPS:    parseFloat(randFloat(0, 512000)),
+      avgQueueLen:  parseFloat(randFloat(0, isErr?64:8)),
+      await:        parseFloat(randFloat(0.1, isErr?200:20)),
+    },
+    network: {
+      rx: randInt(0, 100e6),
+      tx: randInt(0, 100e6),
+    },
+    numVCPUs: rand([2,4,8,16,32,64]),
+    uptime: `${randInt(0,99)} days, ${randInt(0,23)}:${randInt(0,59).toString().padStart(2,"0")}:${randInt(0,59).toString().padStart(2,"0")}`,
+  } : null;
+
+  const plainMessage = isErr ? rand(["ERROR 1045: Access denied","FATAL: role does not exist","ERROR 1213: Deadlock found"]) : `Query executed in ${qt}s by ${dbUser}`;
+  const message = useEnhancedMonitoring
+    ? JSON.stringify({ instanceId, engine, userId: dbUser, queryTime: qt, error: isErr ? plainMessage : null, timestamp: new Date(ts).toISOString(), osMetrics })
+    : plainMessage;
+
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"rds" } },
@@ -352,6 +391,7 @@ function generateRdsLog(ts, er) {
         instance_id: instanceId, engine, engine_version: engine==="postgres"?"15.4":engine==="mysql"?"8.0.34":"8.0.mysql_aurora.3.04.0",
         query_time: qt,
         enhanced_monitoring: useEnhancedMonitoring,
+        os_metrics: osMetrics,
         metrics: {
           CPUUtilization: { avg: parseFloat(randFloat(1, isErr?95:60)) },
           DatabaseConnections: { avg: randInt(5, isErr?500:200) },

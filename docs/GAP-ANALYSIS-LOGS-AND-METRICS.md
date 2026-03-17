@@ -1,6 +1,10 @@
 # Gap Analysis: Complete Logs and Metrics for All Services
 
+> **Last updated:** 2026-03-17 (v7.5)
+
 This document compares what the **AWS → Elastic Load Generator** currently emits per service with what is needed for **complete** logs and metrics as defined by **Elastic AWS integration** and **AWS service documentation**. Use it to prioritize additions (fields, message types, metrics) for full fidelity in Elastic dashboards, rules, and ML.
+
+**v7.5 update:** `event.duration` gap is now closed across all 136 generators. RDS Enhanced Monitoring gap is addressed with full `os_metrics` block. Lambda START/END/REPORT gap is addressed.
 
 **Sources of truth:**
 

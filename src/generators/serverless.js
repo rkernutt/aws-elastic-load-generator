@@ -16,22 +16,40 @@ function generateLambdaLog(ts, er) {
   const fn = rand(["user-auth","payment-processor","image-resizer","notification-sender","data-pipeline","api-handler"]);
   const region = rand(REGIONS);
   const acct = randAccount();
-  const level = Math.random() < er ? "ERROR" : Math.random() < 0.15 ? "WARN" : Math.random() < 0.1 ? "DEBUG" : "INFO";
+  const isErr = Math.random() < er;
+  const level = isErr ? "ERROR" : Math.random() < 0.15 ? "WARN" : Math.random() < 0.1 ? "DEBUG" : "INFO";
   const rid = randUUID();
   const dur = parseFloat(randFloat(1, 3000));
+  const billedDur = Math.ceil(dur / 100) * 100;
   const memSize = rand([128,256,512,1024,2048,3008]);
   const memUsed = randInt(Math.floor(memSize*0.2), memSize);
   const invocations = randInt(1, 500);
-  const errors = level === "ERROR" ? randInt(1, Math.max(1, Math.floor(invocations * er))) : 0;
+  const errors = isErr ? randInt(1, Math.max(1, Math.floor(invocations * er))) : 0;
   const throttles = Math.random() < 0.05 ? randInt(1, 10) : 0;
   const hasMapping = Math.random() > 0.5;
+  const isColdStart = Math.random() < 0.05;
+  const initDur = isColdStart ? parseFloat(randFloat(50, 800)) : null;
   const MSGS = { INFO:["Request received","Processing complete","Cache hit","Event processed"],WARN:["Retry attempt 1/3","Memory usage at 80%","Slow query detected"],ERROR:["Unhandled exception","DB connection refused","Timeout after 30000ms"],DEBUG:["Entering handler","Parsed request body","Exiting with status 200"] };
   const logGroup = `/aws/lambda/${fn}`;
   const logStream = `${new Date(ts).toISOString().slice(0,10)}/[$LATEST]${randId(32).toLowerCase()}`;
   const traceId = Math.random() < 0.5 ? `1-${randId(8).toLowerCase()}-${randId(24).toLowerCase()}` : null;
-  const plainMessage = `[${level}]\t${rid}\t${rand(MSGS[level])}`;
-  const useStructuredLogging = Math.random() < 0.6;
-  const message = useStructuredLogging ? JSON.stringify({ requestId: rid, level, message: rand(MSGS[level]), timestamp: new Date(ts).toISOString(), duration_ms: Math.round(dur), memory_used_mb: memUsed, ...(traceId ? { traceId } : {}) }) : plainMessage;
+
+  // Randomly emit one of: START, application log, END, or REPORT — matching real Lambda log patterns
+  const logEventType = rand(["start","app","app","app","end","report"]);
+  let message;
+  if (logEventType === "start") {
+    message = `START RequestId: ${rid} Version: $LATEST`;
+  } else if (logEventType === "end") {
+    message = `END RequestId: ${rid}`;
+  } else if (logEventType === "report") {
+    message = `REPORT RequestId: ${rid}\tDuration: ${dur.toFixed(2)} ms\tBilled Duration: ${billedDur} ms\tMemory Size: ${memSize} MB\tMax Memory Used: ${memUsed} MB${isColdStart ? `\tInit Duration: ${initDur.toFixed(2)} ms` : ""}`;
+  } else {
+    const useStructuredLogging = Math.random() < 0.6;
+    message = useStructuredLogging
+      ? JSON.stringify({ requestId: rid, level, message: rand(MSGS[level]), timestamp: new Date(ts).toISOString(), duration_ms: Math.round(dur), memory_used_mb: memUsed, ...(traceId ? { traceId } : {}) })
+      : `[${level}]\t${rid}\t${rand(MSGS[level])}`;
+  }
+
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"lambda" } },
@@ -43,11 +61,14 @@ function generateLambdaLog(ts, er) {
         request_id: rid,
         trace_id: traceId,
         duration: dur,
+        billed_duration_ms: logEventType === "report" ? billedDur : null,
+        init_duration_ms: logEventType === "report" && isColdStart ? initDur : null,
+        cold_start: logEventType === "report" ? isColdStart : null,
         memory_size_mb: memSize,
         memory_used_mb: memUsed,
         log_group: logGroup,
         log_stream: logStream,
-        structured_logging: useStructuredLogging,
+        log_event_type: logEventType,
         metrics: {
           Invocations: { sum: invocations },
           Errors: { sum: errors },
@@ -63,7 +84,7 @@ function generateLambdaLog(ts, er) {
     },
     "log": { level: level.toLowerCase() },
     "message": message,
-    "event": { duration: dur * 1000000, outcome: level==="ERROR" ? "failure" : "success", dataset:"aws.lambda", provider:"lambda.amazonaws.com" },
+    "event": { duration: dur * 1000000, outcome: isErr ? "failure" : "success", dataset:"aws.lambda", provider:"lambda.amazonaws.com" },
     "service": { name:fn, type:"lambda" },
   };
 }

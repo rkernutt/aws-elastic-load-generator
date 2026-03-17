@@ -18,7 +18,7 @@ function generateCloudFormationLog(ts, er) {
       resource_status_reason:isErr?rand(["Resource creation failed","Insufficient capacity","IAM policy error"]):null,
       drift_status:rand(["NOT_CHECKED","IN_SYNC","DRIFTED"]),
       structured_logging:useStructuredLogging}},
-    "event":{outcome:isErr?"failure":"success",category:"configuration",dataset:"aws.cloudformation",provider:"cloudformation.amazonaws.com"},
+    "event":{outcome:isErr?"failure":"success",category:"configuration",dataset:"aws.cloudformation",provider:"cloudformation.amazonaws.com",duration:randInt(30,isErr?3600:600)*1e9},
     "message":message,
     ...(isErr?{error:{code:"StackError",message:"CloudFormation stack operation failed",type:"configuration"}}:{}),
     "log":{level:isErr?"error":"info"}};
@@ -42,7 +42,7 @@ function generateSsmLog(ts, er) {
       parameter_name:action.includes("Parameter")?rand(["/prod/db/password","/prod/api/key"]):null,
       patch_compliance:action.includes("Patch")?rand(["Compliant","NonCompliant","NotApplicable"]):null,
       structured_logging:useStructuredLogging}},
-    "event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.ssm",provider:"ssm.amazonaws.com"},
+    "event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.ssm",provider:"ssm.amazonaws.com",duration:randInt(1,isErr?300:30)*1e9},
     "message":message,
     ...(isErr?{error:{code:"SSMError",message:"SSM command failed",type:"process"}}:{}),
     "log":{level:isErr?"error":"info"}};
@@ -63,7 +63,7 @@ function generateCloudWatchAlarmsLog(ts, er) {
       metric_value:val,statistic:rand(["Average","Maximum","Sum","p99"]),
       period_seconds:rand([60,300,3600]),
       treat_missing_data:rand(["missing","notBreaching","breaching"])}},
-    "event":{kind:"alert",outcome:alarmState==="OK"?"success":"failure",category:"configuration",dataset:"aws.cloudwatch",provider:"monitoring.amazonaws.com"},
+    "event":{kind:"alert",outcome:alarmState==="OK"?"success":"failure",category:"configuration",dataset:"aws.cloudwatch",provider:"monitoring.amazonaws.com",duration:rand([60,300,3600])*1e9},
     "message":`CloudWatch alarm "${alarmName}": ${alarmState} (${ns}/${metric}=${val.toFixed(1)})`,
     "log":{level:alarmState==="ALARM"?"warn":"info"},
     ...(alarmState!=="OK"?{error:{code:"AlarmTriggered",message:`Alarm ${alarmName}: ${alarmState}`,type:"monitoring"}}:{})};
@@ -82,7 +82,7 @@ function generateHealthLog(ts, er) {
       event_scope:rand(["ACCOUNT","PUBLIC"]),
       affected_entities_count:randInt(1,50),
       description:`${svc} ${rand(["Increased error rates","Degraded performance","Scheduled maintenance","Connectivity issues"])} in ${region}`}},
-    "event":{kind:"alert",outcome:isIssue?"failure":"success",category:"configuration",dataset:"aws.health",provider:"health.amazonaws.com"},
+    "event":{kind:"alert",outcome:isIssue?"failure":"success",category:"configuration",dataset:"aws.health",provider:"health.amazonaws.com",duration:randInt(1,isIssue?7200:600)*1e9},
     "message":isIssue?`AWS Health: ${svc} service issue in ${region} - ${rand(["Increased errors","Degraded performance"])}`:
       `AWS Health: ${svc} event resolved in ${region}`,
     ...(isIssue?{error:{code:"HealthIssue",message:"AWS Health service issue",type:"configuration"}}:{}),
@@ -106,7 +106,7 @@ function generateTrustedAdvisorLog(ts, er) {
       affected_resource:rand([`i-${randId(17).toLowerCase()}`,`sg-${randId(8).toLowerCase()}`,`arn:aws:s3:::my-bucket`]),
       estimated_monthly_savings:cat==="cost_optimizing"&&isFinding?parseFloat(randFloat(10,5000)):null,
       flagged_resources:isFinding?randInt(1,20):0}},
-    "event":{kind:"alert",outcome:isFinding?"failure":"success",category:"configuration",dataset:"aws.trustedadvisor",provider:"trustedadvisor.amazonaws.com"},
+    "event":{kind:"alert",outcome:isFinding?"failure":"success",category:"configuration",dataset:"aws.trustedadvisor",provider:"trustedadvisor.amazonaws.com",duration:randInt(5,60)*1e9},
     "message":isFinding?`Trusted Advisor [${status.toUpperCase()}]: ${check} - ${randInt(1,20)} resources affected`:
       `Trusted Advisor OK: ${check}`,
     ...(isFinding?{error:{code:"TrustedAdvisorFinding",message:`${check}: ${status}`,type:"configuration"}}:{}),
@@ -126,7 +126,7 @@ function generateControlTowerLog(ts, er) {
       guardrail_compliance:isErr?"NONCOMPLIANT":rand(["COMPLIANT","NOT_APPLICABLE"]),
       landing_zone_version:rand(["3.1","3.2","3.3"]),
       status,error_message:isErr?rand(["Enrollment failed","SCP error","Compliance check failed"]):null}},
-    "event":{outcome:isErr?"failure":"success",category:"configuration",dataset:"aws.controltower",provider:"controltower.amazonaws.com"},
+    "event":{outcome:isErr?"failure":"success",category:"configuration",dataset:"aws.controltower",provider:"controltower.amazonaws.com",duration:randInt(30,isErr?1800:600)*1e9},
     "message":isErr?`Control Tower ${action} FAILED: ${rand(["SCP error","Enrollment failed","Guardrail issue"])}`:
       `Control Tower ${action}: ${status}`,
     ...(isErr?{error:{code:"ControlTowerError",message:"Control Tower operation failed",type:"configuration"}}:{}),
@@ -147,7 +147,7 @@ function generateOrganizationsLog(ts, er) {
       policy_type:action.includes("Policy")?policyType:null,
       policy_name:action.includes("Policy")?rand(["DenyRootUserActions","RequireS3Encryption","TagCompliance"]):null,
       error_code:isErr?rand(["DuplicateAccountException","ConstraintViolationException","AccessDeniedException"]):null}},
-    "event":{action,outcome:isErr?"failure":"success",category:"iam",dataset:"aws.organizations",provider:"organizations.amazonaws.com"},
+    "event":{action,outcome:isErr?"failure":"success",category:"iam",dataset:"aws.organizations",provider:"organizations.amazonaws.com",duration:randInt(100,isErr?5000:2000)*1e6},
     "message":isErr?`Organizations ${action} FAILED: ${rand(["Duplicate account","Constraint violation","Access denied"])}`:
       `Organizations ${action}: ${rand(ous)}`,
     ...(isErr?{error:{code:"OrganizationsError",message:"Organizations operation failed",type:"iam"}}:{}),
@@ -160,7 +160,7 @@ function generateServiceCatalogLog(ts, er) {
   const user = rand(["developer-alice","team-lead-bob","sre-carol","contractor-dan"]);
   const action = rand(["ProvisionProduct","UpdateProvisionedProduct","TerminateProvisionedProduct","SearchProducts","AssociatePrincipal"]);
   const status = isErr?rand(["FAILED","TAINTED","ERROR"]):rand(["SUCCEEDED","AVAILABLE"]);
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"servicecatalog"}},"aws":{servicecatalog:{operation:action,product_name:product,product_id:`prod-${randId(13)}`,portfolio_id:`port-${randId(13)}`,provisioned_product_name:`${product.toLowerCase().replace(/ /g,"-")}-${randId(6).toLowerCase()}`,record_id:`rec-${randId(13)}`,status,requester_arn:`arn:aws:iam::${acct.id}:user/${user}`,launch_role:rand([null,"arn:aws:iam::123456789:role/ServiceCatalogLaunchRole"]),error:isErr?rand(["Launch role not authorized","Resource limit exceeded","Invalid parameters"]):null}},"user":{name:user},"event":{action,outcome:isErr?"failure":"success",category:"process",dataset:"aws.servicecatalog",provider:"servicecatalog.amazonaws.com"},"message":isErr?`ServiceCatalog ${action} FAILED [${product}]: ${rand(["Unauthorized","Resource limit","Invalid params"])}:`:`ServiceCatalog ${action}: ${user} → ${product} [${status}]`,"log":{level:isErr?"error":"info"},...(isErr?{error:{code:"ProvisioningFailed",message:"Service Catalog operation failed",type:"provisioning"}}:{}) };
+  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"servicecatalog"}},"aws":{servicecatalog:{operation:action,product_name:product,product_id:`prod-${randId(13)}`,portfolio_id:`port-${randId(13)}`,provisioned_product_name:`${product.toLowerCase().replace(/ /g,"-")}-${randId(6).toLowerCase()}`,record_id:`rec-${randId(13)}`,status,requester_arn:`arn:aws:iam::${acct.id}:user/${user}`,launch_role:rand([null,"arn:aws:iam::123456789:role/ServiceCatalogLaunchRole"]),error:isErr?rand(["Launch role not authorized","Resource limit exceeded","Invalid parameters"]):null}},"user":{name:user},"event":{action,outcome:isErr?"failure":"success",category:"process",dataset:"aws.servicecatalog",provider:"servicecatalog.amazonaws.com",duration:randInt(30,isErr?3600:600)*1e9},"message":isErr?`ServiceCatalog ${action} FAILED [${product}]: ${rand(["Unauthorized","Resource limit","Invalid params"])}:`:`ServiceCatalog ${action}: ${user} → ${product} [${status}]`,"log":{level:isErr?"error":"info"},...(isErr?{error:{code:"ProvisioningFailed",message:"Service Catalog operation failed",type:"provisioning"}}:{}) };
 }
 
 function generateServiceQuotasLog(ts, er) {
@@ -169,7 +169,7 @@ function generateServiceQuotasLog(ts, er) {
   const quotaName = rand(["Running On-Demand Standard instances","Concurrent executions","DB instances","Buckets per account","Provisioned write capacity units","Running tasks","VPCs per region","Roles per account"]);
   const limit = rand([5,10,20,50,100,500,1000,5000,10000]);
   const current = isErr?Math.floor(limit*parseFloat(randFloat(0.9,1.1))):Math.floor(limit*parseFloat(randFloat(0.5,0.89)));
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"servicequotas"}},"aws":{servicequotas:{service_code:svc,quota_code:`L-${randId(8)}`,quota_name:quotaName,quota_value:limit,current_utilization:current,utilization_percent:Math.round(current/limit*100),adjustable:rand([true,false]),request_id:isErr?`${randId(8)}-${randId(4)}`.toLowerCase():null,request_status:isErr?rand(["PENDING","CASE_OPENED"]):null,applied_level:rand(["ACCOUNT","RESOURCE"])}},"event":{outcome:isErr?"failure":"success",category:"configuration",dataset:"aws.servicequotas",provider:"servicequotas.amazonaws.com"},"message":current>=limit?`Service Quotas EXCEEDED: ${svc} ${quotaName} at ${current}/${limit} (${Math.round(current/limit*100)}%)`:`Service Quotas: ${svc} ${quotaName} at ${current}/${limit} (${Math.round(current/limit*100)}%)`,"log":{level:current>=limit?"error":current/limit>=0.9?"warn":"info"},...(current>=limit?{error:{code:"QuotaExceeded",message:"Service Quota exceeded",type:"quota"}}:{}) };
+  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"servicequotas"}},"aws":{servicequotas:{service_code:svc,quota_code:`L-${randId(8)}`,quota_name:quotaName,quota_value:limit,current_utilization:current,utilization_percent:Math.round(current/limit*100),adjustable:rand([true,false]),request_id:isErr?`${randId(8)}-${randId(4)}`.toLowerCase():null,request_status:isErr?rand(["PENDING","CASE_OPENED"]):null,applied_level:rand(["ACCOUNT","RESOURCE"])}},"event":{outcome:isErr?"failure":"success",category:"configuration",dataset:"aws.servicequotas",provider:"servicequotas.amazonaws.com",duration:randInt(50,isErr?3000:500)*1e6},"message":current>=limit?`Service Quotas EXCEEDED: ${svc} ${quotaName} at ${current}/${limit} (${Math.round(current/limit*100)}%)`:`Service Quotas: ${svc} ${quotaName} at ${current}/${limit} (${Math.round(current/limit*100)}%)`,"log":{level:current>=limit?"error":current/limit>=0.9?"warn":"info"},...(current>=limit?{error:{code:"QuotaExceeded",message:"Service Quota exceeded",type:"quota"}}:{}) };
 }
 
 function generateComputeOptimizerLog(ts, er) {
@@ -179,7 +179,7 @@ function generateComputeOptimizerLog(ts, er) {
   const currentType = rand(["t3.medium","m5.xlarge","c5.2xlarge","r5.large","t3.large"]);
   const recommendedType = rand(["t3.small","m5.large","c5.xlarge","r5.medium","t3.medium"]);
   const saving = finding==="OVERPROVISIONED"?parseFloat(randFloat(5,500)):0;
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"computeoptimizer"}},"aws":{computeoptimizer:{resource_type:resourceType,resource_arn:`arn:aws:ec2:${region}:${acct.id}:instance/i-${randId(17).toLowerCase()}`,finding,current_configuration:{instance_type:currentType,vcpu:randInt(2,32),memory_gb:randInt(4,128)},recommended_configuration:{instance_type:recommendedType,vcpu:randInt(1,16),memory_gb:randInt(2,64)},estimated_monthly_savings_usd:saving,estimated_monthly_savings_percent:saving>0?parseFloat(randFloat(10,60)):0,lookback_period_days:rand([14,32,93]),utilization:{cpu_max:parseFloat(randFloat(5,95)),memory_max:parseFloat(randFloat(10,95))},performance_risk:rand(["VeryLow","Low","Medium","High"])}},"event":{outcome:isErr?"failure":"success",category:"configuration",dataset:"aws.computeoptimizer",provider:"compute-optimizer.amazonaws.com"},"message":finding==="OVERPROVISIONED"?`Compute Optimizer: ${resourceType} OVERPROVISIONED — downsize ${currentType}→${recommendedType}, save ${saving.toFixed(0)}/mo`:finding==="UNDERPROVISIONED"?`Compute Optimizer: ${resourceType} UNDERPROVISIONED — consider upgrading ${currentType}→${recommendedType}:`:`Compute Optimizer: ${resourceType} OPTIMIZED (${currentType})`,"log":{level:finding==="UNDERPROVISIONED"?"warn":"info"},...(isErr?{error:{code:"OptimizerFinding",message:"Compute Optimizer finding",type:"configuration"}}:{}) };
+  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"computeoptimizer"}},"aws":{computeoptimizer:{resource_type:resourceType,resource_arn:`arn:aws:ec2:${region}:${acct.id}:instance/i-${randId(17).toLowerCase()}`,finding,current_configuration:{instance_type:currentType,vcpu:randInt(2,32),memory_gb:randInt(4,128)},recommended_configuration:{instance_type:recommendedType,vcpu:randInt(1,16),memory_gb:randInt(2,64)},estimated_monthly_savings_usd:saving,estimated_monthly_savings_percent:saving>0?parseFloat(randFloat(10,60)):0,lookback_period_days:rand([14,32,93]),utilization:{cpu_max:parseFloat(randFloat(5,95)),memory_max:parseFloat(randFloat(10,95))},performance_risk:rand(["VeryLow","Low","Medium","High"])}},"event":{outcome:isErr?"failure":"success",category:"configuration",dataset:"aws.computeoptimizer",provider:"compute-optimizer.amazonaws.com",duration:randInt(5,60)*1e9},"message":finding==="OVERPROVISIONED"?`Compute Optimizer: ${resourceType} OVERPROVISIONED — downsize ${currentType}→${recommendedType}, save ${saving.toFixed(0)}/mo`:finding==="UNDERPROVISIONED"?`Compute Optimizer: ${resourceType} UNDERPROVISIONED — consider upgrading ${currentType}→${recommendedType}:`:`Compute Optimizer: ${resourceType} OPTIMIZED (${currentType})`,"log":{level:finding==="UNDERPROVISIONED"?"warn":"info"},...(isErr?{error:{code:"OptimizerFinding",message:"Compute Optimizer finding",type:"configuration"}}:{}) };
 }
 
 function generateBudgetsLog(ts, er) {
@@ -188,7 +188,7 @@ function generateBudgetsLog(ts, er) {
   const budgetType = rand(["COST","USAGE","RI_UTILIZATION","RI_COVERAGE","SAVINGS_PLANS_UTILIZATION"]);
   const limit = parseFloat(randFloat(100,10000)); const actual = isErr ? limit*(1+parseFloat(randFloat(0.05,0.5))) : limit*parseFloat(randFloat(0.3,0.95));
   const threshold = isErr?rand([80,90,100]):rand([50,60,70]);
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"budgets"}},"aws":{budgets:{budget_name:budget,budget_type:budgetType,time_period:rand(["MONTHLY","QUARTERLY","ANNUALLY"]),currency:"USD",budget_limit:parseFloat(limit.toFixed(2)),actual_spend:parseFloat(actual.toFixed(2)),forecasted_spend:parseFloat((actual*1.15).toFixed(2)),threshold_exceeded:isErr,threshold_percentage:threshold,notification_type:rand(["ACTUAL","FORECASTED"]),subscribers:rand(["ops@company.com","finance@company.com"])}},"event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.budgets",provider:"budgets.amazonaws.com"},"message":isErr?`Budget ALERT: ${budget} exceeded ${threshold}% — ${actual.toFixed(0)} of ${limit.toFixed(0)}`:`Budget OK: ${budget} at ${actual.toFixed(0)}/${limit.toFixed(0)} (${Math.round(actual/limit*100)}%)`,"log":{level:isErr?"warn":"info"},...(isErr?{error:{code:"BudgetExceeded",message:"Budget threshold exceeded",type:"billing"}}:{}) };
+  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"budgets"}},"aws":{budgets:{budget_name:budget,budget_type:budgetType,time_period:rand(["MONTHLY","QUARTERLY","ANNUALLY"]),currency:"USD",budget_limit:parseFloat(limit.toFixed(2)),actual_spend:parseFloat(actual.toFixed(2)),forecasted_spend:parseFloat((actual*1.15).toFixed(2)),threshold_exceeded:isErr,threshold_percentage:threshold,notification_type:rand(["ACTUAL","FORECASTED"]),subscribers:rand(["ops@company.com","finance@company.com"])}},"event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.budgets",provider:"budgets.amazonaws.com",duration:randInt(1,30)*1e9},"message":isErr?`Budget ALERT: ${budget} exceeded ${threshold}% — ${actual.toFixed(0)} of ${limit.toFixed(0)}`:`Budget OK: ${budget} at ${actual.toFixed(0)}/${limit.toFixed(0)} (${Math.round(actual/limit*100)}%)`,"log":{level:isErr?"warn":"info"},...(isErr?{error:{code:"BudgetExceeded",message:"Budget threshold exceeded",type:"billing"}}:{}) };
 }
 
 function generateBillingLog(ts, er) {
@@ -213,7 +213,7 @@ function generateBillingLog(ts, er) {
         metrics: { EstimatedCharges: { sum: amount }, NumberOfRequests: { sum: randInt(1, 1000000) } },
       },
     },
-    "event": { outcome: isErr ? "failure" : "success", category: "metric", dataset: "aws.billing", provider: "ce.amazonaws.com", duration: 0 },
+    "event": { outcome: isErr ? "failure" : "success", category: "metric", dataset: "aws.billing", provider: "ce.amazonaws.com", duration: randInt(100, 5000)*1e6 },
     "message": isErr ? `Billing anomaly: ${service} ${amount.toFixed(2)} ${currency}` : `Billing: ${service} ${amount.toFixed(2)} ${currency}`,
     "log": { level: isErr ? "warn" : "info" },
     ...(isErr ? { error: { code: "BillingAnomaly", message: "Unusual cost detected", type: "billing" } } : {}),
@@ -237,7 +237,7 @@ function generateDmsLog(ts, er) {
       latency_ms:migrationType.includes("cdc")?randInt(100,isErr?60000:2000):0,
       tables_loaded:randInt(1,500),tables_errored:isErr?randInt(1,20):0,
       error_message:isErr?rand(["Table does not exist","Column mapping failure","Connection timeout"]):null}},
-    "event":{outcome:isErr?"failure":"success",category:"database",dataset:"aws.dms",provider:"dms.amazonaws.com"},
+    "event":{outcome:isErr?"failure":"success",category:"database",dataset:"aws.dms",provider:"dms.amazonaws.com",duration:randInt(60,isErr?86400:28800)*1e9},
     "message":isErr?`DMS ${taskName} FAILED (${srcEngine}->${dstEngine}): ${rand(["Table mapping error","Connection lost"])}`:
       `DMS ${taskName}: ${rows.toLocaleString()} rows (${srcEngine}->${dstEngine} ${migrationType})`,
     ...(isErr?{error:{code:"DMSError",message:"DMS task failed",type:"migration"}}:{}),

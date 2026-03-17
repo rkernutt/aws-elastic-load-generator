@@ -1,6 +1,10 @@
 # Improvement suggestions
 
+> **Last updated:** 2026-03-17 (v7.5)
+
 This document suggests improvements across **coverage** (logs vs metrics), **content** (fields, messages, metrics blocks), and **general** product/UX. It references existing docs ([ENHANCEMENT-CANDIDATES.md](ENHANCEMENT-CANDIDATES.md), [AWS-SERVICES-DOCUMENTATION-REVIEW.md](AWS-SERVICES-DOCUMENTATION-REVIEW.md), [GLUE-METRICS-COVERAGE.md](GLUE-METRICS-COVERAGE.md)) and adds concrete next steps.
+
+**As of v7.5,** `event.duration` is now present on all 136 generators, Lambda emits authentic START/END/REPORT log events, and RDS includes full Enhanced Monitoring OS metrics. See README “What’s New in v7.5”.
 
 **As of v7.4,** the high-impact log/message-pool enhancements (SageMaker job-type lifecycle, CodeBuild phase-level messages, Athena query lifecycle) and the checklist items for EMR, Batch, DataBrew, AppFlow, and CodeBuild are implemented; see the [Summary checklist](#4-summary-checklist) and README “What’s New in v7.4”.
 

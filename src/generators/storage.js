@@ -78,7 +78,7 @@ function generateS3Log(ts, er) {
     "http": { response:{ status_code:status, bytes:bytesSent } },
     "client": { ip:remoteIp },
     "user_agent": { original:rand(USER_AGENTS) },
-    "event": { outcome:isErr?"failure":"success", category:"file", dataset:"aws.s3", provider:"s3.amazonaws.com" },
+    "event": { outcome:isErr?"failure":"success", category:"file", dataset:"aws.s3", provider:"s3.amazonaws.com", duration:totalTime*1e6 },
     "message": Math.random() < 0.5 ? JSON.stringify({ bucket: bucketName, key: op.includes("BUCKET") ? null : key, operation: op, http_status: status, request_id: requestId, bytes_sent: bytesSent, total_time_ms: totalTime, timestamp: new Date(ts).toISOString() }) : `${op} s3://${bucketName}/${key} ${status}`,
     "log": { level:isErr?"warn":"info" },
     ...(isErr ? { error: { code: rand(["NoSuchKey","AccessDenied","InvalidRequest","InternalError","SlowDown"]), message: `S3 ${op} failed: ${status}`, type: "storage" } } : {})
@@ -196,7 +196,7 @@ function generateEbsLog(ts, er) {
         }
       }
     },
-    "event": { outcome:isErr?"failure":"success", category:"host", dataset:"aws.ebs", provider:"ec2.amazonaws.com" },
+    "event": { outcome:isErr?"failure":"success", category:"host", dataset:"aws.ebs", provider:"ec2.amazonaws.com", duration:randInt(1,isErr?60000:5000)*1e6 },
     "message": message,
     "log": { level },
     ...(isErr ? { error: { code: "EbsError", message, type: "storage" } } : {})
@@ -218,7 +218,7 @@ function generateEfsLog(ts, er) {
       client_connections:randInt(1,500),
       percent_io_limit:isErr?randInt(90,100):randInt(10,80),
       error_code:isErr?rand(["ThroughputLimitExceeded","FileLimitExceeded"]):null}},
-    "event":{outcome:isErr?"failure":"success",category:"file",dataset:"aws.efs",provider:"elasticfilesystem.amazonaws.com"},
+    "event":{outcome:isErr?"failure":"success",category:"file",dataset:"aws.efs",provider:"elasticfilesystem.amazonaws.com",duration:randInt(1,isErr?5000:200)*1e6},
     "message":isErr?`EFS ${fsId}: ${rand(["ThroughputLimitExceeded","I/O limit reached"])}`:
       `EFS ${fsId}: ${throughput.toFixed(1)} MB/s, ${randInt(1,500)} connections`,
     "log":{level:isErr?"error":"info"},
@@ -240,7 +240,7 @@ function generateFsxLog(ts, er) {
       storage_capacity_gb:rand([1200,2400,4800,9600]),
       throughput_capacity_mbps:rand([128,256,512,1024,2048]),
       storage_used_percent:isErr?randInt(90,100):randInt(10,80)}},
-    "event":{outcome:isErr?"failure":"success",category:"file",dataset:"aws.fsx",provider:"fsx.amazonaws.com"},
+    "event":{outcome:isErr?"failure":"success",category:"file",dataset:"aws.fsx",provider:"fsx.amazonaws.com",duration:randInt(100,isErr?30000:5000)*1e6},
     "message":rand(MSGS[level]),
     "log":{level},
     ...(isErr ? { error: { code: "FsxError", message: rand(MSGS.error), type: "storage" } } : {})};
@@ -305,7 +305,7 @@ function generateStorageGatewayLog(ts, er) {
       cache_used_percent:isErr?randInt(90,100):randInt(10,70),
       upload_buffer_used_percent:isErr?randInt(85,100):randInt(5,60),
       cloud_bytes_uploaded:randInt(0,1e9)}},
-    "event":{outcome:isErr?"failure":"success",category:"file",dataset:"aws.storagegateway",provider:"storagegateway.amazonaws.com"},
+    "event":{outcome:isErr?"failure":"success",category:"file",dataset:"aws.storagegateway",provider:"storagegateway.amazonaws.com",duration:randInt(100,isErr?10000:2000)*1e6},
     "message":rand(MSGS[level]),
     "log":{level},
     ...(isErr ? { error: { code: "GatewayError", message: rand(MSGS.error), type: "storage" } } : {})};

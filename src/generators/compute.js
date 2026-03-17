@@ -221,7 +221,7 @@ function generateEcrLog(ts, er) {
       finding_severity:isErr?rand(SCAN_SEVS):null,
       finding_count:isErr?randInt(1,30):0,
       vulnerability_scan_enabled:true}},
-    "event":{outcome:isErr?"failure":"success",category:"package",dataset:"aws.ecr",provider:"ecr.amazonaws.com"},
+    "event":{outcome:isErr?"failure":"success",category:"package",dataset:"aws.ecr",provider:"ecr.amazonaws.com",duration:randInt(100,isErr?30000:5000)*1e6},
     "message":isErr?errMsg:`ECR ${action}: ${repo}:${tag}`,
     "log":{level:isErr?"warn":"info"},
     ...(isErr ? { error: { code: rand(ECR_ERROR_CODES), message: errMsg, type: "package" } } : {})};

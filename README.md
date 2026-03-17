@@ -1,8 +1,25 @@
 # ⚡ AWS → Elastic Load Generator
 
-**v7.4** — A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **136 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
+**v7.5** — A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **136 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
 
 Each service has its **correct real-world ingestion source** pre-configured — S3, CloudWatch, direct API, Firehose, **OTel** (OpenTelemetry), or **Elastic Agent** — matching how each service actually delivers data to Elastic in production. You can leave **Default (per-service)** or override all services to a single ingestion method (e.g. OTel) for testing. Switch between **Logs** and **Metrics** mode; only the **46** services with Elastic metrics support are selectable in Metrics mode.
+
+---
+
+## What's New in v7.5
+
+- **Lambda START / END / REPORT log events** — The Lambda generator now randomly emits one of four authentic log event types per document: `START RequestId:`, `END RequestId:`, `REPORT RequestId: Duration: X ms Billed Duration: Y ms Memory Size: Z MB Max Memory Used: W MB` (with optional cold-start `Init Duration`), or a structured application log. Matches real CloudWatch Lambda log streams. The `aws.lambda.log_event_type` field indicates which type was produced.
+- **RDS Enhanced Monitoring OS metrics** — When `enhanced_monitoring: true` (≈55% of RDS docs), the generator now emits a full `aws.rds.os_metrics` block — `cpuUtilization` (user/system/wait/idle/irq/total), `memory` (total/free/cached/active/inactive/buffers), `disk` (readIOsPS/writeIOsPS/readKbPS/writeKbPS/avgQueueLen/await), `network` (rx/tx), `numVCPUs`, and `uptime` — matching the RDSOSMetrics format published to CloudWatch Logs.
+- **`event.duration` on all 136 generators** — Every time-bound generator now emits `event.duration` (nanoseconds) in the ECS `event` object. Previously missing on all IoT, most management, most end-user, and several storage generators. Enables latency dashboards and ML anomaly detection across all services.
+- **`ship()` refactored** — The inner per-service shipping loop is now a named `shipService()` helper function. Progress updates are emitted after each batch within a service (showing live incremental counts rather than only updating between services).
+- **`makeSetup()` helper** — `src/helpers/index.js` exports `makeSetup(er)` returning `{ region, acct, isErr }` to DRY up the boilerplate common to every generator. Applied to IoT generators; available for future generator additions.
+- **Dev-mode localStorage warnings** — `localStorage` read/write failures now emit `console.warn` in development mode (suppressed in production), making private-browsing and quota issues visible during development.
+- **Expanded test coverage** — Added three new test suites:
+  - `src/generators/generators.test.js` — Shape-validation tests for all 14 generator modules (IoT, management, end-user, storage, databases, serverless, compute, networking, security, streaming, devtools, analytics, ML), plus Lambda log-event-type assertions, RDS Enhanced Monitoring shape, and error-rate consistency tests.
+  - `src/utils/ship.test.js` — Ship workflow integration tests with mocked `fetch`: NDJSON batch assembly, full-success / partial-error / server-error / network-error response handling, index name construction, and `stripNulls` correctness.
+  - `src/utils/proxy.test.js` — Proxy retry logic unit tests: exponential backoff values, retryable status codes (5xx only), retryable error codes (ECONNRESET/ETIMEDOUT/ECONNREFUSED), and MAX_RETRIES exhaustion.
+
+Older release notes: [Version What's New Archive](#version-whats-new-archive).
 
 ---
 
@@ -507,6 +524,13 @@ See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the contributor list.
 ---
 
 ## Version What's New Archive
+
+### What's New in v7.4
+
+- **SageMaker** — Job-type-specific lifecycle messages: "Training job started/succeeded/failed", "Processing job started/succeeded/failed", "Endpoint creation started/succeeded/failed", "Pipeline execution started/succeeded/failed", and equivalent for Transform and HyperparameterTuning.
+- **CodeBuild** — "Build started", "Build succeeded", "Build failed" and phase-level messages added and weighted so lifecycle and phase messages appear more often.
+- **Athena** — "Query started/succeeded/failed" messages emphasised for clearer query-lifecycle visibility.
+- **EMR, Batch, DataBrew, AppFlow** — Run-state and job-lifecycle message pools; `aws.<service>.metrics` including elapsedTime/Duration and records_processed.
 
 ### What's New in v7.3
 
