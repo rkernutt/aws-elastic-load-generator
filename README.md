@@ -87,7 +87,7 @@ To stop Docker: `docker compose down`
 
 ### Index naming
 
-Indices follow the Elastic data stream dataset where applicable: `{prefix}-{dataset_suffix}`. In **Logs** mode (default prefix `logs-aws`): e.g. `logs-aws-lambda`, `logs-aws-elb_logs`, `logs-aws-vpcflow`. In **Metrics** mode (prefix `metrics-aws`): e.g. `metrics-aws-lambda`, `metrics-aws-elb`. Services without a dedicated integration use `logs-aws-{service}` or `metrics-aws-{service}` as applicable.
+Indices are named **`{prefix}.{dataset_suffix}`** (a **dot** between prefix and suffix). The suffix is derived from the Elastic dataset (e.g. `aws.lambda` → `lambda`, `aws.elb_logs` → `elb_logs`). In **Logs** mode (default prefix `logs-aws`): e.g. `logs-aws.lambda`, `logs-aws.elb_logs`, `logs-aws.vpcflow`. In **Metrics** mode (prefix `metrics-aws`): e.g. `metrics-aws.lambda`, `metrics-aws.elb`. Services without a dedicated integration use `logs-aws.{service}` or `metrics-aws.{service}` as applicable.
 
 Timestamps are spread across the **last 24 hours** so data appears naturally in Kibana time-based views.
 
@@ -119,7 +119,7 @@ For integration-backed services, field names and nesting follow the integration�
 
 | Setting | Description |
 |--------|-------------|
-| **Index prefix** | Base name for indices (e.g. `logs-aws`). Final index = `{prefix}-{dataset_suffix}` (e.g. `logs-aws-elb_logs`). |
+| **Index prefix** | Base name for indices (e.g. `logs-aws`). Final index = `{prefix}.{dataset_suffix}` (e.g. `logs-aws.elb_logs`, `metrics-aws.lambda`). |
 | **Ingestion source** | **Default (per-service)** uses the native source for each service (S3, CloudWatch, API, Firehose). Override to force all services to a single source (including **OTel** or **Elastic Agent**) for testing. |
 | **data_stream.dataset** | Set automatically: integration-backed services use the Elastic dataset (e.g. `aws.cloudtrail`, `aws.vpcflow`); others use `aws.<service>`. |
 

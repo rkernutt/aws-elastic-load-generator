@@ -437,7 +437,7 @@ export default function App() {
                   />
                   {validationErrors.indexPrefix && <div className={styles.validationError}>{validationErrors.indexPrefix}</div>}
                   <div style={{fontSize:11,color:K.textSubdued,marginTop:5}}>
-                    e.g. <span style={{color:K.primaryText}}>{indexPrefix}-lambda</span>, <span style={{color:K.primaryText}}>{indexPrefix}-guardduty</span>…
+                    e.g. <span style={{color:K.primaryText}}>{indexPrefix}.lambda</span>, <span style={{color:K.primaryText}}>{indexPrefix}.guardduty</span>…
                   </div>
                 </Field>
                 <Field label="Ingestion source">
