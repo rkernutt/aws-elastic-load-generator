@@ -1,0 +1,114 @@
+# Version History
+
+> Full release notes for all versions. Latest release notes are in the [README](../README.md).
+
+---
+
+## What's New in v7.5
+
+- **Lambda START / END / REPORT log events** — The Lambda generator now randomly emits one of four authentic log event types per document: `START RequestId:`, `END RequestId:`, `REPORT RequestId: Duration: X ms Billed Duration: Y ms Memory Size: Z MB Max Memory Used: W MB` (with optional cold-start `Init Duration`), or a structured application log. Matches real CloudWatch Lambda log streams. The `aws.lambda.log_event_type` field indicates which type was produced.
+- **RDS Enhanced Monitoring OS metrics** — When `enhanced_monitoring: true` (≈55% of RDS docs), the generator now emits a full `aws.rds.os_metrics` block — `cpuUtilization` (user/system/wait/idle/irq/total), `memory` (total/free/cached/active/inactive/buffers), `disk` (readIOsPS/writeIOsPS/readKbPS/writeKbPS/avgQueueLen/await), `network` (rx/tx), `numVCPUs`, and `uptime` — matching the RDSOSMetrics format published to CloudWatch Logs.
+- **`event.duration` on all 136 generators** — Every time-bound generator now emits `event.duration` (nanoseconds) in the ECS `event` object. Previously missing on all IoT, most management, most end-user, and several storage generators. Enables latency dashboards and ML anomaly detection across all services.
+- **`ship()` refactored** — The inner per-service shipping loop is now a named `shipService()` helper function. Progress updates are emitted after each batch within a service (showing live incremental counts rather than only updating between services).
+- **`makeSetup()` helper** — `src/helpers/index.js` exports `makeSetup(er)` returning `{ region, acct, isErr }` to DRY up the boilerplate common to every generator. Applied to IoT generators; available for future generator additions.
+- **Dev-mode localStorage warnings** — `localStorage` read/write failures now emit `console.warn` in development mode (suppressed in production), making private-browsing and quota issues visible during development.
+- **Expanded test coverage** — Added three new test suites:
+  - `src/generators/generators.test.js` — Shape-validation tests for all 14 generator modules (IoT, management, end-user, storage, databases, serverless, compute, networking, security, streaming, devtools, analytics, ML), plus Lambda log-event-type assertions, RDS Enhanced Monitoring shape, and error-rate consistency tests.
+  - `src/utils/ship.test.js` — Ship workflow integration tests with mocked `fetch`: NDJSON batch assembly, full-success / partial-error / server-error / network-error response handling, index name construction, and `stripNulls` correctness.
+  - `src/utils/proxy.test.js` — Proxy retry logic unit tests: exponential backoff values, retryable status codes (5xx only), retryable error codes (ECONNRESET/ETIMEDOUT/ECONNREFUSED), and MAX_RETRIES exhaustion.
+
+---
+
+## What's New in v7.4
+
+- **Log and message-pool enhancements** — Lifecycle and message-pool improvements for easier search and correlation:
+  - **SageMaker** — Job-type-specific lifecycle messages: "Training job started/succeeded/failed", "Processing job started/succeeded/failed", "Endpoint creation started/succeeded/failed", "Pipeline execution started/succeeded/failed", and equivalent for Transform and HyperparameterTuning.
+  - **CodeBuild** — "Build started", "Build succeeded", "Build failed" and phase-level messages (e.g. "Phase BUILD completed in 120s") added and weighted so lifecycle and phase messages appear more often.
+  - **Athena** — "Query started", "Query succeeded", "Query failed" emphasized in the message pool for clearer query-lifecycle visibility.
+- **High-impact coverage** — EMR, Batch, DataBrew, and AppFlow already provide run_state (where applicable), "Job run started/succeeded/failed" / "Flow run started/succeeded/failed" message pools, and `aws.<service>.metrics` (including elapsedTime/Duration, records_processed, etc.). No code changes in v7.4; documented in the improvement suggestions checklist.
+
+---
+
+## What's New in v7.3
+
+- **Input validation** — Elasticsearch URL, API key, and index prefix are validated on blur and before Ship. Invalid fields show inline errors and disable the Ship button until fixed. URL must be HTTPS with a proper hostname; API key has minimum length and character rules; index prefix allows only letters, numbers, hyphens, and underscores.
+- **React error boundary** — The app is wrapped in an error boundary that catches rendering errors and shows a fallback UI with a "Try again" action instead of a blank screen.
+- **Proxy timeout and retries** — The Node.js bulk proxy (`proxy.js`) uses a configurable request timeout (default 120s via `PROXY_REQUEST_TIMEOUT_MS`) and retries with exponential backoff (up to 3 retries) on 5xx, timeouts, and connection errors.
+- **Configurable batch delay** — A **Batch delay (ms)** slider (0–2000 ms) in Volume & Settings controls the pause between bulk requests. Persisted with saved config. Reduces load on Elastic when shipping large volumes.
+- **Unit tests (Vitest)** — Smoke tests with Vitest and jsdom: helpers (`stripNulls`, `rand`, `randInt`, etc.), validation (URL, API key, index prefix), and generator shape (Lambda, API Gateway). Run with `npm run test`; watch mode with `npm run test:watch`.
+- **CSS modules** — Main layout and shared controls (root, header, main, inputs, buttons, log box, preview) use `App.module.css` instead of inline styles. Dynamic values (e.g. group colors) remain inline where needed.
+- **JSDoc on generators** — Generator modules and key functions (e.g. `serverless.js`, `storage.js`, `generators/index.js`) include JSDoc (`@module`, `@param`, `@returns`) for better editor support and documentation.
+
+---
+
+## What's New in v7.2
+
+- **NAT Gateway** — Added `natgateway` service to the Networking & CDN group. Generates realistic NAT Gateway connection and traffic metrics (bytes, packets, connections, port allocation errors) mapped to `aws.natgateway`. Available in both Logs and Metrics mode.
+- **Cost estimation** — A doc count estimate now appears below the Ship button when services are selected: `~{N} documents across {X} services ({B} batches)`. Helps confirm volume before shipping.
+- **Save / restore config** — Connection settings, volume sliders, and ingestion preferences are now persisted to `localStorage` and restored on next visit. A **Clear saved config** button resets to defaults.
+- **Module split** — The codebase has been refactored from a monolithic `App.jsx` (~5000 lines) into focused ES modules: `src/helpers/`, `src/theme/`, `src/data/`, `src/generators/` (14 category files), and `src/components/`. `App.jsx` now contains only React state, logic, and JSX.
+
+---
+
+## What's New in v7.1
+
+- **Kibana-inspired UI** — The web UI has been redesigned to follow the **Kibana / Elastic UI (EUI)** design language: dark top bar (`#1D1E24`), light content background (`#F6F9FC`), EUI primary blue (`#0B64DD`) for actions and focus, and semantic colors for success, warning, and danger. Cards, form controls, buttons, and status pills now use EUI-aligned tokens for a consistent look when used alongside Kibana and Elastic Cloud.
+- **Design tokens** — A central `K` token set in the app aligns with EUI colors (backgrounds, borders, text, success/warning/danger) and spacing so future UI changes stay consistent with Elastic's design system.
+- **Simplified layout** — Single dark header with logo and status; compact page title and description; main content in a constrained width with clear card hierarchy. Ship button label correctly reflects **Logs** vs **Metrics** mode.
+
+---
+
+## What's New in v7
+
+- **Performance & anomaly-detection metrics** — Added or expanded `event.duration` and `aws.<service>.metrics` across services for Elastic visualizations and ML anomaly detection. New or expanded metrics for: SNS, Athena, SageMaker (CloudWatch-style), Fargate, AutoScaling, ImageBuilder, Amazon MQ, AppSync, Bedrock, and Bedrock Agent.
+- **Glue: skewness & observability** — Glue generator emits `aws.glue.metrics.driver.skewness.stage` and `skewness.job`, plus JVM heap and disk metrics aligned with AWS Glue Observability.
+- **Performance metrics plan** — [docs/PERFORMANCE-METRICS-PLAN.md](PERFORMANCE-METRICS-PLAN.md) documents fields for dashboards and ML.
+
+---
+
+## What's New in v6
+
+- **Logs / Metrics toggle** — Generate either log documents or metrics documents. In Metrics mode, only the 46 services with Elastic AWS metrics support are selectable; index prefix defaults to `metrics-aws`.
+- **Official AWS service icons** — Service tiles use official AWS Architecture Icons stored locally (`public/aws-icons/`), copied from the `aws-icons` package at install time (no CDN).
+- **Sample data directory** — `samples/logs/` and `samples/metrics/` contain one sample document per service. Regenerate with `npm run samples`.
+- **Bedrock Agent & Billing** — Added Bedrock Agent and AWS Billing (logs and metrics) with Elastic integration alignment.
+- **Structured / continuous logging** — Many services (Lambda, API Gateway, RDS, ECS, EC2, EKS, Glue, EMR, SageMaker, and others) can emit JSON in the `message` field and optional metrics blocks, matching real-world continuous logging.
+- **Ingest pipeline plan** — [ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md](../ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md) documents pipeline IDs, target fields, and index patterns for all services that emit parseable JSON messages.
+- **Reduced null fields** — Generated documents have `null` values stripped so output stays clean.
+- **Application rename** — Project and UI titled **AWS → Elastic Load Generator**.
+
+---
+
+## What's New in v5
+
+- **Data stream dataset mapping** — Services with an Elastic AWS integration use the exact `data_stream.dataset` (and index suffix) from the [Elastic integrations repo](https://github.com/elastic/integrations/tree/main/packages/aws/data_stream), so generated logs populate the correct integration dashboards and rules.
+- **Integration-backed services** — CloudTrail, VPC Flow, ALB/NLB, GuardDuty, S3 access, API Gateway, CloudFront, Lambda, Network Firewall, Security Hub, WAF, RDS, Route 53, EMR, EC2, ECS, Config, Inspector, DynamoDB, Redshift, EBS, Kinesis, MSK, SNS, SQS, Transit Gateway, VPN, AWS Health use the corresponding Elastic dataset where applicable.
+- **Services without an Elastic integration** — All other services use `data_stream.dataset: aws.<service>` and ECS-style fields so they remain searchable in custom dashboards.
+- **ECS baseline for every service** — Every document is enriched with standard ECS fields when missing; all services are searchable in ECS indices.
+
+---
+
+## What's New in v4
+
+- **Realistic account names** — All documents use a consistent fictitious AWS organisation (`globex-production`, `globex-staging`, etc.) with realistic 12-digit account IDs.
+- **Focused region pool** — Regions restricted to `eu-west-2` and `us-east-1`.
+- **`event.dataset` and `event.provider`** on every document for correct routing to Elastic integration dashboards.
+- **ECS enrichment for non-integrated services** — Common ECS field groups so all services are searchable in ECS indices.
+- **`cloud.account.name`** on every document.
+
+---
+
+## What's New in v3
+
+- **`cloud.account.id` + `cloud.account.name`** added to all generators.
+- **CloudWatch dimension fields** (`aws.dimensions.*`) and **CloudWatch metric fields** (`aws.*.metrics.*`) with exact CloudWatch metric names.
+- Lambda extended with full CloudWatch dimension set including `EventSourceMappingUUID` where applicable.
+
+---
+
+## What's New in v2
+
+- Per-service ingestion defaults — every service defaults to its correct `input.type`.
+- Default (per-service) mode and ingestion override controls.
+- Service card badges showing effective ingestion source.
+- Override warning banner and activity log enhancement.
