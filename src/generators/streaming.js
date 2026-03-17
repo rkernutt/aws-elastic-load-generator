@@ -8,7 +8,7 @@ function generateKinesisStreamsLog(ts, er) {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"kinesis" } },
     "aws": {
-      dimensions: { StreamName:stream, ShardId:`shardId-${String(randInt(0,15)).padStart(12,"0")}` },
+      dimensions: { StreamName:stream },
       kinesis: {
         stream_name: stream,
         shard_id: `shardId-${String(randInt(0,15)).padStart(12,"0")}`,
@@ -19,23 +19,30 @@ function generateKinesisStreamsLog(ts, er) {
         iterator_age_ms: isErr?randInt(10000,3600000):randInt(0,1000),
         write_provisioned_throughput_exceeded: isErr,
         metrics: {
+          "GetRecords.Bytes": { avg: randInt(1000,1e6) },
+          "GetRecords.IteratorAgeMilliseconds": { avg: isErr?randInt(10000,3600000):randInt(0,1000) },
+          "GetRecords.Latency": { avg: randInt(1,50) },
+          "GetRecords.Records": { avg: randInt(1,1000) },
+          "GetRecords.Success": { avg: isErr?0:1 },
+          IncomingBytes: { sum: randInt(1000,1e7) },
           IncomingRecords: { sum: randInt(1,10000) },
-          IncomingBytes: { sum: randInt(1000,10e6) },
-          OutgoingRecords: { sum: randInt(1,10000) },
-          OutgoingBytes: { sum: randInt(1000,10e6) },
-          WriteProvisionedThroughputExceeded: { sum: isErr ? randInt(1,100) : 0 },
-          ReadProvisionedThroughputExceeded: { sum: isErr ? randInt(1,50) : 0 },
-          IteratorAgeMilliseconds: { avg: isErr?randInt(10000,3600000):randInt(0,1000) },
-          GetRecords_IteratorAgeMilliseconds: { avg: isErr?randInt(10000,3600000):randInt(0,500) },
-          PutRecord_Success: { sum: isErr?0:randInt(100,10000) },
-          PutRecords_Success: { sum: isErr?0:randInt(100,10000) },
+          "PutRecord.Bytes": { avg: randInt(100,1e6) },
+          "PutRecord.Latency": { avg: randInt(1,100) },
+          "PutRecord.Success": { avg: isErr?0:1 },
+          "PutRecords.Bytes": { avg: randInt(1000,1e7) },
+          "PutRecords.FailedRecords": { avg: isErr?randInt(1,100):0 },
+          "PutRecords.SuccessfulRecords": { avg: randInt(1,1000) },
+          "PutRecords.Latency": { avg: randInt(1,200) },
+          ReadProvisionedThroughputExceeded: { sum: isErr?randInt(1,10):0 },
+          WriteProvisionedThroughputExceeded: { sum: isErr?randInt(1,10):0 },
+          IteratorAgeMilliseconds: { avg: randInt(0,60000) },
         }
       }
     },
-    "event": { outcome:isErr?"failure":"success", category:"process", dataset:"aws.kinesis", provider:"kinesis.amazonaws.com", duration:randInt(1, isErr?60000:5000)*1e6 },
+    "event": { outcome:isErr?"failure":"success", category:["network"], dataset:"aws.kinesis", provider:"kinesis.amazonaws.com", duration:randInt(1, isErr?60000:5000)*1e6 },
     "message": isErr ? `Kinesis WriteProvisionedThroughputExceeded on ${stream}` : `Kinesis ${stream}: ${randInt(1,10000)} records ingested`,
     "log": { level:isErr?"error":"info" },
-    ...(isErr ? { error: { code: "WriteProvisionedThroughputExceeded", message: "Kinesis throughput exceeded", type: "stream" } } : {})
+    ...(isErr ? { error: { code: rand(["ExpiredIteratorException","InvalidArgumentException","KMSAccessDeniedException","KMSDisabledException","KMSInvalidStateException","KMSNotFoundException","KMSOptInRequired","KMSThrottlingException","LimitExceededException","ProvisionedThroughputExceededException","ResourceInUseException","ResourceNotFoundException"]), message: "Kinesis stream error", type: "stream" } } : {})
   };
 }
 
@@ -56,19 +63,23 @@ function generateFirehoseLog(ts, er) {
         delivery_success: !isErr, delivery_records: isErr?0:recs,
         data_freshness_seconds: randInt(60,isErr?3600:300),
         metrics: {
-          IncomingRecords: { sum: recs },
-          IncomingBytes: { sum: recs*randInt(200,2000) },
-          DeliveryToS3_Records: { sum: dest==="S3"&&!isErr ? recs : 0 },
-          DeliveryToS3_Success: { sum: dest==="S3" ? (isErr?0:1) : null },
-          DeliveryToRedshift_Records: { sum: dest==="Redshift"&&!isErr ? recs : 0 },
-          DeliveryToElasticsearch_Records: { sum: dest==="OpenSearch"&&!isErr ? recs : 0 },
-          FailedConversionRecords: { sum: isErr ? randInt(1,100) : 0 },
-          DataReadFromKinesisStream_Records: { sum: recs },
-          DeliveryToS3_DataFreshness: { avg: randInt(60,isErr?3600:300) },
+          "DeliveryToS3.Bytes": { sum: randInt(1000,1e8) },
+          "DeliveryToS3.DataFreshness": { avg: randInt(60,3600) },
+          "DeliveryToS3.Records": { sum: randInt(1,10000) },
+          "DeliveryToS3.Success": { avg: isErr?0:1 },
+          IncomingBytes: { sum: randInt(1000,1e8) },
+          IncomingRecords: { sum: randInt(1,10000) },
+          "BackupToS3.Bytes": { sum: randInt(0,1e6) },
+          "BackupToS3.Records": { sum: randInt(0,1000) },
+          "BackupToS3.Success": { avg: 1 },
+          "DataReadFromKinesisStream.Bytes": { sum: randInt(1000,1e8) },
+          "DataReadFromKinesisStream.Records": { sum: randInt(1,10000) },
+          ThrottledGetRecords: { sum: isErr?randInt(1,10):0 },
+          ThrottledGetShardIterator: { sum: 0 },
         }
       }
     },
-    "event": { outcome:isErr?"failure":"success", category:"process", dataset:"aws.firehose", provider:"firehose.amazonaws.com", duration:randInt(1, isErr?300:60)*1e9 },
+    "event": { outcome:isErr?"failure":"success", category:["process"], dataset:"aws.firehose", provider:"firehose.amazonaws.com", duration:randInt(1, isErr?300:60)*1e9 },
     "message": isErr ? `Firehose ${stream} delivery failure: ${rand(["S3 PutObject failed","Conversion error","Buffer full"])}` : `Firehose ${stream}: ${recs} records delivered`,
     "log": { level:isErr?"error":"info" },
     ...(isErr ? { error: { code: "DeliveryFailure", message: "Firehose delivery failed", type: "stream" } } : {})
@@ -128,23 +139,27 @@ function generateMskLog(ts, er) {
         lag: isErr?randInt(10000,1000000):randInt(0,100),
         under_replicated_partitions: isErr?randInt(1,20):0,
         metrics: {
-          BytesInPerSec: { avg: randInt(1000,10e6) },
-          BytesOutPerSec: { avg: randInt(1000,10e6) },
-          MessagesInPerSec: { avg: randInt(100,100000) },
-          UnderReplicatedPartitions: { avg: isErr?randInt(1,20):0 },
-          OfflinePartitionsCount: { avg: isErr?randInt(1,5):0 },
+          BytesInPerSec: { avg: randInt(1000,1e7) },
+          BytesOutPerSec: { avg: randInt(1000,1e7) },
+          MessagesInPerSec: { avg: randInt(1,10000) },
+          FetchConsumerTotalTimeMsMean: { avg: randInt(1,100) },
+          ProduceTotalTimeMsMean: { avg: randInt(1,50) },
+          UnderReplicatedPartitions: { avg: isErr?randInt(1,5):0 },
+          UnderMinIsrPartitionCount: { avg: isErr?randInt(1,3):0 },
+          OfflinePartitionsCount: { avg: isErr?randInt(0,2):0 },
           ActiveControllerCount: { avg: 1 },
-          LeaderCount: { avg: randInt(1,100) },
-          NetworkProcessorAvgIdlePercent: { avg: parseFloat(randFloat(20,90)) },
-          RequestHandlerAvgIdlePercent: { avg: parseFloat(randFloat(20,90)) },
-          KafkaDataLogsDiskUsed: { avg: parseFloat(randFloat(10,isErr?90:60)) },
-          CpuUser: { avg: parseFloat(randFloat(5,isErr?95:60)) },
-          MemoryFree: { avg: randInt(500e6, 8e9) },
+          GlobalPartitionCount: { avg: randInt(10,1000) },
+          GlobalTopicCount: { avg: randInt(1,100) },
+          KafkaDataLogsDiskUsed: { avg: randFloat(10,90) },
+          CPUUser: { avg: randFloat(1,80) },
+          CPUSystem: { avg: randFloat(1,20) },
+          NetworkRxDropped: { sum: 0 },
+          NetworkTxDropped: { sum: 0 },
         }
       }
     },
     "kafka": { topic, partition },
-    "event": { outcome:isErr?"failure":"success", category:"process", dataset:"aws.msk", provider:"kafka.amazonaws.com", duration:randInt(1, isErr?5000:100)*1e6 },
+    "event": { outcome:isErr?"failure":"success", category:["process","network"], dataset:"aws.msk", provider:"kafka.amazonaws.com", duration:randInt(1, isErr?5000:100)*1e6 },
     "message": isErr ? `MSK broker issue: under-replicated partitions on ${topic}` : `MSK ${topic}[${partition}] offset=${randInt(0,100000000)}`,
     "log": { level:isErr?"error":"info" },
     ...(isErr ? { error: { code: "UnderReplicatedPartitions", message: "MSK partition replication lag", type: "stream" } } : {})
@@ -169,22 +184,22 @@ function generateSqsLog(ts, er) {
         approximate_age_of_oldest_message_seconds: randInt(0,isErr?86400:300),
         is_dlq: isDlq,
         metrics: {
-          NumberOfMessagesSent: { sum: sent },
-          NumberOfMessagesReceived: { sum: received },
-          NumberOfMessagesDeleted: { sum: deleted },
-          ApproximateNumberOfMessagesVisible: { avg: randInt(0,isErr?100000:1000) },
-          ApproximateNumberOfMessagesNotVisible: { avg: randInt(0,100) },
-          ApproximateNumberOfMessagesDelayed: { avg: randInt(0,50) },
-          ApproximateAgeOfOldestMessage: { avg: randInt(0,isErr?86400:300) },
+          NumberOfMessagesSent: { sum: randInt(1,1000) },
+          NumberOfMessagesReceived: { sum: randInt(1,1000) },
+          NumberOfMessagesDeleted: { sum: randInt(1,1000) },
+          ApproximateNumberOfMessagesVisible: { avg: randInt(0,10000) },
+          ApproximateNumberOfMessagesNotVisible: { avg: randInt(0,1000) },
+          ApproximateNumberOfMessagesDelayed: { avg: randInt(0,500) },
+          ApproximateAgeOfOldestMessage: { avg: randInt(0,3600) },
+          NumberOfEmptyReceives: { sum: randInt(0,100) },
           SentMessageSize: { avg: randInt(1,256000) },
-          NumberOfEmptyReceives: { sum: randInt(0,1000) },
         }
       }
     },
-    "event": { outcome:isErr?"failure":"success", category:"process", dataset:"aws.sqs", provider:"sqs.amazonaws.com", duration:randInt(1, isErr?30000:500)*1e6 },
+    "event": { outcome:isErr?"failure":"success", category:["process"], dataset:"aws.sqs", provider:"sqs.amazonaws.com", duration:randInt(1, isErr?30000:500)*1e6 },
     "message": isErr||isDlq ? `SQS ${queue}: ${randInt(1,1000)} messages dead-lettered after max retries` : `SQS ${queue}: ${sent} messages processed`,
     "log": { level:isErr||isDlq?"warn":"info" },
-    ...(isErr||isDlq ? { error: { code: "MessagesDeadLettered", message: "Messages moved to DLQ after max retries", type: "queue" } } : {})
+    ...(isErr||isDlq ? { error: { code: rand(["AWS.SimpleQueueService.NonExistentQueue","InvalidMessageContents","MessageNotInflight","OverLimit","QueueAlreadyExists","QueueDeletedRecently","QueueDoesNotExist","ReceiptHandleIsInvalid","UnsupportedOperation","AWS.SimpleQueueService.TooManyEntriesInBatchRequest"]), message: "SQS operation failed", type: "queue" } } : {})
   };
 }
 
@@ -204,17 +219,20 @@ function generateSnsLog(ts, er) {
       status_code:isErr?rand([400,500,429]):200,
       error_message:isErr?rand(["Endpoint disabled","HTTP timeout","Lambda error","SQS full"]):null,
       metrics:{
-        NumberOfMessagesPublished: { sum: published },
-        NumberOfNotificationsDelivered: { sum: delivered },
-        NumberOfNotificationsFailed: { sum: failed },
-        PublishSize: { avg: randInt(200, 64000) },
-        SmsSuccessRate: { avg: protocol==="sms" ? parseFloat(randFloat(0.85, 1)) : null },
+        NumberOfMessagesPublished: { sum: 1 },
+        NumberOfNotificationsDelivered: { sum: isErr?0:1 },
+        NumberOfNotificationsFailed: { sum: isErr?1:0 },
+        NumberOfNotificationsFilteredOut: { sum: Math.random()<0.1?1:0 },
+        "NumberOfNotificationsFilteredOut-NoMessageAttributes": { sum: 0 },
+        "NumberOfNotificationsFilteredOut-InvalidAttributes": { sum: 0 },
+        PublishSize: { avg: randInt(1, 256000) },
+        ...(protocol==="sms" ? { SMSSuccessRate: { avg: Math.random()>0.05?1:0 } } : {}),
       }}},
-    "event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.sns",provider:"sns.amazonaws.com",duration:deliveryLatencyMs*1e6},
+    "event":{outcome:isErr?"failure":"success",category:["process"],dataset:"aws.sns",provider:"sns.amazonaws.com",duration:deliveryLatencyMs*1e6},
     "message":isErr?`SNS delivery FAILED: ${topic} -> ${protocol}: ${rand(["Endpoint disabled","Timeout","Lambda error"])}`:
       `SNS delivered: ${topic} -> ${protocol} (${randInt(100,50000)}B)`,
     "log":{level:isErr?"warn":"info"},
-    ...(isErr ? { error: { code: "DeliveryFailure", message: "SNS delivery failed", type: "messaging" } } : {})};
+    ...(isErr ? { error: { code: rand(["AuthorizationErrorException","EndpointDisabledException","InternalErrorException","InvalidParameterException","InvalidParameterValueException","InvalidSecurityException","KMSAccessDeniedException","KMSDisabledException","KMSInvalidStateException","KMSNotFoundException","KMSOptInRequired","KMSThrottlingException","NotFoundException","OptedOutException","PlatformApplicationDisabledException","StaleTagException","TagLimitExceededException","ThrottledException","TopicLimitExceededException"]), message: "SNS delivery failed", type: "messaging" } } : {})};
 }
 
 function generateAmazonMqLog(ts, er) {
@@ -242,14 +260,23 @@ function generateAmazonMqLog(ts, er) {
       queue_depth:queueDepth,
       broker_memory_percent:brokerMemPct,
       metrics:{
-        QueueDepth: { avg: queueDepth },
-        ProducerCount: { avg: randInt(1, 50) },
-        ConsumerCount: { avg: randInt(1, 30) },
-        MessageCount: { sum: messagesIn + messagesOut },
-        BrokerMemoryUsage: { avg: brokerMemPct },
-        StorePercentUsage: { avg: isErr ? randInt(75, 98) : randInt(10, 60) },
+        ConsumerCount: { avg: randInt(1,100) },
+        ProducerCount: { avg: randInt(1,50) },
+        QueueSize: { avg: randInt(0,10000) },
+        EnqueueCount: { sum: randInt(1,10000) },
+        DequeueCount: { sum: randInt(1,10000) },
+        InFlightCount: { avg: randInt(0,500) },
+        DispatchCount: { sum: randInt(1,10000) },
+        ExpiredCount: { sum: randInt(0,100) },
+        NetworkConnectorStarted: { sum: Math.random()>0.9?1:0 },
+        HeapUsage: { avg: randFloat(10,80) },
+        StorePercentUsage: { avg: randFloat(5,70) },
+        TotalEnqueueCount: { sum: randInt(1000,1e6) },
+        TotalDequeueCount: { sum: randInt(1000,1e6) },
+        TotalConsumerCount: { avg: randInt(1,100) },
+        TotalProducerCount: { avg: randInt(1,50) },
       }}},
-    "event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.amazonmq",provider:"mq.amazonaws.com",duration:durSec*1e9},
+    "event":{outcome:isErr?"failure":"success",category:["process","network"],dataset:"aws.amazonmq",provider:"mq.amazonaws.com",duration:durSec*1e9},
     "message":rand(MSGS[level]),
     "log":{level},
     ...(isErr ? { error: { code: "BrokerError", message: rand(MSGS.error), type: "messaging" } } : {})};
@@ -277,19 +304,19 @@ function generateEventBridgeLog(ts, er) {
         event_id: eventId,
         structured_logging: useStructuredLogging,
         metrics: {
-          Invocations: { sum: randInt(1,10000) },
-          FailedInvocations: { sum: isErr ? randInt(1,100) : 0 },
-          TriggeredRules: { sum: randInt(1,1000) },
-          MatchedEvents: { sum: randInt(1,10000) },
-          ThrottledRules: { sum: isErr ? randInt(1,10) : 0 },
-          DeadLetterInvocations: { sum: isErr ? randInt(1,20) : 0 },
+          Invocations: { sum: 1 },
+          FailedInvocations: { sum: isErr?1:0 },
+          TriggeredRules: { sum: 1 },
+          MatchedEvents: { sum: randInt(1,100) },
+          ThrottledRules: { sum: isErr?randInt(1,5):0 },
+          DeadLetterInvocations: { sum: isErr&&Math.random()>0.5?1:0 },
         }
       }
     },
-    "event": { outcome:isErr?"failure":"success", category:"process", dataset:"aws.eventbridge", provider:"events.amazonaws.com", duration:randInt(1, isErr?5000:200)*1e6 },
+    "event": { outcome:isErr?"failure":"success", category:["process"], type:[rand(["info","creation","deletion","change"])], dataset:"aws.eventbridge", provider:"events.amazonaws.com", duration:randInt(1, isErr?5000:200)*1e6 },
     "message": message,
     "log": { level:isErr?"error":"info" },
-    ...(isErr ? { error: { code: "TargetInvocationFailed", message: "EventBridge target invocations failed", type: "event" } } : {})
+    ...(isErr ? { error: { code: rand(["ConcurrentModificationException","IllegalStatusException","InternalException","InvalidEventPatternException","InvalidStateException","LimitExceededException","ManagedRuleException","OperationDisabledException","PolicyLengthExceededException","ResourceAlreadyExistsException","ResourceNotFoundException"]), message: "EventBridge target invocations failed", type: "event" } } : {})
   };
 }
 

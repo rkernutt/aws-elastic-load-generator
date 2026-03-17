@@ -4,10 +4,11 @@ function generateDynamoDbLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const isErr = Math.random() < er;
   const tables = ["users","sessions","products","orders","events","cache"]; const table = rand(tables);
-  const op = rand(["GetItem","PutItem","UpdateItem","DeleteItem","Query","Scan","BatchWriteItem"]);
+  const op = rand(["GetItem","PutItem","Query","Scan","UpdateItem","DeleteItem","BatchGetItem","BatchWriteItem","TransactGetItems","TransactWriteItems"]);
   const rcu = parseFloat(randFloat(0.5, isErr?500:50));
   const wcu = parseFloat(randFloat(0.5, 50));
-  const plainMessage = isErr ? `DynamoDB ${op} ${table}: ${rand(["ProvisionedThroughputExceededException","ConditionalCheckFailedException","ResourceNotFoundException"])}` : `DynamoDB ${op} ${table}: consumed ${rcu} RCU, ${wcu} WCU`;
+  const dynamoErrCodes = ["ConditionalCheckFailedException","ItemCollectionSizeLimitExceededException","LimitExceededException","MissingAuthenticationToken","ProvisionedThroughputExceededException","RequestLimitExceeded","ResourceInUseException","ResourceNotFoundException","ThrottlingException","TransactionCanceledException","TransactionConflictException","TransactionInProgressException","ValidationException"];
+  const plainMessage = isErr ? `DynamoDB ${op} ${table}: ${rand(dynamoErrCodes)}` : `DynamoDB ${op} ${table}: consumed ${rcu} RCU, ${wcu} WCU`;
   const useStructuredLogging = Math.random() < 0.55;
   const message = useStructuredLogging ? JSON.stringify({ table, operation: op, consumedReadCapacityUnits: rcu, consumedWriteCapacityUnits: wcu, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
@@ -21,26 +22,29 @@ function generateDynamoDbLog(ts, er) {
         consumed_write_capacity_units: wcu,
         items_count: randInt(0,1000),
         structured_logging: useStructuredLogging,
-        error_code: isErr?rand(["ProvisionedThroughputExceededException","ConditionalCheckFailedException","ResourceNotFoundException"]):null,
+        error_code: isErr?rand(dynamoErrCodes):null,
         metrics: {
-          ConsumedReadCapacityUnits: { sum: rcu },
-          ConsumedWriteCapacityUnits: { sum: wcu },
-          ProvisionedReadCapacityUnits: { avg: randInt(100, 10000) },
-          ProvisionedWriteCapacityUnits: { avg: randInt(50, 5000) },
-          SuccessfulRequestLatency: { avg: randInt(1, isErr?1000:50), p99: randInt(5, isErr?5000:200) },
-          SystemErrors: { sum: isErr ? randInt(1,10) : 0 },
-          UserErrors: { sum: isErr ? randInt(1,5) : 0 },
-          ThrottledRequests: { sum: isErr ? randInt(1,100) : 0 },
-          TransactionConflict: { sum: Math.random()<0.05 ? randInt(1,10) : 0 },
-          ReturnedItemCount: { avg: randInt(0, 1000) },
+          ConsumedReadCapacityUnits: { sum: randInt(1, 1000) },
+          ConsumedWriteCapacityUnits: { sum: randInt(1, 500) },
+          ProvisionedReadCapacityUnits: { avg: randInt(5, 10000) },
+          ProvisionedWriteCapacityUnits: { avg: randInt(5, 5000) },
+          ReadThrottleEvents: { sum: isErr?randInt(1,100):0 },
+          WriteThrottleEvents: { sum: isErr?randInt(1,100):0 },
+          SystemErrors: { sum: isErr?1:0 },
+          UserErrors: { sum: isErr?randInt(1,5):0 },
+          SuccessfulRequestLatency: { avg: parseFloat(randFloat(0.1, isErr?50:5)), p99: parseFloat(randFloat(1, isErr?200:20)) },
+          ThrottledRequests: { sum: isErr?randInt(1,100):0 },
+          TransactionConflict: { sum: isErr&&Math.random()>0.5?randInt(1,10):0 },
+          ReturnedItemCount: { avg: randInt(1, 1000) },
+          ReturnedBytes: { avg: randInt(100, 1e6) },
         }
       }
     },
     "db": { name:table, operation:op, type:"nosql" },
-    "event": { outcome:isErr?"failure":"success", category:"database", dataset:"aws.dynamodb", provider:"dynamodb.amazonaws.com", duration:randInt(1, isErr?500:50)*1e6 },
+    "event": { outcome:isErr?"failure":"success", category:["database"], type:isErr?["error"]:["access"], dataset:"aws.dynamodb", provider:"dynamodb.amazonaws.com", duration:randInt(1, isErr?500:50)*1e6 },
     "message": message,
     "log": { level:isErr?"error":rcu>100?"warn":"info" },
-    ...(isErr ? { error: { code: rand(["ProvisionedThroughputExceededException","ConditionalCheckFailedException","ResourceNotFoundException"]), message: `DynamoDB ${op} failed`, type: "db" } } : {})
+    ...(isErr ? { error: { code: rand(dynamoErrCodes), message: `DynamoDB ${op} failed`, type: "db" } } : {})
   };
 }
 
@@ -51,39 +55,51 @@ function generateElastiCacheLog(ts, er) {
   const nodeId = `${randInt(1,5).toString().padStart(4,"0")}`;
   const cmd = rand(["GET","SET","DEL","EXPIRE","HGET","HSET","LPUSH","RPOP","ZADD","ZRANGE","SCAN"]);
   const lat = parseFloat(randFloat(0.01, isErr?5000:50));
+  const replicationGroupId = "prod-cache";
+  const elastiCacheErrCodes = ["CacheClusterNotFound","CacheParameterGroupNotFound","CacheSecurityGroupNotFound","CacheSubnetGroupNotFoundFault","ClusterQuotaForCustomerExceeded","InsufficientCacheClusterCapacity","InvalidCacheClusterState","InvalidSubnet","NodeGroupsPerReplicationGroupQuotaExceeded","NodeQuotaForClusterExceeded","ReplicationGroupAlreadyExists","ReplicationGroupNotFound","SnapshotAlreadyExistsFault"];
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"elasticache" } },
     "aws": {
-      dimensions: { CacheClusterId:clusterId, CacheNodeId:nodeId },
+      dimensions: { CacheClusterId:clusterId, CacheNodeId:nodeId, ReplicationGroupId:replicationGroupId },
       elasticache: {
         cluster_id: clusterId, node_id: nodeId,
         engine: "redis", engine_version: "7.1.0",
-        replication_group_id: "prod-cache",
+        replication_group_id: replicationGroupId,
         command: cmd, latency_us: lat,
         cache_hit: !isErr&&Math.random()>0.3,
         connected_clients: randInt(10,500),
         used_memory_mb: randInt(256,16384),
         metrics: {
-          CPUUtilization: { avg: parseFloat(randFloat(1, isErr?95:50)) },
-          FreeableMemory: { avg: randInt(100e6, 8e9) },
-          NetworkBytesIn: { sum: randInt(1e6, 100e6) },
-          NetworkBytesOut: { sum: randInt(1e6, 100e6) },
-          CacheHits: { sum: randInt(0, 100000) },
-          CacheMisses: { sum: randInt(0, 10000) },
-          CurrConnections: { avg: randInt(10, 500) },
+          BytesUsedForCache: { avg: randInt(1e6, 8e9) },
+          CacheHits: { sum: randInt(100, 100000) },
+          CacheMisses: { sum: randInt(1, 1000) },
+          CacheHitRate: { avg: parseFloat(randFloat(0.85, 0.99)) },
+          CurrConnections: { avg: randInt(10, 1000) },
           NewConnections: { sum: randInt(1, 100) },
-          Evictions: { sum: isErr ? randInt(1,1000) : 0 },
-          ReplicationLag: { avg: parseFloat(randFloat(0, isErr?60:1)) },
+          Evictions: { sum: isErr?randInt(1,1000):0 },
+          Reclaimed: { sum: randInt(0, 100) },
+          ReplicationBytes: { avg: randInt(0, 1e7) },
+          ReplicationLag: { avg: randInt(0, isErr?10:1) },
           SaveInProgress: { avg: 0 },
+          CurrItems: { avg: randInt(1000, 1e6) },
+          NewItems: { sum: randInt(1, 10000) },
+          NetworkBytesIn: { avg: randInt(1000, 1e8) },
+          NetworkBytesOut: { avg: randInt(1000, 1e8) },
+          CPUUtilization: { avg: parseFloat(randFloat(1, isErr?90:40)) },
+          EngineCPUUtilization: { avg: parseFloat(randFloat(1, isErr?80:30)) },
+          FreeableMemory: { avg: randInt(1e8, 8e9) },
+          SwapUsage: { avg: randInt(0, 5e7) },
+          DatabaseMemoryUsagePercentage: { avg: parseFloat(randFloat(10, isErr?95:70)) },
+          TrafficBasedCmdsLatency: { avg: parseFloat(randFloat(0.01, isErr?10:1)) },
         }
       }
     },
     "db": { type:"keyvalue", operation:cmd },
-    "event": { duration:lat*1000, outcome:isErr?"failure":"success", category:"database", dataset:"aws.elasticache", provider:"elasticache.amazonaws.com" },
+    "event": { duration:lat*1000, outcome:isErr?"failure":"success", category:["database","network"], dataset:"aws.elasticache", provider:"elasticache.amazonaws.com" },
     "message": isErr ? `Redis ${cmd} failed: ${rand(["LOADING","READONLY","OOM command not allowed"])}` : `Redis ${cmd} ${lat.toFixed(2)}us`,
     "log": { level:isErr?"error":lat>1000?"warn":"info" },
-    ...(isErr ? { error: { code: "RedisError", message: rand(["LOADING","READONLY","OOM command not allowed"]), type: "db" } } : {})
+    ...(isErr ? { error: { code: rand(elastiCacheErrCodes), message: rand(["LOADING","READONLY","OOM command not allowed"]), type: "db" } } : {})
   };
 }
 
@@ -93,37 +109,46 @@ function generateRedshiftLog(ts, er) {
   const queries = ["SELECT COUNT(*) FROM fact_events WHERE event_date >= CURRENT_DATE - 7","INSERT INTO staging_orders SELECT * FROM raw_orders WHERE processed_at IS NULL","COPY events FROM 's3://data-lake/events/' IAM_ROLE 'arn:aws:iam::...'","VACUUM DELETE ONLY dim_products TO 95 PERCENT","ANALYZE dim_customers PREDICATE COLUMNS"];
   const dur = parseFloat(randFloat(0.1, isErr?300:60)); const dbUser = rand(["etl_user","analyst","bi_service","dbt_runner"]);
   const clusterId = `prod-dw-${region}`;
+  const redshiftErrCodes = ["AuthorizationAlreadyExists","AuthorizationNotFound","ClusterAlreadyExists","ClusterNotFound","ClusterParameterGroupNotFound","ClusterSecurityGroupNotFound","ClusterSubnetGroupNotFound","HsmClientCertificateNotFound","InsufficientClusterCapacity","InvalidClusterState","InvalidClusterSubnetGroupStateFault","LimitExceededException","SnapshotIdentifierNotFound"];
+  const nodeId = rand(["Leader","Compute-0","Compute-1"]);
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"redshift" } },
     "aws": {
-      dimensions: { ClusterIdentifier:clusterId, NodeID:rand(["Leader","Compute-0","Compute-1"]) },
+      dimensions: { ClusterIdentifier:clusterId, NodeID:nodeId },
       redshift: {
         cluster_id: clusterId, database: "analytics", user: dbUser,
         pid: randInt(10000,99999), query_id: randInt(1000000,9999999),
         duration_seconds: dur, rows_returned: isErr?0:randInt(0,5000000),
-        error_code: isErr?rand(["1006","8001","30000","32000"]):null,
+        error_code: isErr?rand(redshiftErrCodes):null,
         metrics: {
-          CPUUtilization: { avg: parseFloat(randFloat(5, isErr?99:70)) },
-          PercentageDiskSpaceUsed: { avg: parseFloat(randFloat(10, isErr?95:60)) },
-          DatabaseConnections: { avg: randInt(1, isErr?500:100) },
-          HealthStatus: { avg: isErr ? 0 : 1 },
+          CPUUtilization: { avg: parseFloat(randFloat(1, isErr?90:60)) },
+          PercentageDiskSpaceUsed: { avg: parseFloat(randFloat(10, isErr?95:70)) },
+          DatabaseConnections: { avg: randInt(1, 500) },
+          HealthStatus: { avg: isErr?0:1 },
           MaintenanceMode: { avg: 0 },
-          ReadIOPS: { avg: randInt(0, 10000) },
-          WriteIOPS: { avg: randInt(0, 10000) },
-          ReadLatency: { avg: parseFloat(randFloat(0.001, 0.1)) },
-          WriteLatency: { avg: parseFloat(randFloat(0.001, 0.1)) },
-          NetworkReceiveThroughput: { avg: randInt(1e6, 100e6) },
-          NetworkTransmitThroughput: { avg: randInt(1e6, 100e6) },
-          QueriesCompletedPerSecond: { avg: parseFloat(randFloat(0.1, 100)) },
+          NetworkReceiveThroughput: { avg: randInt(1000, 1e9) },
+          NetworkTransmitThroughput: { avg: randInt(1000, 1e9) },
+          QueriesCompletedPerSecond: { avg: parseFloat(randFloat(1, 1000)) },
+          QueryDuration: { avg: parseFloat(randFloat(100, isErr?120000:30000)) },
+          QueryRuntimeBreakdown: { avg: parseFloat(randFloat(100, 30000)) },
+          ReadIOPS: { avg: randInt(100, 10000) },
+          ReadLatency: { avg: parseFloat(randFloat(0.001, isErr?1:0.1)) },
+          ReadThroughput: { avg: randInt(1e6, 1e9) },
+          WLMQueriesCompletedPerSecond: { avg: parseFloat(randFloat(1, 500)) },
+          WLMQueryDuration: { avg: parseFloat(randFloat(100, 60000)) },
+          WLMRunningSlotCount: { avg: randInt(1, 50) },
+          WriteIOPS: { avg: randInt(100, 5000) },
+          WriteLatency: { avg: parseFloat(randFloat(0.001, isErr?1:0.1)) },
+          WriteThroughput: { avg: randInt(1e6, 5e8) },
         }
       }
     },
     "db": { user:{ name:dbUser }, name:"analytics", statement:rand(queries), type:"sql" },
-    "event": { duration:dur*1e9, outcome:isErr?"failure":"success", category:"database", dataset:"aws.redshift", provider:"redshift.amazonaws.com" },
+    "event": { duration:dur*1e9, outcome:isErr?"failure":"success", category:["database"], dataset:"aws.redshift", provider:"redshift.amazonaws.com" },
     "message": isErr ? `Redshift query failed after ${dur}s` : `Redshift query completed in ${dur.toFixed(2)}s`,
     "log": { level:isErr?"error":dur>60?"warn":"info" },
-    ...(isErr ? { error: { code: rand(["1006","8001","30000","32000"]), message: "Redshift query failed", type: "db" } } : {})
+    ...(isErr ? { error: { code: rand(redshiftErrCodes), message: "Redshift query failed", type: "db" } } : {})
   };
 }
 
@@ -174,6 +199,7 @@ function generateDocumentDbLog(ts, er) {
   const op = rand(["find","insert","update","delete","aggregate","createIndex"]); const col = rand(["users","orders","products","sessions","events"]);
   const dur = parseFloat(randFloat(0.1, isErr?10000:500));
   const clusterId = `docdb-${region}-cluster`;
+  const docdbErrCodes = ["DBClusterNotFoundFault","DBClusterAlreadyExistsFault","DBInstanceNotFound","InvalidDBClusterStateFault","InsufficientDBClusterCapacityFault","StorageQuotaExceeded","DBSubnetGroupDoesNotCoverEnoughAZs","DBClusterParameterGroupNotFound","SnapshotQuotaExceeded","InvalidDBSubnetGroupStateFault","GlobalClusterNotFoundFault"];
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"docdb" } },
@@ -201,10 +227,10 @@ function generateDocumentDbLog(ts, er) {
       }
     },
     "db": { name:"appdb", operation:op, type:"document" },
-    "event": { duration:dur*1e6, outcome:isErr?"failure":"success", category:"database", dataset:"aws.docdb", provider:"docdb.amazonaws.com" },
+    "event": { duration:dur*1e6, outcome:isErr?"failure":"success", category:["database"], dataset:"aws.docdb", provider:"docdb.amazonaws.com" },
     "message": isErr ? `DocumentDB ${op} on ${col} failed: ${rand(["DuplicateKey","WriteConflict"])}` : `DocumentDB ${op} on ${col}: ${dur.toFixed(1)}ms`,
     "log": { level:isErr?"error":dur>1000?"warn":"info" },
-    ...(isErr ? { error: { code: rand(["CursorNotFound","DuplicateKey","WriteConflict","ExceededTimeLimit"]), message: `DocumentDB ${op} failed`, type: "db" } } : {})
+    ...(isErr ? { error: { code: rand(docdbErrCodes), message: `DocumentDB ${op} failed`, type: "db" } } : {})
   };
 }
 
@@ -224,8 +250,20 @@ function generateAuroraLog(ts, er) {
       engine,engine_version:engine.includes("mysql")?"8.0.36":"15.4",
       replica_lag_seconds:isErr?randInt(30,3600):parseFloat(randFloat(0,5)),
       db_connections:randInt(10,isErr?1000:500),max_connections:1000,
-      failover_in_progress:isErr&&Math.random()>0.5}},
-    "event":{outcome:isErr?"failure":"success",category:"database",dataset:"aws.aurora",provider:"rds.amazonaws.com",duration:durationSec*1e9},
+      failover_in_progress:isErr&&Math.random()>0.5,
+      metrics:{
+        AuroraBinlogReplicaLag:{ avg:randInt(0,isErr?3600:10) },
+        AuroraGlobalDBReplicatedWriteIO:{ sum:randInt(0,1e8) },
+        AuroraGlobalDBDataTransferBytes:{ sum:randInt(0,1e9) },
+        AuroraGlobalDBProgressLag:{ avg:randInt(0,isErr?60000:1000) },
+        BacktrackChangeRecordsCreationRate:{ avg:randInt(0,10000) },
+        BacktrackChangeRecordsStored:{ avg:randInt(0,1e9) },
+        BacktrackWindowActual:{ avg:randInt(0,86400) },
+        BacktrackWindowAlert:{ avg:isErr&&Math.random()>0.7?1:0 },
+        ServerlessDatabaseCapacity:{ avg:parseFloat(randFloat(0.5,128)) },
+        ACUUtilization:{ avg:parseFloat(randFloat(1,isErr?95:70)) },
+      }}},
+    "event":{outcome:isErr?"failure":"success",category:["database"],dataset:"aws.aurora",provider:"rds.amazonaws.com",duration:durationSec*1e9},
     "message":rand(MSGS[level]),
     "log":{level},
     ...(isErr ? { error: { code: "AuroraError", message: rand(MSGS.error), type: "db" } } : {})};
@@ -246,8 +284,16 @@ function generateNeptuneLog(ts, er) {
       query:rand(QUERIES[queryLang]),duration_ms:Math.round(dur),
       http_status:isErr?rand([400,429,500]):200,
       db_connections:randInt(1,isErr?500:200),
-      error_code:isErr?rand(["QueryTimeout","ReadOnlyEngineException","ConcurrentModificationException"]):null}},
-    "event":{duration:dur*1e6,outcome:isErr?"failure":"success",category:"database",dataset:"aws.neptune",provider:"neptune.amazonaws.com"},
+      error_code:isErr?rand(["QueryTimeout","ReadOnlyEngineException","ConcurrentModificationException"]):null,
+      metrics:{
+        CPUUtilization:{ avg:parseFloat(randFloat(1,isErr?95:60)) },
+        FreeableMemory:{ avg:randInt(1e8,8e9) },
+        DatabaseConnections:{ avg:randInt(1,isErr?500:200) },
+        GremlinRequestsPerSec:{ avg:parseFloat(randFloat(0,queryLang==="Gremlin"?1000:0)) },
+        SparqlRequestsPerSec:{ avg:parseFloat(randFloat(0,queryLang==="SPARQL"?500:0)) },
+        ServerlessDBCapacity:{ avg:parseFloat(randFloat(1,128)) },
+      }}},
+    "event":{duration:dur*1e6,outcome:isErr?"failure":"success",category:["database"],dataset:"aws.neptune",provider:"neptune.amazonaws.com"},
     "message":isErr?`Neptune ${queryLang} FAILED after ${dur.toFixed(0)}ms: ${rand(["QueryTimeout","ConcurrentModification"])}`:
       `Neptune ${queryLang}: ${dur.toFixed(0)}ms`,
     "log":{level:isErr?"error":dur>5000?"warn":"info"},
@@ -377,40 +423,73 @@ function generateRdsLog(ts, er) {
     uptime: `${randInt(0,99)} days, ${randInt(0,23)}:${randInt(0,59).toString().padStart(2,"0")}:${randInt(0,59).toString().padStart(2,"0")}`,
   } : null;
 
-  const plainMessage = isErr ? rand(["ERROR 1045: Access denied","FATAL: role does not exist","ERROR 1213: Deadlock found"]) : `Query executed in ${qt}s by ${dbUser}`;
+  const mysqlErrMessages = [
+    `ERROR 1045 (28000): Access denied for user '${dbUser}'@'${randIp()}' (using password: YES)`,
+    `ERROR 1213 (40001): Deadlock found when trying to get lock; try restarting transaction`,
+    `[Warning] Aborted connection ${randInt(1000,9999)} to db: 'mydb' user: '${dbUser}' host: '${randIp()}' (Got an error reading communication packets)`,
+  ];
+  const postgresErrMessages = [
+    `FATAL: role "${dbUser}" does not exist`,
+    `ERROR: deadlock detected`,
+    `FATAL: password authentication failed for user "${dbUser}"`,
+    `LOG: duration: ${parseFloat(randFloat(1000,30000)).toFixed(3)} ms statement: SELECT * FROM orders WHERE customer_id = ${randInt(1,1e6)}`,
+  ];
+  const engineErrMessages = engine === "postgres" ? postgresErrMessages : mysqlErrMessages;
+  const plainMessage = isErr ? rand(engineErrMessages) : (engine === "postgres"
+    ? `LOG: duration: ${(qt*1000).toFixed(3)} ms statement: SELECT * FROM ${rand(["users","orders","products"])} WHERE id = ${randInt(1,1e6)}`
+    : `Query_time: ${qt.toFixed(6)}  Lock_time: ${parseFloat(randFloat(0,0.01)).toFixed(6)}  Rows_sent: ${randInt(0,1000)}  Rows_examined: ${randInt(0,100000)}`);
   const message = useEnhancedMonitoring
     ? JSON.stringify({ instanceId, engine, userId: dbUser, queryTime: qt, error: isErr ? plainMessage : null, timestamp: new Date(ts).toISOString(), osMetrics })
     : plainMessage;
+
+  const cpuPct = parseFloat(randFloat(1, isErr?95:60));
+  const rdsErrCodes = ["DBInstanceNotFound","DBInstanceAlreadyExists","InvalidDBInstanceState","InsufficientDBInstanceCapacity","StorageQuotaExceeded","DBParameterGroupNotFound","DBSecurityGroupNotFound","DBSnapshotAlreadyExists","DBSubnetGroupDoesNotCoverEnoughAZs","AuthorizationNotFound","ProvisionedIopsNotAvailableInAZ","OptionGroupNotFoundFault","StorageTypeNotSupported"];
 
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"rds" } },
     "aws": {
-      dimensions: { DBInstanceIdentifier:instanceId, DatabaseClass:rand(["db.t3.medium","db.r5.large","db.r6g.xlarge"]), EngineName:engine },
+      dimensions: { DBInstanceIdentifier:instanceId, DatabaseClass:rand(["db.t3.medium","db.r5.large","db.r6g.xlarge"]), EngineName:engine, SourceRegion:region },
       rds: {
         instance_id: instanceId, engine, engine_version: engine==="postgres"?"15.4":engine==="mysql"?"8.0.34":"8.0.mysql_aurora.3.04.0",
         query_time: qt,
         enhanced_monitoring: useEnhancedMonitoring,
         os_metrics: osMetrics,
         metrics: {
-          CPUUtilization: { avg: parseFloat(randFloat(1, isErr?95:60)) },
-          DatabaseConnections: { avg: randInt(5, isErr?500:200) },
-          FreeStorageSpace: { avg: randInt(1e9, 100e9) },
+          BinLogDiskUsage: { avg: randInt(0, 1e9) },
+          BurstBalance: { avg: parseFloat(randFloat(50, 100)) },
+          CPUCreditBalance: { avg: parseFloat(randFloat(10, 500)) },
+          CPUCreditUsage: { avg: parseFloat(randFloat(0.1, 10)) },
+          CPUUtilization: { avg: cpuPct },
+          DatabaseConnections: { avg: randInt(1, 500) },
+          DiskQueueDepth: { avg: parseFloat(randFloat(0, 10)) },
+          EBSByteBalance: { avg: parseFloat(randFloat(50, 100)) },
+          EBSIOBalance: { avg: parseFloat(randFloat(50, 100)) },
+          FreeableMemory: { avg: randInt(1e8, 8e9) },
+          FreeStorageSpace: { avg: randInt(1e9, 500e9) },
+          MaximumUsedTransactionIDs: { avg: randInt(0, 1e9) },
+          NetworkReceiveThroughput: { avg: randInt(1000, 1e8) },
+          NetworkTransmitThroughput: { avg: randInt(1000, 1e8) },
+          OldestReplicationSlotLag: { avg: 0 },
           ReadIOPS: { avg: randInt(0, 3000) },
+          ReadLatency: { avg: parseFloat(randFloat(0.001, isErr?0.5:0.02)) },
+          ReadThroughput: { avg: randInt(1000, 1e8) },
+          ReplicaLag: { avg: randInt(0, isErr?10000:100) },
+          ReplicationSlotDiskUsage: { avg: 0 },
+          SwapUsage: { avg: randInt(0, 1e8) },
+          TransactionLogsDiskUsage: { avg: randInt(1e6, 1e9) },
+          TransactionLogsGeneration: { avg: randInt(1e4, 1e7) },
           WriteIOPS: { avg: randInt(0, 3000) },
-          ReadLatency: { avg: parseFloat(randFloat(0.0001, 0.02)) },
-          WriteLatency: { avg: parseFloat(randFloat(0.0001, 0.02)) },
-          FreeableMemory: { avg: randInt(500e6, 8e9) },
-          NetworkReceiveThroughput: { avg: randInt(1000, 10e6) },
-          NetworkTransmitThroughput: { avg: randInt(1000, 10e6) },
+          WriteLatency: { avg: parseFloat(randFloat(0.001, isErr?0.5:0.01)) },
+          WriteThroughput: { avg: randInt(1000, 1e8) },
         }
       }
     },
     "db": { user:{ name:dbUser }, name:rand(["appdb","analytics","users","events"]), statement:rand(["SELECT * FROM users WHERE","INSERT INTO orders VALUES","UPDATE products SET price","DELETE FROM sessions WHERE"])+` ${randId(6)}`, type:"sql" },
-    "event": { duration:qt*1000000000, outcome:isErr?"failure":"success", dataset:"aws.rds", provider:"rds.amazonaws.com" },
+    "event": { duration:qt*1000000000, outcome:isErr?"failure":"success", category:["database"], type:isErr?["error"]:["info","access"], dataset:"aws.rds", provider:"rds.amazonaws.com" },
     "message": message,
     "log": { level:isErr?"error":qt>5?"warn":"info" },
-    ...(isErr ? { error: { code: rand(["AccessDenied","RoleNotFound","DeadlockDetected"]), message: rand(["ERROR 1045: Access denied","FATAL: role does not exist","ERROR 1213: Deadlock found"]), type: "db" } } : {})
+    ...(isErr ? { error: { code: rand(rdsErrCodes), message: rand(engineErrMessages), type: "db" } } : {})
   };
 }
 

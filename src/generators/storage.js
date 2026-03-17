@@ -29,7 +29,7 @@ function generateS3Log(ts, er) {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"s3" } },
     "aws": {
-      dimensions: { BucketName:bucketName, StorageType:rand(["StandardStorage","IntelligentTieringStorage","GlacierStorage"]) },
+      dimensions: { BucketName:bucketName, StorageType:rand(["StandardStorage","IntelligentTieringStorage","GlacierStorage"]), FilterId:rand(["EntireBucket","prefix-filter","tag-filter"]) },
       s3access: {
         bucket_owner: acct.id,
         bucket: bucketName,
@@ -60,25 +60,28 @@ function generateS3Log(ts, er) {
         request_id: requestId,
         error_code: isErr?rand(["NoSuchKey","AccessDenied","InvalidRequest","InternalError","SlowDown"]):null,
         metrics: {
-          NumberOfObjects: { avg: randInt(1000, 10000000) },
-          BucketSizeBytes: { avg: randInt(1e9, 1e12) },
-          AllRequests: { sum: randInt(100, 100000) },
-          GetRequests: { sum: randInt(50, 50000) },
-          PutRequests: { sum: randInt(10, 10000) },
-          DeleteRequests: { sum: randInt(0, 1000) },
-          "4xxErrors": { sum: isErr&&status<500 ? randInt(1,500) : 0 },
-          "5xxErrors": { sum: isErr&&status>=500 ? randInt(1,100) : 0 },
-          FirstByteLatency: { avg: randInt(1, isErr?5000:200) },
-          TotalRequestLatency: { avg: randInt(5, isErr?10000:500) },
-          BytesDownloaded: { sum: randInt(0, 1e9) },
-          BytesUploaded: { sum: randInt(0, 1e8) },
+          BucketSizeBytes: { avg: randInt(1e6,1e12) },
+          NumberOfObjects: { avg: randInt(1,1e6) },
+          AllRequests: { sum: randInt(1,100000) },
+          GetRequests: { sum: randInt(1,50000) },
+          PutRequests: { sum: randInt(1,10000) },
+          DeleteRequests: { sum: randInt(0,1000) },
+          HeadRequests: { sum: randInt(1,5000) },
+          PostRequests: { sum: randInt(0,1000) },
+          ListRequests: { sum: randInt(1,5000) },
+          BytesDownloaded: { sum: randInt(1000,1e10) },
+          BytesUploaded: { sum: randInt(1000,1e9) },
+          "4xxErrors": { sum: isErr?randInt(1,100):0 },
+          "5xxErrors": { sum: isErr?randInt(1,10):0 },
+          FirstByteLatency: { avg: randFloat(1,isErr?2000:100), p99: randFloat(10,isErr?5000:500) },
+          TotalRequestLatency: { avg: randFloat(5,isErr?5000:500), p99: randFloat(50,isErr?10000:2000) },
         }
       }
     },
     "http": { response:{ status_code:status, bytes:bytesSent } },
     "client": { ip:remoteIp },
     "user_agent": { original:rand(USER_AGENTS) },
-    "event": { outcome:isErr?"failure":"success", category:"file", dataset:"aws.s3", provider:"s3.amazonaws.com", duration:totalTime*1e6 },
+    "event": { outcome:isErr?"failure":"success", category:["web","file"], dataset:"aws.s3", provider:"s3.amazonaws.com", duration:totalTime*1e6 },
     "message": Math.random() < 0.5 ? JSON.stringify({ bucket: bucketName, key: op.includes("BUCKET") ? null : key, operation: op, http_status: status, request_id: requestId, bytes_sent: bytesSent, total_time_ms: totalTime, timestamp: new Date(ts).toISOString() }) : `${op} s3://${bucketName}/${key} ${status}`,
     "log": { level:isErr?"warn":"info" },
     ...(isErr ? { error: { code: rand(["NoSuchKey","AccessDenied","InvalidRequest","InternalError","SlowDown"]), message: `S3 ${op} failed: ${status}`, type: "storage" } } : {})
@@ -196,7 +199,7 @@ function generateEbsLog(ts, er) {
         }
       }
     },
-    "event": { outcome:isErr?"failure":"success", category:"host", dataset:"aws.ebs", provider:"ec2.amazonaws.com", duration:randInt(1,isErr?60000:5000)*1e6 },
+    "event": { outcome:isErr?"failure":"success", category:["host","file"], dataset:"aws.ebs", provider:"ec2.amazonaws.com", duration:randInt(1,isErr?60000:5000)*1e6 },
     "message": message,
     "log": { level },
     ...(isErr ? { error: { code: "EbsError", message, type: "storage" } } : {})
@@ -206,9 +209,12 @@ function generateEbsLog(ts, er) {
 function generateEfsLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const fsId = `fs-${randId(8).toLowerCase()}`;
+  const storageClass = rand(["Standard","InfrequentAccess"]);
   const throughput = parseFloat(randFloat(1, isErr?500:200));
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"efs"}},
-    "aws":{efs:{file_system_id:fsId,
+    "aws":{
+      dimensions:{ FileSystemId:fsId, StorageClass:storageClass },
+      efs:{file_system_id:fsId,
       file_system_name:rand(["prod-shared","jenkins-home","wordpress-content","ml-datasets"]),
       mount_target_id:`fsmt-${randId(8).toLowerCase()}`,
       availability_zone:`${region}${rand(["a","b","c"])}`,
@@ -217,8 +223,22 @@ function generateEfsLog(ts, er) {
       throughput_mbps:throughput,iops:randInt(100,isErr?50000:5000),
       client_connections:randInt(1,500),
       percent_io_limit:isErr?randInt(90,100):randInt(10,80),
-      error_code:isErr?rand(["ThroughputLimitExceeded","FileLimitExceeded"]):null}},
-    "event":{outcome:isErr?"failure":"success",category:"file",dataset:"aws.efs",provider:"elasticfilesystem.amazonaws.com",duration:randInt(1,isErr?5000:200)*1e6},
+      error_code:isErr?rand(["ThroughputLimitExceeded","FileLimitExceeded"]):null,
+      metrics:{
+        BurstCreditBalance:{ avg:randInt(0,2e12) },
+        ClientConnections:{ avg:randInt(1,500) },
+        DataReadIOBytes:{ sum:randInt(1000,1e9) },
+        DataWriteIOBytes:{ sum:randInt(1000,1e9) },
+        MetadataIOBytes:{ sum:randInt(100,1e7) },
+        TotalIOBytes:{ sum:randInt(1000,1e9) },
+        PermittedThroughput:{ avg:randFloat(1,3000) },
+        MeteredIOBytes:{ sum:randInt(1000,1e9) },
+        StorageBytes:{ avg:randInt(1e6,1e12) },
+        PercentIOLimit:{ avg:randFloat(1,isErr?95:40) },
+        DataReadIOBytesWithQuota:{ sum:randInt(1000,1e9) },
+        DataWriteIOBytesWithQuota:{ sum:randInt(1000,1e9) },
+      }}},
+    "event":{outcome:isErr?"failure":"success",category:["host","file"],dataset:"aws.efs",provider:"elasticfilesystem.amazonaws.com",duration:randInt(1,isErr?5000:200)*1e6},
     "message":isErr?`EFS ${fsId}: ${rand(["ThroughputLimitExceeded","I/O limit reached"])}`:
       `EFS ${fsId}: ${throughput.toFixed(1)} MB/s, ${randInt(1,500)} connections`,
     "log":{level:isErr?"error":"info"},
@@ -228,6 +248,7 @@ function generateEfsLog(ts, er) {
 function generateFsxLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const fsType = rand(["WINDOWS","LUSTRE","NETAPP_ONTAP","OPENZFS"]);
+  const fsId = `fs-${randId(17).toLowerCase()}`;
   const MSGS = {
     error:["Storage capacity critically low (<10%)","Backup failed: snapshot error","Self-managed AD connectivity lost","Replication lag exceeded threshold"],
     warn:["Storage utilization above 80%","Throughput utilization above 70%","Backup RPO threshold approaching"],
@@ -235,12 +256,25 @@ function generateFsxLog(ts, er) {
   };
   const level = isErr ? "error" : Math.random() < 0.1 ? "warn" : "info";
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"fsx"}},
-    "aws":{fsx:{file_system_id:`fs-${randId(17).toLowerCase()}`,file_system_type:fsType,
+    "aws":{
+      dimensions:{ FileSystemId:fsId },
+      fsx:{file_system_id:fsId,file_system_type:fsType,
       deployment_type:fsType==="LUSTRE"?rand(["PERSISTENT_2","SCRATCH_2"]):rand(["MULTI_AZ_1","SINGLE_AZ_2"]),
       storage_capacity_gb:rand([1200,2400,4800,9600]),
       throughput_capacity_mbps:rand([128,256,512,1024,2048]),
-      storage_used_percent:isErr?randInt(90,100):randInt(10,80)}},
-    "event":{outcome:isErr?"failure":"success",category:"file",dataset:"aws.fsx",provider:"fsx.amazonaws.com",duration:randInt(100,isErr?30000:5000)*1e6},
+      storage_used_percent:isErr?randInt(90,100):randInt(10,80),
+      metrics:{
+        DataReadBytes:{ sum:randInt(1000,1e9) },
+        DataWriteBytes:{ sum:randInt(1000,1e9) },
+        DataReadOperations:{ sum:randInt(1,10000) },
+        DataWriteOperations:{ sum:randInt(1,10000) },
+        MetadataOperations:{ sum:randInt(1,5000) },
+        FreeStorageCapacity:{ avg:randInt(1e9,100e9) },
+        StorageCapacity:{ avg:randInt(10e9,1000e9) },
+        CPUUtilization:{ avg:randFloat(1,80) },
+        NetworkThroughputUtilization:{ avg:randFloat(1,80) },
+      }}},
+    "event":{outcome:isErr?"failure":"success",category:["host","file"],dataset:"aws.fsx",provider:"fsx.amazonaws.com",duration:randInt(100,isErr?30000:5000)*1e6},
     "message":rand(MSGS[level]),
     "log":{level},
     ...(isErr ? { error: { code: "FsxError", message: rand(MSGS.error), type: "storage" } } : {})};
@@ -261,7 +295,7 @@ function generateDataSyncLog(ts, er) {
       files_failed:isErr?randInt(1,100):0,
       duration_seconds:durationSec,
       error_code:isErr?rand(["InvalidS3Config","NfsPermissionError","NetworkError"]):null}},
-    "event":{outcome:isErr?"failure":"success",category:"file",dataset:"aws.datasync",provider:"datasync.amazonaws.com",duration:durationSec*1e9},
+    "event":{outcome:isErr?"failure":"success",category:["file"],dataset:"aws.datasync",provider:"datasync.amazonaws.com",duration:durationSec*1e9},
     "message":isErr?`DataSync FAILED: ${rand(["NFS permission denied","S3 access denied","Network timeout"])}`:
       `DataSync: ${filesXfr.toLocaleString()} files transferred from ${src.split("//")[0]}`,
     "log":{level:isErr?"error":"info"},
@@ -282,7 +316,7 @@ function generateBackupLog(ts, er) {
       status:jobStatus,backup_size_gb:backupSizeGb,
       lifecycle_delete_after_days:rand([7,30,90,365]),
       error_code:isErr?rand(["LIMIT_EXCEEDED","IAM_ROLE_ERROR","RESOURCE_NOT_FOUND"]):null}},
-    "event":{outcome:isErr?"failure":"success",category:"file",dataset:"aws.backup",provider:"backup.amazonaws.com",duration:durationSec*1e9},
+    "event":{outcome:isErr?"failure":"success",category:["process"],dataset:"aws.backup",provider:"backup.amazonaws.com",duration:durationSec*1e9},
     "message":isErr?`AWS Backup FAILED for ${resource}: ${rand(["IAM role insufficient","Resource locked","Vault full"])}`:
       `AWS Backup ${jobStatus}: ${resource} -> ${rand(["Default","prod-vault"])} (${backupSizeGb.toFixed(1)}GB)`,
     "log":{level:isErr?"error":"info"},
@@ -292,6 +326,8 @@ function generateBackupLog(ts, er) {
 function generateStorageGatewayLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const gwType = rand(["FILE_S3","FILE_FSX","VOLUME","TAPE"]);
+  const gwId = `sgw-${randId(8).toLowerCase()}`;
+  const gwName = `prod-sgw-${rand(["primary","backup","office"])}`;
   const MSGS = {
     error:["Gateway offline: connection to AWS lost","Cache disk error: I/O failure","Upload buffer full","SMB authentication failed"],
     warn:["Cache disk usage above 80%","Upload buffer usage above 75%","Bandwidth throttling active"],
@@ -299,13 +335,32 @@ function generateStorageGatewayLog(ts, er) {
   };
   const level = isErr ? "error" : Math.random() < 0.1 ? "warn" : "info";
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"storagegateway"}},
-    "aws":{storagegateway:{gateway_id:`sgw-${randId(8).toLowerCase()}`,
-      gateway_name:`prod-sgw-${rand(["primary","backup","office"])}`,
+    "aws":{
+      dimensions:{ GatewayId:gwId, GatewayName:gwName },
+      storagegateway:{gateway_id:gwId,
+      gateway_name:gwName,
       gateway_type:gwType,
       cache_used_percent:isErr?randInt(90,100):randInt(10,70),
       upload_buffer_used_percent:isErr?randInt(85,100):randInt(5,60),
-      cloud_bytes_uploaded:randInt(0,1e9)}},
-    "event":{outcome:isErr?"failure":"success",category:"file",dataset:"aws.storagegateway",provider:"storagegateway.amazonaws.com",duration:randInt(100,isErr?10000:2000)*1e6},
+      cloud_bytes_uploaded:randInt(0,1e9),
+      metrics:{
+        "CacheHit.Percent":{ avg:randFloat(60,99) },
+        "CacheMiss.Percent":{ avg:randFloat(1,40) },
+        "CacheUsed.Percent":{ avg:randFloat(10,90) },
+        CloudBytesDownloaded:{ sum:randInt(1000,1e9) },
+        CloudBytesUploaded:{ sum:randInt(1000,1e9) },
+        CloudDownloadLatency:{ avg:randFloat(10,5000) },
+        ReadBytes:{ sum:randInt(1000,1e9) },
+        WriteBytes:{ sum:randInt(1000,1e9) },
+        QueuedWrites:{ avg:randInt(0,1000) },
+        UploadBufferUsed:{ avg:randInt(0,1e9) },
+        UploadBufferFree:{ avg:randInt(0,1e9) },
+        CacheHits:{ sum:randInt(100,100000) },
+        CacheMisses:{ sum:randInt(1,1000) },
+        CachePercentDirty:{ avg:randFloat(0,20) },
+        CachePercentUsed:{ avg:randFloat(10,90) },
+      }}},
+    "event":{outcome:isErr?"failure":"success",category:["host","file"],dataset:"aws.storagegateway",provider:"storagegateway.amazonaws.com",duration:randInt(100,isErr?10000:2000)*1e6},
     "message":rand(MSGS[level]),
     "log":{level},
     ...(isErr ? { error: { code: "GatewayError", message: rand(MSGS.error), type: "storage" } } : {})};

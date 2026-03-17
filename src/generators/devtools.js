@@ -18,7 +18,7 @@ function generateCodeBuildLog(ts, er) {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"codebuild" } },
     "aws": {
-      dimensions: { ProjectName:project },
+      dimensions: { ProjectName:project, BuildId:buildId },
       codebuild: {
         project_name: project,
         build_id: buildId,
@@ -40,7 +40,7 @@ function generateCodeBuildLog(ts, er) {
         }
       }
     },
-    "event": { duration:dur*1e9, outcome:isErr?"failure":"success", category:"process", dataset:"aws.codebuild", provider:"codebuild.amazonaws.com" },
+    "event": { duration:dur*1e9, outcome:isErr?"failure":"success", category:["process"], dataset:"aws.codebuild", provider:"codebuild.amazonaws.com" },
     "message": message,
     "log": { level:isErr?"error":"info" },
     ...(isErr ? { error: { code: "BuildFailed", message: `CodeBuild failed at phase ${phase}`, type: "build" } } : {})
@@ -81,7 +81,7 @@ function generateCodePipelineLog(ts, er) {
         }
       }
     },
-    "event": { outcome:isErr?"failure":"success", category:"process", dataset:"aws.codepipeline", provider:"codepipeline.amazonaws.com", duration:randInt(10, isErr?600:120)*1e9 },
+    "event": { outcome:isErr?"failure":"success", category:["process","configuration"], dataset:"aws.codepipeline", provider:"codepipeline.amazonaws.com", duration:randInt(10, isErr?600:120)*1e9 },
     "message": message,
     "log": { level:isErr?"error":"info" },
     ...(isErr ? { error: { code: "StageFailed", message: `Pipeline stage ${stage} failed`, type: "pipeline" } } : {})
@@ -99,7 +99,7 @@ function generateCodeDeployLog(ts, er) {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"codedeploy" } },
     "aws": {
-      dimensions: { Application:app, DeploymentGroup:depGroup },
+      dimensions: { DeploymentGroupName:depGroup, ApplicationName:app },
       codedeploy: {
         application_name: app,
         deployment_group: depGroup,
@@ -115,13 +115,14 @@ function generateCodeDeployLog(ts, er) {
           DeploymentAttempts: { sum: 1 },
           DeploymentSuccesses: { sum: isErr ? 0 : 1 },
           DeploymentFailures: { sum: isErr ? 1 : 0 },
+          RollbackAttempts: { sum: isErr&&Math.random()>0.5?1:0 },
           DeploymentDuration: { avg: dur },
           InstanceSuccesses: { sum: isErr?randInt(0,5):randInt(1,10) },
           InstanceFailures: { sum: isErr?randInt(1,3):0 },
         }
       }
     },
-    "event": { duration:dur*1e9, outcome:isErr?"failure":"success", category:"process", dataset:"aws.codedeploy", provider:"codedeploy.amazonaws.com" },
+    "event": { duration:dur*1e9, outcome:isErr?"failure":"success", category:["process","configuration"], dataset:"aws.codedeploy", provider:"codedeploy.amazonaws.com" },
     "message": rand(isErr ? ["Deployment failed",`CodeDeploy ${app} FAILED at ${ev}: ${rand(["Script exited with code 1","Health check failed","Timeout"])}`] : ["Deployment started","Deployment succeeded",`CodeDeploy ${app} deployment SUCCEEDED in ${dur}s`]),
     "log": { level:isErr?"error":"info" },
     ...(isErr ? { error: { code: rand(["SCRIPT_FAILED","AGENT_ISSUE","HEALTH_CONSTRAINTS_INVALID"]), message: `CodeDeploy failed at ${ev}`, type: "deployment" } } : {})
@@ -144,7 +145,7 @@ function generateCodeCommitLog(ts, er) {
       merge_strategy:ev==="PullRequestMerged"?rand(["fast-forward","squash","three-way"]):null,
       error_code:isErr?rand(["EncryptionKeyUnavailableException","InvalidBranchNameException"]):null}},
     "user":{name:rand(["alice","bob","carol"])},
-    "event":{action:ev,outcome:isErr?"failure":"success",category:"process",dataset:"aws.codecommit",provider:"codecommit.amazonaws.com"},
+    "event":{action:ev,outcome:isErr?"failure":"success",category:["configuration","file"],dataset:"aws.codecommit",provider:"codecommit.amazonaws.com"},
     "message":isErr?`CodeCommit ${ev} FAILED on ${repo}: ${rand(["Encryption key unavailable","Repository size limit"])}`:
       `CodeCommit ${ev}: ${repo}/${branch}`,
     "log":{level:isErr?"error":"info"},
@@ -166,7 +167,7 @@ function generateCodeArtifactLog(ts, er) {
       download_size_bytes:randInt(10000,50000000),
       upstream_repository:rand([null,"npm-upstream","pypi-upstream"]),
       error_code:isErr?rand(["ResourceNotFoundException","AccessDeniedException","ResourceAlreadyExistsException"]):null}},
-    "event":{action,outcome:isErr?"failure":"success",category:"package",dataset:"aws.codeartifact",provider:"codeartifact.amazonaws.com"},
+    "event":{action,outcome:isErr?"failure":"success",category:["package","process"],dataset:"aws.codeartifact",provider:"codeartifact.amazonaws.com"},
     "message":isErr?`CodeArtifact ${action} FAILED: ${pkg}@${ver} in ${domain}/${repo}`:
       `CodeArtifact ${action}: ${pkg}@${ver} [${format}] in ${domain}/${repo}`,
     "log":{level:isErr?"error":"info"},
@@ -187,7 +188,7 @@ function generateAmplifyLog(ts, er) {
       commit_message:rand(["feat: add auth","fix: payment bug","chore: update deps"]),
       framework:rand(["React","Next.js","Vue","Gatsby","Angular"]),
       error_message:isErr?rand(["Build script failed","npm install error","Timeout"]):null}},
-    "event":{duration:dur*1e9,outcome:isErr?"failure":"success",category:"process",dataset:"aws.amplify",provider:"amplify.amazonaws.com"},
+    "event":{duration:dur*1e9,outcome:isErr?"failure":"success",category:["process"],dataset:"aws.amplify",provider:"amplify.amazonaws.com"},
     "message":isErr?`Amplify build FAILED: ${app}/${branch} - ${rand(["Build script failed","npm error","Timeout"])}`:
       `Amplify build ${buildStatus}: ${app}/${branch} in ${dur}s`,
     "log":{level:isErr?"error":"info"},
@@ -222,7 +223,7 @@ function generateXRayLog(ts, er) {
         }
       }
     },
-    "event": { duration:dur*1e9, outcome:isErr?"failure":"success", category:"network", dataset:"aws.xray", provider:"xray.amazonaws.com" },
+    "event": { duration:dur*1e9, outcome:isErr?"failure":"success", category:["process"], dataset:"aws.xray", provider:"xray.amazonaws.com" },
     "message": isErr ? `X-Ray trace FAULT: ${svc} ${dur.toFixed(3)}s [${status}]` : `X-Ray trace: ${svc} ${dur.toFixed(3)}s`,
     "log": { level:isErr?"error":dur>5?"warn":"info" },
     ...(isErr ? { error: { code: "TraceFault", message: `Trace fault: HTTP ${status}`, type: "trace" } } : {})
@@ -237,7 +238,7 @@ function generateCodeGuruLog(ts, er) {
   const PROFILER_FINDINGS = ["HighCPUFrames:Base64Encoding","Excessive GC overhead","Hot method: HashMap.get","Lambda cold start overhead","Database N+1 queries"];
   const finding = product==="Reviewer"?rand(REVIEWER_FINDINGS):rand(PROFILER_FINDINGS);
   const severity = rand(["Critical","High","Medium","Low","Info"]);
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"codeguru"}},"aws":{codeguru:{product,repository_name:repo,association_id:randId(36).toLowerCase(),finding_id:randId(36).toLowerCase(),category:product==="Reviewer"?rand(["Security","CodeMaintainability","Performance","AWSBestPractices","Logging"]):rand(["CPU","Memory","Latency","IO"]),severity,finding_description:finding,code_file:rand([`src/main/${repo.replace("-","")}/Handler.java`,"lambda_function.py","app/models.py","server/routes.js"]),line_number:randInt(1,500),pull_request_id:product==="Reviewer"?randInt(1,200):null,profiling_group:product==="Profiler"?`${repo}-profiling`:null,frame_percent:product==="Profiler"?parseFloat(randFloat(1,50)):null,error_code:isErr?rand(["InternalServerException","ThrottlingException","ResourceNotFoundException"]):null}},"event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.codeguru",provider:"codeguru.amazonaws.com"},"message":isErr?`CodeGuru ${product} FAILED [${repo}]: ${rand(["Internal error","Repository not found","Throttled"])}:`:`CodeGuru ${product} [${repo}] ${severity}: ${finding.split(":")[0]}`,"log":{level:isErr?"error":["Critical","High"].includes(severity)?"warn":"info"},...(isErr?{error:{code:rand(["InternalServerException","ThrottlingException","ResourceNotFoundException"]),message:"CodeGuru operation failed",type:"process"}}:{}) };
+  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"codeguru"}},"aws":{codeguru:{product,repository_name:repo,association_id:randId(36).toLowerCase(),finding_id:randId(36).toLowerCase(),category:product==="Reviewer"?rand(["Security","CodeMaintainability","Performance","AWSBestPractices","Logging"]):rand(["CPU","Memory","Latency","IO"]),severity,finding_description:finding,code_file:rand([`src/main/${repo.replace("-","")}/Handler.java`,"lambda_function.py","app/models.py","server/routes.js"]),line_number:randInt(1,500),pull_request_id:product==="Reviewer"?randInt(1,200):null,profiling_group:product==="Profiler"?`${repo}-profiling`:null,frame_percent:product==="Profiler"?parseFloat(randFloat(1,50)):null,error_code:isErr?rand(["InternalServerException","ThrottlingException","ResourceNotFoundException"]):null}},"event":{outcome:isErr?"failure":"success",category:["vulnerability","process"],dataset:"aws.codeguru",provider:"codeguru.amazonaws.com"},"message":isErr?`CodeGuru ${product} FAILED [${repo}]: ${rand(["Internal error","Repository not found","Throttled"])}:`:`CodeGuru ${product} [${repo}] ${severity}: ${finding.split(":")[0]}`,"log":{level:isErr?"error":["Critical","High"].includes(severity)?"warn":"info"},...(isErr?{error:{code:rand(["InternalServerException","ThrottlingException","ResourceNotFoundException"]),message:"CodeGuru operation failed",type:"process"}}:{}) };
 }
 
 export { generateCodeBuildLog, generateCodePipelineLog, generateCodeDeployLog, generateCodeCommitLog, generateCodeArtifactLog, generateAmplifyLog, generateXRayLog, generateCodeGuruLog };

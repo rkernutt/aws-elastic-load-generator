@@ -5,12 +5,15 @@ function generateEc2Log(ts, er) {
   const level = Math.random() < er ? "error" : Math.random() < 0.1 ? "warn" : "info";
   const instanceId = `i-${randId(17).toLowerCase()}`;
   const instanceType = rand(["t3.medium","m5.xlarge","c5.2xlarge","r5.large"]);
-  const MSGS = { error:["kernel: Out of memory: Killed process","sshd: error: Could not load host key","Failed to start NetworkManager","disk I/O error on /dev/xvda1"],warn:["CPU steal time above threshold: 23%","High disk utilization: 88% full","Memory available below 512MB","SSH login from unknown IP"],info:["sshd: Accepted publickey for ec2-user","systemd: Started Amazon SSM Agent","cloud-init: modules done","awslogs: Starting daemon"] };
-  const EC2_ERROR_CODES = ["StatusCheckFailed","StatusCheckFailed_Instance","InstanceReboot","SystemFailure"];
+  const MSGS = { error:["kernel: EXT4-fs error (device xvda1): ext4_validate_block_bitmap: bg 0: bad block bitmap checksum","systemd: Failed to start Amazon SSM Agent.","kernel: Out of memory: Killed process","sshd: error: Could not load host key","Failed to start NetworkManager","disk I/O error on /dev/xvda1"],warn:["CPU steal time above threshold: 23%","High disk utilization: 88% full","Memory available below 512MB","SSH login from unknown IP"],info:["cloud-init: Cloud-init v. 22.2.2 running 'init-local'","systemd: Started Amazon SSM Agent.","kernel: [    0.000000] Linux version 5.10.68-62.173.amzn2.x86_64","sshd: Accepted publickey for ec2-user","cloud-init: modules done","awslogs: Starting daemon"] };
+  const EC2_ERROR_CODES = ["InsufficientInstanceCapacity","InstanceNotFound","InvalidParameterValue","AuthFailure","UnauthorizedOperation","InvalidInstanceID.NotFound","InsufficientAddressCapacity","InvalidAMIID.NotFound","InvalidKeyPair.NotFound"];
+  const isErr = level === "error";
+  const cpuPct = parseFloat(randFloat(1, isErr?99:70));
   const durationSec = randInt(60, 3600);
   const plainMessage = rand(MSGS[level]);
   const useStructuredLogging = Math.random() < 0.55;
   const message = useStructuredLogging ? JSON.stringify({ instanceId, instanceType, level, message: plainMessage, timestamp: new Date(ts).toISOString(), component: rand(["syslog","cloud-init","sshd","awslogs"]) }) : plainMessage;
+  const eventType = isErr ? ["error"] : level === "warn" ? ["info"] : level === "info" && plainMessage.includes("Started") ? ["change"] : ["info"];
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"ec2" }, instance:{ id:instanceId } },
@@ -20,26 +23,37 @@ function generateEc2Log(ts, er) {
         instance_id: instanceId, instance_type: instanceType, ami_id:`ami-${randId(8).toLowerCase()}`,
         structured_logging: useStructuredLogging,
         metrics: {
-          CPUUtilization: { avg: parseFloat(randFloat(1, level==="error"?99:70)) },
-          NetworkIn: { sum: randInt(1e6, 500e6) },
-          NetworkOut: { sum: randInt(1e6, 500e6) },
-          DiskReadBytes: { sum: randInt(0, 100e6) },
-          DiskWriteBytes: { sum: randInt(0, 100e6) },
+          CPUUtilization: { avg: cpuPct },
+          DiskReadBytes: { sum: randInt(0, 1e9) },
+          DiskWriteBytes: { sum: randInt(0, 1e9) },
           DiskReadOps: { sum: randInt(0, 10000) },
           DiskWriteOps: { sum: randInt(0, 10000) },
-          StatusCheckFailed: { max: level==="error" ? 1 : 0 },
-          StatusCheckFailed_Instance: { max: level==="error" ? 1 : 0 },
-          StatusCheckFailed_System: { max: 0 },
-          CPUCreditBalance: { avg: randInt(0, 500) },
-          CPUCreditUsage: { avg: parseFloat(randFloat(0, 10)) },
+          NetworkIn: { sum: randInt(1000, 1e9) },
+          NetworkOut: { sum: randInt(1000, 1e9) },
+          NetworkPacketsIn: { sum: randInt(100, 1e6) },
+          NetworkPacketsOut: { sum: randInt(100, 1e6) },
+          StatusCheckFailed: { sum: isErr?1:0 },
+          StatusCheckFailed_Instance: { sum: isErr?1:0 },
+          StatusCheckFailed_System: { sum: 0 },
+          MetadataNoToken: { sum: randInt(0, 10) },
+          EBSReadBytes: { sum: randInt(0, 1e9) },
+          EBSWriteBytes: { sum: randInt(0, 1e9) },
+          EBSReadOps: { sum: randInt(0, 10000) },
+          EBSWriteOps: { sum: randInt(0, 10000) },
+          EBSIOBalance: { avg: randFloat(50, 100) },
+          EBSByteBalance: { avg: randFloat(50, 100) },
+          CPUCreditBalance: { avg: randFloat(10, 500) },
+          CPUCreditUsage: { avg: randFloat(0, 5) },
+          CPUSurplusCreditBalance: { avg: 0 },
+          CPUSurplusCreditsCharged: { sum: 0 },
         }
       }
     },
-    "host": { hostname:`ip-${randIp().replace(/\./g,"-")}`, os:{ type:"linux" } },
+    "host": { hostname:`ip-${randIp().replace(/\./g,"-")}`, os:{ type:"linux", kernel:`5.10.${randInt(100,230)}-${randInt(1,200)}.amzn2.x86_64`, version:rand(["2","2023"]) }, architecture:rand(["x86_64","arm64"]), cpu:{ count:rand([2,4,8,16,32,64]) } },
     "log": { level },
-    "event": { category:"host", outcome:level==="error"?"failure":"success", dataset:"aws.ec2", provider:"ec2.amazonaws.com", duration:durationSec * 1e9 },
+    "event": { category:["host","process"], type:eventType, outcome:isErr?"failure":"success", dataset:"aws.ec2", provider:"ec2.amazonaws.com", duration:durationSec * 1e9 },
     "message": message,
-    ...(level === "error" ? { error: { code: rand(EC2_ERROR_CODES), message: rand(MSGS.error), type: "host" } } : {})
+    ...(isErr ? { error: { code: rand(EC2_ERROR_CODES), message: rand(MSGS.error), type: "host" } } : {})
   };
 }
 
@@ -48,9 +62,12 @@ function generateEcsLog(ts, er) {
   const svc = rand(["web-frontend","api-backend","worker","scheduler","auth-service"]);
   const cluster = rand(["prod-cluster","staging","workers"]);
   const level = Math.random() < er ? "error" : Math.random() < 0.15 ? "warn" : "info";
+  const isErr = level === "error";
+  const cpuPct = parseFloat(randFloat(1, isErr?99:70));
+  const memPct = parseFloat(randFloat(10, isErr?99:80));
   const MSGS = { error:["Container exited with code 1","OOMKilled","Health check failed","Failed to pull image"],warn:["High memory: 85%","Slow response","Retry 2/3","Connection pool exhausted"],info:["Task started","Health check passed","Request processed","Scaling event triggered"] };
-  const ECS_ERROR_CODES = ["ContainerExitCode","OOMKilled","HealthCheckFailed","ImagePullFailed"];
-  const durationSec = randInt(5, level === "error" ? 300 : 3600);
+  const ECS_ERROR_CODES = ["ClusterContainsContainerInstances","ClusterContainsServices","ClusterContainsTasks","ClusterNotFoundException","InvalidParameterException","MissingVersionException","NoUpdateAvailableException","PlatformTaskDefinitionIncompatibilityException","PlatformUnknownException","ResourceNotFoundException","ServiceNotActiveException","ServiceNotFoundException","TaskDefinitionFamilyExistsException","UnsupportedFeatureException","UpdateInProgressException"];
+  const durationSec = randInt(5, isErr ? 300 : 3600);
   const taskId = randId(32).toLowerCase();
   const plainMessage = rand(MSGS[level]);
   const useStructuredLogging = Math.random() < 0.6;
@@ -66,20 +83,28 @@ function generateEcsLog(ts, er) {
         task: { id:taskId, definition:`${svc}:${randInt(1,50)}` },
         structured_logging: useStructuredLogging,
         metrics: {
-          CPUUtilization: { avg: parseFloat(randFloat(1, level==="error"?99:70)) },
-          MemoryUtilization: { avg: parseFloat(randFloat(10, level==="error"?99:80)) },
-          RunningTaskCount: { avg: randInt(1, 20) },
-          PendingTaskCount: { avg: level==="error" ? randInt(1,5) : 0 },
+          CPUUtilization: { avg: cpuPct },
+          MemoryUtilization: { avg: memPct },
+          RunningTaskCount: { avg: randInt(1, 50) },
+          PendingTaskCount: { avg: isErr?randInt(1,5):0 },
+          StoppedTaskCount: { sum: isErr?randInt(1,3):0 },
           ServiceCount: { avg: 1 },
+          NetworkRxBytes: { sum: randInt(1000, 1e8) },
+          NetworkTxBytes: { sum: randInt(1000, 1e8) },
+          StorageReadBytes: { sum: randInt(0, 1e7) },
+          StorageWriteBytes: { sum: randInt(0, 1e7) },
+          EphemeralStorageUtilized: { avg: randFloat(1, isErr?95:50) },
+          EphemeralStorageReserved: { avg: 20 },
         }
       }
     },
-    "container": { name:svc, image:{ name:`myrepo/${svc}:latest` } },
+    "container": { id:randId(12).toLowerCase(), name:svc, image:{ name:`${rand(["nginx","node","python","java","golang"])}:${rand(["latest","alpine","1.24","18-alpine","3.11"])}`, tag:rand(["latest","alpine","1.24"]) }, runtime:"docker" },
+    "process": { pid:randInt(1, 65535), name:svc },
     "log": { level },
-    "event": { outcome:level==="error"?"failure":"success", dataset:"aws.ecs", provider:"ecs.amazonaws.com", duration:durationSec * 1e9 },
+    "event": { category:["process","container"], outcome:isErr?"failure":"success", dataset:"aws.ecs", provider:"ecs.amazonaws.com", duration:durationSec * 1e9 },
     "message": message,
     "service": { name:svc, type:"ecs" },
-    ...(level === "error" ? { error: { code: rand(ECS_ERROR_CODES), message: rand(MSGS.error), type: "container" } } : {})
+    ...(isErr ? { error: { code: rand(ECS_ERROR_CODES), message: rand(MSGS.error), type: "container" } } : {})
   };
 }
 
@@ -88,37 +113,46 @@ function generateEksLog(ts, er) {
   const level = Math.random() < er ? "error" : Math.random() < 0.12 ? "warn" : "info";
   const ns = rand(["default","kube-system","monitoring","ingress-nginx","app-prod"]); const pod = `${rand(["web","api","worker","cache"])}-${randId(5).toLowerCase()}-${randId(5).toLowerCase()}`;
   const clusterName = `prod-cluster-${region}`;
+  const isErr = level === "error";
   const MSGS = { error:["OOMKilled: container exceeded memory limit","CrashLoopBackOff: back-off restarting failed container","ImagePullBackOff: failed to pull image","Liveness probe failed","FailedScheduling: 0/12 nodes available"],warn:["PodDisruptionBudget violations detected","Node memory pressure detected","Evicted pod due to disk pressure","HPA scaling event: replicas 3->8"],info:["Pod scheduled on node","Container started","Endpoint slice updated","Deployment rollout complete","Service endpoint added"] };
   const EKS_ERROR_CODES = ["OOMKilled","CrashLoopBackOff","ImagePullBackOff","LivenessProbeFailed","FailedScheduling"];
-  const durationSec = randInt(1, level === "error" ? 300 : 3600);
+  const durationSec = randInt(1, isErr ? 300 : 3600);
   const plainMessage = rand(MSGS[level]);
   const useStructuredLogging = Math.random() < 0.6;
-  const message = useStructuredLogging ? JSON.stringify({ cluster: clusterName, namespace: ns, pod, level, message: plainMessage, timestamp: new Date(ts).toISOString(), stream: rand(["stdout","stderr"]) }) : plainMessage;
+  const kubeletTs = `${new Date(ts).toISOString().replace("T"," ").replace("Z","")}`;
+  const kubeletMsg = `${kubeletTs} ${rand(["E","W","I"])}${randInt(100,1299)} ${randId(6)} ${rand(["reconciler.go","controller.go","manager.go"])}:${randInt(50,500)}] ${plainMessage}`;
+  const message = useStructuredLogging ? JSON.stringify({ cluster: clusterName, namespace: ns, pod, level, message: plainMessage, timestamp: new Date(ts).toISOString(), stream: rand(["stdout","stderr"]) }) : kubeletMsg;
+  const nodeName = `ip-${randIp().replace(/\./g,"-")}.${region}.compute.internal`;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"eks" } },
     "aws": {
-      dimensions: { ClusterName:clusterName, NodeName:`ip-${randIp().replace(/\./g,"-")}.${region}.compute.internal` },
+      dimensions: { ClusterName:clusterName, NodeName:nodeName, Namespace:ns, PodName:pod },
       eks: {
         structured_logging: useStructuredLogging,
         cluster: { name:clusterName },
-        node: { name:`ip-${randIp().replace(/\./g,"-")}.${region}.compute.internal` },
+        node: { name:nodeName },
         metrics: {
-          cluster_failed_node_count: { avg: level==="error" ? randInt(1,3) : 0 },
-          node_cpu_utilization: { avg: parseFloat(randFloat(5, level==="error"?95:70)) },
-          node_memory_utilization: { avg: parseFloat(randFloat(10, level==="error"?99:80)) },
-          pod_cpu_utilization: { avg: parseFloat(randFloat(1, 90)) },
-          pod_memory_utilization: { avg: parseFloat(randFloat(5, 95)) },
-          node_network_total_bytes: { sum: randInt(1e6, 500e6) },
-          pod_count: { avg: randInt(1, 50) },
+          cluster_failed_node_count: { avg: isErr ? randInt(1,3) : 0 },
+          node_cpu_utilization: { avg: randFloat(10, 80) },
+          node_memory_utilization: { avg: randFloat(20, 80) },
+          node_network_total_bytes: { sum: randInt(1000, 1e9) },
+          node_filesystem_utilization: { avg: randFloat(10, 80) },
+          pod_cpu_utilization: { avg: randFloat(1, 80) },
+          pod_memory_utilization: { avg: randFloat(5, 80) },
+          pod_network_rx_bytes: { sum: randInt(1000, 1e8) },
+          pod_network_tx_bytes: { sum: randInt(1000, 1e8) },
+          node_count: { avg: randInt(2, 50) },
+          pod_count: { avg: randInt(5, 500) },
         }
       }
     },
+    "container": { id:randId(12).toLowerCase(), name:pod.split("-")[0], image:{ name:`k8s.gcr.io/${pod.split("-")[0]}:v1.${randInt(24,28)}.${randInt(0,5)}` }, runtime:"containerd" },
     "kubernetes": { namespace:ns, pod:{ name:pod }, container:{ name:pod.split("-")[0] }, labels:{ app:pod.split("-")[0], env:"prod" } },
     "log": { level },
-    "event": { outcome:level==="error"?"failure":"success", category:"container", dataset:"aws.eks", provider:"eks.amazonaws.com", duration:durationSec * 1e9 },
+    "event": { category:["process","container"], outcome:isErr?"failure":"success", dataset:"aws.eks", provider:"eks.amazonaws.com", duration:durationSec * 1e9 },
     "message": message,
-    ...(level === "error" ? { error: { code: rand(EKS_ERROR_CODES), message: rand(MSGS.error), type: "container" } } : {})
+    ...(isErr ? { error: { code: rand(EKS_ERROR_CODES), message: rand(MSGS.error), type: "container" } } : {})
   };
 }
 
@@ -128,9 +162,10 @@ function generateBatchLog(ts, er) {
   const jobName = rand(["nightly-etl","report-generation","data-export","ml-training-prep","cleanup-job"]);
   const jobQueue = `${jobName}-queue`;
   const jobId = `${randId(8)}-${randId(4)}`.toLowerCase();
-  const durationSec = randInt(10, level === "error" ? 7200 : 3600);
+  const isErr = level === "error";
+  const durationSec = randInt(10, isErr ? 7200 : 3600);
   const MSGS = { error:["Job run failed","Job failed with exit code 1","Container instance terminated unexpectedly","Job queue capacity exceeded","IAM role permission denied","Spot instance reclaimed during execution"],warn:["Job retry attempt 2/3","vCPU limit approaching: 980/1000","Job timeout warning: 80% elapsed"],info:["Job run started","Job run succeeded","Job submitted to queue","Container started on ECS instance","Job completed successfully","Job definition registered"] };
-  const BATCH_ERROR_CODES = ["JobFailed","ContainerTerminated","CapacityExceeded","PermissionDenied","SpotReclaimed"];
+  const BATCH_ERROR_CODES = ["ClientException","ServerException","CE_DELETED","CE_INVALID","CE_INSUFFICIENT_CAPACITY","JQ_DELETED","JD_DELETED","JobDependencyError"];
   const plainMessage = rand(MSGS[level]);
   const useStructuredLogging = Math.random() < 0.6;
   const message = useStructuredLogging ? JSON.stringify({ jobId, jobName, jobQueue, level, message: plainMessage, timestamp: new Date(ts).toISOString(), arrayIndex: randInt(0, 99) }) : plainMessage;
@@ -138,27 +173,30 @@ function generateBatchLog(ts, er) {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"batch" } },
     "aws": {
-      dimensions: { JobQueueName:jobQueue, JobDefinition:jobName },
+      dimensions: { JobQueue:jobQueue },
       batch: {
-        job: { name:jobName, id:jobId, status:level==="error"?"FAILED":"SUCCEEDED" },
+        job: { name:jobName, id:jobId, status:isErr?"FAILED":"SUCCEEDED" },
         job_queue: jobQueue,
         compute_environment: `ce-${rand(["spot","ondemand"])}`,
         structured_logging: useStructuredLogging,
         metrics: {
-          PendingJobCount: { avg: randInt(0, 50) },
-          RunnableJobCount: { avg: randInt(0, 20) },
-          RunningJobCount: { avg: randInt(0, 100) },
-          SucceededJobCount: { sum: level==="error" ? 0 : randInt(1, 50) },
-          FailedJobCount: { sum: level==="error" ? randInt(1, 5) : 0 },
-          elapsedTime: durationSec,
-          Duration: { avg: durationSec },
+          PendingJobCount: { avg: randInt(0, 100) },
+          RunnableJobCount: { avg: randInt(0, 50) },
+          StartingJobCount: { avg: randInt(0, 20) },
+          RunningJobCount: { avg: randInt(0, 200) },
+          SucceededJobCount: { sum: isErr?0:1 },
+          FailedJobCount: { sum: isErr?1:0 },
+          CPUReserved: { avg: randFloat(10, 80) },
+          GPUReserved: { avg: 0 },
+          MemoryReserved: { avg: randFloat(10, 90) },
         }
       }
     },
+    "process": { pid:randInt(1, 65535), name:rand(["python","java","spark-submit","bash"]), exit_code:isErr?rand([1,2,127,137,143]):0 },
     "log": { level },
-    "event": { outcome:level==="error"?"failure":"success", category:"process", dataset:"aws.batch", provider:"batch.amazonaws.com", duration:durationSec * 1e9 },
+    "event": { category:["process"], outcome:isErr?"failure":"success", dataset:"aws.batch", provider:"batch.amazonaws.com", duration:durationSec * 1e9 },
     "message": message,
-    ...(level === "error" ? { error: { code: rand(BATCH_ERROR_CODES), message: rand(MSGS.error), type: "process" } } : {})
+    ...(isErr ? { error: { code: rand(BATCH_ERROR_CODES), message: rand(MSGS.error), type: "process" } } : {})
   };
 }
 
@@ -168,6 +206,7 @@ function generateBeanstalkLog(ts, er) {
   const app = rand(["my-web-app","admin-portal","api-service","worker-app"]);
   const env = `${app}-${rand(["production","staging","dev"])}`;
   const status = isErr ? rand([500,502,503]) : rand([200,200,201,204,301]);
+  const instanceId = `i-${randId(17).toLowerCase()}`;
   const MSGS = { error:["ERROR: Failed to deploy application version","ENV_ERROR: Deployment failed, rolling back","Application version rejected: validation failed"],warn:["WARN: Enhanced health reporting: Warning","CPU utilization above 75%","Response time above 3s threshold"],info:["Deployment completed successfully","Environment health: OK","Auto Scaling event: +2 instances","Rolling update complete"] };
   const BEANSTALK_ERROR_CODES = ["DeploymentFailed","Rollback","ValidationFailed"];
   const durationSec = randInt(5, isErr ? 600 : 120);
@@ -178,27 +217,37 @@ function generateBeanstalkLog(ts, er) {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"elasticbeanstalk" } },
     "aws": {
-      dimensions: { EnvironmentName:env },
+      dimensions: { EnvironmentName:env, InstanceId:instanceId },
       elasticbeanstalk: {
         application: app, environment: env,
         structured_logging: useStructuredLogging,
         platform: rand(["Node.js 18","Python 3.11","Docker"]),
         version_label: `v${randInt(1,200)}`,
         metrics: {
-          EnvironmentHealth: { avg: isErr ? rand([15,20,25]) : rand([0,5,10]) }, // 0=Green,5=Yellow,10=Red,15=Grey,20=NoData,25=Unknown
-          ApplicationRequests5xx: { sum: status>=500 ? randInt(1,100) : 0 },
-          ApplicationRequests4xx: { sum: status>=400&&status<500 ? randInt(1,200) : 0 },
-          ApplicationRequests2xx: { sum: status<300 ? randInt(100,1000) : 0 },
-          ApplicationLatencyP99: { avg: randInt(50, isErr?5000:1000) },
-          ApplicationLatencyP90: { avg: randInt(20, isErr?3000:500) },
-          InstancesOk: { avg: isErr ? 0 : randInt(1, 10) },
-          InstancesDegraded: { avg: isErr ? randInt(1,3) : 0 },
+          ApplicationRequests2xx: { sum: status<300?1:0 },
+          ApplicationRequests3xx: { sum: status>=300&&status<400?1:0 },
+          ApplicationRequests4xx: { sum: status>=400&&status<500?1:0 },
+          ApplicationRequests5xx: { sum: status>=500?1:0 },
+          ApplicationLatencyP10: { avg: randFloat(1, 50) },
+          ApplicationLatencyP50: { avg: randFloat(5, 100) },
+          ApplicationLatencyP75: { avg: randFloat(10, 200) },
+          ApplicationLatencyP85: { avg: randFloat(15, 300) },
+          ApplicationLatencyP90: { avg: randFloat(20, 500) },
+          ApplicationLatencyP95: { avg: randFloat(30, 800) },
+          ApplicationLatencyP99: { avg: randFloat(50, 2000) },
+          "ApplicationLatencyP99.9": { avg: randFloat(100, 5000) },
+          ApplicationRequests: { sum: 1 },
+          InstancesSevere: { avg: isErr?randInt(1,3):0 },
+          InstancesDegraded: { avg: isErr?randInt(1,5):0 },
+          InstancesWarning: { avg: isErr?randInt(1,3):0 },
+          InstancesOk: { avg: randInt(1, 10) },
+          EnvironmentHealth: { avg: isErr?15:20 }, // 20=Ok, 15=Warning, 10=Degraded, 0=Severe
         }
       }
     },
     "http": { response:{ status_code:status } },
     "log": { level:isErr?"error":"info" },
-    "event": { outcome:isErr?"failure":"success", dataset:"aws.elasticbeanstalk", provider:"elasticbeanstalk.amazonaws.com", duration:durationSec * 1e9 },
+    "event": { category:["web","process"], outcome:isErr?"failure":"success", dataset:"aws.elasticbeanstalk", provider:"elasticbeanstalk.amazonaws.com", duration:durationSec * 1e9 },
     "message": message,
     ...(isErr ? { error: { code: rand(BEANSTALK_ERROR_CODES), message: rand(MSGS.error), type: "application" } } : {})
   };
@@ -213,15 +262,29 @@ function generateEcrLog(ts, er) {
   const ECR_ERROR_CODES = ["ScanFindings","ImageNotFound","AccessDenied","RateLimitExceeded"];
   const errMsg = isErr ? `ECR scan: ${repo}:${tag} found ${randInt(1,30)} vulnerabilities [${rand(SCAN_SEVS)}]` : null;
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"ecr"}},
-    "aws":{ecr:{repository_name:repo,registry_id:`${acct.id}`,image_tag:tag,
-      image_digest:`sha256:${randId(40).toLowerCase()}`,action,
-      image_size_bytes:randInt(5e6,2e9),
-      pushed_by:rand(["codebuild","github-actions","developer","ci-pipeline"]),
-      scan_status:isErr?"COMPLETE_WITH_FINDINGS":action==="scan"?"COMPLETE":"NOT_STARTED",
-      finding_severity:isErr?rand(SCAN_SEVS):null,
-      finding_count:isErr?randInt(1,30):0,
-      vulnerability_scan_enabled:true}},
-    "event":{outcome:isErr?"failure":"success",category:"package",dataset:"aws.ecr",provider:"ecr.amazonaws.com",duration:randInt(100,isErr?30000:5000)*1e6},
+    "aws":{
+      dimensions: { RepositoryName:repo, RegistryId:`${acct.id}` },
+      ecr:{repository_name:repo,registry_id:`${acct.id}`,image_tag:tag,
+        image_digest:`sha256:${randId(40).toLowerCase()}`,action,
+        image_size_bytes:randInt(5e6,2e9),
+        pushed_by:rand(["codebuild","github-actions","developer","ci-pipeline"]),
+        scan_status:isErr?"COMPLETE_WITH_FINDINGS":action==="scan"?"COMPLETE":"NOT_STARTED",
+        finding_severity:isErr?rand(SCAN_SEVS):null,
+        finding_count:isErr?randInt(1,30):0,
+        vulnerability_scan_enabled:true,
+        metrics:{
+          ImageCount: { avg: randInt(1, 1000) },
+          RepositorySizeInBytes: { avg: randInt(1e6, 50e9) },
+          LifecyclePolicyRuleEvaluationCount: { sum: Math.random()>0.9?randInt(1,100):0 },
+          PullCount: { sum: action==="pull"?randInt(1,1000):0 },
+          PushCount: { sum: action==="push"?1:0 },
+          ScanFindingsSeverityCritical: { sum: isErr?randInt(0,10):0 },
+          ScanFindingsSeverityHigh: { sum: isErr?randInt(0,20):0 },
+          ScanFindingsSeverityMedium: { sum: randInt(0,50) },
+          ScanFindingsSeverityLow: { sum: randInt(0,100) },
+          ScanFindingsSeverityInformational: { sum: randInt(0,200) },
+        }}},
+    "event":{category:["package"],outcome:isErr?"failure":"success",dataset:"aws.ecr",provider:"ecr.amazonaws.com",duration:randInt(100,isErr?30000:5000)*1e6},
     "message":isErr?errMsg:`ECR ${action}: ${repo}:${tag}`,
     "log":{level:isErr?"warn":"info"},
     ...(isErr ? { error: { code: rand(ECR_ERROR_CODES), message: errMsg, type: "package" } } : {})};
@@ -240,24 +303,42 @@ function generateAutoScalingLog(ts, er) {
   const desired = randInt(2, 20);
   const inService = isErr ? Math.max(0, desired - randInt(1, 3)) : desired;
   const activityDurationSec = randInt(30, 600);
+  const standby = randInt(0, 2);
+  const terminating = action==="Terminate" ? randInt(1, 3) : 0;
+  const pending = isErr ? randInt(1, 5) : 0;
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"autoscaling"}},
-    "aws":{autoscaling:{group_name:asg,
-      activity_id:`${randId(8)}-${randId(4)}-${randId(4)}`.toLowerCase(),
-      action_type:action,instance_id:`i-${randId(17).toLowerCase()}`,
-      instance_type:rand(["t3.medium","m5.xlarge","c5.2xlarge","r5.large"]),
-      desired_capacity:desired,min_size:2,max_size:50,
-      current_capacity:inService,cause:reason,
-      status_code:isErr?"Failed":"Successful",
-      launch_template:rand(["web-lt:5","api-lt:3","worker-lt:8"]),
-      metrics:{
-        GroupDesiredCapacity: { avg: desired },
-        GroupInServiceInstances: { avg: inService },
-        GroupMinSize: { avg: 2 },
-        GroupMaxSize: { avg: 50 },
-        GroupPendingInstances: { avg: isErr ? randInt(1, 5) : 0 },
-        GroupTerminatingInstances: { avg: action==="Terminate" ? randInt(1, 3) : 0 },
-      }}},
-    "event":{outcome:isErr?"failure":"success",category:"host",dataset:"aws.autoscaling",provider:"autoscaling.amazonaws.com",duration:activityDurationSec*1e9},
+    "aws":{
+      dimensions: { AutoScalingGroupName:asg },
+      autoscaling:{group_name:asg,
+        activity_id:`${randId(8)}-${randId(4)}-${randId(4)}`.toLowerCase(),
+        action_type:action,instance_id:`i-${randId(17).toLowerCase()}`,
+        instance_type:rand(["t3.medium","m5.xlarge","c5.2xlarge","r5.large"]),
+        desired_capacity:desired,min_size:2,max_size:50,
+        current_capacity:inService,cause:reason,
+        status_code:isErr?"Failed":"Successful",
+        launch_template:rand(["web-lt:5","api-lt:3","worker-lt:8"]),
+        metrics:{
+          GroupMinSize: { avg: 2 },
+          GroupMaxSize: { avg: 50 },
+          GroupDesiredCapacity: { avg: desired },
+          GroupInServiceInstances: { avg: inService },
+          GroupPendingInstances: { avg: pending },
+          GroupStandbyInstances: { avg: standby },
+          GroupTerminatingInstances: { avg: terminating },
+          GroupTotalInstances: { avg: inService + pending + standby + terminating },
+          GroupInServiceCapacity: { avg: inService },
+          GroupPendingCapacity: { avg: pending },
+          GroupStandbyCapacity: { avg: standby },
+          GroupTerminatingCapacity: { avg: terminating },
+          GroupTotalCapacity: { avg: inService + pending + standby + terminating },
+          WarmPoolMinSize: { avg: 0 },
+          WarmPoolDesiredCapacity: { avg: 0 },
+          WarmPoolPendingCapacity: { avg: 0 },
+          WarmPoolTerminatingCapacity: { avg: 0 },
+          WarmPoolTotalCapacity: { avg: 0 },
+          WarmPoolWarmedCapacity: { avg: 0 },
+        }}},
+    "event":{category:["host"],outcome:isErr?"failure":"success",dataset:"aws.autoscaling",provider:"autoscaling.amazonaws.com",duration:activityDurationSec*1e9},
     "message":isErr?errMsg:`AutoScaling ${asg}: ${action} instance`,
     "log":{level:isErr?"error":"info"},
     ...(isErr ? { error: { code: rand(ASG_ERROR_CODES), message: errMsg, type: "host" } } : {})};
@@ -268,9 +349,16 @@ function generateImageBuilderLog(ts, er) {
   const pipeline = rand(["golden-ami-pipeline","container-base-pipeline","windows-hardened","amazon-linux-cis"]);
   const phase = rand(["BUILD","TEST","DISTRIBUTE","DEPROVISION"]);
   const dur = randInt(300, isErr?3600:1800);
-  const IB_FAIL_MSGS = ["Component script error","Test validation failed","SSM agent timeout"];
-  const errMsg = isErr ? `Image Builder ${pipeline} FAILED at ${phase}: ${rand(IB_FAIL_MSGS)}` : null;
+  const imageId = `ami-${randId(8).toLowerCase()}`;
+  const IB_FAIL_MSGS = ["Component execution failed","Health check failed","Instance unreachable"];
+  const errMsg = isErr ? `Build failed in ${phase} phase: ${rand(IB_FAIL_MSGS)}` : null;
   const IMAGEBUILDER_ERROR_CODES = ["ComponentError","ValidationFailed","SsmTimeout"];
+  const infoMsg = rand([
+    `EC2 Image Builder: ${pipeline} - ${phase} phase STARTED`,
+    `Running component: ${rand(["aws:RunShellScript","aws:UpdateOS","aws:InstallSSMAgent","aws:ValidateInfrastructure"])}`,
+    `Testing image: ${imageId} with test component ${rand(["aws:SimpleTestComponent","aws:TestInfrastructureAssociation"])}`,
+    `Image Builder ${pipeline} ${phase} COMPLETED in ${dur}s`,
+  ]);
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"imagebuilder"}},
     "aws":{
       dimensions: { PipelineName:pipeline, Phase:phase },
@@ -278,15 +366,15 @@ function generateImageBuilderLog(ts, er) {
         phase,phase_status:isErr?"FAILED":"COMPLETED",duration_seconds:dur,
         os:rand(["Amazon Linux 2023","Ubuntu 22.04","Windows Server 2022","RHEL 9"]),
         recipe_name:rand(["web-server-recipe","hardened-base","docker-host"]),
-        ami_id:isErr?null:`ami-${randId(8).toLowerCase()}`,
+        ami_id:isErr?null:imageId,
         metrics:{
           BuildDuration: { avg: dur },
           ImageBuildSuccessCount: { sum: isErr ? 0 : 1 },
           ImageBuildFailureCount: { sum: isErr ? 1 : 0 },
           ComponentBuildDuration: { avg: randInt(60, Math.min(dur, 1200)) },
         }}},
-    "event":{duration:dur*1e9,outcome:isErr?"failure":"success",category:"process",dataset:"aws.imagebuilder",provider:"imagebuilder.amazonaws.com"},
-    "message":isErr?errMsg:`Image Builder ${pipeline} ${phase} COMPLETED in ${dur}s`,
+    "event":{category:["process"],duration:dur*1e9,outcome:isErr?"failure":"success",dataset:"aws.imagebuilder",provider:"imagebuilder.amazonaws.com"},
+    "message":isErr?errMsg:infoMsg,
     "log":{level:isErr?"error":"info"},
     ...(isErr ? { error: { code: rand(IMAGEBUILDER_ERROR_CODES), message: errMsg, type: "process" } } : {})};
 }

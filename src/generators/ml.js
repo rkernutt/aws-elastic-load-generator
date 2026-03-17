@@ -73,7 +73,7 @@ function generateSageMakerLog(ts, er) {
     },
     "log": { level },
     "user": { name: user },
-    "event": { action, duration: durationSec * 1e9, outcome: isErr ? "failure" : "success", category: "machine_learning", dataset: "aws.sagemaker", provider: "sagemaker.amazonaws.com" },
+    "event": { action, duration: durationSec * 1e9, outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.sagemaker", provider: "sagemaker.amazonaws.com" },
     "message": message,
     ...(isErr ? { error: { code: rand(ERROR_CODES), message: rand(ERROR_MSGS), type: "service" } } : {}),
   };
@@ -86,7 +86,7 @@ function generateBedrockLog(ts, er) {
   const lat = parseFloat(randFloat(0.5, isErr?30:15));
   const invocations = randInt(1, 500);
   const latencyMs = Math.round(lat * 1000);
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"bedrock"}},"aws":{bedrock:{model_id:model,invocation_latency_ms:latencyMs,input_token_count:inputTokens,output_token_count:outputTokens,total_token_count:inputTokens+outputTokens,stop_reason:isErr?null:rand(["end_turn","max_tokens","stop_sequence"]),error_code:isErr?rand(["ThrottlingException","ModelTimeoutException","ModelErrorException"]):null,use_case:rand(["text-generation","summarization","classification","extraction","qa"]),guardrail_action:rand(["NONE","NONE","NONE","INTERVENED"]),metrics:{Invocations:{sum:invocations},InvocationLatency:{avg:latencyMs,p99:latencyMs*2},InputTokenCount:{sum:inputTokens},OutputTokenCount:{sum:outputTokens},Throttles:{sum:isErr?randInt(1,20):0}}}},"event":{outcome:isErr?"failure":"success",category:"machine_learning",dataset:"aws.bedrock",provider:"bedrock.amazonaws.com",duration:lat*1e9},"message":isErr?`Bedrock ${model.split(".")[1].split("-")[0]} invocation FAILED: ${rand(["ThrottlingException","ModelTimeoutException"])}`:`Bedrock ${model.split(".")[1].split("-")[0]} ${inputTokens}->${outputTokens} tokens ${lat.toFixed(2)}s`,"log":{level:isErr?"error":lat>10?"warn":"info"},...(isErr?{error:{code:rand(["ThrottlingException","ModelTimeoutException","ModelErrorException"]),message:"Bedrock invocation failed",type:"ml"}}:{}) };
+  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"bedrock"}},"aws":{bedrock:{model_id:model,invocation_latency_ms:latencyMs,input_token_count:inputTokens,output_token_count:outputTokens,total_token_count:inputTokens+outputTokens,stop_reason:isErr?null:rand(["end_turn","max_tokens","stop_sequence"]),error_code:isErr?rand(["ThrottlingException","ModelTimeoutException","ModelErrorException"]):null,use_case:rand(["text-generation","summarization","classification","extraction","qa"]),guardrail_action:rand(["NONE","NONE","NONE","INTERVENED"]),metrics:{Invocations:{sum:invocations},InvocationLatency:{avg:latencyMs,p99:latencyMs*2},InputTokenCount:{sum:inputTokens},OutputTokenCount:{sum:outputTokens},Throttles:{sum:isErr?randInt(1,20):0}}}},"event":{outcome:isErr?"failure":"success",category:["process"],dataset:"aws.bedrock",provider:"bedrock.amazonaws.com",duration:lat*1e9},"message":isErr?`Bedrock ${model.split(".")[1].split("-")[0]} invocation FAILED: ${rand(["ThrottlingException","ModelTimeoutException"])}`:`Bedrock ${model.split(".")[1].split("-")[0]} ${inputTokens}->${outputTokens} tokens ${lat.toFixed(2)}s`,"log":{level:isErr?"error":lat>10?"warn":"info"},...(isErr?{error:{code:rand(["ThrottlingException","ModelTimeoutException","ModelErrorException"]),message:"Bedrock invocation failed",type:"ml"}}:{}) };
 }
 
 function generateBedrockAgentLog(ts, er) {
@@ -123,7 +123,7 @@ function generateBedrockAgentLog(ts, er) {
         },
       },
     },
-    "event": { outcome: isErr ? "failure" : "success", category: "machine_learning", dataset: "aws.bedrockagent", provider: "bedrock-agent-runtime.amazonaws.com", duration: dur * 1e9 },
+    "event": { outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.bedrockagent", provider: "bedrock-agent-runtime.amazonaws.com", duration: dur * 1e9 },
     "message": isErr ? `Bedrock Agent ${agentId} ${action} FAILED` : `Bedrock Agent ${agentId}: ${action} ${inputTokens}→${outputTokens} tokens ${dur.toFixed(2)}s`,
     "log": { level: isErr ? "error" : "info" },
     ...(isErr ? { error: { code: "BedrockAgentError", message: "Agent invocation failed", type: "ml" } } : {}),
@@ -132,18 +132,27 @@ function generateBedrockAgentLog(ts, er) {
 
 function generateRekognitionLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
-  const op = rand(["DetectLabels","DetectFaces","RecognizeCelebrities","DetectModerationLabels","IndexFaces","SearchFacesByImage","DetectText"]);
+  const op = rand(["DetectFaces","RecognizeCelebrities","DetectLabels","DetectModerationLabels","DetectText","IndexFaces","SearchFaces","DetectCustomLabels","StartFaceDetection","GetFaceDetection"]);
   const dur = parseFloat(randFloat(50, isErr?5000:1000));
   const confidence = parseFloat(randFloat(70,99));
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"rekognition"}},
-    "aws":{rekognition:{operation:op,
+    "aws":{
+      dimensions:{ Operation:op },
+      rekognition:{operation:op,
       input_source:rand(["S3Object","Base64Image","Video"]),
       image_bytes:randInt(10000,10485760),duration_ms:Math.round(dur),
       labels_detected:isErr?0:randInt(1,50),faces_detected:isErr?0:randInt(0,20),
       max_confidence:isErr?0:confidence,confidence_threshold:70,
       moderation_labels:op==="DetectModerationLabels"&&!isErr?[rand(["Explicit Content","Violence"])]:null,
-      error_code:isErr?rand(["InvalidS3ObjectException","AccessDeniedException","ThrottlingException","ImageTooLargeException"]):null}},
-    "event":{duration:dur*1e6,outcome:isErr?"failure":"success",category:"machine_learning",dataset:"aws.rekognition",provider:"rekognition.amazonaws.com"},
+      error_code:isErr?rand(["InvalidS3ObjectException","AccessDeniedException","ThrottlingException","ImageTooLargeException"]):null,
+      metrics:{
+        SuccessfulRequestCount:{ sum:1 },
+        ThrottledCount:{ sum:isErr?1:0 },
+        UserErrorCount:{ sum:isErr?randInt(1,5):0 },
+        ServerErrorCount:{ sum:0 },
+        ResponseTime:{ avg:randFloat(100,isErr?5000:1000) },
+      }}},
+    "event":{duration:dur*1e6,outcome:isErr?"failure":"success",category:["process"],dataset:"aws.rekognition",provider:"rekognition.amazonaws.com"},
     "message":isErr?`Rekognition ${op} FAILED: ${rand(["Image too large","Access denied","Throttled"])}`:
       `Rekognition ${op}: ${randInt(1,50)} results, ${confidence.toFixed(1)}% confidence`,
     ...(isErr?{error:{code:"RekognitionError",message:"Rekognition operation failed",type:"ml"}}:{}),
@@ -152,11 +161,13 @@ function generateRekognitionLog(ts, er) {
 
 function generateTextractLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
-  const op = rand(["DetectDocumentText","AnalyzeDocument","StartDocumentAnalysis","GetDocumentAnalysis","AnalyzeExpense","AnalyzeID"]);
+  const op = rand(["AnalyzeDocument","DetectDocumentText","StartDocumentAnalysis","GetDocumentAnalysis","StartExpenseAnalysis","GetExpenseAnalysis"]);
   const docType = rand(["invoice","tax-form","id-card","contract","receipt","bank-statement"]);
   const pages = randInt(1, isErr?0:50);
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"textract"}},
-    "aws":{textract:{operation:op,document_type:docType,
+    "aws":{
+      dimensions:{ Operation:op },
+      textract:{operation:op,document_type:docType,
       job_id:op.startsWith("Start")||op.startsWith("Get")?randId(36).toLowerCase():null,
       job_status:op.startsWith("Get")?(isErr?"FAILED":"SUCCEEDED"):null,
       pages_processed:pages,blocks_detected:pages*randInt(10,200),
@@ -164,8 +175,16 @@ function generateTextractLog(ts, er) {
       form_key_value_pairs:op==="AnalyzeDocument"?randInt(0,50):0,
       tables_detected:op==="AnalyzeDocument"?randInt(0,10):0,
       confidence_mean:parseFloat(randFloat(85,99)),
-      error_code:isErr?rand(["UnsupportedDocumentException","DocumentTooLargeException","BadDocumentException"]):null}},
-    "event":{outcome:isErr?"failure":"success",category:"machine_learning",dataset:"aws.textract",provider:"textract.amazonaws.com"},
+      error_code:isErr?rand(["UnsupportedDocumentException","DocumentTooLargeException","BadDocumentException"]):null,
+      metrics:{
+        DocumentsProcessed:{ sum:1 },
+        ThrottledRequests:{ sum:isErr?1:0 },
+        ResponseTime:{ avg:randFloat(500,isErr?30000:5000) },
+        SuccessfulRequests:{ sum:isErr?0:1 },
+        UserErrorRequests:{ sum:isErr?randInt(1,5):0 },
+        ServerErrorRequests:{ sum:0 },
+      }}},
+    "event":{outcome:isErr?"failure":"success",category:["process","file"],dataset:"aws.textract",provider:"textract.amazonaws.com"},
     "message":isErr?`Textract ${op} FAILED on ${docType}: ${rand(["Unsupported format","Document too large"])}`:
       `Textract ${op}: ${docType}, ${pages} pages, ${pages*randInt(50,500)} words`,
     ...(isErr?{error:{code:"TextractError",message:"Textract operation failed",type:"ml"}}:{}),
@@ -174,18 +193,25 @@ function generateTextractLog(ts, er) {
 
 function generateComprehendLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
-  const op = rand(["DetectSentiment","DetectEntities","DetectKeyPhrases","DetectLanguage","ClassifyDocument","DetectPiiEntities"]);
+  const op = rand(["DetectSentiment","DetectEntities","DetectKeyPhrases","DetectDominantLanguage","ClassifyDocument","DetectPiiEntities","StartSentimentDetectionJob","StartEntitiesDetectionJob"]);
   const lang = rand(["en","es","fr","de","it","pt","ja","zh"]);
   const sentiment = rand(["POSITIVE","NEGATIVE","NEUTRAL","MIXED"]);
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"comprehend"}},
-    "aws":{comprehend:{operation:op,language_code:lang,
+    "aws":{
+      dimensions:{ Operation:op },
+      comprehend:{operation:op,language_code:lang,
       text_bytes:randInt(100,100000),
       sentiment:op==="DetectSentiment"?sentiment:null,
       entities_detected:op==="DetectEntities"?randInt(0,20):0,
       key_phrases_detected:op==="DetectKeyPhrases"?randInt(0,30):0,
       pii_entities_detected:op==="DetectPiiEntities"?randInt(0,10):0,
-      error_code:isErr?rand(["TextSizeLimitExceededException","UnsupportedLanguageException"]):null}},
-    "event":{outcome:isErr?"failure":"success",category:"machine_learning",dataset:"aws.comprehend",provider:"comprehend.amazonaws.com"},
+      error_code:isErr?rand(["TextSizeLimitExceededException","UnsupportedLanguageException"]):null,
+      metrics:{
+        NumberOfSuccessfulRequest:{ sum:1 },
+        NumberOfFailedRequest:{ sum:isErr?1:0 },
+        ResponseTime:{ avg:randFloat(100,isErr?5000:500) },
+      }}},
+    "event":{outcome:isErr?"failure":"success",category:["process"],dataset:"aws.comprehend",provider:"comprehend.amazonaws.com"},
     "message":isErr?`Comprehend ${op} FAILED: ${rand(["Text too large","Unsupported language"])}`:
       `Comprehend ${op}: lang=${lang}${op==="DetectSentiment"?`, sentiment=${sentiment}`:""}`,
     ...(isErr?{error:{code:"ComprehendError",message:"Comprehend operation failed",type:"ml"}}:{}),
@@ -196,7 +222,7 @@ function generateComprehendMedicalLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const action = rand(["DetectEntitiesV2","DetectPHI","InferICD10CM","InferRxNorm","InferSNOMEDCT","StartEntitiesDetectionV2Job"]);
   const entityCount = randInt(2,50); const phiCount = isErr?0:randInt(0,10);
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"comprehendmedical"}},"aws":{comprehendmedical:{operation:action,entities_detected:entityCount,phi_entities:phiCount,icd10_concepts:action.includes("ICD")?randInt(1,20):null,rxnorm_concepts:action.includes("Rx")?randInt(1,15):null,snomedct_concepts:action.includes("SNOMED")?randInt(1,30):null,text_characters:randInt(100,10000),job_id:action.includes("Job")?randId(36).toLowerCase():null,data_access_role_arn:`arn:aws:iam::${acct.id}:role/ComprehendMedicalRole`,s3_bucket:rand(["medical-records","clinical-notes","ehr-processed"]),error_code:isErr?rand(["InvalidRequestException","TextSizeLimitExceededException","TooManyRequestsException"]):null}},"event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.comprehendmedical",provider:"comprehendmedical.amazonaws.com"},"message":isErr?`Comprehend Medical ${action} FAILED: ${rand(["Text too long","Invalid request","Rate limit exceeded"])}:`:`Comprehend Medical ${action}: ${entityCount} entities, ${phiCount} PHI`,"log":{level:isErr?"error":phiCount>5?"warn":"info"},...(isErr?{error:{code:rand(["InvalidRequestException","TextSizeLimitExceededException","TooManyRequestsException"]),message:"Comprehend Medical failed",type:"ml"}}:{}) };
+  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"comprehendmedical"}},"aws":{comprehendmedical:{operation:action,entities_detected:entityCount,phi_entities:phiCount,icd10_concepts:action.includes("ICD")?randInt(1,20):null,rxnorm_concepts:action.includes("Rx")?randInt(1,15):null,snomedct_concepts:action.includes("SNOMED")?randInt(1,30):null,text_characters:randInt(100,10000),job_id:action.includes("Job")?randId(36).toLowerCase():null,data_access_role_arn:`arn:aws:iam::${acct.id}:role/ComprehendMedicalRole`,s3_bucket:rand(["medical-records","clinical-notes","ehr-processed"]),error_code:isErr?rand(["InvalidRequestException","TextSizeLimitExceededException","TooManyRequestsException"]):null}},"event":{outcome:isErr?"failure":"success",category:["process"],dataset:"aws.comprehendmedical",provider:"comprehendmedical.amazonaws.com"},"message":isErr?`Comprehend Medical ${action} FAILED: ${rand(["Text too long","Invalid request","Rate limit exceeded"])}:`:`Comprehend Medical ${action}: ${entityCount} entities, ${phiCount} PHI`,"log":{level:isErr?"error":phiCount>5?"warn":"info"},...(isErr?{error:{code:rand(["InvalidRequestException","TextSizeLimitExceededException","TooManyRequestsException"]),message:"Comprehend Medical failed",type:"ml"}}:{}) };
 }
 
 function generateTranslateLog(ts, er) {
@@ -211,8 +237,16 @@ function generateTranslateLog(ts, er) {
       applied_terminology:rand([null,"tech-glossary","product-terms"]),
       formality:rand([null,"FORMAL","INFORMAL"]),
       duration_ms:Math.round(dur),
-      error_code:isErr?rand(["DetectedLanguageLowConfidenceException","UnsupportedLanguagePairException"]):null}},
-    "event":{duration:dur*1e6,outcome:isErr?"failure":"success",category:"machine_learning",dataset:"aws.translate",provider:"translate.amazonaws.com"},
+      error_code:isErr?rand(["DetectedLanguageLowConfidenceException","UnsupportedLanguagePairException"]):null,
+      metrics:{
+        SuccessfulRequestCount:{ sum:1 },
+        ThrottledCount:{ sum:isErr?1:0 },
+        UserErrorCount:{ sum:isErr?randInt(1,5):0 },
+        ServerErrorCount:{ sum:0 },
+        CharacterCount:{ sum:randInt(1,5000) },
+        ResponseTime:{ avg:randFloat(100,isErr?2000:300) },
+      }}},
+    "event":{duration:dur*1e6,outcome:isErr?"failure":"success",category:["process"],dataset:"aws.translate",provider:"translate.amazonaws.com"},
     "message":isErr?`Translate FAILED (${srcLang}->${tgtLang}): ${rand(["Unsupported pair","Low confidence"])}`:
       `Translate ${srcLang}->${tgtLang}: ${chars.toLocaleString()} chars in ${dur.toFixed(0)}ms`,
     ...(isErr?{error:{code:"TranslateError",message:"Translate failed",type:"ml"}}:{}),
@@ -234,8 +268,14 @@ function generateTranscribeLog(ts, er) {
       vocabulary_name:rand([null,"custom-medical-terms","legal-terminology"]),
       speaker_count:rand([null,1,2,rand([3,4])]),
       content_redaction_enabled:Math.random()>0.7,
-      error_code:isErr?rand(["InternalFailure","BadRequestException","LimitExceededException"]):null}},
-    "event":{outcome:isErr?"failure":"success",category:"machine_learning",dataset:"aws.transcribe",provider:"transcribe.amazonaws.com"},
+      error_code:isErr?rand(["InternalFailure","BadRequestException","LimitExceededException"]):null,
+      metrics:{
+        TranscriptionJobsCompleted:{ sum:isErr?0:1 },
+        TranscriptionJobsFailed:{ sum:isErr?1:0 },
+        TranscriptionJobsPending:{ avg:randInt(0,10) },
+        TranscriptionJobsRunning:{ avg:randInt(0,5) },
+      }}},
+    "event":{outcome:isErr?"failure":"success",category:["process"],dataset:"aws.transcribe",provider:"transcribe.amazonaws.com"},
     "message":isErr?`Transcribe job ${jobName} FAILED (${lang}): ${rand(["Audio too noisy","Unsupported codec","Access denied"])}`:
       `Transcribe job ${jobName}: ${audioMins.toFixed(1)} min audio (${lang})`,
     ...(isErr?{error:{code:"TranscribeError",message:"Transcribe job failed",type:"ml"}}:{}),
@@ -247,15 +287,26 @@ function generatePollyLog(ts, er) {
   const voice = rand(["Joanna","Matthew","Amy","Brian","Celine","Hans","Mizuki","Lupe"]);
   const chars = randInt(50, isErr?0:100000);
   const engine = rand(["standard","neural","long-form"]);
+  const pollyOp = rand(["SynthesizeSpeech","StartSpeechSynthesisTask","GetSpeechSynthesisTask","ListSpeechSynthesisTasks"]);
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"polly"}},
-    "aws":{polly:{voice_id:voice,engine,
+    "aws":{
+      dimensions:{ Operation:pollyOp },
+      polly:{voice_id:voice,engine,
+      operation:pollyOp,
       language_code:rand(["en-US","en-GB","fr-FR","de-DE","es-US"]),
       output_format:rand(["mp3","ogg_vorbis","pcm"]),
       text_type:rand(["text","ssml"]),
       characters_synthesized:chars,
       sample_rate:rand(["8000","16000","22050","24000"]),
-      error_code:isErr?rand(["TextLengthExceededException","InvalidSsmlException","LanguageNotSupportedException"]):null}},
-    "event":{outcome:isErr?"failure":"success",category:"machine_learning",dataset:"aws.polly",provider:"polly.amazonaws.com"},
+      error_code:isErr?rand(["TextLengthExceededException","InvalidSsmlException","LanguageNotSupportedException"]):null,
+      metrics:{
+        RequestCharacters:{ sum:randInt(1,3000) },
+        ResponseLatency:{ avg:randFloat(100,isErr?2000:500) },
+        "2XXCount":{ sum:isErr?0:1 },
+        "4XXCount":{ sum:isErr?randInt(1,5):0 },
+        "5XXCount":{ sum:0 },
+      }}},
+    "event":{outcome:isErr?"failure":"success",category:["process"],dataset:"aws.polly",provider:"polly.amazonaws.com"},
     "message":isErr?`Polly SynthesizeSpeech FAILED (${voice}): ${rand(["Text too long","Invalid SSML","Language not supported"])}`:
       `Polly SynthesizeSpeech: ${voice} (${engine}), ${chars} chars`,
     ...(isErr?{error:{code:"PollyError",message:"Polly synthesis failed",type:"ml"}}:{}),
@@ -275,7 +326,7 @@ function generateForecastLog(ts, er) {
       weighted_quantile_loss:isErr?null:parseFloat(randFloat(0.05,0.25)),
       duration_seconds:dur,status:isErr?"FAILED":"ACTIVE",
       error_message:isErr?rand(["Insufficient training data","AutoML timed out","Invalid target field"]):null}},
-    "event":{duration:dur*1e9,outcome:isErr?"failure":"success",category:"machine_learning",dataset:"aws.forecast",provider:"forecast.amazonaws.com"},
+    "event":{duration:dur*1e9,outcome:isErr?"failure":"success",category:["process"],dataset:"aws.forecast",provider:"forecast.amazonaws.com"},
     "message":isErr?`Forecast ${action} FAILED for ${dataset}: ${rand(["Insufficient data","Training timeout"])}`:
       `Forecast ${action}: ${dataset}, WQL=${parseFloat(randFloat(0.05,0.25)).toFixed(3)}`,
     ...(isErr?{error:{code:"ForecastError",message:"Forecast operation failed",type:"ml"}}:{}),
@@ -297,7 +348,7 @@ function generatePersonalizeLog(ts, er) {
       duration_ms:Math.round(dur),
       error_code:isErr?rand(["ResourceNotFoundException","InvalidInputException"]):null}},
     "user":{name:userId},
-    "event":{duration:dur*1e6,outcome:isErr?"failure":"success",category:"machine_learning",dataset:"aws.personalize",provider:"personalize.amazonaws.com"},
+    "event":{duration:dur*1e6,outcome:isErr?"failure":"success",category:["process"],dataset:"aws.personalize",provider:"personalize.amazonaws.com"},
     "message":isErr?`Personalize ${action} FAILED for ${campaign}`:
       `Personalize ${action}: ${numResults} recs for ${userId} in ${dur.toFixed(0)}ms`,
     ...(isErr?{error:{code:"PersonalizeError",message:"Personalize operation failed",type:"ml"}}:{}),
@@ -318,7 +369,7 @@ function generateLexLog(ts, er) {
       dialog_state:isErr?"Failed":"Fulfilled",
       sentiment:rand(["POSITIVE","NEUTRAL","NEGATIVE"]),
       error_code:isErr?rand(["NoSuchBotException","BadRequestException"]):null}},
-    "event":{outcome:isErr?"failure":"success",category:"machine_learning",dataset:"aws.lex",provider:"lex.amazonaws.com"},
+    "event":{outcome:isErr?"failure":"success",category:["process"],dataset:"aws.lex",provider:"lex.amazonaws.com"},
     "message":isErr?`Lex ${bot} FAILED: intent ${intent} - ${rand(["NLU confidence too low","Slot validation failed"])}`:
       `Lex ${bot}: intent=${intent} (${(nluScore*100).toFixed(0)}%)`,
     ...(isErr?{error:{code:"LexError",message:"Lex intent failed",type:"ml"}}:{}),
@@ -331,7 +382,7 @@ function generateLookoutMetricsLog(ts, er) {
   const metric = rand(["revenue","page_views","error_rate","p99_latency","conversion_rate","api_calls"]);
   const severity = isErr?rand(["HIGH","MEDIUM"]):rand(["LOW","MEDIUM"]);
   const anomalyScore = isErr?parseFloat(randFloat(70,99)):parseFloat(randFloat(0,40));
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"lookoutmetrics"}},"aws":{lookoutmetrics:{anomaly_detector_arn:`arn:aws:lookoutmetrics:${region}:${acct.id}:AnomalyDetector:${detector}`,anomaly_group_id:randId(36).toLowerCase(),metric_name:metric,severity,anomaly_score:anomalyScore,relevant_dates:rand([3,7,14,30]),impact_value:parseFloat(randFloat(-50,200)),expected_value:parseFloat(randFloat(100,10000)),actual_value:parseFloat(randFloat(50,15000)),dimension:rand([{region:"us-east-1"},{service:"checkout"},{environment:"prod"}]),sensitivity:rand(["LOW","MEDIUM","HIGH"]),action_taken:isErr?rand(["SNS_ALERT","LAMBDA_TRIGGER"]):null}},"event":{outcome:isErr?"failure":"success",category:"process",dataset:"aws.lookoutmetrics",provider:"lookoutmetrics.amazonaws.com"},"message":isErr?`Lookout for Metrics ANOMALY [${detector}]: ${metric} score=${anomalyScore.toFixed(0)} [${severity}]`:`Lookout for Metrics [${detector}]: ${metric} anomaly_score=${anomalyScore.toFixed(0)}`,"log":{level:isErr?"warn":"info"},...(isErr?{error:{code:"AnomalyDetected",message:"Lookout for Metrics anomaly",type:"process"}}:{}) };
+  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"lookoutmetrics"}},"aws":{lookoutmetrics:{anomaly_detector_arn:`arn:aws:lookoutmetrics:${region}:${acct.id}:AnomalyDetector:${detector}`,anomaly_group_id:randId(36).toLowerCase(),metric_name:metric,severity,anomaly_score:anomalyScore,relevant_dates:rand([3,7,14,30]),impact_value:parseFloat(randFloat(-50,200)),expected_value:parseFloat(randFloat(100,10000)),actual_value:parseFloat(randFloat(50,15000)),dimension:rand([{region:"us-east-1"},{service:"checkout"},{environment:"prod"}]),sensitivity:rand(["LOW","MEDIUM","HIGH"]),action_taken:isErr?rand(["SNS_ALERT","LAMBDA_TRIGGER"]):null}},"event":{outcome:isErr?"failure":"success",category:["process"],dataset:"aws.lookoutmetrics",provider:"lookoutmetrics.amazonaws.com"},"message":isErr?`Lookout for Metrics ANOMALY [${detector}]: ${metric} score=${anomalyScore.toFixed(0)} [${severity}]`:`Lookout for Metrics [${detector}]: ${metric} anomaly_score=${anomalyScore.toFixed(0)}`,"log":{level:isErr?"warn":"info"},...(isErr?{error:{code:"AnomalyDetected",message:"Lookout for Metrics anomaly",type:"process"}}:{}) };
 }
 
 export { generateSageMakerLog, generateBedrockLog, generateBedrockAgentLog, generateRekognitionLog, generateTextractLog, generateComprehendLog, generateComprehendMedicalLog, generateTranslateLog, generateTranscribeLog, generatePollyLog, generateForecastLog, generatePersonalizeLog, generateLexLog, generateLookoutMetricsLog };

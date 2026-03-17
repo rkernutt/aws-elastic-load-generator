@@ -1,6 +1,6 @@
 # AWS Services — Documentation Review & Coverage
 
-> **Last updated:** 2026-03-17 (v7.5)
+> **Last updated:** 2026-03-17 (v7.6)
 
 This document reviews the load generator’s AWS services against **official AWS monitoring, logging, and metrics documentation**. It provides doc links, coverage summary, and gaps so you can prioritize enhancements. For **Glue**, see [GLUE-METRICS-COVERAGE.md](GLUE-METRICS-COVERAGE.md). For **enhancement candidates** (EMR, Batch, etc.), see [ENHANCEMENT-CANDIDATES.md](ENHANCEMENT-CANDIDATES.md).
 

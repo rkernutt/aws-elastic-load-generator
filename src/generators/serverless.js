@@ -36,13 +36,14 @@ function generateLambdaLog(ts, er) {
 
   // Randomly emit one of: START, application log, END, or REPORT — matching real Lambda log patterns
   const logEventType = rand(["start","app","app","app","end","report"]);
+  const hasXray = logEventType === "report" && Math.random() < 0.2;
   let message;
   if (logEventType === "start") {
     message = `START RequestId: ${rid} Version: $LATEST`;
   } else if (logEventType === "end") {
     message = `END RequestId: ${rid}`;
   } else if (logEventType === "report") {
-    message = `REPORT RequestId: ${rid}\tDuration: ${dur.toFixed(2)} ms\tBilled Duration: ${billedDur} ms\tMemory Size: ${memSize} MB\tMax Memory Used: ${memUsed} MB${isColdStart ? `\tInit Duration: ${initDur.toFixed(2)} ms` : ""}`;
+    message = `REPORT RequestId: ${rid}\tDuration: ${dur.toFixed(2)} ms\tBilled Duration: ${billedDur} ms\tMemory Size: ${memSize} MB\tMax Memory Used: ${memUsed} MB${isColdStart ? `\tInit Duration: ${initDur.toFixed(2)} ms` : ""}${hasXray ? `\tXRay TraceId: 1-${randId(8).toLowerCase()}-${randId(24).toLowerCase()}\tSegmentId: ${randId(16).toLowerCase()}\tSampled: true` : ""}`;
   } else {
     const useStructuredLogging = Math.random() < 0.6;
     message = useStructuredLogging
@@ -50,12 +51,13 @@ function generateLambdaLog(ts, er) {
       : `[${level}]\t${rid}\t${rand(MSGS[level])}`;
   }
 
+  const LAMBDA_ERROR_CODES = ["ResourceConflictException","RequestTooLargeException","ENILimitReachedException","EFSIOException","SubnetIPAddressLimitReachedException","InvalidParameterValueException","ServiceException","TooManyRequestsException","CodeStorageExceededException"];
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"lambda" } },
     ...(traceId ? { trace: { id: traceId } } : {}),
     "aws": {
-      dimensions: { FunctionName:fn, Resource:`${fn}:$LATEST`, ExecutedVersion:"$LATEST", EventSourceMappingUUID: hasMapping ? randUUID() : null },
+      dimensions: { FunctionName:fn, Resource:`${fn}:$LATEST`, ExecutedVersion:"$LATEST" },
       lambda: {
         function: { name:fn, version:"$LATEST", arn:`arn:aws:lambda:${region}:${acct.id}:function:${fn}` },
         request_id: rid,
@@ -70,22 +72,22 @@ function generateLambdaLog(ts, er) {
         log_stream: logStream,
         log_event_type: logEventType,
         metrics: {
-          Invocations: { sum: invocations },
-          Errors: { sum: errors },
-          Throttles: { sum: throttles },
-          Duration: { avg: dur, max: dur * 1.1, min: dur * 0.9 },
-          ConcurrentExecutions: { avg: randInt(1, 200) },
-          UnreservedConcurrentExecutions: { avg: randInt(0, 500) },
+          Invocations: { sum: 1 },
+          Errors: { sum: isErr ? 1 : 0 },
+          Throttles: { sum: 0 },
+          Duration: { avg: dur, max: dur * 1.2, min: dur * 0.8 },
+          ConcurrentExecutions: { avg: randInt(1, 500) },
+          UnreservedConcurrentExecutions: { avg: randInt(1, 1000) },
           DeadLetterErrors: { sum: Math.random() < 0.02 ? randInt(1, 5) : 0 },
-          IteratorAge: { avg: hasMapping ? randInt(0, 60000) : null },
-          memory_size_mb: memSize,
+          IteratorAge: { avg: isErr ? randInt(10000, 3600000) : 0 },
         }
       }
     },
     "log": { level: level.toLowerCase() },
     "message": message,
-    "event": { duration: dur * 1000000, outcome: isErr ? "failure" : "success", dataset:"aws.lambda", provider:"lambda.amazonaws.com" },
+    "event": { duration: dur * 1000000, outcome: isErr ? "failure" : "success", category: ["process"], type: isErr ? ["error"] : ["info"], dataset:"aws.lambda", provider:"lambda.amazonaws.com" },
     "service": { name:fn, type:"lambda" },
+    ...(isErr ? { error: { code: rand(LAMBDA_ERROR_CODES), message: rand(["Unhandled exception","DB connection refused","Timeout after 30000ms"]), type: "lambda" } } : {}),
   };
 }
 
@@ -103,9 +105,22 @@ function generateApiGatewayLog(ts, er) {
   const apiId = randId(10).toLowerCase();
   const apiName = rand(["prod-api","internal-api","partner-api","mobile-api"]);
   const stage = rand(["prod","v1","v2","staging"]);
-  const count = randInt(1, 1000);
   const requestId = `${randId(8)}-${randId(4)}`.toLowerCase();
   const traceId = Math.random() < 0.5 ? `1-${randId(8).toLowerCase()}-${randId(24).toLowerCase()}` : null;
+  const GEO_DATA = [
+    { country_iso_code:"US", country_name:"United States", region_name:"Virginia",    city_name:"Ashburn"    },
+    { country_iso_code:"GB", country_name:"United Kingdom", region_name:"London",      city_name:"London"     },
+    { country_iso_code:"DE", country_name:"Germany",        region_name:"Frankfurt",   city_name:"Frankfurt"  },
+    { country_iso_code:"FR", country_name:"France",         region_name:"Paris",       city_name:"Paris"      },
+    { country_iso_code:"JP", country_name:"Japan",          region_name:"Tokyo",       city_name:"Tokyo"      },
+    { country_iso_code:"AU", country_name:"Australia",      region_name:"Sydney",      city_name:"Sydney"     },
+    { country_iso_code:"CA", country_name:"Canada",         region_name:"Ontario",     city_name:"Toronto"    },
+    { country_iso_code:"IN", country_name:"India",          region_name:"Mumbai",      city_name:"Mumbai"     },
+    { country_iso_code:"BR", country_name:"Brazil",         region_name:"São Paulo",   city_name:"São Paulo"  },
+    { country_iso_code:"SG", country_name:"Singapore",      region_name:"Singapore",   city_name:"Singapore"  },
+  ];
+  const geo = rand(GEO_DATA);
+  const APIGW_ERROR_CODES = { 400:"BadRequestException", 401:"UnauthorizedException", 403:"AccessDeniedException", 404:"NotFoundException", 409:"ConflictException", 429:"TooManyRequestsException", 500:"ServiceUnavailableException", 502:"ServiceUnavailableException", 503:"ServiceUnavailableException", 504:"LimitExceededException" };
   const plainMessage = `${method} ${path} ${status} ${lat}ms`;
   const useStructuredLogging = Math.random() < 0.55;
   const message = useStructuredLogging ? JSON.stringify({ requestId, requestMethod: method, requestPath: path, status: status, responseLatency: lat, integrationLatency: integrationLat, timestamp: new Date(ts).toISOString(), ...(traceId ? { traceId } : {}) }) : plainMessage;
@@ -125,22 +140,24 @@ function generateApiGatewayLog(ts, er) {
         request: { http_method: method, path, protocol: "HTTP/1.1" },
         response: { status_code: status, integration_latency_ms: integrationLat, response_latency_ms: lat },
         metrics: {
-          Count: { sum: count },
-          "4xx": { sum: status>=400&&status<500 ? randInt(0, Math.floor(count*0.1)) : 0 },
-          "5xx": { sum: status>=500 ? randInt(0, Math.floor(count*0.05)) : 0 },
-          Latency: { avg: lat, max: lat*1.5, min: lat*0.5 },
-          IntegrationLatency: { avg: integrationLat, max: Math.floor(lat*1.3), min: Math.floor(lat*0.4) },
+          Count: { sum: 1 },
+          "4XXError": { sum: status>=400&&status<500 ? 1 : 0 },
+          "5XXError": { sum: status>=500 ? 1 : 0 },
+          Latency: { avg: lat, p99: lat*3 },
+          IntegrationLatency: { avg: Math.floor(lat*0.8), p99: Math.floor(lat*2.5) },
+          CacheHitCount: { sum: Math.random()>0.7 ? 1 : 0 },
+          CacheMissCount: { sum: Math.random()>0.7 ? 0 : 1 },
         }
       }
     },
-    "http": { request:{ method, bytes:randInt(100,5000) }, response:{ status_code:status, bytes:randInt(200,10000) } },
+    "http": { request:{ method, id:requestId, bytes:randInt(100,5000) }, response:{ status_code:status, bytes:randInt(200,10000) } },
     "url": { path, domain:`${apiId}.execute-api.${region}.amazonaws.com` },
-    "client": { ip:randIp() },
+    "client": { ip:randIp(), geo },
     "user_agent": { original:rand(USER_AGENTS) },
-    "event": { duration:lat*1000000, outcome:status>=400?"failure":"success", dataset:"aws.apigateway_logs", provider:"apigateway.amazonaws.com" },
+    "event": { duration:lat*1000000, outcome:status>=400?"failure":"success", category:["web"], type:["access"], dataset:"aws.apigateway_logs", provider:"apigateway.amazonaws.com" },
     "message": message,
     "log": { level:status>=500?"error":status>=400?"warn":"info" },
-    ...(status >= 400 ? { error: { code: status >= 500 ? "InternalServerError" : status === 429 ? "ThrottlingException" : status === 403 ? "AccessDeniedException" : status === 404 ? "NotFoundException" : "BadRequestException", message: `HTTP ${status}`, type: "server" } } : {})
+    ...(status >= 400 ? { error: { code: APIGW_ERROR_CODES[status] || "BadRequestException", message: `HTTP ${status}`, type: "server" } } : {})
   };
 }
 
@@ -176,28 +193,31 @@ function generateAppRunnerLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const isErr = Math.random() < er;
   const svc = rand(["web-api","frontend","admin-portal","webhook-handler"]);
+  const svcId = randId(32).toLowerCase();
   const status = isErr ? rand([500,502,503,504]) : rand([200,200,201,204]);
-  const dur = randInt(5, isErr?8000:500);
+  const latMs = randInt(5, isErr?8000:500);
   const APP_RUNNER_ERROR_CODES = ["InternalServerError","BadGateway","ServiceUnavailable","GatewayTimeout"];
-  const plainMessage = `${rand(HTTP_METHODS)} ${rand(HTTP_PATHS)} ${status} ${dur}ms`;
+  const plainMessage = `${rand(HTTP_METHODS)} ${rand(HTTP_PATHS)} ${status} ${latMs}ms`;
   const useStructuredLogging = Math.random() < 0.55;
-  const message = useStructuredLogging ? JSON.stringify({ service: svc, status, latency_ms: dur, timestamp: new Date(ts).toISOString() }) : plainMessage;
+  const message = useStructuredLogging ? JSON.stringify({ service: svc, status, latency_ms: latMs, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"apprunner" } },
     "aws": {
-      dimensions: { ServiceName:svc },
+      dimensions: { ServiceName:svc, ServiceId:svcId },
       apprunner: {
         service_name: svc,
-        service_arn: `arn:aws:apprunner:${region}:${acct.id}:service/${svc}/${randId(32).toLowerCase()}`,
+        service_arn: `arn:aws:apprunner:${region}:${acct.id}:service/${svc}/${svcId}`,
         structured_logging: useStructuredLogging,
         metrics: {
-          Requests: { sum: randInt(1, 1000) },
-          "2xxStatusResponses": { sum: status<300 ? randInt(1,1000) : 0 },
-          "4xxStatusResponses": { sum: status>=400&&status<500 ? randInt(1,50) : 0 },
-          "5xxStatusResponses": { sum: status>=500 ? randInt(1,20) : 0 },
-          RequestLatency: { avg: dur, p99: dur*2 },
+          Requests: { sum: 1 },
+          "2xxStatusResponses": { sum: status<300 ? 1 : 0 },
+          "4xxStatusResponses": { sum: status>=400&&status<500 ? 1 : 0 },
+          "5xxStatusResponses": { sum: status>=500 ? 1 : 0 },
+          HttpStatusCode2XX: { sum: status<300 ? 1 : 0 },
+          RequestLatency: { avg: latMs, p99: latMs*3 },
           ActiveInstances: { avg: randInt(1, 10) },
+          ConcurrentRequests: { avg: randInt(1, 50) },
           CPUUtilization: { avg: parseFloat(randFloat(5, isErr?95:60)) },
           MemoryUtilization: { avg: parseFloat(randFloat(10, isErr?90:70)) },
         }
@@ -206,7 +226,7 @@ function generateAppRunnerLog(ts, er) {
     "http": { request:{ method:rand(HTTP_METHODS), bytes:randInt(100,5000) }, response:{ status_code:status, bytes:randInt(200,8000) } },
     "url": { path:rand(HTTP_PATHS) },
     "client": { ip:randIp() },
-    "event": { duration:dur*1000000, outcome:status>=400?"failure":"success", dataset:"aws.apprunner", provider:"apprunner.amazonaws.com" },
+    "event": { duration:latMs*1000000, outcome:status>=400?"failure":"success", category:["web","process"], dataset:"aws.apprunner", provider:"apprunner.amazonaws.com" },
     "message": message,
     "log": { level:status>=500?"error":status>=400?"warn":"info" },
     ...(status >= 500 ? { error: { code: rand(APP_RUNNER_ERROR_CODES), message: `HTTP ${status}`, type: "server" } } : {})
@@ -232,9 +252,10 @@ function generateFargateLog(ts, er) {
   const message = useStructuredLogging ? JSON.stringify({ cluster: clusterName, taskId, taskDefinition: taskDef, container: task, level, message: plainMessage, timestamp: new Date(ts).toISOString() }) : plainMessage;
   const cpuPct = level==="error"?randInt(90,100):randInt(10,80);
   const memPct = level==="error"?randInt(90,100):randInt(20,75);
+  const svc = task;
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"fargate"}},
     "aws":{
-      dimensions: { ClusterName:clusterName, TaskId:taskId, TaskDefinition:taskDef },
+      dimensions: { ServiceName:svc, ClusterName:clusterName, TaskDefinitionFamily:task },
       fargate:{cluster_name:clusterName,task_id:taskId,
         task_definition:taskDef,
         structured_logging:useStructuredLogging,
@@ -243,13 +264,19 @@ function generateFargateLog(ts, er) {
         cpu_utilized_percent:cpuPct,
         memory_utilized_percent:memPct,
         metrics:{
-          CPUUtilization: { avg: cpuPct / 100 },
-          MemoryUtilization: { avg: memPct / 100 },
+          CPUUtilization: { avg: cpuPct },
+          MemoryUtilization: { avg: memPct },
+          NetworkRxBytes: { sum: randInt(1000, 1e8) },
+          NetworkTxBytes: { sum: randInt(1000, 1e8) },
+          StorageReadBytes: { sum: randInt(0, 1e7) },
+          StorageWriteBytes: { sum: randInt(0, 1e7) },
           RunningTaskCount: { avg: randInt(1, 20) },
           PendingTaskCount: { avg: level==="error" ? randInt(1, 5) : 0 },
         }}},
-    "container":{name:task},"log":{level},
-    "event":{outcome:level==="error"?"failure":"success",category:"container",dataset:"aws.ecs_fargate",provider:"ecs.amazonaws.com",duration:durationSec*1e9},
+    "container":{ id:randId(12).toLowerCase(), name:task, image:{ name:`myrepo/${task}:latest`, tag:"latest" }, runtime:"docker" },
+    "process":{ pid:randInt(1, 65535), name:task },
+    "log":{level},
+    "event":{outcome:level==="error"?"failure":"success",category:["process","container"],dataset:"aws.ecs_fargate",provider:"ecs.amazonaws.com",duration:durationSec*1e9},
     "message":message,
     ...(level === "error" ? { error: { code: rand(FARGATE_ERROR_CODES), message: rand(MSGS.error), type: "container" } } : {})};
 }

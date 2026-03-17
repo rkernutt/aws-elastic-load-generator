@@ -35,7 +35,7 @@ function generateAlbLog(ts, er) {
         trace_id: `Root=1-${randId(8)}-${randId(24)}`,
         target_port: `${backendIp}:${backendPort}`,
         target_status_code: String(targetStatusCode),
-        "error.reason": isErr && status >= 500 ? "TargetResponseError" : undefined,
+        "error.reason": isErr && status >= 500 ? rand(["TargetConnectionError","TargetResponseError","TargetTimeout","ELBInternalError","RequestTimeout"]) : undefined,
       },
       alb: {
         load_balancer: lbName,
@@ -58,11 +58,11 @@ function generateAlbLog(ts, er) {
         }
       }
     },
-    "http": { request:{ method, bytes:randInt(200,8000) }, response:{ status_code:status, bytes:randInt(500,50000) } },
+    "http": { request:{ method, bytes:randInt(200,8000), referrer: Math.random()<0.2 ? rand(["https://www.google.com/","https://app.example.com/","https://console.aws.amazon.com/"]) : undefined }, response:{ status_code:status, bytes:randInt(500,50000) } },
     "url": { path, domain:"api.example.com" },
-    "client": { ip:randIp(), port:randInt(1024,65535) },
+    "client": { ip:randIp(), port:randInt(1024,65535), geo:{ country_iso_code:rand(["US","GB","DE","FR","JP","AU","CA","IN","BR","SG"]), country_name:rand(["United States","United Kingdom","Germany","France","Japan","Australia","Canada","India","Brazil","Singapore"]), city_name:rand(["Ashburn","London","Frankfurt","Paris","Tokyo","Sydney","Toronto","Mumbai","São Paulo","Singapore"]) } },
     "user_agent": { original:rand(USER_AGENTS) },
-    "event": { duration:(reqProc+backendProc+respProc)*1e9, outcome:status>=400?"failure":"success", dataset:"aws.elb_logs", provider:"elasticloadbalancing.amazonaws.com" },
+    "event": { duration:(reqProc+backendProc+respProc)*1e9, outcome:status>=400?"failure":"success", category:["web","network"], type:["access"], dataset:"aws.elb_logs", provider:"elasticloadbalancing.amazonaws.com" },
     "message": `${method} ${path} ${status} ${((reqProc+backendProc+respProc)*1000).toFixed(0)}ms`,
     "log": { level:status>=500?"error":status>=400?"warn":"info" },
     ...(status >= 400 ? { error: { code: status >= 500 ? "TargetResponseError" : "ClientError", message: `HTTP ${status}`, type: "server" } } : {})
@@ -82,7 +82,7 @@ function generateNlbLog(ts, er) {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"nlb" } },
     "aws": {
-      dimensions: { LoadBalancer:lbName, Protocol:proto, Port:String(port) },
+      dimensions: { LoadBalancer:lbName, TargetGroup:`targetgroup/tg-${rand(["web","api","admin"])}/${randId(16).toLowerCase()}`, AvailabilityZone:`${region}${rand(["a","b","c"])}` },
       elb: {
         name: lbName,
         type: "network",
@@ -109,11 +109,33 @@ function generateNlbLog(ts, er) {
         connection_log_status: status,
         bytes,
         packets: randInt(1, 100),
+        metrics: {
+          ActiveFlowCount: { avg: randInt(1,10000) },
+          ActiveFlowCount_TCP: { avg: randInt(1,5000) },
+          ActiveFlowCount_TLS: { avg: randInt(0,2000) },
+          ActiveFlowCount_UDP: { avg: randInt(0,1000) },
+          ClientTLSNegotiationErrorCount: { sum: isErr?randInt(1,100):0 },
+          ConsumedLCUs: { avg: parseFloat(randFloat(0.1,10)) },
+          HealthyHostCount: { avg: randInt(2,20) },
+          NewFlowCount: { sum: randInt(1,10000) },
+          NewFlowCount_TCP: { sum: randInt(1,5000) },
+          NewFlowCount_TLS: { sum: randInt(0,2000) },
+          NewFlowCount_UDP: { sum: randInt(0,1000) },
+          ProcessedBytes: { sum: randInt(1e6,1e9) },
+          ProcessedBytes_TCP: { sum: randInt(1e6,5e8) },
+          ProcessedBytes_TLS: { sum: randInt(0,2e8) },
+          ProcessedBytes_UDP: { sum: randInt(0,1e8) },
+          TargetTLSNegotiationErrorCount: { sum: isErr?randInt(1,50):0 },
+          TCP_Client_Reset_Count: { sum: randInt(0,100) },
+          TCP_ELB_Reset_Count: { sum: isErr?randInt(1,50):0 },
+          TCP_Target_Reset_Count: { sum: randInt(0,50) },
+          UnHealthyHostCount: { avg: isErr?randInt(1,3):0 },
+        }
       }
     },
     "source": { ip:randIp(), port:randInt(1024,65535) },
     "network": { transport:proto.toLowerCase(), bytes },
-    "event": { outcome:isErr?"failure":"success", category:"network", dataset:"aws.elb_logs", provider:"elasticloadbalancing.amazonaws.com", duration:connDuration * 1e6 },
+    "event": { outcome:isErr?"failure":"success", category:["network"], dataset:"aws.elb_logs", provider:"elasticloadbalancing.amazonaws.com", duration:connDuration * 1e6 },
     "message": isErr ? `NLB ${proto}:${port} connection ${status}` : `NLB ${proto}:${port} ${bytes}B in ${connDuration}ms`,
     "log": { level:isErr?"warn":"info" },
     ...(isErr ? { error: { code: status, message: `NLB connection ${status}`, type: "network" } } : {})
@@ -123,7 +145,7 @@ function generateNlbLog(ts, er) {
 function generateCloudFrontLog(ts, er) {
   const acct = randAccount();
   const isErr = Math.random() < er; const status = isErr ? rand([400,403,404,500,503]) : rand([200,200,200,304,301]);
-  const edges = ["LHR","IAD","SFO","SIN","FRA","SYD","NRT","GRU"]; const edge = rand(edges);
+  const edges = ["IAD89","LHR62","FRA56","NRT57","SYD4","SIN52","CDG50","AMS1","GRU3","BOM78"]; const edge = rand(edges);
   const paths = ["/index.html","/assets/app.js","/assets/style.css","/images/hero.webp","/fonts/inter.woff2"];
   const path = rand(paths);
   const distId = `E${randId(13)}`;
@@ -146,8 +168,9 @@ function generateCloudFrontLog(ts, er) {
         sc_status: String(status),
         x_edge_request_id: edgeRequestId,
         time_taken: timeTaken.toFixed(3),
-        x_edge_result_type: isErr ? "Error" : rand(["Hit","Miss","RefreshHit"]),
-        x_edge_response_result_type: isErr ? "Error" : "Hit",
+        x_edge_result_type: rand(["Hit","Miss","RefreshHit","Error","Redirect"]),
+        x_edge_response_result_type: rand(["Hit","Miss","RefreshHit","Error","Redirect"]),
+        x_forwarded_for: randIp(),
       },
       cloudfront: {
         distribution_id: distId,
@@ -156,21 +179,31 @@ function generateCloudFrontLog(ts, er) {
         edge_request_id: edgeRequestId,
         time_to_first_byte: timeTaken,
         metrics: {
-          Requests: { sum: requests },
-          BytesDownloaded: { sum: randInt(1e6, 10e9) },
-          BytesUploaded: { sum: randInt(0, 1e6) },
-          "4xxErrorRate": { avg: isErr&&status<500 ? parseFloat(randFloat(0.5,10)) : parseFloat(randFloat(0,0.5)) },
-          "5xxErrorRate": { avg: isErr&&status>=500 ? parseFloat(randFloat(0.1,5)) : 0 },
-          TotalErrorRate: { avg: isErr ? parseFloat(randFloat(1,15)) : parseFloat(randFloat(0,1)) },
-          CacheHitRate: { avg: isErr ? parseFloat(randFloat(0,40)) : parseFloat(randFloat(50,95)) },
-          OriginLatency: { avg: randInt(10, isErr?2000:200) },
+          Requests: { sum: 1 },
+          BytesDownloaded: { sum: randInt(100,1e8) },
+          BytesUploaded: { sum: randInt(0,1e6) },
+          "4xxErrorRate": { avg: status>=400&&status<500?1:0 },
+          "5xxErrorRate": { avg: status>=500?1:0 },
+          TotalErrorRate: { avg: status>=400?1:0 },
+          CacheHitRate: { avg: parseFloat(randFloat(0.7,0.99)) },
+          OriginLatency: { avg: parseFloat(randFloat(10,isErr?2000:200)) },
+          "401ErrorRate": { avg: status===401?1:0 },
+          "403ErrorRate": { avg: status===403?1:0 },
+          "404ErrorRate": { avg: status===404?1:0 },
+          "502ErrorRate": { avg: status===502?1:0 },
+          "503ErrorRate": { avg: status===503?1:0 },
+          "504ErrorRate": { avg: status===504?1:0 },
         }
       }
     },
     "http": { request:{ method:"GET", bytes:randInt(0,1000) }, response:{ status_code:status, bytes } },
     "url": { path, domain:`d${randId(12).toLowerCase()}.cloudfront.net` },
-    "client": { ip:clientIp },
-    "event": { outcome:status>=400?"failure":"success", category:"web", dataset:"aws.cloudfront_logs", provider:"cloudfront.amazonaws.com", duration:Math.round(timeTaken * 1e9) },
+    "client": { ip:clientIp, geo:{ country_iso_code:rand(["US","GB","DE","FR","JP","AU","CA"]), city_name:rand(["Ashburn","London","Frankfurt","Tokyo","Sydney"]) } },
+    "aws.cloudfront.edge_location": edge,
+    "aws.cloudfront.x_edge_result_type": rand(["Hit","Miss","RefreshHit","Error","Redirect"]),
+    "aws.cloudfront.x_edge_response_result_type": rand(["Hit","Miss","RefreshHit","Error","Redirect"]),
+    "aws.cloudfront.x_forwarded_for": randIp(),
+    "event": { outcome:status>=400?"failure":"success", category:["web","network"], type:["access"], dataset:"aws.cloudfront_logs", provider:"cloudfront.amazonaws.com", duration:Math.round(timeTaken * 1e9) },
     "message": `GET ${path} ${status} [${edge}]`,
     "log": { level:status>=500?"error":status>=400?"warn":"info" },
     ...(status >= 400 ? { error: { code: status >= 500 ? "OriginError" : "ClientError", message: `HTTP ${status}`, type: "server" } } : {})
@@ -180,7 +213,7 @@ function generateCloudFrontLog(ts, er) {
 function generateWafLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const isBlock = Math.random() < (er + 0.2);
-  const rules = ["AWSManagedRulesSQLiRuleSet","AWSManagedRulesCommonRuleSet","AWSManagedRulesKnownBadInputsRuleSet","RateLimitRule","GeoBlockRule"];
+  const rules = ["AWSManagedRulesCommonRuleSet","AWSManagedRulesKnownBadInputsRuleSet","AWSManagedRulesSQLiRuleSet","AWSManagedRulesLinuxRuleSet","AWSManagedRulesUnixRuleSet","AWSManagedRulesWindowsRuleSet","AWSManagedRulesPHPRuleSet","AWSManagedRulesWordPressRuleSet","IPRateBasedRule","GeoBlockRule","CustomSQLiRule"];
   const rule = rand(rules); const webAclName = rand(["prod-waf","api-waf","admin-waf"]);
   const webAclId = `${randId(8)}-${randId(4)}-${randId(4)}`.toLowerCase();
   const uri = rand(HTTP_PATHS);
@@ -200,17 +233,20 @@ function generateWafLog(ts, er) {
         http_request: { client_ip: clientIp, country: rand(["GB","US","DE","IE"]), uri, uri_query: "", method: rand(HTTP_METHODS), headers: [{ name: "User-Agent", value: ua }] },
         http_source_name: "ALB",
         metrics: {
-          AllowedRequests: { sum: isBlock ? 0 : randInt(100,10000) },
-          BlockedRequests: { sum: isBlock ? randInt(1,500) : 0 },
-          CountedRequests: { sum: randInt(0,100) },
-          PassedRequests: { sum: isBlock ? 0 : randInt(100,10000) },
+          AllowedRequests: { sum: isBlock ? 0 : 1 },
+          BlockedRequests: { sum: isBlock ? 1 : 0 },
+          CountedRequests: { sum: 0 },
+          PassedRequests: { sum: isBlock ? 0 : 1 },
+          RequestsWithValidCaptchaToken: { sum: 0 },
+          ChallengeRequests: { sum: 0 },
+          FailedCaptcha: { sum: 0 },
         }
       }
     },
     "http": { request:{ method:rand(HTTP_METHODS), bytes:randInt(100,10000) }, uri },
-    "client": { ip:clientIp },
+    "client": { ip:clientIp, geo:{ country_iso_code:rand(["US","CN","RU","IR","KP","BR","IN","DE","GB","FR"]), city_name:rand(["Ashburn","Beijing","Moscow","Tehran","Pyongyang","São Paulo","Mumbai","Berlin","London","Paris"]) } },
     "user_agent": { original:ua },
-    "event": { action:isBlock?"block":"allow", outcome:isBlock?"failure":"success", category:"intrusion_detection", dataset:"aws.waf", provider:"wafv2.amazonaws.com", duration:randInt(1,isBlock?500:50)*1e6 },
+    "event": { action:isBlock?"block":"allow", outcome:isBlock?"failure":"success", category:["intrusion_detection","network"], dataset:"aws.waf", provider:"wafv2.amazonaws.com", duration:randInt(1,isBlock?500:50)*1e6 },
     "message": `WAF ${isBlock?"BLOCKED":"ALLOWED"} request - Rule: ${rule}`,
     "log": { level:isBlock?"warn":"info" },
     ...(isBlock ? { error: { code: "WAFBlock", message: `Request blocked by rule: ${rule}`, type: "security" } } : {})
@@ -221,40 +257,45 @@ function generateWafv2Log(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const webAcl = rand(["prod-api-acl","cdn-waf","admin-portal-waf","regional-waf"]);
   const action = isErr?rand(["BLOCK","CAPTCHA","COUNT"]):rand(["ALLOW","ALLOW","BLOCK"]);
-  const ruleGroup = rand(["AWSManagedRulesCommonRuleSet","AWSManagedRulesSQLiRuleSet","AWSManagedRulesKnownBadInputsRuleSet","RateBasedRule","CustomRules"]);
-  const rule = rand(["SizeRestrictions_BODY","CrossSiteScripting_BODY","SQLi_QUERYARGUMENTS","GenericRFI_BODY","NoUserAgent_HEADER","RateLimitRule"]);
+  const ruleGroup = rand(["AWSManagedRulesCommonRuleSet","AWSManagedRulesSQLiRuleSet","AWSManagedRulesKnownBadInputsRuleSet","AWSManagedRulesLinuxRuleSet","AWSManagedRulesWindowsRuleSet","AWSManagedRulesPHPRuleSet","AWSManagedRulesWordPressRuleSet","IPRateBasedRule","GeoBlockRule","CustomSQLiRule"]);
+  const rule = rand(["AWSManagedRulesCommonRuleSet","AWSManagedRulesKnownBadInputsRuleSet","AWSManagedRulesSQLiRuleSet","AWSManagedRulesLinuxRuleSet","AWSManagedRulesUnixRuleSet","AWSManagedRulesWindowsRuleSet","AWSManagedRulesPHPRuleSet","AWSManagedRulesWordPressRuleSet","IPRateBasedRule","GeoBlockRule","CustomSQLiRule"]);
   const ip = randIp();
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"wafv2"}},"aws":{wafv2:{web_acl_name:webAcl,rule_group_name:ruleGroup,rule_name:rule,action,terminating_rule_id:rule,source_ip:ip,country:rand(["US","CN","RU","DE","GB","FR","BR","IN"]),uri:rand(HTTP_PATHS),method:rand(HTTP_METHODS),user_agent:rand(USER_AGENTS),blocked_reason:action==="BLOCK"?rand(["SQL injection","XSS attempt","Rate limit exceeded","Bad input pattern","Known bad IP"]):null,request_id:randId(36).toLowerCase(),labels:action==="BLOCK"?[rand(["awswaf:managed:aws:core-rule-set:CrossSiteScripting","awswaf:managed:aws:sql-database:SQLi_Args"])]:[]}},"source":{ip},"event":{action:action.toLowerCase(),outcome:action==="ALLOW"?"success":"failure",category:"intrusion_detection",dataset:"aws.waf",provider:"wafv2.amazonaws.com"},"message":action==="BLOCK"?`WAFv2 BLOCK [${webAcl}] ${ip}: ${ruleGroup}/${rule}`:`WAFv2 ${action} [${webAcl}] ${ip} ${rand(HTTP_METHODS)} ${rand(HTTP_PATHS)}`,"log":{level:action==="BLOCK"?"warn":"info"},...(action==="BLOCK"?{error:{code:"WAFBlock",message:"WAFv2 request blocked",type:"security"}}:{}) };
+  const isBlock = action === "BLOCK" || action === "CAPTCHA";
+  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"wafv2"}},"aws":{dimensions:{WebACL:webAcl,Rule:rule,Region:region},wafv2:{web_acl_name:webAcl,rule_group_name:ruleGroup,rule_name:rule,action,terminating_rule_id:rule,source_ip:ip,country:rand(["US","CN","RU","IR","KP","BR","IN","DE","GB","FR"]),uri:rand(HTTP_PATHS),method:rand(HTTP_METHODS),user_agent:rand(USER_AGENTS),blocked_reason:isBlock?rand(["SQL injection","XSS attempt","Rate limit exceeded","Bad input pattern","Known bad IP"]):null,request_id:randId(36).toLowerCase(),labels:isBlock?[rand(["awswaf:managed:aws:core-rule-set:CrossSiteScripting","awswaf:managed:aws:sql-database:SQLi_Args"])]:[], metrics:{AllowedRequests:{sum:isBlock?0:1},BlockedRequests:{sum:isBlock?1:0},CountedRequests:{sum:0},PassedRequests:{sum:isBlock?0:1},RequestsWithValidCaptchaToken:{sum:0},ChallengeRequests:{sum:0},FailedCaptcha:{sum:0}}}},"source":{ip,geo:{country_iso_code:rand(["US","CN","RU","IR","KP","BR","IN","DE","GB","FR"]),city_name:rand(["Ashburn","Beijing","Moscow","Tehran","Pyongyang","São Paulo","Mumbai","Berlin","London","Paris"])}},"event":{action:action.toLowerCase(),outcome:action==="ALLOW"?"success":"failure",category:["intrusion_detection","network"],dataset:"aws.waf",provider:"wafv2.amazonaws.com"},"message":isBlock?`WAFv2 BLOCK [${webAcl}] ${ip}: ${ruleGroup}/${rule}`:`WAFv2 ${action} [${webAcl}] ${ip} ${rand(HTTP_METHODS)} ${rand(HTTP_PATHS)}`,"log":{level:isBlock?"warn":"info"},...(isBlock?{error:{code:"WAFBlock",message:"WAFv2 request blocked",type:"security"}}:{}) };
 }
 
 function generateRoute53Log(ts, er) {
   const acct = randAccount();
   const isErr = Math.random() < er;
-  const domains = ["api.example.com","www.example.com","mail.example.com","app.internal","db.internal"];
-  const types = ["A","AAAA","CNAME","MX","TXT"]; const rcode = isErr ? rand(["NXDOMAIN","SERVFAIL","REFUSED"]) : "NOERROR";
+  const domains = ["api.example.com","www.example.com","mail.example.com","app.internal","db.internal","s3.amazonaws.com"];
+  const types = ["A","AAAA","CNAME","MX","TXT","SRV"]; const rcode = isErr ? rand(["NXDOMAIN","SERVFAIL","REFUSED"]) : "NOERROR";
   const hostedZoneId = `Z${randId(21)}`;
+  const healthCheckId = randId(36).toLowerCase();
+  const srcIp = randIp();
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region:"us-east-1", account:{ id:acct.id, name:acct.name }, service:{ name:"route53" } },
     "aws": {
-      dimensions: { HostedZoneId:hostedZoneId },
+      dimensions: { HostedZoneId:hostedZoneId, HealthCheckId:healthCheckId, Region:"us-east-1" },
       route53: {
         query_name: rand(domains), query_type: rand(types), response_code: rcode,
         edge_location: `${rand(["IAD","LHR","SFO"])}${randInt(50,99)}`,
         hosted_zone_id: hostedZoneId,
         metrics: {
-          DNSQueries: { sum: randInt(1, 100000) },
-          HealthCheckStatus: { avg: isErr ? 0 : 1 },
-          HealthCheckPercentageHealthy: { avg: isErr ? randInt(0,80) : randInt(95,100) },
-          ConnectionTime: { avg: randInt(1, isErr?500:50) },
-          TimeToFirstByte: { avg: randInt(1, isErr?1000:100) },
+          DNSQueries: { sum: randInt(1,10000) },
+          HealthCheckStatus: { avg: isErr?0:1 },
+          HealthCheckPercentageHealthy: { avg: isErr?parseFloat(randFloat(0,50)):100 },
+          ConnectionTime: { avg: randInt(1,isErr?5000:50) },
+          SSLHandshakeTime: { avg: randInt(1,isErr?1000:100) },
+          ChildHealthCheckHealthyCount: { avg: randInt(1,10) },
+          TimeToFirstByte: { avg: randInt(1,isErr?2000:100) },
         }
       }
     },
     "dns": { question:{ name:rand(domains), type:rand(types) }, response_code:rcode },
-    "client": { ip:randIp() },
-    "event": { outcome:isErr?"failure":"success", category:"network", dataset:"aws.route53", provider:"route53.amazonaws.com", duration:randInt(1, isErr ? 500 : 50) * 1e6 },
-    "message": `DNS ${rand(types)} query for ${rand(domains)} -> ${rcode}`,
+    "client": { ip:srcIp },
+    "event": { outcome:isErr?"failure":"success", category:["network"], type:["protocol"], dataset:"aws.route53", provider:"route53.amazonaws.com", duration:randInt(1, isErr ? 500 : 50) * 1e6 },
+    "message": `${ts} ${randId(8)} ${rand(["ip4","ip6"])} ${srcIp} ${53} ${rand(["A","AAAA","CNAME","MX","TXT","SRV"])} ${rand(["example.com","api.example.com","db.internal","s3.amazonaws.com"])}. ${rcode}`,
     "log": { level:isErr?"warn":"info" },
     ...(isErr ? { error: { code: rcode, message: `DNS query failed: ${rcode}`, type: "network" } } : {})
   };
@@ -272,7 +313,7 @@ function generateNetworkFirewallLog(ts, er) {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"network-firewall" } },
     "aws": {
-      dimensions: { FirewallName:fwName, AvailabilityZone:az },
+      dimensions: { FirewallName:fwName, AvailabilityZone:az, CustomAction:action==="DROP"?"CustomBlockAction":"CustomPassAction" },
       firewall_logs: {
         flow_id: flowId,
         event_timestamp: ts,
@@ -294,13 +335,14 @@ function generateNetworkFirewallLog(ts, er) {
           PassedPackets: { sum: action==="PASS" ? randInt(1000,100000) : 0 },
           RejectedPackets: { sum: 0 },
           Packets: { sum: randInt(1000, 100000) },
+          DroppedBytes: { sum: action==="DROP" ? randInt(64,65535) : 0 },
         }
       }
     },
     "source": { ip:srcIp, port:srcPort },
     "destination": { ip:dstIp, port:dstPort },
     "network": { transport:PROTOCOLS[proto]?.toLowerCase()||"tcp", bytes:randInt(64,65535), packets:randInt(1,50) },
-    "event": { action:action.toLowerCase(), outcome:action==="PASS"?"success":"failure", category:"network", dataset:"aws.firewall_logs", provider:"network-firewall.amazonaws.com", duration:randInt(1,action==="DROP"?200:50)*1e6 },
+    "event": { action:action.toLowerCase(), outcome:action==="PASS"?"success":"failure", category:["intrusion_detection","network"], dataset:"aws.firewall_logs", provider:"network-firewall.amazonaws.com", duration:randInt(1,action==="DROP"?200:50)*1e6 },
     "message": `${action} ${PROTOCOLS[proto]||"TCP"} flow`,
     "log": { level:action==="DROP"?"warn":"info" },
     ...(action === "DROP" ? { error: { code: "FlowDropped", message: "Packet dropped by firewall rule", type: "network" } } : {})
@@ -311,6 +353,8 @@ function generateShieldLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const isAttack = Math.random() < (er + 0.1);
   const vectors = ["SYN_FLOOD","UDP_REFLECTION","HTTP_FLOOD","DNS_AMPLIFICATION","VOLUMETRIC"];
+  const attackVector = rand(vectors);
+  const attackGbps = parseFloat(randFloat(1, 120)).toFixed(1);
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"shield" } },
@@ -330,10 +374,10 @@ function generateShieldLog(ts, er) {
       }
     },
     "network": { bytes:randInt(1e6,1e9), packets:randInt(1000,1000000) },
-    "event": { action:isAttack?"ddos_detected":"health_check", outcome:isAttack?"failure":"success", category:"network", dataset:"aws.shield", provider:"shield.amazonaws.com", duration:randInt(1,isAttack?3600:60)*1e9 },
-    "message": isAttack ? `DDoS attack detected: ${rand(vectors)} at ${randFloat(1,120)}Gbps - mitigation active` : `Shield health check: protected resource OK`,
+    "event": { action:isAttack?"ddos_detected":"health_check", outcome:isAttack?"failure":"success", category:["intrusion_detection","network"], dataset:"aws.shield", provider:"shield.amazonaws.com", duration:randInt(1,isAttack?3600:60)*1e9 },
+    "message": isAttack ? `DDoS attack detected: vector=${attackVector} magnitude=${attackGbps}Gbps pps=${randInt(1e6,100e6)} mitigation=ACTIVE` : `DDoS mitigation active: 0 attacks detected in last 60s`,
     "log": { level:isAttack?"warn":"info" },
-    ...(isAttack ? { error: { code: "DDoSAttack", message: `Attack vector: ${rand(vectors)} - mitigation active`, type: "network" } } : {})
+    ...(isAttack ? { error: { code: "DDoSAttack", message: `Attack vector: ${attackVector} at ${attackGbps}Gbps - mitigation active`, type: "network" } } : {})
   };
 }
 
@@ -361,17 +405,19 @@ function generateTransitGatewayLog(ts, er) {
   const tgwId = `tgw-${randId(17).toLowerCase()}`;
   const action = isErr ? "drop" : rand(["accept","accept","accept","blackhole"]);
   const proto = rand([6,17,1]);
+  const tgwAttachId = `tgw-attach-${randId(17).toLowerCase()}`;
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"transitgateway"}},
-    "aws":{transitgateway:{tgw_id:tgwId,
-      tgw_attachment_id:`tgw-attach-${randId(17).toLowerCase()}`,
+    "aws":{dimensions:{TransitGateway:tgwId,TransitGatewayAttachment:tgwAttachId},transitgateway:{tgw_id:tgwId,
+      tgw_attachment_id:tgwAttachId,
       resource_type:rand(["vpc","vpn","direct-connect-gateway","peering"]),
       src_vpc_id:`vpc-${randId(8).toLowerCase()}`,dst_vpc_id:`vpc-${randId(8).toLowerCase()}`,
       action,bytes:randInt(64,65535),packets:randInt(1,100),
-      protocol:PROTOCOLS[proto]||"TCP"}},
+      protocol:PROTOCOLS[proto]||"TCP",
+      metrics:{BytesIn:{sum:randInt(1e6,1e10)},BytesOut:{sum:randInt(1e6,1e10)},PacketsIn:{sum:randInt(1000,1e7)},PacketsOut:{sum:randInt(1000,1e7)},PacketDropCountBlackhole:{sum:isErr?randInt(1,1000):0},PacketDropCountNoRoute:{sum:isErr?randInt(1,100):0},BytesDropCountBlackhole:{sum:isErr?randInt(64,65535):0},BytesDropCountNoRoute:{sum:isErr?randInt(64,65535):0}}}},
     "source":{ip:randIp(),port:randInt(1024,65535)},
     "destination":{ip:randIp(),port:rand([80,443,22,3306,5432])},
     "network":{transport:(PROTOCOLS[proto]||"TCP").toLowerCase(),bytes:randInt(64,65535)},
-    "event":{action,outcome:action==="drop"||action==="blackhole"?"failure":"success",category:"network",dataset:"aws.transitgateway",provider:"ec2.amazonaws.com"},
+    "event":{action,outcome:action==="drop"||action==="blackhole"?"failure":"success",category:["network"],dataset:"aws.transitgateway",provider:"ec2.amazonaws.com"},
     "message":`TGW ${tgwId} ${action.toUpperCase()} ${PROTOCOLS[proto]||"TCP"} flow`,
     "log":{level:action==="drop"||action==="blackhole"?"warn":"info"},
     ...(action==="drop"||action==="blackhole" ? { error: { code: "FlowDropped", message: `TGW ${action} - no route or blackhole`, type: "network" } } : {})};
@@ -476,26 +522,27 @@ function generateNatGatewayLog(ts, er) {
         connection_established_count: isErr ? 0 : randInt(1,50),
         error_port_allocation: isErr && status === "port-allocation-error" ? randInt(1,100) : 0,
         metrics: {
-          ActiveConnectionCount: { max: randInt(1,500) },
-          BytesInFromDestination: { sum: Math.floor(bytes * 0.3) },
-          BytesInFromSource: { sum: Math.floor(bytes * 0.7) },
-          BytesOutToDestination: { sum: bytes },
-          BytesOutToSource: { sum: Math.floor(bytes * 0.4) },
-          PacketsInFromDestination: { sum: Math.floor(packets * 0.3) },
-          PacketsInFromSource: { sum: Math.floor(packets * 0.7) },
-          PacketsOutToDestination: { sum: packets },
-          PacketsOutToSource: { sum: Math.floor(packets * 0.4) },
-          ConnectionAttemptCount: { sum: isErr ? randInt(1,20) : 0 },
-          ConnectionEstablishedCount: { sum: isErr ? 0 : randInt(1,50) },
-          ErrorPortAllocation: { sum: isErr ? randInt(1,100) : 0 },
-          IdleTimeoutCount: { sum: isErr ? randInt(0,10) : 0 },
+          ActiveConnectionCount: { avg: randInt(1,10000) },
+          BytesInFromDestination: { sum: randInt(1e6,1e9) },
+          BytesInFromSource: { sum: randInt(1e6,1e9) },
+          BytesOutToDestination: { sum: randInt(1e6,1e9) },
+          BytesOutToSource: { sum: randInt(1e6,1e9) },
+          ConnectionAttemptCount: { sum: randInt(1,1000) },
+          ConnectionEstablishedCount: { sum: randInt(1,1000) },
+          ErrorPortAllocation: { sum: isErr?randInt(1,100):0 },
+          IdleTimeoutCount: { sum: randInt(0,100) },
+          PacketsDropCount: { sum: isErr?randInt(1,1000):0 },
+          PacketsInFromDestination: { sum: randInt(1000,1e6) },
+          PacketsInFromSource: { sum: randInt(1000,1e6) },
+          PacketsOutToDestination: { sum: randInt(1000,1e6) },
+          PacketsOutToSource: { sum: randInt(1000,1e6) },
         },
       },
     },
     "source": { ip: privateIp, port: randInt(1024,65535) },
     "destination": { ip: destIp, port },
     "network": { protocol: protocol.toLowerCase(), bytes, packets, direction: "egress" },
-    "event": { outcome: isErr ? "failure" : "success", category: "network", dataset: "aws.natgateway", provider: "natgateway.amazonaws.com", duration: randInt(1,5000)*1e6 },
+    "event": { outcome: isErr ? "failure" : "success", category: ["network"], dataset: "aws.natgateway", provider: "natgateway.amazonaws.com", duration: randInt(1,5000)*1e6 },
     "message": isErr ? `NAT Gateway ${natId}: ${status} (${protocol} ${privateIp} → ${destIp}:${port})` : `NAT Gateway ${natId}: ${action} ${protocol} ${privateIp}:${randInt(1024,65535)} → ${destIp}:${port} ${bytes}B`,
     "log": { level: isErr ? "warn" : "info" },
     ...(isErr ? { error: { code: status, message: `NAT Gateway ${action}: ${status}`, type: "network" } } : {}),
@@ -507,9 +554,12 @@ function generateVpcFlowLog(ts, er) {
   const action = Math.random() < er ? "REJECT" : "ACCEPT";
   const proto = rand([6,6,6,17,1]); const bytes = randInt(40,65535); const pkts = randInt(1,100);
   const src = randIp(); const dst = randIp(); const dstPort = rand([22,80,443,3306,5432,6379,8080,8443]);
+  const srcPort = randInt(1024,65535);
   const vpcId = `vpc-${randId(8).toLowerCase()}`;
   const eni = `eni-${randId(8).toLowerCase()}`;
   const subnetId = `subnet-${randId(8).toLowerCase()}`;
+  const tsEpoch = Math.floor(new Date(ts).getTime() / 1000);
+  const endEpoch = tsEpoch + randInt(1, 60);
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"vpc" } },
@@ -537,11 +587,11 @@ function generateVpcFlowLog(ts, er) {
         metrics: { BytesTransferred: { sum: bytes }, PacketsTransferred: { sum: pkts } }
       }
     },
-    "source": { ip:src, port:randInt(1024,65535) },
+    "source": { ip:src, port:srcPort },
     "destination": { ip:dst, port:dstPort },
     "network": { transport:PROTOCOLS[proto]?.toLowerCase()||"tcp", bytes, packets:pkts, direction:rand(["inbound","outbound"]) },
-    "event": { action:action.toLowerCase(), outcome:action==="ACCEPT"?"success":"failure", category:"network", dataset:"aws.vpcflow", provider:"ec2.amazonaws.com", duration:randInt(1,500)*1e6 },
-    "message": `${action} ${PROTOCOLS[proto]||"TCP"} ${src}:${randInt(1024,65535)} -> ${dst}:${dstPort} ${bytes}B ${pkts}pkts`,
+    "event": { action:action.toLowerCase(), outcome:action==="ACCEPT"?"success":"failure", category:["network"], type:action==="ACCEPT"?["connection"]:["connection","denied"], dataset:"aws.vpcflow", provider:"ec2.amazonaws.com", duration:randInt(1,500)*1e6 },
+    "message": `2 ${acct.id} ${eni} ${src} ${dst} ${srcPort} ${dstPort} ${proto} ${pkts} ${bytes} ${tsEpoch} ${endEpoch} ${action} OK`,
     "log": { level:action==="REJECT"?"warn":"info" },
     ...(action === "REJECT" ? { error: { code: "FlowRejected", message: "Security group or ACL rejected flow", type: "network" } } : {})
   };

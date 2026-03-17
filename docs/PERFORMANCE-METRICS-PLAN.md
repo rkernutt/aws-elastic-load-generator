@@ -1,6 +1,6 @@
 # Performance & anomaly-detection metrics plan
 
-> **Last updated:** 2026-03-17 (v7.5)
+> **Last updated:** 2026-03-17 (v7.6)
 
 This document guides which fields the load generator emits so you can:
 

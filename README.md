@@ -1,8 +1,27 @@
 # ⚡ AWS → Elastic Load Generator
 
-**v7.5** — A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **136 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
+**v7.6** — A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **136 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
 
 Each service has its **correct real-world ingestion source** pre-configured — S3, CloudWatch, direct API, Firehose, **OTel** (OpenTelemetry), or **Elastic Agent** — matching how each service actually delivers data to Elastic in production. You can leave **Default (per-service)** or override all services to a single ingestion method (e.g. OTel) for testing. Switch between **Logs** and **Metrics** mode; only the **46** services with Elastic metrics support are selectable in Metrics mode.
+
+---
+
+## What's New in v7.6
+
+- **Full AWS CloudWatch fidelity across all 136 generators** — Every generator now uses real AWS CloudWatch metric names, dimensions, and stat types (`sum` for counters, `avg` for gauges). Previously, many services used invented or misnamed metric fields; all are now aligned with the official AWS CloudWatch namespace documentation.
+- **`event.category` on all generators** — Every generator now emits `event.category` as a proper ECS array (e.g. `["web","network"]`, `["database"]`, `["process","container"]`, `["intrusion_detection","network"]`). This is required for Elastic Security categorisation, SIEM rules, and dashboard filtering.
+- **Metrics blocks added to 30+ previously uncovered services** — Services that had no CloudWatch metrics block now have complete, realistic metric sets including: all 6 IoT services, EFS, FSx, StorageGateway, DataSync, NLB (20 metrics), CloudFront (14 metrics), Route53 (7 metrics), NetworkFirewall, TransitGateway, NatGateway, SSM, DMS (17 metrics), CloudFormation, SES (9 metrics), GameLift (13 metrics), Rekognition, Textract, Comprehend, Translate, Transcribe, Polly, EventBridge, and more.
+- **Realistic error codes matched to AWS API exceptions** — All generators now draw from real AWS API error code lists (e.g. `ProvisionedThroughputExceededException` for Kinesis, `ConditionalCheckFailedException` for DynamoDB, `DBInstanceNotFound` for RDS, `ClusterNotFoundException` for ECS). Previously most services used generic or invented codes.
+- **Authentic log message formats** — Messages now match what AWS actually writes to CloudWatch Logs: RDS emits MySQL slow-query format (`Query_time: X Lock_time: Y Rows_sent: Z`) and PostgreSQL format (`LOG: duration: X ms statement:`, `FATAL: role does not exist`); VPC Flow Logs emit the exact v2 space-separated format (`2 <acct> <eni> <src> <dst> <srcPort> <dstPort> <proto> <pkts> <bytes> <start> <end> <action> OK`); Route53 emits real resolver query log format; EC2 emits `cloud-init`, `systemd`, and `kernel:` patterns; CloudTrail maps event names realistically per service.
+- **Geo data on network and web services** — ALB, CloudFront, WAF/WAFv2, API Gateway, Route53, CloudTrail, and GuardDuty now emit `client.geo` / `source.geo` with `country_iso_code`, `country_name`, and `city_name`. WAF and GuardDuty use threat-actor-realistic country distributions.
+- **Real GuardDuty finding types** — Uses actual GuardDuty finding type taxonomy (`ThreatPurpose:ResourceType/ThreatFamilyName.DetectionMechanism!Artifact`), e.g. `UnauthorizedAccess:EC2/SSHBruteForce`, `CryptoCurrency:EC2/BitcoinTool.B!DNS`, `Exfiltration:S3/MaliciousIPCaller`.
+- **Security Hub, Macie, Inspector fidelity** — Security Hub uses real standards (`CIS AWS Foundations Benchmark v1.4.0`, `AWS Foundational Security Best Practices v1.0.0`, `PCI DSS v3.2.1`) and real control IDs (`CIS.1.1`, `IAM.1`, `S3.2`). Macie uses real managed data identifier names (`AWS_CREDENTIALS`, `CREDIT_CARD_NUMBER`, `SSN_US`). Inspector emits real CVE IDs with `vulnerability.id`, `vulnerability.severity`, and `vulnerability.score.base` ECS fields.
+- **Container and process ECS fields** — ECS, EKS, Fargate, and Batch now emit full `container` objects (`id`, `image.name`, `image.tag`, `runtime`) and `process` objects (`pid`, `name`, `exit_code`). EKS messages use kubelet log format when unstructured.
+- **Expanded EC2 host and metrics** — EC2 now includes `host.architecture`, `host.cpu.count`, `host.os.kernel`, `host.os.version` and a full 22-metric CloudWatch block including all EBS, network packet, CPU credit, and status check metrics.
+- **Aurora, Neptune, DocumentDB metrics** — Aurora emits Aurora-specific CloudWatch metrics (`AuroraBinlogReplicaLag`, `ServerlessDatabaseCapacity`, `ACUUtilization`, backtrack metrics). Neptune and DocumentDB have appropriate metrics and real error codes.
+- **Lambda X-Ray trace in REPORT** — 20% of Lambda REPORT log events now include a real-format X-Ray trace line: `XRay TraceId: 1-... SegmentId: ... Sampled: true`.
+
+Older release notes: [Version What's New Archive](#version-whats-new-archive).
 
 ---
 

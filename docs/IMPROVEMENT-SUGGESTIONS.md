@@ -1,8 +1,10 @@
 # Improvement suggestions
 
-> **Last updated:** 2026-03-17 (v7.5)
+> **Last updated:** 2026-03-17 (v7.6)
 
 This document suggests improvements across **coverage** (logs vs metrics), **content** (fields, messages, metrics blocks), and **general** product/UX. It references existing docs ([ENHANCEMENT-CANDIDATES.md](ENHANCEMENT-CANDIDATES.md), [AWS-SERVICES-DOCUMENTATION-REVIEW.md](AWS-SERVICES-DOCUMENTATION-REVIEW.md), [GLUE-METRICS-COVERAGE.md](GLUE-METRICS-COVERAGE.md)) and adds concrete next steps.
+
+**As of v7.6,** all 136 generators have `event.category` arrays, real CloudWatch metric names/dimensions on every service, 30+ services received new metrics blocks, error codes match real AWS API exceptions, log messages match real AWS CloudWatch Logs formats, and geo data added to network/web/security services. See README “What’s New in v7.6”.
 
 **As of v7.5,** `event.duration` is now present on all 136 generators, Lambda emits authentic START/END/REPORT log events, and RDS includes full Enhanced Monitoring OS metrics. See README “What’s New in v7.5”.
 

@@ -1,6 +1,6 @@
 # Services to Review for Further Enhancements
 
-> **Last updated:** 2026-03-17 (v7.5)
+> **Last updated:** 2026-03-17 (v7.6)
 
 This document lists services that could benefit from **Glue-style enhancements**: explicit job/run lifecycle signals in logs, richer observability metrics (CloudWatch/Spark-style), and framework-specific log message patterns. Use it to prioritize which generators to extend next.
 
