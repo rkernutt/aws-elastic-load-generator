@@ -6,7 +6,7 @@ This document lists services that could benefit from **Glue-style enhancements**
 
 **Implemented in v8.0:** Metrics mode expanded to 75 services (from 46). Cognito metrics block (SignInSuccesses, ThrottleCount, AccountTakeoverRisk, etc.). SageMaker CloudWatch endpoint metrics renamed `cloudwatch_metrics` → `cloudwatch`. Performance metrics blocks added to SNS, Athena, Fargate, Auto Scaling, Image Builder, Amazon MQ, AppSync, Bedrock. `aws.dimensions` always-present on all generators.
 
-**Implemented in v7.6:** Full CloudWatch metric name and dimension alignment across all 136 generators. `event.category` as ECS array on all generators. Metrics blocks added to 30+ previously uncovered services (IoT, NLB, CloudFront, NetworkFirewall, SSM, DMS, SES, GameLift, Rekognition, Textract, and more). Real AWS API error codes on all generators.
+**Implemented in v7.6:** Full CloudWatch metric name and dimension alignment across all 135 generators. `event.category` as ECS array on all generators. Metrics blocks added to 30+ previously uncovered services (IoT, NLB, CloudFront, NetworkFirewall, SSM, DMS, SES, GameLift, Rekognition, Textract, and more). Real AWS API error codes on all generators.
 
 **Implemented in v7.5:** `event.duration` added to all IoT, management, end-user, and storage generators. Lambda START/END/REPORT log events. RDS Enhanced Monitoring OS metrics (`cpuUtilization`, `memory`, `disk`, `network`).
 

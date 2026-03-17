@@ -24,6 +24,6 @@ How-to guides for ingesting real AWS service logs from **CloudWatch** into **Ela
 
 ## Related
 
-- **Onboarding installers** — [`installer/README.md`](../installer/README.md) — automated setup for all 136 services
+- **Onboarding installers** — [`installer/README.md`](../installer/README.md) — automated setup for all 135 services
 - **Ingest pipeline reference** — [`docs/INGEST-PIPELINE-REFERENCE.md`](../docs/INGEST-PIPELINE-REFERENCE.md) — pipeline IDs, target fields, and example parsed keys for all 106 services
 - **Reference docs** — [`docs/`](../docs/) — gap analysis, service coverage, CloudWatch metric alignment, and version history

@@ -201,4 +201,4 @@ These match the index names the load generator writes to, so pipelines are appli
 | **Re-runnable** | Yes — skips if already installed | Yes — skips existing pipelines |
 | **When to re-run** | When Elastic releases a new integration version | When new services are added to the load generator |
 
-Running both gives you full coverage across all 136 services.
+Running both gives you full coverage across all 135 services.
