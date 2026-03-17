@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "dynamodb"
@@ -13,32 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "TableName": "sessions",
+      "TableName": "events",
       "Operation": "PutItem"
     },
     "dynamodb": {
-      "table_name": "sessions",
+      "table_name": "events",
       "operation": "PutItem",
-      "consumed_read_capacity_units": 49.628,
-      "consumed_write_capacity_units": 20.456,
-      "items_count": 233,
+      "consumed_read_capacity_units": 40.566,
+      "consumed_write_capacity_units": 47.692,
+      "items_count": 689,
       "structured_logging": true,
       "metrics": {
         "ConsumedReadCapacityUnits": {
-          "sum": 49.628
+          "sum": 40.566
         },
         "ConsumedWriteCapacityUnits": {
-          "sum": 20.456
+          "sum": 47.692
         },
         "ProvisionedReadCapacityUnits": {
-          "avg": 8121
+          "avg": 7029
         },
         "ProvisionedWriteCapacityUnits": {
-          "avg": 3024
+          "avg": 3277
         },
         "SuccessfulRequestLatency": {
-          "avg": 11,
-          "p99": 105
+          "avg": 6,
+          "p99": 9
         },
         "SystemErrors": {
           "sum": 0
@@ -53,13 +53,13 @@
           "sum": 0
         },
         "ReturnedItemCount": {
-          "avg": 508
+          "avg": 149
         }
       }
     }
   },
   "db": {
-    "name": "sessions",
+    "name": "events",
     "operation": "PutItem",
     "type": "nosql"
   },
@@ -68,9 +68,9 @@
     "category": "database",
     "dataset": "aws.dynamodb",
     "provider": "dynamodb.amazonaws.com",
-    "duration": 44000000
+    "duration": 24000000
   },
-  "message": "{\"table\":\"sessions\",\"operation\":\"PutItem\",\"consumedReadCapacityUnits\":49.628,\"consumedWriteCapacityUnits\":20.456,\"timestamp\":\"2026-03-17T11:03:53.682Z\"}",
+  "message": "{\"table\":\"events\",\"operation\":\"PutItem\",\"consumedReadCapacityUnits\":40.566,\"consumedWriteCapacityUnits\":47.692,\"timestamp\":\"2026-03-17T13:19:51.676Z\"}",
   "log": {
     "level": "info"
   },

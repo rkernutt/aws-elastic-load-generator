@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "eks"
@@ -13,64 +13,64 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "prod-cluster-eu-west-2",
-      "NodeName": "ip-90-77-165-146.eu-west-2.compute.internal"
+      "ClusterName": "prod-cluster-us-east-1",
+      "NodeName": "ip-48-159-174-14.us-east-1.compute.internal"
     },
     "eks": {
       "structured_logging": true,
       "cluster": {
-        "name": "prod-cluster-eu-west-2"
+        "name": "prod-cluster-us-east-1"
       },
       "node": {
-        "name": "ip-54-167-156-65.eu-west-2.compute.internal"
+        "name": "ip-122-174-134-116.us-east-1.compute.internal"
       },
       "metrics": {
         "cluster_failed_node_count": {
           "avg": 0
         },
         "node_cpu_utilization": {
-          "avg": 39.851
+          "avg": 25.58
         },
         "node_memory_utilization": {
-          "avg": 21.969
+          "avg": 50.466
         },
         "pod_cpu_utilization": {
-          "avg": 12.197
+          "avg": 69.979
         },
         "pod_memory_utilization": {
-          "avg": 41.21
+          "avg": 8.659
         },
         "node_network_total_bytes": {
-          "sum": 272197182
+          "sum": 24598333
         },
         "pod_count": {
-          "avg": 38
+          "avg": 44
         }
       }
     }
   },
   "kubernetes": {
-    "namespace": "app-prod",
+    "namespace": "default",
     "pod": {
-      "name": "api-75szr-umlwn"
+      "name": "cache-7v17b-1efjw"
     },
     "container": {
-      "name": "api"
+      "name": "cache"
     },
     "labels": {
-      "app": "api",
+      "app": "cache",
       "env": "prod"
     }
   },
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "event": {
     "outcome": "success",
     "category": "container",
     "dataset": "aws.eks",
     "provider": "eks.amazonaws.com",
-    "duration": 2982000000000
+    "duration": 2058000000000
   },
-  "message": "{\"cluster\":\"prod-cluster-eu-west-2\",\"namespace\":\"app-prod\",\"pod\":\"api-75szr-umlwn\",\"level\":\"info\",\"message\":\"Service endpoint added\",\"timestamp\":\"2026-03-17T11:03:53.682Z\",\"stream\":\"stdout\"}"
+  "message": "{\"cluster\":\"prod-cluster-us-east-1\",\"namespace\":\"default\",\"pod\":\"cache-7v17b-1efjw\",\"level\":\"warn\",\"message\":\"PodDisruptionBudget violations detected\",\"timestamp\":\"2026-03-17T13:19:51.676Z\",\"stream\":\"stdout\"}"
 }

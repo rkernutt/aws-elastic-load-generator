@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "lookoutmetrics"
@@ -13,29 +13,35 @@
   },
   "aws": {
     "lookoutmetrics": {
-      "anomaly_detector_arn": "arn:aws:lookoutmetrics:eu-west-2:293847561023:AnomalyDetector:traffic-spike-detector",
-      "anomaly_group_id": "hoanqm5up6n",
-      "metric_name": "page_views",
-      "severity": "LOW",
-      "anomaly_score": 14.201,
-      "relevant_dates": 30,
-      "impact_value": 14.749,
-      "expected_value": 7283.513,
-      "actual_value": 9124.986,
+      "anomaly_detector_arn": "arn:aws:lookoutmetrics:eu-west-2:738291046572:AnomalyDetector:conversion-drop",
+      "anomaly_group_id": "5apg3utv4pg",
+      "metric_name": "revenue",
+      "severity": "MEDIUM",
+      "anomaly_score": 76.478,
+      "relevant_dates": 14,
+      "impact_value": 184.072,
+      "expected_value": 6420.42,
+      "actual_value": 230.216,
       "dimension": {
         "region": "us-east-1"
       },
-      "sensitivity": "LOW"
+      "sensitivity": "MEDIUM",
+      "action_taken": "SNS_ALERT"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "process",
     "dataset": "aws.lookoutmetrics",
     "provider": "lookoutmetrics.amazonaws.com"
   },
-  "message": "Lookout for Metrics [traffic-spike-detector]: page_views anomaly_score=14",
+  "message": "Lookout for Metrics ANOMALY [conversion-drop]: revenue score=76 [MEDIUM]",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "AnomalyDetected",
+    "message": "Lookout for Metrics anomaly",
+    "type": "process"
   }
 }

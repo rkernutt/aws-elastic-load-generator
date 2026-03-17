@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "backup"
@@ -13,30 +13,24 @@
   },
   "aws": {
     "backup": {
-      "backup_job_id": "aa7zw0fk-0i8n-1u2x",
-      "backup_plan_name": "daily-backup-plan",
-      "resource_type": "DynamoDB",
-      "backup_vault_name": "compliance-vault",
-      "status": "ABORTED",
-      "backup_size_gb": 0,
-      "lifecycle_delete_after_days": 7,
-      "error_code": "RESOURCE_NOT_FOUND"
+      "backup_job_id": "9fvj5d1v-r4xg-gdhf",
+      "backup_plan_name": "critical-data-plan",
+      "resource_type": "RDS",
+      "backup_vault_name": "Default",
+      "status": "COMPLETED",
+      "backup_size_gb": 326.435,
+      "lifecycle_delete_after_days": 90
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "file",
     "dataset": "aws.backup",
     "provider": "backup.amazonaws.com",
-    "duration": 1136000000000
+    "duration": 6206000000000
   },
-  "message": "AWS Backup FAILED for efs/fs-prod: IAM role insufficient",
+  "message": "AWS Backup COMPLETED: rds/prod-db -> Default (326.4GB)",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "RESOURCE_NOT_FOUND",
-    "message": "Backup job failed",
-    "type": "storage"
+    "level": "info"
   }
 }

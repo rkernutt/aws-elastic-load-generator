@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "macie"
@@ -13,36 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "BucketName": "prod-data-us-east-1"
+      "BucketName": "customer-exports-eu-west-2"
     },
     "macie": {
-      "finding_id": "ol54dw16-j8kx-jcfs",
-      "finding_type": "SensitiveData:S3Object/Financial",
-      "severity": "HIGH",
+      "finding_id": "rq1o1okt-voih-2mmz",
+      "finding_type": "none",
+      "severity": "INFORMATIONAL",
       "s3_bucket": {
-        "name": "prod-data-us-east-1",
-        "arn": "arn:aws:s3:::prod-data-us-east-1"
+        "name": "customer-exports-eu-west-2",
+        "arn": "arn:aws:s3:::customer-exports-eu-west-2"
       },
-      "occurrences": 9310,
-      "sensitive_data_categories": [
-        "MEDICAL"
-      ]
+      "occurrences": 0,
+      "sensitive_data_categories": []
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "failure",
+    "outcome": "success",
     "category": "data",
     "dataset": "aws.macie",
     "provider": "macie2.amazonaws.com"
   },
-  "message": "Macie detected sensitive data in s3://prod-data-us-east-1: SensitiveData:S3Object/Financial",
+  "message": "Macie scan complete: no sensitive data found",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "SensitiveDataFound",
-    "message": "Sensitive data in s3://prod-data-us-east-1",
-    "type": "data"
+    "level": "info"
   }
 }

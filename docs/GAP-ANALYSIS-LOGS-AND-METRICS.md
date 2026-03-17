@@ -51,7 +51,7 @@ From Elastic’s reference table, the following services have **Metrics** and/or
 ### 1.2 App state (high level)
 
 - **Logs:** 136 services; each generator returns one document shape (single “log event” style).
-- **Metrics:** 44 services support metrics mode (`METRICS_SUPPORTED_SERVICE_IDS`); documents include `data_stream.type: "metrics"`, `metricset`, and `aws.<service>.metrics` (or equivalent).
+- **Metrics:** 46 services support metrics mode (`METRICS_SUPPORTED_SERVICE_IDS`); documents include `data_stream.type: "metrics"`, `metricset`, and `aws.<service>.metrics` (or equivalent).
 - **Structured `message`:** Many services probabilistically emit JSON in `message` (see [ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md](../ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md)); not all do.
 - **`event.duration`:** Present for most but not every service; required for latency analysis and ML.
 
@@ -190,7 +190,7 @@ From Elastic’s reference table, the following services have **Metrics** and/or
 1. **High (Elastic + realism)**  
    - Lambda: START/REPORT/END and REPORT fields (Billed Duration, Max Memory Used, Init Duration).  
    - CloudTrail: Full record shape and eventSource.  
-   - Metrics: Align all 44 metrics-supported services with CloudWatch/Metricbeat field names and dimensions.
+   - Metrics: Align all 46 metrics-supported services with CloudWatch/Metricbeat field names and dimensions.
 
 2. **Medium (completeness)**  
    - RDS: RDSOSMetrics-style Enhanced Monitoring log.  

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "transferfamily"
@@ -13,21 +13,20 @@
   },
   "aws": {
     "transferfamily": {
-      "server_id": "s-cyv2ixpqd8s",
-      "protocol": "AS2",
-      "user_name": "vendor-upload",
-      "session_id": "2g1xxdh4fsh",
-      "file_path": "/reports/daily-sales.xlsx",
-      "operation": "GET",
-      "bytes_transferred": 1753422551,
-      "transfer_rate_mbps": 291.148,
-      "duration_seconds": 29.26,
-      "s3_bucket": "sftp-inbound",
-      "as2_message_id": "rsgyt6xk9x"
+      "server_id": "s-yjn2e9g6kx",
+      "protocol": "FTPS",
+      "user_name": "data-ingest",
+      "session_id": "yvppnto8n99",
+      "file_path": "/data/events.json",
+      "operation": "RENAME",
+      "bytes_transferred": 3507694343,
+      "transfer_rate_mbps": 471.02,
+      "duration_seconds": 224.706,
+      "s3_bucket": "sftp-inbound"
     }
   },
   "source": {
-    "ip": "245.211.249.109"
+    "ip": "238.203.185.70"
   },
   "event": {
     "outcome": "success",
@@ -35,7 +34,7 @@
     "dataset": "aws.transfer",
     "provider": "transfer.amazonaws.com"
   },
-  "message": "Transfer Family AS2 [vendor-upload] /reports/daily-sales.xlsx: 1672.2MB",
+  "message": "Transfer Family FTPS [data-ingest] /data/events.json: 3345.2MB",
   "log": {
     "level": "info"
   }

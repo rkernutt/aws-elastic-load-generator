@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,59 +13,56 @@
   },
   "aws": {
     "sagemaker": {
-      "domain_id": "d-lkssootxxx",
-      "domain_name": "risk-models",
-      "user_profile": "alice-ds",
+      "domain_id": "d-g5iaafelkg",
+      "domain_name": "nlp-experiments",
+      "user_profile": "carol-research",
       "job": {
-        "name": "bert-finetuned-hyperparametertuning-grrcoe",
-        "type": "HyperparameterTuning",
-        "arn": "arn:aws:sagemaker:us-east-1:814726593401:training-job/bert-finetuned-hyperparametertuning-grrcoe"
+        "name": "resnet50-custom-training-867gki",
+        "type": "Training",
+        "arn": "arn:aws:sagemaker:us-east-1:814726593401:training-job/resnet50-custom-training-867gki"
       },
       "model": {
-        "name": "bert-finetuned",
-        "version": 23
+        "name": "resnet50-custom",
+        "version": 9
       },
       "pipeline": {
-        "name": "feature-engineering-pipeline",
-        "execution_id": "pipe-bsmk8j5g539"
+        "name": "model-training-pipeline",
+        "execution_id": "pipe-ivwjph32jlj"
       },
       "instance": {
-        "type": "ml.g4dn.xlarge",
-        "count": 4
+        "type": "ml.m5.xlarge",
+        "count": 1
       },
       "metrics": {
-        "training_loss": 0.7286,
-        "accuracy": 0.9211,
-        "epoch": 94,
-        "gpu_utilization_pct": 40,
-        "cpu_utilization_pct": 71
+        "training_loss": 0.4256,
+        "accuracy": 0.712,
+        "epoch": 10,
+        "gpu_utilization_pct": 41,
+        "cpu_utilization_pct": 86
       },
       "studio": {
-        "space_name": "ml-research",
-        "app_type": "CodeEditor",
-        "app_name": "default",
         "lifecycle_config": false,
-        "continuous_logging": true
+        "continuous_logging": false
       },
       "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 2118
+          "sum": 464
         },
         "ModelLatency": {
-          "avg": 32,
-          "p99": 96
+          "avg": 179,
+          "p99": 537
         },
         "GPUUtilization": {
-          "avg": 59
+          "avg": 81
         },
         "CPUUtilization": {
-          "avg": 67
+          "avg": 36
         },
         "DiskUtilization": {
-          "avg": 47
+          "avg": 52
         },
         "MemoryUtilization": {
-          "avg": 71
+          "avg": 50
         },
         "Invocations4XXError": {
           "sum": 0
@@ -80,15 +77,15 @@
     "level": "info"
   },
   "user": {
-    "name": "alice-ds"
+    "name": "carol-research"
   },
   "event": {
-    "action": "SpaceCreated",
-    "duration": 635484000000,
+    "action": "PipelineExecutionStarted",
+    "duration": 4235033000000.0005,
     "outcome": "success",
     "category": "machine_learning",
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "{\"domainId\":\"d-lkssootxxx\",\"space\":\"ml-research\",\"appType\":\"CodeEditor\",\"user\":\"alice-ds\",\"level\":\"INFO\",\"message\":\"Model registered: fraud-detector v12 (AUC: 0.9923)\",\"timestamp\":\"2026-03-17T11:03:53.682Z\",\"event\":\"SpaceCreated\"}"
+  "message": "Training job completed successfully"
 }

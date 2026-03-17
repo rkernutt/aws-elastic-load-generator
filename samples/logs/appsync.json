@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "appsync"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "appsync": {
-      "api_id": "102L0C5PUBAI",
-      "api_name": "partner-api",
-      "operation_type": "query",
+      "api_id": "MHFLIJUJ83",
+      "api_name": "mobile-api",
+      "operation_type": "mutation",
       "operation_name": "getUserById",
-      "data_source_type": "HTTP",
-      "duration_ms": 400,
+      "data_source_type": "AMAZON_ELASTICSEARCH",
+      "duration_ms": 296,
       "status_code": 200,
       "metrics": {
         "RequestCount": {
-          "sum": 3180
+          "sum": 3743
         },
         "4XXError": {
           "sum": 0
@@ -31,8 +31,8 @@
           "sum": 0
         },
         "Latency": {
-          "avg": 399.91,
-          "p99": 999.7750000000001
+          "avg": 296.383,
+          "p99": 740.9575
         }
       }
     }
@@ -43,13 +43,13 @@
     }
   },
   "event": {
-    "duration": 399910000,
+    "duration": 296383000,
     "outcome": "success",
     "category": "api",
     "dataset": "aws.appsync",
     "provider": "appsync.amazonaws.com"
   },
-  "message": "AppSync query.getUserById: 400ms [partner-api]",
+  "message": "AppSync mutation.getUserById: 296ms [mobile-api]",
   "log": {
     "level": "info"
   }

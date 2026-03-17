@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "cloudwatchalarms"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "high-cpu-alarm",
-      "alarm_state": "INSUFFICIENT_DATA",
-      "previous_state": "ALARM",
-      "namespace": "AWS/Lambda",
+      "alarm_name": "ecs-memory",
+      "alarm_state": "ALARM",
+      "previous_state": "OK",
+      "namespace": "AWS/ApplicationELB",
       "metric_name": "CPUUtilization",
-      "threshold": 95,
+      "threshold": 90,
       "evaluation_periods": 2,
-      "metric_value": 97.205,
-      "statistic": "Maximum",
-      "period_seconds": 300,
-      "treat_missing_data": "missing"
+      "metric_value": 6.656,
+      "statistic": "Sum",
+      "period_seconds": 3600,
+      "treat_missing_data": "notBreaching"
     }
   },
   "event": {
@@ -33,13 +33,13 @@
     "dataset": "aws.cloudwatch",
     "provider": "monitoring.amazonaws.com"
   },
-  "message": "CloudWatch alarm \"high-cpu-alarm\": INSUFFICIENT_DATA (AWS/Lambda/CPUUtilization=97.2)",
+  "message": "CloudWatch alarm \"ecs-memory\": ALARM (AWS/ApplicationELB/CPUUtilization=6.7)",
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "error": {
     "code": "AlarmTriggered",
-    "message": "Alarm high-cpu-alarm: INSUFFICIENT_DATA",
+    "message": "Alarm ecs-memory: ALARM",
     "type": "monitoring"
   }
 }

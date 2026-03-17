@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "dms"
@@ -15,31 +15,25 @@
     "dms": {
       "replication_task_id": "oracle-to-rds",
       "migration_type": "cdc",
-      "source_engine": "postgresql",
-      "target_engine": "redshift",
+      "source_engine": "oracle",
+      "target_engine": "docdb",
       "replication_instance_class": "dms.t3.medium",
-      "task_status": "Failed",
-      "full_load_rows_transferred": 0,
-      "cdc_incoming_changes": 46000,
-      "latency_ms": 2695,
-      "tables_loaded": 414,
-      "tables_errored": 14,
-      "error_message": "Connection timeout"
+      "task_status": "Load complete",
+      "full_load_rows_transferred": 3574183,
+      "cdc_incoming_changes": 20325,
+      "latency_ms": 743,
+      "tables_loaded": 234,
+      "tables_errored": 0
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "database",
     "dataset": "aws.dms",
     "provider": "dms.amazonaws.com"
   },
-  "message": "DMS oracle-to-rds FAILED (postgresql->redshift): Connection lost",
-  "error": {
-    "code": "DMSError",
-    "message": "DMS task failed",
-    "type": "migration"
-  },
+  "message": "DMS oracle-to-rds: 3,574,183 rows (oracle->docdb cdc)",
   "log": {
-    "level": "error"
+    "level": "info"
   }
 }

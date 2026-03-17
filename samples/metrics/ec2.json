@@ -1,88 +1,92 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "ec2"
     },
     "instance": {
-      "id": "i-8wkvrmhs8da"
+      "id": "i-aexssvwwewl"
     }
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "i-8wkvrmhs8da",
-      "InstanceType": "m5.xlarge",
-      "ImageId": "ami-pllxn165",
-      "AutoScalingGroupName": "worker-asg"
+      "InstanceId": "i-aexssvwwewl",
+      "InstanceType": "c5.2xlarge",
+      "ImageId": "ami-6ynz7vxx"
     },
     "ec2": {
-      "instance_id": "i-8wkvrmhs8da",
-      "instance_type": "m5.xlarge",
-      "ami_id": "ami-f1a2p2a0",
+      "instance_id": "i-aexssvwwewl",
+      "instance_type": "c5.2xlarge",
+      "ami_id": "ami-osf1coil",
       "structured_logging": false,
       "metrics": {
         "CPUUtilization": {
-          "avg": 3.035
+          "avg": 78.598
         },
         "NetworkIn": {
-          "sum": 249248966
+          "sum": 320959420
         },
         "NetworkOut": {
-          "sum": 373885808
+          "sum": 477357322
         },
         "DiskReadBytes": {
-          "sum": 42962285
+          "sum": 58912203
         },
         "DiskWriteBytes": {
-          "sum": 91116098
+          "sum": 84449765
         },
         "DiskReadOps": {
-          "sum": 3316
+          "sum": 4437
         },
         "DiskWriteOps": {
-          "sum": 7794
+          "sum": 6259
         },
         "StatusCheckFailed": {
-          "max": 0
+          "max": 1
         },
         "StatusCheckFailed_Instance": {
-          "max": 0
+          "max": 1
         },
         "StatusCheckFailed_System": {
           "max": 0
         },
         "CPUCreditBalance": {
-          "avg": 132
+          "avg": 161
         },
         "CPUCreditUsage": {
-          "avg": 6.499
+          "avg": 3.986
         }
       }
     }
   },
   "host": {
-    "hostname": "ip-215-122-15-214",
+    "hostname": "ip-189-217-58-215",
     "os": {
       "type": "linux"
     }
   },
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "event": {
     "category": "host",
-    "outcome": "success",
+    "outcome": "failure",
     "dataset": "aws.ec2",
     "provider": "ec2.amazonaws.com",
-    "duration": 165000000000
+    "duration": 530000000000
   },
-  "message": "systemd: Started Amazon SSM Agent",
+  "message": "disk I/O error on /dev/xvda1",
+  "error": {
+    "code": "StatusCheckFailed_Instance",
+    "message": "disk I/O error on /dev/xvda1",
+    "type": "host"
+  },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.ec2_logs",

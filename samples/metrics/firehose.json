@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "firehose"
@@ -13,29 +13,27 @@
   },
   "aws": {
     "dimensions": {
-      "DeliveryStreamName": "clickstream-backup"
+      "DeliveryStreamName": "logs-to-s3"
     },
     "firehose": {
-      "delivery_stream_name": "clickstream-backup",
-      "destination": "S3",
-      "incoming_records": 23861,
-      "incoming_bytes": 42138526,
-      "delivery_success": true,
-      "delivery_records": 23861,
-      "data_freshness_seconds": 294,
+      "delivery_stream_name": "logs-to-s3",
+      "destination": "HTTPEndpoint",
+      "incoming_records": 24797,
+      "incoming_bytes": 36401996,
+      "delivery_success": false,
+      "delivery_records": 0,
+      "data_freshness_seconds": 2710,
       "metrics": {
         "IncomingRecords": {
-          "sum": 23861
+          "sum": 24797
         },
         "IncomingBytes": {
-          "sum": 15748260
+          "sum": 43419547
         },
         "DeliveryToS3_Records": {
-          "sum": 23861
+          "sum": 0
         },
-        "DeliveryToS3_Success": {
-          "sum": 1
-        },
+        "DeliveryToS3_Success": {},
         "DeliveryToRedshift_Records": {
           "sum": 0
         },
@@ -43,27 +41,32 @@
           "sum": 0
         },
         "FailedConversionRecords": {
-          "sum": 0
+          "sum": 29
         },
         "DataReadFromKinesisStream_Records": {
-          "sum": 23861
+          "sum": 24797
         },
         "DeliveryToS3_DataFreshness": {
-          "avg": 254
+          "avg": 2471
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "process",
     "dataset": "aws.firehose",
     "provider": "firehose.amazonaws.com",
-    "duration": 43000000000
+    "duration": 186000000000
   },
-  "message": "Firehose clickstream-backup: 23861 records delivered",
+  "message": "Firehose logs-to-s3 delivery failure: Buffer full",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "DeliveryFailure",
+    "message": "Firehose delivery failed",
+    "type": "stream"
   },
   "data_stream": {
     "type": "metrics",

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "cloudformation"
@@ -14,13 +14,13 @@
   "aws": {
     "cloudformation": {
       "stack_name": "rds-cluster",
-      "stack_id": "arn:aws:cloudformation:eu-west-2:738291046572:stack/rds-cluster/o12e45jx",
-      "action": "DELETE_STACK",
-      "stack_status": "DELETE_COMPLETE",
-      "resource_type": "AWS::ECS::Service",
+      "stack_id": "arn:aws:cloudformation:eu-west-2:501938274650:stack/rds-cluster/t2iwiltr",
+      "action": "CREATE_STACK",
+      "stack_status": "UPDATE_COMPLETE",
+      "resource_type": "AWS::Lambda::Function",
       "logical_resource_id": "WebServerASG",
-      "drift_status": "NOT_CHECKED",
-      "structured_logging": true
+      "drift_status": "DRIFTED",
+      "structured_logging": false
     }
   },
   "event": {
@@ -29,7 +29,7 @@
     "dataset": "aws.cloudformation",
     "provider": "cloudformation.amazonaws.com"
   },
-  "message": "{\"stackName\":\"rds-cluster\",\"action\":\"DELETE_STACK\",\"stackStatus\":\"DELETE_COMPLETE\",\"resourceType\":\"AWS::ECS::Service\",\"message\":\"CloudFormation rds-cluster: DELETE_STACK -> DELETE_COMPLETE\",\"timestamp\":\"2026-03-17T11:03:53.682Z\"}",
+  "message": "CloudFormation rds-cluster: CREATE_STACK -> UPDATE_COMPLETE",
   "log": {
     "level": "info"
   }

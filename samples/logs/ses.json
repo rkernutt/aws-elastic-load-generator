@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "ses"
@@ -13,37 +13,32 @@
   },
   "aws": {
     "ses": {
-      "message_id": "ljoqx72zthi.4qef6bo6t3@eu-west-2.amazonses.com",
-      "event_type": "Reject",
-      "from_address": "no-reply@app.io",
-      "destination": "user_8127yt@outlook.com",
-      "configuration_set": "transactional",
+      "message_id": "md8koxfl7yo.7buriiq1np@eu-west-2.amazonses.com",
+      "event_type": "Click",
+      "from_address": "noreply@company.com",
+      "destination": "user_bbmgmg@company.org",
+      "configuration_set": "alerts",
       "bounce": {},
       "complaint": {},
-      "sending_account_id": "293847561023",
+      "sending_account_id": "738291046572",
       "delivery": {
         "recipients": [
-          "user_8127yt@outlook.com"
+          "user_bbmgmg@company.org"
         ],
-        "timestamp": "2026-03-17T11:03:53.682Z",
-        "processing_time_ms": 96,
+        "timestamp": "2026-03-17T13:19:51.676Z",
+        "processing_time_ms": 2737,
         "smtp_response": "250 2.0.0 OK"
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "email",
     "dataset": "aws.ses",
     "provider": "email.amazonaws.com"
   },
-  "message": "SES Reject: no-reply@app.io -> user_8127yt@outlook.com",
+  "message": "SES Click: noreply@company.com -> user_bbmgmg@company.org",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "SESDeliveryFailure",
-    "message": "SES delivery failed",
-    "type": "email"
+    "level": "info"
   }
 }

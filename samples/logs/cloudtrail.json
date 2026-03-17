@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "cloudtrail"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "EventName": "CreateUser",
-      "EventSource": "iam.amazonaws.com"
+      "EventName": "InvokeFunction",
+      "EventSource": "lambda.amazonaws.com"
     },
     "cloudtrail": {
       "event_version": "1.08",
-      "event_id": "p4vzyt6z-eseg-4ipz",
-      "event_name": "CreateUser",
-      "event_source": "iam.amazonaws.com",
+      "event_id": "oaaen8x0-8bd2-hahx",
+      "event_name": "InvokeFunction",
+      "event_source": "lambda.amazonaws.com",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "QCEKSUY4-IKOF-35P1-L7B1-GQISX12ZM2Q",
+      "request_id": "XOA7UNGL-7C1U-Q011-6DLZ-V2WHSDYBP1H",
       "api_version": "2012-10-17",
       "management_event": true,
       "read_only": false,
       "user_identity": {
         "type": "IAMUser",
-        "user_name": "ci-pipeline",
-        "account_id": "738291046572"
+        "user_name": "bob",
+        "account_id": "164820739518"
       },
       "request_parameters": {},
       "response_elements": {}
     }
   },
   "user": {
-    "name": "ci-pipeline"
+    "name": "bob"
   },
   "source": {
-    "ip": "16.170.97.67"
+    "ip": "82.243.69.82"
   },
   "event": {
-    "action": "CreateUser",
+    "action": "InvokeFunction",
     "outcome": "success",
     "category": "iam",
     "dataset": "aws.cloudtrail",
     "provider": "cloudtrail.amazonaws.com"
   },
-  "message": "ci-pipeline performed CreateUser via iam.amazonaws.com",
+  "message": "bob performed InvokeFunction via lambda.amazonaws.com",
   "log": {
     "level": "info"
   }

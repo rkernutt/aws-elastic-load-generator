@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -14,21 +14,21 @@
   "aws": {
     "neptune": {
       "cluster_id": "recommendation-engine",
-      "query_language": "Gremlin",
-      "query": "g.V(userId).repeat(out('knows')).times(3).path()",
-      "duration_ms": 1485,
+      "query_language": "openCypher",
+      "query": "MATCH (n)-[r]->(m) WHERE n.id=$id RETURN n,r,m",
+      "duration_ms": 1531,
       "http_status": 200,
-      "db_connections": 180
+      "db_connections": 161
     }
   },
   "event": {
-    "duration": 1484852000,
+    "duration": 1531018000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.neptune",
     "provider": "neptune.amazonaws.com"
   },
-  "message": "Neptune Gremlin: 1485ms",
+  "message": "Neptune openCypher: 1531ms",
   "log": {
     "level": "info"
   }

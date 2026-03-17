@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "redshift"
@@ -14,25 +14,25 @@
   "aws": {
     "dimensions": {
       "ClusterIdentifier": "prod-dw-eu-west-2",
-      "NodeID": "Leader"
+      "NodeID": "Compute-1"
     },
     "redshift": {
       "cluster_id": "prod-dw-eu-west-2",
       "database": "analytics",
       "user": "dbt_runner",
-      "pid": 87862,
-      "query_id": 4966886,
-      "duration_seconds": 14.957,
-      "rows_returned": 2601143,
+      "pid": 29262,
+      "query_id": 3187510,
+      "duration_seconds": 55.211,
+      "rows_returned": 4311802,
       "metrics": {
         "CPUUtilization": {
-          "avg": 33.646
+          "avg": 60.081
         },
         "PercentageDiskSpaceUsed": {
-          "avg": 43.142
+          "avg": 53.025
         },
         "DatabaseConnections": {
-          "avg": 26
+          "avg": 14
         },
         "HealthStatus": {
           "avg": 1
@@ -41,25 +41,25 @@
           "avg": 0
         },
         "ReadIOPS": {
-          "avg": 7708
+          "avg": 2055
         },
         "WriteIOPS": {
-          "avg": 1444
+          "avg": 7602
         },
         "ReadLatency": {
-          "avg": 0.028
+          "avg": 0.071
         },
         "WriteLatency": {
-          "avg": 0.015
+          "avg": 0.038
         },
         "NetworkReceiveThroughput": {
-          "avg": 84958776
+          "avg": 11952880
         },
         "NetworkTransmitThroughput": {
-          "avg": 79696785
+          "avg": 84994263
         },
         "QueriesCompletedPerSecond": {
-          "avg": 99.227
+          "avg": 74.927
         }
       }
     }
@@ -69,17 +69,17 @@
       "name": "dbt_runner"
     },
     "name": "analytics",
-    "statement": "VACUUM DELETE ONLY dim_products TO 95 PERCENT",
+    "statement": "COPY events FROM 's3://data-lake/events/' IAM_ROLE 'arn:aws:iam::...'",
     "type": "sql"
   },
   "event": {
-    "duration": 14957000000,
+    "duration": 55211000000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.redshift",
     "provider": "redshift.amazonaws.com"
   },
-  "message": "Redshift query completed in 14.96s",
+  "message": "Redshift query completed in 55.21s",
   "log": {
     "level": "info"
   },

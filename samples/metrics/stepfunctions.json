@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "states"
@@ -13,57 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "StateMachineArn": "arn:aws:states:eu-west-2:293847561023:stateMachine:order-fulfillment"
+      "StateMachineArn": "arn:aws:states:eu-west-2:738291046572:stateMachine:batch-processor"
     },
     "stepfunctions": {
-      "state_machine_name": "order-fulfillment",
-      "state_machine_arn": "arn:aws:states:eu-west-2:293847561023:stateMachine:order-fulfillment",
-      "execution_arn": "arn:aws:states:eu-west-2:293847561023:execution:order-fulfillment:975zq3gp",
-      "state_name": "ValidateInput",
-      "status": "FAILED",
-      "duration_seconds": 297.031,
+      "state_machine_name": "batch-processor",
+      "state_machine_arn": "arn:aws:states:eu-west-2:738291046572:stateMachine:batch-processor",
+      "execution_arn": "arn:aws:states:eu-west-2:738291046572:execution:batch-processor:2w0lb4l3",
+      "state_name": "ProcessPayment",
+      "status": "SUCCEEDED",
+      "duration_seconds": 1.91,
       "structured_logging": false,
       "metrics": {
         "ExecutionsStarted": {
-          "sum": 888
+          "sum": 16
         },
         "ExecutionsSucceeded": {
-          "sum": 0
+          "sum": 73
         },
         "ExecutionsFailed": {
-          "sum": 48
+          "sum": 0
         },
         "ExecutionsAborted": {
-          "sum": 5
+          "sum": 0
         },
         "ExecutionsTimedOut": {
-          "sum": 5
+          "sum": 0
         },
         "ExecutionThrottled": {
-          "sum": 7
+          "sum": 0
         },
         "ExecutionTime": {
-          "avg": 297031,
-          "max": 594062
+          "avg": 1910,
+          "max": 3820
         }
       }
     }
   },
   "event": {
-    "duration": 297031000000,
-    "outcome": "failure",
+    "duration": 1910000000,
+    "outcome": "success",
     "category": "process",
     "dataset": "aws.stepfunctions",
     "provider": "states.amazonaws.com"
   },
-  "message": "Step Functions order-fulfillment FAILED at state ValidateInput: Timeout",
+  "message": "Step Functions batch-processor SUCCEEDED in 1.9s",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "States.TaskFailed",
-    "message": "Step Functions failed at ValidateInput",
-    "type": "workflow"
+    "level": "info"
   },
   "data_stream": {
     "type": "metrics",

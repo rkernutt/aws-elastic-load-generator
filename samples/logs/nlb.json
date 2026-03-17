@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "nlb"
@@ -13,53 +13,49 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "net/prod-nlb-us-east-1/lc7833zeay",
-      "Protocol": "TLS",
-      "Port": "80"
+      "LoadBalancer": "net/prod-nlb-eu-west-2/8ekxxfpfdoj",
+      "Protocol": "UDP",
+      "Port": "8080"
     },
     "elb": {
-      "name": "net/prod-nlb-us-east-1/lc7833zeay",
+      "name": "net/prod-nlb-eu-west-2/8ekxxfpfdoj",
       "type": "network",
-      "listener": "arn:aws:elasticloadbalancing:us-east-1:738291046572:listener/net/prod-nlb/njzr5vd67bk/b8ca0dge2zr",
-      "protocol": "TLS",
-      "connection_duration.sec": 4.787,
-      "tls.cipher_suite": "ECDHE-RSA-AES128-GCM-SHA256",
-      "tls.protocol_version": "TLSv1.3",
-      "backend.ip": "94.210.178.55",
-      "backend.port": "80",
-      "received_bytes": 844716,
-      "sent_bytes": 743060
+      "listener": "arn:aws:elasticloadbalancing:eu-west-2:293847561023:listener/net/prod-nlb/4skjm7lguxw/561wo8xdtlr",
+      "protocol": "UDP",
+      "connection_duration.sec": 2.866,
+      "backend.ip": "215.133.101.148",
+      "backend.port": "8080",
+      "received_bytes": 323125,
+      "sent_bytes": 294412
     },
     "nlb": {
-      "load_balancer": "net/prod-nlb-us-east-1/lc7833zeay",
-      "listener_port": 80,
-      "protocol": "TLS",
-      "connection_duration_ms": 4787,
-      "tls_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
-      "tls_protocol": "TLSv1.3",
-      "target_ip": "94.210.178.55",
-      "target_port": 80,
+      "load_balancer": "net/prod-nlb-eu-west-2/8ekxxfpfdoj",
+      "listener_port": 8080,
+      "protocol": "UDP",
+      "connection_duration_ms": 2866,
+      "target_ip": "215.133.101.148",
+      "target_port": 8080,
       "connection_log_status": "success",
-      "bytes": 844716,
-      "packets": 8
+      "bytes": 323125,
+      "packets": 39
     }
   },
   "source": {
-    "ip": "101.80.119.126",
-    "port": 44813
+    "ip": "200.249.76.5",
+    "port": 60113
   },
   "network": {
-    "transport": "tls",
-    "bytes": 844716
+    "transport": "udp",
+    "bytes": 323125
   },
   "event": {
     "outcome": "success",
     "category": "network",
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com",
-    "duration": 4787000000
+    "duration": 2866000000
   },
-  "message": "NLB TLS:80 844716B in 4787ms",
+  "message": "NLB UDP:8080 323125B in 2866ms",
   "log": {
     "level": "info"
   }

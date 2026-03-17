@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "vpn"
@@ -13,31 +13,26 @@
   },
   "aws": {
     "vpn": {
-      "vpn_connection_id": "vpn-xfbxm6bz",
-      "vpn_gateway_id": "vgw-hthk6tzm",
-      "customer_gateway_ip": "53.110.63.163",
-      "tunnel_state": "DOWN",
-      "tunnel_outside_ip": "84.223.58.189",
+      "vpn_connection_id": "vpn-6bndiurg",
+      "vpn_gateway_id": "vgw-7di37xcw",
+      "customer_gateway_ip": "127.254.71.149",
+      "tunnel_state": "UP",
+      "tunnel_outside_ip": "216.254.89.189",
       "tunnel_inside_cidr": "169.254.10.0/30",
-      "phase1_status": "FAILED",
-      "phase2_status": "FAILED",
-      "bytes_in": 67007677,
-      "bytes_out": 77352550
+      "phase1_status": "ESTABLISHED",
+      "phase2_status": "ESTABLISHED",
+      "bytes_in": 49462218,
+      "bytes_out": 13350928
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "network",
     "dataset": "aws.vpn",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "Site-to-Site VPN vpn-xfbxm6bz tunnel DOWN - IKE negotiation failed",
+  "message": "Site-to-Site VPN vpn-6bndiurg tunnel UP",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "TunnelDown",
-    "message": "VPN tunnel DOWN - IKE negotiation failed",
-    "type": "network"
+    "level": "info"
   }
 }

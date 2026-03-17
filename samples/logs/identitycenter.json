@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "identitycenter"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "iam_identity_center": {
-      "event_type": "Authorize",
-      "user_name": "svc-account@corp.com",
-      "application_name": "Salesforce",
-      "permission_set": "BillingAccess",
-      "account_id": "293847561023",
+      "event_type": "MFAChallenge",
+      "user_name": "alice@corp.com",
+      "application_name": "GitHub Enterprise",
+      "permission_set": "AdministratorAccess",
+      "account_id": "738291046572",
       "mfa_authenticated": true
     }
   },
   "user": {
-    "name": "svc-account@corp.com"
+    "name": "alice@corp.com"
   },
   "source": {
-    "ip": "48.45.120.107"
+    "ip": "232.6.118.176"
   },
   "event": {
-    "action": "Authorize",
+    "action": "MFAChallenge",
     "outcome": "success",
     "category": "authentication",
     "dataset": "aws.identitycenter",
     "provider": "sso.amazonaws.com"
   },
-  "message": "IAM Identity Center Authorize: svc-account@corp.com -> Salesforce",
+  "message": "IAM Identity Center MFAChallenge: alice@corp.com -> GitHub Enterprise",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "s3"
@@ -13,48 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "StorageLensConfigurationId": "default",
+      "StorageLensConfigurationId": "prod-buckets",
       "StorageType": "Glacier"
     },
     "s3storagelens": {
-      "config_id": "default",
-      "bucket_count": 197,
-      "total_storage_bytes": 17741841238993,
-      "total_object_count": 1890401653,
+      "config_id": "prod-buckets",
+      "bucket_count": 25,
+      "total_storage_bytes": 61057922643930,
+      "total_object_count": 3589121865,
       "storage_type": "Glacier",
       "metrics": {
         "BucketCount": {
-          "avg": 197
+          "avg": 25
         },
         "TotalStorageBytes": {
-          "sum": 17741841238993
+          "sum": 61057922643930
         },
         "TotalObjectCount": {
-          "sum": 1890401653
+          "sum": 3589121865
         },
         "BytesUsed": {
-          "sum": 17741841238993
+          "sum": 61057922643930
         },
         "ObjectCount": {
-          "sum": 1890401653
+          "sum": 3589121865
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "metric",
     "dataset": "aws.s3_storage_lens",
     "provider": "s3.amazonaws.com",
-    "duration": 162000000000
+    "duration": 174000000000
   },
-  "message": "S3 Storage Lens default: report generation failed",
+  "message": "S3 Storage Lens prod-buckets: 25 buckets, 61057.9 GB, 3589121865 objects",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ReportGenerationFailed",
-    "message": "Storage Lens report failed",
-    "type": "storage"
+    "level": "info"
   }
 }

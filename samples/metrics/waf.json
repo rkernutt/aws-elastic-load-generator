@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "waf"
@@ -15,10 +15,10 @@
     "dimensions": {
       "WebACL": "api-waf",
       "Rule": "AWSManagedRulesCommonRuleSet",
-      "Region": "us-east-1"
+      "Region": "eu-west-2"
     },
     "waf": {
-      "web_acl_id": "bg6i7plr-tgcl-av3o",
+      "web_acl_id": "84vrwdz7-9i8d-s9sd",
       "web_acl_name": "api-waf",
       "terminating_rule_id": "AWSManagedRulesCommonRuleSet",
       "rule_group_list": [
@@ -31,31 +31,31 @@
       ],
       "action": "ALLOW",
       "http_request": {
-        "client_ip": "28.228.236.60",
+        "client_ip": "125.82.128.53",
         "country": "US",
-        "uri": "/api/v1/orders",
+        "uri": "/health",
         "uri_query": "",
-        "method": "PUT",
+        "method": "PATCH",
         "headers": [
           {
             "name": "User-Agent",
-            "value": "Go-http-client/1.1"
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
           }
         ]
       },
       "http_source_name": "ALB",
       "metrics": {
         "AllowedRequests": {
-          "sum": 6402
+          "sum": 534
         },
         "BlockedRequests": {
           "sum": 0
         },
         "CountedRequests": {
-          "sum": 27
+          "sum": 39
         },
         "PassedRequests": {
-          "sum": 9487
+          "sum": 1210
         }
       }
     }
@@ -63,15 +63,15 @@
   "http": {
     "request": {
       "method": "POST",
-      "bytes": 2413
+      "bytes": 6022
     },
-    "uri": "/api/v1/orders"
+    "uri": "/health"
   },
   "client": {
-    "ip": "28.228.236.60"
+    "ip": "125.82.128.53"
   },
   "user_agent": {
-    "original": "Go-http-client/1.1"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
     "action": "allow",

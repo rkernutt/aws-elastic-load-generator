@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "sqs"
@@ -13,61 +13,56 @@
   },
   "aws": {
     "dimensions": {
-      "QueueName": "webhook-events"
+      "QueueName": "order-processing"
     },
     "sqs": {
-      "queue_name": "webhook-events",
-      "queue_url": "https://sqs.eu-west-2.amazonaws.com/738291046572/webhook-events",
-      "messages_sent": 266,
-      "messages_deleted": 66,
-      "approximate_number_of_messages": 73994,
-      "approximate_age_of_oldest_message_seconds": 60574,
+      "queue_name": "order-processing",
+      "queue_url": "https://sqs.eu-west-2.amazonaws.com/814726593401/order-processing",
+      "messages_sent": 9979,
+      "messages_deleted": 72,
+      "approximate_number_of_messages": 449,
+      "approximate_age_of_oldest_message_seconds": 22,
       "is_dlq": false,
       "metrics": {
         "NumberOfMessagesSent": {
-          "sum": 266
+          "sum": 9979
         },
         "NumberOfMessagesReceived": {
-          "sum": 221
+          "sum": 878
         },
         "NumberOfMessagesDeleted": {
-          "sum": 66
+          "sum": 72
         },
         "ApproximateNumberOfMessagesVisible": {
-          "avg": 87118
+          "avg": 46
         },
         "ApproximateNumberOfMessagesNotVisible": {
-          "avg": 8
+          "avg": 16
         },
         "ApproximateNumberOfMessagesDelayed": {
-          "avg": 35
+          "avg": 31
         },
         "ApproximateAgeOfOldestMessage": {
-          "avg": 85016
+          "avg": 108
         },
         "SentMessageSize": {
-          "avg": 198196
+          "avg": 235497
         },
         "NumberOfEmptyReceives": {
-          "sum": 66
+          "sum": 457
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "process",
     "dataset": "aws.sqs",
     "provider": "sqs.amazonaws.com",
-    "duration": 27798000000
+    "duration": 112000000
   },
-  "message": "SQS webhook-events: 797 messages dead-lettered after max retries",
+  "message": "SQS order-processing: 9979 messages processed",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "MessagesDeadLettered",
-    "message": "Messages moved to DLQ after max retries",
-    "type": "queue"
+    "level": "info"
   }
 }

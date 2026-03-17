@@ -8,7 +8,9 @@ function generateCodeBuildLog(ts, er) {
   const phase = rand(["DOWNLOAD_SOURCE","INSTALL","PRE_BUILD","BUILD","POST_BUILD","UPLOAD_ARTIFACTS","COMPLETED"]);
   const buildId = `${project}:${randId(8)}-${randId(4)}`.toLowerCase();
   const phaseDur = randInt(5, 300);
-  const buildMsgs = isErr ? ["Build failed",`CodeBuild ${project} FAILED at phase ${phase} after ${dur}s`] : ["Build started","Build succeeded",`CodeBuild ${project} SUCCEEDED in ${dur}s`,`Phase ${phase} completed in ${phaseDur}s`];
+  const buildMsgs = isErr
+    ? ["Build failed", "Build failed", `CodeBuild ${project} FAILED at phase ${phase} after ${dur}s`]
+    : ["Build started", "Build succeeded", `CodeBuild ${project} SUCCEEDED in ${dur}s`, `Phase ${phase} completed in ${phaseDur}s`, `Build started`, `Phase ${phase} completed in ${phaseDur}s`, "Build succeeded"];
   const plainMessage = rand(buildMsgs);
   const useStructuredLogging = Math.random() < 0.55;
   const message = useStructuredLogging ? JSON.stringify({ buildId, project, phase, status: isErr?"FAILED":"SUCCEEDED", durationSeconds: dur, timestamp: new Date(ts).toISOString() }) : plainMessage;

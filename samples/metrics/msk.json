@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "msk"
@@ -14,28 +14,28 @@
   "aws": {
     "dimensions": {
       "Cluster Name": "prod-kafka-us-east-1",
-      "Broker ID": "3",
-      "Topic": "user-events"
+      "Broker ID": "5",
+      "Topic": "order-updates"
     },
     "msk": {
       "cluster_name": "prod-kafka-us-east-1",
-      "broker_id": 3,
+      "broker_id": 5,
       "kafka_version": "3.5.1",
-      "topic": "user-events",
-      "partition": 11,
-      "offset": 86723601,
-      "consumer_group": "etl-pipeline",
-      "lag": 73,
+      "topic": "order-updates",
+      "partition": 14,
+      "offset": 33858264,
+      "consumer_group": "alerting-service",
+      "lag": 26,
       "under_replicated_partitions": 0,
       "metrics": {
         "BytesInPerSec": {
-          "avg": 6004400
+          "avg": 3685550
         },
         "BytesOutPerSec": {
-          "avg": 8585977
+          "avg": 5049472
         },
         "MessagesInPerSec": {
-          "avg": 95772
+          "avg": 53935
         },
         "UnderReplicatedPartitions": {
           "avg": 0
@@ -47,38 +47,38 @@
           "avg": 1
         },
         "LeaderCount": {
-          "avg": 98
+          "avg": 78
         },
         "NetworkProcessorAvgIdlePercent": {
-          "avg": 79.73
+          "avg": 27.746
         },
         "RequestHandlerAvgIdlePercent": {
-          "avg": 81.169
+          "avg": 89.558
         },
         "KafkaDataLogsDiskUsed": {
-          "avg": 57.912
+          "avg": 31.24
         },
         "CpuUser": {
-          "avg": 44.84
+          "avg": 7.7
         },
         "MemoryFree": {
-          "avg": 3027765724
+          "avg": 7185747966
         }
       }
     }
   },
   "kafka": {
-    "topic": "user-events",
-    "partition": 11
+    "topic": "order-updates",
+    "partition": 14
   },
   "event": {
     "outcome": "success",
     "category": "process",
     "dataset": "aws.msk",
     "provider": "kafka.amazonaws.com",
-    "duration": 6000000
+    "duration": 46000000
   },
-  "message": "MSK user-events[11] offset=70203804",
+  "message": "MSK order-updates[14] offset=27897105",
   "log": {
     "level": "info"
   },

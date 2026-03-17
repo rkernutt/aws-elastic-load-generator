@@ -2,6 +2,8 @@
 
 This document lists services that could benefit from **Glue-style enhancements**: explicit job/run lifecycle signals in logs, richer observability metrics (CloudWatch/Spark-style), and framework-specific log message patterns. Use it to prioritize which generators to extend next.
 
+**Implemented in v7.4:** EMR, Batch, DataBrew, AppFlow, CodeBuild, Athena, and SageMaker now have the described message pools, run_state (where applicable), and metrics. See the main repo README “What’s New in v7.4” and `docs/IMPROVEMENT-SUGGESTIONS.md`.
+
 ---
 
 ## Summary

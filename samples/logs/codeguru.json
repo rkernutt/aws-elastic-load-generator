@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "codeguru"
@@ -13,17 +13,16 @@
   },
   "aws": {
     "codeguru": {
-      "product": "Profiler",
-      "repository_name": "frontend-app",
-      "association_id": "dt8yawu5y3o",
-      "finding_id": "tgkpvh1vgp",
-      "category": "Latency",
-      "severity": "Low",
-      "finding_description": "Lambda cold start overhead",
-      "code_file": "src/main/frontendapp/Handler.java",
-      "line_number": 335,
-      "profiling_group": "frontend-app-profiling",
-      "frame_percent": 46.359
+      "product": "Reviewer",
+      "repository_name": "auth-service",
+      "association_id": "3n6nwx19j98",
+      "finding_id": "jgmg86wnkcn",
+      "category": "CodeMaintainability",
+      "severity": "Critical",
+      "finding_description": "AWSBestPractices:S3BucketMissingServerSideEncryption",
+      "code_file": "server/routes.js",
+      "line_number": 238,
+      "pull_request_id": 46
     }
   },
   "event": {
@@ -32,8 +31,8 @@
     "dataset": "aws.codeguru",
     "provider": "codeguru.amazonaws.com"
   },
-  "message": "CodeGuru Profiler [frontend-app] Low: Lambda cold start overhead",
+  "message": "CodeGuru Reviewer [auth-service] Critical: AWSBestPractices",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

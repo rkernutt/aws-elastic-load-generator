@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "fargate"
@@ -14,28 +14,28 @@
   "aws": {
     "dimensions": {
       "ClusterName": "prod-cluster",
-      "TaskId": "x6er7x590t",
-      "TaskDefinition": "worker:6"
+      "TaskId": "ovpolzc21ms",
+      "TaskDefinition": "web-frontend:27"
     },
     "fargate": {
       "cluster_name": "prod-cluster",
-      "task_id": "x6er7x590t",
-      "task_definition": "worker:6",
+      "task_id": "ovpolzc21ms",
+      "task_definition": "web-frontend:27",
       "structured_logging": false,
-      "cpu_units": 2048,
+      "cpu_units": 1024,
       "memory_mb": 1024,
       "platform_version": "LATEST",
-      "cpu_utilized_percent": 15,
-      "memory_utilized_percent": 31,
+      "cpu_utilized_percent": 35,
+      "memory_utilized_percent": 23,
       "metrics": {
         "CPUUtilization": {
-          "avg": 0.15
+          "avg": 0.35
         },
         "MemoryUtilization": {
-          "avg": 0.31
+          "avg": 0.23
         },
         "RunningTaskCount": {
-          "avg": 17
+          "avg": 3
         },
         "PendingTaskCount": {
           "avg": 0
@@ -44,19 +44,19 @@
     }
   },
   "container": {
-    "name": "worker"
+    "name": "web-frontend"
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "event": {
     "outcome": "success",
     "category": "container",
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 2283000000000
+    "duration": 2517000000000
   },
-  "message": "Memory utilization: 91%",
+  "message": "Container is healthy",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.ecs_metrics",

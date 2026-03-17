@@ -1,12 +1,12 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
-    "availability_zone": "us-east-1b",
+    "availability_zone": "us-east-1a",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "ebs"
@@ -14,53 +14,57 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-jmzznio2hr",
-      "VolumeType": "gp2"
+      "VolumeId": "vol-f5ybw4difmg",
+      "VolumeType": "io2"
     },
     "ebs": {
-      "volume_id": "vol-jmzznio2hr",
-      "volume_type": "gp2",
-      "size_gb": 8,
-      "availability_zone": "us-east-1b",
-      "previous_state": "available",
-      "current_state": "in-use",
-      "attached_instance": "i-m5lz0n53lab",
-      "device": "/dev/sdf",
-      "event_type": "state_change",
+      "volume_id": "vol-f5ybw4difmg",
+      "volume_type": "io2",
+      "size_gb": 200,
+      "attached_instance": "i-2dpcs15u984",
+      "device": "/dev/xvdb",
+      "iops_consumed": 5317,
+      "provisioned_iops": 6747,
+      "throughput_mbps": 434.115,
+      "queue_depth": 7,
+      "latency_ms": 1.873,
+      "read_ops": 4115,
+      "write_ops": 67,
+      "read_bytes": 183320802,
+      "write_bytes": 489338032,
+      "event_type": "performance",
       "metrics": {
         "VolumeReadOps": {
-          "sum": 3413
+          "sum": 5338
         },
         "VolumeWriteOps": {
-          "sum": 9418
+          "sum": 3351
         },
         "VolumeReadBytes": {
-          "sum": 314131853
+          "sum": 200871393
         },
         "VolumeWriteBytes": {
-          "sum": 465428364
+          "sum": 389957997
         },
         "VolumeTotalReadTime": {
-          "sum": 5.289
+          "sum": 5.976
         },
         "VolumeTotalWriteTime": {
-          "sum": 7.83
+          "sum": 4.002
         },
         "VolumeIdleTime": {
-          "sum": 30.017
+          "sum": 51.671
         },
         "VolumeQueueLength": {
-          "avg": 2
+          "avg": 4
         },
         "VolumeThroughputPercentage": {
-          "avg": 25.192
+          "avg": 14.018
         },
         "VolumeConsumedReadWriteOps": {
-          "sum": 935
+          "sum": 1766
         },
-        "BurstBalance": {
-          "avg": 92
-        }
+        "BurstBalance": {}
       }
     }
   },
@@ -70,7 +74,7 @@
     "dataset": "aws.ebs",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "EBS volume vol-jmzznio2hr state change: available -> in-use on i-m5lz0n53lab (/dev/sdf)",
+  "message": "EBS vol-f5ybw4difmg performance: 5317 IOPS, 434.1 MB/s, latency 1.87ms",
   "log": {
     "level": "info"
   }

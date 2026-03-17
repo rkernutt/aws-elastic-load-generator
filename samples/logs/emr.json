@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,42 +13,47 @@
   },
   "aws": {
     "emr": {
-      "cluster_id": "j-RKHN1KKNP",
-      "cluster_name": "ml-feature-pipeline-cluster",
-      "application": "hive",
-      "release": "emr-6.11.0",
-      "instance_group": "MASTER",
-      "executor_count": 25,
+      "cluster_id": "j-8GNI0NPQWMR",
+      "cluster_name": "clickstream-processing-cluster",
+      "application": "spark",
+      "release": "emr-6.13.0",
+      "instance_group": "TASK",
+      "executor_count": 29,
       "job": {
-        "name": "ml-feature-pipeline",
-        "id": "application_1773745433800_9995",
-        "run_state": "SUCCEEDED"
+        "name": "clickstream-processing",
+        "id": "application_1773753591812_4454",
+        "run_state": "FAILED"
       },
       "structured_logging": false,
       "metrics": {
-        "executor_count": 25,
-        "running_step_count": 4,
-        "failed_step_count": 0,
-        "hdfs_utilization_pct": 23,
-        "yarn_memory_used_mb": 50141,
-        "elapsedTime": 1470000,
-        "numCompletedTasks": 498,
-        "numFailedTasks": 0,
-        "jvm_heap_usage": 0.68,
-        "gc_time_ms": 13836,
-        "numberAllExecutors": 40
+        "executor_count": 29,
+        "running_step_count": 0,
+        "failed_step_count": 3,
+        "hdfs_utilization_pct": 72,
+        "yarn_memory_used_mb": 50560,
+        "elapsedTime": 5315000,
+        "numCompletedTasks": 352,
+        "numFailedTasks": 2,
+        "jvm_heap_usage": 0.53,
+        "gc_time_ms": 36359,
+        "numberAllExecutors": 49
       }
     }
   },
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "process",
     "dataset": "aws.emr",
     "provider": "elasticmapreduce.amazonaws.com",
-    "duration": 1470000000000
+    "duration": 5315000000000
   },
-  "message": "Writing Parquet to s3://data-lake/processed/"
+  "message": "YARN: Container killed on request. Exit code is 143",
+  "error": {
+    "code": "JobFailed",
+    "message": "Job run failed",
+    "type": "process"
+  }
 }

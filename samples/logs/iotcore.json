@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "iotcore"
@@ -13,31 +13,37 @@
   },
   "aws": {
     "iotcore": {
-      "client_id": "sensor-001",
-      "thing_name": "sensor-001",
-      "thing_group": "fleet",
-      "action": "DISCONNECT",
-      "topic": "telemetry/metrics",
-      "protocol": "MQTT",
+      "client_id": "thermostat-floor-3",
+      "thing_name": "thermostat-floor-3",
+      "thing_group": "building-management",
+      "action": "REJECT",
+      "topic": "dt/factory/sensors/temperature",
+      "protocol": "MQTT_WS",
       "qos": 0,
-      "message_bytes": 23830,
-      "policy_name": "SensorPolicy",
-      "structured_logging": false,
-      "rules_evaluated": 4
+      "message_bytes": 36207,
+      "policy_name": "FleetPolicy",
+      "structured_logging": true,
+      "error_code": "ThrottlingException",
+      "rules_evaluated": 1
     }
   },
   "source": {
-    "ip": "116.26.199.220"
+    "ip": "180.72.122.88"
   },
   "event": {
-    "action": "DISCONNECT",
-    "outcome": "success",
+    "action": "REJECT",
+    "outcome": "failure",
     "category": "network",
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com"
   },
-  "message": "IoT Core DISCONNECT: sensor-001 on telemetry/metrics",
+  "message": "{\"clientId\":\"thermostat-floor-3\",\"action\":\"REJECT\",\"topic\":\"dt/factory/sensors/temperature\",\"message\":\"IoT Core REJECT FAILED for thermostat-floor-3: Certificate revoked\",\"timestamp\":\"2026-03-17T13:19:51.676Z\"}",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "UnauthorizedException",
+    "message": "IoT Core operation failed",
+    "type": "iot"
   }
 }

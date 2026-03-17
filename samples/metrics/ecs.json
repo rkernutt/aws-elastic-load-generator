@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "ecs"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "workers",
-      "ServiceName": "api-backend"
+      "ClusterName": "staging",
+      "ServiceName": "worker"
     },
     "ecs": {
       "cluster": {
-        "name": "workers"
+        "name": "staging"
       },
       "service": {
-        "name": "api-backend"
+        "name": "worker"
       },
       "task": {
-        "id": "ibw55hd13u8",
-        "definition": "api-backend:31"
+        "id": "ofao9dmm89",
+        "definition": "worker:14"
       },
       "structured_logging": true,
       "metrics": {
         "CPUUtilization": {
-          "avg": 40.242
+          "avg": 34.181
         },
         "MemoryUtilization": {
-          "avg": 69.614
+          "avg": 28.87
         },
         "RunningTaskCount": {
-          "avg": 20
+          "avg": 9
         },
         "PendingTaskCount": {
           "avg": 0
@@ -48,9 +48,9 @@
     }
   },
   "container": {
-    "name": "api-backend",
+    "name": "worker",
     "image": {
-      "name": "myrepo/api-backend:latest"
+      "name": "myrepo/worker:latest"
     }
   },
   "log": {
@@ -60,11 +60,11 @@
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 2669000000000
+    "duration": 2123000000000
   },
-  "message": "{\"cluster\":\"workers\",\"service\":\"api-backend\",\"taskId\":\"ibw55hd13u8\",\"container\":\"api-backend\",\"level\":\"info\",\"message\":\"Task started\",\"timestamp\":\"2026-03-17T11:03:53.682Z\"}",
+  "message": "{\"cluster\":\"staging\",\"service\":\"worker\",\"taskId\":\"ofao9dmm89\",\"container\":\"worker\",\"level\":\"info\",\"message\":\"Health check passed\",\"timestamp\":\"2026-03-17T13:19:51.676Z\"}",
   "service": {
-    "name": "api-backend",
+    "name": "worker",
     "type": "ecs"
   },
   "data_stream": {

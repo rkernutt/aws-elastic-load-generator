@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,30 +13,25 @@
   },
   "aws": {
     "codeartifact": {
-      "domain_name": "corp-packages",
-      "repository_name": "npm-store",
-      "package_format": "pypi",
+      "domain_name": "internal",
+      "repository_name": "maven-central",
+      "package_format": "maven",
       "package_name": "api-client",
-      "package_version": "1.7.6",
-      "action": "PublishPackageVersion",
-      "download_size_bytes": 30621628,
-      "error_code": "ResourceAlreadyExistsException"
+      "package_version": "1.20.10",
+      "action": "CopyPackageVersions",
+      "download_size_bytes": 36574078,
+      "upstream_repository": "pypi-upstream"
     }
   },
   "event": {
-    "action": "PublishPackageVersion",
-    "outcome": "failure",
+    "action": "CopyPackageVersions",
+    "outcome": "success",
     "category": "package",
     "dataset": "aws.codeartifact",
     "provider": "codeartifact.amazonaws.com"
   },
-  "message": "CodeArtifact PublishPackageVersion FAILED: api-client@1.7.6 in corp-packages/npm-store",
+  "message": "CodeArtifact CopyPackageVersions: api-client@1.20.10 [maven] in internal/maven-central",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ResourceAlreadyExistsException",
-    "message": "CodeArtifact operation failed",
-    "type": "package"
+    "level": "info"
   }
 }

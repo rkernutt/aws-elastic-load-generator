@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "kms"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "kms": {
-      "key_id": "1z9g2scz-63kg-jlkq-r9sj-4zhe1ddxw0p",
-      "key_alias": "alias/prod-s3-key",
-      "operation": "Sign",
-      "principal_arn": "arn:aws:iam::501938274650:role/ecs-task-role",
+      "key_id": "pqvrlvp4-16k0-vqhd-vtdy-ualqj6phh8d",
+      "key_alias": "alias/rds-encryption",
+      "operation": "DescribeKey",
+      "principal_arn": "arn:aws:iam::738291046572:role/lambda-role",
       "key_state": "Enabled",
       "encryption_algorithm": "SYMMETRIC_DEFAULT"
     }
   },
   "event": {
-    "action": "Sign",
+    "action": "DescribeKey",
     "outcome": "success",
     "category": "iam",
     "dataset": "aws.kms",
     "provider": "kms.amazonaws.com"
   },
-  "message": "KMS Sign: alias/prod-s3-key",
+  "message": "KMS DescribeKey: alias/rds-encryption",
   "log": {
     "level": "info"
   }

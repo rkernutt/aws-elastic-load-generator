@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "memorydb"
@@ -13,26 +13,32 @@
   },
   "aws": {
     "memorydb": {
-      "cluster_name": "rate-limiter",
-      "node_name": "rate-limiter-0001-001",
+      "cluster_name": "leaderboard",
+      "node_name": "leaderboard-0001-001",
       "engine_version": "7.1",
-      "command": "XADD",
-      "latency_us": 10.906,
-      "cache_hit_rate": 85.845,
-      "connected_clients": 144,
-      "used_memory_mb": 16679,
-      "replication_lag_ms": 74
+      "command": "ZRANGE",
+      "latency_us": 1519.057,
+      "cache_hit_rate": 0,
+      "connected_clients": 209,
+      "used_memory_mb": 23233,
+      "replication_lag_ms": 2381,
+      "error_code": "OOM"
     }
   },
   "event": {
-    "duration": 10906,
-    "outcome": "success",
+    "duration": 1519057,
+    "outcome": "failure",
     "category": "database",
     "dataset": "aws.memorydb",
     "provider": "memory-db.amazonaws.com"
   },
-  "message": "MemoryDB rate-limiter XADD: 10.91us",
+  "message": "MemoryDB leaderboard ZRANGE FAILED: READONLY replica",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "READONLY",
+    "message": "MemoryDB command failed",
+    "type": "db"
   }
 }

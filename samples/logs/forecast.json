@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,25 +13,29 @@
   },
   "aws": {
     "forecast": {
-      "dataset_group": "web-traffic",
-      "predictor_name": "web-traffic-predictor-v13",
-      "action": "CreateForecast",
-      "algorithm": "AutoML",
-      "forecast_horizon": 7,
-      "weighted_quantile_loss": 0.08,
-      "duration_seconds": 4727,
-      "status": "ACTIVE"
+      "dataset_group": "demand-forecast",
+      "action": "CreateDatasetImportJob",
+      "algorithm": "DeepAR+",
+      "forecast_horizon": 60,
+      "duration_seconds": 66562,
+      "status": "FAILED",
+      "error_message": "Invalid target field"
     }
   },
   "event": {
-    "duration": 4727000000000,
-    "outcome": "success",
+    "duration": 66562000000000,
+    "outcome": "failure",
     "category": "machine_learning",
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com"
   },
-  "message": "Forecast CreateForecast: web-traffic, WQL=0.105",
+  "message": "Forecast CreateDatasetImportJob FAILED for demand-forecast: Training timeout",
+  "error": {
+    "code": "ForecastError",
+    "message": "Forecast operation failed",
+    "type": "ml"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

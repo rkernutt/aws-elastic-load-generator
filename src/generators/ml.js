@@ -19,7 +19,20 @@ function generateSageMakerLog(ts, er) {
   const durationSec = parseFloat(randFloat(isErr ? 5 : 60, isErr ? 600 : 14400));
   const ERROR_CODES = ["CapacityError","ResourceNotFound","ValidationException","InternalServerError"];
   const ERROR_MSGS = ["Training job failed: CUDA out of memory","Endpoint creation failed: No capacity for ml.p4d.24xlarge","Model deployment failed: health check timeout"];
-  const MSGS = { info:["Training job started","Training job started on ml.p3.2xlarge (4 GPUs)","Training job succeeded","Epoch 12/50 - loss: 0.2341, val_loss: 0.2518, accuracy: 0.9124","Model artifact uploaded to s3://models/output/","Endpoint InService: latency p50=12ms p99=47ms","Feature Store ingestion complete: 4,829,201 records","Model registered: fraud-detector v12 (AUC: 0.9923)"],warn:["GPU utilization low: 34%","Training loss plateau detected at epoch 28","Model drift detected: PSI=0.18","Spot instance interruption, checkpointing..."],error:["Training job failed",...ERROR_MSGS] };
+  // Lifecycle message pool: explicit started/succeeded/failed per job type (Glue/EMR-style consistency)
+  const lifecycleByType = {
+    Training: { start: ["Training job started", "Training job started on ml.p3.2xlarge (4 GPUs)"], success: ["Training job succeeded", "Training job completed successfully"], fail: ["Training job failed"] },
+    Processing: { start: ["Processing job started", "Processing job started"], success: ["Processing job succeeded", "Processing job completed successfully"], fail: ["Processing job failed"] },
+    Transform: { start: ["Transform job started"], success: ["Transform job succeeded"], fail: ["Transform job failed"] },
+    HyperparameterTuning: { start: ["Hyperparameter tuning job started"], success: ["Hyperparameter tuning job succeeded"], fail: ["Hyperparameter tuning job failed"] },
+    Pipeline: { start: ["Pipeline execution started", "Pipeline execution started"], success: ["Pipeline execution succeeded", "Pipeline execution completed successfully"], fail: ["Pipeline execution failed"] },
+    Endpoint: { start: ["Endpoint creation started", "Endpoint deployment started"], success: ["Endpoint creation succeeded", "Endpoint InService: latency p50=12ms p99=47ms"], fail: ["Endpoint creation failed", "Endpoint deployment failed"] },
+  };
+  const life = lifecycleByType[jobType] || lifecycleByType.Training;
+  const infoLifecycle = [...life.start, ...life.success];
+  const infoOther = ["Epoch 12/50 - loss: 0.2341, val_loss: 0.2518, accuracy: 0.9124", "Model artifact uploaded to s3://models/output/", "Feature Store ingestion complete: 4,829,201 records", "Model registered: fraud-detector v12 (AUC: 0.9923)"];
+  const errorLifecycle = [...life.fail, ...ERROR_MSGS];
+  const MSGS = { info: [...infoLifecycle, ...infoOther], warn: ["GPU utilization low: 34%", "Training loss plateau detected at epoch 28", "Model drift detected: PSI=0.18", "Spot instance interruption, checkpointing..."], error: errorLifecycle };
   const plainMessage = rand(MSGS[level]);
   const spaceName = rand(STUDIO_SPACES);
   const appType = rand(STUDIO_APP_TYPES);

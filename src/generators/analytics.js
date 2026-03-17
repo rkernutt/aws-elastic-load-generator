@@ -217,7 +217,9 @@ function generateAthenaLog(ts, er) {
   const dur = parseFloat(randFloat(0.5, isErr?300:60)); const dataScanned = isErr?0:randInt(1024,10737418240);
   const queryId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}`.toLowerCase();
   const workgroup = rand(["primary","analytics","bi-users"]); const database = rand(["analytics","raw","staging"]);
-  const athenaMsgs = isErr ? ["Query failed",`Athena query FAILED after ${dur.toFixed(1)}s: ${rand(["QUERY_TIMED_OUT","TABLE_NOT_FOUND","PERMISSION_DENIED"])}`] : ["Query started","Query succeeded",`Athena query SUCCEEDED in ${dur.toFixed(1)}s, scanned ${Math.round(dataScanned/1048576)}MB`];
+  const athenaMsgs = isErr
+    ? ["Query failed", "Query failed", `Athena query FAILED after ${dur.toFixed(1)}s: ${rand(["QUERY_TIMED_OUT", "TABLE_NOT_FOUND", "PERMISSION_DENIED"])}`]
+    : ["Query started", "Query succeeded", "Query started", "Query succeeded", `Athena query SUCCEEDED in ${dur.toFixed(1)}s, scanned ${Math.round(dataScanned / 1048576)}MB`];
   const plainMessage = rand(athenaMsgs);
   const useStructuredLogging = Math.random() < 0.55;
   const message = useStructuredLogging ? JSON.stringify({ queryId, workgroup, database, state: isErr?"FAILED":"SUCCEEDED", durationSeconds: dur, dataScannedBytes: dataScanned, timestamp: new Date(ts).toISOString() }) : plainMessage;

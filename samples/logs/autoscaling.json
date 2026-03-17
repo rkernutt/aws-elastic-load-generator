@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "autoscaling"
@@ -13,24 +13,24 @@
   },
   "aws": {
     "autoscaling": {
-      "group_name": "api-asg",
-      "activity_id": "xa807gou-9j6q-3rfy",
-      "action_type": "HealthCheck",
-      "instance_id": "i-d4o6x68l938",
-      "instance_type": "r5.large",
-      "desired_capacity": 16,
+      "group_name": "web-asg",
+      "activity_id": "jrpkrd87-cv3k-1gwc",
+      "action_type": "Launch",
+      "instance_id": "i-sks74eea23q",
+      "instance_type": "c5.2xlarge",
+      "desired_capacity": 4,
       "min_size": 2,
       "max_size": 50,
-      "current_capacity": 16,
-      "cause": "EC2 health check passed",
+      "current_capacity": 4,
+      "cause": "Unhealthy instance replaced",
       "status_code": "Successful",
-      "launch_template": "api-lt:3",
+      "launch_template": "web-lt:5",
       "metrics": {
         "GroupDesiredCapacity": {
-          "avg": 16
+          "avg": 4
         },
         "GroupInServiceInstances": {
-          "avg": 16
+          "avg": 4
         },
         "GroupMinSize": {
           "avg": 2
@@ -52,9 +52,9 @@
     "category": "host",
     "dataset": "aws.autoscaling",
     "provider": "autoscaling.amazonaws.com",
-    "duration": 584000000000
+    "duration": 441000000000
   },
-  "message": "AutoScaling api-asg: HealthCheck instance",
+  "message": "AutoScaling web-asg: Launch instance",
   "log": {
     "level": "info"
   }

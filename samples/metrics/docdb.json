@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "docdb"
@@ -13,41 +13,40 @@
   },
   "aws": {
     "dimensions": {
-      "DBClusterIdentifier": "docdb-us-east-1-cluster",
+      "DBClusterIdentifier": "docdb-eu-west-2-cluster",
       "Role": "READER"
     },
     "docdb": {
-      "cluster_id": "docdb-us-east-1-cluster",
+      "cluster_id": "docdb-eu-west-2-cluster",
       "database": "appdb",
-      "collection": "products",
-      "operation": "update",
-      "duration_ms": 2900,
-      "documents_affected": 0,
-      "error": "DuplicateKey",
+      "collection": "sessions",
+      "operation": "find",
+      "duration_ms": 381,
+      "documents_affected": 192,
       "metrics": {
         "CPUUtilization": {
-          "avg": 53.544
+          "avg": 17.814
         },
         "DatabaseConnections": {
-          "avg": 308
+          "avg": 44
         },
         "FreeLocalStorage": {
-          "avg": 1981679716
+          "avg": 98171557365
         },
         "FreeableMemory": {
-          "avg": 7187148943
+          "avg": 6595149463
         },
         "ReadIOPS": {
-          "avg": 285
+          "avg": 4718
         },
         "WriteIOPS": {
-          "avg": 2054
+          "avg": 2742
         },
         "ReadLatency": {
-          "avg": 0.04
+          "avg": 0.016
         },
         "WriteLatency": {
-          "avg": 0.007
+          "avg": 0.02
         },
         "DocumentsInserted": {
           "sum": 0
@@ -56,34 +55,29 @@
           "sum": 0
         },
         "DocumentsUpdated": {
-          "sum": 353
+          "sum": 0
         },
         "DocumentsReturned": {
-          "sum": 0
+          "sum": 2481
         }
       }
     }
   },
   "db": {
     "name": "appdb",
-    "operation": "update",
+    "operation": "find",
     "type": "document"
   },
   "event": {
-    "duration": 2899523000,
-    "outcome": "failure",
+    "duration": 381499000,
+    "outcome": "success",
     "category": "database",
     "dataset": "aws.docdb",
     "provider": "docdb.amazonaws.com"
   },
-  "message": "DocumentDB update on products failed: DuplicateKey",
+  "message": "DocumentDB find on sessions: 381.5ms",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "CursorNotFound",
-    "message": "DocumentDB update failed",
-    "type": "db"
+    "level": "info"
   },
   "data_stream": {
     "type": "metrics",

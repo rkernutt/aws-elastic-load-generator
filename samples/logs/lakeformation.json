@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,17 +13,18 @@
   },
   "aws": {
     "lakeformation": {
-      "database": "raw_data",
-      "table": "products",
+      "database": "curated",
+      "table": "clickstream",
       "action": "BatchGrantPermissions",
-      "principal_arn": "arn:aws:iam::814726593401:role/analyst-role",
+      "principal_arn": "arn:aws:iam::814726593401:user/alice",
       "permissions": [
         "SELECT",
         "INSERT"
       ],
-      "lf_tag_key": "classification",
+      "lf_tag_key": "pii",
       "lf_tag_values": [
-        "prod"
+        "dev",
+        "staging"
       ]
     }
   },
@@ -34,7 +35,7 @@
     "dataset": "aws.lakeformation",
     "provider": "lakeformation.amazonaws.com"
   },
-  "message": "Lake Formation BatchGrantPermissions: SELECT,INSERT on raw_data.products",
+  "message": "Lake Formation BatchGrantPermissions: SELECT,INSERT on curated.clickstream",
   "log": {
     "level": "info"
   }

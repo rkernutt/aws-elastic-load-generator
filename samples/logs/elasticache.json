@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "elasticache"
@@ -13,50 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "CacheClusterId": "prod-redis-2",
-      "CacheNodeId": "0005"
+      "CacheClusterId": "prod-redis-4",
+      "CacheNodeId": "0002"
     },
     "elasticache": {
-      "cluster_id": "prod-redis-2",
-      "node_id": "0005",
+      "cluster_id": "prod-redis-4",
+      "node_id": "0002",
       "engine": "redis",
       "engine_version": "7.1.0",
       "replication_group_id": "prod-cache",
-      "command": "EXPIRE",
-      "latency_us": 20.243,
+      "command": "SCAN",
+      "latency_us": 13.746,
       "cache_hit": true,
-      "connected_clients": 355,
-      "used_memory_mb": 774,
+      "connected_clients": 433,
+      "used_memory_mb": 9125,
       "metrics": {
         "CPUUtilization": {
-          "avg": 31.032
+          "avg": 16.138
         },
         "FreeableMemory": {
-          "avg": 1816511898
+          "avg": 1448780056
         },
         "NetworkBytesIn": {
-          "sum": 58033512
+          "sum": 41321614
         },
         "NetworkBytesOut": {
-          "sum": 51745662
+          "sum": 86715721
         },
         "CacheHits": {
-          "sum": 53430
+          "sum": 30489
         },
         "CacheMisses": {
-          "sum": 6136
+          "sum": 3889
         },
         "CurrConnections": {
-          "avg": 315
+          "avg": 153
         },
         "NewConnections": {
-          "sum": 75
+          "sum": 87
         },
         "Evictions": {
           "sum": 0
         },
         "ReplicationLag": {
-          "avg": 0.359
+          "avg": 0.696
         },
         "SaveInProgress": {
           "avg": 0
@@ -66,16 +66,16 @@
   },
   "db": {
     "type": "keyvalue",
-    "operation": "EXPIRE"
+    "operation": "SCAN"
   },
   "event": {
-    "duration": 20243,
+    "duration": 13746,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.elasticache",
     "provider": "elasticache.amazonaws.com"
   },
-  "message": "Redis EXPIRE 20.24us",
+  "message": "Redis SCAN 13.75us",
   "log": {
     "level": "info"
   }

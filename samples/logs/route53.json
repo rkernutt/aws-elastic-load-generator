@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "route53"
@@ -13,51 +13,51 @@
   },
   "aws": {
     "dimensions": {
-      "HostedZoneId": "Z6J55HGUB82G"
+      "HostedZoneId": "ZSHGBN21B0R"
     },
     "route53": {
       "query_name": "api.example.com",
-      "query_type": "AAAA",
+      "query_type": "TXT",
       "response_code": "NOERROR",
-      "edge_location": "SFO68",
-      "hosted_zone_id": "Z6J55HGUB82G",
+      "edge_location": "SFO66",
+      "hosted_zone_id": "ZSHGBN21B0R",
       "metrics": {
         "DNSQueries": {
-          "sum": 97898
+          "sum": 53915
         },
         "HealthCheckStatus": {
           "avg": 1
         },
         "HealthCheckPercentageHealthy": {
-          "avg": 100
+          "avg": 95
         },
         "ConnectionTime": {
-          "avg": 6
+          "avg": 33
         },
         "TimeToFirstByte": {
-          "avg": 37
+          "avg": 15
         }
       }
     }
   },
   "dns": {
     "question": {
-      "name": "api.example.com",
-      "type": "AAAA"
+      "name": "www.example.com",
+      "type": "MX"
     },
     "response_code": "NOERROR"
   },
   "client": {
-    "ip": "119.127.50.87"
+    "ip": "203.189.38.124"
   },
   "event": {
     "outcome": "success",
     "category": "network",
     "dataset": "aws.route53",
     "provider": "route53.amazonaws.com",
-    "duration": 26000000
+    "duration": 20000000
   },
-  "message": "DNS A query for api.example.com -> NOERROR",
+  "message": "DNS CNAME query for mail.example.com -> NOERROR",
   "log": {
     "level": "info"
   }

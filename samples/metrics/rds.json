@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "rds"
@@ -13,65 +13,65 @@
   },
   "aws": {
     "dimensions": {
-      "DBInstanceIdentifier": "prod-db-analytics",
+      "DBInstanceIdentifier": "prod-db-replica",
       "DatabaseClass": "db.r5.large",
-      "EngineName": "mysql"
+      "EngineName": "postgres"
     },
     "rds": {
-      "instance_id": "prod-db-analytics",
-      "engine": "mysql",
-      "engine_version": "8.0.34",
-      "query_time": 1.438,
+      "instance_id": "prod-db-replica",
+      "engine": "postgres",
+      "engine_version": "15.4",
+      "query_time": 0.951,
       "enhanced_monitoring": false,
       "metrics": {
         "CPUUtilization": {
-          "avg": 7.611
+          "avg": 53.585
         },
         "DatabaseConnections": {
-          "avg": 26
+          "avg": 51
         },
         "FreeStorageSpace": {
-          "avg": 85788709760
+          "avg": 11987681503
         },
         "ReadIOPS": {
-          "avg": 1448
+          "avg": 2640
         },
         "WriteIOPS": {
-          "avg": 1698
+          "avg": 1886
         },
         "ReadLatency": {
-          "avg": 0.001
+          "avg": 0.012
         },
         "WriteLatency": {
-          "avg": 0.011
+          "avg": 0.016
         },
         "FreeableMemory": {
-          "avg": 7224417264
+          "avg": 2511270562
         },
         "NetworkReceiveThroughput": {
-          "avg": 2544307
+          "avg": 5799213
         },
         "NetworkTransmitThroughput": {
-          "avg": 3280723
+          "avg": 3849724
         }
       }
     }
   },
   "db": {
     "user": {
-      "name": "readonly"
+      "name": "appuser"
     },
     "name": "events",
-    "statement": "DELETE FROM sessions WHERE ULIM9S",
+    "statement": "UPDATE products SET price QOAQO8",
     "type": "sql"
   },
   "event": {
-    "duration": 1438000000,
+    "duration": 951000000,
     "outcome": "success",
     "dataset": "aws.rds",
     "provider": "rds.amazonaws.com"
   },
-  "message": "Query executed in 1.438s by readonly",
+  "message": "Query executed in 0.951s by appuser",
   "log": {
     "level": "info"
   },

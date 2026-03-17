@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "xray"
@@ -17,18 +17,18 @@
       "ServiceType": "AWS::Lambda::Function"
     },
     "xray": {
-      "trace_id": "1-69b93519-yn5i23zm1",
-      "segment_id": "qeutkicrzpb",
-      "parent_id": "y6z9i8oz1o",
+      "trace_id": "1-69b954f7-r1hvhr0xuhc",
+      "segment_id": "3iczmkjhdh",
+      "parent_id": "a3zrzg0r0ij",
       "service": {
-        "name": "db-proxy",
+        "name": "user-service",
         "type": "AWS::EC2::Instance"
       },
-      "duration": 0.039,
+      "duration": 2.988,
       "http": {
         "request": {
-          "method": "POST",
-          "url": "/health"
+          "method": "PATCH",
+          "url": "/api/v1/users"
         },
         "response": {
           "status": 200
@@ -37,36 +37,36 @@
       "fault": false,
       "annotations": {
         "env": "prod",
-        "version": "v17"
+        "version": "v14"
       },
       "metrics": {
         "ErrorRate": {
-          "avg": 0.233
+          "avg": 0.926
         },
         "FaultRate": {
-          "avg": 0.223
+          "avg": 0.146
         },
         "ThrottleRate": {
-          "avg": 1.778
+          "avg": 0.089
         },
         "TotalCount": {
-          "sum": 9268
+          "sum": 6237
         },
         "Latency": {
-          "avg": 39,
-          "p99": 117
+          "avg": 2988,
+          "p99": 8964
         }
       }
     }
   },
   "event": {
-    "duration": 39000000,
+    "duration": 2988000000,
     "outcome": "success",
     "category": "network",
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray trace: db-proxy 0.039s",
+  "message": "X-Ray trace: user-service 2.988s",
   "log": {
     "level": "info"
   }

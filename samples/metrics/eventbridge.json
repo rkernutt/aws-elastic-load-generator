@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -19,24 +19,24 @@
     "eventbridge": {
       "event_bus": "app-events",
       "rule": "scheduled-cleanup",
-      "source": "aws.health",
+      "source": "com.partner.events",
       "detail_type": "Order Placed",
       "targets_invoked": 4,
       "targets_failed": 0,
-      "event_id": "1gk4n8ba-054h-r7ra-intk-p1g89p3ufxs",
-      "structured_logging": false,
+      "event_id": "7x4n0847-s8c6-z4td-y5sz-xlx6ctnwud",
+      "structured_logging": true,
       "metrics": {
         "Invocations": {
-          "sum": 5857
+          "sum": 4035
         },
         "FailedInvocations": {
           "sum": 0
         },
         "TriggeredRules": {
-          "sum": 495
+          "sum": 383
         },
         "MatchedEvents": {
-          "sum": 4404
+          "sum": 1785
         },
         "ThrottledRules": {
           "sum": 0
@@ -52,9 +52,9 @@
     "category": "process",
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 164000000
+    "duration": 176000000
   },
-  "message": "EventBridge event routed: aws.health -> scheduled-cleanup",
+  "message": "{\"id\":\"7x4n0847-s8c6-z4td-y5sz-xlx6ctnwud\",\"source\":\"com.partner.events\",\"detailType\":\"Object Created\",\"rule\":\"scheduled-cleanup\",\"eventBus\":\"app-events\",\"message\":\"EventBridge event routed: com.partner.events -> scheduled-cleanup\",\"timestamp\":\"2026-03-17T13:19:51.676Z\"}",
   "log": {
     "level": "info"
   },

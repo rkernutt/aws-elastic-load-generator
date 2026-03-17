@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "inspector"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "dimensions": {
-      "ResourceType": "AWS_ECR_CONTAINER_IMAGE"
+      "ResourceType": "AWS_EC2_INSTANCE"
     },
     "inspector": {
-      "finding_id": "arn:aws:inspector2:us-east-1:738291046572:finding/TLZ2RK07-NBNR",
-      "finding_type": "CODE_VULNERABILITY",
-      "severity": "MEDIUM",
-      "inspector_score": 7.242,
+      "finding_id": "arn:aws:inspector2:us-east-1:164820739518:finding/PG2NKX9L-4UIK",
+      "finding_type": "NETWORK_REACHABILITY",
+      "severity": "CRITICAL",
+      "inspector_score": 7.38,
       "vulnerable_package": {
-        "name": "libssl",
-        "version": "4.19.10"
+        "name": "curl",
+        "version": "1.5.6"
       },
-      "cve_id": "CVE-2024-3094",
+      "cve_id": "CVE-2023-38545",
       "resource_type": "AWS_ECR_CONTAINER_IMAGE",
       "metrics": {
         "TotalFindings": {
-          "sum": 16
+          "sum": 17
         },
         "CriticalFindings": {
-          "sum": 0
+          "sum": 1
         },
         "HighFindings": {
           "sum": 0
@@ -40,8 +40,8 @@
     }
   },
   "vulnerability": {
-    "id": "CVE-2024-3094",
-    "severity": "MEDIUM"
+    "id": "CVE-2024-21626",
+    "severity": "CRITICAL"
   },
   "event": {
     "kind": "alert",
@@ -50,13 +50,13 @@
     "dataset": "aws.inspector",
     "provider": "inspector2.amazonaws.com"
   },
-  "message": "Inspector [MEDIUM]: CVE-2023-44487 found in glibc",
+  "message": "Inspector [CRITICAL]: CVE-2023-44487 found in spring-core",
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "error": {
     "code": "VulnerabilityFound",
-    "message": "CVE found: CVE-2022-3602",
+    "message": "CVE found: CVE-2023-38545",
     "type": "vulnerability"
   }
 }

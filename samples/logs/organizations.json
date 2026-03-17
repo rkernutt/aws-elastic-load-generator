@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "organizations"
@@ -13,23 +13,20 @@
   },
   "aws": {
     "organizations": {
-      "action": "AttachPolicy",
-      "account_id": "164820739518",
-      "account_name": "prod-workloads",
-      "organizational_unit": "Root",
-      "policy_id": "p-949k4j4v",
-      "policy_type": "SERVICE_CONTROL_POLICY",
-      "policy_name": "RequireS3Encryption"
+      "action": "MoveAccount",
+      "account_id": "501938274650",
+      "account_name": "security-audit",
+      "organizational_unit": "Sandbox"
     }
   },
   "event": {
-    "action": "AttachPolicy",
+    "action": "MoveAccount",
     "outcome": "success",
     "category": "iam",
     "dataset": "aws.organizations",
     "provider": "organizations.amazonaws.com"
   },
-  "message": "Organizations AttachPolicy: Workloads",
+  "message": "Organizations MoveAccount: Security",
   "log": {
     "level": "info"
   }

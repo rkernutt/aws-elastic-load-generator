@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "@timestamp": "2026-03-17T13:19:51.676Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,12 +13,13 @@
   },
   "aws": {
     "comprehendmedical": {
-      "operation": "DetectPHI",
-      "entities_detected": 3,
-      "phi_entities": 0,
-      "text_characters": 1602,
+      "operation": "InferICD10CM",
+      "entities_detected": 32,
+      "phi_entities": 1,
+      "icd10_concepts": 7,
+      "text_characters": 2121,
       "data_access_role_arn": "arn:aws:iam::814726593401:role/ComprehendMedicalRole",
-      "s3_bucket": "ehr-processed"
+      "s3_bucket": "clinical-notes"
     }
   },
   "event": {
@@ -27,7 +28,7 @@
     "dataset": "aws.comprehendmedical",
     "provider": "comprehendmedical.amazonaws.com"
   },
-  "message": "Comprehend Medical DetectPHI: 3 entities, 0 PHI",
+  "message": "Comprehend Medical InferICD10CM: 32 entities, 1 PHI",
   "log": {
     "level": "info"
   }
