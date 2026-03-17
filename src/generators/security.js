@@ -263,19 +263,46 @@ function generateAccessAnalyzerLog(ts, er) {
 function generateCognitoLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const pool = rand(["us-users","eu-users","mobile-users","b2b-customers"]);
+  const userPoolId = `${region}_${randId(9)}`;
   const action = rand(["SignIn","SignUp","ForgotPassword","ConfirmSignUp","TokenRefresh","AdminCreateUser","SignIn","SignIn"]);
   const user = `user-${randId(8).toLowerCase()}@example.com`;
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"cognito"}},
-    "aws":{cognito:{user_pool_id:`${region}_${randId(9)}`,user_pool_name:pool,
-      event_type:action,username:isErr?null:user,
-      error_code:isErr?rand(["NotAuthorizedException","UserNotFoundException","TooManyRequestsException"]):null,
-      source_ip:randIp(),mfa_type:Math.random()>0.7?rand(["SOFTWARE_TOKEN_MFA","SMS_MFA"]):null}},
-    "user":{name:isErr?null:user},"source":{ip:randIp()},
-    "event":{action,outcome:isErr?"failure":"success",category:"authentication",dataset:"aws.cognito",provider:"cognito-idp.amazonaws.com"},
-    "message":isErr?`Cognito ${action} FAILED: ${rand(["Incorrect password","User not found","Rate limit exceeded"])}`:
-      `Cognito ${action} success [${pool}]`,
-    "log":{level:isErr?"warn":"info"},
-    ...(isErr ? { error: { code: rand(["NotAuthorizedException","UserNotFoundException","TooManyRequestsException"]), message: "Authentication failed", type: "authentication" } } : {})};
+  const signIns = randInt(100, 10000);
+  const tokenRefreshes = randInt(500, 50000);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"cognito" } },
+    "aws": {
+      dimensions: { UserPool: userPoolId, UserPoolClient: `${pool}-web` },
+      cognito: {
+        user_pool_id: userPoolId,
+        user_pool_name: pool,
+        event_type: action,
+        username: isErr ? null : user,
+        error_code: isErr ? rand(["NotAuthorizedException","UserNotFoundException","TooManyRequestsException"]) : null,
+        source_ip: randIp(),
+        mfa_type: Math.random() > 0.7 ? rand(["SOFTWARE_TOKEN_MFA","SMS_MFA"]) : null,
+        metrics: {
+          SignInSuccesses: { sum: isErr ? 0 : signIns },
+          SignInAttempts: { sum: signIns + (isErr ? randInt(10, 500) : 0) },
+          TokenRefreshSuccesses: { sum: isErr ? 0 : tokenRefreshes },
+          SignUpSuccesses: { sum: action === "SignUp" && !isErr ? randInt(1, 100) : 0 },
+          FederationSuccesses: { sum: Math.random() > 0.8 ? randInt(1, 500) : 0 },
+          CallCount: { sum: randInt(1000, 100000) },
+          ThrottleCount: { sum: isErr ? randInt(1, 100) : 0 },
+          AccountTakeoverRisk: { sum: isErr ? randInt(0, 5) : 0 },
+          CompromisedCredentialsRisk: { sum: isErr ? randInt(0, 3) : 0 },
+        },
+      },
+    },
+    "user": { name: isErr ? null : user },
+    "source": { ip: randIp() },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["authentication"], dataset: "aws.cognito", provider: "cognito-idp.amazonaws.com" },
+    "message": isErr
+      ? `Cognito ${action} FAILED: ${rand(["Incorrect password","User not found","Rate limit exceeded"])}`
+      : `Cognito ${action} success [${pool}]`,
+    "log": { level: isErr ? "warn" : "info" },
+    ...(isErr ? { error: { code: rand(["NotAuthorizedException","UserNotFoundException","TooManyRequestsException"]), message: "Authentication failed", type: "authentication" } } : {}),
+  };
 }
 
 function generateKmsLog(ts, er) {

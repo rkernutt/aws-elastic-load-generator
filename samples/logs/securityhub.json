@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,62 +13,65 @@
   },
   "aws": {
     "dimensions": {
-      "ComplianceStandard": "cis-aws-foundations-benchmark",
-      "ControlId": "CIS.5.6"
+      "ComplianceStandard": "pci-dss",
+      "ControlId": "S3.2"
     },
     "securityhub_findings": {
-      "id": "H9FQEUZF-N66U-NINB-I6FK-DIKJAEB994E",
+      "id": "T5PSROGM-6WUF-HCV6-NOCU-MCGFNCT0AAP",
       "aws_account_id": "164820739518",
-      "description": "Security check failed: CIS.5.6 - Default security group allows all traffic",
-      "created_at": "2026-03-16T18:50:22.866Z",
-      "first_observed_at": "2026-03-16T18:50:22.866Z",
-      "last_observed_at": "2026-03-17T13:19:51.676Z",
+      "description": "Control passed.",
+      "created_at": "2026-03-17T11:39:06.580Z",
+      "first_observed_at": "2026-03-17T11:39:06.580Z",
+      "last_observed_at": "2026-03-17T18:02:32.099Z",
       "generator": {
-        "id": "CIS.5.6"
+        "id": "S3.2"
       },
+      "types": [
+        "Threat Detections/Tactics/Impact"
+      ],
       "compliance": {
-        "security_control_id": "CIS.5.6",
-        "status": "FAILED"
+        "security_control_id": "S3.2",
+        "status": "PASSED"
       },
-      "criticality": 7,
-      "confidence": 79
+      "criticality": 4,
+      "confidence": 85
     },
     "securityhub": {
-      "finding_id": "arn:aws:securityhub:eu-west-2:164820739518:finding/H9FQEUZF-N66U-NINB-I6FK-DIKJAEB994E",
-      "standard": "cis-aws-foundations-benchmark",
-      "control_id": "CIS.5.6",
-      "compliance_status": "FAILED",
-      "severity_label": "HIGH",
-      "workflow_status": "NOTIFIED",
+      "finding_id": "arn:aws:securityhub:eu-west-2:164820739518:finding/T5PSROGM-6WUF-HCV6-NOCU-MCGFNCT0AAP",
+      "standard": "AWS Foundational Security Best Practices v1.0.0",
+      "control_id": "S3.2",
+      "compliance_status": "PASSED",
+      "severity_label": "INFORMATIONAL",
+      "workflow_status": "RESOLVED",
       "account_id": "164820739518",
       "metrics": {
         "Findings": {
-          "sum": 47
+          "sum": 0
         },
         "FailedChecks": {
-          "sum": 11
+          "sum": 0
         },
         "PassedChecks": {
-          "sum": 0
+          "sum": 96
         }
       }
     }
   },
   "event": {
     "kind": "alert",
-    "severity": 7,
-    "outcome": "failure",
-    "category": "compliance",
+    "severity": 4,
+    "outcome": "success",
+    "category": [
+      "vulnerability"
+    ],
+    "type": [
+      "info"
+    ],
     "dataset": "aws.securityhub_findings",
     "provider": "securityhub.amazonaws.com"
   },
-  "message": "Security Hub [HIGH]: Compliance check failed",
+  "message": "Security Hub: control passed",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "ComplianceFailed",
-    "message": "Control CIS.5.6 failed",
-    "type": "compliance"
+    "level": "info"
   }
 }

@@ -1,95 +1,113 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T17:30:45.979Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "apigateway"
     }
   },
-  "trace": {
-    "id": "1-g87ab8vs-q5gq4v6w8mt"
-  },
   "aws": {
     "dimensions": {
-      "ApiName": "internal-api",
-      "Stage": "prod",
-      "Method": "PATCH",
-      "Resource": "/api/v1/products"
+      "ApiName": "prod-api",
+      "Stage": "staging",
+      "Method": "PUT",
+      "Resource": "/api/v1/search"
     },
     "apigateway": {
-      "request_id": "3twmfs6e-pgp6",
-      "trace_id": "1-g87ab8vs-q5gq4v6w8mt",
-      "api_id": "wylla8zk4a",
-      "api_name": "internal-api",
-      "stage": "prod",
+      "request_id": "bvfywpka-ny62",
+      "api_id": "bcxij2tp00",
+      "api_name": "prod-api",
+      "stage": "staging",
       "structured_logging": true,
       "request": {
-        "http_method": "PATCH",
-        "path": "/api/v1/products",
+        "http_method": "PUT",
+        "path": "/api/v1/search",
         "protocol": "HTTP/1.1"
       },
       "response": {
-        "status_code": 200,
-        "integration_latency_ms": 51,
-        "response_latency_ms": 61
+        "status_code": 400,
+        "integration_latency_ms": 2682,
+        "response_latency_ms": 3156
       },
       "metrics": {
         "Count": {
-          "sum": 356
+          "sum": 1
         },
-        "4xx": {
-          "sum": 0
+        "4XXError": {
+          "sum": 1
         },
-        "5xx": {
+        "5XXError": {
           "sum": 0
         },
         "Latency": {
-          "avg": 61,
-          "max": 91.5,
-          "min": 30.5
+          "avg": 3156,
+          "p99": 9468
         },
         "IntegrationLatency": {
-          "avg": 51,
-          "max": 79,
-          "min": 24
+          "avg": 2524,
+          "p99": 7890
+        },
+        "CacheHitCount": {
+          "sum": 0
+        },
+        "CacheMissCount": {
+          "sum": 1
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "PATCH",
-      "bytes": 4091
+      "method": "PUT",
+      "id": "bvfywpka-ny62",
+      "bytes": 4921
     },
     "response": {
-      "status_code": 200,
-      "bytes": 657
+      "status_code": 400,
+      "bytes": 5522
     }
   },
   "url": {
-    "path": "/api/v1/products",
-    "domain": "wylla8zk4a.execute-api.eu-west-2.amazonaws.com"
+    "path": "/api/v1/search",
+    "domain": "bcxij2tp00.execute-api.us-east-1.amazonaws.com"
   },
   "client": {
-    "ip": "172.152.64.213"
+    "ip": "103.205.23.185",
+    "geo": {
+      "country_iso_code": "CA",
+      "country_name": "Canada",
+      "region_name": "Ontario",
+      "city_name": "Toronto"
+    }
   },
   "user_agent": {
-    "original": "curl/7.68.0"
+    "original": "Go-http-client/1.1"
   },
   "event": {
-    "duration": 61000000,
-    "outcome": "success",
+    "duration": 3156000000,
+    "outcome": "failure",
+    "category": [
+      "web"
+    ],
+    "type": [
+      "access"
+    ],
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "{\"requestId\":\"3twmfs6e-pgp6\",\"requestMethod\":\"PATCH\",\"requestPath\":\"/api/v1/products\",\"status\":200,\"responseLatency\":61,\"integrationLatency\":51,\"timestamp\":\"2026-03-17T13:19:51.676Z\",\"traceId\":\"1-g87ab8vs-q5gq4v6w8mt\"}",
+  "message": "{\"requestId\":\"bvfywpka-ny62\",\"requestMethod\":\"PUT\",\"requestPath\":\"/api/v1/search\",\"status\":400,\"responseLatency\":3156,\"integrationLatency\":2682,\"timestamp\":\"2026-03-17T17:30:45.979Z\"}",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "BadRequestException",
+    "message": "HTTP 400",
+    "type": "server"
   },
   "data_stream": {
     "type": "metrics",

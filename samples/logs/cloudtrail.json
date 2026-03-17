@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "cloudtrail"
@@ -13,43 +13,58 @@
   },
   "aws": {
     "dimensions": {
-      "EventName": "InvokeFunction",
-      "EventSource": "lambda.amazonaws.com"
+      "EventName": "DescribeInstances",
+      "EventSource": "ec2.amazonaws.com"
     },
     "cloudtrail": {
       "event_version": "1.08",
-      "event_id": "oaaen8x0-8bd2-hahx",
-      "event_name": "InvokeFunction",
-      "event_source": "lambda.amazonaws.com",
+      "event_id": "k815ao4c-l1in-ybw3",
+      "event_name": "DescribeInstances",
+      "event_source": "ec2.amazonaws.com",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "XOA7UNGL-7C1U-Q011-6DLZ-V2WHSDYBP1H",
+      "request_id": "UMQTWOAJ-9SU2-O8E8-GJAW-GED8OXWVFZJ",
       "api_version": "2012-10-17",
       "management_event": true,
-      "read_only": false,
+      "read_only": true,
+      "source_ip_address": "205.160.121.45",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
       "user_identity": {
         "type": "IAMUser",
-        "user_name": "bob",
-        "account_id": "164820739518"
+        "user_name": "admin",
+        "account_id": "293847561023"
       },
       "request_parameters": {},
       "response_elements": {}
     }
   },
   "user": {
-    "name": "bob"
+    "name": "admin"
   },
   "source": {
-    "ip": "82.243.69.82"
+    "ip": "205.160.121.45",
+    "geo": {
+      "country_iso_code": "FR",
+      "city_name": "Frankfurt"
+    }
+  },
+  "user_agent": {
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
-    "action": "InvokeFunction",
+    "action": "DescribeInstances",
     "outcome": "success",
-    "category": "iam",
+    "category": [
+      "configuration"
+    ],
+    "type": [
+      "access",
+      "info"
+    ],
     "dataset": "aws.cloudtrail",
     "provider": "cloudtrail.amazonaws.com"
   },
-  "message": "bob performed InvokeFunction via lambda.amazonaws.com",
+  "message": "CloudTrail: DescribeInstances by admin from 205.160.121.45 - Success",
   "log": {
     "level": "info"
   }

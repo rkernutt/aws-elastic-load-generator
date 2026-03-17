@@ -1,42 +1,69 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "lakeformation"
     }
   },
   "aws": {
+    "dimensions": {
+      "ResourceArn": "arn:aws:glue:eu-west-2:501938274650:table/analytics/clickstream",
+      "Principal": "arn:aws:iam::501938274650:user/alice"
+    },
     "lakeformation": {
-      "database": "curated",
+      "database": "analytics",
       "table": "clickstream",
-      "action": "BatchGrantPermissions",
-      "principal_arn": "arn:aws:iam::814726593401:user/alice",
+      "action": "Grant",
+      "principal_arn": "arn:aws:iam::501938274650:user/alice",
+      "resource_arn": "arn:aws:glue:eu-west-2:501938274650:table/analytics/clickstream",
       "permissions": [
-        "SELECT",
-        "INSERT"
+        "ALL"
       ],
-      "lf_tag_key": "pii",
+      "lf_tag_key": "team",
       "lf_tag_values": [
-        "dev",
-        "staging"
-      ]
+        "pii"
+      ],
+      "error_code": "EntityNotFoundException",
+      "metrics": {
+        "GrantCount": {
+          "sum": 0
+        },
+        "DatabaseCount": {
+          "avg": 7
+        },
+        "TableCount": {
+          "avg": 194
+        },
+        "DataLakeSettings": {
+          "avg": 1
+        }
+      }
     }
   },
   "event": {
-    "action": "BatchGrantPermissions",
-    "outcome": "success",
-    "category": "iam",
+    "action": "Grant",
+    "duration": 4890000000,
+    "outcome": "failure",
+    "category": [
+      "database",
+      "iam"
+    ],
     "dataset": "aws.lakeformation",
     "provider": "lakeformation.amazonaws.com"
   },
-  "message": "Lake Formation BatchGrantPermissions: SELECT,INSERT on curated.clickstream",
+  "message": "Lake Formation Grant FAILED on analytics.clickstream: Access denied",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "AccessDeniedException",
+    "message": "Lake Formation operation failed",
+    "type": "access"
   }
 }

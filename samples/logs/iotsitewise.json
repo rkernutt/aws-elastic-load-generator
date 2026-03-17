@@ -1,37 +1,53 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "iotsitewise"
     }
   },
   "aws": {
+    "dimensions": {
+      "AssetId": "mcjxfxwi24",
+      "PropertyId": "mjuvsd82elp"
+    },
     "iotsitewise": {
-      "asset_id": "0g2f6h04st6d",
-      "asset_name": "hvac-unit-prod",
-      "asset_model_id": "hng7hbdlnfd",
-      "property_alias": "/company/plant/hvac-unit-prod/poweroutput",
-      "property_name": "PowerOutput",
-      "data_type": "STRING",
-      "value": 185.197,
+      "asset_id": "mcjxfxwi24",
+      "asset_name": "turbine-gen-3",
+      "asset_model_id": "mfee17u6vk",
+      "property_alias": "/company/plant/turbine-gen-3/vibration",
+      "property_name": "Vibration",
+      "data_type": "DOUBLE",
+      "value": 37.753,
       "quality": "GOOD",
-      "timestamp_offset_ms": 905,
-      "portal_id": "qar0v9073u"
+      "timestamp_offset_ms": 786,
+      "portal_id": "tdsm83bui3",
+      "metrics": {
+        "GatewayDataStreamPartitionCount": {
+          "avg": 4.99
+        },
+        "AssetPropertyValueCount": {
+          "sum": 21680
+        }
+      }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "host",
+    "category": [
+      "process",
+      "host"
+    ],
     "dataset": "aws.iotsitewise",
-    "provider": "iotsitewise.amazonaws.com"
+    "provider": "iotsitewise.amazonaws.com",
+    "duration": 49000000
   },
-  "message": "IoT SiteWise hvac-unit-prod/PowerOutput: 185.197 [GOOD]",
+  "message": "IoT SiteWise turbine-gen-3/Vibration: 37.753 [GOOD]",
   "log": {
     "level": "info"
   }

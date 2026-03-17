@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -12,38 +12,70 @@
     }
   },
   "aws": {
+    "dimensions": {
+      "TransitGateway": "tgw-8adbzui15av",
+      "TransitGatewayAttachment": "tgw-attach-1j2begn4h1s"
+    },
     "transitgateway": {
-      "tgw_id": "tgw-lieeoov1dlq",
-      "tgw_attachment_id": "tgw-attach-afcgltbw10e",
-      "resource_type": "vpc",
-      "src_vpc_id": "vpc-p4n84pyn",
-      "dst_vpc_id": "vpc-c4vse5r8",
+      "tgw_id": "tgw-8adbzui15av",
+      "tgw_attachment_id": "tgw-attach-1j2begn4h1s",
+      "resource_type": "peering",
+      "src_vpc_id": "vpc-koiej21l",
+      "dst_vpc_id": "vpc-acp0zdmv",
       "action": "accept",
-      "bytes": 39546,
-      "packets": 78,
-      "protocol": "ICMP"
+      "bytes": 1137,
+      "packets": 32,
+      "protocol": "UDP",
+      "metrics": {
+        "BytesIn": {
+          "sum": 5448900084
+        },
+        "BytesOut": {
+          "sum": 1902557910
+        },
+        "PacketsIn": {
+          "sum": 7528404
+        },
+        "PacketsOut": {
+          "sum": 973464
+        },
+        "PacketDropCountBlackhole": {
+          "sum": 0
+        },
+        "PacketDropCountNoRoute": {
+          "sum": 0
+        },
+        "BytesDropCountBlackhole": {
+          "sum": 0
+        },
+        "BytesDropCountNoRoute": {
+          "sum": 0
+        }
+      }
     }
   },
   "source": {
-    "ip": "247.172.245.57",
-    "port": 35963
+    "ip": "10.145.249.28",
+    "port": 9639
   },
   "destination": {
-    "ip": "76.102.160.231",
-    "port": 3306
+    "ip": "201.214.180.193",
+    "port": 443
   },
   "network": {
-    "transport": "icmp",
-    "bytes": 64138
+    "transport": "udp",
+    "bytes": 37507
   },
   "event": {
     "action": "accept",
     "outcome": "success",
-    "category": "network",
+    "category": [
+      "network"
+    ],
     "dataset": "aws.transitgateway",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "TGW tgw-lieeoov1dlq ACCEPT ICMP flow",
+  "message": "TGW tgw-8adbzui15av ACCEPT UDP flow",
   "log": {
     "level": "info"
   }

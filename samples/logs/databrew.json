@@ -1,38 +1,42 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "databrew"
     }
   },
   "aws": {
+    "dimensions": {
+      "JobName": "clean-customer-data-job",
+      "DatasetName": "sales-csv"
+    },
     "databrew": {
-      "project_name": "event-logs-project",
-      "recipe_name": "fix-encoding",
-      "job_name": "fix-encoding-job",
+      "project_name": "sales-csv-project",
+      "recipe_name": "clean-customer-data",
+      "job_name": "clean-customer-data-job",
       "job_type": "RECIPE",
-      "dataset_name": "event-logs",
+      "dataset_name": "sales-csv",
       "job_status": "SUCCEEDED",
       "run_state": "SUCCEEDED",
-      "duration_seconds": 236,
-      "rows_processed": 2012771,
-      "transform_steps": 21,
-      "output_location": "s3://databrew-output/event-logs/",
+      "duration_seconds": 460,
+      "rows_processed": 4346962,
+      "transform_steps": 19,
+      "output_location": "s3://databrew-output/sales-csv/",
       "metrics": {
         "RowsProcessed": {
-          "sum": 2012771
+          "sum": 4346962
         },
         "DurationSeconds": {
-          "avg": 236
+          "avg": 460
         },
         "TransformSteps": {
-          "avg": 21
+          "avg": 19
         },
         "JobSuccessCount": {
           "sum": 1
@@ -44,9 +48,11 @@
     }
   },
   "event": {
-    "duration": 236000000000,
+    "duration": 460000000000,
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.databrew",
     "provider": "databrew.amazonaws.com"
   },

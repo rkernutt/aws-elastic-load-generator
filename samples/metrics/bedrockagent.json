@@ -1,25 +1,29 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "bedrock-agent"
     }
   },
   "aws": {
+    "dimensions": {
+      "AgentId": "T95FJ1S7HNEE",
+      "Operation": "InvokeAgentWithResponseStream"
+    },
     "bedrockagent": {
-      "agent_id": "TTD1QTVJU43L",
+      "agent_id": "T95FJ1S7HNEE",
       "agent_alias_id": "TSTALIASID",
-      "session_id": "m2cxlbx2n4",
+      "session_id": "jtwt3qo72d",
       "action": "InvokeAgentWithResponseStream",
-      "input_token_count": 204,
-      "output_token_count": 1901,
-      "invocation_latency_ms": 6421,
+      "input_token_count": 3229,
+      "output_token_count": 1246,
+      "invocation_latency_ms": 6401,
       "orchestration_trace": {
         "model_invocation": {
           "model_arn": "arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-5-sonnet-v2"
@@ -28,29 +32,31 @@
       "guardrail_action": "INTERVENED",
       "metrics": {
         "Invocations": {
-          "sum": 122
+          "sum": 165
         },
         "InvocationLatency": {
-          "avg": 6421,
-          "p99": 12842
+          "avg": 6401,
+          "p99": 12802
         },
         "InputTokenCount": {
-          "sum": 204
+          "sum": 3229
         },
         "OutputTokenCount": {
-          "sum": 1901
+          "sum": 1246
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "machine_learning",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.bedrockagent",
     "provider": "bedrock-agent-runtime.amazonaws.com",
-    "duration": 6421000000
+    "duration": 6401000000
   },
-  "message": "Bedrock Agent TTD1QTVJU43L: InvokeAgentWithResponseStream 204→1901 tokens 6.42s",
+  "message": "Bedrock Agent T95FJ1S7HNEE: InvokeAgentWithResponseStream 3229→1246 tokens 6.40s",
   "log": {
     "level": "info"
   },

@@ -1,93 +1,106 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "apigateway"
     }
   },
-  "trace": {
-    "id": "1-g87ab8vs-q5gq4v6w8mt"
-  },
   "aws": {
     "dimensions": {
       "ApiName": "internal-api",
-      "Stage": "prod",
-      "Method": "PATCH",
-      "Resource": "/api/v1/products"
+      "Stage": "staging",
+      "Method": "PUT",
+      "Resource": "/api/v1/orders"
     },
     "apigateway": {
-      "request_id": "3twmfs6e-pgp6",
-      "trace_id": "1-g87ab8vs-q5gq4v6w8mt",
-      "api_id": "wylla8zk4a",
+      "request_id": "29cd7ieb-r4me",
+      "api_id": "5z0df9vtli",
       "api_name": "internal-api",
-      "stage": "prod",
-      "structured_logging": true,
+      "stage": "staging",
+      "structured_logging": false,
       "request": {
-        "http_method": "PATCH",
-        "path": "/api/v1/products",
+        "http_method": "PUT",
+        "path": "/api/v1/orders",
         "protocol": "HTTP/1.1"
       },
       "response": {
-        "status_code": 200,
-        "integration_latency_ms": 51,
-        "response_latency_ms": 61
+        "status_code": 204,
+        "integration_latency_ms": 253,
+        "response_latency_ms": 298
       },
       "metrics": {
         "Count": {
-          "sum": 356
+          "sum": 1
         },
-        "4xx": {
+        "4XXError": {
           "sum": 0
         },
-        "5xx": {
+        "5XXError": {
           "sum": 0
         },
         "Latency": {
-          "avg": 61,
-          "max": 91.5,
-          "min": 30.5
+          "avg": 298,
+          "p99": 894
         },
         "IntegrationLatency": {
-          "avg": 51,
-          "max": 79,
-          "min": 24
+          "avg": 238,
+          "p99": 745
+        },
+        "CacheHitCount": {
+          "sum": 0
+        },
+        "CacheMissCount": {
+          "sum": 1
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "PATCH",
-      "bytes": 4091
+      "method": "PUT",
+      "id": "29cd7ieb-r4me",
+      "bytes": 1091
     },
     "response": {
-      "status_code": 200,
-      "bytes": 657
+      "status_code": 204,
+      "bytes": 3450
     }
   },
   "url": {
-    "path": "/api/v1/products",
-    "domain": "wylla8zk4a.execute-api.eu-west-2.amazonaws.com"
+    "path": "/api/v1/orders",
+    "domain": "5z0df9vtli.execute-api.us-east-1.amazonaws.com"
   },
   "client": {
-    "ip": "172.152.64.213"
+    "ip": "149.229.11.65",
+    "geo": {
+      "country_iso_code": "US",
+      "country_name": "United States",
+      "region_name": "Virginia",
+      "city_name": "Ashburn"
+    }
   },
   "user_agent": {
-    "original": "curl/7.68.0"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
-    "duration": 61000000,
+    "duration": 298000000,
     "outcome": "success",
+    "category": [
+      "web"
+    ],
+    "type": [
+      "access"
+    ],
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "{\"requestId\":\"3twmfs6e-pgp6\",\"requestMethod\":\"PATCH\",\"requestPath\":\"/api/v1/products\",\"status\":200,\"responseLatency\":61,\"integrationLatency\":51,\"timestamp\":\"2026-03-17T13:19:51.676Z\",\"traceId\":\"1-g87ab8vs-q5gq4v6w8mt\"}",
+  "message": "PUT /api/v1/orders 204 298ms",
   "log": {
     "level": "info"
   }

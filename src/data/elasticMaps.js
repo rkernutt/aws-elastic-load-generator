@@ -45,12 +45,31 @@ const ELASTIC_DATASET_MAP = {
 // ═══════════════════════════════════════════════════════════════════════════
 
 const METRICS_SUPPORTED_SERVICE_IDS = new Set([
-  "lambda", "apigateway", "rds", "ec2", "ecs", "fargate", "alb", "nlb", "dynamodb", "redshift", "ebs", "aurora",
-  "kinesis", "msk", "firehose", "sns", "sqs", "s3", "cloudwatch", "transitgateway", "vpn", "waf", "wafv2",
-  "networkfirewall", "emr", "health", "billing", "cloudfront", "stepfunctions", "eventbridge", "eks", "glue",
-  "sagemaker", "bedrock", "bedrockagent",
-  "athena", "elasticache", "opensearch", "docdb", "codebuild", "batch", "apprunner",
-  "storagelens", "natgateway",
+  // Core compute & serverless
+  "lambda", "ec2", "ecs", "fargate", "eks", "apprunner", "elasticbeanstalk", "batch",
+  // Networking & CDN
+  "alb", "nlb", "cloudfront", "natgateway", "transitgateway", "vpn", "networkfirewall",
+  "globalaccelerator", "directconnect", "vpc",
+  // Databases & storage
+  "rds", "aurora", "dynamodb", "redshift", "ebs", "s3", "storagelens",
+  "elasticache", "opensearch", "docdb", "neptune", "keyspaces", "memorydb", "qldb", "timestream",
+  "efs", "fsx", "backup",
+  // Streaming & messaging
+  "kinesis", "kinesisanalytics", "msk", "firehose", "sns", "sqs", "eventbridge", "amazonmq",
+  // Security
+  "waf", "wafv2", "shield", "kms", "cognito",
+  // Analytics & ML
+  "glue", "athena", "emr", "sagemaker", "bedrock", "bedrockagent",
+  // Developer & CI/CD
+  "codebuild", "codepipeline", "codedeploy", "amplify",
+  // Management & observability
+  "cloudwatch", "stepfunctions", "appsync", "health", "billing",
+  // IoT
+  "iotcore",
+  // End-user & media
+  "workspaces", "connect", "gamelift", "transferfamily",
+  // Additional CloudWatch-capable
+  "route53", "autoscaling", "quicksight", "imagebuilder", "xray", "ses",
 ]);
 
 // Dataset for metrics mode when it differs from logs. Omitted = use ELASTIC_DATASET_MAP.
@@ -71,6 +90,8 @@ const ELASTIC_METRICS_DATASET_MAP = {
   bedrock:         "aws.bedrock",
   bedrockagent:    "aws.bedrockagent",
   storagelens:     "aws.s3_storage_lens",
+  vpc:             "aws.vpcflow",
+  route53:         "aws.route53_public_logs",
 };
 
 export { ELASTIC_DATASET_MAP, METRICS_SUPPORTED_SERVICE_IDS, ELASTIC_METRICS_DATASET_MAP };

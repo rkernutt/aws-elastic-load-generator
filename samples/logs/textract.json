@@ -1,35 +1,61 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "textract"
     }
   },
   "aws": {
+    "dimensions": {
+      "Operation": "DetectDocumentText"
+    },
     "textract": {
       "operation": "DetectDocumentText",
-      "document_type": "contract",
-      "pages_processed": 30,
-      "blocks_detected": 5820,
-      "words_detected": 13320,
+      "document_type": "bank-statement",
+      "pages_processed": 15,
+      "blocks_detected": 1155,
+      "words_detected": 5340,
       "form_key_value_pairs": 0,
       "tables_detected": 0,
-      "confidence_mean": 86.398
+      "confidence_mean": 94.757,
+      "metrics": {
+        "DocumentsProcessed": {
+          "sum": 1
+        },
+        "ThrottledRequests": {
+          "sum": 0
+        },
+        "ResponseTime": {
+          "avg": 2733.771
+        },
+        "SuccessfulRequests": {
+          "sum": 1
+        },
+        "UserErrorRequests": {
+          "sum": 0
+        },
+        "ServerErrorRequests": {
+          "sum": 0
+        }
+      }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "machine_learning",
+    "category": [
+      "process",
+      "file"
+    ],
     "dataset": "aws.textract",
     "provider": "textract.amazonaws.com"
   },
-  "message": "Textract DetectDocumentText: contract, 30 pages, 12750 words",
+  "message": "Textract DetectDocumentText: bank-statement, 15 pages, 4305 words",
   "log": {
     "level": "info"
   }

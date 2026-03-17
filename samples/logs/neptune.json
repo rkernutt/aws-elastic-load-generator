@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "neptune"
@@ -13,22 +13,44 @@
   },
   "aws": {
     "neptune": {
-      "cluster_id": "recommendation-engine",
-      "query_language": "openCypher",
-      "query": "MATCH (n)-[r]->(m) WHERE n.id=$id RETURN n,r,m",
-      "duration_ms": 1531,
+      "cluster_id": "knowledge-graph",
+      "query_language": "SPARQL",
+      "query": "SELECT ?entity WHERE { ?entity rdf:type :Product }",
+      "duration_ms": 3695,
       "http_status": 200,
-      "db_connections": 161
+      "db_connections": 41,
+      "metrics": {
+        "CPUUtilization": {
+          "avg": 40.5
+        },
+        "FreeableMemory": {
+          "avg": 5355003865
+        },
+        "DatabaseConnections": {
+          "avg": 90
+        },
+        "GremlinRequestsPerSec": {
+          "avg": 0
+        },
+        "SparqlRequestsPerSec": {
+          "avg": 360.275
+        },
+        "ServerlessDBCapacity": {
+          "avg": 23.388
+        }
+      }
     }
   },
   "event": {
-    "duration": 1531018000,
+    "duration": 3694874000,
     "outcome": "success",
-    "category": "database",
+    "category": [
+      "database"
+    ],
     "dataset": "aws.neptune",
     "provider": "neptune.amazonaws.com"
   },
-  "message": "Neptune openCypher: 1531ms",
+  "message": "Neptune SPARQL: 3695ms",
   "log": {
     "level": "info"
   }

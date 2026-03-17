@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "networkmanager"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "networkmanager": {
-      "global_network_id": "network-t40qknjpnob",
-      "global_network_name": "global-network-prod",
-      "event_type": "CONNECTION_STATUS_UP",
-      "device_id": "device-62frtn228dj",
-      "link_id": "link-3wnazkomg0e",
-      "site_id": "site-rmvofo2m15",
-      "site_name": "dc-us-east",
-      "bandwidth_mbps": 500,
-      "provider": "Telstra",
-      "type": "direct-connect",
+      "global_network_id": "network-8ijxwxbyf47",
+      "global_network_name": "enterprise-wan",
+      "event_type": "CONNECTION_STATUS_DOWN",
+      "device_id": "device-diw40mc8vr",
+      "link_id": "link-kx0bun58j8",
+      "site_id": "site-721qayp4wli",
+      "site_name": "hq-london",
+      "bandwidth_mbps": 10,
+      "provider": "NTT",
+      "type": "vpn",
       "state": "UP"
     }
   },
@@ -32,8 +32,8 @@
     "dataset": "aws.networkmanager",
     "provider": "networkmanager.amazonaws.com"
   },
-  "message": "Network Manager CONNECTION_STATUS_UP [global-network-prod]: branch-tokyo link UP",
+  "message": "Network Manager CONNECTION_STATUS_DOWN [enterprise-wan]: branch-tokyo link UP",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

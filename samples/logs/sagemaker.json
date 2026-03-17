@@ -1,68 +1,75 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "sagemaker"
     }
   },
   "aws": {
+    "dimensions": {
+      "TrainingJobName": "lstm-timeseries-transform-pvpzum",
+      "JobType": "Transform"
+    },
     "sagemaker": {
-      "domain_id": "d-g5iaafelkg",
-      "domain_name": "nlp-experiments",
-      "user_profile": "carol-research",
+      "domain_id": "d-wnhmtmdjq0",
+      "domain_name": "ml-research",
+      "user_profile": "bob-ml",
       "job": {
-        "name": "resnet50-custom-training-867gki",
-        "type": "Training",
-        "arn": "arn:aws:sagemaker:us-east-1:814726593401:training-job/resnet50-custom-training-867gki"
+        "name": "lstm-timeseries-transform-pvpzum",
+        "type": "Transform",
+        "arn": "arn:aws:sagemaker:us-east-1:164820739518:training-job/lstm-timeseries-transform-pvpzum"
       },
       "model": {
-        "name": "resnet50-custom",
-        "version": 9
+        "name": "lstm-timeseries",
+        "version": 23
       },
       "pipeline": {
         "name": "model-training-pipeline",
-        "execution_id": "pipe-ivwjph32jlj"
+        "execution_id": "pipe-hc1budfvjkh"
       },
       "instance": {
-        "type": "ml.m5.xlarge",
-        "count": 1
+        "type": "ml.g4dn.xlarge",
+        "count": 2
       },
       "metrics": {
-        "training_loss": 0.4256,
-        "accuracy": 0.712,
-        "epoch": 10,
-        "gpu_utilization_pct": 41,
-        "cpu_utilization_pct": 86
+        "training_loss": 0.1472,
+        "accuracy": 0.9106,
+        "epoch": 83,
+        "gpu_utilization_pct": 40,
+        "cpu_utilization_pct": 58
       },
       "studio": {
+        "space_name": "cv-team",
+        "app_type": "RStudio",
+        "app_name": "default",
         "lifecycle_config": false,
-        "continuous_logging": false
+        "continuous_logging": true
       },
-      "cloudwatch_metrics": {
+      "cloudwatch": {
         "Invocations": {
-          "sum": 464
+          "sum": 3753
         },
         "ModelLatency": {
-          "avg": 179,
-          "p99": 537
+          "avg": 161,
+          "p99": 483
         },
         "GPUUtilization": {
-          "avg": 81
+          "avg": 41
         },
         "CPUUtilization": {
-          "avg": 36
+          "avg": 49
         },
         "DiskUtilization": {
-          "avg": 52
+          "avg": 12
         },
         "MemoryUtilization": {
-          "avg": 50
+          "avg": 56
         },
         "Invocations4XXError": {
           "sum": 0
@@ -77,15 +84,17 @@
     "level": "info"
   },
   "user": {
-    "name": "carol-research"
+    "name": "bob-ml"
   },
   "event": {
-    "action": "PipelineExecutionStarted",
-    "duration": 4235033000000.0005,
+    "action": "AppDeleted",
+    "duration": 9102357000000,
     "outcome": "success",
-    "category": "machine_learning",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "Training job completed successfully"
+  "message": "{\"domainId\":\"d-wnhmtmdjq0\",\"space\":\"cv-team\",\"appType\":\"RStudio\",\"user\":\"bob-ml\",\"level\":\"INFO\",\"message\":\"Transform job started\",\"timestamp\":\"2026-03-17T18:02:32.099Z\",\"event\":\"AppDeleted\"}"
 }

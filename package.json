@@ -1,6 +1,6 @@
 {
   "name": "aws-elastic-load-generator",
-  "version": "7.6.0",
+  "version": "8.0.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,9 @@
     "copy-icons": "node scripts/copy-aws-icons.mjs",
     "postinstall": "npm run copy-icons",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "setup:integration": "node installer/elastic-integration/index.mjs",
+    "setup:pipelines": "node installer/custom-pipelines/index.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

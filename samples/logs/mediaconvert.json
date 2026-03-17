@@ -1,41 +1,66 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "mediaconvert"
     }
   },
   "aws": {
+    "dimensions": {
+      "Operation": "HLS"
+    },
     "mediaconvert": {
-      "job_id": "8276739380-5gwr1p",
-      "queue_arn": "arn:aws:mediaconvert:us-east-1:164820739518:queues/premium",
-      "job_status": "COMPLETE",
-      "output_group_type": "MP4",
-      "input_file": "s3://uploads/user-video.mp4",
-      "input_duration_minutes": 107.1,
-      "video_codec": "H_264",
-      "audio_codec": "AC3",
-      "width": 1280,
-      "height": 2160,
-      "bitrate_kbps": 3000,
-      "duration_seconds": 530
+      "job_id": "9991374752-xphgll",
+      "queue_arn": "arn:aws:mediaconvert:us-east-1:738291046572:queues/batch",
+      "job_status": "ERROR",
+      "output_group_type": "HLS",
+      "input_file": "s3://media-input/raw/interview.mov",
+      "input_duration_minutes": 5.617,
+      "video_codec": "H_265",
+      "audio_codec": "MP3",
+      "width": 1920,
+      "height": 1080,
+      "bitrate_kbps": 5000,
+      "duration_seconds": 1016,
+      "error_message": "Unsupported codec",
+      "metrics": {
+        "JobsCompletedCount": {
+          "sum": 0
+        },
+        "JobsErroredCount": {
+          "sum": 1
+        },
+        "StandbyTime": {
+          "avg": 154
+        },
+        "TranscodingTime": {
+          "avg": 1016
+        }
+      }
     }
   },
   "event": {
-    "duration": 530000000000,
-    "outcome": "success",
-    "category": "process",
+    "duration": 1016000000000,
+    "outcome": "failure",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.mediaconvert",
     "provider": "mediaconvert.amazonaws.com"
   },
-  "message": "MediaConvert job 8276739380-5gwr1p COMPLETE: 107.1 min -> MP4",
+  "message": "MediaConvert job 9991374752-xphgll ERROR: Invalid format",
+  "error": {
+    "code": "JobError",
+    "message": "MediaConvert job failed",
+    "type": "media"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "cloudformation"
@@ -13,23 +13,44 @@
   },
   "aws": {
     "cloudformation": {
-      "stack_name": "rds-cluster",
-      "stack_id": "arn:aws:cloudformation:eu-west-2:501938274650:stack/rds-cluster/t2iwiltr",
+      "stack_name": "ecs-services",
+      "stack_id": "arn:aws:cloudformation:us-east-1:738291046572:stack/ecs-services/xhlg822c",
       "action": "CREATE_STACK",
-      "stack_status": "UPDATE_COMPLETE",
+      "stack_status": "CREATE_IN_PROGRESS",
       "resource_type": "AWS::Lambda::Function",
-      "logical_resource_id": "WebServerASG",
-      "drift_status": "DRIFTED",
-      "structured_logging": false
+      "logical_resource_id": "TaskRole",
+      "drift_status": "IN_SYNC",
+      "structured_logging": false,
+      "metrics": {
+        "TotalStack": {
+          "avg": 39
+        },
+        "ErroredStack": {
+          "avg": 0
+        },
+        "RollbackStack": {
+          "avg": 0
+        },
+        "DeletedStack": {
+          "avg": 20
+        },
+        "StackInstancesDeployed": {
+          "avg": 4166
+        }
+      }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "configuration",
+    "category": [
+      "configuration",
+      "process"
+    ],
     "dataset": "aws.cloudformation",
-    "provider": "cloudformation.amazonaws.com"
+    "provider": "cloudformation.amazonaws.com",
+    "duration": 277000000000
   },
-  "message": "CloudFormation rds-cluster: CREATE_STACK -> UPDATE_COMPLETE",
+  "message": "CloudFormation ecs-services: CREATE_STACK -> CREATE_IN_PROGRESS",
   "log": {
     "level": "info"
   }

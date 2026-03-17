@@ -1,32 +1,35 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "appflow"
     }
   },
   "aws": {
+    "dimensions": {
+      "FlowName": "salesforce-to-s3"
+    },
     "appflow": {
-      "flow_name": "hubspot-sync",
-      "flow_arn": "arn:aws:appflow:us-east-1:501938274650:flow/hubspot-sync",
-      "source_connector_type": "Salesforce",
+      "flow_name": "salesforce-to-s3",
+      "flow_arn": "arn:aws:appflow:eu-west-2:164820739518:flow/salesforce-to-s3",
+      "source_connector_type": "ServiceNow",
       "destination_connector_type": "Salesforce",
-      "trigger_type": "Event",
+      "trigger_type": "Scheduled",
       "execution_status": "ExecutionSuccessful",
-      "records_processed": 394980,
-      "duration_ms": 42677,
+      "records_processed": 906259,
+      "duration_ms": 46623,
       "metrics": {
         "RecordsProcessed": {
-          "sum": 394980
+          "sum": 906259
         },
         "DurationMs": {
-          "avg": 42677
+          "avg": 46623
         },
         "ExecutionSuccessCount": {
           "sum": 1
@@ -39,12 +42,14 @@
   },
   "event": {
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.appflow",
     "provider": "appflow.amazonaws.com",
-    "duration": 42677000000
+    "duration": 46623000000
   },
-  "message": "AppFlow hubspot-sync: 394,980 records Salesforce->Salesforce",
+  "message": "Flow run succeeded",
   "log": {
     "level": "info"
   }

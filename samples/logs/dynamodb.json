@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,38 +13,44 @@
   },
   "aws": {
     "dimensions": {
-      "TableName": "events",
-      "Operation": "PutItem"
+      "TableName": "orders",
+      "Operation": "UpdateItem"
     },
     "dynamodb": {
-      "table_name": "events",
-      "operation": "PutItem",
-      "consumed_read_capacity_units": 40.566,
-      "consumed_write_capacity_units": 47.692,
-      "items_count": 689,
-      "structured_logging": true,
+      "table_name": "orders",
+      "operation": "UpdateItem",
+      "consumed_read_capacity_units": 39.203,
+      "consumed_write_capacity_units": 8.584,
+      "items_count": 204,
+      "structured_logging": false,
       "metrics": {
         "ConsumedReadCapacityUnits": {
-          "sum": 40.566
+          "sum": 666
         },
         "ConsumedWriteCapacityUnits": {
-          "sum": 47.692
+          "sum": 132
         },
         "ProvisionedReadCapacityUnits": {
-          "avg": 7029
+          "avg": 671
         },
         "ProvisionedWriteCapacityUnits": {
-          "avg": 3277
+          "avg": 539
         },
-        "SuccessfulRequestLatency": {
-          "avg": 6,
-          "p99": 9
+        "ReadThrottleEvents": {
+          "sum": 0
+        },
+        "WriteThrottleEvents": {
+          "sum": 0
         },
         "SystemErrors": {
           "sum": 0
         },
         "UserErrors": {
           "sum": 0
+        },
+        "SuccessfulRequestLatency": {
+          "avg": 3.831,
+          "p99": 16.528
         },
         "ThrottledRequests": {
           "sum": 0
@@ -53,24 +59,32 @@
           "sum": 0
         },
         "ReturnedItemCount": {
-          "avg": 149
+          "avg": 474
+        },
+        "ReturnedBytes": {
+          "avg": 214408
         }
       }
     }
   },
   "db": {
-    "name": "events",
-    "operation": "PutItem",
+    "name": "orders",
+    "operation": "UpdateItem",
     "type": "nosql"
   },
   "event": {
     "outcome": "success",
-    "category": "database",
+    "category": [
+      "database"
+    ],
+    "type": [
+      "access"
+    ],
     "dataset": "aws.dynamodb",
     "provider": "dynamodb.amazonaws.com",
-    "duration": 24000000
+    "duration": 6000000
   },
-  "message": "{\"table\":\"events\",\"operation\":\"PutItem\",\"consumedReadCapacityUnits\":40.566,\"consumedWriteCapacityUnits\":47.692,\"timestamp\":\"2026-03-17T13:19:51.676Z\"}",
+  "message": "DynamoDB UpdateItem orders: consumed 39.203 RCU, 8.584 WCU",
   "log": {
     "level": "info"
   }

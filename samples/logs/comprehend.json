@@ -1,40 +1,56 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "comprehend"
     }
   },
   "aws": {
+    "dimensions": {
+      "Operation": "DetectPiiEntities"
+    },
     "comprehend": {
-      "operation": "DetectLanguage",
-      "language_code": "pt",
-      "text_bytes": 71137,
+      "operation": "DetectPiiEntities",
+      "language_code": "zh",
+      "text_bytes": 64326,
       "entities_detected": 0,
       "key_phrases_detected": 0,
-      "pii_entities_detected": 0,
-      "error_code": "UnsupportedLanguageException"
+      "pii_entities_detected": 3,
+      "error_code": "UnsupportedLanguageException",
+      "metrics": {
+        "NumberOfSuccessfulRequest": {
+          "sum": 1
+        },
+        "NumberOfFailedRequest": {
+          "sum": 1
+        },
+        "ResponseTime": {
+          "avg": 1134.923
+        }
+      }
     }
   },
   "event": {
     "outcome": "failure",
-    "category": "machine_learning",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.comprehend",
     "provider": "comprehend.amazonaws.com"
   },
-  "message": "Comprehend DetectLanguage FAILED: Unsupported language",
+  "message": "Comprehend DetectPiiEntities FAILED: Text too large",
+  "log": {
+    "level": "error"
+  },
   "error": {
     "code": "ComprehendError",
     "message": "Comprehend operation failed",
     "type": "ml"
-  },
-  "log": {
-    "level": "error"
   }
 }

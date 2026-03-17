@@ -251,18 +251,47 @@ function generateLakeFormationLog(ts, er) {
   const table = rand(["events","users","transactions","products","clickstream"]);
   const action = rand(["Grant","Revoke","BatchGrantPermissions","GetDataAccess","CreateLakeFormationTag"]);
   const perms = rand([["SELECT"],["SELECT","INSERT"],["ALL"],["DESCRIBE"]]);
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"lakeformation"}},
-    "aws":{lakeformation:{database:db,table:table,action,
-      principal_arn:`arn:aws:iam::${acct.id}:${rand(["role/analyst-role","user/alice","role/glue-role"])}`,
-      permissions:perms,
-      lf_tag_key:rand(["team","environment","classification","pii"]),
-      lf_tag_values:rand([["prod"],["dev","staging"],["pii"]]),
-      error_code:isErr?rand(["AccessDeniedException","EntityNotFoundException"]):null}},
-    "event":{action,outcome:isErr?"failure":"success",category:["database","iam"],dataset:"aws.lakeformation",provider:"lakeformation.amazonaws.com"},
-    "message":isErr?`Lake Formation ${action} FAILED on ${db}.${table}: ${rand(["Access denied","Entity not found"])}`:
-      `Lake Formation ${action}: ${perms.join(",")} on ${db}.${table}`,
-    "log":{level:isErr?"error":"info"},
-    ...(isErr ? { error: { code: rand(["AccessDeniedException","EntityNotFoundException"]), message: "Lake Formation operation failed", type: "access" } } : {})};
+  const principalArn = `arn:aws:iam::${acct.id}:${rand(["role/analyst-role","user/alice","role/glue-role"])}`;
+  const resourceArn = `arn:aws:glue:${region}:${acct.id}:table/${db}/${table}`;
+  const durationMs = randInt(50, isErr ? 5000 : 1000);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"lakeformation" } },
+    "aws": {
+      dimensions: { ResourceArn: resourceArn, Principal: principalArn },
+      lakeformation: {
+        database: db,
+        table: table,
+        action,
+        principal_arn: principalArn,
+        resource_arn: resourceArn,
+        permissions: perms,
+        lf_tag_key: rand(["team","environment","classification","pii"]),
+        lf_tag_values: rand([["prod"],["dev","staging"],["pii"]]),
+        error_code: isErr ? rand(["AccessDeniedException","EntityNotFoundException"]) : null,
+        metrics: {
+          // AWS Lake Formation CloudWatch metrics
+          GrantCount: { sum: isErr ? 0 : randInt(1, 50) },
+          DatabaseCount: { avg: randInt(1, 20) },
+          TableCount: { avg: randInt(1, 200) },
+          DataLakeSettings: { avg: 1 },
+        },
+      },
+    },
+    "event": {
+      action,
+      duration: durationMs * 1e6,
+      outcome: isErr ? "failure" : "success",
+      category: ["database","iam"],
+      dataset: "aws.lakeformation",
+      provider: "lakeformation.amazonaws.com",
+    },
+    "message": isErr
+      ? `Lake Formation ${action} FAILED on ${db}.${table}: ${rand(["Access denied","Entity not found"])}`
+      : `Lake Formation ${action}: ${perms.join(",")} on ${db}.${table}`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["AccessDeniedException","EntityNotFoundException"]), message: "Lake Formation operation failed", type: "access" } } : {}),
+  };
 }
 
 function generateQuickSightLog(ts, er) {
@@ -271,23 +300,51 @@ function generateQuickSightLog(ts, er) {
   const user = rand(["alice@corp.com","bob@corp.com","carol@corp.com"]);
   const action = rand(["DescribeDashboard","GetDashboardEmbedUrl","CreateAnalysis","RefreshDataSet","ListDashboards"]);
   const dur = randInt(200, isErr?30000:5000);
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"quicksight"}},
-    "aws":{quicksight:{dashboard_id:randId(36).toLowerCase(),dashboard_name:dashboard,
-      action,user_name:user,
-      data_source_type:rand(["AURORA","ATHENA","S3","REDSHIFT","RDS"]),
-      query_duration_ms:dur,rows_returned:randInt(0,100000),
-      error_code:isErr?rand(["AccessDeniedException","ResourceNotFoundException","ThrottlingException"]):null,
-      metrics:{
-        DashboardViewEvents:{ sum:randInt(1,1000) },
-        SessionEvent:{ sum:randInt(1,500) },
-        SPICECapacityUsed:{ avg:randFloat(10,90) },
-      }}},
-    "user":{name:user},
-    "event":{duration:dur*1e6,outcome:isErr?"failure":"success",category:["web","process"],dataset:"aws.quicksight",provider:"quicksight.amazonaws.com"},
-    "message":isErr?`QuickSight ${action} FAILED: ${dashboard} for ${user}`:
-      `QuickSight ${action}: ${dashboard} loaded in ${dur}ms for ${user}`,
-    "log":{level:isErr?"error":dur>10000?"warn":"info"},
-    ...(isErr ? { error: { code: rand(["AccessDeniedException","ResourceNotFoundException","ThrottlingException"]), message: "QuickSight operation failed", type: "bi" } } : {})};
+  const dashboardId = randId(36).toLowerCase();
+  const dataSetId = randId(36).toLowerCase();
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"quicksight" } },
+    "aws": {
+      dimensions: { DashboardId: dashboardId, DataSetId: dataSetId },
+      quicksight: {
+        dashboard_id: dashboardId,
+        dashboard_name: dashboard,
+        dataset_id: dataSetId,
+        action,
+        user_name: user,
+        data_source_type: rand(["AURORA","ATHENA","S3","REDSHIFT","RDS"]),
+        query_duration_ms: dur,
+        rows_returned: randInt(0, 100000),
+        error_code: isErr ? rand(["AccessDeniedException","ResourceNotFoundException","ThrottlingException"]) : null,
+        metrics: {
+          // AWS QuickSight CloudWatch metrics
+          DashboardViewEvents: { sum: randInt(1, 1000) },
+          SessionEvent: { sum: randInt(1, 500) },
+          // SPICECapacityUsed is a numeric percentage — must be a number, not a string
+          SPICECapacityUsed: { avg: parseFloat(randFloat(10, 90)) },
+          // Additional real QuickSight CloudWatch metrics
+          SPICECapacityScheduled: { avg: parseFloat(randFloat(10, 100)) },
+          EmbedCallCount: { sum: randInt(0, 500) },
+          ClientError: { sum: isErr ? randInt(1, 50) : 0 },
+          RowLevelSecurityEnabled: { avg: Math.random() < 0.4 ? 1 : 0 },
+        },
+      },
+    },
+    "user": { name: user },
+    "event": {
+      duration: dur * 1e6,
+      outcome: isErr ? "failure" : "success",
+      category: ["web","process"],
+      dataset: "aws.quicksight",
+      provider: "quicksight.amazonaws.com",
+    },
+    "message": isErr
+      ? `QuickSight ${action} FAILED: ${dashboard} for ${user}`
+      : `QuickSight ${action}: ${dashboard} loaded in ${dur}ms for ${user}`,
+    "log": { level: isErr ? "error" : dur > 10000 ? "warn" : "info" },
+    ...(isErr ? { error: { code: rand(["AccessDeniedException","ResourceNotFoundException","ThrottlingException"]), message: "QuickSight operation failed", type: "bi" } } : {}),
+  };
 }
 
 function generateDataBrewLog(ts, er) {
@@ -300,25 +357,38 @@ function generateDataBrewLog(ts, er) {
   const transformSteps = randInt(3, 25);
   const databrewMsgs = isErr ? ["Job run failed",`DataBrew job ${recipe} FAILED on ${dataset}: ${rand(["Type mismatch","Access denied","Schema error"])}`] : ["Job run started","Job run succeeded",`DataBrew job ${recipe}: ${rowsProcessed.toLocaleString()} rows in ${dur}s`];
   const plainMessage = rand(databrewMsgs);
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"databrew"}},
-    "aws":{databrew:{project_name:`${dataset}-project`,recipe_name:recipe,
-      job_name:`${recipe}-job`,job_type:rand(["RECIPE","PROFILE"]),
-      dataset_name:dataset,job_status:isErr?"FAILED":"SUCCEEDED",run_state:runState,
-      duration_seconds:dur,rows_processed:rowsProcessed,
-      transform_steps:transformSteps,
-      output_location:`s3://databrew-output/${dataset}/`,
-      error_message:isErr?rand(["Input dataset not found","Data type mismatch","Access denied"]):null,
-      metrics:{
-        RowsProcessed:{sum:rowsProcessed},
-        DurationSeconds:{avg:dur},
-        TransformSteps:{avg:transformSteps},
-        JobSuccessCount:{sum:isErr?0:1},
-        JobFailureCount:{sum:isErr?1:0},
-      }}},
-    "event":{duration:dur*1e9,outcome:isErr?"failure":"success",category:["process"],dataset:"aws.databrew",provider:"databrew.amazonaws.com"},
-    "message":plainMessage,
-    "log":{level:isErr?"error":"info"},
-    ...(isErr ? { error: { code: "JobFailed", message: "DataBrew job failed", type: "process" } } : {})};
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"databrew" } },
+    "aws": {
+      dimensions: { JobName: `${recipe}-job`, DatasetName: dataset },
+      databrew: {
+        project_name: `${dataset}-project`,
+        recipe_name: recipe,
+        job_name: `${recipe}-job`,
+        job_type: rand(["RECIPE","PROFILE"]),
+        dataset_name: dataset,
+        job_status: isErr ? "FAILED" : "SUCCEEDED",
+        run_state: runState,
+        duration_seconds: dur,
+        rows_processed: rowsProcessed,
+        transform_steps: transformSteps,
+        output_location: `s3://databrew-output/${dataset}/`,
+        error_message: isErr ? rand(["Input dataset not found","Data type mismatch","Access denied"]) : null,
+        metrics: {
+          RowsProcessed: { sum: rowsProcessed },
+          DurationSeconds: { avg: dur },
+          TransformSteps: { avg: transformSteps },
+          JobSuccessCount: { sum: isErr ? 0 : 1 },
+          JobFailureCount: { sum: isErr ? 1 : 0 },
+        },
+      },
+    },
+    "event": { duration: dur*1e9, outcome: isErr?"failure":"success", category: ["process"], dataset: "aws.databrew", provider: "databrew.amazonaws.com" },
+    "message": plainMessage,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: "JobFailed", message: "DataBrew job failed", type: "process" } } : {}),
+  };
 }
 
 function generateAppFlowLog(ts, er) {
@@ -330,25 +400,34 @@ function generateAppFlowLog(ts, er) {
   const durationMs = randInt(1000, isErr?300000:60000);
   const appflowMsgs = isErr ? ["Flow run failed",`AppFlow ${flow} (${src}->${dst}) FAILED: ${rand(["Credentials expired","Rate limit","Schema mismatch"])}`] : ["Flow run started","Flow run succeeded",`AppFlow ${flow}: ${records.toLocaleString()} records ${src}->${dst}`];
   const plainMessage = rand(appflowMsgs);
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"appflow"}},
-    "aws":{appflow:{flow_name:flow,
-      flow_arn:`arn:aws:appflow:${region}:${acct.id}:flow/${flow}`,
-      source_connector_type:src,destination_connector_type:dst,
-      trigger_type:rand(["Scheduled","Event","OnDemand"]),
-      execution_status:isErr?"ExecutionFailed":"ExecutionSuccessful",
-      records_processed:records,
-      duration_ms:durationMs,
-      error_message:isErr?rand(["Credentials expired","Rate limit exceeded","Schema mismatch"]):null,
-      metrics:{
-        RecordsProcessed:{sum:records},
-        DurationMs:{avg:durationMs},
-        ExecutionSuccessCount:{sum:isErr?0:1},
-        ExecutionFailureCount:{sum:isErr?1:0},
-      }}},
-    "event":{outcome:isErr?"failure":"success",category:["process"],dataset:"aws.appflow",provider:"appflow.amazonaws.com",duration:durationMs*1e6},
-    "message":plainMessage,
-    "log":{level:isErr?"error":"info"},
-    ...(isErr ? { error: { code: "ExecutionFailed", message: "AppFlow execution failed", type: "integration" } } : {})};
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"appflow" } },
+    "aws": {
+      dimensions: { FlowName: flow },
+      appflow: {
+        flow_name: flow,
+        flow_arn: `arn:aws:appflow:${region}:${acct.id}:flow/${flow}`,
+        source_connector_type: src,
+        destination_connector_type: dst,
+        trigger_type: rand(["Scheduled","Event","OnDemand"]),
+        execution_status: isErr ? "ExecutionFailed" : "ExecutionSuccessful",
+        records_processed: records,
+        duration_ms: durationMs,
+        error_message: isErr ? rand(["Credentials expired","Rate limit exceeded","Schema mismatch"]) : null,
+        metrics: {
+          RecordsProcessed: { sum: records },
+          DurationMs: { avg: durationMs },
+          ExecutionSuccessCount: { sum: isErr ? 0 : 1 },
+          ExecutionFailureCount: { sum: isErr ? 1 : 0 },
+        },
+      },
+    },
+    "event": { outcome: isErr?"failure":"success", category: ["process"], dataset: "aws.appflow", provider: "appflow.amazonaws.com", duration: durationMs*1e6 },
+    "message": plainMessage,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: "ExecutionFailed", message: "AppFlow execution failed", type: "integration" } } : {}),
+  };
 }
 
 function generateOpenSearchLog(ts, er) {
@@ -357,44 +436,73 @@ function generateOpenSearchLog(ts, er) {
   const clientId = acct.id;
   const action = rand(["IndexDocument","SearchDocument","DeleteDocument","CreateIndex","BulkIndex","ClusterHealth"]);
   const dur = randInt(1, isErr?10000:500);
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"opensearch"}},
-    "aws":{
-      dimensions:{ ClientId:clientId, DomainName:domainName },
-      opensearch:{
-        domain_name:domainName,
-        client_id:clientId,
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"opensearch" } },
+    "aws": {
+      dimensions: { ClientId: clientId, DomainName: domainName },
+      opensearch: {
+        domain_name: domainName,
+        client_id: clientId,
         action,
-        error_code:isErr?rand(["ClusterBlockException","SearchPhaseExecutionException","IndexNotFoundException","AuthorizationException"]):null,
-        metrics:{
-          "ClusterStatus.green":{ avg:isErr?0:1 },
-          "ClusterStatus.yellow":{ avg:isErr&&Math.random()>0.5?1:0 },
-          "ClusterStatus.red":{ avg:isErr&&Math.random()>0.5?1:0 },
-          Nodes:{ avg:randInt(1,20) },
-          SearchableDocuments:{ avg:randInt(1000,1e9) },
-          DeletedDocuments:{ avg:randInt(0,1e6) },
-          CPUUtilization:{ avg:randFloat(10,isErr?95:60) },
-          FreeStorageSpace:{ avg:randInt(1e9,500e9) },
-          JVMMemoryPressure:{ avg:randFloat(10,isErr?95:60) },
-          JVMGCYoungCollectionCount:{ sum:randInt(1,100) },
-          JVMGCYoungCollectionTime:{ sum:randInt(1,1000) },
-          JVMGCOldCollectionCount:{ sum:randInt(0,5) },
-          JVMGCOldCollectionTime:{ sum:randInt(0,5000) },
-          KibanaHealthyNodes:{ avg:randInt(1,3) },
-          KibanaConcurrentConnections:{ avg:randInt(1,100) },
-          KibanaHeapUsed:{ avg:randFloat(10,80) },
-          KibanaRequestTotal:{ sum:randInt(1,1000) },
-          KibanaResponseTimesMaxInMillis:{ avg:randFloat(10,2000) },
-          SearchLatency:{ avg:randFloat(1,isErr?5000:100) },
-          IndexingLatency:{ avg:randFloat(1,isErr?1000:50) },
-          SearchRate:{ avg:randFloat(1,1000) },
-          IndexingRate:{ avg:randFloat(1,1000) },
-        }
-      }},
-    "event":{duration:dur*1e6,outcome:isErr?"failure":"success",category:["database","network"],dataset:"aws.opensearch",provider:"es.amazonaws.com"},
-    "message":isErr?`OpenSearch ${action} FAILED on ${domainName}: ${rand(["Cluster red","IndexNotFound","AuthorizationException"])}`:
-      `OpenSearch ${action} on ${domainName} in ${dur}ms`,
-    "log":{level:isErr?"error":"info"},
-    ...(isErr ? { error:{ code:rand(["ClusterBlockException","SearchPhaseExecutionException","IndexNotFoundException"]), message:"OpenSearch operation failed", type:"search" } } : {})};
+        error_code: isErr ? rand(["ClusterBlockException","SearchPhaseExecutionException","IndexNotFoundException","AuthorizationException"]) : null,
+        metrics: {
+          // AWS OpenSearch Service CloudWatch metric names (exact)
+          "ClusterStatus.green": { avg: isErr ? 0 : 1 },
+          "ClusterStatus.yellow": { avg: isErr && Math.random() > 0.5 ? 1 : 0 },
+          "ClusterStatus.red": { avg: isErr && Math.random() > 0.5 ? 1 : 0 },
+          Nodes: { avg: randInt(1, 20) },
+          SearchableDocuments: { avg: randInt(1000, 1e9) },
+          DeletedDocuments: { avg: randInt(0, 1e6) },
+          // CPUUtilization is a percentage (numeric) — must not be a string
+          CPUUtilization: { avg: parseFloat(randFloat(10, isErr ? 95 : 60)) },
+          FreeStorageSpace: { avg: randInt(1e9, 500e9) },
+          // JVMMemoryPressure is a percentage (numeric)
+          JVMMemoryPressure: { avg: parseFloat(randFloat(10, isErr ? 95 : 60)) },
+          JVMGCYoungCollectionCount: { sum: randInt(1, 100) },
+          JVMGCYoungCollectionTime: { sum: randInt(1, 1000) },
+          JVMGCOldCollectionCount: { sum: randInt(0, 5) },
+          JVMGCOldCollectionTime: { sum: randInt(0, 5000) },
+          // OpenSearch Dashboards (formerly Kibana) metrics — exact AWS CloudWatch names
+          KibanaHealthyNodes: { avg: randInt(1, 3) },
+          KibanaConcurrentConnections: { avg: randInt(1, 100) },
+          KibanaHeapUsed: { avg: parseFloat(randFloat(10, 80)) },
+          KibanaRequestTotal: { sum: randInt(1, 1000) },
+          KibanaResponseTimesMaxInMillis: { avg: parseFloat(randFloat(10, 2000)) },
+          // Search and indexing performance metrics
+          SearchLatency: { avg: parseFloat(randFloat(1, isErr ? 5000 : 100)) },
+          IndexingLatency: { avg: parseFloat(randFloat(1, isErr ? 1000 : 50)) },
+          SearchRate: { avg: parseFloat(randFloat(1, 1000)) },
+          IndexingRate: { avg: parseFloat(randFloat(1, 1000)) },
+          // Additional real AWS OpenSearch CloudWatch metrics
+          AutomatedSnapshotFailure: { sum: isErr ? randInt(0, 1) : 0 },
+          ClusterIndexWritesBlocked: { avg: isErr ? randInt(0, 1) : 0 },
+          MasterCPUUtilization: { avg: parseFloat(randFloat(5, isErr ? 90 : 50)) },
+          MasterJVMMemoryPressure: { avg: parseFloat(randFloat(10, isErr ? 90 : 60)) },
+          MasterReachableFromNode: { avg: isErr && Math.random() > 0.7 ? 0 : 1 },
+          ThreadpoolWriteQueue: { avg: randInt(0, isErr ? 1000 : 100) },
+          ThreadpoolSearchQueue: { avg: randInt(0, isErr ? 1000 : 100) },
+          ThreadpoolWriteRejected: { sum: isErr ? randInt(0, 50) : 0 },
+          ThreadpoolSearchRejected: { sum: isErr ? randInt(0, 50) : 0 },
+          CoordinatingWriteRejected: { sum: isErr ? randInt(0, 20) : 0 },
+          PrimaryWriteRejected: { sum: isErr ? randInt(0, 20) : 0 },
+          ReplicaWriteRejected: { sum: isErr ? randInt(0, 20) : 0 },
+        },
+      },
+    },
+    "event": {
+      duration: dur * 1e6,
+      outcome: isErr ? "failure" : "success",
+      category: ["database","network"],
+      dataset: "aws.opensearch",
+      provider: "es.amazonaws.com",
+    },
+    "message": isErr
+      ? `OpenSearch ${action} FAILED on ${domainName}: ${rand(["Cluster red","IndexNotFound","AuthorizationException"])}`
+      : `OpenSearch ${action} on ${domainName} in ${dur}ms`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["ClusterBlockException","SearchPhaseExecutionException","IndexNotFoundException"]), message: "OpenSearch operation failed", type: "search" } } : {}),
+  };
 }
 
 export { generateEmrLog, generateGlueLog, generateAthenaLog, generateLakeFormationLog, generateQuickSightLog, generateDataBrewLog, generateAppFlowLog, generateOpenSearchLog };

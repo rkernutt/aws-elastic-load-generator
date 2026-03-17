@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "docdb"
@@ -14,39 +14,39 @@
   "aws": {
     "dimensions": {
       "DBClusterIdentifier": "docdb-eu-west-2-cluster",
-      "Role": "READER"
+      "Role": "WRITER"
     },
     "docdb": {
       "cluster_id": "docdb-eu-west-2-cluster",
       "database": "appdb",
-      "collection": "sessions",
-      "operation": "find",
-      "duration_ms": 381,
-      "documents_affected": 192,
+      "collection": "orders",
+      "operation": "aggregate",
+      "duration_ms": 89,
+      "documents_affected": 512,
       "metrics": {
         "CPUUtilization": {
-          "avg": 17.814
+          "avg": 3.12
         },
         "DatabaseConnections": {
-          "avg": 44
+          "avg": 74
         },
         "FreeLocalStorage": {
-          "avg": 98171557365
+          "avg": 26144684610
         },
         "FreeableMemory": {
-          "avg": 6595149463
+          "avg": 6399511761
         },
         "ReadIOPS": {
-          "avg": 4718
+          "avg": 4566
         },
         "WriteIOPS": {
-          "avg": 2742
+          "avg": 3554
         },
         "ReadLatency": {
-          "avg": 0.016
+          "avg": 0.035
         },
         "WriteLatency": {
-          "avg": 0.02
+          "avg": 0.048
         },
         "DocumentsInserted": {
           "sum": 0
@@ -58,24 +58,26 @@
           "sum": 0
         },
         "DocumentsReturned": {
-          "sum": 2481
+          "sum": 3137
         }
       }
     }
   },
   "db": {
     "name": "appdb",
-    "operation": "find",
+    "operation": "aggregate",
     "type": "document"
   },
   "event": {
-    "duration": 381499000,
+    "duration": 88858000,
     "outcome": "success",
-    "category": "database",
+    "category": [
+      "database"
+    ],
     "dataset": "aws.docdb",
     "provider": "docdb.amazonaws.com"
   },
-  "message": "DocumentDB find on sessions: 381.5ms",
+  "message": "DocumentDB aggregate on orders: 88.9ms",
   "log": {
     "level": "info"
   },

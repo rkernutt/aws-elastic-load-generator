@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "codeartifact"
@@ -13,24 +13,27 @@
   },
   "aws": {
     "codeartifact": {
-      "domain_name": "internal",
+      "domain_name": "corp-packages",
       "repository_name": "maven-central",
       "package_format": "maven",
-      "package_name": "api-client",
-      "package_version": "1.20.10",
+      "package_name": "my-lib",
+      "package_version": "1.4.5",
       "action": "CopyPackageVersions",
-      "download_size_bytes": 36574078,
-      "upstream_repository": "pypi-upstream"
+      "download_size_bytes": 16905460,
+      "upstream_repository": "npm-upstream"
     }
   },
   "event": {
     "action": "CopyPackageVersions",
     "outcome": "success",
-    "category": "package",
+    "category": [
+      "package",
+      "process"
+    ],
     "dataset": "aws.codeartifact",
     "provider": "codeartifact.amazonaws.com"
   },
-  "message": "CodeArtifact CopyPackageVersions: api-client@1.20.10 [maven] in internal/maven-central",
+  "message": "CodeArtifact CopyPackageVersions: my-lib@1.4.5 [maven] in corp-packages/maven-central",
   "log": {
     "level": "info"
   }

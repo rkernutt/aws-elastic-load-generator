@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "billing"
@@ -13,35 +13,38 @@
   },
   "aws": {
     "billing": {
-      "service": "AmazonEC2",
-      "usage_type": "Lambda-Request",
-      "estimated_charges": 313.883,
+      "service": "AmazonRDS",
+      "usage_type": "USE2-BoxUsage",
+      "estimated_charges": 142.768,
       "currency": "USD",
       "period_start": "2026-03-01",
-      "linked_account_id": "164820739518",
+      "linked_account_id": "293847561023",
       "dimensions": {
-        "Service": "AmazonEC2",
-        "LinkedAccount": "164820739518",
-        "UsageType": "Lambda-Request"
+        "Service": "AmazonRDS",
+        "LinkedAccount": "293847561023",
+        "UsageType": "USE2-BoxUsage"
       },
       "metrics": {
         "EstimatedCharges": {
-          "sum": 313.883
+          "sum": 142.768
         },
         "NumberOfRequests": {
-          "sum": 138015
+          "sum": 622521
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "metric",
+    "category": [
+      "configuration",
+      "process"
+    ],
     "dataset": "aws.billing",
     "provider": "ce.amazonaws.com",
-    "duration": 0
+    "duration": 2784000000
   },
-  "message": "Billing: AmazonEC2 313.88 USD",
+  "message": "Billing: AmazonRDS 142.77 USD",
   "log": {
     "level": "info"
   }

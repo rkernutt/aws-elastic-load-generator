@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "firehose"
@@ -13,59 +13,70 @@
   },
   "aws": {
     "dimensions": {
-      "DeliveryStreamName": "logs-to-s3"
+      "DeliveryStreamName": "metrics-to-opensearch"
     },
     "firehose": {
-      "delivery_stream_name": "logs-to-s3",
-      "destination": "HTTPEndpoint",
-      "incoming_records": 24797,
-      "incoming_bytes": 36401996,
-      "delivery_success": false,
-      "delivery_records": 0,
-      "data_freshness_seconds": 2710,
+      "delivery_stream_name": "metrics-to-opensearch",
+      "destination": "S3",
+      "incoming_records": 9905,
+      "incoming_bytes": 5853855,
+      "delivery_success": true,
+      "delivery_records": 9905,
+      "data_freshness_seconds": 171,
       "metrics": {
-        "IncomingRecords": {
-          "sum": 24797
+        "DeliveryToS3.Bytes": {
+          "sum": 59147598
+        },
+        "DeliveryToS3.DataFreshness": {
+          "avg": 2161
+        },
+        "DeliveryToS3.Records": {
+          "sum": 5200
+        },
+        "DeliveryToS3.Success": {
+          "avg": 1
         },
         "IncomingBytes": {
-          "sum": 43419547
+          "sum": 66664036
         },
-        "DeliveryToS3_Records": {
+        "IncomingRecords": {
+          "sum": 6478
+        },
+        "BackupToS3.Bytes": {
+          "sum": 621419
+        },
+        "BackupToS3.Records": {
+          "sum": 133
+        },
+        "BackupToS3.Success": {
+          "avg": 1
+        },
+        "DataReadFromKinesisStream.Bytes": {
+          "sum": 57701918
+        },
+        "DataReadFromKinesisStream.Records": {
+          "sum": 5361
+        },
+        "ThrottledGetRecords": {
           "sum": 0
         },
-        "DeliveryToS3_Success": {},
-        "DeliveryToRedshift_Records": {
+        "ThrottledGetShardIterator": {
           "sum": 0
-        },
-        "DeliveryToElasticsearch_Records": {
-          "sum": 0
-        },
-        "FailedConversionRecords": {
-          "sum": 29
-        },
-        "DataReadFromKinesisStream_Records": {
-          "sum": 24797
-        },
-        "DeliveryToS3_DataFreshness": {
-          "avg": 2471
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
-    "category": "process",
+    "outcome": "success",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.firehose",
     "provider": "firehose.amazonaws.com",
-    "duration": 186000000000
+    "duration": 31000000000
   },
-  "message": "Firehose logs-to-s3 delivery failure: Buffer full",
+  "message": "Firehose metrics-to-opensearch: 9905 records delivered",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "DeliveryFailure",
-    "message": "Firehose delivery failed",
-    "type": "stream"
+    "level": "info"
   }
 }

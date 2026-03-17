@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "events"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "EventBusName": "app-events",
-      "RuleName": "scheduled-cleanup"
+      "EventBusName": "default",
+      "RuleName": "cost-alert-rule"
     },
     "eventbridge": {
-      "event_bus": "app-events",
-      "rule": "scheduled-cleanup",
+      "event_bus": "default",
+      "rule": "cost-alert-rule",
       "source": "com.partner.events",
-      "detail_type": "Order Placed",
+      "detail_type": "Health Event",
       "targets_invoked": 4,
       "targets_failed": 0,
-      "event_id": "7x4n0847-s8c6-z4td-y5sz-xlx6ctnwud",
+      "event_id": "vn9bwtbb-4wr7-l30h-0ya6-o2fc4ft16y",
       "structured_logging": true,
       "metrics": {
         "Invocations": {
-          "sum": 4035
+          "sum": 1
         },
         "FailedInvocations": {
           "sum": 0
         },
         "TriggeredRules": {
-          "sum": 383
+          "sum": 1
         },
         "MatchedEvents": {
-          "sum": 1785
+          "sum": 51
         },
         "ThrottledRules": {
           "sum": 0
@@ -49,12 +49,17 @@
   },
   "event": {
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "process"
+    ],
+    "type": [
+      "change"
+    ],
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 176000000
+    "duration": 143000000
   },
-  "message": "{\"id\":\"7x4n0847-s8c6-z4td-y5sz-xlx6ctnwud\",\"source\":\"com.partner.events\",\"detailType\":\"Object Created\",\"rule\":\"scheduled-cleanup\",\"eventBus\":\"app-events\",\"message\":\"EventBridge event routed: com.partner.events -> scheduled-cleanup\",\"timestamp\":\"2026-03-17T13:19:51.676Z\"}",
+  "message": "{\"id\":\"vn9bwtbb-4wr7-l30h-0ya6-o2fc4ft16y\",\"source\":\"com.partner.events\",\"detailType\":\"Object Created\",\"rule\":\"cost-alert-rule\",\"eventBus\":\"default\",\"message\":\"EventBridge event routed: com.partner.events -> cost-alert-rule\",\"timestamp\":\"2026-03-17T18:02:32.099Z\"}",
   "log": {
     "level": "info"
   }

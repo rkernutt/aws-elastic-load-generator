@@ -1,39 +1,42 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "bedrock"
     }
   },
   "aws": {
+    "dimensions": {
+      "ModelId": "meta.llama3-70b-instruct-v1:0"
+    },
     "bedrock": {
-      "model_id": "mistral.mixtral-8x7b-instruct-v0:1",
-      "invocation_latency_ms": 14058,
-      "input_token_count": 1998,
-      "output_token_count": 1681,
-      "total_token_count": 3679,
-      "stop_reason": "max_tokens",
-      "use_case": "text-generation",
-      "guardrail_action": "INTERVENED",
+      "model_id": "meta.llama3-70b-instruct-v1:0",
+      "invocation_latency_ms": 12633,
+      "input_token_count": 5733,
+      "output_token_count": 235,
+      "total_token_count": 5968,
+      "stop_reason": "end_turn",
+      "use_case": "qa",
+      "guardrail_action": "NONE",
       "metrics": {
         "Invocations": {
-          "sum": 355
+          "sum": 277
         },
         "InvocationLatency": {
-          "avg": 14058,
-          "p99": 28116
+          "avg": 12633,
+          "p99": 25266
         },
         "InputTokenCount": {
-          "sum": 1998
+          "sum": 5733
         },
         "OutputTokenCount": {
-          "sum": 1681
+          "sum": 235
         },
         "Throttles": {
           "sum": 0
@@ -43,12 +46,14 @@
   },
   "event": {
     "outcome": "success",
-    "category": "machine_learning",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.bedrock",
     "provider": "bedrock.amazonaws.com",
-    "duration": 14058000000
+    "duration": 12633000000
   },
-  "message": "Bedrock mixtral 1998->1681 tokens 14.06s",
+  "message": "Bedrock llama3 5733->235 tokens 12.63s",
   "log": {
     "level": "warn"
   }

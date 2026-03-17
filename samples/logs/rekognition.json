@@ -1,40 +1,65 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "rekognition"
     }
   },
   "aws": {
+    "dimensions": {
+      "Operation": "IndexFaces"
+    },
     "rekognition": {
-      "operation": "DetectModerationLabels",
-      "input_source": "Base64Image",
-      "image_bytes": 6175730,
-      "duration_ms": 407,
-      "labels_detected": 26,
-      "faces_detected": 8,
-      "max_confidence": 72.02,
+      "operation": "IndexFaces",
+      "input_source": "S3Object",
+      "image_bytes": 2281078,
+      "duration_ms": 4737,
+      "labels_detected": 0,
+      "faces_detected": 0,
+      "max_confidence": 0,
       "confidence_threshold": 70,
-      "moderation_labels": [
-        "Violence"
-      ]
+      "error_code": "ImageTooLargeException",
+      "metrics": {
+        "SuccessfulRequestCount": {
+          "sum": 1
+        },
+        "ThrottledCount": {
+          "sum": 1
+        },
+        "UserErrorCount": {
+          "sum": 4
+        },
+        "ServerErrorCount": {
+          "sum": 0
+        },
+        "ResponseTime": {
+          "avg": 2756.138
+        }
+      }
     }
   },
   "event": {
-    "duration": 406530000,
-    "outcome": "success",
-    "category": "machine_learning",
+    "duration": 4736641000,
+    "outcome": "failure",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.rekognition",
     "provider": "rekognition.amazonaws.com"
   },
-  "message": "Rekognition DetectModerationLabels: 9 results, 72.0% confidence",
+  "message": "Rekognition IndexFaces FAILED: Access denied",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "RekognitionError",
+    "message": "Rekognition operation failed",
+    "type": "ml"
   }
 }

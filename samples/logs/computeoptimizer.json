@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,36 +13,40 @@
   },
   "aws": {
     "computeoptimizer": {
-      "resource_type": "EBS_VOLUME",
-      "resource_arn": "arn:aws:ec2:us-east-1:814726593401:instance/i-7re8o3fcmhc",
+      "resource_type": "ECS_SERVICE_FARGATE",
+      "resource_arn": "arn:aws:ec2:us-east-1:814726593401:instance/i-k9e1fy96p6f",
       "finding": "OPTIMIZED",
       "current_configuration": {
-        "instance_type": "t3.large",
-        "vcpu": 18,
-        "memory_gb": 95
+        "instance_type": "m5.xlarge",
+        "vcpu": 23,
+        "memory_gb": 22
       },
       "recommended_configuration": {
-        "instance_type": "m5.large",
-        "vcpu": 3,
-        "memory_gb": 33
+        "instance_type": "c5.xlarge",
+        "vcpu": 9,
+        "memory_gb": 30
       },
       "estimated_monthly_savings_usd": 0,
       "estimated_monthly_savings_percent": 0,
-      "lookback_period_days": 14,
+      "lookback_period_days": 32,
       "utilization": {
-        "cpu_max": 18.862,
-        "memory_max": 23.957
+        "cpu_max": 43.271,
+        "memory_max": 23.625
       },
-      "performance_risk": "VeryLow"
+      "performance_risk": "Medium"
     }
   },
   "event": {
     "outcome": "success",
-    "category": "configuration",
+    "category": [
+      "configuration",
+      "process"
+    ],
     "dataset": "aws.computeoptimizer",
-    "provider": "compute-optimizer.amazonaws.com"
+    "provider": "compute-optimizer.amazonaws.com",
+    "duration": 32000000000
   },
-  "message": "Compute Optimizer: EBS_VOLUME OPTIMIZED (t3.large)",
+  "message": "Compute Optimizer: ECS_SERVICE_FARGATE OPTIMIZED (m5.xlarge)",
   "log": {
     "level": "info"
   }

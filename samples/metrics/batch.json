@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "batch"
@@ -13,52 +13,66 @@
   },
   "aws": {
     "dimensions": {
-      "JobQueueName": "nightly-etl-queue",
-      "JobDefinition": "nightly-etl"
+      "JobQueue": "nightly-etl-queue"
     },
     "batch": {
       "job": {
         "name": "nightly-etl",
-        "id": "pv6m9tdl-yxh7",
+        "id": "w2zmlq1a-xo8p",
         "status": "SUCCEEDED"
       },
       "job_queue": "nightly-etl-queue",
-      "compute_environment": "ce-spot",
+      "compute_environment": "ce-ondemand",
       "structured_logging": true,
       "metrics": {
         "PendingJobCount": {
-          "avg": 12
+          "avg": 75
         },
         "RunnableJobCount": {
-          "avg": 10
+          "avg": 45
+        },
+        "StartingJobCount": {
+          "avg": 13
         },
         "RunningJobCount": {
-          "avg": 47
+          "avg": 2
         },
         "SucceededJobCount": {
-          "sum": 37
+          "sum": 1
         },
         "FailedJobCount": {
           "sum": 0
         },
-        "elapsedTime": 2348,
-        "Duration": {
-          "avg": 2348
+        "CPUReserved": {
+          "avg": "71.659"
+        },
+        "GPUReserved": {
+          "avg": 0
+        },
+        "MemoryReserved": {
+          "avg": "19.496"
         }
       }
     }
   },
+  "process": {
+    "pid": 32729,
+    "name": "spark-submit",
+    "exit_code": 0
+  },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "event": {
+    "category": [
+      "process"
+    ],
     "outcome": "success",
-    "category": "process",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 2348000000000
+    "duration": 3203000000000
   },
-  "message": "{\"jobId\":\"pv6m9tdl-yxh7\",\"jobName\":\"nightly-etl\",\"jobQueue\":\"nightly-etl-queue\",\"level\":\"warn\",\"message\":\"Job retry attempt 2/3\",\"timestamp\":\"2026-03-17T13:19:51.676Z\",\"arrayIndex\":32}",
+  "message": "{\"jobId\":\"w2zmlq1a-xo8p\",\"jobName\":\"nightly-etl\",\"jobQueue\":\"nightly-etl-queue\",\"level\":\"info\",\"message\":\"Job run succeeded\",\"timestamp\":\"2026-03-17T18:02:32.099Z\",\"arrayIndex\":65}",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.batch",

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "s3"
@@ -13,42 +13,44 @@
   },
   "aws": {
     "dimensions": {
-      "StorageLensConfigurationId": "prod-buckets",
-      "StorageType": "Glacier"
+      "StorageLensConfigurationId": "entire-account",
+      "StorageType": "IntelligentTiering"
     },
     "s3storagelens": {
-      "config_id": "prod-buckets",
-      "bucket_count": 25,
-      "total_storage_bytes": 61057922643930,
-      "total_object_count": 3589121865,
-      "storage_type": "Glacier",
+      "config_id": "entire-account",
+      "bucket_count": 378,
+      "total_storage_bytes": 28496488515960,
+      "total_object_count": 1899729119,
+      "storage_type": "IntelligentTiering",
       "metrics": {
         "BucketCount": {
-          "avg": 25
+          "avg": 378
         },
         "TotalStorageBytes": {
-          "sum": 61057922643930
+          "sum": 28496488515960
         },
         "TotalObjectCount": {
-          "sum": 3589121865
+          "sum": 1899729119
         },
         "BytesUsed": {
-          "sum": 61057922643930
+          "sum": 28496488515960
         },
         "ObjectCount": {
-          "sum": 3589121865
+          "sum": 1899729119
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "metric",
+    "category": [
+      "metric"
+    ],
     "dataset": "aws.s3_storage_lens",
     "provider": "s3.amazonaws.com",
-    "duration": 174000000000
+    "duration": 132000000000
   },
-  "message": "S3 Storage Lens prod-buckets: 25 buckets, 61057.9 GB, 3589121865 objects",
+  "message": "S3 Storage Lens entire-account: 378 buckets, 28496.5 GB, 1899729119 objects",
   "log": {
     "level": "info"
   }

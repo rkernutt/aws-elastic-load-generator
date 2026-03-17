@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "cloudwatchalarms"
@@ -14,33 +14,32 @@
   "aws": {
     "cloudwatch": {
       "alarm_name": "ecs-memory",
-      "alarm_state": "ALARM",
+      "alarm_state": "OK",
       "previous_state": "OK",
-      "namespace": "AWS/ApplicationELB",
-      "metric_name": "CPUUtilization",
+      "namespace": "AWS/Lambda",
+      "metric_name": "QueueDepth",
       "threshold": 90,
-      "evaluation_periods": 2,
-      "metric_value": 6.656,
+      "evaluation_periods": 1,
+      "metric_value": 53.257,
       "statistic": "Sum",
-      "period_seconds": 3600,
+      "period_seconds": 300,
       "treat_missing_data": "notBreaching"
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "failure",
-    "category": "configuration",
+    "outcome": "success",
+    "category": [
+      "configuration",
+      "process"
+    ],
     "dataset": "aws.cloudwatch",
-    "provider": "monitoring.amazonaws.com"
+    "provider": "monitoring.amazonaws.com",
+    "duration": 60000000000
   },
-  "message": "CloudWatch alarm \"ecs-memory\": ALARM (AWS/ApplicationELB/CPUUtilization=6.7)",
+  "message": "CloudWatch alarm \"ecs-memory\": OK (AWS/Lambda/QueueDepth=53.3)",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "AlarmTriggered",
-    "message": "Alarm ecs-memory: ALARM",
-    "type": "monitoring"
+    "level": "info"
   },
   "data_stream": {
     "type": "metrics",

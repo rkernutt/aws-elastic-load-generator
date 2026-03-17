@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "acm"
@@ -13,24 +13,29 @@
   },
   "aws": {
     "acm": {
-      "certificate_arn": "arn:aws:acm:us-east-1:501938274650:certificate/tvezzzbt-238g",
-      "domain_name": "*.example.com",
-      "status": "PENDING_VALIDATION",
-      "type": "AMAZON_ISSUED",
-      "days_to_expiry": 197,
-      "key_algorithm": "EC_prime256v1",
+      "certificate_arn": "arn:aws:acm:eu-west-2:164820739518:certificate/aozxaeyg-ctoc",
+      "domain_name": "*.internal.corp",
+      "status": "EXPIRED",
+      "type": "IMPORTED",
+      "days_to_expiry": -20,
+      "key_algorithm": "RSA_2048",
       "validation_method": "EMAIL",
-      "renewal_status": "SUCCESS"
+      "renewal_status": "FAILED"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "network",
     "dataset": "aws.acm",
     "provider": "acm.amazonaws.com"
   },
-  "message": "ACM certificate for *.example.com: PENDING_VALIDATION, 197d remaining",
+  "message": "ACM certificate for *.internal.corp: EXPIRED (expired 20d ago)",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "EXPIRED",
+    "message": "Certificate *.internal.corp: EXPIRED",
+    "type": "certificate"
   }
 }

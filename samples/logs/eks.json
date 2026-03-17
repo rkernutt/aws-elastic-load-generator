@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,64 +13,89 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "prod-cluster-us-east-1",
-      "NodeName": "ip-48-159-174-14.us-east-1.compute.internal"
+      "ClusterName": "prod-cluster-eu-west-2",
+      "NodeName": "ip-52-36-31-33.eu-west-2.compute.internal",
+      "Namespace": "default",
+      "PodName": "api-n2kgn-ntyhd"
     },
     "eks": {
       "structured_logging": true,
       "cluster": {
-        "name": "prod-cluster-us-east-1"
+        "name": "prod-cluster-eu-west-2"
       },
       "node": {
-        "name": "ip-122-174-134-116.us-east-1.compute.internal"
+        "name": "ip-52-36-31-33.eu-west-2.compute.internal"
       },
       "metrics": {
         "cluster_failed_node_count": {
           "avg": 0
         },
         "node_cpu_utilization": {
-          "avg": 25.58
+          "avg": "15.238"
         },
         "node_memory_utilization": {
-          "avg": 50.466
-        },
-        "pod_cpu_utilization": {
-          "avg": 69.979
-        },
-        "pod_memory_utilization": {
-          "avg": 8.659
+          "avg": "43.645"
         },
         "node_network_total_bytes": {
-          "sum": 24598333
+          "sum": 57690903
+        },
+        "node_filesystem_utilization": {
+          "avg": "43.277"
+        },
+        "pod_cpu_utilization": {
+          "avg": "54.032"
+        },
+        "pod_memory_utilization": {
+          "avg": "50.625"
+        },
+        "pod_network_rx_bytes": {
+          "sum": 75296279
+        },
+        "pod_network_tx_bytes": {
+          "sum": 57144186
+        },
+        "node_count": {
+          "avg": 49
         },
         "pod_count": {
-          "avg": 44
+          "avg": 470
         }
       }
     }
   },
+  "container": {
+    "id": "78ja2p8ym4h",
+    "name": "api",
+    "image": {
+      "name": "k8s.gcr.io/api:v1.28.3"
+    },
+    "runtime": "containerd"
+  },
   "kubernetes": {
     "namespace": "default",
     "pod": {
-      "name": "cache-7v17b-1efjw"
+      "name": "api-n2kgn-ntyhd"
     },
     "container": {
-      "name": "cache"
+      "name": "api"
     },
     "labels": {
-      "app": "cache",
+      "app": "api",
       "env": "prod"
     }
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "event": {
+    "category": [
+      "process",
+      "container"
+    ],
     "outcome": "success",
-    "category": "container",
     "dataset": "aws.eks",
     "provider": "eks.amazonaws.com",
-    "duration": 2058000000000
+    "duration": 357000000000
   },
-  "message": "{\"cluster\":\"prod-cluster-us-east-1\",\"namespace\":\"default\",\"pod\":\"cache-7v17b-1efjw\",\"level\":\"warn\",\"message\":\"PodDisruptionBudget violations detected\",\"timestamp\":\"2026-03-17T13:19:51.676Z\",\"stream\":\"stdout\"}"
+  "message": "{\"cluster\":\"prod-cluster-eu-west-2\",\"namespace\":\"default\",\"pod\":\"api-n2kgn-ntyhd\",\"level\":\"info\",\"message\":\"Container started\",\"timestamp\":\"2026-03-17T18:02:32.099Z\",\"stream\":\"stdout\"}"
 }

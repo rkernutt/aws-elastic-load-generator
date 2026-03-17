@@ -1,34 +1,60 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "translate"
     }
   },
   "aws": {
+    "dimensions": {
+      "SourceLanguage": "zh",
+      "TargetLanguage": "de"
+    },
     "translate": {
-      "source_language_code": "ko",
+      "source_language_code": "zh",
       "target_language_code": "de",
-      "characters_translated": 381312,
+      "characters_translated": 33173,
       "applied_terminology": "product-terms",
-      "formality": "FORMAL",
-      "duration_ms": 318
+      "formality": "INFORMAL",
+      "duration_ms": 471,
+      "metrics": {
+        "SuccessfulRequestCount": {
+          "sum": 1
+        },
+        "ThrottledCount": {
+          "sum": 0
+        },
+        "UserErrorCount": {
+          "sum": 0
+        },
+        "ServerErrorCount": {
+          "sum": 0
+        },
+        "CharacterCount": {
+          "sum": 1829
+        },
+        "ResponseTime": {
+          "avg": 133.707
+        }
+      }
     }
   },
   "event": {
-    "duration": 318362000,
+    "duration": 471029000,
     "outcome": "success",
-    "category": "machine_learning",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.translate",
     "provider": "translate.amazonaws.com"
   },
-  "message": "Translate ko->de: 381,312 chars in 318ms",
+  "message": "Translate zh->de: 33,173 chars in 471ms",
   "log": {
     "level": "info"
   }

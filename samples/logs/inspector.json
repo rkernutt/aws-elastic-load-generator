@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "inspector"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "dimensions": {
-      "ResourceType": "AWS_EC2_INSTANCE"
+      "ResourceType": "AWS_LAMBDA_FUNCTION"
     },
     "inspector": {
-      "finding_id": "arn:aws:inspector2:us-east-1:164820739518:finding/PG2NKX9L-4UIK",
-      "finding_type": "NETWORK_REACHABILITY",
-      "severity": "CRITICAL",
-      "inspector_score": 7.38,
+      "finding_id": "arn:aws:inspector2:us-east-1:814726593401:finding/I76MK369-S9WP",
+      "finding_type": "NONE",
+      "severity": "INFORMATIONAL",
+      "inspector_score": 0,
       "vulnerable_package": {
-        "name": "curl",
-        "version": "1.5.6"
+        "name": "libssl",
+        "version": "3.1.21"
       },
-      "cve_id": "CVE-2023-38545",
-      "resource_type": "AWS_ECR_CONTAINER_IMAGE",
+      "affected_packages": [],
+      "resource_type": "AWS_LAMBDA_FUNCTION",
       "metrics": {
         "TotalFindings": {
-          "sum": 17
+          "sum": 0
         },
         "CriticalFindings": {
-          "sum": 1
+          "sum": 0
         },
         "HighFindings": {
           "sum": 0
@@ -40,23 +40,23 @@
     }
   },
   "vulnerability": {
-    "id": "CVE-2024-21626",
-    "severity": "CRITICAL"
+    "severity": "INFORMATIONAL",
+    "score": {
+      "base": 0
+    }
   },
   "event": {
     "kind": "alert",
-    "outcome": "failure",
-    "category": "vulnerability",
+    "outcome": "success",
+    "category": [
+      "vulnerability",
+      "package"
+    ],
     "dataset": "aws.inspector",
     "provider": "inspector2.amazonaws.com"
   },
-  "message": "Inspector [CRITICAL]: CVE-2023-44487 found in spring-core",
+  "message": "Inspector scan: no vulnerabilities found",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "VulnerabilityFound",
-    "message": "CVE found: CVE-2023-38545",
-    "type": "vulnerability"
+    "level": "info"
   }
 }

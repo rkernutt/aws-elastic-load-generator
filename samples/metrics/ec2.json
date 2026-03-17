@@ -1,92 +1,133 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "ec2"
     },
     "instance": {
-      "id": "i-aexssvwwewl"
+      "id": "i-3070u3pqtdo"
     }
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "i-aexssvwwewl",
-      "InstanceType": "c5.2xlarge",
-      "ImageId": "ami-6ynz7vxx"
+      "InstanceId": "i-3070u3pqtdo",
+      "InstanceType": "r5.large",
+      "ImageId": "ami-aeaa9by1",
+      "AutoScalingGroupName": "web-asg"
     },
     "ec2": {
-      "instance_id": "i-aexssvwwewl",
-      "instance_type": "c5.2xlarge",
-      "ami_id": "ami-osf1coil",
-      "structured_logging": false,
+      "instance_id": "i-3070u3pqtdo",
+      "instance_type": "r5.large",
+      "ami_id": "ami-ytz7iqmm",
+      "structured_logging": true,
       "metrics": {
         "CPUUtilization": {
-          "avg": 78.598
-        },
-        "NetworkIn": {
-          "sum": 320959420
-        },
-        "NetworkOut": {
-          "sum": 477357322
+          "avg": 69.459
         },
         "DiskReadBytes": {
-          "sum": 58912203
+          "sum": 798852949
         },
         "DiskWriteBytes": {
-          "sum": 84449765
+          "sum": 43838523
         },
         "DiskReadOps": {
-          "sum": 4437
+          "sum": 5219
         },
         "DiskWriteOps": {
-          "sum": 6259
+          "sum": 5917
+        },
+        "NetworkIn": {
+          "sum": 530320468
+        },
+        "NetworkOut": {
+          "sum": 310173411
+        },
+        "NetworkPacketsIn": {
+          "sum": 522447
+        },
+        "NetworkPacketsOut": {
+          "sum": 809762
         },
         "StatusCheckFailed": {
-          "max": 1
+          "sum": 0
         },
         "StatusCheckFailed_Instance": {
-          "max": 1
+          "sum": 0
         },
         "StatusCheckFailed_System": {
-          "max": 0
+          "sum": 0
+        },
+        "MetadataNoToken": {
+          "sum": 8
+        },
+        "EBSReadBytes": {
+          "sum": 199022560
+        },
+        "EBSWriteBytes": {
+          "sum": 905163060
+        },
+        "EBSReadOps": {
+          "sum": 1575
+        },
+        "EBSWriteOps": {
+          "sum": 4076
+        },
+        "EBSIOBalance": {
+          "avg": "77.658"
+        },
+        "EBSByteBalance": {
+          "avg": "97.823"
         },
         "CPUCreditBalance": {
-          "avg": 161
+          "avg": "150.462"
         },
         "CPUCreditUsage": {
-          "avg": 3.986
+          "avg": "0.952"
+        },
+        "CPUSurplusCreditBalance": {
+          "avg": 0
+        },
+        "CPUSurplusCreditsCharged": {
+          "sum": 0
         }
       }
     }
   },
   "host": {
-    "hostname": "ip-189-217-58-215",
+    "hostname": "ip-245-151-24-58",
     "os": {
-      "type": "linux"
+      "type": "linux",
+      "kernel": "5.10.215-95.amzn2.x86_64",
+      "version": "2"
+    },
+    "architecture": "x86_64",
+    "cpu": {
+      "count": 2
     }
   },
   "log": {
-    "level": "error"
+    "level": "info"
   },
   "event": {
-    "category": "host",
-    "outcome": "failure",
+    "category": [
+      "host",
+      "process"
+    ],
+    "type": [
+      "change"
+    ],
+    "outcome": "success",
     "dataset": "aws.ec2",
     "provider": "ec2.amazonaws.com",
-    "duration": 530000000000
+    "duration": 800000000000
   },
-  "message": "disk I/O error on /dev/xvda1",
-  "error": {
-    "code": "StatusCheckFailed_Instance",
-    "message": "disk I/O error on /dev/xvda1",
-    "type": "host"
-  },
+  "message": "{\"instanceId\":\"i-3070u3pqtdo\",\"instanceType\":\"r5.large\",\"level\":\"info\",\"message\":\"systemd: Started Amazon SSM Agent.\",\"timestamp\":\"2026-03-17T18:02:32.099Z\",\"component\":\"awslogs\"}",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.ec2_logs",

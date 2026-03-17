@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,23 +13,50 @@
   },
   "aws": {
     "ssm": {
-      "command_id": "j0k1tq5c-k6ff-1xz1",
-      "document_name": "AWS-ApplyPatchBaseline",
-      "instance_id": "i-aqh77zu1moa",
-      "action": "GetParameter",
+      "command_id": "2xt09npn-5ubo-j9gv",
+      "document_name": "AWS-RunShellScript",
+      "instance_id": "i-28s9iyf2dts",
+      "action": "RunCommand",
       "execution_status": "Success",
       "response_code": 0,
-      "parameter_name": "/prod/api/key",
-      "structured_logging": false
+      "structured_logging": true,
+      "metrics": {
+        "CommandsSucceeded": {
+          "sum": 1
+        },
+        "CommandsFailed": {
+          "sum": 0
+        },
+        "CommandsTimedOut": {
+          "sum": 0
+        },
+        "CommandsDeliveryTimedOut": {
+          "sum": 0
+        },
+        "SessionsStarted": {
+          "sum": 1
+        },
+        "SessionDuration": {
+          "avg": 129
+        },
+        "PatchComplianceCount": {
+          "avg": 408
+        }
+      }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "process",
+      "configuration",
+      "host"
+    ],
     "dataset": "aws.ssm",
-    "provider": "ssm.amazonaws.com"
+    "provider": "ssm.amazonaws.com",
+    "duration": 21000000000
   },
-  "message": "SSM GetParameter on i-aqh77zu1moa: AWS-ApplyPatchBaseline",
+  "message": "{\"commandId\":\"2xt09npn-5ubo-j9gv\",\"documentName\":\"AWS-RunShellScript\",\"instanceId\":\"i-28s9iyf2dts\",\"action\":\"RunCommand\",\"status\":\"Success\",\"timestamp\":\"2026-03-17T18:02:32.099Z\"}",
   "log": {
     "level": "info"
   }

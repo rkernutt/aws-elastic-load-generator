@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,49 +13,46 @@
   },
   "aws": {
     "emr": {
-      "cluster_id": "j-8GNI0NPQWMR",
-      "cluster_name": "clickstream-processing-cluster",
-      "application": "spark",
+      "cluster_id": "j-FPGDK6PVCGO",
+      "cluster_name": "ml-feature-pipeline-cluster",
+      "application": "hadoop",
       "release": "emr-6.13.0",
-      "instance_group": "TASK",
-      "executor_count": 29,
+      "instance_group": "MASTER",
+      "executor_count": 35,
       "job": {
-        "name": "clickstream-processing",
-        "id": "application_1773753591812_4454",
-        "run_state": "FAILED"
+        "name": "ml-feature-pipeline",
+        "id": "application_1773770552202_8340",
+        "run_state": "SUCCEEDED"
       },
       "structured_logging": false,
       "metrics": {
-        "executor_count": 29,
-        "running_step_count": 0,
-        "failed_step_count": 3,
-        "hdfs_utilization_pct": 72,
-        "yarn_memory_used_mb": 50560,
-        "elapsedTime": 5315000,
-        "numCompletedTasks": 352,
-        "numFailedTasks": 2,
-        "jvm_heap_usage": 0.53,
-        "gc_time_ms": 36359,
-        "numberAllExecutors": 49
+        "executor_count": 35,
+        "running_step_count": 3,
+        "failed_step_count": 0,
+        "hdfs_utilization_pct": 67,
+        "yarn_memory_used_mb": 58749,
+        "elapsedTime": 465000,
+        "numCompletedTasks": 448,
+        "numFailedTasks": 0,
+        "jvm_heap_usage": 0.29,
+        "gc_time_ms": 44875,
+        "numberAllExecutors": 65
       }
     }
   },
   "log": {
-    "level": "error"
+    "level": "info"
   },
   "event": {
-    "outcome": "failure",
-    "category": "process",
+    "outcome": "success",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.emr",
     "provider": "elasticmapreduce.amazonaws.com",
-    "duration": 5315000000000
+    "duration": 465000000000
   },
-  "message": "YARN: Container killed on request. Exit code is 143",
-  "error": {
-    "code": "JobFailed",
-    "message": "Job run failed",
-    "type": "process"
-  },
+  "message": "Job submitted to YARN ResourceManager",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.emr_metrics",

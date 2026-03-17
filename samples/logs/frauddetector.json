@@ -1,48 +1,55 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "frauddetector"
     }
   },
   "aws": {
+    "dimensions": {
+      "DetectorId": "transaction-risk"
+    },
     "frauddetector": {
       "detector_id": "transaction-risk",
-      "detector_version_id": "1",
-      "event_id": "ipzcw5ajea",
-      "event_type": "card_transaction",
+      "detector_version_id": "5",
+      "event_id": "x6e68m9cklh",
+      "event_type": "wire_transfer",
       "entity_type": "customer",
-      "entity_id": "entity_v18jahcmhf",
+      "entity_id": "entity_vt7nuwfi1u",
       "outcomes": [
-        "APPROVE"
+        "REVIEW"
       ],
-      "risk_score": 138,
+      "risk_score": 412,
       "model_scores": {
-        "transaction-risk": 138
+        "transaction-risk": 412
       },
       "used_rules": [
-        "review-medium"
+        "block-high-risk"
       ],
-      "ip_address": "5.29.216.152",
+      "ip_address": "67.84.217.93",
       "event_variables": {
-        "billing_postal": "53481",
+        "billing_postal": "46467",
         "phone_verified": "true"
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "intrusion_detection",
+    "category": [
+      "intrusion_detection",
+      "process"
+    ],
     "dataset": "aws.frauddetector",
-    "provider": "frauddetector.amazonaws.com"
+    "provider": "frauddetector.amazonaws.com",
+    "duration": 269000000
   },
-  "message": "Fraud Detector APPROVE [transaction-risk]: entity entity_v18jahcmhf score 138/1000",
+  "message": "Fraud Detector REVIEW [transaction-risk]: entity entity_vt7nuwfi1u score 412/1000",
   "log": {
     "level": "info"
   }

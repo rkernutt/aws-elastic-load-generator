@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "sqs"
@@ -13,55 +13,57 @@
   },
   "aws": {
     "dimensions": {
-      "QueueName": "order-processing"
+      "QueueName": "job-queue"
     },
     "sqs": {
-      "queue_name": "order-processing",
-      "queue_url": "https://sqs.eu-west-2.amazonaws.com/814726593401/order-processing",
-      "messages_sent": 9979,
-      "messages_deleted": 72,
-      "approximate_number_of_messages": 449,
-      "approximate_age_of_oldest_message_seconds": 22,
+      "queue_name": "job-queue",
+      "queue_url": "https://sqs.us-east-1.amazonaws.com/293847561023/job-queue",
+      "messages_sent": 7302,
+      "messages_deleted": 1216,
+      "approximate_number_of_messages": 368,
+      "approximate_age_of_oldest_message_seconds": 57,
       "is_dlq": false,
       "metrics": {
         "NumberOfMessagesSent": {
-          "sum": 9979
+          "sum": 303
         },
         "NumberOfMessagesReceived": {
-          "sum": 878
+          "sum": 300
         },
         "NumberOfMessagesDeleted": {
-          "sum": 72
+          "sum": 348
         },
         "ApproximateNumberOfMessagesVisible": {
-          "avg": 46
+          "avg": 148
         },
         "ApproximateNumberOfMessagesNotVisible": {
-          "avg": 16
+          "avg": 595
         },
         "ApproximateNumberOfMessagesDelayed": {
-          "avg": 31
+          "avg": 217
         },
         "ApproximateAgeOfOldestMessage": {
-          "avg": 108
-        },
-        "SentMessageSize": {
-          "avg": 235497
+          "avg": 1560
         },
         "NumberOfEmptyReceives": {
-          "sum": 457
+          "sum": 49
+        },
+        "SentMessageSize": {
+          "avg": 45841
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.sqs",
     "provider": "sqs.amazonaws.com",
-    "duration": 112000000
+    "duration": 53000000
   },
-  "message": "SQS order-processing: 9979 messages processed",
+  "message": "SQS job-queue: 7302 messages processed",
   "log": {
     "level": "info"
   }

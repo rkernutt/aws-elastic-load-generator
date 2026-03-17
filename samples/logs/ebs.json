@@ -1,9 +1,9 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
-    "availability_zone": "us-east-1a",
+    "availability_zone": "us-east-1b",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -14,67 +14,67 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-f5ybw4difmg",
-      "VolumeType": "io2"
+      "VolumeId": "vol-4cf78al8bw6",
+      "VolumeType": "st1"
     },
     "ebs": {
-      "volume_id": "vol-f5ybw4difmg",
-      "volume_type": "io2",
-      "size_gb": 200,
-      "attached_instance": "i-2dpcs15u984",
-      "device": "/dev/xvdb",
-      "iops_consumed": 5317,
-      "provisioned_iops": 6747,
-      "throughput_mbps": 434.115,
-      "queue_depth": 7,
-      "latency_ms": 1.873,
-      "read_ops": 4115,
-      "write_ops": 67,
-      "read_bytes": 183320802,
-      "write_bytes": 489338032,
-      "event_type": "performance",
+      "volume_id": "vol-4cf78al8bw6",
+      "volume_type": "st1",
+      "size_gb": 500,
+      "availability_zone": "us-east-1b",
+      "previous_state": "available",
+      "current_state": "in-use",
+      "attached_instance": "i-qvl3hlqvu3b",
+      "device": "/dev/nvme0n1",
+      "event_type": "state_change",
       "metrics": {
         "VolumeReadOps": {
-          "sum": 5338
+          "sum": 9034
         },
         "VolumeWriteOps": {
-          "sum": 3351
+          "sum": 81
         },
         "VolumeReadBytes": {
-          "sum": 200871393
+          "sum": 64246143
         },
         "VolumeWriteBytes": {
-          "sum": 389957997
+          "sum": 180555667
         },
         "VolumeTotalReadTime": {
-          "sum": 5.976
+          "sum": 6.505
         },
         "VolumeTotalWriteTime": {
-          "sum": 4.002
+          "sum": 2.585
         },
         "VolumeIdleTime": {
-          "sum": 51.671
+          "sum": 49.568
         },
         "VolumeQueueLength": {
-          "avg": 4
+          "avg": 0
         },
         "VolumeThroughputPercentage": {
-          "avg": 14.018
+          "avg": 47.806
         },
         "VolumeConsumedReadWriteOps": {
-          "sum": 1766
+          "sum": 1285
         },
-        "BurstBalance": {}
+        "BurstBalance": {
+          "avg": 94
+        }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "host",
+    "category": [
+      "host",
+      "file"
+    ],
     "dataset": "aws.ebs",
-    "provider": "ec2.amazonaws.com"
+    "provider": "ec2.amazonaws.com",
+    "duration": 108000000
   },
-  "message": "EBS vol-f5ybw4difmg performance: 5317 IOPS, 434.1 MB/s, latency 1.87ms",
+  "message": "EBS volume vol-4cf78al8bw6 state change: available -> in-use on i-qvl3hlqvu3b (/dev/nvme0n1)",
   "log": {
     "level": "info"
   }

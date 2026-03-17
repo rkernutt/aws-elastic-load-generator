@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "xray"
@@ -14,59 +14,61 @@
   "aws": {
     "dimensions": {
       "GroupName": "Default",
-      "ServiceType": "AWS::Lambda::Function"
+      "ServiceType": "AWS::EC2::Instance"
     },
     "xray": {
-      "trace_id": "1-69b954f7-r1hvhr0xuhc",
-      "segment_id": "3iczmkjhdh",
-      "parent_id": "a3zrzg0r0ij",
+      "trace_id": "1-69b99738-y2eq7yobigj",
+      "segment_id": "n6qzbul29w",
+      "parent_id": "dcto8obw1rf",
       "service": {
-        "name": "user-service",
-        "type": "AWS::EC2::Instance"
+        "name": "payment-service",
+        "type": "client"
       },
-      "duration": 2.988,
+      "duration": 3.7,
       "http": {
         "request": {
-          "method": "PATCH",
-          "url": "/api/v1/users"
+          "method": "GET",
+          "url": "/api/v1/auth/login"
         },
         "response": {
-          "status": 200
+          "status": 201
         }
       },
       "fault": false,
       "annotations": {
         "env": "prod",
-        "version": "v14"
+        "version": "v2"
       },
       "metrics": {
         "ErrorRate": {
-          "avg": 0.926
+          "avg": 0.631
         },
         "FaultRate": {
-          "avg": 0.146
+          "avg": 0.481
         },
         "ThrottleRate": {
-          "avg": 0.089
+          "avg": 1.529
         },
         "TotalCount": {
-          "sum": 6237
+          "sum": 7996
         },
         "Latency": {
-          "avg": 2988,
-          "p99": 8964
+          "avg": 3700,
+          "p99": 11100
         }
       }
     }
   },
   "event": {
-    "duration": 2988000000,
+    "duration": 3700000000,
     "outcome": "success",
-    "category": "network",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray trace: user-service 2.988s",
+  "message": "X-Ray trace: payment-service 3.700s",
   "log": {
     "level": "info"
   }

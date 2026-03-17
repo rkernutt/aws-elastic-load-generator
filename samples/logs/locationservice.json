@@ -1,34 +1,38 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "location"
     }
   },
   "aws": {
+    "dimensions": {
+      "Operation": "CreateRouteCalculator"
+    },
     "locationservice": {
-      "operation": "UpdateDevicePosition",
-      "tracker_name": "delivery-devices",
-      "device_id": "device-bkka0vzu",
-      "position": {
-        "lat": 37.597,
-        "lon": 125.497
-      }
+      "operation": "CreateRouteCalculator",
+      "route_calculator": "truck-router",
+      "distance_meters": 421608,
+      "duration_seconds": 15041
     }
   },
   "event": {
     "outcome": "success",
-    "category": "geo",
+    "category": [
+      "process",
+      "network"
+    ],
     "dataset": "aws.location",
-    "provider": "geo.amazonaws.com"
+    "provider": "geo.amazonaws.com",
+    "duration": 205000000
   },
-  "message": "Location Service UpdateDevicePosition: device-bkka0vzu",
+  "message": "Location Service CreateRouteCalculator: route calc",
   "log": {
     "level": "info"
   }

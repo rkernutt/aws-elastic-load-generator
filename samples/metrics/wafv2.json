@@ -1,43 +1,78 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "wafv2"
     }
   },
   "aws": {
+    "dimensions": {
+      "WebACL": "regional-waf",
+      "Rule": "AWSManagedRulesWindowsRuleSet",
+      "Region": "us-east-1"
+    },
     "wafv2": {
-      "web_acl_name": "admin-portal-waf",
-      "rule_group_name": "AWSManagedRulesKnownBadInputsRuleSet",
-      "rule_name": "CrossSiteScripting_BODY",
+      "web_acl_name": "regional-waf",
+      "rule_group_name": "AWSManagedRulesSQLiRuleSet",
+      "rule_name": "AWSManagedRulesWindowsRuleSet",
       "action": "ALLOW",
-      "terminating_rule_id": "CrossSiteScripting_BODY",
-      "source_ip": "10.155.173.19",
+      "terminating_rule_id": "AWSManagedRulesWindowsRuleSet",
+      "source_ip": "244.92.119.2",
       "country": "CN",
-      "uri": "/health",
+      "uri": "/api/v1/auth/login",
       "method": "PATCH",
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-      "request_id": "h1rww1h39an",
-      "labels": []
+      "user_agent": "Go-http-client/1.1",
+      "request_id": "c03f141i28",
+      "labels": [],
+      "metrics": {
+        "AllowedRequests": {
+          "sum": 1
+        },
+        "BlockedRequests": {
+          "sum": 0
+        },
+        "CountedRequests": {
+          "sum": 0
+        },
+        "PassedRequests": {
+          "sum": 1
+        },
+        "RequestsWithValidCaptchaToken": {
+          "sum": 0
+        },
+        "ChallengeRequests": {
+          "sum": 0
+        },
+        "FailedCaptcha": {
+          "sum": 0
+        }
+      }
     }
   },
   "source": {
-    "ip": "10.155.173.19"
+    "ip": "244.92.119.2",
+    "geo": {
+      "country_iso_code": "FR",
+      "city_name": "Ashburn"
+    }
   },
   "event": {
     "action": "allow",
     "outcome": "success",
-    "category": "intrusion_detection",
+    "category": [
+      "intrusion_detection",
+      "network"
+    ],
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com"
   },
-  "message": "WAFv2 ALLOW [admin-portal-waf] 10.155.173.19 GET /health",
+  "message": "WAFv2 ALLOW [regional-waf] 244.92.119.2 PUT /api/v1/products",
   "log": {
     "level": "info"
   },

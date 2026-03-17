@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "msk"
@@ -13,31 +13,40 @@
   },
   "aws": {
     "dimensions": {
-      "Cluster Name": "prod-kafka-us-east-1",
-      "Broker ID": "5",
-      "Topic": "order-updates"
+      "Cluster Name": "prod-kafka-eu-west-2",
+      "Broker ID": "3",
+      "Topic": "payments"
     },
     "msk": {
-      "cluster_name": "prod-kafka-us-east-1",
-      "broker_id": 5,
+      "cluster_name": "prod-kafka-eu-west-2",
+      "broker_id": 3,
       "kafka_version": "3.5.1",
-      "topic": "order-updates",
-      "partition": 14,
-      "offset": 33858264,
+      "topic": "payments",
+      "partition": 18,
+      "offset": 56711176,
       "consumer_group": "alerting-service",
-      "lag": 26,
+      "lag": 57,
       "under_replicated_partitions": 0,
       "metrics": {
         "BytesInPerSec": {
-          "avg": 3685550
+          "avg": 9659801
         },
         "BytesOutPerSec": {
-          "avg": 5049472
+          "avg": 8443940
         },
         "MessagesInPerSec": {
-          "avg": 53935
+          "avg": 6469
+        },
+        "FetchConsumerTotalTimeMsMean": {
+          "avg": 27
+        },
+        "ProduceTotalTimeMsMean": {
+          "avg": 27
         },
         "UnderReplicatedPartitions": {
+          "avg": 0
+        },
+        "UnderMinIsrPartitionCount": {
           "avg": 0
         },
         "OfflinePartitionsCount": {
@@ -46,39 +55,45 @@
         "ActiveControllerCount": {
           "avg": 1
         },
-        "LeaderCount": {
-          "avg": 78
+        "GlobalPartitionCount": {
+          "avg": 427
         },
-        "NetworkProcessorAvgIdlePercent": {
-          "avg": 27.746
-        },
-        "RequestHandlerAvgIdlePercent": {
-          "avg": 89.558
+        "GlobalTopicCount": {
+          "avg": 37
         },
         "KafkaDataLogsDiskUsed": {
-          "avg": 31.24
+          "avg": "30.496"
         },
-        "CpuUser": {
-          "avg": 7.7
+        "CPUUser": {
+          "avg": "39.974"
         },
-        "MemoryFree": {
-          "avg": 7185747966
+        "CPUSystem": {
+          "avg": "3.129"
+        },
+        "NetworkRxDropped": {
+          "sum": 0
+        },
+        "NetworkTxDropped": {
+          "sum": 0
         }
       }
     }
   },
   "kafka": {
-    "topic": "order-updates",
-    "partition": 14
+    "topic": "payments",
+    "partition": 18
   },
   "event": {
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "process",
+      "network"
+    ],
     "dataset": "aws.msk",
     "provider": "kafka.amazonaws.com",
-    "duration": 46000000
+    "duration": 36000000
   },
-  "message": "MSK order-updates[14] offset=27897105",
+  "message": "MSK payments[18] offset=48819127",
   "log": {
     "level": "info"
   },

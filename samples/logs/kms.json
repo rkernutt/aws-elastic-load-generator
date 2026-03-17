@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "kms"
@@ -13,22 +13,39 @@
   },
   "aws": {
     "kms": {
-      "key_id": "pqvrlvp4-16k0-vqhd-vtdy-ualqj6phh8d",
-      "key_alias": "alias/rds-encryption",
-      "operation": "DescribeKey",
-      "principal_arn": "arn:aws:iam::738291046572:role/lambda-role",
+      "key_id": "8g44krue-rzsi-oru6-pwsq-e8n1tqpd8bs",
+      "key_alias": "alias/backup-key",
+      "operation": "Decrypt",
+      "principal_arn": "arn:aws:iam::501938274650:role/ecs-task-role",
       "key_state": "Enabled",
-      "encryption_algorithm": "SYMMETRIC_DEFAULT"
+      "encryption_algorithm": "SYMMETRIC_DEFAULT",
+      "metrics": {
+        "SecretsManagerCrossAccountBlocking": {
+          "sum": 0
+        },
+        "KeysCount": {
+          "avg": 474
+        },
+        "KeysPendingDeletion": {
+          "avg": 6
+        },
+        "KeysDisabled": {
+          "avg": 5
+        }
+      }
     }
   },
   "event": {
-    "action": "DescribeKey",
+    "action": "Decrypt",
     "outcome": "success",
-    "category": "iam",
+    "category": [
+      "authentication",
+      "configuration"
+    ],
     "dataset": "aws.kms",
     "provider": "kms.amazonaws.com"
   },
-  "message": "KMS DescribeKey: alias/rds-encryption",
+  "message": "KMS Decrypt: alias/backup-key",
   "log": {
     "level": "info"
   }

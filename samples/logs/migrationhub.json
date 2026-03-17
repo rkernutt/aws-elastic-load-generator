@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "migrationhub"
@@ -13,28 +13,32 @@
   },
   "aws": {
     "migrationhub": {
-      "application_id": "app-609hjp7nw8s",
-      "application_name": "database-rehost",
-      "server_id": "d-server-UG4U593O4TF",
-      "server_name": "server-itsaofin",
-      "migration_status": "MIGRATION_COMPLETE",
-      "migration_tool": "CloudEndure",
+      "application_id": "app-w8g2ra3825b",
+      "application_name": "web-tier-migration",
+      "server_id": "d-server-5JDG1641ODE",
+      "server_name": "server-n2y8i5wd",
+      "migration_status": "MIGRATION_IN_PROGRESS",
+      "migration_tool": "Carbonite",
       "progress_update_stream": "MGN-stream",
       "task": {
         "status": "IN_PROGRESS",
-        "progress_percent": 79,
-        "total_objects": 360,
-        "replicated_objects": 512
+        "progress_percent": 87,
+        "total_objects": 181,
+        "replicated_objects": 219
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "process",
+      "configuration"
+    ],
     "dataset": "aws.migrationhub",
-    "provider": "mgh.amazonaws.com"
+    "provider": "mgh.amazonaws.com",
+    "duration": 20235000000000
   },
-  "message": "Migration Hub database-rehost [CloudEndure]: MIGRATION_COMPLETE — server-itsaofin",
+  "message": "Migration Hub web-tier-migration [Carbonite]: MIGRATION_IN_PROGRESS — server-n2y8i5wd",
   "log": {
     "level": "info"
   }

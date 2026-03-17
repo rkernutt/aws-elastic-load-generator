@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,34 +13,34 @@
   },
   "aws": {
     "athena": {
-      "query_id": "ai8xfhhg-7ps0-w5y9-lbie",
-      "workgroup": "bi-users",
+      "query_id": "fsk9c1wq-bb0o-0b3s-xaii",
+      "workgroup": "primary",
       "database": "analytics",
       "state": "SUCCEEDED",
-      "duration_seconds": 54.123,
-      "data_scanned_bytes": 331120377,
-      "data_scanned_mb": 316,
+      "duration_seconds": 13.129,
+      "data_scanned_bytes": 273487975,
+      "data_scanned_mb": 261,
       "engine_version": "DuckDB 0.9.1",
-      "structured_logging": true,
+      "structured_logging": false,
       "metrics": {
         "DataScannedInBytes": {
-          "sum": 331120377
+          "sum": 273487975
         },
         "EngineExecutionTimeInMillis": {
-          "avg": 54123,
-          "max": 81185
+          "avg": 13129,
+          "max": 19694
         },
         "ProcessedBytes": {
-          "sum": 331120377
+          "sum": 273487975
         },
         "QueryQueueTimeInMillis": {
-          "avg": 444
+          "avg": 242
         },
         "TotalExecutionTimeInMillis": {
-          "avg": 54123
+          "avg": 13129
         },
         "QueryPlanningTimeInMillis": {
-          "avg": 146
+          "avg": 69
         }
       }
     }
@@ -50,14 +50,17 @@
     "type": "sql"
   },
   "event": {
-    "duration": 54123000000,
+    "duration": 13129000000,
     "outcome": "success",
-    "category": "database",
+    "category": [
+      "database",
+      "process"
+    ],
     "dataset": "aws.athena",
     "provider": "athena.amazonaws.com"
   },
-  "message": "{\"queryId\":\"ai8xfhhg-7ps0-w5y9-lbie\",\"workgroup\":\"bi-users\",\"database\":\"analytics\",\"state\":\"SUCCEEDED\",\"durationSeconds\":54.123,\"dataScannedBytes\":331120377,\"timestamp\":\"2026-03-17T13:19:51.676Z\"}",
+  "message": "Query succeeded",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

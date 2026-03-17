@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "budgets"
@@ -13,26 +13,30 @@
   },
   "aws": {
     "budgets": {
-      "budget_name": "quarterly-compute",
-      "budget_type": "COST",
-      "time_period": "MONTHLY",
+      "budget_name": "ec2-prod",
+      "budget_type": "USAGE",
+      "time_period": "QUARTERLY",
       "currency": "USD",
-      "budget_limit": 2318.12,
-      "actual_spend": 906.38,
-      "forecasted_spend": 1042.34,
+      "budget_limit": 5341.98,
+      "actual_spend": 4140.03,
+      "forecasted_spend": 4761.04,
       "threshold_exceeded": false,
-      "threshold_percentage": 70,
-      "notification_type": "FORECASTED",
+      "threshold_percentage": 50,
+      "notification_type": "ACTUAL",
       "subscribers": "ops@company.com"
     }
   },
   "event": {
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "configuration",
+      "process"
+    ],
     "dataset": "aws.budgets",
-    "provider": "budgets.amazonaws.com"
+    "provider": "budgets.amazonaws.com",
+    "duration": 18000000000
   },
-  "message": "Budget OK: quarterly-compute at 906/2318 (39%)",
+  "message": "Budget OK: ec2-prod at 4140/5342 (78%)",
   "log": {
     "level": "info"
   }

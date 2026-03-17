@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,13 +13,13 @@
   },
   "aws": {
     "devopsguru": {
-      "insight_id": "73u39fo9vye",
+      "insight_id": "twblto1yy9e",
       "insight_type": "REACTIVE",
-      "severity": "LOW",
+      "severity": "MEDIUM",
       "resource_collection": {
         "cloud_formation": {
           "stack_names": [
-            "api-stack"
+            "data-stack"
           ]
         },
         "tags": [
@@ -29,25 +29,30 @@
           }
         ]
       },
-      "anomaly_id": "rws5eznq9x",
+      "anomaly_id": "g2djblm3bsv",
       "anomaly_description": "ElastiCache eviction rate spike",
       "anomaly_sources": [
-        "lambda-api"
+        "ecs-workers"
       ],
-      "start_time": "2026-03-17T12:32:14.192Z",
-      "end_time": "2026-03-17T13:19:51.827Z",
+      "start_time": "2026-03-17T17:33:23.721Z",
+      "end_time": "2026-03-17T18:02:32.216Z",
       "status": "CLOSED",
-      "recommendation": "Enable enhanced monitoring",
+      "recommendation": "Check recent deployments",
       "ssm_ops_items": []
     }
   },
   "event": {
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "process",
+      "configuration",
+      "vulnerability"
+    ],
     "dataset": "aws.devopsguru",
-    "provider": "devops-guru.amazonaws.com"
+    "provider": "devops-guru.amazonaws.com",
+    "duration": 390000000000
   },
-  "message": "DevOps Guru REACTIVE insight [LOW]: ElastiCache eviction rate spike",
+  "message": "DevOps Guru REACTIVE insight [MEDIUM]: ElastiCache eviction rate spike",
   "log": {
     "level": "info"
   }

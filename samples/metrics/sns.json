@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "sns"
@@ -13,38 +13,48 @@
   },
   "aws": {
     "sns": {
-      "topic_arn": "arn:aws:sns:eu-west-2:501938274650:system-events",
-      "message_id": "yqvhtqmk-eywp-ea01",
+      "topic_arn": "arn:aws:sns:eu-west-2:738291046572:user-alerts",
+      "message_id": "7phikv2b-uxh3-438k",
       "protocol": "lambda",
       "delivery_status": "SUCCESS",
-      "message_size_bytes": 182408,
+      "message_size_bytes": 225478,
       "delivery_attempt": 1,
       "status_code": 200,
       "metrics": {
         "NumberOfMessagesPublished": {
-          "sum": 2525
+          "sum": 1
         },
         "NumberOfNotificationsDelivered": {
-          "sum": 2525
+          "sum": 1
         },
         "NumberOfNotificationsFailed": {
           "sum": 0
         },
-        "PublishSize": {
-          "avg": 8480
+        "NumberOfNotificationsFilteredOut": {
+          "sum": 0
         },
-        "SmsSuccessRate": {}
+        "NumberOfNotificationsFilteredOut-NoMessageAttributes": {
+          "sum": 0
+        },
+        "NumberOfNotificationsFilteredOut-InvalidAttributes": {
+          "sum": 0
+        },
+        "PublishSize": {
+          "avg": 71102
+        }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.sns",
     "provider": "sns.amazonaws.com",
-    "duration": 176367000
+    "duration": 99963000
   },
-  "message": "SNS delivered: system-events -> lambda (26922B)",
+  "message": "SNS delivered: user-alerts -> lambda (12408B)",
   "log": {
     "level": "info"
   },

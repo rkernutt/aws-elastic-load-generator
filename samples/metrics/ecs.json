@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "ecs"
@@ -14,57 +14,89 @@
   "aws": {
     "dimensions": {
       "ClusterName": "staging",
-      "ServiceName": "worker"
+      "ServiceName": "scheduler"
     },
     "ecs": {
       "cluster": {
         "name": "staging"
       },
       "service": {
-        "name": "worker"
+        "name": "scheduler"
       },
       "task": {
-        "id": "ofao9dmm89",
-        "definition": "worker:14"
+        "id": "4ppfezs86ro",
+        "definition": "scheduler:10"
       },
       "structured_logging": true,
       "metrics": {
         "CPUUtilization": {
-          "avg": 34.181
+          "avg": 3.144
         },
         "MemoryUtilization": {
-          "avg": 28.87
+          "avg": 50.119
         },
         "RunningTaskCount": {
-          "avg": 9
+          "avg": 3
         },
         "PendingTaskCount": {
           "avg": 0
         },
+        "StoppedTaskCount": {
+          "sum": 0
+        },
         "ServiceCount": {
           "avg": 1
+        },
+        "NetworkRxBytes": {
+          "sum": 5493372
+        },
+        "NetworkTxBytes": {
+          "sum": 96855875
+        },
+        "StorageReadBytes": {
+          "sum": 4498591
+        },
+        "StorageWriteBytes": {
+          "sum": 2278526
+        },
+        "EphemeralStorageUtilized": {
+          "avg": "11.002"
+        },
+        "EphemeralStorageReserved": {
+          "avg": 20
         }
       }
     }
   },
   "container": {
-    "name": "worker",
+    "id": "ctut69yj8ta",
+    "name": "scheduler",
     "image": {
-      "name": "myrepo/worker:latest"
-    }
+      "name": "java:latest",
+      "tag": "alpine"
+    },
+    "runtime": "docker"
+  },
+  "process": {
+    "pid": 49774,
+    "name": "scheduler"
   },
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "event": {
+    "category": [
+      "process",
+      "container"
+    ],
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 2123000000000
+    "duration": 3373000000000
   },
-  "message": "{\"cluster\":\"staging\",\"service\":\"worker\",\"taskId\":\"ofao9dmm89\",\"container\":\"worker\",\"level\":\"info\",\"message\":\"Health check passed\",\"timestamp\":\"2026-03-17T13:19:51.676Z\"}",
+  "message": "{\"cluster\":\"staging\",\"service\":\"scheduler\",\"taskId\":\"4ppfezs86ro\",\"container\":\"scheduler\",\"level\":\"warn\",\"message\":\"Connection pool exhausted\",\"timestamp\":\"2026-03-17T18:02:32.099Z\"}",
   "service": {
-    "name": "worker",
+    "name": "scheduler",
     "type": "ecs"
   },
   "data_stream": {

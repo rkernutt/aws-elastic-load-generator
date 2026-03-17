@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codecommit"
@@ -13,28 +13,32 @@
   },
   "aws": {
     "codecommit": {
-      "repository_name": "web-app",
-      "repository_arn": "arn:aws:codecommit:us-east-1:814726593401:web-app",
-      "event_type": "ReferenceUpdated",
-      "reference_name": "hotfix/payment-bug",
-      "commit_id": "kdpdpda605l",
+      "repository_name": "infrastructure",
+      "repository_arn": "arn:aws:codecommit:us-east-1:293847561023:infrastructure",
+      "event_type": "PullRequestCreated",
+      "reference_name": "feature/new-auth",
+      "commit_id": "tw6j2qf6gxa",
       "author": "codebuild",
-      "files_changed": 4,
-      "lines_added": 418,
-      "lines_deleted": 177
+      "files_changed": 6,
+      "lines_added": 162,
+      "lines_deleted": 186,
+      "pull_request_id": "283"
     }
   },
   "user": {
-    "name": "bob"
+    "name": "alice"
   },
   "event": {
-    "action": "ReferenceUpdated",
+    "action": "PullRequestCreated",
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "configuration",
+      "file"
+    ],
     "dataset": "aws.codecommit",
     "provider": "codecommit.amazonaws.com"
   },
-  "message": "CodeCommit ReferenceUpdated: web-app/hotfix/payment-bug",
+  "message": "CodeCommit PullRequestCreated: infrastructure/feature/new-auth",
   "log": {
     "level": "info"
   }

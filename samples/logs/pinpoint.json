@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "pinpoint"
@@ -13,27 +13,30 @@
   },
   "aws": {
     "pinpoint": {
-      "application_id": "7ggq837fglx",
-      "event_type": "_campaign.send",
-      "channel": "VOICE",
-      "campaign_id": "u7b1nly3lg",
-      "campaign_name": "re-engagement",
-      "journey_id": "9v1qpp8bzbi",
-      "segment_id": "8dim9q45tn9",
-      "endpoint_id": "user_esktekx4gh",
-      "message_id": "pe70ntv432q",
+      "application_id": "d96nfgveoq",
+      "event_type": "_email.delivered",
+      "channel": "SMS",
+      "campaign_id": "x00sv6c0yve",
+      "campaign_name": "churn-prevention",
+      "journey_id": "xl5x522n1kr",
+      "segment_id": "kftzpd9l07s",
+      "endpoint_id": "user_7f990r8qa2",
+      "message_id": "nw4f8en3hvc",
       "delivery_status": "SUCCESSFUL",
-      "destination": "user_esktekx4gh",
+      "destination": "+15555824955",
       "iso_country_code": "US"
     }
   },
   "event": {
     "outcome": "success",
-    "category": "email",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.pinpoint",
-    "provider": "mobiletargeting.amazonaws.com"
+    "provider": "mobiletargeting.amazonaws.com",
+    "duration": 696000000
   },
-  "message": "Pinpoint _campaign.send [re-engagement]: user_esktekx4gh via VOICE",
+  "message": "Pinpoint _email.delivered [churn-prevention]: user_7f990r8qa2 via SMS",
   "log": {
     "level": "info"
   }

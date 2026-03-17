@@ -1,35 +1,67 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "greengrass"
     }
   },
   "aws": {
+    "dimensions": {
+      "CoreDeviceName": "retail-kiosk"
+    },
     "greengrass": {
-      "core_device_name": "home-hub",
+      "core_device_name": "retail-kiosk",
       "component_name": "com.example.inference",
-      "component_version": "1.4.10",
+      "component_version": "3.4.7",
       "nucleus_version": "2.12.0",
-      "platform": "linux/amd64",
-      "deployment_id": "l6247fqfk9c",
-      "status": "COMPLETED"
+      "platform": "linux/arm64",
+      "deployment_id": "19t8t1vep8z",
+      "status": "FAILED",
+      "metrics": {
+        "ComponentDeployedCount": {
+          "sum": 24
+        },
+        "ComponentBrokenCount": {
+          "sum": 9
+        },
+        "StreamManagerMemoryUsage": {
+          "avg": 61.116
+        },
+        "StreamManagerBytesAppended": {
+          "sum": 8079980
+        },
+        "NucleusRestartCount": {
+          "sum": 3
+        },
+        "DeploymentQueueSize": {
+          "avg": 10.902
+        }
+      }
     }
   },
   "event": {
-    "outcome": "success",
-    "category": "process",
+    "outcome": "failure",
+    "category": [
+      "process",
+      "host"
+    ],
     "dataset": "aws.greengrass",
-    "provider": "greengrass.amazonaws.com"
+    "provider": "greengrass.amazonaws.com",
+    "duration": 529000000000
   },
-  "message": "Deployment completed",
+  "message": "Component failed to start: missing dependency",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "GreengrassError",
+    "message": "Component failed to start: missing dependency",
+    "type": "iot"
   }
 }

@@ -1,38 +1,91 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "gamelift"
     }
   },
   "aws": {
+    "dimensions": {
+      "FleetId": "fleet-v4agf6y3",
+      "Location": "us-west-2",
+      "MetricGroups": "All",
+      "OperatingSystem": "AMAZON_LINUX_2"
+    },
     "gamelift": {
-      "fleet_id": "fleet-cnklurvg",
-      "fleet_name": "eu-west-battle",
-      "event_type": "InstanceStatusChanged",
-      "game_session_id": "arn:aws:gamelift:us-east-1::gamesession/eu-west-battle/comilfcp3gu",
-      "current_player_sessions": 75,
-      "maximum_player_sessions": 100,
-      "instance_type": "c5.xlarge",
-      "instance_count": 44,
-      "desired_instances": 15,
-      "idle_instances": 8,
-      "matchmaking_configuration": "FastMatch"
+      "fleet_id": "fleet-v4agf6y3",
+      "fleet_name": "matchmaking-fleet",
+      "event_type": "MatchmakingSucceeded",
+      "game_session_id": "arn:aws:gamelift:eu-west-2::gamesession/matchmaking-fleet/s3sz8yhpw0n",
+      "current_player_sessions": 38,
+      "maximum_player_sessions": 50,
+      "instance_type": "c5.large",
+      "instance_count": 41,
+      "desired_instances": 9,
+      "idle_instances": 10,
+      "matchmaking_configuration": "FastMatch",
+      "matchmaking_ticket_id": "b36cdyjqdoq",
+      "matchmaking_duration_seconds": 58,
+      "metrics": {
+        "ActiveInstances": {
+          "avg": 100
+        },
+        "IdleInstances": {
+          "avg": 5
+        },
+        "PercentIdleInstances": {
+          "avg": 20.31
+        },
+        "DesiredInstances": {
+          "avg": 4
+        },
+        "MinInstances": {
+          "avg": 2
+        },
+        "MaxInstances": {
+          "avg": 100
+        },
+        "InstanceInterruptions": {
+          "sum": 0
+        },
+        "ActiveGameSessions": {
+          "avg": 787
+        },
+        "ActivatingGameSessions": {
+          "avg": 5
+        },
+        "AvailableGameSessions": {
+          "avg": 432
+        },
+        "ActivePlayerSessions": {
+          "avg": 9218
+        },
+        "CurrentPlayerSessions": {
+          "avg": 1545
+        },
+        "PlayerSessionActivations": {
+          "sum": 25
+        }
+      }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "session",
+    "category": [
+      "process",
+      "network"
+    ],
     "dataset": "aws.gamelift",
-    "provider": "gamelift.amazonaws.com"
+    "provider": "gamelift.amazonaws.com",
+    "duration": 5740341000000
   },
-  "message": "GameLift eu-west-battle: InstanceStatusChanged",
+  "message": "GameLift matchmaking-fleet: MatchmakingSucceeded",
   "log": {
     "level": "info"
   }

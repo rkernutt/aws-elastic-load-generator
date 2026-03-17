@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,69 +13,103 @@
   },
   "aws": {
     "dimensions": {
-      "CacheClusterId": "prod-redis-4",
-      "CacheNodeId": "0002"
+      "CacheClusterId": "prod-redis-2",
+      "CacheNodeId": "0005",
+      "ReplicationGroupId": "prod-cache"
     },
     "elasticache": {
-      "cluster_id": "prod-redis-4",
-      "node_id": "0002",
+      "cluster_id": "prod-redis-2",
+      "node_id": "0005",
       "engine": "redis",
       "engine_version": "7.1.0",
       "replication_group_id": "prod-cache",
-      "command": "SCAN",
-      "latency_us": 13.746,
+      "command": "LPUSH",
+      "latency_us": 36.695,
       "cache_hit": true,
-      "connected_clients": 433,
-      "used_memory_mb": 9125,
+      "connected_clients": 146,
+      "used_memory_mb": 7623,
       "metrics": {
-        "CPUUtilization": {
-          "avg": 16.138
-        },
-        "FreeableMemory": {
-          "avg": 1448780056
-        },
-        "NetworkBytesIn": {
-          "sum": 41321614
-        },
-        "NetworkBytesOut": {
-          "sum": 86715721
+        "BytesUsedForCache": {
+          "avg": 6622687745
         },
         "CacheHits": {
-          "sum": 30489
+          "sum": 16330
         },
         "CacheMisses": {
-          "sum": 3889
+          "sum": 398
+        },
+        "CacheHitRate": {
+          "avg": 0.893
         },
         "CurrConnections": {
-          "avg": 153
+          "avg": 514
         },
         "NewConnections": {
-          "sum": 87
+          "sum": 86
         },
         "Evictions": {
           "sum": 0
         },
+        "Reclaimed": {
+          "sum": 38
+        },
+        "ReplicationBytes": {
+          "avg": 4892289
+        },
         "ReplicationLag": {
-          "avg": 0.696
+          "avg": 0
         },
         "SaveInProgress": {
           "avg": 0
+        },
+        "CurrItems": {
+          "avg": 964477
+        },
+        "NewItems": {
+          "sum": 6704
+        },
+        "NetworkBytesIn": {
+          "avg": 52342186
+        },
+        "NetworkBytesOut": {
+          "avg": 93682481
+        },
+        "CPUUtilization": {
+          "avg": 35.574
+        },
+        "EngineCPUUtilization": {
+          "avg": 10.746
+        },
+        "FreeableMemory": {
+          "avg": 1611298069
+        },
+        "SwapUsage": {
+          "avg": 40967040
+        },
+        "DatabaseMemoryUsagePercentage": {
+          "avg": 67.591
+        },
+        "TrafficBasedCmdsLatency": {
+          "avg": 0.44
         }
       }
     }
   },
   "db": {
     "type": "keyvalue",
-    "operation": "SCAN"
+    "operation": "LPUSH"
   },
   "event": {
-    "duration": 13746,
+    "duration": 36695,
     "outcome": "success",
-    "category": "database",
+    "category": [
+      "database",
+      "network"
+    ],
     "dataset": "aws.elasticache",
     "provider": "elasticache.amazonaws.com"
   },
-  "message": "Redis SCAN 13.75us",
+  "message": "Redis LPUSH 36.70us",
   "log": {
     "level": "info"
   }

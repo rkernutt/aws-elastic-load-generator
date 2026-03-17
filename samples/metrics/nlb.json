@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "nlb"
@@ -13,49 +13,113 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "net/prod-nlb-eu-west-2/8ekxxfpfdoj",
-      "Protocol": "UDP",
-      "Port": "8080"
+      "LoadBalancer": "net/prod-nlb-us-east-1/aiiba2m0fui",
+      "TargetGroup": "targetgroup/tg-web/01x8gvd7o5v6",
+      "AvailabilityZone": "us-east-1b"
     },
     "elb": {
-      "name": "net/prod-nlb-eu-west-2/8ekxxfpfdoj",
+      "name": "net/prod-nlb-us-east-1/aiiba2m0fui",
       "type": "network",
-      "listener": "arn:aws:elasticloadbalancing:eu-west-2:293847561023:listener/net/prod-nlb/4skjm7lguxw/561wo8xdtlr",
-      "protocol": "UDP",
-      "connection_duration.sec": 2.866,
-      "backend.ip": "215.133.101.148",
-      "backend.port": "8080",
-      "received_bytes": 323125,
-      "sent_bytes": 294412
+      "listener": "arn:aws:elasticloadbalancing:us-east-1:164820739518:listener/net/prod-nlb/thfx8e9qgv/nymswp5tqnp",
+      "protocol": "TCP",
+      "connection_duration.sec": 2.152,
+      "backend.ip": "102.205.253.98",
+      "backend.port": "80",
+      "received_bytes": 422164,
+      "sent_bytes": 8566
     },
     "nlb": {
-      "load_balancer": "net/prod-nlb-eu-west-2/8ekxxfpfdoj",
-      "listener_port": 8080,
-      "protocol": "UDP",
-      "connection_duration_ms": 2866,
-      "target_ip": "215.133.101.148",
-      "target_port": 8080,
+      "load_balancer": "net/prod-nlb-us-east-1/aiiba2m0fui",
+      "listener_port": 80,
+      "protocol": "TCP",
+      "connection_duration_ms": 2152,
+      "target_ip": "102.205.253.98",
+      "target_port": 80,
       "connection_log_status": "success",
-      "bytes": 323125,
-      "packets": 39
+      "bytes": 422164,
+      "packets": 13,
+      "metrics": {
+        "ActiveFlowCount": {
+          "avg": 7385
+        },
+        "ActiveFlowCount_TCP": {
+          "avg": 2519
+        },
+        "ActiveFlowCount_TLS": {
+          "avg": 1237
+        },
+        "ActiveFlowCount_UDP": {
+          "avg": 966
+        },
+        "ClientTLSNegotiationErrorCount": {
+          "sum": 0
+        },
+        "ConsumedLCUs": {
+          "avg": 5.7
+        },
+        "HealthyHostCount": {
+          "avg": 8
+        },
+        "NewFlowCount": {
+          "sum": 3901
+        },
+        "NewFlowCount_TCP": {
+          "sum": 4645
+        },
+        "NewFlowCount_TLS": {
+          "sum": 1200
+        },
+        "NewFlowCount_UDP": {
+          "sum": 499
+        },
+        "ProcessedBytes": {
+          "sum": 225201470
+        },
+        "ProcessedBytes_TCP": {
+          "sum": 22013485
+        },
+        "ProcessedBytes_TLS": {
+          "sum": 37477639
+        },
+        "ProcessedBytes_UDP": {
+          "sum": 16456771
+        },
+        "TargetTLSNegotiationErrorCount": {
+          "sum": 0
+        },
+        "TCP_Client_Reset_Count": {
+          "sum": 80
+        },
+        "TCP_ELB_Reset_Count": {
+          "sum": 0
+        },
+        "TCP_Target_Reset_Count": {
+          "sum": 26
+        },
+        "UnHealthyHostCount": {
+          "avg": 0
+        }
+      }
     }
   },
   "source": {
-    "ip": "200.249.76.5",
-    "port": 60113
+    "ip": "253.15.74.101",
+    "port": 23961
   },
   "network": {
-    "transport": "udp",
-    "bytes": 323125
+    "transport": "tcp",
+    "bytes": 422164
   },
   "event": {
     "outcome": "success",
-    "category": "network",
+    "category": [
+      "network"
+    ],
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com",
-    "duration": 2866000000
+    "duration": 2152000000
   },
-  "message": "NLB UDP:8080 323125B in 2866ms",
+  "message": "NLB TCP:80 422164B in 2152ms",
   "log": {
     "level": "info"
   },

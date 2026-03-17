@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -15,20 +15,29 @@
     "trustedadvisor": {
       "check_name": "MFA on Root Account",
       "category": "security",
-      "status": "ok",
-      "affected_resource": "arn:aws:s3:::my-bucket",
-      "flagged_resources": 0
+      "status": "error",
+      "affected_resource": "sg-3foyexxv",
+      "flagged_resources": 9
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "success",
-    "category": "configuration",
+    "outcome": "failure",
+    "category": [
+      "configuration",
+      "vulnerability"
+    ],
     "dataset": "aws.trustedadvisor",
-    "provider": "trustedadvisor.amazonaws.com"
+    "provider": "trustedadvisor.amazonaws.com",
+    "duration": 25000000000
   },
-  "message": "Trusted Advisor OK: MFA on Root Account",
+  "message": "Trusted Advisor [ERROR]: MFA on Root Account - 2 resources affected",
+  "error": {
+    "code": "TrustedAdvisorFinding",
+    "message": "MFA on Root Account: error",
+    "type": "configuration"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

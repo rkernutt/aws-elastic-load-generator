@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "apprunner"
@@ -13,18 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "frontend"
+      "ServiceName": "webhook-handler",
+      "ServiceId": "6bj9uxuuo8h"
     },
     "apprunner": {
-      "service_name": "frontend",
-      "service_arn": "arn:aws:apprunner:us-east-1:738291046572:service/frontend/vjqhk9ng02",
+      "service_name": "webhook-handler",
+      "service_arn": "arn:aws:apprunner:eu-west-2:164820739518:service/webhook-handler/6bj9uxuuo8h",
       "structured_logging": false,
       "metrics": {
         "Requests": {
-          "sum": 629
+          "sum": 1
         },
         "2xxStatusResponses": {
-          "sum": 588
+          "sum": 1
         },
         "4xxStatusResponses": {
           "sum": 0
@@ -32,45 +33,55 @@
         "5xxStatusResponses": {
           "sum": 0
         },
+        "HttpStatusCode2XX": {
+          "sum": 1
+        },
         "RequestLatency": {
-          "avg": 232,
-          "p99": 464
+          "avg": 356,
+          "p99": 1068
         },
         "ActiveInstances": {
-          "avg": 4
+          "avg": 1
+        },
+        "ConcurrentRequests": {
+          "avg": 24
         },
         "CPUUtilization": {
-          "avg": 25.859
+          "avg": 51.699
         },
         "MemoryUtilization": {
-          "avg": 69.736
+          "avg": 34.513
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "POST",
-      "bytes": 253
+      "method": "PATCH",
+      "bytes": 4314
     },
     "response": {
       "status_code": 200,
-      "bytes": 5099
+      "bytes": 4523
     }
   },
   "url": {
-    "path": "/api/v1/orders"
+    "path": "/api/v1/search"
   },
   "client": {
-    "ip": "126.71.251.180"
+    "ip": "235.112.107.252"
   },
   "event": {
-    "duration": 232000000,
+    "duration": 356000000,
     "outcome": "success",
+    "category": [
+      "web",
+      "process"
+    ],
     "dataset": "aws.apprunner",
     "provider": "apprunner.amazonaws.com"
   },
-  "message": "PUT /api/v1/users 200 232ms",
+  "message": "GET /api/v2/events 200 356ms",
   "log": {
     "level": "info"
   },

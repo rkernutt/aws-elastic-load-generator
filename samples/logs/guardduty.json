@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "guardduty"
@@ -13,67 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "yg9ge2h38f"
+      "DetectorId": "6chksfadt6n"
     },
     "guardduty": {
       "schema_version": "2.0",
-      "account_id": "814726593401",
-      "region": "eu-west-2",
+      "account_id": "738291046572",
+      "region": "us-east-1",
       "partition": "aws",
-      "id": "2l7guph3m4c",
-      "arn": "arn:aws:guardduty:eu-west-2:814726593401:detector/yg9ge2h38f/finding/2l7guph3m4c",
-      "type": "Exfiltration:S3/ObjectRead.Unusual",
-      "title": "S3 ObjectRead Unusual",
-      "description": "GuardDuty detected suspicious activity: Exfiltration:S3/ObjectRead.Unusual",
-      "created_at": "2026-03-17T13:19:51.676Z",
-      "updated_at": "2026-03-17T13:19:51.676Z",
-      "severity": 8,
-      "confidence": 67.984,
-      "finding_id": "2l7guph3m4c",
-      "finding_type": "Exfiltration:S3/ObjectRead.Unusual",
-      "detector_id": "yg9ge2h38f",
+      "id": "hffnxsu5b0r",
+      "arn": "arn:aws:guardduty:us-east-1:738291046572:detector/6chksfadt6n/finding/hffnxsu5b0r",
+      "type": "Trojan:EC2/DNSDataExfiltration",
+      "title": "EC2 DNSDataExfiltration",
+      "description": "Routine check completed.",
+      "created_at": "2026-03-17T18:02:32.099Z",
+      "updated_at": "2026-03-17T18:02:32.099Z",
+      "severity": 0,
+      "confidence": 91.047,
+      "finding_id": "hffnxsu5b0r",
+      "finding_type": "Trojan:EC2/DNSDataExfiltration",
+      "detector_id": "6chksfadt6n",
       "resource_type": "Instance",
-      "action_type": "PORT_PROBE",
-      "count": 318,
-      "resource": {
-        "instance_details": {
-          "availability_zone": "eu-west-2c",
-          "instance": {
-            "id": "i-26upudzg9ry",
-            "type": "t3.medium",
-            "state": "running"
-          },
-          "image": {
-            "id": "ami-259jol90",
-            "description": "Amazon Linux 2"
-          },
-          "network_interfaces": [
-            {
-              "network_interface_id": "eni-j97v3e94",
-              "private_ip_address": "26.23.81.210",
-              "subnet_id": "subnet-0dx0n5ln",
-              "vpc_id": "vpc-zbcsly40",
-              "security_groups": [
-                {
-                  "group_id": "sg-gz4kloz9",
-                  "group_name": "default"
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "service": {
-        "action": {
-          "action_type": "NETWORK_CONNECTION"
-        }
-      },
+      "action_type": "DNS_REQUEST",
+      "count": 310,
       "metrics": {
         "FindingCount": {
-          "sum": 18
+          "sum": 0
         },
         "HighSeverityFindingCount": {
-          "sum": 5
+          "sum": 0
         },
         "MediumSeverityFindingCount": {
           "sum": 0
@@ -88,25 +55,25 @@
     "indicator": [
       {
         "type": "domain",
-        "value": "130.164.136.26"
+        "value": "suspicious-5rvpb1vj.example.com"
       }
     ]
   },
   "event": {
     "kind": "alert",
-    "severity": 8,
-    "outcome": "failure",
-    "category": "intrusion_detection",
+    "severity": 0,
+    "outcome": "success",
+    "category": [
+      "malware"
+    ],
+    "type": [
+      "indicator"
+    ],
     "dataset": "aws.guardduty",
     "provider": "guardduty.amazonaws.com"
   },
-  "message": "GuardDuty finding [Severity 8]: Exfiltration:S3/ObjectRead.Unusual",
+  "message": "GuardDuty: no threats detected",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ThreatFinding",
-    "message": "GuardDuty finding: Exfiltration:S3/ObjectRead.Unusual",
-    "type": "security"
+    "level": "info"
   }
 }

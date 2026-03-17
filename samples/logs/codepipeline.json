@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "codepipeline"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "infra-pipeline"
+      "PipelineName": "api-deploy"
     },
     "codepipeline": {
-      "pipeline_name": "infra-pipeline",
-      "pipeline_arn": "arn:aws:codepipeline:us-east-1:164820739518:infra-pipeline",
-      "execution_id": "76vrjnp7-2t7l-mmbm-dqdt-3s2yabbg9is",
-      "stage_name": "Source",
-      "action_name": "Deploy",
+      "pipeline_name": "api-deploy",
+      "pipeline_arn": "arn:aws:codepipeline:eu-west-2:501938274650:api-deploy",
+      "execution_id": "fcxcxwpg-dgyn-voiv-zw6t-fpnn4ij0x3q",
+      "stage_name": "Approval",
+      "action_name": "Manual",
       "state": "Succeeded",
-      "revision_id": "fgf6l4b53a",
-      "structured_logging": true,
+      "revision_id": "bz0zjmaw9gm",
+      "structured_logging": false,
       "metrics": {
         "PipelineExecutionAttempts": {
           "sum": 1
@@ -48,12 +48,15 @@
   },
   "event": {
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "process",
+      "configuration"
+    ],
     "dataset": "aws.codepipeline",
     "provider": "codepipeline.amazonaws.com",
-    "duration": 106000000000
+    "duration": 80000000000
   },
-  "message": "{\"pipeline\":\"infra-pipeline\",\"executionId\":\"76vrjnp7-2t7l-mmbm-dqdt-3s2yabbg9is\",\"stage\":\"Source\",\"state\":\"Succeeded\",\"timestamp\":\"2026-03-17T13:19:51.676Z\"}",
+  "message": "Pipeline execution started",
   "log": {
     "level": "info"
   }

@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,23 +13,26 @@
   },
   "aws": {
     "servicequotas": {
-      "service_code": "iam",
-      "quota_code": "L-K136MRRY",
+      "service_code": "ec2",
+      "quota_code": "L-CM1L507G",
       "quota_name": "DB instances",
-      "quota_value": 10,
-      "current_utilization": 6,
+      "quota_value": 20,
+      "current_utilization": 12,
       "utilization_percent": 60,
       "adjustable": true,
-      "applied_level": "ACCOUNT"
+      "applied_level": "RESOURCE"
     }
   },
   "event": {
     "outcome": "success",
-    "category": "configuration",
+    "category": [
+      "configuration"
+    ],
     "dataset": "aws.servicequotas",
-    "provider": "servicequotas.amazonaws.com"
+    "provider": "servicequotas.amazonaws.com",
+    "duration": 229000000
   },
-  "message": "Service Quotas: iam DB instances at 6/10 (60%)",
+  "message": "Service Quotas: ec2 DB instances at 12/20 (60%)",
   "log": {
     "level": "info"
   }

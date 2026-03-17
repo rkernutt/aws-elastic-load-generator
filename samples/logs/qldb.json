@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "qldb"
@@ -13,24 +13,30 @@
   },
   "aws": {
     "qldb": {
-      "ledger_name": "supply-chain",
-      "table_name": "Users",
-      "operation": "SELECT",
-      "transaction_id": "qclndwf0yfs",
-      "document_id": "1n7hg296ye4",
-      "revision_hash": "j34x1tayug8",
-      "duration_ms": 96
+      "ledger_name": "audit-trail",
+      "table_name": "Orders",
+      "operation": "INSERT",
+      "transaction_id": "zgcegtnlkfs",
+      "document_id": "ocqh0xt48jo",
+      "revision_hash": "seovf1771ho",
+      "duration_ms": 1007,
+      "error_code": "OccConflictException"
     }
   },
   "event": {
-    "duration": 95950000,
-    "outcome": "success",
+    "duration": 1007073000,
+    "outcome": "failure",
     "category": "database",
     "dataset": "aws.qldb",
     "provider": "qldb.amazonaws.com"
   },
-  "message": "QLDB SELECT on supply-chain.Users: 96ms",
+  "message": "QLDB INSERT on audit-trail.Orders FAILED: OCC conflict",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "OccConflictException",
+    "message": "QLDB transaction failed",
+    "type": "db"
   }
 }

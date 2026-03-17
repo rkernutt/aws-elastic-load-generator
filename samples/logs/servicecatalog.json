@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "servicecatalog"
@@ -13,28 +13,31 @@
   },
   "aws": {
     "servicecatalog": {
-      "operation": "TerminateProvisionedProduct",
-      "product_name": "EKS Cluster",
-      "product_id": "prod-CBE9VRE5K4R",
-      "portfolio_id": "port-G2WC5BAH6IG",
-      "provisioned_product_name": "eks-cluster-3e6huc",
-      "record_id": "rec-4ZHFTBO3K6K",
-      "status": "AVAILABLE",
-      "requester_arn": "arn:aws:iam::164820739518:user/contractor-dan",
-      "launch_role": "arn:aws:iam::123456789:role/ServiceCatalogLaunchRole"
+      "operation": "ProvisionProduct",
+      "product_name": "Data Pipeline",
+      "product_id": "prod-6UHXKEZDECC",
+      "portfolio_id": "port-OOBJVCPJC69",
+      "provisioned_product_name": "data-pipeline-b266dr",
+      "record_id": "rec-29RDAT8HGJC",
+      "status": "SUCCEEDED",
+      "requester_arn": "arn:aws:iam::814726593401:user/contractor-dan"
     }
   },
   "user": {
     "name": "contractor-dan"
   },
   "event": {
-    "action": "TerminateProvisionedProduct",
+    "action": "ProvisionProduct",
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "configuration",
+      "process"
+    ],
     "dataset": "aws.servicecatalog",
-    "provider": "servicecatalog.amazonaws.com"
+    "provider": "servicecatalog.amazonaws.com",
+    "duration": 539000000000
   },
-  "message": "ServiceCatalog TerminateProvisionedProduct: contractor-dan → EKS Cluster [AVAILABLE]",
+  "message": "ServiceCatalog ProvisionProduct: contractor-dan → Data Pipeline [SUCCEEDED]",
   "log": {
     "level": "info"
   }

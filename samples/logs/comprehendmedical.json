@@ -1,34 +1,39 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "comprehendmedical"
     }
   },
   "aws": {
+    "dimensions": {
+      "Operation": "InferRxNorm"
+    },
     "comprehendmedical": {
-      "operation": "InferICD10CM",
-      "entities_detected": 32,
+      "operation": "InferRxNorm",
+      "entities_detected": 41,
       "phi_entities": 1,
-      "icd10_concepts": 7,
-      "text_characters": 2121,
-      "data_access_role_arn": "arn:aws:iam::814726593401:role/ComprehendMedicalRole",
-      "s3_bucket": "clinical-notes"
+      "rxnorm_concepts": 14,
+      "text_characters": 2712,
+      "data_access_role_arn": "arn:aws:iam::293847561023:role/ComprehendMedicalRole",
+      "s3_bucket": "ehr-processed"
     }
   },
   "event": {
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.comprehendmedical",
     "provider": "comprehendmedical.amazonaws.com"
   },
-  "message": "Comprehend Medical InferICD10CM: 32 entities, 1 PHI",
+  "message": "Comprehend Medical InferRxNorm: 41 entities, 1 PHI",
   "log": {
     "level": "info"
   }

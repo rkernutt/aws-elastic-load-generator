@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "cloudfront"
@@ -13,51 +13,70 @@
   },
   "aws": {
     "dimensions": {
-      "DistributionId": "EB7EVJ2LGHYJ",
+      "DistributionId": "EAGVOZ2VG9R",
       "Region": "Global"
     },
     "cloudfront_logs": {
-      "x_edge_location": "GRU",
-      "sc_bytes": 227322,
-      "c_ip": "9.55.116.70",
+      "x_edge_location": "LHR62",
+      "sc_bytes": 439354,
+      "c_ip": "161.172.79.253",
       "cs_method": "GET",
-      "cs_uri_stem": "/images/hero.webp",
-      "sc_status": "200",
-      "x_edge_request_id": "812K90T45N",
-      "time_taken": "0.498",
+      "cs_uri_stem": "/index.html",
+      "sc_status": "400",
+      "x_edge_request_id": "97H7NL6Y66R",
+      "time_taken": "4.170",
       "x_edge_result_type": "Miss",
-      "x_edge_response_result_type": "Hit"
+      "x_edge_response_result_type": "Hit",
+      "x_forwarded_for": "225.3.59.42"
     },
     "cloudfront": {
-      "distribution_id": "EB7EVJ2LGHYJ",
-      "edge_location": "GRU",
-      "result_type": "Miss",
-      "edge_request_id": "812K90T45N",
-      "time_to_first_byte": 0.498,
+      "distribution_id": "EAGVOZ2VG9R",
+      "edge_location": "LHR62",
+      "result_type": "Error",
+      "edge_request_id": "97H7NL6Y66R",
+      "time_to_first_byte": 4.17,
       "metrics": {
         "Requests": {
-          "sum": 99895
+          "sum": 1
         },
         "BytesDownloaded": {
-          "sum": 7770816088
+          "sum": 97883238
         },
         "BytesUploaded": {
-          "sum": 852989
+          "sum": 900463
         },
         "4xxErrorRate": {
-          "avg": 0.162
+          "avg": 1
         },
         "5xxErrorRate": {
           "avg": 0
         },
         "TotalErrorRate": {
-          "avg": 0.82
+          "avg": 1
         },
         "CacheHitRate": {
-          "avg": 66.521
+          "avg": 0.988
         },
         "OriginLatency": {
-          "avg": 124
+          "avg": 1148.412
+        },
+        "401ErrorRate": {
+          "avg": 0
+        },
+        "403ErrorRate": {
+          "avg": 0
+        },
+        "404ErrorRate": {
+          "avg": 0
+        },
+        "502ErrorRate": {
+          "avg": 0
+        },
+        "503ErrorRate": {
+          "avg": 0
+        },
+        "504ErrorRate": {
+          "avg": 0
         }
       }
     }
@@ -65,29 +84,48 @@
   "http": {
     "request": {
       "method": "GET",
-      "bytes": 842
+      "bytes": 952
     },
     "response": {
-      "status_code": 200,
-      "bytes": 227322
+      "status_code": 400,
+      "bytes": 439354
     }
   },
   "url": {
-    "path": "/images/hero.webp",
-    "domain": "dd3qsdkk3rf5.cloudfront.net"
+    "path": "/index.html",
+    "domain": "dv4qi5qe9xo.cloudfront.net"
   },
   "client": {
-    "ip": "9.55.116.70"
+    "ip": "161.172.79.253",
+    "geo": {
+      "country_iso_code": "AU",
+      "city_name": "Sydney"
+    }
   },
+  "aws.cloudfront.edge_location": "LHR62",
+  "aws.cloudfront.x_edge_result_type": "RefreshHit",
+  "aws.cloudfront.x_edge_response_result_type": "Error",
+  "aws.cloudfront.x_forwarded_for": "123.234.139.10",
   "event": {
-    "outcome": "success",
-    "category": "web",
+    "outcome": "failure",
+    "category": [
+      "web",
+      "network"
+    ],
+    "type": [
+      "access"
+    ],
     "dataset": "aws.cloudfront_logs",
     "provider": "cloudfront.amazonaws.com",
-    "duration": 498000000
+    "duration": 4170000000
   },
-  "message": "GET /images/hero.webp 200 [GRU]",
+  "message": "GET /index.html 400 [LHR62]",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "ClientError",
+    "message": "HTTP 400",
+    "type": "server"
   }
 }

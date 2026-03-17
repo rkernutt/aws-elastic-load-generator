@@ -1,60 +1,104 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "autoscaling"
     }
   },
   "aws": {
+    "dimensions": {
+      "AutoScalingGroupName": "spot-fleet"
+    },
     "autoscaling": {
-      "group_name": "web-asg",
-      "activity_id": "jrpkrd87-cv3k-1gwc",
-      "action_type": "Launch",
-      "instance_id": "i-sks74eea23q",
+      "group_name": "spot-fleet",
+      "activity_id": "2794vp0o-vxnr-oyi3",
+      "action_type": "HealthCheck",
+      "instance_id": "i-tu9x053fgkg",
       "instance_type": "c5.2xlarge",
-      "desired_capacity": 4,
+      "desired_capacity": 3,
       "min_size": 2,
       "max_size": 50,
-      "current_capacity": 4,
-      "cause": "Unhealthy instance replaced",
+      "current_capacity": 3,
+      "cause": "EC2 health check passed",
       "status_code": "Successful",
-      "launch_template": "web-lt:5",
+      "launch_template": "worker-lt:8",
       "metrics": {
-        "GroupDesiredCapacity": {
-          "avg": 4
-        },
-        "GroupInServiceInstances": {
-          "avg": 4
-        },
         "GroupMinSize": {
           "avg": 2
         },
         "GroupMaxSize": {
           "avg": 50
         },
+        "GroupDesiredCapacity": {
+          "avg": 3
+        },
+        "GroupInServiceInstances": {
+          "avg": 3
+        },
         "GroupPendingInstances": {
           "avg": 0
         },
+        "GroupStandbyInstances": {
+          "avg": 0
+        },
         "GroupTerminatingInstances": {
+          "avg": 0
+        },
+        "GroupTotalInstances": {
+          "avg": 3
+        },
+        "GroupInServiceCapacity": {
+          "avg": 3
+        },
+        "GroupPendingCapacity": {
+          "avg": 0
+        },
+        "GroupStandbyCapacity": {
+          "avg": 0
+        },
+        "GroupTerminatingCapacity": {
+          "avg": 0
+        },
+        "GroupTotalCapacity": {
+          "avg": 3
+        },
+        "WarmPoolMinSize": {
+          "avg": 0
+        },
+        "WarmPoolDesiredCapacity": {
+          "avg": 0
+        },
+        "WarmPoolPendingCapacity": {
+          "avg": 0
+        },
+        "WarmPoolTerminatingCapacity": {
+          "avg": 0
+        },
+        "WarmPoolTotalCapacity": {
+          "avg": 0
+        },
+        "WarmPoolWarmedCapacity": {
           "avg": 0
         }
       }
     }
   },
   "event": {
+    "category": [
+      "host"
+    ],
     "outcome": "success",
-    "category": "host",
     "dataset": "aws.autoscaling",
     "provider": "autoscaling.amazonaws.com",
-    "duration": 441000000000
+    "duration": 91000000000
   },
-  "message": "AutoScaling web-asg: Launch instance",
+  "message": "AutoScaling spot-fleet: HealthCheck instance",
   "log": {
     "level": "info"
   }

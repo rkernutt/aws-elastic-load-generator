@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "organizations"
@@ -13,20 +13,27 @@
   },
   "aws": {
     "organizations": {
-      "action": "MoveAccount",
-      "account_id": "501938274650",
-      "account_name": "security-audit",
-      "organizational_unit": "Sandbox"
+      "action": "AttachPolicy",
+      "account_id": "164820739518",
+      "account_name": "sandbox-dev",
+      "organizational_unit": "Root",
+      "policy_id": "p-kp9zn690",
+      "policy_type": "BACKUP_POLICY",
+      "policy_name": "DenyRootUserActions"
     }
   },
   "event": {
-    "action": "MoveAccount",
+    "action": "AttachPolicy",
     "outcome": "success",
-    "category": "iam",
+    "category": [
+      "configuration",
+      "iam"
+    ],
     "dataset": "aws.organizations",
-    "provider": "organizations.amazonaws.com"
+    "provider": "organizations.amazonaws.com",
+    "duration": 1773000000
   },
-  "message": "Organizations MoveAccount: Security",
+  "message": "Organizations AttachPolicy: Production",
   "log": {
     "level": "info"
   }

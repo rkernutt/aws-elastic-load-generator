@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "kinesis"
@@ -13,62 +13,89 @@
   },
   "aws": {
     "dimensions": {
-      "StreamName": "audit-trail",
-      "ShardId": "shardId-000000000011"
+      "StreamName": "transaction-feed"
     },
     "kinesis": {
-      "stream_name": "audit-trail",
-      "shard_id": "shardId-000000000003",
-      "sequence_number": "4L71724402W",
-      "partition_key": "bcc4bw50",
-      "incoming_records": 4313,
-      "incoming_bytes": 755662,
-      "iterator_age_ms": 563,
-      "write_provisioned_throughput_exceeded": false,
+      "stream_name": "transaction-feed",
+      "shard_id": "shardId-000000000000",
+      "sequence_number": "ZC2FQ1995PL",
+      "partition_key": "g6ix78j5",
+      "incoming_records": 7434,
+      "incoming_bytes": 934336,
+      "iterator_age_ms": 3293647,
+      "write_provisioned_throughput_exceeded": true,
       "metrics": {
-        "IncomingRecords": {
-          "sum": 1582
+        "GetRecords.Bytes": {
+          "avg": 732493
+        },
+        "GetRecords.IteratorAgeMilliseconds": {
+          "avg": 573178
+        },
+        "GetRecords.Latency": {
+          "avg": 23
+        },
+        "GetRecords.Records": {
+          "avg": 405
+        },
+        "GetRecords.Success": {
+          "avg": 0
         },
         "IncomingBytes": {
-          "sum": 6240535
+          "sum": 9577332
         },
-        "OutgoingRecords": {
-          "sum": 9822
+        "IncomingRecords": {
+          "sum": 3552
         },
-        "OutgoingBytes": {
-          "sum": 5343407
+        "PutRecord.Bytes": {
+          "avg": 945637
         },
-        "WriteProvisionedThroughputExceeded": {
-          "sum": 0
+        "PutRecord.Latency": {
+          "avg": 8
+        },
+        "PutRecord.Success": {
+          "avg": 0
+        },
+        "PutRecords.Bytes": {
+          "avg": 3257413
+        },
+        "PutRecords.FailedRecords": {
+          "avg": 73
+        },
+        "PutRecords.SuccessfulRecords": {
+          "avg": 247
+        },
+        "PutRecords.Latency": {
+          "avg": 14
         },
         "ReadProvisionedThroughputExceeded": {
-          "sum": 0
+          "sum": 3
+        },
+        "WriteProvisionedThroughputExceeded": {
+          "sum": 1
         },
         "IteratorAgeMilliseconds": {
-          "avg": 461
-        },
-        "GetRecords_IteratorAgeMilliseconds": {
-          "avg": 200
-        },
-        "PutRecord_Success": {
-          "sum": 3555
-        },
-        "PutRecords_Success": {
-          "sum": 2421
+          "avg": 43135
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
-    "category": "process",
+    "outcome": "failure",
+    "category": [
+      "network"
+    ],
     "dataset": "aws.kinesis",
     "provider": "kinesis.amazonaws.com",
-    "duration": 3811000000
+    "duration": 24903000000
   },
-  "message": "Kinesis audit-trail: 4390 records ingested",
+  "message": "Kinesis WriteProvisionedThroughputExceeded on transaction-feed",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "InvalidArgumentException",
+    "message": "Kinesis stream error",
+    "type": "stream"
   },
   "data_stream": {
     "type": "metrics",

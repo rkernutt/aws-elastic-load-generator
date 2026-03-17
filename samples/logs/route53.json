@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "route53"
@@ -13,52 +13,70 @@
   },
   "aws": {
     "dimensions": {
-      "HostedZoneId": "ZSHGBN21B0R"
+      "HostedZoneId": "ZZ10ADVT26JF",
+      "HealthCheckId": "5ekqjcrguas",
+      "Region": "us-east-1"
     },
     "route53": {
-      "query_name": "api.example.com",
+      "query_name": "mail.example.com",
       "query_type": "TXT",
-      "response_code": "NOERROR",
-      "edge_location": "SFO66",
-      "hosted_zone_id": "ZSHGBN21B0R",
+      "response_code": "NXDOMAIN",
+      "edge_location": "LHR59",
+      "hosted_zone_id": "ZZ10ADVT26JF",
       "metrics": {
         "DNSQueries": {
-          "sum": 53915
+          "sum": 6399
         },
         "HealthCheckStatus": {
-          "avg": 1
+          "avg": 0
         },
         "HealthCheckPercentageHealthy": {
-          "avg": 95
+          "avg": 37.43
         },
         "ConnectionTime": {
-          "avg": 33
+          "avg": 1349
+        },
+        "SSLHandshakeTime": {
+          "avg": 635
+        },
+        "ChildHealthCheckHealthyCount": {
+          "avg": 5
         },
         "TimeToFirstByte": {
-          "avg": 15
+          "avg": 209
         }
       }
     }
   },
   "dns": {
     "question": {
-      "name": "www.example.com",
-      "type": "MX"
+      "name": "db.internal",
+      "type": "TXT"
     },
-    "response_code": "NOERROR"
+    "response_code": "NXDOMAIN"
   },
   "client": {
-    "ip": "203.189.38.124"
+    "ip": "2.235.111.109"
   },
   "event": {
-    "outcome": "success",
-    "category": "network",
+    "outcome": "failure",
+    "category": [
+      "network"
+    ],
+    "type": [
+      "protocol"
+    ],
     "dataset": "aws.route53",
     "provider": "route53.amazonaws.com",
-    "duration": 20000000
+    "duration": 173000000
   },
-  "message": "DNS CNAME query for mail.example.com -> NOERROR",
+  "message": "2026-03-17T18:02:32.099Z A0ROHH52 ip4 2.235.111.109 53 AAAA s3.amazonaws.com. NXDOMAIN",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "NXDOMAIN",
+    "message": "DNS query failed: NXDOMAIN",
+    "type": "network"
   }
 }

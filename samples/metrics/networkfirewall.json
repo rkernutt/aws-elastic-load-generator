@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "network-firewall"
@@ -14,61 +14,69 @@
   "aws": {
     "dimensions": {
       "FirewallName": "fw-eu-west-2",
-      "AvailabilityZone": "eu-west-2c"
+      "AvailabilityZone": "eu-west-2b",
+      "CustomAction": "CustomPassAction"
     },
     "firewall_logs": {
-      "flow_id": 224258,
-      "event_timestamp": "2026-03-17T13:19:51.676Z",
+      "flow_id": 354719,
+      "event_timestamp": "2026-03-17T18:02:32.099Z",
       "action": "PASS",
-      "src_ip": "207.193.233.247",
-      "dest_ip": "156.174.62.123",
-      "src_port": 56652,
-      "dest_port": 80,
-      "protocol": "UDP",
+      "src_ip": "204.8.35.66",
+      "dest_ip": "241.191.94.170",
+      "src_port": 46463,
+      "dest_port": 22,
+      "protocol": "ICMP",
       "firewall_name": "fw-eu-west-2",
-      "availability_zone": "eu-west-2c"
+      "availability_zone": "eu-west-2b"
     },
     "network_firewall": {
       "firewall_name": "fw-eu-west-2",
-      "availability_zone": "eu-west-2c",
+      "availability_zone": "eu-west-2b",
       "policy_name": "prod-fw-policy",
       "metrics": {
         "DroppedPackets": {
           "sum": 0
         },
         "PassedPackets": {
-          "sum": 16337
+          "sum": 26984
         },
         "RejectedPackets": {
           "sum": 0
         },
         "Packets": {
-          "sum": 16322
+          "sum": 89864
+        },
+        "DroppedBytes": {
+          "sum": 0
         }
       }
     }
   },
   "source": {
-    "ip": "207.193.233.247",
-    "port": 56652
+    "ip": "204.8.35.66",
+    "port": 46463
   },
   "destination": {
-    "ip": "156.174.62.123",
-    "port": 80
+    "ip": "241.191.94.170",
+    "port": 22
   },
   "network": {
-    "transport": "udp",
-    "bytes": 24216,
-    "packets": 16
+    "transport": "icmp",
+    "bytes": 59972,
+    "packets": 27
   },
   "event": {
     "action": "pass",
     "outcome": "success",
-    "category": "network",
+    "category": [
+      "intrusion_detection",
+      "network"
+    ],
     "dataset": "aws.firewall_logs",
-    "provider": "network-firewall.amazonaws.com"
+    "provider": "network-firewall.amazonaws.com",
+    "duration": 28000000
   },
-  "message": "PASS UDP flow",
+  "message": "PASS ICMP flow",
   "log": {
     "level": "info"
   },

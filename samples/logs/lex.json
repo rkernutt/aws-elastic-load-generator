@@ -1,38 +1,44 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "lex"
     }
   },
   "aws": {
+    "dimensions": {
+      "BotName": "order-bot",
+      "Operation": "TransferToAgent"
+    },
     "lex": {
-      "bot_id": "XDNOJ1721I",
+      "bot_id": "A44XT0N41U",
       "bot_name": "order-bot",
-      "bot_version": "1",
-      "locale_id": "en_GB",
-      "session_id": "hmcy60tkajs",
-      "input_transcript": "Cancel my order",
-      "intent_name": "GetHelp",
-      "intent_nlu_confidence_score": 0.731,
+      "bot_version": "DRAFT",
+      "locale_id": "es_US",
+      "session_id": "k1riu1n9n5e",
+      "input_transcript": "What is my order status",
+      "intent_name": "TransferToAgent",
+      "intent_nlu_confidence_score": 0.648,
       "dialog_state": "Fulfilled",
       "sentiment": "POSITIVE"
     }
   },
   "event": {
     "outcome": "success",
-    "category": "machine_learning",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.lex",
     "provider": "lex.amazonaws.com"
   },
-  "message": "Lex order-bot: intent=GetHelp (73%)",
+  "message": "Lex order-bot: intent=TransferToAgent (65%)",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

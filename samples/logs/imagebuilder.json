@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "imagebuilder"
@@ -13,47 +13,45 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "container-base-pipeline",
-      "Phase": "DEPROVISION"
+      "PipelineName": "golden-ami-pipeline",
+      "Phase": "TEST"
     },
     "imagebuilder": {
-      "pipeline_name": "container-base-pipeline",
-      "image_version": "3.2.5/1",
-      "phase": "DEPROVISION",
-      "phase_status": "FAILED",
-      "duration_seconds": 1230,
-      "os": "Amazon Linux 2023",
-      "recipe_name": "docker-host",
+      "pipeline_name": "golden-ami-pipeline",
+      "image_version": "4.10.6/1",
+      "phase": "TEST",
+      "phase_status": "COMPLETED",
+      "duration_seconds": 1525,
+      "os": "Windows Server 2022",
+      "recipe_name": "hardened-base",
+      "ami_id": "ami-yx1y551g",
       "metrics": {
         "BuildDuration": {
-          "avg": 1230
+          "avg": 1525
         },
         "ImageBuildSuccessCount": {
-          "sum": 0
-        },
-        "ImageBuildFailureCount": {
           "sum": 1
         },
+        "ImageBuildFailureCount": {
+          "sum": 0
+        },
         "ComponentBuildDuration": {
-          "avg": 736
+          "avg": 553
         }
       }
     }
   },
   "event": {
-    "duration": 1230000000000,
-    "outcome": "failure",
-    "category": "process",
+    "category": [
+      "process"
+    ],
+    "duration": 1525000000000,
+    "outcome": "success",
     "dataset": "aws.imagebuilder",
     "provider": "imagebuilder.amazonaws.com"
   },
-  "message": "Image Builder container-base-pipeline FAILED at DEPROVISION: Component script error",
+  "message": "Testing image: ami-yx1y551g with test component aws:TestInfrastructureAssociation",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "SsmTimeout",
-    "message": "Image Builder container-base-pipeline FAILED at DEPROVISION: Component script error",
-    "type": "process"
+    "level": "info"
   }
 }

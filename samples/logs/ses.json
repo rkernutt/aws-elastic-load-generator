@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -12,32 +12,71 @@
     }
   },
   "aws": {
+    "dimensions": {
+      "ses:configuration-set": "transactional",
+      "ses:from-domain": "app.io",
+      "ses:to-country": "AU",
+      "ses:to-isp": "Other"
+    },
     "ses": {
-      "message_id": "md8koxfl7yo.7buriiq1np@eu-west-2.amazonses.com",
-      "event_type": "Click",
-      "from_address": "noreply@company.com",
-      "destination": "user_bbmgmg@company.org",
-      "configuration_set": "alerts",
+      "message_id": "1i2qej96lat.8ffa5b6n5o@us-east-1.amazonses.com",
+      "event_type": "Delivery",
+      "from_address": "no-reply@app.io",
+      "destination": "user_9612jl@company.org",
+      "configuration_set": "transactional",
       "bounce": {},
       "complaint": {},
       "sending_account_id": "738291046572",
       "delivery": {
         "recipients": [
-          "user_bbmgmg@company.org"
+          "user_9612jl@company.org"
         ],
-        "timestamp": "2026-03-17T13:19:51.676Z",
-        "processing_time_ms": 2737,
+        "timestamp": "2026-03-17T18:02:32.099Z",
+        "processing_time_ms": 1482,
         "smtp_response": "250 2.0.0 OK"
+      },
+      "metrics": {
+        "Send": {
+          "sum": 1
+        },
+        "Delivery": {
+          "sum": 1
+        },
+        "Bounce": {
+          "sum": 0
+        },
+        "Complaint": {
+          "sum": 0
+        },
+        "Reject": {
+          "sum": 0
+        },
+        "Open": {
+          "sum": 1
+        },
+        "Click": {
+          "sum": 1
+        },
+        "RenderingFailure": {
+          "sum": 0
+        },
+        "DeliveryDelay": {
+          "sum": 0
+        }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "email",
+    "category": [
+      "email",
+      "process"
+    ],
     "dataset": "aws.ses",
-    "provider": "email.amazonaws.com"
+    "provider": "email.amazonaws.com",
+    "duration": 353000000
   },
-  "message": "SES Click: noreply@company.com -> user_bbmgmg@company.org",
+  "message": "SES Delivery: no-reply@app.io -> user_9612jl@company.org",
   "log": {
     "level": "info"
   }

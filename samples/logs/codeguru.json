@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -14,25 +14,28 @@
   "aws": {
     "codeguru": {
       "product": "Reviewer",
-      "repository_name": "auth-service",
-      "association_id": "3n6nwx19j98",
-      "finding_id": "jgmg86wnkcn",
-      "category": "CodeMaintainability",
-      "severity": "Critical",
+      "repository_name": "backend-api",
+      "association_id": "ca5r4ae9pnf",
+      "finding_id": "3s2huyl3952",
+      "category": "Logging",
+      "severity": "Low",
       "finding_description": "AWSBestPractices:S3BucketMissingServerSideEncryption",
-      "code_file": "server/routes.js",
-      "line_number": 238,
-      "pull_request_id": 46
+      "code_file": "lambda_function.py",
+      "line_number": 240,
+      "pull_request_id": 126
     }
   },
   "event": {
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "vulnerability",
+      "process"
+    ],
     "dataset": "aws.codeguru",
     "provider": "codeguru.amazonaws.com"
   },
-  "message": "CodeGuru Reviewer [auth-service] Critical: AWSBestPractices",
+  "message": "CodeGuru Reviewer [backend-api] Low: AWSBestPractices",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

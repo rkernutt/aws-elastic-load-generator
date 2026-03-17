@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "waf"
@@ -14,28 +14,28 @@
   "aws": {
     "dimensions": {
       "WebACL": "api-waf",
-      "Rule": "AWSManagedRulesCommonRuleSet",
-      "Region": "eu-west-2"
+      "Rule": "CustomSQLiRule",
+      "Region": "us-east-1"
     },
     "waf": {
-      "web_acl_id": "84vrwdz7-9i8d-s9sd",
+      "web_acl_id": "m76q0h6u-bjkg-xb8u",
       "web_acl_name": "api-waf",
-      "terminating_rule_id": "AWSManagedRulesCommonRuleSet",
+      "terminating_rule_id": "CustomSQLiRule",
       "rule_group_list": [
         {
-          "rule_group_id": "AWSManagedRulesCommonRuleSet",
-          "terminating_rule": "AWSManagedRulesCommonRuleSet",
+          "rule_group_id": "CustomSQLiRule",
+          "terminating_rule": "CustomSQLiRule",
           "rule_group_override_action": "NONE",
           "excluded_rules": []
         }
       ],
       "action": "ALLOW",
       "http_request": {
-        "client_ip": "125.82.128.53",
-        "country": "US",
+        "client_ip": "46.187.223.195",
+        "country": "DE",
         "uri": "/health",
         "uri_query": "",
-        "method": "PATCH",
+        "method": "GET",
         "headers": [
           {
             "name": "User-Agent",
@@ -46,16 +46,25 @@
       "http_source_name": "ALB",
       "metrics": {
         "AllowedRequests": {
-          "sum": 534
+          "sum": 1
         },
         "BlockedRequests": {
           "sum": 0
         },
         "CountedRequests": {
-          "sum": 39
+          "sum": 0
         },
         "PassedRequests": {
-          "sum": 1210
+          "sum": 1
+        },
+        "RequestsWithValidCaptchaToken": {
+          "sum": 0
+        },
+        "ChallengeRequests": {
+          "sum": 0
+        },
+        "FailedCaptcha": {
+          "sum": 0
         }
       }
     }
@@ -63,12 +72,16 @@
   "http": {
     "request": {
       "method": "POST",
-      "bytes": 6022
+      "bytes": 7525
     },
     "uri": "/health"
   },
   "client": {
-    "ip": "125.82.128.53"
+    "ip": "46.187.223.195",
+    "geo": {
+      "country_iso_code": "BR",
+      "city_name": "Tehran"
+    }
   },
   "user_agent": {
     "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
@@ -76,11 +89,15 @@
   "event": {
     "action": "allow",
     "outcome": "success",
-    "category": "intrusion_detection",
+    "category": [
+      "intrusion_detection",
+      "network"
+    ],
     "dataset": "aws.waf",
-    "provider": "wafv2.amazonaws.com"
+    "provider": "wafv2.amazonaws.com",
+    "duration": 14000000
   },
-  "message": "WAF ALLOWED request - Rule: AWSManagedRulesCommonRuleSet",
+  "message": "WAF ALLOWED request - Rule: CustomSQLiRule",
   "log": {
     "level": "info"
   },

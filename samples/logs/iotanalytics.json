@@ -1,34 +1,41 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "iotanalytics"
     }
   },
   "aws": {
+    "dimensions": {
+      "ChannelName": "metrics-channel",
+      "PipelineName": "enrichment-pipeline"
+    },
     "iotanalytics": {
-      "channel_name": "alerts-channel",
+      "channel_name": "metrics-channel",
       "pipeline_name": "enrichment-pipeline",
-      "dataset_name": "anomaly-detection-output",
-      "messages_processed": 60783,
-      "bytes_processed": 11427204,
+      "dataset_name": "fleet-summary",
+      "messages_processed": 29157,
+      "bytes_processed": 3994509,
       "activity_name": "lambda-enrich",
       "pipeline_status": "SUCCEEDED"
     }
   },
   "event": {
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.iotanalytics",
-    "provider": "iotanalytics.amazonaws.com"
+    "provider": "iotanalytics.amazonaws.com",
+    "duration": 26163000000
   },
-  "message": "IoT Analytics: 60,783 messages via enrichment-pipeline",
+  "message": "IoT Analytics: 29,157 messages via enrichment-pipeline",
   "log": {
     "level": "info"
   }

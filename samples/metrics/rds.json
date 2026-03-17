@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "rds"
@@ -15,63 +15,152 @@
     "dimensions": {
       "DBInstanceIdentifier": "prod-db-replica",
       "DatabaseClass": "db.r5.large",
-      "EngineName": "postgres"
+      "EngineName": "mysql",
+      "SourceRegion": "eu-west-2"
     },
     "rds": {
       "instance_id": "prod-db-replica",
-      "engine": "postgres",
-      "engine_version": "15.4",
-      "query_time": 0.951,
-      "enhanced_monitoring": false,
+      "engine": "mysql",
+      "engine_version": "8.0.34",
+      "query_time": 1.919,
+      "enhanced_monitoring": true,
+      "os_metrics": {
+        "cpuUtilization": {
+          "guest": 1.467,
+          "irq": 0.448,
+          "system": 1.99,
+          "wait": 0.041,
+          "idle": 85.956,
+          "user": 25.458,
+          "total": 49.7
+        },
+        "memory": {
+          "total": 62261524665,
+          "free": 7515262418,
+          "cached": 3814492767,
+          "active": 11163294427,
+          "inactive": 3897695900,
+          "buffers": 50184500
+        },
+        "disk": {
+          "readIOsPS": 1512.083,
+          "writeIOsPS": 765.118,
+          "readKbPS": 244127.486,
+          "writeKbPS": 268345.87,
+          "avgQueueLen": 6.02,
+          "await": 15.305
+        },
+        "network": {
+          "rx": 82348703,
+          "tx": 58709699
+        },
+        "numVCPUs": 8,
+        "uptime": "99 days, 16:01:56"
+      },
       "metrics": {
+        "BinLogDiskUsage": {
+          "avg": 40701745
+        },
+        "BurstBalance": {
+          "avg": 93.927
+        },
+        "CPUCreditBalance": {
+          "avg": 92.159
+        },
+        "CPUCreditUsage": {
+          "avg": 7.541
+        },
         "CPUUtilization": {
-          "avg": 53.585
+          "avg": 34.337
         },
         "DatabaseConnections": {
-          "avg": 51
+          "avg": 14
         },
-        "FreeStorageSpace": {
-          "avg": 11987681503
+        "DiskQueueDepth": {
+          "avg": 9.221
         },
-        "ReadIOPS": {
-          "avg": 2640
+        "EBSByteBalance": {
+          "avg": 81.086
         },
-        "WriteIOPS": {
-          "avg": 1886
-        },
-        "ReadLatency": {
-          "avg": 0.012
-        },
-        "WriteLatency": {
-          "avg": 0.016
+        "EBSIOBalance": {
+          "avg": 56.463
         },
         "FreeableMemory": {
-          "avg": 2511270562
+          "avg": 3509329787
+        },
+        "FreeStorageSpace": {
+          "avg": 361220833979
+        },
+        "MaximumUsedTransactionIDs": {
+          "avg": 407368749
         },
         "NetworkReceiveThroughput": {
-          "avg": 5799213
+          "avg": 45104655
         },
         "NetworkTransmitThroughput": {
-          "avg": 3849724
+          "avg": 80139166
+        },
+        "OldestReplicationSlotLag": {
+          "avg": 0
+        },
+        "ReadIOPS": {
+          "avg": 1289
+        },
+        "ReadLatency": {
+          "avg": 0.004
+        },
+        "ReadThroughput": {
+          "avg": 9925102
+        },
+        "ReplicaLag": {
+          "avg": 80
+        },
+        "ReplicationSlotDiskUsage": {
+          "avg": 0
+        },
+        "SwapUsage": {
+          "avg": 38281843
+        },
+        "TransactionLogsDiskUsage": {
+          "avg": 283835713
+        },
+        "TransactionLogsGeneration": {
+          "avg": 6381536
+        },
+        "WriteIOPS": {
+          "avg": 1684
+        },
+        "WriteLatency": {
+          "avg": 0.002
+        },
+        "WriteThroughput": {
+          "avg": 13815927
         }
       }
     }
   },
   "db": {
     "user": {
-      "name": "appuser"
+      "name": "readonly"
     },
-    "name": "events",
-    "statement": "UPDATE products SET price QOAQO8",
+    "name": "analytics",
+    "statement": "INSERT INTO orders VALUES V8RY3V",
     "type": "sql"
   },
   "event": {
-    "duration": 951000000,
+    "duration": 1919000000,
     "outcome": "success",
+    "category": [
+      "database"
+    ],
+    "type": [
+      "info",
+      "access"
+    ],
     "dataset": "aws.rds",
     "provider": "rds.amazonaws.com"
   },
-  "message": "Query executed in 0.951s by appuser",
+  "message": "{\"instanceId\":\"prod-db-replica\",\"engine\":\"mysql\",\"userId\":\"readonly\",\"queryTime\":1.919,\"error\":null,\"timestamp\":\"2026-03-17T18:02:32.099Z\",\"osMetrics\":{\"cpuUtilization\":{\"guest\":1.467,\"irq\":0.448,\"system\":1.99,\"wait\":0.041,\"idle\":85.956,\"user\":25.458,\"total\":49.7},\"memory\":{\"total\":62261524665,\"free\":7515262418,\"cached\":3814492767,\"active\":11163294427,\"inactive\":3897695900,\"buffers\":50184500},\"disk\":{\"readIOsPS\":1512.083,\"writeIOsPS\":765.118,\"readKbPS\":244127.486,\"writeKbPS\":268345.87,\"avgQueueLen\":6.02,\"await\":15.305},\"network\":{\"rx\":82348703,\"tx\":58709699},\"numVCPUs\":8,\"uptime\":\"99 days, 16:01:56\"}}",
   "log": {
     "level": "info"
   },

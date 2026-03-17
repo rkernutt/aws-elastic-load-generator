@@ -1,37 +1,55 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "transcribe"
     }
   },
   "aws": {
+    "dimensions": {
+      "Operation": "TranscriptionJob",
+      "LanguageCode": "ja-JP"
+    },
     "transcribe": {
-      "transcription_job_name": "transcribe-dzetu9m9",
+      "transcription_job_name": "transcribe-52jp999x",
       "transcription_job_status": "COMPLETED",
-      "language_code": "en-US",
-      "media_format": "mp4",
-      "media_uri": "s3://audio-bucket/transcribe-dzetu9m9.mp3",
-      "audio_duration_minutes": 49.532,
-      "word_count": 7430,
-      "vocabulary_name": "custom-medical-terms",
-      "speaker_count": 2,
-      "content_redaction_enabled": false
+      "language_code": "ja-JP",
+      "media_format": "mp3",
+      "media_uri": "s3://audio-bucket/transcribe-52jp999x.mp3",
+      "audio_duration_minutes": 26.856,
+      "word_count": 4028,
+      "content_redaction_enabled": true,
+      "metrics": {
+        "TranscriptionJobsCompleted": {
+          "sum": 1
+        },
+        "TranscriptionJobsFailed": {
+          "sum": 0
+        },
+        "TranscriptionJobsPending": {
+          "avg": 0
+        },
+        "TranscriptionJobsRunning": {
+          "avg": 1
+        }
+      }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "machine_learning",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.transcribe",
     "provider": "transcribe.amazonaws.com"
   },
-  "message": "Transcribe job transcribe-dzetu9m9: 49.5 min audio (en-US)",
+  "message": "Transcribe job transcribe-52jp999x: 26.9 min audio (ja-JP)",
   "log": {
     "level": "info"
   }

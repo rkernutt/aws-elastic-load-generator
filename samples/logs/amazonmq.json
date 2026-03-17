@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,44 +13,74 @@
   },
   "aws": {
     "amazonmq": {
-      "broker_id": "b-sd6b270q-0ndd",
-      "broker_name": "events-broker",
+      "broker_id": "b-i7dnhv4u-wj1b",
+      "broker_name": "order-processor",
       "broker_engine": "RabbitMQ",
       "engine_version": "3.12.1",
       "deployment_mode": "SINGLE_INSTANCE",
-      "queue_name": "payment.queue",
-      "messages_in": 7296,
-      "messages_out": 2081,
-      "queue_depth": 3052,
-      "broker_memory_percent": 21,
+      "queue_name": "dlq.orders",
+      "messages_in": 2327,
+      "messages_out": 900,
+      "queue_depth": 817,
+      "broker_memory_percent": 56,
       "metrics": {
-        "QueueDepth": {
-          "avg": 3052
+        "ConsumerCount": {
+          "avg": 75
         },
         "ProducerCount": {
-          "avg": 27
+          "avg": 19
         },
-        "ConsumerCount": {
-          "avg": 16
+        "QueueSize": {
+          "avg": 4297
         },
-        "MessageCount": {
-          "sum": 9377
+        "EnqueueCount": {
+          "sum": 9106
         },
-        "BrokerMemoryUsage": {
-          "avg": 21
+        "DequeueCount": {
+          "sum": 5709
+        },
+        "InFlightCount": {
+          "avg": 297
+        },
+        "DispatchCount": {
+          "sum": 4859
+        },
+        "ExpiredCount": {
+          "sum": 73
+        },
+        "NetworkConnectorStarted": {
+          "sum": 1
+        },
+        "HeapUsage": {
+          "avg": "61.426"
         },
         "StorePercentUsage": {
-          "avg": 45
+          "avg": "37.667"
+        },
+        "TotalEnqueueCount": {
+          "sum": 307732
+        },
+        "TotalDequeueCount": {
+          "sum": 142013
+        },
+        "TotalConsumerCount": {
+          "avg": 91
+        },
+        "TotalProducerCount": {
+          "avg": 30
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": "process",
+    "category": [
+      "process",
+      "network"
+    ],
     "dataset": "aws.amazonmq",
     "provider": "mq.amazonaws.com",
-    "duration": 342000000
+    "duration": 1425000000
   },
   "message": "Message consumed successfully",
   "log": {

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "alb"
@@ -13,48 +13,48 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "app/prod-alb-eu-west-2/ri0dfsn3tvg",
-      "TargetGroup": "targetgroup/tg-admin/9u9rinvyu0v",
+      "LoadBalancer": "app/prod-alb-eu-west-2/mpgocuavdf",
+      "TargetGroup": "targetgroup/tg-web/w6xh3qtnwf",
       "AvailabilityZone": "eu-west-2a"
     },
     "elb": {
-      "name": "app/prod-alb-eu-west-2/ri0dfsn3tvg",
+      "name": "app/prod-alb-eu-west-2/mpgocuavdf",
       "type": "application",
-      "target_group.arn": "arn:aws:elasticloadbalancing:eu-west-2:164820739518:targetgroup/tg-admin/9u9rinvyu0v",
-      "listener": "arn:aws:elasticloadbalancing:eu-west-2:164820739518:listener/app/prod-alb/gaucw5orgwn/ozwf06hlse",
+      "target_group.arn": "arn:aws:elasticloadbalancing:eu-west-2:293847561023:targetgroup/tg-web/w6xh3qtnwf",
+      "listener": "arn:aws:elasticloadbalancing:eu-west-2:293847561023:listener/app/prod-alb/a2u49tza75b/4spb807x5vg",
       "protocol": "HTTPS",
-      "request_processing_time.sec": 0.191,
-      "backend_processing_time.sec": 1.959,
-      "response_processing_time.sec": 0.072,
-      "backend.ip": "30.60.194.211",
-      "backend.port": "7884",
-      "backend.http.response.status_code": 301,
+      "request_processing_time.sec": 0.553,
+      "backend_processing_time.sec": 29.054,
+      "response_processing_time.sec": 0.042,
+      "backend.ip": "195.119.40.69",
+      "backend.port": "6157",
+      "backend.http.response.status_code": 404,
       "ssl_protocol": "TLSv1.3",
       "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
-      "trace_id": "Root=1-HJOW49GC-3YD1GHXY4Q7",
-      "target_port": "30.60.194.211:7884",
-      "target_status_code": "301"
+      "trace_id": "Root=1-59R5MBFE-VN85MBAW8AI",
+      "target_port": "195.119.40.69:6157",
+      "target_status_code": "404"
     },
     "alb": {
-      "load_balancer": "app/prod-alb-eu-west-2/ri0dfsn3tvg",
-      "target_group": "arn:aws:elasticloadbalancing:eu-west-2:164820739518:targetgroup/tg-admin/9u9rinvyu0v",
-      "request_processing_time": 0.191,
+      "load_balancer": "app/prod-alb-eu-west-2/mpgocuavdf",
+      "target_group": "arn:aws:elasticloadbalancing:eu-west-2:293847561023:targetgroup/tg-web/w6xh3qtnwf",
+      "request_processing_time": 0.553,
       "ssl_protocol": "TLSv1.3",
       "metrics": {
         "ActiveConnectionCount": {
-          "sum": 641
+          "sum": 3053
         },
         "NewConnectionCount": {
-          "sum": 221
+          "sum": 327
         },
         "RequestCount": {
-          "sum": 7755
+          "sum": 3115
         },
         "HTTPCode_Target_2XX_Count": {
           "sum": 0
         },
         "HTTPCode_Target_4XX_Count": {
-          "sum": 0
+          "sum": 491
         },
         "HTTPCode_Target_5XX_Count": {
           "sum": 0
@@ -63,32 +63,32 @@
           "sum": 0
         },
         "TargetResponseTime": {
-          "avg": 1.959,
-          "p99": 5.877000000000001
+          "avg": 29.054,
+          "p99": 87.16199999999999
         },
         "HealthyHostCount": {
-          "avg": 7
+          "avg": 4
         },
         "UnHealthyHostCount": {
-          "avg": 0
+          "avg": 3
         },
         "RejectedConnectionCount": {
-          "sum": 2
+          "sum": 5
         },
         "ProcessedBytes": {
-          "sum": 84906395
+          "sum": 861424838
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "GET",
-      "bytes": 1265
+      "method": "PATCH",
+      "bytes": 1371
     },
     "response": {
-      "status_code": 301,
-      "bytes": 33289
+      "status_code": 404,
+      "bytes": 10920
     }
   },
   "url": {
@@ -96,20 +96,37 @@
     "domain": "api.example.com"
   },
   "client": {
-    "ip": "103.181.38.77",
-    "port": 42081
+    "ip": "205.9.125.4",
+    "port": 55817,
+    "geo": {
+      "country_iso_code": "DE",
+      "country_name": "Germany",
+      "city_name": "London"
+    }
   },
   "user_agent": {
-    "original": "Go-http-client/1.1"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
-    "duration": 2222000000,
-    "outcome": "success",
+    "duration": 29649000000,
+    "outcome": "failure",
+    "category": [
+      "web",
+      "network"
+    ],
+    "type": [
+      "access"
+    ],
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com"
   },
-  "message": "GET /api/v1/auth/login 301 2222ms",
+  "message": "PATCH /api/v1/auth/login 404 29649ms",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "ClientError",
+    "message": "HTTP 404",
+    "type": "server"
   }
 }

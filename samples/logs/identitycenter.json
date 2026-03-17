@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "identitycenter"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "iam_identity_center": {
-      "event_type": "MFAChallenge",
-      "user_name": "alice@corp.com",
-      "application_name": "GitHub Enterprise",
-      "permission_set": "AdministratorAccess",
-      "account_id": "738291046572",
+      "event_type": "Authenticate",
+      "user_name": "svc-account@corp.com",
+      "application_name": "AWS Console",
+      "permission_set": "BillingAccess",
+      "account_id": "164820739518",
       "mfa_authenticated": true
     }
   },
   "user": {
-    "name": "alice@corp.com"
+    "name": "svc-account@corp.com"
   },
   "source": {
-    "ip": "232.6.118.176"
+    "ip": "103.84.110.51"
   },
   "event": {
-    "action": "MFAChallenge",
+    "action": "Authenticate",
     "outcome": "success",
     "category": "authentication",
     "dataset": "aws.identitycenter",
     "provider": "sso.amazonaws.com"
   },
-  "message": "IAM Identity Center MFAChallenge: alice@corp.com -> GitHub Enterprise",
+  "message": "IAM Identity Center Authenticate: svc-account@corp.com -> AWS Console",
   "log": {
     "level": "info"
   }

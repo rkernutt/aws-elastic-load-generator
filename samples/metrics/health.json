@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "health"
@@ -13,25 +13,28 @@
   },
   "aws": {
     "health": {
-      "event_arn": "arn:aws:health:us-east-1::event/lambda/jrxfvsgw/dc788hrmr1p",
-      "event_type_code": "AWS_LAMBDA_OPERATIONAL_ISSUE",
-      "event_type_category": "accountNotification",
-      "service": "Lambda",
-      "region": "us-east-1",
+      "event_arn": "arn:aws:health:us-east-1::event/dynamodb/548075ta/5f9rf4wzufs",
+      "event_type_code": "AWS_DYNAMODB_MAINTENANCE_SCHEDULED",
+      "event_type_category": "scheduledChange",
+      "service": "DynamoDB",
+      "region": "global",
       "status_code": "closed",
-      "event_scope": "PUBLIC",
-      "affected_entities_count": 34,
-      "description": "Lambda Scheduled maintenance in us-east-1"
+      "event_scope": "ACCOUNT",
+      "affected_entities_count": 7,
+      "description": "DynamoDB Degraded performance in us-east-1"
     }
   },
   "event": {
     "kind": "alert",
     "outcome": "success",
-    "category": "configuration",
+    "category": [
+      "configuration"
+    ],
     "dataset": "aws.health",
-    "provider": "health.amazonaws.com"
+    "provider": "health.amazonaws.com",
+    "duration": 156000000000
   },
-  "message": "AWS Health: Lambda event resolved in us-east-1",
+  "message": "AWS Health: DynamoDB event resolved in us-east-1",
   "log": {
     "level": "info"
   },

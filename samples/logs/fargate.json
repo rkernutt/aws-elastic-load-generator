@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T13:19:51.676Z",
+  "@timestamp": "2026-03-17T18:02:32.099Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "fargate"
@@ -13,29 +13,41 @@
   },
   "aws": {
     "dimensions": {
+      "ServiceName": "api-backend",
       "ClusterName": "prod-cluster",
-      "TaskId": "ovpolzc21ms",
-      "TaskDefinition": "web-frontend:27"
+      "TaskDefinitionFamily": "api-backend"
     },
     "fargate": {
       "cluster_name": "prod-cluster",
-      "task_id": "ovpolzc21ms",
-      "task_definition": "web-frontend:27",
+      "task_id": "txuvwo9iwnk",
+      "task_definition": "api-backend:7",
       "structured_logging": false,
-      "cpu_units": 1024,
-      "memory_mb": 1024,
+      "cpu_units": 4096,
+      "memory_mb": 512,
       "platform_version": "LATEST",
-      "cpu_utilized_percent": 35,
-      "memory_utilized_percent": 23,
+      "cpu_utilized_percent": 58,
+      "memory_utilized_percent": 63,
       "metrics": {
         "CPUUtilization": {
-          "avg": 0.35
+          "avg": 58
         },
         "MemoryUtilization": {
-          "avg": 0.23
+          "avg": 63
+        },
+        "NetworkRxBytes": {
+          "sum": 92369145
+        },
+        "NetworkTxBytes": {
+          "sum": 63560680
+        },
+        "StorageReadBytes": {
+          "sum": 3388640
+        },
+        "StorageWriteBytes": {
+          "sum": 8290204
         },
         "RunningTaskCount": {
-          "avg": 3
+          "avg": 12
         },
         "PendingTaskCount": {
           "avg": 0
@@ -44,17 +56,30 @@
     }
   },
   "container": {
-    "name": "web-frontend"
+    "id": "cevptip7o5g",
+    "name": "api-backend",
+    "image": {
+      "name": "myrepo/api-backend:latest",
+      "tag": "latest"
+    },
+    "runtime": "docker"
+  },
+  "process": {
+    "pid": 44167,
+    "name": "api-backend"
   },
   "log": {
     "level": "info"
   },
   "event": {
     "outcome": "success",
-    "category": "container",
+    "category": [
+      "process",
+      "container"
+    ],
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 2517000000000
+    "duration": 3129000000000
   },
-  "message": "Container is healthy"
+  "message": "Task deregistered gracefully"
 }
