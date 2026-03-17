@@ -270,7 +270,7 @@ export default function App() {
 
   const pct            = progress.total>0 ? Math.round((progress.sent/progress.total)*100) : 0;
   const totalSelected  = selectedServices.length;
-  const totalServices  = ALL_SERVICE_IDS.length;
+  const totalServices  = eventType === "metrics" ? METRICS_SUPPORTED_SERVICE_IDS.size : ALL_SERVICE_IDS.length;
 
   // ─── Cost estimation (Part 3) ──────────────────────────────────────────────
   const estimatedDocs    = totalSelected * logsPerService;
@@ -298,7 +298,7 @@ export default function App() {
             Generate and ship AWS logs &amp; metrics to Elastic
           </h1>
           <p className={styles.pageDesc}>
-            {totalServices} AWS services across 14 groups · ECS-compliant · Per-service ingestion (S3, CloudWatch, API, Firehose, OTel). Ships directly to Elasticsearch.
+            {eventType === "metrics" ? `${totalServices} AWS services with Elastic metrics support` : `${totalServices} AWS services across 14 groups`} · ECS-compliant · Per-service ingestion (S3, CloudWatch, API, Firehose, OTel). Ships directly to Elasticsearch.
           </p>
         </div>
 
