@@ -64,7 +64,7 @@ const SERVICE_GROUPS = [
     {id:"docdb",label:"DocumentDB",icon:"⊙",desc:"MongoDB-compat query logs"},
     {id:"neptune",label:"Neptune",icon:"⬡",desc:"Graph DB query logs"},
     {id:"timestream",label:"Timestream",icon:"⌚",desc:"Time-series write & query"},
-    {id:"qldb",label:"QLDB",icon:"⊛",desc:"Ledger transaction logs"},
+    {id:"qldb",label:"QLDB",icon:"◈",desc:"Ledger transaction logs"},
     {id:"keyspaces",label:"Keyspaces",icon:"⊕",desc:"Cassandra-compat logs"},
   ]},
   { id:"streaming", label:"Streaming & Messaging", color:"#FEC514", icon:"⟿", services:[
@@ -151,7 +151,7 @@ const SERVICE_GROUPS = [
     {id:"transferfamily",label:"Transfer Family",icon:"⟺",desc:"SFTP/FTPS/AS2 transfers"},
     {id:"lightsail",label:"Lightsail",icon:"⊙",desc:"Simple compute instance logs"},
     {id:"frauddetector",label:"Fraud Detector",icon:"⚠",desc:"ML fraud risk decisions"},
-    {id:"lookoutmetrics",label:"Lookout for Metrics",icon:"⌚",desc:"Anomaly detection alerts"},
+    {id:"lookoutmetrics",label:"Lookout for Metrics",icon:"◎",desc:"Anomaly detection alerts"},
     {id:"comprehendmedical",label:"Comprehend Medical",icon:"⊛",desc:"Clinical NLP & PHI logs"},
     {id:"locationservice",label:"Location Service",icon:"◉",desc:"Geofence & routing logs"},
     {id:"managedblockchain",label:"Managed Blockchain",icon:"⟺",desc:"Transaction & network logs"},
