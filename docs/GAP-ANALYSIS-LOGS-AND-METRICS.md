@@ -1,10 +1,14 @@
 # Gap Analysis: Complete Logs and Metrics for All Services
 
-> **Last updated:** 2026-03-17 (v7.6)
+> **Last updated:** 2026-03-17 (v8.0)
 
 This document compares what the **AWS → Elastic Load Generator** currently emits per service with what is needed for **complete** logs and metrics as defined by **Elastic AWS integration** and **AWS service documentation**. Use it to prioritize additions (fields, message types, metrics) for full fidelity in Elastic dashboards, rules, and ML.
 
-**v7.5 update:** `event.duration` gap is now closed across all 136 generators. RDS Enhanced Monitoring gap is addressed with full `os_metrics` block. Lambda START/END/REPORT gap is addressed.
+**v8.0 update:** Metrics mode expanded to **75 services** (from 46). `aws.dimensions` always-present on all generators. Performance metrics blocks added to SNS, Athena, Cognito, Fargate, Auto Scaling, Image Builder, Amazon MQ, AppSync, Bedrock. All generators now use real AWS API error codes.
+
+**v7.6 update:** Full CloudWatch metric name and dimension alignment across all 136 generators. `event.category` as ECS array on all generators. Metrics blocks added to 30+ previously uncovered services.
+
+**v7.5 update:** `event.duration` gap closed across all 136 generators. RDS Enhanced Monitoring gap addressed. Lambda START/END/REPORT gap addressed.
 
 **Sources of truth:**
 
@@ -55,9 +59,10 @@ From Elastic’s reference table, the following services have **Metrics** and/or
 ### 1.2 App state (high level)
 
 - **Logs:** 136 services; each generator returns one document shape (single “log event” style).
-- **Metrics:** 46 services support metrics mode (`METRICS_SUPPORTED_SERVICE_IDS`); documents include `data_stream.type: "metrics"`, `metricset`, and `aws.<service>.metrics` (or equivalent).
-- **Structured `message`:** Many services probabilistically emit JSON in `message` (see [ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md](../ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md)); not all do.
-- **`event.duration`:** Present for most but not every service; required for latency analysis and ML.
+- **Metrics:** **75 services** support metrics mode (`METRICS_SUPPORTED_SERVICE_IDS`); documents include `data_stream.type: “metrics”`, `metricset`, and `aws.<service>.metrics` (or equivalent).
+- **Structured `message`:** Many services probabilistically emit JSON in `message` (see [INGEST-PIPELINE-REFERENCE.md](INGEST-PIPELINE-REFERENCE.md)); not all do.
+- **`event.duration`:** Present on all time-bound services (closed in v7.5).
+- **`aws.dimensions`:** Always-present on all generators (closed in v8.0).
 
 ---
 
@@ -87,7 +92,7 @@ From Elastic’s reference table, the following services have **Metrics** and/or
 
 | Gap | Description | Elastic / AWS reference | Priority |
 |-----|-------------|-------------------------|----------|
-| **Structured JSON in `message`** | More services could emit parseable JSON in `message` (with an ingest pipeline target) for consistent parsing. See [PLAN-PARSE-JSON-SERVICES.md](../ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md). | Ingest pipelines; AWS structured logging patterns | Medium |
+| **Structured JSON in `message`** | More services could emit parseable JSON in `message` (with an ingest pipeline target) for consistent parsing. See [INGEST-PIPELINE-REFERENCE.md](INGEST-PIPELINE-REFERENCE.md). | Ingest pipelines; AWS structured logging patterns | Medium |
 | **Error codes and messages** | Some services have a fixed set of error messages; expanding to match AWS error codes and messages would improve realism and testing. | AWS API/service error docs | Low–medium |
 | **Request/response IDs** | ~~X-Ray trace IDs~~ **Addressed:** Lambda and API Gateway now emit optional `trace.id` (X-Ray format) and `aws.<service>.trace_id`. Error codes expanded for DynamoDB, RDS, API Gateway; S3 has optional structured JSON in `message`. | Lambda requestId; API Gateway request ID; X-Ray | Partially done |
 
@@ -191,18 +196,26 @@ From Elastic’s reference table, the following services have **Metrics** and/or
 
 ## 4. Recommended Priorities
 
-1. **High (Elastic + realism)**  
-   - Lambda: START/REPORT/END and REPORT fields (Billed Duration, Max Memory Used, Init Duration).  
-   - CloudTrail: Full record shape and eventSource.  
-   - Metrics: Align all 46 metrics-supported services with CloudWatch/Metricbeat field names and dimensions.
+Items marked ✅ are now addressed.
 
-2. **Medium (completeness)**  
-   - RDS: RDSOSMetrics-style Enhanced Monitoring log.  
-   - NAT Gateway: ~~New service~~ Implemented (logs + metrics).  
-   - Consistent `log.group` / `log.file.path` and `event.duration` for every service.
+1. **Closed (High)**
+   - ✅ Lambda START/REPORT/END log events and REPORT fields (Billed Duration, Max Memory Used, Init Duration) — v7.5
+   - ✅ Metrics: CloudWatch metric name and dimension alignment across all 75 metrics-supported services — v7.6/v8.0
+   - ✅ `event.duration` on all time-bound services — v7.5
+   - ✅ `aws.dimensions` always-present on all generators — v8.0
+   - ✅ Real AWS API error codes on all failure paths — v7.6
 
-3. **Lower (nice-to-have)**  
-   - S3 Storage Lens; more structured `message` for remaining services; expanded error code sets; X-Ray/trace IDs where relevant.
+2. **Closed (Medium)**
+   - ✅ RDS Enhanced Monitoring OS metrics (`cpuUtilization`, `memory`, `disk`, `network`) — v7.5
+   - ✅ NAT Gateway service (logs + metrics) — implemented
+   - ✅ S3 Storage Lens service (metrics + log-style events) — implemented
+   - ✅ `event.category` as ECS array on all generators — v7.6
+
+3. **Still open (lower priority)**
+   - CloudTrail: full record shape (eventVersion, userIdentity, requestParameters, responseElements) for tighter dashboard/rule compatibility
+   - `log.group` / `log.file.path` ECS fields consistently across all services
+   - More structured `message` JSON for additional services beyond current set
+   - CloudFront: additional access log fields (x-edge-location, sc-bytes, time-taken)
 
 ---
 
@@ -210,6 +223,6 @@ From Elastic’s reference table, the following services have **Metrics** and/or
 
 - **Implementing a service:** Check its row in §3 and §1.1; add missing log fields, message types, and metrics from AWS and Elastic docs.  
 - **Adding a new service:** Ensure logs + metrics (if in Elastic table), dimensions, and at least one realistic message type.  
-- **Ingest pipelines:** When adding JSON in `message`, update [PLAN-PARSE-JSON-SERVICES.md](../ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md) and add a pipeline if needed.
+- **Ingest pipelines:** When adding JSON in `message`, update [INGEST-PIPELINE-REFERENCE.md](INGEST-PIPELINE-REFERENCE.md) and run `npm run setup:pipelines` to install the updated pipeline.
 
-After changes, regenerate samples (`npm run samples`) and refresh [PERFORMANCE-METRICS-PLAN.md](PERFORMANCE-METRICS-PLAN.md) if metrics were added or renamed.
+After changes, regenerate samples with `npm run samples`.

@@ -175,30 +175,40 @@ If you use **data streams** (type `logs`, dataset `aws.glue` / `aws.sagemaker`),
 
 These pipelines copy the **parsed JSON** from the `message` field into `glue.parsed` and `sagemaker.parsed` so you can search on structured fields. Non-JSON messages are left unchanged.
 
-**7.1 — Create the Glue pipeline**
-
-From the repo root (or where the ingest pipeline files are):
+**Easy way — use the installer (recommended)**
 
 ```bash
-curl -X PUT "${ES_URL}/_ingest/pipeline/glue-parse-json-message" \
-  -H "Content-Type: application/json" \
-  -H "Authorization: ApiKey ${ES_API_KEY}" \
-  -d @ingest-pipelines/glue-parse-json-message.json
+npm run setup:pipelines
+# select: serverless (for Lambda/API Gateway) and ml (for SageMaker), or "all"
 ```
 
-Replace `ES_URL` (your Elasticsearch endpoint) and `ES_API_KEY` (e.g. from Kibana → Stack Management → API Keys).  
-Pipeline definition (for reference): [ingest-pipelines/glue-parse-json-message.json](../ingest-pipelines/glue-parse-json-message.json).
+The installer creates all pipelines idempotently and prints a confirmation for each one.
+
+**Manual way — curl**
+
+If you prefer to create them individually:
+
+**7.1 — Create the Glue pipeline**
+
+```bash
+curl -X PUT "${ES_URL}/_ingest/pipeline/logs-aws.glue-default" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: ApiKey ${ES_API_KEY}" \
+  -d '{"description":"Parse JSON from message field into glue.parsed","processors":[{"json":{"field":"message","target_field":"glue.parsed","ignore_failure":true}}]}'
+```
+
+Replace `ES_URL` (your Elasticsearch endpoint) and `ES_API_KEY` (from Kibana → Stack Management → API Keys).
 
 **7.2 — Create the SageMaker pipeline**
 
 ```bash
-curl -X PUT "${ES_URL}/_ingest/pipeline/sagemaker-parse-json-message" \
+curl -X PUT "${ES_URL}/_ingest/pipeline/logs-aws.sagemaker-default" \
   -H "Content-Type: application/json" \
   -H "Authorization: ApiKey ${ES_API_KEY}" \
-  -d @ingest-pipelines/sagemaker-parse-json-message.json
+  -d '{"description":"Parse JSON from message field into sagemaker.parsed","processors":[{"json":{"field":"message","target_field":"sagemaker.parsed","ignore_failure":true}}]}'
 ```
 
-Pipeline definition: [ingest-pipelines/sagemaker-parse-json-message.json](../ingest-pipelines/sagemaker-parse-json-message.json).
+Pipeline definitions and target fields for all 106 services: [docs/INGEST-PIPELINE-REFERENCE.md](INGEST-PIPELINE-REFERENCE.md).
 
 **Verify pipelines:** In Kibana → **Stack Management** → **Ingest Pipelines**, you should see `glue-parse-json-message` and `sagemaker-parse-json-message`.
 
@@ -260,7 +270,7 @@ After this, documents ingested into those indices will have `message` parsed int
 | 4 | Elastic: Add AWS (or Custom Logs) integration; add inputs for Glue and SageMaker log groups with dataset `aws.glue` and `aws.sagemaker` | ☐ |
 | 5 | Elastic: Deploy/reload Agent so it starts collecting those log groups | ☐ |
 | 6 | Elastic: (Optional) Create index templates for `logs-aws.glue*` and `logs-aws.sagemaker*` | ☐ |
-| 7 | Elastic: Create ingest pipelines `glue-parse-json-message` and `sagemaker-parse-json-message` (PUT from repo JSON files) | ☐ |
+| 7 | Elastic: Create ingest pipelines — run `npm run setup:pipelines` or use manual curl commands | ☐ |
 | 8 | Elastic: Attach pipelines to `logs-aws.glue*` and `logs-aws.sagemaker*` (template or integration UI) | ☐ |
 | 9 | Verify: Generate Glue/SageMaker logs, then see them in Discover in the correct indices with optional `*.parsed` fields | ☐ |
 
@@ -269,5 +279,6 @@ After this, documents ingested into those indices will have `message` parsed int
 ## Related docs
 
 - [CLOUDWATCH-TO-INDEX-ROUTING.md](CLOUDWATCH-TO-INDEX-ROUTING.md) — How index/dataset is chosen when ingesting from CloudWatch; custom sender option.
-- [ingest-pipelines/README.md](../ingest-pipelines/README.md) — Ingest pipeline overview and how to apply/attach them.
+- [INGEST-PIPELINE-REFERENCE.md](INGEST-PIPELINE-REFERENCE.md) — Pipeline IDs, target fields, and example parsed keys for all 106 services.
+- [installer/README.md](../installer/README.md) — Automated pipeline installer (`npm run setup:pipelines`).
 - [GLUE-METRICS-COVERAGE.md](GLUE-METRICS-COVERAGE.md) — Glue metrics and log coverage vs AWS docs (for reference; this guide is about log ingestion only).

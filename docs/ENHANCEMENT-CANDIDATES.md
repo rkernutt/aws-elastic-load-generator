@@ -1,29 +1,48 @@
 # Services to Review for Further Enhancements
 
-> **Last updated:** 2026-03-17 (v7.6)
+> **Last updated:** 2026-03-17 (v8.0)
 
-This document lists services that could benefit from **Glue-style enhancements**: explicit job/run lifecycle signals in logs, richer observability metrics (CloudWatch/Spark-style), and framework-specific log message patterns. Use it to prioritize which generators to extend next.
+This document lists services that could benefit from **Glue-style enhancements**: explicit job/run lifecycle signals in logs, richer observability metrics (CloudWatch/Spark-style), and framework-specific log message patterns.
 
-**Implemented in v7.5:** `event.duration` added to all IoT, management, end-user, and storage generators. Lambda START/END/REPORT log events. RDS Enhanced Monitoring OS metrics (`cpuUtilization`, `memory`, `disk`, `network`). See README “What’s New in v7.5”.
+**Implemented in v8.0:** Metrics mode expanded to 75 services (from 46). Cognito metrics block (SignInSuccesses, ThrottleCount, AccountTakeoverRisk, etc.). SageMaker CloudWatch endpoint metrics renamed `cloudwatch_metrics` → `cloudwatch`. Performance metrics blocks added to SNS, Athena, Fargate, Auto Scaling, Image Builder, Amazon MQ, AppSync, Bedrock. `aws.dimensions` always-present on all generators.
 
-**Implemented in v7.4:** EMR (run_state, message pool, metrics), Batch (message pool, elapsedTime/Duration), DataBrew (run_state, message pool, metrics), AppFlow (message pool, metrics), CodeBuild (Build started/succeeded/failed + phase-level messages), Athena (Query started/succeeded/failed), and SageMaker (job-type lifecycle messages: Training/Processing/Endpoint/Pipeline/Transform/HyperparameterTuning). See [IMPROVEMENT-SUGGESTIONS.md](IMPROVEMENT-SUGGESTIONS.md) and README “What’s New in v7.4”.
+**Implemented in v7.6:** Full CloudWatch metric name and dimension alignment across all 136 generators. `event.category` as ECS array on all generators. Metrics blocks added to 30+ previously uncovered services (IoT, NLB, CloudFront, NetworkFirewall, SSM, DMS, SES, GameLift, Rekognition, Textract, and more). Real AWS API error codes on all generators.
+
+**Implemented in v7.5:** `event.duration` added to all IoT, management, end-user, and storage generators. Lambda START/END/REPORT log events. RDS Enhanced Monitoring OS metrics (`cpuUtilization`, `memory`, `disk`, `network`).
+
+**Implemented in v7.4:** EMR (run_state, message pool, metrics), Batch (message pool, elapsedTime/Duration), DataBrew (run_state, message pool, metrics), AppFlow (message pool, metrics), CodeBuild (Build started/succeeded/failed + phase-level messages), Athena (Query started/succeeded/failed), SageMaker (job-type lifecycle messages: Training/Processing/Endpoint/Pipeline/Transform/HyperparameterTuning).
 
 ---
 
 ## Summary
 
-| Priority | Service    | Gap vs. Glue-style | Suggested additions |
-|----------|------------|--------------------|---------------------|
-| **High** | EMR        | No run_state; thin metrics; static Spark messages | run_state, elapsedTime, JVM/heap/GC, numCompletedTasks, “Job run started/succeeded/failed”, dynamic Stage (runJob) + shuffle messages |
-| **High** | Batch      | No “job run started/succeeded/failed” in messages; no elapsedTime in metrics | Message pool: job run started/succeeded/failed; metrics: elapsedTime (or duration in metrics block) |
-| **Medium** | CodeBuild | No “Build started/succeeded/failed” in messages | Message pool: build started/succeeded/failed; optional phase-level duration in metrics |
-| **Medium** | SageMaker  | Already strong (event.action, studio, cloudwatch_metrics) | Optional: “Training job started/succeeded/failed” in message pool for consistency |
-| **Medium** | Athena     | Good metrics; no explicit “Query started/succeeded/failed” in messages | Message pool: query started/succeeded/failed |
-| **Medium** | DataBrew   | No run_state; no “Job run started/succeeded/failed”; no metrics block | run_state, message pool signals, aws.databrew.metrics (rows_processed, duration, etc.) |
-| **Medium** | AppFlow    | execution_status present; no metrics block; no “Flow run started/succeeded/failed” | Message pool signals; aws.appflow.metrics (records_processed, duration_ms, etc.) |
-| **Lower** | Step Functions | Already has ExecutionsStarted/Succeeded/Failed, ExecutionTime | Optional: “Execution started/succeeded/failed” in message pool |
-| **Lower** | Kinesis Analytics | Good metrics; no “Application started/failed” in messages | Message pool: application run/checkpoint signals |
-| **Lower** | CodePipeline / CodeDeploy | Already have stage/state and duration | Optional: “Pipeline/Deployment started/succeeded/failed” in message pool |
+| Status | Service | Notes |
+|--------|---------|-------|
+| ✅ Done (v7.4) | EMR | run_state, message pool, metrics block |
+| ✅ Done (v7.4) | Batch | message pool lifecycle signals, elapsedTime in metrics |
+| ✅ Done (v7.4) | CodeBuild | “Build started/succeeded/failed” message pool, phase-level messages |
+| ✅ Done (v7.4) | SageMaker | job-type lifecycle messages (Training/Processing/Endpoint/Pipeline/etc.) |
+| ✅ Done (v7.4) | Athena | “Query started/succeeded/failed” message pool, metrics block |
+| ✅ Done (v7.4) | DataBrew | run_state, message pool, metrics block |
+| ✅ Done (v7.4) | AppFlow | message pool, metrics block |
+| ✅ Done (v8.0) | SNS | Performance metrics block |
+| ✅ Done (v8.0) | Fargate | Performance metrics block |
+| ✅ Done (v8.0) | Auto Scaling | Performance metrics block |
+| ✅ Done (v8.0) | Amazon MQ | Performance metrics block |
+| ✅ Done (v8.0) | AppSync | Performance metrics block |
+| ✅ Done (v8.0) | Bedrock | Performance metrics block |
+| ✅ Done (v8.0) | Image Builder | Performance metrics block |
+| ✅ Done (v8.0) | Cognito | Full metrics block (SignInSuccesses, ThrottleCount, etc.), dimensions |
+
+**Remaining optional enhancements** (lower priority, not blocking any feature):
+
+| Service | Possible addition |
+|---------|------------------|
+| Step Functions | “Execution started/succeeded/failed” in message pool |
+| Kinesis Analytics | “Application started/checkpoint/failed” in message pool |
+| CodePipeline / CodeDeploy | “Pipeline/Deployment started/succeeded/failed” in message pool |
+| CloudTrail | Full record shape (eventVersion, userIdentity, requestParameters, responseElements) for tighter dashboard/rule compatibility |
+| More services | Additional `aws.<service>.metrics` blocks for any service not yet covered |
 
 ---
 

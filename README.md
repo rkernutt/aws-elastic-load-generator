@@ -1,21 +1,18 @@
 # ⚡ AWS → Elastic Load Generator
 
-A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **136 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
+A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic deployment via the Elasticsearch Bulk API. Covers **136 AWS services** across **14 service groups**, all using **ECS (Elastic Common Schema)** field naming.
 
-Each service has its **correct real-world ingestion source** pre-configured — S3, CloudWatch, direct API, Firehose, **OTel** (OpenTelemetry), or **Elastic Agent** — matching how each service actually delivers data to Elastic in production. You can leave **Default (per-service)** or override all services to a single ingestion method (e.g. OTel) for testing. Switch between **Logs** and **Metrics** mode; **75 services** support Metrics mode (expanded from 46 in v7).
+Each service has its correct real-world ingestion source pre-configured — S3, CloudWatch, direct API, Firehose, OTel, or Elastic Agent — matching how each service actually delivers data to Elastic in production. Switch between **Logs** and **Metrics** mode; **75 services** support Metrics mode.
 
 ---
 
 ## What's New in v8.0
 
-- **Metrics mode expanded to 75 services** — Up from 46 in v7. Added Route 53, Auto Scaling, ElasticBeanstalk, Amazon MQ, AppSync, Cognito, KMS, EFS, FSx, Backup, Neptune, Timestream, QLDB, Keyspaces, MemoryDB, Kinesis Analytics, CodePipeline, CodeDeploy, Amplify, QuickSight, IoT Core, Shield, Global Accelerator, Direct Connect, VPC Flow, WorkSpaces, Connect, GameLift, Transfer Family, SES, X-Ray, and more. All newly added services have `aws.<service>.metrics` blocks with real CloudWatch metric names.
-- **Onboarding installers** — Two zero-dependency Node.js installers in `installer/`:
-  - `npm run setup:integration` — installs the official **Elastic AWS integration** package via the Kibana Fleet API (idempotent; skips if already installed). Gives you pre-built dashboards, ILM policies, and index templates for 46 services.
-  - `npm run setup:pipelines` — installs **custom Elasticsearch ingest pipelines** for the ~85 services not covered by the official integration. Interactive group selection menu (analytics, databases, serverless, compute, management, IoT, ml, storage, security, networking, streaming, devtools, enduser). **106 pipelines** across 13 groups — all idempotent.
-- **ECS Phase 1–3 complete across all 136 generators** — `aws.dimensions` keys always present (value or `null`) on every generator that has dimensions; no conditional spread that omits keys. All generators with a failure outcome set explicit `error: { code, message, type }` with real AWS API error codes. `event.duration` (nanoseconds) on every service where a meaningful duration exists.
-- **Performance metrics blocks on all key services** — SNS, Athena, SageMaker, Fargate, AutoScaling, ImageBuilder, Amazon MQ, AppSync, Bedrock all have `aws.<service>.metrics` blocks with CloudWatch-aligned numeric fields (sum/avg/p99) suitable for Elastic visualisations and ML anomaly detection jobs.
-- **Cognito metrics block** — `aws.cognito.metrics` now emits `SignInSuccesses`, `SignInAttempts`, `TokenRefreshSuccesses`, `SignUpSuccesses`, `FederationSuccesses`, `CallCount`, `ThrottleCount`, `AccountTakeoverRisk`, and `CompromisedCredentialsRisk` matching the Cognito CloudWatch namespace. `event.category` fixed to ECS array `["authentication"]`.
-- **SageMaker field naming** — CloudWatch endpoint/invocation metrics renamed from `cloudwatch_metrics` to `cloudwatch` to clearly distinguish them from the training `metrics` block within the same document.
+- **Metrics mode expanded to 75 services** — Up from 46 in v7. Added Route 53, Auto Scaling, Elastic Beanstalk, Amazon MQ, AppSync, Cognito, KMS, EFS, FSx, Backup, Neptune, Timestream, QLDB, Keyspaces, MemoryDB, Kinesis Analytics, CodePipeline, CodeDeploy, Amplify, QuickSight, IoT Core, Shield, Global Accelerator, Direct Connect, WorkSpaces, Connect, GameLift, Transfer Family, SES, X-Ray, and more.
+- **Onboarding installers** — Two zero-dependency Node.js scripts to configure Elastic before shipping data. `npm run setup:integration` installs the official Elastic AWS integration; `npm run setup:pipelines` installs 106 custom ingest pipelines for the remaining ~85 services. Both are idempotent and interactive.
+- **ECS completeness across all 136 generators** — `aws.dimensions` always present, `event.duration` in nanoseconds on every service with a meaningful duration, real AWS API error codes on all failure paths.
+- **Performance metrics blocks** — SNS, Athena, Cognito, SageMaker, Fargate, Auto Scaling, Image Builder, Amazon MQ, AppSync, and Bedrock all have `aws.<service>.metrics` blocks with CloudWatch-aligned numeric fields.
+- **SageMaker field naming** — CloudWatch endpoint metrics moved to `aws.sagemaker.cloudwatch` to distinguish from the training `aws.sagemaker.metrics` block.
 
 See full release history: [docs/VERSION-HISTORY.md](docs/VERSION-HISTORY.md).
 
@@ -51,25 +48,184 @@ To stop Docker: `docker compose down`
 
 ---
 
+## Recommended setup before first use
+
+Run the two onboarding installers once before you start shipping data. They configure Elastic with the correct index templates, dashboards, and ingest pipelines. Both require only Node.js 18+ and zero extra `npm install`.
+
+### Step 1 — Install the official Elastic AWS integration
+
+```bash
+npm run setup:integration
+```
+
+**What it does:** Installs the official Elastic AWS integration package via the Kibana Fleet API. This gives you:
+
+- Pre-built index templates for all 46 officially-supported AWS services
+- ILM (Index Lifecycle Management) policies
+- Pre-built Kibana dashboards for CloudTrail, VPC Flow, ALB/NLB, GuardDuty, Lambda, RDS, and more
+- ML anomaly detection job configurations
+
+**What you'll be prompted for:**
+
+| Prompt | Where to find it |
+|--------|-----------------|
+| Kibana URL | Deployment overview → Kibana endpoint (e.g. `https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243`) |
+| API key | Kibana → Stack Management → API Keys → Create API key (needs `cluster: manage` + `kibana: all` privileges) |
+
+**Example session:**
+
+```
+╔══════════════════════════════════════════════════════╗
+║     AWS → Elastic Integration Installer              ║
+╚══════════════════════════════════════════════════════╝
+
+Kibana URL (https://...):
+> https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243
+
+Elastic API Key:
+> ABCdef123==
+
+Checking AWS integration status...
+  AWS integration not installed — fetching latest version...
+  Latest version: 2.34.1
+  Installing aws 2.34.1...
+  ✓ AWS integration installed successfully (version 2.34.1)
+Done.
+```
+
+If the integration is already installed, the installer skips — it is safe to re-run at any time.
+
+---
+
+### Step 2 — Install custom ingest pipelines
+
+```bash
+npm run setup:pipelines
+```
+
+**What it does:** Installs Elasticsearch ingest pipelines for the ~85 AWS services not covered by the official integration. These pipelines parse the structured JSON `message` field emitted by the load generator into named fields (e.g. `glue.parsed`, `sagemaker.parsed`), making logs fully searchable and aggregatable in Kibana.
+
+**What you'll be prompted for:**
+
+| Prompt | Where to find it |
+|--------|-----------------|
+| Elasticsearch URL | Deployment overview → Elasticsearch endpoint (e.g. `https://my-deployment.es.us-east-1.aws.elastic-cloud.com:9243`) |
+| API key | Kibana → Stack Management → API Keys → Create API key (needs `manage_ingest_pipelines` cluster privilege) |
+
+**Example session:**
+
+```
+╔══════════════════════════════════════════════════════╗
+║     AWS → Elastic Custom Pipeline Installer          ║
+╚══════════════════════════════════════════════════════╝
+
+Elasticsearch URL:
+> https://my-deployment.es.us-east-1.aws.elastic-cloud.com:9243
+
+Elastic API Key:
+> ABCdef123==
+
+Testing connection...
+  Connected to cluster: my-deployment (8.14.0)
+
+Available pipeline groups:
+
+  1. analytics    (8 pipelines)
+  2. compute      (7 pipelines)
+  3. databases    (9 pipelines)
+  4. devtools     (6 pipelines)
+  5. enduser      (14 pipelines)
+  6. iot          (6 pipelines)
+  7. management   (17 pipelines)
+  8. ml           (13 pipelines)
+  9. networking   (4 pipelines)
+  10. security    (8 pipelines)
+  11. serverless  (5 pipelines)
+  12. storage     (5 pipelines)
+  13. streaming   (4 pipelines)
+  14. all         (install every group)
+
+Enter number(s) comma-separated, or "all":
+> all
+
+Installing 106 pipeline(s)...
+
+  ✓ logs-aws.glue-default — installed
+  ✓ logs-aws.emr_logs-default — installed
+  ✓ logs-aws.athena-default — installed
+  ...
+  ✓ logs-aws.sagemaker-default — installed
+
+Installed 106 / 106 pipelines.
+Done.
+```
+
+You can select individual groups by number (e.g. `1,3,8`) or type `all`. Already-installed pipelines are automatically skipped.
+
+**Pipeline groups and what they cover:**
+
+| Group | Pipelines | Key services |
+|-------|-----------|-------------|
+| analytics | 8 | Glue, EMR, Athena, Lake Formation, QuickSight, DataBrew, AppFlow |
+| compute | 7 | EC2, EKS, Fargate, ECR, App Runner, Batch, Elastic Beanstalk |
+| databases | 9 | ElastiCache, OpenSearch, DocumentDB, Aurora, Neptune, Timestream, QLDB, Keyspaces, MemoryDB |
+| devtools | 6 | CodeCommit, CodeArtifact, Amplify, CodeGuru, DevOps Guru, Lightsail |
+| enduser | 14 | WorkSpaces, Connect, AppStream, GameLift, Transfer Family, MediaConvert, MediaLive, Pinpoint, Location Service, Managed Blockchain, Fraud Detector, Lookout for Metrics, Comprehend Medical, SES |
+| iot | 6 | IoT Core, Greengrass, IoT Analytics, IoT Events, IoT SiteWise, IoT Defender |
+| management | 17 | CloudFormation, SSM, CloudWatch Alarms, AWS Health, Trusted Advisor, Control Tower, Organizations, Service Catalog, Service Quotas, Compute Optimizer, Budgets, Billing, RAM, Resilience Hub, Migration Hub, Network Manager, DMS |
+| ml | 13 | SageMaker, Bedrock, Bedrock Agent, Rekognition, Textract, Comprehend, Translate, Transcribe, Polly, Forecast, Personalize, Lex, Comprehend Medical |
+| networking | 4 | Shield, Global Accelerator, Direct Connect, PrivateLink |
+| security | 8 | Macie, IAM Access Analyzer, Cognito, KMS, Secrets Manager, ACM, IAM Identity Center, Detective |
+| serverless | 5 | Lambda, API Gateway, Step Functions, EventBridge, AppSync |
+| storage | 5 | EFS, FSx, DataSync, Backup, Storage Gateway |
+| streaming | 4 | Kinesis Analytics, Amazon MQ, SNS, SQS (custom pipelines only) |
+
+**Pipeline naming convention:**
+
+Pipelines follow the Elastic standard naming pattern:
+
+```
+logs-aws.{dataset_suffix}-default
+```
+
+e.g. `logs-aws.glue-default`, `logs-aws.sagemaker-default`, `logs-aws.lambda_logs-default`. These match the index names the load generator writes to, so pipelines are applied automatically on ingest — no additional routing configuration is needed.
+
+**Why two separate installers?**
+
+| | `setup:integration` | `setup:pipelines` |
+|---|---|---|
+| API used | Kibana Fleet API | Elasticsearch Ingest API |
+| Credentials | Kibana URL + API key | Elasticsearch URL + API key |
+| What it configures | Dashboards, ILM, templates | Ingest pipelines only |
+| Re-runnable | Yes — skips if installed | Yes — skips existing pipelines |
+
+---
+
 ## Usage
 
 1. **Select services** — toggle individual services, entire groups, or all 136 at once
-2. **Configure volume** — set logs per service (50–5,000), error rate (0–50%), and batch size
-3. **Set ingestion source** — leave on **Default (per-service)** or override all services to a specific source
-4. **Connect to Elastic** — enter your Elasticsearch URL, API key, and index prefix
-5. **Preview a document** — click **Preview doc** to inspect a sample before shipping
-6. **Ship** — click ⚡ **Ship** and watch real-time progress in the activity log (logs or metrics depending on mode)
+2. **Choose mode** — **Logs** generates log documents for all 136 services; **Metrics** generates metrics documents for the 75 metrics-supported services
+3. **Configure volume** — set logs per service (50–5,000), error rate (0–50%), and batch size
+4. **Set ingestion source** — leave on **Default (per-service)** or override all services to a single source for pipeline testing
+5. **Connect to Elastic** — enter your Elasticsearch URL, API key, and index prefix
+6. **Preview** — click **Preview doc** to inspect a sample document before shipping
+7. **Ship** — click ⚡ **Ship** and watch real-time progress in the activity log
 
-### Getting an Elastic API Key
+### Getting an Elastic API key
 
-1. Open Kibana → **Stack Management** → **API Keys**
+1. Kibana → **Stack Management** → **API Keys**
 2. Click **Create API key**
 3. Assign `cluster_admin` or scoped `index_admin` privileges
 4. Copy the **base64** encoded key into the UI
 
 ### Index naming
 
-Indices are named **`{prefix}.{dataset_suffix}`** (a **dot** between prefix and suffix). The suffix is derived from the Elastic dataset (e.g. `aws.lambda` → `lambda`, `aws.elb_logs` → `elb_logs`). In **Logs** mode (default prefix `logs-aws`): e.g. `logs-aws.lambda`, `logs-aws.elb_logs`, `logs-aws.vpcflow`. In **Metrics** mode (prefix `metrics-aws`): e.g. `metrics-aws.lambda`, `metrics-aws.elb`. Services without a dedicated integration use `logs-aws.{service}` or `metrics-aws.{service}` as applicable.
+Indices follow the pattern **`{prefix}.{dataset_suffix}`**. The suffix comes from the Elastic dataset field (e.g. `aws.lambda` → `lambda`, `aws.elb_logs` → `elb_logs`).
+
+| Mode | Default prefix | Example index |
+|------|---------------|---------------|
+| Logs | `logs-aws` | `logs-aws.lambda`, `logs-aws.elb_logs`, `logs-aws.vpcflow` |
+| Metrics | `metrics-aws` | `metrics-aws.lambda`, `metrics-aws.elb` |
 
 Timestamps are spread across the **last 24 hours** so data appears naturally in Kibana time-based views.
 
@@ -77,15 +233,15 @@ Timestamps are spread across the **last 24 hours** so data appears naturally in 
 
 ## Elastic AWS integration coverage
 
-Generated documents are aligned with the **AWS** and **Custom AWS Logs** integrations in Elastic ([elastic/integrations](https://github.com/elastic/integrations/tree/main/packages/aws)). The table below indicates which app services map to an official data stream and which use ECS-only (no dedicated integration).
+Documents align with the official [Elastic AWS integration](https://github.com/elastic/integrations/tree/main/packages/aws). The table below shows which services have a native Elastic data stream and which use ECS-only (`aws.<service>`).
 
-| Has Elastic integration | Data stream / dataset | App services |
-|-------------------------|------------------------|--------------|
+| Official integration | Data stream / dataset | Services |
+|----------------------|----------------------|----------|
 | Yes | `aws.cloudtrail` | CloudTrail |
 | Yes | `aws.vpcflow` | VPC Flow |
 | Yes | `aws.elb_logs` | ALB, NLB |
 | Yes | `aws.guardduty` | GuardDuty |
-| Yes | `aws.s3access` | S3 (access logs) |
+| Yes | `aws.s3access` | S3 access logs |
 | Yes | `aws.apigateway_logs` | API Gateway |
 | Yes | `aws.cloudfront_logs` | CloudFront |
 | Yes | `aws.lambda` / `aws.lambda_logs` | Lambda |
@@ -93,25 +249,17 @@ Generated documents are aligned with the **AWS** and **Custom AWS Logs** integra
 | Yes | `aws.securityhub_findings` | Security Hub |
 | Yes | `aws.waf` | WAF, WAF v2 |
 | Yes | `aws.rds`, `aws.ec2_logs`, `aws.ecs_metrics`, `aws.config`, `aws.inspector`, `aws.dynamodb`, `aws.redshift`, `aws.emr_logs`, `aws.route53_public_logs` | RDS, EC2, ECS, Config, Inspector, DynamoDB, Redshift, EMR, Route 53 |
-| No (ECS only) | `aws.<service>` | All other 100+ services (Batch, Beanstalk, App Runner, ECR, etc.) |
+| No — ECS only | `aws.<service>` | All remaining ~90 services |
 
-For integration-backed services, field names and nesting follow the integration’s index mappings so that pre-built dashboards and security rules work.
-
-### Configuration reference
-
-| Setting | Description |
-|--------|-------------|
-| **Index prefix** | Base name for indices (e.g. `logs-aws`). Final index = `{prefix}.{dataset_suffix}` (e.g. `logs-aws.elb_logs`, `metrics-aws.lambda`). |
-| **Ingestion source** | **Default (per-service)** uses the native source for each service (S3, CloudWatch, API, Firehose). Override to force all services to a single source (including **OTel** or **Elastic Agent**) for testing. |
-| **data_stream.dataset** | Set automatically: integration-backed services use the Elastic dataset (e.g. `aws.cloudtrail`, `aws.vpcflow`); others use `aws.<service>`. |
+For integration-backed services, field names follow the integration's index mappings so pre-built dashboards and security rules work without modification.
 
 ---
 
-## ECS Field Coverage
+## ECS field coverage
 
 Every document includes these standard ECS base fields:
 
-| ECS Field | Example Value | Notes |
+| ECS field | Example value | Notes |
 |---|---|---|
 | `@timestamp` | `2025-03-11T14:22:01.000Z` | Random within last 24 hours |
 | `cloud.provider` | `aws` | Always `aws` |
@@ -119,79 +267,54 @@ Every document includes these standard ECS base fields:
 | `cloud.account.id` | `814726593401` | One of 5 fictitious account IDs |
 | `cloud.account.name` | `globex-production` | Human-readable account alias |
 | `cloud.service.name` | `lambda`, `guardduty`, … | AWS service identifier |
+| `aws.dimensions` | `{ FunctionName: "api-handler" }` | Real CloudWatch dimension keys per service |
 | `event.dataset` | `aws.lambda`, `aws.guardduty`, … | Routes to Elastic integration dashboards |
 | `event.provider` | `lambda.amazonaws.com` | AWS endpoint that produced the event |
-| `event.category` | `network`, `iam`, `database`, … | ECS event category |
-| `event.outcome` | `success` or `failure` | Derived from status/error rate |
+| `event.category` | `["network"]`, `["database"]`, … | ECS array — required for SIEM rules |
+| `event.outcome` | `success` or `failure` | Derived from status / error rate |
+| `event.duration` | `4500000000` | Nanoseconds — present on all time-bound services |
 | `event.kind` | `event` or `alert` | Set to `alert` for security findings |
 | `log.level` | `info`, `warn`, `error` | |
 | `message` | Human-readable log line | |
 
-Services without a native Elastic integration emit additional ECS field groups relevant to their category:
+Additional ECS field groups by service category:
 
 | Category | ECS fields added |
 |---|---|
 | Security / IAM | `user.name`, `user.id`, `source.ip`, `event.action`, `error.code`, `error.message` |
 | Network | `source.ip`, `destination.ip`, `network.transport`, `network.bytes`, `network.direction` |
 | HTTP / API | `http.request.method`, `http.response.status_code`, `url.path`, `user_agent.original` |
-| Database | `error.code`, `error.message` |
+| Database | `db.name`, `db.operation`, `db.type`, `error.code`, `error.message` |
 | File / Storage | `file.path`, `file.size`, `file.hash.sha256` |
-| Container | `container.id`, `container.name`, `container.image.name` |
-| Process / Compute | `host.hostname`, `host.os.platform`, `process.name`, `process.pid` |
+| Container | `container.id`, `container.image.name`, `container.image.tag`, `container.runtime` |
+| Process / Compute | `host.hostname`, `host.os.platform`, `host.cpu.count`, `process.name`, `process.pid` |
 | Email | `email.from.address`, `email.to.address`, `email.message_id` |
+| Threat / Security | `threat.indicator.type`, `vulnerability.id`, `vulnerability.severity`, `vulnerability.score.base` |
 
 ---
 
 ## Ingestion methods
 
-The app supports six **ingestion methods**. Each determines the `input.type` and metadata (e.g. `telemetry.sdk` for OTel) stamped on generated documents.
+Each service defaults to the method that matches how AWS actually delivers data to Elastic in production. You can override all services to a single method for pipeline testing.
 
-### Ingestion method reference
-
-| Method | `input.type` | Default for these services | Available as override |
-|--------|---------------|----------------------------|------------------------|
-| **S3** | `aws-s3` | CloudTrail, ALB, NLB, CloudFront, WAF, WAF v2, VPC Flow Logs, Network Firewall, S3 access logs | All 134 services |
-| **CloudWatch** | `aws-cloudwatch` | Lambda, API Gateway, RDS, ECS, EC2, EKS, Glue, SageMaker, and 80+ other services | All 134 services |
-| **API** | `http_endpoint` | GuardDuty, Security Hub, Inspector, Config, IAM Access Analyzer, Macie, Detective, Trusted Advisor, Compute Optimizer, Budgets, Billing, Service Quotas, Fraud Detector, X-Ray | All 134 services |
-| **Firehose** | `aws-firehose` | Kinesis Data Firehose only | All 134 services |
-| **OTel** | `opentelemetry` | — (override only) | All 134 services; adds `telemetry.sdk` and OTLP-style metadata |
-| **Elastic Agent** | `logfile` | — (override only) | All 134 services; documents as if from log files |
-
-When **Ingestion source** is **Default**, each service uses the method in the “Default for these services” column. When you select an **override**, every selected service uses that method (column “Available as override”).
-
-### Default (per-service) — which service uses which method
-
-When **Ingestion source** is **Default**, each service uses the method that matches how that AWS service typically delivers data to Elastic:
-
-| Method | `input.type` | Services (default) |
-|---|---|---|
-| **S3** | `aws-s3` | CloudTrail, ALB, NLB, CloudFront, WAF, WAFv2, VPC Flow Logs, Network Firewall, S3 access logs |
-| **CloudWatch** | `aws-cloudwatch` | Lambda, API Gateway, RDS, Aurora, ECS, EKS, Fargate, EC2, and most other services |
+| Method | `input.type` | Default for |
+|--------|-------------|-------------|
+| **S3** | `aws-s3` | CloudTrail, ALB, NLB, CloudFront, WAF, WAF v2, VPC Flow, Network Firewall, S3 access logs |
+| **CloudWatch** | `aws-cloudwatch` | Lambda, API Gateway, RDS, ECS, EC2, EKS, and most other services |
 | **API** | `http_endpoint` | GuardDuty, Security Hub, Inspector, Config, IAM Access Analyzer, Macie, Detective, Trusted Advisor, Compute Optimizer, Budgets, Billing, Service Quotas, Fraud Detector, X-Ray |
 | **Firehose** | `aws-firehose` | Kinesis Data Firehose |
+| **OTel** | `opentelemetry` | Override only — adds `telemetry.sdk` and OTLP-style metadata |
+| **Elastic Agent** | `logfile` | Override only — documents as if collected from log files |
 
-**OTel** and **Elastic Agent** are not assigned as a default to any single service; they are available only as overrides (see below).
-
-### Override mode — force one method for all services
-
-When you override **Ingestion source** to a specific method, **all** selected services generate documents with that method. Useful for testing a single pipeline (e.g. OTLP or Agent) with any mix of AWS services.
-
-| Override | `input.type` | Effect |
-|---|---|---|
-| S3 Bucket | `aws-s3` | All documents as if read from S3 via SQS notification |
-| CloudWatch | `aws-cloudwatch` | All documents as if polled from CloudWatch log groups |
-| Firehose | `aws-firehose` | All documents as if pushed via Firehose delivery stream |
-| API | `http_endpoint` | All documents as if ingested via direct REST API |
-| **OTel** | `opentelemetry` | **All services**; documents get `telemetry.sdk` and OTLP-style metadata (simulates ingestion via an OpenTelemetry collector). |
-| Elastic Agent | `logfile` | **All services**; documents as if collected from log files by Elastic Agent |
+When **Ingestion source** is set to **Default**, each service uses its native method. When you select an override, all selected services use that method — useful for testing a single ingest pipeline across any mix of AWS services.
 
 ---
 
-## Fictitious AWS Organisation
+## Fictitious AWS organisation
 
-All documents share a consistent fictitious organisation — **Globex** — with five accounts rotating across documents to simulate a real multi-account environment.
+All documents use a consistent fictitious organisation — **Globex** — with five accounts rotating across documents to simulate a real multi-account environment.
 
-| Account ID | Account Name | Purpose |
+| Account ID | Account name | Purpose |
 |---|---|---|
 | `814726593401` | `globex-production` | Production workloads |
 | `293847561023` | `globex-staging` | Pre-production / QA |
@@ -199,154 +322,172 @@ All documents share a consistent fictitious organisation — **Globex** — with
 | `501938274650` | `globex-security-tooling` | Security services |
 | `164820739518` | `globex-shared-services` | Shared infrastructure |
 
-Regions: `eu-west-2` (London) and `us-east-1` (N. Virginia).
+Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 ---
 
-## Supported Services (134 total)
+## Supported services (136 total)
 
 ### 1 · Serverless & Core
-| Service | Source | ECS Coverage |
+
+| Service | Source | ECS / dataset |
 |---|---|---|
-| Lambda | CloudWatch | Full Elastic integration (`aws.lambda.*`, dimensions, metrics) |
-| API Gateway | CloudWatch | Full Elastic integration (`aws.apigateway.*`) |
-| VPC Flow | S3 | Full Elastic integration (`aws.vpcflow.*`) |
-| CloudTrail | S3 | Full Elastic integration (`aws.cloudtrail.*`) |
-| RDS | CloudWatch | Full Elastic integration (`aws.rds.*`, metrics) |
-| ECS | CloudWatch | Full Elastic integration (`aws.ecs.*`) |
+| Lambda | CloudWatch | Full integration — `aws.lambda.*`, START/END/REPORT log events, X-Ray trace |
+| API Gateway | CloudWatch | Full integration — `aws.apigateway.*`, `http.*`, `url.*` |
+| VPC Flow | S3 | Full integration — `aws.vpcflow.*`, exact v2 space-separated format |
+| CloudTrail | S3 | Full integration — `aws.cloudtrail.*`, `user.*`, `source.geo` |
+| RDS | CloudWatch | Full integration — `aws.rds.*`, MySQL/PostgreSQL log formats, Enhanced Monitoring OS metrics |
+| ECS | CloudWatch | Full integration — `aws.ecs.*`, `container.*`, `process.*` |
 
 ### 2 · Compute & Containers
-| Service | Source | ECS Coverage |
+
+| Service | Source | ECS / dataset |
 |---|---|---|
-| EC2 | CloudWatch | Full Elastic integration (`aws.ec2.*`) |
-| EKS | CloudWatch | Full Elastic integration (`aws.eks.*`) |
-| Fargate | CloudWatch | `aws.ecs_fargate.*`, `container.*` |
+| EC2 | CloudWatch | Full integration — `aws.ec2.*`, 22-metric CloudWatch block, `host.*` |
+| EKS | CloudWatch | Full integration — `aws.eks.*`, kubelet log format, `container.*` |
+| Fargate | CloudWatch | `aws.ecs_fargate.*`, `container.*`, `process.*`, metrics block |
 | ECR | CloudWatch | `aws.ecr.*`, `error.*` |
 | App Runner | CloudWatch | `aws.apprunner.*`, `http.*`, `url.*` |
-| Batch | CloudWatch | `aws.batch.*` |
+| Batch | CloudWatch | `aws.batch.*`, `container.*`, `process.*` |
 | Elastic Beanstalk | CloudWatch | `aws.elasticbeanstalk.*`, `http.*` |
-| Auto Scaling | CloudWatch | `aws.autoscaling.*` |
+| Auto Scaling | CloudWatch | `aws.autoscaling.*`, metrics block |
 | EC2 Image Builder | CloudWatch | `aws.imagebuilder.*`, `event.duration` |
 
 ### 3 · Networking & CDN
-| Service | Source | ECS Coverage |
+
+| Service | Source | ECS / dataset |
 |---|---|---|
-| ALB | S3 | Full Elastic integration (`aws.alb.*`) |
-| NLB | S3 | `aws.nlb.*`, `source.ip`, `network.*` |
-| CloudFront | S3 | Full Elastic integration (`aws.cloudfront.*`) |
-| WAF | S3 | Full Elastic integration (`aws.waf.*`) |
+| ALB | S3 | Full integration — `aws.alb.*`, `source.geo`, `http.*`, `url.*` |
+| NLB | S3 | `aws.nlb.*`, `source.ip`, `network.*`, 20-metric block |
+| CloudFront | S3 | Full integration — `aws.cloudfront.*`, `source.geo`, 14-metric block |
+| WAF | S3 | Full integration — `aws.waf.*`, threat-actor country distribution |
 | WAF v2 | S3 | `aws.waf.*` |
-| Route 53 | CloudWatch | Full Elastic integration (`aws.route53.*`) |
+| Route 53 | CloudWatch | Full integration — `aws.route53.*`, real resolver query log format |
 | Network Firewall | S3 | `aws.network_firewall.*`, `network.*` |
-| Shield | CloudWatch | `aws.shield.*` |
-| Global Accelerator | CloudWatch | `aws.globalaccelerator.*`, `network.*` |
+| Shield | CloudWatch | `aws.shield.*`, metrics block |
+| Global Accelerator | CloudWatch | `aws.globalaccelerator.*`, `network.*`, metrics block |
 | Transit Gateway | CloudWatch | `aws.transitgateway.*`, `network.*` |
-| Direct Connect | CloudWatch | `aws.directconnect.*` |
+| Direct Connect | CloudWatch | `aws.directconnect.*`, metrics block |
 | Site-to-Site VPN | CloudWatch | `aws.vpn.*` |
 | PrivateLink | CloudWatch | `aws.privatelink.*` |
 
 ### 4 · Security & Compliance
-| Service | Source | ECS Coverage |
+
+| Service | Source | ECS / dataset |
 |---|---|---|
-| GuardDuty | API | Full Elastic integration (`aws.guardduty.*`) |
-| Security Hub | API | Full Elastic integration (`aws.securityhub.*`) |
-| Macie | API | `aws.macie.*`, `file.*` |
-| Inspector | API | Full Elastic integration (`aws.inspector.*`) |
-| Config | API | Full Elastic integration (`aws.config.*`) |
+| GuardDuty | API | Full integration — `aws.guardduty.*`, real finding type taxonomy, `threat.indicator`, `source.geo` |
+| Security Hub | API | Full integration — `aws.securityhub.*`, real standards and control IDs (CIS, PCI DSS, FSBP) |
+| Macie | API | `aws.macie.*`, real managed data identifier names, `file.*` |
+| Inspector | API | Full integration — `aws.inspector.*`, real CVE IDs, `vulnerability.*` |
+| Config | API | Full integration — `aws.config.*`, real resource types and compliance states |
 | IAM Access Analyzer | API | `aws.access_analyzer.*`, `user.*`, `source.ip` |
-| Cognito | CloudWatch | `aws.cognito.*`, `user.*`, `source.ip`, `user_agent.original` |
+| Cognito | CloudWatch | `aws.cognito.*`, `user.*`, `source.ip`, metrics block (SignInSuccesses, ThrottleCount, etc.) |
 | KMS | CloudWatch | `aws.kms.*`, `user.*`, `event.action` |
 | Secrets Manager | CloudWatch | `aws.secretsmanager.*`, `user.*` |
-| ACM | CloudWatch | `aws.acm.*` |
+| ACM | CloudWatch | `aws.acm.*`, certificate expiry days |
 | IAM Identity Center | CloudWatch | `aws.identitycenter.*`, `user.*`, `source.ip` |
 | Detective | API | `aws.detective.*` |
 
 ### 5 · Storage & Databases
-| Service | Source | ECS Coverage |
+
+| Service | Source | ECS / dataset |
 |---|---|---|
-| S3 | S3 | Full Elastic integration (`aws.s3.*`) |
-| DynamoDB | CloudWatch | Full Elastic integration (`aws.dynamodb.*`) |
-| ElastiCache | CloudWatch | Full Elastic integration (`aws.elasticache.*`) |
-| Redshift | CloudWatch | Full Elastic integration (`aws.redshift.*`) |
-| OpenSearch | CloudWatch | Full Elastic integration (`aws.opensearch.*`) |
-| DocumentDB | CloudWatch | Full Elastic integration (`aws.docdb.*`) |
+| S3 | S3 | Full integration — `aws.s3.*`, access log format |
+| DynamoDB | CloudWatch | Full integration — `aws.dynamodb.*`, structured logging, 12-metric block |
+| ElastiCache | CloudWatch | Full integration — `aws.elasticache.*`, 20-metric block |
+| Redshift | CloudWatch | Full integration — `aws.redshift.*`, 18-metric block |
+| OpenSearch | CloudWatch | Full integration — `aws.opensearch.*`, `http.*`, 11-metric block |
+| DocumentDB | CloudWatch | Full integration — `aws.docdb.*`, 12-metric block |
 | EFS | CloudWatch | `aws.efs.*`, `file.*` |
 | FSx | CloudWatch | `aws.fsx.*`, `file.*` |
 | DataSync | CloudWatch | `aws.datasync.*`, `file.*` |
 | Backup | CloudWatch | `aws.backup.*` |
 | Storage Gateway | CloudWatch | `aws.storagegateway.*` |
 | EBS | CloudWatch | `aws.ebs.*`, `host.*` |
-| Aurora | CloudWatch | `aws.aurora.*` |
-| Neptune | CloudWatch | `aws.neptune.*` |
+| Aurora | CloudWatch | `aws.aurora.*`, Aurora-specific metrics (BinlogReplicaLag, ServerlessCapacity, ACUUtilization) |
+| Neptune | CloudWatch | `aws.neptune.*`, Gremlin/SPARQL/openCypher query types |
 | Timestream | CloudWatch | `aws.timestream.*` |
-| QLDB | CloudWatch | `aws.qldb.*` |
+| QLDB | CloudWatch | `aws.qldb.*`, ledger/transaction model |
 | Keyspaces | CloudWatch | `aws.keyspaces.*` |
 | MemoryDB | CloudWatch | `aws.memorydb.*` |
 
 ### 6 · Streaming & Messaging
-| Service | Source | ECS Coverage |
+
+| Service | Source | ECS / dataset |
 |---|---|---|
-| Kinesis Streams | CloudWatch | Full Elastic integration (`aws.kinesis.*`) |
-| Firehose | Firehose | Full Elastic integration (`aws.firehose.*`) |
+| Kinesis Streams | CloudWatch | Full integration — `aws.kinesis.*` |
+| Kinesis Data Firehose | Firehose | Full integration — `aws.firehose.*` |
 | Kinesis Analytics | CloudWatch | `aws.kinesisanalytics.*` |
-| MSK (Kafka) | CloudWatch | Full Elastic integration (`aws.msk.*`) |
-| SQS | CloudWatch | Full Elastic integration (`aws.sqs.*`) |
-| SNS | CloudWatch | `aws.sns.*` |
-| Amazon MQ | CloudWatch | `aws.amazonmq.*` |
-| EventBridge | CloudWatch | Full Elastic integration (`aws.eventbridge.*`) |
-| Step Functions | CloudWatch | Full Elastic integration (`aws.stepfunctions.*`) |
-| AppSync | CloudWatch | `aws.appsync.*`, `http.*` |
+| MSK (Kafka) | CloudWatch | Full integration — `aws.msk.*` |
+| SQS | CloudWatch | Full integration — `aws.sqs.*` |
+| SNS | CloudWatch | `aws.sns.*`, metrics block |
+| Amazon MQ | CloudWatch | `aws.amazonmq.*`, metrics block |
+| EventBridge | CloudWatch | Full integration — `aws.eventbridge.*` |
+| Step Functions | CloudWatch | Full integration — `aws.stepfunctions.*` |
+| AppSync | CloudWatch | `aws.appsync.*`, `http.*`, metrics block |
 
 ### 7 · Developer & CI/CD
-| Service | Source | ECS Coverage |
+
+| Service | Source | ECS / dataset |
 |---|---|---|
-| CodeBuild | CloudWatch | Full Elastic integration (`aws.codebuild.*`) |
-| CodePipeline | CloudWatch | Full Elastic integration (`aws.codepipeline.*`) |
-| CodeDeploy | CloudWatch | Full Elastic integration (`aws.codedeploy.*`) |
+| CodeBuild | CloudWatch | Full integration — `aws.codebuild.*` |
+| CodePipeline | CloudWatch | Full integration — `aws.codepipeline.*` |
+| CodeDeploy | CloudWatch | Full integration — `aws.codedeploy.*` |
 | CodeCommit | CloudWatch | `aws.codecommit.*`, `user.*` |
 | CodeArtifact | CloudWatch | `aws.codeartifact.*` |
 | Amplify | CloudWatch | `aws.amplify.*`, `http.*` |
-| X-Ray | API | Full Elastic integration (`aws.xray.*`) |
+| X-Ray | API | Full integration — `aws.xray.*`, trace segments, subsegments |
+| CodeGuru | CloudWatch | `aws.codeguru.*` |
+| DevOps Guru | CloudWatch | `aws.devopsguru.*` |
 
 ### 8 · Analytics
-| Service | Source | ECS Coverage |
+
+| Service | Source | ECS / dataset |
 |---|---|---|
-| EMR | CloudWatch | `aws.emr.*` |
-| Glue | CloudWatch | `aws.glue.*` |
-| Athena | CloudWatch | `aws.athena.*` |
+| EMR | CloudWatch | `aws.emr.*`, step/cluster lifecycle messages |
+| Glue | CloudWatch | `aws.glue.*`, structured JSON continuous logging |
+| Athena | CloudWatch | `aws.athena.*`, metrics block |
 | Lake Formation | CloudWatch | `aws.lakeformation.*`, `user.*` |
 | QuickSight | CloudWatch | `aws.quicksight.*`, `user.*`, `http.*` |
 | DataBrew | CloudWatch | `aws.databrew.*` |
 | AppFlow | CloudWatch | `aws.appflow.*` |
 
 ### 9 · AI & Machine Learning
-| Service | Source | ECS Coverage |
+
+| Service | Source | ECS / dataset |
 |---|---|---|
-| SageMaker | CloudWatch | `aws.sagemaker.*`, `user.*` |
-| Bedrock | CloudWatch | `aws.bedrock.*`, `event.duration` |
-| Bedrock Agent | CloudWatch | `aws.bedrockagent.*`, agent/knowledge-base invocations |
+| SageMaker | CloudWatch | `aws.sagemaker.*`, training metrics, Studio logging, lifecycle messages, CloudWatch endpoint metrics |
+| Bedrock | CloudWatch | `aws.bedrock.*`, token counts, invocation latency, metrics block |
+| Bedrock Agent | CloudWatch | `aws.bedrockagent.*`, agent + knowledge-base invocations |
 | Rekognition | CloudWatch | `aws.rekognition.*` |
 | Textract | CloudWatch | `aws.textract.*` |
 | Comprehend | CloudWatch | `aws.comprehend.*` |
+| Comprehend Medical | CloudWatch | `aws.comprehendmedical.*` |
 | Translate | CloudWatch | `aws.translate.*` |
 | Transcribe | CloudWatch | `aws.transcribe.*` |
 | Polly | CloudWatch | `aws.polly.*` |
 | Forecast | CloudWatch | `aws.forecast.*` |
 | Personalize | CloudWatch | `aws.personalize.*` |
 | Lex | CloudWatch | `aws.lex.*`, `user.*` |
+| Lookout for Metrics | CloudWatch | `aws.lookoutmetrics.*` |
 
 ### 10 · IoT
-| Service | Source | ECS Coverage |
+
+| Service | Source | ECS / dataset |
 |---|---|---|
-| IoT Core | CloudWatch | `aws.iot.*`, `source.ip` |
-| Greengrass | CloudWatch | `aws.greengrass.*` |
+| IoT Core | CloudWatch | `aws.iot.*`, `source.ip`, metrics block |
+| Greengrass | CloudWatch | `aws.greengrass.*`, metrics block |
 | IoT Analytics | CloudWatch | `aws.iotanalytics.*` |
+| IoT Events | CloudWatch | `aws.iotevents.*` |
+| IoT SiteWise | CloudWatch | `aws.iotsitewise.*`, asset/property model |
+| IoT Defender | CloudWatch | `aws.iotdefender.*` |
 
 ### 11 · Management & Governance
-| Service | Source | ECS Coverage |
+
+| Service | Source | ECS / dataset |
 |---|---|---|
-| CloudFormation | CloudWatch | `aws.cloudformation.*`, `user.*`, `event.action` |
-| Systems Manager | CloudWatch | `aws.ssm.*`, `host.*`, `user.*` |
+| CloudFormation | CloudWatch | `aws.cloudformation.*`, `user.*`, `event.action`, structured change events |
+| Systems Manager | CloudWatch | `aws.ssm.*`, `host.*`, `user.*`, command execution lifecycle |
 | CloudWatch Alarms | CloudWatch | `aws.cloudwatch.*` |
 | AWS Health | CloudWatch | `aws.health.*` |
 | Trusted Advisor | API | `aws.trustedadvisor.*` |
@@ -356,102 +497,71 @@ Regions: `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | Service Quotas | API | `aws.servicequotas.*` |
 | Compute Optimizer | API | `aws.computeoptimizer.*` |
 | Budgets | API | `aws.budgets.*` |
-| Billing | API | `aws.billing.*` (Cost & Usage, Elastic integration) |
+| Billing | API | `aws.billing.*` |
 | Resource Access Manager | CloudWatch | `aws.ram.*`, `user.*` |
 | Resilience Hub | CloudWatch | `aws.resiliencehub.*` |
 | Migration Hub | CloudWatch | `aws.migrationhub.*` |
 | Network Manager | CloudWatch | `aws.networkmanager.*` |
-| DMS | CloudWatch | `aws.dms.*` |
+| DMS | CloudWatch | `aws.dms.*`, 17-metric block |
 
-### 12 · Media & End User Computing
-| Service | Source | ECS Coverage |
+### 12 · Media & End-User Computing
+
+| Service | Source | ECS / dataset |
 |---|---|---|
-| MediaConvert | CloudWatch | `aws.mediaconvert.*` |
-| MediaLive | CloudWatch | `aws.medialive.*` |
-| WorkSpaces | CloudWatch | `aws.workspaces.*`, `user.*`, `source.ip` |
-| Amazon Connect | CloudWatch | `aws.connect.*`, `user.*` |
+| MediaConvert | CloudWatch | `aws.mediaconvert.*`, metrics block |
+| MediaLive | CloudWatch | `aws.medialive.*`, metrics block |
+| WorkSpaces | CloudWatch | `aws.workspaces.*`, `user.*`, `source.ip`, metrics block |
+| Amazon Connect | CloudWatch | `aws.connect.*`, `user.*`, metrics block (ContactsQueued, AverageHandleTime, ServiceLevel) |
 | AppStream | CloudWatch | `aws.appstream.*`, `user.*` |
-| GameLift | CloudWatch | `aws.gamelift.*` |
+| GameLift | CloudWatch | `aws.gamelift.*`, 13-metric block |
 
 ### 13 · Messaging & Communications
-| Service | Source | ECS Coverage |
+
+| Service | Source | ECS / dataset |
 |---|---|---|
-| SES | CloudWatch | `aws.ses.*`, `email.*` |
+| SES | CloudWatch | `aws.ses.*`, `email.*`, 9-metric block |
 | Pinpoint | CloudWatch | `aws.pinpoint.*`, `email.*` |
 
 ### 14 · Additional Services
-| Service | Source | ECS Coverage |
+
+| Service | Source | ECS / dataset |
 |---|---|---|
 | Transfer Family | CloudWatch | `aws.transfer.*`, `file.*`, `source.ip` |
 | Lightsail | CloudWatch | `aws.lightsail.*` |
 | Fraud Detector | API | `aws.frauddetector.*`, `source.ip` |
-| Lookout for Metrics | CloudWatch | `aws.lookoutmetrics.*` |
-| Comprehend Medical | CloudWatch | `aws.comprehendmedical.*` |
 | Location Service | CloudWatch | `aws.location.*` |
 | Managed Blockchain | CloudWatch | `aws.blockchain.*` |
-| CodeGuru | CloudWatch | `aws.codeguru.*` |
-| DevOps Guru | CloudWatch | `aws.devopsguru.*` |
-| IoT Events | CloudWatch | `aws.iotevents.*` |
-| IoT SiteWise | CloudWatch | `aws.iotsitewise.*` |
-| IoT Defender | CloudWatch | `aws.iotdefender.*` |
-| WAF v2 | S3 | `aws.waf.*` |
 
 ---
 
-## Elastic Serverless
-
-Works with **Elastic Serverless** projects without code changes. Assign the **Editor** project role (or a custom role with `index` privileges on `aws-logs-*`) instead of `cluster_admin`. Paste your Serverless project URL directly — the `_bulk` API behaves identically.
-
----
-
-## Configuration Reference
+## Configuration reference
 
 | Setting | Default | Range | Description |
 |---|---|---|---|
-| Event type | Logs | Logs / Metrics | **Logs** = log documents (all 136 services). **Metrics** = metrics documents (75 services with Elastic AWS metrics support). |
+| Event type | Logs | Logs / Metrics | **Logs** — all 136 services. **Metrics** — 75 metrics-supported services. |
 | Logs/metrics per service | 500 | 50–5,000 | Documents generated per selected service |
 | Error rate | 5% | 0–50% | Fraction of documents representing errors/failures |
 | Batch size | 250 | 50–1,000 | Documents per `_bulk` API request |
-| Index prefix | `logs-aws` or `metrics-aws` | — | Prefix for index names; switches by event type (e.g. `metrics-aws` in Metrics mode). |
-| Ingestion source | Default | Default + 6 overrides | `input.type` stamped on every document |
+| Index prefix | `logs-aws` / `metrics-aws` | — | Switches automatically by mode; override with any custom prefix |
+| Ingestion source | Default | Default + 6 overrides | Sets `input.type` on every document |
+| `data_stream.dataset` | auto | — | Integration-backed services use the Elastic dataset name; others use `aws.<service>` |
 
 ---
 
 ## Sample data
 
-The **samples/** directory contains one sample log and (where applicable) one sample metrics document per service, generated by the same logic as the app:
+The **samples/** directory contains one sample document per service generated by the same logic as the app:
 
-- **samples/logs/** — one JSON log document per service (136 services)
-- **samples/metrics/** — one JSON metrics document per metrics-supported service (75 services)
+- **samples/logs/** — 136 JSON log documents, one per service
+- **samples/metrics/** — 75 JSON metrics documents, one per metrics-supported service
 
-See [samples/README.md](samples/README.md) for details. Regenerate with: `npm run samples`.
-
----
-
-## Onboarding installers
-
-Two zero-dependency Node.js scripts in `installer/` prepare Elastic before you start shipping data. See [installer/README.md](installer/README.md) for full details.
-
-```bash
-npm run setup:integration   # install official Elastic AWS integration (Kibana Fleet API)
-npm run setup:pipelines     # install custom ingest pipelines (Elasticsearch API)
-```
-
-| Installer | API | What it does |
-|---|---|---|
-| `elastic-integration` | Kibana Fleet API | Installs the official AWS integration package — pre-built dashboards, ILM, index templates for 46 services |
-| `custom-pipelines` | Elasticsearch Ingest API | Installs **106 custom ingest pipelines** across 13 groups for the ~85 services not covered by the official integration |
-
-Both installers are **idempotent** — safe to re-run; already-installed items are skipped.
+Regenerate with: `npm run samples`
 
 ---
 
-## Ingest pipelines
+## Elastic Serverless
 
-For services that emit **JSON in the `message` field** (structured/continuous logging), ingest pipelines parse that JSON into a target field (e.g. `glue.parsed`, `lambda.parsed`) so the payload is searchable and aggregatable.
-
-- **Automated installer:** `npm run setup:pipelines` — installs all 106 pipelines interactively with group selection
-- **Manual pipeline files:** [ingest-pipelines/README.md](ingest-pipelines/README.md) — individual pipeline JSON files for Glue, Lambda, API Gateway, RDS, ECS, EMR, and SageMaker
+Works with Elastic Serverless projects without code changes. Assign the **Editor** project role (or a custom role with `index` privileges on `aws-logs-*`) instead of `cluster_admin`. Paste your Serverless project URL directly — the `_bulk` API behaves identically.
 
 ---
 
@@ -469,25 +579,24 @@ Browser → nginx (port 80) → React SPA
                   Elastic Cloud or Elastic Serverless
 ```
 
-All log data goes directly from your browser → proxy → your Elastic deployment. Nothing is stored or logged anywhere in between.
+All data goes directly from your browser → proxy → your Elastic deployment. Nothing is stored or logged in between.
 
 ---
 
-## Docker Image
+## Docker image
 
 - **Build**: `node:20-alpine` → **Runtime**: `node:20-alpine` + nginx + supervisor
-- **Host port**: 8765 (mapped to container port 80)
+- **Host port**: 8765 → container port 80
 - **Health check**: `GET /health` → 200 OK
-- **Processes**: nginx (serves the SPA) + Node.js proxy (forwards requests to Elastic)
+- **Processes**: nginx (serves the React SPA) + Node.js proxy (forwards `_bulk` requests to Elastic)
 
 ---
 
 ## Contributors & acknowledgments
 
-This project was developed with **AI-assisted tooling** for transparency:
+This project was developed with AI-assisted tooling:
 
-- **[Cursor](https://cursor.com)** — Code generation, refactoring, and documentation were produced with the help of Cursor (AI pair programming in the editor). Cursor is listed as a contributor to reflect that.
-- **Human maintainer(s)** — You (the repo owner) remain the author and maintainer; commits and decisions are yours.
+- **[Claude Code](https://claude.ai/claude-code)** — Code generation, refactoring, and documentation
+- **Human maintainer** — You (the repo owner) remain the author and maintainer
 
-See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the contributor list.
-
+See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the full contributor list.

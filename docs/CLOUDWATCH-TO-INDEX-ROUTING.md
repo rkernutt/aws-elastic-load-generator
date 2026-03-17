@@ -1,6 +1,6 @@
 # CloudWatch ingestion: index / data stream routing
 
-> **Last updated:** 2026-03-17 (v7.6)
+> **Last updated:** 2026-03-17 (v8.0)
 
 When you ingest logs **from Amazon CloudWatch** (e.g. Elastic Agent with the AWS integration, or a Lambda/Firehose that forwards CloudWatch log events to Elastic), **CloudWatch does not send an index name**. It only provides:
 

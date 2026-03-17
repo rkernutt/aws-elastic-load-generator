@@ -1,8 +1,10 @@
-# Ingest pipeline plans: parse JSON message (all services)
+# Ingest pipeline reference: parse JSON message (all services)
 
-This document describes ingest pipelines for **every AWS service** in the load generator that can emit **structured (JSON) log lines** in the `message` field. Each pipeline parses that JSON and stores it under a service-specific target field so you can filter, aggregate, and dashboard on parsed fields.
+This document lists pipeline IDs, target fields, index patterns, and example parsed JSON keys for every AWS service in the load generator that can emit **structured (JSON) log lines** in the `message` field.
 
-The pattern is the same as **Glue** (see [README.md](README.md#glue-parse-json-message)): one `json` processor on `message` → target field, with `ignore_failure: true` so plain-text messages are still indexed.
+The pattern is simple: one `json` processor on `message` → target field, with `ignore_failure: true` so plain-text messages are left unchanged.
+
+> **Easy install:** `npm run setup:pipelines` installs all 106 pipelines interactively — no manual JSON needed. This document is a reference for understanding what each pipeline does and which fields are available after parsing.
 
 ---
 
@@ -39,8 +41,10 @@ The pattern is the same as **Glue** (see [README.md](README.md#glue-parse-json-m
 
 ## Apply and attach (all pipelines)
 
-- **Apply (API):**  
-  `PUT _ingest/pipeline/<pipeline-id>` with the pipeline JSON (see [README](README.md) for Glue example; use the same body with the appropriate `target_field`).
+- **Easy way:** `npm run setup:pipelines` — interactive CLI installs all 106 pipelines; skips already-installed ones.
+
+- **Manual (API):**
+  `PUT _ingest/pipeline/<pipeline-id>` with the body below (replace `<target_field>` with the value from the table).
 
 - **Attach:**  
   In Fleet (AWS integration / Custom Logs) or in the index template for the service’s data stream, set **Custom ingest pipeline** / `default_pipeline` to the pipeline ID above.

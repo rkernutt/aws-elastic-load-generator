@@ -91,7 +91,7 @@
 
 - **Performance & anomaly-detection metrics** — Added or expanded `event.duration` and `aws.<service>.metrics` across services for Elastic visualizations and ML anomaly detection. New or expanded metrics for: SNS, Athena, SageMaker (CloudWatch-style), Fargate, AutoScaling, ImageBuilder, Amazon MQ, AppSync, Bedrock, and Bedrock Agent.
 - **Glue: skewness & observability** — Glue generator emits `aws.glue.metrics.driver.skewness.stage` and `skewness.job`, plus JVM heap and disk metrics aligned with AWS Glue Observability.
-- **Performance metrics plan** — [docs/PERFORMANCE-METRICS-PLAN.md](PERFORMANCE-METRICS-PLAN.md) documents fields for dashboards and ML.
+- **Performance metrics plan** — covered by [ENHANCEMENT-CANDIDATES.md](ENHANCEMENT-CANDIDATES.md) (performance metrics fields for dashboards and ML).
 
 ---
 
@@ -102,7 +102,7 @@
 - **Sample data directory** — `samples/logs/` and `samples/metrics/` contain one sample document per service. Regenerate with `npm run samples`.
 - **Bedrock Agent & Billing** — Added Bedrock Agent and AWS Billing (logs and metrics) with Elastic integration alignment.
 - **Structured / continuous logging** — Many services (Lambda, API Gateway, RDS, ECS, EC2, EKS, Glue, EMR, SageMaker, and others) can emit JSON in the `message` field and optional metrics blocks, matching real-world continuous logging.
-- **Ingest pipeline plan** — [ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md](../ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md) documents pipeline IDs, target fields, and index patterns for all services that emit parseable JSON messages.
+- **Ingest pipeline plan** — [INGEST-PIPELINE-REFERENCE.md](INGEST-PIPELINE-REFERENCE.md) documents pipeline IDs, target fields, and index patterns for all services that emit parseable JSON messages.
 - **Reduced null fields** — Generated documents have `null` values stripped so output stays clean.
 - **Application rename** — Project and UI titled **AWS → Elastic Load Generator**.
 
