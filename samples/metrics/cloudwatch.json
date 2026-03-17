@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "cloudwatchalarms"
@@ -14,28 +14,33 @@
   "aws": {
     "cloudwatch": {
       "alarm_name": "lambda-errors",
-      "alarm_state": "OK",
-      "previous_state": "ALARM",
-      "namespace": "Custom/Application",
-      "metric_name": "RequestCount",
-      "threshold": 85,
-      "evaluation_periods": 3,
-      "metric_value": 56.891,
+      "alarm_state": "ALARM",
+      "previous_state": "OK",
+      "namespace": "AWS/EC2",
+      "metric_name": "CPUUtilization",
+      "threshold": 95,
+      "evaluation_periods": 1,
+      "metric_value": 72.718,
       "statistic": "Average",
-      "period_seconds": 60,
-      "treat_missing_data": "missing"
+      "period_seconds": 300,
+      "treat_missing_data": "notBreaching"
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "success",
+    "outcome": "failure",
     "category": "configuration",
     "dataset": "aws.cloudwatch",
     "provider": "monitoring.amazonaws.com"
   },
-  "message": "CloudWatch alarm \"lambda-errors\": OK (Custom/Application/RequestCount=56.9)",
+  "message": "CloudWatch alarm \"lambda-errors\": ALARM (AWS/EC2/CPUUtilization=72.7)",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "AlarmTriggered",
+    "message": "Alarm lambda-errors: ALARM",
+    "type": "monitoring"
   },
   "data_stream": {
     "type": "metrics",

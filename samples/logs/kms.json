@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "kms"
@@ -13,12 +13,12 @@
   },
   "aws": {
     "kms": {
-      "key_id": "bpjjf3ko-0ie7-u6ia-2mcm-l8nerxrnbs",
-      "key_alias": "alias/backup-key",
+      "key_id": "6ajmvywe-ft5i-1abf-ah5w-jk9illmmy2",
+      "key_alias": "alias/rds-encryption",
       "operation": "ScheduleKeyDeletion",
-      "principal_arn": "arn:aws:iam::738291046572:user/alice",
+      "principal_arn": "arn:aws:iam::293847561023:user/alice",
       "key_state": "Enabled",
-      "encryption_algorithm": "RSAES_OAEP_SHA_256"
+      "encryption_algorithm": "SYMMETRIC_DEFAULT"
     }
   },
   "event": {
@@ -28,7 +28,7 @@
     "dataset": "aws.kms",
     "provider": "kms.amazonaws.com"
   },
-  "message": "KMS ScheduleKeyDeletion: alias/backup-key",
+  "message": "KMS ScheduleKeyDeletion: alias/rds-encryption",
   "log": {
     "level": "info"
   }

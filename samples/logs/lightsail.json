@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "lightsail"
@@ -13,21 +13,19 @@
   },
   "aws": {
     "lightsail": {
-      "resource_name": "wordpress-prod",
-      "resource_type": "Distribution",
-      "bundle_id": "small_2_0",
-      "blueprint": "wordpress",
-      "state": "running",
-      "event_type": "ALERT_TRIGGERED",
-      "public_ip": "55.200.89.180",
+      "resource_name": "game-server",
+      "resource_type": "Instance",
+      "bundle_id": "medium_2_0",
+      "blueprint": "django",
+      "state": "pending",
+      "event_type": "SNAPSHOT_CREATED",
+      "public_ip": "4.35.92.80",
+      "snapshot_name": "game-server-snap-52",
       "monthly_transfer": {
-        "used_gb": 513,
-        "limit_gb": 3072
+        "used_gb": 1976,
+        "limit_gb": 1024
       },
-      "alert": {
-        "name": "StatusCheckFailed",
-        "threshold": 83
-      }
+      "alert": {}
     }
   },
   "event": {
@@ -36,7 +34,7 @@
     "dataset": "aws.lightsail",
     "provider": "lightsail.amazonaws.com"
   },
-  "message": "Lightsail wordpress-prod: ALERT_TRIGGERED [running]",
+  "message": "Lightsail game-server: SNAPSHOT_CREATED [pending]",
   "log": {
     "level": "info"
   }

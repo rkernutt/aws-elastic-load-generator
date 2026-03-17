@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,27 +13,27 @@
   },
   "aws": {
     "bedrock": {
-      "model_id": "amazon.titan-text-express-v1",
-      "invocation_latency_ms": 14344,
-      "input_token_count": 7153,
-      "output_token_count": 705,
-      "total_token_count": 7858,
+      "model_id": "mistral.mixtral-8x7b-instruct-v0:1",
+      "invocation_latency_ms": 5574,
+      "input_token_count": 3116,
+      "output_token_count": 677,
+      "total_token_count": 3793,
       "stop_reason": "end_turn",
-      "use_case": "text-generation",
-      "guardrail_action": "INTERVENED",
+      "use_case": "qa",
+      "guardrail_action": "NONE",
       "metrics": {
         "Invocations": {
-          "sum": 203
+          "sum": 339
         },
         "InvocationLatency": {
-          "avg": 14344,
-          "p99": 28688
+          "avg": 5574,
+          "p99": 11148
         },
         "InputTokenCount": {
-          "sum": 7153
+          "sum": 3116
         },
         "OutputTokenCount": {
-          "sum": 705
+          "sum": 677
         },
         "Throttles": {
           "sum": 0
@@ -46,11 +46,11 @@
     "category": "machine_learning",
     "dataset": "aws.bedrock",
     "provider": "bedrock.amazonaws.com",
-    "duration": 14344000000
+    "duration": 5574000000
   },
-  "message": "Bedrock titan 7153->705 tokens 14.34s",
+  "message": "Bedrock mixtral 3116->677 tokens 5.57s",
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "data_stream": {
     "type": "metrics",

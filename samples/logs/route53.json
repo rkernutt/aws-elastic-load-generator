@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,17 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "HostedZoneId": "Z4DLLPE299TI"
+      "HostedZoneId": "ZKMT1T9F9W4S"
     },
     "route53": {
-      "query_name": "app.internal",
-      "query_type": "AAAA",
+      "query_name": "mail.example.com",
+      "query_type": "CNAME",
       "response_code": "NOERROR",
-      "edge_location": "SFO88",
-      "hosted_zone_id": "Z4DLLPE299TI",
+      "edge_location": "LHR89",
+      "hosted_zone_id": "ZKMT1T9F9W4S",
       "metrics": {
         "DNSQueries": {
-          "sum": 22780
+          "sum": 93080
         },
         "HealthCheckStatus": {
           "avg": 1
@@ -32,32 +32,32 @@
           "avg": 100
         },
         "ConnectionTime": {
-          "avg": 11
+          "avg": 37
         },
         "TimeToFirstByte": {
-          "avg": 83
+          "avg": 61
         }
       }
     }
   },
   "dns": {
     "question": {
-      "name": "db.internal",
-      "type": "MX"
+      "name": "app.internal",
+      "type": "CNAME"
     },
     "response_code": "NOERROR"
   },
   "client": {
-    "ip": "33.234.115.196"
+    "ip": "88.96.247.56"
   },
   "event": {
     "outcome": "success",
     "category": "network",
     "dataset": "aws.route53",
     "provider": "route53.amazonaws.com",
-    "duration": 1000000
+    "duration": 25000000
   },
-  "message": "DNS MX query for api.example.com -> NOERROR",
+  "message": "DNS TXT query for www.example.com -> NOERROR",
   "log": {
     "level": "info"
   }

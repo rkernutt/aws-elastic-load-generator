@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "events"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "EventBusName": "app-events",
-      "RuleName": "cost-alert-rule"
+      "EventBusName": "custom-events",
+      "RuleName": "security-event-forwarder"
     },
     "eventbridge": {
-      "event_bus": "app-events",
-      "rule": "cost-alert-rule",
-      "source": "aws.ec2",
-      "detail_type": "Health Event",
-      "targets_invoked": 1,
+      "event_bus": "custom-events",
+      "rule": "security-event-forwarder",
+      "source": "aws.health",
+      "detail_type": "EC2 Instance State-change Notification",
+      "targets_invoked": 5,
       "targets_failed": 0,
-      "event_id": "yucgx616-bxwp-ahf4-eota-urlxm8p6pxj",
+      "event_id": "4dyzyyls-vhhf-l5o6-gxdd-m9o7bc9oukr",
       "structured_logging": true,
       "metrics": {
         "Invocations": {
-          "sum": 8140
+          "sum": 7271
         },
         "FailedInvocations": {
           "sum": 0
         },
         "TriggeredRules": {
-          "sum": 5
+          "sum": 462
         },
         "MatchedEvents": {
-          "sum": 7557
+          "sum": 5799
         },
         "ThrottledRules": {
           "sum": 0
@@ -52,9 +52,9 @@
     "category": "process",
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 95000000
+    "duration": 108000000
   },
-  "message": "{\"id\":\"yucgx616-bxwp-ahf4-eota-urlxm8p6pxj\",\"source\":\"aws.ec2\",\"detailType\":\"Order Placed\",\"rule\":\"cost-alert-rule\",\"eventBus\":\"app-events\",\"message\":\"EventBridge event routed: aws.ec2 -> cost-alert-rule\",\"timestamp\":\"2026-03-16T16:55:00.054Z\"}",
+  "message": "{\"id\":\"4dyzyyls-vhhf-l5o6-gxdd-m9o7bc9oukr\",\"source\":\"aws.health\",\"detailType\":\"EC2 Instance State-change Notification\",\"rule\":\"security-event-forwarder\",\"eventBus\":\"custom-events\",\"message\":\"EventBridge event routed: aws.health -> security-event-forwarder\",\"timestamp\":\"2026-03-17T10:07:40.656Z\"}",
   "log": {
     "level": "info"
   }

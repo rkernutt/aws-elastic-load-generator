@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "securityhub"
@@ -13,62 +13,57 @@
   },
   "aws": {
     "dimensions": {
-      "ComplianceStandard": "cis-aws-foundations-benchmark",
-      "ControlId": "CIS.2.14"
+      "ComplianceStandard": "aws-foundational-security-best-practices",
+      "ControlId": "CIS.4.9"
     },
     "securityhub_findings": {
-      "id": "W0Z7C0M7-MJW6-RT86-QCVG-MLW4GOG99RS",
-      "aws_account_id": "814726593401",
-      "description": "Security check failed: CIS.2.14 - Default security group allows all traffic",
-      "created_at": "2026-03-15T22:04:12.438Z",
-      "first_observed_at": "2026-03-15T22:04:12.438Z",
-      "last_observed_at": "2026-03-16T16:55:00.054Z",
+      "id": "P0GPGZ9Q-POY0-W86V-PNJX-PDSDOW39T5S",
+      "aws_account_id": "293847561023",
+      "description": "Control passed.",
+      "created_at": "2026-03-17T03:21:51.202Z",
+      "first_observed_at": "2026-03-17T03:21:51.202Z",
+      "last_observed_at": "2026-03-17T10:07:40.656Z",
       "generator": {
-        "id": "CIS.2.14"
+        "id": "CIS.4.9"
       },
       "compliance": {
-        "security_control_id": "CIS.2.14",
-        "status": "FAILED"
+        "security_control_id": "CIS.4.9",
+        "status": "PASSED"
       },
-      "criticality": 9,
-      "confidence": 78
+      "criticality": 4,
+      "confidence": 71
     },
     "securityhub": {
-      "finding_id": "arn:aws:securityhub:us-east-1:814726593401:finding/W0Z7C0M7-MJW6-RT86-QCVG-MLW4GOG99RS",
-      "standard": "cis-aws-foundations-benchmark",
-      "control_id": "CIS.2.14",
-      "compliance_status": "FAILED",
-      "severity_label": "CRITICAL",
-      "workflow_status": "NEW",
-      "account_id": "814726593401",
+      "finding_id": "arn:aws:securityhub:us-east-1:293847561023:finding/P0GPGZ9Q-POY0-W86V-PNJX-PDSDOW39T5S",
+      "standard": "pci-dss",
+      "control_id": "CIS.4.9",
+      "compliance_status": "PASSED",
+      "severity_label": "INFORMATIONAL",
+      "workflow_status": "RESOLVED",
+      "account_id": "293847561023",
       "metrics": {
         "Findings": {
-          "sum": 21
+          "sum": 0
         },
         "FailedChecks": {
-          "sum": 27
+          "sum": 0
         },
         "PassedChecks": {
-          "sum": 0
+          "sum": 138
         }
       }
     }
   },
   "event": {
     "kind": "alert",
-    "severity": 9,
-    "outcome": "failure",
+    "severity": 4,
+    "outcome": "success",
     "category": "compliance",
     "dataset": "aws.securityhub_findings",
     "provider": "securityhub.amazonaws.com"
   },
-  "message": "Security Hub [CRITICAL]: Compliance check failed",
+  "message": "Security Hub: control passed",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ComplianceFailed",
-    "message": "Control CIS.2.14 failed",
-    "type": "compliance"
+    "level": "info"
   }
 }

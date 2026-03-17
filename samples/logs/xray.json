@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "xray"
@@ -14,59 +14,59 @@
   "aws": {
     "dimensions": {
       "GroupName": "Default",
-      "ServiceType": "AWS::EC2::Instance"
+      "ServiceType": "AWS::Lambda::Function"
     },
     "xray": {
-      "trace_id": "1-69b835e4-ivohss3cbpo",
-      "segment_id": "na568ajxwzm",
-      "parent_id": "ki1c5d10x6f",
+      "trace_id": "1-69b927ec-ngm5u7cize",
+      "segment_id": "yq5zp8ffmz",
+      "parent_id": "znd5o0zkyy",
       "service": {
-        "name": "cache-layer",
-        "type": "AWS::EC2::Instance"
+        "name": "web-frontend",
+        "type": "client"
       },
-      "duration": 4.293,
+      "duration": 2.369,
       "http": {
         "request": {
           "method": "POST",
           "url": "/api/v1/users"
         },
         "response": {
-          "status": 200
+          "status": 201
         }
       },
       "fault": false,
       "annotations": {
         "env": "prod",
-        "version": "v14"
+        "version": "v3"
       },
       "metrics": {
         "ErrorRate": {
-          "avg": 0.891
+          "avg": 0.868
         },
         "FaultRate": {
-          "avg": 0.097
+          "avg": 0.237
         },
         "ThrottleRate": {
-          "avg": 0.267
+          "avg": 0.272
         },
         "TotalCount": {
-          "sum": 4525
+          "sum": 4660
         },
         "Latency": {
-          "avg": 4293,
-          "p99": 12879
+          "avg": 2369,
+          "p99": 7107.000000000001
         }
       }
     }
   },
   "event": {
-    "duration": 4293000000,
+    "duration": 2369000000,
     "outcome": "success",
     "category": "network",
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray trace: cache-layer 4.293s",
+  "message": "X-Ray trace: web-frontend 2.369s",
   "log": {
     "level": "info"
   }

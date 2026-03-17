@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "emr"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "emr": {
-      "cluster_id": "j-DC1HKRU5XTP",
-      "cluster_name": "clickstream-processing-cluster",
-      "application": "flink",
+      "cluster_id": "j-WCEV78ODW1M",
+      "cluster_name": "ml-feature-pipeline-cluster",
+      "application": "hive",
       "release": "emr-6.8.0",
-      "instance_group": "TASK",
-      "executor_count": 46,
+      "instance_group": "CORE",
+      "executor_count": 6,
       "job": {
-        "name": "clickstream-processing",
-        "id": "application_1773680100233_6850",
+        "name": "ml-feature-pipeline",
+        "id": "application_1773742060833_5492",
         "run_state": "SUCCEEDED"
       },
-      "structured_logging": true,
+      "structured_logging": false,
       "metrics": {
-        "executor_count": 46,
-        "running_step_count": 2,
+        "executor_count": 6,
+        "running_step_count": 3,
         "failed_step_count": 0,
-        "hdfs_utilization_pct": 56,
-        "yarn_memory_used_mb": 33795,
-        "elapsedTime": 3436000,
-        "numCompletedTasks": 52,
+        "hdfs_utilization_pct": 50,
+        "yarn_memory_used_mb": 13560,
+        "elapsedTime": 2332000,
+        "numCompletedTasks": 383,
         "numFailedTasks": 0,
-        "jvm_heap_usage": 0.5,
-        "gc_time_ms": 29003,
-        "numberAllExecutors": 56
+        "jvm_heap_usage": 0.27,
+        "gc_time_ms": 41837,
+        "numberAllExecutors": 6
       }
     }
   },
@@ -48,7 +48,7 @@
     "category": "process",
     "dataset": "aws.emr",
     "provider": "elasticmapreduce.amazonaws.com",
-    "duration": 3436000000000
+    "duration": 2332000000000
   },
-  "message": "{\"clusterId\":\"j-DC1HKRU5XTP\",\"applicationId\":\"application_1773680100233_6850\",\"containerId\":\"container_1773680100233_2975_01_938284\",\"logLevel\":\"INFO\",\"message\":\"Job run succeeded\",\"timestamp\":\"2026-03-16T16:55:00.054Z\",\"component\":\"executor\"}"
+  "message": "Job submitted to YARN ResourceManager"
 }

@@ -1,8 +1,19 @@
 # ⚡ AWS → Elastic Load Generator
 
-**v7.1** — A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **134 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
+**v7.2** — A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **136 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
 
-Each service has its **correct real-world ingestion source** pre-configured — S3, CloudWatch, direct API, Firehose, **OTel** (OpenTelemetry), or **Elastic Agent** — matching how each service actually delivers data to Elastic in production. You can leave **Default (per-service)** or override all services to a single ingestion method (e.g. OTel) for testing. Switch between **Logs** and **Metrics** mode; only the 42 services with Elastic metrics support are selectable in Metrics mode.
+Each service has its **correct real-world ingestion source** pre-configured — S3, CloudWatch, direct API, Firehose, **OTel** (OpenTelemetry), or **Elastic Agent** — matching how each service actually delivers data to Elastic in production. You can leave **Default (per-service)** or override all services to a single ingestion method (e.g. OTel) for testing. Switch between **Logs** and **Metrics** mode; only the 44 services with Elastic metrics support are selectable in Metrics mode.
+
+---
+
+## What's New in v7.2
+
+- **NAT Gateway** — Added `natgateway` service to the Networking & CDN group. Generates realistic NAT Gateway connection and traffic metrics (bytes, packets, connections, port allocation errors) mapped to `aws.natgateway`. Available in both Logs and Metrics mode.
+- **Cost estimation** — A doc count estimate now appears below the Ship button when services are selected: `~{N} documents across {X} services ({B} batches)`. Helps confirm volume before shipping.
+- **Save / restore config** — Connection settings, volume sliders, and ingestion preferences are now persisted to `localStorage` and restored on next visit. A **Clear saved config** button resets to defaults.
+- **Module split** — The codebase has been refactored from a monolithic `App.jsx` (~5000 lines) into focused ES modules: `src/helpers/`, `src/theme/`, `src/data/`, `src/generators/` (14 category files), and `src/components/`. `App.jsx` now contains only React state, logic, and JSX.
+
+Older release notes: [Version What's New Archive](#version-whats-new-archive).
 
 ---
 
@@ -48,7 +59,7 @@ To stop Docker: `docker compose down`
 
 ## Usage
 
-1. **Select services** — toggle individual services, entire groups, or all 134 at once
+1. **Select services** — toggle individual services, entire groups, or all 136 at once
 2. **Configure volume** — set logs per service (50–5,000), error rate (0–50%), and batch size
 3. **Set ingestion source** — leave on **Default (per-service)** or override all services to a specific source
 4. **Connect to Elastic** — enter your Elasticsearch URL, API key, and index prefix

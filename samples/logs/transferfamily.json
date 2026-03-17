@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "transferfamily"
@@ -13,21 +13,20 @@
   },
   "aws": {
     "transferfamily": {
-      "server_id": "s-pwtdgeid89q",
-      "protocol": "AS2",
-      "user_name": "data-ingest",
-      "session_id": "lrzgabd7jkq",
+      "server_id": "s-j61hcw8b8sa",
+      "protocol": "FTPS",
+      "user_name": "sftp-partner",
+      "session_id": "cvoazkkcmm",
       "file_path": "/backup/db-export.sql.gz",
-      "operation": "DELETE",
-      "bytes_transferred": 3497228446,
-      "transfer_rate_mbps": 32.982,
-      "duration_seconds": 69.514,
-      "s3_bucket": "partner-data",
-      "as2_message_id": "e4mp3swxqh4"
+      "operation": "RENAME",
+      "bytes_transferred": 3926956289,
+      "transfer_rate_mbps": 41,
+      "duration_seconds": 253.35,
+      "s3_bucket": "transfer-landing"
     }
   },
   "source": {
-    "ip": "128.226.89.225"
+    "ip": "238.121.136.200"
   },
   "event": {
     "outcome": "success",
@@ -35,7 +34,7 @@
     "dataset": "aws.transfer",
     "provider": "transfer.amazonaws.com"
   },
-  "message": "Transfer Family AS2 [data-ingest] /backup/db-export.sql.gz: 3335.2MB",
+  "message": "Transfer Family FTPS [sftp-partner] /backup/db-export.sql.gz: 3745.0MB",
   "log": {
     "level": "info"
   }

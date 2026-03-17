@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "controltower"
@@ -13,30 +13,24 @@
   },
   "aws": {
     "controltower": {
-      "operation_id": "0pavovo6g6v",
-      "action": "EnableGuardrail",
-      "account_id": "501938274650",
+      "operation_id": "rvn6xkxgpp8",
+      "action": "DisableGuardrail",
+      "account_id": "738291046572",
       "organizational_unit": "Sandbox",
-      "guardrail_id": "AWS-GR_RESTRICT_ROOT_USER",
-      "guardrail_compliance": "NONCOMPLIANT",
-      "landing_zone_version": "3.1",
-      "status": "ERRORED",
-      "error_message": "Compliance check failed"
+      "guardrail_id": "AWS-GR_REQUIRE_MFA_FOR_ROOT",
+      "guardrail_compliance": "COMPLIANT",
+      "landing_zone_version": "3.2",
+      "status": "IN_PROGRESS"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "configuration",
     "dataset": "aws.controltower",
     "provider": "controltower.amazonaws.com"
   },
-  "message": "Control Tower EnableGuardrail FAILED: Enrollment failed",
-  "error": {
-    "code": "ControlTowerError",
-    "message": "Control Tower operation failed",
-    "type": "configuration"
-  },
+  "message": "Control Tower DisableGuardrail: IN_PROGRESS",
   "log": {
-    "level": "error"
+    "level": "info"
   }
 }

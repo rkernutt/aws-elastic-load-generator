@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "access-analyzer"
@@ -16,23 +16,29 @@
       "AnalyzerName": "analyzer-us-east-1"
     },
     "access_analyzer": {
-      "finding_id": "esva6px4-6ucy-rfx4",
+      "finding_id": "3uocc6r3-0dkx-hfez",
       "analyzer_name": "analyzer-us-east-1",
-      "finding_type": "none",
-      "resource_type": "AWS::KMS::Key",
-      "resource_arn": "arn:aws:s3:::dev-bucket",
-      "status": "RESOLVED"
+      "finding_type": "UnusedAccess",
+      "resource_type": "AWS::IAM::Role",
+      "resource_arn": "arn:aws:s3:::staging-bucket",
+      "principal": "*",
+      "status": "ARCHIVED"
     }
   },
   "event": {
-    "kind": "event",
-    "outcome": "success",
+    "kind": "alert",
+    "outcome": "failure",
     "category": "iam",
     "dataset": "aws.access_analyzer",
     "provider": "access-analyzer.amazonaws.com"
   },
-  "message": "Access Analyzer: no external access paths detected",
+  "message": "IAM Access Analyzer: external access found on AWS::IAM::Role",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "ExternalAccess",
+    "message": "External access path detected",
+    "type": "access"
   }
 }

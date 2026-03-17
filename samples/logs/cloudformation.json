@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "cloudformation"
@@ -13,24 +13,30 @@
   },
   "aws": {
     "cloudformation": {
-      "stack_name": "prod-web-stack",
-      "stack_id": "arn:aws:cloudformation:eu-west-2:501938274650:stack/prod-web-stack/9sm85w4g",
-      "action": "DETECT_DRIFT",
-      "stack_status": "UPDATE_COMPLETE",
-      "resource_type": "AWS::EC2::VPC",
+      "stack_name": "rds-cluster",
+      "stack_id": "arn:aws:cloudformation:eu-west-2:164820739518:stack/rds-cluster/6zo1l1q7",
+      "action": "CREATE_STACK",
+      "stack_status": "CREATE_FAILED",
+      "resource_type": "AWS::Lambda::Function",
       "logical_resource_id": "DatabaseCluster",
+      "resource_status_reason": "IAM policy error",
       "drift_status": "NOT_CHECKED",
       "structured_logging": false
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "configuration",
     "dataset": "aws.cloudformation",
     "provider": "cloudformation.amazonaws.com"
   },
-  "message": "CloudFormation prod-web-stack: DETECT_DRIFT -> UPDATE_COMPLETE",
+  "message": "CloudFormation rds-cluster CREATE_FAILED: AWS::Lambda::Function failed - Capacity",
+  "error": {
+    "code": "StackError",
+    "message": "CloudFormation stack operation failed",
+    "type": "configuration"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

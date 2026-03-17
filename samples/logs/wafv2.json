@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "wafv2"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "wafv2": {
-      "web_acl_name": "cdn-waf",
-      "rule_group_name": "CustomRules",
-      "rule_name": "SQLi_QUERYARGUMENTS",
-      "action": "COUNT",
-      "terminating_rule_id": "SQLi_QUERYARGUMENTS",
-      "source_ip": "145.231.189.119",
-      "country": "IN",
-      "uri": "/api/v1/search",
+      "web_acl_name": "regional-waf",
+      "rule_group_name": "AWSManagedRulesCommonRuleSet",
+      "rule_name": "NoUserAgent_HEADER",
+      "action": "ALLOW",
+      "terminating_rule_id": "NoUserAgent_HEADER",
+      "source_ip": "162.57.50.67",
+      "country": "CN",
+      "uri": "/api/v2/events",
       "method": "PUT",
       "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-      "request_id": "ni9v9lm6xqf",
+      "request_id": "bulqdm555a4",
       "labels": []
     }
   },
   "source": {
-    "ip": "145.231.189.119"
+    "ip": "162.57.50.67"
   },
   "event": {
-    "action": "count",
-    "outcome": "failure",
+    "action": "allow",
+    "outcome": "success",
     "category": "intrusion_detection",
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com"
   },
-  "message": "WAFv2 COUNT [cdn-waf] 145.231.189.119 DELETE /health",
+  "message": "WAFv2 ALLOW [regional-waf] 162.57.50.67 PATCH /api/v1/products",
   "log": {
     "level": "info"
   }

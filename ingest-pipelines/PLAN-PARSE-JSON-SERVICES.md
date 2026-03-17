@@ -11,6 +11,7 @@ The pattern is the same as **Glue** (see [README.md](README.md#glue-parse-json-m
 | Service | Pipeline ID | Target field | Index pattern |
 |--------|-------------|--------------|----------------|
 | Glue | `glue-parse-json-message` | `glue.parsed` | `logs-aws.glue*` |
+| S3 | `s3-parse-json-message` | `s3.parsed` | `logs-aws.s3*` |
 | Lambda | `lambda-parse-json-message` | `lambda.parsed` | `logs-aws.lambda*` |
 | API Gateway | `apigateway-parse-json-message` | `apigateway.parsed` | `logs-aws.apigateway*` |
 | RDS | `rds-parse-json-message` | `rds.parsed` | `logs-aws.rds*` |
@@ -56,8 +57,9 @@ Use these to add optional `rename` or `set` processors after the `json` processo
 | Service | Example keys in parsed JSON |
 |--------|------------------------------|
 | **Glue** | `jobName`, `jobRunId`, `level`, `message`, `timestamp`, `thread`, `logger`, `errorCode` |
-| **Lambda** | `requestId`, `level`, `message`, `timestamp`, `duration_ms`, `memory_used_mb` |
-| **API Gateway** | `requestId`, `requestMethod`, `requestPath`, `status`, `responseLatency`, `integrationLatency`, `timestamp` |
+| **S3** | `bucket`, `key`, `operation`, `http_status`, `request_id`, `bytes_sent`, `total_time_ms`, `timestamp` |
+| **Lambda** | `requestId`, `level`, `message`, `timestamp`, `duration_ms`, `memory_used_mb`, `traceId` (optional) |
+| **API Gateway** | `requestId`, `requestMethod`, `requestPath`, `status`, `responseLatency`, `integrationLatency`, `timestamp`, `traceId` (optional) |
 | **RDS** | `instanceId`, `engine`, `userId`, `queryTime`, `error`, `timestamp` |
 | **ECS** | `cluster`, `service`, `taskId`, `container`, `level`, `message`, `timestamp` |
 | **EC2** | `instanceId`, `instanceType`, `level`, `message`, `timestamp`, `component` |

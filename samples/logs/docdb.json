@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "docdb"
@@ -14,48 +14,48 @@
   "aws": {
     "dimensions": {
       "DBClusterIdentifier": "docdb-eu-west-2-cluster",
-      "Role": "READER"
+      "Role": "WRITER"
     },
     "docdb": {
       "cluster_id": "docdb-eu-west-2-cluster",
       "database": "appdb",
       "collection": "events",
-      "operation": "delete",
-      "duration_ms": 317,
-      "documents_affected": 971,
+      "operation": "update",
+      "duration_ms": 176,
+      "documents_affected": 499,
       "metrics": {
         "CPUUtilization": {
-          "avg": 47.808
+          "avg": 45.96
         },
         "DatabaseConnections": {
-          "avg": 79
+          "avg": 86
         },
         "FreeLocalStorage": {
-          "avg": 55744100764
+          "avg": 87760967312
         },
         "FreeableMemory": {
-          "avg": 4920265994
+          "avg": 7806672417
         },
         "ReadIOPS": {
-          "avg": 2944
+          "avg": 4335
         },
         "WriteIOPS": {
-          "avg": 3540
+          "avg": 4659
         },
         "ReadLatency": {
-          "avg": 0.034
+          "avg": 0.042
         },
         "WriteLatency": {
-          "avg": 0.016
+          "avg": 0.011
         },
         "DocumentsInserted": {
           "sum": 0
         },
         "DocumentsDeleted": {
-          "sum": 19
+          "sum": 0
         },
         "DocumentsUpdated": {
-          "sum": 0
+          "sum": 49
         },
         "DocumentsReturned": {
           "sum": 0
@@ -65,17 +65,17 @@
   },
   "db": {
     "name": "appdb",
-    "operation": "delete",
+    "operation": "update",
     "type": "document"
   },
   "event": {
-    "duration": 317494000,
+    "duration": 176251000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.docdb",
     "provider": "docdb.amazonaws.com"
   },
-  "message": "DocumentDB delete on events: 317.5ms",
+  "message": "DocumentDB update on events: 176.3ms",
   "log": {
     "level": "info"
   }

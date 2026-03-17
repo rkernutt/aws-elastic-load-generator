@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "elasticache"
@@ -13,50 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "CacheClusterId": "prod-redis-5",
-      "CacheNodeId": "0002"
+      "CacheClusterId": "prod-redis-2",
+      "CacheNodeId": "0005"
     },
     "elasticache": {
-      "cluster_id": "prod-redis-5",
-      "node_id": "0002",
+      "cluster_id": "prod-redis-2",
+      "node_id": "0005",
       "engine": "redis",
       "engine_version": "7.1.0",
       "replication_group_id": "prod-cache",
-      "command": "ZADD",
-      "latency_us": 44.198,
+      "command": "GET",
+      "latency_us": 2943.318,
       "cache_hit": false,
-      "connected_clients": 256,
-      "used_memory_mb": 16038,
+      "connected_clients": 265,
+      "used_memory_mb": 8598,
       "metrics": {
         "CPUUtilization": {
-          "avg": 39.327
+          "avg": 13.092
         },
         "FreeableMemory": {
-          "avg": 2548009286
+          "avg": 1947645392
         },
         "NetworkBytesIn": {
-          "sum": 82190348
+          "sum": 98999874
         },
         "NetworkBytesOut": {
-          "sum": 95475427
+          "sum": 65152501
         },
         "CacheHits": {
-          "sum": 66557
+          "sum": 58861
         },
         "CacheMisses": {
-          "sum": 6157
+          "sum": 7000
         },
         "CurrConnections": {
-          "avg": 87
+          "avg": 358
         },
         "NewConnections": {
-          "sum": 78
+          "sum": 92
         },
         "Evictions": {
-          "sum": 0
+          "sum": 710
         },
         "ReplicationLag": {
-          "avg": 0.115
+          "avg": 33.858
         },
         "SaveInProgress": {
           "avg": 0
@@ -66,18 +66,23 @@
   },
   "db": {
     "type": "keyvalue",
-    "operation": "ZADD"
+    "operation": "GET"
   },
   "event": {
-    "duration": 44198,
-    "outcome": "success",
+    "duration": 2943318,
+    "outcome": "failure",
     "category": "database",
     "dataset": "aws.elasticache",
     "provider": "elasticache.amazonaws.com"
   },
-  "message": "Redis ZADD 44.20us",
+  "message": "Redis GET failed: READONLY",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "RedisError",
+    "message": "OOM command not allowed",
+    "type": "db"
   },
   "data_stream": {
     "type": "metrics",

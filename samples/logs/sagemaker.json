@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,59 +13,59 @@
   },
   "aws": {
     "sagemaker": {
-      "domain_id": "d-9j9d55b5ka",
-      "domain_name": "cv-team",
-      "user_profile": "bob-ml",
+      "domain_id": "d-p3qb8olyp7",
+      "domain_name": "ds-platform",
+      "user_profile": "alice-ds",
       "job": {
-        "name": "lstm-timeseries-pipeline-qg64kh",
+        "name": "llama-finetuned-pipeline-xk2ytn",
         "type": "Pipeline",
-        "arn": "arn:aws:sagemaker:us-east-1:293847561023:training-job/lstm-timeseries-pipeline-qg64kh"
+        "arn": "arn:aws:sagemaker:us-east-1:293847561023:training-job/llama-finetuned-pipeline-xk2ytn"
       },
       "model": {
-        "name": "lstm-timeseries",
-        "version": 15
+        "name": "llama-finetuned",
+        "version": 13
       },
       "pipeline": {
-        "name": "feature-engineering-pipeline",
-        "execution_id": "pipe-xefwgcahq6"
+        "name": "model-training-pipeline",
+        "execution_id": "pipe-j25z5qna8fp"
       },
       "instance": {
-        "type": "ml.g4dn.xlarge",
+        "type": "ml.p3.2xlarge",
         "count": 1
       },
       "metrics": {
-        "training_loss": 0.2077,
-        "accuracy": 0.7634,
-        "epoch": 81,
-        "gpu_utilization_pct": 61,
-        "cpu_utilization_pct": 85
+        "training_loss": 0.1187,
+        "accuracy": 0.9456,
+        "epoch": 37,
+        "gpu_utilization_pct": 68,
+        "cpu_utilization_pct": 59
       },
       "studio": {
-        "space_name": "risk-models",
-        "app_type": "RSession",
+        "space_name": "ml-research",
+        "app_type": "CodeEditor",
         "app_name": "default",
-        "lifecycle_config": false,
+        "lifecycle_config": true,
         "continuous_logging": true
       },
       "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 865
+          "sum": 2617
         },
         "ModelLatency": {
-          "avg": 103,
-          "p99": 309
+          "avg": 6,
+          "p99": 18
         },
         "GPUUtilization": {
-          "avg": 42
+          "avg": 44
         },
         "CPUUtilization": {
-          "avg": 53
+          "avg": 62
         },
         "DiskUtilization": {
-          "avg": 21
+          "avg": 55
         },
         "MemoryUtilization": {
-          "avg": 52
+          "avg": 55
         },
         "Invocations4XXError": {
           "sum": 0
@@ -80,15 +80,15 @@
     "level": "info"
   },
   "user": {
-    "name": "bob-ml"
+    "name": "alice-ds"
   },
   "event": {
-    "action": "AppDeleted",
-    "duration": 3014424000000,
+    "action": "LifecycleConfigOnStart",
+    "duration": 3863522000000,
     "outcome": "success",
     "category": "machine_learning",
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "{\"domainId\":\"d-9j9d55b5ka\",\"space\":\"risk-models\",\"appType\":\"RSession\",\"user\":\"bob-ml\",\"level\":\"INFO\",\"message\":\"Training job succeeded\",\"timestamp\":\"2026-03-16T16:55:00.054Z\",\"event\":\"AppDeleted\"}"
+  "message": "{\"domainId\":\"d-p3qb8olyp7\",\"space\":\"ml-research\",\"appType\":\"CodeEditor\",\"user\":\"alice-ds\",\"level\":\"INFO\",\"message\":\"Training job started\",\"timestamp\":\"2026-03-17T10:07:40.656Z\",\"event\":\"LifecycleConfigOnStart\"}"
 }

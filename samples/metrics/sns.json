@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,40 +13,46 @@
   },
   "aws": {
     "sns": {
-      "topic_arn": "arn:aws:sns:eu-west-2:738291046572:user-alerts",
-      "message_id": "pkfkc6yw-8krq-xz8c",
-      "protocol": "sqs",
-      "delivery_status": "SUCCESS",
-      "message_size_bytes": 132658,
-      "delivery_attempt": 1,
-      "status_code": 200,
+      "topic_arn": "arn:aws:sns:eu-west-2:738291046572:system-events",
+      "message_id": "ugua38gn-3wqm-hndf",
+      "protocol": "http",
+      "delivery_status": "FAILED",
+      "message_size_bytes": 148513,
+      "delivery_attempt": 2,
+      "status_code": 500,
+      "error_message": "SQS full",
       "metrics": {
         "NumberOfMessagesPublished": {
-          "sum": 8086
+          "sum": 6382
         },
         "NumberOfNotificationsDelivered": {
-          "sum": 8086
+          "sum": 4740
         },
         "NumberOfNotificationsFailed": {
-          "sum": 0
+          "sum": 1642
         },
         "PublishSize": {
-          "avg": 46320
+          "avg": 33917
         },
         "SmsSuccessRate": {}
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "process",
     "dataset": "aws.sns",
     "provider": "sns.amazonaws.com",
-    "duration": 465340000
+    "duration": 3554035000
   },
-  "message": "SNS delivered: user-alerts -> sqs (6294B)",
+  "message": "SNS delivery FAILED: system-events -> http: Timeout",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "DeliveryFailure",
+    "message": "SNS delivery failed",
+    "type": "messaging"
   },
   "data_stream": {
     "type": "metrics",

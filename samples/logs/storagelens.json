@@ -1,0 +1,55 @@
+{
+  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "s3"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "StorageLensConfigurationId": "prod-buckets",
+      "StorageType": "Standard"
+    },
+    "s3storagelens": {
+      "config_id": "prod-buckets",
+      "bucket_count": 463,
+      "total_storage_bytes": 75983312283159,
+      "total_object_count": 5453177809,
+      "storage_type": "Standard",
+      "metrics": {
+        "BucketCount": {
+          "avg": 463
+        },
+        "TotalStorageBytes": {
+          "sum": 75983312283159
+        },
+        "TotalObjectCount": {
+          "sum": 5453177809
+        },
+        "BytesUsed": {
+          "sum": 75983312283159
+        },
+        "ObjectCount": {
+          "sum": 5453177809
+        }
+      }
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "metric",
+    "dataset": "aws.s3_storage_lens",
+    "provider": "s3.amazonaws.com",
+    "duration": 106000000000
+  },
+  "message": "S3 Storage Lens prod-buckets: 463 buckets, 75983.3 GB, 5453177809 objects",
+  "log": {
+    "level": "info"
+  }
+}

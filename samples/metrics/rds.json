@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "rds"
@@ -13,65 +13,65 @@
   },
   "aws": {
     "dimensions": {
-      "DBInstanceIdentifier": "prod-db-replica",
-      "DatabaseClass": "db.r6g.xlarge",
-      "EngineName": "postgres"
+      "DBInstanceIdentifier": "prod-db-primary",
+      "DatabaseClass": "db.t3.medium",
+      "EngineName": "mysql"
     },
     "rds": {
-      "instance_id": "prod-db-replica",
-      "engine": "postgres",
-      "engine_version": "15.4",
-      "query_time": 1.03,
-      "enhanced_monitoring": false,
+      "instance_id": "prod-db-primary",
+      "engine": "mysql",
+      "engine_version": "8.0.34",
+      "query_time": 1.98,
+      "enhanced_monitoring": true,
       "metrics": {
         "CPUUtilization": {
-          "avg": 45.994
+          "avg": 32.791
         },
         "DatabaseConnections": {
-          "avg": 159
+          "avg": 25
         },
         "FreeStorageSpace": {
-          "avg": 75042923605
+          "avg": 97158917995
         },
         "ReadIOPS": {
-          "avg": 1898
+          "avg": 128
         },
         "WriteIOPS": {
-          "avg": 1533
+          "avg": 185
         },
         "ReadLatency": {
-          "avg": 0.008
+          "avg": 0.002
         },
         "WriteLatency": {
-          "avg": 0.004
+          "avg": 0.005
         },
         "FreeableMemory": {
-          "avg": 3440871587
+          "avg": 4599759775
         },
         "NetworkReceiveThroughput": {
-          "avg": 4680915
+          "avg": 9517604
         },
         "NetworkTransmitThroughput": {
-          "avg": 710485
+          "avg": 1944179
         }
       }
     }
   },
   "db": {
     "user": {
-      "name": "replica"
+      "name": "admin"
     },
     "name": "events",
-    "statement": "UPDATE products SET price 2FXP0Z",
+    "statement": "INSERT INTO orders VALUES E5CT47",
     "type": "sql"
   },
   "event": {
-    "duration": 1030000000,
+    "duration": 1980000000,
     "outcome": "success",
     "dataset": "aws.rds",
     "provider": "rds.amazonaws.com"
   },
-  "message": "Query executed in 1.03s by replica",
+  "message": "{\"instanceId\":\"prod-db-primary\",\"engine\":\"mysql\",\"userId\":\"admin\",\"queryTime\":1.98,\"error\":null,\"timestamp\":\"2026-03-17T10:07:40.656Z\"}",
   "log": {
     "level": "info"
   },

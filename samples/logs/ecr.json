@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "ecr"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "ecr": {
-      "repository_name": "web-app",
-      "registry_id": "501938274650",
-      "image_tag": "latest",
-      "image_digest": "sha256:t6kj7adt9l",
-      "action": "pull",
-      "image_size_bytes": 643982698,
-      "pushed_by": "developer",
-      "scan_status": "NOT_STARTED",
+      "repository_name": "base-image",
+      "registry_id": "814726593401",
+      "image_tag": "v1.2.3",
+      "image_digest": "sha256:ljtkiv62yur",
+      "action": "scan",
+      "image_size_bytes": 1650072444,
+      "pushed_by": "codebuild",
+      "scan_status": "COMPLETE",
       "finding_count": 0,
       "vulnerability_scan_enabled": true
     }
@@ -31,7 +31,7 @@
     "dataset": "aws.ecr",
     "provider": "ecr.amazonaws.com"
   },
-  "message": "ECR pull: web-app:latest",
+  "message": "ECR scan: base-image:v1.2.3",
   "log": {
     "level": "info"
   }

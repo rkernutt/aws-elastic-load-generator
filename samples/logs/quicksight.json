@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "quicksight"
@@ -13,33 +13,27 @@
   },
   "aws": {
     "quicksight": {
-      "dashboard_id": "r67sdmfmvv",
-      "dashboard_name": "executive-overview",
-      "action": "DescribeDashboard",
-      "user_name": "carol@corp.com",
-      "data_source_type": "S3",
-      "query_duration_ms": 18628,
-      "rows_returned": 66879,
-      "error_code": "AccessDeniedException"
+      "dashboard_id": "ruscmuh3x1d",
+      "dashboard_name": "ops-metrics",
+      "action": "RefreshDataSet",
+      "user_name": "bob@corp.com",
+      "data_source_type": "REDSHIFT",
+      "query_duration_ms": 973,
+      "rows_returned": 10292
     }
   },
   "user": {
-    "name": "carol@corp.com"
+    "name": "bob@corp.com"
   },
   "event": {
-    "duration": 18628000000,
-    "outcome": "failure",
+    "duration": 973000000,
+    "outcome": "success",
     "category": "database",
     "dataset": "aws.quicksight",
     "provider": "quicksight.amazonaws.com"
   },
-  "message": "QuickSight DescribeDashboard FAILED: executive-overview for carol@corp.com",
+  "message": "QuickSight RefreshDataSet: ops-metrics loaded in 973ms for bob@corp.com",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ResourceNotFoundException",
-    "message": "QuickSight operation failed",
-    "type": "bi"
+    "level": "info"
   }
 }

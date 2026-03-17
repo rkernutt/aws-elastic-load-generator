@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "codeartifact"
@@ -13,25 +13,24 @@
   },
   "aws": {
     "codeartifact": {
-      "domain_name": "platform",
+      "domain_name": "internal",
       "repository_name": "maven-central",
-      "package_format": "npm",
-      "package_name": "my-lib",
-      "package_version": "4.5.7",
-      "action": "CopyPackageVersions",
-      "asset_name": "my-lib-4.5.7.tgz",
-      "download_size_bytes": 25836228,
-      "upstream_repository": "pypi-upstream"
+      "package_format": "pypi",
+      "package_name": "utils",
+      "package_version": "1.18.10",
+      "action": "DeletePackageVersions",
+      "download_size_bytes": 20594353,
+      "upstream_repository": "npm-upstream"
     }
   },
   "event": {
-    "action": "CopyPackageVersions",
+    "action": "DeletePackageVersions",
     "outcome": "success",
     "category": "package",
     "dataset": "aws.codeartifact",
     "provider": "codeartifact.amazonaws.com"
   },
-  "message": "CodeArtifact CopyPackageVersions: my-lib@4.5.7 [npm] in platform/maven-central",
+  "message": "CodeArtifact DeletePackageVersions: utils@1.18.10 [pypi] in internal/maven-central",
   "log": {
     "level": "info"
   }

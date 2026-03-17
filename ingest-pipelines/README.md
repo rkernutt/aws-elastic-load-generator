@@ -2,7 +2,7 @@
 
 Ingest pipeline definitions for parsing **JSON from the log `message` field** for AWS services that emit structured/continuous logging. When `message` contains valid JSON, the parsed object is stored under a service-specific target field; when it does not, the document is unchanged (`ignore_failure: true`).
 
-**Full plan:** See [PLAN-PARSE-JSON-SERVICES.md](PLAN-PARSE-JSON-SERVICES.md) for all 23 services, pipeline IDs, target fields, index patterns, and example JSON keys.
+**Full plan:** See [PLAN-PARSE-JSON-SERVICES.md](PLAN-PARSE-JSON-SERVICES.md) for all 24 services (including S3), pipeline IDs, target fields, index patterns, and example JSON keys.
 
 **Glue & SageMaker from CloudWatch:** For a step-by-step AWS + Elastic guide (enable logging, IAM, Fleet/Custom Logs integration, and these pipelines), see [docs/GUIDE-CLOUDWATCH-GLUE-SAGEMAKER-ELASTIC.md](../docs/GUIDE-CLOUDWATCH-GLUE-SAGEMAKER-ELASTIC.md).
 
@@ -11,6 +11,7 @@ Ingest pipeline definitions for parsing **JSON from the log `message` field** fo
 | Service | Pipeline ID | File |
 |--------|-------------|------|
 | Glue | `glue-parse-json-message` | [glue-parse-json-message.json](glue-parse-json-message.json) |
+| S3 | `s3-parse-json-message` | [s3-parse-json-message.json](s3-parse-json-message.json) |
 | Lambda | `lambda-parse-json-message` | [lambda-parse-json-message.json](lambda-parse-json-message.json) |
 | API Gateway | `apigateway-parse-json-message` | [apigateway-parse-json-message.json](apigateway-parse-json-message.json) |
 | RDS | `rds-parse-json-message` | [rds-parse-json-message.json](rds-parse-json-message.json) |

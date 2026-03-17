@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "codebuild"
@@ -13,18 +13,18 @@
   },
   "aws": {
     "dimensions": {
-      "ProjectName": "infra-terraform"
+      "ProjectName": "docker-build"
     },
     "codebuild": {
-      "project_name": "infra-terraform",
-      "build_id": "infra-terraform:8coqypfc-2pit",
+      "project_name": "docker-build",
+      "build_id": "docker-build:njva7ddj-ugfe",
       "build_status": "SUCCEEDED",
-      "current_phase": "POST_BUILD",
-      "duration_seconds": 548,
-      "queued_duration_seconds": 52,
-      "build_number": 1477,
-      "initiator": "manual",
-      "source_version": "f4j7btgpagg",
+      "current_phase": "BUILD",
+      "duration_seconds": 381,
+      "queued_duration_seconds": 20,
+      "build_number": 4258,
+      "initiator": "codepipeline",
+      "source_version": "9gpbchhaa0t",
       "structured_logging": true,
       "metrics": {
         "Builds": {
@@ -37,25 +37,25 @@
           "sum": 0
         },
         "Duration": {
-          "avg": 548
+          "avg": 381
         },
         "QueuedDuration": {
-          "avg": 39
+          "avg": 29
         },
         "BuildDuration": {
-          "avg": 548
+          "avg": 381
         }
       }
     }
   },
   "event": {
-    "duration": 548000000000,
+    "duration": 381000000000,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.codebuild",
     "provider": "codebuild.amazonaws.com"
   },
-  "message": "{\"buildId\":\"infra-terraform:8coqypfc-2pit\",\"project\":\"infra-terraform\",\"phase\":\"POST_BUILD\",\"status\":\"SUCCEEDED\",\"durationSeconds\":548,\"timestamp\":\"2026-03-16T16:55:00.054Z\"}",
+  "message": "{\"buildId\":\"docker-build:njva7ddj-ugfe\",\"project\":\"docker-build\",\"phase\":\"BUILD\",\"status\":\"SUCCEEDED\",\"durationSeconds\":381,\"timestamp\":\"2026-03-17T10:07:40.656Z\"}",
   "log": {
     "level": "info"
   },

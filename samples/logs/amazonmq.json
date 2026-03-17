@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "amazonmq"
@@ -13,34 +13,34 @@
   },
   "aws": {
     "amazonmq": {
-      "broker_id": "b-mpdwwn2t-6o12",
-      "broker_name": "events-broker",
+      "broker_id": "b-6x0qqx6a-j8po",
+      "broker_name": "prod-broker",
       "broker_engine": "ActiveMQ",
       "engine_version": "5.17.6",
-      "deployment_mode": "SINGLE_INSTANCE",
-      "queue_name": "payment.queue",
-      "messages_in": 8344,
-      "messages_out": 9470,
-      "queue_depth": 998,
-      "broker_memory_percent": 51,
+      "deployment_mode": "ACTIVE_STANDBY_MULTI_AZ",
+      "queue_name": "order.queue",
+      "messages_in": 6277,
+      "messages_out": 1294,
+      "queue_depth": 3684,
+      "broker_memory_percent": 21,
       "metrics": {
         "QueueDepth": {
-          "avg": 998
+          "avg": 3684
         },
         "ProducerCount": {
-          "avg": 44
+          "avg": 11
         },
         "ConsumerCount": {
-          "avg": 9
+          "avg": 24
         },
         "MessageCount": {
-          "sum": 17814
+          "sum": 7571
         },
         "BrokerMemoryUsage": {
-          "avg": 51
+          "avg": 21
         },
         "StorePercentUsage": {
-          "avg": 52
+          "avg": 50
         }
       }
     }
@@ -50,9 +50,9 @@
     "category": "process",
     "dataset": "aws.amazonmq",
     "provider": "mq.amazonaws.com",
-    "duration": 1387000000
+    "duration": 1089000000
   },
-  "message": "Producer connected",
+  "message": "Consumer registered",
   "log": {
     "level": "info"
   }

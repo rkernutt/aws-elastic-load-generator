@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "apprunner"
@@ -13,71 +13,66 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "web-api"
+      "ServiceName": "admin-portal"
     },
     "apprunner": {
-      "service_name": "web-api",
-      "service_arn": "arn:aws:apprunner:eu-west-2:293847561023:service/web-api/5py1btxhdbo",
+      "service_name": "admin-portal",
+      "service_arn": "arn:aws:apprunner:us-east-1:738291046572:service/admin-portal/kvu0b3l1mt",
       "structured_logging": true,
       "metrics": {
         "Requests": {
-          "sum": 301
+          "sum": 473
         },
         "2xxStatusResponses": {
-          "sum": 0
+          "sum": 134
         },
         "4xxStatusResponses": {
           "sum": 0
         },
         "5xxStatusResponses": {
-          "sum": 3
+          "sum": 0
         },
         "RequestLatency": {
-          "avg": 2992,
-          "p99": 5984
+          "avg": 314,
+          "p99": 628
         },
         "ActiveInstances": {
-          "avg": 3
+          "avg": 6
         },
         "CPUUtilization": {
-          "avg": 63.274
+          "avg": 16.343
         },
         "MemoryUtilization": {
-          "avg": 31.922
+          "avg": 33.303
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "GET",
-      "bytes": 3178
+      "method": "PATCH",
+      "bytes": 1163
     },
     "response": {
-      "status_code": 503,
-      "bytes": 1013
+      "status_code": 201,
+      "bytes": 6072
     }
   },
   "url": {
-    "path": "/api/v1/auth/login"
+    "path": "/api/v1/products"
   },
   "client": {
-    "ip": "65.85.38.97"
+    "ip": "2.96.102.225"
   },
   "event": {
-    "duration": 2992000000,
-    "outcome": "failure",
+    "duration": 314000000,
+    "outcome": "success",
     "dataset": "aws.apprunner",
     "provider": "apprunner.amazonaws.com"
   },
-  "message": "{\"service\":\"web-api\",\"status\":503,\"latency_ms\":2992,\"timestamp\":\"2026-03-16T16:55:00.054Z\"}",
+  "message": "{\"service\":\"admin-portal\",\"status\":201,\"latency_ms\":314,\"timestamp\":\"2026-03-17T10:07:40.656Z\"}",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "BadGateway",
-    "message": "HTTP 503",
-    "type": "server"
+    "level": "info"
   },
   "data_stream": {
     "type": "metrics",

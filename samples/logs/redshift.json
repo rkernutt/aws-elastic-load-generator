@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "redshift"
@@ -19,20 +19,20 @@
     "redshift": {
       "cluster_id": "prod-dw-eu-west-2",
       "database": "analytics",
-      "user": "bi_service",
-      "pid": 23822,
-      "query_id": 6799241,
-      "duration_seconds": 59.468,
-      "rows_returned": 1396036,
+      "user": "dbt_runner",
+      "pid": 49719,
+      "query_id": 5835883,
+      "duration_seconds": 41.094,
+      "rows_returned": 2666515,
       "metrics": {
         "CPUUtilization": {
-          "avg": 66.488
+          "avg": 54.621
         },
         "PercentageDiskSpaceUsed": {
-          "avg": 17.989
+          "avg": 43.432
         },
         "DatabaseConnections": {
-          "avg": 27
+          "avg": 77
         },
         "HealthStatus": {
           "avg": 1
@@ -41,45 +41,45 @@
           "avg": 0
         },
         "ReadIOPS": {
-          "avg": 4804
+          "avg": 4530
         },
         "WriteIOPS": {
-          "avg": 3449
+          "avg": 188
         },
         "ReadLatency": {
-          "avg": 0.053
+          "avg": 0.057
         },
         "WriteLatency": {
-          "avg": 0.088
+          "avg": 0.063
         },
         "NetworkReceiveThroughput": {
-          "avg": 44390864
+          "avg": 73588702
         },
         "NetworkTransmitThroughput": {
-          "avg": 9967495
+          "avg": 26252993
         },
         "QueriesCompletedPerSecond": {
-          "avg": 58.492
+          "avg": 56.628
         }
       }
     }
   },
   "db": {
     "user": {
-      "name": "bi_service"
+      "name": "dbt_runner"
     },
     "name": "analytics",
-    "statement": "COPY events FROM 's3://data-lake/events/' IAM_ROLE 'arn:aws:iam::...'",
+    "statement": "SELECT COUNT(*) FROM fact_events WHERE event_date >= CURRENT_DATE - 7",
     "type": "sql"
   },
   "event": {
-    "duration": 59468000000,
+    "duration": 41094000000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.redshift",
     "provider": "redshift.amazonaws.com"
   },
-  "message": "Redshift query completed in 59.47s",
+  "message": "Redshift query completed in 41.09s",
   "log": {
     "level": "info"
   }

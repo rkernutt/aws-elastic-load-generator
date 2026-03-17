@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "iotevents"
@@ -13,32 +13,24 @@
   },
   "aws": {
     "iotevents": {
-      "detector_model_name": "motor-health-detector",
-      "detector_id": "unit-01",
-      "key_value": "unit-01",
-      "event_name": "ActionExecuted",
+      "detector_model_name": "conveyor-fault",
+      "detector_id": "machine-prod-1",
+      "key_value": "machine-prod-1",
+      "event_name": "TriggerFired",
       "from_state": "Acknowledged",
       "to_state": "Alarm",
-      "input_name": "SensorInput",
-      "action_type": "Lambda",
-      "timer_name": "alarmTimer",
-      "condition_expression": "$input.data.value < threshold",
-      "error_code": "ThrottlingException"
+      "input_name": "CommandInput",
+      "action_type": "SetVariable"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "process",
     "dataset": "aws.iotevents",
     "provider": "iotevents.amazonaws.com"
   },
-  "message": "IoT Events motor-health-detector/unit-01 ERROR: State machine error:",
+  "message": "IoT Events conveyor-fault/machine-prod-1: Acknowledged → Alarm [TriggerFired]",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "InvalidRequestException",
-    "message": "IoT Events error",
-    "type": "iot"
+    "level": "warn"
   }
 }

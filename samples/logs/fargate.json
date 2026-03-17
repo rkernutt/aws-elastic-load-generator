@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "fargate"
@@ -14,28 +14,28 @@
   "aws": {
     "dimensions": {
       "ClusterName": "staging-cluster",
-      "TaskId": "lj10hwvpf6",
-      "TaskDefinition": "scheduler:1"
+      "TaskId": "4qhvwxgmfb9",
+      "TaskDefinition": "scheduler:30"
     },
     "fargate": {
       "cluster_name": "staging-cluster",
-      "task_id": "lj10hwvpf6",
-      "task_definition": "scheduler:1",
-      "structured_logging": false,
+      "task_id": "4qhvwxgmfb9",
+      "task_definition": "scheduler:30",
+      "structured_logging": true,
       "cpu_units": 512,
-      "memory_mb": 1024,
+      "memory_mb": 512,
       "platform_version": "1.4.0",
-      "cpu_utilized_percent": 40,
-      "memory_utilized_percent": 42,
+      "cpu_utilized_percent": 17,
+      "memory_utilized_percent": 24,
       "metrics": {
         "CPUUtilization": {
-          "avg": 0.4
+          "avg": 0.17
         },
         "MemoryUtilization": {
-          "avg": 0.42
+          "avg": 0.24
         },
         "RunningTaskCount": {
-          "avg": 3
+          "avg": 7
         },
         "PendingTaskCount": {
           "avg": 0
@@ -54,7 +54,7 @@
     "category": "container",
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 44000000000
+    "duration": 390000000000
   },
-  "message": "Task deregistered gracefully"
+  "message": "{\"cluster\":\"staging-cluster\",\"taskId\":\"4qhvwxgmfb9\",\"taskDefinition\":\"scheduler:30\",\"container\":\"scheduler\",\"level\":\"info\",\"message\":\"Task registered with load balancer\",\"timestamp\":\"2026-03-17T10:07:40.656Z\"}"
 }

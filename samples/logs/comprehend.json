@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,28 +13,23 @@
   },
   "aws": {
     "comprehend": {
-      "operation": "DetectLanguage",
-      "language_code": "en",
-      "text_bytes": 47363,
+      "operation": "DetectSentiment",
+      "language_code": "ja",
+      "text_bytes": 30049,
+      "sentiment": "MIXED",
       "entities_detected": 0,
       "key_phrases_detected": 0,
-      "pii_entities_detected": 0,
-      "error_code": "UnsupportedLanguageException"
+      "pii_entities_detected": 0
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "machine_learning",
     "dataset": "aws.comprehend",
     "provider": "comprehend.amazonaws.com"
   },
-  "message": "Comprehend DetectLanguage FAILED: Text too large",
-  "error": {
-    "code": "ComprehendError",
-    "message": "Comprehend operation failed",
-    "type": "ml"
-  },
+  "message": "Comprehend DetectSentiment: lang=ja, sentiment=MIXED",
   "log": {
-    "level": "error"
+    "level": "info"
   }
 }

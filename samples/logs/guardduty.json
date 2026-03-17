@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "guardduty"
@@ -13,31 +13,64 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "i4vht7ydrkb"
+      "DetectorId": "3gb19vl7xm7"
     },
     "guardduty": {
       "schema_version": "2.0",
-      "account_id": "293847561023",
+      "account_id": "738291046572",
       "region": "eu-west-2",
       "partition": "aws",
-      "id": "p6ll4jjzdo",
-      "arn": "arn:aws:guardduty:eu-west-2:293847561023:detector/i4vht7ydrkb/finding/p6ll4jjzdo",
-      "type": "CryptoCurrency:EC2/BitcoinTool.B!DNS",
-      "title": "EC2 BitcoinTool B!DNS",
-      "description": "Routine check completed.",
-      "created_at": "2026-03-16T16:55:00.054Z",
-      "updated_at": "2026-03-16T16:55:00.054Z",
-      "severity": 0,
-      "confidence": 63.507,
-      "finding_id": "p6ll4jjzdo",
-      "finding_type": "CryptoCurrency:EC2/BitcoinTool.B!DNS",
-      "detector_id": "i4vht7ydrkb",
-      "resource_type": "EKSCluster",
-      "action_type": "AWS_API_CALL",
-      "count": 61,
+      "id": "rr29v6aew8a",
+      "arn": "arn:aws:guardduty:eu-west-2:738291046572:detector/3gb19vl7xm7/finding/rr29v6aew8a",
+      "type": "Trojan:EC2/DropPoint",
+      "title": "EC2 DropPoint",
+      "description": "GuardDuty detected suspicious activity: Trojan:EC2/DropPoint",
+      "created_at": "2026-03-17T10:07:40.656Z",
+      "updated_at": "2026-03-17T10:07:40.656Z",
+      "severity": 2,
+      "confidence": 66.46,
+      "finding_id": "rr29v6aew8a",
+      "finding_type": "Trojan:EC2/DropPoint",
+      "detector_id": "3gb19vl7xm7",
+      "resource_type": "AccessKey",
+      "action_type": "DNS_REQUEST",
+      "count": 235,
+      "resource": {
+        "instance_details": {
+          "availability_zone": "eu-west-2a",
+          "instance": {
+            "id": "i-c5dkmvoqetv",
+            "type": "m5.large",
+            "state": "running"
+          },
+          "image": {
+            "id": "ami-v4pr1x94",
+            "description": "Amazon Linux 2"
+          },
+          "network_interfaces": [
+            {
+              "network_interface_id": "eni-fkam9ybx",
+              "private_ip_address": "204.238.24.114",
+              "subnet_id": "subnet-z2dhynh8",
+              "vpc_id": "vpc-uqezqsyt",
+              "security_groups": [
+                {
+                  "group_id": "sg-pf1h259f",
+                  "group_name": "default"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "service": {
+        "action": {
+          "action_type": "NETWORK_CONNECTION"
+        }
+      },
       "metrics": {
         "FindingCount": {
-          "sum": 0
+          "sum": 3
         },
         "HighSeverityFindingCount": {
           "sum": 0
@@ -46,7 +79,7 @@
           "sum": 0
         },
         "LowSeverityFindingCount": {
-          "sum": 0
+          "sum": 13
         }
       }
     }
@@ -55,20 +88,25 @@
     "indicator": [
       {
         "type": "domain",
-        "value": "20.172.36.214"
+        "value": "40.177.203.33"
       }
     ]
   },
   "event": {
     "kind": "alert",
-    "severity": 0,
-    "outcome": "success",
+    "severity": 2,
+    "outcome": "failure",
     "category": "intrusion_detection",
     "dataset": "aws.guardduty",
     "provider": "guardduty.amazonaws.com"
   },
-  "message": "GuardDuty: no threats detected",
+  "message": "GuardDuty finding [Severity 2]: Trojan:EC2/DropPoint",
   "log": {
     "level": "info"
+  },
+  "error": {
+    "code": "ThreatFinding",
+    "message": "GuardDuty finding: Trojan:EC2/DropPoint",
+    "type": "security"
   }
 }

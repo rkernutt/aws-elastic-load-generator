@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "trustedadvisor"
@@ -13,22 +13,27 @@
   },
   "aws": {
     "trustedadvisor": {
-      "check_name": "High Utilization Amazon EC2 Instances",
-      "category": "performance",
-      "status": "ok",
+      "check_name": "Multi-AZ for RDS",
+      "category": "fault_tolerance",
+      "status": "error",
       "affected_resource": "arn:aws:s3:::my-bucket",
-      "flagged_resources": 0
+      "flagged_resources": 17
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "success",
+    "outcome": "failure",
     "category": "configuration",
     "dataset": "aws.trustedadvisor",
     "provider": "trustedadvisor.amazonaws.com"
   },
-  "message": "Trusted Advisor OK: High Utilization Amazon EC2 Instances",
+  "message": "Trusted Advisor [ERROR]: Multi-AZ for RDS - 18 resources affected",
+  "error": {
+    "code": "TrustedAdvisorFinding",
+    "message": "Multi-AZ for RDS: error",
+    "type": "configuration"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -14,15 +14,15 @@
   "aws": {
     "dms": {
       "replication_task_id": "mongodb-to-documentdb",
-      "migration_type": "full-load",
+      "migration_type": "cdc",
       "source_engine": "mongodb",
-      "target_engine": "aurora-postgresql",
-      "replication_instance_class": "dms.r5.large",
+      "target_engine": "aurora-mysql",
+      "replication_instance_class": "dms.t3.medium",
       "task_status": "Load complete",
-      "full_load_rows_transferred": 7355931,
-      "cdc_incoming_changes": 0,
-      "latency_ms": 0,
-      "tables_loaded": 135,
+      "full_load_rows_transferred": 1404306,
+      "cdc_incoming_changes": 16839,
+      "latency_ms": 719,
+      "tables_loaded": 75,
       "tables_errored": 0
     }
   },
@@ -32,7 +32,7 @@
     "dataset": "aws.dms",
     "provider": "dms.amazonaws.com"
   },
-  "message": "DMS mongodb-to-documentdb: 7,355,931 rows (mongodb->aurora-postgresql full-load)",
+  "message": "DMS mongodb-to-documentdb: 1,404,306 rows (mongodb->aurora-mysql cdc)",
   "log": {
     "level": "info"
   }

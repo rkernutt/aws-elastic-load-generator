@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "memorydb"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "memorydb": {
-      "cluster_name": "session-store",
-      "node_name": "session-store-0001-001",
+      "cluster_name": "prod-memorydb",
+      "node_name": "prod-memorydb-0001-001",
       "engine_version": "7.1",
-      "command": "XADD",
-      "latency_us": 19.813,
-      "cache_hit_rate": 82.21,
-      "connected_clients": 36,
-      "used_memory_mb": 12423,
-      "replication_lag_ms": 94
+      "command": "ZADD",
+      "latency_us": 15.229,
+      "cache_hit_rate": 82.061,
+      "connected_clients": 284,
+      "used_memory_mb": 12400,
+      "replication_lag_ms": 83
     }
   },
   "event": {
-    "duration": 19813,
+    "duration": 15229,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.memorydb",
     "provider": "memory-db.amazonaws.com"
   },
-  "message": "MemoryDB session-store XADD: 19.81us",
+  "message": "MemoryDB prod-memorydb ZADD: 15.23us",
   "log": {
     "level": "info"
   }

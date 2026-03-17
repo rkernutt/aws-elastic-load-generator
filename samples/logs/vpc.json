@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,50 +13,49 @@
   },
   "aws": {
     "dimensions": {
-      "VpcId": "vpc-q29ugb8j"
+      "VpcId": "vpc-7aafmfnt"
     },
     "vpcflow": {
       "version": "2",
       "account_id": "501938274650",
-      "interface_id": "eni-r512z86c",
+      "interface_id": "eni-2u6c9qzu",
       "action": "ACCEPT",
       "log_status": "OK",
-      "instance_id": "i-3sym59096uw",
-      "pkt_srcaddr": "229.15.85.39",
-      "pkt_dstaddr": "37.232.70.36",
-      "vpc_id": "vpc-q29ugb8j",
-      "subnet_id": "subnet-hxmp531k",
+      "pkt_srcaddr": "181.169.83.83",
+      "pkt_dstaddr": "182.197.108.163",
+      "vpc_id": "vpc-7aafmfnt",
+      "subnet_id": "subnet-ykzqt01c",
       "type": "IPv4"
     },
     "vpc": {
       "action": "ACCEPT",
       "log_status": "OK",
-      "interface_id": "eni-r512z86c",
-      "vpc_id": "vpc-q29ugb8j",
-      "subnet_id": "subnet-hxmp531k",
+      "interface_id": "eni-2u6c9qzu",
+      "vpc_id": "vpc-7aafmfnt",
+      "subnet_id": "subnet-ykzqt01c",
       "account_id": "501938274650",
       "metrics": {
         "BytesTransferred": {
-          "sum": 1837
+          "sum": 10693
         },
         "PacketsTransferred": {
-          "sum": 26
+          "sum": 40
         }
       }
     }
   },
   "source": {
-    "ip": "229.15.85.39",
-    "port": 15052
+    "ip": "181.169.83.83",
+    "port": 52456
   },
   "destination": {
-    "ip": "37.232.70.36",
-    "port": 443
+    "ip": "182.197.108.163",
+    "port": 6379
   },
   "network": {
-    "transport": "tcp",
-    "bytes": 1837,
-    "packets": 26,
+    "transport": "udp",
+    "bytes": 10693,
+    "packets": 40,
     "direction": "outbound"
   },
   "event": {
@@ -66,7 +65,7 @@
     "dataset": "aws.vpcflow",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "ACCEPT TCP 229.15.85.39:10459 -> 37.232.70.36:443 1837B 26pkts",
+  "message": "ACCEPT UDP 181.169.83.83:64143 -> 182.197.108.163:6379 10693B 40pkts",
   "log": {
     "level": "info"
   }

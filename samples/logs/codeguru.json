@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "codeguru"
@@ -14,26 +14,32 @@
   "aws": {
     "codeguru": {
       "product": "Profiler",
-      "repository_name": "backend-api",
-      "association_id": "0p2uycmex92n",
-      "finding_id": "sv3rcdzpcu",
-      "category": "IO",
-      "severity": "Medium",
-      "finding_description": "Database N+1 queries",
-      "code_file": "src/main/backendapi/Handler.java",
-      "line_number": 178,
-      "profiling_group": "backend-api-profiling",
-      "frame_percent": 49.275
+      "repository_name": "frontend-app",
+      "association_id": "b76d216jxnk",
+      "finding_id": "henuodk7x8",
+      "category": "Memory",
+      "severity": "High",
+      "finding_description": "Lambda cold start overhead",
+      "code_file": "lambda_function.py",
+      "line_number": 70,
+      "profiling_group": "frontend-app-profiling",
+      "frame_percent": 15.296,
+      "error_code": "InternalServerException"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "process",
     "dataset": "aws.codeguru",
     "provider": "codeguru.amazonaws.com"
   },
-  "message": "CodeGuru Profiler [backend-api] Medium: Database N+1 queries",
+  "message": "CodeGuru Profiler FAILED [frontend-app]: Internal error:",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "InternalServerException",
+    "message": "CodeGuru operation failed",
+    "type": "process"
   }
 }

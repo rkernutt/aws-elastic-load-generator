@@ -1,0 +1,45 @@
+// Official AWS Architecture Icons (stored locally in public/aws-icons/)
+// Service id → SVG filename. Fallback: keep Unicode icon.
+
+const AWS_ICON_BASE = (typeof import.meta !== "undefined" && import.meta.env?.BASE_URL) ? import.meta.env.BASE_URL + "aws-icons" : "/aws-icons";
+
+const AWS_SERVICE_ICON_MAP = {
+  lambda: "AWSLambda", apigateway: "AmazonAPIGateway", vpc: "AmazonVirtualPrivateCloud", cloudtrail: "AWSCloudTrail",
+  rds: "AmazonRDS", ecs: "AmazonElasticContainerService", ec2: "AmazonEC2", eks: "AmazonElasticKubernetesService",
+  apprunner: "AWSAppRunner", batch: "AWSBatch", elasticbeanstalk: "AWSElasticBeanstalk", ecr: "AmazonElasticContainerRegistry",
+  fargate: "AWSFargate", autoscaling: "AmazonEC2AutoScaling", imagebuilder: "AmazonEC2ImageBuilder",
+  alb: "ElasticLoadBalancing", nlb: "ElasticLoadBalancing", cloudfront: "AmazonCloudFront", waf: "AWSWAF", wafv2: "AWSWAF",
+  route53: "AmazonRoute53", networkfirewall: "AWSNetworkFirewall", shield: "AWSShield", globalaccelerator: "AWSGlobalAccelerator",
+  transitgateway: "AWSTransitGateway", directconnect: "AWSDirectConnect", vpn: "AWSSitetoSiteVPN", privatelink: "AWSPrivateLink",
+  natgateway: "AmazonVirtualPrivateCloud",
+  guardduty: "AmazonGuardDuty", securityhub: "AWSSecurityHub", macie: "AmazonMacie", inspector: "AmazonInspector",
+  config: "AWSConfig", accessanalyzer: "AWSIdentityandAccessManagement", cognito: "AmazonCognito", kms: "AWSKeyManagementService",
+  secretsmanager: "AWSSecretsManager", acm: "AWSCertificateManager", identitycenter: "AWSIAMIdentityCenter", detective: "AmazonDetective",
+  s3: "AmazonSimpleStorageService", dynamodb: "AmazonDynamoDB", elasticache: "AmazonElastiCache", redshift: "AmazonRedshift",
+  opensearch: "AmazonOpenSearchService", docdb: "AmazonDocumentDB", ebs: "AmazonElasticBlockStore", efs: "AmazonEFS",
+  fsx: "AmazonFSx", datasync: "AWSDataSync", backup: "AWSBackup", storagegateway: "AWSStorageGateway",
+  aurora: "AmazonAurora", neptune: "AmazonNeptune", timestream: "AmazonTimestream", qldb: "AmazonQuantumLedgerDatabase",
+  keyspaces: "AmazonKeyspaces", memorydb: "AmazonMemoryDB", kinesis: "AmazonKinesisDataStreams", firehose: "AmazonDataFirehose",
+  kinesisanalytics: "AmazonManagedServiceforApacheFlink", msk: "AmazonManagedStreamingforApacheKafka",
+  sqs: "AmazonSimpleQueueService", sns: "AmazonSimpleNotificationService", amazonmq: "AmazonMQ", eventbridge: "AmazonEventBridge",
+  stepfunctions: "AWSStepFunctions", appsync: "AWSAppSync", codebuild: "AWSCodeBuild", codepipeline: "AWSCodePipeline",
+  codedeploy: "AWSCodeDeploy", codecommit: "AWSCodeCommit", codeartifact: "AWSCodeArtifact", amplify: "AWSAmplify", xray: "AWSXRay",
+  emr: "AmazonEMR", glue: "AWSGlue", athena: "AmazonAthena", lakeformation: "AWSLakeFormation", quicksight: "AmazonQuickSuite",
+  databrew: "AWSGlueDataBrew", appflow: "AmazonAppFlow", sagemaker: "AmazonSageMaker", bedrock: "AmazonBedrock",
+  bedrockagent: "AmazonBedrockAgentCore", rekognition: "AmazonRekognition", textract: "AmazonTextract", comprehend: "AmazonComprehend",
+  translate: "AmazonTranslate", transcribe: "AmazonTranscribe", polly: "AmazonPolly", forecast: "AmazonForecast",
+  personalize: "AmazonPersonalize", lex: "AmazonLex", iotcore: "AWSIoTCore", greengrass: "AWSIoTGreengrass",
+  iotanalytics: "AmazonKinesisDataStreams", cloudformation: "AWSCloudFormation", ssm: "AWSSystemsManager",
+  cloudwatch: "AmazonCloudWatch", health: "AWSHealthDashboard", trustedadvisor: "AWSTrustedAdvisor", controltower: "AWSControlTower",
+  organizations: "AWSOrganizations", servicecatalog: "AWSServiceCatalog", servicequotas: "AWSConfig", computeoptimizer: "AWSComputeOptimizer",
+  budgets: "AWSBudgets", billing: "AWSCostExplorer", ram: "AWSResourceAccessManager", resiliencehub: "AWSResilienceHub",
+  migrationhub: "AWSMigrationHub", networkmanager: "AWSCloudWAN", dms: "AWSDatabaseMigrationService",
+  mediaconvert: "AWSElementalMediaConvert", medialive: "AWSElementalMediaLive", workspaces: "AmazonWorkSpaces",
+  connect: "AmazonConnect", appstream: "AmazonWorkSpaces", gamelift: "AmazonGameLiftServers", ses: "AmazonSimpleEmailService",
+  pinpoint: "AmazonPinpoint", transferfamily: "AWSTransferFamily", lightsail: "AmazonLightsail", frauddetector: "AmazonFraudDetector",
+  lookoutmetrics: "AmazonLookoutforMetrics", comprehendmedical: "AmazonComprehendMedical", locationservice: "AmazonLocationService",
+  managedblockchain: "AmazonManagedBlockchain", codeguru: "AmazonCodeGuru", devopsguru: "AmazonDevOpsGuru",
+  iotevents: "AWSIoTEvents", iotsitewise: "AWSIoTSiteWise", iotdefender: "AWSIoTDeviceDefender",
+};
+
+export { AWS_ICON_BASE, AWS_SERVICE_ICON_MAP };

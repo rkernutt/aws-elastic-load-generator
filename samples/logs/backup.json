@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "backup"
@@ -13,13 +13,13 @@
   },
   "aws": {
     "backup": {
-      "backup_job_id": "32dmms7j-8fc4-oya1",
+      "backup_job_id": "g1cbv7ot-6v7n-p13o",
       "backup_plan_name": "weekly-cold",
-      "resource_type": "DynamoDB",
-      "backup_vault_name": "prod-vault",
-      "status": "COMPLETED",
-      "backup_size_gb": 709.184,
-      "lifecycle_delete_after_days": 90
+      "resource_type": "EC2",
+      "backup_vault_name": "compliance-vault",
+      "status": "RUNNING",
+      "backup_size_gb": 1204.807,
+      "lifecycle_delete_after_days": 7
     }
   },
   "event": {
@@ -27,9 +27,9 @@
     "category": "file",
     "dataset": "aws.backup",
     "provider": "backup.amazonaws.com",
-    "duration": 1772000000000
+    "duration": 2482000000000
   },
-  "message": "AWS Backup COMPLETED: ec2/i-prod -> prod-vault (709.2GB)",
+  "message": "AWS Backup RUNNING: ec2/i-prod -> Default (1204.8GB)",
   "log": {
     "level": "info"
   }

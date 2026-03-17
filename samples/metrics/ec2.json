@@ -1,93 +1,88 @@
 {
-  "@timestamp": "2026-03-16T16:55:00.054Z",
+  "@timestamp": "2026-03-17T10:07:40.656Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "ec2"
     },
     "instance": {
-      "id": "i-8coaankngdi"
+      "id": "i-jci6b4llf3f"
     }
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "i-8coaankngdi",
-      "InstanceType": "c5.2xlarge",
-      "ImageId": "ami-ntygvi26",
+      "InstanceId": "i-jci6b4llf3f",
+      "InstanceType": "r5.large",
+      "ImageId": "ami-umwjz6ll",
       "AutoScalingGroupName": "web-asg"
     },
     "ec2": {
-      "instance_id": "i-8coaankngdi",
-      "instance_type": "c5.2xlarge",
-      "ami_id": "ami-coxe3efr",
+      "instance_id": "i-jci6b4llf3f",
+      "instance_type": "r5.large",
+      "ami_id": "ami-l4ei5pw8",
       "structured_logging": true,
       "metrics": {
         "CPUUtilization": {
-          "avg": 15.845
+          "avg": 18.247
         },
         "NetworkIn": {
-          "sum": 314753007
+          "sum": 391904755
         },
         "NetworkOut": {
-          "sum": 13843054
+          "sum": 499836893
         },
         "DiskReadBytes": {
-          "sum": 47588561
+          "sum": 73488731
         },
         "DiskWriteBytes": {
-          "sum": 24616125
+          "sum": 58683239
         },
         "DiskReadOps": {
-          "sum": 155
+          "sum": 5155
         },
         "DiskWriteOps": {
-          "sum": 1633
+          "sum": 3621
         },
         "StatusCheckFailed": {
-          "max": 1
+          "max": 0
         },
         "StatusCheckFailed_Instance": {
-          "max": 1
+          "max": 0
         },
         "StatusCheckFailed_System": {
           "max": 0
         },
         "CPUCreditBalance": {
-          "avg": 485
+          "avg": 133
         },
         "CPUCreditUsage": {
-          "avg": 3.603
+          "avg": 1.48
         }
       }
     }
   },
   "host": {
-    "hostname": "ip-54-241-70-91",
+    "hostname": "ip-166-232-125-117",
     "os": {
       "type": "linux"
     }
   },
   "log": {
-    "level": "error"
+    "level": "warn"
   },
   "event": {
     "category": "host",
-    "outcome": "failure",
+    "outcome": "success",
     "dataset": "aws.ec2",
     "provider": "ec2.amazonaws.com",
-    "duration": 1938000000000
+    "duration": 1687000000000
   },
-  "message": "{\"instanceId\":\"i-8coaankngdi\",\"instanceType\":\"c5.2xlarge\",\"level\":\"error\",\"message\":\"Failed to start NetworkManager\",\"timestamp\":\"2026-03-16T16:55:00.054Z\",\"component\":\"syslog\"}",
-  "error": {
-    "code": "StatusCheckFailed",
-    "message": "sshd: error: Could not load host key",
-    "type": "host"
-  },
+  "message": "{\"instanceId\":\"i-jci6b4llf3f\",\"instanceType\":\"r5.large\",\"level\":\"warn\",\"message\":\"SSH login from unknown IP\",\"timestamp\":\"2026-03-17T10:07:40.656Z\",\"component\":\"awslogs\"}",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.ec2_logs",
