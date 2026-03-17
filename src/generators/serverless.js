@@ -1,5 +1,17 @@
+/**
+ * Serverless & core AWS log generators (Lambda, API Gateway, App Sync, App Runner, Fargate).
+ * Each generator returns a single ECS-shaped document for the given timestamp and error rate.
+ * @module generators/serverless
+ */
+
 import { rand, randInt, randFloat, randId, randIp, randUUID, randAccount, REGIONS, ACCOUNTS, USER_AGENTS, HTTP_METHODS, HTTP_PATHS, PROTOCOLS } from "../helpers/index.js";
 
+/**
+ * Generates a synthetic AWS Lambda log event (function invocation, metrics, optional trace ID).
+ * @param {string} ts - ISO timestamp for @timestamp.
+ * @param {number} er - Error rate in [0,1]; influences level and error count.
+ * @returns {Object} ECS-style document with cloud, aws.lambda, log, message, event.
+ */
 function generateLambdaLog(ts, er) {
   const fn = rand(["user-auth","payment-processor","image-resizer","notification-sender","data-pipeline","api-handler"]);
   const region = rand(REGIONS);
@@ -16,17 +28,20 @@ function generateLambdaLog(ts, er) {
   const MSGS = { INFO:["Request received","Processing complete","Cache hit","Event processed"],WARN:["Retry attempt 1/3","Memory usage at 80%","Slow query detected"],ERROR:["Unhandled exception","DB connection refused","Timeout after 30000ms"],DEBUG:["Entering handler","Parsed request body","Exiting with status 200"] };
   const logGroup = `/aws/lambda/${fn}`;
   const logStream = `${new Date(ts).toISOString().slice(0,10)}/[$LATEST]${randId(32).toLowerCase()}`;
+  const traceId = Math.random() < 0.5 ? `1-${randId(8).toLowerCase()}-${randId(24).toLowerCase()}` : null;
   const plainMessage = `[${level}]\t${rid}\t${rand(MSGS[level])}`;
   const useStructuredLogging = Math.random() < 0.6;
-  const message = useStructuredLogging ? JSON.stringify({ requestId: rid, level, message: rand(MSGS[level]), timestamp: new Date(ts).toISOString(), duration_ms: Math.round(dur), memory_used_mb: memUsed }) : plainMessage;
+  const message = useStructuredLogging ? JSON.stringify({ requestId: rid, level, message: rand(MSGS[level]), timestamp: new Date(ts).toISOString(), duration_ms: Math.round(dur), memory_used_mb: memUsed, ...(traceId ? { traceId } : {}) }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"lambda" } },
+    ...(traceId ? { trace: { id: traceId } } : {}),
     "aws": {
       dimensions: { FunctionName:fn, Resource:`${fn}:$LATEST`, ExecutedVersion:"$LATEST", EventSourceMappingUUID: hasMapping ? randUUID() : null },
       lambda: {
         function: { name:fn, version:"$LATEST", arn:`arn:aws:lambda:${region}:${acct.id}:function:${fn}` },
         request_id: rid,
+        trace_id: traceId,
         duration: dur,
         memory_size_mb: memSize,
         memory_used_mb: memUsed,
@@ -53,6 +68,12 @@ function generateLambdaLog(ts, er) {
   };
 }
 
+/**
+ * Generates a synthetic API Gateway access log event (request/response, latency, optional trace ID).
+ * @param {string} ts - ISO timestamp for @timestamp.
+ * @param {number} er - Error rate in [0,1]; influences HTTP status and error block.
+ * @returns {Object} ECS-style document with cloud, aws.apigateway, http, url, event.
+ */
 function generateApiGatewayLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const method = rand(HTTP_METHODS); const path = rand(HTTP_PATHS);
@@ -63,16 +84,19 @@ function generateApiGatewayLog(ts, er) {
   const stage = rand(["prod","v1","v2","staging"]);
   const count = randInt(1, 1000);
   const requestId = `${randId(8)}-${randId(4)}`.toLowerCase();
+  const traceId = Math.random() < 0.5 ? `1-${randId(8).toLowerCase()}-${randId(24).toLowerCase()}` : null;
   const plainMessage = `${method} ${path} ${status} ${lat}ms`;
   const useStructuredLogging = Math.random() < 0.55;
-  const message = useStructuredLogging ? JSON.stringify({ requestId, requestMethod: method, requestPath: path, status: status, responseLatency: lat, integrationLatency: integrationLat, timestamp: new Date(ts).toISOString() }) : plainMessage;
+  const message = useStructuredLogging ? JSON.stringify({ requestId, requestMethod: method, requestPath: path, status: status, responseLatency: lat, integrationLatency: integrationLat, timestamp: new Date(ts).toISOString(), ...(traceId ? { traceId } : {}) }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"apigateway" } },
+    ...(traceId ? { trace: { id: traceId } } : {}),
     "aws": {
       dimensions: { ApiName:apiName, Stage:stage, Method:method, Resource:path },
       apigateway: {
         request_id: requestId,
+        trace_id: traceId,
         api_id: apiId,
         api_name: apiName,
         stage,
@@ -95,7 +119,7 @@ function generateApiGatewayLog(ts, er) {
     "event": { duration:lat*1000000, outcome:status>=400?"failure":"success", dataset:"aws.apigateway_logs", provider:"apigateway.amazonaws.com" },
     "message": message,
     "log": { level:status>=500?"error":status>=400?"warn":"info" },
-    ...(status >= 400 ? { error: { code: status >= 500 ? "InternalServerError" : status === 429 ? "ThrottlingException" : "BadRequest", message: `HTTP ${status}`, type: "server" } } : {})
+    ...(status >= 400 ? { error: { code: status >= 500 ? "InternalServerError" : status === 429 ? "ThrottlingException" : status === 403 ? "AccessDeniedException" : status === 404 ? "NotFoundException" : "BadRequestException", message: `HTTP ${status}`, type: "server" } } : {})
   };
 }
 

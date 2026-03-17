@@ -9,6 +9,8 @@ import { SERVICE_GROUPS, ALL_SERVICE_IDS } from "./data/serviceGroups.js";
 import { Card, CardHeader, QuickBtn, Field, SliderField, StatCard } from "./components/Card.jsx";
 import { StatusPill } from "./components/StatusPill.jsx";
 import { PipelineLogo } from "./components/Logo.jsx";
+import { validateElasticUrl, validateApiKey, validateIndexPrefix } from "./utils/validation.js";
+import styles from "./App.module.css";
 
 // ─── localStorage config persistence ─────────────────────────────────────────
 const LS_KEY = "awsElasticConfig";
@@ -28,6 +30,8 @@ export default function App() {
   const [metricsIndexPrefix, setMetricsIndexPrefix] = useState(savedConfig.metricsIndexPrefix ?? "metrics-aws");
   const [eventType, setEventType]               = useState(savedConfig.eventType         ?? "logs");
   const [ingestionSource, setIngestionSource]   = useState(savedConfig.ingestionSource   ?? "default");
+  const [batchDelayMs, setBatchDelayMs]         = useState(savedConfig.batchDelayMs     ?? 20);
+  const [validationErrors, setValidationErrors] = useState({ elasticUrl: "", apiKey: "", indexPrefix: "" });
 
   const indexPrefix    = eventType === "metrics" ? metricsIndexPrefix : logsIndexPrefix;
   const setIndexPrefix = eventType === "metrics" ? setMetricsIndexPrefix : setLogsIndexPrefix;
@@ -44,10 +48,10 @@ export default function App() {
     try {
       localStorage.setItem(LS_KEY, JSON.stringify({
         elasticUrl, apiKey, logsIndexPrefix, metricsIndexPrefix,
-        logsPerService, errorRate, batchSize, ingestionSource, eventType,
+        logsPerService, errorRate, batchSize, batchDelayMs, ingestionSource, eventType,
       }));
     } catch { /* storage not available */ }
-  }, [elasticUrl, apiKey, logsIndexPrefix, metricsIndexPrefix, logsPerService, errorRate, batchSize, ingestionSource, eventType]);
+  }, [elasticUrl, apiKey, logsIndexPrefix, metricsIndexPrefix, logsPerService, errorRate, batchSize, batchDelayMs, ingestionSource, eventType]);
 
   const clearSavedConfig = () => {
     try { localStorage.removeItem(LS_KEY); } catch { /* ignore */ }
@@ -161,10 +165,24 @@ export default function App() {
     setPreview(JSON.stringify(stripNulls(enrichDoc(GENERATORS[svc](new Date().toISOString(), errorRate), svc, getEffectiveSource(svc), eventType)), null, 2));
   };
 
+  const runConnectionValidation = useCallback(() => {
+    const urlResult = validateElasticUrl(elasticUrl);
+    const keyResult = validateApiKey(apiKey);
+    const prefixResult = validateIndexPrefix(indexPrefix);
+    setValidationErrors({
+      elasticUrl: urlResult.valid ? "" : (urlResult.message ?? ""),
+      apiKey: keyResult.valid ? "" : (keyResult.message ?? ""),
+      indexPrefix: prefixResult.valid ? "" : (prefixResult.message ?? ""),
+    });
+    return urlResult.valid && keyResult.valid && prefixResult.valid;
+  }, [elasticUrl, apiKey, indexPrefix]);
+
   const ship = useCallback(async () => {
     if (!selectedServices.length) { addLog("No services selected","error"); return; }
-    if (!elasticUrl) { addLog("Elastic URL required","error"); return; }
-    if (!apiKey) { addLog("API key required","error"); return; }
+    if (!runConnectionValidation()) {
+      addLog("Fix connection field errors before shipping.","error");
+      return;
+    }
     abortRef.current = false;
     setStatus("running"); setLog([]);
     try {
@@ -214,7 +232,7 @@ export default function App() {
             }
           } catch(e) { totalErrors+=batch.length; addLog(`  ✗ network error: ${e.message}`,"error"); }
           setProgress({sent:totalSent,total:totalLogs,errors:totalErrors});
-          await new Promise(r=>setTimeout(r,20));
+          if (batchDelayMs > 0) await new Promise(r=>setTimeout(r, batchDelayMs));
         }
         addLog(`✓ ${svc} complete`,"ok");
       }
@@ -225,7 +243,7 @@ export default function App() {
       addLog(`Fatal error: ${fatal.message}`, "error");
       console.error("Ship error:", fatal);
     }
-  }, [selectedServices,logsPerService,errorRate,batchSize,elasticUrl,apiKey,logsIndexPrefix,metricsIndexPrefix,ingestionSource,enrichDoc,getEffectiveSource,eventType]);
+  }, [selectedServices,logsPerService,errorRate,batchSize,batchDelayMs,elasticUrl,apiKey,indexPrefix,logsIndexPrefix,metricsIndexPrefix,ingestionSource,enrichDoc,getEffectiveSource,eventType,runConnectionValidation]);
 
   const pct            = progress.total>0 ? Math.round((progress.sent/progress.total)*100) : 0;
   const totalSelected  = selectedServices.length;
@@ -236,35 +254,32 @@ export default function App() {
   const estimatedBatches = totalSelected > 0 ? Math.ceil(estimatedDocs / batchSize) : 0;
 
   return (
-    <div style={{minHeight:"100vh",background:K.body,color:K.text,fontFamily:"'Inter', 'Segoe UI', system-ui, sans-serif"}}>
+    <div className={styles.root} style={{ background: K.body, color: K.text }}>
 
-      {/* Top bar */}
-      <header style={{background:K.headerBg,color:K.headerText,padding:"0 24px",display:"flex",alignItems:"center",height:72,boxShadow:K.shadowMd}}>
-        <div style={{display:"flex",alignItems:"center",gap:16}}>
+      <header className={styles.header}>
+        <div className={styles.headerLeft}>
           <PipelineLogo size={44} light/>
-          <span style={{fontWeight:600,fontSize:20,letterSpacing:"-0.01em",textTransform:"uppercase"}}>AWS → Elastic Load Generator</span>
+          <span className={styles.headerTitle}>AWS → Elastic Load Generator</span>
         </div>
-        <div style={{marginLeft:"auto",display:"flex",alignItems:"center",gap:16}}>
-          <span style={{fontSize:12,color:K.headerSubdued}}>{totalSelected} / {totalServices} services</span>
+        <div className={styles.headerRight}>
+          <span className={styles.headerSubdued}>{totalSelected} / {totalServices} services</span>
           {status==="running" && <StatusPill color="#FACB3D" dot light>Shipping</StatusPill>}
           {status==="done"    && <StatusPill color="#24C292" light>Complete</StatusPill>}
           {status==="aborted" && <StatusPill color="#EE4C48" light>Aborted</StatusPill>}
         </div>
       </header>
 
-      {/* Page content */}
-      <main style={{padding:"24px 24px 48px",maxWidth:1280,margin:"0 auto"}}>
-        <div style={{marginBottom:24}}>
-          <h1 style={{fontSize:18,fontWeight:600,color:K.textHeading,letterSpacing:"-0.02em",marginBottom:6}}>
+      <main className={styles.main}>
+        <div className={styles.pageTitleWrap}>
+          <h1 className={styles.pageTitle}>
             Generate and ship AWS logs &amp; metrics to Elastic
           </h1>
-          <p style={{fontSize:14,color:K.textSubdued,width:"100%",maxWidth:"100%"}}>
+          <p className={styles.pageDesc}>
             {totalServices} AWS services across 14 groups · ECS-compliant · Per-service ingestion (S3, CloudWatch, API, Firehose, OTel). Ships directly to Elasticsearch.
           </p>
         </div>
 
-        {/* Main grid */}
-        <div style={{display:"grid",gridTemplateColumns:"1.2fr 1fr",gap:16,alignItems:"start"}}>
+        <div className={styles.grid}>
 
           {/* LEFT — Service selection */}
           <div>
@@ -354,8 +369,7 @@ export default function App() {
             </Card>
           </div>
 
-          {/* RIGHT — Config + progress + log */}
-          <div style={{display:"flex",flexDirection:"column",gap:14,position:"sticky",top:24}}>
+          <div className={styles.rightCol}>
 
             <Card>
               <CardHeader label="Volume & Settings"/>
@@ -383,6 +397,9 @@ export default function App() {
                 <SliderField label="Bulk batch size" value={batchSize} min={50} max={1000} step={50}
                   onChange={setBatchSize} display={`${batchSize}/request`}
                   sublabel="Documents per Elasticsearch _bulk request"/>
+                <SliderField label="Batch delay (ms)" value={batchDelayMs} min={0} max={2000} step={50}
+                  onChange={v=>setBatchDelayMs(Number(v))} display={`${batchDelayMs} ms`}
+                  sublabel="Delay between bulk requests (0 = minimal)"/>
               </div>
             </Card>
 
@@ -390,16 +407,35 @@ export default function App() {
               <CardHeader label="Elastic Cloud Connection"/>
               <div style={{display:"flex",flexDirection:"column",gap:12}}>
                 <Field label="Elasticsearch URL">
-                  <input value={elasticUrl} onChange={e=>setElasticUrl(e.target.value)}
-                    placeholder="https://my-deployment.es.us-east-1.aws.elastic.cloud" style={inputStyle}/>
+                  <input
+                    value={elasticUrl}
+                    onChange={e=>{ setElasticUrl(e.target.value); setValidationErrors(prev=>({...prev, elasticUrl: ""})); }}
+                    onBlur={()=> setValidationErrors(prev=>({...prev, elasticUrl: validateElasticUrl(elasticUrl).valid ? "" : (validateElasticUrl(elasticUrl).message ?? "") }))}
+                    placeholder="https://my-deployment.es.us-east-1.aws.elastic.cloud"
+                    className={`${styles.input} ${validationErrors.elasticUrl ? styles.inputError : ""}`}
+                  />
+                  {validationErrors.elasticUrl && <div className={styles.validationError}>{validationErrors.elasticUrl}</div>}
                 </Field>
                 <Field label="API Key">
-                  <input type="password" value={apiKey} onChange={e=>setApiKey(e.target.value)}
-                    placeholder="base64-encoded-api-key" style={inputStyle}/>
+                  <input
+                    type="password"
+                    value={apiKey}
+                    onChange={e=>{ setApiKey(e.target.value); setValidationErrors(prev=>({...prev, apiKey: ""})); }}
+                    onBlur={()=> setValidationErrors(prev=>({...prev, apiKey: validateApiKey(apiKey).valid ? "" : (validateApiKey(apiKey).message ?? "") }))}
+                    placeholder="base64-encoded-api-key"
+                    className={`${styles.input} ${validationErrors.apiKey ? styles.inputError : ""}`}
+                  />
+                  {validationErrors.apiKey && <div className={styles.validationError}>{validationErrors.apiKey}</div>}
                 </Field>
                 <Field label="Index prefix">
-                  <input value={indexPrefix} onChange={e=>setIndexPrefix(e.target.value)}
-                    placeholder="logs-aws" style={inputStyle}/>
+                  <input
+                    value={indexPrefix}
+                    onChange={e=>{ setIndexPrefix(e.target.value); setValidationErrors(prev=>({...prev, indexPrefix: ""})); }}
+                    onBlur={()=> setValidationErrors(prev=>({...prev, indexPrefix: validateIndexPrefix(indexPrefix).valid ? "" : (validateIndexPrefix(indexPrefix).message ?? "") }))}
+                    placeholder="logs-aws"
+                    className={`${styles.input} ${validationErrors.indexPrefix ? styles.inputError : ""}`}
+                  />
+                  {validationErrors.indexPrefix && <div className={styles.validationError}>{validationErrors.indexPrefix}</div>}
                   <div style={{fontSize:11,color:K.textSubdued,marginTop:5}}>
                     e.g. <span style={{color:K.primaryText}}>{indexPrefix}-lambda</span>, <span style={{color:K.primaryText}}>{indexPrefix}-guardduty</span>…
                   </div>
@@ -453,23 +489,22 @@ export default function App() {
                     }[ingestionSource]}
                   </div>
                 </Field>
-                <button onClick={clearSavedConfig} style={{fontSize:11,padding:"5px 10px",borderRadius:K.radiusSm,border:`1px solid ${K.borderPlain}`,background:K.subdued,color:K.textSubdued,cursor:"pointer",fontFamily:"inherit",alignSelf:"flex-start"}}>
+                <button type="button" onClick={clearSavedConfig} className={styles.clearConfigBtn}>
                   Clear saved config
                 </button>
               </div>
             </Card>
 
-            <div style={{display:"flex",gap:8}}>
-              <button onClick={generatePreview} style={{...btnSecondary,flex:"0 0 auto"}}>Preview doc</button>
+            <div className={styles.actionsRow}>
+              <button type="button" onClick={generatePreview} style={{ flex: "0 0 auto" }} className={styles.btnSecondary}>Preview doc</button>
               {status==="running"
-                ? <button onClick={()=>{abortRef.current=true;}} style={{...btnDanger,flex:1}}>Stop shipping</button>
-                : <button onClick={ship} disabled={!totalSelected||!elasticUrl||!apiKey} style={{...btnPrimary,flex:1,opacity:(totalSelected&&elasticUrl&&apiKey)?1:0.5,cursor:(totalSelected&&elasticUrl&&apiKey)?"pointer":"not-allowed"}}>
+                ? <button type="button" onClick={()=>{abortRef.current=true;}} style={{ flex: 1 }} className={styles.btnDanger}>Stop shipping</button>
+                : <button type="button" onClick={ship} disabled={!totalSelected||!elasticUrl||!apiKey||!!(validationErrors.elasticUrl||validationErrors.apiKey||validationErrors.indexPrefix)} style={{ flex: 1, opacity: (totalSelected&&elasticUrl&&apiKey&&!(validationErrors.elasticUrl||validationErrors.apiKey||validationErrors.indexPrefix)) ? 1 : 0.5, cursor: (totalSelected&&elasticUrl&&apiKey&&!(validationErrors.elasticUrl||validationErrors.apiKey||validationErrors.indexPrefix)) ? "pointer" : "not-allowed" }} className={styles.btnPrimary}>
                     ⚡ Ship {totalSelected>0?`${(totalSelected*logsPerService).toLocaleString()} ${eventType==="metrics"?"metrics":"logs"}`:(eventType==="metrics"?"metrics":"logs")}
                   </button>}
             </div>
-            {/* Cost estimation */}
             {totalSelected > 0 && (
-              <div style={{fontSize:12,color:K.textMuted,textAlign:"center",marginTop:-6}}>
+              <div className={styles.costEstimate}>
                 ~{estimatedDocs.toLocaleString()} documents across {totalSelected} service{totalSelected!==1?"s":""} ({estimatedBatches} batch{estimatedBatches!==1?"es":""})
               </div>
             )}
@@ -491,13 +526,13 @@ export default function App() {
             {preview&&(
               <Card>
                 <CardHeader label="Sample Document"/>
-                <pre style={{fontSize:10,background:K.subdued,border:`1px solid ${K.border}`,borderRadius:K.radiusSm,padding:12,overflowX:"auto",color:K.textSubdued,maxHeight:220,overflowY:"auto",lineHeight:1.6,fontFamily:"'JetBrains Mono','Fira Code',monospace"}}>{preview}</pre>
+                <pre className={styles.previewPre}>{preview}</pre>
               </Card>
             )}
 
             <Card>
               <CardHeader label="Activity Log"/>
-              <div style={{background:K.subdued,border:`1px solid ${K.border}`,borderRadius:K.radiusSm,padding:"10px 12px",minHeight:72,maxHeight:240,overflowY:"auto",fontFamily:"'JetBrains Mono','Fira Code',monospace",fontSize:10,lineHeight:1.9}}>
+              <div className={styles.logBox}>
                 {log.length===0
                   ? <span style={{color:K.textSubdued,fontStyle:"italic"}}>Waiting for activity…</span>
                   : log.map((e,i)=>(
@@ -530,8 +565,4 @@ export default function App() {
   );
 }
 
-// ─── Shared styles ────────────────────────────────────────────────────────────
-const inputStyle = {width:"100%",background:K.controlBg,border:`1px solid ${K.borderPlain}`,borderRadius:K.radiusSm,padding:"8px 12px",color:K.text,fontSize:13,fontFamily:"inherit",transition:"border-color 0.15s,box-shadow 0.15s"};
-const btnPrimary   = {padding:"10px 20px",borderRadius:K.radiusSm,fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:"inherit",border:"none",background:K.primary,color:"#fff"};
-const btnSecondary = {padding:"10px 16px",borderRadius:K.radiusSm,fontSize:13,fontWeight:500,cursor:"pointer",fontFamily:"inherit",background:K.subdued,border:`1px solid ${K.borderPlain}`,color:K.textSubdued};
-const btnDanger    = {padding:"10px 20px",borderRadius:K.radiusSm,fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:"inherit",border:`1px solid ${K.dangerBorder}`,background:K.dangerBg,color:K.danger};
+// Inline styles still used where dynamic (e.g. group.color, K.*) — see App.module.css for shared classes

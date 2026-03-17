@@ -1,8 +1,22 @@
 # ⚡ AWS → Elastic Load Generator
 
-**v7.2** — A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **136 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
+**v7.3** — A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **136 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
 
 Each service has its **correct real-world ingestion source** pre-configured — S3, CloudWatch, direct API, Firehose, **OTel** (OpenTelemetry), or **Elastic Agent** — matching how each service actually delivers data to Elastic in production. You can leave **Default (per-service)** or override all services to a single ingestion method (e.g. OTel) for testing. Switch between **Logs** and **Metrics** mode; only the 44 services with Elastic metrics support are selectable in Metrics mode.
+
+---
+
+## What's New in v7.3
+
+- **Input validation** — Elasticsearch URL, API key, and index prefix are validated on blur and before Ship. Invalid fields show inline errors and disable the Ship button until fixed. URL must be HTTPS with a proper hostname; API key has minimum length and character rules; index prefix allows only letters, numbers, hyphens, and underscores.
+- **React error boundary** — The app is wrapped in an error boundary that catches rendering errors and shows a fallback UI with a "Try again" action instead of a blank screen.
+- **Proxy timeout and retries** — The Node.js bulk proxy (`proxy.js`) uses a configurable request timeout (default 120s via `PROXY_REQUEST_TIMEOUT_MS`) and retries with exponential backoff (up to 3 retries) on 5xx, timeouts, and connection errors.
+- **Configurable batch delay** — A **Batch delay (ms)** slider (0–2000 ms) in Volume & Settings controls the pause between bulk requests. Persisted with saved config. Reduces load on Elastic when shipping large volumes.
+- **Unit tests (Vitest)** — Smoke tests with Vitest and jsdom: helpers (`stripNulls`, `rand`, `randInt`, etc.), validation (URL, API key, index prefix), and generator shape (Lambda, API Gateway). Run with `npm run test`; watch mode with `npm run test:watch`.
+- **CSS modules** — Main layout and shared controls (root, header, main, inputs, buttons, log box, preview) use `App.module.css` instead of inline styles. Dynamic values (e.g. group colors) remain inline where needed.
+- **JSDoc on generators** — Generator modules and key functions (e.g. `serverless.js`, `storage.js`, `generators/index.js`) include JSDoc (`@module`, `@param`, `@returns`) for better editor support and documentation.
+
+Older release notes: [Version What's New Archive](#version-whats-new-archive).
 
 ---
 
@@ -12,8 +26,6 @@ Each service has its **correct real-world ingestion source** pre-configured — 
 - **Cost estimation** — A doc count estimate now appears below the Ship button when services are selected: `~{N} documents across {X} services ({B} batches)`. Helps confirm volume before shipping.
 - **Save / restore config** — Connection settings, volume sliders, and ingestion preferences are now persisted to `localStorage` and restored on next visit. A **Clear saved config** button resets to defaults.
 - **Module split** — The codebase has been refactored from a monolithic `App.jsx` (~5000 lines) into focused ES modules: `src/helpers/`, `src/theme/`, `src/data/`, `src/generators/` (14 category files), and `src/components/`. `App.jsx` now contains only React state, logic, and JSX.
-
-Older release notes: [Version What's New Archive](#version-whats-new-archive).
 
 ---
 

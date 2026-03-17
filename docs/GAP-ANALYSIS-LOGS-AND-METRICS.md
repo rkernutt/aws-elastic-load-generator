@@ -31,7 +31,7 @@ From Elastic’s reference table, the following services have **Metrics** and/or
 | Kinesis | ✓ | — | ✓ | ✓ |
 | Network Firewall | ✓ | ✓ | ✓ | ✓ |
 | Lambda | ✓ | — | ✓ | ✓ |
-| NAT Gateway | ✓ | — | **No** | **No** |
+| NAT Gateway | ✓ | — | ✓ | ✓ |
 | Redshift | ✓ | — | ✓ | ✓ |
 | RDS | ✓ | — | ✓ | ✓ |
 | Route 53 | — | ✓ | ✓ | — |
@@ -46,12 +46,12 @@ From Elastic’s reference table, the following services have **Metrics** and/or
 | WAF | — | ✓ | ✓ | ✓ |
 | Custom | — | ✓ | (any) | — |
 
-**Gaps vs Elastic list:** NAT Gateway is **not** implemented as a separate service. S3 Storage Lens **is** implemented (logs + metrics).
+**Gaps vs Elastic list:** NAT Gateway and S3 Storage Lens **are** implemented as separate services (logs + metrics).
 
 ### 1.2 App state (high level)
 
-- **Logs:** 135 services; each generator returns one document shape (single “log event” style).
-- **Metrics:** 43 services support metrics mode (`METRICS_SUPPORTED_SERVICE_IDS`); documents include `data_stream.type: "metrics"`, `metricset`, and `aws.<service>.metrics` (or equivalent).
+- **Logs:** 136 services; each generator returns one document shape (single “log event” style).
+- **Metrics:** 44 services support metrics mode (`METRICS_SUPPORTED_SERVICE_IDS`); documents include `data_stream.type: "metrics"`, `metricset`, and `aws.<service>.metrics` (or equivalent).
 - **Structured `message`:** Many services probabilistically emit JSON in `message` (see [ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md](../ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md)); not all do.
 - **`event.duration`:** Present for most but not every service; required for latency analysis and ML.
 
@@ -75,7 +75,7 @@ From Elastic’s reference table, the following services have **Metrics** and/or
 | Gap | Description | Elastic / AWS reference | Priority |
 |-----|-------------|-------------------------|----------|
 | **Metric names and dimensions** | Some generators use slightly different names or nesting than CloudWatch/Elastic. Exact CloudWatch metric names and dimensions improve drop-in compatibility with Elastic’s AWS metrics dashboards. | [Metricbeat AWS fields](https://www.elastic.co/docs/reference/beats/metricbeat/exported-fields-aws); CloudWatch metrics per service | High |
-| **NAT Gateway** | No NAT Gateway service in the app; Elastic supports NAT Gateway metrics. | Elastic reference table | Medium |
+| **NAT Gateway** | ~~No NAT Gateway service~~ **Addressed:** NAT Gateway service added (logs + metrics). | Elastic reference table | Done |
 | **S3 Storage Lens** | ~~No S3 Storage Lens service~~ **Addressed:** S3 Storage Lens service added (metrics + log-style events). | Elastic reference table | Done |
 | **Multi-dimensional metrics** | Real CloudWatch metrics are often split by dimension (e.g. InstanceId, TableName). We often emit one aggregate; adding dimension breakdowns would better match real data. | CloudWatch dimensions; Elastic dashboards | Medium |
 
@@ -95,8 +95,8 @@ From Elastic’s reference table, the following services have **Metrics** and/or
 
 | Service | Logs gap | Metrics gap | Messages / details gap |
 |---------|----------|------------|-------------------------|
-| **Lambda** | Emit distinct START / REPORT / END (and optionally extension) message types; add `Init Duration`, `Billed Duration`, `Memory Size`, `Max Memory Used` in REPORT; cold-start variant. | Align metric names with CloudWatch (Invocations, Errors, Throttles, Duration, ConcurrentExecutions); optional IteratorAge for stream-based. | requestId in every message; optional X-Ray trace ID; runtime and log stream. |
-| **API Gateway** | Access log format (requestId, ip, caller, method, path, status, latency); optional execution/integration latency breakdown. | Already strong; ensure dimensions (ApiId, ApiName, Stage). | More HTTP details (query string, response length). |
+| **Lambda** | Emit distinct START / REPORT / END (and optionally extension) message types; add `Init Duration`, `Billed Duration`, `Memory Size`, `Max Memory Used` in REPORT; cold-start variant. | Align metric names with CloudWatch (Invocations, Errors, Throttles, Duration, ConcurrentExecutions); optional IteratorAge for stream-based. | requestId in every message; **X-Ray trace ID (done:** `trace.id`, `aws.lambda.trace_id`); runtime and log stream. |
+| **API Gateway** | Access log format (requestId, ip, caller, method, path, status, latency); optional execution/integration latency breakdown. | Already strong; ensure dimensions (ApiId, ApiName, Stage). | **Trace ID (done:** `trace.id`, `aws.apigateway.trace_id`); more HTTP details (query string, response length). |
 | **VPC Flow** | Strict field set per [VPC Flow Logs format](https://docs.aws.amazon.com/vpc/latest/userguide/flow-log-records.html); pkt-srcaddr/pkt-dstaddr for NAT if needed. | N/A (logs only in Elastic). | — |
 | **CloudTrail** | Full record: eventVersion, userIdentity, eventTime, eventSource, eventName, requestParameters, responseElements, sourceIPAddress, userAgent, errorCode, errorMessage. | N/A. | Management vs data vs insight events; readOnly. |
 | **RDS** | Add RDSOSMetrics-style log (Enhanced Monitoring) with engine, instanceID, CPU, disk, memory; error log line type. | Align with CloudWatch RDS metrics (CPUUtilization, DatabaseConnections, ReadIOPS, WriteIOPS, ReadLatency, WriteLatency, FreeableMemory, etc.). | Postgres/MySQL error log message formats. |
@@ -122,7 +122,7 @@ From Elastic’s reference table, the following services have **Metrics** and/or
 | **CloudFront** | Standard access log fields (x-edge-location, sc-bytes, time-taken, cs-method, etc.). | DistributionId, Region; ErrorRate, BytesDownloaded, Requests. | — |
 | **WAF / WAF v2** | Rule group and rule ID; action (ALLOW, BLOCK, COUNT); request snippet. | Rule/WebACL dimensions if used by Elastic. | — |
 | **Route 53** | Query type, query name, resolver endpoint; response code. | N/A (logs in Elastic). | — |
-| **NAT Gateway** | Not in app. | Not in app; add for Elastic parity (BytesInToDestination, BytesOutFromSource, PacketsInToDestination, PacketsOutFromSource). | — |
+| **NAT Gateway** | Implemented. | Implemented; BytesInToDestination, BytesOutFromSource, PacketsInToDestination, PacketsOutFromSource, connection/port errors. | — |
 
 ### 3.4 Security & Compliance
 
@@ -137,7 +137,7 @@ From Elastic’s reference table, the following services have **Metrics** and/or
 
 | Service | Logs gap | Metrics gap | Messages / details gap |
 |---------|----------|------------|-------------------------|
-| **S3** | Access log (key, bucket, operation, referer, bytes); optional JSON in `message` (bucket, key, operation, http_status, request_id, bytes_sent, total_time_ms, timestamp). S3 Storage Lens implemented as separate service. | Bucket, FilterId; NumberOfObjects, BucketSizeBytes. | — |
+| **S3** | Access log (key, bucket, operation, referer, bytes); **optional JSON in `message` (done:** bucket, key, operation, http_status, request_id, bytes_sent, total_time_ms, timestamp). S3 Storage Lens implemented as separate service. | Bucket, FilterId; NumberOfObjects, BucketSizeBytes. | — |
 | **DynamoDB** | Stream record (eventName, Keys, NewImage); conditional check failure. | TableName, Operation; UserErrors, SystemErrors, ThrottledRequests; ConsumedReadCapacityUnits, ConsumedWriteCapacityUnits. | — |
 | **ElastiCache** | Engine-specific (Redis) command and key; replication lag. | CacheClusterId, CacheNodeId; CurrConnections, CacheHits, CacheMisses, ReplicationLag. | — |
 | **Redshift** | Query log (query_id, duration, rows); connection log. | ClusterIdentifier; CPUUtilization, PercentageDiskSpaceUsed, ReadLatency, WriteLatency. | — |
@@ -190,11 +190,11 @@ From Elastic’s reference table, the following services have **Metrics** and/or
 1. **High (Elastic + realism)**  
    - Lambda: START/REPORT/END and REPORT fields (Billed Duration, Max Memory Used, Init Duration).  
    - CloudTrail: Full record shape and eventSource.  
-   - Metrics: Align all 42 metrics-supported services with CloudWatch/Metricbeat field names and dimensions.
+   - Metrics: Align all 44 metrics-supported services with CloudWatch/Metricbeat field names and dimensions.
 
 2. **Medium (completeness)**  
    - RDS: RDSOSMetrics-style Enhanced Monitoring log.  
-   - NAT Gateway: New service (logs + metrics).  
+   - NAT Gateway: ~~New service~~ Implemented (logs + metrics).  
    - Consistent `log.group` / `log.file.path` and `event.duration` for every service.
 
 3. **Lower (nice-to-have)**  

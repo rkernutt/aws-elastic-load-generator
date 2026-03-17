@@ -1,5 +1,17 @@
+/**
+ * Storage AWS log generators (S3, S3 Storage Lens, EBS, EFS, FSx, DataSync, Backup, Storage Gateway).
+ * Each generator returns a single ECS-shaped document for the given timestamp and error rate.
+ * @module generators/storage
+ */
+
 import { rand, randInt, randFloat, randId, randIp, randUUID, randAccount, REGIONS, ACCOUNTS, USER_AGENTS, HTTP_METHODS, HTTP_PATHS, PROTOCOLS } from "../helpers/index.js";
 
+/**
+ * Generates a synthetic S3 server access log event (bucket, key, operation, optional JSON message).
+ * @param {string} ts - ISO timestamp for @timestamp.
+ * @param {number} er - Error rate in [0,1]; influences http_status and error block.
+ * @returns {Object} ECS-style document with cloud, aws.s3access, aws.s3, http, event, message.
+ */
 function generateS3Log(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const isErr = Math.random() < er;
@@ -28,7 +40,7 @@ function generateS3Log(ts, er) {
         key: op.includes("BUCKET") ? "-" : key,
         request_uri: `/${bucketName}/${key}`,
         http_status: status,
-        error_code: isErr ? rand(["NoSuchKey","AccessDenied","InternalError"]) : "-",
+        error_code: isErr ? rand(["NoSuchKey","AccessDenied","InvalidRequest","InternalError","SlowDown"]) : "-",
         bytes_sent: bytesSent,
         object_size: op.includes("GET") ? randInt(1024, 1073741824) : "-",
         total_time: totalTime,
@@ -46,7 +58,7 @@ function generateS3Log(ts, er) {
         object: { key, size:randInt(1024,1073741824), etag:randId(32).toLowerCase() },
         operation: op,
         request_id: requestId,
-        error_code: isErr?rand(["NoSuchKey","AccessDenied","InternalError"]):null,
+        error_code: isErr?rand(["NoSuchKey","AccessDenied","InvalidRequest","InternalError","SlowDown"]):null,
         metrics: {
           NumberOfObjects: { avg: randInt(1000, 10000000) },
           BucketSizeBytes: { avg: randInt(1e9, 1e12) },
@@ -67,12 +79,18 @@ function generateS3Log(ts, er) {
     "client": { ip:remoteIp },
     "user_agent": { original:rand(USER_AGENTS) },
     "event": { outcome:isErr?"failure":"success", category:"file", dataset:"aws.s3", provider:"s3.amazonaws.com" },
-    "message": `${op} s3://${bucketName}/${key} ${status}`,
+    "message": Math.random() < 0.5 ? JSON.stringify({ bucket: bucketName, key: op.includes("BUCKET") ? null : key, operation: op, http_status: status, request_id: requestId, bytes_sent: bytesSent, total_time_ms: totalTime, timestamp: new Date(ts).toISOString() }) : `${op} s3://${bucketName}/${key} ${status}`,
     "log": { level:isErr?"warn":"info" },
-    ...(isErr ? { error: { code: rand(["NoSuchKey","AccessDenied","InternalError"]), message: `S3 ${op} failed: ${status}`, type: "storage" } } : {})
+    ...(isErr ? { error: { code: rand(["NoSuchKey","AccessDenied","InvalidRequest","InternalError","SlowDown"]), message: `S3 ${op} failed: ${status}`, type: "storage" } } : {})
   };
 }
 
+/**
+ * Generates a synthetic EBS log event (performance, state change, snapshot, or modification).
+ * @param {string} ts - ISO timestamp for @timestamp.
+ * @param {number} er - Error rate in [0,1].
+ * @returns {Object} ECS-style document with cloud, aws.ebs, event, message.
+ */
 function generateEbsLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const az = `${region}${rand(["a","b","c"])}`;
@@ -293,6 +311,12 @@ function generateStorageGatewayLog(ts, er) {
     ...(isErr ? { error: { code: "GatewayError", message: rand(MSGS.error), type: "storage" } } : {})};
 }
 
+/**
+ * Generates a synthetic S3 Storage Lens metrics/report event (config, bucket counts, storage totals).
+ * @param {string} ts - ISO timestamp for @timestamp.
+ * @param {number} er - Error rate in [0,1]; influences outcome and message.
+ * @returns {Object} ECS-style document with cloud, aws.s3storagelens, event, message.
+ */
 function generateS3StorageLensLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const isErr = Math.random() < er;

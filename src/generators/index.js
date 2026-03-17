@@ -1,3 +1,10 @@
+/**
+ * Central registry of all AWS service log generators.
+ * Each key is a service id (e.g. "lambda", "s3"); each value is a function (ts, er) => doc.
+ * Used by the UI and by scripts/export-samples.mjs.
+ * @module generators/index
+ */
+
 import { generateLambdaLog, generateApiGatewayLog, generateAppSyncLog, generateAppRunnerLog, generateFargateLog } from "./serverless.js";
 import { generateEc2Log, generateEcsLog, generateEksLog, generateBatchLog, generateBeanstalkLog, generateEcrLog, generateAutoScalingLog, generateImageBuilderLog } from "./compute.js";
 import { generateAlbLog, generateNlbLog, generateCloudFrontLog, generateWafLog, generateWafv2Log, generateRoute53Log, generateNetworkFirewallLog, generateShieldLog, generateGlobalAcceleratorLog, generateTransitGatewayLog, generateDirectConnectLog, generateVpnLog, generatePrivateLinkLog, generateNetworkManagerLog, generateNatGatewayLog, generateVpcFlowLog } from "./networking.js";
@@ -166,4 +173,8 @@ const GENERATORS = {
   wafv2: generateWafv2Log,
 };
 
+/**
+ * Map of service id → generator function.
+ * @type {Record<string, (ts: string, er: number) => Object>}
+ */
 export { GENERATORS };
