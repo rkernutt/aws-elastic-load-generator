@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "translate"
@@ -13,28 +13,22 @@
   },
   "aws": {
     "translate": {
-      "source_language_code": "fr",
+      "source_language_code": "ja",
       "target_language_code": "pt",
-      "characters_translated": 65,
-      "formality": "FORMAL",
-      "duration_ms": 2117,
-      "error_code": "DetectedLanguageLowConfidenceException"
+      "characters_translated": 30813,
+      "formality": "INFORMAL",
+      "duration_ms": 104
     }
   },
   "event": {
-    "duration": 2117446000,
-    "outcome": "failure",
+    "duration": 103656000,
+    "outcome": "success",
     "category": "machine_learning",
     "dataset": "aws.translate",
     "provider": "translate.amazonaws.com"
   },
-  "message": "Translate FAILED (fr->pt): Low confidence",
-  "error": {
-    "code": "TranslateError",
-    "message": "Translate failed",
-    "type": "ml"
-  },
+  "message": "Translate ja->pt: 30,813 chars in 104ms",
   "log": {
-    "level": "error"
+    "level": "info"
   }
 }

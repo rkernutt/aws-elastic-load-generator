@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "athena"
@@ -13,50 +13,50 @@
   },
   "aws": {
     "athena": {
-      "query_id": "qm1a5kbh-6pf3-oizc-qdax",
-      "workgroup": "bi-users",
-      "database": "analytics",
+      "query_id": "56tyy34e-kzp6-4ul9-lqaf",
+      "workgroup": "primary",
+      "database": "raw",
       "state": "SUCCEEDED",
-      "duration_seconds": 26.329,
-      "data_scanned_bytes": 314568601,
-      "data_scanned_mb": 300,
-      "engine_version": "DuckDB 0.9.1",
-      "structured_logging": true,
+      "duration_seconds": 5.19,
+      "data_scanned_bytes": 620719747,
+      "data_scanned_mb": 592,
+      "engine_version": "Athena engine version 3",
+      "structured_logging": false,
       "metrics": {
         "DataScannedInBytes": {
-          "sum": 314568601
+          "sum": 620719747
         },
         "EngineExecutionTimeInMillis": {
-          "avg": 26329,
-          "max": 39494
+          "avg": 5190,
+          "max": 7785
         },
         "ProcessedBytes": {
-          "sum": 314568601
+          "sum": 620719747
         },
         "QueryQueueTimeInMillis": {
-          "avg": 256
+          "avg": 218
         },
         "TotalExecutionTimeInMillis": {
-          "avg": 26329
+          "avg": 5190
         },
         "QueryPlanningTimeInMillis": {
-          "avg": 145
+          "avg": 72
         }
       }
     }
   },
   "db": {
-    "statement": "CREATE TABLE analytics.daily_summary AS SELECT * FROM raw.events",
+    "statement": "SELECT user_id, sum(revenue) FROM transactions WHERE dt >= '2024-01-01' GROUP BY 1",
     "type": "sql"
   },
   "event": {
-    "duration": 26329000000,
+    "duration": 5190000000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.athena",
     "provider": "athena.amazonaws.com"
   },
-  "message": "{\"queryId\":\"qm1a5kbh-6pf3-oizc-qdax\",\"workgroup\":\"bi-users\",\"database\":\"analytics\",\"state\":\"SUCCEEDED\",\"durationSeconds\":26.329,\"dataScannedBytes\":314568601,\"timestamp\":\"2026-03-17T10:07:40.656Z\"}",
+  "message": "Query started",
   "log": {
     "level": "info"
   }

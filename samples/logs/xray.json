@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "xray"
@@ -17,56 +17,56 @@
       "ServiceType": "AWS::Lambda::Function"
     },
     "xray": {
-      "trace_id": "1-69b927ec-ngm5u7cize",
-      "segment_id": "yq5zp8ffmz",
-      "parent_id": "znd5o0zkyy",
+      "trace_id": "1-69b93519-yn5i23zm1",
+      "segment_id": "qeutkicrzpb",
+      "parent_id": "y6z9i8oz1o",
       "service": {
-        "name": "web-frontend",
-        "type": "client"
+        "name": "db-proxy",
+        "type": "AWS::EC2::Instance"
       },
-      "duration": 2.369,
+      "duration": 0.039,
       "http": {
         "request": {
           "method": "POST",
-          "url": "/api/v1/users"
+          "url": "/health"
         },
         "response": {
-          "status": 201
+          "status": 200
         }
       },
       "fault": false,
       "annotations": {
         "env": "prod",
-        "version": "v3"
+        "version": "v17"
       },
       "metrics": {
         "ErrorRate": {
-          "avg": 0.868
+          "avg": 0.233
         },
         "FaultRate": {
-          "avg": 0.237
+          "avg": 0.223
         },
         "ThrottleRate": {
-          "avg": 0.272
+          "avg": 1.778
         },
         "TotalCount": {
-          "sum": 4660
+          "sum": 9268
         },
         "Latency": {
-          "avg": 2369,
-          "p99": 7107.000000000001
+          "avg": 39,
+          "p99": 117
         }
       }
     }
   },
   "event": {
-    "duration": 2369000000,
+    "duration": 39000000,
     "outcome": "success",
     "category": "network",
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray trace: web-frontend 2.369s",
+  "message": "X-Ray trace: db-proxy 0.039s",
   "log": {
     "level": "info"
   }

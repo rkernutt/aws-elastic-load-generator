@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "kinesis"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "StreamName": "audit-trail",
-      "ShardId": "shardId-000000000000"
+      "StreamName": "user-events",
+      "ShardId": "shardId-000000000012"
     },
     "kinesis": {
-      "stream_name": "audit-trail",
-      "shard_id": "shardId-000000000015",
-      "sequence_number": "1DT47FLMR59",
-      "partition_key": "32n2b9i0",
-      "incoming_records": 7425,
-      "incoming_bytes": 57290,
-      "iterator_age_ms": 967,
+      "stream_name": "user-events",
+      "shard_id": "shardId-000000000006",
+      "sequence_number": "KXMHN2XBQZQ",
+      "partition_key": "36qmap2c",
+      "incoming_records": 1441,
+      "incoming_bytes": 326329,
+      "iterator_age_ms": 493,
       "write_provisioned_throughput_exceeded": false,
       "metrics": {
         "IncomingRecords": {
-          "sum": 447
+          "sum": 7957
         },
         "IncomingBytes": {
-          "sum": 1739430
+          "sum": 6375782
         },
         "OutgoingRecords": {
-          "sum": 1378
+          "sum": 6363
         },
         "OutgoingBytes": {
-          "sum": 7673571
+          "sum": 2897910
         },
         "WriteProvisionedThroughputExceeded": {
           "sum": 0
@@ -45,16 +45,16 @@
           "sum": 0
         },
         "IteratorAgeMilliseconds": {
-          "avg": 429
+          "avg": 743
         },
         "GetRecords_IteratorAgeMilliseconds": {
-          "avg": 102
+          "avg": 258
         },
         "PutRecord_Success": {
-          "sum": 726
+          "sum": 9816
         },
         "PutRecords_Success": {
-          "sum": 4738
+          "sum": 3688
         }
       }
     }
@@ -64,9 +64,9 @@
     "category": "process",
     "dataset": "aws.kinesis",
     "provider": "kinesis.amazonaws.com",
-    "duration": 3149000000
+    "duration": 243000000
   },
-  "message": "Kinesis audit-trail: 9165 records ingested",
+  "message": "Kinesis user-events: 8327 records ingested",
   "log": {
     "level": "info"
   },

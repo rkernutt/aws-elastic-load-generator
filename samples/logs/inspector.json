@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,21 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ResourceType": "AWS_EC2_INSTANCE"
+      "ResourceType": "AWS_ECR_CONTAINER_IMAGE"
     },
     "inspector": {
-      "finding_id": "arn:aws:inspector2:us-east-1:738291046572:finding/6IKPMPFR-JSA5",
-      "finding_type": "NONE",
-      "severity": "INFORMATIONAL",
-      "inspector_score": 0,
+      "finding_id": "arn:aws:inspector2:us-east-1:738291046572:finding/TLZ2RK07-NBNR",
+      "finding_type": "CODE_VULNERABILITY",
+      "severity": "MEDIUM",
+      "inspector_score": 7.242,
       "vulnerable_package": {
-        "name": "glibc",
-        "version": "5.18.0"
+        "name": "libssl",
+        "version": "4.19.10"
       },
+      "cve_id": "CVE-2024-3094",
       "resource_type": "AWS_ECR_CONTAINER_IMAGE",
       "metrics": {
         "TotalFindings": {
-          "sum": 0
+          "sum": 16
         },
         "CriticalFindings": {
           "sum": 0
@@ -39,17 +40,23 @@
     }
   },
   "vulnerability": {
-    "severity": "INFORMATIONAL"
+    "id": "CVE-2024-3094",
+    "severity": "MEDIUM"
   },
   "event": {
     "kind": "alert",
-    "outcome": "success",
+    "outcome": "failure",
     "category": "vulnerability",
     "dataset": "aws.inspector",
     "provider": "inspector2.amazonaws.com"
   },
-  "message": "Inspector scan: no vulnerabilities found",
+  "message": "Inspector [MEDIUM]: CVE-2023-44487 found in glibc",
   "log": {
     "level": "info"
+  },
+  "error": {
+    "code": "VulnerabilityFound",
+    "message": "CVE found: CVE-2022-3602",
+    "type": "vulnerability"
   }
 }

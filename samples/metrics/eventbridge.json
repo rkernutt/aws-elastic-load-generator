@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "events"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "EventBusName": "custom-events",
-      "RuleName": "security-event-forwarder"
+      "EventBusName": "app-events",
+      "RuleName": "scheduled-cleanup"
     },
     "eventbridge": {
-      "event_bus": "custom-events",
-      "rule": "security-event-forwarder",
+      "event_bus": "app-events",
+      "rule": "scheduled-cleanup",
       "source": "aws.health",
-      "detail_type": "EC2 Instance State-change Notification",
-      "targets_invoked": 5,
+      "detail_type": "Order Placed",
+      "targets_invoked": 4,
       "targets_failed": 0,
-      "event_id": "4dyzyyls-vhhf-l5o6-gxdd-m9o7bc9oukr",
-      "structured_logging": true,
+      "event_id": "1gk4n8ba-054h-r7ra-intk-p1g89p3ufxs",
+      "structured_logging": false,
       "metrics": {
         "Invocations": {
-          "sum": 7271
+          "sum": 5857
         },
         "FailedInvocations": {
           "sum": 0
         },
         "TriggeredRules": {
-          "sum": 462
+          "sum": 495
         },
         "MatchedEvents": {
-          "sum": 5799
+          "sum": 4404
         },
         "ThrottledRules": {
           "sum": 0
@@ -52,9 +52,9 @@
     "category": "process",
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 108000000
+    "duration": 164000000
   },
-  "message": "{\"id\":\"4dyzyyls-vhhf-l5o6-gxdd-m9o7bc9oukr\",\"source\":\"aws.health\",\"detailType\":\"EC2 Instance State-change Notification\",\"rule\":\"security-event-forwarder\",\"eventBus\":\"custom-events\",\"message\":\"EventBridge event routed: aws.health -> security-event-forwarder\",\"timestamp\":\"2026-03-17T10:07:40.656Z\"}",
+  "message": "EventBridge event routed: aws.health -> scheduled-cleanup",
   "log": {
     "level": "info"
   },

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "servicecatalog"
@@ -13,27 +13,28 @@
   },
   "aws": {
     "servicecatalog": {
-      "operation": "UpdateProvisionedProduct",
-      "product_name": "Data Pipeline",
-      "product_id": "prod-J73VDUIUQBM",
-      "portfolio_id": "port-YRP3UYJI2LL",
-      "provisioned_product_name": "data-pipeline-tukno3",
-      "record_id": "rec-Q7EVXMGGNT",
+      "operation": "ProvisionProduct",
+      "product_name": "EKS Cluster",
+      "product_id": "prod-H42XDIJ3W2T",
+      "portfolio_id": "port-XLFJ0KLB8D",
+      "provisioned_product_name": "eks-cluster-492qnv",
+      "record_id": "rec-QEMY8DDOR2C",
       "status": "SUCCEEDED",
-      "requester_arn": "arn:aws:iam::501938274650:user/sre-carol"
+      "requester_arn": "arn:aws:iam::293847561023:user/team-lead-bob",
+      "launch_role": "arn:aws:iam::123456789:role/ServiceCatalogLaunchRole"
     }
   },
   "user": {
-    "name": "sre-carol"
+    "name": "team-lead-bob"
   },
   "event": {
-    "action": "UpdateProvisionedProduct",
+    "action": "ProvisionProduct",
     "outcome": "success",
     "category": "process",
     "dataset": "aws.servicecatalog",
     "provider": "servicecatalog.amazonaws.com"
   },
-  "message": "ServiceCatalog UpdateProvisionedProduct: sre-carol → Data Pipeline [SUCCEEDED]",
+  "message": "ServiceCatalog ProvisionProduct: team-lead-bob → EKS Cluster [SUCCEEDED]",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "identitycenter"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "iam_identity_center": {
-      "event_type": "MFAChallenge",
-      "user_name": "carol@corp.com",
-      "application_name": "Jira",
-      "permission_set": "AdministratorAccess",
-      "account_id": "814726593401",
+      "event_type": "Authorize",
+      "user_name": "svc-account@corp.com",
+      "application_name": "Salesforce",
+      "permission_set": "BillingAccess",
+      "account_id": "293847561023",
       "mfa_authenticated": true
     }
   },
   "user": {
-    "name": "carol@corp.com"
+    "name": "svc-account@corp.com"
   },
   "source": {
-    "ip": "95.4.27.242"
+    "ip": "48.45.120.107"
   },
   "event": {
-    "action": "MFAChallenge",
+    "action": "Authorize",
     "outcome": "success",
     "category": "authentication",
     "dataset": "aws.identitycenter",
     "provider": "sso.amazonaws.com"
   },
-  "message": "IAM Identity Center MFAChallenge: carol@corp.com -> Jira",
+  "message": "IAM Identity Center Authorize: svc-account@corp.com -> Salesforce",
   "log": {
     "level": "info"
   }

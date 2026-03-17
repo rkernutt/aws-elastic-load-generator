@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "privatelink"
@@ -13,27 +13,22 @@
   },
   "aws": {
     "privatelink": {
-      "endpoint_id": "vpce-5qxsf9qo7n",
-      "service_name": "com.amazonaws.vpce.eu-west-2.execute-api",
+      "endpoint_id": "vpce-9bghatunzic",
+      "service_name": "com.amazonaws.vpce.us-east-1.ssm",
       "endpoint_type": "GatewayLoadBalancer",
-      "vpc_id": "vpc-rv9y5y26",
-      "state": "rejected",
-      "private_dns_enabled": true
+      "vpc_id": "vpc-50f112ov",
+      "state": "available",
+      "private_dns_enabled": false
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "network",
     "dataset": "aws.privatelink",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "PrivateLink endpoint vpce-5qxsf9qo7n: rejected - Service unavailable",
+  "message": "PrivateLink endpoint vpce-9bghatunzic for com.amazonaws.vpce.us-east-1.ssm: available",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "rejected",
-    "message": "PrivateLink endpoint vpce-5qxsf9qo7n: rejected",
-    "type": "network"
+    "level": "info"
   }
 }

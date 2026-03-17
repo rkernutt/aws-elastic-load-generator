@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "transitgateway"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "transitgateway": {
-      "tgw_id": "tgw-sqrh9xnzo3",
-      "tgw_attachment_id": "tgw-attach-dxwzxye717k",
-      "resource_type": "direct-connect-gateway",
-      "src_vpc_id": "vpc-xcrrms5r",
-      "dst_vpc_id": "vpc-49piqwmz",
+      "tgw_id": "tgw-j2dnlowxah",
+      "tgw_attachment_id": "tgw-attach-a9mhxb2xyg",
+      "resource_type": "vpn",
+      "src_vpc_id": "vpc-l91h6nx3",
+      "dst_vpc_id": "vpc-qzw8xtb0",
       "action": "accept",
-      "bytes": 16695,
-      "packets": 66,
-      "protocol": "UDP"
+      "bytes": 40288,
+      "packets": 38,
+      "protocol": "ICMP"
     }
   },
   "source": {
-    "ip": "32.204.123.251",
-    "port": 23858
+    "ip": "156.29.196.53",
+    "port": 33462
   },
   "destination": {
-    "ip": "254.199.202.27",
-    "port": 443
+    "ip": "205.175.170.135",
+    "port": 5432
   },
   "network": {
-    "transport": "udp",
-    "bytes": 65058
+    "transport": "icmp",
+    "bytes": 34573
   },
   "event": {
     "action": "accept",
@@ -43,7 +43,7 @@
     "dataset": "aws.transitgateway",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "TGW tgw-sqrh9xnzo3 ACCEPT UDP flow",
+  "message": "TGW tgw-j2dnlowxah ACCEPT ICMP flow",
   "log": {
     "level": "info"
   }

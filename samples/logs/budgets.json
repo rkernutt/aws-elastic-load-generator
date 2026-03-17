@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "budgets"
@@ -13,32 +13,27 @@
   },
   "aws": {
     "budgets": {
-      "budget_name": "rds-cluster",
-      "budget_type": "RI_COVERAGE",
+      "budget_name": "dev-sandbox",
+      "budget_type": "USAGE",
       "time_period": "MONTHLY",
       "currency": "USD",
-      "budget_limit": 4956.48,
-      "actual_spend": 7127.42,
-      "forecasted_spend": 8196.53,
-      "threshold_exceeded": true,
-      "threshold_percentage": 90,
+      "budget_limit": 9488.85,
+      "actual_spend": 3235.7,
+      "forecasted_spend": 3721.05,
+      "threshold_exceeded": false,
+      "threshold_percentage": 60,
       "notification_type": "FORECASTED",
-      "subscribers": "finance@company.com"
+      "subscribers": "ops@company.com"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "process",
     "dataset": "aws.budgets",
     "provider": "budgets.amazonaws.com"
   },
-  "message": "Budget ALERT: rds-cluster exceeded 90% — 7127 of 4956",
+  "message": "Budget OK: dev-sandbox at 3236/9489 (34%)",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "BudgetExceeded",
-    "message": "Budget threshold exceeded",
-    "type": "billing"
+    "level": "info"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -14,25 +14,25 @@
   "aws": {
     "dimensions": {
       "ClusterIdentifier": "prod-dw-eu-west-2",
-      "NodeID": "Compute-0"
+      "NodeID": "Leader"
     },
     "redshift": {
       "cluster_id": "prod-dw-eu-west-2",
       "database": "analytics",
       "user": "dbt_runner",
-      "pid": 49719,
-      "query_id": 5835883,
-      "duration_seconds": 41.094,
-      "rows_returned": 2666515,
+      "pid": 87862,
+      "query_id": 4966886,
+      "duration_seconds": 14.957,
+      "rows_returned": 2601143,
       "metrics": {
         "CPUUtilization": {
-          "avg": 54.621
+          "avg": 33.646
         },
         "PercentageDiskSpaceUsed": {
-          "avg": 43.432
+          "avg": 43.142
         },
         "DatabaseConnections": {
-          "avg": 77
+          "avg": 26
         },
         "HealthStatus": {
           "avg": 1
@@ -41,25 +41,25 @@
           "avg": 0
         },
         "ReadIOPS": {
-          "avg": 4530
+          "avg": 7708
         },
         "WriteIOPS": {
-          "avg": 188
+          "avg": 1444
         },
         "ReadLatency": {
-          "avg": 0.057
+          "avg": 0.028
         },
         "WriteLatency": {
-          "avg": 0.063
+          "avg": 0.015
         },
         "NetworkReceiveThroughput": {
-          "avg": 73588702
+          "avg": 84958776
         },
         "NetworkTransmitThroughput": {
-          "avg": 26252993
+          "avg": 79696785
         },
         "QueriesCompletedPerSecond": {
-          "avg": 56.628
+          "avg": 99.227
         }
       }
     }
@@ -69,17 +69,17 @@
       "name": "dbt_runner"
     },
     "name": "analytics",
-    "statement": "SELECT COUNT(*) FROM fact_events WHERE event_date >= CURRENT_DATE - 7",
+    "statement": "VACUUM DELETE ONLY dim_products TO 95 PERCENT",
     "type": "sql"
   },
   "event": {
-    "duration": 41094000000,
+    "duration": 14957000000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.redshift",
     "provider": "redshift.amazonaws.com"
   },
-  "message": "Redshift query completed in 41.09s",
+  "message": "Redshift query completed in 14.96s",
   "log": {
     "level": "info"
   }

@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,24 +13,24 @@
   },
   "aws": {
     "autoscaling": {
-      "group_name": "spot-fleet",
-      "activity_id": "3z4i2zeh-jckw-w43p",
-      "action_type": "Terminate",
-      "instance_id": "i-2fo5nciz7ug",
+      "group_name": "api-asg",
+      "activity_id": "xa807gou-9j6q-3rfy",
+      "action_type": "HealthCheck",
+      "instance_id": "i-d4o6x68l938",
       "instance_type": "r5.large",
-      "desired_capacity": 2,
+      "desired_capacity": 16,
       "min_size": 2,
       "max_size": 50,
-      "current_capacity": 0,
-      "cause": "Spot interruption",
-      "status_code": "Failed",
-      "launch_template": "web-lt:5",
+      "current_capacity": 16,
+      "cause": "EC2 health check passed",
+      "status_code": "Successful",
+      "launch_template": "api-lt:3",
       "metrics": {
         "GroupDesiredCapacity": {
-          "avg": 2
+          "avg": 16
         },
         "GroupInServiceInstances": {
-          "avg": 0
+          "avg": 16
         },
         "GroupMinSize": {
           "avg": 2
@@ -39,28 +39,23 @@
           "avg": 50
         },
         "GroupPendingInstances": {
-          "avg": 1
+          "avg": 0
         },
         "GroupTerminatingInstances": {
-          "avg": 3
+          "avg": 0
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "host",
     "dataset": "aws.autoscaling",
     "provider": "autoscaling.amazonaws.com",
-    "duration": 375000000000
+    "duration": 584000000000
   },
-  "message": "AutoScaling spot-fleet: Terminate FAILED - No capacity",
+  "message": "AutoScaling api-asg: HealthCheck instance",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "LaunchTemplateError",
-    "message": "AutoScaling spot-fleet: Terminate FAILED - No capacity",
-    "type": "host"
+    "level": "info"
   }
 }

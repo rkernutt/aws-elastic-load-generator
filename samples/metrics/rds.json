@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "rds"
@@ -13,65 +13,65 @@
   },
   "aws": {
     "dimensions": {
-      "DBInstanceIdentifier": "prod-db-primary",
-      "DatabaseClass": "db.t3.medium",
+      "DBInstanceIdentifier": "prod-db-analytics",
+      "DatabaseClass": "db.r5.large",
       "EngineName": "mysql"
     },
     "rds": {
-      "instance_id": "prod-db-primary",
+      "instance_id": "prod-db-analytics",
       "engine": "mysql",
       "engine_version": "8.0.34",
-      "query_time": 1.98,
-      "enhanced_monitoring": true,
+      "query_time": 1.438,
+      "enhanced_monitoring": false,
       "metrics": {
         "CPUUtilization": {
-          "avg": 32.791
+          "avg": 7.611
         },
         "DatabaseConnections": {
-          "avg": 25
+          "avg": 26
         },
         "FreeStorageSpace": {
-          "avg": 97158917995
+          "avg": 85788709760
         },
         "ReadIOPS": {
-          "avg": 128
+          "avg": 1448
         },
         "WriteIOPS": {
-          "avg": 185
+          "avg": 1698
         },
         "ReadLatency": {
-          "avg": 0.002
+          "avg": 0.001
         },
         "WriteLatency": {
-          "avg": 0.005
+          "avg": 0.011
         },
         "FreeableMemory": {
-          "avg": 4599759775
+          "avg": 7224417264
         },
         "NetworkReceiveThroughput": {
-          "avg": 9517604
+          "avg": 2544307
         },
         "NetworkTransmitThroughput": {
-          "avg": 1944179
+          "avg": 3280723
         }
       }
     }
   },
   "db": {
     "user": {
-      "name": "admin"
+      "name": "readonly"
     },
     "name": "events",
-    "statement": "INSERT INTO orders VALUES E5CT47",
+    "statement": "DELETE FROM sessions WHERE ULIM9S",
     "type": "sql"
   },
   "event": {
-    "duration": 1980000000,
+    "duration": 1438000000,
     "outcome": "success",
     "dataset": "aws.rds",
     "provider": "rds.amazonaws.com"
   },
-  "message": "{\"instanceId\":\"prod-db-primary\",\"engine\":\"mysql\",\"userId\":\"admin\",\"queryTime\":1.98,\"error\":null,\"timestamp\":\"2026-03-17T10:07:40.656Z\"}",
+  "message": "Query executed in 1.438s by readonly",
   "log": {
     "level": "info"
   },

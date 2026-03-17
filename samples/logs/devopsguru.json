@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "devopsguru"
@@ -13,9 +13,9 @@
   },
   "aws": {
     "devopsguru": {
-      "insight_id": "ebbdsy7dyi5",
-      "insight_type": "REACTIVE",
-      "severity": "LOW",
+      "insight_id": "0hay1bcs2kp6",
+      "insight_type": "PROACTIVE",
+      "severity": "MEDIUM",
       "resource_collection": {
         "cloud_formation": {
           "stack_names": [
@@ -29,15 +29,15 @@
           }
         ]
       },
-      "anomaly_id": "v78tm92rkjq",
-      "anomaly_description": "Memory utilization anomaly on ECS tasks",
+      "anomaly_id": "srbty3j6gal",
+      "anomaly_description": "RDS CPU spike correlated with API latency",
       "anomaly_sources": [
-        "lambda-api"
+        "ecs-workers"
       ],
-      "start_time": "2026-03-17T09:50:18.099Z",
-      "end_time": "2026-03-17T10:07:40.872Z",
+      "start_time": "2026-03-17T11:03:14.711Z",
+      "end_time": "2026-03-17T11:03:53.813Z",
       "status": "CLOSED",
-      "recommendation": "Scale up resource",
+      "recommendation": "Review alarm thresholds",
       "ssm_ops_items": []
     }
   },
@@ -47,7 +47,7 @@
     "dataset": "aws.devopsguru",
     "provider": "devops-guru.amazonaws.com"
   },
-  "message": "DevOps Guru REACTIVE insight [LOW]: Memory utilization anomaly on ECS tasks",
+  "message": "DevOps Guru PROACTIVE insight [MEDIUM]: RDS CPU spike correlated with API latency",
   "log": {
     "level": "info"
   }

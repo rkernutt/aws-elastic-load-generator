@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,43 +13,48 @@
   },
   "aws": {
     "dimensions": {
-      "StorageLensConfigurationId": "prod-buckets",
-      "StorageType": "Standard"
+      "StorageLensConfigurationId": "default",
+      "StorageType": "Glacier"
     },
     "s3storagelens": {
-      "config_id": "prod-buckets",
-      "bucket_count": 463,
-      "total_storage_bytes": 75983312283159,
-      "total_object_count": 5453177809,
-      "storage_type": "Standard",
+      "config_id": "default",
+      "bucket_count": 197,
+      "total_storage_bytes": 17741841238993,
+      "total_object_count": 1890401653,
+      "storage_type": "Glacier",
       "metrics": {
         "BucketCount": {
-          "avg": 463
+          "avg": 197
         },
         "TotalStorageBytes": {
-          "sum": 75983312283159
+          "sum": 17741841238993
         },
         "TotalObjectCount": {
-          "sum": 5453177809
+          "sum": 1890401653
         },
         "BytesUsed": {
-          "sum": 75983312283159
+          "sum": 17741841238993
         },
         "ObjectCount": {
-          "sum": 5453177809
+          "sum": 1890401653
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "metric",
     "dataset": "aws.s3_storage_lens",
     "provider": "s3.amazonaws.com",
-    "duration": 106000000000
+    "duration": 162000000000
   },
-  "message": "S3 Storage Lens prod-buckets: 463 buckets, 75983.3 GB, 5453177809 objects",
+  "message": "S3 Storage Lens default: report generation failed",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ReportGenerationFailed",
+    "message": "Storage Lens report failed",
+    "type": "storage"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "frauddetector"
@@ -14,24 +14,24 @@
   "aws": {
     "frauddetector": {
       "detector_id": "online-fraud-v2",
-      "detector_version_id": "5",
-      "event_id": "csqwo4d4fb6",
-      "event_type": "online_purchase",
+      "detector_version_id": "3",
+      "event_id": "inewfe4gzyo",
+      "event_type": "login",
       "entity_type": "customer",
-      "entity_id": "entity_dyi90vdukk",
+      "entity_id": "entity_th2qxaqita",
       "outcomes": [
-        "REVIEW"
+        "APPROVE"
       ],
-      "risk_score": 604,
+      "risk_score": 163,
       "model_scores": {
-        "online-fraud-v2": 604
+        "online-fraud-v2": 163
       },
       "used_rules": [
-        "block-high-risk"
+        "review-medium"
       ],
-      "ip_address": "80.209.224.40",
+      "ip_address": "186.101.57.9",
       "event_variables": {
-        "billing_postal": "26614",
+        "billing_postal": "96592",
         "phone_verified": "true"
       }
     }
@@ -42,7 +42,7 @@
     "dataset": "aws.frauddetector",
     "provider": "frauddetector.amazonaws.com"
   },
-  "message": "Fraud Detector REVIEW [online-fraud-v2]: entity entity_dyi90vdukk score 604/1000",
+  "message": "Fraud Detector APPROVE [online-fraud-v2]: entity entity_th2qxaqita score 163/1000",
   "log": {
     "level": "info"
   }

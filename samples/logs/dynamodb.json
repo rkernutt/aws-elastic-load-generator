@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -14,31 +14,31 @@
   "aws": {
     "dimensions": {
       "TableName": "sessions",
-      "Operation": "UpdateItem"
+      "Operation": "PutItem"
     },
     "dynamodb": {
       "table_name": "sessions",
-      "operation": "UpdateItem",
-      "consumed_read_capacity_units": 14.538,
-      "consumed_write_capacity_units": 10.099,
-      "items_count": 768,
-      "structured_logging": false,
+      "operation": "PutItem",
+      "consumed_read_capacity_units": 49.628,
+      "consumed_write_capacity_units": 20.456,
+      "items_count": 233,
+      "structured_logging": true,
       "metrics": {
         "ConsumedReadCapacityUnits": {
-          "sum": 14.538
+          "sum": 49.628
         },
         "ConsumedWriteCapacityUnits": {
-          "sum": 10.099
+          "sum": 20.456
         },
         "ProvisionedReadCapacityUnits": {
-          "avg": 7994
+          "avg": 8121
         },
         "ProvisionedWriteCapacityUnits": {
-          "avg": 218
+          "avg": 3024
         },
         "SuccessfulRequestLatency": {
-          "avg": 23,
-          "p99": 63
+          "avg": 11,
+          "p99": 105
         },
         "SystemErrors": {
           "sum": 0
@@ -53,14 +53,14 @@
           "sum": 0
         },
         "ReturnedItemCount": {
-          "avg": 783
+          "avg": 508
         }
       }
     }
   },
   "db": {
     "name": "sessions",
-    "operation": "UpdateItem",
+    "operation": "PutItem",
     "type": "nosql"
   },
   "event": {
@@ -68,9 +68,9 @@
     "category": "database",
     "dataset": "aws.dynamodb",
     "provider": "dynamodb.amazonaws.com",
-    "duration": 43000000
+    "duration": 44000000
   },
-  "message": "DynamoDB UpdateItem sessions: consumed 14.538 RCU, 10.099 WCU",
+  "message": "{\"table\":\"sessions\",\"operation\":\"PutItem\",\"consumedReadCapacityUnits\":49.628,\"consumedWriteCapacityUnits\":20.456,\"timestamp\":\"2026-03-17T11:03:53.682Z\"}",
   "log": {
     "level": "info"
   }

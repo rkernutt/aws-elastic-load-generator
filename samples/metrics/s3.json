@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "s3"
@@ -13,62 +13,62 @@
   },
   "aws": {
     "dimensions": {
-      "BucketName": "artifacts-eu-west-2",
+      "BucketName": "media-uploads-us-east-1",
       "StorageType": "IntelligentTieringStorage"
     },
     "s3access": {
-      "bucket_owner": "738291046572",
-      "bucket": "artifacts-eu-west-2",
-      "remote_ip": "108.197.204.171",
-      "requester": "AIDAG6264ZUDVQR",
-      "request_id": "BJJQV0313Q",
-      "operation": "REST.DELETE.OBJECT",
-      "key": "reports/zx63z5ul.gz",
-      "request_uri": "/artifacts-eu-west-2/reports/zx63z5ul.gz",
+      "bucket_owner": "164820739518",
+      "bucket": "media-uploads-us-east-1",
+      "remote_ip": "135.40.136.132",
+      "requester": "AIDAGBZE38CV4IG",
+      "request_id": "U4ZLQ9MFTT",
+      "operation": "REST.PUT.OBJECT",
+      "key": "reports/3ied2apv.gz",
+      "request_uri": "/media-uploads-us-east-1/reports/3ied2apv.gz",
       "http_status": 206,
       "error_code": "-",
-      "bytes_sent": 1002507404,
+      "bytes_sent": 464824606,
       "object_size": "-",
-      "total_time": 323,
-      "turn_around_time": 258,
-      "referrer": "-",
-      "user_agent": "curl/7.68.0",
-      "host_id": "Q9PILMG6VLQ+B1QUPZ",
+      "total_time": 136,
+      "turn_around_time": 108,
+      "referrer": "https://console.aws.amazon.com/s3/",
+      "user_agent": "Go-http-client/1.1",
+      "host_id": "1L5J3NBAFXE+5AC7SV",
       "signature_version": "SigV4",
       "authentication_type": "AuthHeader",
-      "host_header": "artifacts-eu-west-2.s3.eu-west-2.amazonaws.com",
+      "host_header": "media-uploads-us-east-1.s3.us-east-1.amazonaws.com",
       "tls_version": "TLSv1.2"
     },
     "s3": {
       "bucket": {
-        "name": "artifacts-eu-west-2",
-        "arn": "arn:aws:s3:::artifacts-eu-west-2"
+        "name": "media-uploads-us-east-1",
+        "arn": "arn:aws:s3:::media-uploads-us-east-1"
       },
       "object": {
-        "key": "reports/zx63z5ul.gz",
-        "size": 798665388,
-        "etag": "g0hgd596y8l"
+        "key": "reports/3ied2apv.gz",
+        "size": 956621141,
+        "etag": "sen4mudabzd"
       },
-      "operation": "REST.DELETE.OBJECT",
-      "request_id": "BJJQV0313Q",
+      "operation": "REST.PUT.OBJECT",
+      "request_id": "U4ZLQ9MFTT",
       "metrics": {
         "NumberOfObjects": {
-          "avg": 4585599
+          "avg": 4110421
         },
         "BucketSizeBytes": {
-          "avg": 496541026248
+          "avg": 292476057328
         },
         "AllRequests": {
-          "sum": 25993
+          "sum": 17813
         },
         "GetRequests": {
-          "sum": 4701
+          "sum": 24968
         },
         "PutRequests": {
-          "sum": 6812
+          "sum": 2318
         },
         "DeleteRequests": {
-          "sum": 972
+          "sum": 487
         },
         "4xxErrors": {
           "sum": 0
@@ -77,16 +77,16 @@
           "sum": 0
         },
         "FirstByteLatency": {
-          "avg": 2
+          "avg": 123
         },
         "TotalRequestLatency": {
-          "avg": 263
+          "avg": 413
         },
         "BytesDownloaded": {
-          "sum": 425274004
+          "sum": 198465644
         },
         "BytesUploaded": {
-          "sum": 24257646
+          "sum": 2556489
         }
       }
     }
@@ -94,14 +94,14 @@
   "http": {
     "response": {
       "status_code": 206,
-      "bytes": 1002507404
+      "bytes": 464824606
     }
   },
   "client": {
-    "ip": "108.197.204.171"
+    "ip": "135.40.136.132"
   },
   "user_agent": {
-    "original": "python-requests/2.27.1"
+    "original": "curl/7.68.0"
   },
   "event": {
     "outcome": "success",
@@ -109,7 +109,7 @@
     "dataset": "aws.s3",
     "provider": "s3.amazonaws.com"
   },
-  "message": "{\"bucket\":\"artifacts-eu-west-2\",\"key\":\"reports/zx63z5ul.gz\",\"operation\":\"REST.DELETE.OBJECT\",\"http_status\":206,\"request_id\":\"BJJQV0313Q\",\"bytes_sent\":1002507404,\"total_time_ms\":323,\"timestamp\":\"2026-03-17T10:07:40.656Z\"}",
+  "message": "REST.PUT.OBJECT s3://media-uploads-us-east-1/reports/3ied2apv.gz 206",
   "log": {
     "level": "info"
   },

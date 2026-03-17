@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,52 +13,57 @@
   },
   "aws": {
     "dimensions": {
-      "StateMachineArn": "arn:aws:states:us-east-1:293847561023:stateMachine:batch-processor"
+      "StateMachineArn": "arn:aws:states:eu-west-2:293847561023:stateMachine:order-fulfillment"
     },
     "stepfunctions": {
-      "state_machine_name": "batch-processor",
-      "state_machine_arn": "arn:aws:states:us-east-1:293847561023:stateMachine:batch-processor",
-      "execution_arn": "arn:aws:states:us-east-1:293847561023:execution:batch-processor:u0lk85pg",
-      "state_name": "UpdateDatabase",
-      "status": "SUCCEEDED",
-      "duration_seconds": 4.37,
-      "structured_logging": true,
+      "state_machine_name": "order-fulfillment",
+      "state_machine_arn": "arn:aws:states:eu-west-2:293847561023:stateMachine:order-fulfillment",
+      "execution_arn": "arn:aws:states:eu-west-2:293847561023:execution:order-fulfillment:975zq3gp",
+      "state_name": "ValidateInput",
+      "status": "FAILED",
+      "duration_seconds": 297.031,
+      "structured_logging": false,
       "metrics": {
         "ExecutionsStarted": {
-          "sum": 402
+          "sum": 888
         },
         "ExecutionsSucceeded": {
-          "sum": 880
+          "sum": 0
         },
         "ExecutionsFailed": {
-          "sum": 0
+          "sum": 48
         },
         "ExecutionsAborted": {
           "sum": 5
         },
         "ExecutionsTimedOut": {
-          "sum": 0
+          "sum": 5
         },
         "ExecutionThrottled": {
-          "sum": 0
+          "sum": 7
         },
         "ExecutionTime": {
-          "avg": 4370,
-          "max": 8740
+          "avg": 297031,
+          "max": 594062
         }
       }
     }
   },
   "event": {
-    "duration": 4370000000,
-    "outcome": "success",
+    "duration": 297031000000,
+    "outcome": "failure",
     "category": "process",
     "dataset": "aws.stepfunctions",
     "provider": "states.amazonaws.com"
   },
-  "message": "{\"executionArn\":\"arn:aws:states:us-east-1:293847561023:execution:batch-processor:u0lk85pg\",\"stateMachine\":\"batch-processor\",\"state\":\"UpdateDatabase\",\"status\":\"SUCCEEDED\",\"durationSeconds\":4.37,\"timestamp\":\"2026-03-17T10:07:40.656Z\"}",
+  "message": "Step Functions order-fulfillment FAILED at state ValidateInput: Timeout",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "States.TaskFailed",
+    "message": "Step Functions failed at ValidateInput",
+    "type": "workflow"
   },
   "data_stream": {
     "type": "metrics",

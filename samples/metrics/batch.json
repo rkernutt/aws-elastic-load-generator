@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "batch"
@@ -13,37 +13,37 @@
   },
   "aws": {
     "dimensions": {
-      "JobQueueName": "ml-training-prep-queue",
-      "JobDefinition": "ml-training-prep"
+      "JobQueueName": "report-generation-queue",
+      "JobDefinition": "report-generation"
     },
     "batch": {
       "job": {
-        "name": "ml-training-prep",
-        "id": "c00l9uib-ndoi",
+        "name": "report-generation",
+        "id": "eref5gj3-mauo",
         "status": "SUCCEEDED"
       },
-      "job_queue": "ml-training-prep-queue",
-      "compute_environment": "ce-ondemand",
-      "structured_logging": false,
+      "job_queue": "report-generation-queue",
+      "compute_environment": "ce-spot",
+      "structured_logging": true,
       "metrics": {
         "PendingJobCount": {
-          "avg": 33
+          "avg": 18
         },
         "RunnableJobCount": {
-          "avg": 4
+          "avg": 15
         },
         "RunningJobCount": {
-          "avg": 98
+          "avg": 53
         },
         "SucceededJobCount": {
-          "sum": 31
+          "sum": 4
         },
         "FailedJobCount": {
           "sum": 0
         },
-        "elapsedTime": 38,
+        "elapsedTime": 1061,
         "Duration": {
-          "avg": 38
+          "avg": 1061
         }
       }
     }
@@ -56,9 +56,9 @@
     "category": "process",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 38000000000
+    "duration": 1061000000000
   },
-  "message": "Job submitted to queue",
+  "message": "{\"jobId\":\"eref5gj3-mauo\",\"jobName\":\"report-generation\",\"jobQueue\":\"report-generation-queue\",\"level\":\"info\",\"message\":\"Job run succeeded\",\"timestamp\":\"2026-03-17T11:03:53.682Z\",\"arrayIndex\":53}",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.batch",

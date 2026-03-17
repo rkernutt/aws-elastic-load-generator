@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "aurora"
@@ -13,12 +13,12 @@
   },
   "aws": {
     "aurora": {
-      "cluster_id": "staging-aurora",
-      "instance_id": "staging-aurora-instance-2",
-      "engine": "aurora-postgresql",
-      "engine_version": "15.4",
-      "replica_lag_seconds": 0.329,
-      "db_connections": 259,
+      "cluster_id": "prod-aurora-cluster",
+      "instance_id": "prod-aurora-cluster-instance-3",
+      "engine": "aurora-mysql",
+      "engine_version": "8.0.36",
+      "replica_lag_seconds": 3.426,
+      "db_connections": 265,
       "max_connections": 1000,
       "failover_in_progress": false
     }
@@ -28,10 +28,10 @@
     "category": "database",
     "dataset": "aws.aurora",
     "provider": "rds.amazonaws.com",
-    "duration": 10000000000
+    "duration": 7000000000
   },
-  "message": "Slow query: full table scan",
+  "message": "Aurora auto-scaling: adding replica",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "dms"
@@ -13,27 +13,33 @@
   },
   "aws": {
     "dms": {
-      "replication_task_id": "mongodb-to-documentdb",
+      "replication_task_id": "oracle-to-rds",
       "migration_type": "cdc",
-      "source_engine": "mongodb",
-      "target_engine": "aurora-mysql",
+      "source_engine": "postgresql",
+      "target_engine": "redshift",
       "replication_instance_class": "dms.t3.medium",
-      "task_status": "Load complete",
-      "full_load_rows_transferred": 1404306,
-      "cdc_incoming_changes": 16839,
-      "latency_ms": 719,
-      "tables_loaded": 75,
-      "tables_errored": 0
+      "task_status": "Failed",
+      "full_load_rows_transferred": 0,
+      "cdc_incoming_changes": 46000,
+      "latency_ms": 2695,
+      "tables_loaded": 414,
+      "tables_errored": 14,
+      "error_message": "Connection timeout"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "database",
     "dataset": "aws.dms",
     "provider": "dms.amazonaws.com"
   },
-  "message": "DMS mongodb-to-documentdb: 1,404,306 rows (mongodb->aurora-mysql cdc)",
+  "message": "DMS oracle-to-rds FAILED (postgresql->redshift): Connection lost",
+  "error": {
+    "code": "DMSError",
+    "message": "DMS task failed",
+    "type": "migration"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "lakeformation"
@@ -13,27 +13,28 @@
   },
   "aws": {
     "lakeformation": {
-      "database": "analytics",
-      "table": "clickstream",
-      "action": "Grant",
-      "principal_arn": "arn:aws:iam::501938274650:role/analyst-role",
+      "database": "raw_data",
+      "table": "products",
+      "action": "BatchGrantPermissions",
+      "principal_arn": "arn:aws:iam::814726593401:role/analyst-role",
       "permissions": [
-        "SELECT"
+        "SELECT",
+        "INSERT"
       ],
-      "lf_tag_key": "pii",
+      "lf_tag_key": "classification",
       "lf_tag_values": [
-        "pii"
+        "prod"
       ]
     }
   },
   "event": {
-    "action": "Grant",
+    "action": "BatchGrantPermissions",
     "outcome": "success",
     "category": "iam",
     "dataset": "aws.lakeformation",
     "provider": "lakeformation.amazonaws.com"
   },
-  "message": "Lake Formation Grant: SELECT on analytics.clickstream",
+  "message": "Lake Formation BatchGrantPermissions: SELECT,INSERT on raw_data.products",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "memorydb"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "memorydb": {
-      "cluster_name": "prod-memorydb",
-      "node_name": "prod-memorydb-0001-001",
+      "cluster_name": "rate-limiter",
+      "node_name": "rate-limiter-0001-001",
       "engine_version": "7.1",
-      "command": "ZADD",
-      "latency_us": 15.229,
-      "cache_hit_rate": 82.061,
-      "connected_clients": 284,
-      "used_memory_mb": 12400,
-      "replication_lag_ms": 83
+      "command": "XADD",
+      "latency_us": 10.906,
+      "cache_hit_rate": 85.845,
+      "connected_clients": 144,
+      "used_memory_mb": 16679,
+      "replication_lag_ms": 74
     }
   },
   "event": {
-    "duration": 15229,
+    "duration": 10906,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.memorydb",
     "provider": "memory-db.amazonaws.com"
   },
-  "message": "MemoryDB prod-memorydb ZADD: 15.23us",
+  "message": "MemoryDB rate-limiter XADD: 10.91us",
   "log": {
     "level": "info"
   }

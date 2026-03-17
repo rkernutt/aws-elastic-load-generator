@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,29 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "DeliveryStreamName": "metrics-to-opensearch"
+      "DeliveryStreamName": "clickstream-backup"
     },
     "firehose": {
-      "delivery_stream_name": "metrics-to-opensearch",
-      "destination": "Redshift",
-      "incoming_records": 16471,
-      "incoming_bytes": 10936744,
+      "delivery_stream_name": "clickstream-backup",
+      "destination": "S3",
+      "incoming_records": 23861,
+      "incoming_bytes": 42138526,
       "delivery_success": true,
-      "delivery_records": 16471,
-      "data_freshness_seconds": 64,
+      "delivery_records": 23861,
+      "data_freshness_seconds": 294,
       "metrics": {
         "IncomingRecords": {
-          "sum": 16471
+          "sum": 23861
         },
         "IncomingBytes": {
-          "sum": 15021552
+          "sum": 15748260
         },
         "DeliveryToS3_Records": {
-          "sum": 0
+          "sum": 23861
         },
-        "DeliveryToS3_Success": {},
+        "DeliveryToS3_Success": {
+          "sum": 1
+        },
         "DeliveryToRedshift_Records": {
-          "sum": 16471
+          "sum": 0
         },
         "DeliveryToElasticsearch_Records": {
           "sum": 0
@@ -44,10 +46,10 @@
           "sum": 0
         },
         "DataReadFromKinesisStream_Records": {
-          "sum": 16471
+          "sum": 23861
         },
         "DeliveryToS3_DataFreshness": {
-          "avg": 235
+          "avg": 254
         }
       }
     }
@@ -57,9 +59,9 @@
     "category": "process",
     "dataset": "aws.firehose",
     "provider": "firehose.amazonaws.com",
-    "duration": 22000000000
+    "duration": 43000000000
   },
-  "message": "Firehose metrics-to-opensearch: 16471 records delivered",
+  "message": "Firehose clickstream-backup: 23861 records delivered",
   "log": {
     "level": "info"
   },

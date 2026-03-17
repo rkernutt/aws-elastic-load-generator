@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codeartifact"
@@ -13,25 +13,30 @@
   },
   "aws": {
     "codeartifact": {
-      "domain_name": "internal",
-      "repository_name": "maven-central",
+      "domain_name": "corp-packages",
+      "repository_name": "npm-store",
       "package_format": "pypi",
-      "package_name": "utils",
-      "package_version": "1.18.10",
-      "action": "DeletePackageVersions",
-      "download_size_bytes": 20594353,
-      "upstream_repository": "npm-upstream"
+      "package_name": "api-client",
+      "package_version": "1.7.6",
+      "action": "PublishPackageVersion",
+      "download_size_bytes": 30621628,
+      "error_code": "ResourceAlreadyExistsException"
     }
   },
   "event": {
-    "action": "DeletePackageVersions",
-    "outcome": "success",
+    "action": "PublishPackageVersion",
+    "outcome": "failure",
     "category": "package",
     "dataset": "aws.codeartifact",
     "provider": "codeartifact.amazonaws.com"
   },
-  "message": "CodeArtifact DeletePackageVersions: utils@1.18.10 [pypi] in internal/maven-central",
+  "message": "CodeArtifact PublishPackageVersion FAILED: api-client@1.7.6 in corp-packages/npm-store",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ResourceAlreadyExistsException",
+    "message": "CodeArtifact operation failed",
+    "type": "package"
   }
 }

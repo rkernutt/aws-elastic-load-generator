@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "opensearch"
@@ -13,75 +13,80 @@
   },
   "aws": {
     "dimensions": {
-      "DomainName": "prod-search-eu-west-2",
-      "ClientId": "164820739518"
+      "DomainName": "prod-search-us-east-1",
+      "ClientId": "293847561023"
     },
     "opensearch": {
-      "domain_name": "prod-search-eu-west-2",
+      "domain_name": "prod-search-us-east-1",
       "index": "app-logs",
-      "operation": "update",
-      "took_ms": 1721,
+      "operation": "search",
+      "took_ms": 3030,
       "shards": {
         "total": 5,
-        "successful": 5,
-        "failed": 0
+        "successful": 3,
+        "failed": 2
       },
-      "hits_total": 64981,
-      "status_code": 201,
+      "hits_total": 0,
+      "status_code": 400,
       "metrics": {
         "CPUUtilization": {
-          "avg": 37.006
+          "avg": 37.858
         },
         "FreeStorageSpace": {
-          "avg": 163229159989
+          "avg": 272153477859
         },
         "ClusterStatus": {
-          "green": 1,
-          "yellow": 0,
+          "green": 0,
+          "yellow": 1,
           "red": 0
         },
         "Nodes": {
-          "avg": 14
+          "avg": 7
         },
         "SearchableDocuments": {
-          "avg": 898983045
+          "avg": 750384984
         },
         "IndexingLatency": {
-          "avg": 152
+          "avg": 3779
         },
         "SearchLatency": {
-          "avg": 757
+          "avg": 9375
         },
         "IndexingRate": {
-          "avg": 67857
+          "avg": 30703
         },
         "SearchRate": {
-          "avg": 7832
+          "avg": 4060
         },
         "JVMMemoryPressure": {
-          "avg": 44.818
+          "avg": 16.256
         },
         "AutomatedSnapshotFailure": {
-          "sum": 0
+          "sum": 1
         }
       }
     }
   },
   "http": {
     "response": {
-      "status_code": 201
+      "status_code": 400
     }
   },
   "event": {
-    "duration": 1721426000,
-    "outcome": "success",
+    "duration": 3029832000,
+    "outcome": "failure",
     "category": "database",
     "dataset": "aws.opensearch",
     "provider": "es.amazonaws.com"
   },
-  "message": "OpenSearch update on app-logs: 1721ms",
+  "message": "OpenSearch search on app-logs failed [400] after 3030ms",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "400",
+    "message": "OpenSearch search failed",
+    "type": "db"
   },
   "data_stream": {
     "type": "metrics",

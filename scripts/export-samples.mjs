@@ -22,12 +22,12 @@ function stripNulls(obj) {
   return out;
 }
 
+const { GENERATORS } = await import("../src/generators/index.js");
 const {
-  GENERATORS,
   METRICS_SUPPORTED_SERVICE_IDS,
   ELASTIC_METRICS_DATASET_MAP,
   ELASTIC_DATASET_MAP,
-} = await import("../src/App.jsx");
+} = await import("../src/data/elasticMaps.js");
 
 fs.mkdirSync(logsDir, { recursive: true });
 fs.mkdirSync(metricsDir, { recursive: true });

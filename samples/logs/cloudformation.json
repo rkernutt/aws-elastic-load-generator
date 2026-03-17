@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "cloudformation"
@@ -14,29 +14,23 @@
   "aws": {
     "cloudformation": {
       "stack_name": "rds-cluster",
-      "stack_id": "arn:aws:cloudformation:eu-west-2:164820739518:stack/rds-cluster/6zo1l1q7",
-      "action": "CREATE_STACK",
-      "stack_status": "CREATE_FAILED",
-      "resource_type": "AWS::Lambda::Function",
-      "logical_resource_id": "DatabaseCluster",
-      "resource_status_reason": "IAM policy error",
+      "stack_id": "arn:aws:cloudformation:eu-west-2:738291046572:stack/rds-cluster/o12e45jx",
+      "action": "DELETE_STACK",
+      "stack_status": "DELETE_COMPLETE",
+      "resource_type": "AWS::ECS::Service",
+      "logical_resource_id": "WebServerASG",
       "drift_status": "NOT_CHECKED",
-      "structured_logging": false
+      "structured_logging": true
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "configuration",
     "dataset": "aws.cloudformation",
     "provider": "cloudformation.amazonaws.com"
   },
-  "message": "CloudFormation rds-cluster CREATE_FAILED: AWS::Lambda::Function failed - Capacity",
-  "error": {
-    "code": "StackError",
-    "message": "CloudFormation stack operation failed",
-    "type": "configuration"
-  },
+  "message": "{\"stackName\":\"rds-cluster\",\"action\":\"DELETE_STACK\",\"stackStatus\":\"DELETE_COMPLETE\",\"resourceType\":\"AWS::ECS::Service\",\"message\":\"CloudFormation rds-cluster: DELETE_STACK -> DELETE_COMPLETE\",\"timestamp\":\"2026-03-17T11:03:53.682Z\"}",
   "log": {
-    "level": "error"
+    "level": "info"
   }
 }

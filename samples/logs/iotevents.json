@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -14,13 +14,13 @@
   "aws": {
     "iotevents": {
       "detector_model_name": "conveyor-fault",
-      "detector_id": "machine-prod-1",
-      "key_value": "machine-prod-1",
-      "event_name": "TriggerFired",
-      "from_state": "Acknowledged",
+      "detector_id": "unit-02",
+      "key_value": "unit-02",
+      "event_name": "AlarmAcknowledged",
+      "from_state": "Warning",
       "to_state": "Alarm",
       "input_name": "CommandInput",
-      "action_type": "SetVariable"
+      "action_type": "Lambda"
     }
   },
   "event": {
@@ -29,7 +29,7 @@
     "dataset": "aws.iotevents",
     "provider": "iotevents.amazonaws.com"
   },
-  "message": "IoT Events conveyor-fault/machine-prod-1: Acknowledged → Alarm [TriggerFired]",
+  "message": "IoT Events conveyor-fault/unit-02: Warning → Alarm [AlarmAcknowledged]",
   "log": {
     "level": "warn"
   }

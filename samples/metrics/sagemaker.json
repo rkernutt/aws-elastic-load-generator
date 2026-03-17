@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "sagemaker"
@@ -13,59 +13,59 @@
   },
   "aws": {
     "sagemaker": {
-      "domain_id": "d-p3qb8olyp7",
-      "domain_name": "ds-platform",
+      "domain_id": "d-lkssootxxx",
+      "domain_name": "risk-models",
       "user_profile": "alice-ds",
       "job": {
-        "name": "llama-finetuned-pipeline-xk2ytn",
-        "type": "Pipeline",
-        "arn": "arn:aws:sagemaker:us-east-1:293847561023:training-job/llama-finetuned-pipeline-xk2ytn"
+        "name": "bert-finetuned-hyperparametertuning-grrcoe",
+        "type": "HyperparameterTuning",
+        "arn": "arn:aws:sagemaker:us-east-1:814726593401:training-job/bert-finetuned-hyperparametertuning-grrcoe"
       },
       "model": {
-        "name": "llama-finetuned",
-        "version": 13
+        "name": "bert-finetuned",
+        "version": 23
       },
       "pipeline": {
-        "name": "model-training-pipeline",
-        "execution_id": "pipe-j25z5qna8fp"
+        "name": "feature-engineering-pipeline",
+        "execution_id": "pipe-bsmk8j5g539"
       },
       "instance": {
-        "type": "ml.p3.2xlarge",
-        "count": 1
+        "type": "ml.g4dn.xlarge",
+        "count": 4
       },
       "metrics": {
-        "training_loss": 0.1187,
-        "accuracy": 0.9456,
-        "epoch": 37,
-        "gpu_utilization_pct": 68,
-        "cpu_utilization_pct": 59
+        "training_loss": 0.7286,
+        "accuracy": 0.9211,
+        "epoch": 94,
+        "gpu_utilization_pct": 40,
+        "cpu_utilization_pct": 71
       },
       "studio": {
         "space_name": "ml-research",
         "app_type": "CodeEditor",
         "app_name": "default",
-        "lifecycle_config": true,
+        "lifecycle_config": false,
         "continuous_logging": true
       },
       "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 2617
+          "sum": 2118
         },
         "ModelLatency": {
-          "avg": 6,
-          "p99": 18
+          "avg": 32,
+          "p99": 96
         },
         "GPUUtilization": {
-          "avg": 44
+          "avg": 59
         },
         "CPUUtilization": {
-          "avg": 62
+          "avg": 67
         },
         "DiskUtilization": {
-          "avg": 55
+          "avg": 47
         },
         "MemoryUtilization": {
-          "avg": 55
+          "avg": 71
         },
         "Invocations4XXError": {
           "sum": 0
@@ -83,14 +83,14 @@
     "name": "alice-ds"
   },
   "event": {
-    "action": "LifecycleConfigOnStart",
-    "duration": 3863522000000,
+    "action": "SpaceCreated",
+    "duration": 635484000000,
     "outcome": "success",
     "category": "machine_learning",
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "{\"domainId\":\"d-p3qb8olyp7\",\"space\":\"ml-research\",\"appType\":\"CodeEditor\",\"user\":\"alice-ds\",\"level\":\"INFO\",\"message\":\"Training job started\",\"timestamp\":\"2026-03-17T10:07:40.656Z\",\"event\":\"LifecycleConfigOnStart\"}",
+  "message": "{\"domainId\":\"d-lkssootxxx\",\"space\":\"ml-research\",\"appType\":\"CodeEditor\",\"user\":\"alice-ds\",\"level\":\"INFO\",\"message\":\"Model registered: fraud-detector v12 (AUC: 0.9923)\",\"timestamp\":\"2026-03-17T11:03:53.682Z\",\"event\":\"SpaceCreated\"}",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.sagemaker",

@@ -10,6 +10,7 @@ const ELASTIC_DATASET_MAP = {
   nlb: "aws.elb_logs",
   guardduty: "aws.guardduty",
   s3: "aws.s3access",
+  storagelens: "aws.s3_storage_lens",
   apigateway: "aws.apigateway_logs",
   cloudfront: "aws.cloudfront_logs",
   lambda: "aws.lambda_logs",
@@ -49,7 +50,7 @@ const METRICS_SUPPORTED_SERVICE_IDS = new Set([
   "networkfirewall", "emr", "health", "billing", "cloudfront", "stepfunctions", "eventbridge", "eks", "glue",
   "sagemaker", "bedrock", "bedrockagent",
   "athena", "elasticache", "opensearch", "docdb", "codebuild", "batch", "apprunner",
-  "natgateway",
+  "storagelens", "natgateway",
 ]);
 
 // Dataset for metrics mode when it differs from logs. Omitted = use ELASTIC_DATASET_MAP.
@@ -69,6 +70,7 @@ const ELASTIC_METRICS_DATASET_MAP = {
   sagemaker:       "aws.sagemaker",
   bedrock:         "aws.bedrock",
   bedrockagent:    "aws.bedrockagent",
+  storagelens:     "aws.s3_storage_lens",
 };
 
 export { ELASTIC_DATASET_MAP, METRICS_SUPPORTED_SERVICE_IDS, ELASTIC_METRICS_DATASET_MAP };

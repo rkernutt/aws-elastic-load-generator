@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "access-analyzer"
@@ -13,13 +13,13 @@
   },
   "aws": {
     "dimensions": {
-      "AnalyzerName": "analyzer-us-east-1"
+      "AnalyzerName": "analyzer-eu-west-2"
     },
     "access_analyzer": {
-      "finding_id": "3uocc6r3-0dkx-hfez",
-      "analyzer_name": "analyzer-us-east-1",
+      "finding_id": "7nug518c-rsud-hj4v",
+      "analyzer_name": "analyzer-eu-west-2",
       "finding_type": "UnusedAccess",
-      "resource_type": "AWS::IAM::Role",
+      "resource_type": "AWS::S3::Bucket",
       "resource_arn": "arn:aws:s3:::staging-bucket",
       "principal": "*",
       "status": "ARCHIVED"
@@ -32,7 +32,7 @@
     "dataset": "aws.access_analyzer",
     "provider": "access-analyzer.amazonaws.com"
   },
-  "message": "IAM Access Analyzer: external access found on AWS::IAM::Role",
+  "message": "IAM Access Analyzer: external access found on AWS::S3::Bucket",
   "log": {
     "level": "warn"
   },

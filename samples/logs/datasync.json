@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,31 +13,25 @@
   },
   "aws": {
     "datasync": {
-      "task_arn": "arn:aws:datasync:eu-west-2:738291046572:task/task-l186qsvl22",
-      "source_location_uri": "nfs://on-prem-server/data",
-      "destination_location_uri": "s3://archive-bucket",
-      "status": "ERROR",
-      "files_transferred": 0,
-      "bytes_transferred": 0,
-      "files_failed": 8,
-      "duration_seconds": 1537,
-      "error_code": "NfsPermissionError"
+      "task_arn": "arn:aws:datasync:us-east-1:738291046572:task/task-0rfdk4w3iwg",
+      "source_location_uri": "s3://source-bucket",
+      "destination_location_uri": "s3://prod-backup",
+      "status": "SUCCESS",
+      "files_transferred": 137353,
+      "bytes_transferred": 72191912682,
+      "files_failed": 0,
+      "duration_seconds": 1626
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "file",
     "dataset": "aws.datasync",
     "provider": "datasync.amazonaws.com",
-    "duration": 1537000000000
+    "duration": 1626000000000
   },
-  "message": "DataSync FAILED: S3 access denied",
+  "message": "DataSync: 137,353 files transferred from s3:",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "NfsPermissionError",
-    "message": "DataSync task failed",
-    "type": "storage"
+    "level": "info"
   }
 }

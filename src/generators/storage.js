@@ -293,4 +293,39 @@ function generateStorageGatewayLog(ts, er) {
     ...(isErr ? { error: { code: "GatewayError", message: rand(MSGS.error), type: "storage" } } : {})};
 }
 
-export { generateS3Log, generateEbsLog, generateEfsLog, generateFsxLog, generateDataSyncLog, generateBackupLog, generateStorageGatewayLog };
+function generateS3StorageLensLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount();
+  const isErr = Math.random() < er;
+  const configId = rand(["default","entire-account","prod-buckets","cost-optimization"]);
+  const bucketCount = randInt(5, 500);
+  const totalBytes = randInt(1e10, 1e14);
+  const objectCount = randInt(1e6, 1e10);
+  const storageType = rand(["Standard","IntelligentTiering","Glacier","GlacierIR","DeepArchive"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"s3" } },
+    "aws": {
+      dimensions: { StorageLensConfigurationId: configId, StorageType: storageType },
+      s3storagelens: {
+        config_id: configId,
+        bucket_count: bucketCount,
+        total_storage_bytes: totalBytes,
+        total_object_count: objectCount,
+        storage_type: storageType,
+        metrics: {
+          BucketCount: { avg: bucketCount },
+          TotalStorageBytes: { sum: totalBytes },
+          TotalObjectCount: { sum: objectCount },
+          BytesUsed: { sum: totalBytes },
+          ObjectCount: { sum: objectCount },
+        },
+      },
+    },
+    "event": { outcome: isErr ? "failure" : "success", category: "metric", dataset: "aws.s3_storage_lens", provider: "s3.amazonaws.com", duration: randInt(60, 300) * 1e9 },
+    "message": isErr ? `S3 Storage Lens ${configId}: report generation failed` : `S3 Storage Lens ${configId}: ${bucketCount} buckets, ${(totalBytes / 1e9).toFixed(1)} GB, ${objectCount} objects`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: "ReportGenerationFailed", message: "Storage Lens report failed", type: "storage" } } : {}),
+  };
+}
+
+export { generateS3Log, generateEbsLog, generateEfsLog, generateFsxLog, generateDataSyncLog, generateBackupLog, generateStorageGatewayLog, generateS3StorageLensLog };

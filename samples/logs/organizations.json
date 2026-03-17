@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "organizations"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "organizations": {
-      "action": "DetachPolicy",
-      "account_id": "738291046572",
+      "action": "AttachPolicy",
+      "account_id": "164820739518",
       "account_name": "prod-workloads",
-      "organizational_unit": "Sandbox",
-      "policy_id": "p-n7oq5aic",
-      "policy_type": "TAG_POLICY",
+      "organizational_unit": "Root",
+      "policy_id": "p-949k4j4v",
+      "policy_type": "SERVICE_CONTROL_POLICY",
       "policy_name": "RequireS3Encryption"
     }
   },
   "event": {
-    "action": "DetachPolicy",
+    "action": "AttachPolicy",
     "outcome": "success",
     "category": "iam",
     "dataset": "aws.organizations",
     "provider": "organizations.amazonaws.com"
   },
-  "message": "Organizations DetachPolicy: Infrastructure",
+  "message": "Organizations AttachPolicy: Workloads",
   "log": {
     "level": "info"
   }

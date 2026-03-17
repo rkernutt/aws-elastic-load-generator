@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "elasticache"
@@ -22,41 +22,41 @@
       "engine": "redis",
       "engine_version": "7.1.0",
       "replication_group_id": "prod-cache",
-      "command": "GET",
-      "latency_us": 2943.318,
-      "cache_hit": false,
-      "connected_clients": 265,
-      "used_memory_mb": 8598,
+      "command": "EXPIRE",
+      "latency_us": 20.243,
+      "cache_hit": true,
+      "connected_clients": 355,
+      "used_memory_mb": 774,
       "metrics": {
         "CPUUtilization": {
-          "avg": 13.092
+          "avg": 31.032
         },
         "FreeableMemory": {
-          "avg": 1947645392
+          "avg": 1816511898
         },
         "NetworkBytesIn": {
-          "sum": 98999874
+          "sum": 58033512
         },
         "NetworkBytesOut": {
-          "sum": 65152501
+          "sum": 51745662
         },
         "CacheHits": {
-          "sum": 58861
+          "sum": 53430
         },
         "CacheMisses": {
-          "sum": 7000
+          "sum": 6136
         },
         "CurrConnections": {
-          "avg": 358
+          "avg": 315
         },
         "NewConnections": {
-          "sum": 92
+          "sum": 75
         },
         "Evictions": {
-          "sum": 710
+          "sum": 0
         },
         "ReplicationLag": {
-          "avg": 33.858
+          "avg": 0.359
         },
         "SaveInProgress": {
           "avg": 0
@@ -66,22 +66,17 @@
   },
   "db": {
     "type": "keyvalue",
-    "operation": "GET"
+    "operation": "EXPIRE"
   },
   "event": {
-    "duration": 2943318,
-    "outcome": "failure",
+    "duration": 20243,
+    "outcome": "success",
     "category": "database",
     "dataset": "aws.elasticache",
     "provider": "elasticache.amazonaws.com"
   },
-  "message": "Redis GET failed: READONLY",
+  "message": "Redis EXPIRE 20.24us",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "RedisError",
-    "message": "OOM command not allowed",
-    "type": "db"
+    "level": "info"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "emr"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "emr": {
-      "cluster_id": "j-WCEV78ODW1M",
+      "cluster_id": "j-RKHN1KKNP",
       "cluster_name": "ml-feature-pipeline-cluster",
       "application": "hive",
-      "release": "emr-6.8.0",
-      "instance_group": "CORE",
-      "executor_count": 6,
+      "release": "emr-6.11.0",
+      "instance_group": "MASTER",
+      "executor_count": 25,
       "job": {
         "name": "ml-feature-pipeline",
-        "id": "application_1773742060833_5492",
+        "id": "application_1773745433800_9995",
         "run_state": "SUCCEEDED"
       },
       "structured_logging": false,
       "metrics": {
-        "executor_count": 6,
-        "running_step_count": 3,
+        "executor_count": 25,
+        "running_step_count": 4,
         "failed_step_count": 0,
-        "hdfs_utilization_pct": 50,
-        "yarn_memory_used_mb": 13560,
-        "elapsedTime": 2332000,
-        "numCompletedTasks": 383,
+        "hdfs_utilization_pct": 23,
+        "yarn_memory_used_mb": 50141,
+        "elapsedTime": 1470000,
+        "numCompletedTasks": 498,
         "numFailedTasks": 0,
-        "jvm_heap_usage": 0.27,
-        "gc_time_ms": 41837,
-        "numberAllExecutors": 6
+        "jvm_heap_usage": 0.68,
+        "gc_time_ms": 13836,
+        "numberAllExecutors": 40
       }
     }
   },
@@ -48,9 +48,9 @@
     "category": "process",
     "dataset": "aws.emr",
     "provider": "elasticmapreduce.amazonaws.com",
-    "duration": 2332000000000
+    "duration": 1470000000000
   },
-  "message": "Job submitted to YARN ResourceManager",
+  "message": "Writing Parquet to s3://data-lake/processed/",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.emr_metrics",

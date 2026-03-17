@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "sns"
@@ -13,46 +13,40 @@
   },
   "aws": {
     "sns": {
-      "topic_arn": "arn:aws:sns:eu-west-2:738291046572:system-events",
-      "message_id": "ugua38gn-3wqm-hndf",
-      "protocol": "http",
-      "delivery_status": "FAILED",
-      "message_size_bytes": 148513,
-      "delivery_attempt": 2,
-      "status_code": 500,
-      "error_message": "SQS full",
+      "topic_arn": "arn:aws:sns:us-east-1:501938274650:security-alarms",
+      "message_id": "onbcbb4o-knlc-6goe",
+      "protocol": "lambda",
+      "delivery_status": "SUCCESS",
+      "message_size_bytes": 10209,
+      "delivery_attempt": 1,
+      "status_code": 200,
       "metrics": {
         "NumberOfMessagesPublished": {
-          "sum": 6382
+          "sum": 7206
         },
         "NumberOfNotificationsDelivered": {
-          "sum": 4740
+          "sum": 7206
         },
         "NumberOfNotificationsFailed": {
-          "sum": 1642
+          "sum": 0
         },
         "PublishSize": {
-          "avg": 33917
+          "avg": 13676
         },
         "SmsSuccessRate": {}
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "process",
     "dataset": "aws.sns",
     "provider": "sns.amazonaws.com",
-    "duration": 3554035000
+    "duration": 298066000
   },
-  "message": "SNS delivery FAILED: system-events -> http: Timeout",
+  "message": "SNS delivered: security-alarms -> lambda (28530B)",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "DeliveryFailure",
-    "message": "SNS delivery failed",
-    "type": "messaging"
+    "level": "info"
   },
   "data_stream": {
     "type": "metrics",

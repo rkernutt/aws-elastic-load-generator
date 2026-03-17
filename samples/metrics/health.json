@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "health"
@@ -13,32 +13,27 @@
   },
   "aws": {
     "health": {
-      "event_arn": "arn:aws:health:us-east-1::event/ecs/ykr4df9m/6u94lt7g3f6",
-      "event_type_code": "AWS_ECS_MAINTENANCE_SCHEDULED",
-      "event_type_category": "scheduledChange",
-      "service": "ECS",
-      "region": "global",
-      "status_code": "open",
-      "event_scope": "ACCOUNT",
-      "affected_entities_count": 22,
-      "description": "ECS Scheduled maintenance in us-east-1"
+      "event_arn": "arn:aws:health:eu-west-2::event/ec2/pwk9kbvg/9zw91qxxfoe",
+      "event_type_code": "AWS_EC2_MAINTENANCE_SCHEDULED",
+      "event_type_category": "accountNotification",
+      "service": "EC2",
+      "region": "eu-west-2",
+      "status_code": "closed",
+      "event_scope": "PUBLIC",
+      "affected_entities_count": 27,
+      "description": "EC2 Connectivity issues in eu-west-2"
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "failure",
+    "outcome": "success",
     "category": "configuration",
     "dataset": "aws.health",
     "provider": "health.amazonaws.com"
   },
-  "message": "AWS Health: ECS service issue in us-east-1 - Increased errors",
-  "error": {
-    "code": "HealthIssue",
-    "message": "AWS Health service issue",
-    "type": "configuration"
-  },
+  "message": "AWS Health: EC2 event resolved in eu-west-2",
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "data_stream": {
     "type": "metrics",

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "cloudwatchalarms"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "lambda-errors",
-      "alarm_state": "ALARM",
-      "previous_state": "OK",
-      "namespace": "AWS/EC2",
+      "alarm_name": "high-cpu-alarm",
+      "alarm_state": "INSUFFICIENT_DATA",
+      "previous_state": "ALARM",
+      "namespace": "AWS/Lambda",
       "metric_name": "CPUUtilization",
       "threshold": 95,
-      "evaluation_periods": 1,
-      "metric_value": 72.718,
-      "statistic": "Average",
+      "evaluation_periods": 2,
+      "metric_value": 97.205,
+      "statistic": "Maximum",
       "period_seconds": 300,
-      "treat_missing_data": "notBreaching"
+      "treat_missing_data": "missing"
     }
   },
   "event": {
@@ -33,13 +33,13 @@
     "dataset": "aws.cloudwatch",
     "provider": "monitoring.amazonaws.com"
   },
-  "message": "CloudWatch alarm \"lambda-errors\": ALARM (AWS/EC2/CPUUtilization=72.7)",
+  "message": "CloudWatch alarm \"high-cpu-alarm\": INSUFFICIENT_DATA (AWS/Lambda/CPUUtilization=97.2)",
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "error": {
     "code": "AlarmTriggered",
-    "message": "Alarm lambda-errors: ALARM",
+    "message": "Alarm high-cpu-alarm: INSUFFICIENT_DATA",
     "type": "monitoring"
   },
   "data_stream": {

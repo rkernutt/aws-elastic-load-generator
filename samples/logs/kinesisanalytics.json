@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "kinesisanalytics"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "kinesisanalytics": {
-      "application_name": "real-time-metrics",
-      "application_arn": "arn:aws:kinesisanalytics:us-east-1:164820739518:application/real-time-metrics",
+      "application_name": "fraud-detection-stream",
+      "application_arn": "arn:aws:kinesisanalytics:us-east-1:501938274650:application/fraud-detection-stream",
       "runtime": "FLINK-1_18",
-      "records_per_second": 5560,
-      "input_watermark_lag_ms": 262,
+      "records_per_second": 9875,
+      "input_watermark_lag_ms": 170,
       "checkpointing_enabled": true,
-      "last_checkpoint_duration_ms": 1756,
-      "kpu_count": 20,
-      "structured_logging": true,
+      "last_checkpoint_duration_ms": 928,
+      "kpu_count": 16,
+      "structured_logging": false,
       "metrics": {
-        "records_in_per_second": 5560,
-        "input_watermark_lag_ms": 262,
-        "kpu_utilization_pct": 48,
-        "checkpoint_duration_ms": 1651
+        "records_in_per_second": 9875,
+        "input_watermark_lag_ms": 170,
+        "kpu_utilization_pct": 52,
+        "checkpoint_duration_ms": 1607
       }
     }
   },
@@ -35,9 +35,9 @@
     "category": "process",
     "dataset": "aws.kinesisanalytics",
     "provider": "kinesisanalytics.amazonaws.com",
-    "duration": 620000000
+    "duration": 292000000
   },
-  "message": "{\"applicationName\":\"real-time-metrics\",\"recordsPerSecond\":5560,\"inputWatermarkLagMs\":262,\"level\":\"info\",\"message\":\"Application run started\",\"timestamp\":\"2026-03-17T10:07:40.656Z\"}",
+  "message": "Kinesis Analytics fraud-detection-stream: 9875 rec/s, lag 21ms",
   "log": {
     "level": "info"
   }

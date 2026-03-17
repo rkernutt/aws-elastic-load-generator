@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "comprehend"
@@ -13,23 +13,28 @@
   },
   "aws": {
     "comprehend": {
-      "operation": "DetectSentiment",
+      "operation": "DetectLanguage",
       "language_code": "ja",
-      "text_bytes": 30049,
-      "sentiment": "MIXED",
+      "text_bytes": 10756,
       "entities_detected": 0,
       "key_phrases_detected": 0,
-      "pii_entities_detected": 0
+      "pii_entities_detected": 0,
+      "error_code": "UnsupportedLanguageException"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "machine_learning",
     "dataset": "aws.comprehend",
     "provider": "comprehend.amazonaws.com"
   },
-  "message": "Comprehend DetectSentiment: lang=ja, sentiment=MIXED",
+  "message": "Comprehend DetectLanguage FAILED: Unsupported language",
+  "error": {
+    "code": "ComprehendError",
+    "message": "Comprehend operation failed",
+    "type": "ml"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

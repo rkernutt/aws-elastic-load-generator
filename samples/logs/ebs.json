@@ -1,12 +1,12 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
-    "availability_zone": "eu-west-2b",
+    "region": "us-east-1",
+    "availability_zone": "us-east-1b",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "ebs"
@@ -14,52 +14,52 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-yxfqy0vbnho",
-      "VolumeType": "sc1"
+      "VolumeId": "vol-jmzznio2hr",
+      "VolumeType": "gp2"
     },
     "ebs": {
-      "volume_id": "vol-yxfqy0vbnho",
-      "volume_type": "sc1",
-      "size_gb": 50,
-      "alarm_name": "ebs-volumequeuelength-vol-yxfqy0vbnho",
-      "alarm_state": "OK",
-      "metric_name": "VolumeQueueLength",
-      "threshold": 72,
-      "current_value": 2,
-      "event_type": "alarm",
+      "volume_id": "vol-jmzznio2hr",
+      "volume_type": "gp2",
+      "size_gb": 8,
+      "availability_zone": "us-east-1b",
+      "previous_state": "available",
+      "current_state": "in-use",
+      "attached_instance": "i-m5lz0n53lab",
+      "device": "/dev/sdf",
+      "event_type": "state_change",
       "metrics": {
         "VolumeReadOps": {
-          "sum": 2031
+          "sum": 3413
         },
         "VolumeWriteOps": {
-          "sum": 497
+          "sum": 9418
         },
         "VolumeReadBytes": {
-          "sum": 64489480
+          "sum": 314131853
         },
         "VolumeWriteBytes": {
-          "sum": 520175547
+          "sum": 465428364
         },
         "VolumeTotalReadTime": {
-          "sum": 8.436
+          "sum": 5.289
         },
         "VolumeTotalWriteTime": {
-          "sum": 1.862
+          "sum": 7.83
         },
         "VolumeIdleTime": {
-          "sum": 55.853
+          "sum": 30.017
         },
         "VolumeQueueLength": {
-          "avg": 1
+          "avg": 2
         },
         "VolumeThroughputPercentage": {
-          "avg": 38.556
+          "avg": 25.192
         },
         "VolumeConsumedReadWriteOps": {
-          "sum": 916
+          "sum": 935
         },
         "BurstBalance": {
-          "avg": 86
+          "avg": 92
         }
       }
     }
@@ -70,7 +70,7 @@
     "dataset": "aws.ebs",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "EBS CloudWatch alarm OK: VolumeQueueLength on vol-yxfqy0vbnho within normal range",
+  "message": "EBS volume vol-jmzznio2hr state change: available -> in-use on i-m5lz0n53lab (/dev/sdf)",
   "log": {
     "level": "info"
   }

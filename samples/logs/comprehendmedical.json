@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "comprehendmedical"
@@ -13,13 +13,12 @@
   },
   "aws": {
     "comprehendmedical": {
-      "operation": "StartEntitiesDetectionV2Job",
-      "entities_detected": 10,
-      "phi_entities": 3,
-      "text_characters": 4690,
-      "job_id": "3wituhwzisj",
-      "data_access_role_arn": "arn:aws:iam::738291046572:role/ComprehendMedicalRole",
-      "s3_bucket": "medical-records"
+      "operation": "DetectPHI",
+      "entities_detected": 3,
+      "phi_entities": 0,
+      "text_characters": 1602,
+      "data_access_role_arn": "arn:aws:iam::814726593401:role/ComprehendMedicalRole",
+      "s3_bucket": "ehr-processed"
     }
   },
   "event": {
@@ -28,7 +27,7 @@
     "dataset": "aws.comprehendmedical",
     "provider": "comprehendmedical.amazonaws.com"
   },
-  "message": "Comprehend Medical StartEntitiesDetectionV2Job: 10 entities, 3 PHI",
+  "message": "Comprehend Medical DetectPHI: 3 entities, 0 PHI",
   "log": {
     "level": "info"
   }

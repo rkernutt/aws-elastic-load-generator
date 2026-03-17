@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "staging",
+      "ClusterName": "workers",
       "ServiceName": "api-backend"
     },
     "ecs": {
       "cluster": {
-        "name": "staging"
+        "name": "workers"
       },
       "service": {
         "name": "api-backend"
       },
       "task": {
-        "id": "gp063nw24oe",
-        "definition": "api-backend:16"
+        "id": "ibw55hd13u8",
+        "definition": "api-backend:31"
       },
       "structured_logging": true,
       "metrics": {
         "CPUUtilization": {
-          "avg": 35.909
+          "avg": 40.242
         },
         "MemoryUtilization": {
-          "avg": 11.498
+          "avg": 69.614
         },
         "RunningTaskCount": {
-          "avg": 1
+          "avg": 20
         },
         "PendingTaskCount": {
           "avg": 0
@@ -60,9 +60,9 @@
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 961000000000
+    "duration": 2669000000000
   },
-  "message": "{\"cluster\":\"staging\",\"service\":\"api-backend\",\"taskId\":\"gp063nw24oe\",\"container\":\"api-backend\",\"level\":\"info\",\"message\":\"Scaling event triggered\",\"timestamp\":\"2026-03-17T10:07:40.656Z\"}",
+  "message": "{\"cluster\":\"workers\",\"service\":\"api-backend\",\"taskId\":\"ibw55hd13u8\",\"container\":\"api-backend\",\"level\":\"info\",\"message\":\"Task started\",\"timestamp\":\"2026-03-17T11:03:53.682Z\"}",
   "service": {
     "name": "api-backend",
     "type": "ecs"

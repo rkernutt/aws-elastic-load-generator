@@ -1,52 +1,52 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "ec2"
     },
     "instance": {
-      "id": "i-jci6b4llf3f"
+      "id": "i-8wkvrmhs8da"
     }
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "i-jci6b4llf3f",
-      "InstanceType": "r5.large",
-      "ImageId": "ami-umwjz6ll",
-      "AutoScalingGroupName": "web-asg"
+      "InstanceId": "i-8wkvrmhs8da",
+      "InstanceType": "m5.xlarge",
+      "ImageId": "ami-pllxn165",
+      "AutoScalingGroupName": "worker-asg"
     },
     "ec2": {
-      "instance_id": "i-jci6b4llf3f",
-      "instance_type": "r5.large",
-      "ami_id": "ami-l4ei5pw8",
-      "structured_logging": true,
+      "instance_id": "i-8wkvrmhs8da",
+      "instance_type": "m5.xlarge",
+      "ami_id": "ami-f1a2p2a0",
+      "structured_logging": false,
       "metrics": {
         "CPUUtilization": {
-          "avg": 18.247
+          "avg": 3.035
         },
         "NetworkIn": {
-          "sum": 391904755
+          "sum": 249248966
         },
         "NetworkOut": {
-          "sum": 499836893
+          "sum": 373885808
         },
         "DiskReadBytes": {
-          "sum": 73488731
+          "sum": 42962285
         },
         "DiskWriteBytes": {
-          "sum": 58683239
+          "sum": 91116098
         },
         "DiskReadOps": {
-          "sum": 5155
+          "sum": 3316
         },
         "DiskWriteOps": {
-          "sum": 3621
+          "sum": 7794
         },
         "StatusCheckFailed": {
           "max": 0
@@ -58,31 +58,31 @@
           "max": 0
         },
         "CPUCreditBalance": {
-          "avg": 133
+          "avg": 132
         },
         "CPUCreditUsage": {
-          "avg": 1.48
+          "avg": 6.499
         }
       }
     }
   },
   "host": {
-    "hostname": "ip-166-232-125-117",
+    "hostname": "ip-215-122-15-214",
     "os": {
       "type": "linux"
     }
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "event": {
     "category": "host",
     "outcome": "success",
     "dataset": "aws.ec2",
     "provider": "ec2.amazonaws.com",
-    "duration": 1687000000000
+    "duration": 165000000000
   },
-  "message": "{\"instanceId\":\"i-jci6b4llf3f\",\"instanceType\":\"r5.large\",\"level\":\"warn\",\"message\":\"SSH login from unknown IP\",\"timestamp\":\"2026-03-17T10:07:40.656Z\",\"component\":\"awslogs\"}",
+  "message": "systemd: Started Amazon SSM Agent",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.ec2_logs",

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "mediaconvert"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "mediaconvert": {
-      "job_id": "3309836399-0fkgv5",
-      "queue_arn": "arn:aws:mediaconvert:eu-west-2:501938274650:queues/batch",
+      "job_id": "5576483113-glob6l",
+      "queue_arn": "arn:aws:mediaconvert:eu-west-2:164820739518:queues/premium",
       "job_status": "COMPLETE",
-      "output_group_type": "DASH",
-      "input_file": "s3://media-input/broadcast/live.mxf",
-      "input_duration_minutes": 16.155,
-      "video_codec": "AV1",
+      "output_group_type": "HLS",
+      "input_file": "s3://media-input/raw/interview.mov",
+      "input_duration_minutes": 82.623,
+      "video_codec": "MPEG2",
       "audio_codec": "AC3",
-      "width": 1920,
-      "height": 2160,
-      "bitrate_kbps": 3000,
-      "duration_seconds": 1763
+      "width": 1280,
+      "height": 720,
+      "bitrate_kbps": 1500,
+      "duration_seconds": 1539
     }
   },
   "event": {
-    "duration": 1763000000000,
+    "duration": 1539000000000,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.mediaconvert",
     "provider": "mediaconvert.amazonaws.com"
   },
-  "message": "MediaConvert job 3309836399-0fkgv5 COMPLETE: 16.2 min -> DASH",
+  "message": "MediaConvert job 5576483113-glob6l COMPLETE: 82.6 min -> HLS",
   "log": {
     "level": "info"
   }

@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,42 +13,37 @@
   },
   "aws": {
     "computeoptimizer": {
-      "resource_type": "LAMBDA_FUNCTION",
-      "resource_arn": "arn:aws:ec2:us-east-1:293847561023:instance/i-b85k4wk8nog",
-      "finding": "UNDERPROVISIONED",
+      "resource_type": "AUTO_SCALING_GROUP",
+      "resource_arn": "arn:aws:ec2:us-east-1:293847561023:instance/i-9ese4zukf79",
+      "finding": "OVERPROVISIONED",
       "current_configuration": {
         "instance_type": "t3.large",
-        "vcpu": 6,
-        "memory_gb": 16
+        "vcpu": 28,
+        "memory_gb": 102
       },
       "recommended_configuration": {
-        "instance_type": "m5.large",
-        "vcpu": 8,
-        "memory_gb": 29
+        "instance_type": "r5.medium",
+        "vcpu": 6,
+        "memory_gb": 57
       },
-      "estimated_monthly_savings_usd": 0,
-      "estimated_monthly_savings_percent": 0,
-      "lookback_period_days": 93,
+      "estimated_monthly_savings_usd": 39.889,
+      "estimated_monthly_savings_percent": 11.026,
+      "lookback_period_days": 32,
       "utilization": {
-        "cpu_max": 25.943,
-        "memory_max": 34.018
+        "cpu_max": 70.053,
+        "memory_max": 34.917
       },
-      "performance_risk": "Low"
+      "performance_risk": "High"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "configuration",
     "dataset": "aws.computeoptimizer",
     "provider": "compute-optimizer.amazonaws.com"
   },
-  "message": "Compute Optimizer: LAMBDA_FUNCTION UNDERPROVISIONED — consider upgrading t3.large→m5.large:",
+  "message": "Compute Optimizer: AUTO_SCALING_GROUP OVERPROVISIONED — downsize t3.large→r5.medium, save 40/mo",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "OptimizerFinding",
-    "message": "Compute Optimizer finding",
-    "type": "configuration"
+    "level": "info"
   }
 }

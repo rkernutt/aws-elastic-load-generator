@@ -1,0 +1,115 @@
+{
+  "@timestamp": "2026-03-17T11:03:53.682Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "natgateway"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "NatGatewayId": "nat-p8n31wqscpp"
+    },
+    "natgateway": {
+      "id": "nat-p8n31wqscpp",
+      "private_ip": "10.128.62.65",
+      "public_ip": "93.197.205.173",
+      "bytes_in_from_destination": 361403,
+      "bytes_in_from_source": 843273,
+      "bytes_out_to_destination": 1204677,
+      "bytes_out_to_source": 481870,
+      "packets_in_from_destination": 141,
+      "packets_in_from_source": 330,
+      "packets_out_to_destination": 472,
+      "packets_out_to_source": 188,
+      "connection_attempt_count": 15,
+      "connection_established_count": 0,
+      "error_port_allocation": 0,
+      "metrics": {
+        "ActiveConnectionCount": {
+          "max": 360
+        },
+        "BytesInFromDestination": {
+          "sum": 361403
+        },
+        "BytesInFromSource": {
+          "sum": 843273
+        },
+        "BytesOutToDestination": {
+          "sum": 1204677
+        },
+        "BytesOutToSource": {
+          "sum": 481870
+        },
+        "PacketsInFromDestination": {
+          "sum": 141
+        },
+        "PacketsInFromSource": {
+          "sum": 330
+        },
+        "PacketsOutToDestination": {
+          "sum": 472
+        },
+        "PacketsOutToSource": {
+          "sum": 188
+        },
+        "ConnectionAttemptCount": {
+          "sum": 11
+        },
+        "ConnectionEstablishedCount": {
+          "sum": 0
+        },
+        "ErrorPortAllocation": {
+          "sum": 98
+        },
+        "IdleTimeoutCount": {
+          "sum": 10
+        }
+      }
+    }
+  },
+  "source": {
+    "ip": "10.128.62.65",
+    "port": 14636
+  },
+  "destination": {
+    "ip": "200.13.114.1",
+    "port": 27017
+  },
+  "network": {
+    "protocol": "udp",
+    "bytes": 1204677,
+    "packets": 472,
+    "direction": "egress"
+  },
+  "event": {
+    "outcome": "failure",
+    "category": "network",
+    "dataset": "aws.natgateway",
+    "provider": "natgateway.amazonaws.com",
+    "duration": 3358000000
+  },
+  "message": "NAT Gateway nat-p8n31wqscpp: connection-timeout (UDP 10.128.62.65 → 200.13.114.1:27017)",
+  "log": {
+    "level": "warn"
+  },
+  "error": {
+    "code": "connection-timeout",
+    "message": "NAT Gateway ERROR: connection-timeout",
+    "type": "network"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.natgateway",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

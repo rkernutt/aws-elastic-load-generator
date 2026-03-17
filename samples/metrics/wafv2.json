@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "wafv2"
@@ -14,32 +14,40 @@
   "aws": {
     "wafv2": {
       "web_acl_name": "regional-waf",
-      "rule_group_name": "AWSManagedRulesCommonRuleSet",
-      "rule_name": "NoUserAgent_HEADER",
-      "action": "ALLOW",
-      "terminating_rule_id": "NoUserAgent_HEADER",
-      "source_ip": "162.57.50.67",
-      "country": "CN",
+      "rule_group_name": "AWSManagedRulesSQLiRuleSet",
+      "rule_name": "RateLimitRule",
+      "action": "BLOCK",
+      "terminating_rule_id": "RateLimitRule",
+      "source_ip": "236.17.45.212",
+      "country": "DE",
       "uri": "/api/v2/events",
-      "method": "PUT",
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-      "request_id": "bulqdm555a4",
-      "labels": []
+      "method": "POST",
+      "user_agent": "python-requests/2.27.1",
+      "blocked_reason": "Bad input pattern",
+      "request_id": "y2uip4lb2d8",
+      "labels": [
+        "awswaf:managed:aws:core-rule-set:CrossSiteScripting"
+      ]
     }
   },
   "source": {
-    "ip": "162.57.50.67"
+    "ip": "236.17.45.212"
   },
   "event": {
-    "action": "allow",
-    "outcome": "success",
+    "action": "block",
+    "outcome": "failure",
     "category": "intrusion_detection",
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com"
   },
-  "message": "WAFv2 ALLOW [regional-waf] 162.57.50.67 PATCH /api/v1/products",
+  "message": "WAFv2 BLOCK [regional-waf] 236.17.45.212: AWSManagedRulesSQLiRuleSet/RateLimitRule",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "WAFBlock",
+    "message": "WAFv2 request blocked",
+    "type": "security"
   },
   "data_stream": {
     "type": "metrics",

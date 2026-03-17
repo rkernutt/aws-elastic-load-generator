@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codeguru"
@@ -15,31 +15,25 @@
     "codeguru": {
       "product": "Profiler",
       "repository_name": "frontend-app",
-      "association_id": "b76d216jxnk",
-      "finding_id": "henuodk7x8",
-      "category": "Memory",
-      "severity": "High",
+      "association_id": "dt8yawu5y3o",
+      "finding_id": "tgkpvh1vgp",
+      "category": "Latency",
+      "severity": "Low",
       "finding_description": "Lambda cold start overhead",
-      "code_file": "lambda_function.py",
-      "line_number": 70,
+      "code_file": "src/main/frontendapp/Handler.java",
+      "line_number": 335,
       "profiling_group": "frontend-app-profiling",
-      "frame_percent": 15.296,
-      "error_code": "InternalServerException"
+      "frame_percent": 46.359
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "process",
     "dataset": "aws.codeguru",
     "provider": "codeguru.amazonaws.com"
   },
-  "message": "CodeGuru Profiler FAILED [frontend-app]: Internal error:",
+  "message": "CodeGuru Profiler [frontend-app] Low: Lambda cold start overhead",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "InternalServerException",
-    "message": "CodeGuru operation failed",
-    "type": "process"
+    "level": "info"
   }
 }

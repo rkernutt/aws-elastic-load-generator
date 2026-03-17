@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "imagebuilder"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "amazon-linux-cis",
-      "Phase": "BUILD"
+      "PipelineName": "container-base-pipeline",
+      "Phase": "DEPROVISION"
     },
     "imagebuilder": {
-      "pipeline_name": "amazon-linux-cis",
-      "image_version": "3.7.2/1",
-      "phase": "BUILD",
+      "pipeline_name": "container-base-pipeline",
+      "image_version": "5.4.8/1",
+      "phase": "DEPROVISION",
       "phase_status": "COMPLETED",
-      "duration_seconds": 1392,
-      "os": "Amazon Linux 2023",
-      "recipe_name": "docker-host",
-      "ami_id": "ami-dgipkwtn",
+      "duration_seconds": 1091,
+      "os": "Windows Server 2022",
+      "recipe_name": "hardened-base",
+      "ami_id": "ami-5u4oe0l0",
       "metrics": {
         "BuildDuration": {
-          "avg": 1392
+          "avg": 1091
         },
         "ImageBuildSuccessCount": {
           "sum": 1
@@ -36,19 +36,19 @@
           "sum": 0
         },
         "ComponentBuildDuration": {
-          "avg": 243
+          "avg": 453
         }
       }
     }
   },
   "event": {
-    "duration": 1392000000000,
+    "duration": 1091000000000,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.imagebuilder",
     "provider": "imagebuilder.amazonaws.com"
   },
-  "message": "Image Builder amazon-linux-cis BUILD COMPLETED in 1392s",
+  "message": "Image Builder container-base-pipeline DEPROVISION COMPLETED in 1091s",
   "log": {
     "level": "info"
   }

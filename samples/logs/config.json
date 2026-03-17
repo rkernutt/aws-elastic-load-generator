@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "dimensions": {
-      "ConfigRuleName": "restricted-ssh",
-      "ResourceType": "AWS::EC2::Instance"
+      "ConfigRuleName": "vpc-flow-logs-enabled",
+      "ResourceType": "AWS::S3::Bucket"
     },
     "config": {
-      "rule_name": "restricted-ssh",
+      "rule_name": "vpc-flow-logs-enabled",
       "compliance_type": "COMPLIANT",
-      "resource_type": "AWS::EC2::Instance",
-      "resource_id": "i-ybv82m43",
+      "resource_type": "AWS::S3::Bucket",
+      "resource_id": "s3-xfj6ugcc",
       "annotation": "Resource is compliant",
       "metrics": {
         "ComplianceByConfigRule": {
@@ -33,7 +33,7 @@
           "sum": 1
         },
         "ConfigurationItemsRecorded": {
-          "sum": 89
+          "sum": 73
         }
       }
     }
@@ -44,7 +44,7 @@
     "dataset": "aws.config",
     "provider": "config.amazonaws.com"
   },
-  "message": "Config rule PASSED: restricted-ssh",
+  "message": "Config rule PASSED: vpc-flow-logs-enabled",
   "log": {
     "level": "info"
   }

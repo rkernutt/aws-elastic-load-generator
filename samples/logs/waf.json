@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,65 +13,65 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "prod-waf",
-      "Rule": "RateLimitRule",
+      "WebACL": "api-waf",
+      "Rule": "AWSManagedRulesCommonRuleSet",
       "Region": "us-east-1"
     },
     "waf": {
-      "web_acl_id": "41bdcjnk-ryts-ellb",
-      "web_acl_name": "prod-waf",
-      "terminating_rule_id": "RateLimitRule",
+      "web_acl_id": "bg6i7plr-tgcl-av3o",
+      "web_acl_name": "api-waf",
+      "terminating_rule_id": "AWSManagedRulesCommonRuleSet",
       "rule_group_list": [
         {
-          "rule_group_id": "RateLimitRule",
-          "terminating_rule": "RateLimitRule",
+          "rule_group_id": "AWSManagedRulesCommonRuleSet",
+          "terminating_rule": "AWSManagedRulesCommonRuleSet",
           "rule_group_override_action": "NONE",
           "excluded_rules": []
         }
       ],
       "action": "ALLOW",
       "http_request": {
-        "client_ip": "194.197.72.126",
-        "country": "IE",
-        "uri": "/api/v1/users",
+        "client_ip": "28.228.236.60",
+        "country": "US",
+        "uri": "/api/v1/orders",
         "uri_query": "",
-        "method": "POST",
+        "method": "PUT",
         "headers": [
           {
             "name": "User-Agent",
-            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+            "value": "Go-http-client/1.1"
           }
         ]
       },
       "http_source_name": "ALB",
       "metrics": {
         "AllowedRequests": {
-          "sum": 7949
+          "sum": 6402
         },
         "BlockedRequests": {
           "sum": 0
         },
         "CountedRequests": {
-          "sum": 51
+          "sum": 27
         },
         "PassedRequests": {
-          "sum": 5524
+          "sum": 9487
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "PUT",
-      "bytes": 4977
+      "method": "POST",
+      "bytes": 2413
     },
-    "uri": "/api/v1/users"
+    "uri": "/api/v1/orders"
   },
   "client": {
-    "ip": "194.197.72.126"
+    "ip": "28.228.236.60"
   },
   "user_agent": {
-    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    "original": "Go-http-client/1.1"
   },
   "event": {
     "action": "allow",
@@ -80,7 +80,7 @@
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com"
   },
-  "message": "WAF ALLOWED request - Rule: RateLimitRule",
+  "message": "WAF ALLOWED request - Rule: AWSManagedRulesCommonRuleSet",
   "log": {
     "level": "info"
   }

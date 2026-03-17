@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "forecast"
@@ -14,23 +14,23 @@
   "aws": {
     "forecast": {
       "dataset_group": "web-traffic",
-      "predictor_name": "web-traffic-predictor-v7",
-      "action": "CreateDatasetImportJob",
-      "algorithm": "NPTS",
-      "forecast_horizon": 14,
-      "weighted_quantile_loss": 0.054,
-      "duration_seconds": 3101,
+      "predictor_name": "web-traffic-predictor-v13",
+      "action": "CreateForecast",
+      "algorithm": "AutoML",
+      "forecast_horizon": 7,
+      "weighted_quantile_loss": 0.08,
+      "duration_seconds": 4727,
       "status": "ACTIVE"
     }
   },
   "event": {
-    "duration": 3101000000000,
+    "duration": 4727000000000,
     "outcome": "success",
     "category": "machine_learning",
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com"
   },
-  "message": "Forecast CreateDatasetImportJob: web-traffic, WQL=0.172",
+  "message": "Forecast CreateForecast: web-traffic, WQL=0.105",
   "log": {
     "level": "info"
   }

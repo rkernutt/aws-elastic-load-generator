@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "cloudfront"
@@ -13,51 +13,51 @@
   },
   "aws": {
     "dimensions": {
-      "DistributionId": "ERMSU4E2ZY7M",
+      "DistributionId": "EEMPYEJPTVIL",
       "Region": "Global"
     },
     "cloudfront_logs": {
-      "x_edge_location": "FRA",
-      "sc_bytes": 69457,
-      "c_ip": "225.204.29.130",
+      "x_edge_location": "SFO",
+      "sc_bytes": 257343,
+      "c_ip": "196.10.74.219",
       "cs_method": "GET",
-      "cs_uri_stem": "/images/hero.webp",
-      "sc_status": "404",
-      "x_edge_request_id": "420V80N3CMD",
-      "time_taken": "4.502",
-      "x_edge_result_type": "Error",
-      "x_edge_response_result_type": "Error"
+      "cs_uri_stem": "/assets/app.js",
+      "sc_status": "200",
+      "x_edge_request_id": "ZUPOFGZW7DG",
+      "time_taken": "0.487",
+      "x_edge_result_type": "RefreshHit",
+      "x_edge_response_result_type": "Hit"
     },
     "cloudfront": {
-      "distribution_id": "ERMSU4E2ZY7M",
-      "edge_location": "FRA",
-      "result_type": "Error",
-      "edge_request_id": "420V80N3CMD",
-      "time_to_first_byte": 4.502,
+      "distribution_id": "EEMPYEJPTVIL",
+      "edge_location": "SFO",
+      "result_type": "Miss",
+      "edge_request_id": "ZUPOFGZW7DG",
+      "time_to_first_byte": 0.487,
       "metrics": {
         "Requests": {
-          "sum": 22117
+          "sum": 37323
         },
         "BytesDownloaded": {
-          "sum": 7602136771
+          "sum": 8826333077
         },
         "BytesUploaded": {
-          "sum": 377600
+          "sum": 368515
         },
         "4xxErrorRate": {
-          "avg": 6.097
+          "avg": 0.01
         },
         "5xxErrorRate": {
           "avg": 0
         },
         "TotalErrorRate": {
-          "avg": 14.707
+          "avg": 0.817
         },
         "CacheHitRate": {
-          "avg": 9.488
+          "avg": 79.658
         },
         "OriginLatency": {
-          "avg": 1551
+          "avg": 123
         }
       }
     }
@@ -65,34 +65,29 @@
   "http": {
     "request": {
       "method": "GET",
-      "bytes": 985
+      "bytes": 202
     },
     "response": {
-      "status_code": 404,
-      "bytes": 69457
+      "status_code": 200,
+      "bytes": 257343
     }
   },
   "url": {
-    "path": "/images/hero.webp",
-    "domain": "dasjh8fjn3i.cloudfront.net"
+    "path": "/assets/app.js",
+    "domain": "db9mmwra8w3a.cloudfront.net"
   },
   "client": {
-    "ip": "225.204.29.130"
+    "ip": "196.10.74.219"
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "web",
     "dataset": "aws.cloudfront_logs",
     "provider": "cloudfront.amazonaws.com",
-    "duration": 4502000000
+    "duration": 487000000
   },
-  "message": "GET /images/hero.webp 404 [FRA]",
+  "message": "GET /assets/app.js 200 [SFO]",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "ClientError",
-    "message": "HTTP 404",
-    "type": "server"
+    "level": "info"
   }
 }

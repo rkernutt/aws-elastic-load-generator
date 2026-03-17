@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "guardduty"
@@ -13,64 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "3gb19vl7xm7"
+      "DetectorId": "kmyzotbm0xa"
     },
     "guardduty": {
       "schema_version": "2.0",
-      "account_id": "738291046572",
+      "account_id": "164820739518",
       "region": "eu-west-2",
       "partition": "aws",
-      "id": "rr29v6aew8a",
-      "arn": "arn:aws:guardduty:eu-west-2:738291046572:detector/3gb19vl7xm7/finding/rr29v6aew8a",
+      "id": "i68rl1w57p",
+      "arn": "arn:aws:guardduty:eu-west-2:164820739518:detector/kmyzotbm0xa/finding/i68rl1w57p",
       "type": "Trojan:EC2/DropPoint",
       "title": "EC2 DropPoint",
-      "description": "GuardDuty detected suspicious activity: Trojan:EC2/DropPoint",
-      "created_at": "2026-03-17T10:07:40.656Z",
-      "updated_at": "2026-03-17T10:07:40.656Z",
-      "severity": 2,
-      "confidence": 66.46,
-      "finding_id": "rr29v6aew8a",
+      "description": "Routine check completed.",
+      "created_at": "2026-03-17T11:03:53.682Z",
+      "updated_at": "2026-03-17T11:03:53.682Z",
+      "severity": 0,
+      "confidence": 79.589,
+      "finding_id": "i68rl1w57p",
       "finding_type": "Trojan:EC2/DropPoint",
-      "detector_id": "3gb19vl7xm7",
-      "resource_type": "AccessKey",
+      "detector_id": "kmyzotbm0xa",
+      "resource_type": "Instance",
       "action_type": "DNS_REQUEST",
-      "count": 235,
-      "resource": {
-        "instance_details": {
-          "availability_zone": "eu-west-2a",
-          "instance": {
-            "id": "i-c5dkmvoqetv",
-            "type": "m5.large",
-            "state": "running"
-          },
-          "image": {
-            "id": "ami-v4pr1x94",
-            "description": "Amazon Linux 2"
-          },
-          "network_interfaces": [
-            {
-              "network_interface_id": "eni-fkam9ybx",
-              "private_ip_address": "204.238.24.114",
-              "subnet_id": "subnet-z2dhynh8",
-              "vpc_id": "vpc-uqezqsyt",
-              "security_groups": [
-                {
-                  "group_id": "sg-pf1h259f",
-                  "group_name": "default"
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "service": {
-        "action": {
-          "action_type": "NETWORK_CONNECTION"
-        }
-      },
+      "count": 315,
       "metrics": {
         "FindingCount": {
-          "sum": 3
+          "sum": 0
         },
         "HighSeverityFindingCount": {
           "sum": 0
@@ -79,7 +46,7 @@
           "sum": 0
         },
         "LowSeverityFindingCount": {
-          "sum": 13
+          "sum": 0
         }
       }
     }
@@ -87,26 +54,21 @@
   "threat": {
     "indicator": [
       {
-        "type": "domain",
-        "value": "40.177.203.33"
+        "type": "ip",
+        "value": "117.51.153.127"
       }
     ]
   },
   "event": {
     "kind": "alert",
-    "severity": 2,
-    "outcome": "failure",
+    "severity": 0,
+    "outcome": "success",
     "category": "intrusion_detection",
     "dataset": "aws.guardduty",
     "provider": "guardduty.amazonaws.com"
   },
-  "message": "GuardDuty finding [Severity 2]: Trojan:EC2/DropPoint",
+  "message": "GuardDuty: no threats detected",
   "log": {
     "level": "info"
-  },
-  "error": {
-    "code": "ThreatFinding",
-    "message": "GuardDuty finding: Trojan:EC2/DropPoint",
-    "type": "security"
   }
 }

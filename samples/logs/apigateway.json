@@ -1,46 +1,42 @@
 {
-  "@timestamp": "2026-03-17T10:07:40.656Z",
+  "@timestamp": "2026-03-17T11:03:53.682Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "apigateway"
     }
   },
-  "trace": {
-    "id": "1-v195zvk9-bsd42h1c4ts"
-  },
   "aws": {
     "dimensions": {
-      "ApiName": "prod-api",
-      "Stage": "v1",
-      "Method": "DELETE",
-      "Resource": "/api/v1/search"
+      "ApiName": "internal-api",
+      "Stage": "prod",
+      "Method": "PUT",
+      "Resource": "/api/v2/events"
     },
     "apigateway": {
-      "request_id": "fa4ig65d-v0pz",
-      "trace_id": "1-v195zvk9-bsd42h1c4ts",
-      "api_id": "kcv0m2it0c",
-      "api_name": "prod-api",
-      "stage": "v1",
-      "structured_logging": true,
+      "request_id": "3r8bhacu-2kzd",
+      "api_id": "zkfcbmqfgo",
+      "api_name": "internal-api",
+      "stage": "prod",
+      "structured_logging": false,
       "request": {
-        "http_method": "DELETE",
-        "path": "/api/v1/search",
+        "http_method": "PUT",
+        "path": "/api/v2/events",
         "protocol": "HTTP/1.1"
       },
       "response": {
-        "status_code": 204,
-        "integration_latency_ms": 425,
-        "response_latency_ms": 500
+        "status_code": 201,
+        "integration_latency_ms": 45,
+        "response_latency_ms": 54
       },
       "metrics": {
         "Count": {
-          "sum": 657
+          "sum": 200
         },
         "4xx": {
           "sum": 0
@@ -49,45 +45,45 @@
           "sum": 0
         },
         "Latency": {
-          "avg": 500,
-          "max": 750,
-          "min": 250
+          "avg": 54,
+          "max": 81,
+          "min": 27
         },
         "IntegrationLatency": {
-          "avg": 425,
-          "max": 650,
-          "min": 200
+          "avg": 45,
+          "max": 70,
+          "min": 21
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "DELETE",
-      "bytes": 3334
+      "method": "PUT",
+      "bytes": 3756
     },
     "response": {
-      "status_code": 204,
-      "bytes": 5495
+      "status_code": 201,
+      "bytes": 5456
     }
   },
   "url": {
-    "path": "/api/v1/search",
-    "domain": "kcv0m2it0c.execute-api.eu-west-2.amazonaws.com"
+    "path": "/api/v2/events",
+    "domain": "zkfcbmqfgo.execute-api.us-east-1.amazonaws.com"
   },
   "client": {
-    "ip": "85.181.167.200"
+    "ip": "200.216.149.187"
   },
   "user_agent": {
-    "original": "curl/7.68.0"
+    "original": "Go-http-client/1.1"
   },
   "event": {
-    "duration": 500000000,
+    "duration": 54000000,
     "outcome": "success",
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "{\"requestId\":\"fa4ig65d-v0pz\",\"requestMethod\":\"DELETE\",\"requestPath\":\"/api/v1/search\",\"status\":204,\"responseLatency\":500,\"integrationLatency\":425,\"timestamp\":\"2026-03-17T10:07:40.656Z\",\"traceId\":\"1-v195zvk9-bsd42h1c4ts\"}",
+  "message": "PUT /api/v2/events 201 54ms",
   "log": {
     "level": "info"
   }
