@@ -1,0 +1,84 @@
+{
+  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "cognito"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "UserPool": "eu-west-2_B8NJH4KAE",
+      "UserPoolClient": "eu-users-web"
+    },
+    "cognito": {
+      "user_pool_id": "eu-west-2_B8NJH4KAE",
+      "user_pool_name": "eu-users",
+      "event_type": "ForgotPassword",
+      "username": "user-brv1mh50@example.com",
+      "source_ip": "177.139.82.139",
+      "metrics": {
+        "SignInSuccesses": {
+          "sum": 5543
+        },
+        "SignInAttempts": {
+          "sum": 5543
+        },
+        "TokenRefreshSuccesses": {
+          "sum": 21837
+        },
+        "SignUpSuccesses": {
+          "sum": 0
+        },
+        "FederationSuccesses": {
+          "sum": 0
+        },
+        "CallCount": {
+          "sum": 13270
+        },
+        "ThrottleCount": {
+          "sum": 0
+        },
+        "AccountTakeoverRisk": {
+          "sum": 0
+        },
+        "CompromisedCredentialsRisk": {
+          "sum": 0
+        }
+      }
+    }
+  },
+  "user": {
+    "name": "user-brv1mh50@example.com"
+  },
+  "source": {
+    "ip": "224.212.182.28"
+  },
+  "event": {
+    "action": "ForgotPassword",
+    "outcome": "success",
+    "category": [
+      "authentication"
+    ],
+    "dataset": "aws.cognito",
+    "provider": "cognito-idp.amazonaws.com"
+  },
+  "message": "Cognito ForgotPassword success [eu-users]",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.cognito",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "fsx"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "FileSystemId": "fs-7nou3tipjk8"
+    },
+    "fsx": {
+      "file_system_id": "fs-7nou3tipjk8",
+      "file_system_type": "NETAPP_ONTAP",
+      "deployment_type": "SINGLE_AZ_2",
+      "storage_capacity_gb": 9600,
+      "throughput_capacity_mbps": 256,
+      "storage_used_percent": 74,
+      "metrics": {
+        "DataReadBytes": {
+          "sum": 574135991
+        },
+        "DataWriteBytes": {
+          "sum": 96795554
+        },
+        "DataReadOperations": {
+          "sum": 1623
+        },
+        "DataWriteOperations": {
+          "sum": 5636
+        },
+        "MetadataOperations": {
+          "sum": 504
+        },
+        "FreeStorageCapacity": {
+          "avg": 28702197877
+        },
+        "StorageCapacity": {
+          "avg": 245362448894
+        },
+        "CPUUtilization": {
+          "avg": 29.887
+        },
+        "NetworkThroughputUtilization": {
+          "avg": 20.565
+        }
+      }
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": [
+      "host",
+      "file"
+    ],
+    "dataset": "aws.fsx",
+    "provider": "fsx.amazonaws.com",
+    "duration": 151000000
+  },
+  "message": "Storage capacity scaling complete",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.fsx",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "738291046572",
+      "name": "globex-development"
+    },
+    "service": {
+      "name": "elasticbeanstalk"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "EnvironmentName": "my-web-app-staging",
+      "InstanceId": "i-hqxqhykbq6s"
+    },
+    "elasticbeanstalk": {
+      "application": "my-web-app",
+      "environment": "my-web-app-staging",
+      "structured_logging": false,
+      "platform": "Docker",
+      "version_label": "v159",
+      "metrics": {
+        "ApplicationRequests2xx": {
+          "sum": 1
+        },
+        "ApplicationRequests3xx": {
+          "sum": 0
+        },
+        "ApplicationRequests4xx": {
+          "sum": 0
+        },
+        "ApplicationRequests5xx": {
+          "sum": 0
+        },
+        "ApplicationLatencyP10": {
+          "avg": "5.685"
+        },
+        "ApplicationLatencyP50": {
+          "avg": "66.462"
+        },
+        "ApplicationLatencyP75": {
+          "avg": "87.019"
+        },
+        "ApplicationLatencyP85": {
+          "avg": "237.790"
+        },
+        "ApplicationLatencyP90": {
+          "avg": "132.719"
+        },
+        "ApplicationLatencyP95": {
+          "avg": "781.897"
+        },
+        "ApplicationLatencyP99": {
+          "avg": "137.539"
+        },
+        "ApplicationLatencyP99.9": {
+          "avg": "1838.815"
+        },
+        "ApplicationRequests": {
+          "sum": 1
+        },
+        "InstancesSevere": {
+          "avg": 0
+        },
+        "InstancesDegraded": {
+          "avg": 0
+        },
+        "InstancesWarning": {
+          "avg": 0
+        },
+        "InstancesOk": {
+          "avg": 5
+        },
+        "EnvironmentHealth": {
+          "avg": 20
+        }
+      }
+    }
+  },
+  "http": {
+    "response": {
+      "status_code": 204
+    }
+  },
+  "log": {
+    "level": "info"
+  },
+  "event": {
+    "category": [
+      "web",
+      "process"
+    ],
+    "outcome": "success",
+    "dataset": "aws.elasticbeanstalk",
+    "provider": "elasticbeanstalk.amazonaws.com",
+    "duration": 95000000000
+  },
+  "message": "Rolling update complete",
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.elasticbeanstalk",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

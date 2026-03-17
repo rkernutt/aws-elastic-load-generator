@@ -1,0 +1,98 @@
+{
+  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "amazonmq"
+    }
+  },
+  "aws": {
+    "amazonmq": {
+      "broker_id": "b-i7dnhv4u-wj1b",
+      "broker_name": "order-processor",
+      "broker_engine": "RabbitMQ",
+      "engine_version": "3.12.1",
+      "deployment_mode": "SINGLE_INSTANCE",
+      "queue_name": "dlq.orders",
+      "messages_in": 2327,
+      "messages_out": 900,
+      "queue_depth": 817,
+      "broker_memory_percent": 56,
+      "metrics": {
+        "ConsumerCount": {
+          "avg": 75
+        },
+        "ProducerCount": {
+          "avg": 19
+        },
+        "QueueSize": {
+          "avg": 4297
+        },
+        "EnqueueCount": {
+          "sum": 9106
+        },
+        "DequeueCount": {
+          "sum": 5709
+        },
+        "InFlightCount": {
+          "avg": 297
+        },
+        "DispatchCount": {
+          "sum": 4859
+        },
+        "ExpiredCount": {
+          "sum": 73
+        },
+        "NetworkConnectorStarted": {
+          "sum": 1
+        },
+        "HeapUsage": {
+          "avg": "61.426"
+        },
+        "StorePercentUsage": {
+          "avg": "37.667"
+        },
+        "TotalEnqueueCount": {
+          "sum": 307732
+        },
+        "TotalDequeueCount": {
+          "sum": 142013
+        },
+        "TotalConsumerCount": {
+          "avg": 91
+        },
+        "TotalProducerCount": {
+          "avg": 30
+        }
+      }
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": [
+      "process",
+      "network"
+    ],
+    "dataset": "aws.amazonmq",
+    "provider": "mq.amazonaws.com",
+    "duration": 1425000000
+  },
+  "message": "Message consumed successfully",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.amazonmq",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

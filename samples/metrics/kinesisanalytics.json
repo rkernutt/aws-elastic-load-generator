@@ -1,0 +1,53 @@
+{
+  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "738291046572",
+      "name": "globex-development"
+    },
+    "service": {
+      "name": "kinesisanalytics"
+    }
+  },
+  "aws": {
+    "kinesisanalytics": {
+      "application_name": "fraud-detection-stream",
+      "application_arn": "arn:aws:kinesisanalytics:eu-west-2:738291046572:application/fraud-detection-stream",
+      "runtime": "FLINK-1_18",
+      "records_per_second": 3519,
+      "input_watermark_lag_ms": 535,
+      "checkpointing_enabled": true,
+      "last_checkpoint_duration_ms": 258,
+      "kpu_count": 30,
+      "structured_logging": false,
+      "metrics": {
+        "records_in_per_second": 3519,
+        "input_watermark_lag_ms": 535,
+        "kpu_utilization_pct": 76,
+        "checkpoint_duration_ms": 160
+      }
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": "process",
+    "dataset": "aws.kinesisanalytics",
+    "provider": "kinesisanalytics.amazonaws.com",
+    "duration": 1490000000
+  },
+  "message": "Checkpoint completed",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.kinesisanalytics",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

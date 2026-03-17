@@ -1,0 +1,59 @@
+{
+  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "transferfamily"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "ServerId": "s-dgm50zb3ou8",
+      "Protocol": "AS2"
+    },
+    "transferfamily": {
+      "server_id": "s-dgm50zb3ou8",
+      "protocol": "AS2",
+      "user_name": "data-ingest",
+      "session_id": "eh7r8bu0run",
+      "file_path": "/reports/daily-sales.xlsx",
+      "operation": "GET",
+      "bytes_transferred": 4130693024,
+      "transfer_rate_mbps": 194.532,
+      "duration_seconds": 150.743,
+      "s3_bucket": "sftp-inbound",
+      "as2_message_id": "fovx9dej20q"
+    }
+  },
+  "source": {
+    "ip": "65.95.107.81"
+  },
+  "event": {
+    "outcome": "success",
+    "category": [
+      "file",
+      "network"
+    ],
+    "dataset": "aws.transfer",
+    "provider": "transfer.amazonaws.com",
+    "duration": 26246000000
+  },
+  "message": "Transfer Family AS2 [data-ingest] /reports/daily-sales.xlsx: 3939.3MB",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.transferfamily",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "iotcore"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "Protocol": "MQTT"
+    },
+    "iotcore": {
+      "client_id": "robot-arm-7",
+      "thing_name": "robot-arm-7",
+      "thing_group": "home-devices",
+      "action": "DISCONNECT",
+      "topic": "telemetry/metrics",
+      "protocol": "MQTT",
+      "qos": 1,
+      "message_bytes": 29300,
+      "policy_name": "SensorPolicy",
+      "structured_logging": false,
+      "rules_evaluated": 1,
+      "metrics": {
+        "Connect.Success": {
+          "sum": 810
+        },
+        "Connect.Failure": {
+          "sum": 0
+        },
+        "PublishIn.Success": {
+          "sum": 2237
+        },
+        "PublishIn.ClientError": {
+          "sum": 0
+        },
+        "PublishIn.ServerError": {
+          "sum": 0
+        },
+        "PublishOut.Success": {
+          "sum": 8101
+        },
+        "Publish.Success": {
+          "sum": 1482
+        },
+        "Publish.Failure": {
+          "sum": 0
+        },
+        "Subscribe.Success": {
+          "sum": 2733
+        },
+        "Subscribe.Failure": {
+          "sum": 0
+        },
+        "Unsubscribe.Success": {
+          "sum": 224
+        },
+        "Ping.Success": {
+          "sum": 8344
+        },
+        "Throttle.Success": {
+          "sum": 82
+        },
+        "RulesMatched": {
+          "sum": 869
+        },
+        "RulesFailed": {
+          "sum": 0
+        },
+        "RulesNotMatched": {
+          "sum": 12
+        },
+        "TopicMatch": {
+          "sum": 6347
+        },
+        "ClientConnections": {
+          "avg": 65943
+        }
+      }
+    }
+  },
+  "source": {
+    "ip": "141.180.102.75"
+  },
+  "event": {
+    "action": "DISCONNECT",
+    "outcome": "success",
+    "category": [
+      "network",
+      "process"
+    ],
+    "dataset": "aws.iot",
+    "provider": "iot.amazonaws.com",
+    "duration": 137000000
+  },
+  "message": "IoT Core DISCONNECT: robot-arm-7 on telemetry/metrics",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.iotcore",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

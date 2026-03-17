@@ -1,0 +1,87 @@
+{
+  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "738291046572",
+      "name": "globex-development"
+    },
+    "service": {
+      "name": "connect"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "InstanceId": "ld2jimun-jofw-hyfz-urvd-g30lxlyxkds",
+      "MetricGroup": "Queue"
+    },
+    "connect": {
+      "instance_id": "ld2jimun-jofw-hyfz-urvd-g30lxlyxkds",
+      "contact_id": "azip2jyp-72uh-9ehs",
+      "channel": "TASK",
+      "initiation_method": "TASK",
+      "queue_name": "Sales",
+      "agent_id": "agent-alice",
+      "duration_seconds": 1443,
+      "hold_duration_seconds": 18,
+      "queue_wait_time_seconds": 199,
+      "disconnect_reason": "AGENT_DISCONNECT",
+      "sentiment_overall": "POSITIVE",
+      "contact_lens_enabled": false,
+      "lex_bot_interacted": false,
+      "metrics": {
+        "ContactsQueued": {
+          "sum": 1
+        },
+        "ContactsHandled": {
+          "sum": 1
+        },
+        "ContactsAbandoned": {
+          "sum": 0
+        },
+        "ContactsHoldAbandonment": {
+          "sum": 0
+        },
+        "AverageHandleTime": {
+          "avg": 1443
+        },
+        "AverageAfterContactWorkTime": {
+          "avg": 34
+        },
+        "AverageQueueAnswerTime": {
+          "avg": 67
+        },
+        "ServiceLevel": {
+          "avg": 69.053
+        },
+        "OccupancyTime": {
+          "avg": 50.939
+        }
+      }
+    }
+  },
+  "event": {
+    "duration": 1443000000000,
+    "outcome": "success",
+    "category": [
+      "host",
+      "session"
+    ],
+    "dataset": "aws.connect",
+    "provider": "connect.amazonaws.com"
+  },
+  "message": "Connect TASK: Sales agent=agent-alice, 1443s, POSITIVE",
+  "log": {
+    "level": "warn"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.connect",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

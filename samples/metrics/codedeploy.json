@@ -1,0 +1,77 @@
+{
+  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "codedeploy"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "DeploymentGroupName": "prod",
+      "ApplicationName": "api-service"
+    },
+    "codedeploy": {
+      "application_name": "api-service",
+      "deployment_group": "prod",
+      "deployment_id": "d-4TZY1WXYZ",
+      "deployment_type": "IN_PLACE",
+      "lifecycle_event": "BeforeAllowTraffic",
+      "event_status": "Succeeded",
+      "duration_seconds": 121,
+      "instances_succeeded": 1,
+      "instances_failed": 0,
+      "metrics": {
+        "DeploymentAttempts": {
+          "sum": 1
+        },
+        "DeploymentSuccesses": {
+          "sum": 1
+        },
+        "DeploymentFailures": {
+          "sum": 0
+        },
+        "RollbackAttempts": {
+          "sum": 0
+        },
+        "DeploymentDuration": {
+          "avg": 121
+        },
+        "InstanceSuccesses": {
+          "sum": 7
+        },
+        "InstanceFailures": {
+          "sum": 0
+        }
+      }
+    }
+  },
+  "event": {
+    "duration": 121000000000,
+    "outcome": "success",
+    "category": [
+      "process",
+      "configuration"
+    ],
+    "dataset": "aws.codedeploy",
+    "provider": "codedeploy.amazonaws.com"
+  },
+  "message": "CodeDeploy api-service deployment SUCCEEDED in 121s",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.codedeploy",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

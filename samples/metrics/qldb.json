@@ -1,0 +1,51 @@
+{
+  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "qldb"
+    }
+  },
+  "aws": {
+    "qldb": {
+      "ledger_name": "audit-trail",
+      "table_name": "Orders",
+      "operation": "INSERT",
+      "transaction_id": "zgcegtnlkfs",
+      "document_id": "ocqh0xt48jo",
+      "revision_hash": "seovf1771ho",
+      "duration_ms": 1007,
+      "error_code": "OccConflictException"
+    }
+  },
+  "event": {
+    "duration": 1007073000,
+    "outcome": "failure",
+    "category": "database",
+    "dataset": "aws.qldb",
+    "provider": "qldb.amazonaws.com"
+  },
+  "message": "QLDB INSERT on audit-trail.Orders FAILED: OCC conflict",
+  "log": {
+    "level": "error"
+  },
+  "error": {
+    "code": "OccConflictException",
+    "message": "QLDB transaction failed",
+    "type": "db"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.qldb",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

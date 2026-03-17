@@ -4,6 +4,18 @@
 
 ---
 
+## What's New in v8.0
+
+- **Metrics mode expanded to 75 services** — Added 29 more services: Route 53, Auto Scaling, ElasticBeanstalk, Amazon MQ, AppSync, Cognito, KMS, EFS, FSx, Backup, Neptune, Timestream, QLDB, Keyspaces, MemoryDB, Kinesis Analytics, CodePipeline, CodeDeploy, Amplify, QuickSight, IoT Core, Shield, Global Accelerator, Direct Connect, VPC Flow, WorkSpaces, Connect, GameLift, Transfer Family, SES, and X-Ray. All newly added services have `aws.<service>.metrics` blocks with CloudWatch-aligned numeric fields.
+- **Onboarding installers** — Two zero-dependency Node.js scripts (`npm run setup:integration`, `npm run setup:pipelines`) to prepare Elastic before shipping data. `elastic-integration` uses the Kibana Fleet API; `custom-pipelines` uses the Elasticsearch Ingest API. Both are idempotent. See `installer/README.md`.
+- **106 custom ingest pipelines** — `installer/custom-pipelines` now covers all ~85 non-officially-integrated AWS services across 13 groups: analytics (8), ml (13), serverless (5), compute (7), databases (9), storage (5), security (8), networking (4), streaming (4), iot (6), management (17), devtools (6), enduser (14). Services with structured JSON logging (Glue, EMR, SageMaker, Lambda, CloudFormation, SSM, etc.) have targeted `json + rename` processors; all others get a graceful `json` processor with `ignore_failure: true`.
+- **ECS Phase 1–3 complete across all 136 generators** — `aws.dimensions` keys always present (value or `null`) — no conditional spreads that omit keys. All generators with a failure outcome set `error: { code, message, type }` with real AWS API error codes. `event.duration` (nanoseconds) on every service where a meaningful request/job/operation duration exists.
+- **Performance metrics blocks** — SNS, Athena, SageMaker, Fargate, AutoScaling, ImageBuilder, Amazon MQ, AppSync, and Bedrock all have `aws.<service>.metrics` blocks with CloudWatch-aligned fields for Elastic visualisations and ML anomaly detection jobs.
+- **Cognito CloudWatch metrics** — `aws.cognito.metrics` emits `SignInSuccesses`, `SignInAttempts`, `TokenRefreshSuccesses`, `SignUpSuccesses`, `FederationSuccesses`, `CallCount`, `ThrottleCount`, `AccountTakeoverRisk`, `CompromisedCredentialsRisk`. `event.category` corrected to ECS array `["authentication"]`; `aws.dimensions` added (`UserPool`, `UserPoolClient`).
+- **SageMaker field naming** — CloudWatch endpoint/invocation metrics renamed from `aws.sagemaker.cloudwatch_metrics` to `aws.sagemaker.cloudwatch` to clearly distinguish from the training `aws.sagemaker.metrics` block.
+
+---
+
 ## What's New in v7.5
 
 - **Lambda START / END / REPORT log events** — The Lambda generator now randomly emits one of four authentic log event types per document: `START RequestId:`, `END RequestId:`, `REPORT RequestId: Duration: X ms Billed Duration: Y ms Memory Size: Z MB Max Memory Used: W MB` (with optional cold-start `Init Duration`), or a structured application log. Matches real CloudWatch Lambda log streams. The `aws.lambda.log_event_type` field indicates which type was produced.

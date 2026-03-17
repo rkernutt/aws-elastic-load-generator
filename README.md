@@ -1,8 +1,23 @@
 # ⚡ AWS → Elastic Load Generator
 
-**v7.6** — A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **136 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
+**v8.0** — A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic Cloud deployment via the Elasticsearch Bulk API. Covers **136 AWS services** across **14 themed groups**, all using **ECS (Elastic Common Schema)** field naming.
 
-Each service has its **correct real-world ingestion source** pre-configured — S3, CloudWatch, direct API, Firehose, **OTel** (OpenTelemetry), or **Elastic Agent** — matching how each service actually delivers data to Elastic in production. You can leave **Default (per-service)** or override all services to a single ingestion method (e.g. OTel) for testing. Switch between **Logs** and **Metrics** mode; only the **46** services with Elastic metrics support are selectable in Metrics mode.
+Each service has its **correct real-world ingestion source** pre-configured — S3, CloudWatch, direct API, Firehose, **OTel** (OpenTelemetry), or **Elastic Agent** — matching how each service actually delivers data to Elastic in production. You can leave **Default (per-service)** or override all services to a single ingestion method (e.g. OTel) for testing. Switch between **Logs** and **Metrics** mode; **75 services** support Metrics mode (expanded from 46 in v7).
+
+---
+
+## What's New in v8.0
+
+- **Metrics mode expanded to 75 services** — Up from 46 in v7. Added Route 53, Auto Scaling, ElasticBeanstalk, Amazon MQ, AppSync, Cognito, KMS, EFS, FSx, Backup, Neptune, Timestream, QLDB, Keyspaces, MemoryDB, Kinesis Analytics, CodePipeline, CodeDeploy, Amplify, QuickSight, IoT Core, Shield, Global Accelerator, Direct Connect, VPC Flow, WorkSpaces, Connect, GameLift, Transfer Family, SES, X-Ray, and more. All newly added services have `aws.<service>.metrics` blocks with real CloudWatch metric names.
+- **Onboarding installers** — Two zero-dependency Node.js installers in `installer/`:
+  - `npm run setup:integration` — installs the official **Elastic AWS integration** package via the Kibana Fleet API (idempotent; skips if already installed). Gives you pre-built dashboards, ILM policies, and index templates for 46 services.
+  - `npm run setup:pipelines` — installs **custom Elasticsearch ingest pipelines** for the ~85 services not covered by the official integration. Interactive group selection menu (analytics, databases, serverless, compute, management, IoT, ml, storage, security, networking, streaming, devtools, enduser). **106 pipelines** across 13 groups — all idempotent.
+- **ECS Phase 1–3 complete across all 136 generators** — `aws.dimensions` keys always present (value or `null`) on every generator that has dimensions; no conditional spread that omits keys. All generators with a failure outcome set explicit `error: { code, message, type }` with real AWS API error codes. `event.duration` (nanoseconds) on every service where a meaningful duration exists.
+- **Performance metrics blocks on all key services** — SNS, Athena, SageMaker, Fargate, AutoScaling, ImageBuilder, Amazon MQ, AppSync, Bedrock all have `aws.<service>.metrics` blocks with CloudWatch-aligned numeric fields (sum/avg/p99) suitable for Elastic visualisations and ML anomaly detection jobs.
+- **Cognito metrics block** — `aws.cognito.metrics` now emits `SignInSuccesses`, `SignInAttempts`, `TokenRefreshSuccesses`, `SignUpSuccesses`, `FederationSuccesses`, `CallCount`, `ThrottleCount`, `AccountTakeoverRisk`, and `CompromisedCredentialsRisk` matching the Cognito CloudWatch namespace. `event.category` fixed to ECS array `["authentication"]`.
+- **SageMaker field naming** — CloudWatch endpoint/invocation metrics renamed from `cloudwatch_metrics` to `cloudwatch` to clearly distinguish them from the training `metrics` block within the same document.
+
+See full release history: [docs/VERSION-HISTORY.md](docs/VERSION-HISTORY.md).
 
 ---
 
@@ -412,7 +427,7 @@ Works with **Elastic Serverless** projects without code changes. Assign the **Ed
 
 | Setting | Default | Range | Description |
 |---|---|---|---|
-| Event type | Logs | Logs / Metrics | **Logs** = log documents (all 136 services). **Metrics** = metrics documents (46 services with Elastic AWS metrics support). |
+| Event type | Logs | Logs / Metrics | **Logs** = log documents (all 136 services). **Metrics** = metrics documents (75 services with Elastic AWS metrics support). |
 | Logs/metrics per service | 500 | 50–5,000 | Documents generated per selected service |
 | Error rate | 5% | 0–50% | Fraction of documents representing errors/failures |
 | Batch size | 250 | 50–1,000 | Documents per `_bulk` API request |
@@ -425,20 +440,37 @@ Works with **Elastic Serverless** projects without code changes. Assign the **Ed
 
 The **samples/** directory contains one sample log and (where applicable) one sample metrics document per service, generated by the same logic as the app:
 
-- **samples/logs/** — one JSON log document per service (134 services)
-- **samples/metrics/** — one JSON metrics document per metrics-supported service (46 services)
+- **samples/logs/** — one JSON log document per service (136 services)
+- **samples/metrics/** — one JSON metrics document per metrics-supported service (75 services)
 
 See [samples/README.md](samples/README.md) for details. Regenerate with: `npm run samples`.
 
 ---
 
+## Onboarding installers
+
+Two zero-dependency Node.js scripts in `installer/` prepare Elastic before you start shipping data. See [installer/README.md](installer/README.md) for full details.
+
+```bash
+npm run setup:integration   # install official Elastic AWS integration (Kibana Fleet API)
+npm run setup:pipelines     # install custom ingest pipelines (Elasticsearch API)
+```
+
+| Installer | API | What it does |
+|---|---|---|
+| `elastic-integration` | Kibana Fleet API | Installs the official AWS integration package — pre-built dashboards, ILM, index templates for 46 services |
+| `custom-pipelines` | Elasticsearch Ingest API | Installs **106 custom ingest pipelines** across 13 groups for the ~85 services not covered by the official integration |
+
+Both installers are **idempotent** — safe to re-run; already-installed items are skipped.
+
+---
+
 ## Ingest pipelines
 
-For services that emit **JSON in the `message` field** (structured/continuous logging), ingest pipelines can parse that JSON into a target field (e.g. `glue.parsed`, `lambda.parsed`) so the payload is searchable and aggregatable.
+For services that emit **JSON in the `message` field** (structured/continuous logging), ingest pipelines parse that JSON into a target field (e.g. `glue.parsed`, `lambda.parsed`) so the payload is searchable and aggregatable.
 
-- **Plan for all services:** [ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md](ingest-pipelines/PLAN-PARSE-JSON-SERVICES.md) — pipeline IDs, target fields, index patterns, and example JSON keys for all 23 services.
-- **Definitions and how to apply:** [ingest-pipelines/README.md](ingest-pipelines/README.md) — pipeline JSON files for Glue, Lambda, API Gateway, RDS, ECS, EMR, and SageMaker; template for the rest.
-- **Performance & anomaly detection:** [docs/PERFORMANCE-METRICS-PLAN.md](docs/PERFORMANCE-METRICS-PLAN.md) — which metrics are emitted for visualizations and ML (duration, utilization, throughput, error rates).
+- **Automated installer:** `npm run setup:pipelines` — installs all 106 pipelines interactively with group selection
+- **Manual pipeline files:** [ingest-pipelines/README.md](ingest-pipelines/README.md) — individual pipeline JSON files for Glue, Lambda, API Gateway, RDS, ECS, EMR, and SageMaker
 
 ---
 

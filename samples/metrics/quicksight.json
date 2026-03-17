@@ -1,0 +1,79 @@
+{
+  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "quicksight"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "DashboardId": "vkg456splc",
+      "DataSetId": "9vi9abwqldk"
+    },
+    "quicksight": {
+      "dashboard_id": "vkg456splc",
+      "dashboard_name": "sales-dashboard",
+      "dataset_id": "9vi9abwqldk",
+      "action": "RefreshDataSet",
+      "user_name": "alice@corp.com",
+      "data_source_type": "S3",
+      "query_duration_ms": 2887,
+      "rows_returned": 71878,
+      "metrics": {
+        "DashboardViewEvents": {
+          "sum": 876
+        },
+        "SessionEvent": {
+          "sum": 276
+        },
+        "SPICECapacityUsed": {
+          "avg": 48.189
+        },
+        "SPICECapacityScheduled": {
+          "avg": 88.275
+        },
+        "EmbedCallCount": {
+          "sum": 250
+        },
+        "ClientError": {
+          "sum": 0
+        },
+        "RowLevelSecurityEnabled": {
+          "avg": 0
+        }
+      }
+    }
+  },
+  "user": {
+    "name": "alice@corp.com"
+  },
+  "event": {
+    "duration": 2887000000,
+    "outcome": "success",
+    "category": [
+      "web",
+      "process"
+    ],
+    "dataset": "aws.quicksight",
+    "provider": "quicksight.amazonaws.com"
+  },
+  "message": "QuickSight RefreshDataSet: sales-dashboard loaded in 2887ms for alice@corp.com",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.quicksight",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "vpc"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "VpcId": "vpc-s1l5ipsh"
+    },
+    "vpcflow": {
+      "version": "2",
+      "account_id": "293847561023",
+      "interface_id": "eni-6jqeulpq",
+      "action": "ACCEPT",
+      "log_status": "OK",
+      "instance_id": "i-3gy5gbdinai",
+      "pkt_srcaddr": "244.179.128.156",
+      "pkt_dstaddr": "116.228.224.226",
+      "vpc_id": "vpc-s1l5ipsh",
+      "subnet_id": "subnet-t899jldk",
+      "type": "IPv4"
+    },
+    "vpc": {
+      "action": "ACCEPT",
+      "log_status": "OK",
+      "interface_id": "eni-6jqeulpq",
+      "vpc_id": "vpc-s1l5ipsh",
+      "subnet_id": "subnet-t899jldk",
+      "account_id": "293847561023",
+      "metrics": {
+        "BytesTransferred": {
+          "sum": 65071
+        },
+        "PacketsTransferred": {
+          "sum": 65
+        }
+      }
+    }
+  },
+  "source": {
+    "ip": "244.179.128.156",
+    "port": 46006
+  },
+  "destination": {
+    "ip": "116.228.224.226",
+    "port": 5432
+  },
+  "network": {
+    "transport": "udp",
+    "bytes": 65071,
+    "packets": 65,
+    "direction": "outbound"
+  },
+  "event": {
+    "action": "accept",
+    "outcome": "success",
+    "category": [
+      "network"
+    ],
+    "type": [
+      "connection"
+    ],
+    "dataset": "aws.vpcflow",
+    "provider": "ec2.amazonaws.com",
+    "duration": 16000000
+  },
+  "message": "2 293847561023 eni-6jqeulpq 244.179.128.156 116.228.224.226 46006 5432 17 65 65071 1773770552 1773770585 ACCEPT OK",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.vpcflow",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

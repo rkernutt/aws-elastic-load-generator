@@ -1,0 +1,53 @@
+{
+  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "memorydb"
+    }
+  },
+  "aws": {
+    "memorydb": {
+      "cluster_name": "rate-limiter",
+      "node_name": "rate-limiter-0001-001",
+      "engine_version": "7.1",
+      "command": "DEL",
+      "latency_us": 1925.629,
+      "cache_hit_rate": 0,
+      "connected_clients": 417,
+      "used_memory_mb": 15164,
+      "replication_lag_ms": 4166,
+      "error_code": "WRONGTYPE"
+    }
+  },
+  "event": {
+    "duration": 1925629,
+    "outcome": "failure",
+    "category": "database",
+    "dataset": "aws.memorydb",
+    "provider": "memory-db.amazonaws.com"
+  },
+  "message": "MemoryDB rate-limiter DEL FAILED: OOM",
+  "log": {
+    "level": "error"
+  },
+  "error": {
+    "code": "WRONGTYPE",
+    "message": "MemoryDB command failed",
+    "type": "db"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.memorydb",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

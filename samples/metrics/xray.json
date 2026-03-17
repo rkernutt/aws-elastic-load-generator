@@ -1,0 +1,84 @@
+{
+  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "xray"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "GroupName": "Default",
+      "ServiceType": "AWS::EC2::Instance"
+    },
+    "xray": {
+      "trace_id": "1-69b99738-y2eq7yobigj",
+      "segment_id": "n6qzbul29w",
+      "parent_id": "dcto8obw1rf",
+      "service": {
+        "name": "payment-service",
+        "type": "client"
+      },
+      "duration": 3.7,
+      "http": {
+        "request": {
+          "method": "GET",
+          "url": "/api/v1/auth/login"
+        },
+        "response": {
+          "status": 201
+        }
+      },
+      "fault": false,
+      "annotations": {
+        "env": "prod",
+        "version": "v2"
+      },
+      "metrics": {
+        "ErrorRate": {
+          "avg": 0.631
+        },
+        "FaultRate": {
+          "avg": 0.481
+        },
+        "ThrottleRate": {
+          "avg": 1.529
+        },
+        "TotalCount": {
+          "sum": 7996
+        },
+        "Latency": {
+          "avg": 3700,
+          "p99": 11100
+        }
+      }
+    }
+  },
+  "event": {
+    "duration": 3700000000,
+    "outcome": "success",
+    "category": [
+      "process"
+    ],
+    "dataset": "aws.xray",
+    "provider": "xray.amazonaws.com"
+  },
+  "message": "X-Ray trace: payment-service 3.700s",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.xray",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}

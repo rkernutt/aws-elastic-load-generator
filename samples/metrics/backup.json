@@ -1,0 +1,47 @@
+{
+  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "backup"
+    }
+  },
+  "aws": {
+    "backup": {
+      "backup_job_id": "y7dzp85j-2fpo-p3nl",
+      "backup_plan_name": "compliance-backup",
+      "resource_type": "EC2",
+      "backup_vault_name": "prod-vault",
+      "status": "COMPLETED",
+      "backup_size_gb": 1184.76,
+      "lifecycle_delete_after_days": 365
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": [
+      "process"
+    ],
+    "dataset": "aws.backup",
+    "provider": "backup.amazonaws.com",
+    "duration": 6227000000000
+  },
+  "message": "AWS Backup COMPLETED: ec2/i-prod -> Default (1184.8GB)",
+  "log": {
+    "level": "info"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.backup",
+    "namespace": "default"
+  },
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 300000
+  }
+}
