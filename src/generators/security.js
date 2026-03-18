@@ -100,6 +100,7 @@ function generateSecurityHubLog(ts, er) {
       securityhub_findings: {
         id: findingId,
         aws_account_id: acct.id,
+        region,
         description: isFinding ? `Security check failed: ${controlId} - ${rand(["MFA not enabled for root","S3 bucket is publicly accessible","Default security group allows all traffic"])}` : "Control passed.",
         created_at: createdTs,
         first_observed_at: createdTs,
@@ -107,22 +108,15 @@ function generateSecurityHubLog(ts, er) {
         generator: { id: controlId },
         types: [findingType],
         compliance: { security_control_id: controlId, status: isFinding ? "FAILED" : "PASSED" },
+        severity: { label: sev },
+        workflow: { status: rand(["NEW","NOTIFIED","RESOLVED","SUPPRESSED"]) },
+        record_state: isFinding ? "ACTIVE" : "ARCHIVED",
+        product: {
+          arn: `arn:aws:securityhub:${region}::product/aws/securityhub`,
+          name: "Security Hub",
+        },
         criticality: sev === "CRITICAL" ? 9 : sev === "HIGH" ? 7 : 4,
         confidence: randInt(70, 99),
-      },
-      securityhub: {
-        finding_id: `arn:aws:securityhub:${region}:${acct.id}:finding/${findingId}`,
-        standard: rand(standardsFull),
-        control_id: controlId,
-        compliance_status: isFinding?"FAILED":"PASSED",
-        severity_label: sev,
-        workflow_status: rand(["NEW","NOTIFIED","RESOLVED","SUPPRESSED"]),
-        account_id: acct.id,
-        metrics: {
-          Findings: { sum: isFinding ? randInt(1,100) : 0 },
-          FailedChecks: { sum: isFinding ? randInt(1,50) : 0 },
-          PassedChecks: { sum: isFinding ? 0 : randInt(50,200) },
-        }
       }
     },
     "event": { kind:"alert", severity:sev==="CRITICAL"?9:sev==="HIGH"?7:4, outcome:isFinding?"failure":"success", category:[shCategory], type:shEventType, dataset:"aws.securityhub_findings", provider:"securityhub.amazonaws.com" },

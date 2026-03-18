@@ -126,60 +126,34 @@ function generateCloudFrontLog(ts, er) {
   const paths = ["/index.html","/assets/app.js","/assets/style.css","/images/hero.webp","/fonts/inter.woff2"];
   const path = rand(paths);
   const distId = `E${randId(13)}`;
-  const requests = randInt(100, 100000);
-  const edgeRequestId = randId(24);
   const timeTaken = parseFloat(randFloat(0.001, isErr?5:0.5));
   const bytes = randInt(500, 500000);
   const clientIp = randIp();
+  const clientGeo = rand(GEO_LOCATIONS);
+  const edgeResultType = isErr ? "Error" : rand(["Hit","Miss","RefreshHit","Redirect"]);
+  const edgeResponseResultType = isErr ? "Error" : rand(["Hit","Miss","RefreshHit","Redirect"]);
+  const edgeDetailedResultType = isErr ? rand(["Error","AbortedOrigin","OriginDNSError","OriginConnectError"]) : rand(["Hit","Miss","RefreshHit","Redirect"]);
+  const cookies = rand(["", "session=abc123", "user=guest"]);
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region:"us-east-1", account:{ id:acct.id, name:acct.name }, service:{ name:"cloudfront" } },
     "aws": {
       dimensions: { DistributionId:distId, Region:"Global" },
-      cloudfront_logs: {
-        x_edge_location: edge,
-        sc_bytes: bytes,
-        c_ip: clientIp,
-        cs_method: "GET",
-        cs_uri_stem: path,
-        sc_status: String(status),
-        x_edge_request_id: edgeRequestId,
-        time_taken: timeTaken.toFixed(3),
-        x_edge_result_type: rand(["Hit","Miss","RefreshHit","Error","Redirect"]),
-        x_edge_response_result_type: rand(["Hit","Miss","RefreshHit","Error","Redirect"]),
-        x_forwarded_for: randIp(),
-      },
       cloudfront: {
-        distribution_id: distId,
+        domain: `d${randId(12).toLowerCase()}.cloudfront.net`,
         edge_location: edge,
-        result_type: isErr?"Error":rand(["Hit","Miss","Hit","RefreshHit"]),
-        edge_request_id: edgeRequestId,
+        edge_result_type: edgeResultType,
+        edge_response_result_type: edgeResponseResultType,
+        edge_detailed_result_type: edgeDetailedResultType,
         time_to_first_byte: timeTaken,
-        metrics: {
-          Requests: { sum: 1 },
-          BytesDownloaded: { sum: randInt(100,1e8) },
-          BytesUploaded: { sum: randInt(0,1e6) },
-          "4xxErrorRate": { avg: status>=400&&status<500?1:0 },
-          "5xxErrorRate": { avg: status>=500?1:0 },
-          TotalErrorRate: { avg: status>=400?1:0 },
-          CacheHitRate: { avg: parseFloat(randFloat(0.7,0.99)) },
-          OriginLatency: { avg: parseFloat(randFloat(10,isErr?2000:200)) },
-          "401ErrorRate": { avg: status===401?1:0 },
-          "403ErrorRate": { avg: status===403?1:0 },
-          "404ErrorRate": { avg: status===404?1:0 },
-          "502ErrorRate": { avg: status===502?1:0 },
-          "503ErrorRate": { avg: status===503?1:0 },
-          "504ErrorRate": { avg: status===504?1:0 },
-        }
+        range_start: null,
+        range_end: null,
+        cookies: cookies || undefined,
       }
     },
     "http": { request:{ method:"GET", bytes:randInt(0,1000) }, response:{ status_code:status, bytes } },
     "url": { path, domain:`d${randId(12).toLowerCase()}.cloudfront.net` },
-    "client": { ip:clientIp, geo:{ country_iso_code:rand(["US","GB","DE","FR","JP","AU","CA"]), city_name:rand(["Ashburn","London","Frankfurt","Tokyo","Sydney"]) } },
-    "aws.cloudfront.edge_location": edge,
-    "aws.cloudfront.x_edge_result_type": rand(["Hit","Miss","RefreshHit","Error","Redirect"]),
-    "aws.cloudfront.x_edge_response_result_type": rand(["Hit","Miss","RefreshHit","Error","Redirect"]),
-    "aws.cloudfront.x_forwarded_for": randIp(),
+    "client": { ip:clientIp, geo:{ country_iso_code:clientGeo.country_iso_code, country_name:clientGeo.country_name, city_name:clientGeo.city_name, location:clientGeo.location } },
     "event": { outcome:status>=400?"failure":"success", category:["web","network"], type:["access"], dataset:"aws.cloudfront_logs", provider:"cloudfront.amazonaws.com", duration:Math.round(timeTaken * 1e9) },
     "message": `GET ${path} ${status} [${edge}]`,
     "log": { level:status>=500?"error":status>=400?"warn":"info" },
@@ -308,20 +282,11 @@ function generateRoute53Log(ts, er) {
     "@timestamp": ts,
     "cloud": { provider:"aws", region:"us-east-1", account:{ id:acct.id, name:acct.name }, service:{ name:"route53" } },
     "aws": {
-      dimensions: { HostedZoneId:hostedZoneId, HealthCheckId:healthCheckId, Region:"us-east-1" },
+      dimensions: { HostedZoneId:hostedZoneId, Region:"us-east-1" },
       route53: {
-        query_name: rand(domains), query_type: rand(types), response_code: rcode,
-        edge_location: `${rand(["IAD","LHR","SFO"])}${randInt(50,99)}`,
         hosted_zone_id: hostedZoneId,
-        metrics: {
-          DNSQueries: { sum: randInt(1,10000) },
-          HealthCheckStatus: { avg: isErr?0:1 },
-          HealthCheckPercentageHealthy: { avg: isErr?parseFloat(randFloat(0,50)):100 },
-          ConnectionTime: { avg: randInt(1,isErr?5000:50) },
-          SSLHandshakeTime: { avg: randInt(1,isErr?1000:100) },
-          ChildHealthCheckHealthyCount: { avg: randInt(1,10) },
-          TimeToFirstByte: { avg: randInt(1,isErr?2000:100) },
-        }
+        edge_location: `${rand(["IAD","LHR","SFO"])}${randInt(50,99)}`,
+        edns_client_subnet: `${randInt(1,254)}.${randInt(0,255)}.0.0/24`,
       }
     },
     "dns": { question:{ name:rand(domains), type:rand(types) }, response_code:rcode },
