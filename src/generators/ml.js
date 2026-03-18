@@ -60,9 +60,9 @@ function generateSageMakerLog(ts, er) {
         instance: { type: rand(["ml.p3.2xlarge","ml.g4dn.xlarge","ml.m5.xlarge"]), count: rand([1,1,2,4]) },
         metrics: trainingMetrics,
         studio: isStudio ? { space_name: spaceName, app_type: appType, app_name: rand(["default", `instance-${randId(8).toLowerCase()}`]), lifecycle_config: lifecycleConfig, continuous_logging: useStudioLogging } : { space_name: null, app_type: null, app_name: null, lifecycle_config: false, continuous_logging: false },
-        cloudwatch: {
+        cloudwatch_metrics: {
           Invocations: { sum: invocations },
-          ModelLatency: { avg: modelLatencyMs, p99: modelLatencyMs * 3 },
+          ModelLatency: { avg: modelLatencyMs },
           GPUUtilization: { avg: gpuUtil },
           CPUUtilization: { avg: cpuUtil },
           DiskUtilization: { avg: randInt(10, isErr ? 95 : 60) },
