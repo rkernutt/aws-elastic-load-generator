@@ -9,15 +9,20 @@
  *            npm run setup:dashboards
  *
  * No external dependencies — uses Node.js built-ins only.
- * Requires Kibana 9.4+ (Elastic-Api-Version: 1 dashboards API).
+ *
+ * Install strategy (tried in order):
+ *   1. POST /api/dashboards  (Kibana 9.4+ — Cloud Hosted, Self-Managed)
+ *   2. POST /api/saved_objects/_import  (Kibana 8.11+ — fallback for Serverless
+ *      and deployments where the Dashboards API is unavailable)
  */
 
 import readline from "readline";
-import { readFileSync, readdirSync } from "fs";
+import { readFileSync, readdirSync, existsSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const NDJSON_DIR = join(__dirname, "ndjson");
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -90,24 +95,33 @@ function loadDashboards() {
   const files = readdirSync(__dirname).filter((f) => f.endsWith("-dashboard.json"));
   return files.map((file) => {
     const def = JSON.parse(readFileSync(join(__dirname, file), "utf-8"));
-    return { file, title: def.title, definition: def };
+
+    // Load matching pre-generated ndjson for fallback import
+    let ndjson = null;
+    const ndjsonPath = join(NDJSON_DIR, file.replace("-dashboard.json", "-dashboard.ndjson"));
+    if (existsSync(ndjsonPath)) {
+      const raw = readFileSync(ndjsonPath, "utf-8").trim();
+      const obj = JSON.parse(raw);
+      ndjson = { raw, id: obj.id };
+    }
+
+    return { file, title: def.title, definition: def, ndjson };
   });
 }
 
 // ─── Kibana client ───────────────────────────────────────────────────────────
 
-function createKibanaClient(baseUrl, apiKey, deploymentType) {
+function createKibanaClient(baseUrl, apiKey) {
   const base = baseUrl.replace(/\/$/, "");
-  const headers = {
-    "Content-Type": "application/json",
-    "kbn-xsrf": "true",
+  const authHeaders = {
     Authorization: `ApiKey ${apiKey}`,
+    "kbn-xsrf": "true",
   };
 
   async function request(method, path, body, extraHeaders = {}) {
     const res = await fetch(`${base}${path}`, {
       method,
-      headers: { ...headers, ...extraHeaders },
+      headers: { "Content-Type": "application/json", ...authHeaders, ...extraHeaders },
       body: body !== undefined ? JSON.stringify(body) : undefined,
     });
 
@@ -127,14 +141,8 @@ function createKibanaClient(baseUrl, apiKey, deploymentType) {
       return request("GET", "/api/status");
     },
 
-    /**
-     * Search for an existing dashboard by title.
-     * Returns null on Serverless (Saved Objects API is unavailable there),
-     * allowing installation to proceed without an idempotency check.
-     */
+    /** Find a dashboard by title via saved objects search. Returns null if unavailable. */
     async findDashboardByTitle(title) {
-      if (deploymentType === "serverless") return null;
-
       const encoded = encodeURIComponent(title);
       try {
         const result = await request(
@@ -142,23 +150,107 @@ function createKibanaClient(baseUrl, apiKey, deploymentType) {
           `/api/saved_objects/_find?type=dashboard&search_fields=title&search=${encoded}&per_page=10`
         );
         if (!result?.saved_objects) return null;
-        return result.saved_objects.find(
-          (obj) => obj.attributes?.title === title
-        ) ?? null;
+        return result.saved_objects.find((obj) => obj.attributes?.title === title) ?? null;
       } catch (err) {
-        // Saved Objects API unavailable (e.g. Serverless) — skip the check
-        if (err.message.includes("HTTP 400")) return null;
+        if (isUnavailable(err)) return null; // API not available on this deployment
         throw err;
       }
     },
 
+    /** Find a dashboard by its deterministic ID. Returns null if not found or API unavailable. */
+    async getSavedObjectById(type, id) {
+      try {
+        return await request("GET", `/api/saved_objects/${type}/${encodeURIComponent(id)}`);
+      } catch (err) {
+        if (isUnavailable(err)) return null;
+        throw err;
+      }
+    },
+
+    /** Create via Kibana Dashboards API (9.4+). */
     async createDashboard(definition) {
       const { id, spaces, ...body } = definition;
-      return request("POST", "/api/dashboards", body, {
-        "Elastic-Api-Version": "1",
+      return request("POST", "/api/dashboards", body, { "Elastic-Api-Version": "1" });
+    },
+
+    /** Import via Saved Objects API (8.11+). Builds multipart form-data manually. */
+    async importSavedObject(ndjsonString) {
+      const boundary = `----FormBoundary${Math.random().toString(36).slice(2)}`;
+      const crlf = "\r\n";
+      const encoded = Buffer.from(ndjsonString);
+      const parts = Buffer.concat([
+        Buffer.from(
+          `--${boundary}${crlf}` +
+          `Content-Disposition: form-data; name="file"; filename="import.ndjson"${crlf}` +
+          `Content-Type: application/ndjson${crlf}${crlf}`
+        ),
+        encoded,
+        Buffer.from(`${crlf}--${boundary}--${crlf}`),
+      ]);
+
+      const res = await fetch(`${base}/api/saved_objects/_import?overwrite=false`, {
+        method: "POST",
+        headers: { ...authHeaders, "Content-Type": `multipart/form-data; boundary=${boundary}` },
+        body: parts,
       });
+
+      if (!res.ok) {
+        let text;
+        try { text = await res.text(); } catch { text = "(unable to read response)"; }
+        throw new Error(`Kibana request failed: POST /api/saved_objects/_import → HTTP ${res.status}\n${text}`);
+      }
+      return res.json();
     },
   };
+}
+
+/** Returns true when the error is an "endpoint exists but unavailable" 400. */
+function isUnavailable(err) {
+  return err.message.includes("HTTP 400") &&
+    (err.message.includes("not available") || err.message.includes("configuration"));
+}
+
+// ─── Install one dashboard (tries both methods) ───────────────────────────────
+
+async function installOne(client, title, definition, ndjson) {
+  // 1. Check for existing dashboard by title
+  const existing = await client.findDashboardByTitle(title);
+  if (existing !== null) return { status: "skipped" };
+
+  // 2. Try the Kibana Dashboards API (9.4+)
+  let dashboardsApiUnavailable = false;
+  try {
+    const result = await client.createDashboard(definition);
+    const id = result?.id ?? result?.data?.id ?? "(unknown id)";
+    return { status: "installed", id, via: "Dashboards API" };
+  } catch (err) {
+    if (!isUnavailable(err)) throw err;
+    dashboardsApiUnavailable = true;
+  }
+
+  // 3. Fall back to Saved Objects import
+  if (!ndjson) {
+    throw new Error(
+      "Dashboards API unavailable on this deployment and no pre-generated ndjson found.\n" +
+      "       Run 'npm run generate:dashboards:ndjson' then retry."
+    );
+  }
+
+  // Check by ID (works even when _find is unavailable)
+  const existingById = await client.getSavedObjectById("dashboard", ndjson.id);
+  if (existingById !== null) return { status: "skipped" };
+
+  const result = await client.importSavedObject(ndjson.raw);
+  const success =
+    result?.success === true ||
+    result?.successResults?.some((r) => r.id === ndjson.id);
+
+  if (!success) {
+    const errors = result?.errors ?? result?.successResults ?? result;
+    throw new Error(`Import returned unexpected result: ${JSON.stringify(errors)}`);
+  }
+
+  return { status: "installed", id: ndjson.id, via: "Saved Objects import" };
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
@@ -219,7 +311,7 @@ async function main() {
 
   // 5. Test connection
   console.log("\nTesting connection...");
-  const client = createKibanaClient(kibanaUrl, apiKey, deploymentType);
+  const client = createKibanaClient(kibanaUrl, apiKey);
 
   try {
     const status = await client.testConnection();
@@ -230,10 +322,6 @@ async function main() {
     console.error(`  Connection failed: ${err.message}`);
     rl.close();
     process.exit(1);
-  }
-
-  if (deploymentType === "serverless") {
-    console.log("  ℹ  Serverless: duplicate-check unavailable — re-running will create additional copies of already-installed dashboards.");
   }
 
   // 6. Dashboard selection menu
@@ -262,15 +350,9 @@ async function main() {
         console.warn(`  Warning: invalid selection "${token}" — skipping.`);
         continue;
       }
-      if (num === allIndex) {
-        selected = dashboards;
-        break;
-      }
+      if (num === allIndex) { selected = dashboards; break; }
       const d = dashboards[num - 1];
-      if (!seen.has(d.title)) {
-        seen.add(d.title);
-        selected.push(d);
-      }
+      if (!seen.has(d.title)) { seen.add(d.title); selected.push(d); }
     }
   }
 
@@ -286,20 +368,16 @@ async function main() {
   let skippedCount = 0;
   let failedCount = 0;
 
-  for (const { title, definition } of selected) {
+  for (const { title, definition, ndjson } of selected) {
     try {
-      const existing = await client.findDashboardByTitle(title);
-
-      if (existing !== null) {
+      const outcome = await installOne(client, title, definition, ndjson);
+      if (outcome.status === "skipped") {
         console.log(`  ✓ "${title}" — already installed, skipping`);
         skippedCount++;
-        continue;
+      } else {
+        console.log(`  ✓ "${title}" — installed via ${outcome.via} (id: ${outcome.id})`);
+        installedCount++;
       }
-
-      const result = await client.createDashboard(definition);
-      const id = result?.id ?? result?.data?.id ?? "(unknown id)";
-      console.log(`  ✓ "${title}" — installed (id: ${id})`);
-      installedCount++;
     } catch (err) {
       console.error(`  ✗ "${title}" — FAILED: ${err.message}`);
       failedCount++;
@@ -317,7 +395,10 @@ async function main() {
 
   if (failedCount > 0) {
     console.log(
-      "\nNote: dashboard creation requires Kibana 9.4+ and an API key with kibana_admin privileges."
+      "\nIf the error above mentions 'not available with the current configuration',\n" +
+      "your deployment may not support either the Dashboards API or Saved Objects import.\n" +
+      "Import manually: Kibana → Stack Management → Saved Objects → Import\n" +
+      "and select a file from installer/custom-dashboards/ndjson/"
     );
   }
 
