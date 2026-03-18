@@ -1,0 +1,159 @@
+{
+  "title": "AWS SageMaker — Endpoints & Training",
+  "time_range": { "from": "now-24h", "to": "now" },
+  "panels": [
+    {
+      "type": "lens",
+      "uid": "sm-invocations",
+      "grid": { "x": 0, "y": 0, "w": 24, "h": 10 },
+      "config": {
+        "title": "Invocations Over Time",
+        "attributes": {
+          "type": "xy",
+          "axis": {
+            "x": { "title": { "visible": false } },
+            "left": { "title": { "visible": false } }
+          },
+          "layers": [
+            {
+              "type": "area",
+              "dataset": {
+                "type": "esql",
+                "query": "FROM logs-aws.sagemaker* | STATS invocations = SUM(`aws.sagemaker.cloudwatch_metrics.Invocations.sum`) BY bucket = BUCKET(@timestamp, 75, ?_tstart, ?_tend) | SORT bucket"
+              },
+              "x": { "operation": "value", "column": "bucket" },
+              "y": [{ "operation": "value", "column": "invocations", "label": "Invocations" }]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "lens",
+      "uid": "sm-latency",
+      "grid": { "x": 24, "y": 0, "w": 24, "h": 10 },
+      "config": {
+        "title": "Model Latency (avg μs)",
+        "attributes": {
+          "type": "xy",
+          "axis": {
+            "x": { "title": { "visible": false } },
+            "left": { "title": { "visible": false } }
+          },
+          "layers": [
+            {
+              "type": "line",
+              "dataset": {
+                "type": "esql",
+                "query": "FROM logs-aws.sagemaker* | STATS avg_latency = AVG(`aws.sagemaker.cloudwatch_metrics.ModelLatency.avg`) BY bucket = BUCKET(@timestamp, 75, ?_tstart, ?_tend) | SORT bucket"
+              },
+              "x": { "operation": "value", "column": "bucket" },
+              "y": [{ "operation": "value", "column": "avg_latency", "label": "Latency (μs)" }]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "lens",
+      "uid": "sm-errors",
+      "grid": { "x": 0, "y": 10, "w": 24, "h": 10 },
+      "config": {
+        "title": "4xx / 5xx Errors Over Time",
+        "attributes": {
+          "type": "xy",
+          "axis": {
+            "x": { "title": { "visible": false } },
+            "left": { "title": { "visible": false } }
+          },
+          "layers": [
+            {
+              "type": "line",
+              "dataset": {
+                "type": "esql",
+                "query": "FROM logs-aws.sagemaker* | STATS errors_4xx = SUM(`aws.sagemaker.cloudwatch_metrics.Invocations4XXError.sum`), errors_5xx = SUM(`aws.sagemaker.cloudwatch_metrics.Invocations5XXError.sum`) BY bucket = BUCKET(@timestamp, 75, ?_tstart, ?_tend) | SORT bucket"
+              },
+              "x": { "operation": "value", "column": "bucket" },
+              "y": [
+                { "operation": "value", "column": "errors_4xx", "label": "4xx Errors" },
+                { "operation": "value", "column": "errors_5xx", "label": "5xx Errors" }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "lens",
+      "uid": "sm-utilization",
+      "grid": { "x": 24, "y": 10, "w": 24, "h": 10 },
+      "config": {
+        "title": "GPU / CPU Utilization (%)",
+        "attributes": {
+          "type": "xy",
+          "axis": {
+            "x": { "title": { "visible": false } },
+            "left": { "title": { "visible": false } }
+          },
+          "layers": [
+            {
+              "type": "line",
+              "dataset": {
+                "type": "esql",
+                "query": "FROM logs-aws.sagemaker* | STATS gpu = AVG(`aws.sagemaker.cloudwatch_metrics.GPUUtilization.avg`), cpu = AVG(`aws.sagemaker.cloudwatch_metrics.CPUUtilization.avg`) BY bucket = BUCKET(@timestamp, 75, ?_tstart, ?_tend) | SORT bucket"
+              },
+              "x": { "operation": "value", "column": "bucket" },
+              "y": [
+                { "operation": "value", "column": "gpu", "label": "GPU %" },
+                { "operation": "value", "column": "cpu", "label": "CPU %" }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "lens",
+      "uid": "sm-outcomes",
+      "grid": { "x": 0, "y": 20, "w": 16, "h": 10 },
+      "config": {
+        "title": "Job Outcomes",
+        "attributes": {
+          "type": "donut",
+          "dataset": {
+            "type": "esql",
+            "query": "FROM logs-aws.sagemaker* | STATS count = COUNT() BY outcome = event.outcome"
+          },
+          "metrics": [{ "operation": "value", "column": "count" }],
+          "group_by": [{ "operation": "value", "column": "outcome" }]
+        }
+      }
+    },
+    {
+      "type": "lens",
+      "uid": "sm-job-type",
+      "grid": { "x": 16, "y": 20, "w": 32, "h": 10 },
+      "config": {
+        "title": "Events by Job Type",
+        "attributes": {
+          "type": "xy",
+          "axis": {
+            "x": { "title": { "visible": false } },
+            "left": { "title": { "visible": false } }
+          },
+          "layers": [
+            {
+              "type": "bar_horizontal",
+              "dataset": {
+                "type": "esql",
+                "query": "FROM logs-aws.sagemaker* | STATS count = COUNT() BY job_type = `aws.sagemaker.job.type` | SORT count DESC"
+              },
+              "x": { "operation": "value", "column": "job_type" },
+              "y": [{ "operation": "value", "column": "count", "label": "Events" }]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

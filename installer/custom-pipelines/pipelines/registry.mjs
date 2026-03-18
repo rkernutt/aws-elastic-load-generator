@@ -42,6 +42,7 @@ export const PIPELINE_REGISTRY = [
       { rename: { field: "glue.parsed.jobName",   target_field: "glue.jobName",   ignore_missing: true, ignore_failure: true } },
       { rename: { field: "glue.parsed.jobRunId",  target_field: "glue.jobRunId",  ignore_missing: true, ignore_failure: true } },
       { rename: { field: "glue.parsed.level",     target_field: "log.level",      ignore_missing: true, ignore_failure: true } },
+      { lowercase: { field: "log.level", ignore_missing: true, ignore_failure: true } },
       { rename: { field: "glue.parsed.errorCode", target_field: "error.code",     ignore_missing: true, ignore_failure: true } },
     ],
   },
@@ -54,6 +55,7 @@ export const PIPELINE_REGISTRY = [
     processors: [
       { json: { field: "message", target_field: "emr.parsed", ignore_failure: true } },
       { rename: { field: "emr.parsed.logLevel",      target_field: "log.level",      ignore_missing: true, ignore_failure: true } },
+      { lowercase: { field: "log.level", ignore_missing: true, ignore_failure: true } },
       { rename: { field: "emr.parsed.clusterId",     target_field: "emr.clusterId",  ignore_missing: true, ignore_failure: true } },
       { rename: { field: "emr.parsed.applicationId", target_field: "emr.applicationId", ignore_missing: true, ignore_failure: true } },
       { rename: { field: "emr.parsed.containerId",   target_field: "emr.containerId",   ignore_missing: true, ignore_failure: true } },
@@ -95,6 +97,7 @@ export const PIPELINE_REGISTRY = [
     processors: [
       { json: { field: "message", target_field: "sagemaker.parsed", ignore_failure: true } },
       { rename: { field: "sagemaker.parsed.level",   target_field: "log.level",         ignore_missing: true, ignore_failure: true } },
+      { lowercase: { field: "log.level", ignore_missing: true, ignore_failure: true } },
       { rename: { field: "sagemaker.parsed.event",   target_field: "sagemaker.event",   ignore_missing: true, ignore_failure: true } },
       { rename: { field: "sagemaker.parsed.space",   target_field: "sagemaker.space",   ignore_missing: true, ignore_failure: true } },
       { rename: { field: "sagemaker.parsed.appType", target_field: "sagemaker.appType", ignore_missing: true, ignore_failure: true } },
@@ -125,30 +128,15 @@ export const PIPELINE_REGISTRY = [
     group: "serverless",
     description: "Parse Lambda log lines — START/END/REPORT structured extraction plus JSON fallback",
     processors: [
-      // START RequestId: <id>  Version: <ver>
-      {
-        grok: {
-          field: "message",
-          patterns: ["START RequestId: %{DATA:lambda.requestId}\\s+Version: %{DATA:lambda.version}"],
-          ignore_failure: true,
-          ignore_missing: true,
-        },
-      },
-      // END RequestId: <id>
-      {
-        grok: {
-          field: "message",
-          patterns: ["END RequestId: %{DATA:lambda.requestId}"],
-          ignore_failure: true,
-          ignore_missing: true,
-        },
-      },
-      // REPORT RequestId: <id>  Duration: <ms>  Billed Duration: <ms>  Memory Size: <mb>  Max Memory Used: <mb>
+      // Single grok with all three Lambda system-line patterns; stops at first match.
+      // REPORT is listed first as it has the most fields to extract.
       {
         grok: {
           field: "message",
           patterns: [
             "REPORT RequestId: %{DATA:lambda.requestId}\\s+Duration: %{NUMBER:lambda.durationMs:float} ms\\s+Billed Duration: %{NUMBER:lambda.billedDurationMs:float} ms\\s+Memory Size: %{NUMBER:lambda.memorySizeMB:int} MB\\s+Max Memory Used: %{NUMBER:lambda.maxMemoryUsedMB:int} MB",
+            "START RequestId: %{DATA:lambda.requestId}\\s+Version: %{DATA:lambda.version}",
+            "END RequestId: %{DATA:lambda.requestId}",
           ],
           ignore_failure: true,
           ignore_missing: true,
@@ -168,15 +156,7 @@ export const PIPELINE_REGISTRY = [
   // COMPUTE
   // ═══════════════════════════════════════════════════════════════════════════
 
-  {
-    id: "logs-aws.ec2_logs-default",
-    dataset: "aws.ec2_logs",
-    group: "compute",
-    description: "Minimal pipeline for EC2 instance logs",
-    processors: [
-      { set: { field: "data_stream.dataset", value: "aws.ec2_logs", ignore_failure: true } },
-    ],
-  },
+  { id: "logs-aws.ec2_logs-default", dataset: "aws.ec2_logs", group: "compute", description: "Parse EC2 instance log JSON from message field", processors: json("ec2") },
 
   { id: "logs-aws.eks-default",              dataset: "aws.eks",              group: "compute",  description: "Parse EKS Kubernetes pod/node log JSON",            processors: json("eks")              },
   { id: "logs-aws.ecr-default",              dataset: "aws.ecr",              group: "compute",  description: "Parse ECR image scan and push log JSON",            processors: json("ecr")              },
@@ -198,6 +178,7 @@ export const PIPELINE_REGISTRY = [
     processors: [
       { json: { field: "message", target_field: "rds.parsed", ignore_failure: true } },
       { rename: { field: "rds.parsed.level",  target_field: "log.level",  ignore_missing: true, ignore_failure: true } },
+      { lowercase: { field: "log.level", ignore_missing: true, ignore_failure: true } },
       { rename: { field: "rds.parsed.thread", target_field: "rds.thread", ignore_missing: true, ignore_failure: true } },
       { rename: { field: "rds.parsed.logger", target_field: "rds.logger", ignore_missing: true, ignore_failure: true } },
     ],
@@ -270,15 +251,7 @@ export const PIPELINE_REGISTRY = [
     ],
   },
 
-  {
-    id: "logs-aws.greengrass-default",
-    dataset: "aws.greengrass",
-    group: "iot",
-    description: "Minimal pipeline for Greengrass edge component logs",
-    processors: [
-      { set: { field: "data_stream.dataset", value: "aws.greengrass", ignore_failure: true } },
-    ],
-  },
+  { id: "logs-aws.greengrass-default", dataset: "aws.greengrass", group: "iot", description: "Parse Greengrass edge component log JSON from message field", processors: json("greengrass") },
 
   { id: "logs-aws.iotanalytics-default", dataset: "aws.iotanalytics", group: "iot",  description: "Parse IoT Analytics pipeline log JSON",           processors: json("iotanalytics") },
   { id: "logs-aws.iotdefender-default",  dataset: "aws.iotdefender",  group: "iot",  description: "Parse IoT Defender audit finding JSON",           processors: json("iotdefender")  },

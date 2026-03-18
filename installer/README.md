@@ -1,6 +1,6 @@
 # AWS → Elastic Onboarding Installers
 
-Two standalone Node.js scripts to configure Elastic before you start shipping data with the AWS → Elastic Load Generator. Run them once — both are idempotent and safe to re-run at any time.
+Three standalone Node.js scripts to configure Elastic before you start shipping data with the AWS → Elastic Load Generator. Run them once — all are idempotent and safe to re-run at any time.
 
 **Requirements:** Node.js 18+ (native `fetch`, ES modules). No `npm install` needed — zero external dependencies.
 
@@ -190,15 +190,158 @@ These match the index names the load generator writes to, so pipelines are appli
 
 ---
 
-## Why two separate installers?
+---
 
-| | `setup:integration` | `setup:pipelines` |
-|---|---|---|
-| **API** | Kibana Fleet API | Elasticsearch Ingest API |
-| **URL needed** | Kibana URL | Elasticsearch URL |
-| **Privileges** | `cluster: manage` + `kibana: all` | `manage_ingest_pipelines` |
-| **What it configures** | Dashboards, ILM, index templates | Ingest pipelines |
-| **Re-runnable** | Yes — skips if already installed | Yes — skips existing pipelines |
-| **When to re-run** | When Elastic releases a new integration version | When new services are added to the load generator |
+## Installer 3 — Custom Dashboards
 
-Running both gives you full coverage across all 135 services.
+**File:** `installer/custom-dashboards/`
+**Command:** `npm run setup:dashboards`
+
+### What it installs
+
+Pre-built Kibana dashboards for AWS services monitored by the load generator. Dashboards use ES|QL queries against
+the `logs-aws.*` data streams written by the app.
+
+### Dashboards included
+
+| File | Title | Panels |
+|------|-------|--------|
+| `glue-dashboard.json` | AWS Glue — Jobs & Performance | 7 panels |
+| `sagemaker-dashboard.json` | AWS SageMaker — Endpoints & Training | 6 panels |
+
+#### AWS Glue — Jobs & Performance
+
+| Panel | Type | Metric |
+|-------|------|--------|
+| Run Outcomes | Donut | Count by `event.outcome` (success / failure) |
+| Runs by State | Donut | Count by `aws.glue.job.run_state` |
+| Failures by Error Category | Horizontal bar | Count by `aws.glue.error_category` (failures only) |
+| Avg Job Duration | Line | Avg `event.duration` converted to seconds |
+| JVM Heap Usage | Line | Avg `aws.glue.metrics.driver.jvm.heap.usage` (0–1) |
+| Executor Count | Line | Avg `aws.glue.metrics.driver.ExecutorAllocationManager.executors.numberAllExecutors` |
+| Failed / Killed Tasks | Stacked bar | Sum of `numFailedTasks` and `numKilledTasks` over time |
+
+#### AWS SageMaker — Endpoints & Training
+
+| Panel | Type | Metric |
+|-------|------|--------|
+| Invocations Over Time | Area | Sum `aws.sagemaker.cloudwatch_metrics.Invocations.sum` |
+| Model Latency | Line | Avg `aws.sagemaker.cloudwatch_metrics.ModelLatency.avg` |
+| 4xx / 5xx Errors | Line (2 series) | Sum of `Invocations4XXError.sum` and `Invocations5XXError.sum` |
+| GPU / CPU Utilization | Line (2 series) | Avg of `GPUUtilization.avg` and `CPUUtilization.avg` |
+| Job Outcomes | Donut | Count by `event.outcome` |
+| Events by Job Type | Horizontal bar | Count by `aws.sagemaker.job.type` |
+
+### How to run
+
+```bash
+npm run setup:dashboards
+# or directly:
+node installer/custom-dashboards/index.mjs
+```
+
+### Credentials
+
+| Prompt | Where to find it |
+|--------|-----------------|
+| **Kibana URL** | Deployment overview → Kibana endpoint (e.g. `https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243`) |
+| **API key** | Kibana → Stack Management → API Keys → Create API key — needs `kibana_admin` built-in role |
+
+**Note:** The dashboard installer uses the Kibana Dashboards API (`Elastic-Api-Version: 1`), which requires **Kibana 9.4+**. If you are on an earlier version, dashboards can be imported manually via Kibana → Stack Management → Saved Objects → Import using the JSON files in `installer/custom-dashboards/`.
+
+### What happens
+
+1. Prompts for Kibana URL and API key
+2. Tests the connection and confirms the Kibana version
+3. Lists available dashboards and prompts for selection
+4. For each selected dashboard: searches by title, skips if already installed, creates if not
+5. Prints a summary of installed / skipped / failed counts
+
+### Example output
+
+```
+╔══════════════════════════════════════════════════════╗
+║     AWS → Elastic Custom Dashboard Installer         ║
+╚══════════════════════════════════════════════════════╝
+
+Installs Kibana dashboards for AWS services monitored
+by the AWS → Elastic Load Generator.
+
+Kibana URL (e.g. https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243):
+> https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243
+
+Elastic API Key:
+> ABCdef123==
+
+Testing connection...
+  Connected to Kibana: my-deployment (9.4.0)
+
+Available dashboards:
+
+  1. AWS Glue — Jobs & Performance
+  2. AWS SageMaker — Endpoints & Training
+  3. all  (install every dashboard)
+
+Enter number(s) comma-separated, or "all":
+> all
+
+Installing 2 dashboard(s)...
+
+  ✓ "AWS Glue — Jobs & Performance" — installed (id: a1b2c3d4-...)
+  ✓ "AWS SageMaker — Endpoints & Training" — installed (id: e5f6g7h8-...)
+
+Installed 2 / 2 dashboard(s).
+Done.
+```
+
+### Adding more dashboards
+
+Any `*-dashboard.json` file placed in `installer/custom-dashboards/` is automatically discovered and presented in the
+selection menu. The JSON format is the Kibana Dashboards API format — see the existing files for reference.
+
+---
+
+### Legacy import (Kibana 8.11 – 9.3)
+
+For Kibana versions before 9.4, use the Saved Objects `.ndjson` installer instead:
+
+```bash
+npm run setup:dashboards:legacy
+# or directly:
+node installer/custom-dashboards/index-legacy.mjs
+```
+
+This uses `POST /api/saved_objects/_import` which is supported from **Kibana 8.11+** (when ES|QL became available).
+
+The ndjson files are pre-generated and committed under `installer/custom-dashboards/ndjson/`. If you add a new
+`*-dashboard.json` file, regenerate them:
+
+```bash
+npm run generate:dashboards:ndjson
+# or directly:
+node installer/custom-dashboards/generate-ndjson.mjs
+```
+
+You can also import the `.ndjson` files manually via the Kibana UI:
+**Stack Management → Saved Objects → Import → select the file → Import**
+
+| Method | Kibana version | Command |
+|--------|---------------|---------|
+| Dashboards API | 9.4+ | `npm run setup:dashboards` |
+| Saved Objects import | 8.11 – 9.3 | `npm run setup:dashboards:legacy` |
+| Manual UI import | 8.11+ | Stack Management → Saved Objects → Import |
+
+---
+
+## Why three separate installers?
+
+| | `setup:integration` | `setup:pipelines` | `setup:dashboards` |
+|---|---|---|---|
+| **API** | Kibana Fleet API | Elasticsearch Ingest API | Kibana Dashboards API |
+| **URL needed** | Kibana URL | Elasticsearch URL | Kibana URL |
+| **Privileges** | `cluster: manage` + `kibana: all` | `manage_ingest_pipelines` | `kibana_admin` |
+| **What it configures** | Dashboards, ILM, index templates | Ingest pipelines | Custom Kibana dashboards |
+| **Re-runnable** | Yes — skips if already installed | Yes — skips existing pipelines | Yes — skips by title |
+| **When to re-run** | When Elastic releases a new integration version | When new services are added | When new dashboards are added |
+
+Running all three gives you full coverage across all 136 services.
