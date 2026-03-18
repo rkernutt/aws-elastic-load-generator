@@ -89,6 +89,7 @@ function generateNlbLog(ts, er) {
   const connDuration = randInt(1, isErr ? 30000 : 5000);
   const bytes = randInt(64, 1048576);
   const targetIp = randIp();
+  const srcGeo = rand(GEO_LOCATIONS);
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"nlb" } },
@@ -99,52 +100,17 @@ function generateNlbLog(ts, er) {
         type: "network",
         listener: `arn:aws:elasticloadbalancing:${region}:${acct.id}:listener/net/prod-nlb/${randId(16).toLowerCase()}/${randId(16).toLowerCase()}`,
         protocol: proto,
-        "connection_duration.sec": connDuration / 1000,
-        "tls.cipher_suite": proto === "TLS" ? "ECDHE-RSA-AES128-GCM-SHA256" : undefined,
-        "tls.protocol_version": proto === "TLS" ? "TLSv1.3" : undefined,
+        "connection_time.ms": connDuration,
+        ssl_cipher: proto === "TLS" ? "ECDHE-RSA-AES128-GCM-SHA256" : undefined,
+        ssl_protocol: proto === "TLS" ? "TLSv1.3" : undefined,
         "backend.ip": targetIp,
         "backend.port": String(port),
         "error.reason": isErr ? status : undefined,
-        "received_bytes": bytes,
-        "sent_bytes": randInt(64, 1048576),
+        received_bytes: bytes,
+        sent_bytes: randInt(64, 1048576),
       },
-      nlb: {
-        load_balancer: lbName,
-        listener_port: port,
-        protocol: proto,
-        connection_duration_ms: connDuration,
-        tls_cipher: proto === "TLS" ? "ECDHE-RSA-AES128-GCM-SHA256" : null,
-        tls_protocol: proto === "TLS" ? "TLSv1.3" : null,
-        target_ip: targetIp,
-        target_port: port,
-        connection_log_status: status,
-        bytes,
-        packets: randInt(1, 100),
-        metrics: {
-          ActiveFlowCount: { avg: randInt(1,10000) },
-          ActiveFlowCount_TCP: { avg: randInt(1,5000) },
-          ActiveFlowCount_TLS: { avg: randInt(0,2000) },
-          ActiveFlowCount_UDP: { avg: randInt(0,1000) },
-          ClientTLSNegotiationErrorCount: { sum: isErr?randInt(1,100):0 },
-          ConsumedLCUs: { avg: parseFloat(randFloat(0.1,10)) },
-          HealthyHostCount: { avg: randInt(2,20) },
-          NewFlowCount: { sum: randInt(1,10000) },
-          NewFlowCount_TCP: { sum: randInt(1,5000) },
-          NewFlowCount_TLS: { sum: randInt(0,2000) },
-          NewFlowCount_UDP: { sum: randInt(0,1000) },
-          ProcessedBytes: { sum: randInt(1e6,1e9) },
-          ProcessedBytes_TCP: { sum: randInt(1e6,5e8) },
-          ProcessedBytes_TLS: { sum: randInt(0,2e8) },
-          ProcessedBytes_UDP: { sum: randInt(0,1e8) },
-          TargetTLSNegotiationErrorCount: { sum: isErr?randInt(1,50):0 },
-          TCP_Client_Reset_Count: { sum: randInt(0,100) },
-          TCP_ELB_Reset_Count: { sum: isErr?randInt(1,50):0 },
-          TCP_Target_Reset_Count: { sum: randInt(0,50) },
-          UnHealthyHostCount: { avg: isErr?randInt(1,3):0 },
-        }
-      }
     },
-    "source": { ip:randIp(), port:randInt(1024,65535) },
+    "source": { ip:randIp(), port:randInt(1024,65535), geo:{ country_iso_code:srcGeo.country_iso_code, country_name:srcGeo.country_name, city_name:srcGeo.city_name, location:srcGeo.location } },
     "network": { transport:proto.toLowerCase(), bytes },
     "event": { outcome:isErr?"failure":"success", category:["network"], dataset:"aws.elb_logs", provider:"elasticloadbalancing.amazonaws.com", duration:connDuration * 1e6 },
     "message": isErr ? `NLB ${proto}:${port} connection ${status}` : `NLB ${proto}:${port} ${bytes}B in ${connDuration}ms`,
@@ -226,23 +192,33 @@ function generateWafLog(ts, er) {
   const isBlock = Math.random() < (er + 0.2);
   const rules = ["AWSManagedRulesCommonRuleSet","AWSManagedRulesKnownBadInputsRuleSet","AWSManagedRulesSQLiRuleSet","AWSManagedRulesLinuxRuleSet","AWSManagedRulesUnixRuleSet","AWSManagedRulesWindowsRuleSet","AWSManagedRulesPHPRuleSet","AWSManagedRulesWordPressRuleSet","IPRateBasedRule","GeoBlockRule","CustomSQLiRule"];
   const rule = rand(rules); const webAclName = rand(["prod-waf","api-waf","admin-waf"]);
-  const webAclId = `${randId(8)}-${randId(4)}-${randId(4)}`.toLowerCase();
+  const webAclId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase();
   const uri = rand(HTTP_PATHS);
+  const method = rand(HTTP_METHODS);
   const clientIp = randIp();
   const ua = rand(USER_AGENTS);
+  const clientGeo = rand(GEO_LOCATIONS);
+  const lbId = `${acct.id}-app/${webAclName}/${randId(16).toLowerCase()}`;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"waf" } },
     "aws": {
       dimensions: { WebACL:webAclName, Rule:rule, Region:region },
       waf: {
-        web_acl_id: webAclId,
-        web_acl_name: webAclName,
-        terminating_rule_id: rule,
-        rule_group_list: [{ rule_group_id: rule, terminating_rule: rule, rule_group_override_action: "NONE", excluded_rules: [] }],
-        action: isBlock?"BLOCK":"ALLOW",
-        http_request: { client_ip: clientIp, country: rand(["GB","US","DE","IE"]), uri, uri_query: "", method: rand(HTTP_METHODS), headers: [{ name: "User-Agent", value: ua }] },
-        http_source_name: "ALB",
+        id: randId(36).toLowerCase(),
+        arn: `arn:aws:wafv2:${region}:${acct.id}:regional/webacl/${webAclName}/${webAclId}`,
+        format_version: "1",
+        source: { name: "ALB", id: lbId },
+        rule_group_list: [{
+          ruleGroupId: rule,
+          terminatingRule: isBlock ? { action: "BLOCK", ruleId: rule, ruleMatchDetails: [] } : undefined,
+          nonTerminatingMatchingRules: [],
+        }],
+        non_terminating_matching_rules: [],
+        terminating_rule_match_details: [],
+        request: { headers: [{ name: "User-Agent", value: ua }, { name: "Host", value: "api.example.com" }] },
+        labels: isBlock ? [{ name: `awswaf:managed:aws:${rule.toLowerCase()}` }] : [],
+        response_code_sent: isBlock ? 403 : undefined,
         metrics: {
           AllowedRequests: { sum: isBlock ? 0 : 1 },
           BlockedRequests: { sum: isBlock ? 1 : 0 },
@@ -254,8 +230,9 @@ function generateWafLog(ts, er) {
         }
       }
     },
-    "http": { request:{ method:rand(HTTP_METHODS), bytes:randInt(100,10000) }, uri },
-    "client": { ip:clientIp, geo:{ country_iso_code:rand(["US","CN","RU","IR","KP","BR","IN","DE","GB","FR"]), city_name:rand(["Ashburn","Beijing","Moscow","Tehran","Pyongyang","São Paulo","Mumbai","Berlin","London","Paris"]) } },
+    "http": { request:{ method, bytes:randInt(100,10000) } },
+    "url": { path: uri },
+    "client": { ip:clientIp, geo:{ country_iso_code:clientGeo.country_iso_code, country_name:clientGeo.country_name, city_name:clientGeo.city_name, location:clientGeo.location } },
     "user_agent": { original:ua },
     "event": { action:isBlock?"block":"allow", outcome:isBlock?"failure":"success", category:["intrusion_detection","network"], dataset:"aws.waf", provider:"wafv2.amazonaws.com", duration:randInt(1,isBlock?500:50)*1e6 },
     "message": `WAF ${isBlock?"BLOCKED":"ALLOWED"} request - Rule: ${rule}`,
@@ -267,12 +244,56 @@ function generateWafLog(ts, er) {
 function generateWafv2Log(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const webAcl = rand(["prod-api-acl","cdn-waf","admin-portal-waf","regional-waf"]);
-  const action = isErr?rand(["BLOCK","CAPTCHA","COUNT"]):rand(["ALLOW","ALLOW","BLOCK"]);
+  const webAclId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase();
+  const action = isErr ? rand(["BLOCK","CAPTCHA","COUNT"]) : rand(["ALLOW","ALLOW","BLOCK"]);
   const ruleGroup = rand(["AWSManagedRulesCommonRuleSet","AWSManagedRulesSQLiRuleSet","AWSManagedRulesKnownBadInputsRuleSet","AWSManagedRulesLinuxRuleSet","AWSManagedRulesWindowsRuleSet","AWSManagedRulesPHPRuleSet","AWSManagedRulesWordPressRuleSet","IPRateBasedRule","GeoBlockRule","CustomSQLiRule"]);
-  const rule = rand(["AWSManagedRulesCommonRuleSet","AWSManagedRulesKnownBadInputsRuleSet","AWSManagedRulesSQLiRuleSet","AWSManagedRulesLinuxRuleSet","AWSManagedRulesUnixRuleSet","AWSManagedRulesWindowsRuleSet","AWSManagedRulesPHPRuleSet","AWSManagedRulesWordPressRuleSet","IPRateBasedRule","GeoBlockRule","CustomSQLiRule"]);
+  const rule = rand(["SQLi_Args","CrossSiteScripting","GenericRFI_BODY","GenericLFI_URIPATH","BadBot","NoUserAgent","UserAgent_BadBots_HEADER","SizeRestrictions_BODY","IPRateBasedRule","GeoBlockRule"]);
+  const uri = rand(HTTP_PATHS); const method = rand(HTTP_METHODS);
   const ip = randIp();
+  const ua = rand(USER_AGENTS);
+  const srcGeo = rand(GEO_LOCATIONS);
   const isBlock = action === "BLOCK" || action === "CAPTCHA";
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"wafv2"}},"aws":{dimensions:{WebACL:webAcl,Rule:rule,Region:region},wafv2:{web_acl_name:webAcl,rule_group_name:ruleGroup,rule_name:rule,action,terminating_rule_id:rule,source_ip:ip,country:rand(["US","CN","RU","IR","KP","BR","IN","DE","GB","FR"]),uri:rand(HTTP_PATHS),method:rand(HTTP_METHODS),user_agent:rand(USER_AGENTS),blocked_reason:isBlock?rand(["SQL injection","XSS attempt","Rate limit exceeded","Bad input pattern","Known bad IP"]):null,request_id:randId(36).toLowerCase(),labels:isBlock?[rand(["awswaf:managed:aws:core-rule-set:CrossSiteScripting","awswaf:managed:aws:sql-database:SQLi_Args"])]:[], metrics:{AllowedRequests:{sum:isBlock?0:1},BlockedRequests:{sum:isBlock?1:0},CountedRequests:{sum:0},PassedRequests:{sum:isBlock?0:1},RequestsWithValidCaptchaToken:{sum:0},ChallengeRequests:{sum:0},FailedCaptcha:{sum:0}}}},"source":{ip,geo:{country_iso_code:rand(["US","CN","RU","IR","KP","BR","IN","DE","GB","FR"]),city_name:rand(["Ashburn","Beijing","Moscow","Tehran","Pyongyang","São Paulo","Mumbai","Berlin","London","Paris"])}},"event":{action:action.toLowerCase(),outcome:action==="ALLOW"?"success":"failure",category:["intrusion_detection","network"],dataset:"aws.waf",provider:"wafv2.amazonaws.com"},"message":isBlock?`WAFv2 BLOCK [${webAcl}] ${ip}: ${ruleGroup}/${rule}`:`WAFv2 ${action} [${webAcl}] ${ip} ${rand(HTTP_METHODS)} ${rand(HTTP_PATHS)}`,"log":{level:isBlock?"warn":"info"},...(isBlock?{error:{code:"WAFBlock",message:"WAFv2 request blocked",type:"security"}}:{}) };
+  const labelNames = isBlock ? [rand(["awswaf:managed:aws:core-rule-set:CrossSiteScripting","awswaf:managed:aws:sql-database:SQLi_Args","awswaf:managed:aws:known-bad-inputs:NoUserAgent_HEADER"])] : [];
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"wafv2" } },
+    "aws": {
+      dimensions: { WebACL:webAcl, Rule:rule, Region:region },
+      waf: {
+        id: randId(36).toLowerCase(),
+        arn: `arn:aws:wafv2:${region}:${acct.id}:regional/webacl/${webAcl}/${webAclId}`,
+        format_version: "1",
+        source: { name: rand(["ALB","APIGW","CF"]), id: `${acct.id}-app/${webAcl}/${randId(16).toLowerCase()}` },
+        rule_group_list: [{
+          ruleGroupId: ruleGroup,
+          terminatingRule: isBlock ? { action, ruleId: rule, ruleMatchDetails: [] } : undefined,
+          nonTerminatingMatchingRules: [],
+        }],
+        non_terminating_matching_rules: [],
+        terminating_rule_match_details: [],
+        request: { headers: [{ name: "User-Agent", value: ua }, { name: "Host", value: "api.example.com" }] },
+        labels: labelNames.map(n => ({ name: n })),
+        response_code_sent: isBlock ? 403 : undefined,
+        metrics: {
+          AllowedRequests: { sum: isBlock ? 0 : 1 },
+          BlockedRequests: { sum: isBlock ? 1 : 0 },
+          CountedRequests: { sum: 0 },
+          PassedRequests: { sum: isBlock ? 0 : 1 },
+          RequestsWithValidCaptchaToken: { sum: 0 },
+          ChallengeRequests: { sum: 0 },
+          FailedCaptcha: { sum: 0 },
+        }
+      }
+    },
+    "source": { ip, geo:{ country_iso_code:srcGeo.country_iso_code, country_name:srcGeo.country_name, city_name:srcGeo.city_name, location:srcGeo.location } },
+    "http": { request:{ method, bytes:randInt(100,10000) } },
+    "url": { path: uri },
+    "user_agent": { original: ua },
+    "event": { action:action.toLowerCase(), outcome:action==="ALLOW"?"success":"failure", category:["intrusion_detection","network"], dataset:"aws.waf", provider:"wafv2.amazonaws.com" },
+    "message": isBlock ? `WAFv2 ${action} [${webAcl}] ${ip}: ${ruleGroup}/${rule}` : `WAFv2 ${action} [${webAcl}] ${ip} ${method} ${uri}`,
+    "log": { level:isBlock?"warn":"info" },
+    ...(isBlock ? { error: { code: "WAFBlock", message: "WAFv2 request blocked", type: "security" } } : {})
+  };
 }
 
 function generateRoute53Log(ts, er) {
@@ -589,14 +610,6 @@ function generateVpcFlowLog(ts, er) {
         vpc_id: vpcId,
         subnet_id: subnetId,
         type: "IPv4",
-      },
-      vpc: {
-        action, log_status:"OK",
-        interface_id: eni,
-        vpc_id: vpcId,
-        subnet_id: subnetId,
-        account_id: acct.id,
-        metrics: { BytesTransferred: { sum: bytes }, PacketsTransferred: { sum: pkts } }
       }
     },
     "source": { ip:src, port:srcPort, geo:{ country_iso_code:srcGeo.country_iso_code, country_name:srcGeo.country_name, city_name:srcGeo.city_name, location:srcGeo.location } },

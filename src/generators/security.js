@@ -5,6 +5,7 @@ function generateGuardDutyLog(ts, er) {
   const isFinding = Math.random() < (er + 0.3);
   const findingTypes = ["UnauthorizedAccess:EC2/SSHBruteForce","UnauthorizedAccess:EC2/RDPBruteForce","Recon:EC2/PortScan","Backdoor:EC2/C&CActivity.B","CryptoCurrency:EC2/BitcoinTool.B!DNS","Trojan:EC2/DNSDataExfiltration","UnauthorizedAccess:IAMUser/ConsoleLoginSuccess.B","Policy:IAMUser/RootCredentialUsage","UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom","Discovery:S3/TorIPCaller","Impact:S3/MaliciousIPCaller","Exfiltration:S3/MaliciousIPCaller","Stealth:IAMUser/PasswordPolicyChange","UnauthorizedAccess:IAMUser/InstanceCredentialExfiltration.OutsideAWS","InitialAccess:IAMUser/AnomalousBehavior","Persistence:IAMUser/AnomalousBehavior","PrivilegeEscalation:IAMUser/AnomalousBehavior"];
   const ft = rand(findingTypes); const sev = isFinding ? rand([2,5,7,8,9]) : 0;
+  const sevValue = sev >= 7 ? "High" : sev >= 4 ? "Medium" : sev >= 1 ? "Low" : "Informational";
   const findingId = randId(32).toLowerCase();
   const detectorId = randId(32).toLowerCase();
   const instanceId = `i-${randId(17).toLowerCase()}`;
@@ -12,6 +13,16 @@ function generateGuardDutyLog(ts, er) {
   const isNetworkFinding = ft.includes(":EC2/") || ft.includes("MaliciousIP");
   const srcIp = randIp();
   const dstIp = randIp();
+  const srcGeo = rand([
+    { country_iso_code:"CN", country_name:"China",         city_name:"Beijing",      location:{ lat:39.9042, lon:116.4074  } },
+    { country_iso_code:"RU", country_name:"Russia",        city_name:"Moscow",       location:{ lat:55.7558, lon:37.6173   } },
+    { country_iso_code:"IR", country_name:"Iran",          city_name:"Tehran",       location:{ lat:35.6892, lon:51.3890   } },
+    { country_iso_code:"KP", country_name:"North Korea",   city_name:"Pyongyang",    location:{ lat:39.0194, lon:125.7381  } },
+    { country_iso_code:"US", country_name:"United States", city_name:"Ashburn",      location:{ lat:39.0438, lon:-77.4874  } },
+    { country_iso_code:"GB", country_name:"United Kingdom",city_name:"London",       location:{ lat:51.5074, lon:-0.1278   } },
+    { country_iso_code:"DE", country_name:"Germany",       city_name:"Frankfurt",    location:{ lat:50.1109, lon:8.6821    } },
+    { country_iso_code:"IN", country_name:"India",         city_name:"Mumbai",       location:{ lat:19.0760, lon:72.8777   } },
+  ]);
   const threatIndicatorType = isDnsFinding ? "domain" : "ip";
   const threatPurpose = ft.split(":")[0];
   const gdCategory = ["CryptoCurrency","Trojan","Backdoor"].includes(threatPurpose) ? "malware" : ["Recon","PrivilegeEscalation","InitialAccess","Persistence"].includes(threatPurpose) ? "intrusion_detection" : "threat";
@@ -32,23 +43,25 @@ function generateGuardDutyLog(ts, er) {
         description: isFinding ? `GuardDuty detected suspicious activity: ${ft}` : "Routine check completed.",
         created_at: ts,
         updated_at: ts,
-        severity: sev,
+        severity: { code: sev, value: sevValue },
         confidence: parseFloat(randFloat(60,99)),
-        finding_id: findingId,
-        finding_type: ft,
-        detector_id: detectorId,
-        resource_type: rand(["Instance","AccessKey","S3Bucket","EKSCluster"]),
-        action_type: rand(["NETWORK_CONNECTION","PORT_PROBE","DNS_REQUEST","AWS_API_CALL"]),
-        count: randInt(1,500),
-        resource: isFinding ? {
-          instance_details: {
-            availability_zone: `${region}${rand(["a","b","c"])}`,
-            instance: { id:instanceId, type:rand(["t3.medium","m5.large"]), state:"running" },
-            image: { id:`ami-${randId(8).toLowerCase()}`, description:"Amazon Linux 2" },
-            network_interfaces: [{ network_interface_id:`eni-${randId(8).toLowerCase()}`, private_ip_address:randIp(), subnet_id:`subnet-${randId(8).toLowerCase()}`, vpc_id:`vpc-${randId(8).toLowerCase()}`, security_groups:[{ group_id:`sg-${randId(8).toLowerCase()}`, group_name:"default" }] }],
-          }
-        } : undefined,
-        service: isFinding ? { action: { action_type: rand(["NETWORK_CONNECTION","PORT_PROBE","DNS_REQUEST","AWS_API_CALL"]) } } : undefined,
+        resource: {
+          type: rand(["Instance","AccessKey","S3Bucket","EKSCluster"]),
+          ...(isFinding ? {
+            instance_details: {
+              availability_zone: `${region}${rand(["a","b","c"])}`,
+              instance: { id:instanceId, type:rand(["t3.medium","m5.large"]), state:"running" },
+              image: { id:`ami-${randId(8).toLowerCase()}`, description:"Amazon Linux 2" },
+              network_interfaces: [{ network_interface_id:`eni-${randId(8).toLowerCase()}`, private_ip_address:randIp(), subnet_id:`subnet-${randId(8).toLowerCase()}`, vpc_id:`vpc-${randId(8).toLowerCase()}`, security_groups:[{ group_id:`sg-${randId(8).toLowerCase()}`, group_name:"default" }] }],
+            }
+          } : {})
+        },
+        service: {
+          detector_id: detectorId,
+          count: randInt(1,500),
+          archived: false,
+          ...(isFinding ? { action: { action_type: rand(["NETWORK_CONNECTION","PORT_PROBE","DNS_REQUEST","AWS_API_CALL"]) } } : {}),
+        },
         metrics: {
           FindingCount: { sum: isFinding ? randInt(1,50) : 0 },
           HighSeverityFindingCount: { sum: isFinding&&sev>=7 ? randInt(1,10) : 0 },
@@ -58,9 +71,9 @@ function generateGuardDutyLog(ts, er) {
       }
     },
     "threat": { indicator:[{ type:threatIndicatorType, value:isDnsFinding?`suspicious-${randId(8).toLowerCase()}.example.com`:srcIp }] },
-    ...(isFinding && isNetworkFinding ? { "source": { ip:srcIp, geo:{ country_iso_code:rand(["US","GB","DE","FR","JP","AU","CA","IN"]), city_name:rand(["Ashburn","London","Frankfurt","Tokyo","Sydney","Toronto"]) } }, "destination": { ip:dstIp } } : {}),
+    ...(isFinding && isNetworkFinding ? { "source": { ip:srcIp, geo:{ country_iso_code:srcGeo.country_iso_code, country_name:srcGeo.country_name, city_name:srcGeo.city_name, location:srcGeo.location } }, "destination": { ip:dstIp } } : {}),
     "event": { kind:"alert", severity:sev, outcome:isFinding?"failure":"success", category:[gdCategory], type:["indicator"], dataset:"aws.guardduty", provider:"guardduty.amazonaws.com" },
-    "message": isFinding ? `GuardDuty finding [Severity ${sev}]: ${ft}` : `GuardDuty: no threats detected`,
+    "message": isFinding ? `GuardDuty finding [${sevValue}]: ${ft}` : `GuardDuty: no threats detected`,
     "log": { level:sev>=7?"error":sev>=4?"warn":"info" },
     ...(isFinding ? { error: { code: "ThreatFinding", message: `GuardDuty finding: ${ft}`, type: "security" } } : {})
   };
