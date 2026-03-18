@@ -4,6 +4,15 @@
 
 ---
 
+## What's New in v8.1
+
+- **Custom dashboards installer** — New `installer/custom-dashboards/` directory with pre-built Kibana dashboards for AWS Glue (7 panels) and SageMaker (6 panels). `npm run setup:dashboards` uses the Kibana 9.4+ Dashboards API; `npm run setup:dashboards:legacy` uses the Saved Objects import API for Kibana 8.11+. Pre-generated `.ndjson` files in `installer/custom-dashboards/ndjson/` support manual import via Stack Management → Saved Objects. New `npm run generate:dashboards:ndjson` script regenerates the ndjson files from source JSON definitions.
+- **Pipeline quality improvements** — Lambda ingest pipeline: consolidated 3 separate grok processors into a single multi-pattern grok (Elasticsearch stops at first match, reducing per-document work). EC2 and Greengrass pipelines: replaced no-op `set: data_stream.dataset` processors (that field is managed by Elasticsearch data streams) with proper `json` message parsing, consistent with all other services. Added `lowercase` processor after `log.level` extraction in Glue, EMR, SageMaker, and RDS pipelines — AWS emits uppercase log levels ("INFO", "ERROR") but ECS expects lowercase for correct Kibana filtering.
+- **Dynamic service count in UI** — Header counter (`X / N services`) and the **All N** quick-select button now dynamically reflect the active mode: **136** in Logs mode, **75** in Metrics mode. Previously both always showed the Logs count regardless of which mode was active.
+- **UI icon fixes** — QLDB (`⊛` → `◈`) and Lookout for Metrics (`⌚` → `◎`) service tiles had characters that rendered as empty boxes. Replaced with Unicode symbols confirmed to render correctly across the font stack.
+
+---
+
 ## What's New in v8.0
 
 - **Metrics mode expanded to 75 services** — Added 29 more services: Route 53, Auto Scaling, ElasticBeanstalk, Amazon MQ, AppSync, Cognito, KMS, EFS, FSx, Backup, Neptune, Timestream, QLDB, Keyspaces, MemoryDB, Kinesis Analytics, CodePipeline, CodeDeploy, Amplify, QuickSight, IoT Core, Shield, Global Accelerator, Direct Connect, VPC Flow, WorkSpaces, Connect, GameLift, Transfer Family, SES, and X-Ray. All newly added services have `aws.<service>.metrics` blocks with CloudWatch-aligned numeric fields.

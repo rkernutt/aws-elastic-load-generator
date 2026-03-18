@@ -1,18 +1,17 @@
 # ⚡ AWS → Elastic Load Generator
 
-A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic deployment via the Elasticsearch Bulk API. Covers **135 AWS services** across **14 service groups**, all using **ECS (Elastic Common Schema)** field naming.
+A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic deployment via the Elasticsearch Bulk API. Covers **136 AWS services** across **14 service groups**, all using **ECS (Elastic Common Schema)** field naming.
 
 Each service has its correct real-world ingestion source pre-configured — S3, CloudWatch, direct API, Firehose, OTel, or Elastic Agent — matching how each service actually delivers data to Elastic in production. Switch between **Logs** and **Metrics** mode; **75 services** support Metrics mode.
 
 ---
 
-## What's New in v8.0
+## What's New in v8.1
 
-- **Metrics mode expanded to 75 services** — Up from 46 in v7. Added Route 53, Auto Scaling, Elastic Beanstalk, Amazon MQ, AppSync, Cognito, KMS, EFS, FSx, Backup, Neptune, Timestream, QLDB, Keyspaces, MemoryDB, Kinesis Analytics, CodePipeline, CodeDeploy, Amplify, QuickSight, IoT Core, Shield, Global Accelerator, Direct Connect, WorkSpaces, Connect, GameLift, Transfer Family, SES, X-Ray, and more.
-- **Onboarding installers** — Two zero-dependency Node.js scripts to configure Elastic before shipping data. `npm run setup:integration` installs the official Elastic AWS integration; `npm run setup:pipelines` installs 106 custom ingest pipelines for the remaining ~85 services. Both are idempotent and interactive.
-- **ECS completeness across all 135 generators** — `aws.dimensions` always present, `event.duration` in nanoseconds on every service with a meaningful duration, real AWS API error codes on all failure paths.
-- **Performance metrics blocks** — SNS, Athena, Cognito, SageMaker, Fargate, Auto Scaling, Image Builder, Amazon MQ, AppSync, and Bedrock all have `aws.<service>.metrics` blocks with CloudWatch-aligned numeric fields.
-- **SageMaker field naming** — CloudWatch endpoint metrics moved to `aws.sagemaker.cloudwatch` to distinguish from the training `aws.sagemaker.metrics` block.
+- **Custom dashboards installer** — New `installer/custom-dashboards/` with pre-built Kibana dashboards for AWS Glue (7 panels) and SageMaker (6 panels). Run `npm run setup:dashboards` (Kibana 9.4+) or `npm run setup:dashboards:legacy` (Kibana 8.11+). Pre-generated `.ndjson` files are included for manual import via Stack Management → Saved Objects.
+- **Pipeline quality improvements** — Lambda ingest pipeline consolidated from 3 separate grok processors to a single multi-pattern grok (stops at first match — more efficient). EC2 and Greengrass pipelines replaced redundant `set: data_stream.dataset` no-ops with proper JSON parsing. Added `lowercase` processor after `log.level` extraction in Glue, EMR, SageMaker, and RDS pipelines — AWS log levels are uppercase ("INFO", "ERROR") but ECS expects lowercase.
+- **Dynamic service count in UI** — The header counter (`X / N services`) and the **All N** quick-select button now correctly reflect the active mode: **136** in Logs mode, **75** in Metrics mode. Previously both always showed the Logs count regardless of mode.
+- **UI icon fixes** — QLDB and Lookout for Metrics service tiles had broken icon characters (rendered as empty boxes). Both replaced with correctly-rendering Unicode symbols.
 
 See full release history: [docs/VERSION-HISTORY.md](docs/VERSION-HISTORY.md).
 
@@ -50,7 +49,7 @@ To stop Docker: `docker compose down`
 
 ## Recommended setup before first use
 
-Run the two onboarding installers once before you start shipping data. They configure Elastic with the correct index templates, dashboards, and ingest pipelines. Both require only Node.js 18+ and zero extra `npm install`.
+Run the three onboarding installers once before you start shipping data. They configure Elastic with the correct index templates, dashboards, and ingest pipelines. All require only Node.js 18+ and zero extra `npm install`.
 
 ### Step 1 — Install the official Elastic AWS integration
 
@@ -162,6 +161,77 @@ Done.
 
 You can select individual groups by number (e.g. `1,3,8`) or type `all`. Already-installed pipelines are automatically skipped.
 
+---
+
+### Step 3 — Install custom dashboards
+
+```bash
+npm run setup:dashboards
+```
+
+**What it does:** Installs pre-built Kibana dashboards for AWS services monitored by the load generator. Dashboards use ES|QL queries against the `logs-aws.*` data streams.
+
+| Dashboard | Panels |
+|-----------|--------|
+| **AWS Glue — Jobs & Performance** | Run outcomes (donut), runs by state (donut), failures by error category (bar), avg job duration (line), JVM heap usage (line), executor count (line), failed/killed tasks (bar) |
+| **AWS SageMaker — Endpoints & Training** | Invocations over time (area), model latency (line), 4xx/5xx errors (line), GPU/CPU utilization (line), job outcomes (donut), events by job type (bar) |
+
+**What you'll be prompted for:**
+
+| Prompt | Where to find it |
+|--------|-----------------|
+| Kibana URL | Deployment overview → Kibana endpoint |
+| API key | Kibana → Stack Management → API Keys → Create API key (needs `kibana_admin` role) |
+
+**Example session:**
+
+```
+╔══════════════════════════════════════════════════════╗
+║     AWS → Elastic Custom Dashboard Installer         ║
+╚══════════════════════════════════════════════════════╝
+
+Installs Kibana dashboards for AWS services monitored
+by the AWS → Elastic Load Generator.
+
+Kibana URL (e.g. https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243):
+> https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243
+
+Elastic API Key:
+> ABCdef123==
+
+Testing connection...
+  Connected to Kibana: my-deployment (9.4.0)
+
+Available dashboards:
+
+  1. AWS Glue — Jobs & Performance
+  2. AWS SageMaker — Endpoints & Training
+  3. all  (install every dashboard)
+
+Enter number(s) comma-separated, or "all":
+> all
+
+Installing 2 dashboard(s)...
+
+  ✓ "AWS Glue — Jobs & Performance" — installed (id: a1b2c3d4-...)
+  ✓ "AWS SageMaker — Endpoints & Training" — installed (id: e5f6g7h8-...)
+
+Installed 2 / 2 dashboard(s).
+Done.
+```
+
+Already-installed dashboards are automatically skipped — the installer is safe to re-run at any time.
+
+**Requires Kibana 9.4+.** For Kibana 8.11–9.3 use the legacy installer:
+
+```bash
+npm run setup:dashboards:legacy
+```
+
+Or import manually: **Stack Management → Saved Objects → Import** — select any `.ndjson` file from `installer/custom-dashboards/ndjson/`.
+
+---
+
 **Pipeline groups and what they cover:**
 
 | Group | Pipelines | Key services |
@@ -190,21 +260,22 @@ logs-aws.{dataset_suffix}-default
 
 e.g. `logs-aws.glue-default`, `logs-aws.sagemaker-default`, `logs-aws.lambda_logs-default`. These match the index names the load generator writes to, so pipelines are applied automatically on ingest — no additional routing configuration is needed.
 
-**Why two separate installers?**
+**Why three separate installers?**
 
-| | `setup:integration` | `setup:pipelines` |
-|---|---|---|
-| API used | Kibana Fleet API | Elasticsearch Ingest API |
-| Credentials | Kibana URL + API key | Elasticsearch URL + API key |
-| What it configures | Dashboards, ILM, templates | Ingest pipelines only |
-| Re-runnable | Yes — skips if installed | Yes — skips existing pipelines |
+| | `setup:integration` | `setup:pipelines` | `setup:dashboards` |
+|---|---|---|---|
+| API used | Kibana Fleet API | Elasticsearch Ingest API | Kibana Dashboards API |
+| Credentials | Kibana URL + API key | Elasticsearch URL + API key | Kibana URL + API key |
+| What it configures | Dashboards, ILM, templates | Ingest pipelines | Custom Kibana dashboards |
+| Re-runnable | Yes — skips if installed | Yes — skips existing pipelines | Yes — skips by title |
+| Kibana version | Any | — | 9.4+ (or 8.11+ with `setup:dashboards:legacy`) |
 
 ---
 
 ## Usage
 
-1. **Select services** — toggle individual services, entire groups, or all 135 at once
-2. **Choose mode** — **Logs** generates log documents for all 135 services; **Metrics** generates metrics documents for the 75 metrics-supported services
+1. **Select services** — toggle individual services, entire groups, or all 136 at once
+2. **Choose mode** — **Logs** generates log documents for all 136 services; **Metrics** generates metrics documents for the 75 metrics-supported services
 3. **Configure volume** — set logs per service (50–5,000), error rate (0–50%), and batch size
 4. **Set ingestion source** — leave on **Default (per-service)** or override all services to a single source for pipeline testing
 5. **Connect to Elastic** — enter your Elasticsearch URL, API key, and index prefix
@@ -326,7 +397,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 ---
 
-## Supported services (135 total)
+## Supported services (136 total)
 
 ### 1 · Serverless & Core
 
@@ -538,7 +609,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 | Setting | Default | Range | Description |
 |---|---|---|---|
-| Event type | Logs | Logs / Metrics | **Logs** — all 135 services. **Metrics** — 75 metrics-supported services. |
+| Event type | Logs | Logs / Metrics | **Logs** — all 136 services. **Metrics** — 75 metrics-supported services. |
 | Logs/metrics per service | 500 | 50–5,000 | Documents generated per selected service |
 | Error rate | 5% | 0–50% | Fraction of documents representing errors/failures |
 | Batch size | 250 | 50–1,000 | Documents per `_bulk` API request |
@@ -552,7 +623,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 The **samples/** directory contains one sample document per service generated by the same logic as the app:
 
-- **samples/logs/** — 135 JSON log documents, one per service
+- **samples/logs/** — 136 JSON log documents, one per service
 - **samples/metrics/** — 75 JSON metrics documents, one per metrics-supported service
 
 Regenerate with: `npm run samples`
