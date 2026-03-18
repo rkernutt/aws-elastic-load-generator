@@ -96,7 +96,7 @@ function loadDashboards() {
 
 // ─── Kibana client ───────────────────────────────────────────────────────────
 
-function createKibanaClient(baseUrl, apiKey) {
+function createKibanaClient(baseUrl, apiKey, deploymentType) {
   const base = baseUrl.replace(/\/$/, "");
   const headers = {
     "Content-Type": "application/json",
@@ -127,16 +127,29 @@ function createKibanaClient(baseUrl, apiKey) {
       return request("GET", "/api/status");
     },
 
+    /**
+     * Search for an existing dashboard by title.
+     * Returns null on Serverless (Saved Objects API is unavailable there),
+     * allowing installation to proceed without an idempotency check.
+     */
     async findDashboardByTitle(title) {
+      if (deploymentType === "serverless") return null;
+
       const encoded = encodeURIComponent(title);
-      const result = await request(
-        "GET",
-        `/api/saved_objects/_find?type=dashboard&search_fields=title&search=${encoded}&per_page=10`
-      );
-      if (!result?.saved_objects) return null;
-      return result.saved_objects.find(
-        (obj) => obj.attributes?.title === title
-      ) ?? null;
+      try {
+        const result = await request(
+          "GET",
+          `/api/saved_objects/_find?type=dashboard&search_fields=title&search=${encoded}&per_page=10`
+        );
+        if (!result?.saved_objects) return null;
+        return result.saved_objects.find(
+          (obj) => obj.attributes?.title === title
+        ) ?? null;
+      } catch (err) {
+        // Saved Objects API unavailable (e.g. Serverless) — skip the check
+        if (err.message.includes("HTTP 400")) return null;
+        throw err;
+      }
     },
 
     async createDashboard(definition) {
@@ -206,7 +219,7 @@ async function main() {
 
   // 5. Test connection
   console.log("\nTesting connection...");
-  const client = createKibanaClient(kibanaUrl, apiKey);
+  const client = createKibanaClient(kibanaUrl, apiKey, deploymentType);
 
   try {
     const status = await client.testConnection();
@@ -217,6 +230,10 @@ async function main() {
     console.error(`  Connection failed: ${err.message}`);
     rl.close();
     process.exit(1);
+  }
+
+  if (deploymentType === "serverless") {
+    console.log("  ℹ  Serverless: duplicate-check unavailable — re-running will create additional copies of already-installed dashboards.");
   }
 
   // 6. Dashboard selection menu

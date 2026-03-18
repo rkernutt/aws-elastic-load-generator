@@ -18,7 +18,7 @@ const AWS_SERVICE_ICON_MAP = {
   s3: "AmazonSimpleStorageService", dynamodb: "AmazonDynamoDB", elasticache: "AmazonElastiCache", redshift: "AmazonRedshift",
   opensearch: "AmazonOpenSearchService", docdb: "AmazonDocumentDB", ebs: "AmazonElasticBlockStore", efs: "AmazonEFS",
   fsx: "AmazonFSx", datasync: "AWSDataSync", backup: "AWSBackup", storagegateway: "AWSStorageGateway",
-  aurora: "AmazonAurora", neptune: "AmazonNeptune", timestream: "AmazonTimestream", qldb: "AmazonQuantumLedgerDatabase",
+  aurora: "AmazonAurora", neptune: "AmazonNeptune", timestream: "AmazonTimestream",
   keyspaces: "AmazonKeyspaces", memorydb: "AmazonMemoryDB", kinesis: "AmazonKinesisDataStreams", firehose: "AmazonDataFirehose",
   kinesisanalytics: "AmazonManagedServiceforApacheFlink", msk: "AmazonManagedStreamingforApacheKafka",
   sqs: "AmazonSimpleQueueService", sns: "AmazonSimpleNotificationService", amazonmq: "AmazonMQ", eventbridge: "AmazonEventBridge",
@@ -37,7 +37,7 @@ const AWS_SERVICE_ICON_MAP = {
   mediaconvert: "AWSElementalMediaConvert", medialive: "AWSElementalMediaLive", workspaces: "AmazonWorkSpaces",
   connect: "AmazonConnect", appstream: "AmazonWorkSpaces", gamelift: "AmazonGameLiftServers", ses: "AmazonSimpleEmailService",
   pinpoint: "AmazonPinpoint", transferfamily: "AWSTransferFamily", lightsail: "AmazonLightsail", frauddetector: "AmazonFraudDetector",
-  lookoutmetrics: "AmazonLookoutforMetrics", comprehendmedical: "AmazonComprehendMedical", locationservice: "AmazonLocationService",
+  comprehendmedical: "AmazonComprehendMedical", locationservice: "AmazonLocationService",
   managedblockchain: "AmazonManagedBlockchain", codeguru: "AmazonCodeGuru", devopsguru: "AmazonDevOpsGuru",
   iotevents: "AWSIoTEvents", iotsitewise: "AWSIoTSiteWise", iotdefender: "AWSIoTDeviceDefender",
 };

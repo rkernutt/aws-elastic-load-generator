@@ -212,6 +212,37 @@ You can select individual groups (e.g. `1,3,8`) or type `all`. Already-installed
 | storage | 5 | EFS, FSx, DataSync, Backup, Storage Gateway |
 | streaming | 4 | Kinesis Analytics, Amazon MQ, SNS, SQS (custom only) |
 
+### Using custom pipelines alongside the official AWS integration
+
+The custom pipelines were designed to cover services **not** included in the official Elastic AWS integration, so in most cases they are purely additive. However there are a few things to be aware of if you have both installed.
+
+**Services intentionally excluded from the custom pipelines** (already covered by the official integration):
+
+CloudTrail, VPC Flow, ALB/NLB, GuardDuty, S3 Access, API Gateway, CloudFront, Network Firewall, Security Hub, WAF, Route 53, EC2 (metrics), ECS, Config, Inspector, DynamoDB, Redshift, EBS, Kinesis, MSK/Kafka, SNS, SQS, Transit Gateway, VPN, AWS Health, Bedrock Agent, Billing, NAT Gateway.
+
+None of these have a custom pipeline — there is nothing to conflict with.
+
+**Services where different dataset names are used to avoid conflicts:**
+
+For services where the load generator produces logs under a different dataset name than the official integration uses, both pipelines coexist safely and target separate data streams:
+
+| Service | Official dataset | Load generator dataset |
+|---------|-----------------|----------------------|
+| Lambda | `aws.lambda` | `aws.lambda_logs` |
+| EC2 | `aws.ec2` | `aws.ec2_logs` |
+| EMR | `aws.emr` | `aws.emr_logs` |
+
+**Two pipelines that will overwrite official integration pipelines if installed:**
+
+| Pipeline | Group | Notes |
+|----------|-------|-------|
+| `logs-aws.rds-default` | databases | RDS has official integration coverage. The custom pipeline adds structured JSON parsing for the load generator's simulated log format but **replaces** the official pipeline for the `logs-aws.rds` data stream. Skip this pipeline if you want to preserve the official integration's RDS field mappings and ECS normalization for real RDS logs. |
+| `logs-aws.eks-default` | compute | Same situation as RDS above — EKS is covered by the official integration. |
+
+**Recommendation:** If you are running the official AWS integration alongside the load generator, consider skipping the **RDS** entry from the `databases` group and the **EKS** entry from the `compute` group when prompted during installation. All other custom pipelines are safe to install without affecting the official integration.
+
+---
+
 ### Pipeline naming convention
 
 All pipelines follow the Elastic standard:
