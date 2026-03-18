@@ -14,38 +14,12 @@
   "aws": {
     "dimensions": {
       "HostedZoneId": "ZZ10ADVT26JF",
-      "HealthCheckId": "5ekqjcrguas",
       "Region": "us-east-1"
     },
     "route53": {
-      "query_name": "mail.example.com",
-      "query_type": "TXT",
-      "response_code": "NXDOMAIN",
-      "edge_location": "LHR59",
       "hosted_zone_id": "ZZ10ADVT26JF",
-      "metrics": {
-        "DNSQueries": {
-          "sum": 6399
-        },
-        "HealthCheckStatus": {
-          "avg": 0
-        },
-        "HealthCheckPercentageHealthy": {
-          "avg": 37.43
-        },
-        "ConnectionTime": {
-          "avg": 1349
-        },
-        "SSLHandshakeTime": {
-          "avg": 635
-        },
-        "ChildHealthCheckHealthyCount": {
-          "avg": 5
-        },
-        "TimeToFirstByte": {
-          "avg": 209
-        }
-      }
+      "edge_location": "LHR59",
+      "edns_client_subnet": "2.235.111.0/24"
     }
   },
   "dns": {
@@ -70,7 +44,7 @@
     "provider": "route53.amazonaws.com",
     "duration": 173000000
   },
-  "message": "2026-03-17T18:02:32.099Z A0ROHH52 ip4 2.235.111.109 53 AAAA s3.amazonaws.com. NXDOMAIN",
+  "message": "2026-03-17T18:02:32.099Z ZZ10ADVT26JF ip4 2.235.111.109 53 TXT db.internal. NXDOMAIN",
   "log": {
     "level": "warn"
   },
@@ -81,7 +55,7 @@
   },
   "data_stream": {
     "type": "metrics",
-    "dataset": "aws.route53_public_logs",
+    "dataset": "aws.route53",
     "namespace": "default"
   },
   "metricset": {

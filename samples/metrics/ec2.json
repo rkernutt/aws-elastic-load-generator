@@ -22,85 +22,92 @@
       "AutoScalingGroupName": "web-asg"
     },
     "ec2": {
-      "instance_id": "i-3070u3pqtdo",
-      "instance_type": "r5.large",
-      "ami_id": "ami-ytz7iqmm",
-      "structured_logging": true,
+      "instance": {
+        "image": {
+          "id": "ami-aeaa9by1"
+        },
+        "state": {
+          "name": "running",
+          "code": 16
+        },
+        "monitoring": {
+          "state": "enabled"
+        },
+        "core": {
+          "count": 2
+        },
+        "threads_per_core": 2,
+        "private": {
+          "ip": "10.0.1.42",
+          "dns_name": "ip-10-0-1-42.eu-west-2.compute.internal"
+        },
+        "public": {
+          "ip": "52.56.88.201",
+          "dns_name": "ec2-52-56-88-201.compute-1.amazonaws.com"
+        }
+      },
       "metrics": {
         "CPUUtilization": {
           "avg": 69.459
         },
-        "DiskReadBytes": {
-          "sum": 798852949
-        },
-        "DiskWriteBytes": {
-          "sum": 43838523
-        },
-        "DiskReadOps": {
-          "sum": 5219
-        },
-        "DiskWriteOps": {
-          "sum": 5917
-        },
-        "NetworkIn": {
-          "sum": 530320468
-        },
-        "NetworkOut": {
-          "sum": 310173411
-        },
-        "NetworkPacketsIn": {
-          "sum": 522447
-        },
-        "NetworkPacketsOut": {
-          "sum": 809762
-        },
-        "StatusCheckFailed": {
-          "sum": 0
-        },
-        "StatusCheckFailed_Instance": {
-          "sum": 0
-        },
-        "StatusCheckFailed_System": {
-          "sum": 0
-        },
-        "MetadataNoToken": {
-          "sum": 8
-        },
-        "EBSReadBytes": {
-          "sum": 199022560
-        },
-        "EBSWriteBytes": {
-          "sum": 905163060
-        },
-        "EBSReadOps": {
-          "sum": 1575
-        },
-        "EBSWriteOps": {
-          "sum": 4076
-        },
-        "EBSIOBalance": {
-          "avg": "77.658"
-        },
-        "EBSByteBalance": {
-          "avg": "97.823"
+        "CPUCreditUsage": {
+          "avg": 0.952
         },
         "CPUCreditBalance": {
-          "avg": "150.462"
-        },
-        "CPUCreditUsage": {
-          "avg": "0.952"
+          "avg": 150.462
         },
         "CPUSurplusCreditBalance": {
           "avg": 0
         },
         "CPUSurplusCreditsCharged": {
           "sum": 0
+        },
+        "DiskReadBytes": {
+          "sum": 798852949,
+          "rate": 2662.83
+        },
+        "DiskWriteBytes": {
+          "sum": 43838523,
+          "rate": 146.13
+        },
+        "DiskReadOps": {
+          "sum": 5219,
+          "rate": 17.4
+        },
+        "DiskWriteOps": {
+          "sum": 5917,
+          "rate": 19.72
+        },
+        "NetworkIn": {
+          "sum": 530320468,
+          "rate": 1767.73
+        },
+        "NetworkOut": {
+          "sum": 310173411,
+          "rate": 1033.91
+        },
+        "NetworkPacketsIn": {
+          "sum": 522447,
+          "rate": 1741.49
+        },
+        "NetworkPacketsOut": {
+          "sum": 809762,
+          "rate": 2699.21
+        },
+        "StatusCheckFailed": {
+          "avg": 0
+        },
+        "StatusCheckFailed_System": {
+          "avg": 0
+        },
+        "StatusCheckFailed_Instance": {
+          "avg": 0
         }
       }
     }
   },
   "host": {
-    "hostname": "ip-245-151-24-58",
+    "hostname": "ip-10-0-1-42",
     "os": {
       "type": "linux",
       "kernel": "5.10.215-95.amzn2.x86_64",
@@ -130,7 +137,7 @@
   "message": "{\"instanceId\":\"i-3070u3pqtdo\",\"instanceType\":\"r5.large\",\"level\":\"info\",\"message\":\"systemd: Started Amazon SSM Agent.\",\"timestamp\":\"2026-03-17T18:02:32.099Z\",\"component\":\"awslogs\"}",
   "data_stream": {
     "type": "metrics",
-    "dataset": "aws.ec2_logs",
+    "dataset": "aws.ec2_metrics",
     "namespace": "default"
   },
   "metricset": {

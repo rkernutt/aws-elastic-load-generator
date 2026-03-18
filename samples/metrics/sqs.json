@@ -16,41 +16,23 @@
       "QueueName": "job-queue"
     },
     "sqs": {
-      "queue_name": "job-queue",
-      "queue_url": "https://sqs.us-east-1.amazonaws.com/293847561023/job-queue",
-      "messages_sent": 7302,
-      "messages_deleted": 1216,
-      "approximate_number_of_messages": 368,
-      "approximate_age_of_oldest_message_seconds": 57,
-      "is_dlq": false,
-      "metrics": {
-        "NumberOfMessagesSent": {
-          "sum": 303
-        },
-        "NumberOfMessagesReceived": {
-          "sum": 300
-        },
-        "NumberOfMessagesDeleted": {
-          "sum": 348
-        },
-        "ApproximateNumberOfMessagesVisible": {
-          "avg": 148
-        },
-        "ApproximateNumberOfMessagesNotVisible": {
-          "avg": 595
-        },
-        "ApproximateNumberOfMessagesDelayed": {
-          "avg": 217
-        },
-        "ApproximateAgeOfOldestMessage": {
-          "avg": 1560
-        },
-        "NumberOfEmptyReceives": {
-          "sum": 49
-        },
-        "SentMessageSize": {
-          "avg": 45841
-        }
+      "queue": {
+        "name": "job-queue"
+      },
+      "oldest_message_age": {
+        "sec": 57
+      },
+      "messages": {
+        "delayed": 217,
+        "not_visible": 595,
+        "visible": 148,
+        "deleted": 348,
+        "received": 300,
+        "sent": 303
+      },
+      "empty_receives": 49,
+      "sent_message_size": {
+        "bytes": 45841
       }
     }
   },
@@ -63,7 +45,7 @@
     "provider": "sqs.amazonaws.com",
     "duration": 53000000
   },
-  "message": "SQS job-queue: 7302 messages processed",
+  "message": "SQS job-queue: 303 messages processed",
   "log": {
     "level": "info"
   },

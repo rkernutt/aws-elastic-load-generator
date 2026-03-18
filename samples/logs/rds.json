@@ -19,122 +19,51 @@
       "SourceRegion": "eu-west-2"
     },
     "rds": {
-      "instance_id": "prod-db-replica",
-      "engine": "mysql",
-      "engine_version": "8.0.34",
-      "query_time": 1.919,
-      "enhanced_monitoring": true,
-      "os_metrics": {
-        "cpuUtilization": {
-          "guest": 1.467,
-          "irq": 0.448,
-          "system": 1.99,
-          "wait": 0.041,
-          "idle": 85.956,
-          "user": 25.458,
-          "total": 49.7
-        },
-        "memory": {
-          "total": 62261524665,
-          "free": 7515262418,
-          "cached": 3814492767,
-          "active": 11163294427,
-          "inactive": 3897695900,
-          "buffers": 50184500
-        },
-        "disk": {
-          "readIOsPS": 1512.083,
-          "writeIOsPS": 765.118,
-          "readKbPS": 244127.486,
-          "writeKbPS": 268345.87,
-          "avgQueueLen": 6.02,
-          "await": 15.305
-        },
-        "network": {
-          "rx": 82348703,
-          "tx": 58709699
-        },
-        "numVCPUs": 8,
-        "uptime": "99 days, 16:01:56"
+      "db_instance": {
+        "identifier": "prod-db-replica",
+        "class": "db.r5.large",
+        "engine_name": "mysql",
+        "arn": "arn:aws:rds:eu-west-2:293847561023:db:prod-db-replica",
+        "status": "available",
+        "role": "read-replica"
       },
-      "metrics": {
-        "BinLogDiskUsage": {
-          "avg": 40701745
-        },
-        "BurstBalance": {
-          "avg": 93.927
-        },
-        "CPUCreditBalance": {
-          "avg": 92.159
-        },
-        "CPUCreditUsage": {
-          "avg": 7.541
-        },
-        "CPUUtilization": {
-          "avg": 34.337
-        },
-        "DatabaseConnections": {
-          "avg": 14
-        },
-        "DiskQueueDepth": {
-          "avg": 9.221
-        },
-        "EBSByteBalance": {
-          "avg": 81.086
-        },
-        "EBSIOBalance": {
-          "avg": 56.463
-        },
-        "FreeableMemory": {
-          "avg": 3509329787
-        },
-        "FreeStorageSpace": {
-          "avg": 361220833979
-        },
-        "MaximumUsedTransactionIDs": {
-          "avg": 407368749
-        },
-        "NetworkReceiveThroughput": {
-          "avg": 45104655
-        },
-        "NetworkTransmitThroughput": {
-          "avg": 80139166
-        },
-        "OldestReplicationSlotLag": {
-          "avg": 0
-        },
-        "ReadIOPS": {
-          "avg": 1289
-        },
-        "ReadLatency": {
-          "avg": 0.004
-        },
-        "ReadThroughput": {
-          "avg": 9925102
-        },
-        "ReplicaLag": {
-          "avg": 80
-        },
-        "ReplicationSlotDiskUsage": {
-          "avg": 0
-        },
-        "SwapUsage": {
-          "avg": 38281843
-        },
-        "TransactionLogsDiskUsage": {
-          "avg": 283835713
-        },
-        "TransactionLogsGeneration": {
-          "avg": 6381536
-        },
-        "WriteIOPS": {
-          "avg": 1684
-        },
-        "WriteLatency": {
-          "avg": 0.002
-        },
-        "WriteThroughput": {
-          "avg": 13815927
+      "cpu": {
+        "total": {
+          "pct": 0.3434
+        }
+      },
+      "freeable_memory": {
+        "bytes": 3509329787
+      },
+      "free_storage": {
+        "bytes": 361220833979
+      },
+      "database_connections": 14,
+      "read_io": {
+        "ops_per_sec": 1289.0
+      },
+      "write_io": {
+        "ops_per_sec": 1684.0
+      },
+      "latency": {
+        "read": 0.004,
+        "write": 0.002
+      },
+      "throughput": {
+        "read": 9925102,
+        "write": 13815927,
+        "network_receive": 45104655,
+        "network_transmit": 80139166
+      },
+      "replica_lag": {
+        "sec": 80.0
+      },
+      "swap_usage": {
+        "bytes": 38281843
+      },
+      "disk_usage": {
+        "bin_log": {
+          "bytes": 40701745
         }
       }
     }
@@ -144,7 +73,7 @@
       "name": "readonly"
     },
     "name": "analytics",
-    "statement": "INSERT INTO orders VALUES V8RY3V",
+    "statement": "SELECT * FROM orders WHERE id = V8RY3V",
     "type": "sql"
   },
   "event": {
@@ -160,7 +89,7 @@
     "dataset": "aws.rds",
     "provider": "rds.amazonaws.com"
   },
-  "message": "{\"instanceId\":\"prod-db-replica\",\"engine\":\"mysql\",\"userId\":\"readonly\",\"queryTime\":1.919,\"error\":null,\"timestamp\":\"2026-03-17T18:02:32.099Z\",\"osMetrics\":{\"cpuUtilization\":{\"guest\":1.467,\"irq\":0.448,\"system\":1.99,\"wait\":0.041,\"idle\":85.956,\"user\":25.458,\"total\":49.7},\"memory\":{\"total\":62261524665,\"free\":7515262418,\"cached\":3814492767,\"active\":11163294427,\"inactive\":3897695900,\"buffers\":50184500},\"disk\":{\"readIOsPS\":1512.083,\"writeIOsPS\":765.118,\"readKbPS\":244127.486,\"writeKbPS\":268345.87,\"avgQueueLen\":6.02,\"await\":15.305},\"network\":{\"rx\":82348703,\"tx\":58709699},\"numVCPUs\":8,\"uptime\":\"99 days, 16:01:56\"}}",
+  "message": "LOG: duration: 1919.000 ms statement: SELECT * FROM orders WHERE id = V8RY3V",
   "log": {
     "level": "info"
   }

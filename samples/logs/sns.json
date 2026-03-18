@@ -12,14 +12,10 @@
     }
   },
   "aws": {
+    "dimensions": {
+      "TopicName": "user-alerts"
+    },
     "sns": {
-      "topic_arn": "arn:aws:sns:eu-west-2:738291046572:user-alerts",
-      "message_id": "7phikv2b-uxh3-438k",
-      "protocol": "lambda",
-      "delivery_status": "SUCCESS",
-      "message_size_bytes": 225478,
-      "delivery_attempt": 1,
-      "status_code": 200,
       "metrics": {
         "NumberOfMessagesPublished": {
           "sum": 1
@@ -33,14 +29,23 @@
         "NumberOfNotificationsFilteredOut": {
           "sum": 0
         },
-        "NumberOfNotificationsFilteredOut-NoMessageAttributes": {
-          "sum": 0
-        },
         "NumberOfNotificationsFilteredOut-InvalidAttributes": {
           "sum": 0
         },
+        "NumberOfNotificationsFilteredOut-NoMessageAttributes": {
+          "sum": 0
+        },
+        "NumberOfNotificationsRedrivenToDlq": {
+          "sum": 0
+        },
+        "NumberOfNotificationsFailedToRedriveToDlq": {
+          "sum": 0
+        },
         "PublishSize": {
-          "avg": 71102
+          "avg": 12408
+        },
+        "SMSMonthToDateSpentUSD": {
+          "sum": 0
         }
       }
     }
