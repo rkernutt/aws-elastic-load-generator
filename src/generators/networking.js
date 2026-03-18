@@ -35,7 +35,9 @@ function generateAlbLog(ts, er) {
   const az = `${region}${rand(["a","b","c"])}`;
   const backendIp = randIp();
   const backendPort = randInt(3000, 9000);
-  const targetStatusCode = status;
+  const certArn = `arn:aws:acm:${region}:${acct.id}:certificate/${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase();
+  const isSuspicious = isErr && Math.random() < 0.15;
+  const clientGeo = rand(GEO_LOCATIONS);
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"alb" } },
@@ -52,38 +54,24 @@ function generateAlbLog(ts, er) {
         "response_processing_time.sec": respProc,
         "backend.ip": backendIp,
         "backend.port": String(backendPort),
-        "backend.http.response.status_code": targetStatusCode,
+        "backend.http.response.status_code": status,
         ssl_protocol: "TLSv1.3",
         ssl_cipher: "ECDHE-RSA-AES128-GCM-SHA256",
+        tls_named_group: "x25519",
+        "chosen_cert.arn": certArn,
         trace_id: `Root=1-${randId(8)}-${randId(24)}`,
+        matched_rule_priority: String(rand([1,2,3,4,5,10,"default"])),
+        action_executed: isErr && status >= 500 ? rand(["fixed-response","forward"]) : rand(["forward","forward","forward","authenticate-cognito"]),
         target_port: `${backendIp}:${backendPort}`,
-        target_status_code: String(targetStatusCode),
+        target_status_code: String(status),
+        classification: isSuspicious ? "SUSPICIOUS" : "NORMAL",
+        ...(isSuspicious ? { classification_reason: rand(["AmbiguousUri","BadContentLength","DuplicateHeader"]) } : {}),
         "error.reason": isErr && status >= 500 ? rand(["TargetConnectionError","TargetResponseError","TargetTimeout","ELBInternalError","RequestTimeout"]) : undefined,
       },
-      alb: {
-        load_balancer: lbName,
-        target_group: tgArn,
-        request_processing_time: reqProc,
-        ssl_protocol: "TLSv1.3",
-        metrics: {
-          ActiveConnectionCount: { sum: randInt(10, 5000) },
-          NewConnectionCount: { sum: randInt(1, 500) },
-          RequestCount: { sum: randInt(1, 10000) },
-          HTTPCode_Target_2XX_Count: { sum: status<300 ? randInt(100,10000) : 0 },
-          HTTPCode_Target_4XX_Count: { sum: status>=400&&status<500 ? randInt(1,500) : 0 },
-          HTTPCode_Target_5XX_Count: { sum: status>=500 ? randInt(1,100) : 0 },
-          HTTPCode_ELB_5XX_Count: { sum: status>=500 ? randInt(0,20) : 0 },
-          TargetResponseTime: { avg: backendProc, p99: backendProc*3 },
-          HealthyHostCount: { avg: randInt(2, 20) },
-          UnHealthyHostCount: { avg: isErr ? randInt(1,3) : 0 },
-          RejectedConnectionCount: { sum: randInt(0, 10) },
-          ProcessedBytes: { sum: randInt(1e6, 1e9) },
-        }
-      }
     },
     "http": { request:{ method, bytes:randInt(200,8000), referrer: Math.random()<0.2 ? rand(["https://www.google.com/","https://app.example.com/","https://console.aws.amazon.com/"]) : undefined }, response:{ status_code:status, bytes:randInt(500,50000) } },
     "url": { path, domain:"api.example.com" },
-    "client": { ip:randIp(), port:randInt(1024,65535), geo:{ country_iso_code:rand(["US","GB","DE","FR","JP","AU","CA","IN","BR","SG"]), country_name:rand(["United States","United Kingdom","Germany","France","Japan","Australia","Canada","India","Brazil","Singapore"]), city_name:rand(["Ashburn","London","Frankfurt","Paris","Tokyo","Sydney","Toronto","Mumbai","São Paulo","Singapore"]) } },
+    "client": { ip:randIp(), port:randInt(1024,65535), geo:{ country_iso_code:clientGeo.country_iso_code, country_name:clientGeo.country_name, city_name:clientGeo.city_name, location:clientGeo.location } },
     "user_agent": { original:rand(USER_AGENTS) },
     "event": { duration:(reqProc+backendProc+respProc)*1e9, outcome:status>=400?"failure":"success", category:["web","network"], type:["access"], dataset:"aws.elb_logs", provider:"elasticloadbalancing.amazonaws.com" },
     "message": `${method} ${path} ${status} ${((reqProc+backendProc+respProc)*1000).toFixed(0)}ms`,
