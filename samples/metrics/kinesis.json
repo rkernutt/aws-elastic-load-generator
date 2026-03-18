@@ -16,65 +16,54 @@
       "StreamName": "transaction-feed"
     },
     "kinesis": {
-      "stream_name": "transaction-feed",
-      "shard_id": "shardId-000000000000",
-      "sequence_number": "ZC2FQ1995PL",
-      "partition_key": "g6ix78j5",
-      "incoming_records": 7434,
-      "incoming_bytes": 934336,
-      "iterator_age_ms": 3293647,
-      "write_provisioned_throughput_exceeded": true,
       "metrics": {
-        "GetRecords.Bytes": {
+        "GetRecords_Bytes": {
           "avg": 732493
         },
-        "GetRecords.IteratorAgeMilliseconds": {
+        "GetRecords_IteratorAgeMilliseconds": {
           "avg": 573178
         },
-        "GetRecords.Latency": {
+        "GetRecords_Latency": {
           "avg": 23
         },
-        "GetRecords.Records": {
-          "avg": 405
+        "GetRecords_Records": {
+          "sum": 405
         },
-        "GetRecords.Success": {
-          "avg": 0
+        "GetRecords_Success": {
+          "sum": 0
         },
         "IncomingBytes": {
-          "sum": 9577332
+          "avg": 9577332
         },
         "IncomingRecords": {
-          "sum": 3552
+          "avg": 3552
         },
-        "PutRecord.Bytes": {
+        "PutRecord_Bytes": {
           "avg": 945637
         },
-        "PutRecord.Latency": {
+        "PutRecord_Latency": {
           "avg": 8
         },
-        "PutRecord.Success": {
+        "PutRecord_Success": {
           "avg": 0
         },
-        "PutRecords.Bytes": {
+        "PutRecords_Bytes": {
           "avg": 3257413
         },
-        "PutRecords.FailedRecords": {
-          "avg": 73
+        "PutRecords_FailedRecords": {
+          "sum": 73
         },
-        "PutRecords.SuccessfulRecords": {
-          "avg": 247
+        "PutRecords_SuccessfulRecords": {
+          "sum": 247
         },
-        "PutRecords.Latency": {
-          "avg": 14
+        "PutRecords_ThrottledRecords": {
+          "sum": 5
         },
         "ReadProvisionedThroughputExceeded": {
-          "sum": 3
+          "avg": 3
         },
         "WriteProvisionedThroughputExceeded": {
-          "sum": 1
-        },
-        "IteratorAgeMilliseconds": {
-          "avg": 43135
+          "avg": 1
         }
       }
     }
@@ -93,7 +82,7 @@
     "level": "error"
   },
   "error": {
-    "code": "InvalidArgumentException",
+    "code": "ProvisionedThroughputExceededException",
     "message": "Kinesis stream error",
     "type": "stream"
   },

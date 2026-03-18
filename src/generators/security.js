@@ -5,6 +5,7 @@ function generateGuardDutyLog(ts, er) {
   const isFinding = Math.random() < (er + 0.3);
   const findingTypes = ["UnauthorizedAccess:EC2/SSHBruteForce","UnauthorizedAccess:EC2/RDPBruteForce","Recon:EC2/PortScan","Backdoor:EC2/C&CActivity.B","CryptoCurrency:EC2/BitcoinTool.B!DNS","Trojan:EC2/DNSDataExfiltration","UnauthorizedAccess:IAMUser/ConsoleLoginSuccess.B","Policy:IAMUser/RootCredentialUsage","UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom","Discovery:S3/TorIPCaller","Impact:S3/MaliciousIPCaller","Exfiltration:S3/MaliciousIPCaller","Stealth:IAMUser/PasswordPolicyChange","UnauthorizedAccess:IAMUser/InstanceCredentialExfiltration.OutsideAWS","InitialAccess:IAMUser/AnomalousBehavior","Persistence:IAMUser/AnomalousBehavior","PrivilegeEscalation:IAMUser/AnomalousBehavior"];
   const ft = rand(findingTypes); const sev = isFinding ? rand([2,5,7,8,9]) : 0;
+  const sevValue = sev >= 7 ? "High" : sev >= 4 ? "Medium" : sev >= 1 ? "Low" : "Informational";
   const findingId = randId(32).toLowerCase();
   const detectorId = randId(32).toLowerCase();
   const instanceId = `i-${randId(17).toLowerCase()}`;
@@ -12,6 +13,16 @@ function generateGuardDutyLog(ts, er) {
   const isNetworkFinding = ft.includes(":EC2/") || ft.includes("MaliciousIP");
   const srcIp = randIp();
   const dstIp = randIp();
+  const srcGeo = rand([
+    { country_iso_code:"CN", country_name:"China",         city_name:"Beijing",      location:{ lat:39.9042, lon:116.4074  } },
+    { country_iso_code:"RU", country_name:"Russia",        city_name:"Moscow",       location:{ lat:55.7558, lon:37.6173   } },
+    { country_iso_code:"IR", country_name:"Iran",          city_name:"Tehran",       location:{ lat:35.6892, lon:51.3890   } },
+    { country_iso_code:"KP", country_name:"North Korea",   city_name:"Pyongyang",    location:{ lat:39.0194, lon:125.7381  } },
+    { country_iso_code:"US", country_name:"United States", city_name:"Ashburn",      location:{ lat:39.0438, lon:-77.4874  } },
+    { country_iso_code:"GB", country_name:"United Kingdom",city_name:"London",       location:{ lat:51.5074, lon:-0.1278   } },
+    { country_iso_code:"DE", country_name:"Germany",       city_name:"Frankfurt",    location:{ lat:50.1109, lon:8.6821    } },
+    { country_iso_code:"IN", country_name:"India",         city_name:"Mumbai",       location:{ lat:19.0760, lon:72.8777   } },
+  ]);
   const threatIndicatorType = isDnsFinding ? "domain" : "ip";
   const threatPurpose = ft.split(":")[0];
   const gdCategory = ["CryptoCurrency","Trojan","Backdoor"].includes(threatPurpose) ? "malware" : ["Recon","PrivilegeEscalation","InitialAccess","Persistence"].includes(threatPurpose) ? "intrusion_detection" : "threat";
@@ -32,23 +43,25 @@ function generateGuardDutyLog(ts, er) {
         description: isFinding ? `GuardDuty detected suspicious activity: ${ft}` : "Routine check completed.",
         created_at: ts,
         updated_at: ts,
-        severity: sev,
+        severity: { code: sev, value: sevValue },
         confidence: parseFloat(randFloat(60,99)),
-        finding_id: findingId,
-        finding_type: ft,
-        detector_id: detectorId,
-        resource_type: rand(["Instance","AccessKey","S3Bucket","EKSCluster"]),
-        action_type: rand(["NETWORK_CONNECTION","PORT_PROBE","DNS_REQUEST","AWS_API_CALL"]),
-        count: randInt(1,500),
-        resource: isFinding ? {
-          instance_details: {
-            availability_zone: `${region}${rand(["a","b","c"])}`,
-            instance: { id:instanceId, type:rand(["t3.medium","m5.large"]), state:"running" },
-            image: { id:`ami-${randId(8).toLowerCase()}`, description:"Amazon Linux 2" },
-            network_interfaces: [{ network_interface_id:`eni-${randId(8).toLowerCase()}`, private_ip_address:randIp(), subnet_id:`subnet-${randId(8).toLowerCase()}`, vpc_id:`vpc-${randId(8).toLowerCase()}`, security_groups:[{ group_id:`sg-${randId(8).toLowerCase()}`, group_name:"default" }] }],
-          }
-        } : undefined,
-        service: isFinding ? { action: { action_type: rand(["NETWORK_CONNECTION","PORT_PROBE","DNS_REQUEST","AWS_API_CALL"]) } } : undefined,
+        resource: {
+          type: rand(["Instance","AccessKey","S3Bucket","EKSCluster"]),
+          ...(isFinding ? {
+            instance_details: {
+              availability_zone: `${region}${rand(["a","b","c"])}`,
+              instance: { id:instanceId, type:rand(["t3.medium","m5.large"]), state:"running" },
+              image: { id:`ami-${randId(8).toLowerCase()}`, description:"Amazon Linux 2" },
+              network_interfaces: [{ network_interface_id:`eni-${randId(8).toLowerCase()}`, private_ip_address:randIp(), subnet_id:`subnet-${randId(8).toLowerCase()}`, vpc_id:`vpc-${randId(8).toLowerCase()}`, security_groups:[{ group_id:`sg-${randId(8).toLowerCase()}`, group_name:"default" }] }],
+            }
+          } : {})
+        },
+        service: {
+          detector_id: detectorId,
+          count: randInt(1,500),
+          archived: false,
+          ...(isFinding ? { action: { action_type: rand(["NETWORK_CONNECTION","PORT_PROBE","DNS_REQUEST","AWS_API_CALL"]) } } : {}),
+        },
         metrics: {
           FindingCount: { sum: isFinding ? randInt(1,50) : 0 },
           HighSeverityFindingCount: { sum: isFinding&&sev>=7 ? randInt(1,10) : 0 },
@@ -58,9 +71,9 @@ function generateGuardDutyLog(ts, er) {
       }
     },
     "threat": { indicator:[{ type:threatIndicatorType, value:isDnsFinding?`suspicious-${randId(8).toLowerCase()}.example.com`:srcIp }] },
-    ...(isFinding && isNetworkFinding ? { "source": { ip:srcIp, geo:{ country_iso_code:rand(["US","GB","DE","FR","JP","AU","CA","IN"]), city_name:rand(["Ashburn","London","Frankfurt","Tokyo","Sydney","Toronto"]) } }, "destination": { ip:dstIp } } : {}),
+    ...(isFinding && isNetworkFinding ? { "source": { ip:srcIp, geo:{ country_iso_code:srcGeo.country_iso_code, country_name:srcGeo.country_name, city_name:srcGeo.city_name, location:srcGeo.location } }, "destination": { ip:dstIp } } : {}),
     "event": { kind:"alert", severity:sev, outcome:isFinding?"failure":"success", category:[gdCategory], type:["indicator"], dataset:"aws.guardduty", provider:"guardduty.amazonaws.com" },
-    "message": isFinding ? `GuardDuty finding [Severity ${sev}]: ${ft}` : `GuardDuty: no threats detected`,
+    "message": isFinding ? `GuardDuty finding [${sevValue}]: ${ft}` : `GuardDuty: no threats detected`,
     "log": { level:sev>=7?"error":sev>=4?"warn":"info" },
     ...(isFinding ? { error: { code: "ThreatFinding", message: `GuardDuty finding: ${ft}`, type: "security" } } : {})
   };
@@ -87,6 +100,7 @@ function generateSecurityHubLog(ts, er) {
       securityhub_findings: {
         id: findingId,
         aws_account_id: acct.id,
+        region,
         description: isFinding ? `Security check failed: ${controlId} - ${rand(["MFA not enabled for root","S3 bucket is publicly accessible","Default security group allows all traffic"])}` : "Control passed.",
         created_at: createdTs,
         first_observed_at: createdTs,
@@ -94,22 +108,15 @@ function generateSecurityHubLog(ts, er) {
         generator: { id: controlId },
         types: [findingType],
         compliance: { security_control_id: controlId, status: isFinding ? "FAILED" : "PASSED" },
+        severity: { label: sev },
+        workflow: { status: rand(["NEW","NOTIFIED","RESOLVED","SUPPRESSED"]) },
+        record_state: isFinding ? "ACTIVE" : "ARCHIVED",
+        product: {
+          arn: `arn:aws:securityhub:${region}::product/aws/securityhub`,
+          name: "Security Hub",
+        },
         criticality: sev === "CRITICAL" ? 9 : sev === "HIGH" ? 7 : 4,
         confidence: randInt(70, 99),
-      },
-      securityhub: {
-        finding_id: `arn:aws:securityhub:${region}:${acct.id}:finding/${findingId}`,
-        standard: rand(standardsFull),
-        control_id: controlId,
-        compliance_status: isFinding?"FAILED":"PASSED",
-        severity_label: sev,
-        workflow_status: rand(["NEW","NOTIFIED","RESOLVED","SUPPRESSED"]),
-        account_id: acct.id,
-        metrics: {
-          Findings: { sum: isFinding ? randInt(1,100) : 0 },
-          FailedChecks: { sum: isFinding ? randInt(1,50) : 0 },
-          PassedChecks: { sum: isFinding ? 0 : randInt(50,200) },
-        }
       }
     },
     "event": { kind:"alert", severity:sev==="CRITICAL"?9:sev==="HIGH"?7:4, outcome:isFinding?"failure":"success", category:[shCategory], type:shEventType, dataset:"aws.securityhub_findings", provider:"securityhub.amazonaws.com" },
@@ -416,7 +423,7 @@ function generateCloudTrailLog(ts, er) {
   const eventName = ev.name;
   const sourceIPAddress = randIp();
   const userAgent = rand(USER_AGENTS);
-  const requestId = randId(8) + "-" + randId(4) + "-" + randId(4) + "-" + randId(4) + "-" + randId(12);
+  const requestId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase();
   const eventType = eventName === "ConsoleLogin" ? "AwsConsoleSignIn" : "AwsApiCall";
   const readOnly = ["DescribeInstances","GetObject","ListBuckets","GetBucketAcl","ListUsers","GetUser","ListFunctions20150331"].includes(eventName);
   const ctErrorCodes = ["AccessDenied","AccessDeniedException","AuthFailure","InvalidClientTokenId","OptInRequired","RequestExpired","ServiceUnavailable","Throttling","UnauthorizedOperation","ValidationError","MalformedPolicyDocumentException","EntityAlreadyExistsException","NoSuchEntityException","LimitExceededException","InvalidInputException","DeleteConflictException"];
@@ -436,29 +443,74 @@ function generateCloudTrailLog(ts, er) {
     "DeleteFunction20150331": ["deletion"], "ListFunctions20150331": ["access","info"],
   };
   const evType = eventTypeMap[eventName] || ["info"];
+
+  // Identity — arn, access key, session context
+  const userArn = `arn:aws:iam::${acct.id}:user/${user}`;
+  const accessKeyId = `AKIA${randId(16).toUpperCase()}`;
+  const isAssumedRole = eventName === "AssumeRole";
+  const roleArn = `arn:aws:iam::${acct.id}:role/deploy-role`;
+  const sessionContext = {
+    mfa_authenticated: String(Math.random() < 0.3),
+    creation_date: new Date(new Date(ts).getTime() - randInt(1, 3600) * 1000).toISOString(),
+    ...(isAssumedRole ? {
+      session_issuer: {
+        type: "Role",
+        principal_id: `AROA${randId(16).toUpperCase()}`,
+        arn: roleArn,
+        account_id: acct.id,
+      }
+    } : {}),
+  };
+
+  // Resources affected by the event
+  const resourceMap = {
+    RunInstances:          [{ arn: `arn:aws:ec2:${region}:${acct.id}:instance/i-${randId(17).toLowerCase()}`,            account_id: acct.id, type: "AWS::EC2::Instance" }],
+    CreateBucket:          [{ arn: `arn:aws:s3:::my-bucket-${randId(6).toLowerCase()}`,                                  account_id: acct.id, type: "AWS::S3::Bucket" }],
+    PutObject:             [{ arn: `arn:aws:s3:::prod-data`,                                                             account_id: acct.id, type: "AWS::S3::Bucket" }],
+    CreateRole:            [{ arn: `arn:aws:iam::${acct.id}:role/new-role-${randId(6).toLowerCase()}`,                  account_id: acct.id, type: "AWS::IAM::Role" }],
+    CreateFunction20150331:[{ arn: `arn:aws:lambda:${region}:${acct.id}:function:fn-${randId(6).toLowerCase()}`,        account_id: acct.id, type: "AWS::Lambda::Function" }],
+    CreateSecurityGroup:   [{ arn: `arn:aws:ec2:${region}:${acct.id}:security-group/sg-${randId(8).toLowerCase()}`,    account_id: acct.id, type: "AWS::EC2::SecurityGroup" }],
+  };
+  const resources = resourceMap[eventName];
+
+  // Request parameters as JSON string (keyword field in official schema)
+  const reqParams = isErr ? undefined :
+    eventName === "CreateBucket" ? JSON.stringify({ bucketName: `my-bucket-${randId(6).toLowerCase()}` }) :
+    eventName === "PutObject"    ? JSON.stringify({ bucketName: "prod-data", key: "uploads/file.json" }) :
+    eventName === "AssumeRole"   ? JSON.stringify({ roleArn, roleSessionName: `${user}-session` }) : undefined;
+
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"cloudtrail" } },
     "aws": {
       dimensions: { EventName:eventName, EventSource:ev.svc },
       cloudtrail: {
-        event_version: "1.08",
-        event_id: `${randId(8)}-${randId(4)}-${randId(4)}`.toLowerCase(),
-        event_name: eventName,
-        event_source: ev.svc,
-        event_category: eventName === "ConsoleLogin" ? "SignIn" : "Management",
-        event_type: eventType,
-        request_id: requestId,
-        api_version: "2012-10-17",
-        management_event: true,
-        read_only: readOnly,
-        source_ip_address: sourceIPAddress,
-        user_agent: userAgent,
-        user_identity: { type:"IAMUser", user_name:user, account_id:acct.id },
-        request_parameters: isErr ? undefined : (eventName === "CreateBucket" ? { bucketName:`my-bucket-${randId(6).toLowerCase()}` } : eventName === "PutObject" ? { bucketName:"prod-data", key:"uploads/file.json" } : {}),
-        response_elements: isErr ? { errorCode } : {},
-        error_code: errorCode,
-        error_message: isErr ? "User is not authorized to perform this operation" : undefined,
+        event_version:      "1.08",
+        event_category:     eventName === "ConsoleLogin" ? "SignIn" : "Management",
+        event_type:         eventType,
+        request_id:         requestId,
+        api_version:        "2012-10-17",
+        management_event:   true,
+        read_only:          readOnly,
+        recipient_account_id: acct.id,
+        user_identity: {
+          type:           isAssumedRole ? "AssumedRole" : "IAMUser",
+          arn:            userArn,
+          access_key_id:  accessKeyId,
+          session_context: sessionContext,
+        },
+        ...(resources ? { resources } : {}),
+        ...(reqParams ? { request_parameters: reqParams } : {}),
+        ...(isErr ? { response_elements: JSON.stringify({ errorCode }), error_code: errorCode, error_message: "User is not authorized to perform this operation" } : {}),
+        ...(eventName === "ConsoleLogin" ? {
+          console_login: {
+            additional_eventdata: {
+              mobile_version: false,
+              login_to: `https://${acct.id}.signin.aws.amazon.com/console`,
+              mfa_used: Math.random() < 0.8,
+            }
+          }
+        } : {}),
       }
     },
     "user": { name:user },

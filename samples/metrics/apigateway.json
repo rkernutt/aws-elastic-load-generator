@@ -21,44 +21,20 @@
     "apigateway": {
       "request_id": "bvfywpka-ny62",
       "api_id": "bcxij2tp00",
-      "api_name": "prod-api",
+      "domain_name": "bcxij2tp00.execute-api.us-east-1.amazonaws.com",
       "stage": "staging",
-      "structured_logging": true,
-      "request": {
-        "http_method": "PUT",
-        "path": "/api/v1/search",
-        "protocol": "HTTP/1.1"
-      },
-      "response": {
-        "status_code": 400,
-        "integration_latency_ms": 2682,
-        "response_latency_ms": 3156
-      },
-      "metrics": {
-        "Count": {
-          "sum": 1
-        },
-        "4XXError": {
-          "sum": 1
-        },
-        "5XXError": {
-          "sum": 0
-        },
-        "Latency": {
-          "avg": 3156,
-          "p99": 9468
-        },
-        "IntegrationLatency": {
-          "avg": 2524,
-          "p99": 7890
-        },
-        "CacheHitCount": {
-          "sum": 0
-        },
-        "CacheMissCount": {
-          "sum": 1
-        }
-      }
+      "http_method": "PUT",
+      "resource_path": "/api/v1/search",
+      "protocol": "HTTP/1.1",
+      "route_key": "PUT /api/v1/search",
+      "status": 400,
+      "response_length": 5522,
+      "ip_address": "103.205.23.185",
+      "caller": null,
+      "user": null,
+      "connection_id": null,
+      "event_type": "MESSAGE",
+      "request_time": "2026-03-17T17:30:45.979Z"
     }
   },
   "http": {
@@ -100,7 +76,7 @@
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "{\"requestId\":\"bvfywpka-ny62\",\"requestMethod\":\"PUT\",\"requestPath\":\"/api/v1/search\",\"status\":400,\"responseLatency\":3156,\"integrationLatency\":2682,\"timestamp\":\"2026-03-17T17:30:45.979Z\"}",
+  "message": "{\"requestId\":\"bvfywpka-ny62\",\"requestMethod\":\"PUT\",\"requestPath\":\"/api/v1/search\",\"status\":400,\"responseLatency\":3156,\"timestamp\":\"2026-03-17T17:30:45.979Z\"}",
   "log": {
     "level": "warn"
   },
@@ -111,7 +87,7 @@
   },
   "data_stream": {
     "type": "metrics",
-    "dataset": "aws.apigateway_metrics",
+    "dataset": "aws.apigateway_logs",
     "namespace": "default"
   },
   "metricset": {

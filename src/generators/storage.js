@@ -49,6 +49,7 @@ function generateS3Log(ts, er) {
         user_agent: rand(USER_AGENTS),
         host_id: `${randId(12)}+${randId(6)}`,
         signature_version: "SigV4",
+        cipher_suite: "ECDHE-RSA-AES128-GCM-SHA256",
         authentication_type: requester === "-" ? "-" : "AuthHeader",
         host_header: `${bucketName}.s3.${region}.amazonaws.com`,
         tls_version: "TLSv1.2",
