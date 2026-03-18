@@ -1,5 +1,28 @@
 import { rand, randInt, randFloat, randId, randIp, randUUID, randAccount, REGIONS, ACCOUNTS, USER_AGENTS, HTTP_METHODS, HTTP_PATHS, PROTOCOLS } from "../helpers/index.js";
 
+const GEO_LOCATIONS = [
+  { country_iso_code:"US", country_name:"United States",  city_name:"Ashburn",      location:{ lat:39.0438,  lon:-77.4874  } },
+  { country_iso_code:"US", country_name:"United States",  city_name:"Seattle",      location:{ lat:47.6062,  lon:-122.3321 } },
+  { country_iso_code:"US", country_name:"United States",  city_name:"New York",     location:{ lat:40.7128,  lon:-74.0060  } },
+  { country_iso_code:"US", country_name:"United States",  city_name:"Dallas",       location:{ lat:32.7767,  lon:-96.7970  } },
+  { country_iso_code:"US", country_name:"United States",  city_name:"San Francisco",location:{ lat:37.7749,  lon:-122.4194 } },
+  { country_iso_code:"GB", country_name:"United Kingdom", city_name:"London",       location:{ lat:51.5074,  lon:-0.1278   } },
+  { country_iso_code:"DE", country_name:"Germany",        city_name:"Frankfurt",    location:{ lat:50.1109,  lon:8.6821    } },
+  { country_iso_code:"FR", country_name:"France",         city_name:"Paris",        location:{ lat:48.8566,  lon:2.3522    } },
+  { country_iso_code:"JP", country_name:"Japan",          city_name:"Tokyo",        location:{ lat:35.6762,  lon:139.6503  } },
+  { country_iso_code:"AU", country_name:"Australia",      city_name:"Sydney",       location:{ lat:-33.8688, lon:151.2093  } },
+  { country_iso_code:"CA", country_name:"Canada",         city_name:"Toronto",      location:{ lat:43.6532,  lon:-79.3832  } },
+  { country_iso_code:"IN", country_name:"India",          city_name:"Mumbai",       location:{ lat:19.0760,  lon:72.8777   } },
+  { country_iso_code:"BR", country_name:"Brazil",         city_name:"São Paulo",    location:{ lat:-23.5505, lon:-46.6333  } },
+  { country_iso_code:"SG", country_name:"Singapore",      city_name:"Singapore",    location:{ lat:1.3521,   lon:103.8198  } },
+  { country_iso_code:"CN", country_name:"China",          city_name:"Beijing",      location:{ lat:39.9042,  lon:116.4074  } },
+  { country_iso_code:"RU", country_name:"Russia",         city_name:"Moscow",       location:{ lat:55.7558,  lon:37.6173   } },
+  { country_iso_code:"NL", country_name:"Netherlands",    city_name:"Amsterdam",    location:{ lat:52.3676,  lon:4.9041    } },
+  { country_iso_code:"SE", country_name:"Sweden",         city_name:"Stockholm",    location:{ lat:59.3293,  lon:18.0686   } },
+  { country_iso_code:"KR", country_name:"South Korea",    city_name:"Seoul",        location:{ lat:37.5665,  lon:126.9780  } },
+  { country_iso_code:"ZA", country_name:"South Africa",   city_name:"Johannesburg", location:{ lat:-26.2041, lon:28.0473   } },
+];
+
 function generateAlbLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const method = rand(HTTP_METHODS); const path = rand(HTTP_PATHS);
@@ -555,6 +578,7 @@ function generateVpcFlowLog(ts, er) {
   const proto = rand([6,6,6,17,1]); const bytes = randInt(40,65535); const pkts = randInt(1,100);
   const src = randIp(); const dst = randIp(); const dstPort = rand([22,80,443,3306,5432,6379,8080,8443]);
   const srcPort = randInt(1024,65535);
+  const srcGeo = rand(GEO_LOCATIONS); const dstGeo = rand(GEO_LOCATIONS);
   const vpcId = `vpc-${randId(8).toLowerCase()}`;
   const eni = `eni-${randId(8).toLowerCase()}`;
   const subnetId = `subnet-${randId(8).toLowerCase()}`;
@@ -587,8 +611,8 @@ function generateVpcFlowLog(ts, er) {
         metrics: { BytesTransferred: { sum: bytes }, PacketsTransferred: { sum: pkts } }
       }
     },
-    "source": { ip:src, port:srcPort },
-    "destination": { ip:dst, port:dstPort },
+    "source": { ip:src, port:srcPort, geo:{ country_iso_code:srcGeo.country_iso_code, country_name:srcGeo.country_name, city_name:srcGeo.city_name, location:srcGeo.location } },
+    "destination": { ip:dst, port:dstPort, geo:{ country_iso_code:dstGeo.country_iso_code, country_name:dstGeo.country_name, city_name:dstGeo.city_name, location:dstGeo.location } },
     "network": { transport:PROTOCOLS[proto]?.toLowerCase()||"tcp", bytes, packets:pkts, direction:rand(["inbound","outbound"]) },
     "event": { action:action.toLowerCase(), outcome:action==="ACCEPT"?"success":"failure", category:["network"], type:action==="ACCEPT"?["connection"]:["connection","denied"], dataset:"aws.vpcflow", provider:"ec2.amazonaws.com", duration:randInt(1,500)*1e6 },
     "message": `2 ${acct.id} ${eni} ${src} ${dst} ${srcPort} ${dstPort} ${proto} ${pkts} ${bytes} ${tsEpoch} ${endEpoch} ${action} OK`,

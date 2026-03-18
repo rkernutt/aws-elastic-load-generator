@@ -346,8 +346,8 @@ async function main() {
   // 6. Ensure required data views exist
   console.log("\nChecking data views...");
   const DATA_VIEWS = [
-    { title: "logs-aws.*",    name: "AWS Logs (all services)" },
-    { title: "metrics-aws.*", name: "AWS Metrics (all services)" },
+    { title: "logs-*",    name: "Logs (all)" },
+    { title: "metrics-*", name: "Metrics (all)" },
   ];
   for (const { title, name } of DATA_VIEWS) {
     try {
