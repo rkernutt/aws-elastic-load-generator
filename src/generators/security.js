@@ -416,7 +416,7 @@ function generateCloudTrailLog(ts, er) {
   const eventName = ev.name;
   const sourceIPAddress = randIp();
   const userAgent = rand(USER_AGENTS);
-  const requestId = randId(8) + "-" + randId(4) + "-" + randId(4) + "-" + randId(4) + "-" + randId(12);
+  const requestId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase();
   const eventType = eventName === "ConsoleLogin" ? "AwsConsoleSignIn" : "AwsApiCall";
   const readOnly = ["DescribeInstances","GetObject","ListBuckets","GetBucketAcl","ListUsers","GetUser","ListFunctions20150331"].includes(eventName);
   const ctErrorCodes = ["AccessDenied","AccessDeniedException","AuthFailure","InvalidClientTokenId","OptInRequired","RequestExpired","ServiceUnavailable","Throttling","UnauthorizedOperation","ValidationError","MalformedPolicyDocumentException","EntityAlreadyExistsException","NoSuchEntityException","LimitExceededException","InvalidInputException","DeleteConflictException"];
@@ -436,29 +436,74 @@ function generateCloudTrailLog(ts, er) {
     "DeleteFunction20150331": ["deletion"], "ListFunctions20150331": ["access","info"],
   };
   const evType = eventTypeMap[eventName] || ["info"];
+
+  // Identity — arn, access key, session context
+  const userArn = `arn:aws:iam::${acct.id}:user/${user}`;
+  const accessKeyId = `AKIA${randId(16).toUpperCase()}`;
+  const isAssumedRole = eventName === "AssumeRole";
+  const roleArn = `arn:aws:iam::${acct.id}:role/deploy-role`;
+  const sessionContext = {
+    mfa_authenticated: String(Math.random() < 0.3),
+    creation_date: new Date(new Date(ts).getTime() - randInt(1, 3600) * 1000).toISOString(),
+    ...(isAssumedRole ? {
+      session_issuer: {
+        type: "Role",
+        principal_id: `AROA${randId(16).toUpperCase()}`,
+        arn: roleArn,
+        account_id: acct.id,
+      }
+    } : {}),
+  };
+
+  // Resources affected by the event
+  const resourceMap = {
+    RunInstances:          [{ arn: `arn:aws:ec2:${region}:${acct.id}:instance/i-${randId(17).toLowerCase()}`,            account_id: acct.id, type: "AWS::EC2::Instance" }],
+    CreateBucket:          [{ arn: `arn:aws:s3:::my-bucket-${randId(6).toLowerCase()}`,                                  account_id: acct.id, type: "AWS::S3::Bucket" }],
+    PutObject:             [{ arn: `arn:aws:s3:::prod-data`,                                                             account_id: acct.id, type: "AWS::S3::Bucket" }],
+    CreateRole:            [{ arn: `arn:aws:iam::${acct.id}:role/new-role-${randId(6).toLowerCase()}`,                  account_id: acct.id, type: "AWS::IAM::Role" }],
+    CreateFunction20150331:[{ arn: `arn:aws:lambda:${region}:${acct.id}:function:fn-${randId(6).toLowerCase()}`,        account_id: acct.id, type: "AWS::Lambda::Function" }],
+    CreateSecurityGroup:   [{ arn: `arn:aws:ec2:${region}:${acct.id}:security-group/sg-${randId(8).toLowerCase()}`,    account_id: acct.id, type: "AWS::EC2::SecurityGroup" }],
+  };
+  const resources = resourceMap[eventName];
+
+  // Request parameters as JSON string (keyword field in official schema)
+  const reqParams = isErr ? undefined :
+    eventName === "CreateBucket" ? JSON.stringify({ bucketName: `my-bucket-${randId(6).toLowerCase()}` }) :
+    eventName === "PutObject"    ? JSON.stringify({ bucketName: "prod-data", key: "uploads/file.json" }) :
+    eventName === "AssumeRole"   ? JSON.stringify({ roleArn, roleSessionName: `${user}-session` }) : undefined;
+
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"cloudtrail" } },
     "aws": {
       dimensions: { EventName:eventName, EventSource:ev.svc },
       cloudtrail: {
-        event_version: "1.08",
-        event_id: `${randId(8)}-${randId(4)}-${randId(4)}`.toLowerCase(),
-        event_name: eventName,
-        event_source: ev.svc,
-        event_category: eventName === "ConsoleLogin" ? "SignIn" : "Management",
-        event_type: eventType,
-        request_id: requestId,
-        api_version: "2012-10-17",
-        management_event: true,
-        read_only: readOnly,
-        source_ip_address: sourceIPAddress,
-        user_agent: userAgent,
-        user_identity: { type:"IAMUser", user_name:user, account_id:acct.id },
-        request_parameters: isErr ? undefined : (eventName === "CreateBucket" ? { bucketName:`my-bucket-${randId(6).toLowerCase()}` } : eventName === "PutObject" ? { bucketName:"prod-data", key:"uploads/file.json" } : {}),
-        response_elements: isErr ? { errorCode } : {},
-        error_code: errorCode,
-        error_message: isErr ? "User is not authorized to perform this operation" : undefined,
+        event_version:      "1.08",
+        event_category:     eventName === "ConsoleLogin" ? "SignIn" : "Management",
+        event_type:         eventType,
+        request_id:         requestId,
+        api_version:        "2012-10-17",
+        management_event:   true,
+        read_only:          readOnly,
+        recipient_account_id: acct.id,
+        user_identity: {
+          type:           isAssumedRole ? "AssumedRole" : "IAMUser",
+          arn:            userArn,
+          access_key_id:  accessKeyId,
+          session_context: sessionContext,
+        },
+        ...(resources ? { resources } : {}),
+        ...(reqParams ? { request_parameters: reqParams } : {}),
+        ...(isErr ? { response_elements: JSON.stringify({ errorCode }), error_code: errorCode, error_message: "User is not authorized to perform this operation" } : {}),
+        ...(eventName === "ConsoleLogin" ? {
+          console_login: {
+            additional_eventdata: {
+              mobile_version: false,
+              login_to: `https://${acct.id}.signin.aws.amazon.com/console`,
+              mfa_used: Math.random() < 0.8,
+            }
+          }
+        } : {}),
       }
     },
     "user": { name:user },
