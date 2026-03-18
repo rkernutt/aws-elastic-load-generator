@@ -35,10 +35,52 @@ function printHeader() {
   console.log("║     AWS → Elastic Custom Pipeline Installer          ║");
   console.log("╚══════════════════════════════════════════════════════╝");
   console.log("");
-  console.log(
-    "Installs Elasticsearch ingest pipelines for AWS services not"
-  );
+  console.log("Installs Elasticsearch ingest pipelines for AWS services not");
   console.log("covered by the official Elastic AWS integration.");
+  console.log("");
+}
+
+// ─── Deployment type ─────────────────────────────────────────────────────────
+
+const DEPLOYMENT_TYPES = [
+  { id: "self-managed", label: "Self-Managed  (on-premises, Docker, VM)" },
+  { id: "cloud-hosted", label: "Elastic Cloud Hosted  (cloud.elastic.co)" },
+  { id: "serverless",   label: "Elastic Serverless  (cloud.elastic.co/serverless)" },
+];
+
+async function promptDeploymentType(rl) {
+  console.log("Select your Elastic deployment type:");
+  console.log("");
+  DEPLOYMENT_TYPES.forEach(({ label }, i) => console.log(`  ${i + 1}. ${label}`));
+  console.log("");
+
+  while (true) {
+    const input = await prompt(rl, "Enter 1, 2, or 3:\n> ");
+    const idx = parseInt(input, 10) - 1;
+    if (idx >= 0 && idx < DEPLOYMENT_TYPES.length) return DEPLOYMENT_TYPES[idx].id;
+    console.error("  Please enter 1, 2, or 3.");
+  }
+}
+
+function getUrlExample(deploymentType) {
+  if (deploymentType === "self-managed")
+    return "http://localhost:9200  or  https://elasticsearch.yourdomain.internal:9200";
+  if (deploymentType === "serverless")
+    return "https://my-deployment.es.eu-west-2.aws.elastic.cloud";
+  return "https://my-deployment.es.us-east-1.aws.elastic-cloud.com:9243";
+}
+
+async function maybeSKipTls(rl, deploymentType) {
+  if (deploymentType !== "self-managed") return;
+
+  const answer = await prompt(
+    rl,
+    "Skip TLS certificate verification? Required for self-signed / internal CA certs. (y/N):\n> "
+  );
+  if (answer.toLowerCase() === "y" || answer.toLowerCase() === "yes") {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+    console.log("  ⚠  TLS verification disabled — ensure you trust this endpoint.");
+  }
   console.log("");
 }
 
@@ -49,10 +91,17 @@ async function main() {
 
   const rl = createReadline();
 
-  // 1. Elasticsearch URL
+  // 1. Deployment type
+  const deploymentType = await promptDeploymentType(rl);
+  console.log("");
+
+  // 2. TLS (self-managed only)
+  await maybeSKipTls(rl, deploymentType);
+
+  // 3. Elasticsearch URL
   const esUrl = await prompt(
     rl,
-    "Elasticsearch URL (e.g. https://my-deployment.es.us-east-1.aws.elastic-cloud.com:9243):\n> "
+    `Elasticsearch URL (e.g. ${getUrlExample(deploymentType)}):\n> `
   );
 
   if (!esUrl) {
@@ -61,7 +110,21 @@ async function main() {
     process.exit(1);
   }
 
-  // 2. API Key
+  if (deploymentType === "self-managed") {
+    if (!esUrl.startsWith("http://") && !esUrl.startsWith("https://")) {
+      console.error("URL must start with http:// or https://. Exiting.");
+      rl.close();
+      process.exit(1);
+    }
+  } else {
+    if (!esUrl.startsWith("https://")) {
+      console.error("URL must start with https://. Exiting.");
+      rl.close();
+      process.exit(1);
+    }
+  }
+
+  // 4. API Key
   const apiKey = await prompt(rl, "\nElastic API Key:\n> ");
 
   if (!apiKey) {
@@ -70,7 +133,7 @@ async function main() {
     process.exit(1);
   }
 
-  // 3. Test connection
+  // 5. Test connection
   console.log("\nTesting connection...");
   const client = createElasticClient(esUrl, apiKey);
 
@@ -88,7 +151,7 @@ async function main() {
     process.exit(1);
   }
 
-  // 4. Group selection menu
+  // 6. Group selection menu
   const groups = getGroups();
   console.log("\nAvailable pipeline groups:");
   console.log("");
@@ -141,7 +204,7 @@ async function main() {
     process.exit(0);
   }
 
-  // 5. Install pipelines
+  // 7. Install pipelines
   console.log(`\nInstalling ${selectedPipelines.length} pipeline(s)...\n`);
 
   let installedCount = 0;
@@ -173,7 +236,7 @@ async function main() {
     }
   }
 
-  // 6. Summary
+  // 8. Summary
   const total = selectedPipelines.length;
   console.log("");
   console.log(

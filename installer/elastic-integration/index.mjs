@@ -9,7 +9,7 @@
  *
  * Requirements:
  *   - Node.js 18+ (uses native fetch and readline/promises)
- *   - A running Kibana instance reachable over HTTPS
+ *   - A running Kibana instance reachable over HTTP/HTTPS
  *   - A valid Elastic API key (base64-encoded, created in Kibana →
  *     Stack Management → API Keys)
  */
@@ -22,10 +22,6 @@ import createKibanaClient from './kibana.mjs';
 // Helpers
 // ---------------------------------------------------------------------------
 
-/**
- * Creates a readline interface bound to stdin/stdout and returns a simple
- * `prompt(question)` helper that resolves with the trimmed answer.
- */
 function createPrompter() {
   const rl = readline.createInterface({
     input: process.stdin,
@@ -42,39 +38,82 @@ function createPrompter() {
   return { prompt, close };
 }
 
-/**
- * Validates a Kibana base URL.
- * Must be a well-formed URL that starts with https://.
- *
- * @param {string} raw
- * @returns {{ valid: boolean, message?: string }}
- */
-function validateKibanaUrl(raw) {
-  if (!raw) {
-    return { valid: false, message: 'Kibana URL must not be empty.' };
+// ---------------------------------------------------------------------------
+// Deployment type
+// ---------------------------------------------------------------------------
+
+const DEPLOYMENT_TYPES = [
+  { id: 'self-managed',  label: 'Self-Managed  (on-premises, Docker, VM)' },
+  { id: 'cloud-hosted',  label: 'Elastic Cloud Hosted  (cloud.elastic.co)' },
+  { id: 'serverless',    label: 'Elastic Serverless  (cloud.elastic.co/serverless)' },
+];
+
+async function promptDeploymentType(prompt) {
+  console.log('Select your Elastic deployment type:');
+  console.log('');
+  DEPLOYMENT_TYPES.forEach(({ label }, i) => console.log(`  ${i + 1}. ${label}`));
+  console.log('');
+
+  while (true) {
+    const input = await prompt('Enter 1, 2, or 3:\n> ');
+    const idx = parseInt(input, 10) - 1;
+    if (idx >= 0 && idx < DEPLOYMENT_TYPES.length) return DEPLOYMENT_TYPES[idx].id;
+    console.error('  Please enter 1, 2, or 3.');
   }
-  if (!raw.startsWith('https://')) {
-    return { valid: false, message: 'Kibana URL must start with https://.' };
+}
+
+function getUrlExample(deploymentType) {
+  if (deploymentType === 'self-managed')
+    return 'http://localhost:5601  or  https://kibana.yourdomain.internal:5601';
+  if (deploymentType === 'serverless')
+    return 'https://my-deployment.kb.eu-west-2.aws.elastic.cloud';
+  return 'https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243';
+}
+
+// ---------------------------------------------------------------------------
+// Validation
+// ---------------------------------------------------------------------------
+
+function validateKibanaUrl(raw, deploymentType) {
+  if (!raw) return { valid: false, message: 'Kibana URL must not be empty.' };
+
+  if (deploymentType === 'self-managed') {
+    if (!raw.startsWith('http://') && !raw.startsWith('https://'))
+      return { valid: false, message: 'URL must start with http:// or https://.' };
+  } else {
+    if (!raw.startsWith('https://'))
+      return { valid: false, message: 'URL must start with https://.' };
   }
+
   try {
     new URL(raw);
   } catch (_) {
     return { valid: false, message: `"${raw}" is not a valid URL.` };
   }
+
   return { valid: true };
 }
 
-/**
- * Validates an Elastic API key.
- *
- * @param {string} raw
- * @returns {{ valid: boolean, message?: string }}
- */
 function validateApiKey(raw) {
-  if (!raw) {
-    return { valid: false, message: 'API key must not be empty.' };
-  }
+  if (!raw) return { valid: false, message: 'API key must not be empty.' };
   return { valid: true };
+}
+
+// ---------------------------------------------------------------------------
+// TLS
+// ---------------------------------------------------------------------------
+
+async function maybeSKipTls(prompt, deploymentType) {
+  if (deploymentType !== 'self-managed') return;
+
+  const answer = await prompt(
+    'Skip TLS certificate verification? Required for self-signed / internal CA certs. (y/N):\n> ',
+  );
+  if (answer.toLowerCase() === 'y' || answer.toLowerCase() === 'yes') {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+    console.log('  ⚠  TLS verification disabled — ensure you trust this endpoint.');
+  }
+  console.log('');
 }
 
 // ---------------------------------------------------------------------------
@@ -93,13 +132,20 @@ async function main() {
   let kibanaUrl;
   let apiKey;
 
-  // -- Prompt for Kibana URL -------------------------------------------------
   try {
+    // -- Deployment type -------------------------------------------------------
+    const deploymentType = await promptDeploymentType(prompt);
+    console.log('');
+
+    // -- TLS (self-managed only) -----------------------------------------------
+    await maybeSKipTls(prompt, deploymentType);
+
+    // -- Kibana URL ------------------------------------------------------------
     while (true) {
       const raw = await prompt(
-        'Kibana URL (e.g. https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243): ',
+        `Kibana URL (e.g. ${getUrlExample(deploymentType)}): `,
       );
-      const { valid, message } = validateKibanaUrl(raw);
+      const { valid, message } = validateKibanaUrl(raw, deploymentType);
       if (valid) {
         kibanaUrl = raw.replace(/\/$/, '');
         break;
@@ -107,10 +153,10 @@ async function main() {
       console.error(`  ✗ ${message}`);
     }
 
-    // -- Prompt for API key --------------------------------------------------
+    // -- API key ---------------------------------------------------------------
     while (true) {
       const raw = await prompt(
-        'Elastic API key (base64-encoded, from Kibana → Stack Management → API Keys): ',
+        '\nElastic API key (from Kibana → Stack Management → API Keys): ',
       );
       const { valid, message } = validateApiKey(raw);
       if (valid) {
@@ -120,17 +166,15 @@ async function main() {
       console.error(`  ✗ ${message}`);
     }
   } finally {
-    // Always close readline so stdin doesn't keep the process alive if we
-    // need to exit early due to a validation loop break.
     close();
   }
 
   console.log('');
 
-  // -- Build client ----------------------------------------------------------
+  // -- Build client ------------------------------------------------------------
   const client = createKibanaClient(kibanaUrl, apiKey);
 
-  // -- Check if already installed -------------------------------------------
+  // -- Check if already installed ----------------------------------------------
   let installed = null;
   try {
     console.log('Checking whether the AWS integration is already installed...');
@@ -148,17 +192,17 @@ async function main() {
     process.exit(0);
   }
 
-  // -- Resolve latest version -----------------------------------------------
+  // -- Resolve latest version --------------------------------------------------
   let latestVersion;
   try {
-    console.log('Fetching latest AWS integration version from Elastic Package Registry...');
+    console.log('Fetching latest AWS integration version...');
     latestVersion = await client.getLatestVersion('aws');
   } catch (err) {
     console.error(`✗ Could not determine latest package version: ${err.message}`);
     process.exit(1);
   }
 
-  // -- Install ---------------------------------------------------------------
+  // -- Install -----------------------------------------------------------------
   try {
     console.log(`Installing AWS integration v${latestVersion}...`);
     await client.installPackage('aws', latestVersion);

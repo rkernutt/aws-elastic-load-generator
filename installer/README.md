@@ -6,6 +6,53 @@ Three standalone Node.js scripts to configure Elastic before you start shipping 
 
 ---
 
+## Deployment types
+
+Each installer begins by asking which type of Elastic deployment you are connecting to:
+
+```
+Select your Elastic deployment type:
+
+  1. Self-Managed  (on-premises, Docker, VM)
+  2. Elastic Cloud Hosted  (cloud.elastic.co)
+  3. Elastic Serverless  (cloud.elastic.co/serverless)
+```
+
+Your selection controls the URL format shown in the prompts and the validation rules applied.
+
+| | Self-Managed | Cloud Hosted | Serverless |
+|---|---|---|---|
+| **Kibana port** | `:5601` (default) | `:9243` | none |
+| **Elasticsearch port** | `:9200` (default) | `:9243` | none |
+| **Protocol** | `http://` or `https://` | `https://` only | `https://` only |
+| **TLS skip option** | yes (prompted) | no | no |
+| **Package Registry** | Kibana-proxied (air-gap safe) + EPR fallback | EPR via Kibana | EPR via Kibana |
+| **Fleet required** | yes — must be enabled | pre-configured | pre-configured |
+
+### Self-Managed notes
+
+**Self-signed / internal CA certificates**
+
+If your Kibana or Elasticsearch endpoint uses a self-signed certificate or one issued by an internal CA, the installer will prompt:
+
+```
+Skip TLS certificate verification? Required for self-signed / internal CA certs. (y/N):
+> y
+  ⚠  TLS verification disabled — ensure you trust this endpoint.
+```
+
+Answering `y` sets `NODE_TLS_REJECT_UNAUTHORIZED=0` for the duration of the installer process only. This is safe for internal networks where you control the endpoint. Do not use on untrusted networks.
+
+**Air-gapped / no internet access**
+
+The integration installer (Installer 1) resolves the latest AWS package version by first querying Kibana's own Fleet API (`GET /api/fleet/epm/packages/aws`), which works without any internet access. It only falls back to the public Elastic Package Registry (`epr.elastic.co`) if the Kibana Fleet API does not return a version. The pipeline and dashboard installers have no external network dependencies at all.
+
+**Fleet setup**
+
+On self-managed Kibana, Fleet must be enabled and initialised before running Installer 1. Go to **Kibana → Fleet → Settings** and complete the Fleet setup wizard if you have not already done so.
+
+---
+
 ## Installer 1 — Official Elastic AWS Integration
 
 **File:** `installer/elastic-integration/`

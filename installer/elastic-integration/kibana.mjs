@@ -11,12 +11,11 @@ const EPR_BASE_URL = 'https://epr.elastic.co';
 /**
  * Creates a Kibana Fleet API client.
  *
- * @param {string} baseUrl - Kibana base URL (e.g. https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243)
+ * @param {string} baseUrl - Kibana base URL
  * @param {string} apiKey  - Base64-encoded Elastic API key
  * @returns {object} Client with getInstalledPackage, installPackage, and getLatestVersion methods
  */
 export default function createKibanaClient(baseUrl, apiKey) {
-  // Normalise: strip trailing slash so path concatenation is consistent
   const base = baseUrl.replace(/\/$/, '');
 
   const commonHeaders = {
@@ -26,10 +25,6 @@ export default function createKibanaClient(baseUrl, apiKey) {
 
   /**
    * Shared fetch helper. Throws a descriptive error for non-2xx responses.
-   *
-   * @param {string} url
-   * @param {RequestInit} [options]
-   * @returns {Promise<any>} Parsed JSON body
    */
   async function apiFetch(url, options = {}) {
     let response;
@@ -61,34 +56,22 @@ export default function createKibanaClient(baseUrl, apiKey) {
     /**
      * Returns the installed package metadata for the given package name, or
      * null if the package is not found (404).
-     *
-     * @param {string} packageName - e.g. "aws"
-     * @returns {Promise<object|null>}
      */
     async getInstalledPackage(packageName) {
       const url = `${base}/api/fleet/epm/packages/${encodeURIComponent(packageName)}`;
       try {
         return await apiFetch(url, {
           method: 'GET',
-          headers: {
-            'kbn-xsrf': 'true',
-            Authorization: `ApiKey ${apiKey}`,
-          },
+          headers: commonHeaders,
         });
       } catch (err) {
-        if (err.status === 404) {
-          return null;
-        }
+        if (err.status === 404) return null;
         throw err;
       }
     },
 
     /**
      * Installs a specific version of a package via the Fleet EPM API.
-     *
-     * @param {string} packageName - e.g. "aws"
-     * @param {string} version     - e.g. "2.33.0"
-     * @returns {Promise<object>} Installation response JSON
      */
     async installPackage(packageName, version) {
       const url = `${base}/api/fleet/epm/packages/${encodeURIComponent(packageName)}/${encodeURIComponent(version)}`;
@@ -103,17 +86,30 @@ export default function createKibanaClient(baseUrl, apiKey) {
     },
 
     /**
-     * Queries the Elastic Package Registry to find the latest published version
-     * of a package.
+     * Resolves the latest published version of a package.
      *
-     * @param {string} packageName - e.g. "aws"
-     * @returns {Promise<string>} Version string, e.g. "2.33.0"
+     * Strategy:
+     *   1. Ask Kibana's Fleet API — works for all deployments, including
+     *      air-gapped / network-restricted on-premises environments.
+     *   2. Fall back to the public Elastic Package Registry (epr.elastic.co)
+     *      if the Kibana Fleet API does not return a latestVersion field.
      */
     async getLatestVersion(packageName) {
-      const url = `${EPR_BASE_URL}/search?package=${encodeURIComponent(packageName)}&kibana.version=8.0.0`;
+      // 1. Try the Kibana Fleet API first
+      try {
+        const url = `${base}/api/fleet/epm/packages/${encodeURIComponent(packageName)}`;
+        const data = await apiFetch(url, { method: 'GET', headers: commonHeaders });
+        const version = data?.item?.latestVersion;
+        if (version) return version;
+      } catch (_) {
+        // Fall through to EPR
+      }
+
+      // 2. Fall back to the public Elastic Package Registry
+      const eprUrl = `${EPR_BASE_URL}/search?package=${encodeURIComponent(packageName)}`;
       let results;
       try {
-        results = await fetch(url);
+        results = await fetch(eprUrl);
       } catch (networkErr) {
         throw new Error(
           `Network error while reaching Elastic Package Registry: ${networkErr.message}`,

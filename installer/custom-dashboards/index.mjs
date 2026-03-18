@@ -40,6 +40,50 @@ function printHeader() {
   console.log("");
 }
 
+// ─── Deployment type ─────────────────────────────────────────────────────────
+
+const DEPLOYMENT_TYPES = [
+  { id: "self-managed", label: "Self-Managed  (on-premises, Docker, VM)" },
+  { id: "cloud-hosted", label: "Elastic Cloud Hosted  (cloud.elastic.co)" },
+  { id: "serverless",   label: "Elastic Serverless  (cloud.elastic.co/serverless)" },
+];
+
+async function promptDeploymentType(rl) {
+  console.log("Select your Elastic deployment type:");
+  console.log("");
+  DEPLOYMENT_TYPES.forEach(({ label }, i) => console.log(`  ${i + 1}. ${label}`));
+  console.log("");
+
+  while (true) {
+    const input = await prompt(rl, "Enter 1, 2, or 3:\n> ");
+    const idx = parseInt(input, 10) - 1;
+    if (idx >= 0 && idx < DEPLOYMENT_TYPES.length) return DEPLOYMENT_TYPES[idx].id;
+    console.error("  Please enter 1, 2, or 3.");
+  }
+}
+
+function getUrlExample(deploymentType) {
+  if (deploymentType === "self-managed")
+    return "http://localhost:5601  or  https://kibana.yourdomain.internal:5601";
+  if (deploymentType === "serverless")
+    return "https://my-deployment.kb.eu-west-2.aws.elastic.cloud";
+  return "https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243";
+}
+
+async function maybeSKipTls(rl, deploymentType) {
+  if (deploymentType !== "self-managed") return;
+
+  const answer = await prompt(
+    rl,
+    "Skip TLS certificate verification? Required for self-signed / internal CA certs. (y/N):\n> "
+  );
+  if (answer.toLowerCase() === "y" || answer.toLowerCase() === "yes") {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+    console.log("  ⚠  TLS verification disabled — ensure you trust this endpoint.");
+  }
+  console.log("");
+}
+
 // ─── Dashboard discovery ─────────────────────────────────────────────────────
 
 function loadDashboards() {
@@ -79,15 +123,10 @@ function createKibanaClient(baseUrl, apiKey) {
   }
 
   return {
-    /** Verify Kibana connectivity — returns Kibana status object. */
     async testConnection() {
       return request("GET", "/api/status");
     },
 
-    /**
-     * Search for a dashboard by exact title via the saved objects API.
-     * Returns the saved object if found, null otherwise.
-     */
     async findDashboardByTitle(title) {
       const encoded = encodeURIComponent(title);
       const result = await request(
@@ -100,10 +139,6 @@ function createKibanaClient(baseUrl, apiKey) {
       ) ?? null;
     },
 
-    /**
-     * Create a dashboard via the dashboards API (Kibana 9.4+).
-     * Requires Elastic-Api-Version: 1 header.
-     */
     async createDashboard(definition) {
       const { id, spaces, ...body } = definition;
       return request("POST", "/api/dashboards", body, {
@@ -127,10 +162,17 @@ async function main() {
 
   const rl = createReadline();
 
-  // 1. Kibana URL
+  // 1. Deployment type
+  const deploymentType = await promptDeploymentType(rl);
+  console.log("");
+
+  // 2. TLS (self-managed only)
+  await maybeSKipTls(rl, deploymentType);
+
+  // 3. Kibana URL
   const kibanaUrl = await prompt(
     rl,
-    "Kibana URL (e.g. https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243):\n> "
+    `Kibana URL (e.g. ${getUrlExample(deploymentType)}):\n> `
   );
 
   if (!kibanaUrl) {
@@ -139,7 +181,21 @@ async function main() {
     process.exit(1);
   }
 
-  // 2. API Key
+  if (deploymentType === "self-managed") {
+    if (!kibanaUrl.startsWith("http://") && !kibanaUrl.startsWith("https://")) {
+      console.error("URL must start with http:// or https://. Exiting.");
+      rl.close();
+      process.exit(1);
+    }
+  } else {
+    if (!kibanaUrl.startsWith("https://")) {
+      console.error("URL must start with https://. Exiting.");
+      rl.close();
+      process.exit(1);
+    }
+  }
+
+  // 4. API Key
   const apiKey = await prompt(rl, "\nElastic API Key:\n> ");
 
   if (!apiKey) {
@@ -148,7 +204,7 @@ async function main() {
     process.exit(1);
   }
 
-  // 3. Test connection
+  // 5. Test connection
   console.log("\nTesting connection...");
   const client = createKibanaClient(kibanaUrl, apiKey);
 
@@ -163,7 +219,7 @@ async function main() {
     process.exit(1);
   }
 
-  // 4. Dashboard selection menu
+  // 6. Dashboard selection menu
   console.log("\nAvailable dashboards:\n");
   dashboards.forEach((d, i) => {
     console.log(`  ${i + 1}. ${d.title}`);
@@ -206,7 +262,7 @@ async function main() {
     process.exit(0);
   }
 
-  // 5. Install dashboards
+  // 7. Install dashboards
   console.log(`\nInstalling ${selected.length} dashboard(s)...\n`);
 
   let installedCount = 0;
@@ -233,7 +289,7 @@ async function main() {
     }
   }
 
-  // 6. Summary
+  // 8. Summary
   const total = selected.length;
   console.log("");
   console.log(
