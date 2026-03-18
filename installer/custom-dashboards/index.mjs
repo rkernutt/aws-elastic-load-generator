@@ -167,6 +167,25 @@ function createKibanaClient(baseUrl, apiKey) {
       }
     },
 
+    /** Find a data view by its index pattern title. Returns null if not found. */
+    async findDataView(title) {
+      try {
+        const result = await request("GET", "/api/data_views");
+        const views = result?.data_view ?? [];
+        return views.find((v) => v.title === title) ?? null;
+      } catch (err) {
+        if (isUnavailable(err)) return null;
+        throw err;
+      }
+    },
+
+    /** Create a data view. Returns the created data view or throws. */
+    async createDataView(title, timeFieldName = "@timestamp", name = "") {
+      return request("POST", "/api/data_views/data_view", {
+        data_view: { title, timeFieldName, name: name || title },
+      });
+    },
+
     /** Create via Kibana Dashboards API (9.4+). */
     async createDashboard(definition) {
       const { id, spaces, ...body } = definition;
@@ -324,7 +343,28 @@ async function main() {
     process.exit(1);
   }
 
-  // 6. Dashboard selection menu
+  // 6. Ensure required data views exist
+  console.log("\nChecking data views...");
+  const DATA_VIEWS = [
+    { title: "logs-aws.*",    name: "AWS Logs (all services)" },
+    { title: "metrics-aws.*", name: "AWS Metrics (all services)" },
+  ];
+  for (const { title, name } of DATA_VIEWS) {
+    try {
+      const existing = await client.findDataView(title);
+      if (existing) {
+        console.log(`  ✓ ${title} — already exists`);
+      } else {
+        await client.createDataView(title, "@timestamp", name);
+        console.log(`  ✓ ${title} — created`);
+      }
+    } catch (err) {
+      console.warn(`  ⚠  Could not create data view "${title}": ${err.message}`);
+      console.warn("     Dashboard panels may show errors if this data view is missing.");
+    }
+  }
+
+  // 7. Dashboard selection menu
   console.log("\nAvailable dashboards:\n");
   dashboards.forEach((d, i) => {
     console.log(`  ${i + 1}. ${d.title}`);
@@ -361,7 +401,7 @@ async function main() {
     process.exit(0);
   }
 
-  // 7. Install dashboards
+  // 8. Install dashboards
   console.log(`\nInstalling ${selected.length} dashboard(s)...\n`);
 
   let installedCount = 0;
@@ -384,7 +424,7 @@ async function main() {
     }
   }
 
-  // 8. Summary
+  // 9. Summary
   const total = selected.length;
   console.log("");
   console.log(
