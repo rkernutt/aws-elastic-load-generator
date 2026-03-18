@@ -173,8 +173,8 @@ npm run setup:dashboards
 
 | Dashboard | Panels |
 |-----------|--------|
-| **AWS Glue — Jobs & Performance** | Run outcomes (donut), runs by state (donut), failures by error category (bar), avg job duration (line), JVM heap usage (line), executor count (line), failed/killed tasks (bar) |
-| **AWS SageMaker — Endpoints & Training** | Invocations over time (area), model latency (line), 4xx/5xx errors (line), GPU/CPU utilization (line), job outcomes (donut), events by job type (bar) |
+| **AWS Glue — Jobs & Performance** | KPI row (total runs, success rate %, avg duration, failed runs), run outcomes (donut), runs by state (donut), failures by error category (bar), avg job duration (line), JVM heap usage (line), executor count (line), failed/killed tasks (bar), elapsed time ETL (line), records read (line), throughput by job name (bar), recent job runs (table) |
+| **AWS SageMaker — Endpoints & Training** | KPI row (total invocations, avg latency, total 4xx/5xx errors), invocations over time (area), model latency (line), 4xx/5xx errors (line), GPU/CPU utilization (line), job outcomes (donut), events by job type (bar), events by action (bar), training loss & accuracy (line), recent events (table) |
 
 **What you'll be prompted for:**
 

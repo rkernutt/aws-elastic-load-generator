@@ -206,13 +206,17 @@ the `logs-aws.*` data streams written by the app.
 
 | File | Title | Panels |
 |------|-------|--------|
-| `glue-dashboard.json` | AWS Glue — Jobs & Performance | 7 panels |
-| `sagemaker-dashboard.json` | AWS SageMaker — Endpoints & Training | 6 panels |
+| `glue-dashboard.json` | AWS Glue — Jobs & Performance | 15 panels |
+| `sagemaker-dashboard.json` | AWS SageMaker — Endpoints & Training | 13 panels |
 
 #### AWS Glue — Jobs & Performance
 
 | Panel | Type | Metric |
 |-------|------|--------|
+| Total Runs | KPI metric | Count of all events |
+| Success Rate % | KPI metric | % of events with `event.outcome` = success |
+| Avg Duration (s) | KPI metric | Avg `event.duration` in seconds |
+| Failed Runs | KPI metric | Count where `event.outcome` = failure |
 | Run Outcomes | Donut | Count by `event.outcome` (success / failure) |
 | Runs by State | Donut | Count by `aws.glue.job.run_state` |
 | Failures by Error Category | Horizontal bar | Count by `aws.glue.error_category` (failures only) |
@@ -220,17 +224,28 @@ the `logs-aws.*` data streams written by the app.
 | JVM Heap Usage | Line | Avg `aws.glue.metrics.driver.jvm.heap.usage` (0–1) |
 | Executor Count | Line | Avg `aws.glue.metrics.driver.ExecutorAllocationManager.executors.numberAllExecutors` |
 | Failed / Killed Tasks | Stacked bar | Sum of `numFailedTasks` and `numKilledTasks` over time |
+| Elapsed Time ETL | Line | Avg `aws.glue.metrics.driver.aggregate.elapsedTime` (ms) |
+| Records Read | Line | Sum `aws.glue.metrics.driver.aggregate.numRecords` over time |
+| Throughput by Job Name | Horizontal bar | Count by `aws.glue.job.name` (top 10 jobs) |
+| Recent Job Runs | Data table | Last 100 events: timestamp, job name, state, outcome, duration, error category |
 
 #### AWS SageMaker — Endpoints & Training
 
 | Panel | Type | Metric |
 |-------|------|--------|
+| Total Invocations | KPI metric | Sum `aws.sagemaker.cloudwatch_metrics.Invocations.sum` |
+| Avg Latency (ms) | KPI metric | Avg `aws.sagemaker.cloudwatch_metrics.ModelLatency.avg` |
+| Total 4xx Errors | KPI metric | Sum `Invocations4XXError.sum` |
+| Total 5xx Errors | KPI metric | Sum `Invocations5XXError.sum` |
 | Invocations Over Time | Area | Sum `aws.sagemaker.cloudwatch_metrics.Invocations.sum` |
 | Model Latency | Line | Avg `aws.sagemaker.cloudwatch_metrics.ModelLatency.avg` |
 | 4xx / 5xx Errors | Line (2 series) | Sum of `Invocations4XXError.sum` and `Invocations5XXError.sum` |
 | GPU / CPU Utilization | Line (2 series) | Avg of `GPUUtilization.avg` and `CPUUtilization.avg` |
 | Job Outcomes | Donut | Count by `event.outcome` |
 | Events by Job Type | Horizontal bar | Count by `aws.sagemaker.job.type` |
+| Events by Action | Horizontal bar | Count by `event.action` (top 10 actions) |
+| Training Loss & Accuracy | Line (2 series) | Avg `training_loss` and `accuracy` (Training jobs only) |
+| Recent SageMaker Events | Data table | Last 100 events: timestamp, job name, type, action, outcome, duration |
 
 ### How to run
 
@@ -293,6 +308,22 @@ Installing 2 dashboard(s)...
 Installed 2 / 2 dashboard(s).
 Done.
 ```
+
+### Template variables / filter controls
+
+The dashboard JSON format does not include Kibana filter controls (e.g. dropdowns to filter by job name, job type, or region). These must be added manually after import via the Kibana UI:
+
+1. Open the dashboard in Kibana
+2. Click **Controls** in the dashboard toolbar (or **Edit → Add control**)
+3. Add an **Options list** control for any field you want to filter by — common choices:
+   - `aws.glue.job.name` — filter all Glue panels to a single job
+   - `aws.sagemaker.job.type` — filter SageMaker panels to Training / Endpoint / etc.
+   - `event.outcome` — toggle between success and failure views
+   - `cloud.region` — filter by AWS region
+
+Controls are saved as part of the dashboard in Kibana and persist across sessions, but are not exported in the simplified JSON format used by this installer.
+
+---
 
 ### Adding more dashboards
 
