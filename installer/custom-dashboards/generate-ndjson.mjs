@@ -33,14 +33,31 @@ function seededUUID(seed) {
   ].join("-");
 }
 
+// ─── Column type inference ───────────────────────────────────────────────────
+
+/** Returns "date" when `col` is assigned from BUCKET(@timestamp, ...) in the query. */
+function inferXType(col, query) {
+  if (!query) return "string";
+  const re = new RegExp(`\\b${col}\\s*=\\s*BUCKET\\s*\\(\\s*@timestamp`, "i");
+  return re.test(query) ? "date" : "string";
+}
+
+/** Infers ES field type for datatable columns by field name. */
+function inferFieldType(fieldName) {
+  if (fieldName === "@timestamp") return "date";
+  const numericPatterns = /duration|bytes|packets|count|latency|loss|accuracy|epoch|pct|utilization|sum|avg|min|max/i;
+  if (numericPatterns.test(fieldName)) return "number";
+  return "string";
+}
+
 // ─── Lens state builders ─────────────────────────────────────────────────────
 
 function buildPartitionLens(attrs, panelTitle) {
   const { dataset, metrics, group_by = [] } = attrs;
   const layerId = seededUUID(`layer:${panelTitle}:${dataset.query}`);
 
-  const metricCols  = metrics.map(m  => ({ columnId: m.column,  fieldName: m.column  }));
-  const groupCols   = group_by.map(g => ({ columnId: g.column,  fieldName: g.column  }));
+  const metricCols  = metrics.map(m  => ({ columnId: m.column, fieldName: m.column, meta: { type: "number" } }));
+  const groupCols   = group_by.map(g => ({ columnId: g.column, fieldName: g.column, meta: { type: "string" } }));
 
   return {
     title: panelTitle || "",
@@ -93,8 +110,8 @@ function buildXYLens(attrs, panelTitle) {
     const layerId = seededUUID(`layer:${panelTitle}:${i}:${layer.dataset.query}`);
     const { type: seriesType, dataset, x, y } = layer;
 
-    const xCols  = x ? [{ columnId: x.column, fieldName: x.column }] : [];
-    const yCols  = y.map(ref => ({ columnId: ref.column, fieldName: ref.column }));
+    const xCols  = x ? [{ columnId: x.column, fieldName: x.column, meta: { type: inferXType(x.column, dataset.query) } }] : [];
+    const yCols  = y.map(ref => ({ columnId: ref.column, fieldName: ref.column, meta: { type: "number" } }));
 
     dsLayers[layerId] = {
       index:            layerId,
@@ -142,11 +159,92 @@ function buildXYLens(attrs, panelTitle) {
   };
 }
 
+function buildMetricLens(attrs, panelTitle) {
+  const { dataset, metrics } = attrs;
+  const layerId = seededUUID(`layer:${panelTitle}:${dataset.query}`);
+  const col = metrics[0].column;
+
+  return {
+    title: panelTitle || "",
+    description: "",
+    visualizationType: "lnsMetric",
+    type: "lens",
+    references: [],
+    state: {
+      datasourceStates: {
+        textBased: {
+          layers: {
+            [layerId]: {
+              index: layerId,
+              query: { esql: dataset.query },
+              columns: [{ columnId: col, fieldName: col, meta: { type: "number" } }],
+              timeField: "@timestamp",
+              indexPatternRefs: [],
+            },
+          },
+        },
+      },
+      visualization: {
+        layerId,
+        layerType: "data",
+        metricAccessor: col,
+      },
+      query: { query: "", language: "kuery" },
+      filters: [],
+    },
+  };
+}
+
+function buildDatatableLens(attrs, panelTitle) {
+  const { dataset, metrics } = attrs;
+  const layerId = seededUUID(`layer:${panelTitle}:${dataset.query}`);
+
+  const columns = metrics.map(m => ({
+    columnId: m.column,
+    fieldName: m.column,
+    meta: { type: inferFieldType(m.column) },
+  }));
+
+  return {
+    title: panelTitle || "",
+    description: "",
+    visualizationType: "lnsDatatable",
+    type: "lens",
+    references: [],
+    state: {
+      datasourceStates: {
+        textBased: {
+          layers: {
+            [layerId]: {
+              index: layerId,
+              query: { esql: dataset.query },
+              columns,
+              timeField: "@timestamp",
+              indexPatternRefs: [],
+            },
+          },
+        },
+      },
+      visualization: {
+        layerId,
+        layerType: "data",
+        columns: columns.map(c => ({ columnId: c.columnId, isTransposable: false })),
+        rowHeight: "auto",
+        rowHeightLines: 1,
+      },
+      query: { query: "", language: "kuery" },
+      filters: [],
+    },
+  };
+}
+
 function buildLensAttributes(config) {
   const attrs = config.attributes ?? config;
   const title = config.title || "";
-  if (attrs.type === "donut" || attrs.type === "pie") return buildPartitionLens(attrs, title);
+  if (attrs.type === "metric")                         return buildMetricLens(attrs, title);
+  if (attrs.type === "donut" || attrs.type === "pie")  return buildPartitionLens(attrs, title);
   if (attrs.type === "xy")                             return buildXYLens(attrs, title);
+  if (attrs.type === "datatable")                      return buildDatatableLens(attrs, title);
   throw new Error(`Unsupported chart type: ${attrs.type}`);
 }
 

@@ -3,7 +3,11 @@
     "allow": [
       "Bash(node -e \":*)",
       "Read(//Users/robkernutt/Documents/**)",
-      "Bash(xargs -I{} basename {} .svg)"
+      "Bash(xargs -I{} basename {} .svg)",
+      "Bash(node -e \"import\\(''''./package.json'''', {assert:{type:''''json''''}}\\).then\\(m=>console.log\\(''''version:'''', m.default.version\\)\\)\")",
+      "Bash(node -e \"const d = JSON.parse\\(require\\(''fs''\\).readFileSync\\(''installer/custom-dashboards/glue-dashboard.json'',''utf8''\\)\\); console.log\\(''glue panels:'', d.panels.length\\)\")",
+      "Bash(node -e \"const d = JSON.parse\\(require\\(''fs''\\).readFileSync\\(''installer/custom-dashboards/sagemaker-dashboard.json'',''utf8''\\)\\); console.log\\(''sagemaker panels:'', d.panels.length\\)\")",
+      "Bash(node installer/custom-dashboards/generate-ndjson.mjs)"
     ]
   }
 }
