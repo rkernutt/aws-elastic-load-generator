@@ -1,3 +1,24 @@
+/** Elastic three-bar "e" mark */
+export function ElasticMark({ height = 22 }) {
+  return (
+    <svg height={height} viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Elastic">
+      <rect x="0" y="0"    width="30" height="6.5" rx="3"   fill="#FEC514"/>
+      <rect x="0" y="7.75" width="21" height="6.5" rx="3"   fill="#F04E98"/>
+      <rect x="0" y="15.5" width="30" height="6.5" rx="3"   fill="#00BFB3"/>
+    </svg>
+  );
+}
+
+/** AWS smile-arc mark */
+export function AwsMark({ height = 14 }) {
+  return (
+    <svg height={height} viewBox="0 0 52 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Amazon Web Services">
+      <path d="M 2 5 C 16 13 36 13 47 5" stroke="#FF9900" strokeWidth="2.8" fill="none" strokeLinecap="round"/>
+      <polygon points="42,2 50,5 42,8" fill="#FF9900"/>
+    </svg>
+  );
+}
+
 export function PipelineLogo({size=32, light=false}) {
   const endFill = light ? "#1D1E24" : "#1e293b";
   return (

@@ -8,7 +8,7 @@ import { AWS_ICON_BASE, AWS_SERVICE_ICON_MAP } from "./data/iconMap.js";
 import { SERVICE_GROUPS, ALL_SERVICE_IDS } from "./data/serviceGroups.js";
 import { Card, CardHeader, QuickBtn, Field, SliderField, StatCard } from "./components/Card.jsx";
 import { StatusPill } from "./components/StatusPill.jsx";
-import { PipelineLogo } from "./components/Logo.jsx";
+import { ElasticMark, AwsMark } from "./components/Logo.jsx";
 import { validateElasticUrl, validateApiKey, validateIndexPrefix } from "./utils/validation.js";
 import styles from "./App.module.css";
 
@@ -281,8 +281,13 @@ export default function App() {
 
       <header className={styles.header}>
         <div className={styles.headerLeft}>
-          <PipelineLogo size={44} light/>
-          <span className={styles.headerTitle}>AWS → Elastic Load Generator</span>
+          <ElasticMark height={24}/>
+          <span className={styles.headerBrandElastic}>elastic</span>
+          <span className={styles.headerX}>×</span>
+          <span className={styles.headerBrandAws}>AWS</span>
+          <AwsMark height={13}/>
+          <div className={styles.headerRule}/>
+          <span className={styles.headerTitle}>Load Generator</span>
         </div>
         <div className={styles.headerRight}>
           <span className={styles.headerSubdued}>{totalSelected} / {totalServices} services</span>
@@ -377,9 +382,9 @@ export default function App() {
                                 ) : (
                                   <div style={{fontSize:15,marginBottom:4}}>{svc.icon}</div>
                                 )}
-                                <div style={{fontSize:10,fontWeight:700,color:sel?group.color:metricsDisabled?"#94a3b8":"#475569",marginBottom:2}}>{svc.label}</div>
-                                <div style={{fontSize:9,color:metricsDisabled?"#94a3b8":"#64748b",lineHeight:1.3,marginBottom:5}}>{svc.desc}</div>
-                                {metricsDisabled ? <div style={{fontSize:9,color:"#94a3b8",fontWeight:600}}>No metrics</div> : <div style={{fontSize:9,fontWeight:600,color:meta?.color||"#64748b",background:`${meta?.color||"#64748b"}18`,border:`1px solid ${meta?.color||"#64748b"}44`,borderRadius:4,padding:"1px 5px",display:"inline-block"}}>{meta?.label||src}</div>}
+                                <div style={{fontSize:11,fontWeight:700,color:sel?group.color:metricsDisabled?"#94a3b8":"#475569",marginBottom:2}}>{svc.label}</div>
+                                <div style={{fontSize:10,color:metricsDisabled?"#94a3b8":"#64748b",lineHeight:1.3,marginBottom:5}}>{svc.desc}</div>
+                                {metricsDisabled ? <div style={{fontSize:10,color:"#94a3b8",fontWeight:600}}>No metrics</div> : <div style={{fontSize:10,fontWeight:600,color:meta?.color||"#64748b",background:`${meta?.color||"#64748b"}18`,border:`1px solid ${meta?.color||"#64748b"}44`,borderRadius:4,padding:"1px 5px",display:"inline-block"}}>{meta?.label||src}</div>}
                               </button>
                             );
                           })}
@@ -570,8 +575,10 @@ export default function App() {
       </main>
 
       <style dangerouslySetInnerHTML={{__html:`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
         * { box-sizing: border-box; }
+        html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        body { font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1; }
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
         input::placeholder { color: #516381 !important; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }

@@ -229,25 +229,115 @@ function isUnavailable(err) {
     (err.message.includes("not available") || err.message.includes("configuration"));
 }
 
-// ─── Install one dashboard (tries both methods) ───────────────────────────────
+// ─── Version-aware NDJSON patching ───────────────────────────────────────────
 
-async function installOne(client, title, definition, ndjson) {
+/**
+ * Parse a Kibana version string into { major, minor, patch }.
+ * Returns { major: 0, minor: 0, patch: 0 } when the version is unknown.
+ */
+function parseVersion(versionStr) {
+  const [major = 0, minor = 0, patch = 0] = (versionStr ?? "0.0.0")
+    .split(".")
+    .map((n) => parseInt(n, 10) || 0);
+  return { major, minor, patch };
+}
+
+/**
+ * Patch a pre-generated NDJSON saved-object string so that lnsPie (donut/pie)
+ * visualizations include all fields required by the detected Kibana version.
+ *
+ * Known version differences for lnsPie:
+ *   8.0–8.12  baseline — no legendStats, no palette required
+ *   8.13+     layers need legendStats[], truncateLegend, maxLegendLines;
+ *             top-level visualization needs palette
+ *   9.0+      same as 8.13+ plus typeMigrationVersion must be "10.0.0" or
+ *             a recognised 9.x value; using the detected version string is safe
+ *
+ * If the NDJSON cannot be parsed this function returns it unchanged.
+ */
+function patchNdjsonForVersion(ndjsonString, kibanaVersion) {
+  const v = parseVersion(kibanaVersion);
+
+  let obj;
+  try {
+    obj = JSON.parse(ndjsonString);
+  } catch {
+    return ndjsonString;
+  }
+
+  if (!obj.attributes?.panelsJSON) return ndjsonString;
+
+  let panels;
+  try {
+    panels = JSON.parse(obj.attributes.panelsJSON);
+  } catch {
+    return ndjsonString;
+  }
+
+  let changed = false;
+
+  for (const panel of panels) {
+    const attrs = panel.embeddableConfig?.attributes;
+    if (!attrs || attrs.visualizationType !== "lnsPie") continue;
+
+    const viz = attrs.state?.visualization;
+    if (!viz) continue;
+
+    // 8.13+ — palette at visualization level and extra layer fields
+    if (v.major > 8 || (v.major === 8 && v.minor >= 13)) {
+      if (!viz.palette) {
+        viz.palette = { name: "default", type: "palette" };
+        changed = true;
+      }
+      if (Array.isArray(viz.layers)) {
+        for (const layer of viz.layers) {
+          if (!("legendStats"     in layer)) { layer.legendStats     = [];   changed = true; }
+          if (!("truncateLegend"  in layer)) { layer.truncateLegend  = true; changed = true; }
+          if (!("maxLegendLines"  in layer)) { layer.maxLegendLines  = 1;    changed = true; }
+        }
+      }
+    }
+  }
+
+  if (changed) {
+    obj.attributes.panelsJSON = JSON.stringify(panels);
+    // Stamp the typeMigrationVersion so Kibana skips stale migration steps
+    obj.typeMigrationVersion = kibanaVersion;
+  }
+
+  return JSON.stringify(obj);
+}
+
+// ─── Install one dashboard ────────────────────────────────────────────────────
+//
+// Install strategy by Kibana version:
+//
+//   9.4+   Dashboards API first → patched NDJSON import fallback
+//   <9.4   Patched NDJSON import first → Dashboards API fallback
+//   unknown  Dashboards API first → NDJSON import fallback (original behaviour)
+
+async function installOne(client, title, definition, ndjson, kibanaVersion = "") {
   // 1. Check for existing dashboard by title
   const existing = await client.findDashboardByTitle(title);
   if (existing !== null) return { status: "skipped" };
 
-  // 2. Try the Kibana Dashboards API (9.4+)
-  let dashboardsApiUnavailable = false;
-  try {
-    const result = await client.createDashboard(definition);
-    const id = result?.id ?? result?.data?.id ?? "(unknown id)";
-    return { status: "installed", id, via: "Dashboards API" };
-  } catch (err) {
-    if (!isUnavailable(err)) throw err;
-    dashboardsApiUnavailable = true;
+  const v = parseVersion(kibanaVersion);
+  const is94Plus = kibanaVersion && (v.major > 9 || (v.major === 9 && v.minor >= 4));
+  const useNdjsonFirst = !!(ndjson && kibanaVersion && !is94Plus);
+
+  // 2a. Dashboards API — primary for 9.4+ and unknown versions
+  if (!useNdjsonFirst) {
+    try {
+      const result = await client.createDashboard(definition);
+      const id = result?.id ?? result?.data?.id ?? "(unknown id)";
+      return { status: "installed", id, via: "Dashboards API" };
+    } catch (err) {
+      if (!isUnavailable(err)) throw err;
+      // Not available on this deployment — fall through to NDJSON import
+    }
   }
 
-  // 3. Fall back to Saved Objects import
+  // 2b. Patched NDJSON import — primary for <9.4, fallback for 9.4+/unknown
   if (!ndjson) {
     throw new Error(
       "Dashboards API unavailable on this deployment and no pre-generated ndjson found.\n" +
@@ -255,11 +345,13 @@ async function installOne(client, title, definition, ndjson) {
     );
   }
 
-  // Check by ID (works even when _find is unavailable)
   const existingById = await client.getSavedObjectById("dashboard", ndjson.id);
   if (existingById !== null) return { status: "skipped" };
 
-  const result = await client.importSavedObject(ndjson.raw);
+  const patchedRaw = kibanaVersion ? patchNdjsonForVersion(ndjson.raw, kibanaVersion) : ndjson.raw;
+  const wasPatched = patchedRaw !== ndjson.raw;
+
+  const result = await client.importSavedObject(patchedRaw);
   const success =
     result?.success === true ||
     result?.successResults?.some((r) => r.id === ndjson.id);
@@ -269,7 +361,9 @@ async function installOne(client, title, definition, ndjson) {
     throw new Error(`Import returned unexpected result: ${JSON.stringify(errors)}`);
   }
 
-  return { status: "installed", id: ndjson.id, via: "Saved Objects import" };
+  // 2c. If NDJSON was primary (<9.4) and succeeded, we're done.
+  //     If it was the fallback (9.4+/unknown), also done.
+  return { status: "installed", id: ndjson.id, via: "Saved Objects import", patched: wasPatched };
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
@@ -332,11 +426,12 @@ async function main() {
   console.log("\nTesting connection...");
   const client = createKibanaClient(kibanaUrl, apiKey);
 
+  let kibanaVersion = "";
   try {
     const status = await client.testConnection();
-    const version = status?.version?.number ?? "";
+    kibanaVersion = status?.version?.number ?? "";
     const name = status?.name ?? "(unknown)";
-    console.log(`  Connected to Kibana: ${name}${version ? ` (${version})` : ""}`);
+    console.log(`  Connected to Kibana: ${name}${kibanaVersion ? ` (${kibanaVersion})` : ""}`);
   } catch (err) {
     console.error(`  Connection failed: ${err.message}`);
     rl.close();
@@ -410,12 +505,13 @@ async function main() {
 
   for (const { title, definition, ndjson } of selected) {
     try {
-      const outcome = await installOne(client, title, definition, ndjson);
+      const outcome = await installOne(client, title, definition, ndjson, kibanaVersion);
       if (outcome.status === "skipped") {
         console.log(`  ✓ "${title}" — already installed, skipping`);
         skippedCount++;
       } else {
-        console.log(`  ✓ "${title}" — installed via ${outcome.via} (id: ${outcome.id})`);
+        const patchNote = outcome.patched ? ` [patched for Kibana ${kibanaVersion}]` : "";
+        console.log(`  ✓ "${title}" — installed via ${outcome.via} (id: ${outcome.id})${patchNote}`);
         installedCount++;
       }
     } catch (err) {
