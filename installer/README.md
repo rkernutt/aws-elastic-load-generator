@@ -282,10 +282,12 @@ the `logs-aws.*` data streams written by the app.
 
 ### Dashboards included
 
-| File | Title | Panels |
-|------|-------|--------|
-| `glue-dashboard.json` | AWS Glue — Jobs & Performance | 15 panels |
-| `sagemaker-dashboard.json` | AWS SageMaker — Endpoints & Training | 13 panels |
+| File | Title | Panels | Index pattern |
+|------|-------|--------|---------------|
+| `glue-dashboard.json` | AWS Glue — Jobs & Performance | 15 panels | `logs-aws.glue*` |
+| `sagemaker-dashboard.json` | AWS SageMaker — Endpoints & Training | 13 panels | `logs-aws.sagemaker*` |
+| `emr-dashboard.json` | AWS EMR — Clusters & Job Performance | 15 panels | `logs-aws.emr*` |
+| `athena-dashboard.json` | AWS Athena — Query Performance & Cost | 15 panels | `logs-aws.athena*` |
 
 #### AWS Glue — Jobs & Performance
 
@@ -324,6 +326,46 @@ the `logs-aws.*` data streams written by the app.
 | Events by Action | Horizontal bar | Count by `event.action` (top 10 actions) |
 | Training Loss & Accuracy | Line (2 series) | Avg `training_loss` and `accuracy` (Training jobs only) |
 | Recent SageMaker Events | Data table | Last 100 events: timestamp, job name, type, action, outcome, duration |
+
+#### AWS EMR — Clusters & Job Performance
+
+| Panel | Type | Metric |
+|-------|------|--------|
+| Total Jobs | KPI metric | Count of all events |
+| Success Rate % | KPI metric | % of events with `event.outcome` = success |
+| Avg Duration (s) | KPI metric | Avg `event.duration` in seconds |
+| Failed Jobs | KPI metric | Count where `event.outcome` = failure |
+| Job Outcomes | Donut | Count by `event.outcome` (success / failure) |
+| Jobs by Application | Donut | Count by `aws.emr.application` (Spark, Hive, Flink, etc.) |
+| Jobs by Run State | Donut | Count by `aws.emr.job.run_state` (SUCCEEDED / FAILED / RUNNING / WAITING) |
+| Job Runs Over Time | Line | Count of job events over time |
+| Avg HDFS Utilisation % | Line | Avg `aws.emr.metrics.hdfs_utilization_pct` |
+| Avg YARN Memory Used (MB) | Line | Avg `aws.emr.metrics.yarn_memory_used_mb` |
+| JVM Heap Usage (0–1) | Line | Avg `aws.emr.metrics.jvm_heap_usage` |
+| Avg Executor Count | Line | Avg `aws.emr.metrics.executor_count` |
+| Avg GC Time (ms) | Line | Avg `aws.emr.metrics.gc_time_ms` |
+| Completed vs Failed Tasks | Stacked bar | Sum of `numCompletedTasks` and `numFailedTasks` over time |
+| Recent Job Runs | Data table | Last 100 events: timestamp, cluster, application, job name, run state, outcome, duration |
+
+#### AWS Athena — Query Performance & Cost
+
+| Panel | Type | Metric |
+|-------|------|--------|
+| Total Queries | KPI metric | Count of all events |
+| Success Rate % | KPI metric | % of events with `event.outcome` = success |
+| Avg Duration (s) | KPI metric | Avg `event.duration` in seconds |
+| Total Scanned (GB) | KPI metric | Sum `aws.athena.data_scanned_bytes` converted to GB |
+| Query Outcomes | Donut | Count by `event.outcome` (success / failure) |
+| Queries by Workgroup | Donut | Count by `aws.athena.workgroup` |
+| Queries by Database | Donut | Count by `aws.athena.database` |
+| Query Volume Over Time | Line | Count of query events over time |
+| Avg Engine Execution Time (ms) | Line | Avg `aws.athena.metrics.EngineExecutionTimeInMillis.avg` |
+| Avg Query Queue Time (ms) | Line | Avg `aws.athena.metrics.QueryQueueTimeInMillis.avg` |
+| Avg Query Planning Time (ms) | Line | Avg `aws.athena.metrics.QueryPlanningTimeInMillis.avg` |
+| Data Scanned by Workgroup (GB) | Horizontal bar | Sum `aws.athena.data_scanned_bytes` / 1 GB, grouped by workgroup |
+| Top Error Codes | Horizontal bar | Count of failures by `aws.athena.error_code` (top 10) |
+| Engine Version Split | Donut | Count by `aws.athena.engine_version` |
+| Recent Queries | Data table | Last 100 events: timestamp, workgroup, database, state, duration, scanned MB, error code |
 
 ### How to run
 
@@ -373,17 +415,21 @@ Available dashboards:
 
   1. AWS Glue — Jobs & Performance
   2. AWS SageMaker — Endpoints & Training
-  3. all  (install every dashboard)
+  3. AWS EMR — Clusters & Job Performance
+  4. AWS Athena — Query Performance & Cost
+  5. all  (install every dashboard)
 
 Enter number(s) comma-separated, or "all":
 > all
 
-Installing 2 dashboard(s)...
+Installing 4 dashboard(s)...
 
   ✓ "AWS Glue — Jobs & Performance" — installed (id: a1b2c3d4-...)
   ✓ "AWS SageMaker — Endpoints & Training" — installed (id: e5f6g7h8-...)
+  ✓ "AWS EMR — Clusters & Job Performance" — installed (id: c3d4e5f6-...)
+  ✓ "AWS Athena — Query Performance & Cost" — installed (id: f7e8d9c0-...)
 
-Installed 2 / 2 dashboard(s).
+Installed 4 / 4 dashboard(s).
 Done.
 ```
 
@@ -396,6 +442,10 @@ The dashboard JSON format does not include Kibana filter controls (e.g. dropdown
 3. Add an **Options list** control for any field you want to filter by — common choices:
    - `aws.glue.job.name` — filter all Glue panels to a single job
    - `aws.sagemaker.job.type` — filter SageMaker panels to Training / Endpoint / etc.
+   - `aws.emr.application` — filter EMR panels to a specific framework (Spark, Hive, etc.)
+   - `aws.emr.job.name` — filter EMR panels to a single job pipeline
+   - `aws.athena.workgroup` — filter Athena panels to a specific workgroup
+   - `aws.athena.database` — filter Athena panels to a specific database
    - `event.outcome` — toggle between success and failure views
    - `cloud.region` — filter by AWS region
 
