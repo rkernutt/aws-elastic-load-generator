@@ -194,7 +194,7 @@ function generateSnsLog(ts, er) {
   const topic = rand(["order-notifications","user-alerts","system-events","security-alarms","deployment-events"]);
   const protocol = rand(["email","sqs","lambda","http","sms"]);
   const published = randInt(1, 10000);
-  const delivered = isErr ? randInt(0, Math.max(0, published - 100)) : published;
+  const delivered = isErr ? randInt(0, Math.floor(published * 0.9)) : published;
   const failed = published - delivered;
   const deliveryLatencyMs = parseFloat(randFloat(5, isErr ? 30000 : 500));
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"sns"}},
@@ -268,6 +268,7 @@ function generateAmazonMqLog(ts, er) {
 function generateEventBridgeLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const isErr = Math.random() < er;
+  const targetsInvoked = randInt(1, 5);
   const rule = rand(["order-created-rule","user-signup-trigger","scheduled-cleanup","cost-alert-rule","security-event-forwarder"]);
   const source = rand(["aws.ec2","aws.s3","custom.app","aws.health","com.partner.events"]);
   const eventBus = rand(["default","custom-events","app-events"]);
@@ -283,7 +284,8 @@ function generateEventBridgeLog(ts, er) {
       eventbridge: {
         event_bus: eventBus, rule, source,
         detail_type: rand(["EC2 Instance State-change Notification","Object Created","Order Placed","Health Event"]),
-        targets_invoked: randInt(1,5), targets_failed: isErr?randInt(1,3):0,
+        targets_invoked: targetsInvoked,
+        targets_failed: isErr ? randInt(1, Math.min(3, targetsInvoked)) : 0,
         event_id: eventId,
         structured_logging: useStructuredLogging,
         metrics: {

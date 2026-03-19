@@ -27,8 +27,9 @@ function generateAlbLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const method = rand(HTTP_METHODS); const path = rand(HTTP_PATHS);
   const isErr = Math.random() < er; const status = isErr ? rand([400,403,404,500,502,503,504]) : rand([200,200,200,201,204,301]);
-  const reqProc = parseFloat(randFloat(0.001, isErr?2:0.5));
-  const backendProc = parseFloat(randFloat(0.01, isErr?30:2));
+  const is5xx = status >= 500;
+  const reqProc = parseFloat(randFloat(0.001, is5xx?2:isErr?0.5:0.2));
+  const backendProc = parseFloat(randFloat(0.01, is5xx?30:isErr?3:2));
   const respProc = parseFloat(randFloat(0.001, 0.1));
   const lbName = `app/prod-alb-${region}/${randId(16).toLowerCase()}`;
   const tgArn = `arn:aws:elasticloadbalancing:${region}:${acct.id}:targetgroup/tg-${rand(["web","api","admin"])}/${randId(16).toLowerCase()}`;
@@ -163,7 +164,7 @@ function generateCloudFrontLog(ts, er) {
 
 function generateWafLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
-  const isBlock = Math.random() < (er + 0.2);
+  const isBlock = Math.random() < er;
   const rules = ["AWSManagedRulesCommonRuleSet","AWSManagedRulesKnownBadInputsRuleSet","AWSManagedRulesSQLiRuleSet","AWSManagedRulesLinuxRuleSet","AWSManagedRulesUnixRuleSet","AWSManagedRulesWindowsRuleSet","AWSManagedRulesPHPRuleSet","AWSManagedRulesWordPressRuleSet","IPRateBasedRule","GeoBlockRule","CustomSQLiRule"];
   const rule = rand(rules); const webAclName = rand(["prod-waf","api-waf","admin-waf"]);
   const webAclId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase();
@@ -300,7 +301,7 @@ function generateRoute53Log(ts, er) {
 
 function generateNetworkFirewallLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
-  const action = Math.random() < (er + 0.15) ? "DROP" : "PASS"; const proto = rand([6,17,1]);
+  const action = Math.random() < er ? "DROP" : "PASS"; const proto = rand([6,17,1]);
   const fwName = `fw-${region}`;
   const az = `${region}${rand(["a","b","c"])}`;
   const srcIp = randIp(); const dstIp = randIp();
@@ -492,8 +493,8 @@ function generateNatGatewayLog(ts, er) {
   const privateIp = `10.${randInt(0,255)}.${randInt(0,255)}.${randInt(1,254)}`;
   const publicIp = randIp();
   const destIp = randIp();
-  const bytes = randInt(100, 1500000);
   const packets = randInt(1, 1000);
+  const bytes = packets * randInt(64, 1500);
   const port = rand([80, 443, 8080, 3306, 5432, 6379, 27017]);
   const protocol = rand(["TCP","UDP"]);
   const action = isErr ? rand(["REJECT","ERROR"]) : "ACCEPT";
@@ -507,14 +508,14 @@ function generateNatGatewayLog(ts, er) {
         id: natId,
         private_ip: privateIp,
         public_ip: publicIp,
-        bytes_in_from_destination: Math.floor(bytes * 0.3),
-        bytes_in_from_source: Math.floor(bytes * 0.7),
+        bytes_in_from_source: bytes,
         bytes_out_to_destination: bytes,
-        bytes_out_to_source: Math.floor(bytes * 0.4),
-        packets_in_from_destination: Math.floor(packets * 0.3),
-        packets_in_from_source: Math.floor(packets * 0.7),
+        bytes_in_from_destination: Math.floor(bytes * randFloat(0.5, 1.5)),
+        bytes_out_to_source: Math.floor(bytes * randFloat(0.5, 1.5)),
+        packets_in_from_source: packets,
         packets_out_to_destination: packets,
-        packets_out_to_source: Math.floor(packets * 0.4),
+        packets_in_from_destination: Math.floor(packets * randFloat(0.5, 1.5)),
+        packets_out_to_source: Math.floor(packets * randFloat(0.5, 1.5)),
         connection_attempt_count: isErr ? randInt(1,20) : 0,
         connection_established_count: isErr ? 0 : randInt(1,50),
         error_port_allocation: isErr && status === "port-allocation-error" ? randInt(1,100) : 0,
@@ -549,7 +550,7 @@ function generateNatGatewayLog(ts, er) {
 function generateVpcFlowLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const action = Math.random() < er ? "REJECT" : "ACCEPT";
-  const proto = rand([6,6,6,17,1]); const bytes = randInt(40,65535); const pkts = randInt(1,100);
+  const proto = rand([6,6,6,17,1]); const pkts = randInt(1,100); const bytes = pkts * randInt(40,1500);
   const src = randIp(); const dst = randIp(); const dstPort = rand([22,80,443,3306,5432,6379,8080,8443]);
   const srcPort = randInt(1024,65535);
   const srcGeo = rand(GEO_LOCATIONS); const dstGeo = rand(GEO_LOCATIONS);

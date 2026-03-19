@@ -70,12 +70,15 @@ function generateCloudWatchAlarmsLog(ts, er) {
   const metric = rand(["CPUUtilization","DatabaseConnections","Duration","MemoryUtilization","RequestCount","QueueDepth"]);
   const alarmName = rand(["high-cpu-alarm","rds-connections","lambda-errors","ecs-memory","api-latency"]);
   const alarmState = isErr ? rand(["ALARM","INSUFFICIENT_DATA"]) : rand(["OK","OK","ALARM"]);
-  const val = parseFloat(randFloat(0, isErr?100:80));
+  const threshold = rand([80,85,90,95]);
+  const val = alarmState === "ALARM"
+    ? parseFloat(randFloat(threshold, 100))
+    : parseFloat(randFloat(0, threshold - 1));
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"cloudwatchalarms"}},
     "aws":{cloudwatch:{alarm_name:alarmName,alarm_state:alarmState,
       previous_state:rand(["OK","ALARM","INSUFFICIENT_DATA"]),
       namespace:ns,metric_name:metric,
-      threshold:rand([80,85,90,95]),evaluation_periods:rand([1,2,3]),
+      threshold,evaluation_periods:rand([1,2,3]),
       metric_value:val,statistic:rand(["Average","Maximum","Sum","p99"]),
       period_seconds:rand([60,300,3600]),
       treat_missing_data:rand(["missing","notBreaching","breaching"])}},
@@ -204,7 +207,7 @@ function generateBudgetsLog(ts, er) {
   const budgetType = rand(["COST","USAGE","RI_UTILIZATION","RI_COVERAGE","SAVINGS_PLANS_UTILIZATION"]);
   const limit = parseFloat(randFloat(100,10000)); const actual = isErr ? limit*(1+parseFloat(randFloat(0.05,0.5))) : limit*parseFloat(randFloat(0.3,0.95));
   const threshold = isErr?rand([80,90,100]):rand([50,60,70]);
-  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"budgets"}},"aws":{budgets:{budget_name:budget,budget_type:budgetType,time_period:rand(["MONTHLY","QUARTERLY","ANNUALLY"]),currency:"USD",budget_limit:parseFloat(limit.toFixed(2)),actual_spend:parseFloat(actual.toFixed(2)),forecasted_spend:parseFloat((actual*1.15).toFixed(2)),threshold_exceeded:isErr,threshold_percentage:threshold,notification_type:rand(["ACTUAL","FORECASTED"]),subscribers:rand(["ops@company.com","finance@company.com"])}},"event":{outcome:isErr?"failure":"success",category:["configuration","process"],dataset:"aws.budgets",provider:"budgets.amazonaws.com",duration:randInt(1,30)*1e9},"message":isErr?`Budget ALERT: ${budget} exceeded ${threshold}% — ${actual.toFixed(0)} of ${limit.toFixed(0)}`:`Budget OK: ${budget} at ${actual.toFixed(0)}/${limit.toFixed(0)} (${Math.round(actual/limit*100)}%)`,"log":{level:isErr?"warn":"info"},...(isErr?{error:{code:"BudgetExceeded",message:"Budget threshold exceeded",type:"billing"}}:{}) };
+  return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"budgets"}},"aws":{budgets:{budget_name:budget,budget_type:budgetType,time_period:rand(["MONTHLY","QUARTERLY","ANNUALLY"]),currency:"USD",budget_limit:parseFloat(limit.toFixed(2)),actual_spend:parseFloat(actual.toFixed(2)),forecasted_spend:parseFloat((actual*parseFloat(randFloat(0.9,1.4))).toFixed(2)),threshold_exceeded:isErr,threshold_percentage:threshold,notification_type:rand(["ACTUAL","FORECASTED"]),subscribers:rand(["ops@company.com","finance@company.com"])}},"event":{outcome:isErr?"failure":"success",category:["configuration","process"],dataset:"aws.budgets",provider:"budgets.amazonaws.com",duration:randInt(1,30)*1e9},"message":isErr?`Budget ALERT: ${budget} exceeded ${threshold}% — ${actual.toFixed(0)} of ${limit.toFixed(0)}`:`Budget OK: ${budget} at ${actual.toFixed(0)}/${limit.toFixed(0)} (${Math.round(actual/limit*100)}%)`,"log":{level:isErr?"warn":"info"},...(isErr?{error:{code:"BudgetExceeded",message:"Budget threshold exceeded",type:"billing"}}:{}) };
 }
 
 function generateBillingLog(ts, er) {
@@ -260,6 +263,7 @@ function generateDmsLog(ts, er) {
       metrics:{
         FullLoadThroughputRowsSource:{ avg:randInt(100,100000) },
         FullLoadThroughputRowsTarget:{ avg:randInt(100,100000) },
+        ...(migrationType.includes("cdc") ? {
         CDCIncomingChanges:{ avg:randInt(0,10000) },
         CDCChangesMemorySource:{ avg:randInt(0,1000) },
         CDCChangesMemoryTarget:{ avg:randInt(0,1000) },
@@ -267,6 +271,7 @@ function generateDmsLog(ts, er) {
         CDCChangesDiskTarget:{ avg:randInt(0,100) },
         CDCLatencySource:{ avg:randInt(0,isErr?60:5) },
         CDCLatencyTarget:{ avg:randInt(0,isErr?120:10) },
+        } : {}),
         CPUUtilization:{ avg:randFloat(5,isErr?90:50) },
         FreeableMemory:{ avg:randInt(1e8,8e9) },
         FreeStorageSpace:{ avg:randInt(1e9,100e9) },

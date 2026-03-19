@@ -286,7 +286,7 @@ function generateDataSyncLog(ts, er) {
   const src = rand(["nfs://on-prem-server/data","s3://source-bucket","smb://file-server/share"]);
   const dst = rand(["s3://prod-backup","efs://fs-prod/backup","s3://archive-bucket"]);
   const filesXfr = isErr?0:randInt(100,1000000);
-  const durationSec = randInt(60, isErr?7200:3600);
+  const durationSec = randInt(10, isErr?600:3600);
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"datasync"}},
     "aws":{datasync:{task_arn:`arn:aws:datasync:${region}:${acct.id}:task/task-${randId(17).toLowerCase()}`,
       source_location_uri:src,destination_location_uri:dst,
@@ -335,6 +335,8 @@ function generateStorageGatewayLog(ts, er) {
     info:["File uploaded to S3 successfully","Gateway activated","Cache refreshed","Volume snapshot complete"],
   };
   const level = isErr ? "error" : Math.random() < 0.1 ? "warn" : "info";
+  const cacheHitPct = parseFloat(randFloat(60, 99));
+  const cacheMissPct = parseFloat((100 - cacheHitPct).toFixed(2));
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"storagegateway"}},
     "aws":{
       dimensions:{ GatewayId:gwId, GatewayName:gwName },
@@ -345,8 +347,8 @@ function generateStorageGatewayLog(ts, er) {
       upload_buffer_used_percent:isErr?randInt(85,100):randInt(5,60),
       cloud_bytes_uploaded:randInt(0,1e9),
       metrics:{
-        "CacheHit.Percent":{ avg:parseFloat(randFloat(60,99)) },
-        "CacheMiss.Percent":{ avg:parseFloat(randFloat(1,40)) },
+        "CacheHit.Percent":{ avg: cacheHitPct },
+        "CacheMiss.Percent":{ avg: cacheMissPct },
         "CacheUsed.Percent":{ avg:parseFloat(randFloat(10,90)) },
         CloudBytesDownloaded:{ sum:randInt(1000,1e9) },
         CloudBytesUploaded:{ sum:randInt(1000,1e9) },

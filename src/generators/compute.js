@@ -5,6 +5,8 @@ function generateEc2Log(ts, er) {
   const level = Math.random() < er ? "error" : Math.random() < 0.1 ? "warn" : "info";
   const instanceId = `i-${randId(17).toLowerCase()}`;
   const instanceType = rand(["t3.medium","m5.xlarge","c5.2xlarge","r5.large"]);
+  const CPU_CORES = { "t3.medium": 2, "m5.xlarge": 4, "c5.2xlarge": 8, "r5.large": 2 };
+  const cpuCores = CPU_CORES[instanceType];
   const MSGS = { error:["kernel: EXT4-fs error (device xvda1): ext4_validate_block_bitmap: bg 0: bad block bitmap checksum","systemd: Failed to start Amazon SSM Agent.","kernel: Out of memory: Killed process","sshd: error: Could not load host key","Failed to start NetworkManager","disk I/O error on /dev/xvda1"],warn:["CPU steal time above threshold: 23%","High disk utilization: 88% full","Memory available below 512MB","SSH login from unknown IP"],info:["cloud-init: Cloud-init v. 22.2.2 running 'init-local'","systemd: Started Amazon SSM Agent.","kernel: [    0.000000] Linux version 5.10.68-62.173.amzn2.x86_64","sshd: Accepted publickey for ec2-user","cloud-init: modules done","awslogs: Starting daemon"] };
   const EC2_ERROR_CODES = ["InsufficientInstanceCapacity","InstanceNotFound","InvalidParameterValue","AuthFailure","UnauthorizedOperation","InvalidInstanceID.NotFound","InsufficientAddressCapacity","InvalidAMIID.NotFound","InvalidKeyPair.NotFound"];
   const isErr = level === "error";
@@ -24,7 +26,7 @@ function generateEc2Log(ts, er) {
           image: { id: `ami-${randId(8).toLowerCase()}` },
           state: { name: isErr ? rand(["stopping","stopped"]) : "running", code: isErr ? 64 : 16 },
           monitoring: { state: rand(["disabled","enabled"]) },
-          core: { count: rand([1,2,4,8,16,32]) },
+          core: { count: cpuCores },
           threads_per_core: 2,
           private: { ip: randIp(), dns_name: `ip-${randIp().replace(/\./g,"-")}.${rand(REGIONS)}.compute.internal` },
           public: { ip: randIp(), dns_name: `ec2-${randIp().replace(/\./g,"-")}.compute-1.amazonaws.com` },
@@ -49,7 +51,7 @@ function generateEc2Log(ts, er) {
         }
       }
     },
-    "host": { hostname:`ip-${randIp().replace(/\./g,"-")}`, os:{ type:"linux", kernel:`5.10.${randInt(100,230)}-${randInt(1,200)}.amzn2.x86_64`, version:rand(["2","2023"]) }, architecture:rand(["x86_64","arm64"]), cpu:{ count:rand([2,4,8,16,32,64]) } },
+    "host": { hostname:`ip-${randIp().replace(/\./g,"-")}`, os:{ type:"linux", kernel:`5.10.${randInt(100,230)}-${randInt(1,200)}.amzn2.x86_64`, version:rand(["2","2023"]) }, architecture:rand(["x86_64","arm64"]), cpu:{ count: cpuCores * 2 } },
     "log": { level },
     "event": { category:["host","process"], type:eventType, outcome:isErr?"failure":"success", dataset:"aws.ec2", provider:"ec2.amazonaws.com", duration:durationSec * 1e9 },
     "message": message,
@@ -64,7 +66,8 @@ function generateEcsLog(ts, er) {
   const level = Math.random() < er ? "error" : Math.random() < 0.15 ? "warn" : "info";
   const isErr = level === "error";
   const cpuPct = parseFloat(randFloat(1, isErr?99:70));
-  const memPct = parseFloat(randFloat(10, isErr?99:80));
+  const memReservation = parseFloat(randFloat(20, 70));
+  const memPct = parseFloat(randFloat(10, Math.min(memReservation, isErr ? 99 : 80)));
   const MSGS = { error:["Container exited with code 1","OOMKilled","Health check failed","Failed to pull image"],warn:["High memory: 85%","Slow response","Retry 2/3","Connection pool exhausted"],info:["Task started","Health check passed","Request processed","Scaling event triggered"] };
   const ECS_ERROR_CODES = ["ClusterContainsContainerInstances","ClusterContainsServices","ClusterContainsTasks","ClusterNotFoundException","InvalidParameterException","MissingVersionException","NoUpdateAvailableException","PlatformTaskDefinitionIncompatibilityException","PlatformUnknownException","ResourceNotFoundException","ServiceNotActiveException","ServiceNotFoundException","TaskDefinitionFamilyExistsException","UnsupportedFeatureException","UpdateInProgressException"];
   const durationSec = randInt(5, isErr ? 300 : 3600);
@@ -82,7 +85,7 @@ function generateEcsLog(ts, er) {
           CPUUtilization: { avg: cpuPct },
           CPUReservation: { avg: parseFloat(randFloat(10, 80)) },
           MemoryUtilization: { avg: memPct },
-          MemoryReservation: { avg: parseFloat(randFloat(20, 70)) },
+          MemoryReservation: { avg: memReservation },
           GPUReservation: { avg: 0 },
         }
       }
@@ -199,6 +202,14 @@ function generateBeanstalkLog(ts, er) {
   const MSGS = { error:["ERROR: Failed to deploy application version","ENV_ERROR: Deployment failed, rolling back","Application version rejected: validation failed"],warn:["WARN: Enhanced health reporting: Warning","CPU utilization above 75%","Response time above 3s threshold"],info:["Deployment completed successfully","Environment health: OK","Auto Scaling event: +2 instances","Rolling update complete"] };
   const BEANSTALK_ERROR_CODES = ["DeploymentFailed","Rollback","ValidationFailed"];
   const durationSec = randInt(5, isErr ? 600 : 120);
+  const latP10 = parseFloat(randFloat(1, 30));
+  const latP50 = parseFloat(randFloat(latP10 * 1.2, latP10 * 4));
+  const latP75 = parseFloat(randFloat(latP50 * 1.1, latP50 * 2));
+  const latP85 = parseFloat(randFloat(latP75 * 1.05, latP75 * 1.5));
+  const latP90 = parseFloat(randFloat(latP85 * 1.05, latP85 * 1.5));
+  const latP95 = parseFloat(randFloat(latP90 * 1.1, latP90 * 2));
+  const latP99 = parseFloat(randFloat(latP95 * 1.2, latP95 * 3));
+  const latP999 = parseFloat(randFloat(latP99 * 1.1, latP99 * 2));
   const plainMessage = rand(isErr?MSGS.error:status>=400?MSGS.warn:MSGS.info);
   const useStructuredLogging = Math.random() < 0.55;
   const message = useStructuredLogging ? JSON.stringify({ application: app, environment: env, status, message: plainMessage, timestamp: new Date(ts).toISOString() }) : plainMessage;
@@ -217,14 +228,14 @@ function generateBeanstalkLog(ts, er) {
           ApplicationRequests3xx: { sum: status>=300&&status<400?1:0 },
           ApplicationRequests4xx: { sum: status>=400&&status<500?1:0 },
           ApplicationRequests5xx: { sum: status>=500?1:0 },
-          ApplicationLatencyP10: { avg: randFloat(1, 50) },
-          ApplicationLatencyP50: { avg: randFloat(5, 100) },
-          ApplicationLatencyP75: { avg: randFloat(10, 200) },
-          ApplicationLatencyP85: { avg: randFloat(15, 300) },
-          ApplicationLatencyP90: { avg: randFloat(20, 500) },
-          ApplicationLatencyP95: { avg: randFloat(30, 800) },
-          ApplicationLatencyP99: { avg: randFloat(50, 2000) },
-          "ApplicationLatencyP99.9": { avg: randFloat(100, 5000) },
+          ApplicationLatencyP10: { avg: latP10 },
+          ApplicationLatencyP50: { avg: latP50 },
+          ApplicationLatencyP75: { avg: latP75 },
+          ApplicationLatencyP85: { avg: latP85 },
+          ApplicationLatencyP90: { avg: latP90 },
+          ApplicationLatencyP95: { avg: latP95 },
+          ApplicationLatencyP99: { avg: latP99 },
+          "ApplicationLatencyP99.9": { avg: latP999 },
           ApplicationRequests: { sum: 1 },
           InstancesSevere: { avg: isErr?randInt(1,3):0 },
           InstancesDegraded: { avg: isErr?randInt(1,5):0 },
@@ -249,7 +260,12 @@ function generateEcrLog(ts, er) {
   const action = rand(["push","pull","pull","pull","scan","delete"]);
   const SCAN_SEVS = ["CRITICAL","HIGH","MEDIUM"];
   const ECR_ERROR_CODES = ["ScanFindings","ImageNotFound","AccessDenied","RateLimitExceeded"];
-  const errMsg = isErr ? `ECR scan: ${repo}:${tag} found ${randInt(1,30)} vulnerabilities [${rand(SCAN_SEVS)}]` : null;
+  const findingCount = isErr ? randInt(1, 30) : 0;
+  let sevRem = findingCount;
+  const sevCritical = isErr ? randInt(0, Math.min(sevRem, 5)) : 0; sevRem -= sevCritical;
+  const sevHigh = isErr ? randInt(0, Math.min(sevRem, 10)) : 0; sevRem -= sevHigh;
+  const sevMedium = isErr ? sevRem : 0;
+  const errMsg = isErr ? `ECR scan: ${repo}:${tag} found ${findingCount} vulnerabilities [${rand(SCAN_SEVS)}]` : null;
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"ecr"}},
     "aws":{
       dimensions: { RepositoryName:repo, RegistryId:`${acct.id}` },
@@ -259,7 +275,7 @@ function generateEcrLog(ts, er) {
         pushed_by:rand(["codebuild","github-actions","developer","ci-pipeline"]),
         scan_status:isErr?"COMPLETE_WITH_FINDINGS":action==="scan"?"COMPLETE":"NOT_STARTED",
         finding_severity:isErr?rand(SCAN_SEVS):null,
-        finding_count:isErr?randInt(1,30):0,
+        finding_count:findingCount,
         vulnerability_scan_enabled:true,
         metrics:{
           ImageCount: { avg: randInt(1, 1000) },
@@ -267,9 +283,9 @@ function generateEcrLog(ts, er) {
           LifecyclePolicyRuleEvaluationCount: { sum: Math.random()>0.9?randInt(1,100):0 },
           PullCount: { sum: action==="pull"?randInt(1,1000):0 },
           PushCount: { sum: action==="push"?1:0 },
-          ScanFindingsSeverityCritical: { sum: isErr?randInt(0,10):0 },
-          ScanFindingsSeverityHigh: { sum: isErr?randInt(0,20):0 },
-          ScanFindingsSeverityMedium: { sum: randInt(0,50) },
+          ScanFindingsSeverityCritical: { sum: sevCritical },
+          ScanFindingsSeverityHigh: { sum: sevHigh },
+          ScanFindingsSeverityMedium: { sum: sevMedium },
           ScanFindingsSeverityLow: { sum: randInt(0,100) },
           ScanFindingsSeverityInformational: { sum: randInt(0,200) },
         }}},
@@ -290,11 +306,13 @@ function generateAutoScalingLog(ts, er) {
   const errMsg = isErr ? `AutoScaling ${asg}: ${action} FAILED - ${rand(failReasons)}` : null;
   const ASG_ERROR_CODES = ["InsufficientCapacity","LaunchTemplateError","VpcLimitExceeded"];
   const desired = randInt(2, 20);
-  const inService = isErr ? Math.max(0, desired - randInt(1, 3)) : desired;
   const activityDurationSec = randInt(30, 600);
-  const standby = randInt(0, 2);
-  const terminating = action==="Terminate" ? randInt(1, 3) : 0;
-  const pending = isErr ? randInt(1, 5) : 0;
+  const terminating = action === "Terminate" ? randInt(1, Math.min(3, desired)) : 0;
+  const remaining = desired - terminating;
+  const standby = randInt(0, Math.min(2, remaining));
+  const pendingSlots = remaining - standby;
+  const pending = isErr ? randInt(1, Math.max(1, Math.min(3, pendingSlots))) : 0;
+  const inService = pendingSlots - pending;
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"autoscaling"}},
     "aws":{
       dimensions: { AutoScalingGroupName:asg },

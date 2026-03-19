@@ -40,7 +40,10 @@ function generateSageMakerLog(ts, er) {
   const message = useStudioLogging
     ? JSON.stringify({ domainId, space: spaceName, appType, user, level: level.toUpperCase(), message: plainMessage, timestamp: new Date(ts).toISOString(), event: action })
     : plainMessage;
-  const trainingMetrics = { training_loss: parseFloat((Math.random() * 0.8 + 0.05).toFixed(4)), accuracy: parseFloat((Math.random() * 0.3 + 0.7).toFixed(4)), epoch: randInt(1, 100), gpu_utilization_pct: randInt(40, 99), cpu_utilization_pct: randInt(30, 90) };
+  const isTrainingJob = jobType === "Training" || jobType === "HyperparameterTuning";
+  const trainingMetrics = isTrainingJob
+    ? { training_loss: parseFloat((Math.random() * 0.8 + 0.05).toFixed(4)), accuracy: parseFloat((Math.random() * 0.3 + 0.7).toFixed(4)), epoch: randInt(1, 100), gpu_utilization_pct: randInt(40, 99), cpu_utilization_pct: randInt(30, 90) }
+    : { gpu_utilization_pct: randInt(10, 80), cpu_utilization_pct: randInt(20, 75) };
   const invocations = randInt(1, 5000);
   const modelLatencyMs = randInt(5, isErr ? 5000 : 200);
   const gpuUtil = randInt(40, isErr ? 99 : 85);
@@ -206,7 +209,7 @@ function generateTextractLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const op = rand(["AnalyzeDocument","DetectDocumentText","StartDocumentAnalysis","GetDocumentAnalysis","StartExpenseAnalysis","GetExpenseAnalysis"]);
   const docType = rand(["invoice","tax-form","id-card","contract","receipt","bank-statement"]);
-  const pages = randInt(1, isErr?0:50);
+  const pages = isErr ? 0 : randInt(1, 50);
   const level = isErr ? "error" : "info";
   return {
     "@timestamp": ts,
@@ -393,7 +396,7 @@ function generateTranscribeLog(ts, er) {
 function generatePollyLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const voice = rand(["Joanna","Matthew","Amy","Brian","Celine","Hans","Mizuki","Lupe"]);
-  const chars = randInt(50, isErr?0:100000);
+  const chars = isErr ? 0 : randInt(50, 100000);
   const engine = rand(["standard","neural","long-form"]);
   const pollyOp = rand(["SynthesizeSpeech","StartSpeechSynthesisTask","GetSpeechSynthesisTask","ListSpeechSynthesisTasks"]);
   return {
@@ -446,7 +449,7 @@ function generateForecastLog(ts, er) {
         action,
         algorithm: rand(["AutoML","CNN-QR","DeepAR+","NPTS","Prophet","ETS"]),
         forecast_horizon: rand([7,14,30,60,90]),
-        weighted_quantile_loss: isErr ? null : parseFloat(randFloat(0.05,0.25)),
+        weighted_quantile_loss: isErr ? null : wql,
         duration_seconds: dur,
         status: isErr ? "FAILED" : "ACTIVE",
         error_message: isErr ? rand(["Insufficient training data","AutoML timed out","Invalid target field"]) : null,

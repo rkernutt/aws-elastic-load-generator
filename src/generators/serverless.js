@@ -74,7 +74,7 @@ function generateLambdaLog(ts, er) {
         metrics: {
           Invocations: { sum: 1, avg: 1 },
           Errors: { sum: isErr ? 1 : 0, avg: isErr ? 1 : 0 },
-          Throttles: { sum: 0, avg: 0 },
+          Throttles: { sum: throttles, avg: throttles },
           Duration: { avg: dur, max: dur * 1.2 },
           ConcurrentExecutions: { avg: randInt(1, 500) },
           UnreservedConcurrentExecutions: { avg: randInt(1, 1000) },
@@ -103,7 +103,7 @@ function generateApiGatewayLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const method = rand(HTTP_METHODS); const path = rand(HTTP_PATHS);
   const isErr = Math.random() < er; const status = isErr ? rand([400,401,403,404,429,500,502,503]) : rand([200,200,201,204]);
-  const lat = randInt(5, isErr?5000:800); const integrationLat = Math.floor(lat*0.85);
+  const lat = randInt(5, isErr?5000:800); const integrationLat = Math.floor(lat * parseFloat(randFloat(0.55, 0.90)));
   const apiId = randId(10).toLowerCase();
   const apiName = rand(["prod-api","internal-api","partner-api","mobile-api"]);
   const stage = rand(["prod","v1","v2","staging"]);
@@ -180,7 +180,7 @@ function generateAppSyncLog(ts, er) {
         RequestCount: { sum: requestCount },
         "4XXError": { sum: status>=400&&status<500 ? randInt(1, Math.floor(requestCount*0.1)) : 0 },
         "5XXError": { sum: status>=500 ? randInt(1, Math.floor(requestCount*0.05)) : 0 },
-        Latency: { avg: dur, p99: dur * 2.5 },
+        Latency: { avg: dur, p99: parseFloat((dur * parseFloat(randFloat(1.5, 4.0))).toFixed(1)) },
       }}},
     "http":{response:{status_code:status}},
     "event":{duration:dur*1e6,outcome:isErr?"failure":"success",category:"api",dataset:"aws.appsync",provider:"appsync.amazonaws.com"},
@@ -252,7 +252,8 @@ function generateFargateLog(ts, er) {
   const useStructuredLogging = Math.random() < 0.6;
   const message = useStructuredLogging ? JSON.stringify({ cluster: clusterName, taskId, taskDefinition: taskDef, container: task, level, message: plainMessage, timestamp: new Date(ts).toISOString() }) : plainMessage;
   const cpuPct = level==="error"?randInt(90,100):randInt(10,80);
-  const memPct = level==="error"?randInt(90,100):randInt(20,75);
+  const fargateMemReservation = parseFloat(randFloat(20, 70));
+  const memPct = parseFloat(randFloat(10, Math.min(fargateMemReservation, level==="error"?99:80)));
   const svc = task;
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"fargate"}},
     "aws":{
@@ -262,7 +263,7 @@ function generateFargateLog(ts, er) {
           CPUUtilization: { avg: cpuPct },
           CPUReservation: { avg: parseFloat(randFloat(10, 80)) },
           MemoryUtilization: { avg: memPct },
-          MemoryReservation: { avg: parseFloat(randFloat(20, 70)) },
+          MemoryReservation: { avg: fargateMemReservation },
           GPUReservation: { avg: 0 },
         }}},
     "container":{ id:randId(12).toLowerCase(), name:task, image:{ name:`myrepo/${task}:latest`, tag:"latest" }, runtime:"docker" },

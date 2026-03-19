@@ -194,7 +194,7 @@ function generateGlueLog(ts, er) {
         job: { name: job, run_id: runId, type: jobType, run_state: runState },
         database: db,
         table: rand(["events","users","transactions","sessions","products"]),
-        dpu_seconds: dpus * randInt(60, 3600),
+        dpu_seconds: dpus * durationSec,
         worker: { type: rand(["G.1X","G.2X","G.4X"]), count: dpus },
         records: { read: recordsRead, written: recordsWritten, errors: recordsFailed },
         glue_version: rand(["3.0","4.0"]),
@@ -397,7 +397,7 @@ function generateAppFlowLog(ts, er) {
   const src = rand(["Salesforce","HubSpot","Zendesk","Marketo","ServiceNow","Slack"]);
   const dst = rand(["S3","Redshift","Snowflake","Salesforce","EventBridge"]);
   const records = isErr?0:randInt(100,1000000);
-  const durationMs = randInt(1000, isErr?300000:60000);
+  const durationMs = randInt(500, isErr?30000:60000);
   const appflowMsgs = isErr ? ["Flow run failed",`AppFlow ${flow} (${src}->${dst}) FAILED: ${rand(["Credentials expired","Rate limit","Schema mismatch"])}`] : ["Flow run started","Flow run succeeded",`AppFlow ${flow}: ${records.toLocaleString()} records ${src}->${dst}`];
   const plainMessage = rand(appflowMsgs);
   return {
@@ -434,6 +434,7 @@ function generateOpenSearchLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const domainName = rand(["prod-search","analytics-es","logs-domain","app-search"]);
   const clientId = acct.id;
+  const clusterColor = isErr ? (Math.random() > 0.5 ? "yellow" : "red") : "green";
   const action = rand(["IndexDocument","SearchDocument","DeleteDocument","CreateIndex","BulkIndex","ClusterHealth"]);
   const dur = randInt(1, isErr?10000:500);
   return {
@@ -448,9 +449,9 @@ function generateOpenSearchLog(ts, er) {
         error_code: isErr ? rand(["ClusterBlockException","SearchPhaseExecutionException","IndexNotFoundException","AuthorizationException"]) : null,
         metrics: {
           // AWS OpenSearch Service CloudWatch metric names (exact)
-          "ClusterStatus.green": { avg: isErr ? 0 : 1 },
-          "ClusterStatus.yellow": { avg: isErr && Math.random() > 0.5 ? 1 : 0 },
-          "ClusterStatus.red": { avg: isErr && Math.random() > 0.5 ? 1 : 0 },
+          "ClusterStatus.green": { avg: clusterColor === "green" ? 1 : 0 },
+          "ClusterStatus.yellow": { avg: clusterColor === "yellow" ? 1 : 0 },
+          "ClusterStatus.red": { avg: clusterColor === "red" ? 1 : 0 },
           Nodes: { avg: randInt(1, 20) },
           SearchableDocuments: { avg: randInt(1000, 1e9) },
           DeletedDocuments: { avg: randInt(0, 1e6) },

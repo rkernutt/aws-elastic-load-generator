@@ -4,7 +4,7 @@ function generateGuardDutyLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const isFinding = Math.random() < (er + 0.3);
   const findingTypes = ["UnauthorizedAccess:EC2/SSHBruteForce","UnauthorizedAccess:EC2/RDPBruteForce","Recon:EC2/PortScan","Backdoor:EC2/C&CActivity.B","CryptoCurrency:EC2/BitcoinTool.B!DNS","Trojan:EC2/DNSDataExfiltration","UnauthorizedAccess:IAMUser/ConsoleLoginSuccess.B","Policy:IAMUser/RootCredentialUsage","UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom","Discovery:S3/TorIPCaller","Impact:S3/MaliciousIPCaller","Exfiltration:S3/MaliciousIPCaller","Stealth:IAMUser/PasswordPolicyChange","UnauthorizedAccess:IAMUser/InstanceCredentialExfiltration.OutsideAWS","InitialAccess:IAMUser/AnomalousBehavior","Persistence:IAMUser/AnomalousBehavior","PrivilegeEscalation:IAMUser/AnomalousBehavior"];
-  const ft = rand(findingTypes); const sev = isFinding ? rand([2,5,7,8,9]) : 0;
+  const ft = rand(findingTypes); const sev = isFinding ? rand([2.0, 4.0, 5.0, 7.0, 8.0]) : 0;
   const sevValue = sev >= 7 ? "High" : sev >= 4 ? "Medium" : sev >= 1 ? "Low" : "Informational";
   const findingId = randId(32).toLowerCase();
   const detectorId = randId(32).toLowerCase();
@@ -177,8 +177,8 @@ function generateInspectorLog(ts, er) {
   const findingType = isFinding ? rand(["PACKAGE_VULNERABILITY","NETWORK_REACHABILITY","CODE_VULNERABILITY"]) : "NONE";
   const pkgName = rand(pkgs);
   const pkgVersion = `${randInt(1,3)}.${randInt(0,20)}.${randInt(0,50)}`;
-  const fixVersion = `${randInt(1,3)}.${randInt(0,20)}.${randInt(0,50)+1}`;
   const fixAvailable = Math.random()>0.3?"YES":"NO";
+  const fixVersion = fixAvailable==="YES" ? `${randInt(1,3)}.${randInt(0,20)}.${randInt(0,50)+1}` : null;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"inspector" } },
@@ -189,7 +189,7 @@ function generateInspectorLog(ts, er) {
         finding_type: findingType,
         severity: sev, inspector_score: isFinding?parseFloat(randFloat(4,10)):0,
         vulnerable_package: { name:pkgName, version:pkgVersion },
-        affected_packages: isFinding ? [{ name:pkgName, version:pkgVersion, fix_available:fixAvailable, remediation:`Update to ${fixVersion}` }] : [],
+        affected_packages: isFinding ? [{ name:pkgName, version:pkgVersion, fix_available:fixAvailable, ...(fixVersion?{remediation:`Update to ${fixVersion}`}:{}) }] : [],
         cve_id: isFinding ? cveId : null,
         resource_type: rand(["AWS_EC2_INSTANCE","AWS_ECR_CONTAINER_IMAGE","AWS_LAMBDA_FUNCTION"]),
         metrics: {

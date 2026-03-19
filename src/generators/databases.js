@@ -173,7 +173,7 @@ function generateOpenSearchLog(ts, er) {
         metrics: {
           CPUUtilization: { avg: parseFloat(randFloat(5, isErr?95:60)) },
           FreeStorageSpace: { avg: randInt(5e9, 500e9) },
-          ClusterStatus: { green: isErr?0:1, yellow: isErr?1:0, red: 0 },
+          ClusterStatus: (() => { const red = isErr && Math.random() > 0.5 ? 1 : 0; return { green: isErr?0:1, yellow: isErr&&!red?1:0, red }; })(),
           Nodes: { avg: randInt(3, 20) },
           SearchableDocuments: { avg: randInt(1e6, 1e9) },
           IndexingLatency: { avg: randInt(1, isErr?5000:500) },
@@ -217,8 +217,8 @@ function generateDocumentDbLog(ts, er) {
           FreeableMemory: { avg: randInt(500e6, 8e9) },
           ReadIOPS: { avg: randInt(0, 5000) },
           WriteIOPS: { avg: randInt(0, 5000) },
-          ReadLatency: { avg: parseFloat(randFloat(0.0001, 0.05)) },
-          WriteLatency: { avg: parseFloat(randFloat(0.0001, 0.05)) },
+          ReadLatency: { avg: parseFloat(randFloat(0.1, isErr?50:5)) },
+          WriteLatency: { avg: parseFloat(randFloat(0.1, isErr?50:5)) },
           DocumentsInserted: { sum: op==="insert" ? randInt(1,1000) : 0 },
           DocumentsDeleted: { sum: op==="delete" ? randInt(1,100) : 0 },
           DocumentsUpdated: { sum: op==="update" ? randInt(1,500) : 0 },
@@ -306,7 +306,7 @@ function generateTimestreamLog(ts, er) {
   const table = rand(["device_telemetry","cpu_metrics","api_latency","sensor_readings"]);
   const op = rand(["WriteRecords","Query","Query","DescribeTable"]);
   const dur = parseFloat(randFloat(1, isErr?10000:2000));
-  const records = randInt(100, isErr?0:50000);
+  const records = isErr ? 0 : randInt(100, 50000);
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"timestream"}},
     "aws":{timestream:{database_name:db,table_name:table,operation:op,
       records_ingested:op==="WriteRecords"?records:0,
@@ -390,15 +390,16 @@ function generateRdsLog(ts, er) {
 
   // Enhanced Monitoring (RDSOSMetrics) — OS-level metrics published every 1–60 s
   const osMetrics = useEnhancedMonitoring ? {
-    cpuUtilization: {
-      guest:  parseFloat(randFloat(0, 2)),
-      irq:    parseFloat(randFloat(0, 1)),
-      system: parseFloat(randFloat(0.5, isErr?30:10)),
-      wait:   parseFloat(randFloat(0, isErr?20:5)),
-      idle:   parseFloat(randFloat(isErr?10:40, 95)),
-      user:   parseFloat(randFloat(1, isErr?60:40)),
-      total:  parseFloat(randFloat(5, isErr?90:60)),
-    },
+    cpuUtilization: (() => {
+      const guest  = parseFloat(randFloat(0, 2));
+      const irq    = parseFloat(randFloat(0, 1));
+      const system = parseFloat(randFloat(0.5, isErr?30:10));
+      const wait   = parseFloat(randFloat(0, isErr?20:5));
+      const user   = parseFloat(randFloat(1, isErr?60:40));
+      const total  = parseFloat(Math.min(100, guest + irq + system + wait + user).toFixed(1));
+      const idle   = parseFloat(Math.max(0, 100 - total).toFixed(1));
+      return { guest, irq, system, wait, idle, user, total };
+    })(),
     memory: {
       total:     randInt(4e9, 64e9),
       free:      randInt(isErr?100e6:1e9, 8e9),
