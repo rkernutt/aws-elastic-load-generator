@@ -8,7 +8,7 @@ import { AWS_ICON_BASE, AWS_SERVICE_ICON_MAP } from "./data/iconMap.js";
 import { SERVICE_GROUPS, ALL_SERVICE_IDS } from "./data/serviceGroups.js";
 import { Card, CardHeader, QuickBtn, Field, SliderField, StatCard } from "./components/Card.jsx";
 import { StatusPill } from "./components/StatusPill.jsx";
-import { ElasticMark, AwsLogo, PipelineRoute } from "./components/Logo.jsx";
+import { AwsLogo, PipelineRoute } from "./components/Logo.jsx";
 import { validateElasticUrl, validateApiKey, validateIndexPrefix } from "./utils/validation.js";
 import styles from "./App.module.css";
 
@@ -60,6 +60,14 @@ export default function App() {
 
   const clearSavedConfig = () => {
     try { localStorage.removeItem(LS_KEY); } catch { /* ignore */ }
+    setLogsPerService(500);
+    setErrorRate(0.05);
+    setBatchSize(250);
+    setLogsIndexPrefix("logs-aws");
+    setMetricsIndexPrefix("metrics-aws");
+    setEventType("logs");
+    setIngestionSource("default");
+    setBatchDelayMs(20);
   };
 
   const addLog = (msg, type="info") => setLog(prev => [...prev.slice(-100), {msg,type,ts:new Date().toLocaleTimeString()}]);
@@ -282,8 +290,7 @@ export default function App() {
         <div className={styles.headerLeft}>
           <AwsLogo height={26}/>
           <PipelineRoute height={22}/>
-          <ElasticMark height={28}/>
-          <span className={styles.headerBrandElastic}>elastic</span>
+          <img src="/elastic-logo.svg" alt="Elastic" height={28} style={{ display:"block" }}/>
           <div className={styles.headerRule}/>
           <span className={styles.headerTitle}>Load Generator</span>
         </div>
