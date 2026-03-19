@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "datasync"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "datasync": {
-      "task_arn": "arn:aws:datasync:eu-west-2:814726593401:task/task-b45a4tomtym",
-      "source_location_uri": "smb://file-server/share",
-      "destination_location_uri": "s3://prod-backup",
+      "task_arn": "arn:aws:datasync:eu-west-2:164820739518:task/task-pa4d6znkcje",
+      "source_location_uri": "nfs://on-prem-server/data",
+      "destination_location_uri": "s3://archive-bucket",
       "status": "SUCCESS",
-      "files_transferred": 734726,
-      "bytes_transferred": 559789208852,
+      "files_transferred": 795163,
+      "bytes_transferred": 743493308260,
       "files_failed": 0,
-      "duration_seconds": 3034
+      "duration_seconds": 909
     }
   },
   "event": {
@@ -30,9 +30,9 @@
     ],
     "dataset": "aws.datasync",
     "provider": "datasync.amazonaws.com",
-    "duration": 3034000000000
+    "duration": 909000000000
   },
-  "message": "DataSync: 734,726 files transferred from smb:",
+  "message": "DataSync: 795,163 files transferred from nfs:",
   "log": {
     "level": "info"
   }

@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,77 +13,82 @@
   },
   "aws": {
     "dimensions": {
-      "GatewayId": "sgw-svd1plop",
-      "GatewayName": "prod-sgw-primary"
+      "GatewayId": "sgw-krx1fs04",
+      "GatewayName": "prod-sgw-office"
     },
     "storagegateway": {
-      "gateway_id": "sgw-svd1plop",
-      "gateway_name": "prod-sgw-primary",
+      "gateway_id": "sgw-krx1fs04",
+      "gateway_name": "prod-sgw-office",
       "gateway_type": "FILE_FSX",
-      "cache_used_percent": 65,
-      "upload_buffer_used_percent": 54,
-      "cloud_bytes_uploaded": 793727965,
+      "cache_used_percent": 91,
+      "upload_buffer_used_percent": 92,
+      "cloud_bytes_uploaded": 153601730,
       "metrics": {
         "CacheHit.Percent": {
-          "avg": 95.014
+          "avg": 97.249
         },
         "CacheMiss.Percent": {
-          "avg": 37.89
+          "avg": 2.75
         },
         "CacheUsed.Percent": {
-          "avg": 54.642
+          "avg": 35.723
         },
         "CloudBytesDownloaded": {
-          "sum": 567883200
+          "sum": 10301324
         },
         "CloudBytesUploaded": {
-          "sum": 269830522
+          "sum": 851636385
         },
         "CloudDownloadLatency": {
-          "avg": 4965.83
+          "avg": 4827.633
         },
         "ReadBytes": {
-          "sum": 899272586
+          "sum": 344738001
         },
         "WriteBytes": {
-          "sum": 962934643
+          "sum": 972275565
         },
         "QueuedWrites": {
-          "avg": 899
+          "avg": 150
         },
         "UploadBufferUsed": {
-          "avg": 140969777
+          "avg": 427546227
         },
         "UploadBufferFree": {
-          "avg": 532654201
+          "avg": 384584446
         },
         "CacheHits": {
-          "sum": 96948
+          "sum": 50398
         },
         "CacheMisses": {
-          "sum": 616
+          "sum": 60
         },
         "CachePercentDirty": {
-          "avg": 5.429
+          "avg": 8.681
         },
         "CachePercentUsed": {
-          "avg": 49.035
+          "avg": 27.509
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "host",
       "file"
     ],
     "dataset": "aws.storagegateway",
     "provider": "storagegateway.amazonaws.com",
-    "duration": 1397000000
+    "duration": 537000000
   },
-  "message": "Cache refreshed",
+  "message": "Upload buffer full",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "GatewayError",
+    "message": "Gateway offline: connection to AWS lost",
+    "type": "storage"
   }
 }

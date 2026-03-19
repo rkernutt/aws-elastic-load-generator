@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "cloudtrail"
@@ -13,58 +13,55 @@
   },
   "aws": {
     "dimensions": {
-      "EventName": "DescribeInstances",
-      "EventSource": "ec2.amazonaws.com"
+      "EventName": "CreateUser",
+      "EventSource": "iam.amazonaws.com"
     },
     "cloudtrail": {
       "event_version": "1.08",
-      "event_id": "k815ao4c-l1in-ybw3",
-      "event_name": "DescribeInstances",
-      "event_source": "ec2.amazonaws.com",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "UMQTWOAJ-9SU2-O8E8-GJAW-GED8OXWVFZJ",
+      "request_id": "mcogql84-cs23-0sbp-edyv-x9o76ls5hc",
       "api_version": "2012-10-17",
       "management_event": true,
-      "read_only": true,
-      "source_ip_address": "205.160.121.45",
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+      "read_only": false,
+      "recipient_account_id": "738291046572",
       "user_identity": {
         "type": "IAMUser",
-        "user_name": "admin",
-        "account_id": "293847561023"
-      },
-      "request_parameters": {},
-      "response_elements": {}
+        "arn": "arn:aws:iam::738291046572:user/deploy-bot",
+        "access_key_id": "AKIAYDOZ9RLFARB",
+        "session_context": {
+          "mfa_authenticated": "true",
+          "creation_date": "2026-03-19T14:15:51.103Z"
+        }
+      }
     }
   },
   "user": {
-    "name": "admin"
+    "name": "deploy-bot"
   },
   "source": {
-    "ip": "205.160.121.45",
+    "ip": "212.250.15.155",
     "geo": {
       "country_iso_code": "FR",
-      "city_name": "Frankfurt"
+      "city_name": "Toronto"
     }
   },
   "user_agent": {
-    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    "original": "python-requests/2.27.1"
   },
   "event": {
-    "action": "DescribeInstances",
+    "action": "CreateUser",
     "outcome": "success",
     "category": [
-      "configuration"
+      "iam"
     ],
     "type": [
-      "access",
-      "info"
+      "creation"
     ],
     "dataset": "aws.cloudtrail",
     "provider": "cloudtrail.amazonaws.com"
   },
-  "message": "CloudTrail: DescribeInstances by admin from 205.160.121.45 - Success",
+  "message": "CloudTrail: CreateUser by deploy-bot from 212.250.15.155 - Success",
   "log": {
     "level": "info"
   }

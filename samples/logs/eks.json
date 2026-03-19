@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "eks"
@@ -13,74 +13,74 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "prod-cluster-eu-west-2",
-      "NodeName": "ip-52-36-31-33.eu-west-2.compute.internal",
+      "ClusterName": "prod-cluster-us-east-1",
+      "NodeName": "ip-13-190-108-106.us-east-1.compute.internal",
       "Namespace": "default",
-      "PodName": "api-n2kgn-ntyhd"
+      "PodName": "worker-td3t2-3vjtg"
     },
     "eks": {
-      "structured_logging": true,
+      "structured_logging": false,
       "cluster": {
-        "name": "prod-cluster-eu-west-2"
+        "name": "prod-cluster-us-east-1"
       },
       "node": {
-        "name": "ip-52-36-31-33.eu-west-2.compute.internal"
+        "name": "ip-13-190-108-106.us-east-1.compute.internal"
       },
       "metrics": {
         "cluster_failed_node_count": {
           "avg": 0
         },
         "node_cpu_utilization": {
-          "avg": "15.238"
+          "avg": "28.572"
         },
         "node_memory_utilization": {
-          "avg": "43.645"
+          "avg": "63.695"
         },
         "node_network_total_bytes": {
-          "sum": 57690903
+          "sum": 431798620
         },
         "node_filesystem_utilization": {
-          "avg": "43.277"
+          "avg": "66.102"
         },
         "pod_cpu_utilization": {
-          "avg": "54.032"
+          "avg": "68.622"
         },
         "pod_memory_utilization": {
-          "avg": "50.625"
+          "avg": "47.968"
         },
         "pod_network_rx_bytes": {
-          "sum": 75296279
+          "sum": 85338496
         },
         "pod_network_tx_bytes": {
-          "sum": 57144186
+          "sum": 55576778
         },
         "node_count": {
-          "avg": 49
+          "avg": 42
         },
         "pod_count": {
-          "avg": 470
+          "avg": 278
         }
       }
     }
   },
   "container": {
-    "id": "78ja2p8ym4h",
-    "name": "api",
+    "id": "c11klm1l4bi",
+    "name": "worker",
     "image": {
-      "name": "k8s.gcr.io/api:v1.28.3"
+      "name": "k8s.gcr.io/worker:v1.25.0"
     },
     "runtime": "containerd"
   },
   "kubernetes": {
     "namespace": "default",
     "pod": {
-      "name": "api-n2kgn-ntyhd"
+      "name": "worker-td3t2-3vjtg"
     },
     "container": {
-      "name": "api"
+      "name": "worker"
     },
     "labels": {
-      "app": "api",
+      "app": "worker",
       "env": "prod"
     }
   },
@@ -95,7 +95,7 @@
     "outcome": "success",
     "dataset": "aws.eks",
     "provider": "eks.amazonaws.com",
-    "duration": 357000000000
+    "duration": 1386000000000
   },
-  "message": "{\"cluster\":\"prod-cluster-eu-west-2\",\"namespace\":\"default\",\"pod\":\"api-n2kgn-ntyhd\",\"level\":\"info\",\"message\":\"Container started\",\"timestamp\":\"2026-03-17T18:02:32.099Z\",\"stream\":\"stdout\"}"
+  "message": "2026-03-19 15:13:42.103 E957 YL5HKO reconciler.go:193] Pod scheduled on node"
 }

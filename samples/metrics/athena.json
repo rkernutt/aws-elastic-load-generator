@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "athena"
@@ -13,44 +13,44 @@
   },
   "aws": {
     "athena": {
-      "query_id": "fsk9c1wq-bb0o-0b3s-xaii",
-      "workgroup": "primary",
+      "query_id": "r77zzzxu-ajtg-r8ve-3qs7",
+      "workgroup": "bi-users",
       "database": "analytics",
       "state": "SUCCEEDED",
-      "duration_seconds": 13.129,
-      "data_scanned_bytes": 273487975,
-      "data_scanned_mb": 261,
+      "duration_seconds": 17.391,
+      "data_scanned_bytes": 8003858088,
+      "data_scanned_mb": 7633,
       "engine_version": "DuckDB 0.9.1",
       "structured_logging": false,
       "metrics": {
         "DataScannedInBytes": {
-          "sum": 273487975
+          "sum": 8003858088
         },
         "EngineExecutionTimeInMillis": {
-          "avg": 13129,
-          "max": 19694
+          "avg": 17391,
+          "max": 26086
         },
         "ProcessedBytes": {
-          "sum": 273487975
+          "sum": 8003858088
         },
         "QueryQueueTimeInMillis": {
-          "avg": 242
+          "avg": 116
         },
         "TotalExecutionTimeInMillis": {
-          "avg": 13129
+          "avg": 17391
         },
         "QueryPlanningTimeInMillis": {
-          "avg": 69
+          "avg": 171
         }
       }
     }
   },
   "db": {
-    "statement": "SELECT p.name, count(o.id) FROM products p JOIN orders o ON p.id = o.product_id GROUP BY 1",
+    "statement": "SELECT date_trunc('day', event_time), count(*) FROM events GROUP BY 1",
     "type": "sql"
   },
   "event": {
-    "duration": 13129000000,
+    "duration": 17391000000,
     "outcome": "success",
     "category": [
       "database",

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "batch"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "JobQueue": "nightly-etl-queue"
+      "JobQueue": "data-export-queue"
     },
     "batch": {
       "job": {
-        "name": "nightly-etl",
-        "id": "w2zmlq1a-xo8p",
+        "name": "data-export",
+        "id": "25v36cam-3hx8",
         "status": "SUCCEEDED"
       },
-      "job_queue": "nightly-etl-queue",
+      "job_queue": "data-export-queue",
       "compute_environment": "ce-ondemand",
-      "structured_logging": true,
+      "structured_logging": false,
       "metrics": {
         "PendingJobCount": {
-          "avg": 75
+          "avg": 22
         },
         "RunnableJobCount": {
-          "avg": 45
+          "avg": 24
         },
         "StartingJobCount": {
-          "avg": 13
+          "avg": 2
         },
         "RunningJobCount": {
-          "avg": 2
+          "avg": 121
         },
         "SucceededJobCount": {
           "sum": 1
@@ -44,20 +44,20 @@
           "sum": 0
         },
         "CPUReserved": {
-          "avg": "71.659"
+          "avg": "54.798"
         },
         "GPUReserved": {
           "avg": 0
         },
         "MemoryReserved": {
-          "avg": "19.496"
+          "avg": "17.086"
         }
       }
     }
   },
   "process": {
-    "pid": 32729,
-    "name": "spark-submit",
+    "pid": 41040,
+    "name": "java",
     "exit_code": 0
   },
   "log": {
@@ -70,7 +70,7 @@
     "outcome": "success",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 3203000000000
+    "duration": 1030000000000
   },
-  "message": "{\"jobId\":\"w2zmlq1a-xo8p\",\"jobName\":\"nightly-etl\",\"jobQueue\":\"nightly-etl-queue\",\"level\":\"info\",\"message\":\"Job run succeeded\",\"timestamp\":\"2026-03-17T18:02:32.099Z\",\"arrayIndex\":65}"
+  "message": "Job definition registered"
 }

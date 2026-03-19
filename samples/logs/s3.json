@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "s3"
@@ -13,78 +13,84 @@
   },
   "aws": {
     "dimensions": {
-      "BucketName": "prod-assets-eu-west-2",
+      "BucketName": "media-uploads-eu-west-2",
       "StorageType": "StandardStorage",
-      "FilterId": "prefix-filter"
+      "FilterId": "tag-filter",
+      "aws_account_number": "164820739518",
+      "aws_region": "eu-west-2",
+      "bucket_name": "media-uploads-eu-west-2",
+      "record_type": "PREFIX",
+      "storage_class": "STANDARD"
     },
     "s3access": {
-      "bucket_owner": "738291046572",
-      "bucket": "prod-assets-eu-west-2",
-      "remote_ip": "149.41.37.44",
-      "requester": "AIDA485HEO6KM7E",
-      "request_id": "TIR085WG3E",
+      "bucket_owner": "164820739518",
+      "bucket": "media-uploads-eu-west-2",
+      "remote_ip": "189.143.121.98",
+      "requester": "AIDA5C9OKEPBJ7M",
+      "request_id": "K2E0US4GO7A",
       "operation": "REST.GET.OBJECT",
-      "key": "exports/9vocnt0c.zip",
-      "request_uri": "/prod-assets-eu-west-2/exports/9vocnt0c.zip",
+      "key": "reports/js79cces.json",
+      "request_uri": "/media-uploads-eu-west-2/reports/js79cces.json",
       "http_status": 200,
       "error_code": "-",
-      "bytes_sent": 1056196737,
-      "object_size": 437332722,
-      "total_time": 159,
-      "turn_around_time": 127,
-      "referrer": "https://console.aws.amazon.com/s3/",
-      "user_agent": "curl/7.68.0",
-      "host_id": "ET9TQVLW3DI+G83921",
+      "bytes_sent": 725393570,
+      "object_size": 30273068,
+      "total_time": 269,
+      "turn_around_time": 215,
+      "referrer": "-",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+      "host_id": "12835ZPFK2HP+RYWH7C",
       "signature_version": "SigV4",
+      "cipher_suite": "ECDHE-RSA-AES128-GCM-SHA256",
       "authentication_type": "AuthHeader",
-      "host_header": "prod-assets-eu-west-2.s3.eu-west-2.amazonaws.com",
+      "host_header": "media-uploads-eu-west-2.s3.eu-west-2.amazonaws.com",
       "tls_version": "TLSv1.2"
     },
     "s3": {
       "bucket": {
-        "name": "prod-assets-eu-west-2",
-        "arn": "arn:aws:s3:::prod-assets-eu-west-2"
+        "name": "media-uploads-eu-west-2",
+        "arn": "arn:aws:s3:::media-uploads-eu-west-2"
       },
       "object": {
-        "key": "exports/9vocnt0c.zip",
-        "size": 277093284,
-        "etag": "ddo85sz4n1m"
+        "key": "reports/js79cces.json",
+        "size": 757021161,
+        "etag": "wwy2dzvvfre"
       },
       "operation": "REST.GET.OBJECT",
-      "request_id": "TIR085WG3E",
+      "request_id": "K2E0US4GO7A",
       "metrics": {
         "BucketSizeBytes": {
-          "avg": 822587764178
+          "avg": 136350957312
         },
         "NumberOfObjects": {
-          "avg": 567075
+          "avg": 691471
         },
         "AllRequests": {
-          "sum": 70282
+          "sum": 40996
         },
         "GetRequests": {
-          "sum": 7958
+          "sum": 16184
         },
         "PutRequests": {
-          "sum": 9772
+          "sum": 8787
         },
         "DeleteRequests": {
-          "sum": 875
+          "sum": 176
         },
         "HeadRequests": {
-          "sum": 1014
+          "sum": 570
         },
         "PostRequests": {
-          "sum": 469
+          "sum": 238
         },
         "ListRequests": {
-          "sum": 209
+          "sum": 139
         },
         "BytesDownloaded": {
-          "sum": 6226271684
+          "sum": 9220580946
         },
         "BytesUploaded": {
-          "sum": 336725870
+          "sum": 321982790
         },
         "4xxErrors": {
           "sum": 0
@@ -93,12 +99,63 @@
           "sum": 0
         },
         "FirstByteLatency": {
-          "avg": 60.328,
-          "p99": 304.126
+          "avg": 23.748,
+          "p99": 414.61
         },
         "TotalRequestLatency": {
-          "avg": 236.795,
-          "p99": 1623.409
+          "avg": 479.664,
+          "p99": 1537.579
+        }
+      }
+    },
+    "s3_request": {
+      "uploaded": {
+        "bytes": 132610093,
+        "bytes_per_period": 949048408
+      },
+      "downloaded": {
+        "bytes": 3106816544,
+        "bytes_per_period": 6949614345
+      },
+      "requests": {
+        "total": 12193,
+        "get": 33238,
+        "put": 3957
+      },
+      "errors": {
+        "4xx": 0,
+        "5xx": 0
+      },
+      "latency": {
+        "total_request": {
+          "ms": 43.528
+        }
+      }
+    },
+    "s3_daily_storage": {
+      "bucket": {
+        "size": {
+          "bytes": 917907203165
+        }
+      },
+      "number_of_objects": 971487
+    },
+    "s3_storage_lens": {
+      "metrics": {
+        "StorageBytes": {
+          "avg": 572861562581
+        },
+        "ObjectCount": {
+          "avg": 576470
+        },
+        "DeleteMarkerObjectCount": {
+          "avg": 617
+        },
+        "CurrentVersionStorageBytes": {
+          "avg": 36064171234
+        },
+        "IncompleteMultipartUploadStorageBytes": {
+          "avg": 96703592
         }
       }
     }
@@ -106,14 +163,14 @@
   "http": {
     "response": {
       "status_code": 200,
-      "bytes": 1056196737
+      "bytes": 725393570
     }
   },
   "client": {
-    "ip": "149.41.37.44"
+    "ip": "189.143.121.98"
   },
   "user_agent": {
-    "original": "curl/7.68.0"
+    "original": "Go-http-client/1.1"
   },
   "event": {
     "outcome": "success",
@@ -123,9 +180,9 @@
     ],
     "dataset": "aws.s3",
     "provider": "s3.amazonaws.com",
-    "duration": 159000000
+    "duration": 269000000
   },
-  "message": "REST.GET.OBJECT s3://prod-assets-eu-west-2/exports/9vocnt0c.zip 200",
+  "message": "{\"bucket\":\"media-uploads-eu-west-2\",\"key\":\"reports/js79cces.json\",\"operation\":\"REST.GET.OBJECT\",\"http_status\":200,\"request_id\":\"K2E0US4GO7A\",\"bytes_sent\":725393570,\"total_time_ms\":269,\"timestamp\":\"2026-03-19T15:13:42.103Z\"}",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "vpc"
@@ -13,50 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "VpcId": "vpc-s1l5ipsh"
+      "VpcId": "vpc-gzy65raq"
     },
     "vpcflow": {
       "version": "2",
-      "account_id": "293847561023",
-      "interface_id": "eni-6jqeulpq",
+      "account_id": "814726593401",
+      "interface_id": "eni-j5zpuu9g",
       "action": "ACCEPT",
       "log_status": "OK",
-      "instance_id": "i-3gy5gbdinai",
-      "pkt_srcaddr": "244.179.128.156",
-      "pkt_dstaddr": "116.228.224.226",
-      "vpc_id": "vpc-s1l5ipsh",
-      "subnet_id": "subnet-t899jldk",
+      "instance_id": "i-3jg89czk95u",
+      "pkt_srcaddr": "136.56.249.23",
+      "pkt_dstaddr": "179.66.37.178",
+      "vpc_id": "vpc-gzy65raq",
+      "subnet_id": "subnet-wg55iwqw",
       "type": "IPv4"
-    },
-    "vpc": {
-      "action": "ACCEPT",
-      "log_status": "OK",
-      "interface_id": "eni-6jqeulpq",
-      "vpc_id": "vpc-s1l5ipsh",
-      "subnet_id": "subnet-t899jldk",
-      "account_id": "293847561023",
-      "metrics": {
-        "BytesTransferred": {
-          "sum": 65071
-        },
-        "PacketsTransferred": {
-          "sum": 65
-        }
-      }
     }
   },
   "source": {
-    "ip": "244.179.128.156",
-    "port": 46006
+    "ip": "136.56.249.23",
+    "port": 62958,
+    "geo": {
+      "country_iso_code": "BR",
+      "country_name": "Brazil",
+      "city_name": "São Paulo",
+      "location": {
+        "lat": -23.5505,
+        "lon": -46.6333
+      }
+    }
   },
   "destination": {
-    "ip": "116.228.224.226",
-    "port": 5432
+    "ip": "179.66.37.178",
+    "port": 6379,
+    "geo": {
+      "country_iso_code": "IN",
+      "country_name": "India",
+      "city_name": "Mumbai",
+      "location": {
+        "lat": 19.076,
+        "lon": 72.8777
+      }
+    }
   },
   "network": {
-    "transport": "udp",
-    "bytes": 65071,
-    "packets": 65,
+    "transport": "icmp",
+    "bytes": 90112,
+    "packets": 88,
     "direction": "outbound"
   },
   "event": {
@@ -70,9 +72,9 @@
     ],
     "dataset": "aws.vpcflow",
     "provider": "ec2.amazonaws.com",
-    "duration": 16000000
+    "duration": 178000000
   },
-  "message": "2 293847561023 eni-6jqeulpq 244.179.128.156 116.228.224.226 46006 5432 17 65 65071 1773770552 1773770585 ACCEPT OK",
+  "message": "2 814726593401 eni-j5zpuu9g 136.56.249.23 179.66.37.178 62958 6379 1 88 90112 1773933222 1773933246 ACCEPT OK",
   "log": {
     "level": "info"
   }

@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -14,21 +14,21 @@
   "aws": {
     "dimensions": {
       "ClusterName": "staging",
-      "ServiceName": "scheduler"
+      "ServiceName": "web-frontend"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 3.144
+          "avg": 5.534
         },
         "CPUReservation": {
-          "avg": 25.0
+          "avg": 19.528
         },
         "MemoryUtilization": {
-          "avg": 50.119
+          "avg": 13.66
         },
         "MemoryReservation": {
-          "avg": 40.0
+          "avg": 23.08
         },
         "GPUReservation": {
           "avg": 0
@@ -37,20 +37,20 @@
     }
   },
   "container": {
-    "id": "ctut69yj8ta",
-    "name": "scheduler",
+    "id": "po3tn366mjp",
+    "name": "web-frontend",
     "image": {
-      "name": "java:latest",
-      "tag": "alpine"
+      "name": "node:18-alpine",
+      "tag": "1.24"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 49774,
-    "name": "scheduler"
+    "pid": 61118,
+    "name": "web-frontend"
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "event": {
     "category": [
@@ -60,11 +60,11 @@
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 3373000000000
+    "duration": 2270000000000
   },
-  "message": "{\"cluster\":\"staging\",\"service\":\"scheduler\",\"taskId\":\"4ppfezs86ro\",\"container\":\"scheduler\",\"level\":\"warn\",\"message\":\"Connection pool exhausted\",\"timestamp\":\"2026-03-17T18:02:32.099Z\"}",
+  "message": "Health check passed",
   "service": {
-    "name": "scheduler",
+    "name": "web-frontend",
     "type": "ecs"
   }
 }

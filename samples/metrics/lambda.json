@@ -1,36 +1,38 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "lambda"
     }
   },
+  "trace": {
+    "id": "1-gjb51gic-lq189ef6yro"
+  },
   "aws": {
     "dimensions": {
-      "FunctionName": "payment-processor",
-      "Resource": "payment-processor:$LATEST",
+      "FunctionName": "image-resizer",
+      "Resource": "image-resizer:$LATEST",
       "ExecutedVersion": "$LATEST"
+    },
+    "cloudwatch": {
+      "log_group": "/aws/lambda/image-resizer",
+      "log_stream": "2026-03-19/[$LATEST]e3ky08h0jj"
     },
     "lambda": {
       "function": {
-        "name": "payment-processor",
+        "name": "image-resizer",
         "version": "$LATEST",
-        "arn": "arn:aws:lambda:eu-west-2:293847561023:function:payment-processor"
+        "arn": "arn:aws:lambda:eu-west-2:814726593401:function:image-resizer"
       },
-      "request_id": "niht6i6h-t0kl-dz16-8l8x-eknec9wowlp",
-      "duration": 2156.352,
-      "billed_duration_ms": 2200,
-      "memory_size_mb": 3008,
-      "memory_used_mb": 1491,
-      "log_group": "/aws/lambda/payment-processor",
-      "log_stream": "2026-03-17/[$LATEST]7mh9rpokqfv",
-      "log_event_type": "app",
+      "request_id": "qkfm573o-vga6-n0xi-h3lh-t0znphskska",
+      "trace_id": "1-gjb51gic-lq189ef6yro",
+      "event_type": "report",
       "cold_start": false,
       "metrics": {
         "Invocations": {
@@ -42,18 +44,18 @@
           "avg": 0
         },
         "Throttles": {
-          "sum": 0,
-          "avg": 0
+          "sum": 3,
+          "avg": 3
         },
         "Duration": {
-          "avg": 2156.352,
-          "max": 2587.622
+          "avg": 680.642,
+          "max": 816.7704
         },
         "ConcurrentExecutions": {
-          "avg": 457
+          "avg": 59
         },
         "UnreservedConcurrentExecutions": {
-          "avg": 702
+          "avg": 779
         },
         "DeadLetterErrors": {
           "sum": 0,
@@ -63,20 +65,25 @@
           "avg": 0
         },
         "AsyncEventsReceived": {
-          "sum": 12
+          "sum": 86
         },
         "AsyncEventAge": {
-          "avg": 342
-        }
+          "avg": 1644
+        },
+        "duration_ms": 680.642,
+        "billed_duration_ms": 700,
+        "memory_size_mb": 256,
+        "max_memory_used_mb": 123,
+        "instance_max_memory": 256
       }
     }
   },
   "log": {
-    "level": "info"
+    "level": "warn"
   },
-  "message": "{\"requestId\":\"niht6i6h-t0kl-dz16-8l8x-eknec9wowlp\",\"level\":\"INFO\",\"message\":\"Cache hit\",\"timestamp\":\"2026-03-17T18:02:32.099Z\",\"duration_ms\":2156,\"memory_used_mb\":1491}",
+  "message": "REPORT RequestId: qkfm573o-vga6-n0xi-h3lh-t0znphskska\tDuration: 680.64 ms\tBilled Duration: 700 ms\tMemory Size: 256 MB\tMax Memory Used: 123 MB\tXRay TraceId: 1-qnxat9a7-dgm15r8b0g9\tSegmentId: y9g8dtjbi2l\tSampled: true",
   "event": {
-    "duration": 2156352000,
+    "duration": 680642000,
     "outcome": "success",
     "category": [
       "process"
@@ -88,7 +95,7 @@
     "provider": "lambda.amazonaws.com"
   },
   "service": {
-    "name": "payment-processor",
+    "name": "image-resizer",
     "type": "lambda"
   },
   "data_stream": {

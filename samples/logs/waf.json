@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "waf"
@@ -13,37 +13,39 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "api-waf",
-      "Rule": "CustomSQLiRule",
-      "Region": "us-east-1"
+      "WebACL": "prod-waf",
+      "Rule": "AWSManagedRulesPHPRuleSet",
+      "Region": "eu-west-2"
     },
     "waf": {
-      "web_acl_id": "m76q0h6u-bjkg-xb8u",
-      "web_acl_name": "api-waf",
-      "terminating_rule_id": "CustomSQLiRule",
+      "id": "1eo1bnvjb8e",
+      "arn": "arn:aws:wafv2:eu-west-2:814726593401:regional/webacl/prod-waf/yuyx9afu-ydqr-dfw7-4c2u-fy6squiqwdg",
+      "format_version": "1",
+      "source": {
+        "name": "ALB",
+        "id": "814726593401-app/prod-waf/gq4jzqzym9b"
+      },
       "rule_group_list": [
         {
-          "rule_group_id": "CustomSQLiRule",
-          "terminating_rule": "CustomSQLiRule",
-          "rule_group_override_action": "NONE",
-          "excluded_rules": []
+          "ruleGroupId": "AWSManagedRulesPHPRuleSet",
+          "nonTerminatingMatchingRules": []
         }
       ],
-      "action": "ALLOW",
-      "http_request": {
-        "client_ip": "46.187.223.195",
-        "country": "DE",
-        "uri": "/health",
-        "uri_query": "",
-        "method": "GET",
+      "non_terminating_matching_rules": [],
+      "terminating_rule_match_details": [],
+      "request": {
         "headers": [
           {
             "name": "User-Agent",
-            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+            "value": "curl/7.68.0"
+          },
+          {
+            "name": "Host",
+            "value": "api.example.com"
           }
         ]
       },
-      "http_source_name": "ALB",
+      "labels": [],
       "metrics": {
         "AllowedRequests": {
           "sum": 1
@@ -69,22 +71,45 @@
       }
     }
   },
+  "rule": {
+    "id": "IPRateBasedRule",
+    "ruleset": "AWSManagedRulesPHPRuleSet"
+  },
   "http": {
     "request": {
-      "method": "POST",
-      "bytes": 7525
-    },
-    "uri": "/health"
+      "method": "PUT",
+      "bytes": 9544
+    }
+  },
+  "url": {
+    "path": "/api/v1/auth/login"
+  },
+  "source": {
+    "ip": "53.107.189.198",
+    "geo": {
+      "country_iso_code": "US",
+      "country_name": "United States",
+      "city_name": "Dallas",
+      "location": {
+        "lat": 32.7767,
+        "lon": -96.797
+      }
+    }
   },
   "client": {
-    "ip": "46.187.223.195",
+    "ip": "53.107.189.198",
     "geo": {
-      "country_iso_code": "BR",
-      "city_name": "Tehran"
+      "country_iso_code": "US",
+      "country_name": "United States",
+      "city_name": "Dallas",
+      "location": {
+        "lat": 32.7767,
+        "lon": -96.797
+      }
     }
   },
   "user_agent": {
-    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    "original": "curl/7.68.0"
   },
   "event": {
     "action": "allow",
@@ -95,9 +120,9 @@
     ],
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com",
-    "duration": 14000000
+    "duration": 24000000
   },
-  "message": "WAF ALLOWED request - Rule: CustomSQLiRule",
+  "message": "WAF ALLOWED request - Rule: AWSManagedRulesPHPRuleSet",
   "log": {
     "level": "info"
   }

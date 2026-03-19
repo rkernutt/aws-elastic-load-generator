@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "cloudfront"
@@ -13,48 +13,47 @@
   },
   "aws": {
     "dimensions": {
-      "DistributionId": "EAGVOZ2VG9R",
+      "DistributionId": "ER0U2OQDWYJM",
       "Region": "Global"
     },
     "cloudfront": {
-      "domain": "d4qi5qe9xopq7r.cloudfront.net",
-      "edge_location": "LHR62",
-      "edge_result_type": "Error",
-      "edge_response_result_type": "Error",
-      "edge_detailed_result_type": "AbortedOrigin",
-      "time_to_first_byte": 4.17,
-      "range_start": null,
-      "range_end": null
+      "domain": "dss15kl0s6ql.cloudfront.net",
+      "edge_location": "NRT57",
+      "edge_result_type": "Miss",
+      "edge_response_result_type": "Miss",
+      "edge_detailed_result_type": "RefreshHit",
+      "time_to_first_byte": 0.279,
+      "cookies": "session=abc123"
     }
   },
   "http": {
     "request": {
       "method": "GET",
-      "bytes": 952
+      "bytes": 922
     },
     "response": {
-      "status_code": 400,
-      "bytes": 439354
+      "status_code": 200,
+      "bytes": 497359
     }
   },
   "url": {
-    "path": "/index.html",
-    "domain": "d4qi5qe9xopq7r.cloudfront.net"
+    "path": "/fonts/inter.woff2",
+    "domain": "duyljfplxbfl.cloudfront.net"
   },
   "client": {
-    "ip": "161.172.79.253",
+    "ip": "8.26.99.245",
     "geo": {
-      "country_iso_code": "AU",
-      "country_name": "Australia",
-      "city_name": "Sydney",
+      "country_iso_code": "CA",
+      "country_name": "Canada",
+      "city_name": "Toronto",
       "location": {
-        "lat": -33.8688,
-        "lon": 151.2093
+        "lat": 43.6532,
+        "lon": -79.3832
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "web",
       "network"
@@ -64,15 +63,10 @@
     ],
     "dataset": "aws.cloudfront_logs",
     "provider": "cloudfront.amazonaws.com",
-    "duration": 4170000000
+    "duration": 279000000
   },
-  "message": "GET /index.html 400 [LHR62]",
+  "message": "GET /fonts/inter.woff2 200 [NRT57]",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "ClientError",
-    "message": "HTTP 400",
-    "type": "server"
+    "level": "info"
   }
 }

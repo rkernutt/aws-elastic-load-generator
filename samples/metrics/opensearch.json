@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "opensearch"
@@ -14,26 +14,26 @@
   "aws": {
     "dimensions": {
       "DomainName": "prod-search-eu-west-2",
-      "ClientId": "293847561023"
+      "ClientId": "164820739518"
     },
     "opensearch": {
       "domain_name": "prod-search-eu-west-2",
-      "index": "logs-2024",
-      "operation": "update",
-      "took_ms": 720,
+      "index": "app-logs",
+      "operation": "search",
+      "took_ms": 784,
       "shards": {
         "total": 5,
         "successful": 5,
         "failed": 0
       },
-      "hits_total": 66524,
+      "hits_total": 88553,
       "status_code": 200,
       "metrics": {
         "CPUUtilization": {
-          "avg": 50.733
+          "avg": 16.972
         },
         "FreeStorageSpace": {
-          "avg": 405109198842
+          "avg": 64800953777
         },
         "ClusterStatus": {
           "green": 1,
@@ -41,25 +41,25 @@
           "red": 0
         },
         "Nodes": {
-          "avg": 15
+          "avg": 11
         },
         "SearchableDocuments": {
-          "avg": 398101123
+          "avg": 515616093
         },
         "IndexingLatency": {
-          "avg": 342
+          "avg": 387
         },
         "SearchLatency": {
-          "avg": 908
+          "avg": 653
         },
         "IndexingRate": {
-          "avg": 89093
+          "avg": 37159
         },
         "SearchRate": {
-          "avg": 9771
+          "avg": 2875
         },
         "JVMMemoryPressure": {
-          "avg": 10.515
+          "avg": 17.946
         },
         "AutomatedSnapshotFailure": {
           "sum": 0
@@ -73,13 +73,13 @@
     }
   },
   "event": {
-    "duration": 719863000,
+    "duration": 784170000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.opensearch",
     "provider": "es.amazonaws.com"
   },
-  "message": "OpenSearch update on logs-2024: 720ms",
+  "message": "OpenSearch search on app-logs: 784ms",
   "log": {
     "level": "info"
   },

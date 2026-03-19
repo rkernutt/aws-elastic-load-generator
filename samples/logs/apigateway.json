@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "apigateway"
@@ -13,59 +13,58 @@
   },
   "aws": {
     "dimensions": {
-      "ApiName": "internal-api",
+      "ApiName": "mobile-api",
       "Stage": "staging",
-      "Method": "PUT",
+      "Method": "PATCH",
       "Resource": "/api/v1/orders"
     },
     "apigateway": {
-      "request_id": "29cd7ieb-r4me",
-      "api_id": "5z0df9vtli",
-      "domain_name": "5z0df9vtli.execute-api.us-east-1.amazonaws.com",
+      "request_id": "48q41pj8-b06e",
+      "api_id": "r2fhwm0xzc",
+      "domain_name": "r2fhwm0xzc.execute-api.us-west-2.amazonaws.com",
       "stage": "staging",
-      "http_method": "PUT",
+      "http_method": "PATCH",
       "resource_path": "/api/v1/orders",
       "protocol": "HTTP/1.1",
-      "route_key": "PUT /api/v1/orders",
-      "status": 204,
-      "response_length": 3450,
-      "ip_address": "149.229.11.65",
-      "caller": null,
-      "user": null,
-      "connection_id": null,
-      "event_type": "MESSAGE",
-      "request_time": "2026-03-17T18:02:32.099Z"
+      "route_key": "PATCH /api/v1/orders",
+      "status": 200,
+      "response_length": 9890,
+      "ip_address": "118.25.182.153",
+      "user": "api-user",
+      "connection_id": "UDTDUS3MJ2B",
+      "event_type": "CONNECT",
+      "request_time": "2026-03-19T15:13:42.103Z"
     }
   },
   "http": {
     "request": {
-      "method": "PUT",
-      "id": "29cd7ieb-r4me",
-      "bytes": 1091
+      "method": "PATCH",
+      "id": "48q41pj8-b06e",
+      "bytes": 285
     },
     "response": {
-      "status_code": 204,
-      "bytes": 3450
+      "status_code": 200,
+      "bytes": 3421
     }
   },
   "url": {
     "path": "/api/v1/orders",
-    "domain": "5z0df9vtli.execute-api.us-east-1.amazonaws.com"
+    "domain": "r2fhwm0xzc.execute-api.eu-west-2.amazonaws.com"
   },
   "client": {
-    "ip": "149.229.11.65",
+    "ip": "138.211.68.238",
     "geo": {
-      "country_iso_code": "US",
-      "country_name": "United States",
-      "region_name": "Virginia",
-      "city_name": "Ashburn"
+      "country_iso_code": "IN",
+      "country_name": "India",
+      "region_name": "Mumbai",
+      "city_name": "Mumbai"
     }
   },
   "user_agent": {
-    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    "original": "curl/7.68.0"
   },
   "event": {
-    "duration": 298000000,
+    "duration": 746000000,
     "outcome": "success",
     "category": [
       "web"
@@ -76,7 +75,7 @@
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "PUT /api/v1/orders 204 298ms",
+  "message": "PATCH /api/v1/orders 200 746ms",
   "log": {
     "level": "info"
   }

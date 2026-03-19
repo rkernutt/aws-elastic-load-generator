@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "health"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "health": {
-      "event_arn": "arn:aws:health:us-east-1::event/dynamodb/548075ta/5f9rf4wzufs",
-      "event_type_code": "AWS_DYNAMODB_MAINTENANCE_SCHEDULED",
-      "event_type_category": "scheduledChange",
-      "service": "DynamoDB",
+      "event_arn": "arn:aws:health:eu-west-2::event/sqs/gxlmigp1/7nas4l4n89x",
+      "event_type_code": "AWS_SQS_API_ISSUE",
+      "event_type_category": "accountNotification",
+      "service": "SQS",
       "region": "global",
       "status_code": "closed",
       "event_scope": "ACCOUNT",
-      "affected_entities_count": 7,
-      "description": "DynamoDB Degraded performance in us-east-1"
+      "affected_entities_count": 44,
+      "description": "SQS Increased error rates in eu-west-2"
     }
   },
   "event": {
@@ -32,9 +32,9 @@
     ],
     "dataset": "aws.health",
     "provider": "health.amazonaws.com",
-    "duration": 156000000000
+    "duration": 33000000000
   },
-  "message": "AWS Health: DynamoDB event resolved in us-east-1",
+  "message": "AWS Health: SQS event resolved in eu-west-2",
   "log": {
     "level": "info"
   }

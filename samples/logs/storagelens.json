@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "s3"
@@ -13,45 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "StorageLensConfigurationId": "entire-account",
-      "StorageType": "IntelligentTiering"
+      "StorageLensConfigurationId": "prod-buckets",
+      "StorageType": "DeepArchive"
     },
     "s3storagelens": {
-      "config_id": "entire-account",
-      "bucket_count": 378,
-      "total_storage_bytes": 28496488515960,
-      "total_object_count": 1899729119,
-      "storage_type": "IntelligentTiering",
+      "config_id": "prod-buckets",
+      "bucket_count": 487,
+      "total_storage_bytes": 6144961430251,
+      "total_object_count": 7186696855,
+      "storage_type": "DeepArchive",
       "metrics": {
         "BucketCount": {
-          "avg": 378
+          "avg": 487
         },
         "TotalStorageBytes": {
-          "sum": 28496488515960
+          "sum": 6144961430251
         },
         "TotalObjectCount": {
-          "sum": 1899729119
+          "sum": 7186696855
         },
         "BytesUsed": {
-          "sum": 28496488515960
+          "sum": 6144961430251
         },
         "ObjectCount": {
-          "sum": 1899729119
+          "sum": 7186696855
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "metric"
     ],
     "dataset": "aws.s3_storage_lens",
     "provider": "s3.amazonaws.com",
-    "duration": 132000000000
+    "duration": 109000000000
   },
-  "message": "S3 Storage Lens entire-account: 378 buckets, 28496.5 GB, 1899729119 objects",
+  "message": "S3 Storage Lens prod-buckets: report generation failed",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ReportGenerationFailed",
+    "message": "Storage Lens report failed",
+    "type": "storage"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "ram"
@@ -13,18 +13,18 @@
   },
   "aws": {
     "ram": {
-      "resource_share_arn": "arn:aws:ram:us-east-1:164820739518:resource-share/w6yrjzx5iof",
+      "resource_share_arn": "arn:aws:ram:eu-west-2:501938274650:resource-share/vkfif9n5ta",
       "resource_share_name": "transit-gateway-share",
-      "resource_type": "ec2:TransitGateway",
-      "action": "AcceptResourceShareInvitation",
-      "principal": "164820739518",
+      "resource_type": "ram:ResourceShare",
+      "action": "RejectResourceShareInvitation",
+      "principal": "501938274650",
       "allow_external_principals": true,
       "status": "ACTIVE",
-      "invitation_status": "REJECTED"
+      "invitation_status": "ACCEPTED"
     }
   },
   "event": {
-    "action": "AcceptResourceShareInvitation",
+    "action": "RejectResourceShareInvitation",
     "outcome": "success",
     "category": [
       "configuration",
@@ -32,9 +32,9 @@
     ],
     "dataset": "aws.ram",
     "provider": "ram.amazonaws.com",
-    "duration": 50000000
+    "duration": 388000000
   },
-  "message": "RAM AcceptResourceShareInvitation: ec2:TransitGateway shared with account 164820739518",
+  "message": "RAM RejectResourceShareInvitation: ram:ResourceShare shared with account 501938274650",
   "log": {
     "level": "info"
   }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "dimensions": {
-      "StateMachineArn": "arn:aws:states:eu-west-2:164820739518:stateMachine:batch-processor"
+      "StateMachineArn": "arn:aws:states:us-east-1:164820739518:stateMachine:data-pipeline"
     },
     "stepfunctions": {
-      "state_machine_name": "batch-processor",
-      "state_machine_arn": "arn:aws:states:eu-west-2:164820739518:stateMachine:batch-processor",
-      "execution_arn": "arn:aws:states:eu-west-2:164820739518:execution:batch-processor:mnzfgrzb",
-      "state_name": "SendNotification",
+      "state_machine_name": "data-pipeline",
+      "state_machine_arn": "arn:aws:states:us-east-1:164820739518:stateMachine:data-pipeline",
+      "execution_arn": "arn:aws:states:us-east-1:164820739518:execution:data-pipeline:or2dwgyi",
+      "state_name": "UpdateDatabase",
       "status": "SUCCEEDED",
-      "duration_seconds": 8.451,
-      "structured_logging": true,
+      "duration_seconds": 1.503,
+      "structured_logging": false,
       "metrics": {
         "ExecutionsStarted": {
-          "sum": 190
+          "sum": 329
         },
         "ExecutionsSucceeded": {
-          "sum": 58
+          "sum": 587
         },
         "ExecutionsFailed": {
           "sum": 0
         },
         "ExecutionsAborted": {
-          "sum": 4
+          "sum": 2
         },
         "ExecutionsTimedOut": {
           "sum": 0
@@ -43,20 +43,20 @@
           "sum": 0
         },
         "ExecutionTime": {
-          "avg": 8451,
-          "max": 16902
+          "avg": 1503,
+          "max": 3006
         }
       }
     }
   },
   "event": {
-    "duration": 8451000000.000001,
+    "duration": 1503000000,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.stepfunctions",
     "provider": "states.amazonaws.com"
   },
-  "message": "{\"executionArn\":\"arn:aws:states:eu-west-2:164820739518:execution:batch-processor:mnzfgrzb\",\"stateMachine\":\"batch-processor\",\"state\":\"SendNotification\",\"status\":\"SUCCEEDED\",\"durationSeconds\":8.451,\"timestamp\":\"2026-03-17T18:02:32.099Z\"}",
+  "message": "Execution started",
   "log": {
     "level": "info"
   },

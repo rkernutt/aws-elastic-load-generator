@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "kinesis"
@@ -13,78 +13,77 @@
   },
   "aws": {
     "dimensions": {
-      "StreamName": "transaction-feed"
+      "StreamName": "audit-trail"
     },
     "kinesis": {
       "metrics": {
         "GetRecords_Bytes": {
-          "avg": 732493
+          "avg": 680549
         },
         "GetRecords_IteratorAgeMilliseconds": {
-          "avg": 573178
+          "avg": 402
         },
         "GetRecords_Latency": {
-          "avg": 23
+          "avg": 42
         },
         "GetRecords_Records": {
-          "sum": 405
+          "avg": 977,
+          "sum": 248
         },
         "GetRecords_Success": {
-          "sum": 0
+          "sum": 1
         },
         "IncomingBytes": {
-          "avg": 9577332
+          "avg": 1043448
         },
         "IncomingRecords": {
-          "avg": 3552
+          "avg": 2631
         },
         "PutRecord_Bytes": {
-          "avg": 945637
+          "avg": 509488
         },
         "PutRecord_Latency": {
-          "avg": 8
+          "avg": 23
+        },
+        "PutRecords_Latency": {
+          "avg": 101
         },
         "PutRecord_Success": {
-          "avg": 0
+          "avg": 1
         },
         "PutRecords_Bytes": {
-          "avg": 3257413
+          "avg": 7283071
         },
         "PutRecords_FailedRecords": {
-          "sum": 73
+          "sum": 0
         },
         "PutRecords_SuccessfulRecords": {
-          "sum": 247
+          "sum": 274
         },
         "PutRecords_ThrottledRecords": {
-          "sum": 5
+          "sum": 0
         },
         "ReadProvisionedThroughputExceeded": {
-          "avg": 3
+          "avg": 0
         },
         "WriteProvisionedThroughputExceeded": {
-          "avg": 1
+          "avg": 0
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "network"
     ],
     "dataset": "aws.kinesis",
     "provider": "kinesis.amazonaws.com",
-    "duration": 24903000000
+    "duration": 908000000
   },
-  "message": "Kinesis WriteProvisionedThroughputExceeded on transaction-feed",
+  "message": "Kinesis audit-trail: 9451 records ingested",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ProvisionedThroughputExceededException",
-    "message": "Kinesis stream error",
-    "type": "stream"
+    "level": "info"
   },
   "data_stream": {
     "type": "metrics",

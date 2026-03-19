@@ -1,44 +1,123 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "emr"
     }
   },
   "aws": {
+    "dimensions": {
+      "JobFlowId": "j-OE71FY401LJ"
+    },
     "emr": {
-      "cluster_id": "j-FPGDK6PVCGO",
+      "cluster_id": "j-OE71FY401LJ",
       "cluster_name": "ml-feature-pipeline-cluster",
-      "application": "hadoop",
+      "application": "flink",
       "release": "emr-6.13.0",
       "instance_group": "MASTER",
-      "executor_count": 35,
+      "executor_count": 15,
       "job": {
         "name": "ml-feature-pipeline",
-        "id": "application_1773770552202_8340",
+        "id": "application_1773933222245_5902",
         "run_state": "SUCCEEDED"
       },
-      "structured_logging": false,
+      "structured_logging": true,
       "metrics": {
-        "executor_count": 35,
-        "running_step_count": 3,
+        "executor_count": 15,
+        "running_step_count": 4,
         "failed_step_count": 0,
-        "hdfs_utilization_pct": 67,
-        "yarn_memory_used_mb": 58749,
-        "elapsedTime": 465000,
-        "numCompletedTasks": 448,
+        "hdfs_utilization_pct": 82,
+        "yarn_memory_used_mb": 25812,
+        "elapsedTime": 1708000,
+        "numCompletedTasks": 47,
         "numFailedTasks": 0,
-        "jvm_heap_usage": 0.29,
-        "gc_time_ms": 44875,
-        "numberAllExecutors": 65
+        "jvm_heap_usage": 0.36,
+        "gc_time_ms": 7644,
+        "numberAllExecutors": 19
+      }
+    },
+    "elasticmapreduce": {
+      "metrics": {
+        "S3BytesWritten": {
+          "sum": 388480423923
+        },
+        "S3BytesRead": {
+          "sum": 829553610808
+        },
+        "HDFSUtilization": {
+          "avg": 82
+        },
+        "HDFSBytesRead": {
+          "sum": 13082867852
+        },
+        "HDFSBytesWritten": {
+          "sum": 4211918750
+        },
+        "TotalNodesRunning": {
+          "avg": 16
+        },
+        "YARNMemoryAvailablePercentage": {
+          "avg": 50.584
+        },
+        "CoreNodesRunning": {
+          "avg": 4
+        },
+        "CoreNodesPending": {
+          "avg": 0
+        },
+        "TaskNodesRunning": {
+          "avg": 2
+        },
+        "LiveDataNodes": {
+          "avg": 7
+        },
+        "CapacityRemainingGB": {
+          "avg": 4393.298
+        },
+        "MemoryAvailableMB": {
+          "sum": 25812
+        },
+        "MemoryReservedMB": {
+          "avg": 32207
+        },
+        "MemoryTotalMB": {
+          "sum": 96549
+        },
+        "ContainersPending": {
+          "avg": 0
+        },
+        "ContainerPendingRatio": {
+          "avg": 0.038
+        },
+        "ContainersAllocated": {
+          "avg": 27
+        },
+        "AppsCompleted": {
+          "sum": 12
+        },
+        "AppsFailed": {
+          "sum": 0
+        },
+        "AppsKilled": {
+          "sum": 0
+        },
+        "AppsPending": {
+          "avg": 0
+        },
+        "AppsRunning": {
+          "avg": 1
+        }
       }
     }
+  },
+  "process": {
+    "name": "PrestoCoordinator"
   },
   "log": {
     "level": "info"
@@ -50,7 +129,7 @@
     ],
     "dataset": "aws.emr",
     "provider": "elasticmapreduce.amazonaws.com",
-    "duration": 465000000000
+    "duration": 1708000000000
   },
-  "message": "Job submitted to YARN ResourceManager"
+  "message": "{\"clusterId\":\"j-OE71FY401LJ\",\"applicationId\":\"application_1773933222245_5902\",\"containerId\":\"container_1773933222245_684_01_835579\",\"logLevel\":\"INFO\",\"message\":\"Job run succeeded\",\"timestamp\":\"2026-03-19T15:13:42.103Z\",\"component\":\"executor\"}"
 }

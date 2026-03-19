@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,31 +13,25 @@
   },
   "aws": {
     "qldb": {
-      "ledger_name": "audit-trail",
-      "table_name": "Orders",
-      "operation": "INSERT",
-      "transaction_id": "zgcegtnlkfs",
-      "document_id": "ocqh0xt48jo",
-      "revision_hash": "seovf1771ho",
-      "duration_ms": 1007,
-      "error_code": "OccConflictException"
+      "ledger_name": "supply-chain",
+      "table_name": "Vehicles",
+      "operation": "UPDATE",
+      "transaction_id": "34ttbrndlrv",
+      "document_id": "o4niw49cnym",
+      "revision_hash": "lv6hvgz9b7p",
+      "duration_ms": 230
     }
   },
   "event": {
-    "duration": 1007073000,
-    "outcome": "failure",
+    "duration": 230007000,
+    "outcome": "success",
     "category": "database",
     "dataset": "aws.qldb",
     "provider": "qldb.amazonaws.com"
   },
-  "message": "QLDB INSERT on audit-trail.Orders FAILED: OCC conflict",
+  "message": "QLDB UPDATE on supply-chain.Vehicles: 230ms",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "OccConflictException",
-    "message": "QLDB transaction failed",
-    "type": "db"
+    "level": "info"
   },
   "data_stream": {
     "type": "metrics",

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "ses"
@@ -15,24 +15,24 @@
     "dimensions": {
       "ses:configuration-set": "transactional",
       "ses:from-domain": "app.io",
-      "ses:to-country": "AU",
-      "ses:to-isp": "Other"
+      "ses:to-country": "JP",
+      "ses:to-isp": "Gmail"
     },
     "ses": {
-      "message_id": "1i2qej96lat.8ffa5b6n5o@us-east-1.amazonses.com",
-      "event_type": "Delivery",
+      "message_id": "wbxdwme5qzb.6jx0mqnb45@us-east-1.amazonses.com",
+      "event_type": "Reject",
       "from_address": "no-reply@app.io",
-      "destination": "user_9612jl@company.org",
+      "destination": "user_arl1t8@outlook.com",
       "configuration_set": "transactional",
       "bounce": {},
       "complaint": {},
-      "sending_account_id": "738291046572",
+      "sending_account_id": "814726593401",
       "delivery": {
         "recipients": [
-          "user_9612jl@company.org"
+          "user_arl1t8@outlook.com"
         ],
-        "timestamp": "2026-03-17T18:02:32.099Z",
-        "processing_time_ms": 1482,
+        "timestamp": "2026-03-19T15:13:42.103Z",
+        "processing_time_ms": 136,
         "smtp_response": "250 2.0.0 OK"
       },
       "metrics": {
@@ -52,10 +52,10 @@
           "sum": 0
         },
         "Open": {
-          "sum": 1
+          "sum": 0
         },
         "Click": {
-          "sum": 1
+          "sum": 0
         },
         "RenderingFailure": {
           "sum": 0
@@ -67,17 +67,22 @@
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "email",
       "process"
     ],
     "dataset": "aws.ses",
     "provider": "email.amazonaws.com",
-    "duration": 353000000
+    "duration": 655000000
   },
-  "message": "SES Delivery: no-reply@app.io -> user_9612jl@company.org",
+  "message": "SES Reject: no-reply@app.io -> user_arl1t8@outlook.com",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "SESDeliveryFailure",
+    "message": "SES delivery failed",
+    "type": "email"
   }
 }

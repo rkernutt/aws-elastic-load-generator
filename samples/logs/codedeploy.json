@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "codedeploy"
@@ -13,18 +13,18 @@
   },
   "aws": {
     "dimensions": {
-      "DeploymentGroupName": "prod",
+      "DeploymentGroupName": "canary",
       "ApplicationName": "api-service"
     },
     "codedeploy": {
       "application_name": "api-service",
-      "deployment_group": "prod",
-      "deployment_id": "d-4TZY1WXYZ",
+      "deployment_group": "canary",
+      "deployment_id": "d-9BK05KAGN",
       "deployment_type": "IN_PLACE",
       "lifecycle_event": "BeforeAllowTraffic",
       "event_status": "Succeeded",
-      "duration_seconds": 121,
-      "instances_succeeded": 1,
+      "duration_seconds": 49,
+      "instances_succeeded": 10,
       "instances_failed": 0,
       "metrics": {
         "DeploymentAttempts": {
@@ -40,10 +40,10 @@
           "sum": 0
         },
         "DeploymentDuration": {
-          "avg": 121
+          "avg": 49
         },
         "InstanceSuccesses": {
-          "sum": 7
+          "sum": 10
         },
         "InstanceFailures": {
           "sum": 0
@@ -52,7 +52,7 @@
     }
   },
   "event": {
-    "duration": 121000000000,
+    "duration": 49000000000,
     "outcome": "success",
     "category": [
       "process",
@@ -61,7 +61,7 @@
     "dataset": "aws.codedeploy",
     "provider": "codedeploy.amazonaws.com"
   },
-  "message": "CodeDeploy api-service deployment SUCCEEDED in 121s",
+  "message": "CodeDeploy api-service deployment SUCCEEDED in 49s",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "forecast"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "DatasetGroup": "energy-consumption",
-      "Operation": "CreateDatasetImportJob"
+      "DatasetGroup": "web-traffic",
+      "Operation": "CreatePredictor"
     },
     "forecast": {
-      "dataset_group": "energy-consumption",
-      "predictor_name": "energy-consumption-predictor-v4",
-      "action": "CreateDatasetImportJob",
+      "dataset_group": "web-traffic",
+      "predictor_name": "web-traffic-predictor-v6",
+      "action": "CreatePredictor",
       "algorithm": "NPTS",
-      "forecast_horizon": 60,
-      "weighted_quantile_loss": 0.212,
-      "duration_seconds": 4078,
+      "forecast_horizon": 30,
+      "weighted_quantile_loss": 0.221,
+      "duration_seconds": 4998,
       "status": "ACTIVE"
     }
   },
   "event": {
-    "duration": 4078000000000,
+    "duration": 4998000000000,
     "outcome": "success",
     "category": [
       "process"
@@ -36,7 +36,7 @@
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com"
   },
-  "message": "Forecast CreateDatasetImportJob: energy-consumption, WQL=0.174",
+  "message": "Forecast CreatePredictor: web-traffic, WQL=0.221",
   "log": {
     "level": "info"
   }

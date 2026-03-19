@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -16,51 +16,45 @@
       "Operation": "HLS"
     },
     "mediaconvert": {
-      "job_id": "9991374752-xphgll",
-      "queue_arn": "arn:aws:mediaconvert:us-east-1:738291046572:queues/batch",
-      "job_status": "ERROR",
+      "job_id": "3462842562-4be5k6",
+      "queue_arn": "arn:aws:mediaconvert:us-east-1:738291046572:queues/Default",
+      "job_status": "COMPLETE",
       "output_group_type": "HLS",
       "input_file": "s3://media-input/raw/interview.mov",
-      "input_duration_minutes": 5.617,
-      "video_codec": "H_265",
-      "audio_codec": "MP3",
-      "width": 1920,
+      "input_duration_minutes": 63.043,
+      "video_codec": "AV1",
+      "audio_codec": "AAC",
+      "width": 3840,
       "height": 1080,
-      "bitrate_kbps": 5000,
-      "duration_seconds": 1016,
-      "error_message": "Unsupported codec",
+      "bitrate_kbps": 8000,
+      "duration_seconds": 1774,
       "metrics": {
         "JobsCompletedCount": {
-          "sum": 0
-        },
-        "JobsErroredCount": {
           "sum": 1
         },
+        "JobsErroredCount": {
+          "sum": 0
+        },
         "StandbyTime": {
-          "avg": 154
+          "avg": 198
         },
         "TranscodingTime": {
-          "avg": 1016
+          "avg": 1774
         }
       }
     }
   },
   "event": {
-    "duration": 1016000000000,
-    "outcome": "failure",
+    "duration": 1774000000000,
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.mediaconvert",
     "provider": "mediaconvert.amazonaws.com"
   },
-  "message": "MediaConvert job 9991374752-xphgll ERROR: Invalid format",
-  "error": {
-    "code": "JobError",
-    "message": "MediaConvert job failed",
-    "type": "media"
-  },
+  "message": "MediaConvert job 3462842562-4be5k6 COMPLETE: 63.0 min -> HLS",
   "log": {
-    "level": "error"
+    "level": "info"
   }
 }

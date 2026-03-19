@@ -1,8 +1,14 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "trace": {
+    "id": "1-69bc12a6-u0cmqgcvico"
+  },
+  "span": {
+    "id": "be8awqc4ty"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -14,63 +20,98 @@
   "aws": {
     "dimensions": {
       "GroupName": "Default",
-      "ServiceType": "AWS::EC2::Instance"
+      "ServiceType": "remote"
     },
     "xray": {
-      "trace_id": "1-69b99738-y2eq7yobigj",
-      "segment_id": "n6qzbul29w",
-      "parent_id": "dcto8obw1rf",
+      "trace_id": "1-69bc12a6-u0cmqgcvico",
+      "segment_id": "be8awqc4ty",
+      "parent_id": "y6vku4697bg",
       "service": {
         "name": "payment-service",
-        "type": "client"
+        "type": "remote"
       },
-      "duration": 3.7,
+      "duration": 28.608,
+      "fault": true,
+      "error": false,
+      "throttle": false,
       "http": {
         "request": {
-          "method": "GET",
-          "url": "/api/v1/auth/login"
+          "method": "DELETE",
+          "url": "/health"
         },
         "response": {
-          "status": 201
+          "status": 502
         }
       },
-      "fault": false,
       "annotations": {
         "env": "prod",
-        "version": "v2"
+        "version": "v15"
       },
+      "subsegments": [
+        {
+          "id": "zxt1jb202b9",
+          "name": "SQS.SendMessage",
+          "namespace": "remote",
+          "duration": 0.194,
+          "fault": true
+        },
+        {
+          "id": "iij1hbvnpjp",
+          "name": "SNS.Publish",
+          "namespace": "aws",
+          "duration": 0.358,
+          "fault": true
+        }
+      ],
       "metrics": {
         "ErrorRate": {
-          "avg": 0.631
+          "avg": 0.942
         },
         "FaultRate": {
-          "avg": 0.481
+          "avg": 4.058
         },
         "ThrottleRate": {
-          "avg": 1.529
+          "avg": 0.02
         },
         "TotalCount": {
-          "sum": 7996
+          "sum": 7577
         },
         "Latency": {
-          "avg": 3700,
-          "p99": 11100
+          "avg": 28608,
+          "p99": 85824
         }
       }
     }
   },
+  "http": {
+    "request": {
+      "method": "DELETE"
+    },
+    "response": {
+      "status_code": 502
+    }
+  },
   "event": {
-    "duration": 3700000000,
-    "outcome": "success",
+    "duration": 28608000000,
+    "outcome": "failure",
     "category": [
-      "process"
+      "network"
+    ],
+    "type": [
+      "connection",
+      "denied"
     ],
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray trace: payment-service 3.700s",
+  "message": "X-Ray FAULT: payment-service DELETE → 502 (28.608s)",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "TraceFault",
+    "message": "Service fault: HTTP 502",
+    "type": "trace"
   },
   "data_stream": {
     "type": "metrics",

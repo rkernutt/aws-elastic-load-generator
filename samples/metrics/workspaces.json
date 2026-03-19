@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "workspaces"
@@ -13,25 +13,26 @@
   },
   "aws": {
     "dimensions": {
-      "DirectoryId": "d-njf88dwii6",
-      "WorkspaceId": "ws-a4c31vsn3v"
+      "DirectoryId": "d-q83o9o9rtb",
+      "WorkspaceId": "ws-iugjfvkset"
     },
     "workspaces": {
-      "workspace_id": "ws-a4c31vsn3v",
-      "user_name": "bob",
-      "bundle_type": "Performance",
-      "workspace_state": "CONNECTED",
-      "action": "StopWorkspace",
-      "compute_type": "STANDARD",
-      "running_mode": "ALWAYS_ON",
-      "client_ip": "9.140.49.253",
+      "workspace_id": "ws-iugjfvkset",
+      "user_name": "alice",
+      "bundle_type": "Graphics",
+      "workspace_state": "ERROR",
+      "action": "Disconnect",
+      "compute_type": "PERFORMANCE",
+      "running_mode": "AUTO_STOP",
+      "client_ip": "230.225.0.178",
       "client_os": "Windows 11",
+      "error_code": "InvalidUser",
       "metrics": {
         "Available": {
-          "sum": 1
+          "sum": 0
         },
         "Unhealthy": {
-          "sum": 0
+          "sum": 1
         },
         "ConnectionSuccess": {
           "sum": 0
@@ -43,7 +44,7 @@
           "sum": 0
         },
         "UserConnected": {
-          "sum": 1
+          "sum": 0
         },
         "Stopped": {
           "sum": 0
@@ -55,25 +56,30 @@
     }
   },
   "user": {
-    "name": "bob"
+    "name": "alice"
   },
   "source": {
-    "ip": "4.241.106.224"
+    "ip": "23.155.154.50"
   },
   "event": {
-    "action": "StopWorkspace",
-    "outcome": "success",
+    "action": "Disconnect",
+    "outcome": "failure",
     "category": [
       "host",
       "session"
     ],
     "dataset": "aws.workspaces",
     "provider": "workspaces.amazonaws.com",
-    "duration": 1255000000
+    "duration": 5990000000
   },
-  "message": "WorkSpaces StopWorkspace: bob on ws-a4c31vsn3v [CONNECTED]",
+  "message": "WorkSpaces Disconnect FAILED for alice (ws-iugjfvkset)",
+  "error": {
+    "code": "WorkSpacesError",
+    "message": "WorkSpaces operation failed",
+    "type": "session"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "data_stream": {
     "type": "metrics",

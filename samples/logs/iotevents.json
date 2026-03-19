@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "iotevents"
@@ -13,32 +13,38 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorModelName": "door-sensor-model",
-      "KeyValue": "zone-A"
+      "DetectorModelName": "motor-health-detector",
+      "KeyValue": "unit-02"
     },
     "iotevents": {
-      "detector_model_name": "door-sensor-model",
-      "detector_id": "zone-A",
-      "key_value": "zone-A",
-      "event_name": "AlarmAcknowledged",
+      "detector_model_name": "motor-health-detector",
+      "detector_id": "unit-02",
+      "key_value": "unit-02",
+      "event_name": "AlarmReset",
       "from_state": "Alarm",
-      "to_state": "Normal",
-      "input_name": "CommandInput",
-      "action_type": "SetTimer",
-      "condition_expression": "$input.data.value < threshold"
+      "to_state": "Error",
+      "input_name": "SensorInput",
+      "action_type": "SNS",
+      "condition_expression": "$input.SensorInput.temperature > 85",
+      "error_code": "ThrottlingException"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.iotevents",
     "provider": "iotevents.amazonaws.com",
-    "duration": 496000000
+    "duration": 612000000
   },
-  "message": "IoT Events door-sensor-model/zone-A: Alarm → Normal [AlarmAcknowledged]",
+  "message": "IoT Events motor-health-detector/unit-02 ERROR: Input validation error",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ResourceNotFound",
+    "message": "IoT Events error",
+    "type": "iot"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "natgateway"
@@ -13,81 +13,81 @@
   },
   "aws": {
     "dimensions": {
-      "NatGatewayId": "nat-v50m4rq1efp"
+      "NatGatewayId": "nat-1x1pyahxwdak"
     },
     "natgateway": {
-      "id": "nat-v50m4rq1efp",
-      "private_ip": "10.114.1.68",
-      "public_ip": "88.9.95.47",
-      "bytes_in_from_destination": 288781,
-      "bytes_in_from_source": 673822,
-      "bytes_out_to_destination": 962604,
-      "bytes_out_to_source": 385041,
-      "packets_in_from_destination": 284,
-      "packets_in_from_source": 664,
-      "packets_out_to_destination": 949,
-      "packets_out_to_source": 379,
+      "id": "nat-1x1pyahxwdak",
+      "private_ip": "10.71.100.180",
+      "public_ip": "226.59.236.150",
+      "bytes_in_from_source": 3906,
+      "bytes_out_to_destination": 3906,
+      "bytes_in_from_destination": 3312,
+      "bytes_out_to_source": 3886,
+      "packets_in_from_source": 6,
+      "packets_out_to_destination": 6,
+      "packets_in_from_destination": 5,
+      "packets_out_to_source": 5,
       "connection_attempt_count": 0,
-      "connection_established_count": 1,
+      "connection_established_count": 43,
       "error_port_allocation": 0,
       "metrics": {
         "ActiveConnectionCount": {
-          "avg": 8881
+          "avg": 7518
         },
         "BytesInFromDestination": {
-          "sum": 917096519
+          "sum": 642628979
         },
         "BytesInFromSource": {
-          "sum": 233200671
+          "sum": 507728875
         },
         "BytesOutToDestination": {
-          "sum": 210913879
+          "sum": 845766913
         },
         "BytesOutToSource": {
-          "sum": 546188733
+          "sum": 983379864
         },
         "ConnectionAttemptCount": {
-          "sum": 944
+          "sum": 776
         },
         "ConnectionEstablishedCount": {
-          "sum": 939
+          "sum": 912
         },
         "ErrorPortAllocation": {
           "sum": 0
         },
         "IdleTimeoutCount": {
-          "sum": 21
+          "sum": 45
         },
         "PacketsDropCount": {
           "sum": 0
         },
         "PacketsInFromDestination": {
-          "sum": 895942
+          "sum": 989457
         },
         "PacketsInFromSource": {
-          "sum": 100310
+          "sum": 760861
         },
         "PacketsOutToDestination": {
-          "sum": 554237
+          "sum": 485857
         },
         "PacketsOutToSource": {
-          "sum": 351743
+          "sum": 739782
         }
       }
     }
   },
   "source": {
-    "ip": "10.114.1.68",
-    "port": 28991
+    "ip": "10.71.100.180",
+    "port": 36056
   },
   "destination": {
-    "ip": "152.246.218.83",
-    "port": 8080
+    "ip": "70.23.11.182",
+    "port": 5432
   },
   "network": {
-    "protocol": "udp",
-    "bytes": 962604,
-    "packets": 949,
+    "protocol": "tcp",
+    "bytes": 3906,
+    "packets": 6,
     "direction": "egress"
   },
   "event": {
@@ -97,9 +97,9 @@
     ],
     "dataset": "aws.natgateway",
     "provider": "natgateway.amazonaws.com",
-    "duration": 1553000000
+    "duration": 999000000
   },
-  "message": "NAT Gateway nat-v50m4rq1efp: ACCEPT UDP 10.114.1.68:19701 → 152.246.218.83:8080 962604B",
+  "message": "NAT Gateway nat-1x1pyahxwdak: ACCEPT TCP 10.71.100.180:12927 → 70.23.11.182:5432 3906B",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "rekognition"
@@ -13,53 +13,47 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "IndexFaces"
+      "Operation": "StartFaceDetection"
     },
     "rekognition": {
-      "operation": "IndexFaces",
-      "input_source": "S3Object",
-      "image_bytes": 2281078,
-      "duration_ms": 4737,
-      "labels_detected": 0,
-      "faces_detected": 0,
-      "max_confidence": 0,
+      "operation": "StartFaceDetection",
+      "input_source": "Base64Image",
+      "image_bytes": 160284,
+      "duration_ms": 198,
+      "labels_detected": 46,
+      "faces_detected": 11,
+      "max_confidence": 81.653,
       "confidence_threshold": 70,
-      "error_code": "ImageTooLargeException",
       "metrics": {
         "SuccessfulRequestCount": {
           "sum": 1
         },
         "ThrottledCount": {
-          "sum": 1
+          "sum": 0
         },
         "UserErrorCount": {
-          "sum": 4
+          "sum": 0
         },
         "ServerErrorCount": {
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 2756.138
+          "avg": 445.055
         }
       }
     }
   },
   "event": {
-    "duration": 4736641000,
-    "outcome": "failure",
+    "duration": 197781000,
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.rekognition",
     "provider": "rekognition.amazonaws.com"
   },
-  "message": "Rekognition IndexFaces FAILED: Access denied",
+  "message": "Rekognition StartFaceDetection: 44 results, 81.7% confidence",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "RekognitionError",
-    "message": "Rekognition operation failed",
-    "type": "ml"
+    "level": "info"
   }
 }

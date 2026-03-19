@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,33 +13,27 @@
   },
   "aws": {
     "memorydb": {
-      "cluster_name": "rate-limiter",
-      "node_name": "rate-limiter-0001-001",
+      "cluster_name": "session-store",
+      "node_name": "session-store-0001-001",
       "engine_version": "7.1",
-      "command": "DEL",
-      "latency_us": 1925.629,
-      "cache_hit_rate": 0,
-      "connected_clients": 417,
-      "used_memory_mb": 15164,
-      "replication_lag_ms": 4166,
-      "error_code": "WRONGTYPE"
+      "command": "HSET",
+      "latency_us": 17.922,
+      "cache_hit_rate": 96.865,
+      "connected_clients": 450,
+      "used_memory_mb": 42350,
+      "replication_lag_ms": 99
     }
   },
   "event": {
-    "duration": 1925629,
-    "outcome": "failure",
+    "duration": 17922,
+    "outcome": "success",
     "category": "database",
     "dataset": "aws.memorydb",
     "provider": "memory-db.amazonaws.com"
   },
-  "message": "MemoryDB rate-limiter DEL FAILED: OOM",
+  "message": "MemoryDB session-store HSET: 17.92us",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "WRONGTYPE",
-    "message": "MemoryDB command failed",
-    "type": "db"
+    "level": "info"
   },
   "data_stream": {
     "type": "metrics",

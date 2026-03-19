@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "autoscaling"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "AutoScalingGroupName": "spot-fleet"
+      "AutoScalingGroupName": "batch-asg"
     },
     "autoscaling": {
-      "group_name": "spot-fleet",
-      "activity_id": "2794vp0o-vxnr-oyi3",
-      "action_type": "HealthCheck",
-      "instance_id": "i-tu9x053fgkg",
-      "instance_type": "c5.2xlarge",
-      "desired_capacity": 3,
+      "group_name": "batch-asg",
+      "activity_id": "y4lc4tbk-p4c1-op5n",
+      "action_type": "Launch",
+      "instance_id": "i-hafcwe8h5ie",
+      "instance_type": "m5.xlarge",
+      "desired_capacity": 6,
       "min_size": 2,
       "max_size": 50,
-      "current_capacity": 3,
-      "cause": "EC2 health check passed",
+      "current_capacity": 6,
+      "cause": "Scale out triggered: capacity below desired",
       "status_code": "Successful",
-      "launch_template": "worker-lt:8",
+      "launch_template": "web-lt:5",
       "metrics": {
         "GroupMinSize": {
           "avg": 2
@@ -36,10 +36,10 @@
           "avg": 50
         },
         "GroupDesiredCapacity": {
-          "avg": 3
+          "avg": 6
         },
         "GroupInServiceInstances": {
-          "avg": 3
+          "avg": 6
         },
         "GroupPendingInstances": {
           "avg": 0
@@ -51,10 +51,10 @@
           "avg": 0
         },
         "GroupTotalInstances": {
-          "avg": 3
+          "avg": 6
         },
         "GroupInServiceCapacity": {
-          "avg": 3
+          "avg": 6
         },
         "GroupPendingCapacity": {
           "avg": 0
@@ -66,7 +66,7 @@
           "avg": 0
         },
         "GroupTotalCapacity": {
-          "avg": 3
+          "avg": 6
         },
         "WarmPoolMinSize": {
           "avg": 0
@@ -96,9 +96,9 @@
     "outcome": "success",
     "dataset": "aws.autoscaling",
     "provider": "autoscaling.amazonaws.com",
-    "duration": 91000000000
+    "duration": 557000000000
   },
-  "message": "AutoScaling spot-fleet: HealthCheck instance",
+  "message": "AutoScaling batch-asg: Launch instance",
   "log": {
     "level": "info"
   }

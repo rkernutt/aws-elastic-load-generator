@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "wafv2"
@@ -13,22 +13,38 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "regional-waf",
-      "Rule": "AWSManagedRulesWindowsRuleSet",
+      "WebACL": "admin-portal-waf",
+      "Rule": "GenericRFI_BODY",
       "Region": "us-east-1"
     },
-    "wafv2": {
-      "web_acl_name": "regional-waf",
-      "rule_group_name": "AWSManagedRulesSQLiRuleSet",
-      "rule_name": "AWSManagedRulesWindowsRuleSet",
-      "action": "ALLOW",
-      "terminating_rule_id": "AWSManagedRulesWindowsRuleSet",
-      "source_ip": "244.92.119.2",
-      "country": "CN",
-      "uri": "/api/v1/auth/login",
-      "method": "PATCH",
-      "user_agent": "Go-http-client/1.1",
-      "request_id": "c03f141i28",
+    "waf": {
+      "id": "lb3qxo6qc2r",
+      "arn": "arn:aws:wafv2:us-east-1:293847561023:regional/webacl/admin-portal-waf/h6cezeiu-v9yt-07ys-lvzt-chr4dawq3fr",
+      "format_version": "1",
+      "source": {
+        "name": "APIGW",
+        "id": "293847561023-app/admin-portal-waf/6uzpnt9m0kc"
+      },
+      "rule_group_list": [
+        {
+          "ruleGroupId": "GeoBlockRule",
+          "nonTerminatingMatchingRules": []
+        }
+      ],
+      "non_terminating_matching_rules": [],
+      "terminating_rule_match_details": [],
+      "request": {
+        "headers": [
+          {
+            "name": "User-Agent",
+            "value": "python-requests/2.27.1"
+          },
+          {
+            "name": "Host",
+            "value": "api.example.com"
+          }
+        ]
+      },
       "labels": [],
       "metrics": {
         "AllowedRequests": {
@@ -56,11 +72,28 @@
     }
   },
   "source": {
-    "ip": "244.92.119.2",
+    "ip": "165.64.25.9",
     "geo": {
-      "country_iso_code": "FR",
-      "city_name": "Ashburn"
+      "country_iso_code": "US",
+      "country_name": "United States",
+      "city_name": "San Francisco",
+      "location": {
+        "lat": 37.7749,
+        "lon": -122.4194
+      }
     }
+  },
+  "http": {
+    "request": {
+      "method": "PATCH",
+      "bytes": 8365
+    }
+  },
+  "url": {
+    "path": "/api/v1/orders"
+  },
+  "user_agent": {
+    "original": "python-requests/2.27.1"
   },
   "event": {
     "action": "allow",
@@ -72,7 +105,7 @@
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com"
   },
-  "message": "WAFv2 ALLOW [regional-waf] 244.92.119.2 PUT /api/v1/products",
+  "message": "WAFv2 ALLOW [admin-portal-waf] 165.64.25.9 PATCH /api/v1/orders",
   "log": {
     "level": "info"
   },

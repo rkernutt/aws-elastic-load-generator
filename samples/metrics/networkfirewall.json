@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -14,37 +14,37 @@
   "aws": {
     "dimensions": {
       "FirewallName": "fw-eu-west-2",
-      "AvailabilityZone": "eu-west-2b",
+      "AvailabilityZone": "eu-west-2a",
       "CustomAction": "CustomPassAction"
     },
     "firewall_logs": {
-      "flow_id": 354719,
-      "event_timestamp": "2026-03-17T18:02:32.099Z",
+      "flow_id": 278711,
+      "event_timestamp": "2026-03-19T15:13:42.103Z",
       "action": "PASS",
-      "src_ip": "204.8.35.66",
-      "dest_ip": "241.191.94.170",
-      "src_port": 46463,
+      "src_ip": "114.67.65.243",
+      "dest_ip": "195.94.191.69",
+      "src_port": 18712,
       "dest_port": 22,
-      "protocol": "ICMP",
+      "protocol": "TCP",
       "firewall_name": "fw-eu-west-2",
-      "availability_zone": "eu-west-2b"
+      "availability_zone": "eu-west-2a"
     },
     "network_firewall": {
       "firewall_name": "fw-eu-west-2",
-      "availability_zone": "eu-west-2b",
+      "availability_zone": "eu-west-2a",
       "policy_name": "prod-fw-policy",
       "metrics": {
         "DroppedPackets": {
           "sum": 0
         },
         "PassedPackets": {
-          "sum": 26984
+          "sum": 26242
         },
         "RejectedPackets": {
           "sum": 0
         },
         "Packets": {
-          "sum": 89864
+          "sum": 41837
         },
         "DroppedBytes": {
           "sum": 0
@@ -53,17 +53,17 @@
     }
   },
   "source": {
-    "ip": "204.8.35.66",
-    "port": 46463
+    "ip": "114.67.65.243",
+    "port": 18712
   },
   "destination": {
-    "ip": "241.191.94.170",
+    "ip": "195.94.191.69",
     "port": 22
   },
   "network": {
-    "transport": "icmp",
-    "bytes": 59972,
-    "packets": 27
+    "transport": "tcp",
+    "bytes": 64449,
+    "packets": 40
   },
   "event": {
     "action": "pass",
@@ -76,7 +76,7 @@
     "provider": "network-firewall.amazonaws.com",
     "duration": 28000000
   },
-  "message": "PASS ICMP flow",
+  "message": "PASS TCP flow",
   "log": {
     "level": "info"
   },

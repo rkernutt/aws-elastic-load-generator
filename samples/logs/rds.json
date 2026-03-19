@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "rds"
@@ -13,71 +13,71 @@
   },
   "aws": {
     "dimensions": {
-      "DBInstanceIdentifier": "prod-db-replica",
+      "DBInstanceIdentifier": "prod-db-primary",
       "DatabaseClass": "db.r5.large",
-      "EngineName": "mysql",
-      "SourceRegion": "eu-west-2"
+      "EngineName": "postgres",
+      "SourceRegion": "us-east-1"
     },
     "rds": {
       "db_instance": {
-        "identifier": "prod-db-replica",
-        "class": "db.r5.large",
-        "engine_name": "mysql",
-        "arn": "arn:aws:rds:eu-west-2:293847561023:db:prod-db-replica",
+        "identifier": "prod-db-primary",
+        "class": "db.r6g.xlarge",
+        "engine_name": "postgres",
+        "arn": "arn:aws:rds:us-east-1:814726593401:db:prod-db-primary",
         "status": "available",
         "role": "read-replica"
       },
       "cpu": {
         "total": {
-          "pct": 0.3434
+          "pct": 0.3447
         }
       },
       "freeable_memory": {
-        "bytes": 3509329787
+        "bytes": 4172973186
       },
       "free_storage": {
-        "bytes": 361220833979
+        "bytes": 71215685341
       },
-      "database_connections": 14,
+      "database_connections": 336,
       "read_io": {
-        "ops_per_sec": 1289.0
+        "ops_per_sec": 1973.434
       },
       "write_io": {
-        "ops_per_sec": 1684.0
+        "ops_per_sec": 2756.048
       },
       "latency": {
-        "read": 0.004,
-        "write": 0.002
+        "read": 0.007,
+        "write": 0.004
       },
       "throughput": {
-        "read": 9925102,
-        "write": 13815927,
-        "network_receive": 45104655,
-        "network_transmit": 80139166
+        "read": 62018699,
+        "write": 70935353,
+        "network_receive": 98946163,
+        "network_transmit": 99221497
       },
       "replica_lag": {
-        "sec": 80.0
+        "sec": 97.873
       },
       "swap_usage": {
-        "bytes": 38281843
+        "bytes": 59185977
       },
       "disk_usage": {
         "bin_log": {
-          "bytes": 40701745
+          "bytes": 107245924
         }
       }
     }
   },
   "db": {
     "user": {
-      "name": "readonly"
+      "name": "admin"
     },
-    "name": "analytics",
-    "statement": "SELECT * FROM orders WHERE id = V8RY3V",
+    "name": "events",
+    "statement": "UPDATE products SET price RZVGDV",
     "type": "sql"
   },
   "event": {
-    "duration": 1919000000,
+    "duration": 1879000000,
     "outcome": "success",
     "category": [
       "database"
@@ -89,7 +89,7 @@
     "dataset": "aws.rds",
     "provider": "rds.amazonaws.com"
   },
-  "message": "LOG: duration: 1919.000 ms statement: SELECT * FROM orders WHERE id = V8RY3V",
+  "message": "{\"instanceId\":\"prod-db-primary\",\"engine\":\"postgres\",\"userId\":\"admin\",\"queryTime\":1.879,\"error\":null,\"timestamp\":\"2026-03-19T15:13:42.103Z\",\"osMetrics\":{\"cpuUtilization\":{\"guest\":1.394,\"irq\":0.934,\"system\":2.361,\"wait\":0.867,\"idle\":70,\"user\":24.493,\"total\":30},\"memory\":{\"total\":52161684140,\"free\":2338901142,\"cached\":4809733598,\"active\":8460235111,\"inactive\":2910410376,\"buffers\":236784618},\"disk\":{\"readIOsPS\":2690.754,\"writeIOsPS\":2244.198,\"readKbPS\":43694.782,\"writeKbPS\":476407.609,\"avgQueueLen\":7.562,\"await\":3.91},\"network\":{\"rx\":90400245,\"tx\":19144903},\"numVCPUs\":4,\"uptime\":\"62 days, 23:23:27\"}}",
   "log": {
     "level": "info"
   }

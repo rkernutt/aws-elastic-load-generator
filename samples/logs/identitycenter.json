@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "identitycenter"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "iam_identity_center": {
-      "event_type": "Authenticate",
+      "event_type": "ProvisionUser",
       "user_name": "svc-account@corp.com",
-      "application_name": "AWS Console",
-      "permission_set": "BillingAccess",
-      "account_id": "164820739518",
-      "mfa_authenticated": true
+      "application_name": "DataDog",
+      "permission_set": "PowerUserAccess",
+      "account_id": "293847561023",
+      "mfa_authenticated": false
     }
   },
   "user": {
     "name": "svc-account@corp.com"
   },
   "source": {
-    "ip": "103.84.110.51"
+    "ip": "163.226.44.101"
   },
   "event": {
-    "action": "Authenticate",
+    "action": "ProvisionUser",
     "outcome": "success",
     "category": "authentication",
     "dataset": "aws.identitycenter",
     "provider": "sso.amazonaws.com"
   },
-  "message": "IAM Identity Center Authenticate: svc-account@corp.com -> AWS Console",
+  "message": "IAM Identity Center ProvisionUser: svc-account@corp.com -> DataDog",
   "log": {
     "level": "info"
   }

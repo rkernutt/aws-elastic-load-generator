@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "textract"
@@ -13,17 +13,18 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "DetectDocumentText"
+      "Operation": "StartExpenseAnalysis"
     },
     "textract": {
-      "operation": "DetectDocumentText",
-      "document_type": "bank-statement",
-      "pages_processed": 15,
-      "blocks_detected": 1155,
-      "words_detected": 5340,
+      "operation": "StartExpenseAnalysis",
+      "document_type": "receipt",
+      "job_id": "psvgf7hmsnh",
+      "pages_processed": 10,
+      "blocks_detected": 600,
+      "words_detected": 4870,
       "form_key_value_pairs": 0,
       "tables_detected": 0,
-      "confidence_mean": 94.757,
+      "confidence_mean": 93.3,
       "metrics": {
         "DocumentsProcessed": {
           "sum": 1
@@ -32,7 +33,7 @@
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 2733.771
+          "avg": 1710.181
         },
         "SuccessfulRequests": {
           "sum": 1
@@ -55,7 +56,7 @@
     "dataset": "aws.textract",
     "provider": "textract.amazonaws.com"
   },
-  "message": "Textract DetectDocumentText: bank-statement, 15 pages, 4305 words",
+  "message": "Textract StartExpenseAnalysis: receipt, 10 pages, 2010 words",
   "log": {
     "level": "info"
   }

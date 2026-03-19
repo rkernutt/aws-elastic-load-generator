@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-17T18:02:32.099Z",
+  "@timestamp": "2026-03-19T15:13:42.103Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "kms"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "kms": {
-      "key_id": "8g44krue-rzsi-oru6-pwsq-e8n1tqpd8bs",
-      "key_alias": "alias/backup-key",
-      "operation": "Decrypt",
-      "principal_arn": "arn:aws:iam::501938274650:role/ecs-task-role",
+      "key_id": "w0c7wr9b-5rg9-tai8-85dm-rh52w0c0jhb",
+      "key_alias": "alias/rds-encryption",
+      "operation": "ScheduleKeyDeletion",
+      "principal_arn": "arn:aws:iam::164820739518:role/ecs-task-role",
       "key_state": "Enabled",
-      "encryption_algorithm": "SYMMETRIC_DEFAULT",
+      "encryption_algorithm": "RSAES_OAEP_SHA_256",
       "metrics": {
         "SecretsManagerCrossAccountBlocking": {
           "sum": 0
         },
         "KeysCount": {
-          "avg": 474
+          "avg": 889
         },
         "KeysPendingDeletion": {
-          "avg": 6
+          "avg": 9
         },
         "KeysDisabled": {
           "avg": 5
@@ -36,7 +36,7 @@
     }
   },
   "event": {
-    "action": "Decrypt",
+    "action": "ScheduleKeyDeletion",
     "outcome": "success",
     "category": [
       "authentication",
@@ -45,7 +45,7 @@
     "dataset": "aws.kms",
     "provider": "kms.amazonaws.com"
   },
-  "message": "KMS Decrypt: alias/backup-key",
+  "message": "KMS ScheduleKeyDeletion: alias/rds-encryption",
   "log": {
     "level": "info"
   },
