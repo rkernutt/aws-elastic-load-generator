@@ -243,15 +243,13 @@ function parseVersion(versionStr) {
 }
 
 /**
- * Patch a pre-generated NDJSON saved-object string so that lnsPie (donut/pie)
+ * Patch a pre-generated NDJSON saved-object string so that lnsPie (pie/donut)
  * visualizations include all fields required by the detected Kibana version.
  *
- * Known version differences for lnsPie:
- *   8.0–8.12  baseline — no legendStats, no palette required
- *   8.13+     layers need legendStats[], truncateLegend, maxLegendLines;
- *             top-level visualization needs palette
- *   9.0+      same as 8.13+ plus typeMigrationVersion must be "10.0.0" or
- *             a recognised 9.x value; using the detected version string is safe
+ * Known version differences for lnsPie (confirmed from export analysis):
+ *   8.0–8.12   baseline — no colorMapping
+ *   8.13–9.x   layers need legendStats[], truncateLegend, maxLegendLines
+ *   10.0+      layers need colorMapping (replaces palette/legendStats approach)
  *
  * If the NDJSON cannot be parsed this function returns it unchanged.
  */
@@ -281,27 +279,31 @@ function patchNdjsonForVersion(ndjsonString, kibanaVersion) {
     if (!attrs || attrs.visualizationType !== "lnsPie") continue;
 
     const viz = attrs.state?.visualization;
-    if (!viz) continue;
+    if (!viz || !Array.isArray(viz.layers)) continue;
 
-    // 8.13+ — palette at visualization level and extra layer fields
-    if (v.major > 8 || (v.major === 8 && v.minor >= 13)) {
-      if (!viz.palette) {
-        viz.palette = { name: "default", type: "palette" };
+    for (const layer of viz.layers) {
+      // 10.0+ — colorMapping required on each layer
+      if (v.major >= 10 && !layer.colorMapping) {
+        layer.colorMapping = {
+          assignments: [],
+          specialAssignments: [{ rules: [{ type: "other" }], color: { type: "loop" }, touched: false }],
+          paletteId: "default",
+          colorMode: { type: "categorical" },
+        };
         changed = true;
       }
-      if (Array.isArray(viz.layers)) {
-        for (const layer of viz.layers) {
-          if (!("legendStats"     in layer)) { layer.legendStats     = [];   changed = true; }
-          if (!("truncateLegend"  in layer)) { layer.truncateLegend  = true; changed = true; }
-          if (!("maxLegendLines"  in layer)) { layer.maxLegendLines  = 1;    changed = true; }
-        }
+
+      // 8.13–9.x — legendStats / truncateLegend / maxLegendLines required
+      if ((v.major === 8 && v.minor >= 13) || v.major === 9) {
+        if (!("legendStats"    in layer)) { layer.legendStats    = [];   changed = true; }
+        if (!("truncateLegend" in layer)) { layer.truncateLegend = true; changed = true; }
+        if (!("maxLegendLines" in layer)) { layer.maxLegendLines = 1;    changed = true; }
       }
     }
   }
 
   if (changed) {
     obj.attributes.panelsJSON = JSON.stringify(panels);
-    // Stamp the typeMigrationVersion so Kibana skips stale migration steps
     obj.typeMigrationVersion = kibanaVersion;
   }
 
