@@ -57,7 +57,7 @@ function generateLambdaLog(ts, er) {
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"lambda" } },
     ...(traceId ? { trace: { id: traceId } } : {}),
     "aws": {
-      dimensions: { FunctionName:fn, Resource:`${fn}:$LATEST`, ExecutedVersion:"$LATEST" },
+      dimensions: { FunctionName:fn, Resource:`${fn}:$LATEST`, ExecutedVersion:"$LATEST", ...(hasMapping ? { "EventSourceMapping.UUID": randUUID() } : {}) },
       lambda: {
         function: { name:fn, version:"$LATEST", arn:`arn:aws:lambda:${region}:${acct.id}:function:${fn}` },
         request_id: rid,

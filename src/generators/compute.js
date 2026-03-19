@@ -27,6 +27,7 @@ function generateEc2Log(ts, er) {
           state: { name: isErr ? rand(["stopping","stopped"]) : "running", code: isErr ? 64 : 16 },
           monitoring: { state: rand(["disabled","enabled"]) },
           core: { count: cpuCores },
+          type: instanceType,
           threads_per_core: 2,
           private: { ip: randIp(), dns_name: `ip-${randIp().replace(/\./g,"-")}.${rand(REGIONS)}.compute.internal` },
           public: { ip: randIp(), dns_name: `ec2-${randIp().replace(/\./g,"-")}.compute-1.amazonaws.com` },
@@ -48,6 +49,11 @@ function generateEc2Log(ts, er) {
           StatusCheckFailed: { avg: isErr?1:0 },
           StatusCheckFailed_System: { avg: 0 },
           StatusCheckFailed_Instance: { avg: isErr?1:0 },
+          EBSReadBytes: { sum: randInt(0, 1e9) },
+          EBSWriteBytes: { sum: randInt(0, 1e9) },
+          EBSReadOps: { sum: randInt(0, 10000) },
+          EBSWriteOps: { sum: randInt(0, 10000) },
+          MetadataNoToken: { sum: randInt(0, 100) },
         }
       }
     },

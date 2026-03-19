@@ -205,6 +205,7 @@ function generateWafLog(ts, er) {
         }
       }
     },
+    "rule": { id: rand(["NoUserAgent_HEADER","SQLi_Args","CrossSiteScripting","GenericRFI_BODY","GenericLFI_URIPATH","BadBot","SizeRestrictions_BODY","IPRateBasedRule","GeoBlockRule","RateLimit_IP"]), ruleset: rule },
     "http": { request:{ method, bytes:randInt(100,10000) } },
     "url": { path: uri },
     "client": { ip:clientIp, geo:{ country_iso_code:clientGeo.country_iso_code, country_name:clientGeo.country_name, city_name:clientGeo.city_name, location:clientGeo.location } },
