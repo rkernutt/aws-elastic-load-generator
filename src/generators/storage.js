@@ -29,7 +29,7 @@ function generateS3Log(ts, er) {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"s3" } },
     "aws": {
-      dimensions: { BucketName:bucketName, StorageType:rand(["StandardStorage","IntelligentTieringStorage","GlacierStorage"]), FilterId:rand(["EntireBucket","prefix-filter","tag-filter"]), aws_account_number:acct.id, aws_region:region, bucket_name:bucketName },
+      dimensions: { BucketName:bucketName, StorageType:rand(["StandardStorage","IntelligentTieringStorage","GlacierStorage"]), FilterId:rand(["EntireBucket","prefix-filter","tag-filter"]), aws_account_number:acct.id, aws_region:region, bucket_name:bucketName, record_type:rand(["BUCKET","PREFIX"]), storage_class:rand(["STANDARD","INTELLIGENT_TIERING","GLACIER","DEEP_ARCHIVE","STANDARD_IA"]) },
       s3access: {
         bucket_owner: acct.id,
         bucket: bucketName,
@@ -79,13 +79,24 @@ function generateS3Log(ts, er) {
         }
       },
       s3_request: {
-        uploaded: { bytes: randInt(0, 1e9) },
-        downloaded: { bytes: randInt(0, 1e10) },
-        requests_total: randInt(1, 100000),
-        errors_4xx: isErr ? randInt(1, 100) : 0,
-        errors_5xx: isErr ? randInt(1, 10) : 0,
-        latency_first_byte: { us: parseFloat(randFloat(1000, isErr?2000000:100000)) },
-        latency_total: { us: parseFloat(randFloat(5000, isErr?5000000:500000)) },
+        uploaded: { bytes: randInt(0, 1e9), bytes_per_period: randInt(0, 1e9) },
+        downloaded: { bytes: randInt(0, 1e10), bytes_per_period: randInt(0, 1e10) },
+        requests: { total: randInt(1, 100000), get: randInt(1, 50000), put: randInt(1, 10000) },
+        errors: { "4xx": isErr ? randInt(1, 100) : 0, "5xx": isErr ? randInt(1, 10) : 0 },
+        latency: { total_request: { ms: parseFloat(randFloat(5, isErr?5000:500)) } },
+      },
+      s3_daily_storage: {
+        bucket: { size: { bytes: randInt(1e6, 1e12) } },
+        number_of_objects: randInt(1, 1e6),
+      },
+      s3_storage_lens: {
+        metrics: {
+          StorageBytes: { avg: randInt(1e6, 1e12) },
+          ObjectCount: { avg: randInt(1, 1e6) },
+          DeleteMarkerObjectCount: { avg: randInt(0, 1000) },
+          CurrentVersionStorageBytes: { avg: randInt(1e6, 1e11) },
+          IncompleteMultipartUploadStorageBytes: { avg: randInt(0, 1e8) },
+        }
       }
     },
     "http": { response:{ status_code:status, bytes:bytesSent } },

@@ -208,6 +208,7 @@ function generateWafLog(ts, er) {
     "rule": { id: rand(["NoUserAgent_HEADER","SQLi_Args","CrossSiteScripting","GenericRFI_BODY","GenericLFI_URIPATH","BadBot","SizeRestrictions_BODY","IPRateBasedRule","GeoBlockRule","RateLimit_IP"]), ruleset: rule },
     "http": { request:{ method, bytes:randInt(100,10000) } },
     "url": { path: uri },
+    "source": { ip:clientIp, geo:{ country_iso_code:clientGeo.country_iso_code, country_name:clientGeo.country_name, city_name:clientGeo.city_name, location:clientGeo.location } },
     "client": { ip:clientIp, geo:{ country_iso_code:clientGeo.country_iso_code, country_name:clientGeo.country_name, city_name:clientGeo.city_name, location:clientGeo.location } },
     "user_agent": { original:ua },
     "event": { action:isBlock?"block":"allow", outcome:isBlock?"failure":"success", category:["intrusion_detection","network"], dataset:"aws.waf", provider:"wafv2.amazonaws.com", duration:randInt(1,isBlock?500:50)*1e6 },

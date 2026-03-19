@@ -61,6 +61,7 @@ function generateGuardDutyLog(ts, er) {
           count: randInt(1,500),
           archived: false,
           ...(isFinding ? { action: { action_type: rand(["NETWORK_CONNECTION","PORT_PROBE","DNS_REQUEST","AWS_API_CALL"]) } } : {}),
+          ...(isFinding && isDnsFinding ? { evidence: { threat_intelligence_details: [{ threat_names: [rand(["DenialOfService","CryptoCurrency","Backdoor","Trojan","UnauthorizedAccess"])], threat_list_name: rand(["ProofPoint","Emerging Threats","ThreatIntelSet"]) }] } } : {}),
         },
         metrics: {
           FindingCount: { sum: isFinding ? randInt(1,50) : 0 },
@@ -70,6 +71,7 @@ function generateGuardDutyLog(ts, er) {
         }
       }
     },
+    "rule": { category: gdCategory, ruleset: isFinding ? ft.split(":")[0] : undefined, name: isFinding ? ft : undefined },
     "threat": { indicator:[{ type:threatIndicatorType, value:isDnsFinding?`suspicious-${randId(8).toLowerCase()}.example.com`:srcIp }] },
     ...(isFinding && isNetworkFinding ? { "source": { ip:srcIp, geo:{ country_iso_code:srcGeo.country_iso_code, country_name:srcGeo.country_name, city_name:srcGeo.city_name, location:srcGeo.location } }, "destination": { ip:dstIp } } : {}),
     "event": { kind:"alert", severity:sev, outcome:isFinding?"failure":"success", category:[gdCategory], type:["indicator"], dataset:"aws.guardduty", provider:"guardduty.amazonaws.com" },
@@ -108,7 +110,7 @@ function generateSecurityHubLog(ts, er) {
         generator: { id: controlId },
         types: [findingType],
         compliance: { security_control_id: controlId, status: isFinding ? "FAILED" : "PASSED" },
-        severity: { label: sev },
+        severity: { label: sev, normalized: sev==="CRITICAL"?90:sev==="HIGH"?70:sev==="MEDIUM"?40:sev==="LOW"?20:0 },
         workflow: { status: rand(["NEW","NOTIFIED","RESOLVED","SUPPRESSED"]) },
         record_state: isFinding ? "ACTIVE" : "ARCHIVED",
         product: {
@@ -119,6 +121,7 @@ function generateSecurityHubLog(ts, er) {
         confidence: randInt(70, 99),
       }
     },
+    "rule": { id: controlId, name: `${controlId} — ${rand(["MFA not enabled for root","S3 bucket publicly accessible","Security group allows all traffic","CloudTrail not enabled","VPC flow logs disabled"])}` },
     "event": { kind:"alert", severity:sev==="CRITICAL"?9:sev==="HIGH"?7:4, outcome:isFinding?"failure":"success", category:[shCategory], type:shEventType, dataset:"aws.securityhub_findings", provider:"securityhub.amazonaws.com" },
     "message": isFinding ? `Security Hub [${sev}]: Compliance check failed` : `Security Hub: control passed`,
     "log": { level:sev==="CRITICAL"?"error":sev==="HIGH"?"warn":"info" },
@@ -188,10 +191,24 @@ function generateInspectorLog(ts, er) {
         finding_id: `arn:aws:inspector2:${region}:${acct.id}:finding/${randId(8)}-${randId(4)}`,
         finding_type: findingType,
         severity: sev, inspector_score: isFinding?parseFloat(randFloat(4,10)):0,
+        status: isFinding ? rand(["ACTIVE","SUPPRESSED"]) : "CLOSED",
+        type: findingType,
         vulnerable_package: { name:pkgName, version:pkgVersion },
         affected_packages: isFinding ? [{ name:pkgName, version:pkgVersion, fix_available:fixAvailable, ...(fixVersion?{remediation:`Update to ${fixVersion}`}:{}) }] : [],
         cve_id: isFinding ? cveId : null,
         resource_type: rand(["AWS_EC2_INSTANCE","AWS_ECR_CONTAINER_IMAGE","AWS_LAMBDA_FUNCTION"]),
+        package_vulnerability_details: isFinding ? {
+          cvss: [{ base_score: parseFloat(randFloat(4,10)), scoring_vector: rand(["AV:N/AC:L/Au:N/C:C/I:C/A:C","AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"]), source: rand(["NVD","UBUNTU_CVE","REDHAT_CVE"]), version: "3.1" }],
+          source: rand(["NVD","UBUNTU_CVE","REDHAT_CVE"]),
+        } : null,
+        resources: [{
+          details: {
+            aws: {
+              ec2_instance: rand(["AWS_EC2_INSTANCE","AWS_ECR_CONTAINER_IMAGE"]) === "AWS_EC2_INSTANCE" ? { iam_instance_profile_arn: `arn:aws:iam::${acct.id}:instance-profile/ec2-role`, image_id: `ami-${randId(8).toLowerCase()}` } : undefined,
+              ecr_container_image: rand(["AWS_ECR_CONTAINER_IMAGE","AWS_EC2_INSTANCE"]) === "AWS_ECR_CONTAINER_IMAGE" ? { repository_name: rand(["app-server","api","worker"]), image: { tags: [`v${randInt(1,5)}.${randInt(0,20)}.${randInt(0,50)}`] } } : undefined,
+            }
+          }
+        }],
         metrics: {
           TotalFindings: { sum: isFinding ? randInt(1,20) : 0 },
           CriticalFindings: { sum: isFinding&&sev==="CRITICAL" ? randInt(1,5) : 0 },
@@ -199,7 +216,7 @@ function generateInspectorLog(ts, er) {
         }
       }
     },
-    "vulnerability": { id:isFinding?cveId:null, severity:sev, score:{ base: isFinding?parseFloat(parseFloat(randFloat(1,10)).toFixed(1)):0 } },
+    "vulnerability": { id:isFinding?cveId:null, title:isFinding?`${pkgName} vulnerability: ${cveId}`:null, severity:sev, score:{ base: isFinding?parseFloat(parseFloat(randFloat(1,10)).toFixed(1)):0 } },
     "event": { kind:"alert", outcome:isFinding?"failure":"success", category:["vulnerability","package"], dataset:"aws.inspector", provider:"inspector2.amazonaws.com" },
     "message": isFinding ? `Inspector [${sev}]: ${cveId} found in ${pkgName}` : `Inspector scan: no vulnerabilities found`,
     "log": { level:sev==="CRITICAL"?"error":sev==="HIGH"?"warn":"info" },

@@ -39,12 +39,12 @@ function assertDuration(doc) {
 
 // ─── Serverless ──────────────────────────────────────────────────────────────
 describe("Serverless generators", () => {
-  it("Lambda - base fields and log_event_type", () => {
+  it("Lambda - base fields and event_type", () => {
     const doc = generateLambdaLog(TS, 0);
     assertBase(doc, TS);
     assertDuration(doc);
     expect(doc.aws.lambda).toHaveProperty("request_id");
-    expect(["start","app","end","report"]).toContain(doc.aws.lambda.log_event_type);
+    expect(["start","app","end","report"]).toContain(doc.aws.lambda.event_type);
   });
 
   it("Lambda - REPORT event includes billed_duration_ms", () => {
@@ -52,10 +52,10 @@ describe("Serverless generators", () => {
     let reportDoc = null;
     for (let i = 0; i < 100; i++) {
       const d = generateLambdaLog(TS, 0);
-      if (d.aws.lambda.log_event_type === "report") { reportDoc = d; break; }
+      if (d.aws.lambda.event_type === "report") { reportDoc = d; break; }
     }
     if (reportDoc) {
-      expect(reportDoc.aws.lambda).toHaveProperty("billed_duration_ms");
+      expect(reportDoc.aws.lambda.metrics).toHaveProperty("billed_duration_ms");
       expect(reportDoc.message).toMatch(/^REPORT RequestId:/);
     }
   });
@@ -64,7 +64,7 @@ describe("Serverless generators", () => {
     let startDoc = null;
     for (let i = 0; i < 100; i++) {
       const d = generateLambdaLog(TS, 0);
-      if (d.aws.lambda.log_event_type === "start") { startDoc = d; break; }
+      if (d.aws.lambda.event_type === "start") { startDoc = d; break; }
     }
     if (startDoc) expect(startDoc.message).toMatch(/^START RequestId:/);
   });

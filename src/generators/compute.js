@@ -57,7 +57,7 @@ function generateEc2Log(ts, er) {
         }
       }
     },
-    "host": { hostname:`ip-${randIp().replace(/\./g,"-")}`, os:{ type:"linux", kernel:`5.10.${randInt(100,230)}-${randInt(1,200)}.amzn2.x86_64`, version:rand(["2","2023"]) }, architecture:rand(["x86_64","arm64"]), cpu:{ count: cpuCores * 2 } },
+    "host": { hostname:`ip-${randIp().replace(/\./g,"-")}`, os:{ type:"linux", kernel:`5.10.${randInt(100,230)}-${randInt(1,200)}.amzn2.x86_64`, version:rand(["2","2023"]) }, architecture:rand(["x86_64","arm64"]), cpu:{ count: cpuCores * 2, usage: cpuPct / 100 }, disk:{ read:{ bytes: randInt(0, 1e9) }, write:{ bytes: randInt(0, 1e9) } }, network:{ ingress:{ bytes: randInt(1000, 1e9) }, egress:{ bytes: randInt(1000, 1e9) } } },
     "log": { level },
     "event": { category:["host","process"], type:eventType, outcome:isErr?"failure":"success", dataset:"aws.ec2", provider:"ec2.amazonaws.com", duration:durationSec * 1e9 },
     "message": message,
