@@ -8,7 +8,7 @@ import { AWS_ICON_BASE, AWS_SERVICE_ICON_MAP } from "./data/iconMap.js";
 import { SERVICE_GROUPS, ALL_SERVICE_IDS } from "./data/serviceGroups.js";
 import { Card, CardHeader, QuickBtn, Field, SliderField, StatCard } from "./components/Card.jsx";
 import { StatusPill } from "./components/StatusPill.jsx";
-import { ElasticMark, AwsMark } from "./components/Logo.jsx";
+import { ElasticMark, AwsLogo, PipelineRoute } from "./components/Logo.jsx";
 import { validateElasticUrl, validateApiKey, validateIndexPrefix } from "./utils/validation.js";
 import styles from "./App.module.css";
 
@@ -27,8 +27,8 @@ export default function App() {
   const [logsPerService, setLogsPerService]     = useState(savedConfig.logsPerService    ?? 500);
   const [errorRate, setErrorRate]               = useState(savedConfig.errorRate         ?? 0.05);
   const [batchSize, setBatchSize]               = useState(savedConfig.batchSize         ?? 250);
-  const [elasticUrl, setElasticUrl]             = useState(savedConfig.elasticUrl        ?? "");
-  const [apiKey, setApiKey]                     = useState(savedConfig.apiKey            ?? "");
+  const [elasticUrl, setElasticUrl]             = useState("");
+  const [apiKey, setApiKey]                     = useState("");
   const [logsIndexPrefix, setLogsIndexPrefix]   = useState(savedConfig.logsIndexPrefix   ?? "logs-aws");
   const [metricsIndexPrefix, setMetricsIndexPrefix] = useState(savedConfig.metricsIndexPrefix ?? "metrics-aws");
   const [eventType, setEventType]               = useState(savedConfig.eventType         ?? "logs");
@@ -50,13 +50,13 @@ export default function App() {
   useEffect(() => {
     try {
       localStorage.setItem(LS_KEY, JSON.stringify({
-        elasticUrl, apiKey, logsIndexPrefix, metricsIndexPrefix,
+        logsIndexPrefix, metricsIndexPrefix,
         logsPerService, errorRate, batchSize, batchDelayMs, ingestionSource, eventType,
       }));
     } catch (e) {
       if (import.meta.env.DEV) console.warn("[LS] Failed to save config:", e);
     }
-  }, [elasticUrl, apiKey, logsIndexPrefix, metricsIndexPrefix, logsPerService, errorRate, batchSize, batchDelayMs, ingestionSource, eventType]);
+  }, [logsIndexPrefix, metricsIndexPrefix, logsPerService, errorRate, batchSize, batchDelayMs, ingestionSource, eventType]);
 
   const clearSavedConfig = () => {
     try { localStorage.removeItem(LS_KEY); } catch { /* ignore */ }
@@ -134,8 +134,6 @@ export default function App() {
     };
 
     const ecsBaseline = {};
-    if (!doc.source?.ip) ecsBaseline.source = { ...doc.source, ip: randIp(), port: doc.source?.port ?? randInt(1024, 65535) };
-    if (!doc.destination?.ip && (doc.network || doc.source?.ip)) ecsBaseline.destination = { ...doc.destination, ip: randIp(), port: doc.destination?.port ?? rand([80, 443, 22, 3306, 5432]) };
     if (!doc.network?.transport && !doc.network?.bytes) ecsBaseline.network = { ...doc.network, transport: "tcp", direction: rand(["inbound", "outbound"]) };
     if (!doc.host?.name) ecsBaseline.host = { ...doc.host, name: `ip-${randIp().replace(/\./g, "-")}.ec2.internal`, hostname: `${svc}-${randId(8).toLowerCase()}` };
     if (!doc.process?.name) ecsBaseline.process = { ...doc.process, name: svc };
@@ -198,7 +196,7 @@ export default function App() {
         "x-elastic-key": apiKey,
       };
       const endDate = new Date();
-      const startDate = new Date(endDate.getTime() - 86400000);
+      const startDate = new Date(endDate.getTime() - 1800000); // 30 min window — stays within ILM backing index
       const totalLogs = selectedServices.length * logsPerService;
       setProgress({ sent:0, total:totalLogs, errors:0 });
       addLog(`Starting: ${totalLogs.toLocaleString()} ${eventType === "metrics" ? "metrics" : "logs"} across ${selectedServices.length} service(s)`);
@@ -281,11 +279,10 @@ export default function App() {
 
       <header className={styles.header}>
         <div className={styles.headerLeft}>
-          <ElasticMark height={24}/>
+          <AwsLogo height={26}/>
+          <PipelineRoute height={22}/>
+          <ElasticMark height={28}/>
           <span className={styles.headerBrandElastic}>elastic</span>
-          <span className={styles.headerX}>×</span>
-          <span className={styles.headerBrandAws}>AWS</span>
-          <AwsMark height={13}/>
           <div className={styles.headerRule}/>
           <span className={styles.headerTitle}>Load Generator</span>
         </div>
