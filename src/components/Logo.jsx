@@ -25,34 +25,28 @@ export function AwsLogo({ height = 28 }) {
   );
 }
 
-/** Pipeline routing icon — multiple input streams → routing node → multiple output streams */
-export function PipelineRoute({ height = 22 }) {
+/** Pipeline icon — multiple sources converging into one */
+export function PipelineRoute({ height = 28 }) {
+  const cStrong = "rgba(255,255,255,0.9)";
   return (
-    <svg height={height} viewBox="0 0 88 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      {/* Input streams converging (orange) */}
-      <line x1="0"  y1="4"  x2="24" y2="11" stroke="#FF9900" strokeWidth="1.3" strokeLinecap="round" opacity="0.55"/>
-      <line x1="0"  y1="11" x2="24" y2="11" stroke="#FF9900" strokeWidth="1.3" strokeLinecap="round" opacity="0.7"/>
-      <line x1="0"  y1="18" x2="24" y2="11" stroke="#FF9900" strokeWidth="1.3" strokeLinecap="round" opacity="0.55"/>
-      {/* Moving data dots on input */}
-      <circle cx="10" cy="7.5"  r="1.6" fill="#FF9900" opacity="0.75"/>
-      <circle cx="10" cy="14.5" r="1.6" fill="#FF9900" opacity="0.75"/>
-      {/* Central routing diamond */}
-      <path d="M 44 2 L 58 11 L 44 20 L 30 11 Z"
-        fill="rgba(255,255,255,0.07)"
-        stroke="rgba(255,255,255,0.42)"
-        strokeWidth="1.3"/>
-      {/* Arrow through diamond */}
-      <path d="M 36 11 L 42 11"
-        stroke="rgba(255,255,255,0.6)" strokeWidth="1.3" strokeLinecap="round"/>
-      <path d="M 40 8.2 L 43 11 L 40 13.8"
-        stroke="rgba(255,255,255,0.6)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-      {/* Output streams diverging (teal) */}
-      <line x1="58" y1="11" x2="88" y2="4"  stroke="#00BFB3" strokeWidth="1.3" strokeLinecap="round" opacity="0.55"/>
-      <line x1="58" y1="11" x2="88" y2="11" stroke="#00BFB3" strokeWidth="1.3" strokeLinecap="round" opacity="0.7"/>
-      <line x1="58" y1="11" x2="88" y2="18" stroke="#00BFB3" strokeWidth="1.3" strokeLinecap="round" opacity="0.55"/>
-      {/* Moving data dots on output */}
-      <circle cx="74" cy="7.5"  r="1.6" fill="#00BFB3" opacity="0.75"/>
-      <circle cx="74" cy="14.5" r="1.6" fill="#00BFB3" opacity="0.75"/>
+    <svg height={height} viewBox="0 0 52 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {/* 5 source lines converging to centre node */}
+      <line x1="0" y1="2"  x2="34" y2="16" stroke={cStrong} strokeWidth="2" strokeLinecap="round"/>
+      <line x1="0" y1="9"  x2="34" y2="16" stroke={cStrong} strokeWidth="2" strokeLinecap="round"/>
+      <line x1="0" y1="16" x2="34" y2="16" stroke={cStrong} strokeWidth="2" strokeLinecap="round"/>
+      <line x1="0" y1="23" x2="34" y2="16" stroke={cStrong} strokeWidth="2" strokeLinecap="round"/>
+      <line x1="0" y1="30" x2="34" y2="16" stroke={cStrong} strokeWidth="2" strokeLinecap="round"/>
+      {/* Small source dots */}
+      <circle cx="0" cy="2"  r="2.2" fill={cStrong}/>
+      <circle cx="0" cy="9"  r="2.2" fill={cStrong}/>
+      <circle cx="0" cy="16" r="2.2" fill={cStrong}/>
+      <circle cx="0" cy="23" r="2.2" fill={cStrong}/>
+      <circle cx="0" cy="30" r="2.2" fill={cStrong}/>
+      {/* Centre node */}
+      <circle cx="34" cy="16" r="5" fill="rgba(255,255,255,0.15)" stroke={cStrong} strokeWidth="1.8"/>
+      {/* Output line with arrowhead */}
+      <line x1="39" y1="16" x2="50" y2="16" stroke={cStrong} strokeWidth="2" strokeLinecap="round"/>
+      <path d="M46 12 L50.5 16 L46 20" stroke={cStrong} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   );
 }
