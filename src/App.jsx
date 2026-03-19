@@ -209,7 +209,7 @@ export default function App() {
         const dataset = eventType === "metrics"
           ? (ELASTIC_METRICS_DATASET_MAP[svc] ?? ELASTIC_DATASET_MAP[svc] ?? `aws.${svc}`)
           : (ELASTIC_DATASET_MAP[svc] || `aws.${svc}`);
-        const indexName = `${indexPrefix}.${dataset.replace(/^aws\./, "")}`;
+        const indexName = `${indexPrefix}.${dataset.replace(/^aws\./, "")}-default`;
         const src = getEffectiveSource(svc);
         addLog(`▶ ${svc} → ${indexName} [${INGESTION_META[src]?.label || src}]`, "info");
         const allDocs = Array.from({ length: logsPerService }, () =>
@@ -465,7 +465,7 @@ export default function App() {
                   />
                   {validationErrors.indexPrefix && <div className={styles.validationError}>{validationErrors.indexPrefix}</div>}
                   <div style={{fontSize:11,color:K.textSubdued,marginTop:5}}>
-                    e.g. <span style={{color:K.primaryText}}>{indexPrefix}.lambda</span>, <span style={{color:K.primaryText}}>{indexPrefix}.guardduty</span>…
+                    e.g. <span style={{color:K.primaryText}}>{indexPrefix}.lambda-default</span>, <span style={{color:K.primaryText}}>{indexPrefix}.vpcflow-default</span>…
                   </div>
                 </Field>
                 <Field label="Ingestion source">
