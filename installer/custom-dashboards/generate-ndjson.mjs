@@ -56,45 +56,82 @@ function buildPartitionLens(attrs, panelTitle) {
   const { dataset, metrics, group_by = [] } = attrs;
   const layerId = seededUUID(`layer:${panelTitle}:${dataset.query}`);
 
-  const metricCols  = metrics.map(m  => ({ columnId: m.column, fieldName: m.column, meta: { type: "number" } }));
-  const groupCols   = group_by.map(g => ({ columnId: g.column, fieldName: g.column, meta: { type: "string" } }));
+  // Extract index pattern title from ES|QL FROM clause; use SHA-256 as adHocDataView ID
+  const fromMatch  = dataset.query.match(/FROM\s+([^\s|]+)/i);
+  const indexTitle = fromMatch ? fromMatch[1] : "logs-aws.*";
+  const indexId    = createHash("sha256").update(indexTitle).digest("hex");
+
+  // Kibana 10.x: metric columns FIRST with rich metadata, then group columns
+  const metricCols = metrics.map(m => ({
+    columnId: m.column, fieldName: m.column, label: m.column, customLabel: false,
+    meta: {
+      type: "number", esType: "long",
+      sourceParams: { indexPattern: indexTitle, sourceField: m.column },
+      params: { id: "number" },
+    },
+    inMetricDimension: true,
+  }));
+  const groupCols = group_by.map(g => ({
+    columnId: g.column, fieldName: g.column, label: g.column, customLabel: false,
+    meta: {
+      type: "string", esType: "text",
+      sourceParams: { indexPattern: indexTitle, sourceField: g.column },
+      params: { id: "string" },
+    },
+  }));
+
+  const colorMapping = {
+    assignments: [],
+    specialAssignments: [{ rules: [{ type: "other" }], color: { type: "loop" }, touched: false }],
+    paletteId: "default",
+    colorMode: { type: "categorical" },
+  };
 
   return {
     title: panelTitle || "",
     description: "",
     visualizationType: "lnsPie",
     type: "lens",
+    version: 2,
     references: [],
     state: {
       datasourceStates: {
         textBased: {
           layers: {
             [layerId]: {
-              index: layerId,
+              index: indexId,
               query: { esql: dataset.query },
-              columns: [...groupCols, ...metricCols],
-              timeField: "@timestamp",
-              indexPatternRefs: [],
+              columns: [...metricCols, ...groupCols],   // metric FIRST in 10.x
             },
           },
+          indexPatternRefs: [{ id: indexId, title: indexTitle }],   // top-level in 10.x
         },
       },
       visualization: {
-        shape: attrs.type === "donut" ? "donut" : "pie",
+        shape: "pie",   // Kibana 10.x uses "pie" for all partition charts
         layers: [
           {
             layerId,
             primaryGroups:   groupCols.map(c => c.columnId),
-            metric:          metrics[0].column,
-            layerType:       "data",
+            metrics:         metrics.map(m => m.column),   // array in 10.x, not string
             numberDisplay:   "percent",
             categoryDisplay: "default",
             legendDisplay:   "default",
+            nestedLegend:    false,
+            layerType:       "data",
+            colorMapping,
           },
         ],
       },
-      query: { query: "", language: "kuery" },
+      query:   { esql: dataset.query },   // ES|QL query at state level in 10.x
       filters: [],
+      adHocDataViews: {
+        [indexId]: {
+          id: indexId, title: indexTitle, sourceFilters: [], type: "esql",
+          fieldFormats: {}, runtimeFieldMap: {}, allowNoIndex: false,
+          name: indexTitle, allowHidden: false, managed: false,
+        },
+      },
     },
   };
 }
@@ -300,7 +337,7 @@ function dashboardToSavedObject(def) {
     attributes,
     references:            [],
     coreMigrationVersion:  "8.8.0",
-    typeMigrationVersion:  "8.9.0",
+    typeMigrationVersion:  "10.3.0",
   };
 }
 
