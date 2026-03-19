@@ -1,5 +1,8 @@
 import { rand, randInt, randFloat, randId, randIp, randUUID, randAccount, REGIONS, ACCOUNTS, USER_AGENTS, HTTP_METHODS, HTTP_PATHS, PROTOCOLS } from "../helpers/index.js";
 
+// ─── X-Ray trace pool — links multiple segments to the same trace ─────────────
+const _xrayTracePool = {};
+
 function generateCodeBuildLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const isErr = Math.random() < er;
@@ -196,37 +199,103 @@ function generateAmplifyLog(ts, er) {
 }
 
 function generateXRayLog(ts, er) {
-  const region = rand(REGIONS); const acct = randAccount();
-  const isErr = Math.random() < er;
-  const svc = rand(["web-frontend","api-gateway","user-service","payment-service","db-proxy","cache-layer"]);
-  const dur = parseFloat(randFloat(0.001, isErr?30:5)); const status = isErr ? rand([500,502,503]) : rand([200,200,201]);
+  const region = rand(REGIONS);
+  const acct   = randAccount();
+  const isErr      = Math.random() < er;
+  const isThrottle = !isErr && Math.random() < 0.02;
+  const isClientErr = !isErr && !isThrottle && Math.random() < 0.05;
+
+  const SERVICE_NODES = [
+    { name: "api-gateway",      awsType: "AWS::ApiGateway::Stage" },
+    { name: "lambda-function",  awsType: "AWS::Lambda::Function" },
+    { name: "dynamodb-client",  awsType: "AWS::DynamoDB::Table" },
+    { name: "s3-client",        awsType: "AWS::S3::Bucket" },
+    { name: "rds-proxy",        awsType: "AWS::RDS::DBInstance" },
+    { name: "sqs-consumer",     awsType: "AWS::SQS::Queue" },
+    { name: "user-service",     awsType: "remote" },
+    { name: "payment-service",  awsType: "remote" },
+    { name: "cache-layer",      awsType: "remote" },
+  ];
+  const SUBSEG_OPS = [
+    "DynamoDB.GetItem","DynamoDB.PutItem","DynamoDB.Query",
+    "S3.GetObject","S3.PutObject","ElastiCache.get","ElastiCache.set",
+    "SQS.SendMessage","SNS.Publish","HTTP.GET","HTTP.POST",
+  ];
+
+  // Bucket timestamp into ~10 s slots — documents in the same slot share a trace_id
+  const tsBucket = Math.floor(new Date(ts).getTime() / 10000);
+  const slotKey  = `${tsBucket}-${randInt(0, 7)}`; // up to 8 concurrent traces per slot
+  if (!_xrayTracePool[slotKey]) {
+    _xrayTracePool[slotKey] = {
+      id:            `1-${Math.floor(new Date(ts).getTime() / 1000).toString(16)}-${randId(24).toLowerCase()}`,
+      rootSegmentId: randId(16).toLowerCase(),
+    };
+    const keys = Object.keys(_xrayTracePool);
+    if (keys.length > 100) delete _xrayTracePool[keys[0]];
+  }
+  const trace     = _xrayTracePool[slotKey];
+  const isRoot    = Math.random() < 0.2;
+  const svc       = rand(SERVICE_NODES);
+  const segmentId = isRoot ? trace.rootSegmentId : randId(16).toLowerCase();
+  const dur       = parseFloat(randFloat(0.001, isErr ? 30 : 3));
+  const status    = isErr ? rand([500,502,503]) : isThrottle ? 429 : isClientErr ? rand([400,403,404]) : rand([200,200,201,204]);
+  const method    = rand(HTTP_METHODS);
+
+  const subsegments = isRoot ? null : Array.from({ length: randInt(1, 3) }, () => ({
+    id:        randId(16).toLowerCase(),
+    name:      rand(SUBSEG_OPS),
+    namespace: rand(["aws","remote"]),
+    duration:  parseFloat(randFloat(0.001, 0.5)),
+    fault:     isErr && Math.random() < 0.5,
+  }));
+
   return {
     "@timestamp": ts,
+    "trace": { id: trace.id },
+    "span":  { id: segmentId },
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"xray" } },
     "aws": {
-      dimensions: { GroupName:"Default", ServiceType:rand(["AWS::Lambda::Function","AWS::EC2::Instance","client"]) },
+      dimensions: { GroupName:"Default", ServiceType: svc.awsType },
       xray: {
-        trace_id: `1-${Math.floor(Date.now()/1000).toString(16)}-${randId(24).toLowerCase()}`,
-        segment_id: randId(16).toLowerCase(),
-        parent_id: randId(16).toLowerCase(),
-        service: { name:svc, type:rand(["AWS::Lambda::Function","AWS::EC2::Instance","client"]) },
-        duration: dur,
-        http: { request:{ method:rand(HTTP_METHODS), url:rand(HTTP_PATHS) }, response:{ status } },
-        fault: isErr,
+        trace_id:   trace.id,
+        segment_id: segmentId,
+        parent_id:  isRoot ? null : trace.rootSegmentId,
+        service:    { name: svc.name, type: svc.awsType },
+        duration:   dur,
+        fault:      isErr,
+        error:      isClientErr,
+        throttle:   isThrottle,
+        http: {
+          request:  { method, url: rand(HTTP_PATHS) },
+          response: { status },
+        },
         annotations: { env:"prod", version:`v${randInt(1,20)}` },
+        subsegments,
         metrics: {
-          ErrorRate: { avg: isErr ? parseFloat(randFloat(1,20)) : parseFloat(randFloat(0,1)) },
-          FaultRate: { avg: isErr ? parseFloat(randFloat(1,15)) : parseFloat(randFloat(0,0.5)) },
-          ThrottleRate: { avg: parseFloat(randFloat(0,2)) },
-          TotalCount: { sum: randInt(1,10000) },
-          Latency: { avg: dur*1000, p99: dur*3000 },
-        }
-      }
+          ErrorRate:    { avg: isClientErr ? parseFloat(randFloat(1,20)) : parseFloat(randFloat(0,1)) },
+          FaultRate:    { avg: isErr       ? parseFloat(randFloat(1,15)) : parseFloat(randFloat(0,0.5)) },
+          ThrottleRate: { avg: isThrottle  ? parseFloat(randFloat(1,10)) : parseFloat(randFloat(0,0.5)) },
+          TotalCount:   { sum: randInt(1,10000) },
+          Latency:      { avg: dur*1000, p99: dur*3000 },
+        },
+      },
     },
-    "event": { duration:dur*1e9, outcome:isErr?"failure":"success", category:["process"], dataset:"aws.xray", provider:"xray.amazonaws.com" },
-    "message": isErr ? `X-Ray trace FAULT: ${svc} ${dur.toFixed(3)}s [${status}]` : `X-Ray trace: ${svc} ${dur.toFixed(3)}s`,
-    "log": { level:isErr?"error":dur>5?"warn":"info" },
-    ...(isErr ? { error: { code: "TraceFault", message: `Trace fault: HTTP ${status}`, type: "trace" } } : {})
+    "http": { request:{ method }, response:{ status_code: status } },
+    "event": {
+      duration: Math.round(dur * 1e9),
+      outcome:  isErr || isClientErr ? "failure" : "success",
+      category: ["network"],
+      type:     isErr ? ["connection","denied"] : ["connection"],
+      dataset:  "aws.xray",
+      provider: "xray.amazonaws.com",
+    },
+    "message": isErr
+      ? `X-Ray FAULT: ${svc.name} ${method} → ${status} (${dur.toFixed(3)}s)`
+      : isThrottle
+      ? `X-Ray THROTTLE: ${svc.name} ${method} → 429 (${dur.toFixed(3)}s)`
+      : `X-Ray: ${svc.name} ${method} → ${status} (${dur.toFixed(3)}s)`,
+    "log": { level: isErr ? "error" : isThrottle || isClientErr ? "warn" : "info" },
+    ...(isErr ? { error:{ code:"TraceFault", message:`Service fault: HTTP ${status}`, type:"trace" } } : {}),
   };
 }
 

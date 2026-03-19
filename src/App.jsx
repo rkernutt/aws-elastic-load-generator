@@ -151,7 +151,7 @@ export default function App() {
       ...ecsBaseline,
       ...firehoseFields,
       ...otelFields,
-      "data_stream": { type: isMetrics ? "metrics" : "logs", dataset, namespace: "default" },
+      "data_stream": { type: isMetrics ? "metrics" : svc === "xray" ? "traces" : "logs", dataset, namespace: "default" },
       "agent": agentMeta,
       "event": { ...doc.event, module: "aws", dataset, category: eventCategory },
       "input": { type: inputTypeMap[source] },
@@ -207,7 +207,8 @@ export default function App() {
         const dataset = eventType === "metrics"
           ? (ELASTIC_METRICS_DATASET_MAP[svc] ?? ELASTIC_DATASET_MAP[svc] ?? `aws.${svc}`)
           : (ELASTIC_DATASET_MAP[svc] || `aws.${svc}`);
-        const indexName = `${indexPrefix}.${dataset.replace(/^aws\./, "")}-default`;
+        const dsPrefix  = dataset === "aws.xray" ? "traces-aws" : indexPrefix;
+        const indexName = `${dsPrefix}.${dataset.replace(/^aws\./, "")}-default`;
         const src = getEffectiveSource(svc);
         addLog(`▶ ${svc} → ${indexName} [${INGESTION_META[src]?.label || src}]`, "info");
         const allDocs = Array.from({ length: logsPerService }, () =>
