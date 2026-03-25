@@ -521,15 +521,65 @@ You can also import the `.ndjson` files manually via the Kibana UI:
 
 ---
 
-## Why three separate installers?
+---
 
-| | `setup:integration` | `setup:pipelines` | `setup:dashboards` |
-|---|---|---|---|
-| **API** | Kibana Fleet API | Elasticsearch Ingest API | Kibana Dashboards API |
-| **URL needed** | Kibana URL | Elasticsearch URL | Kibana URL |
-| **Privileges** | `cluster: manage` + `kibana: all` | `manage_ingest_pipelines` | `kibana_admin` |
-| **What it configures** | Dashboards, ILM, index templates | Ingest pipelines | Custom Kibana dashboards |
-| **Re-runnable** | Yes — skips if already installed | Yes — skips existing pipelines | Yes — skips by title |
-| **When to re-run** | When Elastic releases a new integration version | When new services are added | When new dashboards are added |
+## Installer 4 — ML Anomaly Detection Jobs
 
-Running all three gives you full coverage across all 139 services.
+**File:** `installer/custom-ml-jobs/`
+**Command:** `npm run setup:ml-jobs`
+
+### What it installs
+
+37 Elasticsearch ML anomaly detection jobs across 7 groups — covering services that the official Elastic AWS integration does not include (which only ships ML jobs for CloudTrail). These jobs detect real operational and security anomalies such as:
+
+- Spikes in VPC denied traffic, rare destination ports, unusual GuardDuty finding types
+- Lambda error/throttle/duration anomalies per function
+- ALB 5xx spikes, API Gateway latency anomalies
+- RDS latency/connection spikes, Aurora replica lag, ElastiCache hit-rate drops
+- Kinesis iterator age lag, SQS message backlog
+- Bedrock token usage and latency anomalies per model
+- S3 bandwidth anomalies and rare operations per bucket
+
+See [`installer/custom-ml-jobs/README.md`](custom-ml-jobs/README.md) for the full job catalogue.
+
+### How to run
+
+```bash
+npm run setup:ml-jobs
+# or directly:
+node installer/custom-ml-jobs/index.mjs
+```
+
+### Credentials
+
+| Prompt | Where to find it |
+|--------|-----------------|
+| **Elasticsearch URL** | Deployment overview → Elasticsearch endpoint |
+| **API key** | Kibana → Stack Management → API Keys → Create API key — needs `manage_ml` cluster privilege |
+
+### Job groups
+
+| Group | Jobs | Services covered |
+|-------|------|-----------------|
+| security | 7 | VPC Flow, GuardDuty, WAF, CloudTrail |
+| compute | 7 | Lambda, EC2, EKS |
+| networking | 5 | ALB, API Gateway |
+| databases | 6 | RDS, Aurora, ElastiCache |
+| streaming | 4 | Kinesis Streams, SQS |
+| aiml | 4 | Bedrock |
+| storage | 4 | S3 |
+
+---
+
+## Why four separate installers?
+
+| | `setup:integration` | `setup:pipelines` | `setup:dashboards` | `setup:ml-jobs` |
+|---|---|---|---|---|
+| **API** | Kibana Fleet API | Elasticsearch Ingest API | Kibana Dashboards API | Elasticsearch ML API |
+| **URL needed** | Kibana URL | Elasticsearch URL | Kibana URL | Elasticsearch URL |
+| **Privileges** | `cluster: manage` + `kibana: all` | `manage_ingest_pipelines` | `kibana_admin` | `manage_ml` |
+| **What it configures** | Dashboards, ILM, index templates | Ingest pipelines | Custom Kibana dashboards | ML anomaly detection jobs |
+| **Re-runnable** | Yes — skips if already installed | Yes — skips existing pipelines | Yes — skips by title | Yes — skips existing jobs |
+| **When to re-run** | When Elastic releases a new integration version | When new services are added | When new dashboards are added | When new ML jobs are added |
+
+Running all four gives you full coverage across all 139 services.
