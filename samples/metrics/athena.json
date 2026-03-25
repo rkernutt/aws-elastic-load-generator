@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "athena"
@@ -13,34 +13,34 @@
   },
   "aws": {
     "athena": {
-      "query_id": "r77zzzxu-ajtg-r8ve-3qs7",
-      "workgroup": "bi-users",
-      "database": "analytics",
+      "query_id": "8ztghbkp-tutn-9om6-pz43",
+      "workgroup": "analytics",
+      "database": "raw",
       "state": "SUCCEEDED",
-      "duration_seconds": 17.391,
-      "data_scanned_bytes": 8003858088,
-      "data_scanned_mb": 7633,
+      "duration_seconds": 13.999,
+      "data_scanned_bytes": 7970260316,
+      "data_scanned_mb": 7601,
       "engine_version": "DuckDB 0.9.1",
       "structured_logging": false,
       "metrics": {
         "DataScannedInBytes": {
-          "sum": 8003858088
+          "sum": 7970260316
         },
         "EngineExecutionTimeInMillis": {
-          "avg": 17391,
-          "max": 26086
+          "avg": 13999,
+          "max": 20999
         },
         "ProcessedBytes": {
-          "sum": 8003858088
+          "sum": 7970260316
         },
         "QueryQueueTimeInMillis": {
-          "avg": 116
+          "avg": 314
         },
         "TotalExecutionTimeInMillis": {
-          "avg": 17391
+          "avg": 13999
         },
         "QueryPlanningTimeInMillis": {
-          "avg": 171
+          "avg": 152
         }
       }
     }
@@ -50,7 +50,7 @@
     "type": "sql"
   },
   "event": {
-    "duration": 17391000000,
+    "duration": 13999000000,
     "outcome": "success",
     "category": [
       "database",
@@ -59,7 +59,7 @@
     "dataset": "aws.athena",
     "provider": "athena.amazonaws.com"
   },
-  "message": "Query succeeded",
+  "message": "Athena query SUCCEEDED in 14.0s, scanned 7601MB",
   "log": {
     "level": "info"
   },

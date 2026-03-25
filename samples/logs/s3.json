@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,84 +13,84 @@
   },
   "aws": {
     "dimensions": {
-      "BucketName": "media-uploads-eu-west-2",
+      "BucketName": "media-uploads-us-east-1",
       "StorageType": "StandardStorage",
-      "FilterId": "tag-filter",
+      "FilterId": "prefix-filter",
       "aws_account_number": "164820739518",
-      "aws_region": "eu-west-2",
-      "bucket_name": "media-uploads-eu-west-2",
-      "record_type": "PREFIX",
-      "storage_class": "STANDARD"
+      "aws_region": "us-east-1",
+      "bucket_name": "media-uploads-us-east-1",
+      "record_type": "BUCKET",
+      "storage_class": "GLACIER"
     },
     "s3access": {
       "bucket_owner": "164820739518",
-      "bucket": "media-uploads-eu-west-2",
-      "remote_ip": "189.143.121.98",
-      "requester": "AIDA5C9OKEPBJ7M",
-      "request_id": "K2E0US4GO7A",
-      "operation": "REST.GET.OBJECT",
-      "key": "reports/js79cces.json",
-      "request_uri": "/media-uploads-eu-west-2/reports/js79cces.json",
+      "bucket": "media-uploads-us-east-1",
+      "remote_ip": "83.25.10.13",
+      "requester": "AIDALGW6WZZC7CQ",
+      "request_id": "EVP2Q9UR17D",
+      "operation": "REST.PUT.OBJECT",
+      "key": "exports/8bhfikx9.csv",
+      "request_uri": "/media-uploads-us-east-1/exports/8bhfikx9.csv",
       "http_status": 200,
       "error_code": "-",
-      "bytes_sent": 725393570,
-      "object_size": 30273068,
-      "total_time": 269,
-      "turn_around_time": 215,
-      "referrer": "-",
-      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-      "host_id": "12835ZPFK2HP+RYWH7C",
+      "bytes_sent": 961198273,
+      "object_size": "-",
+      "total_time": 34,
+      "turn_around_time": 27,
+      "referrer": "https://console.aws.amazon.com/s3/",
+      "user_agent": "Go-http-client/1.1",
+      "host_id": "XDVWB6KCZN+QHUQLH",
       "signature_version": "SigV4",
       "cipher_suite": "ECDHE-RSA-AES128-GCM-SHA256",
       "authentication_type": "AuthHeader",
-      "host_header": "media-uploads-eu-west-2.s3.eu-west-2.amazonaws.com",
+      "host_header": "media-uploads-us-east-1.s3.us-east-1.amazonaws.com",
       "tls_version": "TLSv1.2"
     },
     "s3": {
       "bucket": {
-        "name": "media-uploads-eu-west-2",
-        "arn": "arn:aws:s3:::media-uploads-eu-west-2"
+        "name": "media-uploads-us-east-1",
+        "arn": "arn:aws:s3:::media-uploads-us-east-1"
       },
       "object": {
-        "key": "reports/js79cces.json",
-        "size": 757021161,
-        "etag": "wwy2dzvvfre"
+        "key": "exports/8bhfikx9.csv",
+        "size": 832543666,
+        "etag": "si24rac03p"
       },
-      "operation": "REST.GET.OBJECT",
-      "request_id": "K2E0US4GO7A",
+      "operation": "REST.PUT.OBJECT",
+      "request_id": "EVP2Q9UR17D",
       "metrics": {
         "BucketSizeBytes": {
-          "avg": 136350957312
+          "avg": 91730204482
         },
         "NumberOfObjects": {
-          "avg": 691471
+          "avg": 33910
         },
         "AllRequests": {
-          "sum": 40996
+          "sum": 67029
         },
         "GetRequests": {
-          "sum": 16184
+          "sum": 32768
         },
         "PutRequests": {
-          "sum": 8787
+          "sum": 3229
         },
         "DeleteRequests": {
-          "sum": 176
+          "sum": 416
         },
         "HeadRequests": {
-          "sum": 570
+          "sum": 3743
         },
         "PostRequests": {
-          "sum": 238
+          "sum": 63
         },
         "ListRequests": {
-          "sum": 139
+          "sum": 1797
         },
         "BytesDownloaded": {
-          "sum": 9220580946
+          "sum": 6276109472
         },
         "BytesUploaded": {
-          "sum": 321982790
+          "sum": 601558534
         },
         "4xxErrors": {
           "sum": 0
@@ -99,28 +99,37 @@
           "sum": 0
         },
         "FirstByteLatency": {
-          "avg": 23.748,
-          "p99": 414.61
+          "avg": 43.73,
+          "p99": 290.285
         },
         "TotalRequestLatency": {
-          "avg": 479.664,
-          "p99": 1537.579
+          "avg": 329.22,
+          "p99": 1143.071
         }
       }
     },
     "s3_request": {
       "uploaded": {
-        "bytes": 132610093,
-        "bytes_per_period": 949048408
+        "bytes": 57627696
       },
       "downloaded": {
-        "bytes": 3106816544,
-        "bytes_per_period": 6949614345
+        "bytes": 1460085679
       },
       "requests": {
-        "total": 12193,
-        "get": 33238,
-        "put": 3957
+        "total": 47949,
+        "get": 3087,
+        "put": 5857,
+        "delete": 973,
+        "head": 4289,
+        "post": 194,
+        "select": 202,
+        "list": 99,
+        "select_scanned": {
+          "bytes": 719120843
+        },
+        "select_returned": {
+          "bytes": 93568377
+        }
       },
       "errors": {
         "4xx": 0,
@@ -128,34 +137,37 @@
       },
       "latency": {
         "total_request": {
-          "ms": 43.528
+          "ms": 478.909
+        },
+        "first_byte": {
+          "ms": 15.794
         }
       }
     },
     "s3_daily_storage": {
       "bucket": {
         "size": {
-          "bytes": 917907203165
+          "bytes": 452235725192
         }
       },
-      "number_of_objects": 971487
+      "number_of_objects": 43863
     },
     "s3_storage_lens": {
       "metrics": {
         "StorageBytes": {
-          "avg": 572861562581
+          "avg": 949837084658
         },
         "ObjectCount": {
-          "avg": 576470
+          "avg": 396743
         },
         "DeleteMarkerObjectCount": {
-          "avg": 617
+          "avg": 453
         },
         "CurrentVersionStorageBytes": {
-          "avg": 36064171234
+          "avg": 85186174222
         },
         "IncompleteMultipartUploadStorageBytes": {
-          "avg": 96703592
+          "avg": 95697610
         }
       }
     }
@@ -163,14 +175,14 @@
   "http": {
     "response": {
       "status_code": 200,
-      "bytes": 725393570
+      "bytes": 961198273
     }
   },
   "client": {
-    "ip": "189.143.121.98"
+    "ip": "83.25.10.13"
   },
   "user_agent": {
-    "original": "Go-http-client/1.1"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
     "outcome": "success",
@@ -180,9 +192,9 @@
     ],
     "dataset": "aws.s3",
     "provider": "s3.amazonaws.com",
-    "duration": 269000000
+    "duration": 34000000
   },
-  "message": "{\"bucket\":\"media-uploads-eu-west-2\",\"key\":\"reports/js79cces.json\",\"operation\":\"REST.GET.OBJECT\",\"http_status\":200,\"request_id\":\"K2E0US4GO7A\",\"bytes_sent\":725393570,\"total_time_ms\":269,\"timestamp\":\"2026-03-19T15:13:42.103Z\"}",
+  "message": "{\"bucket\":\"media-uploads-us-east-1\",\"key\":\"exports/8bhfikx9.csv\",\"operation\":\"REST.PUT.OBJECT\",\"http_status\":200,\"request_id\":\"EVP2Q9UR17D\",\"bytes_sent\":961198273,\"total_time_ms\":34,\"timestamp\":\"2026-03-25T11:55:50.848Z\"}",
   "log": {
     "level": "info"
   }

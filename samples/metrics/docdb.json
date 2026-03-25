@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "docdb"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "DBClusterIdentifier": "docdb-us-east-1-cluster",
-      "Role": "WRITER"
+      "DBClusterIdentifier": "docdb-eu-west-2-cluster",
+      "Role": "READER"
     },
     "docdb": {
-      "cluster_id": "docdb-us-east-1-cluster",
+      "cluster_id": "docdb-eu-west-2-cluster",
       "database": "appdb",
-      "collection": "events",
-      "operation": "aggregate",
-      "duration_ms": 305,
-      "documents_affected": 222,
+      "collection": "sessions",
+      "operation": "insert",
+      "duration_ms": 400,
+      "documents_affected": 128,
       "metrics": {
         "CPUUtilization": {
-          "avg": 42.257
+          "avg": 59.575
         },
         "DatabaseConnections": {
-          "avg": 71
+          "avg": 85
         },
         "FreeLocalStorage": {
-          "avg": 45222713101
+          "avg": 15600037370
         },
         "FreeableMemory": {
-          "avg": 6431309211
+          "avg": 5318018391
         },
         "ReadIOPS": {
-          "avg": 2814
+          "avg": 775
         },
         "WriteIOPS": {
-          "avg": 4534
+          "avg": 1114
         },
         "ReadLatency": {
-          "avg": 2.975
+          "avg": 1.221
         },
         "WriteLatency": {
-          "avg": 4.487
+          "avg": 2.711
         },
         "DocumentsInserted": {
-          "sum": 0
+          "sum": 264
         },
         "DocumentsDeleted": {
           "sum": 0
@@ -58,18 +58,18 @@
           "sum": 0
         },
         "DocumentsReturned": {
-          "sum": 9524
+          "sum": 0
         }
       }
     }
   },
   "db": {
     "name": "appdb",
-    "operation": "aggregate",
+    "operation": "insert",
     "type": "document"
   },
   "event": {
-    "duration": 305028000,
+    "duration": 400324000,
     "outcome": "success",
     "category": [
       "database"
@@ -77,7 +77,7 @@
     "dataset": "aws.docdb",
     "provider": "docdb.amazonaws.com"
   },
-  "message": "DocumentDB aggregate on events: 305.0ms",
+  "message": "DocumentDB insert on sessions: 400.3ms",
   "log": {
     "level": "info"
   },

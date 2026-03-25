@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "inspector"
@@ -16,50 +16,27 @@
       "ResourceType": "AWS_ECR_CONTAINER_IMAGE"
     },
     "inspector": {
-      "finding_id": "arn:aws:inspector2:eu-west-2:501938274650:finding/843JGSRA-OGMR",
-      "finding_type": "NETWORK_REACHABILITY",
-      "severity": "HIGH",
-      "inspector_score": 7.602,
-      "status": "ACTIVE",
-      "type": "NETWORK_REACHABILITY",
+      "finding_id": "arn:aws:inspector2:us-east-1:293847561023:finding/E1JJLD5N-EKW3",
+      "finding_type": "NONE",
+      "severity": "INFORMATIONAL",
+      "inspector_score": 0,
+      "status": "CLOSED",
+      "type": "NONE",
       "vulnerable_package": {
-        "name": "python3",
-        "version": "3.11.3"
+        "name": "openssl",
+        "version": "1.19.9"
       },
-      "affected_packages": [
-        {
-          "name": "python3",
-          "version": "3.11.3",
-          "fix_available": "YES",
-          "remediation": "Update to 2.1.46"
-        }
-      ],
-      "cve_id": "CVE-2021-84919",
-      "resource_type": "AWS_LAMBDA_FUNCTION",
-      "package_vulnerability_details": {
-        "cvss": [
-          {
-            "base_score": 5.891,
-            "scoring_vector": "AV:N/AC:L/Au:N/C:C/I:C/A:C",
-            "source": "NVD",
-            "version": "3.1"
-          }
-        ],
-        "source": "NVD"
-      },
+      "affected_packages": [],
+      "resource_type": "AWS_ECR_CONTAINER_IMAGE",
       "resources": [
         {
           "details": {
             "aws": {
-              "ec2_instance": {
-                "iam_instance_profile_arn": "arn:aws:iam::501938274650:instance-profile/ec2-role",
-                "image_id": "ami-ehhcwkhi"
-              },
               "ecr_container_image": {
                 "repository_name": "api",
                 "image": {
                   "tags": [
-                    "v2.1.37"
+                    "v1.17.1"
                   ]
                 }
               }
@@ -69,28 +46,26 @@
       ],
       "metrics": {
         "TotalFindings": {
-          "sum": 5
+          "sum": 0
         },
         "CriticalFindings": {
           "sum": 0
         },
         "HighFindings": {
-          "sum": 5
+          "sum": 0
         }
       }
     }
   },
   "vulnerability": {
-    "id": "CVE-2021-84919",
-    "title": "python3 vulnerability: CVE-2021-84919",
-    "severity": "HIGH",
+    "severity": "INFORMATIONAL",
     "score": {
-      "base": 6.9
+      "base": 0
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "vulnerability",
       "package"
@@ -98,13 +73,8 @@
     "dataset": "aws.inspector",
     "provider": "inspector2.amazonaws.com"
   },
-  "message": "Inspector [HIGH]: CVE-2021-84919 found in python3",
+  "message": "Inspector scan: no vulnerabilities found",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "VulnerabilityFound",
-    "message": "CVE found: CVE-2021-84919",
-    "type": "vulnerability"
+    "level": "info"
   }
 }

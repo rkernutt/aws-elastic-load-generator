@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -11,29 +11,24 @@
       "name": "lambda"
     }
   },
-  "trace": {
-    "id": "1-gjb51gic-lq189ef6yro"
-  },
   "aws": {
     "dimensions": {
-      "FunctionName": "image-resizer",
-      "Resource": "image-resizer:$LATEST",
+      "FunctionName": "api-handler",
+      "Resource": "api-handler:$LATEST",
       "ExecutedVersion": "$LATEST"
     },
     "cloudwatch": {
-      "log_group": "/aws/lambda/image-resizer",
-      "log_stream": "2026-03-19/[$LATEST]e3ky08h0jj"
+      "log_group": "/aws/lambda/api-handler",
+      "log_stream": "2026-03-25/[$LATEST]537v22p4ekf"
     },
     "lambda": {
       "function": {
-        "name": "image-resizer",
+        "name": "api-handler",
         "version": "$LATEST",
-        "arn": "arn:aws:lambda:eu-west-2:814726593401:function:image-resizer"
+        "arn": "arn:aws:lambda:eu-west-2:814726593401:function:api-handler"
       },
-      "request_id": "qkfm573o-vga6-n0xi-h3lh-t0znphskska",
-      "trace_id": "1-gjb51gic-lq189ef6yro",
-      "event_type": "report",
-      "cold_start": false,
+      "request_id": "eqke6ru1-uz9b-htkp-ou1f-2xlmj3qdz53",
+      "event_type": "app",
       "metrics": {
         "Invocations": {
           "sum": 1,
@@ -44,18 +39,18 @@
           "avg": 0
         },
         "Throttles": {
-          "sum": 3,
-          "avg": 3
+          "sum": 0,
+          "avg": 0
         },
         "Duration": {
-          "avg": 680.642,
-          "max": 816.7704
+          "avg": 2689.155,
+          "max": 3226.9860000000003
         },
         "ConcurrentExecutions": {
-          "avg": 59
+          "avg": 438
         },
         "UnreservedConcurrentExecutions": {
-          "avg": 779
+          "avg": 815
         },
         "DeadLetterErrors": {
           "sum": 0,
@@ -65,25 +60,23 @@
           "avg": 0
         },
         "AsyncEventsReceived": {
-          "sum": 86
+          "sum": 47
         },
         "AsyncEventAge": {
-          "avg": 1644
+          "avg": 1870
         },
-        "duration_ms": 680.642,
-        "billed_duration_ms": 700,
-        "memory_size_mb": 256,
-        "max_memory_used_mb": 123,
-        "instance_max_memory": 256
+        "memory_size_mb": 3008,
+        "max_memory_used_mb": 2946,
+        "instance_max_memory": 3008
       }
     }
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
-  "message": "REPORT RequestId: qkfm573o-vga6-n0xi-h3lh-t0znphskska\tDuration: 680.64 ms\tBilled Duration: 700 ms\tMemory Size: 256 MB\tMax Memory Used: 123 MB\tXRay TraceId: 1-qnxat9a7-dgm15r8b0g9\tSegmentId: y9g8dtjbi2l\tSampled: true",
+  "message": "[INFO]\teqke6ru1-uz9b-htkp-ou1f-2xlmj3qdz53\tEvent processed",
   "event": {
-    "duration": 680642000,
+    "duration": 2689155000,
     "outcome": "success",
     "category": [
       "process"
@@ -95,7 +88,7 @@
     "provider": "lambda.amazonaws.com"
   },
   "service": {
-    "name": "image-resizer",
+    "name": "api-handler",
     "type": "lambda"
   },
   "data_stream": {

@@ -1,71 +1,74 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "apigateway"
     }
   },
+  "trace": {
+    "id": "1-ayxt0vxb-up1fga7hyqc"
+  },
   "aws": {
     "dimensions": {
-      "ApiName": "mobile-api",
-      "Stage": "staging",
-      "Method": "PATCH",
-      "Resource": "/api/v1/orders"
+      "ApiName": "prod-api",
+      "Stage": "prod",
+      "Method": "POST",
+      "Resource": "/api/v1/auth/login"
     },
     "apigateway": {
-      "request_id": "48q41pj8-b06e",
-      "api_id": "r2fhwm0xzc",
-      "domain_name": "r2fhwm0xzc.execute-api.us-west-2.amazonaws.com",
-      "stage": "staging",
-      "http_method": "PATCH",
-      "resource_path": "/api/v1/orders",
+      "request_id": "da8pbqyh-kiif",
+      "api_id": "sjxk7f302y",
+      "domain_name": "sjxk7f302y.execute-api.us-west-2.amazonaws.com",
+      "stage": "prod",
+      "http_method": "POST",
+      "resource_path": "/api/v1/auth/login",
       "protocol": "HTTP/1.1",
-      "route_key": "PATCH /api/v1/orders",
-      "status": 200,
-      "response_length": 9890,
-      "ip_address": "118.25.182.153",
+      "route_key": "POST /api/v1/auth/login",
+      "status": 400,
+      "response_length": 6381,
+      "ip_address": "242.158.89.244",
       "user": "api-user",
-      "connection_id": "UDTDUS3MJ2B",
-      "event_type": "CONNECT",
-      "request_time": "2026-03-19T15:13:42.103Z"
+      "connection_id": "QN8MMGDJJDS",
+      "event_type": "MESSAGE",
+      "request_time": "2026-03-25T11:55:50.848Z"
     }
   },
   "http": {
     "request": {
-      "method": "PATCH",
-      "id": "48q41pj8-b06e",
-      "bytes": 285
+      "method": "POST",
+      "id": "da8pbqyh-kiif",
+      "bytes": 3653
     },
     "response": {
-      "status_code": 200,
-      "bytes": 3421
+      "status_code": 400,
+      "bytes": 341
     }
   },
   "url": {
-    "path": "/api/v1/orders",
-    "domain": "r2fhwm0xzc.execute-api.eu-west-2.amazonaws.com"
+    "path": "/api/v1/auth/login",
+    "domain": "sjxk7f302y.execute-api.us-east-1.amazonaws.com"
   },
   "client": {
-    "ip": "138.211.68.238",
+    "ip": "65.105.221.126",
     "geo": {
-      "country_iso_code": "IN",
-      "country_name": "India",
-      "region_name": "Mumbai",
-      "city_name": "Mumbai"
+      "country_iso_code": "BR",
+      "country_name": "Brazil",
+      "region_name": "São Paulo",
+      "city_name": "São Paulo"
     }
   },
   "user_agent": {
-    "original": "curl/7.68.0"
+    "original": "Go-http-client/1.1"
   },
   "event": {
-    "duration": 746000000,
-    "outcome": "success",
+    "duration": 3245000000,
+    "outcome": "failure",
     "category": [
       "web"
     ],
@@ -75,8 +78,13 @@
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "PATCH /api/v1/orders 200 746ms",
+  "message": "POST /api/v1/auth/login 400 3245ms",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "BadRequestException",
+    "message": "HTTP 400",
+    "type": "server"
   }
 }

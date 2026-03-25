@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "aurora"
@@ -13,44 +13,44 @@
   },
   "aws": {
     "aurora": {
-      "cluster_id": "staging-aurora",
-      "instance_id": "staging-aurora-instance-4",
-      "engine": "aurora-mysql",
-      "engine_version": "8.0.36",
-      "replica_lag_seconds": 3.637,
-      "db_connections": 128,
+      "cluster_id": "analytics-aurora",
+      "instance_id": "analytics-aurora-instance-4",
+      "engine": "aurora-postgresql",
+      "engine_version": "15.4",
+      "replica_lag_seconds": 0.505,
+      "db_connections": 434,
       "max_connections": 1000,
       "failover_in_progress": false,
       "metrics": {
         "AuroraBinlogReplicaLag": {
-          "avg": 7
+          "avg": 8
         },
         "AuroraGlobalDBReplicatedWriteIO": {
-          "sum": 63575580
+          "sum": 80693802
         },
         "AuroraGlobalDBDataTransferBytes": {
-          "sum": 120744953
+          "sum": 583922137
         },
         "AuroraGlobalDBProgressLag": {
-          "avg": 501
+          "avg": 72
         },
         "BacktrackChangeRecordsCreationRate": {
-          "avg": 5491
+          "avg": 358
         },
         "BacktrackChangeRecordsStored": {
-          "avg": 306434424
+          "avg": 879959581
         },
         "BacktrackWindowActual": {
-          "avg": 34278
+          "avg": 38427
         },
         "BacktrackWindowAlert": {
           "avg": 0
         },
         "ServerlessDatabaseCapacity": {
-          "avg": 121.3
+          "avg": 118.348
         },
         "ACUUtilization": {
-          "avg": 61.511
+          "avg": 48.567
         }
       }
     }
@@ -62,11 +62,11 @@
     ],
     "dataset": "aws.aurora",
     "provider": "rds.amazonaws.com",
-    "duration": 44000000000
+    "duration": 29000000000
   },
-  "message": "Aurora auto-scaling: adding replica",
+  "message": "Aurora replica lag: 8.4 seconds",
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "data_stream": {
     "type": "metrics",

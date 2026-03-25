@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "fargate"
@@ -14,22 +14,22 @@
   "aws": {
     "dimensions": {
       "ServiceName": "worker",
-      "ClusterName": "batch-workers-cluster",
+      "ClusterName": "prod-cluster",
       "TaskDefinitionFamily": "worker"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 74
+          "avg": 72
         },
         "CPUReservation": {
-          "avg": 45.617
+          "avg": 16.782
         },
         "MemoryUtilization": {
-          "avg": 19.581
+          "avg": 22.04
         },
         "MemoryReservation": {
-          "avg": 37.974
+          "avg": 51.28
         },
         "GPUReservation": {
           "avg": 0
@@ -38,7 +38,7 @@
     }
   },
   "container": {
-    "id": "m8wtz3q37mq",
+    "id": "yp17od6ffw",
     "name": "worker",
     "image": {
       "name": "myrepo/worker:latest",
@@ -47,7 +47,7 @@
     "runtime": "docker"
   },
   "process": {
-    "pid": 49610,
+    "pid": 6609,
     "name": "worker"
   },
   "log": {
@@ -61,7 +61,7 @@
     ],
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 3230000000000
+    "duration": 470000000000
   },
-  "message": "{\"cluster\":\"batch-workers-cluster\",\"taskId\":\"oaztoyomxd9\",\"taskDefinition\":\"worker:3\",\"container\":\"worker\",\"level\":\"warn\",\"message\":\"Memory utilization: 91%\",\"timestamp\":\"2026-03-19T15:13:42.103Z\"}"
+  "message": "Task approaching resource limits"
 }

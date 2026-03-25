@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "appflow"
@@ -13,44 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "FlowName": "salesforce-to-s3"
+      "FlowName": "marketo-to-redshift"
     },
     "appflow": {
-      "flow_name": "salesforce-to-s3",
-      "flow_arn": "arn:aws:appflow:eu-west-2:738291046572:flow/salesforce-to-s3",
-      "source_connector_type": "Slack",
-      "destination_connector_type": "Snowflake",
+      "flow_name": "marketo-to-redshift",
+      "flow_arn": "arn:aws:appflow:us-east-1:501938274650:flow/marketo-to-redshift",
+      "source_connector_type": "HubSpot",
+      "destination_connector_type": "Salesforce",
       "trigger_type": "OnDemand",
-      "execution_status": "ExecutionSuccessful",
-      "records_processed": 856276,
-      "duration_ms": 59454,
+      "execution_status": "ExecutionFailed",
+      "records_processed": 0,
+      "duration_ms": 6503,
+      "error_message": "Schema mismatch",
       "metrics": {
         "RecordsProcessed": {
-          "sum": 856276
+          "sum": 0
         },
         "DurationMs": {
-          "avg": 59454
+          "avg": 6503
         },
         "ExecutionSuccessCount": {
-          "sum": 1
+          "sum": 0
         },
         "ExecutionFailureCount": {
-          "sum": 0
+          "sum": 1
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.appflow",
     "provider": "appflow.amazonaws.com",
-    "duration": 59454000000
+    "duration": 6503000000
   },
-  "message": "AppFlow salesforce-to-s3: 856,276 records Slack->Snowflake",
+  "message": "Flow run failed",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ExecutionFailed",
+    "message": "AppFlow execution failed",
+    "type": "integration"
   }
 }

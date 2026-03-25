@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "sagemaker"
@@ -13,62 +13,62 @@
   },
   "aws": {
     "dimensions": {
-      "TrainingJobName": "llama-finetuned-training-y34wrn",
+      "TrainingJobName": "llama-finetuned-training-ls9m20",
       "JobType": "Training"
     },
     "sagemaker": {
-      "domain_id": "d-mcegdl7p0y",
-      "domain_name": "nlp-experiments",
-      "user_profile": "dan-platform",
+      "domain_id": "d-ro12kb1n8f",
+      "domain_name": "risk-models",
+      "user_profile": "alice-ds",
       "job": {
-        "name": "llama-finetuned-training-y34wrn",
+        "name": "llama-finetuned-training-ls9m20",
         "type": "Training",
-        "arn": "arn:aws:sagemaker:eu-west-2:738291046572:training-job/llama-finetuned-training-y34wrn"
+        "arn": "arn:aws:sagemaker:us-east-1:814726593401:training-job/llama-finetuned-training-ls9m20"
       },
       "model": {
         "name": "llama-finetuned",
-        "version": 13
+        "version": 12
       },
       "pipeline": {
         "name": "feature-engineering-pipeline",
-        "execution_id": "pipe-2ftcngb5hho"
+        "execution_id": "pipe-fzrw2tqymyg"
       },
       "instance": {
-        "type": "ml.g4dn.xlarge",
-        "count": 4
+        "type": "ml.p3.2xlarge",
+        "count": 1
       },
       "metrics": {
-        "training_loss": 0.5009,
-        "accuracy": 0.7576,
-        "epoch": 79,
-        "gpu_utilization_pct": 63,
-        "cpu_utilization_pct": 44
+        "training_loss": 0.1601,
+        "accuracy": 0.8584,
+        "epoch": 96,
+        "gpu_utilization_pct": 76,
+        "cpu_utilization_pct": 43
       },
       "studio": {
-        "space_name": "nlp-experiments",
-        "app_type": "RStudio",
-        "app_name": "instance-a4ekshez",
+        "space_name": "ds-platform",
+        "app_type": "CodeEditor",
+        "app_name": "instance-wn3g0l9d",
         "lifecycle_config": false,
         "continuous_logging": false
       },
       "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 4649
+          "sum": 1662
         },
         "ModelLatency": {
-          "avg": 32
+          "avg": 45
         },
         "GPUUtilization": {
-          "avg": 41
+          "avg": 82
         },
         "CPUUtilization": {
-          "avg": 38
+          "avg": 68
         },
         "DiskUtilization": {
-          "avg": 24
+          "avg": 30
         },
         "MemoryUtilization": {
-          "avg": 79
+          "avg": 70
         },
         "Invocations4XXError": {
           "sum": 0
@@ -83,11 +83,11 @@
     "level": "info"
   },
   "user": {
-    "name": "dan-platform"
+    "name": "alice-ds"
   },
   "event": {
     "action": "AppCreated",
-    "duration": 11645501000000,
+    "duration": 5211011000000,
     "outcome": "success",
     "category": [
       "process"
@@ -95,7 +95,7 @@
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "Feature Store ingestion complete: 4,829,201 records",
+  "message": "Training job succeeded",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.sagemaker",

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "lakeformation"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "ResourceArn": "arn:aws:glue:eu-west-2:293847561023:table/data_lake/transactions",
-      "Principal": "arn:aws:iam::293847561023:user/alice"
+      "ResourceArn": "arn:aws:glue:us-east-1:738291046572:table/curated/users",
+      "Principal": "arn:aws:iam::738291046572:role/analyst-role"
     },
     "lakeformation": {
-      "database": "data_lake",
-      "table": "transactions",
+      "database": "curated",
+      "table": "users",
       "action": "Grant",
-      "principal_arn": "arn:aws:iam::293847561023:user/alice",
-      "resource_arn": "arn:aws:glue:eu-west-2:293847561023:table/data_lake/transactions",
+      "principal_arn": "arn:aws:iam::738291046572:role/analyst-role",
+      "resource_arn": "arn:aws:glue:us-east-1:738291046572:table/curated/users",
       "permissions": [
-        "ALL"
+        "SELECT"
       ],
-      "lf_tag_key": "classification",
+      "lf_tag_key": "pii",
       "lf_tag_values": [
-        "pii"
+        "prod"
       ],
       "metrics": {
         "GrantCount": {
-          "sum": 24
+          "sum": 46
         },
         "DatabaseCount": {
-          "avg": 7
+          "avg": 5
         },
         "TableCount": {
-          "avg": 158
+          "avg": 105
         },
         "DataLakeSettings": {
           "avg": 1
@@ -47,7 +47,7 @@
   },
   "event": {
     "action": "Grant",
-    "duration": 386000000,
+    "duration": 805000000,
     "outcome": "success",
     "category": [
       "database",
@@ -56,7 +56,7 @@
     "dataset": "aws.lakeformation",
     "provider": "lakeformation.amazonaws.com"
   },
-  "message": "Lake Formation Grant: ALL on data_lake.transactions",
+  "message": "Lake Formation Grant: SELECT on curated.users",
   "log": {
     "level": "info"
   }

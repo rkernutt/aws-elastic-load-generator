@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "glue"
@@ -13,135 +13,134 @@
   },
   "aws": {
     "dimensions": {
-      "JobName": "schema-handler",
-      "JobRunId": "jr_clxomd13sxf",
-      "Type": "pythonshell"
+      "JobName": "raw-to-curated",
+      "JobRunId": "jr_1g2iyfdqpe8",
+      "Type": "gluestreaming"
     },
     "glue": {
       "job": {
-        "name": "schema-handler",
-        "run_id": "jr_clxomd13sxf",
-        "type": "pythonshell",
+        "name": "raw-to-curated",
+        "run_id": "jr_1g2iyfdqpe8",
+        "type": "gluestreaming",
         "run_state": "SUCCEEDED"
       },
-      "database": "raw_data",
-      "table": "transactions",
-      "dpu_seconds": 6844,
+      "database": "analytics",
+      "table": "users",
+      "dpu_seconds": 24450,
       "worker": {
-        "type": "G.2X",
-        "count": 2
+        "type": "G.4X",
+        "count": 50
       },
       "records": {
-        "read": 49707114,
-        "written": 49210042,
+        "read": 37036770,
+        "written": 36666402,
         "errors": 0
       },
-      "glue_version": "3.0",
-      "connection_name": "jdbc-staging",
+      "glue_version": "4.0",
       "continuous_logging": false,
       "metrics": {
         "driver": {
           "aggregate": {
-            "numRecords": 49707114,
+            "numRecords": 37036770,
             "numFailedRecords": 0,
-            "elapsedTime": 3422000,
-            "numCompletedTasks": 34,
+            "elapsedTime": 489000,
+            "numCompletedTasks": 447,
             "numFailedTasks": 0,
             "numKilledTasks": 0,
-            "numCompletedStages": 5,
-            "bytesRead": 4921004286,
-            "shuffleBytesWritten": 3380769850,
-            "shuffleLocalBytesRead": 389461872,
-            "gc_time_ms": 34497
+            "numCompletedStages": 1,
+            "bytesRead": 11703619320,
+            "shuffleBytesWritten": 4246879244,
+            "shuffleLocalBytesRead": 1734153338,
+            "gc_time_ms": 39418
           },
           "memory": {
             "heap": {
-              "available": 376334760,
-              "used": 3387012841,
-              "used_percentage": 90
+              "available": 2900431744,
+              "used": 1631492856,
+              "used_percentage": 36
             },
             "non-heap": {
-              "available": 128949101,
-              "used": 34111967,
-              "used_percentage": 24
+              "available": 181081493,
+              "used": 65130441,
+              "used_percentage": 51
             }
           },
           "jvm": {
             "heap": {
-              "usage": 0.9
+              "usage": 0.36
             }
           },
           "disk": {
-            "available_GB": 468,
-            "used_GB": 117,
-            "used_percentage": 20,
-            "diskSpaceUsed_MB": 551
+            "available_GB": 176,
+            "used_GB": 357,
+            "used_percentage": 67,
+            "diskSpaceUsed_MB": 1067
           },
           "BlockManager": {
             "disk": {
-              "diskSpaceUsed_MB": 1367
+              "diskSpaceUsed_MB": 1466
             }
           },
           "ExecutorAllocationManager": {
             "executors": {
-              "numberAllExecutors": 2,
-              "numberMaxNeededExecutors": 5
+              "numberAllExecutors": 69,
+              "numberMaxNeededExecutors": 77
             }
           },
           "s3": {
             "filesystem": {
-              "read_bytes": 960623677,
-              "write_bytes": 16110205572
+              "read_bytes": 544421292,
+              "write_bytes": 3516556259
             }
           },
           "system": {
-            "cpuSystemLoad": 0.4
+            "cpuSystemLoad": 0.26
           },
-          "workerUtilization": 0.57,
+          "workerUtilization": 0.46,
           "skewness": {
-            "stage": 0.591,
-            "job": 2.07
+            "stage": 0.367,
+            "job": 1.854
           }
         },
         "executor": {
           "aggregate": {
-            "numCompletedTasks": 34,
+            "numCompletedTasks": 447,
             "numFailedTasks": 0,
-            "gc_time_ms": 11324
+            "gc_time_ms": 43114
           }
         },
         "ALL": {
           "memory": {
             "heap": {
-              "available": 3571755568,
-              "used": 7329075870,
-              "used_percentage": 59
+              "available": 4349051502,
+              "used": 4789208447,
+              "used_percentage": 77
             },
             "non-heap": {
-              "available": 493323795,
-              "used": 105206208,
-              "used_percentage": 53
+              "available": 499235598,
+              "used": 172480301,
+              "used_percentage": 47
             }
           },
           "jvm": {
             "heap": {
-              "usage": 0.5
+              "usage": 0.65
             }
           },
           "disk": {
-            "available_GB": 285,
-            "used_GB": 328,
-            "used_percentage": 21,
-            "diskSpaceUsed_MB": 2118
+            "available_GB": 700,
+            "used_GB": 265,
+            "used_percentage": 20,
+            "diskSpaceUsed_MB": 3192
           },
           "s3": {
             "filesystem": {
-              "read_bytes": 3379035854,
-              "write_bytes": 11948952449
+              "read_bytes": 5313170765,
+              "write_bytes": 1276410297
             }
           },
           "system": {
-            "cpuSystemLoad": 0.54
+            "cpuSystemLoad": 0.56
           }
         }
       }
@@ -151,7 +150,7 @@
     "level": "info"
   },
   "event": {
-    "duration": 3422000000000,
+    "duration": 489000000000,
     "outcome": "success",
     "category": [
       "process"

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,38 +13,33 @@
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "lambda-errors",
-      "alarm_state": "ALARM",
+      "alarm_name": "rds-connections",
+      "alarm_state": "OK",
       "previous_state": "OK",
       "namespace": "AWS/Lambda",
-      "metric_name": "MemoryUtilization",
-      "threshold": 95,
+      "metric_name": "CPUUtilization",
+      "threshold": 80,
       "evaluation_periods": 3,
-      "metric_value": 98.109,
-      "statistic": "Maximum",
-      "period_seconds": 3600,
-      "treat_missing_data": "breaching"
+      "metric_value": 47.538,
+      "statistic": "p99",
+      "period_seconds": 60,
+      "treat_missing_data": "notBreaching"
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "configuration",
       "process"
     ],
     "dataset": "aws.cloudwatch",
     "provider": "monitoring.amazonaws.com",
-    "duration": 300000000000
+    "duration": 60000000000
   },
-  "message": "CloudWatch alarm \"lambda-errors\": ALARM (AWS/Lambda/MemoryUtilization=98.1)",
+  "message": "CloudWatch alarm \"rds-connections\": OK (AWS/Lambda/CPUUtilization=47.5)",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "AlarmTriggered",
-    "message": "Alarm lambda-errors: ALARM",
-    "type": "monitoring"
+    "level": "info"
   },
   "data_stream": {
     "type": "metrics",

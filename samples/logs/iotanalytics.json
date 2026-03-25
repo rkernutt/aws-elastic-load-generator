@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "iotanalytics"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "ChannelName": "temperature-channel",
-      "PipelineName": "math-pipeline"
+      "ChannelName": "alerts-channel",
+      "PipelineName": "filter-pipeline"
     },
     "iotanalytics": {
-      "channel_name": "temperature-channel",
-      "pipeline_name": "math-pipeline",
+      "channel_name": "alerts-channel",
+      "pipeline_name": "filter-pipeline",
       "dataset_name": "fleet-summary",
-      "messages_processed": 2448,
-      "bytes_processed": 651168,
-      "activity_name": "lambda-enrich",
+      "messages_processed": 31501,
+      "bytes_processed": 10899346,
+      "activity_name": "filter",
       "pipeline_status": "SUCCEEDED"
     }
   },
@@ -33,9 +33,9 @@
     ],
     "dataset": "aws.iotanalytics",
     "provider": "iotanalytics.amazonaws.com",
-    "duration": 24755000000
+    "duration": 21298000000
   },
-  "message": "IoT Analytics: 2,448 messages via math-pipeline",
+  "message": "IoT Analytics: 31,501 messages via filter-pipeline",
   "log": {
     "level": "info"
   }

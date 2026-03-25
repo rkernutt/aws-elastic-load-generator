@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "codeguru"
@@ -15,15 +15,15 @@
     "codeguru": {
       "product": "Profiler",
       "repository_name": "backend-api",
-      "association_id": "c7f9tas4cy",
-      "finding_id": "a0w5pjuv9uu",
-      "category": "IO",
-      "severity": "Info",
-      "finding_description": "Database N+1 queries",
-      "code_file": "src/main/backendapi/Handler.java",
-      "line_number": 481,
+      "association_id": "b0h6s9qyv8",
+      "finding_id": "liwz46idna",
+      "category": "CPU",
+      "severity": "Critical",
+      "finding_description": "Excessive GC overhead",
+      "code_file": "server/routes.js",
+      "line_number": 77,
       "profiling_group": "backend-api-profiling",
-      "frame_percent": 41.076
+      "frame_percent": 26.973
     }
   },
   "event": {
@@ -35,8 +35,8 @@
     "dataset": "aws.codeguru",
     "provider": "codeguru.amazonaws.com"
   },
-  "message": "CodeGuru Profiler [backend-api] Info: Database N+1 queries",
+  "message": "CodeGuru Profiler [backend-api] Critical: Excessive GC overhead",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

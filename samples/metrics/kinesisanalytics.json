@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,33 +13,39 @@
   },
   "aws": {
     "kinesisanalytics": {
-      "application_name": "real-time-metrics",
-      "application_arn": "arn:aws:kinesisanalytics:eu-west-2:501938274650:application/real-time-metrics",
-      "runtime": "FLINK-1_15",
-      "records_per_second": 6164,
-      "input_watermark_lag_ms": 699,
+      "application_name": "clickstream-analytics",
+      "application_arn": "arn:aws:kinesisanalytics:eu-west-2:501938274650:application/clickstream-analytics",
+      "runtime": "SQL-1_0",
+      "records_per_second": 21479,
+      "input_watermark_lag_ms": 11146,
       "checkpointing_enabled": true,
-      "last_checkpoint_duration_ms": 1858,
+      "last_checkpoint_duration_ms": 9482,
       "kpu_count": 15,
-      "structured_logging": false,
+      "structured_logging": true,
       "metrics": {
-        "records_in_per_second": 6164,
-        "input_watermark_lag_ms": 699,
-        "kpu_utilization_pct": 27,
-        "checkpoint_duration_ms": 279
-      }
+        "records_in_per_second": 21479,
+        "input_watermark_lag_ms": 11146,
+        "kpu_utilization_pct": 87,
+        "checkpoint_duration_ms": 9884
+      },
+      "error": "OutOfMemory"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "process",
     "dataset": "aws.kinesisanalytics",
     "provider": "kinesisanalytics.amazonaws.com",
-    "duration": 1518000000
+    "duration": 23935000000
   },
-  "message": "Checkpoint completed",
+  "message": "{\"applicationName\":\"clickstream-analytics\",\"recordsPerSecond\":21479,\"inputWatermarkLagMs\":11146,\"level\":\"error\",\"message\":\"Checkpoint failed\",\"timestamp\":\"2026-03-25T11:55:50.848Z\"}",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "CheckpointFailure",
+    "message": "Kinesis Analytics application error",
+    "type": "stream"
   },
   "data_stream": {
     "type": "metrics",

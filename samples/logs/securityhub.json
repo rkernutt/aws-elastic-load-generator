@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "securityhub"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "dimensions": {
-      "ComplianceStandard": "aws-foundational-security-best-practices",
-      "ControlId": "CIS.1.4"
+      "ComplianceStandard": "pci-dss",
+      "ControlId": "Lambda.1"
     },
     "securityhub_findings": {
-      "id": "H5IBCN6Z-FBWU-XRM4-T69U-EX9Y0O2X2MB",
-      "aws_account_id": "814726593401",
-      "region": "us-east-1",
+      "id": "X0DVQN4B-K86R-HD6A-T22B-IMNUD4YMU3G",
+      "aws_account_id": "738291046572",
+      "region": "eu-west-2",
       "description": "Control passed.",
-      "created_at": "2026-03-18T23:05:37.613Z",
-      "first_observed_at": "2026-03-18T23:05:37.613Z",
-      "last_observed_at": "2026-03-19T15:13:42.103Z",
+      "created_at": "2026-03-24T16:06:44.961Z",
+      "first_observed_at": "2026-03-24T16:06:44.961Z",
+      "last_observed_at": "2026-03-25T11:55:50.848Z",
       "generator": {
-        "id": "CIS.1.4"
+        "id": "Lambda.1"
       },
       "types": [
-        "Software and Configuration Checks/Industry and Regulatory Standards/CIS AWS Foundations Benchmark"
+        "Software and Configuration Checks/Vulnerabilities/CVE"
       ],
       "compliance": {
-        "security_control_id": "CIS.1.4",
+        "security_control_id": "Lambda.1",
         "status": "PASSED"
       },
       "severity": {
@@ -39,20 +39,20 @@
         "normalized": 0
       },
       "workflow": {
-        "status": "RESOLVED"
+        "status": "SUPPRESSED"
       },
       "record_state": "ARCHIVED",
       "product": {
-        "arn": "arn:aws:securityhub:us-east-1::product/aws/securityhub",
+        "arn": "arn:aws:securityhub:eu-west-2::product/aws/securityhub",
         "name": "Security Hub"
       },
       "criticality": 4,
-      "confidence": 90
+      "confidence": 85
     }
   },
   "rule": {
-    "id": "CIS.1.4",
-    "name": "CIS.1.4 — Security group allows all traffic"
+    "id": "Lambda.1",
+    "name": "Lambda.1 — S3 bucket publicly accessible"
   },
   "event": {
     "kind": "alert",

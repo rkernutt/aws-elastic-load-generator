@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "itdyqo66-vnk4-d82a-2ygv-c5dsrb44ub",
+      "InstanceId": "n9yqhy2t-eu3w-76vn-uwz1-ozumluwer9s",
       "MetricGroup": "Queue"
     },
     "connect": {
-      "instance_id": "itdyqo66-vnk4-d82a-2ygv-c5dsrb44ub",
-      "contact_id": "hpsyczis-4m4o-3ghp",
+      "instance_id": "n9yqhy2t-eu3w-76vn-uwz1-ozumluwer9s",
+      "contact_id": "vekbn9i3-cp91-8zqt",
       "channel": "TASK",
-      "initiation_method": "INBOUND_CALL",
-      "queue_name": "BasicQueue",
-      "agent_id": "agent-alice",
-      "duration_seconds": 1213,
-      "hold_duration_seconds": 67,
-      "queue_wait_time_seconds": 165,
-      "disconnect_reason": "AGENT_DISCONNECT",
+      "initiation_method": "TRANSFER",
+      "queue_name": "Sales",
+      "agent_id": "agent-bob",
+      "duration_seconds": 270,
+      "hold_duration_seconds": 66,
+      "queue_wait_time_seconds": 277,
+      "disconnect_reason": "EXPIRED",
       "sentiment_overall": "NEGATIVE",
-      "contact_lens_enabled": false,
+      "contact_lens_enabled": true,
       "lex_bot_interacted": false,
       "metrics": {
         "ContactsQueued": {
@@ -44,25 +44,25 @@
           "sum": 0
         },
         "AverageHandleTime": {
-          "avg": 1213
+          "avg": 270
         },
         "AverageAfterContactWorkTime": {
-          "avg": 288
+          "avg": 77
         },
         "AverageQueueAnswerTime": {
-          "avg": 27
+          "avg": 88
         },
         "ServiceLevel": {
-          "avg": 68.084
+          "avg": 95.618
         },
         "OccupancyTime": {
-          "avg": 61.146
+          "avg": 84.39
         }
       }
     }
   },
   "event": {
-    "duration": 1213000000000,
+    "duration": 270000000000,
     "outcome": "success",
     "category": [
       "host",
@@ -71,8 +71,8 @@
     "dataset": "aws.connect",
     "provider": "connect.amazonaws.com"
   },
-  "message": "Connect INBOUND_CALL: BasicQueue agent=agent-alice, 1213s, NEGATIVE",
+  "message": "Connect TRANSFER: Sales agent=agent-bob, 270s, NEGATIVE",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

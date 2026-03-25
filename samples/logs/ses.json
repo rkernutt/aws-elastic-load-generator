@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "ses"
@@ -13,26 +13,25 @@
   },
   "aws": {
     "dimensions": {
-      "ses:configuration-set": "transactional",
+      "ses:configuration-set": "default",
       "ses:from-domain": "app.io",
-      "ses:to-country": "JP",
-      "ses:to-isp": "Gmail"
+      "ses:to-country": "CA",
+      "ses:to-isp": "Yahoo"
     },
     "ses": {
-      "message_id": "wbxdwme5qzb.6jx0mqnb45@us-east-1.amazonses.com",
-      "event_type": "Reject",
+      "message_id": "fqx22nredr.xcaikgnuta@us-east-1.amazonses.com",
+      "event_type": "RenderingFailure",
       "from_address": "no-reply@app.io",
-      "destination": "user_arl1t8@outlook.com",
-      "configuration_set": "transactional",
+      "destination": "user_tdxgj2@company.org",
       "bounce": {},
       "complaint": {},
-      "sending_account_id": "814726593401",
+      "sending_account_id": "164820739518",
       "delivery": {
         "recipients": [
-          "user_arl1t8@outlook.com"
+          "user_tdxgj2@company.org"
         ],
-        "timestamp": "2026-03-19T15:13:42.103Z",
-        "processing_time_ms": 136,
+        "timestamp": "2026-03-25T11:55:50.848Z",
+        "processing_time_ms": 300,
         "smtp_response": "250 2.0.0 OK"
       },
       "metrics": {
@@ -67,22 +66,17 @@
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "email",
       "process"
     ],
     "dataset": "aws.ses",
     "provider": "email.amazonaws.com",
-    "duration": 655000000
+    "duration": 619000000
   },
-  "message": "SES Reject: no-reply@app.io -> user_arl1t8@outlook.com",
+  "message": "SES RenderingFailure: no-reply@app.io -> user_tdxgj2@company.org",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "SESDeliveryFailure",
-    "message": "SES delivery failed",
-    "type": "email"
+    "level": "info"
   }
 }

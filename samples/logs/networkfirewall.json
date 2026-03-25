@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "network-firewall"
@@ -13,38 +13,38 @@
   },
   "aws": {
     "dimensions": {
-      "FirewallName": "fw-eu-west-2",
-      "AvailabilityZone": "eu-west-2a",
+      "FirewallName": "fw-us-east-1",
+      "AvailabilityZone": "us-east-1a",
       "CustomAction": "CustomPassAction"
     },
     "firewall_logs": {
-      "flow_id": 278711,
-      "event_timestamp": "2026-03-19T15:13:42.103Z",
+      "flow_id": 459439,
+      "event_timestamp": "2026-03-25T11:55:50.848Z",
       "action": "PASS",
-      "src_ip": "114.67.65.243",
-      "dest_ip": "195.94.191.69",
-      "src_port": 18712,
+      "src_ip": "208.21.162.140",
+      "dest_ip": "229.251.212.87",
+      "src_port": 43840,
       "dest_port": 22,
       "protocol": "TCP",
-      "firewall_name": "fw-eu-west-2",
-      "availability_zone": "eu-west-2a"
+      "firewall_name": "fw-us-east-1",
+      "availability_zone": "us-east-1a"
     },
     "network_firewall": {
-      "firewall_name": "fw-eu-west-2",
-      "availability_zone": "eu-west-2a",
+      "firewall_name": "fw-us-east-1",
+      "availability_zone": "us-east-1a",
       "policy_name": "prod-fw-policy",
       "metrics": {
         "DroppedPackets": {
           "sum": 0
         },
         "PassedPackets": {
-          "sum": 26242
+          "sum": 15217
         },
         "RejectedPackets": {
           "sum": 0
         },
         "Packets": {
-          "sum": 41837
+          "sum": 66182
         },
         "DroppedBytes": {
           "sum": 0
@@ -53,17 +53,17 @@
     }
   },
   "source": {
-    "ip": "114.67.65.243",
-    "port": 18712
+    "ip": "208.21.162.140",
+    "port": 43840
   },
   "destination": {
-    "ip": "195.94.191.69",
+    "ip": "229.251.212.87",
     "port": 22
   },
   "network": {
     "transport": "tcp",
-    "bytes": 64449,
-    "packets": 40
+    "bytes": 31810,
+    "packets": 43
   },
   "event": {
     "action": "pass",
@@ -74,7 +74,7 @@
     ],
     "dataset": "aws.firewall_logs",
     "provider": "network-firewall.amazonaws.com",
-    "duration": 28000000
+    "duration": 36000000
   },
   "message": "PASS TCP flow",
   "log": {

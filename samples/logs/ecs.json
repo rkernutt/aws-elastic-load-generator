@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "ecs"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "staging",
-      "ServiceName": "web-frontend"
+      "ClusterName": "prod-cluster",
+      "ServiceName": "scheduler"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 5.534
+          "avg": 35.714
         },
         "CPUReservation": {
-          "avg": 19.528
+          "avg": 26.816
         },
         "MemoryUtilization": {
-          "avg": 13.66
+          "avg": 17.481
         },
         "MemoryReservation": {
-          "avg": 23.08
+          "avg": 56.524
         },
         "GPUReservation": {
           "avg": 0
@@ -37,17 +37,17 @@
     }
   },
   "container": {
-    "id": "po3tn366mjp",
-    "name": "web-frontend",
+    "id": "4h69eu7lw0a",
+    "name": "scheduler",
     "image": {
-      "name": "node:18-alpine",
-      "tag": "1.24"
+      "name": "nginx:alpine",
+      "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 61118,
-    "name": "web-frontend"
+    "pid": 24319,
+    "name": "scheduler"
   },
   "log": {
     "level": "info"
@@ -60,11 +60,11 @@
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 2270000000000
+    "duration": 2675000000000
   },
-  "message": "Health check passed",
+  "message": "{\"cluster\":\"prod-cluster\",\"service\":\"scheduler\",\"taskId\":\"92gfcwrbzkr\",\"container\":\"scheduler\",\"level\":\"info\",\"message\":\"Task started\",\"timestamp\":\"2026-03-25T11:55:50.848Z\"}",
   "service": {
-    "name": "web-frontend",
+    "name": "scheduler",
     "type": "ecs"
   }
 }

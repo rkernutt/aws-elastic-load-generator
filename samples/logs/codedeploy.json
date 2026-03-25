@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,18 +13,18 @@
   },
   "aws": {
     "dimensions": {
-      "DeploymentGroupName": "canary",
-      "ApplicationName": "api-service"
+      "DeploymentGroupName": "prod",
+      "ApplicationName": "worker-service"
     },
     "codedeploy": {
-      "application_name": "api-service",
-      "deployment_group": "canary",
-      "deployment_id": "d-9BK05KAGN",
+      "application_name": "worker-service",
+      "deployment_group": "prod",
+      "deployment_id": "d-1ZDJ276U8",
       "deployment_type": "IN_PLACE",
-      "lifecycle_event": "BeforeAllowTraffic",
+      "lifecycle_event": "AfterAllowTraffic",
       "event_status": "Succeeded",
-      "duration_seconds": 49,
-      "instances_succeeded": 10,
+      "duration_seconds": 533,
+      "instances_succeeded": 9,
       "instances_failed": 0,
       "metrics": {
         "DeploymentAttempts": {
@@ -40,10 +40,10 @@
           "sum": 0
         },
         "DeploymentDuration": {
-          "avg": 49
+          "avg": 533
         },
         "InstanceSuccesses": {
-          "sum": 10
+          "sum": 2
         },
         "InstanceFailures": {
           "sum": 0
@@ -52,7 +52,7 @@
     }
   },
   "event": {
-    "duration": 49000000000,
+    "duration": 533000000000,
     "outcome": "success",
     "category": [
       "process",
@@ -61,7 +61,7 @@
     "dataset": "aws.codedeploy",
     "provider": "codedeploy.amazonaws.com"
   },
-  "message": "CodeDeploy api-service deployment SUCCEEDED in 49s",
+  "message": "CodeDeploy worker-service deployment SUCCEEDED in 533s",
   "log": {
     "level": "info"
   }

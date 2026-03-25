@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "detective"
@@ -13,22 +13,27 @@
   },
   "aws": {
     "detective": {
-      "entity_type": "AwsAccount",
-      "entity_id": "i-yj4f26fvido",
-      "behavior_type": "Normal",
-      "severity_score": 22.858,
-      "finding_count": 0
+      "entity_type": "AwsIamRole",
+      "entity_id": "arn:aws:iam::738291046572:user/suspicious",
+      "behavior_type": "Data Exfiltration",
+      "severity_score": 78.405,
+      "finding_count": 6
     }
   },
   "event": {
-    "kind": "event",
-    "outcome": "success",
+    "kind": "alert",
+    "outcome": "failure",
     "category": "intrusion_detection",
     "dataset": "aws.detective",
     "provider": "detective.amazonaws.com"
   },
-  "message": "Detective: entity behavior within normal baseline",
+  "message": "Detective [HIGH]: Data Exfiltration detected - 6 related findings",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "AnomalousBehavior",
+    "message": "Data Exfiltration detected",
+    "type": "security"
   }
 }

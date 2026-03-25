@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -14,11 +14,11 @@
   "aws": {
     "dimensions": {
       "ServiceName": "web-api",
-      "ServiceId": "mgmr7n14rn"
+      "ServiceId": "5w9tkpiwqpc"
     },
     "apprunner": {
       "service_name": "web-api",
-      "service_arn": "arn:aws:apprunner:eu-west-2:293847561023:service/web-api/mgmr7n14rn",
+      "service_arn": "arn:aws:apprunner:us-east-1:293847561023:service/web-api/5w9tkpiwqpc",
       "structured_logging": false,
       "metrics": {
         "Requests": {
@@ -37,42 +37,42 @@
           "sum": 1
         },
         "RequestLatency": {
-          "avg": 434,
-          "p99": 1302
+          "avg": 328,
+          "p99": 984
         },
         "ActiveInstances": {
-          "avg": 2
+          "avg": 10
         },
         "ConcurrentRequests": {
-          "avg": 24
+          "avg": 22
         },
         "CPUUtilization": {
-          "avg": 57.568
+          "avg": 12.469
         },
         "MemoryUtilization": {
-          "avg": 16.883
+          "avg": 64.735
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "PUT",
-      "bytes": 3169
+      "method": "DELETE",
+      "bytes": 664
     },
     "response": {
-      "status_code": 204,
-      "bytes": 7122
+      "status_code": 200,
+      "bytes": 1528
     }
   },
   "url": {
     "path": "/api/v1/users"
   },
   "client": {
-    "ip": "54.113.252.105"
+    "ip": "1.130.30.187"
   },
   "event": {
-    "duration": 434000000,
+    "duration": 328000000,
     "outcome": "success",
     "category": [
       "web",
@@ -81,7 +81,7 @@
     "dataset": "aws.apprunner",
     "provider": "apprunner.amazonaws.com"
   },
-  "message": "PATCH /health 204 434ms",
+  "message": "GET /api/v1/auth/login 200 328ms",
   "log": {
     "level": "info"
   },

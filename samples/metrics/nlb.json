@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "nlb"
@@ -13,40 +13,40 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "net/prod-nlb-us-east-1/ou85e699am",
-      "TargetGroup": "targetgroup/tg-web/0wbg468dbwq",
+      "LoadBalancer": "net/prod-nlb-us-east-1/xthejiah5kg",
+      "TargetGroup": "targetgroup/tg-api/e03i1ktxo4q",
       "AvailabilityZone": "us-east-1b"
     },
     "elb": {
-      "name": "net/prod-nlb-us-east-1/ou85e699am",
+      "name": "net/prod-nlb-us-east-1/xthejiah5kg",
       "type": "network",
-      "listener": "arn:aws:elasticloadbalancing:us-east-1:738291046572:listener/net/prod-nlb/bjy0d445jji/3uexokid075",
+      "listener": "arn:aws:elasticloadbalancing:us-east-1:164820739518:listener/net/prod-nlb/x0ojqa2gci/q7qvbwkd4i",
       "protocol": "TLS",
-      "connection_time.ms": 3287,
+      "connection_time.ms": 348,
       "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
       "ssl_protocol": "TLSv1.3",
-      "backend.ip": "67.74.124.239",
-      "backend.port": "6379",
-      "received_bytes": 613203,
-      "sent_bytes": 289593
+      "backend.ip": "167.103.184.161",
+      "backend.port": "8080",
+      "received_bytes": 803016,
+      "sent_bytes": 570900
     }
   },
   "source": {
-    "ip": "107.229.209.8",
-    "port": 54371,
+    "ip": "111.69.207.229",
+    "port": 54490,
     "geo": {
-      "country_iso_code": "US",
-      "country_name": "United States",
-      "city_name": "San Francisco",
+      "country_iso_code": "SE",
+      "country_name": "Sweden",
+      "city_name": "Stockholm",
       "location": {
-        "lat": 37.7749,
-        "lon": -122.4194
+        "lat": 59.3293,
+        "lon": 18.0686
       }
     }
   },
   "network": {
     "transport": "tls",
-    "bytes": 613203
+    "bytes": 803016
   },
   "event": {
     "outcome": "success",
@@ -55,9 +55,9 @@
     ],
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com",
-    "duration": 3287000000
+    "duration": 348000000
   },
-  "message": "NLB TLS:6379 613203B in 3287ms",
+  "message": "NLB TLS:8080 803016B in 348ms",
   "log": {
     "level": "info"
   },

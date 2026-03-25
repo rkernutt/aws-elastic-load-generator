@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "forecast"
@@ -18,17 +18,17 @@
     },
     "forecast": {
       "dataset_group": "web-traffic",
-      "predictor_name": "web-traffic-predictor-v6",
+      "predictor_name": "web-traffic-predictor-v7",
       "action": "CreatePredictor",
-      "algorithm": "NPTS",
-      "forecast_horizon": 30,
-      "weighted_quantile_loss": 0.221,
-      "duration_seconds": 4998,
+      "algorithm": "CNN-QR",
+      "forecast_horizon": 60,
+      "weighted_quantile_loss": 0.14,
+      "duration_seconds": 1143,
       "status": "ACTIVE"
     }
   },
   "event": {
-    "duration": 4998000000000,
+    "duration": 1143000000000,
     "outcome": "success",
     "category": [
       "process"
@@ -36,7 +36,7 @@
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com"
   },
-  "message": "Forecast CreatePredictor: web-traffic, WQL=0.221",
+  "message": "Forecast CreatePredictor: web-traffic, WQL=0.140",
   "log": {
     "level": "info"
   }

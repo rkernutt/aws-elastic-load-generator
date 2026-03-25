@@ -79,11 +79,25 @@ function generateS3Log(ts, er) {
         }
       },
       s3_request: {
-        uploaded: { bytes: randInt(0, 1e9), bytes_per_period: randInt(0, 1e9) },
-        downloaded: { bytes: randInt(0, 1e10), bytes_per_period: randInt(0, 1e10) },
-        requests: { total: randInt(1, 100000), get: randInt(1, 50000), put: randInt(1, 10000) },
+        uploaded: { bytes: randInt(0, 1e9) },
+        downloaded: { bytes: randInt(0, 1e10) },
+        requests: {
+          total: randInt(1, 100000),
+          get: randInt(1, 50000),
+          put: randInt(1, 10000),
+          delete: randInt(0, 1000),
+          head: randInt(1, 5000),
+          post: randInt(0, 1000),
+          select: randInt(0, 500),
+          list: randInt(1, 5000),
+          select_scanned: { bytes: randInt(0, 1e9) },
+          select_returned: { bytes: randInt(0, 1e8) },
+        },
         errors: { "4xx": isErr ? randInt(1, 100) : 0, "5xx": isErr ? randInt(1, 10) : 0 },
-        latency: { total_request: { ms: parseFloat(randFloat(5, isErr?5000:500)) } },
+        latency: {
+          total_request: { ms: parseFloat(randFloat(5, isErr?5000:500)) },
+          first_byte: { ms: parseFloat(randFloat(1, isErr?2000:100)) },
+        },
       },
       s3_daily_storage: {
         bucket: { size: { bytes: randInt(1e6, 1e12) } },
@@ -206,16 +220,16 @@ function generateEbsLog(ts, er) {
       ebs: {
         ...eventData, event_type:eventType,
         metrics: {
-          VolumeReadOps: { sum: randInt(0,10000) },
-          VolumeWriteOps: { sum: randInt(0,10000) },
-          VolumeReadBytes: { sum: randInt(0,536870912) },
-          VolumeWriteBytes: { sum: randInt(0,536870912) },
+          VolumeReadOps: { avg: randInt(0,10000) },
+          VolumeWriteOps: { avg: randInt(0,10000) },
+          VolumeReadBytes: { avg: randInt(0,536870912) },
+          VolumeWriteBytes: { avg: randInt(0,536870912) },
           VolumeTotalReadTime: { sum: parseFloat(randFloat(0,10)) },
           VolumeTotalWriteTime: { sum: parseFloat(randFloat(0,10)) },
           VolumeIdleTime: { sum: parseFloat(randFloat(0,60)) },
           VolumeQueueLength: { avg: randInt(0, isErr?64:8) },
           VolumeThroughputPercentage: { avg: parseFloat(randFloat(10, isErr?100:80)) },
-          VolumeConsumedReadWriteOps: { sum: randInt(100, isErr?(provisionedIops||16000)*1.1:(provisionedIops||3000)*0.8) },
+          VolumeConsumedReadWriteOps: { avg: randInt(100, isErr?(provisionedIops||16000)*1.1:(provisionedIops||3000)*0.8) },
           BurstBalance: { avg: volType==="gp2"||volType==="st1"||volType==="sc1" ? randInt(isErr?0:50,100) : null },
         }
       }

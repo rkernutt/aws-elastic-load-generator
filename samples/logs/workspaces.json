@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "workspaces"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "dimensions": {
-      "DirectoryId": "d-q83o9o9rtb",
-      "WorkspaceId": "ws-iugjfvkset"
+      "DirectoryId": "d-5jrrzosazn",
+      "WorkspaceId": "ws-nntvpctc24"
     },
     "workspaces": {
-      "workspace_id": "ws-iugjfvkset",
-      "user_name": "alice",
+      "workspace_id": "ws-nntvpctc24",
+      "user_name": "carol",
       "bundle_type": "Graphics",
-      "workspace_state": "ERROR",
-      "action": "Disconnect",
-      "compute_type": "PERFORMANCE",
+      "workspace_state": "STOPPED",
+      "action": "StopWorkspace",
+      "compute_type": "VALUE",
       "running_mode": "AUTO_STOP",
-      "client_ip": "230.225.0.178",
-      "client_os": "Windows 11",
-      "error_code": "InvalidUser",
+      "client_ip": "18.218.202.107",
+      "client_os": "Ubuntu 22.04",
+      "error_code": "OperationNotSupportedException",
       "metrics": {
         "Available": {
           "sum": 0
@@ -47,7 +47,7 @@
           "sum": 0
         },
         "Stopped": {
-          "sum": 0
+          "sum": 1
         },
         "Maintenance": {
           "sum": 0
@@ -56,13 +56,13 @@
     }
   },
   "user": {
-    "name": "alice"
+    "name": "carol"
   },
   "source": {
-    "ip": "23.155.154.50"
+    "ip": "6.163.254.121"
   },
   "event": {
-    "action": "Disconnect",
+    "action": "StopWorkspace",
     "outcome": "failure",
     "category": [
       "host",
@@ -70,9 +70,9 @@
     ],
     "dataset": "aws.workspaces",
     "provider": "workspaces.amazonaws.com",
-    "duration": 5990000000
+    "duration": 7129000000
   },
-  "message": "WorkSpaces Disconnect FAILED for alice (ws-iugjfvkset)",
+  "message": "WorkSpaces StopWorkspace FAILED for carol (ws-nntvpctc24)",
   "error": {
     "code": "WorkSpacesError",
     "message": "WorkSpaces operation failed",

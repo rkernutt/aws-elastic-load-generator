@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "dimensions": {
-      "EventName": "CreateUser",
-      "EventSource": "iam.amazonaws.com"
+      "EventName": "ListBuckets",
+      "EventSource": "s3.amazonaws.com"
     },
     "cloudtrail": {
       "event_version": "1.08",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "mcogql84-cs23-0sbp-edyv-x9o76ls5hc",
+      "request_id": "5c3t1pez-kfpe-u8m0-pipi-4xiw56s4u5q",
       "api_version": "2012-10-17",
       "management_event": true,
-      "read_only": false,
+      "read_only": true,
       "recipient_account_id": "738291046572",
       "user_identity": {
         "type": "IAMUser",
         "arn": "arn:aws:iam::738291046572:user/deploy-bot",
-        "access_key_id": "AKIAYDOZ9RLFARB",
+        "access_key_id": "AKIA5JNE672IHVA",
         "session_context": {
           "mfa_authenticated": "true",
-          "creation_date": "2026-03-19T14:15:51.103Z"
+          "creation_date": "2026-03-25T11:55:34.848Z"
         }
       }
     }
@@ -40,28 +40,29 @@
     "name": "deploy-bot"
   },
   "source": {
-    "ip": "212.250.15.155",
+    "ip": "88.239.25.153",
     "geo": {
-      "country_iso_code": "FR",
-      "city_name": "Toronto"
+      "country_iso_code": "AU",
+      "city_name": "London"
     }
   },
   "user_agent": {
     "original": "python-requests/2.27.1"
   },
   "event": {
-    "action": "CreateUser",
+    "action": "ListBuckets",
     "outcome": "success",
     "category": [
-      "iam"
+      "configuration"
     ],
     "type": [
-      "creation"
+      "access",
+      "info"
     ],
     "dataset": "aws.cloudtrail",
     "provider": "cloudtrail.amazonaws.com"
   },
-  "message": "CloudTrail: CreateUser by deploy-bot from 212.250.15.155 - Success",
+  "message": "CloudTrail: ListBuckets by deploy-bot from 88.239.25.153 - Success",
   "log": {
     "level": "info"
   }

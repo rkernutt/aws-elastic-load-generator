@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "wafv2"
@@ -13,21 +13,26 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "admin-portal-waf",
-      "Rule": "GenericRFI_BODY",
-      "Region": "us-east-1"
+      "WebACL": "cdn-waf",
+      "Rule": "SQLi_Args",
+      "Region": "eu-west-2"
     },
     "waf": {
-      "id": "lb3qxo6qc2r",
-      "arn": "arn:aws:wafv2:us-east-1:293847561023:regional/webacl/admin-portal-waf/h6cezeiu-v9yt-07ys-lvzt-chr4dawq3fr",
+      "id": "o0szqha6b69",
+      "arn": "arn:aws:wafv2:eu-west-2:814726593401:regional/webacl/cdn-waf/k6vypp75-dv5o-9krg-x1wl-7c845aiotjw",
       "format_version": "1",
       "source": {
         "name": "APIGW",
-        "id": "293847561023-app/admin-portal-waf/6uzpnt9m0kc"
+        "id": "814726593401-app/cdn-waf/b95rij6eaqe"
       },
       "rule_group_list": [
         {
-          "ruleGroupId": "GeoBlockRule",
+          "ruleGroupId": "AWSManagedRulesSQLiRuleSet",
+          "terminatingRule": {
+            "action": "BLOCK",
+            "ruleId": "SQLi_Args",
+            "ruleMatchDetails": []
+          },
           "nonTerminatingMatchingRules": []
         }
       ],
@@ -37,7 +42,7 @@
         "headers": [
           {
             "name": "User-Agent",
-            "value": "python-requests/2.27.1"
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
           },
           {
             "name": "Host",
@@ -45,19 +50,24 @@
           }
         ]
       },
-      "labels": [],
+      "labels": [
+        {
+          "name": "awswaf:managed:aws:known-bad-inputs:NoUserAgent_HEADER"
+        }
+      ],
+      "response_code_sent": 403,
       "metrics": {
         "AllowedRequests": {
-          "sum": 1
+          "sum": 0
         },
         "BlockedRequests": {
-          "sum": 0
+          "sum": 1
         },
         "CountedRequests": {
           "sum": 0
         },
         "PassedRequests": {
-          "sum": 1
+          "sum": 0
         },
         "RequestsWithValidCaptchaToken": {
           "sum": 0
@@ -72,32 +82,32 @@
     }
   },
   "source": {
-    "ip": "165.64.25.9",
+    "ip": "65.211.229.158",
     "geo": {
-      "country_iso_code": "US",
-      "country_name": "United States",
-      "city_name": "San Francisco",
+      "country_iso_code": "GB",
+      "country_name": "United Kingdom",
+      "city_name": "London",
       "location": {
-        "lat": 37.7749,
-        "lon": -122.4194
+        "lat": 51.5074,
+        "lon": -0.1278
       }
     }
   },
   "http": {
     "request": {
-      "method": "PATCH",
-      "bytes": 8365
+      "method": "POST",
+      "bytes": 1309
     }
   },
   "url": {
-    "path": "/api/v1/orders"
+    "path": "/health"
   },
   "user_agent": {
-    "original": "python-requests/2.27.1"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
-    "action": "allow",
-    "outcome": "success",
+    "action": "block",
+    "outcome": "failure",
     "category": [
       "intrusion_detection",
       "network"
@@ -105,9 +115,14 @@
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com"
   },
-  "message": "WAFv2 ALLOW [admin-portal-waf] 165.64.25.9 PATCH /api/v1/orders",
+  "message": "WAFv2 BLOCK [cdn-waf] 65.211.229.158: AWSManagedRulesSQLiRuleSet/SQLi_Args",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "WAFBlock",
+    "message": "WAFv2 request blocked",
+    "type": "security"
   },
   "data_stream": {
     "type": "metrics",

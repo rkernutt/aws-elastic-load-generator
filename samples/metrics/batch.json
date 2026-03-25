@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "batch"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "JobQueue": "data-export-queue"
+      "JobQueue": "cleanup-job-queue"
     },
     "batch": {
       "job": {
-        "name": "data-export",
-        "id": "25v36cam-3hx8",
+        "name": "cleanup-job",
+        "id": "uxg2a2ac-3c2t",
         "status": "SUCCEEDED"
       },
-      "job_queue": "data-export-queue",
+      "job_queue": "cleanup-job-queue",
       "compute_environment": "ce-ondemand",
-      "structured_logging": false,
+      "structured_logging": true,
       "metrics": {
         "PendingJobCount": {
-          "avg": 22
+          "avg": 89
         },
         "RunnableJobCount": {
-          "avg": 24
+          "avg": 49
         },
         "StartingJobCount": {
-          "avg": 2
+          "avg": 1
         },
         "RunningJobCount": {
-          "avg": 121
+          "avg": 11
         },
         "SucceededJobCount": {
           "sum": 1
@@ -44,19 +44,19 @@
           "sum": 0
         },
         "CPUReserved": {
-          "avg": "54.798"
+          "avg": "33.258"
         },
         "GPUReserved": {
           "avg": 0
         },
         "MemoryReserved": {
-          "avg": "17.086"
+          "avg": "65.845"
         }
       }
     }
   },
   "process": {
-    "pid": 41040,
+    "pid": 39472,
     "name": "java",
     "exit_code": 0
   },
@@ -70,9 +70,9 @@
     "outcome": "success",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 1030000000000
+    "duration": 2351000000000
   },
-  "message": "Job definition registered",
+  "message": "{\"jobId\":\"uxg2a2ac-3c2t\",\"jobName\":\"cleanup-job\",\"jobQueue\":\"cleanup-job-queue\",\"level\":\"info\",\"message\":\"Job definition registered\",\"timestamp\":\"2026-03-25T11:55:50.848Z\",\"arrayIndex\":56}",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.batch",

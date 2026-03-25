@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codepipeline"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "release-train"
+      "PipelineName": "hotfix-pipeline"
     },
     "codepipeline": {
-      "pipeline_name": "release-train",
-      "pipeline_arn": "arn:aws:codepipeline:eu-west-2:164820739518:release-train",
-      "execution_id": "2v66jwp0-4se5-twwe-nl5z-yty6my0xpm",
-      "stage_name": "Source",
-      "action_name": "Manual",
+      "pipeline_name": "hotfix-pipeline",
+      "pipeline_arn": "arn:aws:codepipeline:us-east-1:293847561023:hotfix-pipeline",
+      "execution_id": "w1wn5uf3-n0do-mv47-pe35-k1f7ucwdw9q",
+      "stage_name": "Test",
+      "action_name": "Lambda",
       "state": "Succeeded",
-      "revision_id": "q708omd6bo",
+      "revision_id": "iuymanwf93f",
       "structured_logging": true,
       "metrics": {
         "PipelineExecutionAttempts": {
@@ -54,9 +54,9 @@
     ],
     "dataset": "aws.codepipeline",
     "provider": "codepipeline.amazonaws.com",
-    "duration": 42000000000
+    "duration": 87000000000
   },
-  "message": "{\"pipeline\":\"release-train\",\"executionId\":\"2v66jwp0-4se5-twwe-nl5z-yty6my0xpm\",\"stage\":\"Source\",\"state\":\"Succeeded\",\"timestamp\":\"2026-03-19T15:13:42.103Z\"}",
+  "message": "{\"pipeline\":\"hotfix-pipeline\",\"executionId\":\"w1wn5uf3-n0do-mv47-pe35-k1f7ucwdw9q\",\"stage\":\"Test\",\"state\":\"Succeeded\",\"timestamp\":\"2026-03-25T11:55:50.848Z\"}",
   "log": {
     "level": "info"
   },

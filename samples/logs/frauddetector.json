@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "frauddetector"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "transaction-risk"
+      "DetectorId": "account-takeover"
     },
     "frauddetector": {
-      "detector_id": "transaction-risk",
-      "detector_version_id": "4",
-      "event_id": "29qij9hnbre",
+      "detector_id": "account-takeover",
+      "detector_version_id": "3",
+      "event_id": "175xqu2etc7",
       "event_type": "online_purchase",
       "entity_type": "customer",
-      "entity_id": "entity_iq6irs68f5",
+      "entity_id": "entity_wp76imwlad",
       "outcomes": [
-        "REVIEW"
+        "APPROVE"
       ],
-      "risk_score": 430,
+      "risk_score": 263,
       "model_scores": {
-        "transaction-risk": 430
+        "account-takeover": 263
       },
       "used_rules": [
-        "approve-low"
+        "review-medium"
       ],
-      "ip_address": "21.213.143.95",
+      "ip_address": "113.148.7.178",
       "event_variables": {
-        "billing_postal": "11940",
+        "billing_postal": "92993",
         "phone_verified": "true"
       }
     }
@@ -47,9 +47,9 @@
     ],
     "dataset": "aws.frauddetector",
     "provider": "frauddetector.amazonaws.com",
-    "duration": 53000000
+    "duration": 471000000
   },
-  "message": "Fraud Detector REVIEW [transaction-risk]: entity entity_iq6irs68f5 score 430/1000",
+  "message": "Fraud Detector APPROVE [account-takeover]: entity entity_wp76imwlad score 263/1000",
   "log": {
     "level": "info"
   }

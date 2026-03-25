@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "iotcore"
@@ -13,95 +13,101 @@
   },
   "aws": {
     "dimensions": {
-      "Protocol": "MQTT-SN"
+      "Protocol": "HTTPS"
     },
     "iotcore": {
       "client_id": "gateway-prod-1",
       "thing_name": "gateway-prod-1",
-      "thing_group": "fleet",
-      "action": "REJECT",
-      "topic": "dt/factory/sensors/temperature",
-      "protocol": "MQTT-SN",
+      "thing_group": "home-devices",
+      "action": "PUBLISH",
+      "topic": "telemetry/metrics",
+      "protocol": "HTTPS",
       "qos": 1,
-      "message_bytes": 25955,
+      "message_bytes": 18274,
       "policy_name": "FleetPolicy",
-      "structured_logging": false,
-      "rules_evaluated": 4,
+      "structured_logging": true,
+      "error_code": "ThrottlingException",
+      "rules_evaluated": 5,
       "metrics": {
         "Connect.Success": {
-          "sum": 907
+          "sum": 508
         },
         "Connect.Failure": {
-          "sum": 0
+          "sum": 11
         },
         "PublishIn.Success": {
-          "sum": 5178
+          "sum": 2247
         },
         "PublishIn.ClientError": {
-          "sum": 0
+          "sum": 97
         },
         "PublishIn.ServerError": {
-          "sum": 0
+          "sum": 86
         },
         "PublishOut.Success": {
-          "sum": 2745
+          "sum": 5568
         },
         "Publish.Success": {
-          "sum": 3748
+          "sum": 1851
         },
         "Publish.Failure": {
-          "sum": 0
+          "sum": 652
         },
         "Subscribe.Success": {
-          "sum": 312
+          "sum": 1438
         },
         "Subscribe.Failure": {
-          "sum": 0
+          "sum": 3
         },
         "Unsubscribe.Success": {
-          "sum": 374
+          "sum": 646
         },
         "Ping.Success": {
-          "sum": 1470
+          "sum": 8863
         },
         "Throttle.Success": {
-          "sum": 84
+          "sum": 10
         },
         "RulesMatched": {
-          "sum": 732
+          "sum": 150
         },
         "RulesFailed": {
-          "sum": 0
+          "sum": 74
         },
         "RulesNotMatched": {
-          "sum": 41
+          "sum": 10
         },
         "TopicMatch": {
-          "sum": 596
+          "sum": 5461
         },
         "ClientConnections": {
-          "avg": 43677
+          "avg": 47119
         }
       }
     }
   },
   "source": {
-    "ip": "117.59.174.75"
+    "ip": "86.160.171.158"
   },
   "event": {
-    "action": "REJECT",
-    "outcome": "success",
+    "action": "PUBLISH",
+    "outcome": "failure",
     "category": [
       "network",
       "process"
     ],
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com",
-    "duration": 128000000
+    "duration": 2389000000
   },
-  "message": "IoT Core REJECT: gateway-prod-1 on dt/factory/sensors/temperature",
+  "message": "{\"clientId\":\"gateway-prod-1\",\"action\":\"PUBLISH\",\"topic\":\"telemetry/metrics\",\"message\":\"IoT Core PUBLISH FAILED for gateway-prod-1: Unauthorized\",\"timestamp\":\"2026-03-25T11:55:50.848Z\"}",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "DeviceDisconnected",
+    "message": "IoT Core operation failed",
+    "type": "iot"
   },
   "data_stream": {
     "type": "metrics",

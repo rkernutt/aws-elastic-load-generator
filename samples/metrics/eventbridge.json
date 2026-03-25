@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "events"
@@ -14,16 +14,16 @@
   "aws": {
     "dimensions": {
       "EventBusName": "default",
-      "RuleName": "scheduled-cleanup"
+      "RuleName": "user-signup-trigger"
     },
     "eventbridge": {
       "event_bus": "default",
-      "rule": "scheduled-cleanup",
-      "source": "aws.health",
-      "detail_type": "Object Created",
-      "targets_invoked": 1,
+      "rule": "user-signup-trigger",
+      "source": "com.partner.events",
+      "detail_type": "Health Event",
+      "targets_invoked": 2,
       "targets_failed": 0,
-      "event_id": "bm7z3je2-4jvc-pux5-guik-5tp9b4j4yco",
+      "event_id": "lkt4rode-cti3-ub1k-dya3-llpkfpkbmu9",
       "structured_logging": true,
       "metrics": {
         "Invocations": {
@@ -36,7 +36,7 @@
           "sum": 1
         },
         "MatchedEvents": {
-          "sum": 75
+          "sum": 28
         },
         "ThrottledRules": {
           "sum": 0
@@ -53,13 +53,13 @@
       "process"
     ],
     "type": [
-      "change"
+      "creation"
     ],
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 70000000
+    "duration": 42000000
   },
-  "message": "{\"id\":\"bm7z3je2-4jvc-pux5-guik-5tp9b4j4yco\",\"source\":\"aws.health\",\"detailType\":\"EC2 Instance State-change Notification\",\"rule\":\"scheduled-cleanup\",\"eventBus\":\"default\",\"message\":\"EventBridge event routed: aws.health -> scheduled-cleanup\",\"timestamp\":\"2026-03-19T15:13:42.103Z\"}",
+  "message": "{\"id\":\"lkt4rode-cti3-ub1k-dya3-llpkfpkbmu9\",\"source\":\"com.partner.events\",\"detailType\":\"Health Event\",\"rule\":\"user-signup-trigger\",\"eventBus\":\"default\",\"message\":\"EventBridge event routed: com.partner.events -> user-signup-trigger\",\"timestamp\":\"2026-03-25T11:55:50.848Z\"}",
   "log": {
     "level": "info"
   },

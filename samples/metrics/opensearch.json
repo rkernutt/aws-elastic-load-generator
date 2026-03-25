@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "opensearch"
@@ -13,27 +13,27 @@
   },
   "aws": {
     "dimensions": {
-      "DomainName": "prod-search-eu-west-2",
-      "ClientId": "164820739518"
+      "DomainName": "prod-search-us-east-1",
+      "ClientId": "501938274650"
     },
     "opensearch": {
-      "domain_name": "prod-search-eu-west-2",
-      "index": "app-logs",
-      "operation": "search",
-      "took_ms": 784,
+      "domain_name": "prod-search-us-east-1",
+      "index": "metrics",
+      "operation": "get",
+      "took_ms": 163,
       "shards": {
         "total": 5,
         "successful": 5,
         "failed": 0
       },
-      "hits_total": 88553,
+      "hits_total": 70304,
       "status_code": 200,
       "metrics": {
         "CPUUtilization": {
-          "avg": 16.972
+          "avg": 38.634
         },
         "FreeStorageSpace": {
-          "avg": 64800953777
+          "avg": 171581891128
         },
         "ClusterStatus": {
           "green": 1,
@@ -41,25 +41,25 @@
           "red": 0
         },
         "Nodes": {
-          "avg": 11
+          "avg": 4
         },
         "SearchableDocuments": {
-          "avg": 515616093
+          "avg": 474329502
         },
         "IndexingLatency": {
-          "avg": 387
+          "avg": 201
         },
         "SearchLatency": {
-          "avg": 653
+          "avg": 334
         },
         "IndexingRate": {
-          "avg": 37159
+          "avg": 24344
         },
         "SearchRate": {
-          "avg": 2875
+          "avg": 5851
         },
         "JVMMemoryPressure": {
-          "avg": 17.946
+          "avg": 32.232
         },
         "AutomatedSnapshotFailure": {
           "sum": 0
@@ -73,13 +73,13 @@
     }
   },
   "event": {
-    "duration": 784170000,
+    "duration": 162991000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.opensearch",
     "provider": "es.amazonaws.com"
   },
-  "message": "OpenSearch search on app-logs: 784ms",
+  "message": "OpenSearch get on metrics: 163ms",
   "log": {
     "level": "info"
   },

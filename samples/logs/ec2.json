@@ -1,34 +1,34 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "ec2"
     },
     "instance": {
-      "id": "i-eoiddu6nn7v"
+      "id": "i-o38nhx3ee5i"
     }
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "i-eoiddu6nn7v",
+      "InstanceId": "i-o38nhx3ee5i",
       "InstanceType": "m5.xlarge",
-      "ImageId": "ami-qn78m828",
-      "AutoScalingGroupName": "api-asg"
+      "ImageId": "ami-z1ptuijo",
+      "AutoScalingGroupName": "worker-asg"
     },
     "ec2": {
       "instance": {
         "image": {
-          "id": "ami-12s9nxoe"
+          "id": "ami-1cxcwyup"
         },
         "state": {
-          "name": "stopping",
-          "code": 64
+          "name": "running",
+          "code": 16
         },
         "monitoring": {
           "state": "disabled"
@@ -39,120 +39,89 @@
         "type": "m5.xlarge",
         "threads_per_core": 2,
         "private": {
-          "ip": "242.185.152.22",
-          "dns_name": "ip-196-179-197-169.us-east-1.compute.internal"
+          "ip": "138.233.202.38",
+          "dns_name": "ip-15-231-25-172.us-east-1.compute.internal"
         },
         "public": {
-          "ip": "209.23.14.46",
-          "dns_name": "ec2-193-132-24-185.compute-1.amazonaws.com"
+          "ip": "235.19.176.144",
+          "dns_name": "ec2-138-184-226-164.compute-1.amazonaws.com"
         }
       },
-      "metrics": {
-        "CPUUtilization": {
-          "avg": 7.665
+      "cpu": {
+        "total": {
+          "pct": 0.5458
         },
-        "CPUCreditUsage": {
-          "avg": "3.710"
+        "credit_usage": 2.59,
+        "credit_balance": 495.927,
+        "surplus_credit_balance": 0,
+        "surplus_credits_charged": 0
+      },
+      "network": {
+        "in": {
+          "bytes": 548902720,
+          "bytes_per_sec": 173093.72,
+          "packets": 627057,
+          "packets_per_sec": 816.425
         },
-        "CPUCreditBalance": {
-          "avg": "14.606"
-        },
-        "CPUSurplusCreditBalance": {
-          "avg": 0
-        },
-        "CPUSurplusCreditsCharged": {
-          "sum": 0
-        },
-        "DiskReadBytes": {
-          "sum": 610674636,
-          "rate": 712701.935
-        },
-        "DiskWriteBytes": {
-          "sum": 935763094,
-          "rate": 443705.101
-        },
-        "DiskReadOps": {
-          "sum": 9689,
-          "rate": 133.785
-        },
-        "DiskWriteOps": {
-          "sum": 1875,
-          "rate": 87.149
-        },
-        "NetworkIn": {
-          "sum": 70120325,
-          "rate": 498358.376
-        },
-        "NetworkOut": {
-          "sum": 79987668,
-          "rate": 384171.61
-        },
-        "NetworkPacketsIn": {
-          "sum": 75970,
-          "rate": 803.075
-        },
-        "NetworkPacketsOut": {
-          "sum": 30719,
-          "rate": 6238.888
-        },
-        "StatusCheckFailed": {
-          "avg": 1
-        },
-        "StatusCheckFailed_System": {
-          "avg": 0
-        },
-        "StatusCheckFailed_Instance": {
-          "avg": 1
-        },
-        "EBSReadBytes": {
-          "sum": 847198398
-        },
-        "EBSWriteBytes": {
-          "sum": 898528890
-        },
-        "EBSReadOps": {
-          "sum": 8113
-        },
-        "EBSWriteOps": {
-          "sum": 3609
-        },
-        "MetadataNoToken": {
-          "sum": 28
+        "out": {
+          "bytes": 557024234,
+          "bytes_per_sec": 89248.604,
+          "packets": 932950,
+          "packets_per_sec": 2775.669
         }
+      },
+      "diskio": {
+        "read": {
+          "bytes": 517148993,
+          "bytes_per_sec": 8380.503,
+          "count": 1484,
+          "count_per_sec": 51.282
+        },
+        "write": {
+          "bytes": 795574056,
+          "bytes_per_sec": 67752.819,
+          "count": 8676,
+          "count_per_sec": 722.468
+        }
+      },
+      "status": {
+        "check_failed": 0,
+        "check_failed_system": 0,
+        "check_failed_instance": 0
       }
     }
   },
   "host": {
-    "hostname": "ip-233-116-121-177",
+    "hostname": "ip-160-31-80-114",
     "os": {
       "type": "linux",
-      "kernel": "5.10.149-150.amzn2.x86_64",
-      "version": "2"
+      "kernel": "5.10.204-177.amzn2.x86_64",
+      "version": "2023"
     },
     "architecture": "x86_64",
     "cpu": {
       "count": 8,
-      "usage": 0.07665
+      "usage": 0.54581
     },
     "disk": {
       "read": {
-        "bytes": 81925676
+        "bytes": 153785177
       },
       "write": {
-        "bytes": 730889540
+        "bytes": 107912588
       }
     },
     "network": {
       "ingress": {
-        "bytes": 782741693
+        "bytes": 823799301
       },
       "egress": {
-        "bytes": 426944604
+        "bytes": 802965602
       }
     }
   },
   "log": {
-    "level": "error"
+    "level": "info"
   },
   "event": {
     "category": [
@@ -160,17 +129,12 @@
       "process"
     ],
     "type": [
-      "error"
+      "info"
     ],
-    "outcome": "failure",
+    "outcome": "success",
     "dataset": "aws.ec2",
     "provider": "ec2.amazonaws.com",
-    "duration": 1108000000000
+    "duration": 1740000000000
   },
-  "message": "sshd: error: Could not load host key",
-  "error": {
-    "code": "InvalidParameterValue",
-    "message": "disk I/O error on /dev/xvda1",
-    "type": "host"
-  }
+  "message": "{\"instanceId\":\"i-o38nhx3ee5i\",\"instanceType\":\"m5.xlarge\",\"level\":\"info\",\"message\":\"sshd: Accepted publickey for ec2-user\",\"timestamp\":\"2026-03-25T11:55:50.848Z\",\"component\":\"syslog\"}"
 }

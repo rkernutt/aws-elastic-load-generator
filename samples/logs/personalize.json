@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "personalize"
@@ -13,24 +13,24 @@
   },
   "aws": {
     "dimensions": {
-      "CampaignArn": "similar-items",
-      "Operation": "GetRecommendations"
+      "CampaignArn": "product-recommendations",
+      "Operation": "CreateCampaign"
     },
     "personalize": {
-      "campaign_name": "similar-items",
-      "action": "GetRecommendations",
-      "user_id": "user-cxidqfbm",
+      "campaign_name": "product-recommendations",
+      "action": "CreateCampaign",
+      "user_id": "user-4tw5t0yh",
       "num_results_returned": 11,
-      "recipe": "aws-hrnn",
+      "recipe": "aws-user-personalization",
       "solution_version": "1.1.2",
-      "duration_ms": 142
+      "duration_ms": 218
     }
   },
   "user": {
-    "name": "user-cxidqfbm"
+    "name": "user-4tw5t0yh"
   },
   "event": {
-    "duration": 141518000,
+    "duration": 218036000,
     "outcome": "success",
     "category": [
       "process"
@@ -38,7 +38,7 @@
     "dataset": "aws.personalize",
     "provider": "personalize.amazonaws.com"
   },
-  "message": "Personalize GetRecommendations: 11 recs for user-cxidqfbm in 142ms",
+  "message": "Personalize CreateCampaign: 11 recs for user-4tw5t0yh in 218ms",
   "log": {
     "level": "info"
   }

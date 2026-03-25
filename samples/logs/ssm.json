@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "ssm": {
-      "command_id": "j449k9vl-nnh2-019w",
-      "document_name": "AWS-RunPowerShellScript",
-      "instance_id": "i-tcnml51jw7a",
+      "command_id": "har7n6j5-k2al-z1ky",
+      "document_name": "AWS-ConfigureAWSPackage",
+      "instance_id": "i-m89lq3bci4",
       "action": "StartSession",
-      "execution_status": "Success",
-      "response_code": 0,
-      "session_id": "xstql9rngc",
+      "execution_status": "Failed",
+      "response_code": 1,
+      "session_id": "ykuydymxrxn",
       "structured_logging": true,
       "metrics": {
         "CommandsSucceeded": {
-          "sum": 1
+          "sum": 0
         },
         "CommandsFailed": {
-          "sum": 0
+          "sum": 1
         },
         "CommandsTimedOut": {
           "sum": 0
@@ -38,16 +38,16 @@
           "sum": 1
         },
         "SessionDuration": {
-          "avg": 353
+          "avg": 2814
         },
         "PatchComplianceCount": {
-          "avg": 367
+          "avg": 250
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process",
       "configuration",
@@ -55,10 +55,15 @@
     ],
     "dataset": "aws.ssm",
     "provider": "ssm.amazonaws.com",
-    "duration": 16000000000
+    "duration": 34000000000
   },
-  "message": "{\"commandId\":\"j449k9vl-nnh2-019w\",\"documentName\":\"AWS-RunPowerShellScript\",\"instanceId\":\"i-tcnml51jw7a\",\"action\":\"StartSession\",\"status\":\"Success\",\"timestamp\":\"2026-03-19T15:13:42.103Z\"}",
+  "message": "{\"commandId\":\"har7n6j5-k2al-z1ky\",\"documentName\":\"AWS-ConfigureAWSPackage\",\"instanceId\":\"i-m89lq3bci4\",\"action\":\"StartSession\",\"status\":\"Failed\",\"timestamp\":\"2026-03-25T11:55:50.848Z\"}",
+  "error": {
+    "code": "SSMError",
+    "message": "SSM command failed",
+    "type": "process"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

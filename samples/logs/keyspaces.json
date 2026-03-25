@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,25 +13,31 @@
   },
   "aws": {
     "keyspaces": {
-      "keyspace_name": "analytics",
-      "table_name": "time_series",
-      "operation": "INSERT",
-      "read_capacity_units": 15.1,
-      "write_capacity_units": 32.767,
-      "rows_returned": 0,
-      "duration_ms": 99,
-      "cql_version": "3.11.2"
+      "keyspace_name": "prod_keyspace",
+      "table_name": "users",
+      "operation": "SELECT",
+      "read_capacity_units": 0,
+      "write_capacity_units": 0,
+      "rows_returned": 1720,
+      "duration_ms": 3872,
+      "cql_version": "3.11.2",
+      "error_code": "WriteConflictException"
     }
   },
   "event": {
-    "duration": 99331000,
-    "outcome": "success",
+    "duration": 3872472000,
+    "outcome": "failure",
     "category": "database",
     "dataset": "aws.keyspaces",
     "provider": "cassandra.amazonaws.com"
   },
-  "message": "Keyspaces INSERT on analytics.time_series: 99ms",
+  "message": "Keyspaces SELECT on prod_keyspace.users FAILED: Throughput exceeded",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "WriteConflictException",
+    "message": "Keyspaces operation failed",
+    "type": "db"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -14,37 +14,30 @@
   "aws": {
     "dimensions": {
       "DetectorModelName": "motor-health-detector",
-      "KeyValue": "unit-02"
+      "KeyValue": "zone-A"
     },
     "iotevents": {
       "detector_model_name": "motor-health-detector",
-      "detector_id": "unit-02",
-      "key_value": "unit-02",
-      "event_name": "AlarmReset",
-      "from_state": "Alarm",
-      "to_state": "Error",
-      "input_name": "SensorInput",
-      "action_type": "SNS",
-      "condition_expression": "$input.SensorInput.temperature > 85",
-      "error_code": "ThrottlingException"
+      "detector_id": "zone-A",
+      "key_value": "zone-A",
+      "event_name": "AlarmAcknowledged",
+      "from_state": "Acknowledged",
+      "to_state": "Warning",
+      "input_name": "HealthCheck",
+      "action_type": "SetVariable"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.iotevents",
     "provider": "iotevents.amazonaws.com",
-    "duration": 612000000
+    "duration": 402000000
   },
-  "message": "IoT Events motor-health-detector/unit-02 ERROR: Input validation error",
+  "message": "IoT Events motor-health-detector/zone-A: Acknowledged → Warning [AlarmAcknowledged]",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ResourceNotFound",
-    "message": "IoT Events error",
-    "type": "iot"
+    "level": "info"
   }
 }

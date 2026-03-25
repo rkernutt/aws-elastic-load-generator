@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "mediaconvert"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "HLS"
+      "Operation": "CMAF"
     },
     "mediaconvert": {
-      "job_id": "3462842562-4be5k6",
-      "queue_arn": "arn:aws:mediaconvert:us-east-1:738291046572:queues/Default",
+      "job_id": "8528562242-7xfllm",
+      "queue_arn": "arn:aws:mediaconvert:eu-west-2:164820739518:queues/premium",
       "job_status": "COMPLETE",
-      "output_group_type": "HLS",
-      "input_file": "s3://media-input/raw/interview.mov",
-      "input_duration_minutes": 63.043,
+      "output_group_type": "CMAF",
+      "input_file": "s3://uploads/user-video.mp4",
+      "input_duration_minutes": 82.261,
       "video_codec": "AV1",
-      "audio_codec": "AAC",
-      "width": 3840,
+      "audio_codec": "MP3",
+      "width": 1280,
       "height": 1080,
-      "bitrate_kbps": 8000,
-      "duration_seconds": 1774,
+      "bitrate_kbps": 3000,
+      "duration_seconds": 823,
       "metrics": {
         "JobsCompletedCount": {
           "sum": 1
@@ -36,16 +36,16 @@
           "sum": 0
         },
         "StandbyTime": {
-          "avg": 198
+          "avg": 151
         },
         "TranscodingTime": {
-          "avg": 1774
+          "avg": 823
         }
       }
     }
   },
   "event": {
-    "duration": 1774000000000,
+    "duration": 823000000000,
     "outcome": "success",
     "category": [
       "process"
@@ -53,7 +53,7 @@
     "dataset": "aws.mediaconvert",
     "provider": "mediaconvert.amazonaws.com"
   },
-  "message": "MediaConvert job 3462842562-4be5k6 COMPLETE: 63.0 min -> HLS",
+  "message": "MediaConvert job 8528562242-7xfllm COMPLETE: 82.3 min -> CMAF",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "bedrock"
@@ -13,48 +13,53 @@
   },
   "aws": {
     "dimensions": {
-      "ModelId": "mistral.mixtral-8x7b-instruct-v0:1"
+      "ModelId": "amazon.nova-pro-v1:0"
     },
     "bedrock": {
-      "model_id": "mistral.mixtral-8x7b-instruct-v0:1",
-      "invocation_latency_ms": 14355,
-      "input_token_count": 572,
-      "output_token_count": 541,
-      "total_token_count": 1113,
-      "stop_reason": "stop_sequence",
-      "use_case": "summarization",
+      "model_id": "amazon.nova-pro-v1:0",
+      "invocation_latency_ms": 12027,
+      "input_token_count": 6516,
+      "output_token_count": 40,
+      "total_token_count": 6556,
+      "error_code": "ModelTimeoutException",
+      "use_case": "classification",
       "guardrail_action": "NONE",
       "metrics": {
         "Invocations": {
-          "sum": 198
+          "sum": 246
         },
         "InvocationLatency": {
-          "avg": 14355,
-          "p99": 28710
+          "avg": 12027,
+          "p99": 24054
         },
         "InputTokenCount": {
-          "sum": 572
+          "sum": 6516
         },
         "OutputTokenCount": {
-          "sum": 541
+          "sum": 40
         },
         "Throttles": {
-          "sum": 0
+          "sum": 14
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.bedrock",
     "provider": "bedrock.amazonaws.com",
-    "duration": 14355000000
+    "duration": 12027000000
   },
-  "message": "Bedrock mixtral 572->541 tokens 14.36s",
+  "message": "Bedrock nova invocation FAILED: ModelTimeoutException",
   "log": {
-    "level": "warn"
+    "level": "error"
+  },
+  "error": {
+    "code": "ThrottlingException",
+    "message": "Bedrock invocation failed",
+    "type": "ml"
   }
 }

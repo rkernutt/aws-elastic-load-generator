@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "neptune"
@@ -13,36 +13,36 @@
   },
   "aws": {
     "neptune": {
-      "cluster_id": "fraud-graph",
+      "cluster_id": "prod-neptune",
       "query_language": "Gremlin",
-      "query": "g.V(userId).repeat(out('knows')).times(3).path()",
-      "duration_ms": 417,
+      "query": "g.V().hasLabel('user').out('follows').count()",
+      "duration_ms": 4495,
       "http_status": 200,
-      "db_connections": 76,
+      "db_connections": 97,
       "metrics": {
         "CPUUtilization": {
-          "avg": 21.281
+          "avg": 38.96
         },
         "FreeableMemory": {
-          "avg": 273327111
+          "avg": 3628768474
         },
         "DatabaseConnections": {
-          "avg": 57
+          "avg": 102
         },
         "GremlinRequestsPerSec": {
-          "avg": 617.512
+          "avg": 489.087
         },
         "SparqlRequestsPerSec": {
           "avg": 0
         },
         "ServerlessDBCapacity": {
-          "avg": 48.708
+          "avg": 67.379
         }
       }
     }
   },
   "event": {
-    "duration": 417193000,
+    "duration": 4495283000,
     "outcome": "success",
     "category": [
       "database"
@@ -50,7 +50,7 @@
     "dataset": "aws.neptune",
     "provider": "neptune.amazonaws.com"
   },
-  "message": "Neptune Gremlin: 417ms",
+  "message": "Neptune Gremlin: 4495ms",
   "log": {
     "level": "info"
   },

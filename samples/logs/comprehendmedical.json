@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-19T15:13:42.103Z",
+  "@timestamp": "2026-03-25T11:55:50.848Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "comprehendmedical"
@@ -13,28 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "StartEntitiesDetectionV2Job"
+      "Operation": "DetectPHI"
     },
     "comprehendmedical": {
-      "operation": "StartEntitiesDetectionV2Job",
-      "entities_detected": 2,
-      "phi_entities": 2,
-      "text_characters": 5383,
-      "job_id": "rjwhkz05en",
-      "data_access_role_arn": "arn:aws:iam::293847561023:role/ComprehendMedicalRole",
-      "s3_bucket": "medical-records"
+      "operation": "DetectPHI",
+      "entities_detected": 23,
+      "phi_entities": 0,
+      "text_characters": 4417,
+      "data_access_role_arn": "arn:aws:iam::164820739518:role/ComprehendMedicalRole",
+      "s3_bucket": "ehr-processed",
+      "error_code": "TooManyRequestsException"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.comprehendmedical",
     "provider": "comprehendmedical.amazonaws.com"
   },
-  "message": "Comprehend Medical StartEntitiesDetectionV2Job: 2 entities, 2 PHI",
+  "message": "Comprehend Medical DetectPHI FAILED: Invalid request",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "TooManyRequestsException",
+    "message": "Comprehend Medical failed",
+    "type": "ml"
   }
 }
