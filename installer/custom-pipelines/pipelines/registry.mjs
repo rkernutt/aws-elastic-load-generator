@@ -117,6 +117,19 @@ export const PIPELINE_REGISTRY = [
   { id: "logs-aws.personalize-default",     dataset: "aws.personalize",       group: "ml",  description: "Parse Personalize recommendation engine JSON",       processors: json("personalize")       },
   { id: "logs-aws.lex-default",             dataset: "aws.lex",               group: "ml",  description: "Parse Lex chatbot intent & session JSON",            processors: json("lex")               },
   { id: "logs-aws.lookoutmetrics-default",  dataset: "aws.lookoutmetrics",    group: "ml",  description: "Parse Lookout for Metrics anomaly detector JSON",    processors: json("lookoutmetrics")    },
+  {
+    id: "logs-aws.qbusiness-default",
+    dataset: "aws.qbusiness",
+    group: "ml",
+    description: "Parse Q Business query/retrieval/plugin event JSON from message field",
+    processors: [
+      { json: { field: "message", target_field: "qbusiness.parsed", ignore_failure: true } },
+      { rename: { field: "qbusiness.parsed.event_type",      target_field: "qbusiness.event_type",      ignore_missing: true, ignore_failure: true } },
+      { rename: { field: "qbusiness.parsed.application_id",  target_field: "qbusiness.application_id",  ignore_missing: true, ignore_failure: true } },
+      { rename: { field: "qbusiness.parsed.conversation_id", target_field: "qbusiness.conversation_id", ignore_missing: true, ignore_failure: true } },
+      { rename: { field: "qbusiness.parsed.guardrail_action", target_field: "qbusiness.guardrail_action", ignore_missing: true, ignore_failure: true } },
+    ],
+  },
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SERVERLESS
@@ -215,6 +228,33 @@ export const PIPELINE_REGISTRY = [
   { id: "logs-aws.acm-default",            dataset: "aws.acm",            group: "security",  description: "Parse ACM certificate lifecycle log JSON",           processors: json("acm")            },
   { id: "logs-aws.identitycenter-default", dataset: "aws.identitycenter", group: "security",  description: "Parse IAM Identity Center SSO auth log JSON",        processors: json("identitycenter") },
   { id: "logs-aws.detective-default",      dataset: "aws.detective",      group: "security",  description: "Parse Detective behavioural analysis finding JSON",   processors: json("detective")      },
+  {
+    id: "logs-aws.verifiedaccess-default",
+    dataset: "aws.verifiedaccess",
+    group: "security",
+    description: "Parse Verified Access session/request audit log JSON from message field",
+    processors: [
+      { json: { field: "message", target_field: "verifiedaccess.parsed", ignore_failure: true } },
+      { rename: { field: "verifiedaccess.parsed.verdict",           target_field: "verifiedaccess.verdict",           ignore_missing: true, ignore_failure: true } },
+      { rename: { field: "verifiedaccess.parsed.deny_reason",       target_field: "verifiedaccess.deny_reason",       ignore_missing: true, ignore_failure: true } },
+      { rename: { field: "verifiedaccess.parsed.device_posture",    target_field: "verifiedaccess.device_posture",    ignore_missing: true, ignore_failure: true } },
+      { rename: { field: "verifiedaccess.parsed.trust_provider_type", target_field: "verifiedaccess.trust_provider_type", ignore_missing: true, ignore_failure: true } },
+    ],
+  },
+  {
+    id: "logs-aws.securitylake-default",
+    dataset: "aws.securitylake",
+    group: "security",
+    description: "Parse Security Lake OCSF 1.1.0 event JSON from message field",
+    processors: [
+      { json: { field: "message", target_field: "securitylake.parsed", ignore_failure: true } },
+      { rename: { field: "securitylake.parsed.class_uid",    target_field: "securitylake.class_uid",    ignore_missing: true, ignore_failure: true } },
+      { rename: { field: "securitylake.parsed.category_uid", target_field: "securitylake.category_uid", ignore_missing: true, ignore_failure: true } },
+      { rename: { field: "securitylake.parsed.activity_id",  target_field: "securitylake.activity_id",  ignore_missing: true, ignore_failure: true } },
+      { rename: { field: "securitylake.parsed.severity_id",  target_field: "securitylake.severity_id",  ignore_missing: true, ignore_failure: true } },
+      { rename: { field: "securitylake.parsed.class_name",   target_field: "securitylake.class_name",   ignore_missing: true, ignore_failure: true } },
+    ],
+  },
 
   // ═══════════════════════════════════════════════════════════════════════════
   // NETWORKING
