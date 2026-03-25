@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "identitycenter"
@@ -13,29 +13,35 @@
   },
   "aws": {
     "iam_identity_center": {
-      "event_type": "ProvisionUser",
-      "user_name": "carol@corp.com",
-      "application_name": "GitHub Enterprise",
+      "event_type": "Authorize",
+      "user_name": "bob@corp.com",
+      "application_name": "Slack",
       "permission_set": "AdministratorAccess",
-      "account_id": "738291046572",
+      "account_id": "164820739518",
+      "error_code": "AccessDeniedException",
       "mfa_authenticated": true
     }
   },
   "user": {
-    "name": "carol@corp.com"
+    "name": "bob@corp.com"
   },
   "source": {
-    "ip": "131.186.18.108"
+    "ip": "46.61.202.237"
   },
   "event": {
-    "action": "ProvisionUser",
-    "outcome": "success",
+    "action": "Authorize",
+    "outcome": "failure",
     "category": "authentication",
     "dataset": "aws.identitycenter",
     "provider": "sso.amazonaws.com"
   },
-  "message": "IAM Identity Center ProvisionUser: carol@corp.com -> GitHub Enterprise",
+  "message": "IAM Identity Center Authorize FAILED for bob@corp.com on Slack",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "MFARequired",
+    "message": "SSO authentication failed",
+    "type": "authentication"
   }
 }

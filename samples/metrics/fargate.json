@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "worker",
-      "ClusterName": "prod-cluster",
-      "TaskDefinitionFamily": "worker"
+      "ServiceName": "web-frontend",
+      "ClusterName": "batch-workers-cluster",
+      "TaskDefinitionFamily": "web-frontend"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 72
+          "avg": 63
         },
         "CPUReservation": {
-          "avg": 16.782
+          "avg": 30.782
         },
         "MemoryUtilization": {
-          "avg": 22.04
+          "avg": 13.239
         },
         "MemoryReservation": {
-          "avg": 51.28
+          "avg": 29.62
         },
         "GPUReservation": {
           "avg": 0
@@ -38,20 +38,20 @@
     }
   },
   "container": {
-    "id": "yp17od6ffw",
-    "name": "worker",
+    "id": "ves11acya3j",
+    "name": "web-frontend",
     "image": {
-      "name": "myrepo/worker:latest",
+      "name": "myrepo/web-frontend:latest",
       "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 6609,
-    "name": "worker"
+    "pid": 56145,
+    "name": "web-frontend"
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "event": {
     "outcome": "success",
@@ -61,9 +61,9 @@
     ],
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 470000000000
+    "duration": 3166000000000
   },
-  "message": "Task approaching resource limits",
+  "message": "{\"cluster\":\"batch-workers-cluster\",\"taskId\":\"lf3tua7flwa\",\"taskDefinition\":\"web-frontend:50\",\"container\":\"web-frontend\",\"level\":\"info\",\"message\":\"Container is healthy\",\"timestamp\":\"2026-03-25T12:11:41.550Z\"}",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.ecs_metrics",

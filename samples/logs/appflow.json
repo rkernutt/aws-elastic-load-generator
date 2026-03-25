@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "appflow"
@@ -13,50 +13,44 @@
   },
   "aws": {
     "dimensions": {
-      "FlowName": "marketo-to-redshift"
+      "FlowName": "hubspot-sync"
     },
     "appflow": {
-      "flow_name": "marketo-to-redshift",
-      "flow_arn": "arn:aws:appflow:us-east-1:501938274650:flow/marketo-to-redshift",
-      "source_connector_type": "HubSpot",
-      "destination_connector_type": "Salesforce",
-      "trigger_type": "OnDemand",
-      "execution_status": "ExecutionFailed",
-      "records_processed": 0,
-      "duration_ms": 6503,
-      "error_message": "Schema mismatch",
+      "flow_name": "hubspot-sync",
+      "flow_arn": "arn:aws:appflow:us-east-1:293847561023:flow/hubspot-sync",
+      "source_connector_type": "Zendesk",
+      "destination_connector_type": "Snowflake",
+      "trigger_type": "Event",
+      "execution_status": "ExecutionSuccessful",
+      "records_processed": 871928,
+      "duration_ms": 56439,
       "metrics": {
         "RecordsProcessed": {
-          "sum": 0
+          "sum": 871928
         },
         "DurationMs": {
-          "avg": 6503
+          "avg": 56439
         },
         "ExecutionSuccessCount": {
-          "sum": 0
+          "sum": 1
         },
         "ExecutionFailureCount": {
-          "sum": 1
+          "sum": 0
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.appflow",
     "provider": "appflow.amazonaws.com",
-    "duration": 6503000000
+    "duration": 56439000000
   },
-  "message": "Flow run failed",
+  "message": "AppFlow hubspot-sync: 871,928 records Zendesk->Snowflake",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ExecutionFailed",
-    "message": "AppFlow execution failed",
-    "type": "integration"
+    "level": "info"
   }
 }

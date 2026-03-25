@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "location"
@@ -13,13 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "CreateRouteCalculator"
+      "Operation": "UpdateDevicePosition"
     },
     "locationservice": {
-      "operation": "CreateRouteCalculator",
-      "route_calculator": "walking-calculator",
-      "distance_meters": 72248,
-      "duration_seconds": 8890
+      "operation": "UpdateDevicePosition",
+      "tracker_name": "field-worker-track",
+      "device_id": "device-3t7tfyac",
+      "position": {
+        "lat": -62.133,
+        "lon": -125.017
+      }
     }
   },
   "event": {
@@ -30,9 +33,9 @@
     ],
     "dataset": "aws.location",
     "provider": "geo.amazonaws.com",
-    "duration": 266000000
+    "duration": 128000000
   },
-  "message": "Location Service CreateRouteCalculator: geofence check",
+  "message": "Location Service UpdateDevicePosition: device-3t7tfyac",
   "log": {
     "level": "info"
   }

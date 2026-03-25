@@ -8,13 +8,13 @@
 import { generateLambdaLog, generateApiGatewayLog, generateAppSyncLog, generateAppRunnerLog, generateFargateLog } from "./serverless.js";
 import { generateEc2Log, generateEcsLog, generateEksLog, generateBatchLog, generateBeanstalkLog, generateEcrLog, generateAutoScalingLog, generateImageBuilderLog } from "./compute.js";
 import { generateAlbLog, generateNlbLog, generateCloudFrontLog, generateWafLog, generateWafv2Log, generateRoute53Log, generateNetworkFirewallLog, generateShieldLog, generateGlobalAcceleratorLog, generateTransitGatewayLog, generateDirectConnectLog, generateVpnLog, generatePrivateLinkLog, generateNetworkManagerLog, generateNatGatewayLog, generateVpcFlowLog } from "./networking.js";
-import { generateGuardDutyLog, generateSecurityHubLog, generateMacieLog, generateInspectorLog, generateConfigLog, generateAccessAnalyzerLog, generateCognitoLog, generateKmsLog, generateSecretsManagerLog, generateAcmLog, generateIamIdentityCenterLog, generateDetectiveLog, generateCloudTrailLog } from "./security.js";
+import { generateGuardDutyLog, generateSecurityHubLog, generateMacieLog, generateInspectorLog, generateConfigLog, generateAccessAnalyzerLog, generateCognitoLog, generateKmsLog, generateSecretsManagerLog, generateAcmLog, generateIamIdentityCenterLog, generateDetectiveLog, generateCloudTrailLog, generateVerifiedAccessLog, generateSecurityLakeLog } from "./security.js";
 import { generateS3Log, generateS3StorageLensLog, generateEbsLog, generateEfsLog, generateFsxLog, generateDataSyncLog, generateBackupLog, generateStorageGatewayLog } from "./storage.js";
 import { generateDynamoDbLog, generateElastiCacheLog, generateRedshiftLog, generateOpenSearchLog, generateDocumentDbLog, generateAuroraLog, generateNeptuneLog, generateTimestreamLog, generateQldbLog, generateKeyspacesLog, generateMemoryDbLog, generateRdsLog } from "./databases.js";
 import { generateKinesisStreamsLog, generateFirehoseLog, generateKinesisAnalyticsLog, generateMskLog, generateSqsLog, generateSnsLog, generateAmazonMqLog, generateEventBridgeLog, generateStepFunctionsLog } from "./streaming.js";
 import { generateCodeBuildLog, generateCodePipelineLog, generateCodeDeployLog, generateCodeCommitLog, generateCodeArtifactLog, generateAmplifyLog, generateXRayLog, generateCodeGuruLog } from "./devtools.js";
 import { generateEmrLog, generateGlueLog, generateAthenaLog, generateLakeFormationLog, generateQuickSightLog, generateDataBrewLog, generateAppFlowLog } from "./analytics.js";
-import { generateSageMakerLog, generateBedrockLog, generateBedrockAgentLog, generateRekognitionLog, generateTextractLog, generateComprehendLog, generateComprehendMedicalLog, generateTranslateLog, generateTranscribeLog, generatePollyLog, generateForecastLog, generatePersonalizeLog, generateLexLog, generateLookoutMetricsLog } from "./ml.js";
+import { generateSageMakerLog, generateBedrockLog, generateBedrockAgentLog, generateRekognitionLog, generateTextractLog, generateComprehendLog, generateComprehendMedicalLog, generateTranslateLog, generateTranscribeLog, generatePollyLog, generateForecastLog, generatePersonalizeLog, generateLexLog, generateLookoutMetricsLog, generateQBusinessLog } from "./ml.js";
 import { generateIotCoreLog, generateIotGreengrassLog, generateIotAnalyticsLog, generateIotDefenderLog, generateIotEventsLog, generateIotSiteWiseLog } from "./iot.js";
 import { generateCloudFormationLog, generateSsmLog, generateCloudWatchAlarmsLog, generateHealthLog, generateTrustedAdvisorLog, generateControlTowerLog, generateOrganizationsLog, generateServiceCatalogLog, generateServiceQuotasLog, generateComputeOptimizerLog, generateBudgetsLog, generateBillingLog, generateDmsLog } from "./management.js";
 import { generateWorkSpacesLog, generateConnectLog, generateAppStreamLog, generateGameLiftLog, generateSesLog, generatePinpointLog, generateTransferFamilyLog, generateLightsailLog, generateFraudDetectorLog, generateLocationServiceLog, generateMediaConvertLog, generateMediaLiveLog, generateManagedBlockchainLog, generateResilienceHubLog, generateRamLog, generateMigrationHubLog, generateDevOpsGuruLog } from "./enduser.js";
@@ -65,6 +65,8 @@ const GENERATORS = {
   acm: generateAcmLog,
   identitycenter: generateIamIdentityCenterLog,
   detective: generateDetectiveLog,
+  verifiedaccess: generateVerifiedAccessLog,
+  securitylake: generateSecurityLakeLog,
   // Group 5 — Storage
   s3: generateS3Log,
   storagelens: generateS3StorageLensLog,
@@ -127,6 +129,7 @@ const GENERATORS = {
   forecast: generateForecastLog,
   personalize: generatePersonalizeLog,
   lex: generateLexLog,
+  qbusiness: generateQBusinessLog,
   // Group 10 — IoT
   iotcore: generateIotCoreLog,
   greengrass: generateIotGreengrassLog,

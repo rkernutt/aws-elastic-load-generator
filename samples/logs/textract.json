@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,18 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "StartExpenseAnalysis"
+      "Operation": "DetectDocumentText"
     },
     "textract": {
-      "operation": "StartExpenseAnalysis",
-      "document_type": "receipt",
-      "job_id": "4e5kioul1m4",
-      "pages_processed": 5,
-      "blocks_detected": 520,
-      "words_detected": 1775,
+      "operation": "DetectDocumentText",
+      "document_type": "bank-statement",
+      "pages_processed": 28,
+      "blocks_detected": 616,
+      "words_detected": 9296,
       "form_key_value_pairs": 0,
       "tables_detected": 0,
-      "confidence_mean": 96.683,
+      "confidence_mean": 89.038,
       "metrics": {
         "DocumentsProcessed": {
           "sum": 1
@@ -33,7 +32,7 @@
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 2773.601
+          "avg": 3185.123
         },
         "SuccessfulRequests": {
           "sum": 1
@@ -56,7 +55,7 @@
     "dataset": "aws.textract",
     "provider": "textract.amazonaws.com"
   },
-  "message": "Textract StartExpenseAnalysis: receipt, 5 pages, 635 words",
+  "message": "Textract DetectDocumentText: bank-statement, 28 pages, 1624 words",
   "log": {
     "level": "info"
   }

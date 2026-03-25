@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "batch"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "JobQueue": "cleanup-job-queue"
+      "JobQueue": "ml-training-prep-queue"
     },
     "batch": {
       "job": {
-        "name": "cleanup-job",
-        "id": "uxg2a2ac-3c2t",
+        "name": "ml-training-prep",
+        "id": "n5zjs8eg-p5f0",
         "status": "SUCCEEDED"
       },
-      "job_queue": "cleanup-job-queue",
+      "job_queue": "ml-training-prep-queue",
       "compute_environment": "ce-ondemand",
       "structured_logging": true,
       "metrics": {
         "PendingJobCount": {
-          "avg": 89
+          "avg": 6
         },
         "RunnableJobCount": {
-          "avg": 49
+          "avg": 5
         },
         "StartingJobCount": {
-          "avg": 1
+          "avg": 7
         },
         "RunningJobCount": {
-          "avg": 11
+          "avg": 195
         },
         "SucceededJobCount": {
           "sum": 1
@@ -44,20 +44,20 @@
           "sum": 0
         },
         "CPUReserved": {
-          "avg": "33.258"
+          "avg": "58.114"
         },
         "GPUReserved": {
           "avg": 0
         },
         "MemoryReserved": {
-          "avg": "65.845"
+          "avg": "43.194"
         }
       }
     }
   },
   "process": {
-    "pid": 39472,
-    "name": "java",
+    "pid": 20967,
+    "name": "bash",
     "exit_code": 0
   },
   "log": {
@@ -70,9 +70,9 @@
     "outcome": "success",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 2351000000000
+    "duration": 2566000000000
   },
-  "message": "{\"jobId\":\"uxg2a2ac-3c2t\",\"jobName\":\"cleanup-job\",\"jobQueue\":\"cleanup-job-queue\",\"level\":\"info\",\"message\":\"Job definition registered\",\"timestamp\":\"2026-03-25T11:55:50.848Z\",\"arrayIndex\":56}",
+  "message": "{\"jobId\":\"n5zjs8eg-p5f0\",\"jobName\":\"ml-training-prep\",\"jobQueue\":\"ml-training-prep-queue\",\"level\":\"info\",\"message\":\"Job definition registered\",\"timestamp\":\"2026-03-25T12:11:41.550Z\",\"arrayIndex\":80}",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.batch",

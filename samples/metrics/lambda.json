@@ -1,34 +1,38 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "lambda"
     }
   },
+  "trace": {
+    "id": "1-hzz9qm1k-kp0bbdbe7zm"
+  },
   "aws": {
     "dimensions": {
-      "FunctionName": "api-handler",
-      "Resource": "api-handler:$LATEST",
+      "FunctionName": "user-auth",
+      "Resource": "user-auth:$LATEST",
       "ExecutedVersion": "$LATEST"
     },
     "cloudwatch": {
-      "log_group": "/aws/lambda/api-handler",
-      "log_stream": "2026-03-25/[$LATEST]537v22p4ekf"
+      "log_group": "/aws/lambda/user-auth",
+      "log_stream": "2026-03-25/[$LATEST]uh1ybtm2o9f"
     },
     "lambda": {
       "function": {
-        "name": "api-handler",
+        "name": "user-auth",
         "version": "$LATEST",
-        "arn": "arn:aws:lambda:eu-west-2:814726593401:function:api-handler"
+        "arn": "arn:aws:lambda:us-east-1:293847561023:function:user-auth"
       },
-      "request_id": "eqke6ru1-uz9b-htkp-ou1f-2xlmj3qdz53",
-      "event_type": "app",
+      "request_id": "kau0x2cr-t9k2-7997-n0s0-07syis59d0hs",
+      "trace_id": "1-hzz9qm1k-kp0bbdbe7zm",
+      "event_type": "start",
       "metrics": {
         "Invocations": {
           "sum": 1,
@@ -43,14 +47,14 @@
           "avg": 0
         },
         "Duration": {
-          "avg": 2689.155,
-          "max": 3226.9860000000003
+          "avg": 32.413,
+          "max": 38.895599999999995
         },
         "ConcurrentExecutions": {
-          "avg": 438
+          "avg": 352
         },
         "UnreservedConcurrentExecutions": {
-          "avg": 815
+          "avg": 508
         },
         "DeadLetterErrors": {
           "sum": 0,
@@ -60,23 +64,23 @@
           "avg": 0
         },
         "AsyncEventsReceived": {
-          "sum": 47
+          "sum": 1
         },
         "AsyncEventAge": {
-          "avg": 1870
+          "avg": 2595
         },
-        "memory_size_mb": 3008,
-        "max_memory_used_mb": 2946,
-        "instance_max_memory": 3008
+        "memory_size_mb": 1024,
+        "max_memory_used_mb": 760,
+        "instance_max_memory": 1024
       }
     }
   },
   "log": {
     "level": "info"
   },
-  "message": "[INFO]\teqke6ru1-uz9b-htkp-ou1f-2xlmj3qdz53\tEvent processed",
+  "message": "START RequestId: kau0x2cr-t9k2-7997-n0s0-07syis59d0hs Version: $LATEST",
   "event": {
-    "duration": 2689155000,
+    "duration": 32412999.999999996,
     "outcome": "success",
     "category": [
       "process"
@@ -88,7 +92,7 @@
     "provider": "lambda.amazonaws.com"
   },
   "service": {
-    "name": "api-handler",
+    "name": "user-auth",
     "type": "lambda"
   },
   "data_stream": {

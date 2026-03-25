@@ -1,0 +1,60 @@
+{
+  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-2",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "verified-access"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "ApplicationId": "va-app-vics2wyj"
+    },
+    "verifiedaccess": {
+      "endpoint_id": "vae-z2lggzs7ji",
+      "group_id": "vag-qbbwv824o2",
+      "instance_id": "vai-nxa2je1idg",
+      "policy_name": "require-mfa-and-device",
+      "trust_provider_type": "oidc-okta",
+      "device_posture": "COMPLIANT",
+      "verdict": "allow",
+      "http_method": "PUT",
+      "http_path": "/api/v1/orders",
+      "http_status": 200,
+      "request_id": "y4c1nfox-zgq7-gx0d-sqq1-g5x15sdqsna",
+      "connection_id": "EKB3D5VOLWO",
+      "session_id": "6I7C6SFQL2",
+      "sni_hostname": "staging-api.internal.example.com",
+      "application_name": "staging-api"
+    }
+  },
+  "user": {
+    "email": "contractor@partner.com",
+    "name": "contractor"
+  },
+  "source": {
+    "ip": "168.111.176.38"
+  },
+  "event": {
+    "outcome": "success",
+    "category": [
+      "authentication",
+      "network"
+    ],
+    "type": [
+      "allowed"
+    ],
+    "dataset": "aws.verifiedaccess",
+    "provider": "verified-access.amazonaws.com",
+    "duration": 94000000
+  },
+  "message": "Verified Access allowed: contractor@partner.com -> staging-api (COMPLIANT)",
+  "log": {
+    "level": "info"
+  }
+}

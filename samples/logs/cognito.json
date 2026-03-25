@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "cognito"
@@ -13,25 +13,24 @@
   },
   "aws": {
     "dimensions": {
-      "UserPool": "eu-west-2_3H4KBUCUJ",
-      "UserPoolClient": "b2b-customers-web"
+      "UserPool": "us-east-1_C1MS7S175",
+      "UserPoolClient": "mobile-users-web"
     },
     "cognito": {
-      "user_pool_id": "eu-west-2_3H4KBUCUJ",
-      "user_pool_name": "b2b-customers",
-      "event_type": "AdminCreateUser",
-      "username": "user-ncl8xp3z@example.com",
-      "source_ip": "145.175.100.204",
-      "mfa_type": "SOFTWARE_TOKEN_MFA",
+      "user_pool_id": "us-east-1_C1MS7S175",
+      "user_pool_name": "mobile-users",
+      "event_type": "ForgotPassword",
+      "error_code": "NotAuthorizedException",
+      "source_ip": "72.12.138.44",
       "metrics": {
         "SignInSuccesses": {
-          "sum": 3809
+          "sum": 0
         },
         "SignInAttempts": {
-          "sum": 3809
+          "sum": 4519
         },
         "TokenRefreshSuccesses": {
-          "sum": 33365
+          "sum": 0
         },
         "SignUpSuccesses": {
           "sum": 0
@@ -40,13 +39,13 @@
           "sum": 0
         },
         "CallCount": {
-          "sum": 22529
+          "sum": 71491
         },
         "ThrottleCount": {
-          "sum": 0
+          "sum": 73
         },
         "AccountTakeoverRisk": {
-          "sum": 0
+          "sum": 2
         },
         "CompromisedCredentialsRisk": {
           "sum": 0
@@ -54,23 +53,26 @@
       }
     }
   },
-  "user": {
-    "name": "user-ncl8xp3z@example.com"
-  },
+  "user": {},
   "source": {
-    "ip": "214.157.189.19"
+    "ip": "127.1.146.133"
   },
   "event": {
-    "action": "AdminCreateUser",
-    "outcome": "success",
+    "action": "ForgotPassword",
+    "outcome": "failure",
     "category": [
       "authentication"
     ],
     "dataset": "aws.cognito",
     "provider": "cognito-idp.amazonaws.com"
   },
-  "message": "Cognito AdminCreateUser success [b2b-customers]",
+  "message": "Cognito ForgotPassword FAILED: User not found",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "TooManyRequestsException",
+    "message": "Authentication failed",
+    "type": "authentication"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "transitgateway"
@@ -13,75 +13,70 @@
   },
   "aws": {
     "dimensions": {
-      "TransitGateway": "tgw-t37uq8j41nb",
-      "TransitGatewayAttachment": "tgw-attach-zsa7bvqb57k"
+      "TransitGateway": "tgw-i0e0c5uycj",
+      "TransitGatewayAttachment": "tgw-attach-zjy8sdr422b"
     },
     "transitgateway": {
-      "tgw_id": "tgw-t37uq8j41nb",
-      "tgw_attachment_id": "tgw-attach-zsa7bvqb57k",
-      "resource_type": "peering",
-      "src_vpc_id": "vpc-tky18oiu",
-      "dst_vpc_id": "vpc-2cr63f1t",
-      "action": "drop",
-      "bytes": 22229,
-      "packets": 59,
-      "protocol": "TCP",
+      "tgw_id": "tgw-i0e0c5uycj",
+      "tgw_attachment_id": "tgw-attach-zjy8sdr422b",
+      "resource_type": "vpc",
+      "src_vpc_id": "vpc-g8xx5id4",
+      "dst_vpc_id": "vpc-x45xrhmo",
+      "action": "accept",
+      "bytes": 23159,
+      "packets": 60,
+      "protocol": "ICMP",
       "metrics": {
         "BytesIn": {
-          "sum": 2229499668
+          "sum": 1677290361
         },
         "BytesOut": {
-          "sum": 3591162706
+          "sum": 5468394028
         },
         "PacketsIn": {
-          "sum": 9873063
+          "sum": 9721164
         },
         "PacketsOut": {
-          "sum": 5541715
+          "sum": 1709780
         },
         "PacketDropCountBlackhole": {
-          "sum": 935
+          "sum": 0
         },
         "PacketDropCountNoRoute": {
-          "sum": 20
+          "sum": 0
         },
         "BytesDropCountBlackhole": {
-          "sum": 3269
+          "sum": 0
         },
         "BytesDropCountNoRoute": {
-          "sum": 30467
+          "sum": 0
         }
       }
     }
   },
   "source": {
-    "ip": "17.243.66.84",
-    "port": 47356
+    "ip": "140.193.198.245",
+    "port": 63974
   },
   "destination": {
-    "ip": "105.17.82.125",
-    "port": 443
+    "ip": "204.2.45.221",
+    "port": 3306
   },
   "network": {
-    "transport": "tcp",
-    "bytes": 36837
+    "transport": "icmp",
+    "bytes": 20946
   },
   "event": {
-    "action": "drop",
-    "outcome": "failure",
+    "action": "accept",
+    "outcome": "success",
     "category": [
       "network"
     ],
     "dataset": "aws.transitgateway",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "TGW tgw-t37uq8j41nb DROP TCP flow",
+  "message": "TGW tgw-i0e0c5uycj ACCEPT ICMP flow",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "FlowDropped",
-    "message": "TGW drop - no route or blackhole",
-    "type": "network"
+    "level": "info"
   }
 }

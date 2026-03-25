@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "kinesisanalytics"
@@ -13,38 +13,32 @@
   },
   "aws": {
     "kinesisanalytics": {
-      "application_name": "clickstream-analytics",
-      "application_arn": "arn:aws:kinesisanalytics:eu-west-2:501938274650:application/clickstream-analytics",
-      "runtime": "SQL-1_0",
-      "records_per_second": 21479,
-      "input_watermark_lag_ms": 11146,
+      "application_name": "session-aggregator",
+      "application_arn": "arn:aws:kinesisanalytics:eu-west-2:814726593401:application/session-aggregator",
+      "runtime": "FLINK-1_15",
+      "records_per_second": 1881,
+      "input_watermark_lag_ms": 10,
       "checkpointing_enabled": true,
-      "last_checkpoint_duration_ms": 9482,
-      "kpu_count": 15,
+      "last_checkpoint_duration_ms": 532,
+      "kpu_count": 42,
       "structured_logging": true,
       "metrics": {
-        "records_in_per_second": 21479,
-        "input_watermark_lag_ms": 11146,
-        "kpu_utilization_pct": 87,
-        "checkpoint_duration_ms": 9884
-      },
-      "error": "OutOfMemory"
+        "records_in_per_second": 1881,
+        "input_watermark_lag_ms": 10,
+        "kpu_utilization_pct": 73,
+        "checkpoint_duration_ms": 303
+      }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "process",
     "dataset": "aws.kinesisanalytics",
     "provider": "kinesisanalytics.amazonaws.com",
-    "duration": 23935000000
+    "duration": 1110000000
   },
-  "message": "{\"applicationName\":\"clickstream-analytics\",\"recordsPerSecond\":21479,\"inputWatermarkLagMs\":11146,\"level\":\"error\",\"message\":\"Checkpoint failed\",\"timestamp\":\"2026-03-25T11:55:50.848Z\"}",
+  "message": "{\"applicationName\":\"session-aggregator\",\"recordsPerSecond\":1881,\"inputWatermarkLagMs\":10,\"level\":\"info\",\"message\":\"Kinesis Analytics session-aggregator: 1881 rec/s, lag 422ms\",\"timestamp\":\"2026-03-25T12:11:41.550Z\"}",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "CheckpointFailure",
-    "message": "Kinesis Analytics application error",
-    "type": "stream"
+    "level": "info"
   }
 }

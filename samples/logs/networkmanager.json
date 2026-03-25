@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "networkmanager"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "networkmanager": {
-      "global_network_id": "network-7d2db0hzge5",
-      "global_network_name": "global-network-prod",
-      "event_type": "TOPOLOGY_CHANGE",
-      "device_id": "device-d30bk94k6em",
-      "link_id": "link-19h0cerir38",
-      "site_id": "site-r099oyucqlp",
-      "site_name": "colo-frankfurt",
-      "bandwidth_mbps": 1000,
-      "provider": "Zayo",
+      "global_network_id": "network-0wp6q6ctc3wc",
+      "global_network_name": "enterprise-wan",
+      "event_type": "LINK_STATUS_DOWN",
+      "device_id": "device-3tfzw8lm6h7",
+      "link_id": "link-szxib3qlgem",
+      "site_id": "site-gonl4ey2dx",
+      "site_name": "branch-tokyo",
+      "bandwidth_mbps": 10000,
+      "provider": "NTT",
       "type": "direct-connect",
       "state": "UP"
     }
@@ -32,8 +32,8 @@
     "dataset": "aws.networkmanager",
     "provider": "networkmanager.amazonaws.com"
   },
-  "message": "Network Manager TOPOLOGY_CHANGE [global-network-prod]: dc-us-east link UP",
+  "message": "Network Manager LINK_STATUS_DOWN [enterprise-wan]: branch-tokyo link UP",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

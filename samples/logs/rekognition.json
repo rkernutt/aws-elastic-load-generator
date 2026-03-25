@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "rekognition"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "DetectFaces"
+      "Operation": "DetectLabels"
     },
     "rekognition": {
-      "operation": "DetectFaces",
+      "operation": "DetectLabels",
       "input_source": "Base64Image",
-      "image_bytes": 4387809,
-      "duration_ms": 692,
-      "labels_detected": 1,
-      "faces_detected": 20,
-      "max_confidence": 94.267,
+      "image_bytes": 9265390,
+      "duration_ms": 190,
+      "labels_detected": 33,
+      "faces_detected": 13,
+      "max_confidence": 96.292,
       "confidence_threshold": 70,
       "metrics": {
         "SuccessfulRequestCount": {
@@ -38,13 +38,13 @@
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 144.874
+          "avg": 986.71
         }
       }
     }
   },
   "event": {
-    "duration": 692368000,
+    "duration": 189876000,
     "outcome": "success",
     "category": [
       "process"
@@ -52,7 +52,7 @@
     "dataset": "aws.rekognition",
     "provider": "rekognition.amazonaws.com"
   },
-  "message": "Rekognition DetectFaces: 32 results, 94.3% confidence",
+  "message": "Rekognition DetectLabels: 49 results, 96.3% confidence",
   "log": {
     "level": "info"
   }

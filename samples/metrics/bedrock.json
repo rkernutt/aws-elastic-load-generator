@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "bedrock"
@@ -13,54 +13,53 @@
   },
   "aws": {
     "dimensions": {
-      "ModelId": "amazon.nova-pro-v1:0"
+      "ModelId": "meta.llama3-70b-instruct-v1:0"
     },
     "bedrock": {
-      "model_id": "amazon.nova-pro-v1:0",
-      "invocation_latency_ms": 12027,
-      "input_token_count": 6516,
-      "output_token_count": 40,
-      "total_token_count": 6556,
-      "error_code": "ModelTimeoutException",
+      "model_id": "meta.llama3-70b-instruct-v1:0",
+      "invocation_latency_ms": 13200,
+      "input_token_count": 4128,
+      "output_token_count": 1126,
+      "total_token_count": 5254,
+      "stop_reason": "stop_sequence",
       "use_case": "classification",
       "guardrail_action": "NONE",
+      "streaming": true,
+      "time_to_first_token_ms": 207,
+      "input_tokens_per_sec": 312.7,
+      "model_family": "meta",
       "metrics": {
         "Invocations": {
-          "sum": 246
+          "sum": 263
         },
         "InvocationLatency": {
-          "avg": 12027,
-          "p99": 24054
+          "avg": 13200,
+          "p99": 26400
         },
         "InputTokenCount": {
-          "sum": 6516
+          "sum": 4128
         },
         "OutputTokenCount": {
-          "sum": 40
+          "sum": 1126
         },
         "Throttles": {
-          "sum": 14
+          "sum": 0
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.bedrock",
     "provider": "bedrock.amazonaws.com",
-    "duration": 12027000000
+    "duration": 13200000000
   },
-  "message": "Bedrock nova invocation FAILED: ModelTimeoutException",
+  "message": "Bedrock llama3 4128->1126 tokens 13.20s",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ThrottlingException",
-    "message": "Bedrock invocation failed",
-    "type": "ml"
+    "level": "warn"
   },
   "data_stream": {
     "type": "metrics",

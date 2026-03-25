@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,100 +13,94 @@
   },
   "aws": {
     "dimensions": {
-      "Protocol": "HTTPS"
+      "Protocol": "WSS"
     },
     "iotcore": {
-      "client_id": "gateway-prod-1",
-      "thing_name": "gateway-prod-1",
-      "thing_group": "home-devices",
+      "client_id": "thermostat-floor-3",
+      "thing_name": "thermostat-floor-3",
+      "thing_group": "fleet",
       "action": "PUBLISH",
-      "topic": "telemetry/metrics",
-      "protocol": "HTTPS",
-      "qos": 1,
-      "message_bytes": 18274,
+      "topic": "dt/factory/sensors/temperature",
+      "protocol": "WSS",
+      "qos": 0,
+      "message_bytes": 37169,
       "policy_name": "FleetPolicy",
       "structured_logging": true,
-      "error_code": "ThrottlingException",
-      "rules_evaluated": 5,
+      "rules_evaluated": 1,
       "metrics": {
         "Connect.Success": {
-          "sum": 508
+          "sum": 262
         },
         "Connect.Failure": {
-          "sum": 11
+          "sum": 0
         },
         "PublishIn.Success": {
-          "sum": 2247
+          "sum": 7808
         },
         "PublishIn.ClientError": {
-          "sum": 97
+          "sum": 0
         },
         "PublishIn.ServerError": {
-          "sum": 86
+          "sum": 0
         },
         "PublishOut.Success": {
-          "sum": 5568
+          "sum": 9285
         },
         "Publish.Success": {
-          "sum": 1851
+          "sum": 1901
         },
         "Publish.Failure": {
-          "sum": 652
+          "sum": 0
         },
         "Subscribe.Success": {
-          "sum": 1438
+          "sum": 445
         },
         "Subscribe.Failure": {
-          "sum": 3
+          "sum": 0
         },
         "Unsubscribe.Success": {
-          "sum": 646
+          "sum": 142
         },
         "Ping.Success": {
-          "sum": 8863
+          "sum": 9659
         },
         "Throttle.Success": {
-          "sum": 10
+          "sum": 171
         },
         "RulesMatched": {
-          "sum": 150
+          "sum": 827
         },
         "RulesFailed": {
-          "sum": 74
+          "sum": 0
         },
         "RulesNotMatched": {
-          "sum": 10
+          "sum": 13
         },
         "TopicMatch": {
-          "sum": 5461
+          "sum": 7173
         },
         "ClientConnections": {
-          "avg": 47119
+          "avg": 48393
         }
       }
     }
   },
   "source": {
-    "ip": "86.160.171.158"
+    "ip": "188.78.235.141"
   },
   "event": {
     "action": "PUBLISH",
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "network",
       "process"
     ],
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com",
-    "duration": 2389000000
+    "duration": 3000000
   },
-  "message": "{\"clientId\":\"gateway-prod-1\",\"action\":\"PUBLISH\",\"topic\":\"telemetry/metrics\",\"message\":\"IoT Core PUBLISH FAILED for gateway-prod-1: Unauthorized\",\"timestamp\":\"2026-03-25T11:55:50.848Z\"}",
+  "message": "{\"clientId\":\"thermostat-floor-3\",\"action\":\"PUBLISH\",\"topic\":\"dt/factory/sensors/temperature\",\"message\":\"IoT Core PUBLISH: thermostat-floor-3 on dt/factory/sensors/temperature\",\"timestamp\":\"2026-03-25T12:11:41.550Z\"}",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "DeviceDisconnected",
-    "message": "IoT Core operation failed",
-    "type": "iot"
+    "level": "info"
   }
 }

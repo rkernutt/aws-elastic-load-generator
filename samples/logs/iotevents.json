@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "iotevents"
@@ -13,18 +13,20 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorModelName": "motor-health-detector",
-      "KeyValue": "zone-A"
+      "DetectorModelName": "pressure-monitor",
+      "KeyValue": "machine-prod-1"
     },
     "iotevents": {
-      "detector_model_name": "motor-health-detector",
-      "detector_id": "zone-A",
-      "key_value": "zone-A",
-      "event_name": "AlarmAcknowledged",
-      "from_state": "Acknowledged",
-      "to_state": "Warning",
-      "input_name": "HealthCheck",
-      "action_type": "SetVariable"
+      "detector_model_name": "pressure-monitor",
+      "detector_id": "machine-prod-1",
+      "key_value": "machine-prod-1",
+      "event_name": "AlarmReset",
+      "from_state": "Warning",
+      "to_state": "Normal",
+      "input_name": "SensorInput",
+      "action_type": "Lambda",
+      "timer_name": "idleTimer",
+      "condition_expression": "$input.data.value < threshold"
     }
   },
   "event": {
@@ -34,9 +36,9 @@
     ],
     "dataset": "aws.iotevents",
     "provider": "iotevents.amazonaws.com",
-    "duration": 402000000
+    "duration": 500000000
   },
-  "message": "IoT Events motor-health-detector/zone-A: Acknowledged → Warning [AlarmAcknowledged]",
+  "message": "IoT Events pressure-monitor/machine-prod-1: Warning → Normal [AlarmReset]",
   "log": {
     "level": "info"
   }

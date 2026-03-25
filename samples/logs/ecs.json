@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "ecs"
@@ -14,21 +14,21 @@
   "aws": {
     "dimensions": {
       "ClusterName": "prod-cluster",
-      "ServiceName": "scheduler"
+      "ServiceName": "api-backend"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 35.714
+          "avg": 7.531
         },
         "CPUReservation": {
-          "avg": 26.816
+          "avg": 56.277
         },
         "MemoryUtilization": {
-          "avg": 17.481
+          "avg": 30.355
         },
         "MemoryReservation": {
-          "avg": 56.524
+          "avg": 34.428
         },
         "GPUReservation": {
           "avg": 0
@@ -37,17 +37,17 @@
     }
   },
   "container": {
-    "id": "4h69eu7lw0a",
-    "name": "scheduler",
+    "id": "m1qpvza1u4",
+    "name": "api-backend",
     "image": {
-      "name": "nginx:alpine",
-      "tag": "latest"
+      "name": "java:3.11",
+      "tag": "1.24"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 24319,
-    "name": "scheduler"
+    "pid": 14200,
+    "name": "api-backend"
   },
   "log": {
     "level": "info"
@@ -60,11 +60,11 @@
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 2675000000000
+    "duration": 494000000000
   },
-  "message": "{\"cluster\":\"prod-cluster\",\"service\":\"scheduler\",\"taskId\":\"92gfcwrbzkr\",\"container\":\"scheduler\",\"level\":\"info\",\"message\":\"Task started\",\"timestamp\":\"2026-03-25T11:55:50.848Z\"}",
+  "message": "{\"cluster\":\"prod-cluster\",\"service\":\"api-backend\",\"taskId\":\"l68g97upry\",\"container\":\"api-backend\",\"level\":\"info\",\"message\":\"Health check passed\",\"timestamp\":\"2026-03-25T12:11:41.550Z\"}",
   "service": {
-    "name": "scheduler",
+    "name": "api-backend",
     "type": "ecs"
   }
 }

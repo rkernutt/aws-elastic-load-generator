@@ -1,80 +1,96 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
-      "name": "inspector"
+      "name": "inspector2"
     }
   },
   "aws": {
     "dimensions": {
-      "ResourceType": "AWS_ECR_CONTAINER_IMAGE"
+      "Severity": "HIGH"
     },
-    "inspector": {
-      "finding_id": "arn:aws:inspector2:us-east-1:293847561023:finding/E1JJLD5N-EKW3",
-      "finding_type": "NONE",
-      "severity": "INFORMATIONAL",
-      "inspector_score": 0,
-      "status": "CLOSED",
-      "type": "NONE",
-      "vulnerable_package": {
-        "name": "openssl",
-        "version": "1.19.9"
-      },
-      "affected_packages": [],
-      "resource_type": "AWS_ECR_CONTAINER_IMAGE",
-      "resources": [
-        {
-          "details": {
-            "aws": {
-              "ecr_container_image": {
-                "repository_name": "api",
-                "image": {
-                  "tags": [
-                    "v1.17.1"
-                  ]
-                }
-              }
-            }
+    "inspector2": {
+      "finding_id": "arn:aws:inspector2:eu-west-2:164820739518:finding/gp09z1eb-vmyj-mggt-833s-l4qjtv1664",
+      "finding_type": "PACKAGE_VULNERABILITY",
+      "finding_status": "ACTIVE",
+      "severity": "HIGH",
+      "severity_score": 8.8,
+      "exploitability": "NOT_DEFINED",
+      "resource_type": "AWS_LAMBDA_FUNCTION",
+      "resource_id": "arn:aws:lambda:eu-west-2:164820739518:function:my-fn",
+      "first_observed_at": "2026-03-22T12:11:41.550Z",
+      "last_observed_at": "2026-03-25T12:11:41.550Z",
+      "package_vulnerability": {
+        "cve_id": "CVE-2024-80836",
+        "source": "NVD",
+        "cvss3_score": 8.799,
+        "vulnerable_packages": [
+          {
+            "name": "lodash",
+            "version": "2.17.6",
+            "fixed_in_version": "2.9.20",
+            "package_manager": "JAVA"
           }
-        }
-      ],
+        ],
+        "related_vulnerabilities": []
+      },
       "metrics": {
         "TotalFindings": {
-          "sum": 0
+          "sum": 337
         },
         "CriticalFindings": {
           "sum": 0
         },
         "HighFindings": {
+          "sum": 87
+        },
+        "MediumFindings": {
           "sum": 0
+        },
+        "LowFindings": {
+          "sum": 0
+        },
+        "CoveredResources": {
+          "avg": 4761
         }
       }
     }
   },
   "vulnerability": {
-    "severity": "INFORMATIONAL",
+    "severity": "HIGH",
+    "id": "CVE-2024-80836",
     "score": {
-      "base": 0
+      "base": 8.799
     }
   },
+  "package": {
+    "name": "lodash",
+    "version": "2.17.6"
+  },
   "event": {
-    "kind": "alert",
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
-      "vulnerability",
-      "package"
+      "vulnerability"
     ],
-    "dataset": "aws.inspector",
+    "type": [
+      "info"
+    ],
+    "dataset": "aws.inspector2",
     "provider": "inspector2.amazonaws.com"
   },
-  "message": "Inspector scan: no vulnerabilities found",
+  "message": "Inspector2 [HIGH]: CVE-2024-80836 in lodash 2.17.6 on AWS_LAMBDA_FUNCTION (fix: 2.9.20)",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "CVE-2024-80836",
+    "message": "HIGH vulnerability: lodash",
+    "type": "vulnerability"
   }
 }

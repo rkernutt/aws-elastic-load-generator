@@ -1,30 +1,30 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "ec2"
     },
     "instance": {
-      "id": "i-o38nhx3ee5i"
+      "id": "i-ko16a0q4i6b"
     }
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "i-o38nhx3ee5i",
-      "InstanceType": "m5.xlarge",
-      "ImageId": "ami-z1ptuijo",
-      "AutoScalingGroupName": "worker-asg"
+      "InstanceId": "i-ko16a0q4i6b",
+      "InstanceType": "t3.medium",
+      "ImageId": "ami-mkmd2xw5",
+      "AutoScalingGroupName": "api-asg"
     },
     "ec2": {
       "instance": {
         "image": {
-          "id": "ami-1cxcwyup"
+          "id": "ami-owvg9fq6"
         },
         "state": {
           "name": "running",
@@ -34,54 +34,54 @@
           "state": "disabled"
         },
         "core": {
-          "count": 4
+          "count": 2
         },
-        "type": "m5.xlarge",
+        "type": "t3.medium",
         "threads_per_core": 2,
         "private": {
-          "ip": "138.233.202.38",
-          "dns_name": "ip-15-231-25-172.us-east-1.compute.internal"
+          "ip": "129.26.72.127",
+          "dns_name": "ip-37-195-110-80.us-east-1.compute.internal"
         },
         "public": {
-          "ip": "235.19.176.144",
-          "dns_name": "ec2-138-184-226-164.compute-1.amazonaws.com"
+          "ip": "55.171.66.173",
+          "dns_name": "ec2-165-61-116-220.compute-1.amazonaws.com"
         }
       },
       "cpu": {
         "total": {
-          "pct": 0.5458
+          "pct": 0.6094
         },
-        "credit_usage": 2.59,
-        "credit_balance": 495.927,
+        "credit_usage": 1.022,
+        "credit_balance": 299.956,
         "surplus_credit_balance": 0,
         "surplus_credits_charged": 0
       },
       "network": {
         "in": {
-          "bytes": 548902720,
-          "bytes_per_sec": 173093.72,
-          "packets": 627057,
-          "packets_per_sec": 816.425
+          "bytes": 883647470,
+          "bytes_per_sec": 300865.915,
+          "packets": 929062,
+          "packets_per_sec": 3227.677
         },
         "out": {
-          "bytes": 557024234,
-          "bytes_per_sec": 89248.604,
-          "packets": 932950,
-          "packets_per_sec": 2775.669
+          "bytes": 148224681,
+          "bytes_per_sec": 378356.706,
+          "packets": 974706,
+          "packets_per_sec": 6654.623
         }
       },
       "diskio": {
         "read": {
-          "bytes": 517148993,
-          "bytes_per_sec": 8380.503,
-          "count": 1484,
-          "count_per_sec": 51.282
+          "bytes": 248728087,
+          "bytes_per_sec": 473276.725,
+          "count": 6170,
+          "count_per_sec": 931.967
         },
         "write": {
-          "bytes": 795574056,
-          "bytes_per_sec": 67752.819,
-          "count": 8676,
-          "count_per_sec": 722.468
+          "bytes": 446896553,
+          "bytes_per_sec": 774107.141,
+          "count": 7265,
+          "count_per_sec": 908.029
         }
       },
       "status": {
@@ -92,31 +92,31 @@
     }
   },
   "host": {
-    "hostname": "ip-160-31-80-114",
+    "hostname": "ip-191-64-241-249",
     "os": {
       "type": "linux",
-      "kernel": "5.10.204-177.amzn2.x86_64",
-      "version": "2023"
+      "kernel": "5.10.106-38.amzn2.x86_64",
+      "version": "2"
     },
-    "architecture": "x86_64",
+    "architecture": "arm64",
     "cpu": {
-      "count": 8,
-      "usage": 0.54581
+      "count": 4,
+      "usage": 0.60939
     },
     "disk": {
       "read": {
-        "bytes": 153785177
+        "bytes": 217675801
       },
       "write": {
-        "bytes": 107912588
+        "bytes": 135975570
       }
     },
     "network": {
       "ingress": {
-        "bytes": 823799301
+        "bytes": 49829014
       },
       "egress": {
-        "bytes": 802965602
+        "bytes": 27674832
       }
     }
   },
@@ -134,9 +134,9 @@
     "outcome": "success",
     "dataset": "aws.ec2",
     "provider": "ec2.amazonaws.com",
-    "duration": 1740000000000
+    "duration": 175000000000
   },
-  "message": "{\"instanceId\":\"i-o38nhx3ee5i\",\"instanceType\":\"m5.xlarge\",\"level\":\"info\",\"message\":\"sshd: Accepted publickey for ec2-user\",\"timestamp\":\"2026-03-25T11:55:50.848Z\",\"component\":\"syslog\"}",
+  "message": "cloud-init: Cloud-init v. 22.2.2 running 'init-local'",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.ec2_logs",

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "redshift"
@@ -13,26 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterIdentifier": "prod-dw-us-east-1",
-      "NodeID": "Compute-1"
+      "ClusterIdentifier": "prod-dw-eu-west-2",
+      "NodeID": "Compute-0"
     },
     "redshift": {
-      "cluster_id": "prod-dw-us-east-1",
+      "cluster_id": "prod-dw-eu-west-2",
       "database": "analytics",
-      "user": "dbt_runner",
-      "pid": 22575,
-      "query_id": 1249714,
-      "duration_seconds": 58.653,
-      "rows_returned": 4807513,
+      "user": "bi_service",
+      "pid": 16978,
+      "query_id": 2714815,
+      "duration_seconds": 58.742,
+      "rows_returned": 4634009,
+      "query_type": "SELECT",
+      "wlm": {
+        "queue_name": "analyst_queue",
+        "queue_wait_seconds": 2.368
+      },
       "metrics": {
         "CPUUtilization": {
-          "avg": 53.437
+          "avg": 15.266
         },
         "PercentageDiskSpaceUsed": {
-          "avg": 21.838
+          "avg": 19.959
         },
         "DatabaseConnections": {
-          "avg": 497
+          "avg": 123
         },
         "HealthStatus": {
           "avg": 1
@@ -41,60 +46,66 @@
           "avg": 0
         },
         "NetworkReceiveThroughput": {
-          "avg": 533315084
+          "avg": 491415581
         },
         "NetworkTransmitThroughput": {
-          "avg": 257179194
+          "avg": 355089725
         },
         "QueriesCompletedPerSecond": {
-          "avg": 568.178
+          "avg": 146.226
         },
         "QueryDuration": {
-          "avg": 29938.312
+          "avg": 760.83
         },
         "QueryRuntimeBreakdown": {
-          "avg": 25629.74
+          "avg": 13226.604
         },
         "ReadIOPS": {
-          "avg": 3391
+          "avg": 6552
         },
         "ReadLatency": {
-          "avg": 0.055
+          "avg": 0.017
         },
         "ReadThroughput": {
-          "avg": 422582303
+          "avg": 680107030
         },
         "WLMQueriesCompletedPerSecond": {
-          "avg": 397.105
+          "avg": 108.274
         },
         "WLMQueryDuration": {
-          "avg": 21637.031
+          "avg": 27168.017
         },
         "WLMRunningSlotCount": {
-          "avg": 34
+          "avg": 23
+        },
+        "WLMQueueLength": {
+          "avg": 0
+        },
+        "WLMQueueWaitTime": {
+          "avg": 514.461
         },
         "WriteIOPS": {
-          "avg": 3403
+          "avg": 3993
         },
         "WriteLatency": {
-          "avg": 0.012
+          "avg": 0.044
         },
         "WriteThroughput": {
-          "avg": 306211333
+          "avg": 493569939
         }
       }
     }
   },
   "db": {
     "user": {
-      "name": "dbt_runner"
+      "name": "bi_service"
     },
     "name": "analytics",
-    "statement": "INSERT INTO staging_orders SELECT * FROM raw_orders WHERE processed_at IS NULL",
+    "statement": "VACUUM DELETE ONLY dim_products TO 95 PERCENT",
     "type": "sql"
   },
   "event": {
-    "duration": 58653000000,
+    "duration": 58742000000,
     "outcome": "success",
     "category": [
       "database"
@@ -102,7 +113,7 @@
     "dataset": "aws.redshift",
     "provider": "redshift.amazonaws.com"
   },
-  "message": "Redshift query completed in 58.65s",
+  "message": "Redshift query completed in 58.74s",
   "log": {
     "level": "info"
   }

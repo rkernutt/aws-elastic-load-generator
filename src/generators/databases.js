@@ -111,11 +111,14 @@ function generateElastiCacheLog(ts, er) {
 function generateRedshiftLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const isErr = Math.random() < er;
-  const queries = ["SELECT COUNT(*) FROM fact_events WHERE event_date >= CURRENT_DATE - 7","INSERT INTO staging_orders SELECT * FROM raw_orders WHERE processed_at IS NULL","COPY events FROM 's3://data-lake/events/' IAM_ROLE 'arn:aws:iam::...'","VACUUM DELETE ONLY dim_products TO 95 PERCENT","ANALYZE dim_customers PREDICATE COLUMNS"];
+  const queries = ["SELECT COUNT(*) FROM fact_events WHERE event_date >= CURRENT_DATE - 7","INSERT INTO staging_orders SELECT * FROM raw_orders WHERE processed_at IS NULL","COPY events FROM 's3://data-lake/events/2024/' IAM_ROLE 'arn:aws:iam::123456789:role/RedshiftS3' FORMAT AS PARQUET","UNLOAD ('SELECT * FROM fact_sales WHERE sale_date = CURRENT_DATE') TO 's3://exports/sales/' IAM_ROLE 'arn:aws:iam::123456789:role/RedshiftS3' PARQUET ALLOWOVERWRITE","VACUUM DELETE ONLY dim_products TO 95 PERCENT","ANALYZE dim_customers PREDICATE COLUMNS"];
   const dur = parseFloat(randFloat(0.1, isErr?300:60)); const dbUser = rand(["etl_user","analyst","bi_service","dbt_runner"]);
   const clusterId = `prod-dw-${region}`;
   const redshiftErrCodes = ["AuthorizationAlreadyExists","AuthorizationNotFound","ClusterAlreadyExists","ClusterNotFound","ClusterParameterGroupNotFound","ClusterSecurityGroupNotFound","ClusterSubnetGroupNotFound","HsmClientCertificateNotFound","InsufficientClusterCapacity","InvalidClusterState","InvalidClusterSubnetGroupStateFault","LimitExceededException","SnapshotIdentifierNotFound"];
   const nodeId = rand(["Leader","Compute-0","Compute-1"]);
+  const queryType = rand(["SELECT","SELECT","INSERT","COPY","UNLOAD","VACUUM","ANALYZE"]);
+  const wlmQueue = rand(["superuser","etl_queue","analyst_queue","default_queue"]);
+  const wlmWaitSec = isErr ? parseFloat(randFloat(10, 300)) : parseFloat(randFloat(0, 5));
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"redshift" } },
@@ -126,6 +129,11 @@ function generateRedshiftLog(ts, er) {
         pid: randInt(10000,99999), query_id: randInt(1000000,9999999),
         duration_seconds: dur, rows_returned: isErr?0:randInt(0,5000000),
         error_code: isErr?rand(redshiftErrCodes):null,
+        query_type: queryType,
+        wlm: {
+          queue_name: wlmQueue,
+          queue_wait_seconds: wlmWaitSec,
+        },
         metrics: {
           CPUUtilization: { avg: parseFloat(randFloat(1, isErr?90:60)) },
           PercentageDiskSpaceUsed: { avg: parseFloat(randFloat(10, isErr?95:70)) },
@@ -143,6 +151,8 @@ function generateRedshiftLog(ts, er) {
           WLMQueriesCompletedPerSecond: { avg: parseFloat(randFloat(1, 500)) },
           WLMQueryDuration: { avg: parseFloat(randFloat(100, 60000)) },
           WLMRunningSlotCount: { avg: randInt(1, 50) },
+          WLMQueueLength: { avg: isErr ? randInt(5, 50) : randInt(0, 5) },
+          WLMQueueWaitTime: { avg: isErr ? parseFloat(randFloat(5000, 60000)) : parseFloat(randFloat(0, 1000)) },
           WriteIOPS: { avg: randInt(100, 5000) },
           WriteLatency: { avg: parseFloat(randFloat(0.001, isErr?1:0.1)) },
           WriteThroughput: { avg: randInt(1e6, 5e8) },
@@ -164,6 +174,7 @@ function generateOpenSearchLog(ts, er) {
   const op = rand(["index","search","bulk","delete","update","get","msearch"]);
   const dur = parseFloat(randFloat(1, isErr?30000:2000)); const status = isErr ? rand([400,429,500,503]) : rand([200,200,201]);
   const domainName = `prod-search-${region}`;
+  const totalShards = randInt(5, 50);
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"opensearch" } },
@@ -172,7 +183,15 @@ function generateOpenSearchLog(ts, er) {
       opensearch: {
         domain_name: domainName, index: idx, operation: op,
         took_ms: Math.round(dur),
-        shards: { total:5, successful:isErr?randInt(1,4):5, failed:isErr?randInt(1,3):0 },
+        shards: {
+          total: totalShards,
+          successful: isErr ? randInt(1, totalShards - 1) : totalShards,
+          failed: isErr ? randInt(1, 3) : 0,
+          active: isErr ? randInt(totalShards - 5, Math.max(1, totalShards - 1)) : totalShards,
+          initializing: isErr ? randInt(0, 3) : 0,
+          relocating: isErr ? randInt(0, 2) : 0,
+          unassigned: isErr ? randInt(1, 5) : 0,
+        },
         hits_total: isErr?0:randInt(0,100000),
         status_code: status,
         metrics: {
@@ -187,6 +206,11 @@ function generateOpenSearchLog(ts, er) {
           SearchRate: { avg: randInt(10, 10000) },
           JVMMemoryPressure: { avg: parseFloat(randFloat(10, isErr?95:70)) },
           AutomatedSnapshotFailure: { sum: isErr ? 1 : 0 },
+          CoordinatingWriteRejected: { sum: isErr ? randInt(0, 1000) : 0 },
+          PrimaryWriteRejected: { sum: isErr ? randInt(0, 500) : 0 },
+          ReplicaWriteRejected: { sum: isErr ? randInt(0, 200) : 0 },
+          WarmStorageSpaceUsage: { avg: parseFloat(randFloat(10, 90)) },
+          DeletedDocuments: { avg: randInt(0, 100000) },
         }
       }
     },

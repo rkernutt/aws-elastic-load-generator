@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,37 +13,31 @@
   },
   "aws": {
     "pinpoint": {
-      "application_id": "1mpyx1bo9de",
-      "event_type": "_email.delivered",
-      "channel": "SMS",
-      "campaign_id": "2do5n1izevg",
-      "campaign_name": "promo-black-friday",
-      "journey_id": "yd8xb2468to",
-      "segment_id": "xr6i2vpw3p",
-      "endpoint_id": "user_2wui48xxki",
-      "message_id": "vzl3oq106q",
-      "delivery_status": "DUPLICATE",
-      "status_message": "Address on suppression list",
-      "destination": "+15557398282",
-      "iso_country_code": "DE"
+      "application_id": "fdjnf06exz",
+      "event_type": "_campaign.send",
+      "channel": "VOICE",
+      "campaign_id": "u362ajisjwp",
+      "campaign_name": "re-engagement",
+      "journey_id": "k38s114gf4j",
+      "segment_id": "7kjb9e9a024",
+      "endpoint_id": "user_99t7olugo5",
+      "message_id": "ctu496ae0zv",
+      "delivery_status": "SUCCESSFUL",
+      "destination": "user_99t7olugo5",
+      "iso_country_code": "AU"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.pinpoint",
     "provider": "mobiletargeting.amazonaws.com",
-    "duration": 487000000
+    "duration": 1857000000
   },
-  "message": "Pinpoint SMS FAILED [promo-black-friday]: Quota exceeded:",
+  "message": "Pinpoint _campaign.send [re-engagement]: user_99t7olugo5 via VOICE",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "DeliveryFailure",
-    "message": "Pinpoint delivery failed",
-    "type": "messaging"
+    "level": "info"
   }
 }

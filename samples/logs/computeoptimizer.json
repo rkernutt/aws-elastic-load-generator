@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "computeoptimizer"
@@ -13,27 +13,27 @@
   },
   "aws": {
     "computeoptimizer": {
-      "resource_type": "AUTO_SCALING_GROUP",
-      "resource_arn": "arn:aws:ec2:eu-west-2:738291046572:instance/i-ep2rtz1iq7a",
-      "finding": "OVERPROVISIONED",
+      "resource_type": "EC2_INSTANCE",
+      "resource_arn": "arn:aws:ec2:eu-west-2:501938274650:instance/i-nsswvd52tmm",
+      "finding": "OPTIMIZED",
       "current_configuration": {
-        "instance_type": "c5.2xlarge",
-        "vcpu": 28,
-        "memory_gb": 58
+        "instance_type": "r5.large",
+        "vcpu": 25,
+        "memory_gb": 8
       },
       "recommended_configuration": {
-        "instance_type": "c5.xlarge",
-        "vcpu": 10,
-        "memory_gb": 44
+        "instance_type": "m5.large",
+        "vcpu": 8,
+        "memory_gb": 49
       },
-      "estimated_monthly_savings_usd": 351.639,
-      "estimated_monthly_savings_percent": 13.8,
+      "estimated_monthly_savings_usd": 0,
+      "estimated_monthly_savings_percent": 0,
       "lookback_period_days": 93,
       "utilization": {
-        "cpu_max": 63.428,
-        "memory_max": 57.219
+        "cpu_max": 21.43,
+        "memory_max": 75.914
       },
-      "performance_risk": "Low"
+      "performance_risk": "VeryLow"
     }
   },
   "event": {
@@ -44,9 +44,9 @@
     ],
     "dataset": "aws.computeoptimizer",
     "provider": "compute-optimizer.amazonaws.com",
-    "duration": 41000000000
+    "duration": 29000000000
   },
-  "message": "Compute Optimizer: AUTO_SCALING_GROUP OVERPROVISIONED — downsize c5.2xlarge→c5.xlarge, save 352/mo",
+  "message": "Compute Optimizer: EC2_INSTANCE OPTIMIZED (r5.large)",
   "log": {
     "level": "info"
   }

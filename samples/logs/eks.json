@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "eks"
@@ -14,93 +14,88 @@
   "aws": {
     "dimensions": {
       "ClusterName": "prod-cluster-us-east-1",
-      "NodeName": "ip-121-82-17-37.us-east-1.compute.internal",
-      "Namespace": "monitoring",
-      "PodName": "web-2h5k7-lcbre"
+      "NodeName": "ip-194-126-112-211.us-east-1.compute.internal",
+      "Namespace": "default",
+      "PodName": "worker-vbvbi-i1zag"
     },
     "eks": {
-      "structured_logging": true,
+      "structured_logging": false,
       "cluster": {
         "name": "prod-cluster-us-east-1"
       },
       "node": {
-        "name": "ip-121-82-17-37.us-east-1.compute.internal"
+        "name": "ip-194-126-112-211.us-east-1.compute.internal"
       },
       "metrics": {
         "cluster_failed_node_count": {
-          "avg": 1
+          "avg": 0
         },
         "node_cpu_utilization": {
-          "avg": "61.616"
+          "avg": "66.973"
         },
         "node_memory_utilization": {
-          "avg": "56.591"
+          "avg": "26.675"
         },
         "node_network_total_bytes": {
-          "sum": 401773011
+          "sum": 666589999
         },
         "node_filesystem_utilization": {
-          "avg": "44.255"
+          "avg": "23.317"
         },
         "pod_cpu_utilization": {
-          "avg": "6.757"
+          "avg": "34.417"
         },
         "pod_memory_utilization": {
-          "avg": "13.233"
+          "avg": "27.202"
         },
         "pod_network_rx_bytes": {
-          "sum": 41577868
+          "sum": 96670826
         },
         "pod_network_tx_bytes": {
-          "sum": 18527122
+          "sum": 10725516
         },
         "node_count": {
-          "avg": 46
+          "avg": 11
         },
         "pod_count": {
-          "avg": 262
+          "avg": 450
         }
       }
     }
   },
   "container": {
-    "id": "cpvbxbzjr1e",
-    "name": "web",
+    "id": "8yz1hbxqmzc",
+    "name": "worker",
     "image": {
-      "name": "k8s.gcr.io/web:v1.25.1"
+      "name": "k8s.gcr.io/worker:v1.28.1"
     },
     "runtime": "containerd"
   },
   "kubernetes": {
-    "namespace": "monitoring",
+    "namespace": "default",
     "pod": {
-      "name": "web-2h5k7-lcbre"
+      "name": "worker-vbvbi-i1zag"
     },
     "container": {
-      "name": "web"
+      "name": "worker"
     },
     "labels": {
-      "app": "web",
+      "app": "worker",
       "env": "prod"
     }
   },
   "log": {
-    "level": "error"
+    "level": "info"
   },
   "event": {
     "category": [
       "process",
       "container"
     ],
-    "outcome": "failure",
+    "outcome": "success",
     "dataset": "aws.eks",
     "provider": "eks.amazonaws.com",
-    "duration": 221000000000
+    "duration": 2025000000000
   },
-  "message": "{\"cluster\":\"prod-cluster-us-east-1\",\"namespace\":\"monitoring\",\"pod\":\"web-2h5k7-lcbre\",\"level\":\"error\",\"message\":\"FailedScheduling: 0/12 nodes available\",\"timestamp\":\"2026-03-25T11:55:50.848Z\",\"stream\":\"stdout\"}",
-  "error": {
-    "code": "OOMKilled",
-    "message": "CrashLoopBackOff: back-off restarting failed container",
-    "type": "container"
-  }
+  "message": "2026-03-25 12:11:41.550 E196 T2VA5S manager.go:65] Service endpoint added"
 }

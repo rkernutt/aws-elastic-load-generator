@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "waf"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "admin-waf",
-      "Rule": "AWSManagedRulesWordPressRuleSet",
-      "Region": "us-east-1"
+      "WebACL": "prod-waf",
+      "Rule": "AWSManagedRulesKnownBadInputsRuleSet",
+      "Region": "eu-west-2"
     },
     "waf": {
-      "id": "oueakv15gd",
-      "arn": "arn:aws:wafv2:us-east-1:501938274650:regional/webacl/admin-waf/aiz77i2g-h9t7-9ym3-91s2-jwngnptb9u",
+      "id": "6xqeac2tr38",
+      "arn": "arn:aws:wafv2:eu-west-2:293847561023:regional/webacl/prod-waf/rq5flwfo-byqw-5fwc-gfqm-z60uii6czmn",
       "format_version": "1",
       "source": {
         "name": "ALB",
-        "id": "501938274650-app/admin-waf/5ta1d57f6ng"
+        "id": "293847561023-app/prod-waf/t0tqgcd56i"
       },
       "rule_group_list": [
         {
-          "ruleGroupId": "AWSManagedRulesWordPressRuleSet",
+          "ruleGroupId": "AWSManagedRulesKnownBadInputsRuleSet",
           "nonTerminatingMatchingRules": []
         }
       ],
@@ -37,7 +37,7 @@
         "headers": [
           {
             "name": "User-Agent",
-            "value": "Go-http-client/1.1"
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
           },
           {
             "name": "Host",
@@ -72,44 +72,44 @@
     }
   },
   "rule": {
-    "id": "BadBot",
-    "ruleset": "AWSManagedRulesWordPressRuleSet"
+    "id": "CrossSiteScripting",
+    "ruleset": "AWSManagedRulesKnownBadInputsRuleSet"
   },
   "http": {
     "request": {
       "method": "PUT",
-      "bytes": 7401
+      "bytes": 2854
     }
   },
   "url": {
-    "path": "/api/v1/orders"
+    "path": "/api/v2/events"
   },
   "source": {
-    "ip": "183.26.106.5",
+    "ip": "53.194.123.148",
     "geo": {
-      "country_iso_code": "CA",
-      "country_name": "Canada",
-      "city_name": "Toronto",
+      "country_iso_code": "RU",
+      "country_name": "Russia",
+      "city_name": "Moscow",
       "location": {
-        "lat": 43.6532,
-        "lon": -79.3832
+        "lat": 55.7558,
+        "lon": 37.6173
       }
     }
   },
   "client": {
-    "ip": "183.26.106.5",
+    "ip": "53.194.123.148",
     "geo": {
-      "country_iso_code": "CA",
-      "country_name": "Canada",
-      "city_name": "Toronto",
+      "country_iso_code": "RU",
+      "country_name": "Russia",
+      "city_name": "Moscow",
       "location": {
-        "lat": 43.6532,
-        "lon": -79.3832
+        "lat": 55.7558,
+        "lon": 37.6173
       }
     }
   },
   "user_agent": {
-    "original": "Go-http-client/1.1"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
     "action": "allow",
@@ -120,9 +120,9 @@
     ],
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com",
-    "duration": 11000000
+    "duration": 6000000
   },
-  "message": "WAF ALLOWED request - Rule: AWSManagedRulesWordPressRuleSet",
+  "message": "WAF ALLOWED request - Rule: AWSManagedRulesKnownBadInputsRuleSet",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "devopsguru"
@@ -13,13 +13,13 @@
   },
   "aws": {
     "devopsguru": {
-      "insight_id": "67zkse2b3tg",
+      "insight_id": "nlabp0iflms",
       "insight_type": "PROACTIVE",
-      "severity": "LOW",
+      "severity": "MEDIUM",
       "resource_collection": {
         "cloud_formation": {
           "stack_names": [
-            "data-stack"
+            "api-stack"
           ]
         },
         "tags": [
@@ -29,15 +29,15 @@
           }
         ]
       },
-      "anomaly_id": "q19rx44l2ms",
-      "anomaly_description": "Memory utilization anomaly on ECS tasks",
+      "anomaly_id": "hyyzym6ak7j",
+      "anomaly_description": "DynamoDB throttling pattern detected",
       "anomaly_sources": [
         "elasticache-cache"
       ],
-      "start_time": "2026-03-25T11:54:31.719Z",
-      "end_time": "2026-03-25T11:55:50.942Z",
+      "start_time": "2026-03-25T11:55:31.124Z",
+      "end_time": "2026-03-25T12:11:41.634Z",
       "status": "CLOSED",
-      "recommendation": "Scale up resource",
+      "recommendation": "Check recent deployments",
       "ssm_ops_items": []
     }
   },
@@ -50,9 +50,9 @@
     ],
     "dataset": "aws.devopsguru",
     "provider": "devops-guru.amazonaws.com",
-    "duration": 63000000000
+    "duration": 700000000000
   },
-  "message": "DevOps Guru PROACTIVE insight [LOW]: Memory utilization anomaly on ECS tasks",
+  "message": "DevOps Guru PROACTIVE insight [MEDIUM]: DynamoDB throttling pattern detected",
   "log": {
     "level": "info"
   }

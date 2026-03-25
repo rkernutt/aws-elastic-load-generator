@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codebuild"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "dimensions": {
-      "ProjectName": "api-service-build",
-      "BuildId": "api-service-build:z04wfflp-sgap"
+      "ProjectName": "docker-build",
+      "BuildId": "docker-build:z6u6umao-yght"
     },
     "codebuild": {
-      "project_name": "api-service-build",
-      "build_id": "api-service-build:z04wfflp-sgap",
+      "project_name": "docker-build",
+      "build_id": "docker-build:z6u6umao-yght",
       "build_status": "SUCCEEDED",
-      "current_phase": "UPLOAD_ARTIFACTS",
-      "duration_seconds": 359,
-      "queued_duration_seconds": 57,
-      "build_number": 4590,
-      "initiator": "manual",
-      "source_version": "kvnt2oet4zh",
-      "structured_logging": true,
+      "current_phase": "DOWNLOAD_SOURCE",
+      "duration_seconds": 682,
+      "queued_duration_seconds": 58,
+      "build_number": 1622,
+      "initiator": "github-webhook",
+      "source_version": "o1z3iholrpm",
+      "structured_logging": false,
       "metrics": {
         "Builds": {
           "sum": 1
@@ -38,19 +38,19 @@
           "sum": 0
         },
         "Duration": {
-          "avg": 359
+          "avg": 682
         },
         "QueuedDuration": {
-          "avg": 44
+          "avg": 41
         },
         "BuildDuration": {
-          "avg": 359
+          "avg": 682
         }
       }
     }
   },
   "event": {
-    "duration": 359000000000,
+    "duration": 682000000000,
     "outcome": "success",
     "category": [
       "process"
@@ -58,7 +58,7 @@
     "dataset": "aws.codebuild",
     "provider": "codebuild.amazonaws.com"
   },
-  "message": "{\"buildId\":\"api-service-build:z04wfflp-sgap\",\"project\":\"api-service-build\",\"phase\":\"UPLOAD_ARTIFACTS\",\"status\":\"SUCCEEDED\",\"durationSeconds\":359,\"timestamp\":\"2026-03-25T11:55:50.848Z\"}",
+  "message": "Build started",
   "log": {
     "level": "info"
   }

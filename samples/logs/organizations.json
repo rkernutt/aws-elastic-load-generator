@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "organizations"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "organizations": {
-      "action": "AttachPolicy",
-      "account_id": "814726593401",
-      "account_name": "security-audit",
-      "organizational_unit": "Production",
-      "policy_id": "p-9308fm4y",
-      "policy_type": "TAG_POLICY",
-      "policy_name": "DenyRootUserActions"
+      "action": "DetachPolicy",
+      "account_id": "293847561023",
+      "account_name": "prod-workloads",
+      "organizational_unit": "Sandbox",
+      "policy_id": "p-ljgg3c02",
+      "policy_type": "BACKUP_POLICY",
+      "policy_name": "RequireS3Encryption"
     }
   },
   "event": {
-    "action": "AttachPolicy",
+    "action": "DetachPolicy",
     "outcome": "success",
     "category": [
       "configuration",
@@ -31,9 +31,9 @@
     ],
     "dataset": "aws.organizations",
     "provider": "organizations.amazonaws.com",
-    "duration": 705000000
+    "duration": 1138000000
   },
-  "message": "Organizations AttachPolicy: Root",
+  "message": "Organizations DetachPolicy: Infrastructure",
   "log": {
     "level": "info"
   }

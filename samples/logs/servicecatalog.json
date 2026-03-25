@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "servicecatalog"
@@ -14,31 +14,38 @@
   "aws": {
     "servicecatalog": {
       "operation": "TerminateProvisionedProduct",
-      "product_name": "S3 Static Site",
-      "product_id": "prod-ILWQZF5SQ3B",
-      "portfolio_id": "port-HB7M4IHWHEH",
-      "provisioned_product_name": "s3-static-site-neqbba",
-      "record_id": "rec-2AGTWLDW78",
-      "status": "SUCCEEDED",
-      "requester_arn": "arn:aws:iam::501938274650:user/sre-carol"
+      "product_name": "Data Pipeline",
+      "product_id": "prod-FK2RSLEUAS",
+      "portfolio_id": "port-OC19OBJXUIF",
+      "provisioned_product_name": "data-pipeline-mwrpny",
+      "record_id": "rec-6D81AEQWPFU",
+      "status": "TAINTED",
+      "requester_arn": "arn:aws:iam::814726593401:user/team-lead-bob",
+      "launch_role": "arn:aws:iam::123456789:role/ServiceCatalogLaunchRole",
+      "error": "Launch role not authorized"
     }
   },
   "user": {
-    "name": "sre-carol"
+    "name": "team-lead-bob"
   },
   "event": {
     "action": "TerminateProvisionedProduct",
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "configuration",
       "process"
     ],
     "dataset": "aws.servicecatalog",
     "provider": "servicecatalog.amazonaws.com",
-    "duration": 478000000000
+    "duration": 1071000000000
   },
-  "message": "ServiceCatalog TerminateProvisionedProduct: sre-carol → S3 Static Site [SUCCEEDED]",
+  "message": "ServiceCatalog TerminateProvisionedProduct FAILED [Data Pipeline]: Resource limit:",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ProvisioningFailed",
+    "message": "Service Catalog operation failed",
+    "type": "provisioning"
   }
 }

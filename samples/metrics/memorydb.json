@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "memorydb"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "memorydb": {
-      "cluster_name": "session-store",
-      "node_name": "session-store-0001-001",
+      "cluster_name": "leaderboard",
+      "node_name": "leaderboard-0001-001",
       "engine_version": "7.1",
-      "command": "ZADD",
-      "latency_us": 45.513,
-      "cache_hit_rate": 89.863,
-      "connected_clients": 358,
-      "used_memory_mb": 15591,
-      "replication_lag_ms": 76
+      "command": "DEL",
+      "latency_us": 29.56,
+      "cache_hit_rate": 93.79,
+      "connected_clients": 429,
+      "used_memory_mb": 23007,
+      "replication_lag_ms": 73
     }
   },
   "event": {
-    "duration": 45513,
+    "duration": 29560,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.memorydb",
     "provider": "memory-db.amazonaws.com"
   },
-  "message": "MemoryDB session-store ZADD: 45.51us",
+  "message": "MemoryDB leaderboard DEL: 29.56us",
   "log": {
     "level": "info"
   },

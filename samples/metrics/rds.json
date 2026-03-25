@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "rds"
@@ -13,71 +13,71 @@
   },
   "aws": {
     "dimensions": {
-      "DBInstanceIdentifier": "prod-db-replica",
-      "DatabaseClass": "db.r5.large",
-      "EngineName": "postgres",
+      "DBInstanceIdentifier": "prod-db-primary",
+      "DatabaseClass": "db.r6g.xlarge",
+      "EngineName": "aurora-mysql",
       "SourceRegion": "eu-west-2"
     },
     "rds": {
       "db_instance": {
-        "identifier": "prod-db-replica",
-        "class": "db.r5.large",
-        "engine_name": "postgres",
-        "arn": "arn:aws:rds:eu-west-2:293847561023:db:prod-db-replica",
+        "identifier": "prod-db-primary",
+        "class": "db.r6g.xlarge",
+        "engine_name": "aurora-mysql",
+        "arn": "arn:aws:rds:eu-west-2:501938274650:db:prod-db-primary",
         "status": "available",
-        "role": "instance"
+        "role": "read-replica"
       },
       "cpu": {
         "total": {
-          "pct": 0.1169
+          "pct": 0.233
         }
       },
       "freeable_memory": {
-        "bytes": 7369140655
+        "bytes": 5863184972
       },
       "free_storage": {
-        "bytes": 106870979429
+        "bytes": 288798303685
       },
-      "database_connections": 344,
+      "database_connections": 209,
       "read_io": {
-        "ops_per_sec": 2764.444
+        "ops_per_sec": 471.842
       },
       "write_io": {
-        "ops_per_sec": 348.645
+        "ops_per_sec": 1386.543
       },
       "latency": {
         "read": 0.012,
-        "write": 0.009
+        "write": 0.006
       },
       "throughput": {
-        "read": 62518171,
-        "write": 451526,
-        "network_receive": 98072636,
-        "network_transmit": 57552719
+        "read": 43385826,
+        "write": 36966247,
+        "network_receive": 90215636,
+        "network_transmit": 2163419
       },
       "replica_lag": {
-        "sec": 67.36
+        "sec": 9.146
       },
       "swap_usage": {
-        "bytes": 72481913
+        "bytes": 5866683
       },
       "disk_usage": {
         "bin_log": {
-          "bytes": 411594687
+          "bytes": 213984034
         }
       }
     }
   },
   "db": {
     "user": {
-      "name": "replica"
+      "name": "admin"
     },
-    "name": "appdb",
-    "statement": "DELETE FROM sessions WHERE RC0WML",
+    "name": "users",
+    "statement": "UPDATE products SET price IAJYRY",
     "type": "sql"
   },
   "event": {
-    "duration": 1167000000,
+    "duration": 1348000000,
     "outcome": "success",
     "category": [
       "database"
@@ -89,7 +89,7 @@
     "dataset": "aws.rds",
     "provider": "rds.amazonaws.com"
   },
-  "message": "LOG: duration: 1167.000 ms statement: SELECT * FROM users WHERE id = 930988",
+  "message": "{\"instanceId\":\"prod-db-primary\",\"engine\":\"aurora-mysql\",\"userId\":\"admin\",\"queryTime\":1.348,\"error\":null,\"timestamp\":\"2026-03-25T12:11:41.550Z\",\"osMetrics\":{\"cpuUtilization\":{\"guest\":1.741,\"irq\":0.108,\"system\":8.171,\"wait\":0.64,\"idle\":79.8,\"user\":9.546,\"total\":20.2},\"memory\":{\"total\":42966787427,\"free\":2213217600,\"cached\":5244919990,\"active\":12153864628,\"inactive\":1330760060,\"buffers\":227255065},\"disk\":{\"readIOsPS\":56.708,\"writeIOsPS\":1392.494,\"readKbPS\":472512.489,\"writeKbPS\":346676.161,\"avgQueueLen\":2.827,\"await\":14.727},\"network\":{\"rx\":12465953,\"tx\":95204930},\"numVCPUs\":16,\"uptime\":\"3 days, 6:58:03\"}}",
   "log": {
     "level": "info"
   },

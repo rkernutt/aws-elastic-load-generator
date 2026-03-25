@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "cloudwatchalarms"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "rds-connections",
+      "alarm_name": "api-latency",
       "alarm_state": "OK",
       "previous_state": "OK",
-      "namespace": "AWS/Lambda",
-      "metric_name": "CPUUtilization",
-      "threshold": 80,
-      "evaluation_periods": 3,
-      "metric_value": 47.538,
-      "statistic": "p99",
-      "period_seconds": 60,
+      "namespace": "AWS/RDS",
+      "metric_name": "RequestCount",
+      "threshold": 85,
+      "evaluation_periods": 2,
+      "metric_value": 76.279,
+      "statistic": "Maximum",
+      "period_seconds": 3600,
       "treat_missing_data": "notBreaching"
     }
   },
@@ -35,9 +35,9 @@
     ],
     "dataset": "aws.cloudwatch",
     "provider": "monitoring.amazonaws.com",
-    "duration": 60000000000
+    "duration": 300000000000
   },
-  "message": "CloudWatch alarm \"rds-connections\": OK (AWS/Lambda/CPUUtilization=47.5)",
+  "message": "CloudWatch alarm \"api-latency\": OK (AWS/RDS/RequestCount=76.3)",
   "log": {
     "level": "info"
   },

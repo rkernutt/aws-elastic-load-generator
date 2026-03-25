@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "resiliencehub"
@@ -13,18 +13,18 @@
   },
   "aws": {
     "resiliencehub": {
-      "app_arn": "arn:aws:resiliencehub:eu-west-2:164820739518:app/b7f1lkk3yp",
-      "app_name": "data-pipeline",
-      "operation": "CreateRecommendationTemplate",
-      "resiliency_score": 98,
+      "app_arn": "arn:aws:resiliencehub:eu-west-2:293847561023:app/ogl9azhc4kb",
+      "app_name": "inventory-service",
+      "operation": "RunResiliencyAssessment",
+      "resiliency_score": 93,
       "compliance_status": "POLICY_MET",
-      "current_rto_seconds": 3501,
-      "target_rto_seconds": 7002,
-      "current_rpo_seconds": 374,
-      "target_rpo_seconds": 748,
-      "tier": "Critical",
-      "disruption_type": "Region",
-      "recommendation_count": 2
+      "current_rto_seconds": 708,
+      "target_rto_seconds": 1416,
+      "current_rpo_seconds": 2641,
+      "target_rpo_seconds": 5282,
+      "tier": "Important",
+      "disruption_type": "AZ",
+      "recommendation_count": 18
     }
   },
   "event": {
@@ -35,9 +35,9 @@
     ],
     "dataset": "aws.resiliencehub",
     "provider": "resiliencehub.amazonaws.com",
-    "duration": 40000000000
+    "duration": 102000000000
   },
-  "message": "Resilience Hub data-pipeline [Critical]: score=98, RTO=3501s, RPO=374s",
+  "message": "Resilience Hub inventory-service [Important]: score=93, RTO=708s, RPO=2641s",
   "log": {
     "level": "info"
   }

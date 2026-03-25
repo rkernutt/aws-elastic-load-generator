@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "connect"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "n9yqhy2t-eu3w-76vn-uwz1-ozumluwer9s",
+      "InstanceId": "d8o0pgf0-8rh7-8dkj-fubq-c9kyw8lp5x9",
       "MetricGroup": "Queue"
     },
     "connect": {
-      "instance_id": "n9yqhy2t-eu3w-76vn-uwz1-ozumluwer9s",
-      "contact_id": "vekbn9i3-cp91-8zqt",
+      "instance_id": "d8o0pgf0-8rh7-8dkj-fubq-c9kyw8lp5x9",
+      "contact_id": "5e9sl5do-h8bi-iyg9",
       "channel": "TASK",
-      "initiation_method": "TRANSFER",
-      "queue_name": "Sales",
+      "initiation_method": "TASK",
+      "queue_name": "TechSupport",
       "agent_id": "agent-bob",
-      "duration_seconds": 270,
-      "hold_duration_seconds": 66,
-      "queue_wait_time_seconds": 277,
-      "disconnect_reason": "EXPIRED",
-      "sentiment_overall": "NEGATIVE",
-      "contact_lens_enabled": true,
-      "lex_bot_interacted": false,
+      "duration_seconds": 423,
+      "hold_duration_seconds": 42,
+      "queue_wait_time_seconds": 247,
+      "disconnect_reason": "AGENT_DISCONNECT",
+      "sentiment_overall": "POSITIVE",
+      "contact_lens_enabled": false,
+      "lex_bot_interacted": true,
       "metrics": {
         "ContactsQueued": {
           "sum": 1
@@ -44,25 +44,25 @@
           "sum": 0
         },
         "AverageHandleTime": {
-          "avg": 270
+          "avg": 423
         },
         "AverageAfterContactWorkTime": {
-          "avg": 77
+          "avg": 245
         },
         "AverageQueueAnswerTime": {
-          "avg": 88
+          "avg": 41
         },
         "ServiceLevel": {
-          "avg": 95.618
+          "avg": 67.769
         },
         "OccupancyTime": {
-          "avg": 84.39
+          "avg": 66.686
         }
       }
     }
   },
   "event": {
-    "duration": 270000000000,
+    "duration": 423000000000,
     "outcome": "success",
     "category": [
       "host",
@@ -71,7 +71,7 @@
     "dataset": "aws.connect",
     "provider": "connect.amazonaws.com"
   },
-  "message": "Connect TRANSFER: Sales agent=agent-bob, 270s, NEGATIVE",
+  "message": "Connect TASK: TechSupport agent=agent-bob, 423s, POSITIVE",
   "log": {
     "level": "info"
   },

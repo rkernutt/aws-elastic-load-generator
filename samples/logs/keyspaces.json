@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,31 +13,25 @@
   },
   "aws": {
     "keyspaces": {
-      "keyspace_name": "prod_keyspace",
+      "keyspace_name": "user_data",
       "table_name": "users",
-      "operation": "SELECT",
-      "read_capacity_units": 0,
-      "write_capacity_units": 0,
-      "rows_returned": 1720,
-      "duration_ms": 3872,
-      "cql_version": "3.11.2",
-      "error_code": "WriteConflictException"
+      "operation": "DELETE",
+      "read_capacity_units": 45.58,
+      "write_capacity_units": 40.92,
+      "rows_returned": 0,
+      "duration_ms": 34,
+      "cql_version": "3.11.2"
     }
   },
   "event": {
-    "duration": 3872472000,
-    "outcome": "failure",
+    "duration": 34334000,
+    "outcome": "success",
     "category": "database",
     "dataset": "aws.keyspaces",
     "provider": "cassandra.amazonaws.com"
   },
-  "message": "Keyspaces SELECT on prod_keyspace.users FAILED: Throughput exceeded",
+  "message": "Keyspaces DELETE on user_data.users: 34ms",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "WriteConflictException",
-    "message": "Keyspaces operation failed",
-    "type": "db"
+    "level": "info"
   }
 }

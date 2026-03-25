@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -12,63 +12,81 @@
     }
   },
   "trace": {
-    "id": "1-ayxt0vxb-up1fga7hyqc"
+    "id": "1-vil6ehfw-dc0b1aqrfe9"
   },
   "aws": {
     "dimensions": {
-      "ApiName": "prod-api",
-      "Stage": "prod",
-      "Method": "POST",
-      "Resource": "/api/v1/auth/login"
+      "ApiName": "internal-api",
+      "Stage": "staging",
+      "Method": "DELETE",
+      "Resource": "/api/v1/products"
     },
     "apigateway": {
-      "request_id": "da8pbqyh-kiif",
-      "api_id": "sjxk7f302y",
-      "domain_name": "sjxk7f302y.execute-api.us-west-2.amazonaws.com",
-      "stage": "prod",
-      "http_method": "POST",
-      "resource_path": "/api/v1/auth/login",
+      "request_id": "irqb6eq0-2czq",
+      "api_id": "q41ynhkzjf",
+      "domain_name": "q41ynhkzjf.execute-api.us-west-2.amazonaws.com",
+      "stage": "staging",
+      "http_method": "DELETE",
+      "resource_path": "/api/v1/products",
       "protocol": "HTTP/1.1",
-      "route_key": "POST /api/v1/auth/login",
-      "status": 400,
-      "response_length": 6381,
-      "ip_address": "242.158.89.244",
-      "user": "api-user",
-      "connection_id": "QN8MMGDJJDS",
+      "route_key": "DELETE /api/v1/products",
+      "status": 200,
+      "response_length": 454,
+      "ip_address": "2.226.10.54",
       "event_type": "MESSAGE",
-      "request_time": "2026-03-25T11:55:50.848Z"
+      "request_time": "2026-03-25T12:11:41.550Z",
+      "api_type": "REST",
+      "integration_latency": 33,
+      "metrics": {
+        "Count": {
+          "sum": 1
+        },
+        "Latency": {
+          "avg": 58,
+          "p99": 174
+        },
+        "IntegrationLatency": {
+          "avg": 33
+        },
+        "4XXError": {
+          "sum": 0
+        },
+        "5XXError": {
+          "sum": 0
+        }
+      }
     }
   },
   "http": {
     "request": {
-      "method": "POST",
-      "id": "da8pbqyh-kiif",
-      "bytes": 3653
+      "method": "DELETE",
+      "id": "irqb6eq0-2czq",
+      "bytes": 2861
     },
     "response": {
-      "status_code": 400,
-      "bytes": 341
+      "status_code": 200,
+      "bytes": 4455
     }
   },
   "url": {
-    "path": "/api/v1/auth/login",
-    "domain": "sjxk7f302y.execute-api.us-east-1.amazonaws.com"
+    "path": "/api/v1/products",
+    "domain": "q41ynhkzjf.execute-api.eu-west-2.amazonaws.com"
   },
   "client": {
-    "ip": "65.105.221.126",
+    "ip": "110.11.111.75",
     "geo": {
-      "country_iso_code": "BR",
-      "country_name": "Brazil",
-      "region_name": "São Paulo",
-      "city_name": "São Paulo"
+      "country_iso_code": "DE",
+      "country_name": "Germany",
+      "region_name": "Frankfurt",
+      "city_name": "Frankfurt"
     }
   },
   "user_agent": {
-    "original": "Go-http-client/1.1"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
-    "duration": 3245000000,
-    "outcome": "failure",
+    "duration": 58000000,
+    "outcome": "success",
     "category": [
       "web"
     ],
@@ -78,13 +96,8 @@
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "POST /api/v1/auth/login 400 3245ms",
+  "message": "DELETE /api/v1/products 200 58ms",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "BadRequestException",
-    "message": "HTTP 400",
-    "type": "server"
+    "level": "info"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "acm"
@@ -13,12 +13,12 @@
   },
   "aws": {
     "acm": {
-      "certificate_arn": "arn:aws:acm:us-east-1:293847561023:certificate/h34178zt-43n5",
-      "domain_name": "api.example.com",
+      "certificate_arn": "arn:aws:acm:eu-west-2:164820739518:certificate/ldwdfr4i-1k3v",
+      "domain_name": "*.example.com",
       "status": "ISSUED",
-      "type": "IMPORTED",
-      "days_to_expiry": 110,
-      "key_algorithm": "EC_prime256v1",
+      "type": "AMAZON_ISSUED",
+      "days_to_expiry": 117,
+      "key_algorithm": "RSA_2048",
       "validation_method": "DNS",
       "renewal_status": "SUCCESS"
     }
@@ -29,7 +29,7 @@
     "dataset": "aws.acm",
     "provider": "acm.amazonaws.com"
   },
-  "message": "ACM certificate for api.example.com: ISSUED, 110d remaining",
+  "message": "ACM certificate for *.example.com: ISSUED, 117d remaining",
   "log": {
     "level": "info"
   }

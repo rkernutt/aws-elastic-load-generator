@@ -118,6 +118,12 @@ function generateApiGatewayLog(ts, er) {
   const stage = rand(["prod","v1","v2","staging"]);
   const requestId = `${randId(8)}-${randId(4)}`.toLowerCase();
   const traceId = Math.random() < 0.5 ? `1-${randId(8).toLowerCase()}-${randId(24).toLowerCase()}` : null;
+  const apiType = rand(["REST","HTTP","HTTP","WEBSOCKET"]);
+  const isWebSocket = apiType === "WEBSOCKET";
+  const isRest = apiType === "REST";
+  const wsRouteKey = isWebSocket ? rand(["$connect","$disconnect","$default","message","subscribe"]) : null;
+  const cacheEnabled = isRest && Math.random() < 0.4;
+  const cacheHit = cacheEnabled && Math.random() < 0.7;
   const GEO_DATA = [
     { country_iso_code:"US", country_name:"United States", region_name:"Virginia",    city_name:"Ashburn"    },
     { country_iso_code:"GB", country_name:"United Kingdom", region_name:"London",      city_name:"London"     },
@@ -158,6 +164,18 @@ function generateApiGatewayLog(ts, er) {
         connection_id: rand([null, randId(20)]),
         event_type: rand(["MESSAGE","CONNECT","DISCONNECT"]),
         request_time: ts,
+        api_type: apiType,
+        integration_latency: integrationLat,
+        ...(isWebSocket ? { websocket_route_key: wsRouteKey, connection_id: randId(20) } : {}),
+        ...(cacheEnabled ? { cache_hit: cacheHit, cache_miss: !cacheHit } : {}),
+        metrics: {
+          Count: { sum: 1 },
+          Latency: { avg: lat, p99: lat * 3 },
+          IntegrationLatency: { avg: integrationLat },
+          "4XXError": { sum: status >= 400 && status < 500 ? 1 : 0 },
+          "5XXError": { sum: status >= 500 ? 1 : 0 },
+          ...(cacheEnabled ? { CacheHitCount: { sum: cacheHit ? 1 : 0 }, CacheMissCount: { sum: !cacheHit ? 1 : 0 } } : {}),
+        },
       }
     },
     "http": { request:{ method, id:requestId, bytes:randInt(100,5000) }, response:{ status_code:status, bytes:randInt(200,10000) } },
@@ -218,6 +236,12 @@ function generateAppRunnerLog(ts, er) {
       apprunner: {
         service_name: svc,
         service_arn: `arn:aws:apprunner:${region}:${acct.id}:service/${svc}/${svcId}`,
+        auto_scaling: {
+          min_size: rand([1,0,0]),
+          max_size: rand([10,25,50]),
+          desired_count: randInt(1, 10),
+          scale_from_zero: Math.random() < 0.1,
+        },
         structured_logging: useStructuredLogging,
         metrics: {
           Requests: { sum: 1 },

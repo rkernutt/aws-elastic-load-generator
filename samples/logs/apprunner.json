@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,12 +13,18 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "web-api",
-      "ServiceId": "5w9tkpiwqpc"
+      "ServiceName": "frontend",
+      "ServiceId": "w93xayvup5r"
     },
     "apprunner": {
-      "service_name": "web-api",
-      "service_arn": "arn:aws:apprunner:us-east-1:293847561023:service/web-api/5w9tkpiwqpc",
+      "service_name": "frontend",
+      "service_arn": "arn:aws:apprunner:eu-west-2:293847561023:service/frontend/w93xayvup5r",
+      "auto_scaling": {
+        "min_size": 0,
+        "max_size": 25,
+        "desired_count": 7,
+        "scale_from_zero": false
+      },
       "structured_logging": false,
       "metrics": {
         "Requests": {
@@ -37,42 +43,42 @@
           "sum": 1
         },
         "RequestLatency": {
-          "avg": 328,
-          "p99": 984
+          "avg": 28,
+          "p99": 84
         },
         "ActiveInstances": {
-          "avg": 10
+          "avg": 4
         },
         "ConcurrentRequests": {
-          "avg": 22
+          "avg": 15
         },
         "CPUUtilization": {
-          "avg": 12.469
+          "avg": 30.887
         },
         "MemoryUtilization": {
-          "avg": 64.735
+          "avg": 53.63
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "DELETE",
-      "bytes": 664
+      "method": "PATCH",
+      "bytes": 2058
     },
     "response": {
-      "status_code": 200,
-      "bytes": 1528
+      "status_code": 204,
+      "bytes": 4963
     }
   },
   "url": {
-    "path": "/api/v1/users"
+    "path": "/api/v1/products"
   },
   "client": {
-    "ip": "1.130.30.187"
+    "ip": "46.180.19.240"
   },
   "event": {
-    "duration": 328000000,
+    "duration": 28000000,
     "outcome": "success",
     "category": [
       "web",
@@ -81,7 +87,7 @@
     "dataset": "aws.apprunner",
     "provider": "apprunner.amazonaws.com"
   },
-  "message": "GET /api/v1/auth/login 200 328ms",
+  "message": "GET /api/v1/products 204 28ms",
   "log": {
     "level": "info"
   }

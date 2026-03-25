@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "imagebuilder"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "amazon-linux-cis",
+      "PipelineName": "container-base-pipeline",
       "Phase": "DISTRIBUTE"
     },
     "imagebuilder": {
-      "pipeline_name": "amazon-linux-cis",
+      "pipeline_name": "container-base-pipeline",
       "image_version": "3.16.6/1",
       "phase": "DISTRIBUTE",
       "phase_status": "COMPLETED",
-      "duration_seconds": 809,
-      "os": "Windows Server 2022",
-      "recipe_name": "docker-host",
-      "ami_id": "ami-29b58c11",
+      "duration_seconds": 852,
+      "os": "RHEL 9",
+      "recipe_name": "web-server-recipe",
+      "ami_id": "ami-b8i5eslt",
       "metrics": {
         "BuildDuration": {
-          "avg": 809
+          "avg": 852
         },
         "ImageBuildSuccessCount": {
           "sum": 1
@@ -36,7 +36,7 @@
           "sum": 0
         },
         "ComponentBuildDuration": {
-          "avg": 624
+          "avg": 137
         }
       }
     }
@@ -45,12 +45,12 @@
     "category": [
       "process"
     ],
-    "duration": 809000000000,
+    "duration": 852000000000,
     "outcome": "success",
     "dataset": "aws.imagebuilder",
     "provider": "imagebuilder.amazonaws.com"
   },
-  "message": "Testing image: ami-29b58c11 with test component aws:TestInfrastructureAssociation",
+  "message": "Running component: aws:RunShellScript",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "lookoutmetrics"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "AnomalyDetector": "revenue-anomaly",
+      "AnomalyDetector": "conversion-drop",
       "Metric": "p99_latency"
     },
     "lookoutmetrics": {
-      "anomaly_detector_arn": "arn:aws:lookoutmetrics:eu-west-2:293847561023:AnomalyDetector:revenue-anomaly",
-      "anomaly_group_id": "xktcl1iqm4",
+      "anomaly_detector_arn": "arn:aws:lookoutmetrics:us-east-1:738291046572:AnomalyDetector:conversion-drop",
+      "anomaly_group_id": "2dp25bo3dcy",
       "metric_name": "p99_latency",
-      "severity": "MEDIUM",
-      "anomaly_score": 4.861,
-      "relevant_dates": 7,
-      "impact_value": 188.853,
-      "expected_value": 9116.308,
-      "actual_value": 2246.466,
+      "severity": "LOW",
+      "anomaly_score": 3.649,
+      "relevant_dates": 30,
+      "impact_value": 88.167,
+      "expected_value": 6856.096,
+      "actual_value": 3259.227,
       "dimension": {
-        "region": "us-east-1"
+        "environment": "prod"
       },
       "sensitivity": "HIGH"
     }
@@ -40,7 +40,7 @@
     "dataset": "aws.lookoutmetrics",
     "provider": "lookoutmetrics.amazonaws.com"
   },
-  "message": "Lookout for Metrics [revenue-anomaly]: p99_latency anomaly_score=5",
+  "message": "Lookout for Metrics [conversion-drop]: p99_latency anomaly_score=4",
   "log": {
     "level": "info"
   }

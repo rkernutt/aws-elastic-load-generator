@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "elasticbeanstalk"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "my-web-app-production",
-      "InstanceId": "i-hm5brtqpmt5"
+      "EnvironmentName": "worker-app-staging",
+      "InstanceId": "i-jvrbegaka2"
     },
     "elasticbeanstalk": {
-      "application": "my-web-app",
-      "environment": "my-web-app-production",
-      "structured_logging": true,
-      "platform": "Node.js 18",
-      "version_label": "v82",
+      "application": "worker-app",
+      "environment": "worker-app-staging",
+      "structured_logging": false,
+      "platform": "Python 3.11",
+      "version_label": "v83",
       "metrics": {
         "ApplicationRequests2xx": {
           "sum": 1
@@ -36,28 +36,28 @@
           "sum": 0
         },
         "ApplicationLatencyP10": {
-          "avg": 12.486
+          "avg": 25.908
         },
         "ApplicationLatencyP50": {
-          "avg": 45.877
+          "avg": 46.641
         },
         "ApplicationLatencyP75": {
-          "avg": 53.317
+          "avg": 53.787
         },
         "ApplicationLatencyP85": {
-          "avg": 66.665
+          "avg": 68.462
         },
         "ApplicationLatencyP90": {
-          "avg": 73.555
+          "avg": 83.085
         },
         "ApplicationLatencyP95": {
-          "avg": 85.861
+          "avg": 99.793
         },
         "ApplicationLatencyP99": {
-          "avg": 152.55
+          "avg": 222.163
         },
         "ApplicationLatencyP99.9": {
-          "avg": 181.236
+          "avg": 425.39
         },
         "ApplicationRequests": {
           "sum": 1
@@ -72,7 +72,7 @@
           "avg": 0
         },
         "InstancesOk": {
-          "avg": 9
+          "avg": 6
         },
         "EnvironmentHealth": {
           "avg": 20
@@ -82,7 +82,7 @@
   },
   "http": {
     "response": {
-      "status_code": 201
+      "status_code": 200
     }
   },
   "log": {
@@ -96,9 +96,9 @@
     "outcome": "success",
     "dataset": "aws.elasticbeanstalk",
     "provider": "elasticbeanstalk.amazonaws.com",
-    "duration": 69000000000
+    "duration": 49000000000
   },
-  "message": "{\"application\":\"my-web-app\",\"environment\":\"my-web-app-production\",\"status\":201,\"message\":\"Environment health: OK\",\"timestamp\":\"2026-03-25T11:55:50.848Z\"}",
+  "message": "Rolling update complete",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.elasticbeanstalk",

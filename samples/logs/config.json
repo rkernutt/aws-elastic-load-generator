@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "config"
@@ -13,33 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "ConfigRuleName": "access-keys-rotated",
-      "ResourceType": "AWS::EC2::Instance"
+      "ConfigRuleName": "ec2-stopped-instance",
+      "ResourceType": "AWS::EC2::SecurityGroup"
     },
     "config": {
-      "rule_name": "access-keys-rotated",
-      "compliance_type": "INSUFFICIENT_DATA",
-      "resource_type": "AWS::EC2::Instance",
-      "resource_id": "s3-k3087fet",
-      "annotation": "Resource is compliant",
+      "rule_name": "ec2-stopped-instance",
+      "compliance_type": "NON_COMPLIANT",
+      "resource_type": "AWS::EC2::SecurityGroup",
+      "resource_id": "s3-v14bko6o",
+      "annotation": "Missing required tag",
       "metrics": {
         "ComplianceByConfigRule": {
-          "avg": 1
+          "avg": 0
         },
         "NonCompliantRules": {
-          "sum": 0
-        },
-        "CompliantRules": {
           "sum": 1
         },
+        "CompliantRules": {
+          "sum": 0
+        },
         "ConfigurationItemsRecorded": {
-          "sum": 53
+          "sum": 27
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "configuration",
       "compliance"
@@ -47,8 +47,13 @@
     "dataset": "aws.config",
     "provider": "config.amazonaws.com"
   },
-  "message": "Config rule PASSED: access-keys-rotated",
+  "message": "Config rule FAILED: ec2-stopped-instance",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "NonCompliant",
+    "message": "Config rule ec2-stopped-instance failed",
+    "type": "compliance"
   }
 }

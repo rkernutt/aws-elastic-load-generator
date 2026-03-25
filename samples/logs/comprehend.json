@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "comprehend"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "DetectEntities"
+      "Operation": "ClassifyDocument"
     },
     "comprehend": {
-      "operation": "DetectEntities",
-      "language_code": "ja",
-      "text_bytes": 97784,
-      "entities_detected": 6,
+      "operation": "ClassifyDocument",
+      "language_code": "de",
+      "text_bytes": 51765,
+      "entities_detected": 0,
       "key_phrases_detected": 0,
       "pii_entities_detected": 0,
-      "error_code": "UnsupportedLanguageException",
+      "error_code": "TextSizeLimitExceededException",
       "metrics": {
         "NumberOfSuccessfulRequest": {
           "sum": 1
@@ -31,7 +31,7 @@
           "sum": 1
         },
         "ResponseTime": {
-          "avg": 324.668
+          "avg": 425.938
         }
       }
     }
@@ -44,7 +44,7 @@
     "dataset": "aws.comprehend",
     "provider": "comprehend.amazonaws.com"
   },
-  "message": "Comprehend DetectEntities FAILED: Text too large",
+  "message": "Comprehend ClassifyDocument FAILED: Text too large",
   "log": {
     "level": "error"
   },

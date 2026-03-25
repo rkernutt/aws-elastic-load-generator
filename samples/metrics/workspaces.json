@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,26 +13,25 @@
   },
   "aws": {
     "dimensions": {
-      "DirectoryId": "d-5jrrzosazn",
-      "WorkspaceId": "ws-nntvpctc24"
+      "DirectoryId": "d-h13jfast07",
+      "WorkspaceId": "ws-9v1r8cgiln"
     },
     "workspaces": {
-      "workspace_id": "ws-nntvpctc24",
-      "user_name": "carol",
-      "bundle_type": "Graphics",
-      "workspace_state": "STOPPED",
+      "workspace_id": "ws-9v1r8cgiln",
+      "user_name": "alice",
+      "bundle_type": "Power",
+      "workspace_state": "CONNECTED",
       "action": "StopWorkspace",
       "compute_type": "VALUE",
-      "running_mode": "AUTO_STOP",
-      "client_ip": "18.218.202.107",
-      "client_os": "Ubuntu 22.04",
-      "error_code": "OperationNotSupportedException",
+      "running_mode": "ALWAYS_ON",
+      "client_ip": "188.193.237.253",
+      "client_os": "Windows 11",
       "metrics": {
         "Available": {
-          "sum": 0
+          "sum": 1
         },
         "Unhealthy": {
-          "sum": 1
+          "sum": 0
         },
         "ConnectionSuccess": {
           "sum": 0
@@ -44,10 +43,10 @@
           "sum": 0
         },
         "UserConnected": {
-          "sum": 0
+          "sum": 1
         },
         "Stopped": {
-          "sum": 1
+          "sum": 0
         },
         "Maintenance": {
           "sum": 0
@@ -56,30 +55,25 @@
     }
   },
   "user": {
-    "name": "carol"
+    "name": "alice"
   },
   "source": {
-    "ip": "6.163.254.121"
+    "ip": "252.117.222.114"
   },
   "event": {
     "action": "StopWorkspace",
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "host",
       "session"
     ],
     "dataset": "aws.workspaces",
     "provider": "workspaces.amazonaws.com",
-    "duration": 7129000000
+    "duration": 2574000000
   },
-  "message": "WorkSpaces StopWorkspace FAILED for carol (ws-nntvpctc24)",
-  "error": {
-    "code": "WorkSpacesError",
-    "message": "WorkSpaces operation failed",
-    "type": "session"
-  },
+  "message": "WorkSpaces StopWorkspace: alice on ws-9v1r8cgiln [CONNECTED]",
   "log": {
-    "level": "error"
+    "level": "info"
   },
   "data_stream": {
     "type": "metrics",

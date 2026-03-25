@@ -172,55 +172,72 @@ function generateMacieLog(ts, er) {
 
 function generateInspectorLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
-  const isFinding = Math.random() < (er + 0.35);
-  const sev = isFinding ? rand(["CRITICAL","HIGH","MEDIUM","LOW","INFORMATIONAL"]) : "INFORMATIONAL";
-  const pkgs = ["openssl","log4j","libssl","python3","java-11","nodejs","curl"];
-  const cveYear = randInt(2020,2024); const cveNum = randInt(1000,99999);
-  const cveId = `CVE-${cveYear}-${cveNum}`;
-  const findingType = isFinding ? rand(["PACKAGE_VULNERABILITY","NETWORK_REACHABILITY","CODE_VULNERABILITY"]) : "NONE";
-  const pkgName = rand(pkgs);
-  const pkgVersion = `${randInt(1,3)}.${randInt(0,20)}.${randInt(0,50)}`;
-  const fixAvailable = Math.random()>0.3?"YES":"NO";
-  const fixVersion = fixAvailable==="YES" ? `${randInt(1,3)}.${randInt(0,20)}.${randInt(0,50)+1}` : null;
+  const isErr = Math.random() < er;
+  const findingType = rand(["PACKAGE_VULNERABILITY","PACKAGE_VULNERABILITY","PACKAGE_VULNERABILITY","NETWORK_REACHABILITY","CODE_VULNERABILITY"]);
+  const severity = isErr ? rand(["CRITICAL","HIGH"]) : rand(["MEDIUM","LOW","INFORMATIONAL","HIGH"]);
+  const resourceType = rand(["AWS_EC2_INSTANCE","AWS_ECR_CONTAINER_IMAGE","AWS_LAMBDA_FUNCTION","AWS_EC2_INSTANCE"]);
+  const cvssScore = severity === "CRITICAL" ? parseFloat(randFloat(9.0, 10.0)) : severity === "HIGH" ? parseFloat(randFloat(7.0, 8.9)) : severity === "MEDIUM" ? parseFloat(randFloat(4.0, 6.9)) : parseFloat(randFloat(0.1, 3.9));
+  const cveId = `CVE-${randInt(2020,2024)}-${randInt(10000,99999)}`;
+  const packageName = rand(["openssl","libssl","curl","log4j","spring-core","jackson-databind","lodash","axios","requests","werkzeug"]);
+  const packageVersion = `${randInt(1,3)}.${randInt(0,20)}.${randInt(0,10)}`;
+  const fixedVersion = `${randInt(1,3)}.${randInt(0,20)}.${randInt(11,20)}`;
+  const resourceId = resourceType === "AWS_EC2_INSTANCE" ? `i-${randId(17).toLowerCase()}` :
+    resourceType === "AWS_ECR_CONTAINER_IMAGE" ? `${acct.id}.dkr.ecr.${region}.amazonaws.com/my-repo:latest` :
+    `arn:aws:lambda:${region}:${acct.id}:function:my-fn`;
+  const exploitability = rand(["NOT_DEFINED","PROOF_OF_CONCEPT","FUNCTIONAL","HIGH","NOT_DEFINED","NOT_DEFINED"]);
   return {
     "@timestamp": ts,
-    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"inspector" } },
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"inspector2" } },
     "aws": {
-      dimensions: { ResourceType:rand(["AWS_EC2_INSTANCE","AWS_ECR_CONTAINER_IMAGE","AWS_LAMBDA_FUNCTION"]) },
-      inspector: {
-        finding_id: `arn:aws:inspector2:${region}:${acct.id}:finding/${randId(8)}-${randId(4)}`,
+      dimensions: { Severity: severity },
+      inspector2: {
+        finding_id: `arn:aws:inspector2:${region}:${acct.id}:finding/${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase(),
         finding_type: findingType,
-        severity: sev, inspector_score: isFinding?parseFloat(randFloat(4,10)):0,
-        status: isFinding ? rand(["ACTIVE","SUPPRESSED"]) : "CLOSED",
-        type: findingType,
-        vulnerable_package: { name:pkgName, version:pkgVersion },
-        affected_packages: isFinding ? [{ name:pkgName, version:pkgVersion, fix_available:fixAvailable, ...(fixVersion?{remediation:`Update to ${fixVersion}`}:{}) }] : [],
-        cve_id: isFinding ? cveId : null,
-        resource_type: rand(["AWS_EC2_INSTANCE","AWS_ECR_CONTAINER_IMAGE","AWS_LAMBDA_FUNCTION"]),
-        package_vulnerability_details: isFinding ? {
-          cvss: [{ base_score: parseFloat(randFloat(4,10)), scoring_vector: rand(["AV:N/AC:L/Au:N/C:C/I:C/A:C","AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"]), source: rand(["NVD","UBUNTU_CVE","REDHAT_CVE"]), version: "3.1" }],
-          source: rand(["NVD","UBUNTU_CVE","REDHAT_CVE"]),
-        } : null,
-        resources: [{
-          details: {
-            aws: {
-              ec2_instance: rand(["AWS_EC2_INSTANCE","AWS_ECR_CONTAINER_IMAGE"]) === "AWS_EC2_INSTANCE" ? { iam_instance_profile_arn: `arn:aws:iam::${acct.id}:instance-profile/ec2-role`, image_id: `ami-${randId(8).toLowerCase()}` } : undefined,
-              ecr_container_image: rand(["AWS_ECR_CONTAINER_IMAGE","AWS_EC2_INSTANCE"]) === "AWS_ECR_CONTAINER_IMAGE" ? { repository_name: rand(["app-server","api","worker"]), image: { tags: [`v${randInt(1,5)}.${randInt(0,20)}.${randInt(0,50)}`] } } : undefined,
-            }
+        finding_status: rand(["ACTIVE","ACTIVE","ACTIVE","SUPPRESSED"]),
+        severity,
+        severity_score: parseFloat(cvssScore.toFixed(1)),
+        exploitability,
+        resource_type: resourceType,
+        resource_id: resourceId,
+        first_observed_at: new Date(new Date(ts).getTime() - randInt(1,30)*86400000).toISOString(),
+        last_observed_at: ts,
+        ...(findingType === "PACKAGE_VULNERABILITY" ? {
+          package_vulnerability: {
+            cve_id: cveId,
+            source: rand(["NVD","GHSA"]),
+            cvss3_score: cvssScore,
+            vulnerable_packages: [{ name: packageName, version: packageVersion, fixed_in_version: fixedVersion, package_manager: rand(["OS","PYTHON","NPM","JAVA","DOTNET"]) }],
+            related_vulnerabilities: Math.random() < 0.3 ? [`CVE-${randInt(2020,2024)}-${randInt(10000,99999)}`] : [],
           }
-        }],
+        } : findingType === "NETWORK_REACHABILITY" ? {
+          network_reachability: {
+            protocol: rand(["TCP","UDP"]),
+            open_port_range: { begin: rand([22,80,443,3306,5432,6379,8080]), end: rand([22,80,443,3306,5432,6379,8080]) },
+            network_path: rand(["sg -> igw","sg -> nat -> igw","sg -> vpc-peering"]),
+          }
+        } : {
+          code_vulnerability: {
+            cwes: [rand(["CWE-89","CWE-79","CWE-20","CWE-287","CWE-311"])],
+            detector_name: rand(["CodeGuru Detector","Semgrep"]),
+            file_path: { name: rand(["app.py","handler.js","main.go","Controller.java"]), line_number: randInt(10, 500) },
+          }
+        }),
         metrics: {
-          TotalFindings: { sum: isFinding ? randInt(1,20) : 0 },
-          CriticalFindings: { sum: isFinding&&sev==="CRITICAL" ? randInt(1,5) : 0 },
-          HighFindings: { sum: isFinding&&sev==="HIGH" ? randInt(1,10) : 0 },
+          TotalFindings: { sum: randInt(1, 500) },
+          CriticalFindings: { sum: severity === "CRITICAL" ? randInt(1, 50) : 0 },
+          HighFindings: { sum: severity === "HIGH" ? randInt(1, 100) : 0 },
+          MediumFindings: { sum: severity === "MEDIUM" ? randInt(1, 200) : 0 },
+          LowFindings: { sum: ["LOW","INFORMATIONAL"].includes(severity) ? randInt(1, 300) : 0 },
+          CoveredResources: { avg: randInt(10, 5000) },
         }
       }
     },
-    "vulnerability": { id:isFinding?cveId:null, title:isFinding?`${pkgName} vulnerability: ${cveId}`:null, severity:sev, score:{ base: isFinding?parseFloat(parseFloat(randFloat(1,10)).toFixed(1)):0 } },
-    "event": { kind:"alert", outcome:isFinding?"failure":"success", category:["vulnerability","package"], dataset:"aws.inspector", provider:"inspector2.amazonaws.com" },
-    "message": isFinding ? `Inspector [${sev}]: ${cveId} found in ${pkgName}` : `Inspector scan: no vulnerabilities found`,
-    "log": { level:sev==="CRITICAL"?"error":sev==="HIGH"?"warn":"info" },
-    ...(isFinding ? { error: { code: "VulnerabilityFound", message: `CVE found: ${cveId}`, type: "vulnerability" } } : {})
+    "vulnerability": { severity, id: findingType === "PACKAGE_VULNERABILITY" ? cveId : undefined, score: { base: cvssScore } },
+    "package": findingType === "PACKAGE_VULNERABILITY" ? { name: packageName, version: packageVersion } : undefined,
+    "event": { outcome: ["CRITICAL","HIGH"].includes(severity)?"failure":"success", category:["vulnerability"], type:["info"], dataset:"aws.inspector2", provider:"inspector2.amazonaws.com" },
+    "message": findingType === "PACKAGE_VULNERABILITY" ? `Inspector2 [${severity}]: ${cveId} in ${packageName} ${packageVersion} on ${resourceType} (fix: ${fixedVersion})` : `Inspector2 [${severity}]: ${findingType} detected on ${resourceType}`,
+    "log": { level: ["CRITICAL","HIGH"].includes(severity) ? "error" : severity === "MEDIUM" ? "warn" : "info" },
+    ...(["CRITICAL","HIGH"].includes(severity) ? { error: { code: cveId, message: `${severity} vulnerability: ${packageName}`, type: "vulnerability" } } : {})
   };
 }
 
@@ -420,6 +437,140 @@ function generateDetectiveLog(ts, er) {
     ...(isFinding ? { error: { code: "AnomalousBehavior", message: `${behavior} detected`, type: "security" } } : {})};
 }
 
+function generateVerifiedAccessLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount();
+  const isErr = Math.random() < er;
+  const user = rand(["alice@example.com","bob@example.com","carol@example.com","deploy-svc@example.com","contractor@partner.com"]);
+  const app = rand(["internal-dashboard","admin-portal","dev-tools","staging-api","git-server"]);
+  const trustProvider = rand(["iam-identity-center","oidc-okta","oidc-azure-ad","oidc-okta"]);
+  const devicePosture = isErr ? rand(["NON_COMPLIANT","UNKNOWN"]) : rand(["COMPLIANT","COMPLIANT","COMPLIANT","UNKNOWN"]);
+  const denied = isErr || devicePosture === "NON_COMPLIANT";
+  const denyReason = denied ? rand(["device_compliance_check_failed","mfa_required","trust_provider_unavailable","policy_evaluation_failed"]) : null;
+  const httpMethod = rand(HTTP_METHODS);
+  const httpPath = rand(HTTP_PATHS);
+  const httpStatus = denied ? rand([401,403]) : rand([200,200,201,204]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"verified-access" } },
+    "aws": {
+      dimensions: { ApplicationId: `va-app-${randId(8).toLowerCase()}` },
+      verifiedaccess: {
+        endpoint_id: `vae-${randId(17).toLowerCase()}`,
+        group_id: `vag-${randId(17).toLowerCase()}`,
+        instance_id: `vai-${randId(17).toLowerCase()}`,
+        policy_name: rand(["require-mfa","corporate-device","require-mfa-and-device","jump-server-only"]),
+        trust_provider_type: trustProvider,
+        device_posture: devicePosture,
+        verdict: denied ? "deny" : "allow",
+        deny_reason: denyReason,
+        http_method: httpMethod,
+        http_path: httpPath,
+        http_status: httpStatus,
+        request_id: randUUID(),
+        connection_id: randId(20),
+        session_id: randId(32),
+        sni_hostname: `${app}.internal.example.com`,
+        application_name: app,
+      }
+    },
+    "user": { email: user, name: user.split("@")[0] },
+    "source": { ip: randIp() },
+    "event": { outcome: denied?"failure":"success", category:["authentication","network"], type:[denied?"denied":"allowed"], dataset:"aws.verifiedaccess", provider:"verified-access.amazonaws.com", duration: randInt(1, 200)*1e6 },
+    "message": denied ? `Verified Access DENIED: ${user} -> ${app} [${denyReason}]` : `Verified Access allowed: ${user} -> ${app} (${devicePosture})`,
+    "log": { level: denied ? "warn" : "info" },
+    ...(denied ? { error: { code: "AccessDenied", message: `Verified Access policy denied: ${denyReason}`, type: "authentication" } } : {})
+  };
+}
+
+function generateSecurityLakeLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount();
+  const isErr = Math.random() < er;
+  const ocsfClass = rand(["API_ACTIVITY","API_ACTIVITY","NETWORK_ACTIVITY","NETWORK_ACTIVITY","DNS_ACTIVITY","HTTP_ACTIVITY","AUTHENTICATION","SECURITY_FINDING"]);
+  const classMap = {
+    API_ACTIVITY:     { class_uid: 6003, class_name: "API Activity",     category_uid: 6, category_name: "Application Activity",              source_type: "LAMBDA:CloudTrail" },
+    NETWORK_ACTIVITY: { class_uid: 4001, class_name: "Network Activity",  category_uid: 4, category_name: "Network Activity",                  source_type: "LAMBDA:VpcFlow" },
+    DNS_ACTIVITY:     { class_uid: 4003, class_name: "DNS Activity",      category_uid: 4, category_name: "Network Activity",                  source_type: "LAMBDA:Route53" },
+    HTTP_ACTIVITY:    { class_uid: 4002, class_name: "HTTP Activity",     category_uid: 4, category_name: "Network Activity",                  source_type: "LAMBDA:ALB" },
+    AUTHENTICATION:   { class_uid: 3002, class_name: "Authentication",    category_uid: 3, category_name: "Identity & Access Management Activity", source_type: "LAMBDA:CloudTrail" },
+    SECURITY_FINDING: { class_uid: 2001, class_name: "Security Finding",  category_uid: 2, category_name: "Findings",                          source_type: "LAMBDA:SecurityHub" },
+  };
+  const cls = classMap[ocsfClass];
+  const activityId = rand([1,2,3,4,5]);
+  const activityName = rand(["Create","Read","Update","Delete","Other"]);
+  const severityId = isErr ? rand([5,6]) : rand([1,2,3]);
+  const severityName = { 1:"Informational", 2:"Low", 3:"Medium", 5:"High", 6:"Critical" }[severityId];
+  const statusId = isErr ? 2 : 1;
+  const srcIp = randIp(); const dstIp = randIp();
+  const user = rand(["alice","bob","carol","deploy-bot","svc-account"]);
+  let classFields = {};
+  if (ocsfClass === "API_ACTIVITY") {
+    classFields = {
+      api: { operation: rand(["RunInstances","CreateBucket","AssumeRole","PutObject","CreateUser","AttachRolePolicy"]), service: { name: rand(["ec2.amazonaws.com","s3.amazonaws.com","iam.amazonaws.com","sts.amazonaws.com"]) }, request: { uid: randUUID() }, response: { code: isErr ? rand([401,403,400]) : 200 } },
+      actor: { user: { uid: `arn:aws:iam::${acct.id}:user/${user}`, name: user, type: "IAMUser" }, session: { uid: `ASIA${randId(16).toUpperCase()}`, is_mfa: Math.random() < 0.7 } },
+      src_endpoint: { ip: srcIp },
+    };
+  } else if (ocsfClass === "NETWORK_ACTIVITY") {
+    const proto = rand([6,17,1]);
+    classFields = {
+      src_endpoint: { ip: srcIp, port: randInt(1024, 65535) },
+      dst_endpoint: { ip: dstIp, port: rand([22,80,443,3306,5432,8080]) },
+      connection_info: { protocol_num: proto, protocol_name: { 6:"TCP",17:"UDP",1:"ICMP" }[proto], direction: rand(["Inbound","Outbound"]), direction_id: rand([1,2]) },
+      traffic: { bytes: randInt(40, 1e6), packets: randInt(1, 100) },
+    };
+  } else if (ocsfClass === "HTTP_ACTIVITY") {
+    classFields = {
+      http_request: { method: rand(HTTP_METHODS), url: { path: rand(HTTP_PATHS), hostname: `api.example.com` }, user_agent: rand(USER_AGENTS) },
+      http_response: { code: isErr ? rand([400,403,500,503]) : rand([200,200,201]) },
+      src_endpoint: { ip: srcIp }, dst_endpoint: { ip: dstIp },
+    };
+  } else if (ocsfClass === "AUTHENTICATION") {
+    classFields = {
+      actor: { user: { name: user, uid: `arn:aws:iam::${acct.id}:user/${user}` }, session: { is_mfa: Math.random() < 0.7, uid: `ASIA${randId(16).toUpperCase()}` } },
+      auth_protocol: rand(["SAML","OIDC","IAM"]),
+      src_endpoint: { ip: srcIp },
+      is_mfa: Math.random() < 0.7,
+    };
+  } else if (ocsfClass === "SECURITY_FINDING") {
+    classFields = {
+      finding: { uid: randUUID(), title: rand(["UnauthorizedAccess:IAMUser/MaliciousIPCaller","CryptoCurrency:EC2/BitcoinTool","Trojan:EC2/DNSDataExfiltration","Recon:EC2/PortProbeUnprotectedPort"]), types: [rand(["TTPs/Discovery","Effects/DataExposure","TTPs/Initial Access"])], first_seen_time: new Date(new Date(ts).getTime() - randInt(1,72)*3600000).getTime(), last_seen_time: new Date(ts).getTime(), confidence_score: randInt(1,100) },
+    };
+  } else if (ocsfClass === "DNS_ACTIVITY") {
+    classFields = {
+      query: { hostname: rand([`suspicious-${randId(8)}.io`,`malware-${randId(6)}.ru`,`normal-site.com`,`api.service.com`]), type: rand(["A","AAAA","CNAME","MX","TXT"]), type_id: rand([1,28,5,15,16]) },
+      src_endpoint: { ip: srcIp },
+      answers: [{ rdata: dstIp, type: "A" }],
+    };
+  }
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"securitylake" } },
+    "aws": {
+      dimensions: { OcsfClass: cls.class_name, SourceType: cls.source_type },
+      securitylake: {
+        source_type: cls.source_type,
+        class_uid: cls.class_uid,
+        class_name: cls.class_name,
+        category_uid: cls.category_uid,
+        category_name: cls.category_name,
+        activity_id: activityId,
+        activity_name: activityName,
+        severity_id: severityId,
+        severity: severityName,
+        status_id: statusId,
+        status: statusId === 1 ? "Success" : "Failure",
+        time: new Date(ts).getTime(),
+        metadata: { version: "1.1.0", product: { name: cls.source_type.split(":")[1], vendor_name: "AWS" }, uid: randUUID() },
+        ocsf_cloud: { provider: "AWS", account: { uid: acct.id }, region },
+        ...classFields,
+      }
+    },
+    "event": { outcome: isErr?"failure":"success", category:["intrusion_detection","network"], dataset:"aws.securitylake", provider:"securitylake.amazonaws.com" },
+    "message": `Security Lake [${cls.class_name}/${activityName}] ${severityName}: ${cls.source_type.split(":")[1]} ${statusId === 1 ? "success" : "failure"}`,
+    "log": { level: severityId >= 5 ? "error" : severityId >= 3 ? "warn" : "info" },
+    ...(isErr ? { error: { code: "SecurityEvent", message: `Security Lake ${cls.class_name} failure`, type: "security" } } : {})
+  };
+}
+
 function generateCloudTrailLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const isErr = Math.random() < er;
@@ -540,4 +691,4 @@ function generateCloudTrailLog(ts, er) {
   };
 }
 
-export { generateGuardDutyLog, generateSecurityHubLog, generateMacieLog, generateInspectorLog, generateConfigLog, generateAccessAnalyzerLog, generateCognitoLog, generateKmsLog, generateSecretsManagerLog, generateAcmLog, generateIamIdentityCenterLog, generateDetectiveLog, generateCloudTrailLog };
+export { generateGuardDutyLog, generateSecurityHubLog, generateMacieLog, generateInspectorLog, generateConfigLog, generateAccessAnalyzerLog, generateCognitoLog, generateKmsLog, generateSecretsManagerLog, generateAcmLog, generateIamIdentityCenterLog, generateDetectiveLog, generateCloudTrailLog, generateVerifiedAccessLog, generateSecurityLakeLog };

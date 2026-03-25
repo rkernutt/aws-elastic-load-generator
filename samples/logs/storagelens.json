@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,45 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "StorageLensConfigurationId": "default",
-      "StorageType": "IntelligentTiering"
+      "StorageLensConfigurationId": "cost-optimization",
+      "StorageType": "Standard"
     },
     "s3storagelens": {
-      "config_id": "default",
-      "bucket_count": 29,
-      "total_storage_bytes": 68926804462728,
-      "total_object_count": 8445682278,
-      "storage_type": "IntelligentTiering",
+      "config_id": "cost-optimization",
+      "bucket_count": 68,
+      "total_storage_bytes": 30171447106041,
+      "total_object_count": 8759023744,
+      "storage_type": "Standard",
       "metrics": {
         "BucketCount": {
-          "avg": 29
+          "avg": 68
         },
         "TotalStorageBytes": {
-          "sum": 68926804462728
+          "sum": 30171447106041
         },
         "TotalObjectCount": {
-          "sum": 8445682278
+          "sum": 8759023744
         },
         "BytesUsed": {
-          "sum": 68926804462728
+          "sum": 30171447106041
         },
         "ObjectCount": {
-          "sum": 8445682278
+          "sum": 8759023744
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "metric"
     ],
     "dataset": "aws.s3_storage_lens",
     "provider": "s3.amazonaws.com",
-    "duration": 299000000000
+    "duration": 280000000000
   },
-  "message": "S3 Storage Lens default: 29 buckets, 68926.8 GB, 8445682278 objects",
+  "message": "S3 Storage Lens cost-optimization: report generation failed",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ReportGenerationFailed",
+    "message": "Storage Lens report failed",
+    "type": "storage"
   }
 }

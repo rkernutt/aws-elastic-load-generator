@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "vpc"
@@ -13,53 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "VpcId": "vpc-fcv493xp"
+      "VpcId": "vpc-ynfsibq1"
     },
     "vpcflow": {
       "version": "2",
-      "account_id": "293847561023",
-      "interface_id": "eni-ozoq48b4",
+      "account_id": "814726593401",
+      "interface_id": "eni-2j2xejfj",
       "action": "ACCEPT",
       "log_status": "OK",
-      "instance_id": "i-mu1d7lodngi",
-      "pkt_srcaddr": "11.178.143.209",
-      "pkt_dstaddr": "158.25.25.97",
-      "vpc_id": "vpc-fcv493xp",
-      "subnet_id": "subnet-i8u3zm3m",
+      "pkt_srcaddr": "84.127.105.109",
+      "pkt_dstaddr": "96.83.34.95",
+      "vpc_id": "vpc-ynfsibq1",
+      "subnet_id": "subnet-nzx8hbw8",
       "type": "IPv4"
     }
   },
   "source": {
-    "ip": "11.178.143.209",
-    "port": 10222,
+    "ip": "84.127.105.109",
+    "port": 59970,
     "geo": {
       "country_iso_code": "US",
       "country_name": "United States",
-      "city_name": "San Francisco",
+      "city_name": "Dallas",
       "location": {
-        "lat": 37.7749,
-        "lon": -122.4194
+        "lat": 32.7767,
+        "lon": -96.797
       }
     }
   },
   "destination": {
-    "ip": "158.25.25.97",
-    "port": 22,
+    "ip": "96.83.34.95",
+    "port": 5432,
     "geo": {
-      "country_iso_code": "RU",
-      "country_name": "Russia",
-      "city_name": "Moscow",
+      "country_iso_code": "SG",
+      "country_name": "Singapore",
+      "city_name": "Singapore",
       "location": {
-        "lat": 55.7558,
-        "lon": 37.6173
+        "lat": 1.3521,
+        "lon": 103.8198
       }
     }
   },
   "network": {
     "transport": "tcp",
-    "bytes": 10040,
-    "packets": 10,
-    "direction": "inbound"
+    "bytes": 79173,
+    "packets": 57,
+    "direction": "outbound"
   },
   "event": {
     "action": "accept",
@@ -72,9 +71,9 @@
     ],
     "dataset": "aws.vpcflow",
     "provider": "ec2.amazonaws.com",
-    "duration": 62000000
+    "duration": 189000000
   },
-  "message": "2 293847561023 eni-ozoq48b4 11.178.143.209 158.25.25.97 10222 22 6 10 10040 1774439750 1774439752 ACCEPT OK",
+  "message": "2 814726593401 eni-2j2xejfj 84.127.105.109 96.83.34.95 59970 5432 6 57 79173 1774440701 1774440755 ACCEPT OK",
   "log": {
     "level": "info"
   }

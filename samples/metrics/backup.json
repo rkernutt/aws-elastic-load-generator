@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "backup"
@@ -13,13 +13,13 @@
   },
   "aws": {
     "backup": {
-      "backup_job_id": "0htjllhj-k638-vi9x",
-      "backup_plan_name": "critical-data-plan",
-      "resource_type": "EFS",
+      "backup_job_id": "vjon8k5f-5c4j-48zf",
+      "backup_plan_name": "daily-backup-plan",
+      "resource_type": "DynamoDB",
       "backup_vault_name": "prod-vault",
       "status": "COMPLETED",
-      "backup_size_gb": 226.748,
-      "lifecycle_delete_after_days": 365
+      "backup_size_gb": 1351.454,
+      "lifecycle_delete_after_days": 30
     }
   },
   "event": {
@@ -29,9 +29,9 @@
     ],
     "dataset": "aws.backup",
     "provider": "backup.amazonaws.com",
-    "duration": 7104000000000
+    "duration": 4882000000000
   },
-  "message": "AWS Backup COMPLETED: dynamodb/users-table -> prod-vault (226.7GB)",
+  "message": "AWS Backup COMPLETED: ec2/i-prod -> prod-vault (1351.5GB)",
   "log": {
     "level": "info"
   },

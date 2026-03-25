@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "amazonmq"
@@ -13,61 +13,61 @@
   },
   "aws": {
     "amazonmq": {
-      "broker_id": "b-x06ha645-x7ot",
+      "broker_id": "b-skui2u2p-cof5",
       "broker_name": "order-processor",
       "broker_engine": "RabbitMQ",
       "engine_version": "3.12.1",
-      "deployment_mode": "ACTIVE_STANDBY_MULTI_AZ",
-      "queue_name": "dlq.orders",
-      "messages_in": 4563,
-      "messages_out": 5387,
-      "queue_depth": 4722,
-      "broker_memory_percent": 25,
+      "deployment_mode": "SINGLE_INSTANCE",
+      "queue_name": "payment.queue",
+      "messages_in": 9403,
+      "messages_out": 9045,
+      "queue_depth": 4837,
+      "broker_memory_percent": 27,
       "metrics": {
         "ConsumerCount": {
-          "avg": 80
+          "avg": 51
         },
         "ProducerCount": {
-          "avg": 29
+          "avg": 21
         },
         "QueueSize": {
-          "avg": 796
+          "avg": 4732
         },
         "EnqueueCount": {
-          "sum": 9423
+          "sum": 9111
         },
         "DequeueCount": {
-          "sum": 1856
+          "sum": 5562
         },
         "InFlightCount": {
-          "avg": 342
+          "avg": 384
         },
         "DispatchCount": {
-          "sum": 158
+          "sum": 1256
         },
         "ExpiredCount": {
-          "sum": 55
+          "sum": 14
         },
         "NetworkConnectorStarted": {
           "sum": 0
         },
         "HeapUsage": {
-          "avg": "43.016"
+          "avg": "29.177"
         },
         "StorePercentUsage": {
-          "avg": "24.704"
+          "avg": "45.134"
         },
         "TotalEnqueueCount": {
-          "sum": 688260
+          "sum": 257717
         },
         "TotalDequeueCount": {
-          "sum": 717930
+          "sum": 282236
         },
         "TotalConsumerCount": {
-          "avg": 70
+          "avg": 85
         },
         "TotalProducerCount": {
-          "avg": 1
+          "avg": 40
         }
       }
     }
@@ -80,7 +80,7 @@
     ],
     "dataset": "aws.amazonmq",
     "provider": "mq.amazonaws.com",
-    "duration": 1246000000
+    "duration": 62000000
   },
   "message": "Producer connected",
   "log": {

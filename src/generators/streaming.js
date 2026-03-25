@@ -311,12 +311,18 @@ function generateStepFunctionsLog(ts, er) {
   const isErr = Math.random() < er;
   const machine = rand(["order-fulfillment","user-onboarding","data-pipeline","approval-workflow","batch-processor"]);
   const state = rand(["ValidateInput","ProcessPayment","SendNotification","UpdateDatabase","HandleError"]);
-  const dur = parseFloat(randFloat(0.1, isErr?600:30));
+  const workflowType = rand(["STANDARD","EXPRESS","EXPRESS"]);
+  const isExpress = workflowType === "EXPRESS";
+  // Express: max 5 min; Standard: can run for days
+  const maxDurS = isExpress ? 300 : (isErr ? 3600 : 86400);
+  const dur = parseFloat(randFloat(0.1, isErr ? Math.min(60, maxDurS) : Math.min(maxDurS, 30)));
+  const stateDur = parseFloat(randFloat(0.01, dur));
   const executionArn = `arn:aws:states:${region}:${acct.id}:execution:${machine}:${randId(8).toLowerCase()}`;
+  const startTime = new Date(new Date(ts).getTime() - dur * 1000).toISOString();
   const stepMsgPool = isErr ? ["Execution failed",`Step Functions ${machine} FAILED at state ${state}: ${rand(["Lambda error","Timeout","States.TaskFailed"])}`] : ["Execution started","Execution succeeded",`Step Functions ${machine} SUCCEEDED in ${dur.toFixed(1)}s`];
   const plainMessage = rand(stepMsgPool);
   const useStructuredLogging = Math.random() < 0.55;
-  const message = useStructuredLogging ? JSON.stringify({ executionArn, stateMachine: machine, state, status: isErr?"FAILED":"SUCCEEDED", durationSeconds: dur, timestamp: new Date(ts).toISOString() }) : plainMessage;
+  const message = useStructuredLogging ? JSON.stringify({ executionArn, stateMachine: machine, workflowType, state, status: isErr?"FAILED":"SUCCEEDED", durationSeconds: dur, timestamp: new Date(ts).toISOString() }) : plainMessage;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"states" } },
@@ -326,15 +332,29 @@ function generateStepFunctionsLog(ts, er) {
         state_machine_name: machine,
         state_machine_arn: `arn:aws:states:${region}:${acct.id}:stateMachine:${machine}`,
         execution_arn: executionArn,
-        state_name: state, status: isErr?"FAILED":"SUCCEEDED", duration_seconds: dur,
+        workflow_type: workflowType,
+        execution_start_time: startTime,
+        state_name: state,
+        state_duration_seconds: stateDur,
+        status: isErr ? "FAILED" : "SUCCEEDED",
+        duration_seconds: dur,
         structured_logging: useStructuredLogging,
-        metrics: {
-          ExecutionsStarted: { sum: randInt(1,1000) },
-          ExecutionsSucceeded: { sum: isErr ? 0 : randInt(1,1000) },
-          ExecutionsFailed: { sum: isErr ? randInt(1,50) : 0 },
-          ExecutionsAborted: { sum: randInt(0,5) },
-          ExecutionsTimedOut: { sum: isErr ? randInt(0,10) : 0 },
-          ExecutionThrottled: { sum: isErr ? randInt(0,20) : 0 },
+        metrics: isExpress ? {
+          // Express workflows: high-volume, async, no history retention
+          ExecutionsStarted: { sum: randInt(100, 100000) },
+          ExecutionsSucceeded: { sum: isErr ? 0 : randInt(100, 100000) },
+          ExecutionsFailed: { sum: isErr ? randInt(1, 1000) : 0 },
+          ExecutionThrottled: { sum: isErr ? randInt(0, 500) : 0 },
+          ExecutionTime: { avg: dur*1000, p99: dur*3000 },
+          ExecutionsTimedOut: { sum: isErr ? randInt(0, 50) : 0 },
+        } : {
+          // Standard workflows: lower volume, exactly-once, full history
+          ExecutionsStarted: { sum: randInt(1, 1000) },
+          ExecutionsSucceeded: { sum: isErr ? 0 : randInt(1, 1000) },
+          ExecutionsFailed: { sum: isErr ? randInt(1, 50) : 0 },
+          ExecutionsAborted: { sum: randInt(0, 5) },
+          ExecutionsTimedOut: { sum: isErr ? randInt(0, 10) : 0 },
+          ExecutionThrottled: { sum: isErr ? randInt(0, 20) : 0 },
           ExecutionTime: { avg: dur*1000, max: dur*2000 },
         }
       }
@@ -342,7 +362,7 @@ function generateStepFunctionsLog(ts, er) {
     "event": { duration:dur*1e9, outcome:isErr?"failure":"success", category:"process", dataset:"aws.stepfunctions", provider:"states.amazonaws.com" },
     "message": message,
     "log": { level:isErr?"error":"info" },
-    ...(isErr ? { error: { code: "States.TaskFailed", message: `Step Functions failed at ${state}`, type: "workflow" } } : {})
+    ...(isErr ? { error: { code: rand(["States.TaskFailed","States.Timeout","States.Permissions","States.BranchFailed"]), message: `Step Functions failed at ${state}`, type: "workflow" } } : {})
   };
 }
 

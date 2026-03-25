@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
@@ -13,58 +13,58 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "app/prod-alb-eu-west-2/a95dkwmdly8",
-      "TargetGroup": "targetgroup/tg-api/93xneza0yrc",
-      "AvailabilityZone": "eu-west-2a"
+      "LoadBalancer": "app/prod-alb-eu-west-2/am92jkdksgt",
+      "TargetGroup": "targetgroup/tg-admin/p1vmjgvtql",
+      "AvailabilityZone": "eu-west-2c"
     },
     "elb": {
-      "name": "app/prod-alb-eu-west-2/a95dkwmdly8",
+      "name": "app/prod-alb-eu-west-2/am92jkdksgt",
       "type": "application",
-      "target_group.arn": "arn:aws:elasticloadbalancing:eu-west-2:738291046572:targetgroup/tg-api/93xneza0yrc",
-      "listener": "arn:aws:elasticloadbalancing:eu-west-2:738291046572:listener/app/prod-alb/cwd8a0wf3zi/2clzumw86fh",
+      "target_group.arn": "arn:aws:elasticloadbalancing:eu-west-2:738291046572:targetgroup/tg-admin/p1vmjgvtql",
+      "listener": "arn:aws:elasticloadbalancing:eu-west-2:738291046572:listener/app/prod-alb/0i1smkh3a5ml/l8hr8aixr69",
       "protocol": "HTTPS",
-      "request_processing_time.sec": 0.14,
-      "backend_processing_time.sec": 0.95,
-      "response_processing_time.sec": 0.086,
-      "backend.ip": "82.189.54.215",
-      "backend.port": "6159",
-      "backend.http.response.status_code": 204,
+      "request_processing_time.sec": 0.171,
+      "backend_processing_time.sec": 0.91,
+      "response_processing_time.sec": 0.076,
+      "backend.ip": "141.84.155.129",
+      "backend.port": "5129",
+      "backend.http.response.status_code": 200,
       "ssl_protocol": "TLSv1.3",
       "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
       "tls_named_group": "x25519",
-      "chosen_cert.arn": "arn:aws:acm:eu-west-2:738291046572:certificate/9m8aijnh-seyl-4c2x-003f-p4ewxxvr8k",
-      "trace_id": "Root=1-CAQN6RP7-5TH6A9DPN7Q",
-      "matched_rule_priority": "1",
-      "action_executed": "authenticate-cognito",
-      "target_port": "82.189.54.215:6159",
-      "target_status_code": "204",
+      "chosen_cert.arn": "arn:aws:acm:eu-west-2:738291046572:certificate/ouxfuppn-kwpt-t7d3-6434-4fbzaq2atdd",
+      "trace_id": "Root=1-RHV4KXCU-OZ5CHMXJGC",
+      "matched_rule_priority": "default",
+      "action_executed": "forward",
+      "target_port": "141.84.155.129:5129",
+      "target_status_code": "200",
       "classification": "NORMAL"
     }
   },
   "http": {
     "request": {
-      "method": "POST",
-      "bytes": 2444
+      "method": "PATCH",
+      "bytes": 6460
     },
     "response": {
-      "status_code": 204,
-      "bytes": 40169
+      "status_code": 200,
+      "bytes": 37437
     }
   },
   "url": {
-    "path": "/api/v1/users",
+    "path": "/api/v1/search",
     "domain": "api.example.com"
   },
   "client": {
-    "ip": "122.246.44.65",
-    "port": 40875,
+    "ip": "207.116.24.3",
+    "port": 51250,
     "geo": {
-      "country_iso_code": "IN",
-      "country_name": "India",
-      "city_name": "Mumbai",
+      "country_iso_code": "US",
+      "country_name": "United States",
+      "city_name": "Dallas",
       "location": {
-        "lat": 19.076,
-        "lon": 72.8777
+        "lat": 32.7767,
+        "lon": -96.797
       }
     }
   },
@@ -72,7 +72,7 @@
     "original": "python-requests/2.27.1"
   },
   "event": {
-    "duration": 1176000000,
+    "duration": 1157000000,
     "outcome": "success",
     "category": [
       "web",
@@ -84,7 +84,7 @@
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com"
   },
-  "message": "POST /api/v1/users 204 1176ms",
+  "message": "PATCH /api/v1/search 200 1157ms",
   "log": {
     "level": "info"
   }

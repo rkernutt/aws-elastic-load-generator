@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "aurora"
@@ -13,44 +13,44 @@
   },
   "aws": {
     "aurora": {
-      "cluster_id": "analytics-aurora",
-      "instance_id": "analytics-aurora-instance-4",
-      "engine": "aurora-postgresql",
-      "engine_version": "15.4",
-      "replica_lag_seconds": 0.505,
-      "db_connections": 434,
+      "cluster_id": "staging-aurora",
+      "instance_id": "staging-aurora-instance-3",
+      "engine": "aurora-mysql",
+      "engine_version": "8.0.36",
+      "replica_lag_seconds": 0.164,
+      "db_connections": 341,
       "max_connections": 1000,
       "failover_in_progress": false,
       "metrics": {
         "AuroraBinlogReplicaLag": {
-          "avg": 8
+          "avg": 10
         },
         "AuroraGlobalDBReplicatedWriteIO": {
-          "sum": 80693802
+          "sum": 87045939
         },
         "AuroraGlobalDBDataTransferBytes": {
-          "sum": 583922137
+          "sum": 513839324
         },
         "AuroraGlobalDBProgressLag": {
-          "avg": 72
+          "avg": 252
         },
         "BacktrackChangeRecordsCreationRate": {
-          "avg": 358
+          "avg": 7116
         },
         "BacktrackChangeRecordsStored": {
-          "avg": 879959581
+          "avg": 533376037
         },
         "BacktrackWindowActual": {
-          "avg": 38427
+          "avg": 65096
         },
         "BacktrackWindowAlert": {
           "avg": 0
         },
         "ServerlessDatabaseCapacity": {
-          "avg": 118.348
+          "avg": 78.973
         },
         "ACUUtilization": {
-          "avg": 48.567
+          "avg": 19.064
         }
       }
     }
@@ -62,11 +62,11 @@
     ],
     "dataset": "aws.aurora",
     "provider": "rds.amazonaws.com",
-    "duration": 29000000000
+    "duration": 33000000000
   },
-  "message": "Aurora replica lag: 8.4 seconds",
+  "message": "Cluster endpoint updated",
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "data_stream": {
     "type": "metrics",

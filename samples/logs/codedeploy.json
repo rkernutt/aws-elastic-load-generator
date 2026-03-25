@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codedeploy"
@@ -14,17 +14,17 @@
   "aws": {
     "dimensions": {
       "DeploymentGroupName": "prod",
-      "ApplicationName": "worker-service"
+      "ApplicationName": "web-app"
     },
     "codedeploy": {
-      "application_name": "worker-service",
+      "application_name": "web-app",
       "deployment_group": "prod",
-      "deployment_id": "d-1ZDJ276U8",
-      "deployment_type": "IN_PLACE",
-      "lifecycle_event": "AfterAllowTraffic",
+      "deployment_id": "d-YBAWSJVQ9",
+      "deployment_type": "BLUE_GREEN",
+      "lifecycle_event": "AfterInstall",
       "event_status": "Succeeded",
-      "duration_seconds": 533,
-      "instances_succeeded": 9,
+      "duration_seconds": 369,
+      "instances_succeeded": 8,
       "instances_failed": 0,
       "metrics": {
         "DeploymentAttempts": {
@@ -40,10 +40,10 @@
           "sum": 0
         },
         "DeploymentDuration": {
-          "avg": 533
+          "avg": 369
         },
         "InstanceSuccesses": {
-          "sum": 2
+          "sum": 8
         },
         "InstanceFailures": {
           "sum": 0
@@ -52,7 +52,7 @@
     }
   },
   "event": {
-    "duration": 533000000000,
+    "duration": 369000000000,
     "outcome": "success",
     "category": [
       "process",
@@ -61,7 +61,7 @@
     "dataset": "aws.codedeploy",
     "provider": "codedeploy.amazonaws.com"
   },
-  "message": "CodeDeploy worker-service deployment SUCCEEDED in 533s",
+  "message": "Deployment succeeded",
   "log": {
     "level": "info"
   }

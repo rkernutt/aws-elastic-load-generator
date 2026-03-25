@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "dimensions": {
-      "CheckName": "LOGGING_DISABLED"
+      "CheckName": "UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE"
     },
     "iotdefender": {
-      "thing_name": "gateway-prod",
-      "audit_check_name": "LOGGING_DISABLED",
-      "finding_id": "iil1pro6t5",
-      "severity": "MEDIUM",
-      "violation_id": "ompoi4e4emc",
-      "violation_type": "cell-data-transfer",
+      "thing_name": "controller-a4",
+      "audit_check_name": "UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE",
+      "finding_id": "5qlj80z996",
+      "severity": "HIGH",
+      "violation_id": "ovrwda87qmr",
+      "violation_type": "authorization-failure",
       "security_profile_name": "critical-devices",
-      "behavior_name": "msg-size",
-      "current_value": 760,
-      "threshold_value": 72,
-      "consecutive_datapoints_to_alarm": 5
+      "behavior_name": "authorized-ip-range",
+      "current_value": 336,
+      "threshold_value": 86,
+      "consecutive_datapoints_to_alarm": 4
     }
   },
   "event": {
@@ -38,10 +38,10 @@
     ],
     "dataset": "aws.iotdefender",
     "provider": "iot.amazonaws.com",
-    "duration": 196000000000
+    "duration": 172000000000
   },
-  "message": "IoT Defender MEDIUM [gateway-prod]: LOGGING_DISABLED",
+  "message": "IoT Defender HIGH [controller-a4]: UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

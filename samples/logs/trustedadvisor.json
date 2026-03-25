@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "trustedadvisor"
@@ -13,11 +13,11 @@
   },
   "aws": {
     "trustedadvisor": {
-      "check_name": "High Utilization Amazon EC2 Instances",
-      "category": "performance",
-      "status": "warning",
-      "affected_resource": "sg-yr8inprs",
-      "flagged_resources": 13
+      "check_name": "EC2 On-Demand Instances",
+      "category": "service_limits",
+      "status": "error",
+      "affected_resource": "sg-5splgmjv",
+      "flagged_resources": 19
     }
   },
   "event": {
@@ -29,15 +29,15 @@
     ],
     "dataset": "aws.trustedadvisor",
     "provider": "trustedadvisor.amazonaws.com",
-    "duration": 57000000000
+    "duration": 44000000000
   },
-  "message": "Trusted Advisor [WARNING]: High Utilization Amazon EC2 Instances - 20 resources affected",
+  "message": "Trusted Advisor [ERROR]: EC2 On-Demand Instances - 19 resources affected",
   "error": {
     "code": "TrustedAdvisorFinding",
-    "message": "High Utilization Amazon EC2 Instances: warning",
+    "message": "EC2 On-Demand Instances: error",
     "type": "configuration"
   },
   "log": {
-    "level": "warn"
+    "level": "error"
   }
 }

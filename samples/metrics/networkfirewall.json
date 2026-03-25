@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "network-firewall"
@@ -15,16 +15,16 @@
     "dimensions": {
       "FirewallName": "fw-us-east-1",
       "AvailabilityZone": "us-east-1a",
-      "CustomAction": "CustomPassAction"
+      "CustomAction": "CustomBlockAction"
     },
     "firewall_logs": {
-      "flow_id": 459439,
-      "event_timestamp": "2026-03-25T11:55:50.848Z",
-      "action": "PASS",
-      "src_ip": "208.21.162.140",
-      "dest_ip": "229.251.212.87",
-      "src_port": 43840,
-      "dest_port": 22,
+      "flow_id": 694246,
+      "event_timestamp": "2026-03-25T12:11:41.550Z",
+      "action": "DROP",
+      "src_ip": "30.193.201.113",
+      "dest_ip": "40.25.35.4",
+      "src_port": 3462,
+      "dest_port": 5432,
       "protocol": "TCP",
       "firewall_name": "fw-us-east-1",
       "availability_zone": "us-east-1a"
@@ -35,50 +35,55 @@
       "policy_name": "prod-fw-policy",
       "metrics": {
         "DroppedPackets": {
-          "sum": 0
+          "sum": 390
         },
         "PassedPackets": {
-          "sum": 15217
+          "sum": 0
         },
         "RejectedPackets": {
           "sum": 0
         },
         "Packets": {
-          "sum": 66182
+          "sum": 47098
         },
         "DroppedBytes": {
-          "sum": 0
+          "sum": 44888
         }
       }
     }
   },
   "source": {
-    "ip": "208.21.162.140",
-    "port": 43840
+    "ip": "30.193.201.113",
+    "port": 3462
   },
   "destination": {
-    "ip": "229.251.212.87",
-    "port": 22
+    "ip": "40.25.35.4",
+    "port": 5432
   },
   "network": {
     "transport": "tcp",
-    "bytes": 31810,
-    "packets": 43
+    "bytes": 18492,
+    "packets": 33
   },
   "event": {
-    "action": "pass",
-    "outcome": "success",
+    "action": "drop",
+    "outcome": "failure",
     "category": [
       "intrusion_detection",
       "network"
     ],
     "dataset": "aws.firewall_logs",
     "provider": "network-firewall.amazonaws.com",
-    "duration": 36000000
+    "duration": 120000000
   },
-  "message": "PASS TCP flow",
+  "message": "DROP TCP flow",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "FlowDropped",
+    "message": "Packet dropped by firewall rule",
+    "type": "network"
   },
   "data_stream": {
     "type": "metrics",

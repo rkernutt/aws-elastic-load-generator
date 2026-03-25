@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,62 +13,59 @@
   },
   "aws": {
     "dimensions": {
-      "TrainingJobName": "llama-finetuned-training-ls9m20",
-      "JobType": "Training"
+      "TrainingJobName": "resnet50-custom-pipeline-tmbk9f",
+      "JobType": "Pipeline"
     },
     "sagemaker": {
-      "domain_id": "d-ro12kb1n8f",
-      "domain_name": "risk-models",
-      "user_profile": "alice-ds",
+      "domain_id": "d-74foyys4ru",
+      "domain_name": "ds-platform",
+      "user_profile": "carol-research",
       "job": {
-        "name": "llama-finetuned-training-ls9m20",
-        "type": "Training",
-        "arn": "arn:aws:sagemaker:us-east-1:814726593401:training-job/llama-finetuned-training-ls9m20"
+        "name": "resnet50-custom-pipeline-tmbk9f",
+        "type": "Pipeline",
+        "arn": "arn:aws:sagemaker:eu-west-2:814726593401:training-job/resnet50-custom-pipeline-tmbk9f"
       },
       "model": {
-        "name": "llama-finetuned",
-        "version": 12
+        "name": "resnet50-custom",
+        "version": 19
       },
       "pipeline": {
-        "name": "feature-engineering-pipeline",
-        "execution_id": "pipe-fzrw2tqymyg"
+        "name": "model-training-pipeline",
+        "execution_id": "pipe-f7ykzu1zl66"
       },
       "instance": {
         "type": "ml.p3.2xlarge",
         "count": 1
       },
       "metrics": {
-        "training_loss": 0.1601,
-        "accuracy": 0.8584,
-        "epoch": 96,
-        "gpu_utilization_pct": 76,
-        "cpu_utilization_pct": 43
+        "gpu_utilization_pct": 61,
+        "cpu_utilization_pct": 60
       },
       "studio": {
-        "space_name": "ds-platform",
-        "app_type": "CodeEditor",
-        "app_name": "instance-wn3g0l9d",
+        "space_name": "cv-team",
+        "app_type": "JupyterServer",
+        "app_name": "instance-uhnde3ok",
         "lifecycle_config": false,
         "continuous_logging": false
       },
       "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 1662
+          "sum": 1894
         },
         "ModelLatency": {
-          "avg": 45
+          "avg": 98
         },
         "GPUUtilization": {
-          "avg": 82
+          "avg": 83
         },
         "CPUUtilization": {
-          "avg": 68
+          "avg": 62
         },
         "DiskUtilization": {
-          "avg": 30
+          "avg": 24
         },
         "MemoryUtilization": {
-          "avg": 70
+          "avg": 80
         },
         "Invocations4XXError": {
           "sum": 0
@@ -83,11 +80,11 @@
     "level": "info"
   },
   "user": {
-    "name": "alice-ds"
+    "name": "carol-research"
   },
   "event": {
-    "action": "AppCreated",
-    "duration": 5211011000000,
+    "action": "AppReady",
+    "duration": 6913514000000,
     "outcome": "success",
     "category": [
       "process"
@@ -95,5 +92,5 @@
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "Training job succeeded"
+  "message": "Model artifact uploaded to s3://models/output/"
 }

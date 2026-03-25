@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "codecommit"
@@ -14,21 +14,23 @@
   "aws": {
     "codecommit": {
       "repository_name": "web-app",
-      "repository_arn": "arn:aws:codecommit:us-east-1:164820739518:web-app",
-      "event_type": "ReferenceUpdated",
+      "repository_arn": "arn:aws:codecommit:us-east-1:814726593401:web-app",
+      "event_type": "PullRequestMerged",
       "reference_name": "main",
-      "commit_id": "01rstoqwq6gs",
-      "author": "bob",
-      "files_changed": 29,
-      "lines_added": 471,
-      "lines_deleted": 163
+      "commit_id": "rlddubscj4d",
+      "author": "github-actions",
+      "files_changed": 39,
+      "lines_added": 460,
+      "lines_deleted": 167,
+      "pull_request_id": "454",
+      "merge_strategy": "squash"
     }
   },
   "user": {
-    "name": "carol"
+    "name": "alice"
   },
   "event": {
-    "action": "ReferenceUpdated",
+    "action": "PullRequestMerged",
     "outcome": "success",
     "category": [
       "configuration",
@@ -37,7 +39,7 @@
     "dataset": "aws.codecommit",
     "provider": "codecommit.amazonaws.com"
   },
-  "message": "CodeCommit ReferenceUpdated: web-app/main",
+  "message": "CodeCommit PullRequestMerged: web-app/main",
   "log": {
     "level": "info"
   }

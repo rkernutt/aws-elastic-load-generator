@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "migrationhub"
@@ -13,33 +13,39 @@
   },
   "aws": {
     "migrationhub": {
-      "application_id": "app-4a52s51mzd6",
-      "application_name": "legacy-erp",
-      "server_id": "d-server-OE453QETLT8",
-      "server_name": "server-9pnr3uqw",
-      "migration_status": "MIGRATION_IN_PROGRESS",
-      "migration_tool": "ApplicationMigrationService",
+      "application_id": "app-mgkd2zcogk",
+      "application_name": "web-tier-migration",
+      "server_id": "d-server-43H3YB4M7I3",
+      "server_name": "server-09o6scq7",
+      "migration_status": "MIGRATION_FAILED",
+      "migration_tool": "CloudEndure",
       "progress_update_stream": "MGN-stream",
       "task": {
-        "status": "IN_PROGRESS",
-        "progress_percent": 80,
-        "total_objects": 60,
-        "replicated_objects": 167
-      }
+        "status": "FAILED",
+        "progress_percent": 83,
+        "total_objects": 899,
+        "replicated_objects": 684
+      },
+      "error_code": "AccessDeniedException"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process",
       "configuration"
     ],
     "dataset": "aws.migrationhub",
     "provider": "mgh.amazonaws.com",
-    "duration": 75960000000000
+    "duration": 856452000000000
   },
-  "message": "Migration Hub legacy-erp [ApplicationMigrationService]: MIGRATION_IN_PROGRESS — server-9pnr3uqw",
+  "message": "Migration Hub web-tier-migration FAILED [CloudEndure]: Insufficient permissions:",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "MigrationFailed",
+    "message": "Migration Hub task failed",
+    "type": "migration"
   }
 }

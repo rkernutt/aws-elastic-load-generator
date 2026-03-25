@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "bedrock-agent"
@@ -13,32 +13,37 @@
   },
   "aws": {
     "dimensions": {
-      "AgentId": "TXORCBWWCYF",
+      "AgentId": "T3EDFTE2YURR",
       "Operation": "Retrieve"
     },
     "bedrockagent": {
-      "agent_id": "TXORCBWWCYF",
-      "agent_alias_id": "LIVE",
-      "session_id": "fcj74chof8",
+      "agent_id": "T3EDFTE2YURR",
+      "agent_alias_id": "TSTALIASID",
+      "session_id": "0cnyzpvlq9t",
       "action": "Retrieve",
-      "knowledge_base_id": "KBLIFXYNCEE",
-      "input_token_count": 3106,
-      "output_token_count": 1272,
-      "invocation_latency_ms": 4261,
-      "guardrail_action": "INTERVENED",
+      "knowledge_base_id": "KBB8POJGSI7",
+      "input_token_count": 403,
+      "output_token_count": 204,
+      "invocation_latency_ms": 2690,
+      "orchestration_trace": {
+        "model_invocation": {
+          "model_arn": "arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-5-sonnet-v2"
+        }
+      },
+      "guardrail_action": "NONE",
       "metrics": {
         "Invocations": {
-          "sum": 106
+          "sum": 76
         },
         "InvocationLatency": {
-          "avg": 4261,
-          "p99": 8522
+          "avg": 2690,
+          "p99": 5380
         },
         "InputTokenCount": {
-          "sum": 3106
+          "sum": 403
         },
         "OutputTokenCount": {
-          "sum": 1272
+          "sum": 204
         }
       }
     }
@@ -50,9 +55,9 @@
     ],
     "dataset": "aws.bedrockagent",
     "provider": "bedrock-agent-runtime.amazonaws.com",
-    "duration": 4261000000
+    "duration": 2690000000
   },
-  "message": "Bedrock Agent TXORCBWWCYF: Retrieve 3106→1272 tokens 4.26s",
+  "message": "Bedrock Agent T3EDFTE2YURR: Retrieve 403→204 tokens 2.69s",
   "log": {
     "level": "info"
   },

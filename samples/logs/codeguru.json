@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "codeguru"
@@ -13,17 +13,16 @@
   },
   "aws": {
     "codeguru": {
-      "product": "Profiler",
+      "product": "Reviewer",
       "repository_name": "backend-api",
-      "association_id": "b0h6s9qyv8",
-      "finding_id": "liwz46idna",
-      "category": "CPU",
-      "severity": "Critical",
-      "finding_description": "Excessive GC overhead",
-      "code_file": "server/routes.js",
-      "line_number": 77,
-      "profiling_group": "backend-api-profiling",
-      "frame_percent": 26.973
+      "association_id": "0oi90w4hin9",
+      "finding_id": "lhhgz4x8yn",
+      "category": "AWSBestPractices",
+      "severity": "High",
+      "finding_description": "CodeMaintainability:LongMethod",
+      "code_file": "app/models.py",
+      "line_number": 265,
+      "pull_request_id": 193
     }
   },
   "event": {
@@ -35,7 +34,7 @@
     "dataset": "aws.codeguru",
     "provider": "codeguru.amazonaws.com"
   },
-  "message": "CodeGuru Profiler [backend-api] Critical: Excessive GC overhead",
+  "message": "CodeGuru Reviewer [backend-api] High: CodeMaintainability",
   "log": {
     "level": "warn"
   }

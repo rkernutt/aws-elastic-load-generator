@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -13,33 +13,28 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "DetectPHI"
+      "Operation": "StartEntitiesDetectionV2Job"
     },
     "comprehendmedical": {
-      "operation": "DetectPHI",
-      "entities_detected": 23,
-      "phi_entities": 0,
-      "text_characters": 4417,
+      "operation": "StartEntitiesDetectionV2Job",
+      "entities_detected": 45,
+      "phi_entities": 3,
+      "text_characters": 3364,
+      "job_id": "4dvezb5f6dv",
       "data_access_role_arn": "arn:aws:iam::164820739518:role/ComprehendMedicalRole",
-      "s3_bucket": "ehr-processed",
-      "error_code": "TooManyRequestsException"
+      "s3_bucket": "ehr-processed"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.comprehendmedical",
     "provider": "comprehendmedical.amazonaws.com"
   },
-  "message": "Comprehend Medical DetectPHI FAILED: Invalid request",
+  "message": "Comprehend Medical StartEntitiesDetectionV2Job: 45 entities, 3 PHI",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "TooManyRequestsException",
-    "message": "Comprehend Medical failed",
-    "type": "ml"
+    "level": "info"
   }
 }

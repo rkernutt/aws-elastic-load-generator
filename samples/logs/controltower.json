@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "controltower"
@@ -13,13 +13,14 @@
   },
   "aws": {
     "controltower": {
-      "operation_id": "vwpenzwjp1",
-      "action": "CreateManagedAccount",
-      "account_id": "814726593401",
-      "organizational_unit": "Workloads",
+      "operation_id": "uwja4kcj4nr",
+      "action": "DisableGuardrail",
+      "account_id": "738291046572",
+      "organizational_unit": "Infrastructure",
+      "guardrail_id": "AWS-GR_REQUIRE_MFA_FOR_ROOT",
       "guardrail_compliance": "COMPLIANT",
-      "landing_zone_version": "3.1",
-      "status": "IN_PROGRESS"
+      "landing_zone_version": "3.3",
+      "status": "SUCCEEDED"
     }
   },
   "event": {
@@ -30,9 +31,9 @@
     ],
     "dataset": "aws.controltower",
     "provider": "controltower.amazonaws.com",
-    "duration": 387000000000
+    "duration": 523000000000
   },
-  "message": "Control Tower CreateManagedAccount: IN_PROGRESS",
+  "message": "Control Tower DisableGuardrail: SUCCEEDED",
   "log": {
     "level": "info"
   }

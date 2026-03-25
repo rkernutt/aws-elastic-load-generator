@@ -1,17 +1,17 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "trace": {
-    "id": "1-69c3cd46-0xd2y6qaew3b"
+    "id": "1-69c3d0fd-7bhci3hgh6e"
   },
   "span": {
-    "id": "hew98tueux"
+    "id": "6qnj7og7ywi"
   },
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "xray"
@@ -20,62 +20,79 @@
   "aws": {
     "dimensions": {
       "GroupName": "Default",
-      "ServiceType": "remote"
+      "ServiceType": "AWS::SQS::Queue"
     },
     "xray": {
-      "trace_id": "1-69c3cd46-0xd2y6qaew3b",
-      "segment_id": "hew98tueux",
+      "trace_id": "1-69c3d0fd-7bhci3hgh6e",
+      "segment_id": "6qnj7og7ywi",
+      "parent_id": "mjiu4vkbkd",
       "service": {
-        "name": "cache-layer",
-        "type": "remote"
+        "name": "sqs-consumer",
+        "type": "AWS::SQS::Queue"
       },
-      "duration": 1.861,
+      "duration": 1.53,
       "fault": false,
       "error": false,
       "throttle": false,
       "http": {
         "request": {
-          "method": "PATCH",
-          "url": "/api/v1/search"
+          "method": "POST",
+          "url": "/api/v1/auth/login"
         },
         "response": {
-          "status": 201
+          "status": 200
         }
       },
       "annotations": {
         "env": "prod",
-        "version": "v3"
+        "version": "v10"
       },
+      "subsegments": [
+        {
+          "id": "4ch7j2mmd1e",
+          "name": "SNS.Publish",
+          "namespace": "remote",
+          "duration": 0.175,
+          "fault": false
+        },
+        {
+          "id": "w9ddv1d4at8",
+          "name": "ElastiCache.get",
+          "namespace": "aws",
+          "duration": 0.033,
+          "fault": false
+        }
+      ],
       "metrics": {
         "ErrorRate": {
-          "avg": 0.044
+          "avg": 0.054
         },
         "FaultRate": {
-          "avg": 0.402
+          "avg": 0.374
         },
         "ThrottleRate": {
-          "avg": 0.187
+          "avg": 0.292
         },
         "TotalCount": {
-          "sum": 8561
+          "sum": 1919
         },
         "Latency": {
-          "avg": 1861,
-          "p99": 5583
+          "avg": 1530,
+          "p99": 4590
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "PATCH"
+      "method": "POST"
     },
     "response": {
-      "status_code": 201
+      "status_code": 200
     }
   },
   "event": {
-    "duration": 1861000000,
+    "duration": 1530000000,
     "outcome": "success",
     "category": [
       "network"
@@ -86,7 +103,7 @@
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray: cache-layer PATCH → 201 (1.861s)",
+  "message": "X-Ray: sqs-consumer POST → 200 (1.530s)",
   "log": {
     "level": "info"
   },

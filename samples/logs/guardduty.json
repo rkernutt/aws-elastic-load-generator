@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T11:55:50.848Z",
+  "@timestamp": "2026-03-25T12:11:41.550Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "guardduty"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "oeg28d6xo3h"
+      "DetectorId": "i5wxewvzajc"
     },
     "guardduty": {
       "schema_version": "2.0",
-      "account_id": "814726593401",
-      "region": "us-east-1",
+      "account_id": "164820739518",
+      "region": "eu-west-2",
       "partition": "aws",
-      "id": "ejfffoa405i",
-      "arn": "arn:aws:guardduty:us-east-1:814726593401:detector/oeg28d6xo3h/finding/ejfffoa405i",
-      "type": "Recon:EC2/PortScan",
-      "title": "EC2 PortScan",
+      "id": "56o0flsw9r2",
+      "arn": "arn:aws:guardduty:eu-west-2:164820739518:detector/i5wxewvzajc/finding/56o0flsw9r2",
+      "type": "Policy:IAMUser/RootCredentialUsage",
+      "title": "IAMUser RootCredentialUsage",
       "description": "Routine check completed.",
-      "created_at": "2026-03-25T11:55:50.848Z",
-      "updated_at": "2026-03-25T11:55:50.848Z",
+      "created_at": "2026-03-25T12:11:41.550Z",
+      "updated_at": "2026-03-25T12:11:41.550Z",
       "severity": {
         "code": 0,
         "value": "Informational"
       },
-      "confidence": 60.412,
+      "confidence": 76.651,
       "resource": {
-        "type": "AccessKey"
+        "type": "Instance"
       },
       "service": {
-        "detector_id": "oeg28d6xo3h",
-        "count": 277,
+        "detector_id": "i5wxewvzajc",
+        "count": 492,
         "archived": false
       },
       "metrics": {
@@ -57,13 +57,13 @@
     }
   },
   "rule": {
-    "category": "intrusion_detection"
+    "category": "threat"
   },
   "threat": {
     "indicator": [
       {
         "type": "ip",
-        "value": "107.111.148.152"
+        "value": "73.70.65.167"
       }
     ]
   },
@@ -72,7 +72,7 @@
     "severity": 0,
     "outcome": "success",
     "category": [
-      "intrusion_detection"
+      "threat"
     ],
     "type": [
       "indicator"

@@ -86,10 +86,20 @@ function generateSageMakerLog(ts, er) {
 function generateBedrockLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const models = ["anthropic.claude-3-5-sonnet-20241022-v2:0","anthropic.claude-3-haiku-20240307-v1:0","amazon.titan-text-express-v1","meta.llama3-70b-instruct-v1:0","mistral.mixtral-8x7b-instruct-v0:1","amazon.nova-pro-v1:0"];
-  const model = rand(models); const inputTokens = randInt(50,8000); const outputTokens = randInt(50,isErr?0:4000);
+  const model = rand(models);
+  const modelFamily = model.split(".")[0]; // anthropic, amazon, meta, mistral
+  // Token ratios vary by model family: claude tends verbose, titan is concise
+  const maxOutputByFamily = { anthropic: 8192, amazon: 4096, meta: 8192, mistral: 32768 };
+  const maxOut = maxOutputByFamily[modelFamily] || 4096;
+  const inputTokens = randInt(50, 8000);
+  const outputTokens = isErr ? 0 : Math.min(randInt(50, 2000), maxOut);
+  const isStreaming = Math.random() < 0.6;
+  // Time to first token: lower for small models, higher for large
+  const ttftMs = isStreaming ? (modelFamily === "anthropic" ? randInt(100, 800) : randInt(50, 400)) : null;
   const lat = parseFloat(randFloat(0.5, isErr?30:15));
   const invocations = randInt(1, 500);
   const latencyMs = Math.round(lat * 1000);
+  const inputTokensPerSec = isStreaming && !isErr ? parseFloat((inputTokens / lat).toFixed(1)) : null;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"bedrock" } },
@@ -105,6 +115,10 @@ function generateBedrockLog(ts, er) {
         error_code: isErr ? rand(["ThrottlingException","ModelTimeoutException","ModelErrorException"]) : null,
         use_case: rand(["text-generation","summarization","classification","extraction","qa"]),
         guardrail_action: rand(["NONE","NONE","NONE","INTERVENED"]),
+        streaming: isStreaming,
+        time_to_first_token_ms: ttftMs,
+        input_tokens_per_sec: inputTokensPerSec,
+        model_family: modelFamily,
         metrics: {
           Invocations: { sum: invocations },
           InvocationLatency: { avg: latencyMs, p99: latencyMs * 2 },
@@ -566,4 +580,66 @@ function generateLookoutMetricsLog(ts, er) {
   };
 }
 
-export { generateSageMakerLog, generateBedrockLog, generateBedrockAgentLog, generateRekognitionLog, generateTextractLog, generateComprehendLog, generateComprehendMedicalLog, generateTranslateLog, generateTranscribeLog, generatePollyLog, generateForecastLog, generatePersonalizeLog, generateLexLog, generateLookoutMetricsLog };
+function generateQBusinessLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount();
+  const isErr = Math.random() < er;
+  const appId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase();
+  const appName = rand(["company-assistant","dev-help","hr-bot","support-assistant","it-helpdesk"]);
+  const user = rand(["alice","bob","carol","dan","eve","svc-account"]);
+  const eventType = rand(["QUERY","QUERY","DOCUMENT_RETRIEVAL","PLUGIN_INVOCATION","FEEDBACK","CONVERSATION_START"]);
+  const conversationId = randUUID();
+  const inputTokens = randInt(20, 500);
+  const outputTokens = eventType === "QUERY" ? (isErr ? 0 : randInt(50, 800)) : 0;
+  const retrievedDocs = eventType === "DOCUMENT_RETRIEVAL" ? randInt(0, 10) : (eventType === "QUERY" ? randInt(0, 5) : 0);
+  const pluginName = eventType === "PLUGIN_INVOCATION" ? rand(["Jira","ServiceNow","Salesforce","GitHub"]) : null;
+  const guardrailBlocked = Math.random() < 0.05;
+  const latencyMs = randInt(100, isErr ? 30000 : 5000);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"qbusiness" } },
+    "aws": {
+      dimensions: { ApplicationId: appId },
+      qbusiness: {
+        application_id: appId,
+        application_name: appName,
+        conversation_id: conversationId,
+        message_id: randUUID(),
+        user_id: user,
+        event_type: eventType,
+        response_latency_ms: latencyMs,
+        ...(eventType === "QUERY" || eventType === "DOCUMENT_RETRIEVAL" ? {
+          query: {
+            input_token_count: inputTokens,
+            output_token_count: outputTokens,
+            retrieved_documents: retrievedDocs,
+            source_attributions: retrievedDocs,
+            guardrail_action: guardrailBlocked ? "BLOCKED" : "NONE",
+          }
+        } : {}),
+        ...(eventType === "PLUGIN_INVOCATION" ? {
+          plugin: {
+            name: pluginName,
+            action: rand(["CreateTicket","SearchIssues","UpdateRecord","ListRecords"]),
+            success: !isErr,
+          }
+        } : {}),
+        metrics: {
+          ConversationCount: { sum: 1 },
+          MessageCount: { sum: 1 },
+          InputTokenCount: { sum: inputTokens },
+          OutputTokenCount: { sum: outputTokens },
+          FailedResponses: { sum: isErr ? 1 : 0 },
+          GuardrailIntervened: { sum: guardrailBlocked ? 1 : 0 },
+          DocumentsRetrieved: { sum: retrievedDocs },
+        }
+      }
+    },
+    "user": { name: user },
+    "event": { outcome: isErr?"failure":"success", category:["process"], dataset:"aws.qbusiness", provider:"qbusiness.amazonaws.com", duration: latencyMs*1e6 },
+    "message": isErr ? `Q Business ${appName}: ${eventType} FAILED for ${user}` : `Q Business ${appName}: ${user} ${eventType.toLowerCase()} (${retrievedDocs} docs retrieved)`,
+    "log": { level: isErr ? "error" : guardrailBlocked ? "warn" : "info" },
+    ...(isErr ? { error: { code: rand(["InternalServerException","ThrottlingException","ValidationException","AccessDeniedException"]), message: "Q Business operation failed", type: "ai" } } : {})
+  };
+}
+
+export { generateSageMakerLog, generateBedrockLog, generateBedrockAgentLog, generateRekognitionLog, generateTextractLog, generateComprehendLog, generateComprehendMedicalLog, generateTranslateLog, generateTranscribeLog, generatePollyLog, generateForecastLog, generatePersonalizeLog, generateLexLog, generateLookoutMetricsLog, generateQBusinessLog };
