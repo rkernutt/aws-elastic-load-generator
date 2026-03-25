@@ -111,6 +111,10 @@ function createElasticClient(baseUrl, apiKey) {
       return null;
     }
 
+    if (res.status === 410) {
+      return { _not_available: true, status: 410 };
+    }
+
     if (!res.ok) {
       let text;
       try {
@@ -245,12 +249,14 @@ async function main() {
 
   // 5. Test connection
   console.log("\nTesting connection...");
+  let isServerless = false;
   try {
     const clusterInfo = await client.testConnection();
     const clusterName = clusterInfo?.cluster_name ?? "(unknown)";
     const version = clusterInfo?.version?.number ?? "";
+    isServerless = clusterInfo?.version?.build_flavor === "serverless";
     console.log(
-      `  Connected to cluster: ${clusterName}${version ? ` (${version})` : ""}`
+      `  Connected to cluster: ${clusterName}${version ? ` (${version})` : ""}${isServerless ? " [serverless]" : ""}`
     );
   } catch (err) {
     console.error(`  Connection failed: ${err.message}`);
@@ -259,26 +265,33 @@ async function main() {
   }
 
   // 6. Check ML is available
-  console.log("  Checking ML availability...");
-  try {
-    const mlInfo = await client.getMlInfo();
-    if (mlInfo === null) {
+  if (isServerless) {
+    console.log("  Serverless deployment detected — skipping /_ml/info check.");
+    console.log("  Note: ML anomaly detection is available on Security and Observability");
+    console.log("  serverless projects. Elasticsearch serverless projects do not support it.");
+    console.log("  Proceeding — any unsupported jobs will report an error during installation.");
+  } else {
+    console.log("  Checking ML availability...");
+    try {
+      const mlInfo = await client.getMlInfo();
+      if (mlInfo === null || mlInfo?._not_available) {
+        console.error(
+          "  ML is not available on this cluster.\n" +
+          "  ML anomaly detection requires a Platinum or Enterprise licence on Elastic Stack,\n" +
+          "  or an Elastic Cloud / Serverless Security or Observability project with ML enabled."
+        );
+        rl.close();
+        process.exit(1);
+      }
+      console.log("  ML is available.");
+    } catch (err) {
       console.error(
-        "  ML is not available on this cluster (GET /_ml/info returned 404).\n" +
-        "  ML anomaly detection requires a Platinum or Enterprise licence on Elastic Stack,\n" +
-        "  or an Elastic Cloud / Serverless deployment with ML enabled."
+        `  ML availability check failed: ${err.message}\n` +
+        "  Ensure your API key has the `manage_ml` cluster privilege."
       );
       rl.close();
       process.exit(1);
     }
-    console.log("  ML is available.");
-  } catch (err) {
-    console.error(
-      `  ML availability check failed: ${err.message}\n` +
-      "  Ensure your API key has the `manage_ml` cluster privilege."
-    );
-    rl.close();
-    process.exit(1);
   }
 
   // 7. Load job groups
