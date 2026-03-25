@@ -31,7 +31,7 @@
         "query": {
           "bool": {
             "filter": [
-              { "term": { "event.dataset": "aws.lambda" } },
+              { "term": { "event.dataset": "aws.lambda_logs" } },
               { "term": { "event.outcome": "failure" } }
             ]
           }
@@ -70,7 +70,7 @@
         "query": {
           "bool": {
             "filter": [
-              { "term": { "event.dataset": "aws.lambda" } }
+              { "term": { "event.dataset": "aws.lambda_logs" } }
             ]
           }
         },
@@ -108,7 +108,7 @@
         "query": {
           "bool": {
             "filter": [
-              { "term": { "event.dataset": "aws.lambda" } }
+              { "term": { "event.dataset": "aws.lambda_logs" } }
             ]
           }
         },
@@ -126,9 +126,9 @@
           "bucket_span": "15m",
           "detectors": [
             {
-              "detector_description": "high_mean(aws.ec2.cpu.total.pct) partitionfield=cloud.instance.id",
+              "detector_description": "high_mean(aws.ec2.metrics.CPUUtilization.avg) partitionfield=cloud.instance.id",
               "function": "high_mean",
-              "field_name": "aws.ec2.cpu.total.pct",
+              "field_name": "aws.ec2.metrics.CPUUtilization.avg",
               "partition_field_name": "cloud.instance.id",
               "detector_index": 0
             }
@@ -146,7 +146,7 @@
         "query": {
           "bool": {
             "filter": [
-              { "term": { "event.dataset": "aws.ec2" } }
+              { "term": { "event.dataset": "aws.ec2_logs" } }
             ]
           }
         },
@@ -164,9 +164,9 @@
           "bucket_span": "15m",
           "detectors": [
             {
-              "detector_description": "high_sum(aws.ec2.network.out.bytes) partitionfield=cloud.instance.id",
+              "detector_description": "high_sum(aws.ec2.metrics.NetworkOut.sum) partitionfield=cloud.instance.id",
               "function": "high_sum",
-              "field_name": "aws.ec2.network.out.bytes",
+              "field_name": "aws.ec2.metrics.NetworkOut.sum",
               "partition_field_name": "cloud.instance.id",
               "detector_index": 0
             }
@@ -184,7 +184,7 @@
         "query": {
           "bool": {
             "filter": [
-              { "term": { "event.dataset": "aws.ec2" } }
+              { "term": { "event.dataset": "aws.ec2_logs" } }
             ]
           }
         },
