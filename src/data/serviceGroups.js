@@ -46,9 +46,12 @@ const SERVICE_GROUPS = [
     {id:"acm",label:"ACM",icon:"⊠",desc:"Certificate lifecycle logs"},
     {id:"identitycenter",label:"IAM Identity Center",icon:"⊕",desc:"SSO auth & provisioning"},
     {id:"detective",label:"Detective",icon:"⊙",desc:"Behavioral analysis findings"},
+    {id:"verifiedaccess",label:"Verified Access",icon:"⊕",desc:"Zero-trust access audit logs"},
+    {id:"securitylake",label:"Security Lake",icon:"◈",desc:"OCSF 1.1.0 unified security logs"},
   ]},
   { id:"storage", label:"Storage & Databases", color:"#93C90E", icon:"⊞", services:[
     {id:"s3",label:"S3",icon:"○",desc:"Object access logs"},
+    {id:"storagelens",label:"S3 Storage Lens",icon:"◎",desc:"Storage analytics & metrics"},
     {id:"efs",label:"EFS",icon:"◫",desc:"NFS throughput & I/O logs"},
     {id:"fsx",label:"FSx",icon:"⊟",desc:"File system ops & backups"},
     {id:"ebs",label:"EBS",icon:"◫",desc:"Volume perf, state & snapshots"},
@@ -110,6 +113,7 @@ const SERVICE_GROUPS = [
     {id:"forecast",label:"Forecast",icon:"⌚",desc:"Time-series prediction logs"},
     {id:"personalize",label:"Personalize",icon:"⊕",desc:"Recommendation engine logs"},
     {id:"lex",label:"Lex",icon:"◯",desc:"Chatbot intent & session"},
+    {id:"qbusiness",label:"Q Business",icon:"✦",desc:"Enterprise AI query & retrieval"},
   ]},
   { id:"iot", label:"IoT", color:"#06B6D4", icon:"⊛", services:[
     {id:"iotcore",label:"IoT Core",icon:"⊛",desc:"Device connect & message"},
