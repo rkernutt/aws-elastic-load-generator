@@ -1,0 +1,209 @@
+{
+  "group": "databases-extended",
+  "description": "Extended database anomaly detection — DynamoDB throttles, Redshift query performance, OpenSearch JVM pressure & write rejections, DocumentDB latency",
+  "jobs": [
+    {
+      "id": "aws-dynamodb-throttle-spike",
+      "description": "Detects unusual spikes in DynamoDB read throttle events per table — capacity planning alert",
+      "job": {
+        "description": "Detects unusual spikes in DynamoDB read throttle events per table — capacity planning alert",
+        "groups": ["aws", "databases-extended"],
+        "analysis_config": {
+          "bucket_span": "15m",
+          "detectors": [
+            {
+              "detector_description": "High mean DynamoDB read throttle events by table",
+              "function": "high_mean",
+              "field_name": "aws.dynamodb.metrics.ReadThrottleEvents.sum",
+              "partition_field_name": "aws.dynamodb.table.name",
+              "detector_index": 0
+            }
+          ],
+          "influencers": [
+            "aws.dynamodb.table.name",
+            "cloud.region"
+          ]
+        },
+        "allow_lazy_open": true,
+        "analysis_limits": { "model_memory_limit": "32mb" },
+        "data_description": { "time_field": "@timestamp" },
+        "custom_settings": { "created_by": "aws-elastic-load-generator" }
+      },
+      "datafeed": {
+        "indices": ["logs-aws.*"],
+        "max_empty_searches": 10,
+        "query": {
+          "bool": {
+            "filter": [
+              { "term": { "event.dataset": "aws.dynamodb" } }
+            ]
+          }
+        },
+        "chunking_config": { "mode": "auto" },
+        "delayed_data_check_config": { "enabled": true }
+      }
+    },
+    {
+      "id": "aws-dynamodb-latency-anomaly",
+      "description": "Detects unusual DynamoDB request latency per table — performance regression detection",
+      "job": {
+        "description": "Detects unusual DynamoDB request latency per table — performance regression detection",
+        "groups": ["aws", "databases-extended"],
+        "analysis_config": {
+          "bucket_span": "15m",
+          "detectors": [
+            {
+              "detector_description": "High mean DynamoDB successful request latency by table",
+              "function": "high_mean",
+              "field_name": "aws.dynamodb.metrics.SuccessfulRequestLatency.avg",
+              "partition_field_name": "aws.dynamodb.table.name",
+              "detector_index": 0
+            }
+          ],
+          "influencers": [
+            "aws.dynamodb.table.name"
+          ]
+        },
+        "allow_lazy_open": true,
+        "analysis_limits": { "model_memory_limit": "32mb" },
+        "data_description": { "time_field": "@timestamp" },
+        "custom_settings": { "created_by": "aws-elastic-load-generator" }
+      },
+      "datafeed": {
+        "indices": ["logs-aws.*"],
+        "max_empty_searches": 10,
+        "query": {
+          "bool": {
+            "filter": [
+              { "term": { "event.dataset": "aws.dynamodb" } }
+            ]
+          }
+        },
+        "chunking_config": { "mode": "auto" },
+        "delayed_data_check_config": { "enabled": true }
+      }
+    },
+    {
+      "id": "aws-redshift-query-duration-anomaly",
+      "description": "Detects unusual Redshift query execution durations — long-running warehouse query detection",
+      "job": {
+        "description": "Detects unusual Redshift query execution durations — long-running warehouse query detection",
+        "groups": ["aws", "databases-extended"],
+        "analysis_config": {
+          "bucket_span": "15m",
+          "detectors": [
+            {
+              "detector_description": "High mean Redshift query duration by cluster",
+              "function": "high_mean",
+              "field_name": "aws.redshift.metrics.QueryDuration.avg",
+              "partition_field_name": "aws.redshift.cluster.id",
+              "detector_index": 0
+            }
+          ],
+          "influencers": [
+            "aws.redshift.cluster.id",
+            "cloud.region"
+          ]
+        },
+        "allow_lazy_open": true,
+        "analysis_limits": { "model_memory_limit": "32mb" },
+        "data_description": { "time_field": "@timestamp" },
+        "custom_settings": { "created_by": "aws-elastic-load-generator" }
+      },
+      "datafeed": {
+        "indices": ["logs-aws.*"],
+        "max_empty_searches": 10,
+        "query": {
+          "bool": {
+            "filter": [
+              { "term": { "event.dataset": "aws.redshift" } }
+            ]
+          }
+        },
+        "chunking_config": { "mode": "auto" },
+        "delayed_data_check_config": { "enabled": true }
+      }
+    },
+    {
+      "id": "aws-opensearch-jvm-pressure",
+      "description": "Detects unusual JVM memory pressure in OpenSearch — pre-OOM and GC storm warning",
+      "job": {
+        "description": "Detects unusual JVM memory pressure in OpenSearch — pre-OOM and GC storm warning",
+        "groups": ["aws", "databases-extended"],
+        "analysis_config": {
+          "bucket_span": "15m",
+          "detectors": [
+            {
+              "detector_description": "High mean OpenSearch JVM memory pressure by domain",
+              "function": "high_mean",
+              "field_name": "aws.opensearch.metrics.JVMMemoryPressure.avg",
+              "partition_field_name": "aws.opensearch.domain.name",
+              "detector_index": 0
+            }
+          ],
+          "influencers": [
+            "aws.opensearch.domain.name",
+            "cloud.region"
+          ]
+        },
+        "allow_lazy_open": true,
+        "analysis_limits": { "model_memory_limit": "32mb" },
+        "data_description": { "time_field": "@timestamp" },
+        "custom_settings": { "created_by": "aws-elastic-load-generator" }
+      },
+      "datafeed": {
+        "indices": ["logs-aws.*"],
+        "max_empty_searches": 10,
+        "query": {
+          "bool": {
+            "filter": [
+              { "term": { "event.dataset": "aws.opensearch" } }
+            ]
+          }
+        },
+        "chunking_config": { "mode": "auto" },
+        "delayed_data_check_config": { "enabled": true }
+      }
+    },
+    {
+      "id": "aws-opensearch-write-rejections",
+      "description": "Detects unusual write rejection spikes in OpenSearch — indexing backpressure detection",
+      "job": {
+        "description": "Detects unusual write rejection spikes in OpenSearch — indexing backpressure detection",
+        "groups": ["aws", "databases-extended"],
+        "analysis_config": {
+          "bucket_span": "15m",
+          "detectors": [
+            {
+              "detector_description": "High mean OpenSearch coordinating write rejections by domain",
+              "function": "high_mean",
+              "field_name": "aws.opensearch.metrics.CoordinatingWriteRejected.sum",
+              "partition_field_name": "aws.opensearch.domain.name",
+              "detector_index": 0
+            }
+          ],
+          "influencers": [
+            "aws.opensearch.domain.name"
+          ]
+        },
+        "allow_lazy_open": true,
+        "analysis_limits": { "model_memory_limit": "32mb" },
+        "data_description": { "time_field": "@timestamp" },
+        "custom_settings": { "created_by": "aws-elastic-load-generator" }
+      },
+      "datafeed": {
+        "indices": ["logs-aws.*"],
+        "max_empty_searches": 10,
+        "query": {
+          "bool": {
+            "filter": [
+              { "term": { "event.dataset": "aws.opensearch" } }
+            ]
+          }
+        },
+        "chunking_config": { "mode": "auto" },
+        "delayed_data_check_config": { "enabled": true }
+      }
+    }
+  ]
+}

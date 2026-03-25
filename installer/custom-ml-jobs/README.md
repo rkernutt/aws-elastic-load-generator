@@ -1,12 +1,12 @@
 # Installer 4 — ML Anomaly Detection Jobs
 
-Interactive CLI that installs **Elasticsearch ML anomaly detection jobs** for AWS services across 7 service groups (~35 jobs total). Jobs are created via the Elasticsearch ML API directly — no Kibana required.
+Interactive CLI that installs **Elasticsearch ML anomaly detection jobs** for AWS services across 14 service groups (70 jobs total). Jobs are created via the Elasticsearch ML API directly — no Kibana required.
 
 ---
 
 ## Why this installer exists
 
-The official Elastic AWS integration ships ML jobs only for **CloudTrail**. This installer fills the gap with purpose-built anomaly detection jobs for ALB, API Gateway, Lambda, EC2, EKS, RDS, Aurora, ElastiCache, Kinesis, SQS, Bedrock, S3, VPC Flow Logs, GuardDuty, and WAF.
+The official Elastic AWS integration ships ML jobs only for **CloudTrail**. This installer fills the gap with purpose-built anomaly detection jobs for 40+ AWS services across security, compute, networking, databases, streaming, analytics, AI/ML, storage, and cloud management.
 
 ---
 
@@ -44,12 +44,19 @@ The installer will prompt you for:
 | # | Group | Description | Jobs |
 |---|-------|-------------|------|
 | 1 | `security` | Security & compliance — VPC Flow, GuardDuty, WAF, CloudTrail | 7 |
-| 2 | `compute` | Compute & containers — Lambda, EC2, EKS | 7 |
-| 3 | `networking` | Networking & load balancers — ALB, API Gateway | 5 |
-| 4 | `databases` | Databases — RDS, Aurora, ElastiCache | 6 |
-| 5 | `streaming` | Streaming & messaging — Kinesis, SQS | 4 |
-| 6 | `aiml` | AI & ML services — Bedrock | 4 |
-| 7 | `storage` | Storage — S3 | 4 |
+| 2 | `security-extended` | Extended security — Security Hub, Macie, Inspector, Config, KMS | 5 |
+| 3 | `compute` | Compute & containers — Lambda, EC2, EKS | 7 |
+| 4 | `compute-extended` | Extended compute — ECS, Auto Scaling, Elastic Beanstalk | 5 |
+| 5 | `networking` | Networking & load balancers — ALB, API Gateway | 5 |
+| 6 | `networking-extended` | Extended networking — CloudFront, Route 53, Network Firewall | 4 |
+| 7 | `databases` | Databases — RDS, Aurora, ElastiCache | 6 |
+| 8 | `databases-extended` | Extended databases — DynamoDB, Redshift, OpenSearch | 5 |
+| 9 | `streaming` | Streaming & messaging — Kinesis, SQS | 4 |
+| 10 | `messaging` | Messaging & event bus — SNS, MSK, EventBridge, Step Functions | 5 |
+| 11 | `analytics` | Analytics — Glue, Athena, EMR | 5 |
+| 12 | `aiml` | AI & ML services — Bedrock | 4 |
+| 13 | `storage` | Storage — S3 | 4 |
+| 14 | `management` | Management & governance — CloudWatch, CloudFormation, Billing, SSM | 4 |
 
 You can install individual groups or all groups at once.
 
@@ -60,41 +67,70 @@ You can install individual groups or all groups at once.
 ### security (7 jobs)
 
 | Job ID | Service | Detector | What it detects |
-|--------|---------|----------|-----------------|
+|--------|---------|----------|--------------------|
 | `aws-vpcflow-high-bytes-tx` | VPC Flow Logs | high_sum by dest IP | Unusually high bytes transmitted to a destination (exfiltration) |
 | `aws-vpcflow-rare-dest-port` | VPC Flow Logs | rare by dest port | Rare destination ports being contacted (lateral movement, recon) |
 | `aws-vpcflow-high-denied-count` | VPC Flow Logs | high_count by src IP | Spikes in denied connections from a single source IP |
-| `aws-guardduty-finding-spike` | GuardDuty | high_count by finding type | Sudden increases in GuardDuty finding counts per type |
+| `aws-guardduty-finding-spike` | GuardDuty | high_count by severity | Sudden increases in GuardDuty finding counts per severity |
 | `aws-guardduty-rare-finding-type` | GuardDuty | rare by finding type | Rare or novel GuardDuty finding types appearing for the first time |
-| `aws-waf-high-block-rate` | WAF | high_count by rule | Spikes in WAF rule block actions per rule |
+| `aws-waf-high-block-rate` | WAF | high_count by src IP | Spikes in WAF rule block actions per source IP |
 | `aws-cloudtrail-rare-user-action` | CloudTrail | rare by event name + user | Rare or unusual API calls per user (privilege escalation, recon) |
+
+### security-extended (5 jobs)
+
+| Job ID | Service | Detector | What it detects |
+|--------|---------|----------|--------------------|
+| `aws-securityhub-critical-finding-spike` | Security Hub | high_count | Unusual spikes in high/critical severity findings (posture degradation) |
+| `aws-macie-finding-spike` | Macie | high_count by bucket | Unusual Macie sensitive data findings per S3 bucket |
+| `aws-inspector-critical-vuln-spike` | Inspector | high_mean by instance | Unusual spikes in critical Inspector vulnerability findings per instance |
+| `aws-config-noncompliance-spike` | Config | high_count | Unusual spikes in non-compliant Config rule evaluations (compliance drift) |
+| `aws-kms-unusual-operation` | KMS | rare by operation + account | Rare or unusual KMS key operations (credential abuse, unusual access) |
 
 ### compute (7 jobs)
 
 | Job ID | Service | Detector | What it detects |
-|--------|---------|----------|-----------------|
+|--------|---------|----------|--------------------|
 | `aws-lambda-error-spike` | Lambda | high_count by function | Spikes in Lambda function errors per function name |
 | `aws-lambda-duration-anomaly` | Lambda | high_mean by function | Unusually long Lambda invocation durations |
-| `aws-lambda-throttle-spike` | Lambda | high_count by function | Spikes in Lambda throttles (capacity exhaustion) |
+| `aws-lambda-throttle-spike` | Lambda | high_mean by function | Spikes in Lambda throttles (capacity exhaustion) |
 | `aws-ec2-cpu-anomaly` | EC2 | high_mean by instance | CPU utilisation anomalies per EC2 instance |
 | `aws-ec2-network-spike` | EC2 | high_sum by instance | Unusual outbound network volume per instance |
 | `aws-eks-pod-failure-spike` | EKS | high_count by namespace | Pod failure / restart spikes per Kubernetes namespace |
 | `aws-eks-rare-image` | EKS | rare by image | Rare container images starting in the cluster |
 
+### compute-extended (5 jobs)
+
+| Job ID | Service | Detector | What it detects |
+|--------|---------|----------|--------------------|
+| `aws-ecs-memory-pressure` | ECS | high_mean by cluster | Unusual memory utilisation spikes in ECS clusters (early OOM warning) |
+| `aws-ecs-task-failure-spike` | ECS | high_count by cluster | Spikes in ECS task failures per cluster (container instability) |
+| `aws-autoscaling-rapid-scaling` | Auto Scaling | high_mean by ASG | Unusually rapid Auto Scaling activity — flapping/thrashing detection |
+| `aws-beanstalk-5xx-spike` | Elastic Beanstalk | high_mean by environment | Unusual 5xx error rates in Elastic Beanstalk environments |
+| `aws-beanstalk-latency-p99-anomaly` | Elastic Beanstalk | high_mean by environment | Unusual p99 latency spikes (tail latency regression) |
+
 ### networking (5 jobs)
 
 | Job ID | Service | Detector | What it detects |
-|--------|---------|----------|-----------------|
+|--------|---------|----------|--------------------|
 | `aws-alb-5xx-spike` | ALB | high_count by target group | Spikes in ALB 5xx responses per target group |
 | `aws-alb-response-time-anomaly` | ALB | high_mean | Unusual backend response times in ALB |
 | `aws-alb-rare-user-agent` | ALB | rare by user agent | Rare user agent strings (scanners, bots, attack tooling) |
 | `aws-apigateway-latency-anomaly` | API Gateway | high_mean by stage | Unusual API Gateway latency per stage |
 | `aws-apigateway-error-spike` | API Gateway | high_count by stage | Spikes in API Gateway 4xx/5xx errors per stage |
 
+### networking-extended (4 jobs)
+
+| Job ID | Service | Detector | What it detects |
+|--------|---------|----------|--------------------|
+| `aws-cloudfront-error-rate-spike` | CloudFront | high_count | Unusual CDN 5xx error rates (origin failures, availability issues) |
+| `aws-cloudfront-cache-miss-spike` | CloudFront | high_count | Unusual CloudFront cache miss rate spikes (cache invalidation storms) |
+| `aws-route53-nxdomain-spike` | Route 53 | high_count | Unusual NXDOMAIN response spikes (DNS attack or misconfiguration) |
+| `aws-networkfirewall-drop-spike` | Network Firewall | high_count | Unusual Network Firewall packet drop spikes (perimeter anomaly) |
+
 ### databases (6 jobs)
 
 | Job ID | Service | Detector | What it detects |
-|--------|---------|----------|-----------------|
+|--------|---------|----------|--------------------|
 | `aws-rds-latency-anomaly` | RDS | high_mean by instance | Query latency anomalies per RDS instance |
 | `aws-rds-connection-spike` | RDS | high_count by instance | Unusual connection count spikes (connection pool exhaustion) |
 | `aws-aurora-replica-lag` | Aurora | high_mean by cluster | Aurora replica lag anomalies indicating replication issues |
@@ -102,19 +138,49 @@ You can install individual groups or all groups at once.
 | `aws-elasticache-hit-rate-drop` | ElastiCache | low_mean by node | Cache hit rate drops (cold cache, key churn) |
 | `aws-elasticache-latency-spike` | ElastiCache | high_mean by node | Command latency spikes per ElastiCache node |
 
+### databases-extended (5 jobs)
+
+| Job ID | Service | Detector | What it detects |
+|--------|---------|----------|--------------------|
+| `aws-dynamodb-throttle-spike` | DynamoDB | high_mean by table | Unusual DynamoDB read throttle events per table (capacity planning) |
+| `aws-dynamodb-latency-anomaly` | DynamoDB | high_mean by table | Unusual DynamoDB request latency per table (performance regression) |
+| `aws-redshift-query-duration-anomaly` | Redshift | high_mean by cluster | Unusual Redshift query execution durations (long-running warehouse queries) |
+| `aws-opensearch-jvm-pressure` | OpenSearch | high_mean by domain | Unusual JVM memory pressure in OpenSearch (pre-OOM and GC storm warning) |
+| `aws-opensearch-write-rejections` | OpenSearch | high_mean by domain | Unusual write rejection spikes in OpenSearch (indexing backpressure) |
+
 ### streaming (4 jobs)
 
 | Job ID | Service | Detector | What it detects |
-|--------|---------|----------|-----------------|
+|--------|---------|----------|--------------------|
 | `aws-kinesis-iterator-age-anomaly` | Kinesis | high_mean by stream | Iterator age anomalies (consumers falling behind) |
 | `aws-kinesis-throughput-anomaly` | Kinesis | high_sum by stream | Unusual write throughput spikes per stream |
 | `aws-sqs-message-age-anomaly` | SQS | high_mean by queue | Message age anomalies (slow consumers, DLQ build-up) |
 | `aws-sqs-not-visible-spike` | SQS | high_count by queue | Spikes in not-visible message count (processing failures) |
 
+### messaging (5 jobs)
+
+| Job ID | Service | Detector | What it detects |
+|--------|---------|----------|--------------------|
+| `aws-sns-delivery-failure-spike` | SNS | high_mean | Unusual spikes in SNS notification delivery failures |
+| `aws-msk-consumer-lag-anomaly` | MSK/Kafka | high_mean by cluster | Unusual Kafka consumer lag (consumers falling behind producers) |
+| `aws-msk-under-replicated-partitions` | MSK/Kafka | high_mean by cluster | Unusual under-replicated Kafka partitions (broker health issues) |
+| `aws-eventbridge-failed-invocations` | EventBridge | high_mean by rule | Unusual EventBridge target invocation failure spikes |
+| `aws-stepfunctions-execution-failure-spike` | Step Functions | high_mean by state machine | Unusual Step Functions execution failure rates per state machine |
+
+### analytics (5 jobs)
+
+| Job ID | Service | Detector | What it detects |
+|--------|---------|----------|--------------------|
+| `aws-glue-job-duration-anomaly` | Glue | high_mean by job | Unusual ETL job durations per Glue job (silently getting slower) |
+| `aws-glue-failure-spike` | Glue | high_count by job | Spikes in Glue job failures |
+| `aws-athena-data-scanned-spike` | Athena | high_sum by workgroup | Unusual data scan volumes (primary cost anomaly signal) |
+| `aws-athena-query-duration-anomaly` | Athena | high_mean by workgroup | Unusual Athena query execution times (performance regression) |
+| `aws-emr-task-failure-spike` | EMR | high_mean by cluster | Unusual task failure rates in EMR clusters |
+
 ### aiml (4 jobs)
 
 | Job ID | Service | Detector | What it detects |
-|--------|---------|----------|-----------------|
+|--------|---------|----------|--------------------|
 | `aws-bedrock-token-usage-spike` | Bedrock | high_sum by model | Unusual token consumption per model (cost runaway detection) |
 | `aws-bedrock-latency-anomaly` | Bedrock | high_mean by model | Unusual inference latency per Bedrock model |
 | `aws-bedrock-error-spike` | Bedrock | high_count by model | Error rate spikes per Bedrock model |
@@ -123,11 +189,20 @@ You can install individual groups or all groups at once.
 ### storage (4 jobs)
 
 | Job ID | Service | Detector | What it detects |
-|--------|---------|----------|-----------------|
+|--------|---------|----------|--------------------|
 | `aws-s3-bandwidth-anomaly` | S3 | high_sum by bucket | Unusual data egress volume per bucket (potential exfiltration) |
 | `aws-s3-error-spike` | S3 | high_count by bucket | 4xx/5xx error spikes per bucket (access denied, not found) |
 | `aws-s3-rare-operation` | S3 | rare by operation | Rare S3 operations (DeleteBucket, PutBucketPolicy, etc.) |
 | `aws-s3-rare-requester` | S3 | rare by requester | Rare requesting principals accessing a bucket |
+
+### management (4 jobs)
+
+| Job ID | Service | Detector | What it detects |
+|--------|---------|----------|--------------------|
+| `aws-cloudwatch-alarm-storm` | CloudWatch | high_count | Correlated alarm storms — many alarms firing at once (infrastructure-wide incidents) |
+| `aws-cloudformation-rollback-spike` | CloudFormation | high_count | Unusual CloudFormation rollback and failure rates (deployment instability) |
+| `aws-billing-cost-anomaly` | Billing | high_mean | Unusual AWS billing cost spikes per account and region |
+| `aws-ssm-rare-command` | SSM | rare by action + instance | Rare Systems Manager commands per instance (lateral movement, privilege abuse) |
 
 ---
 
@@ -163,39 +238,48 @@ Testing connection...
 
 Available job groups:
 
-   1. security     (7 jobs)  — Security & compliance anomaly detection — VPC Flow, GuardDuty, WAF, CloudTrail
-   2. compute      (7 jobs)  — Compute & container anomaly detection — Lambda, EC2, EKS
-   3. networking   (5 jobs)  — Networking & load balancer anomaly detection — ALB, API Gateway
-   4. databases    (6 jobs)  — Database anomaly detection — RDS, Aurora, ElastiCache
-   5. streaming    (4 jobs)  — Streaming & messaging anomaly detection — Kinesis, SQS
-   6. aiml         (4 jobs)  — AI & ML service anomaly detection — Bedrock
-   7. storage      (4 jobs)  — Storage anomaly detection — S3
-   8. all           (install every group)
+    1. security          (7 jobs)  — Security & compliance anomaly detection — VPC Flow, GuardDuty, WAF, CloudTrail
+    2. security-extended (5 jobs)  — Extended security anomaly detection — Security Hub, Macie, Inspector, Config, KMS
+    3. compute           (7 jobs)  — Compute & container anomaly detection — Lambda, EC2, EKS
+    4. compute-extended  (5 jobs)  — Extended compute anomaly detection — ECS, Auto Scaling, Elastic Beanstalk
+    5. networking        (5 jobs)  — Networking & load balancer anomaly detection — ALB, API Gateway
+    6. networking-extended (4 jobs) — Extended networking anomaly detection — CloudFront, Route 53, Network Firewall
+    7. databases         (6 jobs)  — Database anomaly detection — RDS, Aurora, ElastiCache
+    8. databases-extended (5 jobs) — Extended database anomaly detection — DynamoDB, Redshift, OpenSearch
+    9. streaming         (4 jobs)  — Streaming & messaging anomaly detection — Kinesis, SQS
+   10. messaging         (5 jobs)  — Messaging & event bus anomaly detection — SNS, MSK, EventBridge, Step Functions
+   11. analytics         (5 jobs)  — Analytics anomaly detection — Glue, Athena, EMR
+   12. aiml              (4 jobs)  — AI & ML service anomaly detection — Bedrock
+   13. storage           (4 jobs)  — Storage anomaly detection — S3
+   14. management        (4 jobs)  — Management & governance anomaly detection — CloudWatch, CloudFormation, Billing, SSM
+   15. all               (install every group)
 
 Enter number(s) comma-separated, or "all":
 > 1,3
 
-Installing 12 job(s)...
+Installing 14 job(s)...
 
-  ✓ aws-vpcflow-traffic-spike — installed
+  ✓ aws-vpcflow-high-bytes-tx — installed
   ✓ aws-vpcflow-rare-dest-port — installed
+  ✓ aws-vpcflow-high-denied-count — installed
   ✓ aws-guardduty-finding-spike — installed
-  ✓ aws-waf-block-spike — installed
-  ✓ aws-cloudtrail-failed-auth — installed
-  ✓ aws-cloudtrail-rare-api-call — installed
-  ✓ aws-cloudtrail-root-activity — installed
-  ✓ aws-alb-5xx-spike — installed
-  ✓ aws-alb-response-time-anomaly — installed
-  ✓ aws-alb-rare-user-agent — installed
-  ✓ aws-apigateway-latency-anomaly — installed
-  ✓ aws-apigateway-error-spike — installed
+  ✓ aws-guardduty-rare-finding-type — installed
+  ✓ aws-waf-high-block-rate — installed
+  ✓ aws-cloudtrail-rare-user-action — installed
+  ✓ aws-lambda-error-spike — installed
+  ✓ aws-lambda-duration-anomaly — installed
+  ✓ aws-lambda-throttle-spike — installed
+  ✓ aws-ec2-cpu-anomaly — installed
+  ✓ aws-ec2-network-spike — installed
+  ✓ aws-eks-pod-failure-spike — installed
+  ✓ aws-eks-rare-image — installed
 
-Installed 12 / 12 job(s).
+Installed 14 / 14 job(s).
 
 Open jobs and start datafeeds? This begins ML analysis. (y/N):
 > y
 
-  Opening aws-vpcflow-traffic-spike... opened. Starting datafeed... started.
+  Opening aws-vpcflow-high-bytes-tx... opened. Starting datafeed... started.
   Opening aws-vpcflow-rare-dest-port... opened. Starting datafeed... started.
   ...
 
@@ -220,13 +304,13 @@ Once datafeeds are running and data has been collected for at least one bucket s
 
 > Kibana → Machine Learning → Anomaly Detection → Anomaly Explorer
 
-Filter by job groups `aws` to see all jobs installed by this tool. Anomaly scores are surfaced on a per-job and per-detector basis, with influencers highlighting the specific instance, function, bucket, or IP responsible for the anomaly.
+Filter by job group `aws` to see all jobs installed by this tool. Anomaly scores are surfaced on a per-job and per-detector basis, with influencers highlighting the specific instance, function, bucket, or IP responsible for the anomaly.
 
 ---
 
 ## Notes
 
 - Jobs use `allow_lazy_open: true` — they will open even if ML nodes are temporarily at capacity.
-- All jobs use `model_memory_limit` values between 16 MB and 64 MB; adjust these in the job JSON files before installing if your environment has high cardinality.
+- All jobs use `model_memory_limit` values between 16 MB and 128 MB; adjust these in the job JSON files before installing if your environment has high cardinality.
 - Re-running the installer is safe — existing jobs are detected and skipped automatically.
 - Job definitions live in `installer/custom-ml-jobs/jobs/` as `*-jobs.json` files. You can add new groups by creating additional files following the same schema.

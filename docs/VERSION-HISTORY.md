@@ -4,6 +4,23 @@
 
 ---
 
+## What's New in v9.2
+
+- **Installer 4 — ML Anomaly Detection Jobs** — New `npm run setup:ml-jobs` installer adds **70 Elasticsearch ML anomaly detection jobs** across **14 service groups**, filling the gap left by the official Elastic AWS integration (which only ships ML jobs for CloudTrail). Coverage includes:
+  - **Security:** VPC Flow (denied traffic, rare ports, data exfiltration), GuardDuty (finding spikes, rare types), WAF (block rate), CloudTrail (rare user actions), Security Hub (critical finding spikes), Macie (sensitive data exposure), Inspector (vulnerability spikes), AWS Config (compliance drift), KMS (unusual key operations)
+  - **Compute:** Lambda (error/throttle/duration per function), EC2 (CPU, network), EKS (pod failures, rare images), ECS (memory pressure, task failures), Auto Scaling (rapid scaling), Elastic Beanstalk (5xx, p99 latency)
+  - **Networking:** ALB (5xx, response time, rare user agents), API Gateway (latency, errors), CloudFront (error rate, cache miss storms), Route 53 (NXDOMAIN spikes — DNS attack detection), Network Firewall (drop spikes)
+  - **Databases:** RDS (latency, connections), Aurora (replica lag), ElastiCache (hit rate drop, latency), DynamoDB (throttle spikes, latency), Redshift (query duration), OpenSearch (JVM pressure, write rejections)
+  - **Streaming:** Kinesis (iterator age lag, throughput), SQS (message age, not-visible count), SNS (delivery failures), MSK/Kafka (consumer lag, under-replicated partitions), EventBridge (failed invocations), Step Functions (execution failures)
+  - **AI/ML:** Bedrock (token usage, latency, errors, rare models)
+  - **Storage:** S3 (bandwidth, errors, rare operations, rare requesters)
+  - **Analytics:** Glue (duration, failures), Athena (data scanned cost spike, query duration), EMR (task failures)
+  - **Management:** CloudWatch alarm storms (meta-monitoring), CloudFormation rollback spikes, billing cost anomalies, SSM rare commands
+- Jobs are created via the Elasticsearch ML API (no Kibana required). The installer works with Elastic Stack 8.x, Elastic Cloud Hosted, and Elastic Serverless.
+- All 70 job definitions live in `installer/custom-ml-jobs/jobs/` as `*-jobs.json` files. Adding new groups requires only a new JSON file — no installer code changes.
+
+---
+
 ## What's New in v9.1
 
 - **3 new AWS service generators** — Coverage expanded from 136 to **139 services**:

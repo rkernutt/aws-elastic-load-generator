@@ -530,15 +530,20 @@ You can also import the `.ndjson` files manually via the Kibana UI:
 
 ### What it installs
 
-37 Elasticsearch ML anomaly detection jobs across 7 groups — covering services that the official Elastic AWS integration does not include (which only ships ML jobs for CloudTrail). These jobs detect real operational and security anomalies such as:
+70 Elasticsearch ML anomaly detection jobs across 14 groups — covering services that the official Elastic AWS integration does not include (which only ships ML jobs for CloudTrail). These jobs detect real operational and security anomalies such as:
 
-- Spikes in VPC denied traffic, rare destination ports, unusual GuardDuty finding types
-- Lambda error/throttle/duration anomalies per function
-- ALB 5xx spikes, API Gateway latency anomalies
+- Spikes in VPC denied traffic, rare destination ports, GuardDuty finding types, WAF blocks, CloudTrail rare user actions
+- Security Hub critical finding spikes, Macie data exposure, Inspector critical vulnerabilities, Config compliance drift, KMS unusual operations
+- Lambda error/throttle/duration anomalies, EC2 CPU and network anomalies, EKS pod failures and rare images
+- ECS memory pressure, Auto Scaling thrashing, Elastic Beanstalk 5xx and latency spikes
+- ALB 5xx spikes and rare user agents, API Gateway latency and error anomalies
+- CloudFront cache miss storms, Route 53 NXDOMAIN spikes, Network Firewall drop spikes
 - RDS latency/connection spikes, Aurora replica lag, ElastiCache hit-rate drops
-- Kinesis iterator age lag, SQS message backlog
-- Bedrock token usage and latency anomalies per model
-- S3 bandwidth anomalies and rare operations per bucket
+- DynamoDB throttles and latency, Redshift query duration, OpenSearch JVM pressure and write rejections
+- Kinesis iterator age lag, SQS message backlog, SNS delivery failures, MSK consumer lag, EventBridge failures, Step Functions rollbacks
+- Glue job failures and duration anomalies, Athena cost and performance, EMR task failures
+- Bedrock token usage, latency, and error anomalies per model
+- CloudWatch alarm storms, CloudFormation rollbacks, billing cost spikes, SSM rare commands
 
 See [`installer/custom-ml-jobs/README.md`](custom-ml-jobs/README.md) for the full job catalogue.
 
@@ -562,12 +567,19 @@ node installer/custom-ml-jobs/index.mjs
 | Group | Jobs | Services covered |
 |-------|------|-----------------|
 | security | 7 | VPC Flow, GuardDuty, WAF, CloudTrail |
+| security-extended | 5 | Security Hub, Macie, Inspector, Config, KMS |
 | compute | 7 | Lambda, EC2, EKS |
+| compute-extended | 5 | ECS, Auto Scaling, Elastic Beanstalk |
 | networking | 5 | ALB, API Gateway |
+| networking-extended | 4 | CloudFront, Route 53, Network Firewall |
 | databases | 6 | RDS, Aurora, ElastiCache |
+| databases-extended | 5 | DynamoDB, Redshift, OpenSearch |
 | streaming | 4 | Kinesis Streams, SQS |
+| messaging | 5 | SNS, MSK/Kafka, EventBridge, Step Functions |
+| analytics | 5 | Glue, Athena, EMR |
 | aiml | 4 | Bedrock |
 | storage | 4 | S3 |
+| management | 4 | CloudWatch, CloudFormation, Billing, SSM |
 
 ---
 

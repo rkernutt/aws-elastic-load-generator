@@ -6,6 +6,23 @@ Each service has its correct real-world ingestion source pre-configured — S3, 
 
 ---
 
+## What's New in v9.2
+
+- **Installer 4 — ML Anomaly Detection Jobs** — New `npm run setup:ml-jobs` installer adds **70 Elasticsearch ML anomaly detection jobs** across **14 service groups**, filling the gap left by the official Elastic AWS integration (which only ships ML jobs for CloudTrail). Coverage includes:
+  - **Security:** VPC Flow (denied traffic, rare ports, data exfiltration), GuardDuty (finding spikes, rare types), WAF (block rate), CloudTrail (rare user actions), Security Hub (critical finding spikes), Macie (sensitive data exposure), Inspector (vulnerability spikes), AWS Config (compliance drift), KMS (unusual key operations)
+  - **Compute:** Lambda (error/throttle/duration per function), EC2 (CPU, network), EKS (pod failures, rare images), ECS (memory pressure, task failures), Auto Scaling (rapid scaling), Elastic Beanstalk (5xx, p99 latency)
+  - **Networking:** ALB (5xx, response time, rare user agents), API Gateway (latency, errors), CloudFront (error rate, cache miss storms), Route 53 (NXDOMAIN spikes — DNS attack detection), Network Firewall (drop spikes)
+  - **Databases:** RDS (latency, connections), Aurora (replica lag), ElastiCache (hit rate drop, latency), DynamoDB (throttle spikes, latency), Redshift (query duration), OpenSearch (JVM pressure, write rejections)
+  - **Streaming:** Kinesis (iterator age lag, throughput), SQS (message age, not-visible count), SNS (delivery failures), MSK/Kafka (consumer lag, under-replicated partitions), EventBridge (failed invocations), Step Functions (execution failures)
+  - **AI/ML:** Bedrock (token usage, latency, errors, rare models)
+  - **Storage:** S3 (bandwidth, errors, rare operations, rare requesters)
+  - **Analytics:** Glue (duration, failures), Athena (data scanned cost spike, query duration), EMR (task failures)
+  - **Management:** CloudWatch alarm storms (meta-monitoring), CloudFormation rollback spikes, billing cost anomalies, SSM rare commands
+
+See [`installer/custom-ml-jobs/README.md`](installer/custom-ml-jobs/README.md) for the full job catalogue.
+
+---
+
 ## What's New in v9.1
 
 - **3 new AWS service generators** — Coverage expanded from 136 to **139 services**:
@@ -62,7 +79,7 @@ To stop Docker: `docker compose down`
 
 ## Recommended setup before first use
 
-Run the three onboarding installers once before you start shipping data. They configure Elastic with the correct index templates, dashboards, and ingest pipelines. All require only Node.js 18+ and zero extra `npm install`.
+Run the four onboarding installers once before you start shipping data. They configure Elastic with the correct index templates, dashboards, ingest pipelines, and ML anomaly detection jobs. All require only Node.js 18+ and zero extra `npm install`.
 
 ### Step 1 — Install the official Elastic AWS integration
 
@@ -273,15 +290,32 @@ logs-aws.{dataset_suffix}-default
 
 e.g. `logs-aws.glue-default`, `logs-aws.sagemaker-default`, `logs-aws.lambda_logs-default`. These match the index names the load generator writes to, so pipelines are applied automatically on ingest — no additional routing configuration is needed.
 
-**Why three separate installers?**
+### Step 4 — Install ML anomaly detection jobs
 
-| | `setup:integration` | `setup:pipelines` | `setup:dashboards` |
-|---|---|---|---|
-| API used | Kibana Fleet API | Elasticsearch Ingest API | Kibana Dashboards API |
-| Credentials | Kibana URL + API key | Elasticsearch URL + API key | Kibana URL + API key |
-| What it configures | Dashboards, ILM, templates | Ingest pipelines | Custom Kibana dashboards |
-| Re-runnable | Yes — skips if installed | Yes — skips existing pipelines | Yes — skips by title |
-| Kibana version | Any | — | 9.4+ (or 8.11+ with `setup:dashboards:legacy`) |
+```bash
+npm run setup:ml-jobs
+```
+
+**What it does:** Installs 70 Elasticsearch ML anomaly detection jobs across 14 groups — covering services that the official Elastic AWS integration does not include. Jobs are created directly via the Elasticsearch ML API.
+
+| Prompt | Where to find it |
+|--------|-----------------|
+| Elasticsearch URL | Deployment overview → Elasticsearch endpoint |
+| API key | Kibana → Stack Management → API Keys → Create API key (needs `manage_ml` cluster privilege) |
+
+After installation, the installer offers to open jobs and start datafeeds immediately. Results appear in **Kibana → Machine Learning → Anomaly Detection → Anomaly Explorer** once at least one bucket span of data has been collected.
+
+---
+
+**Why four separate installers?**
+
+| | `setup:integration` | `setup:pipelines` | `setup:dashboards` | `setup:ml-jobs` |
+|---|---|---|---|---|
+| API used | Kibana Fleet API | Elasticsearch Ingest API | Kibana Dashboards API | Elasticsearch ML API |
+| Credentials | Kibana URL + API key | Elasticsearch URL + API key | Kibana URL + API key | Elasticsearch URL + API key |
+| What it configures | Dashboards, ILM, templates | Ingest pipelines | Custom Kibana dashboards | ML anomaly detection jobs |
+| Re-runnable | Yes — skips if installed | Yes — skips existing | Yes — skips by title | Yes — skips existing jobs |
+| Kibana version | Any | — | 9.4+ (or 8.11+ legacy) | — |
 
 ---
 

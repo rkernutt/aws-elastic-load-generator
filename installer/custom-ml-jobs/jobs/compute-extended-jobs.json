@@ -1,0 +1,196 @@
+{
+  "group": "compute-extended",
+  "description": "Extended compute anomaly detection — ECS container health, Auto Scaling thrashing, Elastic Beanstalk errors & latency",
+  "jobs": [
+    {
+      "id": "aws-ecs-memory-pressure",
+      "description": "Detects unusual memory utilization spikes in ECS containers — early OOM warning",
+      "job": {
+        "description": "Detects unusual memory utilization spikes in ECS containers — early OOM warning",
+        "groups": ["aws", "compute-extended"],
+        "analysis_config": {
+          "bucket_span": "15m",
+          "detectors": [
+            {
+              "detector_description": "high_mean(aws.ecs.metrics.MemoryUtilization.avg) partitionfield=aws.ecs.cluster.name",
+              "function": "high_mean",
+              "field_name": "aws.ecs.metrics.MemoryUtilization.avg",
+              "partition_field_name": "aws.ecs.cluster.name",
+              "detector_index": 0
+            }
+          ],
+          "influencers": ["aws.ecs.cluster.name", "cloud.region"]
+        },
+        "allow_lazy_open": true,
+        "analysis_limits": { "model_memory_limit": "32mb" },
+        "data_description": { "time_field": "@timestamp" },
+        "custom_settings": { "created_by": "aws-elastic-load-generator" }
+      },
+      "datafeed": {
+        "indices": ["logs-aws.*"],
+        "max_empty_searches": 10,
+        "query": {
+          "bool": {
+            "filter": [
+              { "term": { "event.dataset": "aws.ecs" } }
+            ]
+          }
+        },
+        "chunking_config": { "mode": "auto" },
+        "delayed_data_check_config": { "enabled": true }
+      }
+    },
+    {
+      "id": "aws-ecs-task-failure-spike",
+      "description": "Detects spikes in ECS task failures — container instability detection",
+      "job": {
+        "description": "Detects spikes in ECS task failures — container instability detection",
+        "groups": ["aws", "compute-extended"],
+        "analysis_config": {
+          "bucket_span": "15m",
+          "detectors": [
+            {
+              "detector_description": "high_count partitionfield=aws.ecs.cluster.name",
+              "function": "high_count",
+              "partition_field_name": "aws.ecs.cluster.name",
+              "detector_index": 0
+            }
+          ],
+          "influencers": ["aws.ecs.cluster.name", "cloud.region"]
+        },
+        "allow_lazy_open": true,
+        "analysis_limits": { "model_memory_limit": "32mb" },
+        "data_description": { "time_field": "@timestamp" },
+        "custom_settings": { "created_by": "aws-elastic-load-generator" }
+      },
+      "datafeed": {
+        "indices": ["logs-aws.*"],
+        "max_empty_searches": 10,
+        "query": {
+          "bool": {
+            "filter": [
+              { "term": { "event.dataset": "aws.ecs" } },
+              { "term": { "event.outcome": "failure" } }
+            ]
+          }
+        },
+        "chunking_config": { "mode": "auto" },
+        "delayed_data_check_config": { "enabled": true }
+      }
+    },
+    {
+      "id": "aws-autoscaling-rapid-scaling",
+      "description": "Detects unusually rapid Auto Scaling activity — flapping/thrashing detection",
+      "job": {
+        "description": "Detects unusually rapid Auto Scaling activity — flapping/thrashing detection",
+        "groups": ["aws", "compute-extended"],
+        "analysis_config": {
+          "bucket_span": "15m",
+          "detectors": [
+            {
+              "detector_description": "high_mean(aws.autoscaling.metrics.GroupPendingInstances.avg) partitionfield=aws.autoscaling.group.name",
+              "function": "high_mean",
+              "field_name": "aws.autoscaling.metrics.GroupPendingInstances.avg",
+              "partition_field_name": "aws.autoscaling.group.name",
+              "detector_index": 0
+            }
+          ],
+          "influencers": ["aws.autoscaling.group.name", "cloud.region"]
+        },
+        "allow_lazy_open": true,
+        "analysis_limits": { "model_memory_limit": "32mb" },
+        "data_description": { "time_field": "@timestamp" },
+        "custom_settings": { "created_by": "aws-elastic-load-generator" }
+      },
+      "datafeed": {
+        "indices": ["logs-aws.*"],
+        "max_empty_searches": 10,
+        "query": {
+          "bool": {
+            "filter": [
+              { "term": { "event.dataset": "aws.autoscaling" } }
+            ]
+          }
+        },
+        "chunking_config": { "mode": "auto" },
+        "delayed_data_check_config": { "enabled": true }
+      }
+    },
+    {
+      "id": "aws-beanstalk-5xx-spike",
+      "description": "Detects unusual 5xx error rates in Elastic Beanstalk environments",
+      "job": {
+        "description": "Detects unusual 5xx error rates in Elastic Beanstalk environments",
+        "groups": ["aws", "compute-extended"],
+        "analysis_config": {
+          "bucket_span": "15m",
+          "detectors": [
+            {
+              "detector_description": "high_mean(aws.elasticbeanstalk.metrics.ApplicationRequests5xx.sum) partitionfield=aws.elasticbeanstalk.environment.name",
+              "function": "high_mean",
+              "field_name": "aws.elasticbeanstalk.metrics.ApplicationRequests5xx.sum",
+              "partition_field_name": "aws.elasticbeanstalk.environment.name",
+              "detector_index": 0
+            }
+          ],
+          "influencers": ["aws.elasticbeanstalk.environment.name", "cloud.region"]
+        },
+        "allow_lazy_open": true,
+        "analysis_limits": { "model_memory_limit": "32mb" },
+        "data_description": { "time_field": "@timestamp" },
+        "custom_settings": { "created_by": "aws-elastic-load-generator" }
+      },
+      "datafeed": {
+        "indices": ["logs-aws.*"],
+        "max_empty_searches": 10,
+        "query": {
+          "bool": {
+            "filter": [
+              { "term": { "event.dataset": "aws.elasticbeanstalk" } }
+            ]
+          }
+        },
+        "chunking_config": { "mode": "auto" },
+        "delayed_data_check_config": { "enabled": true }
+      }
+    },
+    {
+      "id": "aws-beanstalk-latency-p99-anomaly",
+      "description": "Detects unusual p99 latency spikes in Elastic Beanstalk — tail latency regression",
+      "job": {
+        "description": "Detects unusual p99 latency spikes in Elastic Beanstalk — tail latency regression",
+        "groups": ["aws", "compute-extended"],
+        "analysis_config": {
+          "bucket_span": "15m",
+          "detectors": [
+            {
+              "detector_description": "high_mean(aws.elasticbeanstalk.metrics.ApplicationLatencyP99.avg) partitionfield=aws.elasticbeanstalk.environment.name",
+              "function": "high_mean",
+              "field_name": "aws.elasticbeanstalk.metrics.ApplicationLatencyP99.avg",
+              "partition_field_name": "aws.elasticbeanstalk.environment.name",
+              "detector_index": 0
+            }
+          ],
+          "influencers": ["aws.elasticbeanstalk.environment.name"]
+        },
+        "allow_lazy_open": true,
+        "analysis_limits": { "model_memory_limit": "32mb" },
+        "data_description": { "time_field": "@timestamp" },
+        "custom_settings": { "created_by": "aws-elastic-load-generator" }
+      },
+      "datafeed": {
+        "indices": ["logs-aws.*"],
+        "max_empty_searches": 10,
+        "query": {
+          "bool": {
+            "filter": [
+              { "term": { "event.dataset": "aws.elasticbeanstalk" } }
+            ]
+          }
+        },
+        "chunking_config": { "mode": "auto" },
+        "delayed_data_check_config": { "enabled": true }
+      }
+    }
+  ]
+}
