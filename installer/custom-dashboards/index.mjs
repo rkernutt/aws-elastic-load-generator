@@ -3,7 +3,9 @@
  * AWS → Elastic Custom Dashboard Installer
  *
  * Interactive CLI that installs Kibana dashboards for AWS services monitored
- * by the AWS → Elastic Load Generator (Glue, SageMaker, EMR, Athena, X-Ray).
+ * by the AWS → Elastic Load Generator (15 dashboards: Glue, SageMaker, EMR, Athena,
+ * X-Ray, Lambda, EKS, Step Functions, Bedrock, Aurora, ElastiCache, OpenSearch,
+ * CI/CD, Cognito, Kinesis Streams).
  *
  * Run with:  node index.mjs
  *            npm run setup:dashboards

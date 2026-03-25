@@ -169,18 +169,18 @@ Available pipeline groups:
   5. enduser      (14 pipelines)
   6. iot          (6 pipelines)
   7. management   (17 pipelines)
-  8. ml           (13 pipelines)
-  9. networking   (4 pipelines)
-  10. security    (8 pipelines)
+  8. ml           (14 pipelines)
+  9. networking   (5 pipelines)
+  10. security    (10 pipelines)
   11. serverless  (5 pipelines)
-  12. storage     (5 pipelines)
+  12. storage     (6 pipelines)
   13. streaming   (4 pipelines)
   14. all         (install every group)
 
 Enter number(s) comma-separated, or "all":
 > all
 
-Installing 106 pipeline(s)...
+Installing 111 pipeline(s)...
 
   ✓ logs-aws.glue-default — installed
   ✓ logs-aws.emr_logs-default — installed
@@ -188,7 +188,7 @@ Installing 106 pipeline(s)...
   ...
   ✓ logs-aws.sagemaker-default — installed
 
-Installed 106 / 106 pipelines.
+Installed 111 / 111 pipelines.
 Done.
 ```
 
@@ -205,11 +205,11 @@ You can select individual groups (e.g. `1,3,8`) or type `all`. Already-installed
 | enduser | 14 | WorkSpaces, Connect, AppStream, GameLift, Transfer Family, MediaConvert, MediaLive, Pinpoint, Location Service, Managed Blockchain, Fraud Detector, Lookout for Metrics, Comprehend Medical, SES |
 | iot | 6 | IoT Core, Greengrass, IoT Analytics, IoT Events, IoT SiteWise, IoT Defender |
 | management | 17 | CloudFormation, SSM, CloudWatch Alarms, AWS Health, Trusted Advisor, Control Tower, Organizations, Service Catalog, Service Quotas, Compute Optimizer, Budgets, Billing, RAM, Resilience Hub, Migration Hub, Network Manager, DMS |
-| ml | 13 | SageMaker, Bedrock, Bedrock Agent, Rekognition, Textract, Comprehend, Translate, Transcribe, Polly, Forecast, Personalize, Lex, Comprehend Medical |
-| networking | 4 | Shield, Global Accelerator, Direct Connect, PrivateLink |
-| security | 8 | Macie, IAM Access Analyzer, Cognito, KMS, Secrets Manager, ACM, IAM Identity Center, Detective |
+| ml | 14 | SageMaker, Bedrock, Bedrock Agent, Rekognition, Textract, Comprehend, Translate, Transcribe, Polly, Forecast, Personalize, Lex, Comprehend Medical, Q Business |
+| networking | 5 | Shield, Global Accelerator, Direct Connect, PrivateLink, WAF v2 |
+| security | 10 | Macie, IAM Access Analyzer, Cognito, KMS, Secrets Manager, ACM, IAM Identity Center, Detective, Verified Access, Security Lake |
 | serverless | 5 | Lambda, API Gateway, Step Functions, EventBridge, AppSync |
-| storage | 5 | EFS, FSx, DataSync, Backup, Storage Gateway |
+| storage | 6 | EFS, FSx, DataSync, Backup, Storage Gateway, S3 Storage Lens |
 | streaming | 4 | Kinesis Analytics, Amazon MQ, SNS, SQS (custom only) |
 
 ### Using custom pipelines alongside the official AWS integration
@@ -282,12 +282,25 @@ the `logs-aws.*` data streams written by the app.
 
 ### Dashboards included
 
+15 pre-built dashboards covering key AWS services. Each dashboard supports both import methods — the Kibana Dashboards API (9.4+) and Saved Objects ndjson import (8.11–9.3) — so all versions are covered automatically.
+
 | File | Title | Panels | Index pattern |
 |------|-------|--------|---------------|
-| `glue-dashboard.json` | AWS Glue — Jobs & Performance | 15 panels | `logs-aws.glue*` |
-| `sagemaker-dashboard.json` | AWS SageMaker — Endpoints & Training | 13 panels | `logs-aws.sagemaker*` |
-| `emr-dashboard.json` | AWS EMR — Clusters & Job Performance | 15 panels | `logs-aws.emr*` |
-| `athena-dashboard.json` | AWS Athena — Query Performance & Cost | 15 panels | `logs-aws.athena*` |
+| `glue-dashboard.json` | AWS Glue — Jobs & Performance | 15 | `logs-aws.glue*` |
+| `sagemaker-dashboard.json` | AWS SageMaker — Endpoints & Training | 13 | `logs-aws.sagemaker*` |
+| `emr-dashboard.json` | AWS EMR — Clusters & Job Performance | 15 | `logs-aws.emr*` |
+| `athena-dashboard.json` | AWS Athena — Query Performance & Cost | 15 | `logs-aws.athena*` |
+| `xray-dashboard.json` | AWS X-Ray — Distributed Tracing | 14 | `logs-aws.xray*` |
+| `lambda-dashboard.json` | AWS Lambda — Invocations & Performance | 13 | `logs-aws.lambda*` |
+| `eks-dashboard.json` | AWS EKS — Cluster & Pod Health | 14 | `logs-aws.eks*` |
+| `stepfunctions-dashboard.json` | AWS Step Functions — Execution & State Performance | 13 | `logs-aws.stepfunctions*` |
+| `bedrock-dashboard.json` | AWS Bedrock — Model Invocations & Token Usage | 13 | `logs-aws.bedrock*` |
+| `aurora-dashboard.json` | AWS Aurora — Cluster & Replication Health | 13 | `logs-aws.aurora*` |
+| `elasticache-dashboard.json` | AWS ElastiCache — Cache Performance & Replication | 13 | `logs-aws.elasticache*` |
+| `opensearch-dashboard.json` | AWS OpenSearch — Cluster Health & Performance | 13 | `logs-aws.opensearch*` |
+| `cicd-dashboard.json` | AWS CI/CD — CodePipeline & CodeBuild | 14 | `logs-aws.codepipeline*` |
+| `cognito-dashboard.json` | AWS Cognito — Authentication & Risk Events | 13 | `logs-aws.cognito*` |
+| `kinesis-dashboard.json` | AWS Kinesis Streams — Throughput & Iterator Health | 13 | `logs-aws.kinesis*` |
 
 #### AWS Glue — Jobs & Performance
 
@@ -382,7 +395,11 @@ node installer/custom-dashboards/index.mjs
 | **Kibana URL** | Deployment overview → Kibana endpoint (e.g. `https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243`) |
 | **API key** | Kibana → Stack Management → API Keys → Create API key — needs `kibana_admin` built-in role |
 
-**Note:** The dashboard installer uses the Kibana Dashboards API (`Elastic-Api-Version: 1`), which requires **Kibana 9.4+**. If you are on an earlier version, dashboards can be imported manually via Kibana → Stack Management → Saved Objects → Import using the JSON files in `installer/custom-dashboards/`.
+**Note:** The dashboard installer automatically selects the best import method for your Kibana version:
+- **Kibana 9.4+** — uses the Dashboards API (`Elastic-Api-Version: 1`) as primary, falls back to Saved Objects import if unavailable
+- **Kibana 8.11–9.3** — uses Saved Objects ndjson import as primary, falls back to Dashboards API
+
+Both methods are handled by the same `npm run setup:dashboards` command. You can also use the dedicated legacy installer (`npm run setup:dashboards:legacy`) to force ndjson import on older versions.
 
 ### What happens
 
@@ -417,19 +434,31 @@ Available dashboards:
   2. AWS SageMaker — Endpoints & Training
   3. AWS EMR — Clusters & Job Performance
   4. AWS Athena — Query Performance & Cost
-  5. all  (install every dashboard)
+  5. AWS X-Ray — Distributed Tracing
+  6. AWS Lambda — Invocations & Performance
+  7. AWS EKS — Cluster & Pod Health
+  8. AWS Step Functions — Execution & State Performance
+  9. AWS Bedrock — Model Invocations & Token Usage
+  10. AWS Aurora — Cluster & Replication Health
+  11. AWS ElastiCache — Cache Performance & Replication
+  12. AWS OpenSearch — Cluster Health & Performance
+  13. AWS CI/CD — CodePipeline & CodeBuild
+  14. AWS Cognito — Authentication & Risk Events
+  15. AWS Kinesis Streams — Throughput & Iterator Health
+  16. all  (install every dashboard)
 
 Enter number(s) comma-separated, or "all":
 > all
 
-Installing 4 dashboard(s)...
+Installing 15 dashboard(s)...
 
-  ✓ "AWS Glue — Jobs & Performance" — installed (id: a1b2c3d4-...)
-  ✓ "AWS SageMaker — Endpoints & Training" — installed (id: e5f6g7h8-...)
-  ✓ "AWS EMR — Clusters & Job Performance" — installed (id: c3d4e5f6-...)
-  ✓ "AWS Athena — Query Performance & Cost" — installed (id: f7e8d9c0-...)
+  ✓ "AWS Glue — Jobs & Performance" — installed via Dashboards API (id: a1b2c3d4-...)
+  ✓ "AWS SageMaker — Endpoints & Training" — installed via Dashboards API (id: e5f6g7h8-...)
+  ✓ "AWS EMR — Clusters & Job Performance" — installed via Dashboards API (id: c3d4e5f6-...)
+  ...
+  ✓ "AWS Kinesis Streams — Throughput & Iterator Health" — installed via Dashboards API (id: f7e8d9c0-...)
 
-Installed 4 / 4 dashboard(s).
+Installed 15 / 15 dashboard(s).
 Done.
 ```
 
@@ -503,4 +532,4 @@ You can also import the `.ndjson` files manually via the Kibana UI:
 | **Re-runnable** | Yes — skips if already installed | Yes — skips existing pipelines | Yes — skips by title |
 | **When to re-run** | When Elastic releases a new integration version | When new services are added | When new dashboards are added |
 
-Running all three gives you full coverage across all 136 services.
+Running all three gives you full coverage across all 139 services.

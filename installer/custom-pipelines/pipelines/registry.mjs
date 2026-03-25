@@ -210,6 +210,7 @@ export const PIPELINE_REGISTRY = [
   // STORAGE
   // ═══════════════════════════════════════════════════════════════════════════
 
+  { id: "logs-aws.s3storagelens-default",  dataset: "aws.s3storagelens",  group: "storage",  description: "Parse S3 Storage Lens analytics & metrics JSON",   processors: json("s3storagelens")  },
   { id: "logs-aws.efs-default",            dataset: "aws.efs",            group: "storage",  description: "Parse EFS NFS throughput/I/O log JSON",            processors: json("efs")            },
   { id: "logs-aws.fsx-default",            dataset: "aws.fsx",            group: "storage",  description: "Parse FSx file system ops log JSON",               processors: json("fsx")            },
   { id: "logs-aws.backup-default",         dataset: "aws.backup",         group: "storage",  description: "Parse AWS Backup job status log JSON",             processors: json("backup")         },
@@ -400,4 +401,5 @@ export const PIPELINE_REGISTRY = [
   { id: "logs-aws.medialive-default",       dataset: "aws.medialive",       group: "enduser",  description: "Parse MediaLive live video channel log JSON",        processors: json("medialive")       },
   { id: "logs-aws.blockchain-default",      dataset: "aws.blockchain",      group: "enduser",  description: "Parse Managed Blockchain transaction/network JSON",  processors: json("blockchain")      },
   { id: "logs-aws.devopsguru-default",      dataset: "aws.devopsguru",      group: "enduser",  description: "Parse DevOps Guru ML anomaly insight JSON",          processors: json("devopsguru")      },
+  { id: "logs-aws.wafv2-default",           dataset: "aws.wafv2",           group: "networking", description: "Parse WAF v2 web ACL allow/block event JSON",       processors: json("wafv2")           },
 ];
