@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,50 +13,53 @@
   },
   "aws": {
     "dimensions": {
-      "StateMachineArn": "arn:aws:states:us-east-1:738291046572:stateMachine:batch-processor"
+      "StateMachineArn": "arn:aws:states:eu-west-1:738291046572:stateMachine:approval-workflow"
     },
     "stepfunctions": {
-      "state_machine_name": "batch-processor",
-      "state_machine_arn": "arn:aws:states:us-east-1:738291046572:stateMachine:batch-processor",
-      "execution_arn": "arn:aws:states:us-east-1:738291046572:execution:batch-processor:uockaq41",
-      "workflow_type": "EXPRESS",
-      "execution_start_time": "2026-03-25T12:11:15.792Z",
-      "state_name": "SendNotification",
-      "state_duration_seconds": 5.161,
+      "state_machine_name": "approval-workflow",
+      "state_machine_arn": "arn:aws:states:eu-west-1:738291046572:stateMachine:approval-workflow",
+      "execution_arn": "arn:aws:states:eu-west-1:738291046572:execution:approval-workflow:j3eoktwj",
+      "workflow_type": "STANDARD",
+      "execution_start_time": "2026-03-26T16:45:57.988Z",
+      "state_name": "ValidateInput",
+      "state_duration_seconds": 16.498,
       "status": "SUCCEEDED",
-      "duration_seconds": 25.758,
-      "structured_logging": true,
+      "duration_seconds": 28.666,
+      "structured_logging": false,
       "metrics": {
         "ExecutionsStarted": {
-          "sum": 6737
+          "sum": 302
         },
         "ExecutionsSucceeded": {
-          "sum": 43661
+          "sum": 32
         },
         "ExecutionsFailed": {
+          "sum": 0
+        },
+        "ExecutionsAborted": {
+          "sum": 5
+        },
+        "ExecutionsTimedOut": {
           "sum": 0
         },
         "ExecutionThrottled": {
           "sum": 0
         },
         "ExecutionTime": {
-          "avg": 25758,
-          "p99": 77274
-        },
-        "ExecutionsTimedOut": {
-          "sum": 0
+          "avg": 28666,
+          "max": 57332
         }
       }
     }
   },
   "event": {
-    "duration": 25758000000,
+    "duration": 28666000000,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.stepfunctions",
     "provider": "states.amazonaws.com"
   },
-  "message": "{\"executionArn\":\"arn:aws:states:us-east-1:738291046572:execution:batch-processor:uockaq41\",\"stateMachine\":\"batch-processor\",\"workflowType\":\"EXPRESS\",\"state\":\"SendNotification\",\"status\":\"SUCCEEDED\",\"durationSeconds\":25.758,\"timestamp\":\"2026-03-25T12:11:41.550Z\"}",
+  "message": "Execution succeeded",
   "log": {
     "level": "info"
   }

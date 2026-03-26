@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "api-latency",
+      "alarm_name": "ecs-memory",
       "alarm_state": "OK",
-      "previous_state": "OK",
+      "previous_state": "ALARM",
       "namespace": "AWS/RDS",
       "metric_name": "RequestCount",
-      "threshold": 85,
-      "evaluation_periods": 2,
-      "metric_value": 76.279,
-      "statistic": "Maximum",
-      "period_seconds": 3600,
+      "threshold": 95,
+      "evaluation_periods": 3,
+      "metric_value": 22.404,
+      "statistic": "Sum",
+      "period_seconds": 300,
       "treat_missing_data": "notBreaching"
     }
   },
@@ -37,7 +37,7 @@
     "provider": "monitoring.amazonaws.com",
     "duration": 300000000000
   },
-  "message": "CloudWatch alarm \"api-latency\": OK (AWS/RDS/RequestCount=76.3)",
+  "message": "CloudWatch alarm \"ecs-memory\": OK (AWS/RDS/RequestCount=22.4)",
   "log": {
     "level": "info"
   }

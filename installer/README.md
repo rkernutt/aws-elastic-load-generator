@@ -530,13 +530,14 @@ You can also import the `.ndjson` files manually via the Kibana UI:
 
 ### What it installs
 
-70 Elasticsearch ML anomaly detection jobs across 14 groups — covering services that the official Elastic AWS integration does not include (which only ships ML jobs for CloudTrail). These jobs detect real operational and security anomalies such as:
+99 Elasticsearch ML anomaly detection jobs across 20 groups — covering services that the official Elastic AWS integration does not include (which only ships ML jobs for CloudTrail). These jobs detect real operational and security anomalies such as:
 
 - Spikes in VPC denied traffic, rare destination ports, GuardDuty finding types, WAF blocks, CloudTrail rare user actions
-- Security Hub critical finding spikes, Macie data exposure, Inspector critical vulnerabilities, Config compliance drift, KMS unusual operations
+- Security Hub critical finding spikes, Macie data exposure, Inspector critical vulnerabilities, Config compliance drift, KMS unusual operations, Security Lake OCSF finding spikes
 - Lambda error/throttle/duration anomalies, EC2 CPU and network anomalies, EKS pod failures and rare images
 - ECS memory pressure, Auto Scaling thrashing, Elastic Beanstalk 5xx and latency spikes
-- ALB 5xx spikes and rare user agents, API Gateway latency and error anomalies
+- API Gateway 5xx errors, throttle spikes, and latency anomalies; Lambda cold start spikes
+- ALB 5xx spikes and rare user agents
 - CloudFront cache miss storms, Route 53 NXDOMAIN spikes, Network Firewall drop spikes
 - RDS latency/connection spikes, Aurora replica lag, ElastiCache hit-rate drops
 - DynamoDB throttles and latency, Redshift query duration, OpenSearch JVM pressure and write rejections
@@ -544,6 +545,10 @@ You can also import the `.ndjson` files manually via the Kibana UI:
 - Glue job failures and duration anomalies, Athena cost and performance, EMR task failures
 - Bedrock token usage, latency, and error anomalies per model
 - CloudWatch alarm storms, CloudFormation rollbacks, billing cost spikes, SSM rare commands
+- APM transaction duration, error rate, and throughput anomalies across OTel trace services
+- CodeBuild failures and duration anomalies, CodePipeline failures, X-Ray trace errors and latency
+- IoT Core connection failures, message volume anomalies, rule engine errors, rare device detection
+- MediaConvert job failures, Connect contact abandonment and handle time, WorkSpaces session failures
 
 See [`installer/custom-ml-jobs/README.md`](custom-ml-jobs/README.md) for the full job catalogue.
 
@@ -567,7 +572,7 @@ node installer/custom-ml-jobs/index.mjs
 | Group | Jobs | Services covered |
 |-------|------|-----------------|
 | security | 7 | VPC Flow, GuardDuty, WAF, CloudTrail |
-| security-extended | 5 | Security Hub, Macie, Inspector, Config, KMS |
+| security-extended | 7 | Security Hub, Macie, Inspector, Config, KMS, Security Lake |
 | compute | 7 | Lambda, EC2, EKS |
 | compute-extended | 5 | ECS, Auto Scaling, Elastic Beanstalk |
 | networking | 5 | ALB, API Gateway |
@@ -580,6 +585,12 @@ node installer/custom-ml-jobs/index.mjs
 | aiml | 4 | Bedrock |
 | storage | 4 | S3 |
 | management | 4 | CloudWatch, CloudFormation, Billing, SSM |
+| apm-traces | 6 | APM transactions, spans, Lambda cold starts, EMR stages |
+| serverless | 4 | API Gateway, Lambda cold starts |
+| devtools | 5 | CodeBuild, CodePipeline, X-Ray |
+| iot | 4 | IoT Core |
+| media | 4 | MediaConvert, Connect, WorkSpaces |
+| siem | 4 | SIEM anomaly detection — CloudTrail source IP anomalies, root account activity, IAM creation spikes, Route53 DNS exfiltration |
 
 ---
 
@@ -594,4 +605,4 @@ node installer/custom-ml-jobs/index.mjs
 | **Re-runnable** | Yes — skips if already installed | Yes — skips existing pipelines | Yes — skips by title | Yes — skips existing jobs |
 | **When to re-run** | When Elastic releases a new integration version | When new services are added | When new dashboards are added | When new ML jobs are added |
 
-Running all four gives you full coverage across all 139 services.
+Running all four gives you full coverage across all 144 services.

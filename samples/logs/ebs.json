@@ -1,9 +1,9 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
-    "availability_zone": "us-east-1a",
+    "region": "ap-south-2",
+    "availability_zone": "ap-south-2b",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -14,49 +14,50 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-nqwxx53obh8",
+      "VolumeId": "vol-be891h0jxuq",
       "VolumeType": "io2"
     },
     "ebs": {
-      "volume_id": "vol-nqwxx53obh8",
-      "volume_type": "io2",
-      "size_gb": 200,
-      "availability_zone": "us-east-1a",
-      "previous_state": "available",
-      "current_state": "in-use",
-      "attached_instance": "i-ftr1s5vbi2j",
-      "device": "/dev/xvda",
-      "event_type": "state_change",
+      "volume_id": "vol-be891h0jxuq",
+      "modification_state": "modifying",
+      "original_volume_type": "io1",
+      "target_volume_type": "st1",
+      "original_size_gb": 8,
+      "target_size_gb": 108,
+      "original_iops": 3226,
+      "target_iops": 14539,
+      "progress_percent": 44,
+      "event_type": "modification",
       "metrics": {
         "VolumeReadOps": {
-          "avg": 6132
+          "avg": 2820
         },
         "VolumeWriteOps": {
-          "avg": 8420
+          "avg": 226
         },
         "VolumeReadBytes": {
-          "avg": 14958419
+          "avg": 65684948
         },
         "VolumeWriteBytes": {
-          "avg": 237642344
+          "avg": 102285130
         },
         "VolumeTotalReadTime": {
-          "sum": 6.89
+          "sum": 2.867
         },
         "VolumeTotalWriteTime": {
-          "sum": 1.828
+          "sum": 8.036
         },
         "VolumeIdleTime": {
-          "sum": 43.291
+          "sum": 54.937
         },
         "VolumeQueueLength": {
-          "avg": 1
+          "avg": 3
         },
         "VolumeThroughputPercentage": {
-          "avg": 18.484
+          "avg": 50.706
         },
         "VolumeConsumedReadWriteOps": {
-          "avg": 5350
+          "avg": 16857
         },
         "BurstBalance": {}
       }
@@ -70,9 +71,9 @@
     ],
     "dataset": "aws.ebs",
     "provider": "ec2.amazonaws.com",
-    "duration": 4606000000
+    "duration": 2395000000
   },
-  "message": "EBS volume vol-nqwxx53obh8 state change: available -> in-use on i-ftr1s5vbi2j (/dev/xvda)",
+  "message": "EBS volume vol-be891h0jxuq modification: io1/8GB -> st1/108GB [modifying]",
   "log": {
     "level": "info"
   }

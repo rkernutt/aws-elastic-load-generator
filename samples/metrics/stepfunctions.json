@@ -1,72 +1,68 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
-    },
-    "service": {
-      "name": "states"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
   },
   "aws": {
-    "dimensions": {
-      "StateMachineArn": "arn:aws:states:us-east-1:738291046572:stateMachine:batch-processor"
-    },
-    "stepfunctions": {
-      "state_machine_name": "batch-processor",
-      "state_machine_arn": "arn:aws:states:us-east-1:738291046572:stateMachine:batch-processor",
-      "execution_arn": "arn:aws:states:us-east-1:738291046572:execution:batch-processor:uockaq41",
-      "workflow_type": "EXPRESS",
-      "execution_start_time": "2026-03-25T12:11:15.792Z",
-      "state_name": "SendNotification",
-      "state_duration_seconds": 5.161,
-      "status": "SUCCEEDED",
-      "duration_seconds": 25.758,
-      "structured_logging": true,
+    "states": {
       "metrics": {
         "ExecutionsStarted": {
-          "sum": 6737
+          "avg": 9031,
+          "sum": 9031,
+          "count": 1
         },
         "ExecutionsSucceeded": {
-          "sum": 43661
+          "avg": 8951,
+          "sum": 8951,
+          "count": 1
         },
         "ExecutionsFailed": {
-          "sum": 0
+          "avg": 80,
+          "sum": 80,
+          "count": 1
         },
-        "ExecutionThrottled": {
-          "sum": 0
-        },
-        "ExecutionTime": {
-          "avg": 25758,
-          "p99": 77274
+        "ExecutionsAborted": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "ExecutionsTimedOut": {
-          "sum": 0
+          "avg": 16,
+          "sum": 16,
+          "count": 1
+        },
+        "ExecutionTime": {
+          "avg": 8889.2,
+          "sum": 8889.2,
+          "count": 1
+        },
+        "ExecutionThrottled": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "StateMachineArn": "arn:aws:states:ca-central-1:501938274650:stateMachine:order-fulfillment"
       }
     }
   },
-  "event": {
-    "duration": 25758000000,
-    "outcome": "success",
-    "category": "process",
-    "dataset": "aws.stepfunctions",
-    "provider": "states.amazonaws.com"
-  },
-  "message": "{\"executionArn\":\"arn:aws:states:us-east-1:738291046572:execution:batch-processor:uockaq41\",\"stateMachine\":\"batch-processor\",\"workflowType\":\"EXPRESS\",\"state\":\"SendNotification\",\"status\":\"SUCCEEDED\",\"durationSeconds\":25.758,\"timestamp\":\"2026-03-25T12:11:41.550Z\"}",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "states",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
-    "dataset": "aws.stepfunctions",
+    "dataset": "aws.states",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.states",
+    "module": "aws"
   }
 }

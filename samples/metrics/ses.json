@@ -1,92 +1,63 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-north-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
-    },
-    "service": {
-      "name": "ses"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
   },
   "aws": {
-    "dimensions": {
-      "ses:configuration-set": "marketing",
-      "ses:from-domain": "app.io",
-      "ses:to-country": "FR",
-      "ses:to-isp": "Gmail"
-    },
     "ses": {
-      "message_id": "jz5xdoc62r.0yd514da67@eu-west-2.amazonses.com",
-      "event_type": "Delivery",
-      "from_address": "no-reply@app.io",
-      "destination": "user_ktmetu@gmail.com",
-      "configuration_set": "marketing",
-      "bounce": {},
-      "complaint": {},
-      "sending_account_id": "164820739518",
-      "delivery": {
-        "recipients": [
-          "user_ktmetu@gmail.com"
-        ],
-        "timestamp": "2026-03-25T12:11:41.550Z",
-        "processing_time_ms": 1971,
-        "smtp_response": "250 2.0.0 OK"
-      },
       "metrics": {
         "Send": {
-          "sum": 1
+          "avg": 73732,
+          "sum": 73732,
+          "count": 1
         },
         "Delivery": {
-          "sum": 1
+          "avg": 70089,
+          "sum": 70089,
+          "count": 1
         },
         "Bounce": {
-          "sum": 0
+          "avg": 149,
+          "sum": 149,
+          "count": 1
         },
         "Complaint": {
-          "sum": 0
+          "avg": 62,
+          "sum": 62,
+          "count": 1
         },
         "Reject": {
-          "sum": 0
-        },
-        "Open": {
-          "sum": 0
-        },
-        "Click": {
-          "sum": 0
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "RenderingFailure": {
-          "sum": 0
-        },
-        "DeliveryDelay": {
-          "sum": 0
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "Region": "eu-north-1"
       }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "email",
-      "process"
-    ],
-    "dataset": "aws.ses",
-    "provider": "email.amazonaws.com",
-    "duration": 2639000000
-  },
-  "message": "SES Delivery: no-reply@app.io -> user_ktmetu@gmail.com",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "ses",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.ses",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.ses",
+    "module": "aws"
   }
 }

@@ -1,101 +1,89 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-west-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
-    },
-    "service": {
-      "name": "gamelift"
     }
   },
   "aws": {
-    "dimensions": {
-      "FleetId": "fleet-9padc3fw",
-      "Location": "ap-northeast-1",
-      "MetricGroups": "All",
-      "OperatingSystem": "WINDOWS_2012"
-    },
     "gamelift": {
-      "fleet_id": "fleet-9padc3fw",
-      "fleet_name": "matchmaking-fleet",
-      "event_type": "MatchmakingSucceeded",
-      "game_session_id": "arn:aws:gamelift:eu-west-2::gamesession/matchmaking-fleet/azedslqv1hq",
-      "current_player_sessions": 91,
-      "maximum_player_sessions": 100,
-      "instance_type": "c5.2xlarge",
-      "instance_count": 43,
-      "desired_instances": 21,
-      "idle_instances": 0,
-      "matchmaking_configuration": "FastMatch",
-      "matchmaking_ticket_id": "0trnxl8jqmh",
-      "matchmaking_duration_seconds": 113,
       "metrics": {
         "ActiveInstances": {
-          "avg": 42
-        },
-        "IdleInstances": {
-          "avg": 3
-        },
-        "PercentIdleInstances": {
-          "avg": 17.63
+          "avg": 54,
+          "sum": 54,
+          "count": 1
         },
         "DesiredInstances": {
-          "avg": 25
+          "avg": 84,
+          "sum": 84,
+          "count": 1
         },
-        "MinInstances": {
-          "avg": 2
+        "IdleInstances": {
+          "avg": 16,
+          "sum": 16,
+          "count": 1
         },
-        "MaxInstances": {
-          "avg": 100
+        "PercentIdleInstances": {
+          "avg": 15.46,
+          "sum": 15.46,
+          "count": 1
         },
         "InstanceInterruptions": {
-          "sum": 0
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "ActiveServerProcesses": {
+          "avg": 296,
+          "sum": 296,
+          "count": 1
         },
         "ActiveGameSessions": {
-          "avg": 642
-        },
-        "ActivatingGameSessions": {
-          "avg": 46
-        },
-        "AvailableGameSessions": {
-          "avg": 490
-        },
-        "ActivePlayerSessions": {
-          "avg": 1912
+          "avg": 382,
+          "sum": 382,
+          "count": 1
         },
         "CurrentPlayerSessions": {
-          "avg": 4500
+          "avg": 1163,
+          "sum": 1163,
+          "count": 1
         },
-        "PlayerSessionActivations": {
-          "sum": 45
+        "AvailableGameSessions": {
+          "avg": 1,
+          "sum": 1,
+          "count": 1
+        },
+        "AvailablePlayerSessions": {
+          "avg": 394,
+          "sum": 394,
+          "count": 1
+        },
+        "AverageWaitTime": {
+          "avg": 8.65,
+          "sum": 8.65,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "FleetId": "fleet-35440219",
+        "MetricGroups": "default"
       }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "process",
-      "network"
-    ],
-    "dataset": "aws.gamelift",
-    "provider": "gamelift.amazonaws.com",
-    "duration": 3531178000000
-  },
-  "message": "GameLift matchmaking-fleet: MatchmakingSucceeded",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "gamelift",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.gamelift",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.gamelift",
+    "module": "aws"
   }
 }

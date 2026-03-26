@@ -1,93 +1,94 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-south-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
-    },
-    "service": {
-      "name": "docdb"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
   },
   "aws": {
-    "dimensions": {
-      "DBClusterIdentifier": "docdb-eu-west-2-cluster",
-      "Role": "READER"
-    },
     "docdb": {
-      "cluster_id": "docdb-eu-west-2-cluster",
-      "database": "appdb",
-      "collection": "orders",
-      "operation": "update",
-      "duration_ms": 5,
-      "documents_affected": 662,
       "metrics": {
         "CPUUtilization": {
-          "avg": 37.659
+          "avg": 62.15,
+          "sum": 62.15,
+          "count": 1
         },
         "DatabaseConnections": {
-          "avg": 46
-        },
-        "FreeLocalStorage": {
-          "avg": 81585838407
+          "avg": 47,
+          "sum": 47,
+          "count": 1
         },
         "FreeableMemory": {
-          "avg": 4522416030
-        },
-        "ReadIOPS": {
-          "avg": 4524
-        },
-        "WriteIOPS": {
-          "avg": 4481
+          "avg": 1601981736.84,
+          "sum": 1601981736.84,
+          "count": 1
         },
         "ReadLatency": {
-          "avg": 3.487
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "WriteLatency": {
-          "avg": 2.676
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
-        "DocumentsInserted": {
-          "sum": 0
+        "ReadIOPS": {
+          "avg": 4268,
+          "sum": 4268,
+          "count": 1
         },
-        "DocumentsDeleted": {
-          "sum": 0
+        "WriteIOPS": {
+          "avg": 1731,
+          "sum": 1731,
+          "count": 1
         },
-        "DocumentsUpdated": {
-          "sum": 300
+        "NetworkReceiveThroughput": {
+          "avg": 7097698,
+          "sum": 7097698,
+          "count": 1
         },
-        "DocumentsReturned": {
-          "sum": 0
+        "OpcountersQuery": {
+          "avg": 50771,
+          "sum": 50771,
+          "count": 1
+        },
+        "OpcountersInsert": {
+          "avg": 2016,
+          "sum": 2016,
+          "count": 1
+        },
+        "OpcountersUpdate": {
+          "avg": 4589,
+          "sum": 4589,
+          "count": 1
+        },
+        "OpcountersDelete": {
+          "avg": 539,
+          "sum": 539,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "DBClusterIdentifier": "docdb-staging",
+        "DBInstanceIdentifier": "docdb-instance-3"
       }
     }
   },
-  "db": {
-    "name": "appdb",
-    "operation": "update",
-    "type": "document"
-  },
-  "event": {
-    "duration": 5260000,
-    "outcome": "success",
-    "category": [
-      "database"
-    ],
-    "dataset": "aws.docdb",
-    "provider": "docdb.amazonaws.com"
-  },
-  "message": "DocumentDB update on orders: 5.3ms",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "docdb",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.docdb",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.docdb",
+    "module": "aws"
   }
 }

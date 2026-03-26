@@ -1,66 +1,74 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-north-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
-    },
-    "service": {
-      "name": "neptune"
     }
   },
   "aws": {
     "neptune": {
-      "cluster_id": "knowledge-graph",
-      "query_language": "SPARQL",
-      "query": "SELECT ?s ?p ?o WHERE { ?s ?p ?o } LIMIT 100",
-      "duration_ms": 957,
-      "http_status": 200,
-      "db_connections": 154,
       "metrics": {
         "CPUUtilization": {
-          "avg": 6.255
-        },
-        "FreeableMemory": {
-          "avg": 774545699
+          "avg": 18.2,
+          "sum": 18.2,
+          "count": 1
         },
         "DatabaseConnections": {
-          "avg": 92
+          "avg": 85,
+          "sum": 85,
+          "count": 1
+        },
+        "FreeableMemory": {
+          "avg": 5861271432.71,
+          "sum": 5861271432.71,
+          "count": 1
         },
         "GremlinRequestsPerSec": {
-          "avg": 0
+          "avg": 98.17,
+          "sum": 98.17,
+          "count": 1
         },
-        "SparqlRequestsPerSec": {
-          "avg": 337.401
+        "SPARQLRequestsPerSec": {
+          "avg": 37.95,
+          "sum": 37.95,
+          "count": 1
         },
-        "ServerlessDBCapacity": {
-          "avg": 36.828
+        "LoaderRequestsPerSec": {
+          "avg": 5.58,
+          "sum": 5.58,
+          "count": 1
+        },
+        "NetworkReceiveThroughput": {
+          "avg": 134190813,
+          "sum": 134190813,
+          "count": 1
+        },
+        "NetworkTransmitThroughput": {
+          "avg": 403090557,
+          "sum": 403090557,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "DBClusterIdentifier": "recommendation-graph",
+        "DBInstanceIdentifier": "neptune-instance-1"
       }
     }
   },
-  "event": {
-    "duration": 957473000,
-    "outcome": "success",
-    "category": [
-      "database"
-    ],
-    "dataset": "aws.neptune",
-    "provider": "neptune.amazonaws.com"
-  },
-  "message": "Neptune SPARQL: 957ms",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "neptune",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.neptune",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.neptune",
+    "module": "aws"
   }
 }

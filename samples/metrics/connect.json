@@ -1,87 +1,68 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "us-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
-    },
-    "service": {
-      "name": "connect"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
   },
   "aws": {
-    "dimensions": {
-      "InstanceId": "d8o0pgf0-8rh7-8dkj-fubq-c9kyw8lp5x9",
-      "MetricGroup": "Queue"
-    },
     "connect": {
-      "instance_id": "d8o0pgf0-8rh7-8dkj-fubq-c9kyw8lp5x9",
-      "contact_id": "5e9sl5do-h8bi-iyg9",
-      "channel": "TASK",
-      "initiation_method": "TASK",
-      "queue_name": "TechSupport",
-      "agent_id": "agent-bob",
-      "duration_seconds": 423,
-      "hold_duration_seconds": 42,
-      "queue_wait_time_seconds": 247,
-      "disconnect_reason": "AGENT_DISCONNECT",
-      "sentiment_overall": "POSITIVE",
-      "contact_lens_enabled": false,
-      "lex_bot_interacted": true,
       "metrics": {
+        "CallsPerInterval": {
+          "avg": 3454,
+          "sum": 3454,
+          "count": 1
+        },
+        "MissedCallsPerInterval": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "CallRecordingUploadError": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "ConcurrentActiveCalls": {
+          "avg": 12,
+          "sum": 12,
+          "count": 1
+        },
         "ContactsQueued": {
-          "sum": 1
+          "avg": 80,
+          "sum": 80,
+          "count": 1
         },
-        "ContactsHandled": {
-          "sum": 1
+        "LongestQueuedWaitTime": {
+          "avg": 54.1,
+          "sum": 54.1,
+          "count": 1
         },
-        "ContactsAbandoned": {
-          "sum": 0
-        },
-        "ContactsHoldAbandonment": {
-          "sum": 0
-        },
-        "AverageHandleTime": {
-          "avg": 423
-        },
-        "AverageAfterContactWorkTime": {
-          "avg": 245
-        },
-        "AverageQueueAnswerTime": {
-          "avg": 41
-        },
-        "ServiceLevel": {
-          "avg": 67.769
-        },
-        "OccupancyTime": {
-          "avg": 66.686
+        "QueueSize": {
+          "avg": 46,
+          "sum": 46,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "InstanceId": "arn:aws:connect:us-west-1:164820739518:instance/abc123"
       }
     }
   },
-  "event": {
-    "duration": 423000000000,
-    "outcome": "success",
-    "category": [
-      "host",
-      "session"
-    ],
-    "dataset": "aws.connect",
-    "provider": "connect.amazonaws.com"
-  },
-  "message": "Connect TASK: TechSupport agent=agent-bob, 423s, POSITIVE",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "connect",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.connect",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.connect",
+    "module": "aws"
   }
 }

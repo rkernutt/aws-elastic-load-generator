@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ca-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "ecs"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "prod-cluster",
-      "ServiceName": "api-backend"
+      "ClusterName": "staging",
+      "ServiceName": "scheduler"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 7.531
+          "avg": 6.772
         },
         "CPUReservation": {
-          "avg": 56.277
+          "avg": 15.748
         },
         "MemoryUtilization": {
-          "avg": 30.355
+          "avg": 23.128
         },
         "MemoryReservation": {
-          "avg": 34.428
+          "avg": 34.853
         },
         "GPUReservation": {
           "avg": 0
@@ -37,20 +37,20 @@
     }
   },
   "container": {
-    "id": "m1qpvza1u4",
-    "name": "api-backend",
+    "id": "zxx90gupetb",
+    "name": "scheduler",
     "image": {
-      "name": "java:3.11",
-      "tag": "1.24"
+      "name": "java:alpine",
+      "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 14200,
-    "name": "api-backend"
+    "pid": 26939,
+    "name": "scheduler"
   },
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "event": {
     "category": [
@@ -60,11 +60,11 @@
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 494000000000
+    "duration": 2537000000000
   },
-  "message": "{\"cluster\":\"prod-cluster\",\"service\":\"api-backend\",\"taskId\":\"l68g97upry\",\"container\":\"api-backend\",\"level\":\"info\",\"message\":\"Health check passed\",\"timestamp\":\"2026-03-25T12:11:41.550Z\"}",
+  "message": "Connection pool exhausted",
   "service": {
-    "name": "api-backend",
+    "name": "scheduler",
     "type": "ecs"
   }
 }

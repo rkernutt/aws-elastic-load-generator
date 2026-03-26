@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "transferfamily"
@@ -13,37 +13,44 @@
   },
   "aws": {
     "dimensions": {
-      "ServerId": "s-3befjug91yh",
-      "Protocol": "FTPS"
+      "ServerId": "s-dw9fkyp9olv",
+      "Protocol": "AS2"
     },
     "transferfamily": {
-      "server_id": "s-3befjug91yh",
-      "protocol": "FTPS",
-      "user_name": "data-ingest",
-      "session_id": "cvihuw4o28f",
-      "file_path": "/uploads/inventory.xml",
-      "operation": "RENAME",
-      "bytes_transferred": 3946887282,
-      "transfer_rate_mbps": 434.54,
-      "duration_seconds": 102.836,
-      "s3_bucket": "partner-data"
+      "server_id": "s-dw9fkyp9olv",
+      "protocol": "AS2",
+      "user_name": "etl-transfer",
+      "session_id": "uw0k321zj4a",
+      "file_path": "/backup/db-export.sql.gz",
+      "operation": "PUT",
+      "bytes_transferred": 2163351999,
+      "transfer_rate_mbps": 169.613,
+      "duration_seconds": 55.104,
+      "s3_bucket": "transfer-landing",
+      "as2_message_id": "vccu5ic7n98",
+      "error_code": "FILE_NOT_FOUND"
     }
   },
   "source": {
-    "ip": "184.189.155.64"
+    "ip": "208.151.242.32"
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "file",
       "network"
     ],
     "dataset": "aws.transfer",
     "provider": "transfer.amazonaws.com",
-    "duration": 9709000000
+    "duration": 202030000000
   },
-  "message": "Transfer Family FTPS [data-ingest] /uploads/inventory.xml: 3764.0MB",
+  "message": "Transfer Family AS2 FAILED [etl-transfer] /backup/db-export.sql.gz: Connection reset:",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "PERMISSION_DENIED",
+    "message": "Transfer Family operation failed",
+    "type": "file"
   }
 }

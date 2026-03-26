@@ -1,0 +1,58 @@
+{
+  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "ap-southeast-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    }
+  },
+  "aws": {
+    "acm": {
+      "metrics": {
+        "IssuedCertificates": {
+          "avg": 250,
+          "sum": 250,
+          "count": 1
+        },
+        "ExpiredCertificates": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "DaysToExpiry": {
+          "avg": 315,
+          "sum": 315,
+          "count": 1
+        },
+        "PendingValidation": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "Revoked": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "Region": "ap-southeast-1"
+      }
+    }
+  },
+  "metricset": {
+    "name": "acm",
+    "period": 60000
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.acm",
+    "namespace": "default"
+  },
+  "event": {
+    "dataset": "aws.acm",
+    "module": "aws"
+  }
+}

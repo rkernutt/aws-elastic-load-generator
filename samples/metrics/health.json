@@ -1,50 +1,49 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
-    },
-    "service": {
-      "name": "health"
+      "id": "738291046572",
+      "name": "globex-development"
     }
   },
   "aws": {
-    "health": {
-      "event_arn": "arn:aws:health:us-east-1::event/lambda/9kgtgxse/fy048yusqgq",
-      "event_type_code": "AWS_LAMBDA_OPERATIONAL_ISSUE",
-      "event_type_category": "accountNotification",
-      "service": "Lambda",
-      "region": "us-east-1",
-      "status_code": "resolved",
-      "event_scope": "PUBLIC",
-      "affected_entities_count": 20,
-      "description": "Lambda Degraded performance in us-east-1"
+    "awshealth": {
+      "metrics": {
+        "OpenIssueCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "RecentlyClosedIssueCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "ScheduledChangeCount": {
+          "avg": 2,
+          "sum": 2,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "Region": "ap-southeast-4",
+        "Service": "DynamoDB"
+      }
     }
   },
-  "event": {
-    "kind": "alert",
-    "outcome": "success",
-    "category": [
-      "configuration"
-    ],
-    "dataset": "aws.health",
-    "provider": "health.amazonaws.com",
-    "duration": 564000000000
-  },
-  "message": "AWS Health: Lambda event resolved in us-east-1",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "awshealth",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.awshealth",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.awshealth",
+    "module": "aws"
   }
 }

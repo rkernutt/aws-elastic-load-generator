@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-north-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,26 +13,26 @@
   },
   "aws": {
     "dimensions": {
-      "QueueName": "webhook-events"
+      "QueueName": "job-queue"
     },
     "sqs": {
       "queue": {
-        "name": "webhook-events"
+        "name": "job-queue"
       },
       "oldest_message_age": {
-        "sec": 294
+        "sec": 282
       },
       "messages": {
-        "delayed": 219,
-        "not_visible": 520,
-        "visible": 810,
-        "deleted": 60,
-        "received": 745,
-        "sent": 919
+        "delayed": 97,
+        "not_visible": 137,
+        "visible": 201,
+        "deleted": 865,
+        "received": 677,
+        "sent": 9315
       },
       "empty_receives": 47,
       "sent_message_size": {
-        "bytes": 64828
+        "bytes": 134150
       }
     }
   },
@@ -43,10 +43,16 @@
     ],
     "dataset": "aws.sqs",
     "provider": "sqs.amazonaws.com",
-    "duration": 364000000
+    "duration": 182000000
   },
-  "message": "SQS webhook-events: 919 messages processed",
+  "message": "SQS job-queue: 9315 messages processed",
   "log": {
     "level": "info"
+  },
+  "trace": {
+    "id": "T44RX4BGY88"
+  },
+  "transaction": {
+    "id": "73XI2YX64O6"
   }
 }

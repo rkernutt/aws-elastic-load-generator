@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "sagemaker"
@@ -13,59 +13,62 @@
   },
   "aws": {
     "dimensions": {
-      "TrainingJobName": "resnet50-custom-pipeline-tmbk9f",
-      "JobType": "Pipeline"
+      "TrainingJobName": "xgboost-classifier-hyperparametertuning-7fy9l0",
+      "JobType": "HyperparameterTuning"
     },
     "sagemaker": {
-      "domain_id": "d-74foyys4ru",
-      "domain_name": "ds-platform",
-      "user_profile": "carol-research",
+      "domain_id": "d-egio1jkerk",
+      "domain_name": "nlp-experiments",
+      "user_profile": "dan-platform",
       "job": {
-        "name": "resnet50-custom-pipeline-tmbk9f",
-        "type": "Pipeline",
-        "arn": "arn:aws:sagemaker:eu-west-2:814726593401:training-job/resnet50-custom-pipeline-tmbk9f"
+        "name": "xgboost-classifier-hyperparametertuning-7fy9l0",
+        "type": "HyperparameterTuning",
+        "arn": "arn:aws:sagemaker:eu-west-1:164820739518:training-job/xgboost-classifier-hyperparametertuning-7fy9l0"
       },
       "model": {
-        "name": "resnet50-custom",
-        "version": 19
+        "name": "xgboost-classifier",
+        "version": 24
       },
       "pipeline": {
         "name": "model-training-pipeline",
-        "execution_id": "pipe-f7ykzu1zl66"
+        "execution_id": "pipe-v7og1528qcj"
       },
       "instance": {
-        "type": "ml.p3.2xlarge",
+        "type": "ml.m5.xlarge",
         "count": 1
       },
       "metrics": {
-        "gpu_utilization_pct": 61,
-        "cpu_utilization_pct": 60
+        "training_loss": 0.8212,
+        "accuracy": 0.974,
+        "epoch": 35,
+        "gpu_utilization_pct": 94,
+        "cpu_utilization_pct": 57
       },
       "studio": {
-        "space_name": "cv-team",
-        "app_type": "JupyterServer",
-        "app_name": "instance-uhnde3ok",
+        "space_name": "ml-research",
+        "app_type": "RStudio",
+        "app_name": "instance-gvgfge1n",
         "lifecycle_config": false,
-        "continuous_logging": false
+        "continuous_logging": true
       },
       "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 1894
+          "sum": 285
         },
         "ModelLatency": {
-          "avg": 98
+          "avg": 148
         },
         "GPUUtilization": {
-          "avg": 83
+          "avg": 69
         },
         "CPUUtilization": {
-          "avg": 62
+          "avg": 52
         },
         "DiskUtilization": {
-          "avg": 24
+          "avg": 20
         },
         "MemoryUtilization": {
-          "avg": 80
+          "avg": 62
         },
         "Invocations4XXError": {
           "sum": 0
@@ -80,11 +83,11 @@
     "level": "info"
   },
   "user": {
-    "name": "carol-research"
+    "name": "dan-platform"
   },
   "event": {
-    "action": "AppReady",
-    "duration": 6913514000000,
+    "action": "AppCreated",
+    "duration": 12730444000000,
     "outcome": "success",
     "category": [
       "process"
@@ -92,5 +95,5 @@
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "Model artifact uploaded to s3://models/output/"
+  "message": "{\"domainId\":\"d-egio1jkerk\",\"space\":\"ml-research\",\"appType\":\"RStudio\",\"user\":\"dan-platform\",\"level\":\"INFO\",\"message\":\"Model artifact uploaded to s3://models/output/\",\"timestamp\":\"2026-03-26T16:46:26.654Z\",\"event\":\"AppCreated\"}"
 }

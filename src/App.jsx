@@ -2,6 +2,8 @@ import { useState, useCallback, useRef, useEffect } from "react";
 import K from "./theme/index.js";
 import { rand, randInt, randIp, randId, randAccount, randTs, REGIONS, USER_AGENTS, HTTP_PATHS, stripNulls } from "./helpers/index.js";
 import { GENERATORS } from "./generators/index.js";
+import { METRICS_GENERATORS } from "./generators/metrics/index.js";
+import { TRACE_GENERATORS, TRACE_SERVICES } from "./generators/traces/index.js";
 import { ELASTIC_DATASET_MAP, ELASTIC_METRICS_DATASET_MAP, METRICS_SUPPORTED_SERVICE_IDS } from "./data/elasticMaps.js";
 import { SERVICE_INGESTION_DEFAULTS, INGESTION_META } from "./data/ingestion.js";
 import { AWS_ICON_BASE, AWS_SERVICE_ICON_MAP } from "./data/iconMap.js";
@@ -24,7 +26,9 @@ const savedConfig = (() => {
 
 export default function App() {
   const [selectedServices, setSelectedServices] = useState(["lambda","apigateway"]);
+  const [selectedTraceServices, setSelectedTraceServices] = useState(["lambda","emr"]);
   const [logsPerService, setLogsPerService]     = useState(savedConfig.logsPerService    ?? 500);
+  const [tracesPerService, setTracesPerService] = useState(savedConfig.tracesPerService  ?? 100);
   const [errorRate, setErrorRate]               = useState(savedConfig.errorRate         ?? 0.05);
   const [batchSize, setBatchSize]               = useState(savedConfig.batchSize         ?? 250);
   const [elasticUrl, setElasticUrl]             = useState("");
@@ -36,6 +40,7 @@ export default function App() {
   const [batchDelayMs, setBatchDelayMs]         = useState(savedConfig.batchDelayMs     ?? 20);
   const [validationErrors, setValidationErrors] = useState({ elasticUrl: "", apiKey: "", indexPrefix: "" });
 
+  const isTracesMode   = eventType === "traces";
   const indexPrefix    = eventType === "metrics" ? metricsIndexPrefix : logsIndexPrefix;
   const setIndexPrefix = eventType === "metrics" ? setMetricsIndexPrefix : setLogsIndexPrefix;
 
@@ -51,16 +56,17 @@ export default function App() {
     try {
       localStorage.setItem(LS_KEY, JSON.stringify({
         logsIndexPrefix, metricsIndexPrefix,
-        logsPerService, errorRate, batchSize, batchDelayMs, ingestionSource, eventType,
+        logsPerService, tracesPerService, errorRate, batchSize, batchDelayMs, ingestionSource, eventType,
       }));
     } catch (e) {
       if (import.meta.env.DEV) console.warn("[LS] Failed to save config:", e);
     }
-  }, [logsIndexPrefix, metricsIndexPrefix, logsPerService, errorRate, batchSize, batchDelayMs, ingestionSource, eventType]);
+  }, [logsIndexPrefix, metricsIndexPrefix, logsPerService, tracesPerService, errorRate, batchSize, batchDelayMs, ingestionSource, eventType]);
 
   const clearSavedConfig = () => {
     try { localStorage.removeItem(LS_KEY); } catch { /* ignore */ }
     setLogsPerService(500);
+    setTracesPerService(100);
     setErrorRate(0.05);
     setBatchSize(250);
     setLogsIndexPrefix("logs-aws");
@@ -68,6 +74,10 @@ export default function App() {
     setEventType("logs");
     setIngestionSource("default");
     setBatchDelayMs(20);
+  };
+
+  const toggleTraceService = (id) => {
+    setSelectedTraceServices(prev => prev.includes(id) ? prev.filter(s=>s!==id) : [...prev,id]);
   };
 
   const addLog = (msg, type="info") => setLog(prev => [...prev.slice(-100), {msg,type,ts:new Date().toLocaleTimeString()}]);
@@ -171,9 +181,27 @@ export default function App() {
   }, []);
 
   const generatePreview = () => {
-    if (!selectedServices.length) return;
-    const svc = rand(selectedServices);
-    setPreview(JSON.stringify(stripNulls(enrichDoc(GENERATORS[svc](new Date().toISOString(), errorRate), svc, getEffectiveSource(svc), eventType)), null, 2));
+    if (isTracesMode) {
+      if (!selectedTraceServices.length) return;
+      const svc = rand(selectedTraceServices);
+      const traceDocs = TRACE_GENERATORS[svc](new Date().toISOString(), errorRate);
+      setPreview(JSON.stringify(stripNulls(traceDocs[0]), null, 2));
+    } else {
+      if (!selectedServices.length) return;
+      const svc = rand(selectedServices);
+      if (eventType === "metrics" && METRICS_GENERATORS[svc]) {
+        const docs = METRICS_GENERATORS[svc](new Date().toISOString(), errorRate);
+        setPreview(JSON.stringify(stripNulls(docs[0]), null, 2));
+      } else {
+        const result = GENERATORS[svc](new Date().toISOString(), errorRate);
+        if (Array.isArray(result)) {
+          const { __dataset, ...cleanDoc } = stripNulls(result[0]);
+          setPreview(JSON.stringify(cleanDoc, null, 2));
+        } else {
+          setPreview(JSON.stringify(stripNulls(enrichDoc(result, svc, getEffectiveSource(svc), eventType)), null, 2));
+        }
+      }
+    }
   };
 
   const runConnectionValidation = useCallback(() => {
@@ -189,7 +217,8 @@ export default function App() {
   }, [elasticUrl, apiKey, indexPrefix]);
 
   const ship = useCallback(async () => {
-    if (!selectedServices.length) { addLog("No services selected","error"); return; }
+    const activeServices = isTracesMode ? selectedTraceServices : selectedServices;
+    if (!activeServices.length) { addLog("No services selected","error"); return; }
     if (!runConnectionValidation()) {
       addLog("Fix connection field errors before shipping.","error");
       return;
@@ -203,14 +232,78 @@ export default function App() {
         "x-elastic-url": url,
         "x-elastic-key": apiKey,
       };
-      const endDate = new Date();
-      const startDate = new Date(endDate.getTime() - 1800000); // 30 min window — stays within ILM backing index
-      const totalLogs = selectedServices.length * logsPerService;
+      const endDate   = new Date();
+      const startDate = new Date(endDate.getTime() - 1800000); // 30 min window
+
+      /** ── Traces mode: each "trace" = 1 transaction + N spans ─────────────── */
+      if (isTracesMode) {
+        const APM_INDEX = "traces-apm-default";
+        const totalTraces = activeServices.length * tracesPerService;
+        setProgress({ sent:0, total:totalTraces, errors:0 });
+        addLog(`Starting: ${totalTraces.toLocaleString()} traces across ${activeServices.length} service(s) → ${APM_INDEX}`);
+        let totalSent = 0, totalErrors = 0;
+
+        const shipTraceService = async (svc) => {
+          addLog(`▶ ${svc} → ${APM_INDEX} [OTel / OTLP]`, "info");
+          // Flatten all trace docs for this service (each trace = array of docs)
+          const allDocs = Array.from({ length: tracesPerService }, () =>
+            TRACE_GENERATORS[svc](randTs(startDate, endDate), errorRate).map(d => stripNulls(d))
+          ).flat();
+          let svcSent = 0, svcErrors = 0, batchNum = 0;
+          for (let i = 0; i < allDocs.length; i += batchSize) {
+            if (abortRef.current) break;
+            batchNum++;
+            const batch  = allDocs.slice(i, i + batchSize);
+            const ndjson = batch.flatMap(doc => [JSON.stringify({ create:{ _index:APM_INDEX } }), JSON.stringify(doc)]).join("\n") + "\n";
+            try {
+              const res  = await fetch(`/proxy/_bulk`, { method:"POST", headers, body:ndjson });
+              const json = await res.json();
+              if (!res.ok) {
+                svcErrors += batch.length;
+                addLog(`  ✗ batch ${batchNum} failed: ${json.error?.reason || res.status}`, "error");
+              } else {
+                const failedItems = json.items?.filter(it => it.create?.error || it.index?.error) || [];
+                const errs = failedItems.length;
+                svcErrors += errs;
+                svcSent += batch.length - errs;
+                if (errs > 0) {
+                  const firstErr = failedItems[0]?.create?.error || failedItems[0]?.index?.error;
+                  addLog(`  ✗ batch ${batchNum}: ${errs} errors — ${firstErr?.type}: ${firstErr?.reason?.substring(0, 120)}`, "warn");
+                } else {
+                  addLog(`  ✓ batch ${batchNum}: ${batch.length} span docs indexed`, "ok");
+                }
+              }
+            } catch(e) {
+              svcErrors += batch.length;
+              addLog(`  ✗ network error: ${e.message}`, "error");
+            }
+            setProgress({ sent: totalSent + Math.floor(svcSent / (allDocs.length / tracesPerService)), total: totalTraces, errors: totalErrors + svcErrors });
+            if (batchDelayMs > 0) await new Promise(r => setTimeout(r, batchDelayMs));
+          }
+          addLog(`✓ ${svc} complete (${svcSent} span docs for ${tracesPerService} traces)`, "ok");
+          return { sent: tracesPerService, errors: svcErrors > 0 ? 1 : 0 };
+        };
+
+        for (const svc of activeServices) {
+          if (abortRef.current) break;
+          const { sent, errors } = await shipTraceService(svc);
+          totalSent += sent;
+          totalErrors += errors;
+        }
+        setStatus(abortRef.current ? "aborted" : "done");
+        addLog(
+          abortRef.current ? `Aborted. ${totalSent} traces shipped.` : `Done! ${totalSent.toLocaleString()} traces indexed, ${totalErrors} errors.`,
+          totalErrors > 0 ? "warn" : "ok"
+        );
+        return;
+      }
+
+      /** ── Logs / Metrics mode ──────────────────────────────────────────────── */
+      const totalLogs = activeServices.length * logsPerService;
       setProgress({ sent:0, total:totalLogs, errors:0 });
-      addLog(`Starting: ${totalLogs.toLocaleString()} ${eventType === "metrics" ? "metrics" : "logs"} across ${selectedServices.length} service(s)`);
+      addLog(`Starting: ${totalLogs.toLocaleString()} ${eventType === "metrics" ? "metrics" : "logs"} across ${activeServices.length} service(s)`);
       let totalSent = 0, totalErrors = 0;
 
-      /** Ships all batches for a single service. Returns { sent, errors }. */
       const shipService = async (svc) => {
         const dataset = eventType === "metrics"
           ? (ELASTIC_METRICS_DATASET_MAP[svc] ?? ELASTIC_DATASET_MAP[svc] ?? `aws.${svc}`)
@@ -219,15 +312,33 @@ export default function App() {
         const indexName = `${dsPrefix}.${dataset.replace(/^aws\./, "")}-default`;
         const src = getEffectiveSource(svc);
         addLog(`▶ ${svc} → ${indexName} [${INGESTION_META[src]?.label || src}]`, "info");
-        const allDocs = Array.from({ length: logsPerService }, () =>
-          stripNulls(enrichDoc(GENERATORS[svc](randTs(startDate, endDate), errorRate), svc, src, eventType))
-        );
+        // In metrics mode, prefer dimensional generators that produce per-resource docs
+        const isDimensionalMetrics = eventType === "metrics" && METRICS_GENERATORS[svc];
+        const allDocs = isDimensionalMetrics
+          ? Array.from({ length: logsPerService }, () =>
+              METRICS_GENERATORS[svc](randTs(startDate, endDate), errorRate)
+            ).flat().map(d => stripNulls(d))
+          : Array.from({ length: logsPerService }, () => {
+              const result = GENERATORS[svc](randTs(startDate, endDate), errorRate);
+              if (Array.isArray(result)) {
+                return result.map(d => stripNulls(d));
+              }
+              return [stripNulls(enrichDoc(result, svc, src, eventType))];
+            }).flat();
         let svcSent = 0, svcErrors = 0, batchNum = 0;
         for (let i = 0; i < allDocs.length; i += batchSize) {
           if (abortRef.current) break;
           batchNum++;
           const batch = allDocs.slice(i, i + batchSize);
-          const ndjson = batch.flatMap(doc => [JSON.stringify({ create:{ _index:indexName } }), JSON.stringify(doc)]).join("\n") + "\n";
+          const ndjson = batch.flatMap(doc => {
+            const { __dataset, ...cleanDoc } = doc;
+            const idx = __dataset
+              ? __dataset.startsWith("aws.")
+                ? `${indexPrefix}.${__dataset.replace(/^aws\./, "")}-default`
+                : `logs-${__dataset}-default`
+              : indexName;
+            return [JSON.stringify({ create:{ _index:idx } }), JSON.stringify(cleanDoc)];
+          }).join("\n") + "\n";
           try {
             const res  = await fetch(`/proxy/_bulk`, { method:"POST", headers, body:ndjson });
             const json = await res.json();
@@ -257,7 +368,7 @@ export default function App() {
         return { sent: svcSent, errors: svcErrors };
       };
 
-      for (const svc of selectedServices) {
+      for (const svc of activeServices) {
         if (abortRef.current) break;
         const { sent, errors } = await shipService(svc);
         totalSent += sent;
@@ -273,14 +384,14 @@ export default function App() {
       addLog(`Fatal error: ${fatal.message}`, "error");
       console.error("Ship error:", fatal);
     }
-  }, [selectedServices,logsPerService,errorRate,batchSize,batchDelayMs,elasticUrl,apiKey,indexPrefix,logsIndexPrefix,metricsIndexPrefix,ingestionSource,enrichDoc,getEffectiveSource,eventType,runConnectionValidation]);
+  }, [selectedServices,selectedTraceServices,logsPerService,tracesPerService,errorRate,batchSize,batchDelayMs,elasticUrl,apiKey,indexPrefix,logsIndexPrefix,metricsIndexPrefix,ingestionSource,enrichDoc,getEffectiveSource,eventType,isTracesMode,runConnectionValidation]);
 
   const pct            = progress.total>0 ? Math.round((progress.sent/progress.total)*100) : 0;
-  const totalSelected  = selectedServices.length;
-  const totalServices  = eventType === "metrics" ? METRICS_SUPPORTED_SERVICE_IDS.size : ALL_SERVICE_IDS.length;
+  const totalSelected  = isTracesMode ? selectedTraceServices.length : selectedServices.length;
+  const totalServices  = isTracesMode ? TRACE_SERVICES.length : eventType === "metrics" ? METRICS_SUPPORTED_SERVICE_IDS.size : ALL_SERVICE_IDS.length;
 
-  // ─── Cost estimation (Part 3) ──────────────────────────────────────────────
-  const estimatedDocs    = totalSelected * logsPerService;
+  // ─── Estimated volume ──────────────────────────────────────────────────────
+  const estimatedDocs    = isTracesMode ? totalSelected * tracesPerService : totalSelected * logsPerService;
   const estimatedBatches = totalSelected > 0 ? Math.ceil(estimatedDocs / batchSize) : 0;
 
   return (
@@ -308,7 +419,7 @@ export default function App() {
             Generate and ship AWS logs &amp; metrics to Elastic
           </h1>
           <p className={styles.pageDesc}>
-            {eventType === "metrics" ? `${totalServices} AWS services with Elastic metrics support` : `${totalServices} AWS services across 14 groups`} · ECS-compliant · Per-service ingestion (S3, CloudWatch, API, Firehose, OTel). Ships directly to Elasticsearch.
+            {isTracesMode ? `${totalServices} services with OTel/APM trace support · EDOT instrumentation · Ships to traces-apm-default` : eventType === "metrics" ? `${totalServices} AWS services with Elastic metrics support` : `${totalServices} AWS services across 14 groups`}{isTracesMode ? "" : " · ECS-compliant · Per-service ingestion (S3, CloudWatch, API, Firehose, OTel). Ships directly to Elasticsearch."}
           </p>
         </div>
 
@@ -316,6 +427,56 @@ export default function App() {
 
           {/* LEFT — Service selection */}
           <div>
+            {isTracesMode ? (
+              <Card>
+                <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
+                  <span style={{fontSize:13,fontWeight:600,color:K.textHeading}}>Select Trace Services</span>
+                  {totalSelected>0&&(
+                    <span style={{fontSize:11,fontWeight:600,color:"#8b5cf6",background:"#8b5cf614",border:"1px solid #8b5cf644",borderRadius:99,padding:"2px 10px"}}>
+                      {totalSelected} selected
+                    </span>
+                  )}
+                </div>
+                <div style={{fontSize:11,color:K.textSubdued,marginBottom:12,padding:"8px 10px",background:"#8b5cf608",border:"1px solid #8b5cf622",borderRadius:K.radiusSm}}>
+                  Traces are generated using <span style={{color:"#8b5cf6",fontWeight:600}}>OpenTelemetry (OTLP)</span> with EDOT instrumentation and shipped to <span style={{color:"#8b5cf6",fontWeight:600}}>traces-apm-default</span>.
+                </div>
+                <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                  {TRACE_SERVICES.map(svc => {
+                    const sel = selectedTraceServices.includes(svc.id);
+                    return (
+                      <button key={svc.id} onClick={()=>toggleTraceService(svc.id)} style={{
+                        border:`1.5px solid ${sel?"#8b5cf6":"#e2e8f0"}`,
+                        borderRadius:K.radius, padding:"12px 14px",
+                        background:sel?"#8b5cf60e":"#f8fafc",
+                        cursor:"pointer", textAlign:"left", transition:"all 0.15s",
+                        position:"relative", overflow:"hidden",
+                      }}>
+                        {sel&&<div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"#8b5cf6",borderRadius:"8px 8px 0 0"}}/>}
+                        <div style={{display:"flex",alignItems:"center",gap:10}}>
+                          {AWS_SERVICE_ICON_MAP[svc.id] ? (
+                            <img src={`${AWS_ICON_BASE}/${AWS_SERVICE_ICON_MAP[svc.id]}.svg`} alt="" style={{width:32,height:32,objectFit:"contain"}}/>
+                          ) : (
+                            <div style={{fontSize:22,minWidth:32,textAlign:"center"}}>⚡</div>
+                          )}
+                          <div>
+                            <div style={{fontSize:13,fontWeight:700,color:sel?"#8b5cf6":"#334155",marginBottom:2}}>{svc.label}</div>
+                            <div style={{fontSize:11,color:"#64748b",lineHeight:1.4}}>{svc.desc}</div>
+                          </div>
+                          {sel&&<span style={{marginLeft:"auto",color:"#8b5cf6",fontSize:14,fontWeight:700}}>✓</span>}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+                <div style={{marginTop:12,padding:"10px 12px",background:K.subdued,borderRadius:K.radiusSm,border:`1px solid ${K.border}`}}>
+                  <div style={{fontSize:11,fontWeight:600,color:K.textHeading,marginBottom:6}}>OTel instrumentation paths</div>
+                  <div style={{fontSize:10,color:K.textSubdued,lineHeight:1.6}}>
+                    <div><span style={{color:"#8b5cf6",fontWeight:600}}>Lambda</span> — EDOT Lambda layer + OTLP → APM Server</div>
+                    <div><span style={{color:"#8b5cf6",fontWeight:600}}>EMR Spark</span> — EDOT Java agent bootstrap action + OTLP → APM Server</div>
+                  </div>
+                </div>
+              </Card>
+            ) : (
             <Card>
               <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
                 <span style={{fontSize:13,fontWeight:600,color:K.textHeading}}>Select Services</span>
@@ -400,6 +561,7 @@ export default function App() {
                 })}
               </div>
             </Card>
+            )}
           </div>
 
           <div className={styles.rightCol}>
@@ -418,12 +580,23 @@ export default function App() {
                       padding:"6px 14px",fontSize:12,fontWeight:600,cursor:"pointer",border:"none",fontFamily:"inherit",
                       background:eventType==="metrics"?K.plain:"transparent",color:eventType==="metrics"?K.textHeading:K.textSubdued,transition:"all 0.15s",boxShadow:eventType==="metrics"?K.shadow:"none",
                     }}>Metrics</button>
+                    <button onClick={()=>{ setEventType("traces"); }} style={{
+                      padding:"6px 14px",fontSize:12,fontWeight:600,cursor:"pointer",border:"none",fontFamily:"inherit",
+                      background:isTracesMode?K.plain:"transparent",color:isTracesMode?"#8b5cf6":K.textSubdued,transition:"all 0.15s",boxShadow:isTracesMode?K.shadow:"none",
+                    }}>Traces</button>
                   </div>
                   {eventType==="metrics"&&<div style={{fontSize:11,color:K.textSubdued,marginTop:4}}>Only services with metrics in the Elastic AWS integration. Index: metrics-aws.*</div>}
+                  {isTracesMode&&<div style={{fontSize:11,color:"#8b5cf6",marginTop:4}}>OTel APM traces for Lambda &amp; EMR Spark. Ships to <strong>traces-apm-default</strong>.</div>}
                 </div>
+                {isTracesMode ? (
+                  <SliderField label="Traces per service" value={tracesPerService} min={10} max={500} step={10}
+                    onChange={setTracesPerService} display={`${tracesPerService.toLocaleString()} traces`}
+                    sublabel={`~${(totalSelected*tracesPerService).toLocaleString()} traces (each trace = transaction + spans)`}/>
+                ) : (
                 <SliderField label={eventType==="metrics"?"Metrics per service":"Logs per service"} value={logsPerService} min={50} max={5000} step={50}
                   onChange={setLogsPerService} display={`${logsPerService.toLocaleString()} docs`}
                   sublabel={`${(totalSelected*logsPerService).toLocaleString()} total docs across ${totalSelected} service(s)`}/>
+                )}
                 <SliderField label="Error rate" value={errorRate} min={0} max={0.5} step={0.01}
                   onChange={v=>setErrorRate(parseFloat(v))} display={`${(errorRate*100).toFixed(0)}%`}
                   sublabel="Percentage generated as errors or failures"/>
@@ -460,6 +633,7 @@ export default function App() {
                   />
                   {validationErrors.apiKey && <div className={styles.validationError}>{validationErrors.apiKey}</div>}
                 </Field>
+                {!isTracesMode && (
                 <Field label="Index prefix">
                   <input
                     value={indexPrefix}
@@ -473,6 +647,16 @@ export default function App() {
                     e.g. <span style={{color:K.primaryText}}>{indexPrefix}.lambda-default</span>, <span style={{color:K.primaryText}}>{indexPrefix}.vpcflow-default</span>…
                   </div>
                 </Field>
+                )}
+                {isTracesMode && (
+                <Field label="APM index">
+                  <div style={{padding:"8px 12px",background:K.subdued,borderRadius:K.radiusSm,border:`1px solid #8b5cf633`,fontSize:12,fontWeight:600,color:"#8b5cf6"}}>
+                    traces-apm-default
+                  </div>
+                  <div style={{fontSize:11,color:K.textSubdued,marginTop:5}}>Fixed APM data stream — requires Elastic APM Server or Fleet integration.</div>
+                </Field>
+                )}
+                {!isTracesMode && (
                 <Field label="Ingestion source">
                   <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:6,marginBottom:8}}>
                     <button onClick={()=>setIngestionSource("default")} style={{
@@ -522,6 +706,7 @@ export default function App() {
                     }[ingestionSource]}
                   </div>
                 </Field>
+                )}
                 <button type="button" onClick={clearSavedConfig} className={styles.clearConfigBtn}>
                   Clear saved config
                 </button>
@@ -532,13 +717,16 @@ export default function App() {
               <button type="button" onClick={generatePreview} style={{ flex: "0 0 auto" }} className={styles.btnSecondary}>Preview doc</button>
               {status==="running"
                 ? <button type="button" onClick={()=>{abortRef.current=true;}} style={{ flex: 1 }} className={styles.btnDanger}>Stop shipping</button>
-                : <button type="button" onClick={ship} disabled={!totalSelected||!elasticUrl||!apiKey||!!(validationErrors.elasticUrl||validationErrors.apiKey||validationErrors.indexPrefix)} style={{ flex: 1, opacity: (totalSelected&&elasticUrl&&apiKey&&!(validationErrors.elasticUrl||validationErrors.apiKey||validationErrors.indexPrefix)) ? 1 : 0.5, cursor: (totalSelected&&elasticUrl&&apiKey&&!(validationErrors.elasticUrl||validationErrors.apiKey||validationErrors.indexPrefix)) ? "pointer" : "not-allowed" }} className={styles.btnPrimary}>
-                    ⚡ Ship {totalSelected>0?`${(totalSelected*logsPerService).toLocaleString()} ${eventType==="metrics"?"metrics":"logs"}`:(eventType==="metrics"?"metrics":"logs")}
+                : <button type="button" onClick={ship} disabled={!totalSelected||!elasticUrl||!apiKey||!!(validationErrors.elasticUrl||validationErrors.apiKey||(!isTracesMode&&validationErrors.indexPrefix))} style={{ flex: 1, opacity: (totalSelected&&elasticUrl&&apiKey&&!(validationErrors.elasticUrl||validationErrors.apiKey||(!isTracesMode&&validationErrors.indexPrefix))) ? 1 : 0.5, cursor: (totalSelected&&elasticUrl&&apiKey&&!(validationErrors.elasticUrl||validationErrors.apiKey||(!isTracesMode&&validationErrors.indexPrefix))) ? "pointer" : "not-allowed" }} className={styles.btnPrimary}>
+                    ⚡ Ship {totalSelected>0 ? isTracesMode ? `${(totalSelected*tracesPerService).toLocaleString()} traces` : `${(totalSelected*logsPerService).toLocaleString()} ${eventType==="metrics"?"metrics":"logs"}` : isTracesMode ? "traces" : eventType==="metrics"?"metrics":"logs"}
                   </button>}
             </div>
             {totalSelected > 0 && (
               <div className={styles.costEstimate}>
-                ~{estimatedDocs.toLocaleString()} documents across {totalSelected} service{totalSelected!==1?"s":""} ({estimatedBatches} batch{estimatedBatches!==1?"es":""})
+                {isTracesMode
+                  ? `~${estimatedDocs.toLocaleString()} traces across ${totalSelected} service${totalSelected!==1?"s":""} (each trace = transaction + spans)`
+                  : `~${estimatedDocs.toLocaleString()} documents across ${totalSelected} service${totalSelected!==1?"s":""} (${estimatedBatches} batch${estimatedBatches!==1?"es":""})`
+                }
               </div>
             )}
 

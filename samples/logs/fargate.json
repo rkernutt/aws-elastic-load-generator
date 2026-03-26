@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-central-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "fargate"
@@ -20,16 +20,16 @@
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 63
+          "avg": 97
         },
         "CPUReservation": {
-          "avg": 30.782
+          "avg": 78.215
         },
         "MemoryUtilization": {
-          "avg": 13.239
+          "avg": 21.518
         },
         "MemoryReservation": {
-          "avg": 29.62
+          "avg": 34.942
         },
         "GPUReservation": {
           "avg": 0
@@ -38,7 +38,7 @@
     }
   },
   "container": {
-    "id": "ves11acya3j",
+    "id": "mfgowl5ltl",
     "name": "web-frontend",
     "image": {
       "name": "myrepo/web-frontend:latest",
@@ -47,21 +47,26 @@
     "runtime": "docker"
   },
   "process": {
-    "pid": 56145,
+    "pid": 57372,
     "name": "web-frontend"
   },
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process",
       "container"
     ],
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 3166000000000
+    "duration": 165000000000
   },
-  "message": "{\"cluster\":\"batch-workers-cluster\",\"taskId\":\"lf3tua7flwa\",\"taskDefinition\":\"web-frontend:50\",\"container\":\"web-frontend\",\"level\":\"info\",\"message\":\"Container is healthy\",\"timestamp\":\"2026-03-25T12:11:41.550Z\"}"
+  "message": "Container health check failed 3 times",
+  "error": {
+    "code": "OOMKilled",
+    "message": "Task stopped with exit code 1",
+    "type": "container"
+  }
 }

@@ -1,0 +1,48 @@
+{
+  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-2",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    }
+  },
+  "aws": {
+    "lookoutmetrics": {
+      "metrics": {
+        "ExecutionCount": {
+          "avg": 199,
+          "sum": 199,
+          "count": 1
+        },
+        "ExecutionError": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "AnomaliesFound": {
+          "avg": 46,
+          "sum": 46,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "AnomalyDetectorName": "fraud-detector"
+      }
+    }
+  },
+  "metricset": {
+    "name": "lookoutmetrics",
+    "period": 60000
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.lookoutmetrics",
+    "namespace": "default"
+  },
+  "event": {
+    "dataset": "aws.lookoutmetrics",
+    "module": "aws"
+  }
+}

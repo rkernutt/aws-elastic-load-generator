@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "us-east-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,52 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "DeliveryStreamName": "logs-to-s3"
+      "DeliveryStreamName": "clickstream-backup"
     },
     "firehose": {
-      "delivery_stream_name": "logs-to-s3",
+      "delivery_stream_name": "clickstream-backup",
       "destination": "Redshift",
-      "incoming_records": 4329,
-      "incoming_bytes": 2069262,
-      "delivery_success": true,
-      "delivery_records": 4329,
-      "data_freshness_seconds": 148,
+      "incoming_records": 12544,
+      "incoming_bytes": 22127616,
+      "delivery_success": false,
+      "delivery_records": 0,
+      "data_freshness_seconds": 2239,
       "metrics": {
         "DeliveryToS3.Bytes": {
-          "sum": 34761856
+          "sum": 37802128
         },
         "DeliveryToS3.DataFreshness": {
-          "avg": 670
+          "avg": 2534
         },
         "DeliveryToS3.Records": {
-          "sum": 2263
+          "sum": 4900
         },
         "DeliveryToS3.Success": {
-          "avg": 1
+          "avg": 0
         },
         "IncomingBytes": {
-          "sum": 54512605
+          "sum": 19212302
         },
         "IncomingRecords": {
-          "sum": 8616
+          "sum": 4269
         },
         "BackupToS3.Bytes": {
-          "sum": 395008
+          "sum": 306174
         },
         "BackupToS3.Records": {
-          "sum": 823
+          "sum": 143
         },
         "BackupToS3.Success": {
           "avg": 1
         },
         "DataReadFromKinesisStream.Bytes": {
-          "sum": 64015606
+          "sum": 65233183
         },
         "DataReadFromKinesisStream.Records": {
-          "sum": 107
+          "sum": 5384
         },
         "ThrottledGetRecords": {
-          "sum": 0
+          "sum": 2
         },
         "ThrottledGetShardIterator": {
           "sum": 0
@@ -67,16 +67,21 @@
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.firehose",
     "provider": "firehose.amazonaws.com",
-    "duration": 2000000000
+    "duration": 150000000000
   },
-  "message": "Firehose logs-to-s3: 4329 records delivered",
+  "message": "Firehose clickstream-backup delivery failure: Conversion error",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "DeliveryFailure",
+    "message": "Firehose delivery failed",
+    "type": "stream"
   }
 }

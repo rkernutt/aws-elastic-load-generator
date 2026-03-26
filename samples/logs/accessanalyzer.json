@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "access-analyzer"
@@ -13,21 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "AnalyzerName": "analyzer-us-east-1"
+      "AnalyzerName": "analyzer-eu-central-1"
     },
     "access_analyzer": {
-      "finding_id": "xc5h5c1q-3kxv-u82x",
-      "analyzer_name": "analyzer-us-east-1",
-      "finding_type": "none",
-      "finding_description": "No external access",
+      "finding_id": "gzhmeaoz-p2or-d4e2",
+      "analyzer_name": "analyzer-eu-central-1",
+      "finding_type": "EXTERNAL_ACCESS",
+      "finding_description": "Unused access key",
       "resource_type": "AWS::S3::Bucket",
-      "resource_arn": "arn:aws:s3:::staging-bucket",
-      "status": "RESOLVED"
+      "resource_arn": "arn:aws:s3:::prod-bucket",
+      "principal": "*",
+      "status": "ACTIVE"
     }
   },
   "event": {
-    "kind": "event",
-    "outcome": "success",
+    "kind": "alert",
+    "outcome": "failure",
     "category": [
       "configuration",
       "iam"
@@ -35,8 +36,13 @@
     "dataset": "aws.access_analyzer",
     "provider": "access-analyzer.amazonaws.com"
   },
-  "message": "Access Analyzer: no external access paths detected",
+  "message": "IAM Access Analyzer: external access found on AWS::SQS::Queue",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "ExternalAccess",
+    "message": "External access path detected",
+    "type": "access"
   }
 }

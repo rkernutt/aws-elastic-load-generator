@@ -1,114 +1,99 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
-    },
-    "service": {
-      "name": "opensearch"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
   },
   "aws": {
-    "dimensions": {
-      "DomainName": "prod-search-us-east-1",
-      "ClientId": "738291046572"
-    },
     "opensearch": {
-      "domain_name": "prod-search-us-east-1",
-      "index": "app-logs",
-      "operation": "search",
-      "took_ms": 1367,
-      "shards": {
-        "total": 46,
-        "successful": 46,
-        "failed": 0,
-        "active": 46,
-        "initializing": 0,
-        "relocating": 0,
-        "unassigned": 0
-      },
-      "hits_total": 6218,
-      "status_code": 200,
       "metrics": {
         "CPUUtilization": {
-          "avg": 53.167
-        },
-        "FreeStorageSpace": {
-          "avg": 84559922788
-        },
-        "ClusterStatus": {
-          "green": 1,
-          "yellow": 0,
-          "red": 0
-        },
-        "Nodes": {
-          "avg": 9
-        },
-        "SearchableDocuments": {
-          "avg": 561040983
-        },
-        "IndexingLatency": {
-          "avg": 80
-        },
-        "SearchLatency": {
-          "avg": 140
-        },
-        "IndexingRate": {
-          "avg": 5829
-        },
-        "SearchRate": {
-          "avg": 6142
+          "avg": 37.43,
+          "sum": 37.43,
+          "count": 1
         },
         "JVMMemoryPressure": {
-          "avg": 30.773
+          "avg": 21.69,
+          "sum": 21.69,
+          "count": 1
+        },
+        "FreeStorageSpace": {
+          "avg": 54277.73,
+          "sum": 54277.73,
+          "count": 1
+        },
+        "IndexingRate": {
+          "avg": 614.08,
+          "sum": 614.08,
+          "count": 1
+        },
+        "SearchRate": {
+          "avg": 463.89,
+          "sum": 463.89,
+          "count": 1
+        },
+        "IndexingLatency": {
+          "avg": 5.13,
+          "sum": 5.13,
+          "count": 1
+        },
+        "SearchLatency": {
+          "avg": 8.21,
+          "sum": 8.21,
+          "count": 1
+        },
+        "ClusterStatus_green": {
+          "avg": 1,
+          "sum": 1,
+          "count": 1
+        },
+        "ClusterStatus_yellow": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "ClusterStatus_red": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "Nodes": {
+          "avg": 15,
+          "sum": 15,
+          "count": 1
         },
         "AutomatedSnapshotFailure": {
-          "sum": 0
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
-        "CoordinatingWriteRejected": {
-          "sum": 0
-        },
-        "PrimaryWriteRejected": {
-          "sum": 0
-        },
-        "ReplicaWriteRejected": {
-          "sum": 0
-        },
-        "WarmStorageSpaceUsage": {
-          "avg": 54.34
-        },
-        "DeletedDocuments": {
-          "avg": 4140
+        "ClusterIndexWritesBlocked": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "DomainName": "analytics-os",
+        "ClientId": "293847561023"
       }
     }
   },
-  "http": {
-    "response": {
-      "status_code": 200
-    }
-  },
-  "event": {
-    "duration": 1367453000,
-    "outcome": "success",
-    "category": "database",
-    "dataset": "aws.opensearch",
-    "provider": "es.amazonaws.com"
-  },
-  "message": "OpenSearch search on app-logs: 1367ms",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "opensearch",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.opensearch",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.opensearch",
+    "module": "aws"
   }
 }

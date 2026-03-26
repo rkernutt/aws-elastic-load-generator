@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "securityhub"
@@ -14,24 +14,24 @@
   "aws": {
     "dimensions": {
       "ComplianceStandard": "pci-dss",
-      "ControlId": "EC2.2"
+      "ControlId": "Lambda.1"
     },
     "securityhub_findings": {
-      "id": "I1I72DO2-U5VU-FCM7-ZJUX-SY1LUWBFHBI",
-      "aws_account_id": "814726593401",
-      "region": "eu-west-2",
+      "id": "FTG6KW4R-4YT1-479C-1753-PV0H7RAXX3",
+      "aws_account_id": "501938274650",
+      "region": "us-east-2",
       "description": "Control passed.",
-      "created_at": "2026-03-24T15:13:06.394Z",
-      "first_observed_at": "2026-03-24T15:13:06.394Z",
-      "last_observed_at": "2026-03-25T12:11:41.550Z",
+      "created_at": "2026-03-25T20:25:06.578Z",
+      "first_observed_at": "2026-03-25T20:25:06.578Z",
+      "last_observed_at": "2026-03-26T16:46:26.654Z",
       "generator": {
-        "id": "EC2.2"
+        "id": "Lambda.1"
       },
       "types": [
-        "Software and Configuration Checks/Industry and Regulatory Standards/CIS AWS Foundations Benchmark"
+        "Effects/Data Exposure"
       ],
       "compliance": {
-        "security_control_id": "EC2.2",
+        "security_control_id": "Lambda.1",
         "status": "PASSED"
       },
       "severity": {
@@ -39,27 +39,27 @@
         "normalized": 0
       },
       "workflow": {
-        "status": "RESOLVED"
+        "status": "NOTIFIED"
       },
       "record_state": "ARCHIVED",
       "product": {
-        "arn": "arn:aws:securityhub:eu-west-2::product/aws/securityhub",
+        "arn": "arn:aws:securityhub:us-east-2::product/aws/securityhub",
         "name": "Security Hub"
       },
       "criticality": 4,
-      "confidence": 96
+      "confidence": 85
     }
   },
   "rule": {
-    "id": "EC2.2",
-    "name": "EC2.2 — MFA not enabled for root"
+    "id": "Lambda.1",
+    "name": "Lambda.1 — CloudTrail not enabled"
   },
   "event": {
     "kind": "alert",
     "severity": 4,
     "outcome": "success",
     "category": [
-      "compliance"
+      "vulnerability"
     ],
     "type": [
       "info"

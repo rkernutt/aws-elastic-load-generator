@@ -1,66 +1,48 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "me-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
-    },
-    "service": {
-      "name": "imagebuilder"
+      "id": "738291046572",
+      "name": "globex-development"
     }
   },
   "aws": {
-    "dimensions": {
-      "PipelineName": "container-base-pipeline",
-      "Phase": "DISTRIBUTE"
-    },
     "imagebuilder": {
-      "pipeline_name": "container-base-pipeline",
-      "image_version": "3.16.6/1",
-      "phase": "DISTRIBUTE",
-      "phase_status": "COMPLETED",
-      "duration_seconds": 852,
-      "os": "RHEL 9",
-      "recipe_name": "web-server-recipe",
-      "ami_id": "ami-b8i5eslt",
       "metrics": {
-        "BuildDuration": {
-          "avg": 852
+        "ImageBuildsStarted": {
+          "avg": 5,
+          "sum": 5,
+          "count": 1
         },
-        "ImageBuildSuccessCount": {
-          "sum": 1
+        "ImageBuildsSucceeded": {
+          "avg": 7,
+          "sum": 7,
+          "count": 1
         },
-        "ImageBuildFailureCount": {
-          "sum": 0
-        },
-        "ComponentBuildDuration": {
-          "avg": 137
+        "ImageBuildsFailed": {
+          "avg": 3,
+          "sum": 3,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "PipelineName": "ubuntu-pipeline"
       }
     }
   },
-  "event": {
-    "category": [
-      "process"
-    ],
-    "duration": 852000000000,
-    "outcome": "success",
-    "dataset": "aws.imagebuilder",
-    "provider": "imagebuilder.amazonaws.com"
-  },
-  "message": "Running component: aws:RunShellScript",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "imagebuilder",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.imagebuilder",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.imagebuilder",
+    "module": "aws"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ca-central-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "StartEntitiesDetectionV2Job"
+      "Operation": "InferSNOMEDCT"
     },
     "comprehendmedical": {
-      "operation": "StartEntitiesDetectionV2Job",
-      "entities_detected": 45,
+      "operation": "InferSNOMEDCT",
+      "entities_detected": 26,
       "phi_entities": 3,
-      "text_characters": 3364,
-      "job_id": "4dvezb5f6dv",
+      "snomedct_concepts": 16,
+      "text_characters": 8206,
       "data_access_role_arn": "arn:aws:iam::164820739518:role/ComprehendMedicalRole",
-      "s3_bucket": "ehr-processed"
+      "s3_bucket": "medical-records"
     }
   },
   "event": {
@@ -33,7 +33,7 @@
     "dataset": "aws.comprehendmedical",
     "provider": "comprehendmedical.amazonaws.com"
   },
-  "message": "Comprehend Medical StartEntitiesDetectionV2Job: 45 entities, 3 PHI",
+  "message": "Comprehend Medical InferSNOMEDCT: 26 entities, 3 PHI",
   "log": {
     "level": "info"
   }

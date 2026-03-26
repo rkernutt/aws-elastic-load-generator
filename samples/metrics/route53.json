@@ -1,60 +1,54 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
-    },
-    "service": {
-      "name": "route53"
+      "id": "814726593401",
+      "name": "globex-production"
     }
   },
   "aws": {
-    "dimensions": {
-      "HostedZoneId": "ZHZ865PQ0TDS",
-      "Region": "us-east-1"
-    },
     "route53": {
-      "hosted_zone_id": "ZHZ865PQ0TDS",
-      "edge_location": "SFO64",
-      "edns_client_subnet": "37.44.0.0/24"
+      "metrics": {
+        "DNSQueries": {
+          "avg": 13983205,
+          "sum": 13983205,
+          "count": 1
+        },
+        "ChildHealthCheckHealthyCount": {
+          "avg": 3,
+          "sum": 3,
+          "count": 1
+        },
+        "HealthCheckPercentageHealthy": {
+          "avg": 100,
+          "sum": 100,
+          "count": 1
+        },
+        "HealthCheckStatus": {
+          "avg": 1,
+          "sum": 1,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "HostedZoneId": "Z69472396",
+        "Region": "Global"
+      }
     }
   },
-  "dns": {
-    "question": {
-      "name": "s3.amazonaws.com",
-      "type": "SRV"
-    },
-    "response_code": "NOERROR"
-  },
-  "client": {
-    "ip": "197.133.140.35"
-  },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "network"
-    ],
-    "type": [
-      "protocol"
-    ],
-    "dataset": "aws.route53",
-    "provider": "route53.amazonaws.com",
-    "duration": 48000000
-  },
-  "message": "2026-03-25T12:11:41.550Z V0VD4JNJ ip4 197.133.140.35 53 AAAA s3.amazonaws.com. NOERROR",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "route53",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
-    "dataset": "aws.route53_public_logs",
+    "dataset": "aws.route53",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.route53",
+    "module": "aws"
   }
 }

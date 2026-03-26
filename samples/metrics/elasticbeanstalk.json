@@ -1,111 +1,73 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-south-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
-    },
-    "service": {
-      "name": "elasticbeanstalk"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
   },
   "aws": {
-    "dimensions": {
-      "EnvironmentName": "worker-app-staging",
-      "InstanceId": "i-jvrbegaka2"
-    },
     "elasticbeanstalk": {
-      "application": "worker-app",
-      "environment": "worker-app-staging",
-      "structured_logging": false,
-      "platform": "Python 3.11",
-      "version_label": "v83",
       "metrics": {
         "ApplicationRequests2xx": {
-          "sum": 1
-        },
-        "ApplicationRequests3xx": {
-          "sum": 0
+          "avg": 2650,
+          "sum": 2650,
+          "count": 1
         },
         "ApplicationRequests4xx": {
-          "sum": 0
+          "avg": 141,
+          "sum": 141,
+          "count": 1
         },
         "ApplicationRequests5xx": {
-          "sum": 0
-        },
-        "ApplicationLatencyP10": {
-          "avg": 25.908
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "ApplicationLatencyP50": {
-          "avg": 46.641
-        },
-        "ApplicationLatencyP75": {
-          "avg": 53.787
-        },
-        "ApplicationLatencyP85": {
-          "avg": 68.462
-        },
-        "ApplicationLatencyP90": {
-          "avg": 83.085
-        },
-        "ApplicationLatencyP95": {
-          "avg": 99.793
+          "avg": 52.38,
+          "sum": 52.38,
+          "count": 1
         },
         "ApplicationLatencyP99": {
-          "avg": 222.163
+          "avg": 796.66,
+          "sum": 796.66,
+          "count": 1
         },
-        "ApplicationLatencyP99.9": {
-          "avg": 425.39
-        },
-        "ApplicationRequests": {
-          "sum": 1
-        },
-        "InstancesSevere": {
-          "avg": 0
-        },
-        "InstancesDegraded": {
-          "avg": 0
-        },
-        "InstancesWarning": {
-          "avg": 0
+        "CPUUtilization": {
+          "avg": 26.01,
+          "sum": 26.01,
+          "count": 1
         },
         "InstancesOk": {
-          "avg": 6
+          "avg": 4,
+          "sum": 4,
+          "count": 1
         },
-        "EnvironmentHealth": {
-          "avg": 20
+        "InstancesDegraded": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "EnvironmentName": "myapp-canary"
       }
     }
   },
-  "http": {
-    "response": {
-      "status_code": 200
-    }
+  "metricset": {
+    "name": "elasticbeanstalk",
+    "period": 60000
   },
-  "log": {
-    "level": "info"
-  },
-  "event": {
-    "category": [
-      "web",
-      "process"
-    ],
-    "outcome": "success",
-    "dataset": "aws.elasticbeanstalk",
-    "provider": "elasticbeanstalk.amazonaws.com",
-    "duration": 49000000000
-  },
-  "message": "Rolling update complete",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.elasticbeanstalk",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.elasticbeanstalk",
+    "module": "aws"
   }
 }

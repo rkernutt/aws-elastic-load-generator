@@ -1,48 +1,63 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
-    },
-    "service": {
-      "name": "directconnect"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
   },
   "aws": {
     "directconnect": {
-      "connection_id": "dxcon-q7yewtc7",
-      "connection_name": "dx-secondary",
-      "bandwidth": "10Gbps",
-      "connection_state": "available",
-      "vlan": 888,
-      "asn": 65395,
-      "bgp_status": "up",
-      "bgp_peer_ip": "157.85.128.234",
-      "bytes_in": 738827210,
-      "bytes_out": 66222088,
-      "location": "LHR1"
+      "metrics": {
+        "ConnectionState": {
+          "avg": 1,
+          "sum": 1,
+          "count": 1
+        },
+        "ConnectionBpsIngress": {
+          "avg": 7537432164,
+          "sum": 7537432164,
+          "count": 1
+        },
+        "ConnectionBpsEgress": {
+          "avg": 9095654778,
+          "sum": 9095654778,
+          "count": 1
+        },
+        "ConnectionPpsIngress": {
+          "avg": 3438943,
+          "sum": 3438943,
+          "count": 1
+        },
+        "ConnectionPpsEgress": {
+          "avg": 6680547,
+          "sum": 6680547,
+          "count": 1
+        },
+        "ConnectionErrorCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "ConnectionId": "dxcon-49459492"
+      }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": "network",
-    "dataset": "aws.directconnect",
-    "provider": "directconnect.amazonaws.com"
-  },
-  "message": "Direct Connect dxcon-q7yewtc7 (10Gbps): BGP up, 123.8 Mbps",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "directconnect",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.directconnect",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.directconnect",
+    "module": "aws"
   }
 }

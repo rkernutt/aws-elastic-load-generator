@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-northeast-3",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,79 +13,79 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "prod-cluster-us-east-1",
-      "NodeName": "ip-194-126-112-211.us-east-1.compute.internal",
+      "ClusterName": "prod-cluster-ap-northeast-3",
+      "NodeName": "ip-153-174-255-147.ap-northeast-3.compute.internal",
       "Namespace": "default",
-      "PodName": "worker-vbvbi-i1zag"
+      "PodName": "web-raewe-j9km2"
     },
     "eks": {
-      "structured_logging": false,
+      "structured_logging": true,
       "cluster": {
-        "name": "prod-cluster-us-east-1"
+        "name": "prod-cluster-ap-northeast-3"
       },
       "node": {
-        "name": "ip-194-126-112-211.us-east-1.compute.internal"
+        "name": "ip-153-174-255-147.ap-northeast-3.compute.internal"
       },
       "metrics": {
         "cluster_failed_node_count": {
           "avg": 0
         },
         "node_cpu_utilization": {
-          "avg": "66.973"
+          "avg": "62.959"
         },
         "node_memory_utilization": {
-          "avg": "26.675"
+          "avg": "64.689"
         },
         "node_network_total_bytes": {
-          "sum": 666589999
+          "sum": 865228983
         },
         "node_filesystem_utilization": {
-          "avg": "23.317"
+          "avg": "60.019"
         },
         "pod_cpu_utilization": {
-          "avg": "34.417"
+          "avg": "32.902"
         },
         "pod_memory_utilization": {
-          "avg": "27.202"
+          "avg": "8.347"
         },
         "pod_network_rx_bytes": {
-          "sum": 96670826
+          "sum": 92267454
         },
         "pod_network_tx_bytes": {
-          "sum": 10725516
+          "sum": 55533930
         },
         "node_count": {
-          "avg": 11
+          "avg": 38
         },
         "pod_count": {
-          "avg": 450
+          "avg": 194
         }
       }
     }
   },
   "container": {
-    "id": "8yz1hbxqmzc",
-    "name": "worker",
+    "id": "cd873y5fsng",
+    "name": "web",
     "image": {
-      "name": "k8s.gcr.io/worker:v1.28.1"
+      "name": "k8s.gcr.io/web:v1.28.5"
     },
     "runtime": "containerd"
   },
   "kubernetes": {
     "namespace": "default",
     "pod": {
-      "name": "worker-vbvbi-i1zag"
+      "name": "web-raewe-j9km2"
     },
     "container": {
-      "name": "worker"
+      "name": "web"
     },
     "labels": {
-      "app": "worker",
+      "app": "web",
       "env": "prod"
     }
   },
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "event": {
     "category": [
@@ -95,7 +95,7 @@
     "outcome": "success",
     "dataset": "aws.eks",
     "provider": "eks.amazonaws.com",
-    "duration": 2025000000000
+    "duration": 3514000000000
   },
-  "message": "2026-03-25 12:11:41.550 E196 T2VA5S manager.go:65] Service endpoint added"
+  "message": "{\"cluster\":\"prod-cluster-ap-northeast-3\",\"namespace\":\"default\",\"pod\":\"web-raewe-j9km2\",\"level\":\"warn\",\"message\":\"Evicted pod due to disk pressure\",\"timestamp\":\"2026-03-26T16:46:26.654Z\",\"stream\":\"stdout\"}"
 }

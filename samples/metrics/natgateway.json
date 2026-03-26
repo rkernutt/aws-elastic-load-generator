@@ -1,120 +1,78 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-south-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
-    },
-    "service": {
-      "name": "natgateway"
+      "id": "814726593401",
+      "name": "globex-production"
     }
   },
   "aws": {
-    "dimensions": {
-      "NatGatewayId": "nat-0chz87y91fdr"
-    },
     "natgateway": {
-      "id": "nat-0chz87y91fdr",
-      "private_ip": "10.46.243.217",
-      "public_ip": "168.28.74.79",
-      "bytes_in_from_source": 130720,
-      "bytes_out_to_destination": 130720,
-      "bytes_in_from_destination": 163661,
-      "bytes_out_to_source": 121308,
-      "packets_in_from_source": 152,
-      "packets_out_to_destination": 152,
-      "packets_in_from_destination": 221,
-      "packets_out_to_source": 92,
-      "connection_attempt_count": 17,
-      "connection_established_count": 0,
-      "error_port_allocation": 79,
       "metrics": {
         "ActiveConnectionCount": {
-          "avg": 349
+          "avg": 103,
+          "sum": 103,
+          "count": 1
         },
         "BytesInFromDestination": {
-          "sum": 896015324
+          "avg": 2693533679,
+          "sum": 2693533679,
+          "count": 1
         },
         "BytesInFromSource": {
-          "sum": 599298138
+          "avg": 2975054259,
+          "sum": 2975054259,
+          "count": 1
         },
         "BytesOutToDestination": {
-          "sum": 163878828
+          "avg": 7442962210,
+          "sum": 7442962210,
+          "count": 1
         },
         "BytesOutToSource": {
-          "sum": 564213923
+          "avg": 3174679574,
+          "sum": 3174679574,
+          "count": 1
         },
         "ConnectionAttemptCount": {
-          "sum": 394
+          "avg": 20897,
+          "sum": 20897,
+          "count": 1
         },
         "ConnectionEstablishedCount": {
-          "sum": 49
+          "avg": 32253,
+          "sum": 32253,
+          "count": 1
         },
         "ErrorPortAllocation": {
-          "sum": 60
-        },
-        "IdleTimeoutCount": {
-          "sum": 97
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "PacketsDropCount": {
-          "sum": 463
-        },
-        "PacketsInFromDestination": {
-          "sum": 64123
-        },
-        "PacketsInFromSource": {
-          "sum": 738410
-        },
-        "PacketsOutToDestination": {
-          "sum": 33084
-        },
-        "PacketsOutToSource": {
-          "sum": 24158
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "NatGatewayId": "nat-658184632"
       }
     }
   },
-  "source": {
-    "ip": "10.46.243.217",
-    "port": 11422
-  },
-  "destination": {
-    "ip": "239.50.51.108",
-    "port": 3306
-  },
-  "network": {
-    "protocol": "tcp",
-    "bytes": 130720,
-    "packets": 152,
-    "direction": "egress"
-  },
-  "event": {
-    "outcome": "failure",
-    "category": [
-      "network"
-    ],
-    "dataset": "aws.natgateway",
-    "provider": "natgateway.amazonaws.com",
-    "duration": 816000000
-  },
-  "message": "NAT Gateway nat-0chz87y91fdr: port-allocation-error (TCP 10.46.243.217 → 239.50.51.108:3306)",
-  "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "port-allocation-error",
-    "message": "NAT Gateway REJECT: port-allocation-error",
-    "type": "network"
+  "metricset": {
+    "name": "natgateway",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.natgateway",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.natgateway",
+    "module": "aws"
   }
 }

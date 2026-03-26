@@ -1,6 +1,6 @@
 {
   "group": "security-extended",
-  "description": "Extended security anomaly detection — Security Hub findings, Macie data exposure, Inspector vulnerabilities, Config compliance drift, KMS unusual operations",
+  "description": "Extended security anomaly detection — Security Hub findings, Macie data exposure, Inspector vulnerabilities, Config compliance drift, KMS unusual operations, Security Lake OCSF findings",
   "jobs": [
     {
       "id": "aws-securityhub-critical-finding-spike",
@@ -182,6 +182,81 @@
           "bool": {
             "filter": [
               { "term": { "event.dataset": "aws.kms" } }
+            ]
+          }
+        },
+        "chunking_config": { "mode": "auto" },
+        "delayed_data_check_config": { "enabled": true }
+      }
+    },
+    {
+      "id": "aws-securitylake-ocsf-finding-spike",
+      "description": "Detects unusual spikes in high/critical Security Lake OCSF Security Findings (class_uid 2001) — catches GuardDuty/SecurityHub chains elevated to Security Lake",
+      "job": {
+        "description": "Detects unusual spikes in high/critical Security Lake OCSF Security Findings (class_uid 2001) — catches GuardDuty/SecurityHub chains elevated to Security Lake",
+        "groups": ["aws", "security-extended"],
+        "analysis_config": {
+          "bucket_span": "15m",
+          "detectors": [
+            {
+              "detector_description": "high_count partitionfield=aws.securitylake.class_uid",
+              "function": "high_count",
+              "partition_field_name": "aws.securitylake.class_uid",
+              "detector_index": 0
+            }
+          ],
+          "influencers": ["aws.securitylake.class_uid", "aws.securitylake.source_type", "cloud.account.id"]
+        },
+        "allow_lazy_open": true,
+        "analysis_limits": { "model_memory_limit": "32mb" },
+        "data_description": { "time_field": "@timestamp" },
+        "custom_settings": { "created_by": "aws-elastic-load-generator" }
+      },
+      "datafeed": {
+        "indices": ["logs-aws.*"],
+        "max_empty_searches": 10,
+        "query": {
+          "bool": {
+            "filter": [
+              { "term": { "event.dataset": "aws.securitylake" } },
+              { "range": { "aws.securitylake.severity_id": { "gte": 5 } } }
+            ]
+          }
+        },
+        "chunking_config": { "mode": "auto" },
+        "delayed_data_check_config": { "enabled": true }
+      }
+    },
+    {
+      "id": "aws-securitylake-rare-ocsf-class",
+      "description": "Detects rare/unusual OCSF class types appearing in Security Lake — may indicate new attack vectors or unexpected data sources",
+      "job": {
+        "description": "Detects rare/unusual OCSF class types appearing in Security Lake — may indicate new attack vectors or unexpected data sources",
+        "groups": ["aws", "security-extended"],
+        "analysis_config": {
+          "bucket_span": "60m",
+          "detectors": [
+            {
+              "detector_description": "rare by=aws.securitylake.class_uid",
+              "function": "rare",
+              "by_field_name": "aws.securitylake.class_uid",
+              "detector_index": 0
+            }
+          ],
+          "influencers": ["aws.securitylake.class_uid", "aws.securitylake.source_type", "cloud.account.id"]
+        },
+        "allow_lazy_open": true,
+        "analysis_limits": { "model_memory_limit": "64mb" },
+        "data_description": { "time_field": "@timestamp" },
+        "custom_settings": { "created_by": "aws-elastic-load-generator" }
+      },
+      "datafeed": {
+        "indices": ["logs-aws.*"],
+        "max_empty_searches": 10,
+        "query": {
+          "bool": {
+            "filter": [
+              { "term": { "event.dataset": "aws.securitylake" } }
             ]
           }
         },

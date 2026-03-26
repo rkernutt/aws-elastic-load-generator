@@ -1,17 +1,17 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "trace": {
-    "id": "1-69c3d0fd-7bhci3hgh6e"
+    "id": "1-69c562e2-wgjv9kz5rfh"
   },
   "span": {
-    "id": "6qnj7og7ywi"
+    "id": "0cxf64gt1wt6"
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "xray"
@@ -20,79 +20,86 @@
   "aws": {
     "dimensions": {
       "GroupName": "Default",
-      "ServiceType": "AWS::SQS::Queue"
+      "ServiceType": "AWS::ApiGateway::Stage"
     },
     "xray": {
-      "trace_id": "1-69c3d0fd-7bhci3hgh6e",
-      "segment_id": "6qnj7og7ywi",
-      "parent_id": "mjiu4vkbkd",
+      "trace_id": "1-69c562e2-wgjv9kz5rfh",
+      "segment_id": "0cxf64gt1wt6",
+      "parent_id": "b8onjji3b9q",
       "service": {
-        "name": "sqs-consumer",
-        "type": "AWS::SQS::Queue"
+        "name": "api-gateway",
+        "type": "AWS::ApiGateway::Stage"
       },
-      "duration": 1.53,
+      "duration": 1.701,
       "fault": false,
       "error": false,
       "throttle": false,
       "http": {
         "request": {
-          "method": "POST",
-          "url": "/api/v1/auth/login"
+          "method": "GET",
+          "url": "/api/v1/products"
         },
         "response": {
-          "status": 200
+          "status": 201
         }
       },
       "annotations": {
         "env": "prod",
-        "version": "v10"
+        "version": "v16"
       },
       "subsegments": [
         {
-          "id": "4ch7j2mmd1e",
-          "name": "SNS.Publish",
-          "namespace": "remote",
-          "duration": 0.175,
+          "id": "xei5cw98au",
+          "name": "ElastiCache.set",
+          "namespace": "aws",
+          "duration": 0.366,
           "fault": false
         },
         {
-          "id": "w9ddv1d4at8",
-          "name": "ElastiCache.get",
+          "id": "sd99mst3gip",
+          "name": "SNS.Publish",
           "namespace": "aws",
-          "duration": 0.033,
+          "duration": 0.323,
+          "fault": false
+        },
+        {
+          "id": "yu8cd1trjmh",
+          "name": "DynamoDB.Query",
+          "namespace": "aws",
+          "duration": 0.126,
           "fault": false
         }
       ],
       "metrics": {
         "ErrorRate": {
-          "avg": 0.054
+          "avg": 0.522
         },
         "FaultRate": {
-          "avg": 0.374
+          "avg": 0.077
         },
         "ThrottleRate": {
-          "avg": 0.292
+          "avg": 0.363
         },
         "TotalCount": {
-          "sum": 1919
+          "sum": 1235
         },
         "Latency": {
-          "avg": 1530,
-          "p99": 4590
+          "avg": 1701,
+          "p99": 5103
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "POST"
+      "method": "GET"
     },
     "response": {
-      "status_code": 200
+      "status_code": 201
     }
   },
   "event": {
-    "duration": 1530000000,
+    "duration": 1701000000,
     "outcome": "success",
     "category": [
       "network"
@@ -103,7 +110,7 @@
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray: sqs-consumer POST → 200 (1.530s)",
+  "message": "X-Ray: api-gateway GET → 201 (1.701s)",
   "log": {
     "level": "info"
   }

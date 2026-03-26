@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ca-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "servicecatalog"
@@ -13,39 +13,33 @@
   },
   "aws": {
     "servicecatalog": {
-      "operation": "TerminateProvisionedProduct",
+      "operation": "SearchProducts",
       "product_name": "Data Pipeline",
-      "product_id": "prod-FK2RSLEUAS",
-      "portfolio_id": "port-OC19OBJXUIF",
-      "provisioned_product_name": "data-pipeline-mwrpny",
-      "record_id": "rec-6D81AEQWPFU",
-      "status": "TAINTED",
-      "requester_arn": "arn:aws:iam::814726593401:user/team-lead-bob",
-      "launch_role": "arn:aws:iam::123456789:role/ServiceCatalogLaunchRole",
-      "error": "Launch role not authorized"
+      "product_id": "prod-KE8155OVGCE",
+      "portfolio_id": "port-5TD09UD2WFT",
+      "provisioned_product_name": "data-pipeline-wv0eaz",
+      "record_id": "rec-GZR35R275HT",
+      "status": "AVAILABLE",
+      "requester_arn": "arn:aws:iam::738291046572:user/sre-carol",
+      "launch_role": "arn:aws:iam::123456789:role/ServiceCatalogLaunchRole"
     }
   },
   "user": {
-    "name": "team-lead-bob"
+    "name": "sre-carol"
   },
   "event": {
-    "action": "TerminateProvisionedProduct",
-    "outcome": "failure",
+    "action": "SearchProducts",
+    "outcome": "success",
     "category": [
       "configuration",
       "process"
     ],
     "dataset": "aws.servicecatalog",
     "provider": "servicecatalog.amazonaws.com",
-    "duration": 1071000000000
+    "duration": 211000000000
   },
-  "message": "ServiceCatalog TerminateProvisionedProduct FAILED [Data Pipeline]: Resource limit:",
+  "message": "ServiceCatalog SearchProducts: sre-carol → Data Pipeline [AVAILABLE]",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ProvisioningFailed",
-    "message": "Service Catalog operation failed",
-    "type": "provisioning"
+    "level": "info"
   }
 }

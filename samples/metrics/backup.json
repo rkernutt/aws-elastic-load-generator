@@ -1,47 +1,53 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-west-3",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
-    },
-    "service": {
-      "name": "backup"
     }
   },
   "aws": {
     "backup": {
-      "backup_job_id": "vjon8k5f-5c4j-48zf",
-      "backup_plan_name": "daily-backup-plan",
-      "resource_type": "DynamoDB",
-      "backup_vault_name": "prod-vault",
-      "status": "COMPLETED",
-      "backup_size_gb": 1351.454,
-      "lifecycle_delete_after_days": 30
+      "metrics": {
+        "NumberOfBackupJobsCompleted": {
+          "avg": 10,
+          "sum": 10,
+          "count": 1
+        },
+        "NumberOfBackupJobsFailed": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "NumberOfRestoreJobsCompleted": {
+          "avg": 3,
+          "sum": 3,
+          "count": 1
+        },
+        "NumberOfRestoreJobsFailed": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "BackupVaultName": "default"
+      }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "process"
-    ],
-    "dataset": "aws.backup",
-    "provider": "backup.amazonaws.com",
-    "duration": 4882000000000
-  },
-  "message": "AWS Backup COMPLETED: ec2/i-prod -> prod-vault (1351.5GB)",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "backup",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.backup",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.backup",
+    "module": "aws"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "af-south-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,71 +13,71 @@
   },
   "aws": {
     "dimensions": {
-      "DBInstanceIdentifier": "prod-db-primary",
-      "DatabaseClass": "db.r6g.xlarge",
-      "EngineName": "aurora-mysql",
-      "SourceRegion": "eu-west-2"
+      "DBInstanceIdentifier": "prod-db-replica",
+      "DatabaseClass": "db.r5.large",
+      "EngineName": "mysql",
+      "SourceRegion": "af-south-1"
     },
     "rds": {
       "db_instance": {
-        "identifier": "prod-db-primary",
-        "class": "db.r6g.xlarge",
-        "engine_name": "aurora-mysql",
-        "arn": "arn:aws:rds:eu-west-2:501938274650:db:prod-db-primary",
+        "identifier": "prod-db-replica",
+        "class": "db.r5.large",
+        "engine_name": "mysql",
+        "arn": "arn:aws:rds:af-south-1:501938274650:db:prod-db-replica",
         "status": "available",
-        "role": "read-replica"
+        "role": "instance"
       },
       "cpu": {
         "total": {
-          "pct": 0.233
+          "pct": 0.2553
         }
       },
       "freeable_memory": {
-        "bytes": 5863184972
+        "bytes": 7301351513
       },
       "free_storage": {
-        "bytes": 288798303685
+        "bytes": 25852587036
       },
-      "database_connections": 209,
+      "database_connections": 265,
       "read_io": {
-        "ops_per_sec": 471.842
+        "ops_per_sec": 2942.061
       },
       "write_io": {
-        "ops_per_sec": 1386.543
+        "ops_per_sec": 70.748
       },
       "latency": {
-        "read": 0.012,
-        "write": 0.006
+        "read": 0.002,
+        "write": 0.001
       },
       "throughput": {
-        "read": 43385826,
-        "write": 36966247,
-        "network_receive": 90215636,
-        "network_transmit": 2163419
+        "read": 98654522,
+        "write": 57698046,
+        "network_receive": 23639779,
+        "network_transmit": 95831676
       },
       "replica_lag": {
-        "sec": 9.146
+        "sec": 58.925
       },
       "swap_usage": {
-        "bytes": 5866683
+        "bytes": 98071237
       },
       "disk_usage": {
         "bin_log": {
-          "bytes": 213984034
+          "bytes": 398621445
         }
       }
     }
   },
   "db": {
     "user": {
-      "name": "admin"
+      "name": "replica"
     },
-    "name": "users",
-    "statement": "UPDATE products SET price IAJYRY",
+    "name": "events",
+    "statement": "INSERT INTO orders VALUES TUFK6R",
     "type": "sql"
   },
   "event": {
-    "duration": 1348000000,
+    "duration": 88000000,
     "outcome": "success",
     "category": [
       "database"
@@ -89,7 +89,7 @@
     "dataset": "aws.rds",
     "provider": "rds.amazonaws.com"
   },
-  "message": "{\"instanceId\":\"prod-db-primary\",\"engine\":\"aurora-mysql\",\"userId\":\"admin\",\"queryTime\":1.348,\"error\":null,\"timestamp\":\"2026-03-25T12:11:41.550Z\",\"osMetrics\":{\"cpuUtilization\":{\"guest\":1.741,\"irq\":0.108,\"system\":8.171,\"wait\":0.64,\"idle\":79.8,\"user\":9.546,\"total\":20.2},\"memory\":{\"total\":42966787427,\"free\":2213217600,\"cached\":5244919990,\"active\":12153864628,\"inactive\":1330760060,\"buffers\":227255065},\"disk\":{\"readIOsPS\":56.708,\"writeIOsPS\":1392.494,\"readKbPS\":472512.489,\"writeKbPS\":346676.161,\"avgQueueLen\":2.827,\"await\":14.727},\"network\":{\"rx\":12465953,\"tx\":95204930},\"numVCPUs\":16,\"uptime\":\"3 days, 6:58:03\"}}",
+  "message": "{\"instanceId\":\"prod-db-replica\",\"engine\":\"mysql\",\"userId\":\"replica\",\"queryTime\":0.088,\"error\":null,\"timestamp\":\"2026-03-26T16:46:26.654Z\",\"osMetrics\":{\"cpuUtilization\":{\"guest\":1.635,\"irq\":0.889,\"system\":5.169,\"wait\":0.656,\"idle\":76.5,\"user\":15.162,\"total\":23.5},\"memory\":{\"total\":39108920875,\"free\":2995115345,\"cached\":574307805,\"active\":12518790528,\"inactive\":3600058914,\"buffers\":409399964},\"disk\":{\"readIOsPS\":1757.615,\"writeIOsPS\":1472.625,\"readKbPS\":50763.851,\"writeKbPS\":322855.089,\"avgQueueLen\":0.745,\"await\":7.409},\"network\":{\"rx\":59802399,\"tx\":48492142},\"numVCPUs\":2,\"uptime\":\"93 days, 11:36:51\"}}",
   "log": {
     "level": "info"
   }

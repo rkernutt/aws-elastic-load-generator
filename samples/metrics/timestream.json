@@ -1,44 +1,54 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
-    },
-    "service": {
-      "name": "timestream"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
   },
   "aws": {
     "timestream": {
-      "database_name": "infra-metrics",
-      "table_name": "sensor_readings",
-      "operation": "Query",
-      "records_ingested": 0,
-      "rows_returned": 4829,
-      "duration_ms": 1648
+      "metrics": {
+        "SuccessfulRequestLatency": {
+          "avg": 8.12,
+          "sum": 8.12,
+          "count": 1
+        },
+        "SystemErrors": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "UserErrors": {
+          "avg": 5,
+          "sum": 5,
+          "count": 1
+        },
+        "WriteRecords": {
+          "avg": 78045,
+          "sum": 78045,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "DatabaseName": "metrics-db",
+        "TableName": "sensors"
+      }
     }
   },
-  "event": {
-    "duration": 1647809000,
-    "outcome": "success",
-    "category": "database",
-    "dataset": "aws.timestream",
-    "provider": "timestream.amazonaws.com"
-  },
-  "message": "Timestream Query on infra-metrics.sensor_readings: 1648ms",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "timestream",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.timestream",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.timestream",
+    "module": "aws"
   }
 }

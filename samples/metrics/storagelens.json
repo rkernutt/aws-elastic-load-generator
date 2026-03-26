@@ -1,71 +1,79 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "af-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
-    },
-    "service": {
-      "name": "s3"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
   },
   "aws": {
-    "dimensions": {
-      "StorageLensConfigurationId": "cost-optimization",
-      "StorageType": "Standard"
-    },
-    "s3storagelens": {
-      "config_id": "cost-optimization",
-      "bucket_count": 68,
-      "total_storage_bytes": 30171447106041,
-      "total_object_count": 8759023744,
-      "storage_type": "Standard",
+    "s3_storage_lens": {
       "metrics": {
-        "BucketCount": {
-          "avg": 68
-        },
-        "TotalStorageBytes": {
-          "sum": 30171447106041
-        },
-        "TotalObjectCount": {
-          "sum": 8759023744
-        },
-        "BytesUsed": {
-          "sum": 30171447106041
+        "StorageBytes": {
+          "avg": 114807088862780,
+          "sum": 114807088862780,
+          "count": 1
         },
         "ObjectCount": {
-          "sum": 8759023744
+          "avg": 51452958,
+          "sum": 51452958,
+          "count": 1
+        },
+        "ActiveBucketCount": {
+          "avg": 152,
+          "sum": 152,
+          "count": 1
+        },
+        "GetRequestCount": {
+          "avg": 3162323,
+          "sum": 3162323,
+          "count": 1
+        },
+        "PutRequestCount": {
+          "avg": 1206148,
+          "sum": 1206148,
+          "count": 1
+        },
+        "BytesDownloaded": {
+          "avg": 313137801501,
+          "sum": 313137801501,
+          "count": 1
+        },
+        "BytesUploaded": {
+          "avg": 769015529300,
+          "sum": 769015529300,
+          "count": 1
+        },
+        "4xxErrorRequestCount": {
+          "avg": 71599,
+          "sum": 71599,
+          "count": 1
+        },
+        "5xxErrorRequestCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "StorageLensConfigurationId": "default-account-dashboard",
+        "AwsOrg": ""
       }
     }
   },
-  "event": {
-    "outcome": "failure",
-    "category": [
-      "metric"
-    ],
-    "dataset": "aws.s3_storage_lens",
-    "provider": "s3.amazonaws.com",
-    "duration": 280000000000
-  },
-  "message": "S3 Storage Lens cost-optimization: report generation failed",
-  "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ReportGenerationFailed",
-    "message": "Storage Lens report failed",
-    "type": "storage"
+  "metricset": {
+    "name": "s3_storage_lens",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.s3_storage_lens",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.s3_storage_lens",
+    "module": "aws"
   }
 }

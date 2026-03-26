@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "alb"
@@ -13,42 +13,42 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "app/prod-alb-eu-west-2/am92jkdksgt",
-      "TargetGroup": "targetgroup/tg-admin/p1vmjgvtql",
-      "AvailabilityZone": "eu-west-2c"
+      "LoadBalancer": "app/prod-alb-ap-northeast-2/co1uvro6yt",
+      "TargetGroup": "targetgroup/tg-api/c0v9gexkxq7",
+      "AvailabilityZone": "ap-northeast-2b"
     },
     "elb": {
-      "name": "app/prod-alb-eu-west-2/am92jkdksgt",
+      "name": "app/prod-alb-ap-northeast-2/co1uvro6yt",
       "type": "application",
-      "target_group.arn": "arn:aws:elasticloadbalancing:eu-west-2:738291046572:targetgroup/tg-admin/p1vmjgvtql",
-      "listener": "arn:aws:elasticloadbalancing:eu-west-2:738291046572:listener/app/prod-alb/0i1smkh3a5ml/l8hr8aixr69",
+      "target_group.arn": "arn:aws:elasticloadbalancing:ap-northeast-2:293847561023:targetgroup/tg-api/c0v9gexkxq7",
+      "listener": "arn:aws:elasticloadbalancing:ap-northeast-2:293847561023:listener/app/prod-alb/i4bhta0myt/uhqwopejccs",
       "protocol": "HTTPS",
-      "request_processing_time.sec": 0.171,
-      "backend_processing_time.sec": 0.91,
-      "response_processing_time.sec": 0.076,
-      "backend.ip": "141.84.155.129",
-      "backend.port": "5129",
+      "request_processing_time.sec": 0.073,
+      "backend_processing_time.sec": 0.314,
+      "response_processing_time.sec": 0.022,
+      "backend.ip": "217.65.77.188",
+      "backend.port": "7169",
       "backend.http.response.status_code": 200,
       "ssl_protocol": "TLSv1.3",
       "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
       "tls_named_group": "x25519",
-      "chosen_cert.arn": "arn:aws:acm:eu-west-2:738291046572:certificate/ouxfuppn-kwpt-t7d3-6434-4fbzaq2atdd",
-      "trace_id": "Root=1-RHV4KXCU-OZ5CHMXJGC",
-      "matched_rule_priority": "default",
-      "action_executed": "forward",
-      "target_port": "141.84.155.129:5129",
+      "chosen_cert.arn": "arn:aws:acm:ap-northeast-2:293847561023:certificate/tbw5ln8d-9fy6-fp6y-y58p-rlf5kxipvds",
+      "trace_id": "Root=1-XTXX8DEU-DZ1ORYHJPRO",
+      "matched_rule_priority": "5",
+      "action_executed": "authenticate-cognito",
+      "target_port": "217.65.77.188:7169",
       "target_status_code": "200",
       "classification": "NORMAL"
     }
   },
   "http": {
     "request": {
-      "method": "PATCH",
-      "bytes": 6460
+      "method": "GET",
+      "bytes": 7298
     },
     "response": {
       "status_code": 200,
-      "bytes": 37437
+      "bytes": 8385
     }
   },
   "url": {
@@ -56,23 +56,23 @@
     "domain": "api.example.com"
   },
   "client": {
-    "ip": "207.116.24.3",
-    "port": 51250,
+    "ip": "205.7.187.148",
+    "port": 28564,
     "geo": {
       "country_iso_code": "US",
       "country_name": "United States",
-      "city_name": "Dallas",
+      "city_name": "San Francisco",
       "location": {
-        "lat": 32.7767,
-        "lon": -96.797
+        "lat": 37.7749,
+        "lon": -122.4194
       }
     }
   },
   "user_agent": {
-    "original": "python-requests/2.27.1"
+    "original": "curl/7.68.0"
   },
   "event": {
-    "duration": 1157000000,
+    "duration": 409000000.00000006,
     "outcome": "success",
     "category": [
       "web",
@@ -84,7 +84,7 @@
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com"
   },
-  "message": "PATCH /api/v1/search 200 1157ms",
+  "message": "GET /api/v1/search 200 409ms",
   "log": {
     "level": "info"
   }

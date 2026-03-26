@@ -1,115 +1,78 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-central-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
-    },
-    "service": {
-      "name": "iotcore"
     }
   },
   "aws": {
-    "dimensions": {
-      "Protocol": "WSS"
-    },
-    "iotcore": {
-      "client_id": "thermostat-floor-3",
-      "thing_name": "thermostat-floor-3",
-      "thing_group": "fleet",
-      "action": "PUBLISH",
-      "topic": "dt/factory/sensors/temperature",
-      "protocol": "WSS",
-      "qos": 0,
-      "message_bytes": 37169,
-      "policy_name": "FleetPolicy",
-      "structured_logging": true,
-      "rules_evaluated": 1,
+    "iot": {
       "metrics": {
-        "Connect.Success": {
-          "sum": 262
+        "Connect_Success": {
+          "avg": 12997,
+          "sum": 12997,
+          "count": 1
         },
-        "Connect.Failure": {
-          "sum": 0
+        "Connect_Failure": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
-        "PublishIn.Success": {
-          "sum": 7808
+        "Subscribe_Success": {
+          "avg": 23632,
+          "sum": 23632,
+          "count": 1
         },
-        "PublishIn.ClientError": {
-          "sum": 0
+        "Publish_In_Success": {
+          "avg": 277489,
+          "sum": 277489,
+          "count": 1
         },
-        "PublishIn.ServerError": {
-          "sum": 0
+        "Publish_Out_Success": {
+          "avg": 517890,
+          "sum": 517890,
+          "count": 1
         },
-        "PublishOut.Success": {
-          "sum": 9285
+        "PublishIn_Throttle": {
+          "avg": 2646,
+          "sum": 2646,
+          "count": 1
         },
-        "Publish.Success": {
-          "sum": 1901
+        "RulesExecuted": {
+          "avg": 309300,
+          "sum": 309300,
+          "count": 1
         },
-        "Publish.Failure": {
-          "sum": 0
+        "RuleMessageThrottled": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
-        "Subscribe.Success": {
-          "sum": 445
-        },
-        "Subscribe.Failure": {
-          "sum": 0
-        },
-        "Unsubscribe.Success": {
-          "sum": 142
-        },
-        "Ping.Success": {
-          "sum": 9659
-        },
-        "Throttle.Success": {
-          "sum": 171
-        },
-        "RulesMatched": {
-          "sum": 827
-        },
-        "RulesFailed": {
-          "sum": 0
-        },
-        "RulesNotMatched": {
-          "sum": 13
-        },
-        "TopicMatch": {
-          "sum": 7173
-        },
-        "ClientConnections": {
-          "avg": 48393
+        "Disconnect": {
+          "avg": 20609,
+          "sum": 20609,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "Protocol": "MQTT"
       }
     }
   },
-  "source": {
-    "ip": "188.78.235.141"
-  },
-  "event": {
-    "action": "PUBLISH",
-    "outcome": "success",
-    "category": [
-      "network",
-      "process"
-    ],
-    "dataset": "aws.iot",
-    "provider": "iot.amazonaws.com",
-    "duration": 3000000
-  },
-  "message": "{\"clientId\":\"thermostat-floor-3\",\"action\":\"PUBLISH\",\"topic\":\"dt/factory/sensors/temperature\",\"message\":\"IoT Core PUBLISH: thermostat-floor-3 on dt/factory/sensors/temperature\",\"timestamp\":\"2026-03-25T12:11:41.550Z\"}",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "iot",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
-    "dataset": "aws.iotcore",
+    "dataset": "aws.iot",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.iot",
+    "module": "aws"
   }
 }

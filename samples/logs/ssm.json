@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-south-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "systemsmanager"
@@ -13,13 +13,13 @@
   },
   "aws": {
     "ssm": {
-      "command_id": "8ys07dno-c4r7-uodo",
+      "command_id": "rs28m1sf-yn5p-48ik",
       "document_name": "AWS-ApplyPatchBaseline",
-      "instance_id": "i-cazl9njcsmp",
-      "action": "StartSession",
+      "instance_id": "i-yrlhenaahjg",
+      "action": "PatchInstance",
       "execution_status": "Success",
       "response_code": 0,
-      "session_id": "zfm546fz2hp",
+      "patch_compliance": "Compliant",
       "structured_logging": false,
       "metrics": {
         "CommandsSucceeded": {
@@ -38,10 +38,10 @@
           "sum": 1
         },
         "SessionDuration": {
-          "avg": 534
+          "avg": 526
         },
         "PatchComplianceCount": {
-          "avg": 453
+          "avg": 109
         }
       }
     }
@@ -55,9 +55,9 @@
     ],
     "dataset": "aws.ssm",
     "provider": "ssm.amazonaws.com",
-    "duration": 28000000000
+    "duration": 24000000000
   },
-  "message": "SSM StartSession on i-cazl9njcsmp: AWS-ApplyPatchBaseline",
+  "message": "SSM PatchInstance on i-yrlhenaahjg: AWS-ApplyPatchBaseline",
   "log": {
     "level": "info"
   }

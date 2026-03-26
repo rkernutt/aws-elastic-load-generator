@@ -1,6 +1,6 @@
 # Installer 4 — ML Anomaly Detection Jobs
 
-Interactive CLI that installs **Elasticsearch ML anomaly detection jobs** for AWS services across 14 service groups (70 jobs total). Jobs are created via the Elasticsearch ML API directly — no Kibana required.
+Interactive CLI that installs **Elasticsearch ML anomaly detection jobs** for AWS services across 20 service groups (99 jobs total). Jobs are created via the Elasticsearch ML API directly — no Kibana required.
 
 ---
 
@@ -44,7 +44,7 @@ The installer will prompt you for:
 | # | Group | Description | Jobs |
 |---|-------|-------------|------|
 | 1 | `security` | Security & compliance — VPC Flow, GuardDuty, WAF, CloudTrail | 7 |
-| 2 | `security-extended` | Extended security — Security Hub, Macie, Inspector, Config, KMS | 5 |
+| 2 | `security-extended` | Extended security — Security Hub, Macie, Inspector, Config, KMS, Security Lake | 7 |
 | 3 | `compute` | Compute & containers — Lambda, EC2, EKS | 7 |
 | 4 | `compute-extended` | Extended compute — ECS, Auto Scaling, Elastic Beanstalk | 5 |
 | 5 | `networking` | Networking & load balancers — ALB, API Gateway | 5 |
@@ -57,6 +57,12 @@ The installer will prompt you for:
 | 12 | `aiml` | AI & ML services — Bedrock | 4 |
 | 13 | `storage` | Storage — S3 | 4 |
 | 14 | `management` | Management & governance — CloudWatch, CloudFormation, Billing, SSM | 4 |
+| 15 | `apm-traces` | APM & distributed traces — Lambda, EMR, all OTel trace services | 6 |
+| 16 | `serverless` | Serverless & API — API Gateway errors, throttling, Lambda cold starts | 4 |
+| 17 | `devtools` | Developer & CI/CD — CodeBuild failures, CodePipeline, X-Ray traces | 5 |
+| 18 | `iot` | IoT — IoT Core connection failures, message volume, rule errors, rare devices | 4 |
+| 19 | `media` | Media & end-user computing — MediaConvert jobs, Connect contacts, WorkSpaces | 4 |
+| 20 | `siem` | SIEM anomaly detection — CloudTrail source IP anomalies, root account activity, IAM creation spikes, Route53 DNS exfiltration detection | 4 |
 
 You can install individual groups or all groups at once.
 
@@ -76,7 +82,7 @@ You can install individual groups or all groups at once.
 | `aws-waf-high-block-rate` | WAF | high_count by src IP | Spikes in WAF rule block actions per source IP |
 | `aws-cloudtrail-rare-user-action` | CloudTrail | rare by event name + user | Rare or unusual API calls per user (privilege escalation, recon) |
 
-### security-extended (5 jobs)
+### security-extended (7 jobs)
 
 | Job ID | Service | Detector | What it detects |
 |--------|---------|----------|--------------------|
@@ -85,6 +91,8 @@ You can install individual groups or all groups at once.
 | `aws-inspector-critical-vuln-spike` | Inspector | high_mean by instance | Unusual spikes in critical Inspector vulnerability findings per instance |
 | `aws-config-noncompliance-spike` | Config | high_count | Unusual spikes in non-compliant Config rule evaluations (compliance drift) |
 | `aws-kms-unusual-operation` | KMS | rare by operation + account | Rare or unusual KMS key operations (credential abuse, unusual access) |
+| `aws-securitylake-ocsf-finding-spike` | Security Lake | high_count by class_uid | Spikes in high/critical OCSF Security Findings (class 2001) — GuardDuty→SecurityHub chains |
+| `aws-securitylake-rare-ocsf-class` | Security Lake | rare by class_uid | Rare OCSF class types appearing in Security Lake — unexpected data sources or attack vectors |
 
 ### compute (7 jobs)
 
@@ -204,6 +212,65 @@ You can install individual groups or all groups at once.
 | `aws-billing-cost-anomaly` | Billing | high_mean | Unusual AWS billing cost spikes per account and region |
 | `aws-ssm-rare-command` | SSM | rare by action + instance | Rare Systems Manager commands per instance (lateral movement, privilege abuse) |
 
+### apm-traces (6 jobs)
+
+Jobs in this group target the `traces-apm-*` data streams produced by the load generator's OTel trace generators. Requires the **Elastic APM integration** to be installed first (see `npm run setup:apm-integration`).
+
+| Job ID | Service | Detector | What it detects |
+|--------|---------|----------|--------------------|
+| `apm-transaction-duration-anomaly` | APM | high_mean duration by service | Services with unusually long transaction durations (latency regression) |
+| `apm-error-rate-spike` | APM | high_count errors by service | Sudden spike in transaction error count per service |
+| `apm-service-throughput-drop` | APM | low_count transactions by service | Significant drop in requests to a service (outage or traffic loss) |
+| `apm-slow-span-by-type` | APM | high_mean span duration by type | Slow spans within a trace by span type (db, messaging, storage, external) |
+| `apm-lambda-cold-start-spike` | Lambda | high_count cold starts | Unusual Lambda cold start frequency per function (scaling or deployment events) |
+| `apm-emr-stage-duration-anomaly` | EMR | high_mean stage duration | Unusually long Spark stage durations (data skew, resource contention, OOM) |
+
+### serverless (4 jobs)
+
+| Job ID | Service | Detector | What it detects |
+|--------|---------|----------|--------------------|
+| `aws-apigateway-5xx-error-spike` | API Gateway | high_count by stage | Unusual spikes in 5xx server errors per stage (backend failures) |
+| `aws-apigateway-throttle-spike` | API Gateway | high_count | Unusual spikes in throttled (429) requests — quota exhaustion or abuse |
+| `aws-apigateway-latency-anomaly` | API Gateway | high_mean duration by stage | Unusual API Gateway integration latency (backend slowdowns, cold starts) |
+| `aws-lambda-cold-start-spike` | Lambda | high_count by function | Unusual Lambda cold start frequency per function (scaling or deployment) |
+
+### devtools (5 jobs)
+
+| Job ID | Service | Detector | What it detects |
+|--------|---------|----------|--------------------|
+| `aws-codebuild-failure-spike` | CodeBuild | high_count by project | Unusual spikes in build failures per project (broken builds or regressions) |
+| `aws-codebuild-duration-anomaly` | CodeBuild | high_mean duration by project | Slow builds indicating dependency or resource issues |
+| `aws-codepipeline-failure-spike` | CodePipeline | high_count by pipeline | Unusual pipeline stage failures (deployment regressions or environment drift) |
+| `aws-xray-error-rate-spike` | X-Ray | high_count by service | Unusual X-Ray traced errors per service (distributed fault detection) |
+| `aws-xray-latency-anomaly` | X-Ray | high_mean duration by service | Unusual response latency per X-Ray service (performance regressions) |
+
+### iot (4 jobs)
+
+| Job ID | Service | Detector | What it detects |
+|--------|---------|----------|--------------------|
+| `aws-iotcore-connection-failure-spike` | IoT Core | high_count | Unusual spikes in device connection failures (compromised or misconfigured devices) |
+| `aws-iotcore-message-volume-anomaly` | IoT Core | count | Unusual changes in message publish volume (device fleet anomalies, unexpected silence) |
+| `aws-iotcore-rule-error-spike` | IoT Core | high_count by rule | Spike in IoT rule engine action errors (broken integrations or downstream failures) |
+| `aws-iotcore-rare-client` | IoT Core | rare by client_id | Rare or previously unseen device client IDs connecting (unauthorised devices) |
+
+### media (4 jobs)
+
+| Job ID | Service | Detector | What it detects |
+|--------|---------|----------|--------------------|
+| `aws-mediaconvert-failure-spike` | MediaConvert | high_count by queue | Unusual spikes in transcoding job failures per queue (encoding errors) |
+| `aws-connect-contact-abandonment-spike` | Connect | high_count by queue | Unusual contact abandonment spikes (understaffing, outages, or UX problems) |
+| `aws-connect-handle-time-anomaly` | Connect | high_mean duration by queue | Unusual agent handle time (training gaps, system slowness, complex calls) |
+| `aws-workspaces-session-failure-spike` | WorkSpaces | high_count | Unusual spikes in WorkSpaces session failures (VDI connectivity or unhealthy desktops) |
+
+### siem (4 jobs)
+
+| Job ID | Service | Detector | What it detects |
+|--------|---------|----------|--------------------|
+| `aws-cloudtrail-rare-source-ip` | CloudTrail | rare by source IP | Rare or previously unseen source IPs making API calls (compromised credentials, unexpected access) |
+| `aws-cloudtrail-root-activity` | CloudTrail | high_count | Unusual root account API activity (should be near-zero in well-managed accounts) |
+| `aws-cloudtrail-iam-creation-spike` | CloudTrail | high_count | Unusual spikes in IAM user/role/policy creation events (privilege escalation, persistence) |
+| `aws-route53-dns-exfiltration` | Route 53 | high_count by domain | Unusual DNS query volume per domain (DNS tunnelling and data exfiltration detection) |
+
 ---
 
 ## Example output
@@ -239,7 +306,7 @@ Testing connection...
 Available job groups:
 
     1. security          (7 jobs)  — Security & compliance anomaly detection — VPC Flow, GuardDuty, WAF, CloudTrail
-    2. security-extended (5 jobs)  — Extended security anomaly detection — Security Hub, Macie, Inspector, Config, KMS
+    2. security-extended (7 jobs)  — Extended security anomaly detection — Security Hub, Macie, Inspector, Config, KMS, Security Lake
     3. compute           (7 jobs)  — Compute & container anomaly detection — Lambda, EC2, EKS
     4. compute-extended  (5 jobs)  — Extended compute anomaly detection — ECS, Auto Scaling, Elastic Beanstalk
     5. networking        (5 jobs)  — Networking & load balancer anomaly detection — ALB, API Gateway
@@ -252,7 +319,13 @@ Available job groups:
    12. aiml              (4 jobs)  — AI & ML service anomaly detection — Bedrock
    13. storage           (4 jobs)  — Storage anomaly detection — S3
    14. management        (4 jobs)  — Management & governance anomaly detection — CloudWatch, CloudFormation, Billing, SSM
-   15. all               (install every group)
+   15. apm-traces        (6 jobs)  — APM & distributed trace anomaly detection — Lambda, EMR, OTel services
+   16. serverless        (4 jobs)  — Serverless & API anomaly detection — API Gateway, Lambda cold starts
+   17. devtools          (5 jobs)  — Developer & CI/CD anomaly detection — CodeBuild, CodePipeline, X-Ray
+   18. iot               (4 jobs)  — IoT anomaly detection — IoT Core connections, message volume, rule errors
+   19. media             (4 jobs)  — Media & end-user computing — MediaConvert, Connect, WorkSpaces
+   20. siem              (4 jobs)  — SIEM anomaly detection — CloudTrail source IP anomalies, root account activity, IAM creation spikes, Route53 DNS exfiltration
+   21. all               (install every group)
 
 Enter number(s) comma-separated, or "all":
 > 1,3

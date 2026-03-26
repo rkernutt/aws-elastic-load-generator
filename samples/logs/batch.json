@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "batch"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "JobQueue": "ml-training-prep-queue"
+      "JobQueue": "cleanup-job-queue"
     },
     "batch": {
       "job": {
-        "name": "ml-training-prep",
-        "id": "n5zjs8eg-p5f0",
+        "name": "cleanup-job",
+        "id": "urm87alp-od9o",
         "status": "SUCCEEDED"
       },
-      "job_queue": "ml-training-prep-queue",
-      "compute_environment": "ce-ondemand",
+      "job_queue": "cleanup-job-queue",
+      "compute_environment": "ce-spot",
       "structured_logging": true,
       "metrics": {
         "PendingJobCount": {
-          "avg": 6
+          "avg": 4
         },
         "RunnableJobCount": {
-          "avg": 5
+          "avg": 29
         },
         "StartingJobCount": {
           "avg": 7
         },
         "RunningJobCount": {
-          "avg": 195
+          "avg": 118
         },
         "SucceededJobCount": {
           "sum": 1
@@ -44,20 +44,20 @@
           "sum": 0
         },
         "CPUReserved": {
-          "avg": "58.114"
+          "avg": "40.551"
         },
         "GPUReserved": {
           "avg": 0
         },
         "MemoryReserved": {
-          "avg": "43.194"
+          "avg": "68.409"
         }
       }
     }
   },
   "process": {
-    "pid": 20967,
-    "name": "bash",
+    "pid": 3534,
+    "name": "spark-submit",
     "exit_code": 0
   },
   "log": {
@@ -70,7 +70,7 @@
     "outcome": "success",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 2566000000000
+    "duration": 2833000000000
   },
-  "message": "{\"jobId\":\"n5zjs8eg-p5f0\",\"jobName\":\"ml-training-prep\",\"jobQueue\":\"ml-training-prep-queue\",\"level\":\"info\",\"message\":\"Job definition registered\",\"timestamp\":\"2026-03-25T12:11:41.550Z\",\"arrayIndex\":80}"
+  "message": "{\"jobId\":\"urm87alp-od9o\",\"jobName\":\"cleanup-job\",\"jobQueue\":\"cleanup-job-queue\",\"level\":\"info\",\"message\":\"Job submitted to queue\",\"timestamp\":\"2026-03-26T16:46:26.654Z\",\"arrayIndex\":26}"
 }

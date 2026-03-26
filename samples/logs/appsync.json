@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "appsync"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "appsync": {
-      "api_id": "NJ7MS5HGRK",
-      "api_name": "mobile-api",
+      "api_id": "9ZAZBOTMMNE",
+      "api_name": "prod-graphql-api",
       "operation_type": "query",
-      "operation_name": "getUserById",
-      "data_source_type": "AWS_LAMBDA",
-      "duration_ms": 256,
+      "operation_name": "searchItems",
+      "data_source_type": "AMAZON_DYNAMODB",
+      "duration_ms": 56,
       "status_code": 200,
       "metrics": {
         "RequestCount": {
-          "sum": 4165
+          "sum": 3955
         },
         "4XXError": {
           "sum": 0
@@ -31,8 +31,8 @@
           "sum": 0
         },
         "Latency": {
-          "avg": 255.777,
-          "p99": 917.7
+          "avg": 55.512,
+          "p99": 116.4
         }
       }
     }
@@ -43,13 +43,13 @@
     }
   },
   "event": {
-    "duration": 255777000,
+    "duration": 55512000,
     "outcome": "success",
     "category": "api",
     "dataset": "aws.appsync",
     "provider": "appsync.amazonaws.com"
   },
-  "message": "AppSync query.getUserById: 256ms [mobile-api]",
+  "message": "AppSync query.searchItems: 56ms [prod-graphql-api]",
   "log": {
     "level": "info"
   }

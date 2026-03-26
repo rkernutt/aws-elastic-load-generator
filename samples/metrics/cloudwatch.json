@@ -1,53 +1,74 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
-    },
-    "service": {
-      "name": "cloudwatchalarms"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "api-latency",
-      "alarm_state": "OK",
-      "previous_state": "OK",
-      "namespace": "AWS/RDS",
-      "metric_name": "RequestCount",
-      "threshold": 85,
-      "evaluation_periods": 2,
-      "metric_value": 76.279,
-      "statistic": "Maximum",
-      "period_seconds": 3600,
-      "treat_missing_data": "notBreaching"
+      "metrics": {
+        "CallCount": {
+          "avg": 3957741,
+          "sum": 3957741,
+          "count": 1
+        },
+        "ErrorCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "ThrottleCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "PutMetricData": {
+          "avg": 472789,
+          "sum": 472789,
+          "count": 1
+        },
+        "GetMetricStatistics": {
+          "avg": 255773,
+          "sum": 255773,
+          "count": 1
+        },
+        "ListMetrics": {
+          "avg": 83338,
+          "sum": 83338,
+          "count": 1
+        },
+        "PutMetricAlarm": {
+          "avg": 494,
+          "sum": 494,
+          "count": 1
+        },
+        "AlarmStateChange": {
+          "avg": 21,
+          "sum": 21,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "Namespace": "AWS/DynamoDB",
+        "Region": "ap-southeast-4"
+      }
     }
   },
-  "event": {
-    "kind": "alert",
-    "outcome": "success",
-    "category": [
-      "configuration",
-      "process"
-    ],
-    "dataset": "aws.cloudwatch",
-    "provider": "monitoring.amazonaws.com",
-    "duration": 300000000000
-  },
-  "message": "CloudWatch alarm \"api-latency\": OK (AWS/RDS/RequestCount=76.3)",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "cloudwatch",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.cloudwatch_metrics",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.cloudwatch_metrics",
+    "module": "aws"
   }
 }

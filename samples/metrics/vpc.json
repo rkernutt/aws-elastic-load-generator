@@ -1,89 +1,58 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
-    },
-    "service": {
-      "name": "vpc"
+      "id": "738291046572",
+      "name": "globex-development"
     }
   },
   "aws": {
-    "dimensions": {
-      "VpcId": "vpc-ynfsibq1"
-    },
     "vpcflow": {
-      "version": "2",
-      "account_id": "814726593401",
-      "interface_id": "eni-2j2xejfj",
-      "action": "ACCEPT",
-      "log_status": "OK",
-      "pkt_srcaddr": "84.127.105.109",
-      "pkt_dstaddr": "96.83.34.95",
-      "vpc_id": "vpc-ynfsibq1",
-      "subnet_id": "subnet-nzx8hbw8",
-      "type": "IPv4"
-    }
-  },
-  "source": {
-    "ip": "84.127.105.109",
-    "port": 59970,
-    "geo": {
-      "country_iso_code": "US",
-      "country_name": "United States",
-      "city_name": "Dallas",
-      "location": {
-        "lat": 32.7767,
-        "lon": -96.797
+      "metrics": {
+        "BytesIn": {
+          "avg": 57965739078,
+          "sum": 57965739078,
+          "count": 1
+        },
+        "BytesOut": {
+          "avg": 87969170505,
+          "sum": 87969170505,
+          "count": 1
+        },
+        "PacketsIn": {
+          "avg": 165440025,
+          "sum": 165440025,
+          "count": 1
+        },
+        "PacketsOut": {
+          "avg": 724806347,
+          "sum": 724806347,
+          "count": 1
+        },
+        "RejectedFlows": {
+          "avg": 207,
+          "sum": 207,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "Region": "ap-northeast-1"
       }
     }
   },
-  "destination": {
-    "ip": "96.83.34.95",
-    "port": 5432,
-    "geo": {
-      "country_iso_code": "SG",
-      "country_name": "Singapore",
-      "city_name": "Singapore",
-      "location": {
-        "lat": 1.3521,
-        "lon": 103.8198
-      }
-    }
-  },
-  "network": {
-    "transport": "tcp",
-    "bytes": 79173,
-    "packets": 57,
-    "direction": "outbound"
-  },
-  "event": {
-    "action": "accept",
-    "outcome": "success",
-    "category": [
-      "network"
-    ],
-    "type": [
-      "connection"
-    ],
-    "dataset": "aws.vpcflow",
-    "provider": "ec2.amazonaws.com",
-    "duration": 189000000
-  },
-  "message": "2 814726593401 eni-2j2xejfj 84.127.105.109 96.83.34.95 59970 5432 6 57 79173 1774440701 1774440755 ACCEPT OK",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "vpcflow",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.vpcflow",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.vpcflow",
+    "module": "aws"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "wafv2"
@@ -13,21 +13,26 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "cdn-waf",
-      "Rule": "UserAgent_BadBots_HEADER",
-      "Region": "us-east-1"
+      "WebACL": "prod-api-acl",
+      "Rule": "CrossSiteScripting",
+      "Region": "ap-south-2"
     },
     "waf": {
-      "id": "smlgklf12uq",
-      "arn": "arn:aws:wafv2:us-east-1:738291046572:regional/webacl/cdn-waf/dz49bx8q-gt5b-900q-4kqc-1ev6mw1qfrs",
+      "id": "071vhboeenn",
+      "arn": "arn:aws:wafv2:ap-south-2:293847561023:regional/webacl/prod-api-acl/9b8hud7i-ednz-iw0l-jiuy-78ws89t9dve",
       "format_version": "1",
       "source": {
-        "name": "APIGW",
-        "id": "738291046572-app/cdn-waf/u4bv40aq4e"
+        "name": "CF",
+        "id": "293847561023-app/prod-api-acl/a7m720u3ewm"
       },
       "rule_group_list": [
         {
-          "ruleGroupId": "AWSManagedRulesSQLiRuleSet",
+          "ruleGroupId": "AWSManagedRulesWindowsRuleSet",
+          "terminatingRule": {
+            "action": "BLOCK",
+            "ruleId": "CrossSiteScripting",
+            "ruleMatchDetails": []
+          },
           "nonTerminatingMatchingRules": []
         }
       ],
@@ -45,19 +50,24 @@
           }
         ]
       },
-      "labels": [],
+      "labels": [
+        {
+          "name": "awswaf:managed:aws:known-bad-inputs:NoUserAgent_HEADER"
+        }
+      ],
+      "response_code_sent": 403,
       "metrics": {
         "AllowedRequests": {
-          "sum": 1
+          "sum": 0
         },
         "BlockedRequests": {
-          "sum": 0
+          "sum": 1
         },
         "CountedRequests": {
           "sum": 0
         },
         "PassedRequests": {
-          "sum": 1
+          "sum": 0
         },
         "RequestsWithValidCaptchaToken": {
           "sum": 0
@@ -72,21 +82,21 @@
     }
   },
   "source": {
-    "ip": "253.205.113.233",
+    "ip": "121.116.173.133",
     "geo": {
-      "country_iso_code": "FR",
-      "country_name": "France",
-      "city_name": "Paris",
+      "country_iso_code": "US",
+      "country_name": "United States",
+      "city_name": "Ashburn",
       "location": {
-        "lat": 48.8566,
-        "lon": 2.3522
+        "lat": 39.0438,
+        "lon": -77.4874
       }
     }
   },
   "http": {
     "request": {
-      "method": "PATCH",
-      "bytes": 4402
+      "method": "DELETE",
+      "bytes": 8072
     }
   },
   "url": {
@@ -96,8 +106,8 @@
     "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
-    "action": "allow",
-    "outcome": "success",
+    "action": "block",
+    "outcome": "failure",
     "category": [
       "intrusion_detection",
       "network"
@@ -105,8 +115,13 @@
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com"
   },
-  "message": "WAFv2 ALLOW [cdn-waf] 253.205.113.233 PATCH /api/v1/search",
+  "message": "WAFv2 BLOCK [prod-api-acl] 121.116.173.133: AWSManagedRulesWindowsRuleSet/CrossSiteScripting",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "WAFBlock",
+    "message": "WAFv2 request blocked",
+    "type": "security"
   }
 }

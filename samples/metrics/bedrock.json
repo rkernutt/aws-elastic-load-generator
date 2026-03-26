@@ -1,73 +1,74 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "sa-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
-    },
-    "service": {
-      "name": "bedrock"
+      "id": "738291046572",
+      "name": "globex-development"
     }
   },
   "aws": {
-    "dimensions": {
-      "ModelId": "meta.llama3-70b-instruct-v1:0"
-    },
     "bedrock": {
-      "model_id": "meta.llama3-70b-instruct-v1:0",
-      "invocation_latency_ms": 13200,
-      "input_token_count": 4128,
-      "output_token_count": 1126,
-      "total_token_count": 5254,
-      "stop_reason": "stop_sequence",
-      "use_case": "classification",
-      "guardrail_action": "NONE",
-      "streaming": true,
-      "time_to_first_token_ms": 207,
-      "input_tokens_per_sec": 312.7,
-      "model_family": "meta",
       "metrics": {
         "Invocations": {
-          "sum": 263
+          "avg": 111,
+          "sum": 111,
+          "count": 1
         },
         "InvocationLatency": {
-          "avg": 13200,
-          "p99": 26400
+          "avg": 309.2,
+          "sum": 309.2,
+          "count": 1,
+          "max": 5083.08
+        },
+        "InvocationClientErrors": {
+          "avg": 15,
+          "sum": 15,
+          "count": 1
+        },
+        "InvocationServerErrors": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "InvocationThrottles": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "InputTokenCount": {
-          "sum": 4128
+          "avg": 58986,
+          "sum": 58986,
+          "count": 1
         },
         "OutputTokenCount": {
-          "sum": 1126
+          "avg": 29850,
+          "sum": 29850,
+          "count": 1
         },
-        "Throttles": {
-          "sum": 0
+        "LegacyModelInvocations": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "ModelId": "anthropic.claude-3-haiku-20240307-v1:0"
       }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "process"
-    ],
-    "dataset": "aws.bedrock",
-    "provider": "bedrock.amazonaws.com",
-    "duration": 13200000000
-  },
-  "message": "Bedrock llama3 4128->1126 tokens 13.20s",
-  "log": {
-    "level": "warn"
+  "metricset": {
+    "name": "bedrock",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.bedrock",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.bedrock",
+    "module": "aws"
   }
 }

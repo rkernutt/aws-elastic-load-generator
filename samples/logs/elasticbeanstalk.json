@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "elasticbeanstalk"
@@ -14,14 +14,14 @@
   "aws": {
     "dimensions": {
       "EnvironmentName": "worker-app-staging",
-      "InstanceId": "i-jvrbegaka2"
+      "InstanceId": "i-9zd681zfgg"
     },
     "elasticbeanstalk": {
       "application": "worker-app",
       "environment": "worker-app-staging",
-      "structured_logging": false,
+      "structured_logging": true,
       "platform": "Python 3.11",
-      "version_label": "v83",
+      "version_label": "v54",
       "metrics": {
         "ApplicationRequests2xx": {
           "sum": 1
@@ -36,28 +36,28 @@
           "sum": 0
         },
         "ApplicationLatencyP10": {
-          "avg": 25.908
+          "avg": 2.459
         },
         "ApplicationLatencyP50": {
-          "avg": 46.641
+          "avg": 5.937
         },
         "ApplicationLatencyP75": {
-          "avg": 53.787
+          "avg": 10.273
         },
         "ApplicationLatencyP85": {
-          "avg": 68.462
+          "avg": 13.444
         },
         "ApplicationLatencyP90": {
-          "avg": 83.085
+          "avg": 19.815
         },
         "ApplicationLatencyP95": {
-          "avg": 99.793
+          "avg": 24.004
         },
         "ApplicationLatencyP99": {
-          "avg": 222.163
+          "avg": 45.031
         },
         "ApplicationLatencyP99.9": {
-          "avg": 425.39
+          "avg": 86.614
         },
         "ApplicationRequests": {
           "sum": 1
@@ -72,7 +72,7 @@
           "avg": 0
         },
         "InstancesOk": {
-          "avg": 6
+          "avg": 3
         },
         "EnvironmentHealth": {
           "avg": 20
@@ -82,7 +82,7 @@
   },
   "http": {
     "response": {
-      "status_code": 200
+      "status_code": 201
     }
   },
   "log": {
@@ -96,7 +96,7 @@
     "outcome": "success",
     "dataset": "aws.elasticbeanstalk",
     "provider": "elasticbeanstalk.amazonaws.com",
-    "duration": 49000000000
+    "duration": 35000000000
   },
-  "message": "Rolling update complete"
+  "message": "{\"application\":\"worker-app\",\"environment\":\"worker-app-staging\",\"status\":201,\"message\":\"Rolling update complete\",\"timestamp\":\"2026-03-26T16:46:26.654Z\"}"
 }

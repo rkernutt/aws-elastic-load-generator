@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
@@ -15,17 +15,17 @@
     "dimensions": {
       "FirewallName": "fw-us-east-1",
       "AvailabilityZone": "us-east-1a",
-      "CustomAction": "CustomBlockAction"
+      "CustomAction": "CustomPassAction"
     },
     "firewall_logs": {
-      "flow_id": 694246,
-      "event_timestamp": "2026-03-25T12:11:41.550Z",
-      "action": "DROP",
-      "src_ip": "30.193.201.113",
-      "dest_ip": "40.25.35.4",
-      "src_port": 3462,
+      "flow_id": 479353,
+      "event_timestamp": "2026-03-26T16:46:26.654Z",
+      "action": "PASS",
+      "src_ip": "235.87.70.126",
+      "dest_ip": "66.48.229.211",
+      "src_port": 16692,
       "dest_port": 5432,
-      "protocol": "TCP",
+      "protocol": "ICMP",
       "firewall_name": "fw-us-east-1",
       "availability_zone": "us-east-1a"
     },
@@ -35,54 +35,49 @@
       "policy_name": "prod-fw-policy",
       "metrics": {
         "DroppedPackets": {
-          "sum": 390
+          "sum": 0
         },
         "PassedPackets": {
-          "sum": 0
+          "sum": 41112
         },
         "RejectedPackets": {
           "sum": 0
         },
         "Packets": {
-          "sum": 47098
+          "sum": 57501
         },
         "DroppedBytes": {
-          "sum": 44888
+          "sum": 0
         }
       }
     }
   },
   "source": {
-    "ip": "30.193.201.113",
-    "port": 3462
+    "ip": "235.87.70.126",
+    "port": 16692
   },
   "destination": {
-    "ip": "40.25.35.4",
+    "ip": "66.48.229.211",
     "port": 5432
   },
   "network": {
-    "transport": "tcp",
-    "bytes": 18492,
-    "packets": 33
+    "transport": "icmp",
+    "bytes": 40798,
+    "packets": 39
   },
   "event": {
-    "action": "drop",
-    "outcome": "failure",
+    "action": "pass",
+    "outcome": "success",
     "category": [
       "intrusion_detection",
       "network"
     ],
     "dataset": "aws.firewall_logs",
     "provider": "network-firewall.amazonaws.com",
-    "duration": 120000000
+    "duration": 9000000
   },
-  "message": "DROP TCP flow",
+  "message": "PASS ICMP flow",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "FlowDropped",
-    "message": "Packet dropped by firewall rule",
-    "type": "network"
+    "level": "info"
   }
 }

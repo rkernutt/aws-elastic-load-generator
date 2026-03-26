@@ -305,10 +305,37 @@ function generateCognitoLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
   const pool = rand(["us-users","eu-users","mobile-users","b2b-customers"]);
   const userPoolId = `${region}_${randId(9)}`;
-  const action = rand(["SignIn","SignUp","ForgotPassword","ConfirmSignUp","TokenRefresh","AdminCreateUser","SignIn","SignIn"]);
+  const riskEvents = ["AccountTakeoverRisk","CompromisedCredentials","ImpossibleTravel"];
+  const action = rand([
+    "SignIn","SignIn","SignIn",
+    "SignUp","ForgotPassword","ConfirmSignUp","TokenRefresh","AdminCreateUser",
+    "AccountTakeoverRisk","CompromisedCredentials","ImpossibleTravel",
+    "AdminResetPassword","UserMigration","TokenGeneration_HostedUI",
+  ]);
+  const isRiskEvent = riskEvents.includes(action);
   const user = `user-${randId(8).toLowerCase()}@example.com`;
   const signIns = randInt(100, 10000);
   const tokenRefreshes = randInt(500, 50000);
+  const isAccountTakeover = action === "AccountTakeoverRisk";
+  const riskLevel = rand(["HIGH","MEDIUM","LOW"]);
+  const riskDecision = riskLevel === "HIGH" ? rand(["BLOCK","MFA"]) : riskLevel === "MEDIUM" ? rand(["MFA","ALLOW"]) : "ALLOW";
+  const prevCountries = ["US","GB","DE","FR","JP"];
+  const currCountries = ["NG","RU","CN","BR","IN"];
+  const advancedSecurity = isRiskEvent ? {
+    risk_level: riskLevel,
+    risk_decision: riskDecision,
+    compromised_credentials_detected: action === "CompromisedCredentials" ? true : false,
+    impossible_travel: action === "ImpossibleTravel" ? true : false,
+    previous_location: { ip: randIp(), country: rand(prevCountries) },
+    current_location:  { ip: randIp(), country: rand(currCountries) },
+    time_between_events_seconds: randInt(30, 300),
+  } : undefined;
+  const logLevel = isAccountTakeover && riskLevel === "HIGH" ? "error"
+    : isRiskEvent ? "warn"
+    : isErr ? "warn"
+    : "info";
+  const errorCode = isErr ? rand(["NotAuthorizedException","UserNotFoundException","TooManyRequestsException"]) : null;
+  const actionTaken = action === "CompromisedCredentials" ? "BLOCK" : undefined;
   return {
     "@timestamp": ts,
     "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"cognito" } },
@@ -319,9 +346,14 @@ function generateCognitoLog(ts, er) {
         user_pool_name: pool,
         event_type: action,
         username: isErr ? null : user,
-        error_code: isErr ? rand(["NotAuthorizedException","UserNotFoundException","TooManyRequestsException"]) : null,
+        error_code: errorCode,
         source_ip: randIp(),
         mfa_type: Math.random() > 0.7 ? rand(["SOFTWARE_TOKEN_MFA","SMS_MFA"]) : null,
+        ...(isRiskEvent ? {
+          risk_type: action,
+          ...(actionTaken ? { action_taken: actionTaken } : {}),
+        } : {}),
+        ...(advancedSecurity ? { advanced_security: advancedSecurity } : {}),
         metrics: {
           SignInSuccesses: { sum: isErr ? 0 : signIns },
           SignInAttempts: { sum: signIns + (isErr ? randInt(10, 500) : 0) },
@@ -330,19 +362,22 @@ function generateCognitoLog(ts, er) {
           FederationSuccesses: { sum: Math.random() > 0.8 ? randInt(1, 500) : 0 },
           CallCount: { sum: randInt(1000, 100000) },
           ThrottleCount: { sum: isErr ? randInt(1, 100) : 0 },
-          AccountTakeoverRisk: { sum: isErr ? randInt(0, 5) : 0 },
-          CompromisedCredentialsRisk: { sum: isErr ? randInt(0, 3) : 0 },
+          AccountTakeoverRisk: { sum: isAccountTakeover ? randInt(1, 10) : (isErr ? randInt(0, 5) : 0) },
+          CompromisedCredentialsRisk: { sum: action === "CompromisedCredentials" ? randInt(1, 5) : (isErr ? randInt(0, 3) : 0) },
         },
       },
     },
     "user": { name: isErr ? null : user },
     "source": { ip: randIp() },
-    "event": { action, outcome: isErr ? "failure" : "success", category: ["authentication"], dataset: "aws.cognito", provider: "cognito-idp.amazonaws.com" },
-    "message": isErr
-      ? `Cognito ${action} FAILED: ${rand(["Incorrect password","User not found","Rate limit exceeded"])}`
-      : `Cognito ${action} success [${pool}]`,
-    "log": { level: isErr ? "warn" : "info" },
-    ...(isErr ? { error: { code: rand(["NotAuthorizedException","UserNotFoundException","TooManyRequestsException"]), message: "Authentication failed", type: "authentication" } } : {}),
+    "event": { action, outcome: isErr || (isRiskEvent && riskDecision === "BLOCK") ? "failure" : "success", category: ["authentication"], dataset: "aws.cognito", provider: "cognito-idp.amazonaws.com" },
+    "message": isRiskEvent
+      ? `Cognito ${action} detected [${riskLevel}]: decision=${riskDecision} pool=${pool}`
+      : isErr
+        ? `Cognito ${action} FAILED: ${rand(["Incorrect password","User not found","Rate limit exceeded"])}`
+        : `Cognito ${action} success [${pool}]`,
+    "log": { level: logLevel },
+    ...(isErr ? { error: { code: errorCode, message: "Authentication failed", type: "authentication" } } : {}),
+    ...(isRiskEvent && riskDecision === "BLOCK" ? { error: { code: action, message: `Cognito advanced security blocked: ${action}`, type: "security" } } : {}),
   };
 }
 
@@ -617,23 +652,31 @@ function generateCloudTrailLog(ts, er) {
   const accessKeyId = `AKIA${randId(16).toUpperCase()}`;
   const isAssumedRole = eventName === "AssumeRole";
   const roleArn = `arn:aws:iam::${acct.id}:role/deploy-role`;
+  const identityType = rand(["IAMUser","AssumedRole","Root","AWSService","WebIdentityUser"]);
+  const roleId = `AROA${randId(16).toUpperCase()}`;
+  const principalId = identityType === "AssumedRole"
+    ? `${roleId}:${user}-session`
+    : `${acct.id}:${user}`;
   const sessionContext = {
-    mfa_authenticated: String(Math.random() < 0.3),
-    creation_date: new Date(new Date(ts).getTime() - randInt(1, 3600) * 1000).toISOString(),
-    ...(isAssumedRole ? {
-      session_issuer: {
-        type: "Role",
-        principal_id: `AROA${randId(16).toUpperCase()}`,
-        arn: roleArn,
-        account_id: acct.id,
-      }
-    } : {}),
+    session_issuer: {
+      type: "Role",
+      principal_id: roleId,
+      arn: `arn:aws:iam::${acct.id}:role/service-role/execution-role`,
+      account_id: acct.id,
+      user_name: "execution-role",
+    },
+    web_id_federation_data: {},
+    attributes: {
+      creation_date: new Date(new Date(ts).getTime() - randInt(1, 3600) * 1000).toISOString(),
+      mfa_authenticated: String(Math.random() < 0.3),
+    },
   };
 
   // Resources affected by the event
+  const newBucketName = `${acct.name}-${randId(8).toLowerCase()}`;
   const resourceMap = {
     RunInstances:          [{ arn: `arn:aws:ec2:${region}:${acct.id}:instance/i-${randId(17).toLowerCase()}`,            account_id: acct.id, type: "AWS::EC2::Instance" }],
-    CreateBucket:          [{ arn: `arn:aws:s3:::my-bucket-${randId(6).toLowerCase()}`,                                  account_id: acct.id, type: "AWS::S3::Bucket" }],
+    CreateBucket:          [{ arn: `arn:aws:s3:::${newBucketName}`,                                                      account_id: acct.id, type: "AWS::S3::Bucket" }],
     PutObject:             [{ arn: `arn:aws:s3:::prod-data`,                                                             account_id: acct.id, type: "AWS::S3::Bucket" }],
     CreateRole:            [{ arn: `arn:aws:iam::${acct.id}:role/new-role-${randId(6).toLowerCase()}`,                  account_id: acct.id, type: "AWS::IAM::Role" }],
     CreateFunction20150331:[{ arn: `arn:aws:lambda:${region}:${acct.id}:function:fn-${randId(6).toLowerCase()}`,        account_id: acct.id, type: "AWS::Lambda::Function" }],
@@ -642,10 +685,22 @@ function generateCloudTrailLog(ts, er) {
   const resources = resourceMap[eventName];
 
   // Request parameters as JSON string (keyword field in official schema)
+  const reqParamsBucket = `${acct.name}-${randId(8).toLowerCase()}`;
   const reqParams = isErr ? undefined :
-    eventName === "CreateBucket" ? JSON.stringify({ bucketName: `my-bucket-${randId(6).toLowerCase()}` }) :
-    eventName === "PutObject"    ? JSON.stringify({ bucketName: "prod-data", key: "uploads/file.json" }) :
-    eventName === "AssumeRole"   ? JSON.stringify({ roleArn, roleSessionName: `${user}-session` }) : undefined;
+    eventName === "RunInstances"    ? JSON.stringify({ instanceType: "t3.medium", imageId: "ami-0abcdef1234567890", minCount: 1, maxCount: 1 }) :
+    eventName === "CreateBucket"    ? JSON.stringify({ bucketName: reqParamsBucket, createBucketConfiguration: { locationConstraint: region } }) :
+    eventName === "AssumeRole"      ? JSON.stringify({ roleArn: `arn:aws:iam::${acct.id}:role/CrossAccountRole`, roleSessionName: `session-${randId(8).toLowerCase()}` }) :
+    eventName === "GetSecretValue"  ? JSON.stringify({ secretId: `${acct.name}/prod/api-key` }) :
+    eventName === "PutBucketPolicy" ? JSON.stringify({ bucket: `${acct.name}-${randId(8).toLowerCase()}`, policy: JSON.stringify({ Version: "2012-10-17" }) }) :
+    eventName === "PutObject"       ? JSON.stringify({ bucketName: "prod-data", key: "uploads/file.json" }) :
+    undefined;
+
+  // Response elements as JSON string
+  const respInstanceId = `i-${randId(17).toLowerCase()}`;
+  const responseElements = isErr ? JSON.stringify({ errorCode }) :
+    eventName === "RunInstances" ? JSON.stringify({ instancesSet: { items: [{ instanceId: respInstanceId, currentState: { name: "pending" } }] } }) :
+    eventName === "CreateBucket" ? JSON.stringify({ location: `/${reqParamsBucket}` }) :
+    "null";
 
   return {
     "@timestamp": ts,
@@ -653,7 +708,7 @@ function generateCloudTrailLog(ts, er) {
     "aws": {
       dimensions: { EventName:eventName, EventSource:ev.svc },
       cloudtrail: {
-        event_version:      "1.08",
+        event_version:      "1.09",
         event_category:     eventName === "ConsoleLogin" ? "SignIn" : "Management",
         event_type:         eventType,
         request_id:         requestId,
@@ -661,15 +716,19 @@ function generateCloudTrailLog(ts, er) {
         management_event:   true,
         read_only:          readOnly,
         recipient_account_id: acct.id,
+        aws_region:         region,
         user_identity: {
-          type:           isAssumedRole ? "AssumedRole" : "IAMUser",
+          type:           identityType,
+          principal_id:   principalId,
           arn:            userArn,
+          account_id:     acct.id,
           access_key_id:  accessKeyId,
           session_context: sessionContext,
         },
         ...(resources ? { resources } : {}),
         ...(reqParams ? { request_parameters: reqParams } : {}),
-        ...(isErr ? { response_elements: JSON.stringify({ errorCode }), error_code: errorCode, error_message: "User is not authorized to perform this operation" } : {}),
+        response_elements: isErr ? responseElements : (eventName === "RunInstances" || eventName === "CreateBucket" ? responseElements : "null"),
+        ...(isErr ? { error_code: errorCode, error_message: "User is not authorized to perform this operation" } : {}),
         ...(eventName === "ConsoleLogin" ? {
           console_login: {
             additional_eventdata: {
@@ -691,4 +750,464 @@ function generateCloudTrailLog(ts, er) {
   };
 }
 
-export { generateGuardDutyLog, generateSecurityHubLog, generateMacieLog, generateInspectorLog, generateConfigLog, generateAccessAnalyzerLog, generateCognitoLog, generateKmsLog, generateSecretsManagerLog, generateAcmLog, generateIamIdentityCenterLog, generateDetectiveLog, generateCloudTrailLog, generateVerifiedAccessLog, generateSecurityLakeLog };
+/**
+ * generateSecurityFindingChain — returns 3 linked finding documents modelling
+ * the GuardDuty → Security Hub → Security Lake chain.
+ *
+ * Each document carries a `__dataset` field used by App.jsx for per-doc index routing.
+ * Strip `__dataset` before indexing (App.jsx handles this).
+ *
+ * @param {string} ts  - ISO timestamp
+ * @param {number} er  - error rate [0,1] (ignored; chain always produces findings)
+ * @returns {Object[]} [guarddutyDoc, securityhubDoc, securitylakeDoc]
+ */
+function generateSecurityFindingChain(ts, er) {
+  const region = rand(REGIONS);
+  const acct   = randAccount();
+
+  const severity    = rand(["HIGH","HIGH","CRITICAL","MEDIUM"]);
+  const sevCode     = severity === "CRITICAL" ? 8.0 : severity === "HIGH" ? 7.0 : 4.0;
+  const sevValue    = sevCode >= 7 ? "High" : "Medium";
+  const findingType = rand([
+    "UnauthorizedAccess:EC2/SSHBruteForce",
+    "UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom",
+    "CryptoCurrency:EC2/BitcoinTool.B!DNS",
+    "Trojan:EC2/DNSDataExfiltration",
+    "Recon:EC2/PortScan",
+    "Backdoor:EC2/C&CActivity.B",
+    "InitialAccess:IAMUser/AnomalousBehavior",
+    "PrivilegeEscalation:IAMUser/AnomalousBehavior",
+  ]);
+  const detectorId  = randId(32).toLowerCase();
+  const gdFindingId = randId(32).toLowerCase();
+  const gdArn       = `arn:aws:guardduty:${region}:${acct.id}:detector/${detectorId}/finding/${gdFindingId}`;
+  const shFindingId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`;
+  const srcIp       = randIp();
+
+  // 1. GuardDuty finding
+  const gdDoc = {
+    "@timestamp": ts,
+    "__dataset":  "aws.guardduty",
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"guardduty" } },
+    "aws": {
+      dimensions: { DetectorId: detectorId },
+      guardduty: {
+        schema_version: "2.0",
+        account_id:     acct.id,
+        region,
+        partition:      "aws",
+        id:             gdFindingId,
+        arn:            gdArn,
+        type:           findingType,
+        title:          findingType.replace(/^[^:]+:/,"").replace(/[/.!]/g," "),
+        description:    `GuardDuty detected suspicious activity: ${findingType}`,
+        created_at:     ts,
+        updated_at:     ts,
+        severity:       { code: sevCode, value: sevValue },
+        confidence:     parseFloat(randFloat(70, 99)),
+        resource:       { type: rand(["Instance","AccessKey","S3Bucket"]) },
+        service: {
+          detector_id: detectorId,
+          count:       randInt(1, 100),
+          archived:    false,
+          action:      { action_type: rand(["NETWORK_CONNECTION","PORT_PROBE","DNS_REQUEST","AWS_API_CALL"]) },
+        },
+        metrics: {
+          FindingCount:             { sum: randInt(1, 50) },
+          HighSeverityFindingCount: { sum: sevCode >= 7 ? randInt(1, 10) : 0 },
+        },
+      }
+    },
+    "source":  { ip: srcIp },
+    "rule":    { category:"intrusion_detection", name:findingType },
+    "event":   { kind:"alert", severity:sevCode, outcome:"failure", category:["intrusion_detection"], type:["indicator"], dataset:"aws.guardduty", provider:"guardduty.amazonaws.com" },
+    "message": `GuardDuty finding [${severity}]: ${findingType}`,
+    "log":     { level: sevCode >= 7 ? "error" : "warn" },
+    "error":   { code:"ThreatFinding", message:`GuardDuty finding: ${findingType}`, type:"security" },
+  };
+
+  // 2. Security Hub finding — product=GuardDuty, references GuardDuty ARN
+  const shSevNorm = severity === "CRITICAL" ? 90 : severity === "HIGH" ? 70 : 40;
+  const shDoc = {
+    "@timestamp": ts,
+    "__dataset":  "aws.securityhub_findings",
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"securityhub" } },
+    "aws": {
+      dimensions: { ComplianceStandard:"aws-foundational-security-best-practices", ControlId:"GuardDuty.1" },
+      securityhub_findings: {
+        id:               shFindingId,
+        aws_account_id:   acct.id,
+        region,
+        description:      `GuardDuty finding promoted to Security Hub: ${findingType}`,
+        created_at:       ts,
+        first_observed_at:ts,
+        last_observed_at: ts,
+        generator:        { id:"guardduty" },
+        types:            ["Threat Detections/Tactics/Impact"],
+        compliance:       { security_control_id:"GuardDuty.1", status:"FAILED" },
+        severity:         { label:severity, normalized:shSevNorm },
+        workflow:         { status:"NEW" },
+        record_state:     "ACTIVE",
+        product: {
+          arn:  `arn:aws:securityhub:${region}::product/aws/guardduty`,
+          name: "GuardDuty",
+        },
+        related_findings: [{ id:gdArn, product_arn:`arn:aws:securityhub:${region}::product/aws/guardduty` }],
+        criticality: severity === "CRITICAL" ? 9 : 7,
+        confidence:  randInt(70, 99),
+      }
+    },
+    "rule":  { id:"GuardDuty.1", name:`GuardDuty.1 — ${findingType}` },
+    "event": { kind:"alert", severity:shSevNorm, outcome:"failure", category:["intrusion_detection"], type:["indicator"], dataset:"aws.securityhub_findings", provider:"securityhub.amazonaws.com" },
+    "message": `Security Hub [${severity}]: GuardDuty finding forwarded — ${findingType}`,
+    "log":   { level: severity === "CRITICAL" ? "error" : "warn" },
+    "error": { code:"ThreatFinding", message:`Security Hub forwarded GuardDuty finding: ${findingType}`, type:"security" },
+  };
+
+  // 3. Security Lake OCSF 2001 Security Finding — source=SecurityHub, links to SH finding
+  const slSevId = severity === "CRITICAL" ? 6 : severity === "HIGH" ? 5 : 3;
+  const slSevName = { 6:"Critical", 5:"High", 3:"Medium" }[slSevId];
+  const slDoc = {
+    "@timestamp": ts,
+    "__dataset":  "aws.securitylake",
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"securitylake" } },
+    "aws": {
+      dimensions: { OcsfClass:"Security Finding", SourceType:"LAMBDA:SecurityHub" },
+      securitylake: {
+        source_type:   "LAMBDA:SecurityHub",
+        class_uid:     2001,
+        class_name:    "Security Finding",
+        category_uid:  2,
+        category_name: "Findings",
+        activity_id:   1,
+        activity_name: "Create",
+        severity_id:   slSevId,
+        severity:      slSevName,
+        status_id:     1,
+        status:        "Success",
+        time:          new Date(ts).getTime(),
+        metadata: {
+          version: "1.1.0",
+          product: { name:"SecurityHub", vendor_name:"AWS" },
+          uid:     randUUID(),
+        },
+        ocsf_cloud: { provider:"AWS", account:{ uid:acct.id }, region },
+        finding: {
+          uid:                 shFindingId,
+          title:               `GuardDuty: ${findingType}`,
+          types:               ["Threat Detections/Tactics/Impact"],
+          first_seen_time:     new Date(ts).getTime(),
+          last_seen_time:      new Date(ts).getTime(),
+          confidence_score:    randInt(70, 99),
+          related_finding_uid: gdArn,
+        },
+        src_endpoint: { ip: srcIp },
+      }
+    },
+    "event": { outcome:"failure", category:["intrusion_detection"], dataset:"aws.securitylake", provider:"securitylake.amazonaws.com" },
+    "message": `Security Lake [Security Finding/${slSevName}]: GuardDuty→SecurityHub chain — ${findingType}`,
+    "log":   { level: slSevId >= 5 ? "error" : "warn" },
+    "error": { code:"SecurityFinding", message:`Security Lake OCSF Security Finding: ${findingType}`, type:"security" },
+  };
+
+  return [gdDoc, shDoc, slDoc];
+}
+
+// ── CSPM Findings (Elastic Cloud Security Posture Management) ─────────────────
+const CIS_AWS_RULES = [
+  { section:"1.1",  id:"cis_1_1",  name:"Avoid use of the root account",                                    resource_type:"cloud-identity-management", sub_type:"iam-root",      severity:"critical", tags:["IAM"] },
+  { section:"1.2",  id:"cis_1_2",  name:"Ensure MFA enabled for all IAM users with console access",         resource_type:"cloud-identity-management", sub_type:"iam-user",      severity:"high",     tags:["IAM"] },
+  { section:"1.3",  id:"cis_1_3",  name:"Ensure no root account access key exists",                         resource_type:"cloud-identity-management", sub_type:"iam-root",      severity:"critical", tags:["IAM"] },
+  { section:"1.8",  id:"cis_1_8",  name:"Ensure IAM password policy requires minimum length of 14",         resource_type:"cloud-identity-management", sub_type:"iam-policy",    severity:"medium",   tags:["IAM"] },
+  { section:"1.14", id:"cis_1_14", name:"Ensure hardware MFA is enabled for root account",                  resource_type:"cloud-identity-management", sub_type:"iam-root",      severity:"critical", tags:["IAM"] },
+  { section:"2.1",  id:"cis_2_1",  name:"Ensure CloudTrail is enabled in all regions",                      resource_type:"cloud-audit",               sub_type:"cloudtrail",    severity:"high",     tags:["Logging"] },
+  { section:"2.2",  id:"cis_2_2",  name:"Ensure CloudTrail log file validation is enabled",                 resource_type:"cloud-audit",               sub_type:"cloudtrail",    severity:"medium",   tags:["Logging"] },
+  { section:"2.4",  id:"cis_2_4",  name:"Ensure CloudTrail trails are encrypted with KMS CMK",              resource_type:"cloud-audit",               sub_type:"cloudtrail",    severity:"medium",   tags:["Logging"] },
+  { section:"2.5",  id:"cis_2_5",  name:"Ensure AWS Config is enabled in all regions",                      resource_type:"cloud-configuration",       sub_type:"config",        severity:"medium",   tags:["Config"] },
+  { section:"3.3",  id:"cis_3_3",  name:"Ensure a log metric filter for root account usage exists",         resource_type:"cloud-audit",               sub_type:"cloudwatch",    severity:"high",     tags:["Monitoring"] },
+  { section:"4.1",  id:"cis_4_1",  name:"Ensure no security group allows unrestricted SSH inbound",         resource_type:"cloud-network",             sub_type:"security-group",severity:"high",     tags:["Networking"] },
+  { section:"4.2",  id:"cis_4_2",  name:"Ensure no security group allows unrestricted RDP inbound",         resource_type:"cloud-network",             sub_type:"security-group",severity:"high",     tags:["Networking"] },
+  { section:"5.1",  id:"cis_5_1",  name:"Ensure VPC Flow Logs are enabled in all VPCs",                    resource_type:"cloud-network",             sub_type:"vpc",           severity:"medium",   tags:["Networking"] },
+  { section:"5.4",  id:"cis_5_4",  name:"Ensure default VPC security group restricts all traffic",          resource_type:"cloud-network",             sub_type:"security-group",severity:"medium",   tags:["Networking"] },
+];
+
+function generateCspmFindings(ts, er) {
+  const region = rand(REGIONS);
+  const acct   = randAccount();
+  const rule   = rand(CIS_AWS_RULES);
+  const isFailed = Math.random() < (er + 0.25);
+  const evaluation = isFailed ? "failed" : "passed";
+  const resourceId =
+    rule.sub_type === "iam-user"      ? `arn:aws:iam::${acct.id}:user/${rand(["alice","bob","carol","svc-deploy"])}` :
+    rule.sub_type === "iam-root"      ? `arn:aws:iam::${acct.id}:root` :
+    rule.sub_type === "iam-policy"    ? `arn:aws:iam::${acct.id}:policy/password-policy` :
+    rule.sub_type === "cloudtrail"    ? `arn:aws:cloudtrail:${region}:${acct.id}:trail/management-events` :
+    rule.sub_type === "cloudwatch"    ? `arn:aws:cloudwatch:${region}:${acct.id}:alarm/root-login` :
+    rule.sub_type === "config"        ? `arn:aws:config:${region}:${acct.id}:config-recorder/default` :
+    rule.sub_type === "vpc"           ? `arn:aws:ec2:${region}:${acct.id}:vpc/vpc-${randId(8).toLowerCase()}` :
+    rule.sub_type === "security-group"? `arn:aws:ec2:${region}:${acct.id}:security-group/sg-${randId(8).toLowerCase()}` :
+    `arn:aws:${rule.sub_type}:${region}:${acct.id}:${rule.sub_type}-${randId(8).toLowerCase()}`;
+  const resourceName = resourceId.split("/").pop() || resourceId.split(":").pop();
+  return [{
+    "@timestamp":  ts,
+    "__dataset":   "cloud_security_posture.findings",
+    "data_stream": { dataset:"cloud_security_posture.findings", namespace:"default", type:"logs" },
+    "cloud":       { provider:"aws", region, account:{ id:acct.id, name:acct.name } },
+    "resource":    { id:resourceId, name:resourceName, sub_type:rule.sub_type, type:rule.resource_type },
+    "rule": {
+      id:      rule.id,
+      name:    rule.name,
+      section: rule.section,
+      tags:    rule.tags,
+      benchmark: { id:"cis_aws", version:"v1.5.0", rule_number:rule.section, posture_type:"cspm" },
+      impact:      isFailed ? `Non-compliance with CIS AWS ${rule.section} may expose account to unauthorized access.` : null,
+      remediation: isFailed ? `Remediate per CIS AWS Foundations Benchmark v1.5.0 section ${rule.section}.` : null,
+    },
+    "result":  { evaluation },
+    "severity": isFailed ? rule.severity : "none",
+    "event": { kind:"state", category:["configuration"], type:["info"], outcome:isFailed?"failure":"success", dataset:"cloud_security_posture.findings", provider:"elastic_cspm" },
+    "message": `CSPM [CIS AWS 1.5 / ${rule.section}] ${evaluation}: ${rule.name}`,
+    "log": { level: isFailed ? (rule.severity === "critical" ? "error" : "warn") : "info" },
+    ...(isFailed ? { error: { code:`CIS_${rule.id.toUpperCase()}`, message:`CSPM check failed: ${rule.name}`, type:"compliance" } } : {}),
+  }];
+}
+
+// ── KSPM Findings (Elastic Kubernetes Security Posture Management) ────────────
+const CIS_EKS_RULES = [
+  { section:"1.1", id:"cis_eks_1_1", name:"Restrict anonymous access to the API server",                    resource_type:"k8s_object", sub_type:"api-server",severity:"critical",tags:["API Server"] },
+  { section:"2.1", id:"cis_eks_2_1", name:"Enable audit logging",                                           resource_type:"k8s_object", sub_type:"api-server",severity:"high",    tags:["Logging"] },
+  { section:"4.1", id:"cis_eks_4_1", name:"Prefer using secrets as files over environment variables",       resource_type:"k8s_object", sub_type:"Pod",       severity:"medium",  tags:["Workload"] },
+  { section:"4.2", id:"cis_eks_4_2", name:"Avoid the admission of privileged containers",                   resource_type:"k8s_object", sub_type:"Pod",       severity:"high",    tags:["Pod Security"] },
+  { section:"4.3", id:"cis_eks_4_3", name:"Minimize containers wishing to share the host process ID namespace",resource_type:"k8s_object",sub_type:"Pod",     severity:"high",    tags:["Pod Security"] },
+  { section:"4.4", id:"cis_eks_4_4", name:"Minimize containers wishing to share the host IPC namespace",    resource_type:"k8s_object", sub_type:"Pod",       severity:"high",    tags:["Pod Security"] },
+  { section:"4.6", id:"cis_eks_4_6", name:"Minimize the admission of root containers",                      resource_type:"k8s_object", sub_type:"Pod",       severity:"medium",  tags:["Pod Security"] },
+  { section:"5.1", id:"cis_eks_5_1", name:"Enable network policy on EKS worker nodes",                      resource_type:"k8s_object", sub_type:"Namespace", severity:"medium",  tags:["Policies"] },
+  { section:"5.4", id:"cis_eks_5_4", name:"Restrict access to the control plane endpoint",                  resource_type:"k8s_object", sub_type:"api-server",severity:"high",    tags:["Managed Services"] },
+  { section:"5.5", id:"cis_eks_5_5", name:"Encrypt Kubernetes Secrets at rest using AWS KMS",               resource_type:"k8s_object", sub_type:"Secret",    severity:"high",    tags:["Managed Services"] },
+];
+const EKS_CLUSTERS = ["prod-eks-cluster","staging-eks","dev-eks","data-processing-eks"];
+const EKS_NAMESPACES = ["default","kube-system","production","staging","monitoring","logging","ingress-nginx"];
+
+function generateKspmFindings(ts, er) {
+  const region  = rand(REGIONS);
+  const acct    = randAccount();
+  const rule    = rand(CIS_EKS_RULES);
+  const cluster = rand(EKS_CLUSTERS);
+  const ns      = rand(EKS_NAMESPACES);
+  const isFailed = Math.random() < (er + 0.2);
+  const evaluation = isFailed ? "failed" : "passed";
+  const resourceName =
+    rule.sub_type === "Pod"       ? `pod/${rand(["frontend","backend","api-gateway","worker","cron"])}-${randId(5).toLowerCase()}` :
+    rule.sub_type === "Node"      ? `node/ip-${randIp().replace(/\./g,"-")}.ec2.internal` :
+    rule.sub_type === "Namespace" ? `namespace/${ns}` :
+    rule.sub_type === "Secret"    ? `secret/app-secrets-${randId(4).toLowerCase()}` :
+    `${rule.sub_type.toLowerCase()}/${cluster}`;
+  const resourceId = `${cluster}/${ns}/${resourceName}`;
+  return [{
+    "@timestamp":    ts,
+    "__dataset":     "cloud_security_posture.findings",
+    "data_stream":   { dataset:"cloud_security_posture.findings", namespace:"default", type:"logs" },
+    "cloud":         { provider:"aws", region, account:{ id:acct.id, name:acct.name } },
+    "orchestrator":  { cluster:{ id:cluster, name:cluster }, type:"kubernetes", namespace:ns },
+    "resource":      { id:resourceId, name:resourceName, sub_type:rule.sub_type, type:rule.resource_type },
+    "rule": {
+      id:      rule.id,
+      name:    rule.name,
+      section: rule.section,
+      tags:    rule.tags,
+      benchmark: { id:"cis_eks", version:"v1.4.0", rule_number:rule.section, posture_type:"kspm" },
+      impact:      isFailed ? `${rule.name} — non-compliant configuration may allow container escape or lateral movement.` : null,
+      remediation: isFailed ? `Review and remediate per CIS EKS Benchmark v1.4.0 section ${rule.section}.` : null,
+    },
+    "result":   { evaluation },
+    "severity": isFailed ? rule.severity : "none",
+    "event": { kind:"state", category:["configuration"], type:["info"], outcome:isFailed?"failure":"success", dataset:"cloud_security_posture.findings", provider:"elastic_kspm" },
+    "message": `KSPM [CIS EKS / ${rule.section}] ${evaluation}: ${rule.name} [${cluster}]`,
+    "log": { level: isFailed ? (rule.severity === "critical" ? "error" : "warn") : "info" },
+    ...(isFailed ? { error: { code:`CIS_${rule.id.toUpperCase()}`, message:`KSPM check failed: ${rule.name}`, type:"compliance" } } : {}),
+  }];
+}
+
+// ── IAM Privilege Escalation Attack Chain ─────────────────────────────────────
+function generateIamPrivEscChain(ts, er) {
+  const region     = rand(REGIONS);
+  const acct       = randAccount();
+  const attacker   = rand(["ci-pipeline","deploy-bot","svc-account","temp-user"]);
+  const targetUser = rand(["alice","bob","admin-user","support-agent"]);
+  const sourceIp   = randIp();
+  const accessKeyId = `AKIA${randId(16).toUpperCase()}`;
+  const roleArn     = `arn:aws:iam::${acct.id}:role/AdminRole`;
+  const sessionName = `session-${randId(8).toLowerCase()}`;
+
+  const ctBase = (eventName, requestId, readOnly, reqParams, respElements, svc = "iam.amazonaws.com") => ({
+    "__dataset": "aws.cloudtrail",
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"cloudtrail" } },
+    "aws": {
+      dimensions: { EventName:eventName, EventSource:svc },
+      cloudtrail: {
+        event_version: "1.09", event_category:"Management", event_type:"AwsApiCall",
+        request_id: requestId, management_event:true, read_only:readOnly,
+        recipient_account_id: acct.id, aws_region: region,
+        user_identity: {
+          type:"IAMUser", principal_id:`AIDA${randId(16).toUpperCase()}`,
+          arn:`arn:aws:iam::${acct.id}:user/${attacker}`,
+          account_id:acct.id, access_key_id:accessKeyId,
+          session_context:{ session_issuer:null, web_id_federation_data:null, attributes:{ creation_date:ts, mfa_authenticated:false } },
+        },
+        ...(reqParams      ? { request_parameters: reqParams } : {}),
+        response_elements: respElements,
+      }
+    },
+    "user":       { name:attacker },
+    "source":     { ip:sourceIp },
+    "user_agent": { original:"aws-sdk-python/1.26.0 Python/3.11 Linux/5.15 exec-env/EC2" },
+    "event": { action:eventName, outcome:"success", category:["iam","configuration"], type:["change"], dataset:"aws.cloudtrail", provider:"cloudtrail.amazonaws.com" },
+    "log": { level:"warn" },
+  });
+
+  const doc1 = {
+    ...ctBase("ListUsers", `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase(), true,
+      JSON.stringify({ maxItems:100 }),
+      JSON.stringify({ users:[{ arn:`arn:aws:iam::${acct.id}:user/${targetUser}`, userId:`AIDA${randId(16).toUpperCase()}`, userName:targetUser, path:"/", createDate:ts }] })
+    ),
+    "threat": { tactic:{ name:"Discovery", id:"TA0007" }, technique:{ name:"Cloud Infrastructure Discovery", id:"T1580" } },
+    "message": `CloudTrail [PrivEsc Step 1/4]: ListUsers by ${attacker} from ${sourceIp} — enumeration`,
+  };
+  const doc2 = {
+    ...ctBase("CreateAccessKey", `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase(), false,
+      JSON.stringify({ userName:targetUser }),
+      JSON.stringify({ accessKey:{ accessKeyId:`AKIA${randId(16).toUpperCase()}`, status:"Active", userName:targetUser, createDate:ts } })
+    ),
+    "threat": { tactic:{ name:"Persistence", id:"TA0003" }, technique:{ name:"Create Account: Cloud Account", id:"T1136.003" } },
+    "message": `CloudTrail [PrivEsc Step 2/4]: CreateAccessKey for ${targetUser} by ${attacker} — credential creation`,
+  };
+  const doc3 = {
+    ...ctBase("AttachUserPolicy", `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase(), false,
+      JSON.stringify({ userName:targetUser, policyArn:"arn:aws:iam::aws:policy/AdministratorAccess" }),
+      "null"
+    ),
+    "threat": { tactic:{ name:"Privilege Escalation", id:"TA0004" }, technique:{ name:"Abuse Elevation Control Mechanism", id:"T1548" } },
+    "message": `CloudTrail [PrivEsc Step 3/4]: AttachUserPolicy AdministratorAccess to ${targetUser} by ${attacker}`,
+  };
+  const doc4 = {
+    ...ctBase("AssumeRole", `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase(), false,
+      JSON.stringify({ roleArn, roleSessionName:sessionName, durationSeconds:3600 }),
+      JSON.stringify({ credentials:{ accessKeyId:`ASIA${randId(16).toUpperCase()}`, expiration:new Date(new Date(ts).getTime()+3600000).toISOString() }, assumedRoleUser:{ arn:`${roleArn}/${sessionName}` } }),
+      "sts.amazonaws.com"
+    ),
+    "threat": { tactic:{ name:"Lateral Movement", id:"TA0008" }, technique:{ name:"Use Alternate Authentication Material: Cloud API", id:"T1550.001" } },
+    "message": `CloudTrail [PrivEsc Step 4/4]: AssumeRole AdminRole by ${attacker} — lateral movement complete`,
+    "error":   { code:"PrivilegeEscalation", message:`IAM privilege escalation: ${attacker} assumed AdminRole`, type:"security" },
+  };
+  return [doc1, doc2, doc3, doc4];
+}
+
+// ── Data Exfiltration Attack Chain ────────────────────────────────────────────
+function generateDataExfilChain(ts, er) {
+  const region     = rand(REGIONS);
+  const acct       = randAccount();
+  const bucket     = rand(["prod-customer-data","financial-records","hr-confidential","backup-exports","analytics-output"]);
+  const bucketName = `${bucket}-${acct.id.slice(-6)}`;
+  const attackerIp = randIp();
+  const detectorId = randId(32).toLowerCase();
+  const gdFindingId = randId(32).toLowerCase();
+  const keyCount   = randInt(200, 2000);
+  const megabytes  = randInt(500, 50000);
+
+  const gdDoc = {
+    "__dataset": "aws.guardduty",
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"guardduty" } },
+    "aws": {
+      dimensions: { DetectorId:detectorId },
+      guardduty: {
+        schema_version:"2.0", account_id:acct.id, region, partition:"aws",
+        id:gdFindingId,
+        arn:`arn:aws:guardduty:${region}:${acct.id}:detector/${detectorId}/finding/${gdFindingId}`,
+        type:"Exfiltration:S3/MaliciousIPCaller",
+        title:"S3 object accessed from a known malicious IP",
+        description:`S3 bucket ${bucketName} was accessed by ${attackerIp}, an IP associated with known threat actors`,
+        created_at:ts, updated_at:ts,
+        severity:{ code:7.0, value:"High" },
+        confidence:parseFloat(randFloat(75,95)),
+        resource:{ type:"S3Bucket", s3_bucket_detail:{ name:bucketName, type:"Destination" } },
+        service: {
+          detector_id:detectorId, count:keyCount, archived:false,
+          action:{ action_type:"AWS_API_CALL", aws_api_call_action:{ api:"GetObject", caller_type:"Remote IP", remote_ip_details:{ ip_address_v4:attackerIp } } },
+        },
+        metrics:{ FindingCount:{ sum:randInt(1,20) }, HighSeverityFindingCount:{ sum:randInt(1,5) } },
+      }
+    },
+    "source":  { ip:attackerIp },
+    "rule":    { category:"exfiltration", name:"Exfiltration:S3/MaliciousIPCaller" },
+    "threat":  { tactic:{ name:"Exfiltration", id:"TA0010" }, technique:{ name:"Transfer Data to Cloud Account", id:"T1537" }, indicator:[{ type:"ip", value:attackerIp }] },
+    "event":   { kind:"alert", severity:7, outcome:"failure", category:["intrusion_detection"], type:["indicator"], dataset:"aws.guardduty", provider:"guardduty.amazonaws.com" },
+    "message": `GuardDuty [HIGH]: Exfiltration:S3/MaliciousIPCaller — s3://${bucketName} from ${attackerIp}`,
+    "log":     { level:"error" },
+    "error":   { code:"ExfiltrationDetected", message:`S3 data exfiltration from ${bucketName}`, type:"security" },
+  };
+
+  const ctDoc = {
+    "__dataset": "aws.cloudtrail",
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"cloudtrail" } },
+    "aws": {
+      dimensions: { EventName:"GetObject", EventSource:"s3.amazonaws.com" },
+      cloudtrail: {
+        event_version:"1.09", event_category:"Data", event_type:"AwsApiCall",
+        request_id:`${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase(),
+        management_event:false, read_only:true,
+        recipient_account_id:acct.id, aws_region:region,
+        user_identity: {
+          type:"AWSAccount", principal_id:`ASIA${randId(16).toUpperCase()}`,
+          arn:`arn:aws:sts::${acct.id}:assumed-role/ExternalRole/session-${randId(8).toLowerCase()}`,
+          account_id:acct.id, access_key_id:`ASIA${randId(16).toUpperCase()}`,
+          session_context:{ session_issuer:null, web_id_federation_data:null, attributes:{ creation_date:ts, mfa_authenticated:false } },
+        },
+        resources:[{ ARN:`arn:aws:s3:::${bucketName}`, accountId:acct.id, type:"AWS::S3::Object" }],
+        request_parameters:JSON.stringify({ bucketName, key:`data/export-${randId(8).toLowerCase()}.csv` }),
+        additional_event_count: keyCount,
+      }
+    },
+    "source":  { ip:attackerIp },
+    "threat":  { tactic:{ name:"Exfiltration", id:"TA0010" } },
+    "event":   { action:"GetObject", outcome:"success", category:["file"], type:["access"], dataset:"aws.cloudtrail", provider:"cloudtrail.amazonaws.com" },
+    "message": `CloudTrail [Data Exfil]: ${keyCount} S3 GetObject calls on s3://${bucketName} from ${attackerIp}`,
+    "log":     { level:"warn" },
+  };
+
+  const vpcDoc = {
+    "__dataset": "aws.vpcflow",
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"vpc" } },
+    "aws": {
+      vpcflow: {
+        version:"5", account_id:acct.id,
+        interface_id:`eni-${randId(8).toLowerCase()}`,
+        source_ip:randIp(), destination_ip:attackerIp,
+        source_port:443, destination_port:randInt(1024,65535),
+        protocol:6, packets:randInt(5000,100000),
+        bytes:megabytes * 1024 * 1024,
+        start:Math.floor(new Date(ts).getTime()/1000)-300,
+        end:Math.floor(new Date(ts).getTime()/1000),
+        action:"ACCEPT", log_status:"OK",
+        vpc_id:`vpc-${randId(8).toLowerCase()}`,
+        subnet_id:`subnet-${randId(8).toLowerCase()}`,
+        tcp_flags:18, type:"IPv4", traffic_path:rand([2,7]),
+      }
+    },
+    "source":      { ip:randIp(), port:443, bytes:megabytes*1024*1024 },
+    "destination": { ip:attackerIp, port:randInt(1024,65535) },
+    "network":     { bytes:megabytes*1024*1024, packets:randInt(5000,100000), transport:"tcp", direction:"egress" },
+    "threat":      { tactic:{ name:"Exfiltration", id:"TA0010" } },
+    "event": { action:"ACCEPT", outcome:"success", category:["network"], type:["connection"], dataset:"aws.vpcflow", provider:"ec2.amazonaws.com" },
+    "message": `VPC Flow [Egress]: ${megabytes}MB to ${attackerIp} — potential data exfiltration from s3://${bucketName}`,
+    "log":   { level:"error" },
+    "error": { code:"HighEgressBytes", message:`${megabytes}MB egress to external IP ${attackerIp}`, type:"network" },
+  };
+
+  return [gdDoc, ctDoc, vpcDoc];
+}
+
+export { generateGuardDutyLog, generateSecurityHubLog, generateMacieLog, generateInspectorLog, generateConfigLog, generateAccessAnalyzerLog, generateCognitoLog, generateKmsLog, generateSecretsManagerLog, generateAcmLog, generateIamIdentityCenterLog, generateDetectiveLog, generateCloudTrailLog, generateVerifiedAccessLog, generateSecurityLakeLog, generateSecurityFindingChain, generateCspmFindings, generateKspmFindings, generateIamPrivEscChain, generateDataExfilChain };

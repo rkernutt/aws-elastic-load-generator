@@ -1,58 +1,69 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
-    },
-    "service": {
-      "name": "transferfamily"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
   },
   "aws": {
-    "dimensions": {
-      "ServerId": "s-3befjug91yh",
-      "Protocol": "FTPS"
-    },
-    "transferfamily": {
-      "server_id": "s-3befjug91yh",
-      "protocol": "FTPS",
-      "user_name": "data-ingest",
-      "session_id": "cvihuw4o28f",
-      "file_path": "/uploads/inventory.xml",
-      "operation": "RENAME",
-      "bytes_transferred": 3946887282,
-      "transfer_rate_mbps": 434.54,
-      "duration_seconds": 102.836,
-      "s3_bucket": "partner-data"
+    "transfer": {
+      "metrics": {
+        "FilesIn": {
+          "avg": 8068,
+          "sum": 8068,
+          "count": 1
+        },
+        "FilesOut": {
+          "avg": 4625,
+          "sum": 4625,
+          "count": 1
+        },
+        "BytesIn": {
+          "avg": 28719322931,
+          "sum": 28719322931,
+          "count": 1
+        },
+        "BytesOut": {
+          "avg": 9493950517,
+          "sum": 9493950517,
+          "count": 1
+        },
+        "LoginAttempts": {
+          "avg": 78,
+          "sum": 78,
+          "count": 1
+        },
+        "LoginSuccesses": {
+          "avg": 409,
+          "sum": 409,
+          "count": 1
+        },
+        "LoginFailures": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "ServerId": "s-846593890",
+        "Protocol": "FTP"
+      }
     }
   },
-  "source": {
-    "ip": "184.189.155.64"
-  },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "file",
-      "network"
-    ],
-    "dataset": "aws.transfer",
-    "provider": "transfer.amazonaws.com",
-    "duration": 9709000000
-  },
-  "message": "Transfer Family FTPS [data-ingest] /uploads/inventory.xml: 3764.0MB",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "transfer",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
-    "dataset": "aws.transferfamily",
+    "dataset": "aws.transfer",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.transfer",
+    "module": "aws"
   }
 }

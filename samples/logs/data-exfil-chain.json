@@ -1,0 +1,112 @@
+{
+  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-south-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "guardduty"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "DetectorId": "35yl7x6p9s4"
+    },
+    "guardduty": {
+      "schema_version": "2.0",
+      "account_id": "814726593401",
+      "region": "eu-south-1",
+      "partition": "aws",
+      "id": "8tf1s4rzup",
+      "arn": "arn:aws:guardduty:eu-south-1:814726593401:detector/35yl7x6p9s4/finding/8tf1s4rzup",
+      "type": "Exfiltration:S3/MaliciousIPCaller",
+      "title": "S3 object accessed from a known malicious IP",
+      "description": "S3 bucket backup-exports-593401 was accessed by 112.180.14.43, an IP associated with known threat actors",
+      "created_at": "2026-03-26T16:46:26.654Z",
+      "updated_at": "2026-03-26T16:46:26.654Z",
+      "severity": {
+        "code": 7,
+        "value": "High"
+      },
+      "confidence": 92.7,
+      "resource": {
+        "type": "S3Bucket",
+        "s3_bucket_detail": {
+          "name": "backup-exports-593401",
+          "type": "Destination"
+        }
+      },
+      "service": {
+        "detector_id": "35yl7x6p9s4",
+        "count": 1295,
+        "archived": false,
+        "action": {
+          "action_type": "AWS_API_CALL",
+          "aws_api_call_action": {
+            "api": "GetObject",
+            "caller_type": "Remote IP",
+            "remote_ip_details": {
+              "ip_address_v4": "112.180.14.43"
+            }
+          }
+        }
+      },
+      "metrics": {
+        "FindingCount": {
+          "sum": 2
+        },
+        "HighSeverityFindingCount": {
+          "sum": 2
+        }
+      }
+    }
+  },
+  "source": {
+    "ip": "112.180.14.43"
+  },
+  "rule": {
+    "category": "exfiltration",
+    "name": "Exfiltration:S3/MaliciousIPCaller"
+  },
+  "threat": {
+    "tactic": {
+      "name": "Exfiltration",
+      "id": "TA0010"
+    },
+    "technique": {
+      "name": "Transfer Data to Cloud Account",
+      "id": "T1537"
+    },
+    "indicator": [
+      {
+        "type": "ip",
+        "value": "112.180.14.43"
+      }
+    ]
+  },
+  "event": {
+    "kind": "alert",
+    "severity": 7,
+    "outcome": "failure",
+    "category": [
+      "intrusion_detection"
+    ],
+    "type": [
+      "indicator"
+    ],
+    "dataset": "aws.guardduty",
+    "provider": "guardduty.amazonaws.com"
+  },
+  "message": "GuardDuty [HIGH]: Exfiltration:S3/MaliciousIPCaller — s3://backup-exports-593401 from 112.180.14.43",
+  "log": {
+    "level": "error"
+  },
+  "error": {
+    "code": "ExfiltrationDetected",
+    "message": "S3 data exfiltration from backup-exports-593401",
+    "type": "security"
+  }
+}

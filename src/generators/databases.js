@@ -3,6 +3,8 @@ import { rand, randInt, randFloat, randId, randIp, randUUID, randAccount, REGION
 function generateDynamoDbLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const isErr = Math.random() < er;
+  const hasTrace = Math.random() < 0.4;
+  const traceId  = hasTrace ? randId(32) : null;
   const tables = ["users","sessions","products","orders","events","cache"]; const table = rand(tables);
   const op = rand(["GetItem","PutItem","Query","Scan","UpdateItem","DeleteItem","BatchGetItem","BatchWriteItem","TransactGetItems","TransactWriteItems"]);
   const rcu = parseFloat(randFloat(0.5, isErr?500:50));
@@ -49,7 +51,9 @@ function generateDynamoDbLog(ts, er) {
     "event": { outcome:isErr?"failure":"success", category:["database"], type:isErr?["error"]:["access"], dataset:"aws.dynamodb", provider:"dynamodb.amazonaws.com", duration:randInt(1, isErr?500:50)*1e6 },
     "message": message,
     "log": { level:isErr?"error":rcu>100?"warn":"info" },
-    ...(isErr ? { error: { code: rand(dynamoErrCodes), message: `DynamoDB ${op} failed`, type: "db" } } : {})
+    ...(isErr ? { error: { code: rand(dynamoErrCodes), message: `DynamoDB ${op} failed`, type: "db" } } : {}),
+    ...(hasTrace ? { "trace": { "id": traceId } } : {}),
+    ...(hasTrace ? { "transaction": { "id": randId(16) } } : {})
   };
 }
 
@@ -412,6 +416,8 @@ function generateMemoryDbLog(ts, er) {
 function generateRdsLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const isErr = Math.random() < er;
+  const hasTrace = Math.random() < 0.35;
+  const traceId  = hasTrace ? randId(32) : null;
   const qt = parseFloat(randFloat(0.001, isErr?30:2)); const dbUser = rand(["appuser","readonly","admin","replica"]);
   const instanceId = `prod-db-${rand(["primary","replica","analytics"])}`;
   const engine = rand(["mysql","postgres","aurora-mysql"]);
@@ -514,7 +520,9 @@ function generateRdsLog(ts, er) {
     "event": { duration:qt*1000000000, outcome:isErr?"failure":"success", category:["database"], type:isErr?["error"]:["info","access"], dataset:"aws.rds", provider:"rds.amazonaws.com" },
     "message": message,
     "log": { level:isErr?"error":qt>5?"warn":"info" },
-    ...(isErr ? { error: { code: rand(rdsErrCodes), message: rand(engineErrMessages), type: "db" } } : {})
+    ...(isErr ? { error: { code: rand(rdsErrCodes), message: rand(engineErrMessages), type: "db" } } : {}),
+    ...(hasTrace ? { "trace": { "id": traceId } } : {}),
+    ...(hasTrace ? { "transaction": { "id": randId(16) } } : {})
   };
 }
 

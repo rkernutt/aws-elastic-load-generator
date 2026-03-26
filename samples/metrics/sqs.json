@@ -1,61 +1,73 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-south-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
-    },
-    "service": {
-      "name": "sqs"
+      "id": "814726593401",
+      "name": "globex-production"
     }
   },
   "aws": {
-    "dimensions": {
-      "QueueName": "webhook-events"
-    },
     "sqs": {
-      "queue": {
-        "name": "webhook-events"
+      "metrics": {
+        "NumberOfMessagesSent": {
+          "avg": 4399,
+          "sum": 4399,
+          "count": 1
+        },
+        "NumberOfMessagesReceived": {
+          "avg": 4045,
+          "sum": 4045,
+          "count": 1
+        },
+        "NumberOfMessagesDeleted": {
+          "avg": 4212,
+          "sum": 4212,
+          "count": 1
+        },
+        "ApproximateNumberOfMessagesVisible": {
+          "avg": 2210,
+          "sum": 2210,
+          "count": 1
+        },
+        "ApproximateNumberOfMessagesNotVisible": {
+          "avg": 1383,
+          "sum": 1383,
+          "count": 1
+        },
+        "ApproximateAgeOfOldestMessage": {
+          "avg": 33.06,
+          "sum": 33.06,
+          "count": 1
+        },
+        "NumberOfEmptyReceives": {
+          "avg": 3818,
+          "sum": 3818,
+          "count": 1
+        },
+        "SentMessageSize": {
+          "avg": 727.61,
+          "sum": 727.61,
+          "count": 1
+        }
       },
-      "oldest_message_age": {
-        "sec": 294
-      },
-      "messages": {
-        "delayed": 219,
-        "not_visible": 520,
-        "visible": 810,
-        "deleted": 60,
-        "received": 745,
-        "sent": 919
-      },
-      "empty_receives": 47,
-      "sent_message_size": {
-        "bytes": 64828
+      "dimensions": {
+        "QueueName": "orders-queue"
       }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "process"
-    ],
-    "dataset": "aws.sqs",
-    "provider": "sqs.amazonaws.com",
-    "duration": 364000000
-  },
-  "message": "SQS webhook-events: 919 messages processed",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "sqs",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.sqs",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.sqs",
+    "module": "aws"
   }
 }

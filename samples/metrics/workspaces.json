@@ -1,87 +1,73 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
-    },
-    "service": {
-      "name": "workspaces"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
   },
   "aws": {
-    "dimensions": {
-      "DirectoryId": "d-h13jfast07",
-      "WorkspaceId": "ws-9v1r8cgiln"
-    },
     "workspaces": {
-      "workspace_id": "ws-9v1r8cgiln",
-      "user_name": "alice",
-      "bundle_type": "Power",
-      "workspace_state": "CONNECTED",
-      "action": "StopWorkspace",
-      "compute_type": "VALUE",
-      "running_mode": "ALWAYS_ON",
-      "client_ip": "188.193.237.253",
-      "client_os": "Windows 11",
       "metrics": {
         "Available": {
-          "sum": 1
+          "avg": 449,
+          "sum": 449,
+          "count": 1
         },
         "Unhealthy": {
-          "sum": 0
-        },
-        "ConnectionSuccess": {
-          "sum": 0
-        },
-        "ConnectionFailure": {
-          "sum": 0
+          "avg": 8,
+          "sum": 8,
+          "count": 1
         },
         "ConnectionAttempt": {
-          "sum": 0
+          "avg": 3511,
+          "sum": 3511,
+          "count": 1
         },
-        "UserConnected": {
-          "sum": 1
+        "ConnectionSuccess": {
+          "avg": 3048,
+          "sum": 3048,
+          "count": 1
         },
-        "Stopped": {
-          "sum": 0
+        "ConnectionFailure": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
-        "Maintenance": {
-          "sum": 0
+        "SessionDisconnect": {
+          "avg": 676,
+          "sum": 676,
+          "count": 1
+        },
+        "SessionLaunchTime": {
+          "avg": 10.17,
+          "sum": 10.17,
+          "count": 1
+        },
+        "InSessionLatency": {
+          "avg": 43.93,
+          "sum": 43.93,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "DirectoryId": "d-8270194097"
       }
     }
   },
-  "user": {
-    "name": "alice"
-  },
-  "source": {
-    "ip": "252.117.222.114"
-  },
-  "event": {
-    "action": "StopWorkspace",
-    "outcome": "success",
-    "category": [
-      "host",
-      "session"
-    ],
-    "dataset": "aws.workspaces",
-    "provider": "workspaces.amazonaws.com",
-    "duration": 2574000000
-  },
-  "message": "WorkSpaces StopWorkspace: alice on ws-9v1r8cgiln [CONNECTED]",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "workspaces",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.workspaces",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.workspaces",
+    "module": "aws"
   }
 }

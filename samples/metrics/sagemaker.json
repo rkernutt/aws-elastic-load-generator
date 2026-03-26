@@ -1,105 +1,85 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
-    },
-    "service": {
-      "name": "sagemaker"
     }
   },
   "aws": {
-    "dimensions": {
-      "TrainingJobName": "resnet50-custom-pipeline-tmbk9f",
-      "JobType": "Pipeline"
-    },
     "sagemaker": {
-      "domain_id": "d-74foyys4ru",
-      "domain_name": "ds-platform",
-      "user_profile": "carol-research",
-      "job": {
-        "name": "resnet50-custom-pipeline-tmbk9f",
-        "type": "Pipeline",
-        "arn": "arn:aws:sagemaker:eu-west-2:814726593401:training-job/resnet50-custom-pipeline-tmbk9f"
-      },
-      "model": {
-        "name": "resnet50-custom",
-        "version": 19
-      },
-      "pipeline": {
-        "name": "model-training-pipeline",
-        "execution_id": "pipe-f7ykzu1zl66"
-      },
-      "instance": {
-        "type": "ml.p3.2xlarge",
-        "count": 1
-      },
       "metrics": {
-        "gpu_utilization_pct": 61,
-        "cpu_utilization_pct": 60
-      },
-      "studio": {
-        "space_name": "cv-team",
-        "app_type": "JupyterServer",
-        "app_name": "instance-uhnde3ok",
-        "lifecycle_config": false,
-        "continuous_logging": false
-      },
-      "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 1894
+          "avg": 55005,
+          "sum": 55005,
+          "count": 1
+        },
+        "InvocationsPerInstance": {
+          "avg": 13751,
+          "sum": 13751,
+          "count": 1
         },
         "ModelLatency": {
-          "avg": 98
+          "avg": 40.34,
+          "sum": 40.34,
+          "count": 1,
+          "max": 829.3
         },
-        "GPUUtilization": {
-          "avg": 83
+        "OverheadLatency": {
+          "avg": 7.04,
+          "sum": 7.04,
+          "count": 1
+        },
+        "Invocation4XXErrors": {
+          "avg": 45,
+          "sum": 45,
+          "count": 1
+        },
+        "Invocation5XXErrors": {
+          "avg": 64,
+          "sum": 64,
+          "count": 1
+        },
+        "ModelErrors": {
+          "avg": 64,
+          "sum": 64,
+          "count": 1
         },
         "CPUUtilization": {
-          "avg": 62
-        },
-        "DiskUtilization": {
-          "avg": 24
+          "avg": 29.31,
+          "sum": 29.31,
+          "count": 1
         },
         "MemoryUtilization": {
-          "avg": 80
+          "avg": 52.45,
+          "sum": 52.45,
+          "count": 1
         },
-        "Invocations4XXError": {
-          "sum": 0
-        },
-        "Invocations5XXError": {
-          "sum": 0
+        "DiskUtilization": {
+          "avg": 14.06,
+          "sum": 14.06,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "EndpointName": "fraud-detection-prod",
+        "VariantName": "AllTraffic"
       }
     }
   },
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "sagemaker",
+    "period": 60000
   },
-  "user": {
-    "name": "carol-research"
-  },
-  "event": {
-    "action": "AppReady",
-    "duration": 6913514000000,
-    "outcome": "success",
-    "category": [
-      "process"
-    ],
-    "dataset": "aws.sagemaker",
-    "provider": "sagemaker.amazonaws.com"
-  },
-  "message": "Model artifact uploaded to s3://models/output/",
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.sagemaker",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.sagemaker",
+    "module": "aws"
   }
 }

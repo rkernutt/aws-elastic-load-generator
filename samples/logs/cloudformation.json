@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "cloudformation"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "cloudformation": {
-      "stack_name": "vpc-infra",
-      "stack_id": "arn:aws:cloudformation:us-east-1:164820739518:stack/vpc-infra/juew118q",
-      "action": "UPDATE_STACK",
-      "stack_status": "UPDATE_COMPLETE",
-      "resource_type": "AWS::IAM::Role",
-      "logical_resource_id": "VPC",
+      "stack_name": "ecs-services",
+      "stack_id": "arn:aws:cloudformation:ap-northeast-3:738291046572:stack/ecs-services/r5monn32",
+      "action": "DELETE_STACK",
+      "stack_status": "CREATE_IN_PROGRESS",
+      "resource_type": "AWS::ECS::Service",
+      "logical_resource_id": "DatabaseCluster",
       "drift_status": "IN_SYNC",
       "structured_logging": false,
       "metrics": {
         "TotalStack": {
-          "avg": 134
+          "avg": 369
         },
         "ErroredStack": {
           "avg": 0
@@ -32,10 +32,10 @@
           "avg": 0
         },
         "DeletedStack": {
-          "avg": 44
+          "avg": 18
         },
         "StackInstancesDeployed": {
-          "avg": 3142
+          "avg": 7769
         }
       }
     }
@@ -48,9 +48,9 @@
     ],
     "dataset": "aws.cloudformation",
     "provider": "cloudformation.amazonaws.com",
-    "duration": 80000000000
+    "duration": 38000000000
   },
-  "message": "CloudFormation vpc-infra: UPDATE_STACK -> UPDATE_COMPLETE",
+  "message": "CloudFormation ecs-services: DELETE_STACK -> CREATE_IN_PROGRESS",
   "log": {
     "level": "info"
   }

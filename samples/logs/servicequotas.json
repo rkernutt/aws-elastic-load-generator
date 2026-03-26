@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "servicequotas"
@@ -13,27 +13,34 @@
   },
   "aws": {
     "servicequotas": {
-      "service_code": "dynamodb",
-      "quota_code": "L-ET59T8UN",
-      "quota_name": "Provisioned write capacity units",
-      "quota_value": 100,
-      "current_utilization": 73,
-      "utilization_percent": 73,
+      "service_code": "lambda",
+      "quota_code": "L-OOJ09TQB",
+      "quota_name": "Running tasks",
+      "quota_value": 20,
+      "current_utilization": 20,
+      "utilization_percent": 100,
       "adjustable": false,
+      "request_id": "3kz7jh4e-ke5f",
+      "request_status": "CASE_OPENED",
       "applied_level": "ACCOUNT"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "configuration"
     ],
     "dataset": "aws.servicequotas",
     "provider": "servicequotas.amazonaws.com",
-    "duration": 443000000
+    "duration": 52000000
   },
-  "message": "Service Quotas: dynamodb Provisioned write capacity units at 73/100 (73%)",
+  "message": "Service Quotas EXCEEDED: lambda Running tasks at 20/20 (100%)",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "QuotaExceeded",
+    "message": "Service Quota exceeded",
+    "type": "quota"
   }
 }

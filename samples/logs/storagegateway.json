@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "storagegateway"
@@ -13,82 +13,77 @@
   },
   "aws": {
     "dimensions": {
-      "GatewayId": "sgw-3ftkyx28",
-      "GatewayName": "prod-sgw-backup"
+      "GatewayId": "sgw-jfmmzu60",
+      "GatewayName": "prod-sgw-office"
     },
     "storagegateway": {
-      "gateway_id": "sgw-3ftkyx28",
-      "gateway_name": "prod-sgw-backup",
+      "gateway_id": "sgw-jfmmzu60",
+      "gateway_name": "prod-sgw-office",
       "gateway_type": "TAPE",
-      "cache_used_percent": 93,
-      "upload_buffer_used_percent": 92,
-      "cloud_bytes_uploaded": 626887029,
+      "cache_used_percent": 37,
+      "upload_buffer_used_percent": 60,
+      "cloud_bytes_uploaded": 342702609,
       "metrics": {
         "CacheHit.Percent": {
-          "avg": 97.233
+          "avg": 72.077
         },
         "CacheMiss.Percent": {
-          "avg": 2.77
+          "avg": 27.92
         },
         "CacheUsed.Percent": {
-          "avg": 58.221
+          "avg": 83.105
         },
         "CloudBytesDownloaded": {
-          "sum": 401920483
+          "sum": 468265205
         },
         "CloudBytesUploaded": {
-          "sum": 455644858
+          "sum": 646021033
         },
         "CloudDownloadLatency": {
-          "avg": 4172.553
+          "avg": 1065.225
         },
         "ReadBytes": {
-          "sum": 747071295
+          "sum": 285640102
         },
         "WriteBytes": {
-          "sum": 14440855
+          "sum": 310927387
         },
         "QueuedWrites": {
-          "avg": 342
+          "avg": 686
         },
         "UploadBufferUsed": {
-          "avg": 806158496
+          "avg": 354417411
         },
         "UploadBufferFree": {
-          "avg": 958712390
+          "avg": 243348455
         },
         "CacheHits": {
-          "sum": 27723
+          "sum": 18614
         },
         "CacheMisses": {
-          "sum": 941
+          "sum": 966
         },
         "CachePercentDirty": {
-          "avg": 12.252
+          "avg": 1.507
         },
         "CachePercentUsed": {
-          "avg": 35.615
+          "avg": 73.689
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "host",
       "file"
     ],
     "dataset": "aws.storagegateway",
     "provider": "storagegateway.amazonaws.com",
-    "duration": 7648000000
+    "duration": 799000000
   },
-  "message": "Cache disk error: I/O failure",
+  "message": "Cache refreshed",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "GatewayError",
-    "message": "Upload buffer full",
-    "type": "storage"
+    "level": "info"
   }
 }

@@ -1,60 +1,40 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
-    },
-    "service": {
-      "name": "billing"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
   },
   "aws": {
     "billing": {
-      "service": "AmazonRDS",
-      "usage_type": "DataTransfer-Out-Bytes",
-      "estimated_charges": 174.856,
-      "currency": "USD",
-      "period_start": "2026-03-01",
-      "linked_account_id": "164820739518",
-      "dimensions": {
-        "Service": "AmazonRDS",
-        "LinkedAccount": "164820739518",
-        "UsageType": "DataTransfer-Out-Bytes"
-      },
       "metrics": {
         "EstimatedCharges": {
-          "sum": 174.856
-        },
-        "NumberOfRequests": {
-          "sum": 966825
+          "avg": 323.8,
+          "sum": 323.8,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "ServiceName": "AWS CloudFront",
+        "LinkedAccount": "293847561023",
+        "Currency": "USD"
       }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "configuration",
-      "process"
-    ],
-    "dataset": "aws.billing",
-    "provider": "ce.amazonaws.com",
-    "duration": 2186000000
-  },
-  "message": "Billing: AmazonRDS 174.86 USD",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "billing",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.billing",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.billing",
+    "module": "aws"
   }
 }

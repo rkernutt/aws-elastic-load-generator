@@ -1,97 +1,100 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
-    },
-    "service": {
-      "name": "kinesis"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
   },
   "aws": {
-    "dimensions": {
-      "StreamName": "iot-telemetry"
-    },
     "kinesis": {
       "metrics": {
-        "GetRecords_Bytes": {
-          "avg": 383248
+        "GetRecords.Bytes": {
+          "avg": 29196837,
+          "sum": 29196837,
+          "count": 1
         },
-        "GetRecords_IteratorAgeMilliseconds": {
-          "avg": 312
+        "GetRecords.IteratorAgeMilliseconds": {
+          "avg": 2004035.55,
+          "sum": 2004035.55,
+          "count": 1,
+          "max": 6382784.24
         },
-        "GetRecords_Latency": {
-          "avg": 6
+        "GetRecords.Records": {
+          "avg": 34240,
+          "sum": 34240,
+          "count": 1
         },
-        "GetRecords_Records": {
-          "avg": 702,
-          "sum": 903
-        },
-        "GetRecords_Success": {
-          "sum": 1
+        "GetRecords.Success": {
+          "avg": 944,
+          "sum": 944,
+          "count": 1
         },
         "IncomingBytes": {
-          "avg": 4990435
+          "avg": 32440930,
+          "sum": 32440930,
+          "count": 1
         },
         "IncomingRecords": {
-          "avg": 3043
+          "avg": 38044,
+          "sum": 38044,
+          "count": 1
         },
-        "PutRecord_Bytes": {
-          "avg": 328811
+        "PutRecord.Bytes": {
+          "avg": 16220465,
+          "sum": 16220465,
+          "count": 1
         },
-        "PutRecord_Latency": {
-          "avg": 19
+        "PutRecord.Success": {
+          "avg": 1890,
+          "sum": 1890,
+          "count": 1
         },
-        "PutRecords_Latency": {
-          "avg": 43
+        "PutRecords.Bytes": {
+          "avg": 16220465,
+          "sum": 16220465,
+          "count": 1
         },
-        "PutRecord_Success": {
-          "avg": 1
+        "PutRecords.Records": {
+          "avg": 19022,
+          "sum": 19022,
+          "count": 1
         },
-        "PutRecords_Bytes": {
-          "avg": 8326481
-        },
-        "PutRecords_FailedRecords": {
-          "sum": 0
-        },
-        "PutRecords_SuccessfulRecords": {
-          "sum": 695
-        },
-        "PutRecords_ThrottledRecords": {
-          "sum": 0
-        },
-        "ReadProvisionedThroughputExceeded": {
-          "avg": 0
+        "PutRecords.Success": {
+          "avg": 2119,
+          "sum": 2119,
+          "count": 1
         },
         "WriteProvisionedThroughputExceeded": {
-          "avg": 0
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "ReadProvisionedThroughputExceeded": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "StreamName": "clickstream",
+        "ShardId": "shardId-000000000000"
       }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "network"
-    ],
-    "dataset": "aws.kinesis",
-    "provider": "kinesis.amazonaws.com",
-    "duration": 4096000000
-  },
-  "message": "Kinesis iot-telemetry: 5633 records ingested",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "kinesis",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.kinesis",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.kinesis",
+    "module": "aws"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "me-central-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "kms": {
-      "key_id": "a13p0wo8-y3zk-3dmf-ej0f-580lhzrrmh9",
-      "key_alias": "alias/prod-s3-key",
-      "operation": "Decrypt",
-      "principal_arn": "arn:aws:iam::501938274650:role/lambda-role",
+      "key_id": "m17aufrq-ipbk-0mcb-qoh7-3gn2474jfjh",
+      "key_alias": "alias/secrets-key",
+      "operation": "Sign",
+      "principal_arn": "arn:aws:iam::501938274650:user/alice",
       "key_state": "Enabled",
-      "encryption_algorithm": "RSAES_OAEP_SHA_256",
+      "encryption_algorithm": "SYMMETRIC_DEFAULT",
       "metrics": {
         "SecretsManagerCrossAccountBlocking": {
           "sum": 0
         },
         "KeysCount": {
-          "avg": 486
+          "avg": 118
         },
         "KeysPendingDeletion": {
-          "avg": 5
+          "avg": 4
         },
         "KeysDisabled": {
-          "avg": 1
+          "avg": 0
         }
       }
     }
   },
   "event": {
-    "action": "Decrypt",
+    "action": "Sign",
     "outcome": "success",
     "category": [
       "authentication",
@@ -45,7 +45,7 @@
     "dataset": "aws.kms",
     "provider": "kms.amazonaws.com"
   },
-  "message": "KMS Decrypt: alias/prod-s3-key",
+  "message": "KMS Sign: alias/secrets-key",
   "log": {
     "level": "info"
   }

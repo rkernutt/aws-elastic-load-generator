@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "forecast"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "DatasetGroup": "web-traffic",
+      "DatasetGroup": "demand-forecast",
       "Operation": "GetAccuracyMetrics"
     },
     "forecast": {
-      "dataset_group": "web-traffic",
-      "predictor_name": "web-traffic-predictor-v16",
+      "dataset_group": "demand-forecast",
+      "predictor_name": "demand-forecast-predictor-v17",
       "action": "GetAccuracyMetrics",
-      "algorithm": "CNN-QR",
+      "algorithm": "ETS",
       "forecast_horizon": 30,
-      "weighted_quantile_loss": 0.082,
-      "duration_seconds": 3362,
+      "weighted_quantile_loss": 0.127,
+      "duration_seconds": 4410,
       "status": "ACTIVE"
     }
   },
   "event": {
-    "duration": 3362000000000,
+    "duration": 4410000000000,
     "outcome": "success",
     "category": [
       "process"
@@ -36,7 +36,7 @@
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com"
   },
-  "message": "Forecast GetAccuracyMetrics: web-traffic, WQL=0.082",
+  "message": "Forecast GetAccuracyMetrics: demand-forecast, WQL=0.127",
   "log": {
     "level": "info"
   }

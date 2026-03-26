@@ -1,73 +1,69 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
-    },
-    "service": {
-      "name": "bedrock-agent"
+      "id": "738291046572",
+      "name": "globex-development"
     }
   },
   "aws": {
-    "dimensions": {
-      "AgentId": "T3EDFTE2YURR",
-      "Operation": "Retrieve"
-    },
     "bedrockagent": {
-      "agent_id": "T3EDFTE2YURR",
-      "agent_alias_id": "TSTALIASID",
-      "session_id": "0cnyzpvlq9t",
-      "action": "Retrieve",
-      "knowledge_base_id": "KBB8POJGSI7",
-      "input_token_count": 403,
-      "output_token_count": 204,
-      "invocation_latency_ms": 2690,
-      "orchestration_trace": {
-        "model_invocation": {
-          "model_arn": "arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-5-sonnet-v2"
+      "metrics": {
+        "NumberOfInvocations": {
+          "avg": 106,
+          "sum": 106,
+          "count": 1
+        },
+        "NumberOfSessions": {
+          "avg": 106,
+          "sum": 106,
+          "count": 1
+        },
+        "SessionDuration": {
+          "avg": 64.85,
+          "sum": 64.85,
+          "count": 1
+        },
+        "ClientErrors": {
+          "avg": 15,
+          "sum": 15,
+          "count": 1
+        },
+        "Throttles": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "KnowledgeBaseRetrievals": {
+          "avg": 358,
+          "sum": 358,
+          "count": 1
+        },
+        "ActionGroupInvocations": {
+          "avg": 281,
+          "sum": 281,
+          "count": 1
         }
       },
-      "guardrail_action": "NONE",
-      "metrics": {
-        "Invocations": {
-          "sum": 76
-        },
-        "InvocationLatency": {
-          "avg": 2690,
-          "p99": 5380
-        },
-        "InputTokenCount": {
-          "sum": 403
-        },
-        "OutputTokenCount": {
-          "sum": 204
-        }
+      "dimensions": {
+        "AgentId": "AGTZENO8UYAUE",
+        "AgentName": "customer-support-agent"
       }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "process"
-    ],
-    "dataset": "aws.bedrockagent",
-    "provider": "bedrock-agent-runtime.amazonaws.com",
-    "duration": 2690000000
-  },
-  "message": "Bedrock Agent T3EDFTE2YURR: Retrieve 403→204 tokens 2.69s",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "bedrockagent",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.bedrockagent",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.bedrockagent",
+    "module": "aws"
   }
 }

@@ -1,80 +1,109 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
-    },
-    "service": {
-      "name": "aurora"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
   },
   "aws": {
     "aurora": {
-      "cluster_id": "staging-aurora",
-      "instance_id": "staging-aurora-instance-3",
-      "engine": "aurora-mysql",
-      "engine_version": "8.0.36",
-      "replica_lag_seconds": 0.164,
-      "db_connections": 341,
-      "max_connections": 1000,
-      "failover_in_progress": false,
       "metrics": {
-        "AuroraBinlogReplicaLag": {
-          "avg": 10
+        "CPUUtilization": {
+          "avg": 20.57,
+          "sum": 20.57,
+          "count": 1
         },
-        "AuroraGlobalDBReplicatedWriteIO": {
-          "sum": 87045939
+        "DatabaseConnections": {
+          "avg": 407,
+          "sum": 407,
+          "count": 1
         },
-        "AuroraGlobalDBDataTransferBytes": {
-          "sum": 513839324
+        "FreeStorageSpace": {
+          "avg": 45218651799.92,
+          "sum": 45218651799.92,
+          "count": 1
         },
-        "AuroraGlobalDBProgressLag": {
-          "avg": 252
+        "FreeableMemory": {
+          "avg": 1780655960.57,
+          "sum": 1780655960.57,
+          "count": 1
         },
-        "BacktrackChangeRecordsCreationRate": {
-          "avg": 7116
+        "ReadLatency": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
-        "BacktrackChangeRecordsStored": {
-          "avg": 533376037
+        "WriteLatency": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
-        "BacktrackWindowActual": {
-          "avg": 65096
+        "ReadIOPS": {
+          "avg": 2793,
+          "sum": 2793,
+          "count": 1
         },
-        "BacktrackWindowAlert": {
-          "avg": 0
+        "WriteIOPS": {
+          "avg": 2163,
+          "sum": 2163,
+          "count": 1
         },
-        "ServerlessDatabaseCapacity": {
-          "avg": 78.973
+        "ReadThroughput": {
+          "avg": 283489386,
+          "sum": 283489386,
+          "count": 1
         },
-        "ACUUtilization": {
-          "avg": 19.064
+        "WriteThroughput": {
+          "avg": 96862202,
+          "sum": 96862202,
+          "count": 1
+        },
+        "NetworkReceiveThroughput": {
+          "avg": 94033268,
+          "sum": 94033268,
+          "count": 1
+        },
+        "NetworkTransmitThroughput": {
+          "avg": 51913035,
+          "sum": 51913035,
+          "count": 1
+        },
+        "DiskQueueDepth": {
+          "avg": 0.25,
+          "sum": 0.25,
+          "count": 1
+        },
+        "ReplicaLag": {
+          "avg": 7278.01,
+          "sum": 7278.01,
+          "count": 1
+        },
+        "BinLogDiskUsage": {
+          "avg": 9000630602,
+          "sum": 9000630602,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "DBInstanceIdentifier": "aurora-global-cluster",
+        "DBClusterIdentifier": "aurora-global-cluster"
       }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "database"
-    ],
-    "dataset": "aws.aurora",
-    "provider": "rds.amazonaws.com",
-    "duration": 33000000000
-  },
-  "message": "Cluster endpoint updated",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "aurora",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
-    "dataset": "aws.aurora",
+    "dataset": "aws.rds",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.rds",
+    "module": "aws"
   }
 }

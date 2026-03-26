@@ -1,149 +1,100 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
-    },
-    "service": {
-      "name": "ec2"
-    },
-    "instance": {
-      "id": "i-ko16a0q4i6b"
+      "id": "738291046572",
+      "name": "globex-development"
     }
   },
   "aws": {
-    "dimensions": {
-      "InstanceId": "i-ko16a0q4i6b",
-      "InstanceType": "t3.medium",
-      "ImageId": "ami-mkmd2xw5",
-      "AutoScalingGroupName": "api-asg"
-    },
     "ec2": {
-      "instance": {
-        "image": {
-          "id": "ami-owvg9fq6"
+      "metrics": {
+        "CPUUtilization": {
+          "avg": 42.85,
+          "sum": 42.85,
+          "count": 1
         },
-        "state": {
-          "name": "running",
-          "code": 16
+        "NetworkIn": {
+          "avg": 349579606,
+          "sum": 349579606,
+          "count": 1
         },
-        "monitoring": {
-          "state": "disabled"
+        "NetworkOut": {
+          "avg": 5847954,
+          "sum": 5847954,
+          "count": 1
         },
-        "core": {
-          "count": 2
+        "NetworkPacketsIn": {
+          "avg": 321047,
+          "sum": 321047,
+          "count": 1
         },
-        "type": "t3.medium",
-        "threads_per_core": 2,
-        "private": {
-          "ip": "129.26.72.127",
-          "dns_name": "ip-37-195-110-80.us-east-1.compute.internal"
+        "NetworkPacketsOut": {
+          "avg": 117127,
+          "sum": 117127,
+          "count": 1
         },
-        "public": {
-          "ip": "55.171.66.173",
-          "dns_name": "ec2-165-61-116-220.compute-1.amazonaws.com"
+        "DiskReadBytes": {
+          "avg": 8187787,
+          "sum": 8187787,
+          "count": 1
+        },
+        "DiskWriteBytes": {
+          "avg": 77492663,
+          "sum": 77492663,
+          "count": 1
+        },
+        "DiskReadOps": {
+          "avg": 1567,
+          "sum": 1567,
+          "count": 1
+        },
+        "DiskWriteOps": {
+          "avg": 3551,
+          "sum": 3551,
+          "count": 1
+        },
+        "StatusCheckFailed": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "StatusCheckFailed_Instance": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "StatusCheckFailed_System": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "MetadataNoToken": {
+          "avg": 4,
+          "sum": 4,
+          "count": 1
         }
       },
-      "cpu": {
-        "total": {
-          "pct": 0.6094
-        },
-        "credit_usage": 1.022,
-        "credit_balance": 299.956,
-        "surplus_credit_balance": 0,
-        "surplus_credits_charged": 0
-      },
-      "network": {
-        "in": {
-          "bytes": 883647470,
-          "bytes_per_sec": 300865.915,
-          "packets": 929062,
-          "packets_per_sec": 3227.677
-        },
-        "out": {
-          "bytes": 148224681,
-          "bytes_per_sec": 378356.706,
-          "packets": 974706,
-          "packets_per_sec": 6654.623
-        }
-      },
-      "diskio": {
-        "read": {
-          "bytes": 248728087,
-          "bytes_per_sec": 473276.725,
-          "count": 6170,
-          "count_per_sec": 931.967
-        },
-        "write": {
-          "bytes": 446896553,
-          "bytes_per_sec": 774107.141,
-          "count": 7265,
-          "count_per_sec": 908.029
-        }
-      },
-      "status": {
-        "check_failed": 0,
-        "check_failed_system": 0,
-        "check_failed_instance": 0
+      "dimensions": {
+        "InstanceId": "i-8z3qr9ln9dc",
+        "InstanceType": "c5.large",
+        "AutoScalingGroupName": "asg-web-ap-southeast-4"
       }
     }
-  },
-  "host": {
-    "hostname": "ip-191-64-241-249",
-    "os": {
-      "type": "linux",
-      "kernel": "5.10.106-38.amzn2.x86_64",
-      "version": "2"
-    },
-    "architecture": "arm64",
-    "cpu": {
-      "count": 4,
-      "usage": 0.60939
-    },
-    "disk": {
-      "read": {
-        "bytes": 217675801
-      },
-      "write": {
-        "bytes": 135975570
-      }
-    },
-    "network": {
-      "ingress": {
-        "bytes": 49829014
-      },
-      "egress": {
-        "bytes": 27674832
-      }
-    }
-  },
-  "log": {
-    "level": "info"
-  },
-  "event": {
-    "category": [
-      "host",
-      "process"
-    ],
-    "type": [
-      "info"
-    ],
-    "outcome": "success",
-    "dataset": "aws.ec2",
-    "provider": "ec2.amazonaws.com",
-    "duration": 175000000000
-  },
-  "message": "cloud-init: Cloud-init v. 22.2.2 running 'init-local'",
-  "data_stream": {
-    "type": "metrics",
-    "dataset": "aws.ec2_logs",
-    "namespace": "default"
   },
   "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+    "name": "ec2",
+    "period": 60000
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.ec2",
+    "namespace": "default"
+  },
+  "event": {
+    "dataset": "aws.ec2",
+    "module": "aws"
   }
 }

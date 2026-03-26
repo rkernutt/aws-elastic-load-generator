@@ -1,79 +1,69 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
-    },
-    "service": {
-      "name": "ecs"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
   },
   "aws": {
-    "dimensions": {
-      "ClusterName": "prod-cluster",
-      "ServiceName": "api-backend"
-    },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 7.531
-        },
-        "CPUReservation": {
-          "avg": 56.277
+          "avg": 83.78,
+          "sum": 83.78,
+          "count": 1
         },
         "MemoryUtilization": {
-          "avg": 30.355
+          "avg": 61.12,
+          "sum": 61.12,
+          "count": 1
         },
-        "MemoryReservation": {
-          "avg": 34.428
+        "RunningTaskCount": {
+          "avg": 14,
+          "sum": 14,
+          "count": 1
         },
-        "GPUReservation": {
-          "avg": 0
+        "PendingTaskCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "DesiredTaskCount": {
+          "avg": 13,
+          "sum": 13,
+          "count": 1
+        },
+        "ActiveConnectionCount": {
+          "avg": 1597,
+          "sum": 1597,
+          "count": 1
+        },
+        "NewConnectionCount": {
+          "avg": 320,
+          "sum": 320,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "ClusterName": "workers",
+        "ServiceName": "search-service"
       }
     }
   },
-  "container": {
-    "id": "m1qpvza1u4",
-    "name": "api-backend",
-    "image": {
-      "name": "java:3.11",
-      "tag": "1.24"
-    },
-    "runtime": "docker"
-  },
-  "process": {
-    "pid": 14200,
-    "name": "api-backend"
-  },
-  "log": {
-    "level": "info"
-  },
-  "event": {
-    "category": [
-      "process",
-      "container"
-    ],
-    "outcome": "success",
-    "dataset": "aws.ecs",
-    "provider": "ecs.amazonaws.com",
-    "duration": 494000000000
-  },
-  "message": "{\"cluster\":\"prod-cluster\",\"service\":\"api-backend\",\"taskId\":\"l68g97upry\",\"container\":\"api-backend\",\"level\":\"info\",\"message\":\"Health check passed\",\"timestamp\":\"2026-03-25T12:11:41.550Z\"}",
-  "service": {
-    "name": "api-backend",
-    "type": "ecs"
+  "metricset": {
+    "name": "ecs",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.ecs_metrics",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.ecs_metrics",
+    "module": "aws"
   }
 }

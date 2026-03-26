@@ -1,121 +1,60 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
-    },
-    "service": {
-      "name": "wafv2"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
   },
   "aws": {
-    "dimensions": {
-      "WebACL": "cdn-waf",
-      "Rule": "UserAgent_BadBots_HEADER",
-      "Region": "us-east-1"
-    },
     "waf": {
-      "id": "smlgklf12uq",
-      "arn": "arn:aws:wafv2:us-east-1:738291046572:regional/webacl/cdn-waf/dz49bx8q-gt5b-900q-4kqc-1ev6mw1qfrs",
-      "format_version": "1",
-      "source": {
-        "name": "APIGW",
-        "id": "738291046572-app/cdn-waf/u4bv40aq4e"
-      },
-      "rule_group_list": [
-        {
-          "ruleGroupId": "AWSManagedRulesSQLiRuleSet",
-          "nonTerminatingMatchingRules": []
-        }
-      ],
-      "non_terminating_matching_rules": [],
-      "terminating_rule_match_details": [],
-      "request": {
-        "headers": [
-          {
-            "name": "User-Agent",
-            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-          },
-          {
-            "name": "Host",
-            "value": "api.example.com"
-          }
-        ]
-      },
-      "labels": [],
       "metrics": {
         "AllowedRequests": {
-          "sum": 1
+          "avg": 2955284,
+          "sum": 2955284,
+          "count": 1
         },
         "BlockedRequests": {
-          "sum": 0
+          "avg": 305253,
+          "sum": 305253,
+          "count": 1
         },
         "CountedRequests": {
-          "sum": 0
+          "avg": 80438,
+          "sum": 80438,
+          "count": 1
         },
         "PassedRequests": {
-          "sum": 1
+          "avg": 2955284,
+          "sum": 2955284,
+          "count": 1
         },
-        "RequestsWithValidCaptchaToken": {
-          "sum": 0
-        },
-        "ChallengeRequests": {
-          "sum": 0
-        },
-        "FailedCaptcha": {
-          "sum": 0
+        "RequestWithNoRuleActionMatched": {
+          "avg": 8022,
+          "sum": 8022,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "WebACL": "api-waf",
+        "Rule": "RateLimitRule",
+        "Region": "sa-east-1"
       }
     }
   },
-  "source": {
-    "ip": "253.205.113.233",
-    "geo": {
-      "country_iso_code": "FR",
-      "country_name": "France",
-      "city_name": "Paris",
-      "location": {
-        "lat": 48.8566,
-        "lon": 2.3522
-      }
-    }
-  },
-  "http": {
-    "request": {
-      "method": "PATCH",
-      "bytes": 4402
-    }
-  },
-  "url": {
-    "path": "/api/v1/search"
-  },
-  "user_agent": {
-    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-  },
-  "event": {
-    "action": "allow",
-    "outcome": "success",
-    "category": [
-      "intrusion_detection",
-      "network"
-    ],
-    "dataset": "aws.waf",
-    "provider": "wafv2.amazonaws.com"
-  },
-  "message": "WAFv2 ALLOW [cdn-waf] 253.205.113.233 PATCH /api/v1/search",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "waf",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.waf",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.waf",
+    "module": "aws"
   }
 }

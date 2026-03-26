@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-south-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "Protocol": "WSS"
+      "Protocol": "MQTT"
     },
     "iotcore": {
-      "client_id": "thermostat-floor-3",
-      "thing_name": "thermostat-floor-3",
-      "thing_group": "fleet",
+      "client_id": "robot-arm-7",
+      "thing_name": "robot-arm-7",
+      "thing_group": "home-devices",
       "action": "PUBLISH",
       "topic": "dt/factory/sensors/temperature",
-      "protocol": "WSS",
-      "qos": 0,
-      "message_bytes": 37169,
-      "policy_name": "FleetPolicy",
+      "protocol": "MQTT",
+      "qos": 1,
+      "message_bytes": 58957,
+      "policy_name": "IoTDevicePolicy",
       "structured_logging": true,
       "rules_evaluated": 1,
       "metrics": {
         "Connect.Success": {
-          "sum": 262
+          "sum": 91
         },
         "Connect.Failure": {
           "sum": 0
         },
         "PublishIn.Success": {
-          "sum": 7808
+          "sum": 9439
         },
         "PublishIn.ClientError": {
           "sum": 0
@@ -44,49 +44,49 @@
           "sum": 0
         },
         "PublishOut.Success": {
-          "sum": 9285
+          "sum": 6403
         },
         "Publish.Success": {
-          "sum": 1901
+          "sum": 2213
         },
         "Publish.Failure": {
           "sum": 0
         },
         "Subscribe.Success": {
-          "sum": 445
+          "sum": 1136
         },
         "Subscribe.Failure": {
           "sum": 0
         },
         "Unsubscribe.Success": {
-          "sum": 142
+          "sum": 347
         },
         "Ping.Success": {
-          "sum": 9659
+          "sum": 7029
         },
         "Throttle.Success": {
-          "sum": 171
+          "sum": 59
         },
         "RulesMatched": {
-          "sum": 827
+          "sum": 683
         },
         "RulesFailed": {
           "sum": 0
         },
         "RulesNotMatched": {
-          "sum": 13
+          "sum": 72
         },
         "TopicMatch": {
-          "sum": 7173
+          "sum": 9810
         },
         "ClientConnections": {
-          "avg": 48393
+          "avg": 28178
         }
       }
     }
   },
   "source": {
-    "ip": "188.78.235.141"
+    "ip": "23.191.149.4"
   },
   "event": {
     "action": "PUBLISH",
@@ -97,9 +97,9 @@
     ],
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com",
-    "duration": 3000000
+    "duration": 162000000
   },
-  "message": "{\"clientId\":\"thermostat-floor-3\",\"action\":\"PUBLISH\",\"topic\":\"dt/factory/sensors/temperature\",\"message\":\"IoT Core PUBLISH: thermostat-floor-3 on dt/factory/sensors/temperature\",\"timestamp\":\"2026-03-25T12:11:41.550Z\"}",
+  "message": "{\"clientId\":\"robot-arm-7\",\"action\":\"PUBLISH\",\"topic\":\"dt/factory/sensors/temperature\",\"message\":\"IoT Core PUBLISH: robot-arm-7 on dt/factory/sensors/temperature\",\"timestamp\":\"2026-03-26T16:46:26.654Z\"}",
   "log": {
     "level": "info"
   }

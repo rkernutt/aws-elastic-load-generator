@@ -1,80 +1,74 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
-    },
-    "service": {
-      "name": "cloudfront"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
   },
   "aws": {
-    "dimensions": {
-      "DistributionId": "E5XV0GN4MSQU",
-      "Region": "Global"
-    },
     "cloudfront": {
-      "domain": "djcv5au761m.cloudfront.net",
-      "edge_location": "IAD89",
-      "edge_result_type": "Miss",
-      "edge_response_result_type": "Miss",
-      "edge_detailed_result_type": "RefreshHit",
-      "time_to_first_byte": 0.037
-    }
-  },
-  "http": {
-    "request": {
-      "method": "GET",
-      "bytes": 665
-    },
-    "response": {
-      "status_code": 200,
-      "bytes": 448678
-    }
-  },
-  "url": {
-    "path": "/assets/style.css",
-    "domain": "dgpeok7m8ywk.cloudfront.net"
-  },
-  "client": {
-    "ip": "72.190.125.43",
-    "geo": {
-      "country_iso_code": "US",
-      "country_name": "United States",
-      "city_name": "San Francisco",
-      "location": {
-        "lat": 37.7749,
-        "lon": -122.4194
+      "metrics": {
+        "Requests": {
+          "avg": 1563848,
+          "sum": 1563848,
+          "count": 1
+        },
+        "BytesDownloaded": {
+          "avg": 50678327134,
+          "sum": 50678327134,
+          "count": 1
+        },
+        "BytesUploaded": {
+          "avg": 216179525,
+          "sum": 216179525,
+          "count": 1
+        },
+        "TotalErrorRate": {
+          "avg": 0.19,
+          "sum": 0.19,
+          "count": 1
+        },
+        "4xxErrorRate": {
+          "avg": 0.2,
+          "sum": 0.2,
+          "count": 1
+        },
+        "5xxErrorRate": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "CacheHitRate": {
+          "avg": 94.85,
+          "sum": 94.85,
+          "count": 1
+        },
+        "OriginLatency": {
+          "avg": 76.47,
+          "sum": 76.47,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "DistributionId": "E1ABCDEF123456",
+        "Region": "Global"
       }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "web",
-      "network"
-    ],
-    "type": [
-      "access"
-    ],
-    "dataset": "aws.cloudfront_logs",
-    "provider": "cloudfront.amazonaws.com",
-    "duration": 37000000
-  },
-  "message": "GET /assets/style.css 200 [IAD89]",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "cloudfront",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
-    "dataset": "aws.cloudfront_logs",
+    "dataset": "aws.cloudfront",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.cloudfront",
+    "module": "aws"
   }
 }

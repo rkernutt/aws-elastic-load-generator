@@ -1,91 +1,58 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
-    },
-    "service": {
-      "name": "transitgateway"
+      "id": "738291046572",
+      "name": "globex-development"
     }
   },
   "aws": {
-    "dimensions": {
-      "TransitGateway": "tgw-i0e0c5uycj",
-      "TransitGatewayAttachment": "tgw-attach-zjy8sdr422b"
-    },
     "transitgateway": {
-      "tgw_id": "tgw-i0e0c5uycj",
-      "tgw_attachment_id": "tgw-attach-zjy8sdr422b",
-      "resource_type": "vpc",
-      "src_vpc_id": "vpc-g8xx5id4",
-      "dst_vpc_id": "vpc-x45xrhmo",
-      "action": "accept",
-      "bytes": 23159,
-      "packets": 60,
-      "protocol": "ICMP",
       "metrics": {
         "BytesIn": {
-          "sum": 1677290361
+          "avg": 11242638112,
+          "sum": 11242638112,
+          "count": 1
         },
         "BytesOut": {
-          "sum": 5468394028
+          "avg": 26531390723,
+          "sum": 26531390723,
+          "count": 1
         },
         "PacketsIn": {
-          "sum": 9721164
+          "avg": 86916258,
+          "sum": 86916258,
+          "count": 1
         },
         "PacketsOut": {
-          "sum": 1709780
+          "avg": 48682948,
+          "sum": 48682948,
+          "count": 1
         },
         "PacketDropCountBlackhole": {
-          "sum": 0
-        },
-        "PacketDropCountNoRoute": {
-          "sum": 0
-        },
-        "BytesDropCountBlackhole": {
-          "sum": 0
-        },
-        "BytesDropCountNoRoute": {
-          "sum": 0
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "TransitGateway": "tgw-686417212"
       }
     }
   },
-  "source": {
-    "ip": "140.193.198.245",
-    "port": 63974
-  },
-  "destination": {
-    "ip": "204.2.45.221",
-    "port": 3306
-  },
-  "network": {
-    "transport": "icmp",
-    "bytes": 20946
-  },
-  "event": {
-    "action": "accept",
-    "outcome": "success",
-    "category": [
-      "network"
-    ],
-    "dataset": "aws.transitgateway",
-    "provider": "ec2.amazonaws.com"
-  },
-  "message": "TGW tgw-i0e0c5uycj ACCEPT ICMP flow",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "transitgateway",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.transitgateway",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.transitgateway",
+    "module": "aws"
   }
 }

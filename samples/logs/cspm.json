@@ -1,0 +1,63 @@
+{
+  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "data_stream": {
+    "dataset": "cloud_security_posture.findings",
+    "namespace": "default",
+    "type": "logs"
+  },
+  "cloud": {
+    "provider": "aws",
+    "region": "me-south-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    }
+  },
+  "resource": {
+    "id": "arn:aws:config:me-south-1:814726593401:config-recorder/default",
+    "name": "default",
+    "sub_type": "config",
+    "type": "cloud-configuration"
+  },
+  "rule": {
+    "id": "cis_2_5",
+    "name": "Ensure AWS Config is enabled in all regions",
+    "section": "2.5",
+    "tags": [
+      "Config"
+    ],
+    "benchmark": {
+      "id": "cis_aws",
+      "version": "v1.5.0",
+      "rule_number": "2.5",
+      "posture_type": "cspm"
+    },
+    "impact": "Non-compliance with CIS AWS 2.5 may expose account to unauthorized access.",
+    "remediation": "Remediate per CIS AWS Foundations Benchmark v1.5.0 section 2.5."
+  },
+  "result": {
+    "evaluation": "failed"
+  },
+  "severity": "medium",
+  "event": {
+    "kind": "state",
+    "category": [
+      "configuration"
+    ],
+    "type": [
+      "info"
+    ],
+    "outcome": "failure",
+    "dataset": "cloud_security_posture.findings",
+    "provider": "elastic_cspm"
+  },
+  "message": "CSPM [CIS AWS 1.5 / 2.5] failed: Ensure AWS Config is enabled in all regions",
+  "log": {
+    "level": "warn"
+  },
+  "error": {
+    "code": "CIS_CIS_2_5",
+    "message": "CSPM check failed: Ensure AWS Config is enabled in all regions",
+    "type": "compliance"
+  }
+}

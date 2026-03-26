@@ -1,127 +1,126 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "ec2"
     },
     "instance": {
-      "id": "i-ko16a0q4i6b"
+      "id": "i-otftdekxfig"
     }
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "i-ko16a0q4i6b",
-      "InstanceType": "t3.medium",
-      "ImageId": "ami-mkmd2xw5",
-      "AutoScalingGroupName": "api-asg"
+      "InstanceId": "i-otftdekxfig",
+      "InstanceType": "m5.xlarge",
+      "ImageId": "ami-x6pr8k1u"
     },
     "ec2": {
       "instance": {
         "image": {
-          "id": "ami-owvg9fq6"
+          "id": "ami-b3e5vqa3"
         },
         "state": {
-          "name": "running",
-          "code": 16
+          "name": "stopped",
+          "code": 64
         },
         "monitoring": {
           "state": "disabled"
         },
         "core": {
-          "count": 2
+          "count": 4
         },
-        "type": "t3.medium",
+        "type": "m5.xlarge",
         "threads_per_core": 2,
         "private": {
-          "ip": "129.26.72.127",
-          "dns_name": "ip-37-195-110-80.us-east-1.compute.internal"
+          "ip": "200.163.191.139",
+          "dns_name": "ip-43-147-65-66.me-south-1.compute.internal"
         },
         "public": {
-          "ip": "55.171.66.173",
-          "dns_name": "ec2-165-61-116-220.compute-1.amazonaws.com"
+          "ip": "165.159.45.88",
+          "dns_name": "ec2-186-18-55-187.compute-1.amazonaws.com"
         }
       },
       "cpu": {
         "total": {
-          "pct": 0.6094
+          "pct": 0.483
         },
-        "credit_usage": 1.022,
-        "credit_balance": 299.956,
+        "credit_usage": 3.115,
+        "credit_balance": 338.53,
         "surplus_credit_balance": 0,
         "surplus_credits_charged": 0
       },
       "network": {
         "in": {
-          "bytes": 883647470,
-          "bytes_per_sec": 300865.915,
-          "packets": 929062,
-          "packets_per_sec": 3227.677
+          "bytes": 947816398,
+          "bytes_per_sec": 751808.119,
+          "packets": 137404,
+          "packets_per_sec": 8447.779
         },
         "out": {
-          "bytes": 148224681,
-          "bytes_per_sec": 378356.706,
-          "packets": 974706,
-          "packets_per_sec": 6654.623
+          "bytes": 623177352,
+          "bytes_per_sec": 473971.418,
+          "packets": 939823,
+          "packets_per_sec": 4908.601
         }
       },
       "diskio": {
         "read": {
-          "bytes": 248728087,
-          "bytes_per_sec": 473276.725,
-          "count": 6170,
-          "count_per_sec": 931.967
+          "bytes": 764657892,
+          "bytes_per_sec": 270372.627,
+          "count": 6564,
+          "count_per_sec": 767.787
         },
         "write": {
-          "bytes": 446896553,
-          "bytes_per_sec": 774107.141,
-          "count": 7265,
-          "count_per_sec": 908.029
+          "bytes": 884816117,
+          "bytes_per_sec": 936438.416,
+          "count": 5090,
+          "count_per_sec": 124.633
         }
       },
       "status": {
-        "check_failed": 0,
+        "check_failed": 1,
         "check_failed_system": 0,
-        "check_failed_instance": 0
+        "check_failed_instance": 1
       }
     }
   },
   "host": {
-    "hostname": "ip-191-64-241-249",
+    "hostname": "ip-189-186-98-134",
     "os": {
       "type": "linux",
-      "kernel": "5.10.106-38.amzn2.x86_64",
+      "kernel": "5.10.124-70.amzn2.x86_64",
       "version": "2"
     },
     "architecture": "arm64",
     "cpu": {
-      "count": 4,
-      "usage": 0.60939
+      "count": 8,
+      "usage": 0.48301
     },
     "disk": {
       "read": {
-        "bytes": 217675801
+        "bytes": 180642438
       },
       "write": {
-        "bytes": 135975570
+        "bytes": 523847705
       }
     },
     "network": {
       "ingress": {
-        "bytes": 49829014
+        "bytes": 118388308
       },
       "egress": {
-        "bytes": 27674832
+        "bytes": 935708405
       }
     }
   },
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "event": {
     "category": [
@@ -129,12 +128,17 @@
       "process"
     ],
     "type": [
-      "info"
+      "error"
     ],
-    "outcome": "success",
+    "outcome": "failure",
     "dataset": "aws.ec2",
     "provider": "ec2.amazonaws.com",
-    "duration": 175000000000
+    "duration": 3463000000000
   },
-  "message": "cloud-init: Cloud-init v. 22.2.2 running 'init-local'"
+  "message": "{\"instanceId\":\"i-otftdekxfig\",\"instanceType\":\"m5.xlarge\",\"level\":\"error\",\"message\":\"systemd: Failed to start Amazon SSM Agent.\",\"timestamp\":\"2026-03-26T16:46:26.654Z\",\"component\":\"awslogs\"}",
+  "error": {
+    "code": "InvalidInstanceID.NotFound",
+    "message": "Failed to start NetworkManager",
+    "type": "host"
+  }
 }

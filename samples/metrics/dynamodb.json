@@ -1,115 +1,89 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ca-central-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
-    },
-    "service": {
-      "name": "dynamodb"
     }
   },
   "aws": {
-    "dimensions": {
-      "TableName": "events",
-      "Operation": "DeleteItem"
-    },
     "dynamodb": {
-      "table_name": "events",
-      "operation": "DeleteItem",
-      "consumed_read_capacity_units": 21.262,
-      "consumed_write_capacity_units": 42.35,
-      "items_count": 881,
-      "structured_logging": false,
       "metrics": {
-        "AccountMaxReads": {
-          "max": 338408
-        },
-        "AccountMaxWrites": {
-          "max": 635237
-        },
-        "AccountMaxTableLevelReads": {
-          "max": 89267
-        },
-        "AccountMaxTableLevelWrites": {
-          "max": 68693
-        },
-        "AccountProvisionedReadCapacityUtilization": {
-          "avg": 51.476
-        },
         "ConsumedReadCapacityUnits": {
-          "sum": 318
+          "avg": 5668,
+          "sum": 340080,
+          "count": 1
         },
         "ConsumedWriteCapacityUnits": {
-          "sum": 484
+          "avg": 667,
+          "sum": 40020,
+          "count": 1
         },
         "ProvisionedReadCapacityUnits": {
-          "avg": 1859
+          "avg": 8502,
+          "sum": 8502,
+          "count": 1
         },
         "ProvisionedWriteCapacityUnits": {
-          "avg": 969
+          "avg": 1000.5,
+          "sum": 1000.5,
+          "count": 1
         },
         "ReadThrottleEvents": {
-          "sum": 0
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "WriteThrottleEvents": {
-          "sum": 0
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "SystemErrors": {
-          "sum": 0
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "UserErrors": {
-          "sum": 0
+          "avg": 9,
+          "sum": 9,
+          "count": 1
         },
         "SuccessfulRequestLatency": {
-          "avg": 0.157,
-          "max": 13.828
-        },
-        "ThrottledRequests": {
-          "sum": 0
-        },
-        "TransactionConflict": {
-          "sum": 0
+          "avg": 2.5,
+          "sum": 2.5,
+          "count": 1
         },
         "ReturnedItemCount": {
-          "avg": 864
+          "avg": 309,
+          "sum": 309,
+          "count": 1
         },
-        "ReturnedBytes": {
-          "avg": 714729
+        "TransactionConflict": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "TableName": "sessions",
+        "Operation": "PutItem"
       }
     }
   },
-  "db": {
-    "name": "events",
-    "operation": "DeleteItem",
-    "type": "nosql"
-  },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "database"
-    ],
-    "type": [
-      "access"
-    ],
-    "dataset": "aws.dynamodb",
-    "provider": "dynamodb.amazonaws.com",
-    "duration": 27000000
-  },
-  "message": "DynamoDB DeleteItem events: consumed 21.262 RCU, 42.35 WCU",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "dynamodb",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.dynamodb",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.dynamodb",
+    "module": "aws"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-north-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "kinesisanalytics"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "kinesisanalytics": {
-      "application_name": "session-aggregator",
-      "application_arn": "arn:aws:kinesisanalytics:eu-west-2:814726593401:application/session-aggregator",
-      "runtime": "FLINK-1_15",
-      "records_per_second": 1881,
-      "input_watermark_lag_ms": 10,
+      "application_name": "anomaly-detector",
+      "application_arn": "arn:aws:kinesisanalytics:eu-north-1:293847561023:application/anomaly-detector",
+      "runtime": "SQL-1_0",
+      "records_per_second": 7882,
+      "input_watermark_lag_ms": 974,
       "checkpointing_enabled": true,
-      "last_checkpoint_duration_ms": 532,
-      "kpu_count": 42,
+      "last_checkpoint_duration_ms": 1582,
+      "kpu_count": 41,
       "structured_logging": true,
       "metrics": {
-        "records_in_per_second": 1881,
-        "input_watermark_lag_ms": 10,
-        "kpu_utilization_pct": 73,
-        "checkpoint_duration_ms": 303
+        "records_in_per_second": 7882,
+        "input_watermark_lag_ms": 974,
+        "kpu_utilization_pct": 25,
+        "checkpoint_duration_ms": 128
       }
     }
   },
@@ -35,9 +35,9 @@
     "category": "process",
     "dataset": "aws.kinesisanalytics",
     "provider": "kinesisanalytics.amazonaws.com",
-    "duration": 1110000000
+    "duration": 1997000000
   },
-  "message": "{\"applicationName\":\"session-aggregator\",\"recordsPerSecond\":1881,\"inputWatermarkLagMs\":10,\"level\":\"info\",\"message\":\"Kinesis Analytics session-aggregator: 1881 rec/s, lag 422ms\",\"timestamp\":\"2026-03-25T12:11:41.550Z\"}",
+  "message": "{\"applicationName\":\"anomaly-detector\",\"recordsPerSecond\":7882,\"inputWatermarkLagMs\":974,\"level\":\"info\",\"message\":\"Kinesis Analytics anomaly-detector: 7882 rec/s, lag 285ms\",\"timestamp\":\"2026-03-26T16:46:26.654Z\"}",
   "log": {
     "level": "info"
   }

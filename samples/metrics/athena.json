@@ -1,75 +1,88 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
-    },
-    "service": {
-      "name": "athena"
+      "id": "814726593401",
+      "name": "globex-production"
     }
   },
   "aws": {
     "athena": {
-      "query_id": "xuwz16ls-4u3x-uzaq-wjuj",
-      "workgroup": "analytics",
-      "database": "analytics",
-      "state": "SUCCEEDED",
-      "duration_seconds": 13.561,
-      "data_scanned_bytes": 2838975056,
-      "data_scanned_mb": 2707,
-      "engine_version": "Athena engine version 3",
-      "structured_logging": true,
       "metrics": {
-        "DataScannedInBytes": {
-          "sum": 2838975056
+        "TotalExecutionTime": {
+          "avg": 15563.73,
+          "sum": 15563.73,
+          "count": 1
         },
-        "EngineExecutionTimeInMillis": {
-          "avg": 13561,
-          "max": 20342
+        "QueryPlanningTime": {
+          "avg": 725.07,
+          "sum": 725.07,
+          "count": 1
+        },
+        "QueryQueueTime": {
+          "avg": 294.49,
+          "sum": 294.49,
+          "count": 1
+        },
+        "ServicePreProcessingTime": {
+          "avg": 84.17,
+          "sum": 84.17,
+          "count": 1
+        },
+        "EngineExecutionTime": {
+          "avg": 12649.95,
+          "sum": 12649.95,
+          "count": 1
+        },
+        "DataScannedInBytes": {
+          "avg": 5341281952069,
+          "sum": 5341281952069,
+          "count": 1
         },
         "ProcessedBytes": {
-          "sum": 2838975056
+          "avg": 3619954842831,
+          "sum": 3619954842831,
+          "count": 1
         },
-        "QueryQueueTimeInMillis": {
-          "avg": 260
+        "ExecutionRequestsCount": {
+          "avg": 4881,
+          "sum": 4881,
+          "count": 1
         },
-        "TotalExecutionTimeInMillis": {
-          "avg": 13561
+        "CanceledExecutionRequestsCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
-        "QueryPlanningTimeInMillis": {
-          "avg": 149
+        "FailedExecutionRequestsCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "SuccessfulExecutionRequestsCount": {
+          "avg": 4881,
+          "sum": 4881,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "WorkGroup": "data-science"
       }
     }
   },
-  "db": {
-    "statement": "SELECT user_id, sum(revenue) FROM transactions WHERE dt >= '2024-01-01' GROUP BY 1",
-    "type": "sql"
-  },
-  "event": {
-    "duration": 13561000000,
-    "outcome": "success",
-    "category": [
-      "database",
-      "process"
-    ],
-    "dataset": "aws.athena",
-    "provider": "athena.amazonaws.com"
-  },
-  "message": "{\"queryId\":\"xuwz16ls-4u3x-uzaq-wjuj\",\"workgroup\":\"analytics\",\"database\":\"analytics\",\"state\":\"SUCCEEDED\",\"durationSeconds\":13.561,\"dataScannedBytes\":2838975056,\"timestamp\":\"2026-03-25T12:11:41.550Z\"}",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "athena",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.athena",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.athena",
+    "module": "aws"
   }
 }

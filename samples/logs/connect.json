@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-northeast-3",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "d8o0pgf0-8rh7-8dkj-fubq-c9kyw8lp5x9",
+      "InstanceId": "zj3be4b2-8s8o-kccg-g1z6-sp6hv5tlvm",
       "MetricGroup": "Queue"
     },
     "connect": {
-      "instance_id": "d8o0pgf0-8rh7-8dkj-fubq-c9kyw8lp5x9",
-      "contact_id": "5e9sl5do-h8bi-iyg9",
-      "channel": "TASK",
+      "instance_id": "zj3be4b2-8s8o-kccg-g1z6-sp6hv5tlvm",
+      "contact_id": "u6y5nzo0-nvrs-55zm",
+      "channel": "VOICE",
       "initiation_method": "TASK",
       "queue_name": "TechSupport",
-      "agent_id": "agent-bob",
-      "duration_seconds": 423,
-      "hold_duration_seconds": 42,
-      "queue_wait_time_seconds": 247,
-      "disconnect_reason": "AGENT_DISCONNECT",
+      "agent_id": "agent-alice",
+      "duration_seconds": 1387,
+      "hold_duration_seconds": 52,
+      "queue_wait_time_seconds": 273,
+      "disconnect_reason": "EXPIRED",
       "sentiment_overall": "POSITIVE",
-      "contact_lens_enabled": false,
+      "contact_lens_enabled": true,
       "lex_bot_interacted": true,
       "metrics": {
         "ContactsQueued": {
@@ -44,25 +44,25 @@
           "sum": 0
         },
         "AverageHandleTime": {
-          "avg": 423
+          "avg": 1387
         },
         "AverageAfterContactWorkTime": {
-          "avg": 245
+          "avg": 186
         },
         "AverageQueueAnswerTime": {
-          "avg": 41
+          "avg": 24
         },
         "ServiceLevel": {
-          "avg": 67.769
+          "avg": 84.922
         },
         "OccupancyTime": {
-          "avg": 66.686
+          "avg": 73.971
         }
       }
     }
   },
   "event": {
-    "duration": 423000000000,
+    "duration": 1387000000000,
     "outcome": "success",
     "category": [
       "host",
@@ -71,8 +71,8 @@
     "dataset": "aws.connect",
     "provider": "connect.amazonaws.com"
   },
-  "message": "Connect TASK: TechSupport agent=agent-bob, 423s, POSITIVE",
+  "message": "Connect TASK: TechSupport agent=agent-alice, 1387s, POSITIVE",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

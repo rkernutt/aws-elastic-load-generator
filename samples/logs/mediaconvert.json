@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "mediaconvert"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "DASH"
+      "Operation": "HLS"
     },
     "mediaconvert": {
-      "job_id": "5728574820-zlyeug",
-      "queue_arn": "arn:aws:mediaconvert:us-east-1:501938274650:queues/batch",
+      "job_id": "4907094262-itk2id",
+      "queue_arn": "arn:aws:mediaconvert:eu-central-1:293847561023:queues/batch",
       "job_status": "COMPLETE",
-      "output_group_type": "DASH",
-      "input_file": "s3://uploads/user-video.mp4",
-      "input_duration_minutes": 41.048,
-      "video_codec": "MPEG2",
-      "audio_codec": "AC3",
-      "width": 1280,
-      "height": 1080,
-      "bitrate_kbps": 5000,
-      "duration_seconds": 387,
+      "output_group_type": "HLS",
+      "input_file": "s3://media-input/broadcast/live.mxf",
+      "input_duration_minutes": 17.577,
+      "video_codec": "AV1",
+      "audio_codec": "AAC",
+      "width": 1920,
+      "height": 720,
+      "bitrate_kbps": 3000,
+      "duration_seconds": 1075,
       "metrics": {
         "JobsCompletedCount": {
           "sum": 1
@@ -36,16 +36,16 @@
           "sum": 0
         },
         "StandbyTime": {
-          "avg": 216
+          "avg": 70
         },
         "TranscodingTime": {
-          "avg": 387
+          "avg": 1075
         }
       }
     }
   },
   "event": {
-    "duration": 387000000000,
+    "duration": 1075000000000,
     "outcome": "success",
     "category": [
       "process"
@@ -53,7 +53,7 @@
     "dataset": "aws.mediaconvert",
     "provider": "mediaconvert.amazonaws.com"
   },
-  "message": "MediaConvert job 5728574820-zlyeug COMPLETE: 41.0 min -> DASH",
+  "message": "MediaConvert job 4907094262-itk2id COMPLETE: 17.6 min -> HLS",
   "log": {
     "level": "info"
   }

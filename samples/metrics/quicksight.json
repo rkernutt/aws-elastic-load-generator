@@ -1,79 +1,68 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ca-central-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
-    },
-    "service": {
-      "name": "quicksight"
     }
   },
   "aws": {
-    "dimensions": {
-      "DashboardId": "3zysl6cojoi",
-      "DataSetId": "uqqu1sg2pkq"
-    },
     "quicksight": {
-      "dashboard_id": "3zysl6cojoi",
-      "dashboard_name": "executive-overview",
-      "dataset_id": "uqqu1sg2pkq",
-      "action": "RefreshDataSet",
-      "user_name": "bob@corp.com",
-      "data_source_type": "REDSHIFT",
-      "query_duration_ms": 2245,
-      "rows_returned": 4920,
       "metrics": {
-        "DashboardViewEvents": {
-          "sum": 633
+        "DashboardsCreated": {
+          "avg": 14,
+          "sum": 14,
+          "count": 1
         },
-        "SessionEvent": {
-          "sum": 38
+        "DashboardsPublished": {
+          "avg": 8,
+          "sum": 8,
+          "count": 1
         },
-        "SPICECapacityUsed": {
-          "avg": 77.753
+        "DashboardsViewed": {
+          "avg": 169,
+          "sum": 169,
+          "count": 1
         },
-        "SPICECapacityScheduled": {
-          "avg": 37.133
+        "QueriesCount": {
+          "avg": 10932,
+          "sum": 10932,
+          "count": 1
         },
-        "EmbedCallCount": {
-          "sum": 270
+        "QueryDuration": {
+          "avg": 379.51,
+          "sum": 379.51,
+          "count": 1
         },
-        "ClientError": {
-          "sum": 0
+        "QueryErrors": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
-        "RowLevelSecurityEnabled": {
-          "avg": 0
+        "SPICEIngestionErrors": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "AwsAccountId": "738291046572"
       }
     }
   },
-  "user": {
-    "name": "bob@corp.com"
-  },
-  "event": {
-    "duration": 2245000000,
-    "outcome": "success",
-    "category": [
-      "web",
-      "process"
-    ],
-    "dataset": "aws.quicksight",
-    "provider": "quicksight.amazonaws.com"
-  },
-  "message": "QuickSight RefreshDataSet: executive-overview loaded in 2245ms for bob@corp.com",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "quicksight",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.quicksight",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.quicksight",
+    "module": "aws"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "securitylake"
@@ -22,49 +22,49 @@
       "class_name": "HTTP Activity",
       "category_uid": 4,
       "category_name": "Network Activity",
-      "activity_id": 2,
-      "activity_name": "Update",
-      "severity_id": 6,
-      "severity": "Critical",
-      "status_id": 2,
-      "status": "Failure",
-      "time": 1774440701550,
+      "activity_id": 1,
+      "activity_name": "Delete",
+      "severity_id": 1,
+      "severity": "Informational",
+      "status_id": 1,
+      "status": "Success",
+      "time": 1774543586654,
       "metadata": {
         "version": "1.1.0",
         "product": {
           "name": "ALB",
           "vendor_name": "AWS"
         },
-        "uid": "v68224vb-dejo-08gk-ph1v-6b5dy7bjyb9"
+        "uid": "q76y9sr6-qc9t-btgx-nbgd-azmcfu9rg6i"
       },
       "ocsf_cloud": {
         "provider": "AWS",
         "account": {
-          "uid": "738291046572"
+          "uid": "293847561023"
         },
-        "region": "us-east-1"
+        "region": "ap-northeast-3"
       },
       "http_request": {
-        "method": "PATCH",
+        "method": "POST",
         "url": {
-          "path": "/api/v1/users",
+          "path": "/api/v2/events",
           "hostname": "api.example.com"
         },
-        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+        "user_agent": "python-requests/2.27.1"
       },
       "http_response": {
-        "code": 500
+        "code": 201
       },
       "src_endpoint": {
-        "ip": "161.203.89.173"
+        "ip": "178.239.191.69"
       },
       "dst_endpoint": {
-        "ip": "97.0.244.146"
+        "ip": "95.169.192.180"
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "intrusion_detection",
       "network"
@@ -72,13 +72,8 @@
     "dataset": "aws.securitylake",
     "provider": "securitylake.amazonaws.com"
   },
-  "message": "Security Lake [HTTP Activity/Update] Critical: ALB failure",
+  "message": "Security Lake [HTTP Activity/Delete] Informational: ALB success",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "SecurityEvent",
-    "message": "Security Lake HTTP Activity failure",
-    "type": "security"
+    "level": "info"
   }
 }

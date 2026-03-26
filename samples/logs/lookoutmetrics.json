@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "lookoutmetrics"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "AnomalyDetector": "conversion-drop",
-      "Metric": "p99_latency"
+      "AnomalyDetector": "latency-outlier",
+      "Metric": "api_calls"
     },
     "lookoutmetrics": {
-      "anomaly_detector_arn": "arn:aws:lookoutmetrics:us-east-1:738291046572:AnomalyDetector:conversion-drop",
-      "anomaly_group_id": "2dp25bo3dcy",
-      "metric_name": "p99_latency",
+      "anomaly_detector_arn": "arn:aws:lookoutmetrics:sa-east-1:293847561023:AnomalyDetector:latency-outlier",
+      "anomaly_group_id": "sdz64lmdpe9",
+      "metric_name": "api_calls",
       "severity": "LOW",
-      "anomaly_score": 3.649,
-      "relevant_dates": 30,
-      "impact_value": 88.167,
-      "expected_value": 6856.096,
-      "actual_value": 3259.227,
+      "anomaly_score": 26.37,
+      "relevant_dates": 3,
+      "impact_value": 178.122,
+      "expected_value": 2349.293,
+      "actual_value": 10115.845,
       "dimension": {
         "environment": "prod"
       },
-      "sensitivity": "HIGH"
+      "sensitivity": "LOW"
     }
   },
   "event": {
@@ -40,7 +40,7 @@
     "dataset": "aws.lookoutmetrics",
     "provider": "lookoutmetrics.amazonaws.com"
   },
-  "message": "Lookout for Metrics [conversion-drop]: p99_latency anomaly_score=4",
+  "message": "Lookout for Metrics [latency-outlier]: api_calls anomaly_score=26",
   "log": {
     "level": "info"
   }

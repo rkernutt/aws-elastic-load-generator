@@ -23,42 +23,37 @@ function stripNulls(obj) {
 }
 
 const { GENERATORS } = await import("../src/generators/index.js");
-const {
-  METRICS_SUPPORTED_SERVICE_IDS,
-  ELASTIC_METRICS_DATASET_MAP,
-  ELASTIC_DATASET_MAP,
-} = await import("../src/data/elasticMaps.js");
+const { METRICS_GENERATORS } = await import("../src/generators/metrics/index.js");
 
 fs.mkdirSync(logsDir, { recursive: true });
 fs.mkdirSync(metricsDir, { recursive: true });
 
+// ── Log samples ───────────────────────────────────────────────────────────────
 let logCount = 0;
-let metricsCount = 0;
 for (const [id, fn] of Object.entries(GENERATORS)) {
-  const doc = stripNulls(fn(ts, errorRate));
-
+  const result = fn(ts, errorRate);
+  // Chain generators return arrays — write first doc; strip __dataset routing key
+  const raw = Array.isArray(result) ? result[0] : result;
+  const { __dataset, ...doc } = stripNulls(raw);
   fs.writeFileSync(
     path.join(logsDir, `${id}.json`),
     JSON.stringify(doc, null, 2),
     "utf8"
   );
   logCount++;
+}
 
-  if (METRICS_SUPPORTED_SERVICE_IDS.has(id)) {
-    const dataset =
-      ELASTIC_METRICS_DATASET_MAP[id] ?? ELASTIC_DATASET_MAP[id] ?? `aws.${id}`;
-    const metricsDoc = {
-      ...doc,
-      data_stream: { type: "metrics", dataset, namespace: "default" },
-      metricset: { name: "cloudwatch", period: 300000 },
-    };
-    fs.writeFileSync(
-      path.join(metricsDir, `${id}.json`),
-      JSON.stringify(metricsDoc, null, 2),
-      "utf8"
-    );
-    metricsCount++;
-  }
+// ── Metrics samples — use dimensional generators for true CloudWatch shape ────
+let metricsCount = 0;
+for (const [id, fn] of Object.entries(METRICS_GENERATORS)) {
+  const docs = fn(ts, errorRate);
+  const doc  = stripNulls(Array.isArray(docs) ? docs[0] : docs);
+  fs.writeFileSync(
+    path.join(metricsDir, `${id}.json`),
+    JSON.stringify(doc, null, 2),
+    "utf8"
+  );
+  metricsCount++;
 }
 
 console.log(

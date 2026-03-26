@@ -1,79 +1,58 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
-    },
-    "service": {
-      "name": "fsx"
+      "id": "738291046572",
+      "name": "globex-development"
     }
   },
   "aws": {
-    "dimensions": {
-      "FileSystemId": "fs-w6weycw254h"
-    },
     "fsx": {
-      "file_system_id": "fs-w6weycw254h",
-      "file_system_type": "NETAPP_ONTAP",
-      "deployment_type": "MULTI_AZ_1",
-      "storage_capacity_gb": 2400,
-      "throughput_capacity_mbps": 2048,
-      "storage_used_percent": 69,
       "metrics": {
         "DataReadBytes": {
-          "sum": 892840589
+          "avg": 4575149527,
+          "sum": 4575149527,
+          "count": 1
         },
         "DataWriteBytes": {
-          "sum": 811086242
+          "avg": 3828754501,
+          "sum": 3828754501,
+          "count": 1
         },
         "DataReadOperations": {
-          "sum": 2573
+          "avg": 63760,
+          "sum": 63760,
+          "count": 1
         },
         "DataWriteOperations": {
-          "sum": 5196
-        },
-        "MetadataOperations": {
-          "sum": 4325
+          "avg": 45115,
+          "sum": 45115,
+          "count": 1
         },
         "FreeStorageCapacity": {
-          "avg": 24313157049
-        },
-        "StorageCapacity": {
-          "avg": 454328440598
-        },
-        "CPUUtilization": {
-          "avg": 11.992
-        },
-        "NetworkThroughputUtilization": {
-          "avg": 28.465
+          "avg": 67990272296.36,
+          "sum": 67990272296.36,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "FileSystemId": "fs-kgw1u2rr"
       }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "host",
-      "file"
-    ],
-    "dataset": "aws.fsx",
-    "provider": "fsx.amazonaws.com",
-    "duration": 3749000000
-  },
-  "message": "Storage capacity scaling complete",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "fsx",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.fsx",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.fsx",
+    "module": "aws"
   }
 }

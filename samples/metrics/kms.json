@@ -1,61 +1,63 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-central-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
-    },
-    "service": {
-      "name": "kms"
     }
   },
   "aws": {
     "kms": {
-      "key_id": "a13p0wo8-y3zk-3dmf-ej0f-580lhzrrmh9",
-      "key_alias": "alias/prod-s3-key",
-      "operation": "Decrypt",
-      "principal_arn": "arn:aws:iam::501938274650:role/lambda-role",
-      "key_state": "Enabled",
-      "encryption_algorithm": "RSAES_OAEP_SHA_256",
       "metrics": {
-        "SecretsManagerCrossAccountBlocking": {
-          "sum": 0
+        "Encrypt": {
+          "avg": 9009,
+          "sum": 9009,
+          "count": 1
         },
-        "KeysCount": {
-          "avg": 486
+        "Decrypt": {
+          "avg": 23264,
+          "sum": 23264,
+          "count": 1
         },
-        "KeysPendingDeletion": {
-          "avg": 5
+        "GenerateDataKey": {
+          "avg": 3683,
+          "sum": 3683,
+          "count": 1
         },
-        "KeysDisabled": {
-          "avg": 1
+        "Sign": {
+          "avg": 1319,
+          "sum": 1319,
+          "count": 1
+        },
+        "Verify": {
+          "avg": 21,
+          "sum": 21,
+          "count": 1
+        },
+        "KeyRotation": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "KeyId": "mrk-aabbccddeeff0011"
       }
     }
   },
-  "event": {
-    "action": "Decrypt",
-    "outcome": "success",
-    "category": [
-      "authentication",
-      "configuration"
-    ],
-    "dataset": "aws.kms",
-    "provider": "kms.amazonaws.com"
-  },
-  "message": "KMS Decrypt: alias/prod-s3-key",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "kms",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.kms",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.kms",
+    "module": "aws"
   }
 }

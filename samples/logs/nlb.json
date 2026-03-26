@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "nlb"
@@ -13,50 +13,56 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "net/prod-nlb-us-east-1/1ukkwjgwnfu",
-      "TargetGroup": "targetgroup/tg-web/2p0su6q1kyo",
-      "AvailabilityZone": "us-east-1b"
+      "LoadBalancer": "net/prod-nlb-eu-south-1/xpgmiecpi5r",
+      "TargetGroup": "targetgroup/tg-api/sy81d6bflns",
+      "AvailabilityZone": "eu-south-1a"
     },
     "elb": {
-      "name": "net/prod-nlb-us-east-1/1ukkwjgwnfu",
+      "name": "net/prod-nlb-eu-south-1/xpgmiecpi5r",
       "type": "network",
-      "listener": "arn:aws:elasticloadbalancing:us-east-1:738291046572:listener/net/prod-nlb/jkx6cqtxtg/qf3846zwoc",
+      "listener": "arn:aws:elasticloadbalancing:eu-south-1:814726593401:listener/net/prod-nlb/ju176aazsnn/cgfeuj7rhlg",
       "protocol": "UDP",
-      "connection_time.ms": 4845,
-      "backend.ip": "235.169.55.99",
-      "backend.port": "80",
-      "received_bytes": 204992,
-      "sent_bytes": 618748
+      "connection_time.ms": 27010,
+      "backend.ip": "2.143.17.7",
+      "backend.port": "8080",
+      "error.reason": "target_not_found",
+      "received_bytes": 104075,
+      "sent_bytes": 203825
     }
   },
   "source": {
-    "ip": "63.78.80.84",
-    "port": 36887,
+    "ip": "161.169.252.228",
+    "port": 28493,
     "geo": {
-      "country_iso_code": "JP",
-      "country_name": "Japan",
-      "city_name": "Tokyo",
+      "country_iso_code": "ZA",
+      "country_name": "South Africa",
+      "city_name": "Johannesburg",
       "location": {
-        "lat": 35.6762,
-        "lon": 139.6503
+        "lat": -26.2041,
+        "lon": 28.0473
       }
     }
   },
   "network": {
     "transport": "udp",
-    "bytes": 204992
+    "bytes": 104075
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "network"
     ],
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com",
-    "duration": 4845000000
+    "duration": 27010000000
   },
-  "message": "NLB UDP:80 204992B in 4845ms",
+  "message": "NLB UDP:8080 connection target_not_found",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "target_not_found",
+    "message": "NLB connection target_not_found",
+    "type": "network"
   }
 }

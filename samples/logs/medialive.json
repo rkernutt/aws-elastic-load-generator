@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "medialive"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "ChannelId": "R68W4DMMBU",
+      "ChannelId": "1AEJ08FU5W5",
       "Pipeline": "PIPELINE_0"
     },
     "medialive": {
-      "channel_id": "R68W4DMMBU",
-      "channel_name": "live-news",
+      "channel_id": "1AEJ08FU5W5",
+      "channel_name": "sports-event-1",
       "channel_state": "IDLE",
       "pipeline": "PIPELINE_0",
-      "input_type": "RTP_PUSH",
-      "output_type": "DASH",
-      "video_bitrate_kbps": 9481,
+      "input_type": "RTMP_PUSH",
+      "output_type": "HLS",
+      "video_bitrate_kbps": 9905,
       "input_loss_frames": 0,
-      "encoder_fps": 60,
+      "encoder_fps": 29.97,
       "metrics": {
         "ActiveAlerts": {
           "sum": 0
@@ -34,7 +34,7 @@
           "sum": 0
         },
         "NetworkOut": {
-          "avg": 17366275
+          "avg": 28500889
         },
         "OutputLossSeconds": {
           "sum": 0
@@ -52,9 +52,9 @@
     ],
     "dataset": "aws.medialive",
     "provider": "medialive.amazonaws.com",
-    "duration": 7041000000
+    "duration": 9603000000
   },
-  "message": "Input switch to backup completed",
+  "message": "Pipeline A running, Pipeline B standby",
   "log": {
     "level": "info"
   }

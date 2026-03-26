@@ -1,107 +1,66 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-3",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
-    },
-    "service": {
-      "name": "lambda"
     }
   },
-  "trace": {
-    "id": "1-hzz9qm1k-kp0bbdbe7zm"
-  },
   "aws": {
-    "dimensions": {
-      "FunctionName": "user-auth",
-      "Resource": "user-auth:$LATEST",
-      "ExecutedVersion": "$LATEST"
-    },
-    "cloudwatch": {
-      "log_group": "/aws/lambda/user-auth",
-      "log_stream": "2026-03-25/[$LATEST]uh1ybtm2o9f"
-    },
     "lambda": {
-      "function": {
-        "name": "user-auth",
-        "version": "$LATEST",
-        "arn": "arn:aws:lambda:us-east-1:293847561023:function:user-auth"
-      },
-      "request_id": "kau0x2cr-t9k2-7997-n0s0-07syis59d0hs",
-      "trace_id": "1-hzz9qm1k-kp0bbdbe7zm",
-      "event_type": "start",
       "metrics": {
         "Invocations": {
-          "sum": 1,
-          "avg": 1
+          "avg": 6919,
+          "sum": 6919,
+          "count": 1
         },
         "Errors": {
-          "sum": 0,
-          "avg": 0
-        },
-        "Throttles": {
-          "sum": 0,
-          "avg": 0
+          "avg": 45,
+          "sum": 45,
+          "count": 1
         },
         "Duration": {
-          "avg": 32.413,
-          "max": 38.895599999999995
+          "avg": 524.04,
+          "sum": 524.04,
+          "count": 1,
+          "max": 1002.68,
+          "min": 152.87
+        },
+        "Throttles": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "ConcurrentExecutions": {
-          "avg": 352
-        },
-        "UnreservedConcurrentExecutions": {
-          "avg": 508
+          "avg": 246,
+          "sum": 246,
+          "count": 1
         },
         "DeadLetterErrors": {
+          "avg": 0,
           "sum": 0,
-          "avg": 0
-        },
-        "IteratorAge": {
-          "avg": 0
-        },
-        "AsyncEventsReceived": {
-          "sum": 1
-        },
-        "AsyncEventAge": {
-          "avg": 2595
-        },
-        "memory_size_mb": 1024,
-        "max_memory_used_mb": 760,
-        "instance_max_memory": 1024
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "FunctionName": "token-validator",
+        "Resource": "token-validator"
       }
     }
   },
-  "log": {
-    "level": "info"
-  },
-  "message": "START RequestId: kau0x2cr-t9k2-7997-n0s0-07syis59d0hs Version: $LATEST",
-  "event": {
-    "duration": 32412999.999999996,
-    "outcome": "success",
-    "category": [
-      "process"
-    ],
-    "type": [
-      "info"
-    ],
-    "dataset": "aws.lambda",
-    "provider": "lambda.amazonaws.com"
-  },
-  "service": {
-    "name": "user-auth",
-    "type": "lambda"
+  "metricset": {
+    "name": "lambda",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.lambda",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.lambda",
+    "module": "aws"
   }
 }

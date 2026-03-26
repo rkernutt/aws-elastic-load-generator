@@ -161,6 +161,8 @@ function generateMskLog(ts, er) {
 function generateSqsLog(ts, er) {
   const region = rand(REGIONS); const acct = randAccount();
   const isErr = Math.random() < er;
+  const hasTrace = Math.random() < 0.6;
+  const traceId  = hasTrace ? randId(32) : null;
   const queue = rand(["order-processing","email-queue","notification-dlq","webhook-events","job-queue"]); const isDlq = queue.includes("dlq");
   const sent = randInt(1,10000); const received = randInt(0, sent); const deleted = randInt(0, received);
   return {
@@ -186,7 +188,9 @@ function generateSqsLog(ts, er) {
     "event": { outcome:isErr?"failure":"success", category:["process"], dataset:"aws.sqs", provider:"sqs.amazonaws.com", duration:randInt(1, isErr?30000:500)*1e6 },
     "message": isErr||isDlq ? `SQS ${queue}: ${randInt(1,1000)} messages dead-lettered after max retries` : `SQS ${queue}: ${sent} messages processed`,
     "log": { level:isErr||isDlq?"warn":"info" },
-    ...(isErr||isDlq ? { error: { code: rand(["AWS.SimpleQueueService.NonExistentQueue","InvalidMessageContents","MessageNotInflight","OverLimit","QueueAlreadyExists","QueueDeletedRecently","QueueDoesNotExist","ReceiptHandleIsInvalid","UnsupportedOperation","AWS.SimpleQueueService.TooManyEntriesInBatchRequest"]), message: "SQS operation failed", type: "queue" } } : {})
+    ...(isErr||isDlq ? { error: { code: rand(["AWS.SimpleQueueService.NonExistentQueue","InvalidMessageContents","MessageNotInflight","OverLimit","QueueAlreadyExists","QueueDeletedRecently","QueueDoesNotExist","ReceiptHandleIsInvalid","UnsupportedOperation","AWS.SimpleQueueService.TooManyEntriesInBatchRequest"]), message: "SQS operation failed", type: "queue" } } : {}),
+    ...(hasTrace ? { "trace": { "id": traceId } } : {}),
+    ...(hasTrace ? { "transaction": { "id": randId(16) } } : {})
   };
 }
 

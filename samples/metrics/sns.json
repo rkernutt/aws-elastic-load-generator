@@ -1,76 +1,58 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
-    },
-    "service": {
-      "name": "sns"
+      "id": "814726593401",
+      "name": "globex-production"
     }
   },
   "aws": {
-    "dimensions": {
-      "TopicName": "security-alarms"
-    },
     "sns": {
       "metrics": {
         "NumberOfMessagesPublished": {
-          "sum": 1
+          "avg": 33406,
+          "sum": 33406,
+          "count": 1
         },
         "NumberOfNotificationsDelivered": {
-          "sum": 1
+          "avg": 32192,
+          "sum": 32192,
+          "count": 1
         },
         "NumberOfNotificationsFailed": {
-          "sum": 0
+          "avg": 38,
+          "sum": 38,
+          "count": 1
         },
         "NumberOfNotificationsFilteredOut": {
-          "sum": 0
-        },
-        "NumberOfNotificationsFilteredOut-InvalidAttributes": {
-          "sum": 0
-        },
-        "NumberOfNotificationsFilteredOut-NoMessageAttributes": {
-          "sum": 0
-        },
-        "NumberOfNotificationsRedrivenToDlq": {
-          "sum": 0
-        },
-        "NumberOfNotificationsFailedToRedriveToDlq": {
-          "sum": 0
+          "avg": 745,
+          "sum": 745,
+          "count": 1
         },
         "PublishSize": {
-          "avg": 220596
-        },
-        "SMSSuccessRate": {},
-        "SMSMonthToDateSpentUSD": {
-          "sum": 0
+          "avg": 932.39,
+          "sum": 932.39,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "TopicName": "push-notifications"
       }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "process"
-    ],
-    "dataset": "aws.sns",
-    "provider": "sns.amazonaws.com",
-    "duration": 401446000
-  },
-  "message": "SNS delivered: security-alarms -> lambda (2024B)",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "sns",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.sns",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.sns",
+    "module": "aws"
   }
 }

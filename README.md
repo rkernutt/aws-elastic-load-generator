@@ -1,8 +1,33 @@
 # ⚡ AWS → Elastic Load Generator
 
-A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic deployment via the Elasticsearch Bulk API. Covers **139 AWS services** across **14 service groups**, all using **ECS (Elastic Common Schema)** field naming.
+A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic deployment via the Elasticsearch Bulk API. Covers **144 AWS services** across **14 service groups**, all using **ECS (Elastic Common Schema)** field naming.
 
-Each service has its correct real-world ingestion source pre-configured — S3, CloudWatch, direct API, Firehose, OTel, or Elastic Agent — matching how each service actually delivers data to Elastic in production. Switch between **Logs** and **Metrics** mode; **75 services** support Metrics mode.
+Each service has its correct real-world ingestion source pre-configured — S3, CloudWatch, direct API, Firehose, OTel, or Elastic Agent — matching how each service actually delivers data to Elastic in production. Switch between **Logs**, **Metrics**, and **Traces** mode; **139 services** support Metrics mode.
+
+---
+
+## What's New in v9.3
+
+- **5 new service generators** — Coverage expanded from 139 to **144 services**:
+  - **Elastic CSPM** (`cspm`) — Cloud Security Posture Management findings against **CIS AWS Foundations Benchmark v1.5.0** across 14 rules (IAM, CloudTrail, Config, networking, VPC Flow). Routes to `logs-cloud_security_posture.findings-default` — the same index Elastic's native CSPM integration uses, so pre-built CSPM dashboards and rules work immediately.
+  - **Elastic KSPM** (`kspm`) — Kubernetes Security Posture Management findings against **CIS EKS Benchmark v1.4.0** across 10 rules (API server exposure, privileged containers, secrets management, network policy, KMS encryption). Same `cloud_security_posture.findings` index.
+  - **IAM Privilege Escalation Chain** (`iam-privesc-chain`) — A 4-document linked CloudTrail attack sequence: `ListUsers` (Discovery/T1580) → `CreateAccessKey` (Persistence/T1136.003) → `AttachUserPolicy AdministratorAccess` (Privilege Escalation/T1548) → `AssumeRole` (Lateral Movement/T1550.001). All events share the same actor, source IP, and timestamp. MITRE ATT&CK tactic/technique fields on every document.
+  - **Data Exfiltration Chain** (`data-exfil-chain`) — A 3-document cross-service attack chain: GuardDuty `Exfiltration:S3/MaliciousIPCaller` finding → CloudTrail S3 `GetObject` data event burst (200–2000 object reads) → VPC Flow high-egress record (500MB–50GB to attacker IP). All three documents share the attacker IP and target bucket, enabling correlated timeline views.
+
+- **ML jobs expanded to 99 jobs across 20 groups** (up from 70/14 in v9.2):
+  - **6 new job groups added:**
+    - `serverless` (4 jobs) — API Gateway 5xx spikes, throttle spikes, latency anomalies; Lambda cold start spikes
+    - `devtools` (5 jobs) — CodeBuild failure spikes and duration anomalies, CodePipeline failure spikes, X-Ray error rate spikes and latency anomalies
+    - `iot` (4 jobs) — IoT Core connection failures, message volume anomalies, rule engine error spikes, rare device client IDs
+    - `media` (4 jobs) — MediaConvert transcoding failures, Connect contact abandonment spikes, Connect handle time anomalies, WorkSpaces session failures
+    - `siem` (4 jobs) — CloudTrail rare source IP per user (impossible travel / credential abuse), root account API activity, IAM creation spikes, Route53 DNS exfiltration (high query volume per source IP)
+    - `security-extended` enhanced — 2 Security Lake OCSF jobs added (`aws-securitylake-ocsf-finding-spike`, `aws-securitylake-rare-ocsf-class`)
+
+- **Elastic Security product alignment** — CSPM and KSPM generators target `logs-cloud_security_posture.findings-default` directly (bypassing the `logs-aws.*` prefix), using the same index pattern and field schema as the native Elastic CSPM/KSPM integration. The `iam-privesc-chain` and `data-exfil-chain` generators produce per-document index routing so each event lands in its correct `logs-aws.<service>-default` data stream.
+
+- **Metrics generator fixes** — `securityhub` now has a proper dimensional CloudWatch metrics generator (previously log-only); `greengrass` naming aligned (was `iotgreengrass` internally); `METRICS_SUPPORTED_SERVICE_IDS` corrected to 139 entries matching the current UI service set.
+
+See [`installer/custom-ml-jobs/README.md`](installer/custom-ml-jobs/README.md) for the full ML job catalogue.
 
 ---
 

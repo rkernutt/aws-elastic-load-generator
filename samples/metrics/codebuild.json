@@ -1,74 +1,58 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
-    },
-    "service": {
-      "name": "codebuild"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
   },
   "aws": {
-    "dimensions": {
-      "ProjectName": "docker-build",
-      "BuildId": "docker-build:z6u6umao-yght"
-    },
     "codebuild": {
-      "project_name": "docker-build",
-      "build_id": "docker-build:z6u6umao-yght",
-      "build_status": "SUCCEEDED",
-      "current_phase": "DOWNLOAD_SOURCE",
-      "duration_seconds": 682,
-      "queued_duration_seconds": 58,
-      "build_number": 1622,
-      "initiator": "github-webhook",
-      "source_version": "o1z3iholrpm",
-      "structured_logging": false,
       "metrics": {
         "Builds": {
-          "sum": 1
+          "avg": 126,
+          "sum": 126,
+          "count": 1
         },
         "SucceededBuilds": {
-          "sum": 1
+          "avg": 119,
+          "sum": 119,
+          "count": 1
         },
         "FailedBuilds": {
-          "sum": 0
-        },
-        "Duration": {
-          "avg": 682
-        },
-        "QueuedDuration": {
-          "avg": 41
+          "avg": 7,
+          "sum": 7,
+          "count": 1
         },
         "BuildDuration": {
-          "avg": 682
+          "avg": 163.83,
+          "sum": 163.83,
+          "count": 1
+        },
+        "QueuedBuilds": {
+          "avg": 20,
+          "sum": 20,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "ProjectName": "frontend-ci"
       }
     }
   },
-  "event": {
-    "duration": 682000000000,
-    "outcome": "success",
-    "category": [
-      "process"
-    ],
-    "dataset": "aws.codebuild",
-    "provider": "codebuild.amazonaws.com"
-  },
-  "message": "Build started",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "codebuild",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.codebuild",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.codebuild",
+    "module": "aws"
   }
 }

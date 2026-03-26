@@ -1,77 +1,54 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "us-west-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
-    },
-    "service": {
-      "name": "codedeploy"
     }
   },
   "aws": {
-    "dimensions": {
-      "DeploymentGroupName": "prod",
-      "ApplicationName": "web-app"
-    },
     "codedeploy": {
-      "application_name": "web-app",
-      "deployment_group": "prod",
-      "deployment_id": "d-YBAWSJVQ9",
-      "deployment_type": "BLUE_GREEN",
-      "lifecycle_event": "AfterInstall",
-      "event_status": "Succeeded",
-      "duration_seconds": 369,
-      "instances_succeeded": 8,
-      "instances_failed": 0,
       "metrics": {
         "DeploymentAttempts": {
-          "sum": 1
+          "avg": 5,
+          "sum": 5,
+          "count": 1
         },
-        "DeploymentSuccesses": {
-          "sum": 1
+        "DeploymentSucceeded": {
+          "avg": 5,
+          "sum": 5,
+          "count": 1
         },
-        "DeploymentFailures": {
-          "sum": 0
-        },
-        "RollbackAttempts": {
-          "sum": 0
+        "DeploymentFailed": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "DeploymentDuration": {
-          "avg": 369
-        },
-        "InstanceSuccesses": {
-          "sum": 8
-        },
-        "InstanceFailures": {
-          "sum": 0
+          "avg": 477.22,
+          "sum": 477.22,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "ApplicationName": "api-service",
+        "DeploymentGroupName": "prod"
       }
     }
   },
-  "event": {
-    "duration": 369000000000,
-    "outcome": "success",
-    "category": [
-      "process",
-      "configuration"
-    ],
-    "dataset": "aws.codedeploy",
-    "provider": "codedeploy.amazonaws.com"
-  },
-  "message": "Deployment succeeded",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "codedeploy",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.codedeploy",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.codedeploy",
+    "module": "aws"
   }
 }

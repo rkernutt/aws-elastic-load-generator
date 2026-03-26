@@ -1,97 +1,49 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "me-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
-    },
-    "service": {
-      "name": "network-firewall"
+      "id": "814726593401",
+      "name": "globex-production"
     }
   },
   "aws": {
-    "dimensions": {
-      "FirewallName": "fw-us-east-1",
-      "AvailabilityZone": "us-east-1a",
-      "CustomAction": "CustomBlockAction"
-    },
-    "firewall_logs": {
-      "flow_id": 694246,
-      "event_timestamp": "2026-03-25T12:11:41.550Z",
-      "action": "DROP",
-      "src_ip": "30.193.201.113",
-      "dest_ip": "40.25.35.4",
-      "src_port": 3462,
-      "dest_port": 5432,
-      "protocol": "TCP",
-      "firewall_name": "fw-us-east-1",
-      "availability_zone": "us-east-1a"
-    },
-    "network_firewall": {
-      "firewall_name": "fw-us-east-1",
-      "availability_zone": "us-east-1a",
-      "policy_name": "prod-fw-policy",
+    "firewall": {
       "metrics": {
         "DroppedPackets": {
-          "sum": 390
+          "avg": 7,
+          "sum": 7,
+          "count": 1
         },
         "PassedPackets": {
-          "sum": 0
+          "avg": 6609063,
+          "sum": 6609063,
+          "count": 1
         },
-        "RejectedPackets": {
-          "sum": 0
-        },
-        "Packets": {
-          "sum": 47098
-        },
-        "DroppedBytes": {
-          "sum": 44888
+        "ReceivedPackets": {
+          "avg": 3801082,
+          "sum": 3801082,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "FirewallName": "perimeter-fw",
+        "AvailabilityZone": "me-south-1b"
       }
     }
   },
-  "source": {
-    "ip": "30.193.201.113",
-    "port": 3462
-  },
-  "destination": {
-    "ip": "40.25.35.4",
-    "port": 5432
-  },
-  "network": {
-    "transport": "tcp",
-    "bytes": 18492,
-    "packets": 33
-  },
-  "event": {
-    "action": "drop",
-    "outcome": "failure",
-    "category": [
-      "intrusion_detection",
-      "network"
-    ],
-    "dataset": "aws.firewall_logs",
-    "provider": "network-firewall.amazonaws.com",
-    "duration": 120000000
-  },
-  "message": "DROP TCP flow",
-  "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "FlowDropped",
-    "message": "Packet dropped by firewall rule",
-    "type": "network"
+  "metricset": {
+    "name": "firewall",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.firewall",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.firewall",
+    "module": "aws"
   }
 }

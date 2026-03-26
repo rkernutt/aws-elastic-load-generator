@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-2",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,11 +13,11 @@
   },
   "aws": {
     "trustedadvisor": {
-      "check_name": "EC2 On-Demand Instances",
-      "category": "service_limits",
-      "status": "error",
-      "affected_resource": "sg-5splgmjv",
-      "flagged_resources": 19
+      "check_name": "Large Number of Rules in Security Group",
+      "category": "performance",
+      "status": "warning",
+      "affected_resource": "arn:aws:s3:::my-bucket",
+      "flagged_resources": 11
     }
   },
   "event": {
@@ -29,15 +29,15 @@
     ],
     "dataset": "aws.trustedadvisor",
     "provider": "trustedadvisor.amazonaws.com",
-    "duration": 44000000000
+    "duration": 53000000000
   },
-  "message": "Trusted Advisor [ERROR]: EC2 On-Demand Instances - 19 resources affected",
+  "message": "Trusted Advisor [WARNING]: Large Number of Rules in Security Group - 17 resources affected",
   "error": {
     "code": "TrustedAdvisorFinding",
-    "message": "EC2 On-Demand Instances: error",
+    "message": "Large Number of Rules in Security Group: warning",
     "type": "configuration"
   },
   "log": {
-    "level": "error"
+    "level": "warn"
   }
 }

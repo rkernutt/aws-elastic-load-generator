@@ -1,0 +1,85 @@
+{
+  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "guardduty"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "DetectorId": "28te2oz1u6r"
+    },
+    "guardduty": {
+      "schema_version": "2.0",
+      "account_id": "164820739518",
+      "region": "eu-west-1",
+      "partition": "aws",
+      "id": "6o2kwjn9ssj",
+      "arn": "arn:aws:guardduty:eu-west-1:164820739518:detector/28te2oz1u6r/finding/6o2kwjn9ssj",
+      "type": "InitialAccess:IAMUser/AnomalousBehavior",
+      "title": "IAMUser AnomalousBehavior",
+      "description": "GuardDuty detected suspicious activity: InitialAccess:IAMUser/AnomalousBehavior",
+      "created_at": "2026-03-26T16:46:26.654Z",
+      "updated_at": "2026-03-26T16:46:26.654Z",
+      "severity": {
+        "code": 7,
+        "value": "High"
+      },
+      "confidence": 76.415,
+      "resource": {
+        "type": "Instance"
+      },
+      "service": {
+        "detector_id": "28te2oz1u6r",
+        "count": 34,
+        "archived": false,
+        "action": {
+          "action_type": "AWS_API_CALL"
+        }
+      },
+      "metrics": {
+        "FindingCount": {
+          "sum": 5
+        },
+        "HighSeverityFindingCount": {
+          "sum": 8
+        }
+      }
+    }
+  },
+  "source": {
+    "ip": "175.185.44.214"
+  },
+  "rule": {
+    "category": "intrusion_detection",
+    "name": "InitialAccess:IAMUser/AnomalousBehavior"
+  },
+  "event": {
+    "kind": "alert",
+    "severity": 7,
+    "outcome": "failure",
+    "category": [
+      "intrusion_detection"
+    ],
+    "type": [
+      "indicator"
+    ],
+    "dataset": "aws.guardduty",
+    "provider": "guardduty.amazonaws.com"
+  },
+  "message": "GuardDuty finding [HIGH]: InitialAccess:IAMUser/AnomalousBehavior",
+  "log": {
+    "level": "error"
+  },
+  "error": {
+    "code": "ThreatFinding",
+    "message": "GuardDuty finding: InitialAccess:IAMUser/AnomalousBehavior",
+    "type": "security"
+  }
+}

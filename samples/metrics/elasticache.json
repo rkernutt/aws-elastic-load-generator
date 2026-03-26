@@ -1,130 +1,104 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
-    },
-    "service": {
-      "name": "elasticache"
+      "id": "738291046572",
+      "name": "globex-development"
     }
   },
   "aws": {
-    "dimensions": {
-      "CacheClusterId": "prod-redis-4",
-      "CacheNodeId": "0004",
-      "ReplicationGroupId": "prod-cache"
-    },
     "elasticache": {
-      "cluster_id": "prod-redis-4",
-      "node_id": "0004",
-      "engine": "redis",
-      "engine_version": "7.1.0",
-      "replication_group_id": "prod-cache",
-      "command": "SET",
-      "latency_us": 4257.343,
-      "cache_hit": false,
-      "connected_clients": 118,
-      "used_memory_mb": 12983,
       "metrics": {
-        "BytesUsedForCache": {
-          "avg": 7911528262
-        },
-        "CacheHits": {
-          "sum": 40866
-        },
-        "CacheMisses": {
-          "sum": 277
-        },
-        "CacheHitRate": {
-          "avg": 0.876
-        },
-        "CurrConnections": {
-          "avg": 92
-        },
-        "NewConnections": {
-          "sum": 68
-        },
-        "Evictions": {
-          "sum": 512
-        },
-        "Reclaimed": {
-          "sum": 60
-        },
-        "ReplicationBytes": {
-          "avg": 1922401
-        },
-        "ReplicationLag": {
-          "avg": 0
-        },
-        "SaveInProgress": {
-          "avg": 0
-        },
-        "CurrItems": {
-          "avg": 465086
-        },
-        "NewItems": {
-          "sum": 4479
-        },
-        "NetworkBytesIn": {
-          "avg": 76026892
-        },
-        "NetworkBytesOut": {
-          "avg": 8108183
-        },
         "CPUUtilization": {
-          "avg": 17.424
-        },
-        "EngineCPUUtilization": {
-          "avg": 56.574
-        },
-        "FreeableMemory": {
-          "avg": 432977223
-        },
-        "SwapUsage": {
-          "avg": 20830702
+          "avg": 7.94,
+          "sum": 7.94,
+          "count": 1
         },
         "DatabaseMemoryUsagePercentage": {
-          "avg": 87.674
+          "avg": 76.97,
+          "sum": 76.97,
+          "count": 1
         },
-        "TrafficBasedCmdsLatency": {
-          "avg": 0.977
+        "FreeableMemory": {
+          "avg": 102494822.95,
+          "sum": 102494822.95,
+          "count": 1
+        },
+        "CacheHits": {
+          "avg": 321156,
+          "sum": 321156,
+          "count": 1
+        },
+        "CacheMisses": {
+          "avg": 2153,
+          "sum": 2153,
+          "count": 1
+        },
+        "CacheHitRate": {
+          "avg": 99.33,
+          "sum": 99.33,
+          "count": 1
+        },
+        "CurrConnections": {
+          "avg": 259,
+          "sum": 259,
+          "count": 1
+        },
+        "Evictions": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "NetworkBytesIn": {
+          "avg": 67530418,
+          "sum": 67530418,
+          "count": 1
+        },
+        "NetworkBytesOut": {
+          "avg": 3675511278,
+          "sum": 3675511278,
+          "count": 1
+        },
+        "ReplicationLag": {
+          "avg": 0.01,
+          "sum": 0.01,
+          "count": 1
+        },
+        "CurrItems": {
+          "avg": 9781944,
+          "sum": 9781944,
+          "count": 1
+        },
+        "GetTypeCmds": {
+          "avg": 978549,
+          "sum": 978549,
+          "count": 1
+        },
+        "SetTypeCmds": {
+          "avg": 26810,
+          "sum": 26810,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "CacheClusterId": "product-cache",
+        "CacheNodeId": "0001"
       }
     }
   },
-  "db": {
-    "type": "keyvalue",
-    "operation": "SET"
-  },
-  "event": {
-    "duration": 4257343,
-    "outcome": "failure",
-    "category": [
-      "database",
-      "network"
-    ],
-    "dataset": "aws.elasticache",
-    "provider": "elasticache.amazonaws.com"
-  },
-  "message": "Redis SET failed: LOADING",
-  "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "InvalidCacheClusterState",
-    "message": "OOM command not allowed",
-    "type": "db"
+  "metricset": {
+    "name": "elasticache",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.elasticache",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.elasticache",
+    "module": "aws"
   }
 }

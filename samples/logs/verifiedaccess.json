@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-west-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "verified-access"
@@ -13,48 +13,54 @@
   },
   "aws": {
     "dimensions": {
-      "ApplicationId": "va-app-vics2wyj"
+      "ApplicationId": "va-app-0ys2kjqd"
     },
     "verifiedaccess": {
-      "endpoint_id": "vae-z2lggzs7ji",
-      "group_id": "vag-qbbwv824o2",
-      "instance_id": "vai-nxa2je1idg",
-      "policy_name": "require-mfa-and-device",
-      "trust_provider_type": "oidc-okta",
-      "device_posture": "COMPLIANT",
-      "verdict": "allow",
-      "http_method": "PUT",
-      "http_path": "/api/v1/orders",
-      "http_status": 200,
-      "request_id": "y4c1nfox-zgq7-gx0d-sqq1-g5x15sdqsna",
-      "connection_id": "EKB3D5VOLWO",
-      "session_id": "6I7C6SFQL2",
-      "sni_hostname": "staging-api.internal.example.com",
-      "application_name": "staging-api"
+      "endpoint_id": "vae-40ymzg2ys29",
+      "group_id": "vag-if5x32oqs4n",
+      "instance_id": "vai-503t7pjw7up",
+      "policy_name": "corporate-device",
+      "trust_provider_type": "oidc-azure-ad",
+      "device_posture": "NON_COMPLIANT",
+      "verdict": "deny",
+      "deny_reason": "policy_evaluation_failed",
+      "http_method": "PATCH",
+      "http_path": "/health",
+      "http_status": 401,
+      "request_id": "9ko1fj9a-adgf-pytn-bawb-zk2fiyrrti",
+      "connection_id": "IOS7UWZPR8E",
+      "session_id": "ARHIN36YPL",
+      "sni_hostname": "git-server.internal.example.com",
+      "application_name": "git-server"
     }
   },
   "user": {
-    "email": "contractor@partner.com",
-    "name": "contractor"
+    "email": "bob@example.com",
+    "name": "bob"
   },
   "source": {
-    "ip": "168.111.176.38"
+    "ip": "240.131.154.122"
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "authentication",
       "network"
     ],
     "type": [
-      "allowed"
+      "denied"
     ],
     "dataset": "aws.verifiedaccess",
     "provider": "verified-access.amazonaws.com",
-    "duration": 94000000
+    "duration": 113000000
   },
-  "message": "Verified Access allowed: contractor@partner.com -> staging-api (COMPLIANT)",
+  "message": "Verified Access DENIED: bob@example.com -> git-server [policy_evaluation_failed]",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "AccessDenied",
+    "message": "Verified Access policy denied: policy_evaluation_failed",
+    "type": "authentication"
   }
 }

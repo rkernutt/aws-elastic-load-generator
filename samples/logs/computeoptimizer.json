@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "il-central-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "computeoptimizer": {
-      "resource_type": "EC2_INSTANCE",
-      "resource_arn": "arn:aws:ec2:eu-west-2:501938274650:instance/i-nsswvd52tmm",
+      "resource_type": "AUTO_SCALING_GROUP",
+      "resource_arn": "arn:aws:ec2:il-central-1:501938274650:instance/i-6brg6bdj2p",
       "finding": "OPTIMIZED",
       "current_configuration": {
-        "instance_type": "r5.large",
-        "vcpu": 25,
-        "memory_gb": 8
+        "instance_type": "c5.2xlarge",
+        "vcpu": 17,
+        "memory_gb": 68
       },
       "recommended_configuration": {
-        "instance_type": "m5.large",
-        "vcpu": 8,
-        "memory_gb": 49
+        "instance_type": "c5.xlarge",
+        "vcpu": 16,
+        "memory_gb": 55
       },
       "estimated_monthly_savings_usd": 0,
       "estimated_monthly_savings_percent": 0,
-      "lookback_period_days": 93,
+      "lookback_period_days": 32,
       "utilization": {
-        "cpu_max": 21.43,
-        "memory_max": 75.914
+        "cpu_max": 76.958,
+        "memory_max": 12.533
       },
       "performance_risk": "VeryLow"
     }
@@ -44,9 +44,9 @@
     ],
     "dataset": "aws.computeoptimizer",
     "provider": "compute-optimizer.amazonaws.com",
-    "duration": 29000000000
+    "duration": 58000000000
   },
-  "message": "Compute Optimizer: EC2_INSTANCE OPTIMIZED (r5.large)",
+  "message": "Compute Optimizer: AUTO_SCALING_GROUP OPTIMIZED (c5.2xlarge)",
   "log": {
     "level": "info"
   }

@@ -1,63 +1,53 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
-    },
-    "service": {
-      "name": "shield"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
   },
   "aws": {
-    "dimensions": {
-      "AttackVector": "NONE"
-    },
     "shield": {
-      "mitigation_started": false,
-      "subscription_type": "ADVANCED",
-      "protected_resource": "arn:aws:elasticloadbalancing:us-east-1:738291046572:loadbalancer/app/prod/ybidouhcm7m",
       "metrics": {
         "DDoSAttackBitsPerSecond": {
-          "avg": 0
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "DDoSAttackPacketsPerSecond": {
-          "avg": 0
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "DDoSAttackRequestsPerSecond": {
-          "avg": 0
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "DDoSDetected": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "ResourceArn": "arn:aws:elasticloadbalancing:ap-southeast-3:164820739518:loadbalancer/app/prod-alb/abc123"
       }
     }
   },
-  "network": {
-    "bytes": 987286539,
-    "packets": 159288
-  },
-  "event": {
-    "action": "health_check",
-    "outcome": "success",
-    "category": [
-      "intrusion_detection",
-      "network"
-    ],
-    "dataset": "aws.shield",
-    "provider": "shield.amazonaws.com",
-    "duration": 20000000000
-  },
-  "message": "DDoS mitigation active: 0 attacks detected in last 60s",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "shield",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.shield",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.shield",
+    "module": "aws"
   }
 }

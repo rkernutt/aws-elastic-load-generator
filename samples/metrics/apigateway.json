@@ -1,97 +1,71 @@
 {
-  "@timestamp": "2026-03-17T17:30:45.979Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
-    },
-    "service": {
-      "name": "apigateway"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
   },
   "aws": {
-    "dimensions": {
-      "ApiName": "prod-api",
-      "Stage": "staging",
-      "Method": "PUT",
-      "Resource": "/api/v1/search"
-    },
     "apigateway": {
-      "request_id": "bvfywpka-ny62",
-      "api_id": "bcxij2tp00",
-      "domain_name": "bcxij2tp00.execute-api.us-east-1.amazonaws.com",
-      "stage": "staging",
-      "http_method": "PUT",
-      "resource_path": "/api/v1/search",
-      "protocol": "HTTP/1.1",
-      "route_key": "PUT /api/v1/search",
-      "status": 400,
-      "response_length": 5522,
-      "ip_address": "103.205.23.185",
-      "caller": null,
-      "user": null,
-      "connection_id": null,
-      "event_type": "MESSAGE",
-      "request_time": "2026-03-17T17:30:45.979Z"
+      "metrics": {
+        "Count": {
+          "avg": 177551,
+          "sum": 177551,
+          "count": 1
+        },
+        "4XXError": {
+          "avg": 6101,
+          "sum": 6101,
+          "count": 1
+        },
+        "5XXError": {
+          "avg": 266,
+          "sum": 266,
+          "count": 1
+        },
+        "Latency": {
+          "avg": 68.18,
+          "sum": 68.18,
+          "count": 1,
+          "max": 2721.38,
+          "min": 8.31
+        },
+        "IntegrationLatency": {
+          "avg": 20.29,
+          "sum": 20.29,
+          "count": 1
+        },
+        "CacheHitCount": {
+          "avg": 50607,
+          "sum": 50607,
+          "count": 1
+        },
+        "CacheMissCount": {
+          "avg": 70976,
+          "sum": 70976,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "ApiName": "users-api",
+        "Stage": "v1"
+      }
     }
   },
-  "http": {
-    "request": {
-      "method": "PUT",
-      "id": "bvfywpka-ny62",
-      "bytes": 4921
-    },
-    "response": {
-      "status_code": 400,
-      "bytes": 5522
-    }
-  },
-  "url": {
-    "path": "/api/v1/search",
-    "domain": "bcxij2tp00.execute-api.us-east-1.amazonaws.com"
-  },
-  "client": {
-    "ip": "103.205.23.185",
-    "geo": {
-      "country_iso_code": "CA",
-      "country_name": "Canada",
-      "region_name": "Ontario",
-      "city_name": "Toronto"
-    }
-  },
-  "user_agent": {
-    "original": "Go-http-client/1.1"
-  },
-  "event": {
-    "duration": 3156000000,
-    "outcome": "failure",
-    "category": [
-      "web"
-    ],
-    "type": [
-      "access"
-    ],
-    "dataset": "aws.apigateway_logs",
-    "provider": "apigateway.amazonaws.com"
-  },
-  "message": "{\"requestId\":\"bvfywpka-ny62\",\"requestMethod\":\"PUT\",\"requestPath\":\"/api/v1/search\",\"status\":400,\"responseLatency\":3156,\"timestamp\":\"2026-03-17T17:30:45.979Z\"}",
-  "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "BadRequestException",
-    "message": "HTTP 400",
-    "type": "server"
+  "metricset": {
+    "name": "apigateway",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
-    "dataset": "aws.apigateway_logs",
+    "dataset": "aws.apigateway_metrics",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.apigateway_metrics",
+    "module": "aws"
   }
 }

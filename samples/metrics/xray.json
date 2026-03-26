@@ -1,119 +1,53 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
-  "trace": {
-    "id": "1-69c3d0fd-7bhci3hgh6e"
-  },
-  "span": {
-    "id": "6qnj7og7ywi"
-  },
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-west-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
-    },
-    "service": {
-      "name": "xray"
     }
   },
   "aws": {
-    "dimensions": {
-      "GroupName": "Default",
-      "ServiceType": "AWS::SQS::Queue"
-    },
     "xray": {
-      "trace_id": "1-69c3d0fd-7bhci3hgh6e",
-      "segment_id": "6qnj7og7ywi",
-      "parent_id": "mjiu4vkbkd",
-      "service": {
-        "name": "sqs-consumer",
-        "type": "AWS::SQS::Queue"
-      },
-      "duration": 1.53,
-      "fault": false,
-      "error": false,
-      "throttle": false,
-      "http": {
-        "request": {
-          "method": "POST",
-          "url": "/api/v1/auth/login"
-        },
-        "response": {
-          "status": 200
-        }
-      },
-      "annotations": {
-        "env": "prod",
-        "version": "v10"
-      },
-      "subsegments": [
-        {
-          "id": "4ch7j2mmd1e",
-          "name": "SNS.Publish",
-          "namespace": "remote",
-          "duration": 0.175,
-          "fault": false
-        },
-        {
-          "id": "w9ddv1d4at8",
-          "name": "ElastiCache.get",
-          "namespace": "aws",
-          "duration": 0.033,
-          "fault": false
-        }
-      ],
       "metrics": {
-        "ErrorRate": {
-          "avg": 0.054
+        "TracesReceived": {
+          "avg": 76038,
+          "sum": 76038,
+          "count": 1
         },
-        "FaultRate": {
-          "avg": 0.374
+        "TracesSampled": {
+          "avg": 7233,
+          "sum": 7233,
+          "count": 1
         },
-        "ThrottleRate": {
-          "avg": 0.292
+        "TraceSegmentsReceived": {
+          "avg": 24154,
+          "sum": 24154,
+          "count": 1
         },
-        "TotalCount": {
-          "sum": 1919
-        },
-        "Latency": {
-          "avg": 1530,
-          "p99": 4590
+        "TracesStoredAsLinkages": {
+          "avg": 44976,
+          "sum": 44976,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "Region": "eu-west-1"
       }
     }
   },
-  "http": {
-    "request": {
-      "method": "POST"
-    },
-    "response": {
-      "status_code": 200
-    }
-  },
-  "event": {
-    "duration": 1530000000,
-    "outcome": "success",
-    "category": [
-      "network"
-    ],
-    "type": [
-      "connection"
-    ],
-    "dataset": "aws.xray",
-    "provider": "xray.amazonaws.com"
-  },
-  "message": "X-Ray: sqs-consumer POST → 200 (1.530s)",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "xray",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.xray",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.xray",
+    "module": "aws"
   }
 }

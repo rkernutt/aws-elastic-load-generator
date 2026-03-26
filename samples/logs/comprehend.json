@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "comprehend"
@@ -17,40 +17,34 @@
     },
     "comprehend": {
       "operation": "ClassifyDocument",
-      "language_code": "de",
-      "text_bytes": 51765,
+      "language_code": "zh",
+      "text_bytes": 45060,
       "entities_detected": 0,
       "key_phrases_detected": 0,
       "pii_entities_detected": 0,
-      "error_code": "TextSizeLimitExceededException",
       "metrics": {
         "NumberOfSuccessfulRequest": {
           "sum": 1
         },
         "NumberOfFailedRequest": {
-          "sum": 1
+          "sum": 0
         },
         "ResponseTime": {
-          "avg": 425.938
+          "avg": 282.552
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.comprehend",
     "provider": "comprehend.amazonaws.com"
   },
-  "message": "Comprehend ClassifyDocument FAILED: Text too large",
+  "message": "Comprehend ClassifyDocument: lang=zh",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ComprehendError",
-    "message": "Comprehend operation failed",
-    "type": "ml"
+    "level": "info"
   }
 }

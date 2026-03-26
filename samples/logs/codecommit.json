@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codecommit"
@@ -13,25 +13,24 @@
   },
   "aws": {
     "codecommit": {
-      "repository_name": "web-app",
-      "repository_arn": "arn:aws:codecommit:us-east-1:814726593401:web-app",
-      "event_type": "PullRequestMerged",
-      "reference_name": "main",
-      "commit_id": "rlddubscj4d",
-      "author": "github-actions",
-      "files_changed": 39,
-      "lines_added": 460,
-      "lines_deleted": 167,
-      "pull_request_id": "454",
-      "merge_strategy": "squash"
+      "repository_name": "infrastructure",
+      "repository_arn": "arn:aws:codecommit:eu-west-1:293847561023:infrastructure",
+      "event_type": "ReferenceDeleted",
+      "reference_name": "feature/new-auth",
+      "commit_id": "t2x1oz42egb",
+      "author": "bob",
+      "files_changed": 46,
+      "lines_added": 483,
+      "lines_deleted": 71,
+      "error_code": "EncryptionKeyUnavailableException"
     }
   },
   "user": {
     "name": "alice"
   },
   "event": {
-    "action": "PullRequestMerged",
-    "outcome": "success",
+    "action": "ReferenceDeleted",
+    "outcome": "failure",
     "category": [
       "configuration",
       "file"
@@ -39,8 +38,13 @@
     "dataset": "aws.codecommit",
     "provider": "codecommit.amazonaws.com"
   },
-  "message": "CodeCommit PullRequestMerged: web-app/main",
+  "message": "CodeCommit ReferenceDeleted FAILED on infrastructure: Repository size limit",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "EncryptionKeyUnavailableException",
+    "message": "CodeCommit operation failed",
+    "type": "vcs"
   }
 }

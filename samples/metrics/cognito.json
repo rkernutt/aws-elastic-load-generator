@@ -1,87 +1,73 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "us-east-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
-    },
-    "service": {
-      "name": "cognito"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
   },
   "aws": {
-    "dimensions": {
-      "UserPool": "us-east-1_C1MS7S175",
-      "UserPoolClient": "mobile-users-web"
-    },
     "cognito": {
-      "user_pool_id": "us-east-1_C1MS7S175",
-      "user_pool_name": "mobile-users",
-      "event_type": "ForgotPassword",
-      "error_code": "NotAuthorizedException",
-      "source_ip": "72.12.138.44",
       "metrics": {
         "SignInSuccesses": {
-          "sum": 0
+          "avg": 15017,
+          "sum": 15017,
+          "count": 1
         },
-        "SignInAttempts": {
-          "sum": 4519
+        "SignInThrottles": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
-        "TokenRefreshSuccesses": {
-          "sum": 0
+        "SignInUserErrors": {
+          "avg": 185,
+          "sum": 185,
+          "count": 1
         },
         "SignUpSuccesses": {
-          "sum": 0
+          "avg": 4160,
+          "sum": 4160,
+          "count": 1
+        },
+        "TokenRefreshSuccesses": {
+          "avg": 20340,
+          "sum": 20340,
+          "count": 1
+        },
+        "TokenRefreshUserErrors": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "FederationSuccesses": {
-          "sum": 0
+          "avg": 3552,
+          "sum": 3552,
+          "count": 1
         },
-        "CallCount": {
-          "sum": 71491
-        },
-        "ThrottleCount": {
-          "sum": 73
-        },
-        "AccountTakeoverRisk": {
-          "sum": 2
-        },
-        "CompromisedCredentialsRisk": {
-          "sum": 0
+        "AccountTakeoverRiskCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "UserPool": "us-pool-prod"
       }
     }
   },
-  "user": {},
-  "source": {
-    "ip": "127.1.146.133"
-  },
-  "event": {
-    "action": "ForgotPassword",
-    "outcome": "failure",
-    "category": [
-      "authentication"
-    ],
-    "dataset": "aws.cognito",
-    "provider": "cognito-idp.amazonaws.com"
-  },
-  "message": "Cognito ForgotPassword FAILED: User not found",
-  "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "TooManyRequestsException",
-    "message": "Authentication failed",
-    "type": "authentication"
+  "metricset": {
+    "name": "cognito",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.cognito",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.cognito",
+    "module": "aws"
   }
 }

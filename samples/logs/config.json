@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ca-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "config"
@@ -13,33 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "ConfigRuleName": "ec2-stopped-instance",
-      "ResourceType": "AWS::EC2::SecurityGroup"
+      "ConfigRuleName": "root-account-mfa-enabled",
+      "ResourceType": "AWS::S3::Bucket"
     },
     "config": {
-      "rule_name": "ec2-stopped-instance",
-      "compliance_type": "NON_COMPLIANT",
-      "resource_type": "AWS::EC2::SecurityGroup",
-      "resource_id": "s3-v14bko6o",
-      "annotation": "Missing required tag",
+      "rule_name": "root-account-mfa-enabled",
+      "compliance_type": "INSUFFICIENT_DATA",
+      "resource_type": "AWS::S3::Bucket",
+      "resource_id": "sg-n92ezbim",
+      "annotation": "Resource is compliant",
       "metrics": {
         "ComplianceByConfigRule": {
-          "avg": 0
+          "avg": 1
         },
         "NonCompliantRules": {
-          "sum": 1
-        },
-        "CompliantRules": {
           "sum": 0
         },
+        "CompliantRules": {
+          "sum": 1
+        },
         "ConfigurationItemsRecorded": {
-          "sum": 27
+          "sum": 35
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "configuration",
       "compliance"
@@ -47,13 +47,8 @@
     "dataset": "aws.config",
     "provider": "config.amazonaws.com"
   },
-  "message": "Config rule FAILED: ec2-stopped-instance",
+  "message": "Config rule PASSED: root-account-mfa-enabled",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "NonCompliant",
-    "message": "Config rule ec2-stopped-instance failed",
-    "type": "compliance"
+    "level": "info"
   }
 }

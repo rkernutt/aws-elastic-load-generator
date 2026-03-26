@@ -1,71 +1,73 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "me-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
-    },
-    "service": {
-      "name": "nlb"
+      "id": "814726593401",
+      "name": "globex-production"
     }
   },
   "aws": {
-    "dimensions": {
-      "LoadBalancer": "net/prod-nlb-us-east-1/1ukkwjgwnfu",
-      "TargetGroup": "targetgroup/tg-web/2p0su6q1kyo",
-      "AvailabilityZone": "us-east-1b"
-    },
     "elb": {
-      "name": "net/prod-nlb-us-east-1/1ukkwjgwnfu",
-      "type": "network",
-      "listener": "arn:aws:elasticloadbalancing:us-east-1:738291046572:listener/net/prod-nlb/jkx6cqtxtg/qf3846zwoc",
-      "protocol": "UDP",
-      "connection_time.ms": 4845,
-      "backend.ip": "235.169.55.99",
-      "backend.port": "80",
-      "received_bytes": 204992,
-      "sent_bytes": 618748
-    }
-  },
-  "source": {
-    "ip": "63.78.80.84",
-    "port": 36887,
-    "geo": {
-      "country_iso_code": "JP",
-      "country_name": "Japan",
-      "city_name": "Tokyo",
-      "location": {
-        "lat": 35.6762,
-        "lon": 139.6503
+      "metrics": {
+        "ActiveFlowCount": {
+          "avg": 43774,
+          "sum": 43774,
+          "count": 1
+        },
+        "NewFlowCount": {
+          "avg": 9349,
+          "sum": 9349,
+          "count": 1
+        },
+        "ProcessedBytes": {
+          "avg": 33615727141,
+          "sum": 33615727141,
+          "count": 1
+        },
+        "TCP_Client_Reset_Count": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "TCP_Target_Reset_Count": {
+          "avg": 9,
+          "sum": 9,
+          "count": 1
+        },
+        "HealthyHostCount": {
+          "avg": 8,
+          "sum": 8,
+          "count": 1
+        },
+        "UnHealthyHostCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "ConsumedLCUs": {
+          "avg": 3.08,
+          "sum": 3.08,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "LoadBalancer": "net/tcp-nlb/xyz789uvw012"
       }
     }
   },
-  "network": {
-    "transport": "udp",
-    "bytes": 204992
-  },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "network"
-    ],
-    "dataset": "aws.elb_logs",
-    "provider": "elasticloadbalancing.amazonaws.com",
-    "duration": 4845000000
-  },
-  "message": "NLB UDP:80 204992B in 4845ms",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "elb",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.elb",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.elb",
+    "module": "aws"
   }
 }

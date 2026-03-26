@@ -1,50 +1,58 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "me-south-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
-    },
-    "service": {
-      "name": "amplify"
     }
   },
   "aws": {
     "amplify": {
-      "app_id": "C2AYZXYGUY",
-      "app_name": "docs-site",
-      "branch_name": "production",
-      "job_id": "899",
-      "job_type": "WEB_HOOK",
-      "build_status": "RUNNING",
-      "duration_seconds": 165,
-      "commit_id": "fco6bjj08yk",
-      "commit_message": "feat: add auth",
-      "framework": "React"
+      "metrics": {
+        "Requests": {
+          "avg": 387084,
+          "sum": 387084,
+          "count": 1
+        },
+        "BytesServed": {
+          "avg": 67901655613,
+          "sum": 67901655613,
+          "count": 1
+        },
+        "4xxErrors": {
+          "avg": 671,
+          "sum": 671,
+          "count": 1
+        },
+        "5xxErrors": {
+          "avg": 1170,
+          "sum": 1170,
+          "count": 1
+        },
+        "Latency": {
+          "avg": 15.75,
+          "sum": 15.75,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "App": "frontend"
+      }
     }
   },
-  "event": {
-    "duration": 165000000000,
-    "outcome": "success",
-    "category": [
-      "process"
-    ],
-    "dataset": "aws.amplify",
-    "provider": "amplify.amazonaws.com"
-  },
-  "message": "Amplify build RUNNING: docs-site/production in 165s",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "amplify",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.amplify",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.amplify",
+    "module": "aws"
   }
 }

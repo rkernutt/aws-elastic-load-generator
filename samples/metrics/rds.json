@@ -1,105 +1,109 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-southeast-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
-    },
-    "service": {
-      "name": "rds"
     }
   },
   "aws": {
-    "dimensions": {
-      "DBInstanceIdentifier": "prod-db-primary",
-      "DatabaseClass": "db.r6g.xlarge",
-      "EngineName": "aurora-mysql",
-      "SourceRegion": "eu-west-2"
-    },
     "rds": {
-      "db_instance": {
-        "identifier": "prod-db-primary",
-        "class": "db.r6g.xlarge",
-        "engine_name": "aurora-mysql",
-        "arn": "arn:aws:rds:eu-west-2:501938274650:db:prod-db-primary",
-        "status": "available",
-        "role": "read-replica"
-      },
-      "cpu": {
-        "total": {
-          "pct": 0.233
+      "metrics": {
+        "CPUUtilization": {
+          "avg": 22.21,
+          "sum": 22.21,
+          "count": 1
+        },
+        "DatabaseConnections": {
+          "avg": 110,
+          "sum": 110,
+          "count": 1
+        },
+        "FreeStorageSpace": {
+          "avg": 49800005049.94,
+          "sum": 49800005049.94,
+          "count": 1
+        },
+        "FreeableMemory": {
+          "avg": 2185965659.99,
+          "sum": 2185965659.99,
+          "count": 1
+        },
+        "ReadLatency": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "WriteLatency": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "ReadIOPS": {
+          "avg": 4199,
+          "sum": 4199,
+          "count": 1
+        },
+        "WriteIOPS": {
+          "avg": 453,
+          "sum": 453,
+          "count": 1
+        },
+        "ReadThroughput": {
+          "avg": 5123850,
+          "sum": 5123850,
+          "count": 1
+        },
+        "WriteThroughput": {
+          "avg": 223915194,
+          "sum": 223915194,
+          "count": 1
+        },
+        "NetworkReceiveThroughput": {
+          "avg": 24450605,
+          "sum": 24450605,
+          "count": 1
+        },
+        "NetworkTransmitThroughput": {
+          "avg": 89301988,
+          "sum": 89301988,
+          "count": 1
+        },
+        "DiskQueueDepth": {
+          "avg": 0.33,
+          "sum": 0.33,
+          "count": 1
+        },
+        "ReplicaLag": {
+          "avg": 165.71,
+          "sum": 165.71,
+          "count": 1
+        },
+        "BinLogDiskUsage": {
+          "avg": 5352808423,
+          "sum": 5352808423,
+          "count": 1
         }
       },
-      "freeable_memory": {
-        "bytes": 5863184972
-      },
-      "free_storage": {
-        "bytes": 288798303685
-      },
-      "database_connections": 209,
-      "read_io": {
-        "ops_per_sec": 471.842
-      },
-      "write_io": {
-        "ops_per_sec": 1386.543
-      },
-      "latency": {
-        "read": 0.012,
-        "write": 0.006
-      },
-      "throughput": {
-        "read": 43385826,
-        "write": 36966247,
-        "network_receive": 90215636,
-        "network_transmit": 2163419
-      },
-      "replica_lag": {
-        "sec": 9.146
-      },
-      "swap_usage": {
-        "bytes": 5866683
-      },
-      "disk_usage": {
-        "bin_log": {
-          "bytes": 213984034
-        }
+      "dimensions": {
+        "DBInstanceIdentifier": "notifications-db-1",
+        "DBClusterIdentifier": "notifications-db-cluster"
       }
     }
   },
-  "db": {
-    "user": {
-      "name": "admin"
-    },
-    "name": "users",
-    "statement": "UPDATE products SET price IAJYRY",
-    "type": "sql"
-  },
-  "event": {
-    "duration": 1348000000,
-    "outcome": "success",
-    "category": [
-      "database"
-    ],
-    "type": [
-      "info",
-      "access"
-    ],
-    "dataset": "aws.rds",
-    "provider": "rds.amazonaws.com"
-  },
-  "message": "{\"instanceId\":\"prod-db-primary\",\"engine\":\"aurora-mysql\",\"userId\":\"admin\",\"queryTime\":1.348,\"error\":null,\"timestamp\":\"2026-03-25T12:11:41.550Z\",\"osMetrics\":{\"cpuUtilization\":{\"guest\":1.741,\"irq\":0.108,\"system\":8.171,\"wait\":0.64,\"idle\":79.8,\"user\":9.546,\"total\":20.2},\"memory\":{\"total\":42966787427,\"free\":2213217600,\"cached\":5244919990,\"active\":12153864628,\"inactive\":1330760060,\"buffers\":227255065},\"disk\":{\"readIOsPS\":56.708,\"writeIOsPS\":1392.494,\"readKbPS\":472512.489,\"writeKbPS\":346676.161,\"avgQueueLen\":2.827,\"await\":14.727},\"network\":{\"rx\":12465953,\"tx\":95204930},\"numVCPUs\":16,\"uptime\":\"3 days, 6:58:03\"}}",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "rds",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.rds",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.rds",
+    "module": "aws"
   }
 }

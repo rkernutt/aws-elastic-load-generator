@@ -1,47 +1,53 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-south-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
-    },
-    "service": {
-      "name": "globalaccelerator"
     }
   },
   "aws": {
     "globalaccelerator": {
-      "accelerator_arn": "arn:aws:globalaccelerator::814726593401:accelerator/nbee7toq",
-      "listener_port": 443,
-      "protocol": "TCP",
-      "endpoint_group_region": "us-east-1",
-      "endpoint_id": "eu-west-2-alb",
-      "endpoint_health": "HEALTHY",
-      "client_ip": "48.62.174.16",
-      "rtt_ms": 5,
-      "processing_time_ms": 12
+      "metrics": {
+        "NewFlowCount": {
+          "avg": 10298,
+          "sum": 10298,
+          "count": 1
+        },
+        "ProcessedBytesIn": {
+          "avg": 7770178390,
+          "sum": 7770178390,
+          "count": 1
+        },
+        "ProcessedBytesOut": {
+          "avg": 2636772905,
+          "sum": 2636772905,
+          "count": 1
+        },
+        "ReceivedPacketsDropped": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "Accelerator": "global-acc-1"
+      }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": "network",
-    "dataset": "aws.globalaccelerator",
-    "provider": "globalaccelerator.amazonaws.com",
-    "duration": 5000000
-  },
-  "message": "Global Accelerator: eu-west-2-alb healthy, RTT 5ms",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "globalaccelerator",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.globalaccelerator",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.globalaccelerator",
+    "module": "aws"
   }
 }

@@ -1,110 +1,64 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
-    },
-    "service": {
-      "name": "eks"
+      "id": "814726593401",
+      "name": "globex-production"
     }
   },
   "aws": {
-    "dimensions": {
-      "ClusterName": "prod-cluster-us-east-1",
-      "NodeName": "ip-194-126-112-211.us-east-1.compute.internal",
-      "Namespace": "default",
-      "PodName": "worker-vbvbi-i1zag"
-    },
-    "eks": {
-      "structured_logging": false,
-      "cluster": {
-        "name": "prod-cluster-us-east-1"
-      },
-      "node": {
-        "name": "ip-194-126-112-211.us-east-1.compute.internal"
-      },
+    "kubernetes": {
       "metrics": {
         "cluster_failed_node_count": {
-          "avg": 0
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "node_cpu_utilization": {
-          "avg": "66.973"
+          "avg": 30.78,
+          "sum": 30.78,
+          "count": 1
         },
         "node_memory_utilization": {
-          "avg": "26.675"
-        },
-        "node_network_total_bytes": {
-          "sum": 666589999
-        },
-        "node_filesystem_utilization": {
-          "avg": "23.317"
-        },
-        "pod_cpu_utilization": {
-          "avg": "34.417"
-        },
-        "pod_memory_utilization": {
-          "avg": "27.202"
-        },
-        "pod_network_rx_bytes": {
-          "sum": 96670826
-        },
-        "pod_network_tx_bytes": {
-          "sum": 10725516
-        },
-        "node_count": {
-          "avg": 11
+          "avg": 60.76,
+          "sum": 60.76,
+          "count": 1
         },
         "pod_count": {
-          "avg": 450
+          "avg": 30,
+          "sum": 30,
+          "count": 1
+        },
+        "pod_cpu_reserved": {
+          "avg": 13.21,
+          "sum": 13.21,
+          "count": 1
+        },
+        "pod_memory_reserved": {
+          "avg": 33.64,
+          "sum": 33.64,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "ClusterName": "eks-platform",
+        "Namespace": "staging"
       }
     }
   },
-  "container": {
-    "id": "8yz1hbxqmzc",
-    "name": "worker",
-    "image": {
-      "name": "k8s.gcr.io/worker:v1.28.1"
-    },
-    "runtime": "containerd"
+  "metricset": {
+    "name": "kubernetes",
+    "period": 60000
   },
-  "kubernetes": {
-    "namespace": "default",
-    "pod": {
-      "name": "worker-vbvbi-i1zag"
-    },
-    "container": {
-      "name": "worker"
-    },
-    "labels": {
-      "app": "worker",
-      "env": "prod"
-    }
-  },
-  "log": {
-    "level": "info"
-  },
-  "event": {
-    "category": [
-      "process",
-      "container"
-    ],
-    "outcome": "success",
-    "dataset": "aws.eks",
-    "provider": "eks.amazonaws.com",
-    "duration": 2025000000000
-  },
-  "message": "2026-03-25 12:11:41.550 E196 T2VA5S manager.go:65] Service endpoint added",
   "data_stream": {
     "type": "metrics",
-    "dataset": "aws.eks",
+    "dataset": "aws.kubernetes",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.kubernetes",
+    "module": "aws"
   }
 }

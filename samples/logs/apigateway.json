@@ -1,52 +1,50 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "apigateway"
     }
   },
-  "trace": {
-    "id": "1-vil6ehfw-dc0b1aqrfe9"
-  },
   "aws": {
     "dimensions": {
       "ApiName": "internal-api",
       "Stage": "staging",
-      "Method": "DELETE",
-      "Resource": "/api/v1/products"
+      "Method": "PUT",
+      "Resource": "/api/v1/orders"
     },
     "apigateway": {
-      "request_id": "irqb6eq0-2czq",
-      "api_id": "q41ynhkzjf",
-      "domain_name": "q41ynhkzjf.execute-api.us-west-2.amazonaws.com",
+      "request_id": "fkvs7kx4-pk1w",
+      "api_id": "zw1g457z38",
+      "domain_name": "zw1g457z38.execute-api.us-west-2.amazonaws.com",
       "stage": "staging",
-      "http_method": "DELETE",
-      "resource_path": "/api/v1/products",
+      "http_method": "PUT",
+      "resource_path": "/api/v1/orders",
       "protocol": "HTTP/1.1",
-      "route_key": "DELETE /api/v1/products",
+      "route_key": "PUT /api/v1/orders",
       "status": 200,
-      "response_length": 454,
-      "ip_address": "2.226.10.54",
+      "response_length": 9305,
+      "ip_address": "102.232.48.215",
+      "connection_id": "JM4KVPCYGT",
       "event_type": "MESSAGE",
-      "request_time": "2026-03-25T12:11:41.550Z",
-      "api_type": "REST",
-      "integration_latency": 33,
+      "request_time": "2026-03-26T16:46:26.654Z",
+      "api_type": "HTTP",
+      "integration_latency": 457,
       "metrics": {
         "Count": {
           "sum": 1
         },
         "Latency": {
-          "avg": 58,
-          "p99": 174
+          "avg": 542,
+          "p99": 1626
         },
         "IntegrationLatency": {
-          "avg": 33
+          "avg": 457
         },
         "4XXError": {
           "sum": 0
@@ -59,21 +57,21 @@
   },
   "http": {
     "request": {
-      "method": "DELETE",
-      "id": "irqb6eq0-2czq",
-      "bytes": 2861
+      "method": "PUT",
+      "id": "fkvs7kx4-pk1w",
+      "bytes": 2309
     },
     "response": {
       "status_code": 200,
-      "bytes": 4455
+      "bytes": 8850
     }
   },
   "url": {
-    "path": "/api/v1/products",
-    "domain": "q41ynhkzjf.execute-api.eu-west-2.amazonaws.com"
+    "path": "/api/v1/orders",
+    "domain": "zw1g457z38.execute-api.us-west-1.amazonaws.com"
   },
   "client": {
-    "ip": "110.11.111.75",
+    "ip": "189.143.223.32",
     "geo": {
       "country_iso_code": "DE",
       "country_name": "Germany",
@@ -82,10 +80,10 @@
     }
   },
   "user_agent": {
-    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    "original": "python-requests/2.27.1"
   },
   "event": {
-    "duration": 58000000,
+    "duration": 542000000,
     "outcome": "success",
     "category": [
       "web"
@@ -96,7 +94,7 @@
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "DELETE /api/v1/products 200 58ms",
+  "message": "{\"requestId\":\"fkvs7kx4-pk1w\",\"requestMethod\":\"PUT\",\"requestPath\":\"/api/v1/orders\",\"status\":200,\"responseLatency\":542,\"integrationLatency\":457,\"timestamp\":\"2026-03-26T16:46:26.654Z\"}",
   "log": {
     "level": "info"
   }

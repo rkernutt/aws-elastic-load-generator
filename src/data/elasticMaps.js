@@ -38,6 +38,9 @@ const ELASTIC_DATASET_MAP = {
   bedrockagent: "aws.bedrockagent",
   billing: "aws.billing",
   natgateway: "aws.natgateway",
+  // Elastic Security posture (non-AWS dataset path)
+  cspm:        "cloud_security_posture.findings",
+  kspm:        "cloud_security_posture.findings",
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -47,27 +50,52 @@ const ELASTIC_DATASET_MAP = {
 const METRICS_SUPPORTED_SERVICE_IDS = new Set([
   // Core compute & serverless
   "lambda", "ec2", "ecs", "fargate", "eks", "apprunner", "elasticbeanstalk", "batch",
+  // Compute (container registry & API layer)
+  "ecr", "apigateway",
   // Networking & CDN
   "alb", "nlb", "cloudfront", "natgateway", "transitgateway", "vpn", "networkfirewall",
   "globalaccelerator", "directconnect", "vpc",
+  // Networking (private connectivity & WAN)
+  "privatelink", "networkmanager",
   // Databases & storage
   "rds", "aurora", "dynamodb", "redshift", "ebs", "s3", "storagelens",
   "elasticache", "opensearch", "docdb", "neptune", "keyspaces", "memorydb", "qldb", "timestream",
   "efs", "fsx", "backup",
+  // Storage (migration & hybrid)
+  "datasync", "storagegateway",
   // Streaming & messaging
   "kinesis", "kinesisanalytics", "msk", "firehose", "sns", "sqs", "eventbridge", "amazonmq",
   // Security
   "waf", "wafv2", "shield", "kms", "cognito",
+  // Security (extended)
+  "guardduty", "macie", "inspector", "config", "accessanalyzer", "secretsmanager",
+  "acm", "identitycenter", "detective", "verifiedaccess", "securitylake", "cloudtrail", "securityhub",
   // Analytics & ML
   "glue", "athena", "emr", "sagemaker", "bedrock", "bedrockagent",
+  // Analytics (extended)
+  "lakeformation", "databrew", "appflow",
+  // ML / AI services
+  "rekognition", "textract", "comprehend", "comprehendmedical", "translate", "transcribe",
+  "polly", "forecast", "personalize", "lex", "lookoutmetrics", "qbusiness",
   // Developer & CI/CD
   "codebuild", "codepipeline", "codedeploy", "amplify",
+  // Developer tools (extended)
+  "codecommit", "codeartifact", "codeguru",
   // Management & observability
   "cloudwatch", "stepfunctions", "appsync", "health", "billing",
+  // Management (extended)
+  "cloudformation", "ssm", "trustedadvisor", "controltower", "organizations",
+  "servicecatalog", "servicequotas", "computeoptimizer", "budgets", "dms",
+  "resiliencehub", "ram", "migrationhub", "devopsguru",
   // IoT
   "iotcore",
+  // IoT (extended)
+  "greengrass", "iotanalytics", "iotevents", "iotsitewise", "iotdefender",
   // End-user & media
   "workspaces", "connect", "gamelift", "transferfamily",
+  // End-user & media (extended)
+  "appstream", "pinpoint", "lightsail", "frauddetector", "locationservice",
+  "mediaconvert", "medialive", "managedblockchain",
   // Additional CloudWatch-capable
   "route53", "autoscaling", "quicksight", "imagebuilder", "xray", "ses",
 ]);
@@ -92,6 +120,18 @@ const ELASTIC_METRICS_DATASET_MAP = {
   storagelens:     "aws.s3_storage_lens",
   vpc:             "aws.vpcflow",
   route53:         "aws.route53_public_logs",
+  // Security services
+  guardduty:       "aws.guardduty",
+  cloudtrail:      "aws.cloudtrail",
+  ssm:             "aws.ssm",
+  cloudformation:  "aws.cloudformation",
+  // Developer tools
+  codecommit:      "aws.codecommit",
+  codedeploy:      "aws.codedeploy",
+  // ML / AI services
+  rekognition:     "aws.rekognition",
+  // IoT
+  iotcore:         "aws.iot",
 };
 
 export { ELASTIC_DATASET_MAP, METRICS_SUPPORTED_SERVICE_IDS, ELASTIC_METRICS_DATASET_MAP };

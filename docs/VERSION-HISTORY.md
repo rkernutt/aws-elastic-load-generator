@@ -4,6 +4,28 @@
 
 ---
 
+## What's New in v9.3
+
+- **5 new service generators** — Coverage expanded from 139 to **144 services**:
+  - **Elastic CSPM** (`cspm`) — Cloud Security Posture Management findings against CIS AWS Foundations Benchmark v1.5.0. 14 rules covering IAM (root account usage, MFA, access keys, password policy), audit (CloudTrail, Config), monitoring (CloudWatch metric filters), and networking (security groups, VPC Flow Logs). Routes to `logs-cloud_security_posture.findings-default`.
+  - **Elastic KSPM** (`kspm`) — Kubernetes Security Posture Management findings against CIS EKS Benchmark v1.4.0. 10 rules covering API server security, privileged container admission, host namespace sharing, root container minimisation, network policy, and KMS secret encryption. Same `cloud_security_posture.findings` index. Includes `orchestrator.cluster.*` and `orchestrator.namespace` fields.
+  - **IAM Privilege Escalation Chain** (`iam-privesc-chain`) — 4-document CloudTrail attack chain sharing actor, source IP, and timestamp: `ListUsers` → `CreateAccessKey` → `AttachUserPolicy` (AdministratorAccess) → `AssumeRole`. Each document carries `threat.tactic` and `threat.technique` (MITRE ATT&CK) fields.
+  - **Data Exfiltration Chain** (`data-exfil-chain`) — 3-document cross-service chain: GuardDuty `Exfiltration:S3/MaliciousIPCaller` + CloudTrail S3 data event burst + VPC Flow high-egress record. All docs share attacker IP and target bucket.
+
+- **ML jobs expanded: 70 → 99 jobs, 14 → 20 groups:**
+  - `serverless` (4): API Gateway 5xx/throttle/latency, Lambda cold start spikes
+  - `devtools` (5): CodeBuild failure/duration, CodePipeline failures, X-Ray error rate/latency
+  - `iot` (4): IoT Core connection failures, message volume, rule engine errors, rare device clients
+  - `media` (4): MediaConvert failures, Connect abandonment/handle-time, WorkSpaces session failures
+  - `siem` (4): CloudTrail rare source IP, root activity, IAM creation spike, Route53 DNS exfiltration
+  - `security-extended` (+2): Security Lake OCSF finding spike, rare OCSF class
+
+- **Routing enhancement** — `__dataset` values that don't start with `aws.` now route to `logs-<dataset>-default` instead of the AWS-prefixed path, enabling CSPM/KSPM to land in the correct Elastic Security index without user configuration.
+
+- **Metrics consistency** — `securityhub` dimensional CloudWatch metrics generator added; `greengrass` internal naming corrected; `METRICS_SUPPORTED_SERVICE_IDS` aligned to exactly 139 entries (all 144 UI services minus the 5 chain/posture generators that produce no CloudWatch metrics).
+
+---
+
 ## What's New in v9.2
 
 - **Installer 4 — ML Anomaly Detection Jobs** — New `npm run setup:ml-jobs` installer adds **70 Elasticsearch ML anomaly detection jobs** across **14 service groups**, filling the gap left by the official Elastic AWS integration (which only ships ML jobs for CloudTrail). Coverage includes:

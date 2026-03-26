@@ -1,129 +1,94 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ca-central-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
-    },
-    "service": {
-      "name": "redshift"
     }
   },
   "aws": {
-    "dimensions": {
-      "ClusterIdentifier": "prod-dw-eu-west-2",
-      "NodeID": "Compute-0"
-    },
     "redshift": {
-      "cluster_id": "prod-dw-eu-west-2",
-      "database": "analytics",
-      "user": "bi_service",
-      "pid": 16978,
-      "query_id": 2714815,
-      "duration_seconds": 58.742,
-      "rows_returned": 4634009,
-      "query_type": "SELECT",
-      "wlm": {
-        "queue_name": "analyst_queue",
-        "queue_wait_seconds": 2.368
-      },
       "metrics": {
         "CPUUtilization": {
-          "avg": 15.266
+          "avg": 43.74,
+          "sum": 43.74,
+          "count": 1
         },
         "PercentageDiskSpaceUsed": {
-          "avg": 19.959
+          "avg": 64.55,
+          "sum": 64.55,
+          "count": 1
         },
         "DatabaseConnections": {
-          "avg": 123
+          "avg": 84,
+          "sum": 84,
+          "count": 1
         },
         "HealthStatus": {
-          "avg": 1
+          "avg": 1,
+          "sum": 1,
+          "count": 1
         },
         "MaintenanceMode": {
-          "avg": 0
-        },
-        "NetworkReceiveThroughput": {
-          "avg": 491415581
-        },
-        "NetworkTransmitThroughput": {
-          "avg": 355089725
-        },
-        "QueriesCompletedPerSecond": {
-          "avg": 146.226
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "QueryDuration": {
-          "avg": 760.83
+          "avg": 675.37,
+          "sum": 675.37,
+          "count": 1
         },
-        "QueryRuntimeBreakdown": {
-          "avg": 13226.604
+        "QueriesCompletedPerSecond": {
+          "avg": 3.29,
+          "sum": 3.29,
+          "count": 1
         },
-        "ReadIOPS": {
-          "avg": 6552
+        "NumExceededSchemaQuotas": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "ReadLatency": {
-          "avg": 0.017
-        },
-        "ReadThroughput": {
-          "avg": 680107030
-        },
-        "WLMQueriesCompletedPerSecond": {
-          "avg": 108.274
-        },
-        "WLMQueryDuration": {
-          "avg": 27168.017
-        },
-        "WLMRunningSlotCount": {
-          "avg": 23
-        },
-        "WLMQueueLength": {
-          "avg": 0
-        },
-        "WLMQueueWaitTime": {
-          "avg": 514.461
-        },
-        "WriteIOPS": {
-          "avg": 3993
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         },
         "WriteLatency": {
-          "avg": 0.044
+          "avg": 0.06,
+          "sum": 0.06,
+          "count": 1
         },
-        "WriteThroughput": {
-          "avg": 493569939
+        "NetworkReceiveThroughput": {
+          "avg": 6038644806,
+          "sum": 6038644806,
+          "count": 1
+        },
+        "NetworkTransmitThroughput": {
+          "avg": 4366521807,
+          "sum": 4366521807,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "ClusterIdentifier": "bi-cluster",
+        "NodeID": "Leader"
       }
     }
   },
-  "db": {
-    "user": {
-      "name": "bi_service"
-    },
-    "name": "analytics",
-    "statement": "VACUUM DELETE ONLY dim_products TO 95 PERCENT",
-    "type": "sql"
-  },
-  "event": {
-    "duration": 58742000000,
-    "outcome": "success",
-    "category": [
-      "database"
-    ],
-    "dataset": "aws.redshift",
-    "provider": "redshift.amazonaws.com"
-  },
-  "message": "Redshift query completed in 58.74s",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "redshift",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.redshift",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.redshift",
+    "module": "aws"
   }
 }

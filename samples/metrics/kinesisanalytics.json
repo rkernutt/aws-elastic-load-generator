@@ -1,53 +1,78 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
-    },
-    "service": {
-      "name": "kinesisanalytics"
+      "id": "738291046572",
+      "name": "globex-development"
     }
   },
   "aws": {
     "kinesisanalytics": {
-      "application_name": "session-aggregator",
-      "application_arn": "arn:aws:kinesisanalytics:eu-west-2:814726593401:application/session-aggregator",
-      "runtime": "FLINK-1_15",
-      "records_per_second": 1881,
-      "input_watermark_lag_ms": 10,
-      "checkpointing_enabled": true,
-      "last_checkpoint_duration_ms": 532,
-      "kpu_count": 42,
-      "structured_logging": true,
       "metrics": {
-        "records_in_per_second": 1881,
-        "input_watermark_lag_ms": 10,
-        "kpu_utilization_pct": 73,
-        "checkpoint_duration_ms": 303
+        "KPUs": {
+          "avg": 34,
+          "sum": 34,
+          "count": 1
+        },
+        "Uptime": {
+          "avg": 68781088,
+          "sum": 68781088,
+          "count": 1
+        },
+        "DowntimeRecords": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "InputRecords": {
+          "avg": 9085378,
+          "sum": 9085378,
+          "count": 1
+        },
+        "OutputRecords": {
+          "avg": 924457,
+          "sum": 924457,
+          "count": 1
+        },
+        "InputBytes": {
+          "avg": 3675575511,
+          "sum": 3675575511,
+          "count": 1
+        },
+        "OutputBytes": {
+          "avg": 6388763044,
+          "sum": 6388763044,
+          "count": 1
+        },
+        "LateRecords": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "MillisBehindLatest": {
+          "avg": 796.41,
+          "sum": 796.41,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "Application": "anomaly-detection"
       }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": "process",
-    "dataset": "aws.kinesisanalytics",
-    "provider": "kinesisanalytics.amazonaws.com",
-    "duration": 1110000000
-  },
-  "message": "{\"applicationName\":\"session-aggregator\",\"recordsPerSecond\":1881,\"inputWatermarkLagMs\":10,\"level\":\"info\",\"message\":\"Kinesis Analytics session-aggregator: 1881 rec/s, lag 422ms\",\"timestamp\":\"2026-03-25T12:11:41.550Z\"}",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "kinesisanalytics",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.kinesisanalytics",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.kinesisanalytics",
+    "module": "aws"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "databrew"
@@ -14,50 +14,56 @@
   "aws": {
     "dimensions": {
       "JobName": "fix-encoding-job",
-      "DatasetName": "sales-csv"
+      "DatasetName": "product-catalog"
     },
     "databrew": {
-      "project_name": "sales-csv-project",
+      "project_name": "product-catalog-project",
       "recipe_name": "fix-encoding",
       "job_name": "fix-encoding-job",
       "job_type": "RECIPE",
-      "dataset_name": "sales-csv",
-      "job_status": "SUCCEEDED",
-      "run_state": "SUCCEEDED",
-      "duration_seconds": 300,
-      "rows_processed": 8634620,
-      "transform_steps": 22,
-      "output_location": "s3://databrew-output/sales-csv/",
+      "dataset_name": "product-catalog",
+      "job_status": "FAILED",
+      "run_state": "FAILED",
+      "duration_seconds": 223,
+      "rows_processed": 0,
+      "transform_steps": 20,
+      "output_location": "s3://databrew-output/product-catalog/",
+      "error_message": "Data type mismatch",
       "metrics": {
         "RowsProcessed": {
-          "sum": 8634620
+          "sum": 0
         },
         "DurationSeconds": {
-          "avg": 300
+          "avg": 223
         },
         "TransformSteps": {
-          "avg": 22
+          "avg": 20
         },
         "JobSuccessCount": {
-          "sum": 1
+          "sum": 0
         },
         "JobFailureCount": {
-          "sum": 0
+          "sum": 1
         }
       }
     }
   },
   "event": {
-    "duration": 300000000000,
-    "outcome": "success",
+    "duration": 223000000000,
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.databrew",
     "provider": "databrew.amazonaws.com"
   },
-  "message": "Job run started",
+  "message": "DataBrew job fix-encoding FAILED on product-catalog: Schema error",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "JobFailed",
+    "message": "DataBrew job failed",
+    "type": "process"
   }
 }

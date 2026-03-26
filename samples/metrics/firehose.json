@@ -1,91 +1,73 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "us-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
-    },
-    "service": {
-      "name": "firehose"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
   },
   "aws": {
-    "dimensions": {
-      "DeliveryStreamName": "logs-to-s3"
-    },
     "firehose": {
-      "delivery_stream_name": "logs-to-s3",
-      "destination": "Redshift",
-      "incoming_records": 4329,
-      "incoming_bytes": 2069262,
-      "delivery_success": true,
-      "delivery_records": 4329,
-      "data_freshness_seconds": 148,
       "metrics": {
-        "DeliveryToS3.Bytes": {
-          "sum": 34761856
-        },
-        "DeliveryToS3.DataFreshness": {
-          "avg": 670
-        },
-        "DeliveryToS3.Records": {
-          "sum": 2263
-        },
-        "DeliveryToS3.Success": {
-          "avg": 1
-        },
         "IncomingBytes": {
-          "sum": 54512605
+          "avg": 6804323670,
+          "sum": 6804323670,
+          "count": 1
         },
         "IncomingRecords": {
-          "sum": 8616
+          "avg": 9499335,
+          "sum": 9499335,
+          "count": 1
         },
-        "BackupToS3.Bytes": {
-          "sum": 395008
+        "DeliveryToS3_Bytes": {
+          "avg": 6668237197,
+          "sum": 6668237197,
+          "count": 1
         },
-        "BackupToS3.Records": {
-          "sum": 823
+        "DeliveryToS3_Records": {
+          "avg": 7462665,
+          "sum": 7462665,
+          "count": 1
         },
-        "BackupToS3.Success": {
-          "avg": 1
+        "DeliveryToS3_Success": {
+          "avg": 99.82,
+          "sum": 99.82,
+          "count": 1
         },
-        "DataReadFromKinesisStream.Bytes": {
-          "sum": 64015606
+        "DeliveryToS3_DataFreshness": {
+          "avg": 63.9,
+          "sum": 63.9,
+          "count": 1
         },
-        "DataReadFromKinesisStream.Records": {
-          "sum": 107
-        },
-        "ThrottledGetRecords": {
-          "sum": 0
+        "KinesisMillisBehindLatest": {
+          "avg": 6179.05,
+          "sum": 6179.05,
+          "count": 1
         },
         "ThrottledGetShardIterator": {
-          "sum": 0
+          "avg": 0,
+          "sum": 0,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "DeliveryStreamName": "logs-to-opensearch"
       }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "process"
-    ],
-    "dataset": "aws.firehose",
-    "provider": "firehose.amazonaws.com",
-    "duration": 2000000000
-  },
-  "message": "Firehose logs-to-s3: 4329 records delivered",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "firehose",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.firehose",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.firehose",
+    "module": "aws"
   }
 }

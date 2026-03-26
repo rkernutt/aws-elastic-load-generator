@@ -1,100 +1,95 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
-    },
-    "service": {
-      "name": "alb"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
   },
   "aws": {
-    "dimensions": {
-      "LoadBalancer": "app/prod-alb-eu-west-2/am92jkdksgt",
-      "TargetGroup": "targetgroup/tg-admin/p1vmjgvtql",
-      "AvailabilityZone": "eu-west-2c"
-    },
     "elb": {
-      "name": "app/prod-alb-eu-west-2/am92jkdksgt",
-      "type": "application",
-      "target_group.arn": "arn:aws:elasticloadbalancing:eu-west-2:738291046572:targetgroup/tg-admin/p1vmjgvtql",
-      "listener": "arn:aws:elasticloadbalancing:eu-west-2:738291046572:listener/app/prod-alb/0i1smkh3a5ml/l8hr8aixr69",
-      "protocol": "HTTPS",
-      "request_processing_time.sec": 0.171,
-      "backend_processing_time.sec": 0.91,
-      "response_processing_time.sec": 0.076,
-      "backend.ip": "141.84.155.129",
-      "backend.port": "5129",
-      "backend.http.response.status_code": 200,
-      "ssl_protocol": "TLSv1.3",
-      "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
-      "tls_named_group": "x25519",
-      "chosen_cert.arn": "arn:aws:acm:eu-west-2:738291046572:certificate/ouxfuppn-kwpt-t7d3-6434-4fbzaq2atdd",
-      "trace_id": "Root=1-RHV4KXCU-OZ5CHMXJGC",
-      "matched_rule_priority": "default",
-      "action_executed": "forward",
-      "target_port": "141.84.155.129:5129",
-      "target_status_code": "200",
-      "classification": "NORMAL"
-    }
-  },
-  "http": {
-    "request": {
-      "method": "PATCH",
-      "bytes": 6460
-    },
-    "response": {
-      "status_code": 200,
-      "bytes": 37437
-    }
-  },
-  "url": {
-    "path": "/api/v1/search",
-    "domain": "api.example.com"
-  },
-  "client": {
-    "ip": "207.116.24.3",
-    "port": 51250,
-    "geo": {
-      "country_iso_code": "US",
-      "country_name": "United States",
-      "city_name": "Dallas",
-      "location": {
-        "lat": 32.7767,
-        "lon": -96.797
+      "metrics": {
+        "RequestCount": {
+          "avg": 296374,
+          "sum": 296374,
+          "count": 1
+        },
+        "HTTPCode_Target_2XX_Count": {
+          "avg": 290771,
+          "sum": 290771,
+          "count": 1
+        },
+        "HTTPCode_Target_4XX_Count": {
+          "avg": 4999,
+          "sum": 4999,
+          "count": 1
+        },
+        "HTTPCode_Target_5XX_Count": {
+          "avg": 604,
+          "sum": 604,
+          "count": 1
+        },
+        "HTTPCode_ELB_5XX_Count": {
+          "avg": 60,
+          "sum": 60,
+          "count": 1
+        },
+        "ActiveConnectionCount": {
+          "avg": 16926,
+          "sum": 16926,
+          "count": 1
+        },
+        "NewConnectionCount": {
+          "avg": 445,
+          "sum": 445,
+          "count": 1
+        },
+        "ProcessedBytes": {
+          "avg": 4336736560,
+          "sum": 4336736560,
+          "count": 1
+        },
+        "TargetResponseTime": {
+          "avg": 0.07,
+          "sum": 0.07,
+          "count": 1,
+          "max": 8.59,
+          "min": 0
+        },
+        "HealthyHostCount": {
+          "avg": 2,
+          "sum": 2,
+          "count": 1
+        },
+        "UnHealthyHostCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "RejectedConnectionCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "LoadBalancer": "app/web-alb/abc123def456"
       }
     }
   },
-  "user_agent": {
-    "original": "python-requests/2.27.1"
-  },
-  "event": {
-    "duration": 1157000000,
-    "outcome": "success",
-    "category": [
-      "web",
-      "network"
-    ],
-    "type": [
-      "access"
-    ],
-    "dataset": "aws.elb_logs",
-    "provider": "elasticloadbalancing.amazonaws.com"
-  },
-  "message": "PATCH /api/v1/search 200 1157ms",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "elb",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.elb",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.elb",
+    "module": "aws"
   }
 }

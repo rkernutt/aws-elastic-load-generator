@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-south-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "cloudtrail"
@@ -13,62 +13,69 @@
   },
   "aws": {
     "dimensions": {
-      "EventName": "RunInstances",
-      "EventSource": "ec2.amazonaws.com"
+      "EventName": "UpdateFunctionCode20150331v2",
+      "EventSource": "lambda.amazonaws.com"
     },
     "cloudtrail": {
-      "event_version": "1.08",
+      "event_version": "1.09",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "hd1r7yn4-ayxa-l5vv-ka9p-bri6bdi0b3t",
+      "request_id": "pxqackmw-33fr-bqca-bxii-uql1wde2ibs",
       "api_version": "2012-10-17",
       "management_event": true,
       "read_only": false,
-      "recipient_account_id": "501938274650",
+      "recipient_account_id": "293847561023",
+      "aws_region": "eu-south-1",
       "user_identity": {
-        "type": "IAMUser",
-        "arn": "arn:aws:iam::501938274650:user/alice",
-        "access_key_id": "AKIATS84PRFYK8Q",
+        "type": "Root",
+        "principal_id": "293847561023:admin",
+        "arn": "arn:aws:iam::293847561023:user/admin",
+        "account_id": "293847561023",
+        "access_key_id": "AKIAIUP82YZTOO",
         "session_context": {
-          "mfa_authenticated": "true",
-          "creation_date": "2026-03-25T11:46:52.550Z"
+          "session_issuer": {
+            "type": "Role",
+            "principal_id": "AROAZM9QIGSD27",
+            "arn": "arn:aws:iam::293847561023:role/service-role/execution-role",
+            "account_id": "293847561023",
+            "user_name": "execution-role"
+          },
+          "web_id_federation_data": {},
+          "attributes": {
+            "creation_date": "2026-03-26T16:14:44.654Z",
+            "mfa_authenticated": "true"
+          }
         }
       },
-      "resources": [
-        {
-          "arn": "arn:aws:ec2:eu-west-2:501938274650:instance/i-j3e0cl4w8xl",
-          "account_id": "501938274650",
-          "type": "AWS::EC2::Instance"
-        }
-      ]
+      "response_elements": "null"
     }
   },
   "user": {
-    "name": "alice"
+    "name": "admin"
   },
   "source": {
-    "ip": "213.155.197.44",
+    "ip": "79.190.87.46",
     "geo": {
-      "country_iso_code": "DE",
-      "city_name": "Ashburn"
+      "country_iso_code": "FR",
+      "city_name": "London"
     }
   },
   "user_agent": {
-    "original": "python-requests/2.27.1"
+    "original": "Go-http-client/1.1"
   },
   "event": {
-    "action": "RunInstances",
+    "action": "UpdateFunctionCode20150331v2",
     "outcome": "success",
     "category": [
       "configuration"
     ],
     "type": [
-      "creation"
+      "change"
     ],
     "dataset": "aws.cloudtrail",
     "provider": "cloudtrail.amazonaws.com"
   },
-  "message": "CloudTrail: RunInstances by alice from 213.155.197.44 - Success",
+  "message": "CloudTrail: UpdateFunctionCode20150331v2 by admin from 79.190.87.46 - Success",
   "log": {
     "level": "info"
   }

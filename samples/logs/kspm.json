@@ -1,0 +1,64 @@
+{
+  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "data_stream": {
+    "dataset": "cloud_security_posture.findings",
+    "namespace": "default",
+    "type": "logs"
+  },
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-2",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    }
+  },
+  "orchestrator": {
+    "cluster": {
+      "id": "staging-eks",
+      "name": "staging-eks"
+    },
+    "type": "kubernetes",
+    "namespace": "logging"
+  },
+  "resource": {
+    "id": "staging-eks/logging/pod/api-gateway-aotyj",
+    "name": "pod/api-gateway-aotyj",
+    "sub_type": "Pod",
+    "type": "k8s_object"
+  },
+  "rule": {
+    "id": "cis_eks_4_3",
+    "name": "Minimize containers wishing to share the host process ID namespace",
+    "section": "4.3",
+    "tags": [
+      "Pod Security"
+    ],
+    "benchmark": {
+      "id": "cis_eks",
+      "version": "v1.4.0",
+      "rule_number": "4.3",
+      "posture_type": "kspm"
+    }
+  },
+  "result": {
+    "evaluation": "passed"
+  },
+  "severity": "none",
+  "event": {
+    "kind": "state",
+    "category": [
+      "configuration"
+    ],
+    "type": [
+      "info"
+    ],
+    "outcome": "success",
+    "dataset": "cloud_security_posture.findings",
+    "provider": "elastic_kspm"
+  },
+  "message": "KSPM [CIS EKS / 4.3] passed: Minimize containers wishing to share the host process ID namespace [staging-eks]",
+  "log": {
+    "level": "info"
+  }
+}

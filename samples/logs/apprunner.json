@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "sa-east-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -14,15 +14,15 @@
   "aws": {
     "dimensions": {
       "ServiceName": "frontend",
-      "ServiceId": "w93xayvup5r"
+      "ServiceId": "4i3fx4055rp"
     },
     "apprunner": {
       "service_name": "frontend",
-      "service_arn": "arn:aws:apprunner:eu-west-2:293847561023:service/frontend/w93xayvup5r",
+      "service_arn": "arn:aws:apprunner:sa-east-1:293847561023:service/frontend/4i3fx4055rp",
       "auto_scaling": {
         "min_size": 0,
         "max_size": 25,
-        "desired_count": 7,
+        "desired_count": 2,
         "scale_from_zero": false
       },
       "structured_logging": false,
@@ -43,42 +43,42 @@
           "sum": 1
         },
         "RequestLatency": {
-          "avg": 28,
-          "p99": 84
+          "avg": 98,
+          "p99": 294
         },
         "ActiveInstances": {
-          "avg": 4
+          "avg": 5
         },
         "ConcurrentRequests": {
-          "avg": 15
+          "avg": 49
         },
         "CPUUtilization": {
-          "avg": 30.887
+          "avg": 46.772
         },
         "MemoryUtilization": {
-          "avg": 53.63
+          "avg": 54.974
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "PATCH",
-      "bytes": 2058
+      "method": "DELETE",
+      "bytes": 3562
     },
     "response": {
-      "status_code": 204,
-      "bytes": 4963
+      "status_code": 200,
+      "bytes": 5295
     }
   },
   "url": {
-    "path": "/api/v1/products"
+    "path": "/api/v1/orders"
   },
   "client": {
-    "ip": "46.180.19.240"
+    "ip": "161.117.86.106"
   },
   "event": {
-    "duration": 28000000,
+    "duration": 98000000,
     "outcome": "success",
     "category": [
       "web",
@@ -87,7 +87,7 @@
     "dataset": "aws.apprunner",
     "provider": "apprunner.amazonaws.com"
   },
-  "message": "GET /api/v1/products 204 28ms",
+  "message": "DELETE /api/v2/events 200 98ms",
   "log": {
     "level": "info"
   }

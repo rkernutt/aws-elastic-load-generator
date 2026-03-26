@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "natgateway"
@@ -13,99 +13,94 @@
   },
   "aws": {
     "dimensions": {
-      "NatGatewayId": "nat-0chz87y91fdr"
+      "NatGatewayId": "nat-wfzwz52y1zf"
     },
     "natgateway": {
-      "id": "nat-0chz87y91fdr",
-      "private_ip": "10.46.243.217",
-      "public_ip": "168.28.74.79",
-      "bytes_in_from_source": 130720,
-      "bytes_out_to_destination": 130720,
-      "bytes_in_from_destination": 163661,
-      "bytes_out_to_source": 121308,
-      "packets_in_from_source": 152,
-      "packets_out_to_destination": 152,
-      "packets_in_from_destination": 221,
-      "packets_out_to_source": 92,
-      "connection_attempt_count": 17,
-      "connection_established_count": 0,
-      "error_port_allocation": 79,
+      "id": "nat-wfzwz52y1zf",
+      "private_ip": "10.21.79.160",
+      "public_ip": "166.224.18.33",
+      "bytes_in_from_source": 687772,
+      "bytes_out_to_destination": 687772,
+      "bytes_in_from_destination": 619682,
+      "bytes_out_to_source": 1019965,
+      "packets_in_from_source": 556,
+      "packets_out_to_destination": 556,
+      "packets_in_from_destination": 326,
+      "packets_out_to_source": 608,
+      "connection_attempt_count": 0,
+      "connection_established_count": 22,
+      "error_port_allocation": 0,
       "metrics": {
         "ActiveConnectionCount": {
-          "avg": 349
+          "avg": 3432
         },
         "BytesInFromDestination": {
-          "sum": 896015324
+          "sum": 282976782
         },
         "BytesInFromSource": {
-          "sum": 599298138
+          "sum": 149527626
         },
         "BytesOutToDestination": {
-          "sum": 163878828
+          "sum": 456765848
         },
         "BytesOutToSource": {
-          "sum": 564213923
+          "sum": 723129726
         },
         "ConnectionAttemptCount": {
-          "sum": 394
+          "sum": 783
         },
         "ConnectionEstablishedCount": {
-          "sum": 49
+          "sum": 765
         },
         "ErrorPortAllocation": {
-          "sum": 60
+          "sum": 0
         },
         "IdleTimeoutCount": {
-          "sum": 97
+          "sum": 2
         },
         "PacketsDropCount": {
-          "sum": 463
+          "sum": 0
         },
         "PacketsInFromDestination": {
-          "sum": 64123
+          "sum": 703301
         },
         "PacketsInFromSource": {
-          "sum": 738410
+          "sum": 518847
         },
         "PacketsOutToDestination": {
-          "sum": 33084
+          "sum": 803440
         },
         "PacketsOutToSource": {
-          "sum": 24158
+          "sum": 461825
         }
       }
     }
   },
   "source": {
-    "ip": "10.46.243.217",
-    "port": 11422
+    "ip": "10.21.79.160",
+    "port": 47939
   },
   "destination": {
-    "ip": "239.50.51.108",
-    "port": 3306
+    "ip": "134.26.238.239",
+    "port": 5432
   },
   "network": {
-    "protocol": "tcp",
-    "bytes": 130720,
-    "packets": 152,
+    "protocol": "udp",
+    "bytes": 687772,
+    "packets": 556,
     "direction": "egress"
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "network"
     ],
     "dataset": "aws.natgateway",
     "provider": "natgateway.amazonaws.com",
-    "duration": 816000000
+    "duration": 3892000000
   },
-  "message": "NAT Gateway nat-0chz87y91fdr: port-allocation-error (TCP 10.46.243.217 → 239.50.51.108:3306)",
+  "message": "NAT Gateway nat-wfzwz52y1zf: ACCEPT UDP 10.21.79.160:27122 → 134.26.238.239:5432 687772B",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "port-allocation-error",
-    "message": "NAT Gateway REJECT: port-allocation-error",
-    "type": "network"
+    "level": "info"
   }
 }

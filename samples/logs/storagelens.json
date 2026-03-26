@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-south-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "s3"
@@ -14,49 +14,44 @@
   "aws": {
     "dimensions": {
       "StorageLensConfigurationId": "cost-optimization",
-      "StorageType": "Standard"
+      "StorageType": "IntelligentTiering"
     },
     "s3storagelens": {
       "config_id": "cost-optimization",
-      "bucket_count": 68,
-      "total_storage_bytes": 30171447106041,
-      "total_object_count": 8759023744,
-      "storage_type": "Standard",
+      "bucket_count": 262,
+      "total_storage_bytes": 28592194611248,
+      "total_object_count": 4021337324,
+      "storage_type": "IntelligentTiering",
       "metrics": {
         "BucketCount": {
-          "avg": 68
+          "avg": 262
         },
         "TotalStorageBytes": {
-          "sum": 30171447106041
+          "sum": 28592194611248
         },
         "TotalObjectCount": {
-          "sum": 8759023744
+          "sum": 4021337324
         },
         "BytesUsed": {
-          "sum": 30171447106041
+          "sum": 28592194611248
         },
         "ObjectCount": {
-          "sum": 8759023744
+          "sum": 4021337324
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "metric"
     ],
     "dataset": "aws.s3_storage_lens",
     "provider": "s3.amazonaws.com",
-    "duration": 280000000000
+    "duration": 217000000000
   },
-  "message": "S3 Storage Lens cost-optimization: report generation failed",
+  "message": "S3 Storage Lens cost-optimization: 262 buckets, 28592.2 GB, 4021337324 objects",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ReportGenerationFailed",
-    "message": "Storage Lens report failed",
-    "type": "storage"
+    "level": "info"
   }
 }

@@ -1,93 +1,63 @@
 {
-  "@timestamp": "2026-03-25T12:11:41.550Z",
+  "@timestamp": "2026-03-26T16:46:26.654Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
-    },
-    "service": {
-      "name": "efs"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
   },
   "aws": {
-    "dimensions": {
-      "FileSystemId": "fs-lkr1txak",
-      "StorageClass": "Standard"
-    },
     "efs": {
-      "file_system_id": "fs-lkr1txak",
-      "file_system_name": "ml-datasets",
-      "mount_target_id": "fsmt-f9zcd1b0",
-      "availability_zone": "eu-west-2b",
-      "throughput_mode": "elastic",
-      "performance_mode": "generalPurpose",
-      "throughput_mbps": 123.387,
-      "iops": 1481,
-      "client_connections": 20,
-      "percent_io_limit": 14,
       "metrics": {
         "BurstCreditBalance": {
-          "avg": 1156576288550
+          "avg": 1353945122313.25,
+          "sum": 1353945122313.25,
+          "count": 1
         },
         "ClientConnections": {
-          "avg": 189
+          "avg": 271,
+          "sum": 271,
+          "count": 1
         },
         "DataReadIOBytes": {
-          "sum": 902554500
+          "avg": 1505689.24,
+          "sum": 1505689.24,
+          "count": 1
         },
         "DataWriteIOBytes": {
-          "sum": 183755577
+          "avg": 457070.17,
+          "sum": 457070.17,
+          "count": 1
         },
-        "MetadataIOBytes": {
-          "sum": 6128415
-        },
-        "TotalIOBytes": {
-          "sum": 355788983
-        },
-        "PermittedThroughput": {
-          "avg": 741.382
-        },
-        "MeteredIOBytes": {
-          "sum": 771375126
-        },
-        "StorageBytes": {
-          "avg": 887339954881
+        "MetaDataIOBytes": {
+          "avg": 92896.36,
+          "sum": 92896.36,
+          "count": 1
         },
         "PercentIOLimit": {
-          "avg": 8.61
-        },
-        "DataReadIOBytesWithQuota": {
-          "sum": 476841336
-        },
-        "DataWriteIOBytesWithQuota": {
-          "sum": 527536841
+          "avg": 12.52,
+          "sum": 12.52,
+          "count": 1
         }
+      },
+      "dimensions": {
+        "FileSystemId": "fs-ljgqwpp2"
       }
     }
   },
-  "event": {
-    "outcome": "success",
-    "category": [
-      "host",
-      "file"
-    ],
-    "dataset": "aws.efs",
-    "provider": "elasticfilesystem.amazonaws.com",
-    "duration": 95000000
-  },
-  "message": "EFS fs-lkr1txak: 123.4 MB/s, 399 connections",
-  "log": {
-    "level": "info"
+  "metricset": {
+    "name": "efs",
+    "period": 60000
   },
   "data_stream": {
     "type": "metrics",
     "dataset": "aws.efs",
     "namespace": "default"
   },
-  "metricset": {
-    "name": "cloudwatch",
-    "period": 300000
+  "event": {
+    "dataset": "aws.efs",
+    "module": "aws"
   }
 }
