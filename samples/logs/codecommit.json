@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "codecommit"
@@ -13,24 +13,24 @@
   },
   "aws": {
     "codecommit": {
-      "repository_name": "infrastructure",
-      "repository_arn": "arn:aws:codecommit:eu-west-1:293847561023:infrastructure",
-      "event_type": "ReferenceDeleted",
+      "repository_name": "ml-models",
+      "repository_arn": "arn:aws:codecommit:eu-central-1:501938274650:ml-models",
+      "event_type": "PullRequestCreated",
       "reference_name": "feature/new-auth",
-      "commit_id": "t2x1oz42egb",
+      "commit_id": "mf73ucely3",
       "author": "bob",
-      "files_changed": 46,
-      "lines_added": 483,
-      "lines_deleted": 71,
-      "error_code": "EncryptionKeyUnavailableException"
+      "files_changed": 2,
+      "lines_added": 204,
+      "lines_deleted": 27,
+      "pull_request_id": "122"
     }
   },
   "user": {
-    "name": "alice"
+    "name": "bob"
   },
   "event": {
-    "action": "ReferenceDeleted",
-    "outcome": "failure",
+    "action": "PullRequestCreated",
+    "outcome": "success",
     "category": [
       "configuration",
       "file"
@@ -38,13 +38,8 @@
     "dataset": "aws.codecommit",
     "provider": "codecommit.amazonaws.com"
   },
-  "message": "CodeCommit ReferenceDeleted FAILED on infrastructure: Repository size limit",
+  "message": "CodeCommit PullRequestCreated: ml-models/feature/new-auth",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "EncryptionKeyUnavailableException",
-    "message": "CodeCommit operation failed",
-    "type": "vcs"
+    "level": "info"
   }
 }

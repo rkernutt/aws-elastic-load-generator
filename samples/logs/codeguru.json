@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "codeguru"
@@ -13,20 +13,22 @@
   },
   "aws": {
     "codeguru": {
-      "product": "Reviewer",
-      "repository_name": "data-pipeline",
-      "association_id": "vr2obaansb",
-      "finding_id": "fgz14g3bac6",
-      "category": "AWSBestPractices",
-      "severity": "Medium",
-      "finding_description": "AWSBestPractices:S3BucketMissingServerSideEncryption",
-      "code_file": "lambda_function.py",
-      "line_number": 397,
-      "pull_request_id": 67
+      "product": "Profiler",
+      "repository_name": "backend-api",
+      "association_id": "iss0i51pb7n",
+      "finding_id": "y13s5452m8",
+      "category": "CPU",
+      "severity": "Low",
+      "finding_description": "HighCPUFrames:Base64Encoding",
+      "code_file": "app/models.py",
+      "line_number": 109,
+      "profiling_group": "backend-api-profiling",
+      "frame_percent": 37.446,
+      "error_code": "ResourceNotFoundException"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "vulnerability",
       "process"
@@ -34,8 +36,13 @@
     "dataset": "aws.codeguru",
     "provider": "codeguru.amazonaws.com"
   },
-  "message": "CodeGuru Reviewer [data-pipeline] Medium: AWSBestPractices",
+  "message": "CodeGuru Profiler FAILED [backend-api]: Internal error:",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ThrottlingException",
+    "message": "CodeGuru operation failed",
+    "type": "process"
   }
 }

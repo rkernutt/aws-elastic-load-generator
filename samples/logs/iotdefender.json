@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "iotdefender"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "dimensions": {
-      "CheckName": "IOT_POLICY_OVERLY_PERMISSIVE"
+      "CheckName": "UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE"
     },
     "iotdefender": {
-      "thing_name": "controller-a4",
-      "audit_check_name": "IOT_POLICY_OVERLY_PERMISSIVE",
-      "finding_id": "92dhj74tlbd",
+      "thing_name": "valve-plant-2",
+      "audit_check_name": "UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE",
+      "finding_id": "kobzogfojon",
       "severity": "MEDIUM",
-      "violation_id": "vk4zqpwtpgs",
-      "violation_type": "device-cert-expiring",
-      "security_profile_name": "factory-floor-profile",
+      "violation_id": "ih2snosfnz",
+      "violation_type": "authorization-failure",
+      "security_profile_name": "baseline-security-profile",
       "behavior_name": "authorized-ip-range",
-      "current_value": 930,
-      "threshold_value": 41,
-      "consecutive_datapoints_to_alarm": 2
+      "current_value": 125,
+      "threshold_value": 3,
+      "consecutive_datapoints_to_alarm": 4
     }
   },
   "event": {
@@ -38,9 +38,9 @@
     ],
     "dataset": "aws.iotdefender",
     "provider": "iot.amazonaws.com",
-    "duration": 221000000000
+    "duration": 139000000000
   },
-  "message": "IoT Defender MEDIUM [controller-a4]: IOT_POLICY_OVERLY_PERMISSIVE",
+  "message": "IoT Defender MEDIUM [valve-plant-2]: UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE",
   "log": {
     "level": "info"
   }

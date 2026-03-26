@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "lightsail"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "lightsail": {
-      "resource_name": "api-prototype",
-      "resource_type": "ContainerService",
+      "resource_name": "dev-server",
+      "resource_type": "Database",
       "bundle_id": "nano_2_0",
-      "blueprint": "lamp",
+      "blueprint": "nodejs",
       "state": "running",
-      "event_type": "STATIC_IP_ATTACHED",
-      "public_ip": "113.242.127.121",
+      "event_type": "SSL_RENEWED",
+      "public_ip": "107.244.56.50",
       "monthly_transfer": {
-        "used_gb": 1689,
-        "limit_gb": 1024
+        "used_gb": 1578,
+        "limit_gb": 12288
       },
       "alert": {}
     }
@@ -35,9 +35,9 @@
     ],
     "dataset": "aws.lightsail",
     "provider": "lightsail.amazonaws.com",
-    "duration": 1077000000
+    "duration": 757000000
   },
-  "message": "Lightsail api-prototype: STATIC_IP_ATTACHED [running]",
+  "message": "Lightsail dev-server: SSL_RENEWED [running]",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "iotevents"
@@ -14,18 +14,19 @@
   "aws": {
     "dimensions": {
       "DetectorModelName": "conveyor-fault",
-      "KeyValue": "unit-01"
+      "KeyValue": "unit-02"
     },
     "iotevents": {
       "detector_model_name": "conveyor-fault",
-      "detector_id": "unit-01",
-      "key_value": "unit-01",
-      "event_name": "AlarmReset",
+      "detector_id": "unit-02",
+      "key_value": "unit-02",
+      "event_name": "ActionExecuted",
       "from_state": "Alarm",
-      "to_state": "Alarm",
-      "input_name": "HealthCheck",
-      "action_type": "SetVariable",
-      "condition_expression": "$input.data.value < threshold"
+      "to_state": "Warning",
+      "input_name": "CommandInput",
+      "action_type": "SetTimer",
+      "timer_name": "alarmTimer",
+      "condition_expression": "$input.SensorInput.temperature > 85"
     }
   },
   "event": {
@@ -35,10 +36,10 @@
     ],
     "dataset": "aws.iotevents",
     "provider": "iotevents.amazonaws.com",
-    "duration": 306000000
+    "duration": 199000000
   },
-  "message": "IoT Events conveyor-fault/unit-01: Alarm → Alarm [AlarmReset]",
+  "message": "IoT Events conveyor-fault/unit-02: Alarm → Warning [ActionExecuted]",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

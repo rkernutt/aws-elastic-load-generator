@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "keyspaces"
@@ -13,24 +13,24 @@
   },
   "aws": {
     "keyspaces": {
-      "keyspace_name": "prod_keyspace",
-      "table_name": "time_series",
-      "operation": "SELECT",
-      "read_capacity_units": 5.917,
-      "write_capacity_units": 35.365,
-      "rows_returned": 274,
-      "duration_ms": 42,
+      "keyspace_name": "user_data",
+      "table_name": "inventory",
+      "operation": "BATCH",
+      "read_capacity_units": 46.099,
+      "write_capacity_units": 8.511,
+      "rows_returned": 0,
+      "duration_ms": 167,
       "cql_version": "3.11.2"
     }
   },
   "event": {
-    "duration": 41944000,
+    "duration": 167488000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.keyspaces",
     "provider": "cassandra.amazonaws.com"
   },
-  "message": "Keyspaces SELECT on prod_keyspace.time_series: 42ms",
+  "message": "Keyspaces BATCH on user_data.inventory: 167ms",
   "log": {
     "level": "info"
   }

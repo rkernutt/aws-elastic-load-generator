@@ -162,7 +162,7 @@ function dataset(svcId) {
 }
 
 const GENERIC_SERVICE_IDS = [
-  "iotgreengrass","iotanalytics","iotevents","iotsitewise","iotdefender",
+  "iotanalytics","iotevents","iotsitewise","iotdefender",
   "controltower","organizations","servicecatalog","servicequotas",
   "computeoptimizer","budgets","resiliencehub","migrationhub",
   "identitycenter","detective","verifiedaccess","securitylake",
@@ -301,7 +301,6 @@ export const METRICS_GENERATORS = {
   codeartifact:     generateCodeartifactMetrics,
   securityhub:      generateSecurityhubMetrics,
 
-  // Generic fallbacks (iotgreengrass registered as both its canonical and UI id)
   greengrass:       makeGenericGenerator("greengrass", "aws.greengrass"),
   ...GENERIC_GENERATORS,
 };

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "appsync"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "appsync": {
-      "api_id": "9ZAZBOTMMNE",
+      "api_id": "AHEALR8TMA",
       "api_name": "prod-graphql-api",
-      "operation_type": "query",
-      "operation_name": "searchItems",
-      "data_source_type": "AMAZON_DYNAMODB",
-      "duration_ms": 56,
+      "operation_type": "subscription",
+      "operation_name": "updateInventory",
+      "data_source_type": "AWS_LAMBDA",
+      "duration_ms": 180,
       "status_code": 200,
       "metrics": {
         "RequestCount": {
-          "sum": 3955
+          "sum": 2523
         },
         "4XXError": {
           "sum": 0
@@ -31,8 +31,8 @@
           "sum": 0
         },
         "Latency": {
-          "avg": 55.512,
-          "p99": 116.4
+          "avg": 179.971,
+          "p99": 716.6
         }
       }
     }
@@ -43,13 +43,13 @@
     }
   },
   "event": {
-    "duration": 55512000,
+    "duration": 179971000,
     "outcome": "success",
     "category": "api",
     "dataset": "aws.appsync",
     "provider": "appsync.amazonaws.com"
   },
-  "message": "AppSync query.searchItems: 56ms [prod-graphql-api]",
+  "message": "AppSync subscription.updateInventory: 180ms [prod-graphql-api]",
   "log": {
     "level": "info"
   }

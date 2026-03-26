@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "devopsguru"
@@ -13,9 +13,9 @@
   },
   "aws": {
     "devopsguru": {
-      "insight_id": "okuw2s6rhab",
-      "insight_type": "PROACTIVE",
-      "severity": "MEDIUM",
+      "insight_id": "vi77ul29pcs",
+      "insight_type": "REACTIVE",
+      "severity": "HIGH",
       "resource_collection": {
         "cloud_formation": {
           "stack_names": [
@@ -29,15 +29,15 @@
           }
         ]
       },
-      "anomaly_id": "4879qwyx6h",
-      "anomaly_description": "Memory utilization anomaly on ECS tasks",
+      "anomaly_id": "pcnmdebphr",
+      "anomaly_description": "Unusual increase in Lambda error rate",
       "anomaly_sources": [
-        "rds-prod"
+        "sqs-orders"
       ],
-      "start_time": "2026-03-26T15:47:59.909Z",
-      "end_time": "2026-03-26T16:46:26.709Z",
+      "start_time": "2026-03-26T17:00:37.513Z",
+      "end_time": "2026-03-26T17:22:32.378Z",
       "status": "CLOSED",
-      "recommendation": "Review alarm thresholds",
+      "recommendation": "Scale up resource",
       "ssm_ops_items": []
     }
   },
@@ -50,10 +50,10 @@
     ],
     "dataset": "aws.devopsguru",
     "provider": "devops-guru.amazonaws.com",
-    "duration": 338000000000
+    "duration": 694000000000
   },
-  "message": "DevOps Guru PROACTIVE insight [MEDIUM]: Memory utilization anomaly on ECS tasks",
+  "message": "DevOps Guru REACTIVE insight [HIGH]: Unusual increase in Lambda error rate",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

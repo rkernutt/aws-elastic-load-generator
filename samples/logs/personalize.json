@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "us-east-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "personalize"
@@ -14,23 +14,23 @@
   "aws": {
     "dimensions": {
       "CampaignArn": "similar-items",
-      "Operation": "PutEvents"
+      "Operation": "CreateSolution"
     },
     "personalize": {
       "campaign_name": "similar-items",
-      "action": "PutEvents",
-      "user_id": "user-5ip75jou",
-      "num_results_returned": 25,
-      "recipe": "aws-hrnn",
-      "solution_version": "1.1.2",
-      "duration_ms": 262
+      "action": "CreateSolution",
+      "user_id": "user-gchurrxl",
+      "num_results_returned": 20,
+      "recipe": "aws-similar-items",
+      "solution_version": "1.0.0",
+      "duration_ms": 277
     }
   },
   "user": {
-    "name": "user-5ip75jou"
+    "name": "user-gchurrxl"
   },
   "event": {
-    "duration": 262089999.99999997,
+    "duration": 277250000,
     "outcome": "success",
     "category": [
       "process"
@@ -38,7 +38,7 @@
     "dataset": "aws.personalize",
     "provider": "personalize.amazonaws.com"
   },
-  "message": "Personalize PutEvents: 25 recs for user-5ip75jou in 262ms",
+  "message": "Personalize CreateSolution: 20 recs for user-gchurrxl in 277ms",
   "log": {
     "level": "info"
   }

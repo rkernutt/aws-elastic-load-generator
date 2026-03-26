@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "networkmanager"
@@ -13,27 +13,33 @@
   },
   "aws": {
     "networkmanager": {
-      "global_network_id": "network-twnu8c6d2h",
-      "global_network_name": "global-network-prod",
-      "event_type": "CONNECTION_STATUS_DOWN",
-      "device_id": "device-mws73n09wdh",
-      "link_id": "link-b9vobdqcewm",
-      "site_id": "site-yzsyhzp1n8",
-      "site_name": "branch-tokyo",
-      "bandwidth_mbps": 10,
-      "provider": "Telstra",
-      "type": "broadband",
-      "state": "UP"
+      "global_network_id": "network-8y5waf9d2sh",
+      "global_network_name": "enterprise-wan",
+      "event_type": "LINK_STATUS_DOWN",
+      "device_id": "device-ftp5ca3somc",
+      "link_id": "link-ygf1hz8ded",
+      "site_id": "site-t21wpcjmxq",
+      "site_name": "hq-london",
+      "bandwidth_mbps": 50,
+      "provider": "BT",
+      "type": "vpn",
+      "state": "DOWN",
+      "error_code": "ValidationException"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "network",
     "dataset": "aws.networkmanager",
     "provider": "networkmanager.amazonaws.com"
   },
-  "message": "Network Manager CONNECTION_STATUS_DOWN [global-network-prod]: branch-tokyo link UP",
+  "message": "Network Manager LINK_STATUS_DOWN [enterprise-wan]: connection degraded",
   "log": {
-    "level": "warn"
+    "level": "error"
+  },
+  "error": {
+    "code": "ThrottlingException",
+    "message": "Network Manager connection degraded",
+    "type": "network"
   }
 }

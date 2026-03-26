@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ap-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "lakeformation"
@@ -13,31 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "ResourceArn": "arn:aws:glue:us-east-2:738291046572:table/raw_data/products",
-      "Principal": "arn:aws:iam::738291046572:user/alice"
+      "ResourceArn": "arn:aws:glue:ap-south-2:164820739518:table/curated/products",
+      "Principal": "arn:aws:iam::164820739518:role/analyst-role"
     },
     "lakeformation": {
-      "database": "raw_data",
+      "database": "curated",
       "table": "products",
       "action": "BatchGrantPermissions",
-      "principal_arn": "arn:aws:iam::738291046572:user/alice",
-      "resource_arn": "arn:aws:glue:us-east-2:738291046572:table/raw_data/products",
+      "principal_arn": "arn:aws:iam::164820739518:role/analyst-role",
+      "resource_arn": "arn:aws:glue:ap-south-2:164820739518:table/curated/products",
       "permissions": [
-        "DESCRIBE"
+        "SELECT"
       ],
-      "lf_tag_key": "pii",
+      "lf_tag_key": "team",
       "lf_tag_values": [
-        "prod"
+        "dev",
+        "staging"
       ],
       "metrics": {
         "GrantCount": {
-          "sum": 35
+          "sum": 8
         },
         "DatabaseCount": {
-          "avg": 2
+          "avg": 13
         },
         "TableCount": {
-          "avg": 132
+          "avg": 40
         },
         "DataLakeSettings": {
           "avg": 1
@@ -47,7 +48,7 @@
   },
   "event": {
     "action": "BatchGrantPermissions",
-    "duration": 129000000,
+    "duration": 418000000,
     "outcome": "success",
     "category": [
       "database",
@@ -56,7 +57,7 @@
     "dataset": "aws.lakeformation",
     "provider": "lakeformation.amazonaws.com"
   },
-  "message": "Lake Formation BatchGrantPermissions: DESCRIBE on raw_data.products",
+  "message": "Lake Formation BatchGrantPermissions: SELECT on curated.products",
   "log": {
     "level": "info"
   }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "us-west-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,33 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "ConfigRuleName": "root-account-mfa-enabled",
-      "ResourceType": "AWS::S3::Bucket"
+      "ConfigRuleName": "cloudtrail-enabled",
+      "ResourceType": "AWS::EC2::Instance"
     },
     "config": {
-      "rule_name": "root-account-mfa-enabled",
-      "compliance_type": "INSUFFICIENT_DATA",
-      "resource_type": "AWS::S3::Bucket",
-      "resource_id": "sg-n92ezbim",
-      "annotation": "Resource is compliant",
+      "rule_name": "cloudtrail-enabled",
+      "compliance_type": "NON_COMPLIANT",
+      "resource_type": "AWS::EC2::Instance",
+      "resource_id": "i-3ik8kj4l",
+      "annotation": "Public access enabled",
       "metrics": {
         "ComplianceByConfigRule": {
-          "avg": 1
+          "avg": 0
         },
         "NonCompliantRules": {
-          "sum": 0
-        },
-        "CompliantRules": {
           "sum": 1
         },
+        "CompliantRules": {
+          "sum": 0
+        },
         "ConfigurationItemsRecorded": {
-          "sum": 35
+          "sum": 67
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "configuration",
       "compliance"
@@ -47,8 +47,13 @@
     "dataset": "aws.config",
     "provider": "config.amazonaws.com"
   },
-  "message": "Config rule PASSED: root-account-mfa-enabled",
+  "message": "Config rule FAILED: cloudtrail-enabled",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "NonCompliant",
+    "message": "Config rule cloudtrail-enabled failed",
+    "type": "compliance"
   }
 }

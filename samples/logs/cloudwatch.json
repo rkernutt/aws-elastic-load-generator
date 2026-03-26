@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "cloudwatchalarms"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "ecs-memory",
+      "alarm_name": "high-cpu-alarm",
       "alarm_state": "OK",
-      "previous_state": "ALARM",
-      "namespace": "AWS/RDS",
+      "previous_state": "OK",
+      "namespace": "AWS/EC2",
       "metric_name": "RequestCount",
-      "threshold": 95,
+      "threshold": 85,
       "evaluation_periods": 3,
-      "metric_value": 22.404,
+      "metric_value": 72.347,
       "statistic": "Sum",
-      "period_seconds": 300,
-      "treat_missing_data": "notBreaching"
+      "period_seconds": 3600,
+      "treat_missing_data": "breaching"
     }
   },
   "event": {
@@ -35,9 +35,9 @@
     ],
     "dataset": "aws.cloudwatch",
     "provider": "monitoring.amazonaws.com",
-    "duration": 300000000000
+    "duration": 60000000000
   },
-  "message": "CloudWatch alarm \"ecs-memory\": OK (AWS/RDS/RequestCount=22.4)",
+  "message": "CloudWatch alarm \"high-cpu-alarm\": OK (AWS/EC2/RequestCount=72.3)",
   "log": {
     "level": "info"
   }

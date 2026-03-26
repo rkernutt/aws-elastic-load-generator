@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "us-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "wafv2"
@@ -13,26 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "prod-api-acl",
-      "Rule": "CrossSiteScripting",
-      "Region": "ap-south-2"
+      "WebACL": "cdn-waf",
+      "Rule": "SizeRestrictions_BODY",
+      "Region": "us-west-2"
     },
     "waf": {
-      "id": "071vhboeenn",
-      "arn": "arn:aws:wafv2:ap-south-2:293847561023:regional/webacl/prod-api-acl/9b8hud7i-ednz-iw0l-jiuy-78ws89t9dve",
+      "id": "ohy086suqed",
+      "arn": "arn:aws:wafv2:us-west-2:164820739518:regional/webacl/cdn-waf/savzv75x-eh06-l3sg-4tfc-sigvimljlv9",
       "format_version": "1",
       "source": {
-        "name": "CF",
-        "id": "293847561023-app/prod-api-acl/a7m720u3ewm"
+        "name": "APIGW",
+        "id": "164820739518-app/cdn-waf/73k9491pttl"
       },
       "rule_group_list": [
         {
           "ruleGroupId": "AWSManagedRulesWindowsRuleSet",
-          "terminatingRule": {
-            "action": "BLOCK",
-            "ruleId": "CrossSiteScripting",
-            "ruleMatchDetails": []
-          },
           "nonTerminatingMatchingRules": []
         }
       ],
@@ -42,7 +37,7 @@
         "headers": [
           {
             "name": "User-Agent",
-            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+            "value": "python-requests/2.27.1"
           },
           {
             "name": "Host",
@@ -50,24 +45,19 @@
           }
         ]
       },
-      "labels": [
-        {
-          "name": "awswaf:managed:aws:known-bad-inputs:NoUserAgent_HEADER"
-        }
-      ],
-      "response_code_sent": 403,
+      "labels": [],
       "metrics": {
         "AllowedRequests": {
-          "sum": 0
+          "sum": 1
         },
         "BlockedRequests": {
-          "sum": 1
+          "sum": 0
         },
         "CountedRequests": {
           "sum": 0
         },
         "PassedRequests": {
-          "sum": 0
+          "sum": 1
         },
         "RequestsWithValidCaptchaToken": {
           "sum": 0
@@ -82,32 +72,32 @@
     }
   },
   "source": {
-    "ip": "121.116.173.133",
+    "ip": "167.98.150.249",
     "geo": {
-      "country_iso_code": "US",
-      "country_name": "United States",
-      "city_name": "Ashburn",
+      "country_iso_code": "DE",
+      "country_name": "Germany",
+      "city_name": "Frankfurt",
       "location": {
-        "lat": 39.0438,
-        "lon": -77.4874
+        "lat": 50.1109,
+        "lon": 8.6821
       }
     }
   },
   "http": {
     "request": {
-      "method": "DELETE",
-      "bytes": 8072
+      "method": "PUT",
+      "bytes": 3136
     }
   },
   "url": {
-    "path": "/api/v1/search"
+    "path": "/api/v2/events"
   },
   "user_agent": {
-    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    "original": "python-requests/2.27.1"
   },
   "event": {
-    "action": "block",
-    "outcome": "failure",
+    "action": "allow",
+    "outcome": "success",
     "category": [
       "intrusion_detection",
       "network"
@@ -115,13 +105,8 @@
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com"
   },
-  "message": "WAFv2 BLOCK [prod-api-acl] 121.116.173.133: AWSManagedRulesWindowsRuleSet/CrossSiteScripting",
+  "message": "WAFv2 ALLOW [cdn-waf] 167.98.150.249 PUT /api/v2/events",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "WAFBlock",
-    "message": "WAFv2 request blocked",
-    "type": "security"
+    "level": "info"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "iotanalytics"
@@ -13,30 +13,36 @@
   },
   "aws": {
     "dimensions": {
-      "ChannelName": "gps-channel",
-      "PipelineName": "filter-pipeline"
+      "ChannelName": "temperature-channel",
+      "PipelineName": "math-pipeline"
     },
     "iotanalytics": {
-      "channel_name": "gps-channel",
-      "pipeline_name": "filter-pipeline",
+      "channel_name": "temperature-channel",
+      "pipeline_name": "math-pipeline",
       "dataset_name": "anomaly-detection-output",
-      "messages_processed": 85360,
-      "bytes_processed": 10499280,
-      "activity_name": "filter",
-      "pipeline_status": "SUCCEEDED"
+      "messages_processed": 14,
+      "bytes_processed": 826,
+      "activity_name": "math",
+      "pipeline_status": "REPROCESSING_FAILED",
+      "error_message": "Pipeline activity failed"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.iotanalytics",
     "provider": "iotanalytics.amazonaws.com",
-    "duration": 17616000000
+    "duration": 102694000000
   },
-  "message": "IoT Analytics: 85,360 messages via filter-pipeline",
+  "message": "IoT Analytics FAILED in math-pipeline: Activity error",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "PipelineError",
+    "message": "IoT Analytics pipeline failed",
+    "type": "iot"
   }
 }

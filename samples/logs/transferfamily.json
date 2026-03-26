@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "us-east-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "transferfamily"
@@ -13,44 +13,37 @@
   },
   "aws": {
     "dimensions": {
-      "ServerId": "s-dw9fkyp9olv",
-      "Protocol": "AS2"
+      "ServerId": "s-qw18iv0v9lq",
+      "Protocol": "FTPS"
     },
     "transferfamily": {
-      "server_id": "s-dw9fkyp9olv",
-      "protocol": "AS2",
-      "user_name": "etl-transfer",
-      "session_id": "uw0k321zj4a",
+      "server_id": "s-qw18iv0v9lq",
+      "protocol": "FTPS",
+      "user_name": "vendor-upload",
+      "session_id": "swknxax3ygn",
       "file_path": "/backup/db-export.sql.gz",
-      "operation": "PUT",
-      "bytes_transferred": 2163351999,
-      "transfer_rate_mbps": 169.613,
-      "duration_seconds": 55.104,
-      "s3_bucket": "transfer-landing",
-      "as2_message_id": "vccu5ic7n98",
-      "error_code": "FILE_NOT_FOUND"
+      "operation": "DELETE",
+      "bytes_transferred": 371894213,
+      "transfer_rate_mbps": 487.872,
+      "duration_seconds": 7.132,
+      "s3_bucket": "transfer-landing"
     }
   },
   "source": {
-    "ip": "208.151.242.32"
+    "ip": "48.43.7.61"
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "file",
       "network"
     ],
     "dataset": "aws.transfer",
     "provider": "transfer.amazonaws.com",
-    "duration": 202030000000
+    "duration": 19229000000
   },
-  "message": "Transfer Family AS2 FAILED [etl-transfer] /backup/db-export.sql.gz: Connection reset:",
+  "message": "Transfer Family FTPS [vendor-upload] /backup/db-export.sql.gz: 354.7MB",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "PERMISSION_DENIED",
-    "message": "Transfer Family operation failed",
-    "type": "file"
+    "level": "info"
   }
 }

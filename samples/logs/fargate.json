@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "eu-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "fargate"
@@ -14,22 +14,22 @@
   "aws": {
     "dimensions": {
       "ServiceName": "web-frontend",
-      "ClusterName": "batch-workers-cluster",
+      "ClusterName": "prod-cluster",
       "TaskDefinitionFamily": "web-frontend"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 97
+          "avg": 46
         },
         "CPUReservation": {
-          "avg": 78.215
+          "avg": 34.199
         },
         "MemoryUtilization": {
-          "avg": 21.518
+          "avg": 36.232
         },
         "MemoryReservation": {
-          "avg": 34.942
+          "avg": 57.936
         },
         "GPUReservation": {
           "avg": 0
@@ -38,7 +38,7 @@
     }
   },
   "container": {
-    "id": "mfgowl5ltl",
+    "id": "kpl2hye4f8k",
     "name": "web-frontend",
     "image": {
       "name": "myrepo/web-frontend:latest",
@@ -47,26 +47,21 @@
     "runtime": "docker"
   },
   "process": {
-    "pid": 57372,
+    "pid": 13530,
     "name": "web-frontend"
   },
   "log": {
-    "level": "error"
+    "level": "warn"
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process",
       "container"
     ],
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 165000000000
+    "duration": 1235000000000
   },
-  "message": "Container health check failed 3 times",
-  "error": {
-    "code": "OOMKilled",
-    "message": "Task stopped with exit code 1",
-    "type": "container"
-  }
+  "message": "{\"cluster\":\"prod-cluster\",\"taskId\":\"xh4b9uoe69n\",\"taskDefinition\":\"web-frontend:15\",\"container\":\"web-frontend\",\"level\":\"warn\",\"message\":\"Task approaching resource limits\",\"timestamp\":\"2026-03-26T17:22:32.197Z\"}"
 }

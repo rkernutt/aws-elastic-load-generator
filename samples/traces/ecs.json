@@ -1,0 +1,90 @@
+{
+  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "processor": {
+    "name": "transaction",
+    "event": "transaction"
+  },
+  "trace": {
+    "id": "5dbf031fd57bd74db2a008bcc3e5bc2d"
+  },
+  "transaction": {
+    "id": "081714f4de4f44ea",
+    "name": "POST /search/suggest",
+    "type": "request",
+    "duration": {
+      "us": 220000
+    },
+    "result": "HTTP 2xx",
+    "sampled": true,
+    "span_count": {
+      "started": 3,
+      "dropped": 0
+    }
+  },
+  "http": {
+    "request": {
+      "method": "POST"
+    },
+    "response": {
+      "status_code": 200
+    }
+  },
+  "url": {
+    "path": "/search/suggest"
+  },
+  "labels": {
+    "container_id": "b8a29ac5d360",
+    "task_id": "arn:aws:ecs:ap-northeast-1:123456789012:task/staging-services-cluster/700b3c70ef15ea04d4515cb58ed6c454",
+    "cluster_name": "staging-services-cluster",
+    "task_definition": "search-service:5"
+  },
+  "service": {
+    "name": "search-service",
+    "environment": "production",
+    "version": "1.0.0",
+    "language": {
+      "name": "java"
+    },
+    "runtime": {
+      "name": "java21",
+      "version": "21.0.3"
+    },
+    "framework": {
+      "name": "ECS"
+    }
+  },
+  "agent": {
+    "name": "otlp",
+    "version": "1.6.0"
+  },
+  "telemetry": {
+    "sdk": {
+      "name": "opentelemetry",
+      "language": "java",
+      "version": "2.12.0"
+    },
+    "distro": {
+      "name": "elastic",
+      "version": "1.6.0"
+    }
+  },
+  "cloud": {
+    "provider": "aws",
+    "region": "ap-northeast-1",
+    "account": {
+      "id": "123456789012",
+      "name": "prod-aws"
+    },
+    "service": {
+      "name": "ecs"
+    }
+  },
+  "event": {
+    "outcome": "success"
+  },
+  "data_stream": {
+    "type": "traces",
+    "dataset": "apm",
+    "namespace": "default"
+  }
+}

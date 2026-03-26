@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "ca-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "verified-access"
@@ -13,54 +13,48 @@
   },
   "aws": {
     "dimensions": {
-      "ApplicationId": "va-app-0ys2kjqd"
+      "ApplicationId": "va-app-spc6ryft"
     },
     "verifiedaccess": {
-      "endpoint_id": "vae-40ymzg2ys29",
-      "group_id": "vag-if5x32oqs4n",
-      "instance_id": "vai-503t7pjw7up",
-      "policy_name": "corporate-device",
-      "trust_provider_type": "oidc-azure-ad",
-      "device_posture": "NON_COMPLIANT",
-      "verdict": "deny",
-      "deny_reason": "policy_evaluation_failed",
-      "http_method": "PATCH",
-      "http_path": "/health",
-      "http_status": 401,
-      "request_id": "9ko1fj9a-adgf-pytn-bawb-zk2fiyrrti",
-      "connection_id": "IOS7UWZPR8E",
-      "session_id": "ARHIN36YPL",
-      "sni_hostname": "git-server.internal.example.com",
-      "application_name": "git-server"
+      "endpoint_id": "vae-y1gyhj3l2oh",
+      "group_id": "vag-t0rsk6oe0f",
+      "instance_id": "vai-2dvpywxfsv7",
+      "policy_name": "jump-server-only",
+      "trust_provider_type": "iam-identity-center",
+      "device_posture": "COMPLIANT",
+      "verdict": "allow",
+      "http_method": "DELETE",
+      "http_path": "/api/v1/auth/login",
+      "http_status": 204,
+      "request_id": "enxn0c98-hs7j-fylz-wcld-1d79udbmx0f",
+      "connection_id": "4U7XMGBX2S7",
+      "session_id": "MG5HFUIDUC",
+      "sni_hostname": "internal-dashboard.internal.example.com",
+      "application_name": "internal-dashboard"
     }
   },
   "user": {
-    "email": "bob@example.com",
-    "name": "bob"
+    "email": "contractor@partner.com",
+    "name": "contractor"
   },
   "source": {
-    "ip": "240.131.154.122"
+    "ip": "214.182.16.222"
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "authentication",
       "network"
     ],
     "type": [
-      "denied"
+      "allowed"
     ],
     "dataset": "aws.verifiedaccess",
     "provider": "verified-access.amazonaws.com",
-    "duration": 113000000
+    "duration": 13000000
   },
-  "message": "Verified Access DENIED: bob@example.com -> git-server [policy_evaluation_failed]",
+  "message": "Verified Access allowed: contractor@partner.com -> internal-dashboard (COMPLIANT)",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "AccessDenied",
-    "message": "Verified Access policy denied: policy_evaluation_failed",
-    "type": "authentication"
+    "level": "info"
   }
 }

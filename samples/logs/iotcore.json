@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "iotcore"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "Protocol": "MQTT"
+      "Protocol": "MQTT-SN"
     },
     "iotcore": {
       "client_id": "robot-arm-7",
       "thing_name": "robot-arm-7",
-      "thing_group": "home-devices",
-      "action": "PUBLISH",
-      "topic": "dt/factory/sensors/temperature",
-      "protocol": "MQTT",
+      "thing_group": "factory-sensors",
+      "action": "CONNECT",
+      "topic": "cmd/device/update",
+      "protocol": "MQTT-SN",
       "qos": 1,
-      "message_bytes": 58957,
-      "policy_name": "IoTDevicePolicy",
+      "message_bytes": 49246,
+      "policy_name": "FleetPolicy",
       "structured_logging": true,
-      "rules_evaluated": 1,
+      "rules_evaluated": 2,
       "metrics": {
         "Connect.Success": {
-          "sum": 91
+          "sum": 469
         },
         "Connect.Failure": {
           "sum": 0
         },
         "PublishIn.Success": {
-          "sum": 9439
+          "sum": 2936
         },
         "PublishIn.ClientError": {
           "sum": 0
@@ -44,52 +44,52 @@
           "sum": 0
         },
         "PublishOut.Success": {
-          "sum": 6403
+          "sum": 5400
         },
         "Publish.Success": {
-          "sum": 2213
+          "sum": 60
         },
         "Publish.Failure": {
           "sum": 0
         },
         "Subscribe.Success": {
-          "sum": 1136
+          "sum": 2681
         },
         "Subscribe.Failure": {
           "sum": 0
         },
         "Unsubscribe.Success": {
-          "sum": 347
+          "sum": 695
         },
         "Ping.Success": {
-          "sum": 7029
+          "sum": 4065
         },
         "Throttle.Success": {
-          "sum": 59
+          "sum": 15
         },
         "RulesMatched": {
-          "sum": 683
+          "sum": 123
         },
         "RulesFailed": {
           "sum": 0
         },
         "RulesNotMatched": {
-          "sum": 72
+          "sum": 79
         },
         "TopicMatch": {
-          "sum": 9810
+          "sum": 790
         },
         "ClientConnections": {
-          "avg": 28178
+          "avg": 63012
         }
       }
     }
   },
   "source": {
-    "ip": "23.191.149.4"
+    "ip": "97.85.67.152"
   },
   "event": {
-    "action": "PUBLISH",
+    "action": "CONNECT",
     "outcome": "success",
     "category": [
       "network",
@@ -97,9 +97,9 @@
     ],
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com",
-    "duration": 162000000
+    "duration": 145000000
   },
-  "message": "{\"clientId\":\"robot-arm-7\",\"action\":\"PUBLISH\",\"topic\":\"dt/factory/sensors/temperature\",\"message\":\"IoT Core PUBLISH: robot-arm-7 on dt/factory/sensors/temperature\",\"timestamp\":\"2026-03-26T16:46:26.654Z\"}",
+  "message": "{\"clientId\":\"robot-arm-7\",\"action\":\"CONNECT\",\"topic\":\"cmd/device/update\",\"message\":\"IoT Core CONNECT: robot-arm-7 on cmd/device/update\",\"timestamp\":\"2026-03-26T17:22:32.197Z\"}",
   "log": {
     "level": "info"
   }

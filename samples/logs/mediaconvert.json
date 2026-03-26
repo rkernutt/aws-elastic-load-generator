@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "mediaconvert"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "HLS"
+      "Operation": "DASH"
     },
     "mediaconvert": {
-      "job_id": "4907094262-itk2id",
-      "queue_arn": "arn:aws:mediaconvert:eu-central-1:293847561023:queues/batch",
+      "job_id": "4922790142-95t9pv",
+      "queue_arn": "arn:aws:mediaconvert:eu-central-2:814726593401:queues/batch",
       "job_status": "COMPLETE",
-      "output_group_type": "HLS",
+      "output_group_type": "DASH",
       "input_file": "s3://media-input/broadcast/live.mxf",
-      "input_duration_minutes": 17.577,
+      "input_duration_minutes": 81.389,
       "video_codec": "AV1",
-      "audio_codec": "AAC",
-      "width": 1920,
-      "height": 720,
+      "audio_codec": "MP3",
+      "width": 1280,
+      "height": 1080,
       "bitrate_kbps": 3000,
-      "duration_seconds": 1075,
+      "duration_seconds": 1031,
       "metrics": {
         "JobsCompletedCount": {
           "sum": 1
@@ -36,16 +36,16 @@
           "sum": 0
         },
         "StandbyTime": {
-          "avg": 70
+          "avg": 6
         },
         "TranscodingTime": {
-          "avg": 1075
+          "avg": 1031
         }
       }
     }
   },
   "event": {
-    "duration": 1075000000000,
+    "duration": 1031000000000,
     "outcome": "success",
     "category": [
       "process"
@@ -53,7 +53,7 @@
     "dataset": "aws.mediaconvert",
     "provider": "mediaconvert.amazonaws.com"
   },
-  "message": "MediaConvert job 4907094262-itk2id COMPLETE: 17.6 min -> HLS",
+  "message": "MediaConvert job 4922790142-95t9pv COMPLETE: 81.4 min -> DASH",
   "log": {
     "level": "info"
   }

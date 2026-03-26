@@ -1,0 +1,80 @@
+{
+  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "processor": {
+    "name": "transaction",
+    "event": "transaction"
+  },
+  "trace": {
+    "id": "facfda08f9ec444eae2334cbf4df9cd9"
+  },
+  "transaction": {
+    "id": "cc41f2e9b2562082",
+    "name": "user.registered process",
+    "type": "messaging",
+    "duration": {
+      "us": 360000
+    },
+    "result": "failure",
+    "sampled": true,
+    "span_count": {
+      "started": 2,
+      "dropped": 0
+    }
+  },
+  "labels": {
+    "rule_name": "user.registered",
+    "event_bus_name": "custom-events",
+    "event_source": "com.myapp.auth",
+    "detail_type": "User Registered",
+    "matched_rule_count": "3"
+  },
+  "service": {
+    "name": "user.registered",
+    "environment": "dev",
+    "version": "1.0.0",
+    "language": {
+      "name": "nodejs"
+    },
+    "runtime": {
+      "name": "node",
+      "version": "20.15.1"
+    },
+    "framework": {
+      "name": "Fastify"
+    }
+  },
+  "agent": {
+    "name": "otlp",
+    "version": "1.4.0"
+  },
+  "telemetry": {
+    "sdk": {
+      "name": "opentelemetry",
+      "language": "nodejs",
+      "version": "1.30.1"
+    },
+    "distro": {
+      "name": "elastic",
+      "version": "1.4.0"
+    }
+  },
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-central-1",
+    "account": {
+      "id": "123456789012",
+      "name": "prod-aws"
+    },
+    "service": {
+      "name": "events"
+    }
+  },
+  "event": {
+    "outcome": "failure"
+  },
+  "data_stream": {
+    "type": "traces",
+    "dataset": "apm",
+    "namespace": "default"
+  }
+}

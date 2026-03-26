@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "qbusiness"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "ApplicationId": "x6t3zv0c-9mvi-adoy-hxln-9bkv0lrauj8"
+      "ApplicationId": "szzj15hy-hebo-n1kn-pqcd-yd4yc2km5vr"
     },
     "qbusiness": {
-      "application_id": "x6t3zv0c-9mvi-adoy-hxln-9bkv0lrauj8",
+      "application_id": "szzj15hy-hebo-n1kn-pqcd-yd4yc2km5vr",
       "application_name": "dev-help",
-      "conversation_id": "7z0e2lga-t34y-dh9t-4g26-5sepbh9e2p9",
-      "message_id": "ux0w0fad-smn4-4eau-jzy5-hk6bgd4has6",
-      "user_id": "dan",
+      "conversation_id": "vfhgc1s0-fqc7-t8zh-ocbv-b3tuocczdsg",
+      "message_id": "8o3tf9uh-w26n-u9xc-a619-fxng3wrxes",
+      "user_id": "eve",
       "event_type": "QUERY",
-      "response_latency_ms": 3823,
+      "response_latency_ms": 13019,
       "query": {
-        "input_token_count": 125,
-        "output_token_count": 717,
-        "retrieved_documents": 3,
-        "source_attributions": 3,
+        "input_token_count": 188,
+        "output_token_count": 0,
+        "retrieved_documents": 5,
+        "source_attributions": 5,
         "guardrail_action": "NONE"
       },
       "metrics": {
@@ -38,37 +38,42 @@
           "sum": 1
         },
         "InputTokenCount": {
-          "sum": 125
+          "sum": 188
         },
         "OutputTokenCount": {
-          "sum": 717
+          "sum": 0
         },
         "FailedResponses": {
-          "sum": 0
+          "sum": 1
         },
         "GuardrailIntervened": {
           "sum": 0
         },
         "DocumentsRetrieved": {
-          "sum": 3
+          "sum": 5
         }
       }
     }
   },
   "user": {
-    "name": "dan"
+    "name": "eve"
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.qbusiness",
     "provider": "qbusiness.amazonaws.com",
-    "duration": 3823000000
+    "duration": 13019000000
   },
-  "message": "Q Business dev-help: dan query (3 docs retrieved)",
+  "message": "Q Business dev-help: QUERY FAILED for eve",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "AccessDeniedException",
+    "message": "Q Business operation failed",
+    "type": "ai"
   }
 }

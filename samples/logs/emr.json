@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "emr"
@@ -13,93 +13,93 @@
   },
   "aws": {
     "dimensions": {
-      "JobFlowId": "j-7KETGBNCHDW"
+      "JobFlowId": "j-WFHEHIEAG3D"
     },
     "emr": {
-      "cluster_id": "j-7KETGBNCHDW",
+      "cluster_id": "j-WFHEHIEAG3D",
       "cluster_name": "ml-feature-pipeline-cluster",
       "application": "hive",
-      "release": "emr-6.8.0",
-      "instance_group": "TASK",
-      "executor_count": 32,
+      "release": "emr-6.14.0",
+      "instance_group": "MASTER",
+      "executor_count": 16,
       "job": {
         "name": "ml-feature-pipeline",
-        "id": "application_1774543586698_6548",
+        "id": "application_1774545752366_9869",
         "run_state": "SUCCEEDED"
       },
-      "structured_logging": false,
+      "structured_logging": true,
       "metrics": {
-        "executor_count": 32,
-        "running_step_count": 2,
+        "executor_count": 16,
+        "running_step_count": 3,
         "failed_step_count": 0,
-        "hdfs_utilization_pct": 47,
-        "yarn_memory_used_mb": 55147,
-        "elapsedTime": 1466000,
-        "numCompletedTasks": 237,
+        "hdfs_utilization_pct": 23,
+        "yarn_memory_used_mb": 11428,
+        "elapsedTime": 2697000,
+        "numCompletedTasks": 35,
         "numFailedTasks": 0,
-        "jvm_heap_usage": 0.25,
-        "gc_time_ms": 27443,
-        "numberAllExecutors": 59
+        "jvm_heap_usage": 0.78,
+        "gc_time_ms": 16437,
+        "numberAllExecutors": 31
       }
     },
     "elasticmapreduce": {
       "metrics": {
         "S3BytesWritten": {
-          "sum": 936946225718
+          "sum": 866319674865
         },
         "S3BytesRead": {
-          "sum": 417448671783
+          "sum": 679126631953
         },
         "HDFSUtilization": {
-          "avg": 47
+          "avg": 23
         },
         "HDFSBytesRead": {
-          "sum": 93832118892
+          "sum": 14103107267
         },
         "HDFSBytesWritten": {
-          "sum": 70242263364
+          "sum": 14903903861
         },
         "TotalNodesRunning": {
-          "avg": 33
+          "avg": 17
         },
         "YARNMemoryAvailablePercentage": {
-          "avg": 49.869
+          "avg": 33.895
         },
         "CoreNodesRunning": {
-          "avg": 2
+          "avg": 5
         },
         "CoreNodesPending": {
           "avg": 0
         },
         "TaskNodesRunning": {
-          "avg": 7
-        },
-        "LiveDataNodes": {
           "avg": 14
         },
+        "LiveDataNodes": {
+          "avg": 13
+        },
         "CapacityRemainingGB": {
-          "avg": 2591.031
+          "avg": 1678.778
         },
         "MemoryAvailableMB": {
-          "sum": 55147
+          "sum": 11428
         },
         "MemoryReservedMB": {
-          "avg": 8668
+          "avg": 30006
         },
         "MemoryTotalMB": {
-          "sum": 85905
+          "sum": 78196
         },
         "ContainersPending": {
           "avg": 0
         },
         "ContainerPendingRatio": {
-          "avg": 0.17
+          "avg": 0.254
         },
         "ContainersAllocated": {
-          "avg": 5
+          "avg": 21
         },
         "AppsCompleted": {
-          "sum": 79
+          "sum": 11
         },
         "AppsFailed": {
           "sum": 0
@@ -108,16 +108,16 @@
           "sum": 0
         },
         "AppsPending": {
-          "avg": 2
+          "avg": 5
         },
         "AppsRunning": {
-          "avg": 2
+          "avg": 5
         }
       }
     }
   },
   "process": {
-    "name": "FlinkTaskManager"
+    "name": "HiveMetastore"
   },
   "log": {
     "level": "info"
@@ -129,7 +129,7 @@
     ],
     "dataset": "aws.emr",
     "provider": "elasticmapreduce.amazonaws.com",
-    "duration": 1466000000000
+    "duration": 2697000000000
   },
-  "message": "Job run succeeded"
+  "message": "{\"clusterId\":\"j-WFHEHIEAG3D\",\"applicationId\":\"application_1774545752366_9869\",\"containerId\":\"container_1774545752366_504_01_971299\",\"logLevel\":\"INFO\",\"message\":\"Job run succeeded\",\"timestamp\":\"2026-03-26T17:22:32.197Z\",\"component\":\"driver\"}"
 }

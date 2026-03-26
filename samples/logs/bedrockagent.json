@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "bedrock-agent"
@@ -13,37 +13,36 @@
   },
   "aws": {
     "dimensions": {
-      "AgentId": "TTLRN7XB8AK",
-      "Operation": "Retrieve"
+      "AgentId": "TDH8YALFCKHA",
+      "Operation": "InvokeAgentWithResponseStream"
     },
     "bedrockagent": {
-      "agent_id": "TTLRN7XB8AK",
+      "agent_id": "TDH8YALFCKHA",
       "agent_alias_id": "TSTALIASID",
-      "session_id": "9wkvcy7icmo",
-      "action": "Retrieve",
-      "knowledge_base_id": "KB0EWVROV0T",
-      "input_token_count": 1819,
-      "output_token_count": 597,
-      "invocation_latency_ms": 6156,
+      "session_id": "4b9de46zub6",
+      "action": "InvokeAgentWithResponseStream",
+      "input_token_count": 2189,
+      "output_token_count": 187,
+      "invocation_latency_ms": 7109,
       "orchestration_trace": {
         "model_invocation": {
-          "model_arn": "arn:aws:bedrock:af-south-1::foundation-model/anthropic.claude-3-5-sonnet-v2"
+          "model_arn": "arn:aws:bedrock:eu-south-2::foundation-model/anthropic.claude-3-5-sonnet-v2"
         }
       },
-      "guardrail_action": "INTERVENED",
+      "guardrail_action": "NONE",
       "metrics": {
         "Invocations": {
-          "sum": 158
+          "sum": 13
         },
         "InvocationLatency": {
-          "avg": 6156,
-          "p99": 12312
+          "avg": 7109,
+          "p99": 14218
         },
         "InputTokenCount": {
-          "sum": 1819
+          "sum": 2189
         },
         "OutputTokenCount": {
-          "sum": 597
+          "sum": 187
         }
       }
     }
@@ -55,9 +54,9 @@
     ],
     "dataset": "aws.bedrockagent",
     "provider": "bedrock-agent-runtime.amazonaws.com",
-    "duration": 6156000000
+    "duration": 7109000000
   },
-  "message": "Bedrock Agent TTLRN7XB8AK: Retrieve 1819→597 tokens 6.16s",
+  "message": "Bedrock Agent TDH8YALFCKHA: InvokeAgentWithResponseStream 2189→187 tokens 7.11s",
   "log": {
     "level": "info"
   }

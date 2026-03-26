@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "ecs"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "staging",
-      "ServiceName": "scheduler"
+      "ClusterName": "prod-cluster",
+      "ServiceName": "auth-service"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 6.772
+          "avg": 7.958
         },
         "CPUReservation": {
-          "avg": 15.748
+          "avg": 15.027
         },
         "MemoryUtilization": {
-          "avg": 23.128
+          "avg": 14.733
         },
         "MemoryReservation": {
-          "avg": 34.853
+          "avg": 21.346
         },
         "GPUReservation": {
           "avg": 0
@@ -37,20 +37,20 @@
     }
   },
   "container": {
-    "id": "zxx90gupetb",
-    "name": "scheduler",
+    "id": "jp7lk16p64",
+    "name": "auth-service",
     "image": {
-      "name": "java:alpine",
+      "name": "python:18-alpine",
       "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 26939,
-    "name": "scheduler"
+    "pid": 40246,
+    "name": "auth-service"
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "event": {
     "category": [
@@ -60,11 +60,11 @@
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 2537000000000
+    "duration": 2676000000000
   },
-  "message": "Connection pool exhausted",
+  "message": "Scaling event triggered",
   "service": {
-    "name": "scheduler",
+    "name": "auth-service",
     "type": "ecs"
   }
 }

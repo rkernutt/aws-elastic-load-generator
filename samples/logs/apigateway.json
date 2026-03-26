@@ -1,53 +1,57 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ca-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "apigateway"
     }
   },
+  "trace": {
+    "id": "1-80s29oei-6xprwb9yx86"
+  },
   "aws": {
     "dimensions": {
       "ApiName": "internal-api",
-      "Stage": "staging",
-      "Method": "PUT",
-      "Resource": "/api/v1/orders"
+      "Stage": "v2",
+      "Method": "PATCH",
+      "Resource": "/api/v1/products"
     },
     "apigateway": {
-      "request_id": "fkvs7kx4-pk1w",
-      "api_id": "zw1g457z38",
-      "domain_name": "zw1g457z38.execute-api.us-west-2.amazonaws.com",
-      "stage": "staging",
-      "http_method": "PUT",
-      "resource_path": "/api/v1/orders",
+      "request_id": "8plqkmas-ktrz",
+      "api_id": "v9jhmks3k5",
+      "domain_name": "v9jhmks3k5.execute-api.eu-west-1.amazonaws.com",
+      "stage": "v2",
+      "http_method": "PATCH",
+      "resource_path": "/api/v1/products",
       "protocol": "HTTP/1.1",
-      "route_key": "PUT /api/v1/orders",
-      "status": 200,
-      "response_length": 9305,
-      "ip_address": "102.232.48.215",
-      "connection_id": "JM4KVPCYGT",
-      "event_type": "MESSAGE",
-      "request_time": "2026-03-26T16:46:26.654Z",
+      "route_key": "PATCH /api/v1/products",
+      "status": 429,
+      "response_length": 2559,
+      "ip_address": "226.229.163.112",
+      "caller": "arn:aws:iam::501938274650:user/api-user",
+      "connection_id": "U1HG38IL5T8",
+      "event_type": "CONNECT",
+      "request_time": "2026-03-26T17:22:32.197Z",
       "api_type": "HTTP",
-      "integration_latency": 457,
+      "integration_latency": 2464,
       "metrics": {
         "Count": {
           "sum": 1
         },
         "Latency": {
-          "avg": 542,
-          "p99": 1626
+          "avg": 3077,
+          "p99": 9231
         },
         "IntegrationLatency": {
-          "avg": 457
+          "avg": 2464
         },
         "4XXError": {
-          "sum": 0
+          "sum": 1
         },
         "5XXError": {
           "sum": 0
@@ -57,34 +61,34 @@
   },
   "http": {
     "request": {
-      "method": "PUT",
-      "id": "fkvs7kx4-pk1w",
-      "bytes": 2309
+      "method": "PATCH",
+      "id": "8plqkmas-ktrz",
+      "bytes": 2975
     },
     "response": {
-      "status_code": 200,
-      "bytes": 8850
+      "status_code": 429,
+      "bytes": 4992
     }
   },
   "url": {
-    "path": "/api/v1/orders",
-    "domain": "zw1g457z38.execute-api.us-west-1.amazonaws.com"
+    "path": "/api/v1/products",
+    "domain": "v9jhmks3k5.execute-api.ca-west-1.amazonaws.com"
   },
   "client": {
-    "ip": "189.143.223.32",
+    "ip": "163.46.219.150",
     "geo": {
-      "country_iso_code": "DE",
-      "country_name": "Germany",
-      "region_name": "Frankfurt",
-      "city_name": "Frankfurt"
+      "country_iso_code": "IN",
+      "country_name": "India",
+      "region_name": "Mumbai",
+      "city_name": "Mumbai"
     }
   },
   "user_agent": {
     "original": "python-requests/2.27.1"
   },
   "event": {
-    "duration": 542000000,
-    "outcome": "success",
+    "duration": 3077000000,
+    "outcome": "failure",
     "category": [
       "web"
     ],
@@ -94,8 +98,13 @@
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "{\"requestId\":\"fkvs7kx4-pk1w\",\"requestMethod\":\"PUT\",\"requestPath\":\"/api/v1/orders\",\"status\":200,\"responseLatency\":542,\"integrationLatency\":457,\"timestamp\":\"2026-03-26T16:46:26.654Z\"}",
+  "message": "PATCH /api/v1/products 429 3077ms",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "TooManyRequestsException",
+    "message": "HTTP 429",
+    "type": "server"
   }
 }

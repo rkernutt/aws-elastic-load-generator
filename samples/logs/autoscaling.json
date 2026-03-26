@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "autoscaling"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "AutoScalingGroupName": "spot-fleet"
+      "AutoScalingGroupName": "worker-asg"
     },
     "autoscaling": {
-      "group_name": "spot-fleet",
-      "activity_id": "w62goovv-pstv-d3ue",
+      "group_name": "worker-asg",
+      "activity_id": "tekbtxl0-6s7a-h4ps",
       "action_type": "Launch",
-      "instance_id": "i-suz74treq2",
-      "instance_type": "m5.xlarge",
-      "desired_capacity": 19,
+      "instance_id": "i-rmaboreo0j",
+      "instance_type": "r5.large",
+      "desired_capacity": 7,
       "min_size": 2,
       "max_size": 50,
-      "current_capacity": 17,
+      "current_capacity": 7,
       "cause": "Scale out triggered: capacity below desired",
       "status_code": "Successful",
-      "launch_template": "api-lt:3",
+      "launch_template": "web-lt:5",
       "metrics": {
         "GroupMinSize": {
           "avg": 2
@@ -36,37 +36,37 @@
           "avg": 50
         },
         "GroupDesiredCapacity": {
-          "avg": 19
+          "avg": 7
         },
         "GroupInServiceInstances": {
-          "avg": 17
+          "avg": 7
         },
         "GroupPendingInstances": {
           "avg": 0
         },
         "GroupStandbyInstances": {
-          "avg": 2
+          "avg": 0
         },
         "GroupTerminatingInstances": {
           "avg": 0
         },
         "GroupTotalInstances": {
-          "avg": 19
+          "avg": 7
         },
         "GroupInServiceCapacity": {
-          "avg": 17
+          "avg": 7
         },
         "GroupPendingCapacity": {
           "avg": 0
         },
         "GroupStandbyCapacity": {
-          "avg": 2
+          "avg": 0
         },
         "GroupTerminatingCapacity": {
           "avg": 0
         },
         "GroupTotalCapacity": {
-          "avg": 19
+          "avg": 7
         },
         "WarmPoolMinSize": {
           "avg": 0
@@ -96,9 +96,9 @@
     "outcome": "success",
     "dataset": "aws.autoscaling",
     "provider": "autoscaling.amazonaws.com",
-    "duration": 425000000000
+    "duration": 534000000000
   },
-  "message": "AutoScaling spot-fleet: Launch instance",
+  "message": "AutoScaling worker-asg: Launch instance",
   "log": {
     "level": "info"
   }

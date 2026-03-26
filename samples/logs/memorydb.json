@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ap-south-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -16,23 +16,29 @@
       "cluster_name": "prod-memorydb",
       "node_name": "prod-memorydb-0001-001",
       "engine_version": "7.1",
-      "command": "XADD",
-      "latency_us": 25.229,
-      "cache_hit_rate": 87.039,
-      "connected_clients": 494,
-      "used_memory_mb": 18533,
-      "replication_lag_ms": 56
+      "command": "ZRANGE",
+      "latency_us": 265.097,
+      "cache_hit_rate": 0,
+      "connected_clients": 474,
+      "used_memory_mb": 51055,
+      "replication_lag_ms": 4773,
+      "error_code": "WRONGTYPE"
     }
   },
   "event": {
-    "duration": 25229,
-    "outcome": "success",
+    "duration": 265097,
+    "outcome": "failure",
     "category": "database",
     "dataset": "aws.memorydb",
     "provider": "memory-db.amazonaws.com"
   },
-  "message": "MemoryDB prod-memorydb XADD: 25.23us",
+  "message": "MemoryDB prod-memorydb ZRANGE FAILED: WRONGTYPE",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "READONLY",
+    "message": "MemoryDB command failed",
+    "type": "db"
   }
 }

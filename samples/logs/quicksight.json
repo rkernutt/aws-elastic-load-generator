@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "quicksight"
@@ -13,33 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "DashboardId": "owgzttq4u18",
-      "DataSetId": "1lqz7hq3hi5"
+      "DashboardId": "hlne2vnmt5u",
+      "DataSetId": "jt0us1vmxep"
     },
     "quicksight": {
-      "dashboard_id": "owgzttq4u18",
-      "dashboard_name": "executive-overview",
-      "dataset_id": "1lqz7hq3hi5",
-      "action": "ListDashboards",
-      "user_name": "carol@corp.com",
-      "data_source_type": "ATHENA",
-      "query_duration_ms": 1455,
-      "rows_returned": 83710,
+      "dashboard_id": "hlne2vnmt5u",
+      "dashboard_name": "ops-metrics",
+      "dataset_id": "jt0us1vmxep",
+      "action": "GetDashboardEmbedUrl",
+      "user_name": "alice@corp.com",
+      "data_source_type": "S3",
+      "query_duration_ms": 1866,
+      "rows_returned": 81943,
       "metrics": {
         "DashboardViewEvents": {
-          "sum": 875
+          "sum": 632
         },
         "SessionEvent": {
-          "sum": 241
+          "sum": 113
         },
         "SPICECapacityUsed": {
-          "avg": 67.34
+          "avg": 22.383
         },
         "SPICECapacityScheduled": {
-          "avg": 88.458
+          "avg": 40.339
         },
         "EmbedCallCount": {
-          "sum": 121
+          "sum": 239
         },
         "ClientError": {
           "sum": 0
@@ -51,10 +51,10 @@
     }
   },
   "user": {
-    "name": "carol@corp.com"
+    "name": "alice@corp.com"
   },
   "event": {
-    "duration": 1455000000,
+    "duration": 1866000000,
     "outcome": "success",
     "category": [
       "web",
@@ -63,7 +63,7 @@
     "dataset": "aws.quicksight",
     "provider": "quicksight.amazonaws.com"
   },
-  "message": "QuickSight ListDashboards: executive-overview loaded in 1455ms for carol@corp.com",
+  "message": "QuickSight GetDashboardEmbedUrl: ops-metrics loaded in 1866ms for alice@corp.com",
   "log": {
     "level": "info"
   }

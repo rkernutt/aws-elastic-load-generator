@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "me-south-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,52 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "DeliveryStreamName": "clickstream-backup"
+      "DeliveryStreamName": "metrics-to-opensearch"
     },
     "firehose": {
-      "delivery_stream_name": "clickstream-backup",
-      "destination": "Redshift",
-      "incoming_records": 12544,
-      "incoming_bytes": 22127616,
-      "delivery_success": false,
-      "delivery_records": 0,
-      "data_freshness_seconds": 2239,
+      "delivery_stream_name": "metrics-to-opensearch",
+      "destination": "OpenSearch",
+      "incoming_records": 37584,
+      "incoming_bytes": 32547744,
+      "delivery_success": true,
+      "delivery_records": 37584,
+      "data_freshness_seconds": 86,
       "metrics": {
         "DeliveryToS3.Bytes": {
-          "sum": 37802128
+          "sum": 10621385
         },
         "DeliveryToS3.DataFreshness": {
-          "avg": 2534
+          "avg": 2831
         },
         "DeliveryToS3.Records": {
-          "sum": 4900
+          "sum": 4865
         },
         "DeliveryToS3.Success": {
-          "avg": 0
+          "avg": 1
         },
         "IncomingBytes": {
-          "sum": 19212302
+          "sum": 37084540
         },
         "IncomingRecords": {
-          "sum": 4269
+          "sum": 8788
         },
         "BackupToS3.Bytes": {
-          "sum": 306174
+          "sum": 272003
         },
         "BackupToS3.Records": {
-          "sum": 143
+          "sum": 791
         },
         "BackupToS3.Success": {
           "avg": 1
         },
         "DataReadFromKinesisStream.Bytes": {
-          "sum": 65233183
+          "sum": 31636825
         },
         "DataReadFromKinesisStream.Records": {
-          "sum": 5384
+          "sum": 6143
         },
         "ThrottledGetRecords": {
-          "sum": 2
+          "sum": 0
         },
         "ThrottledGetShardIterator": {
           "sum": 0
@@ -67,21 +67,16 @@
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.firehose",
     "provider": "firehose.amazonaws.com",
-    "duration": 150000000000
+    "duration": 55000000000
   },
-  "message": "Firehose clickstream-backup delivery failure: Conversion error",
+  "message": "Firehose metrics-to-opensearch: 37584 records delivered",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "DeliveryFailure",
-    "message": "Firehose delivery failed",
-    "type": "stream"
+    "level": "info"
   }
 }

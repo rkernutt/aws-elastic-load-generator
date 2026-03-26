@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "backup"
@@ -13,13 +13,13 @@
   },
   "aws": {
     "backup": {
-      "backup_job_id": "d1hjp50v-8949-yuv3",
-      "backup_plan_name": "daily-backup-plan",
-      "resource_type": "DynamoDB",
-      "backup_vault_name": "compliance-vault",
+      "backup_job_id": "v93vulkv-6jej-6f37",
+      "backup_plan_name": "critical-data-plan",
+      "resource_type": "RDS",
+      "backup_vault_name": "Default",
       "status": "COMPLETED",
-      "backup_size_gb": 1073.508,
-      "lifecycle_delete_after_days": 7
+      "backup_size_gb": 1351.618,
+      "lifecycle_delete_after_days": 90
     }
   },
   "event": {
@@ -29,9 +29,9 @@
     ],
     "dataset": "aws.backup",
     "provider": "backup.amazonaws.com",
-    "duration": 7000000000000
+    "duration": 2237000000000
   },
-  "message": "AWS Backup COMPLETED: fsx/fs-prod -> prod-vault (1073.5GB)",
+  "message": "AWS Backup COMPLETED: rds/prod-db -> Default (1351.6GB)",
   "log": {
     "level": "info"
   }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "eu-central-2",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,32 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "ModelId": "meta.llama3-70b-instruct-v1:0"
+      "ModelId": "amazon.nova-pro-v1:0"
     },
     "bedrock": {
-      "model_id": "meta.llama3-70b-instruct-v1:0",
-      "invocation_latency_ms": 12043,
-      "input_token_count": 4957,
-      "output_token_count": 761,
-      "total_token_count": 5718,
-      "stop_reason": "max_tokens",
-      "use_case": "summarization",
+      "model_id": "amazon.nova-pro-v1:0",
+      "invocation_latency_ms": 1234,
+      "input_token_count": 2963,
+      "output_token_count": 1120,
+      "total_token_count": 4083,
+      "stop_reason": "end_turn",
+      "use_case": "qa",
       "guardrail_action": "NONE",
-      "streaming": false,
-      "model_family": "meta",
+      "streaming": true,
+      "time_to_first_token_ms": 83,
+      "input_tokens_per_sec": 2401.1,
+      "model_family": "amazon",
       "metrics": {
         "Invocations": {
-          "sum": 189
+          "sum": 134
         },
         "InvocationLatency": {
-          "avg": 12043,
-          "p99": 24086
+          "avg": 1234,
+          "p99": 2468
         },
         "InputTokenCount": {
-          "sum": 4957
+          "sum": 2963
         },
         "OutputTokenCount": {
-          "sum": 761
+          "sum": 1120
         },
         "Throttles": {
           "sum": 0
@@ -53,10 +55,10 @@
     ],
     "dataset": "aws.bedrock",
     "provider": "bedrock.amazonaws.com",
-    "duration": 12043000000
+    "duration": 1234000000
   },
-  "message": "Bedrock llama3 4957->761 tokens 12.04s",
+  "message": "Bedrock nova 2963->1120 tokens 1.23s",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

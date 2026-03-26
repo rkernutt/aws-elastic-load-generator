@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "us-east-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "events"
@@ -14,16 +14,16 @@
   "aws": {
     "dimensions": {
       "EventBusName": "default",
-      "RuleName": "order-created-rule"
+      "RuleName": "security-event-forwarder"
     },
     "eventbridge": {
       "event_bus": "default",
-      "rule": "order-created-rule",
-      "source": "aws.s3",
-      "detail_type": "Health Event",
-      "targets_invoked": 2,
+      "rule": "security-event-forwarder",
+      "source": "aws.ec2",
+      "detail_type": "Order Placed",
+      "targets_invoked": 4,
       "targets_failed": 0,
-      "event_id": "n12i7vot-p10h-b676-hb6a-a0932x7jne",
+      "event_id": "aatewht2-ad5w-2y8j-iyai-21sq70qe4b6",
       "structured_logging": true,
       "metrics": {
         "Invocations": {
@@ -36,7 +36,7 @@
           "sum": 1
         },
         "MatchedEvents": {
-          "sum": 95
+          "sum": 92
         },
         "ThrottledRules": {
           "sum": 0
@@ -53,13 +53,13 @@
       "process"
     ],
     "type": [
-      "creation"
+      "info"
     ],
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 110000000
+    "duration": 35000000
   },
-  "message": "{\"id\":\"n12i7vot-p10h-b676-hb6a-a0932x7jne\",\"source\":\"aws.s3\",\"detailType\":\"Order Placed\",\"rule\":\"order-created-rule\",\"eventBus\":\"default\",\"message\":\"EventBridge event routed: aws.s3 -> order-created-rule\",\"timestamp\":\"2026-03-26T16:46:26.654Z\"}",
+  "message": "{\"id\":\"aatewht2-ad5w-2y8j-iyai-21sq70qe4b6\",\"source\":\"aws.ec2\",\"detailType\":\"Order Placed\",\"rule\":\"security-event-forwarder\",\"eventBus\":\"default\",\"message\":\"EventBridge event routed: aws.ec2 -> security-event-forwarder\",\"timestamp\":\"2026-03-26T17:22:32.197Z\"}",
   "log": {
     "level": "info"
   }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "ap-northeast-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,56 +13,51 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "release-train"
+      "PipelineName": "web-prod-pipeline"
     },
     "codepipeline": {
-      "pipeline_name": "release-train",
-      "pipeline_arn": "arn:aws:codepipeline:eu-west-1:293847561023:release-train",
-      "execution_id": "6wnrtq65-0ts7-4w8y-0j49-azg64jcbzpj",
-      "stage_name": "Build",
-      "action_name": "Lambda",
-      "state": "Failed",
-      "revision_id": "fcrp0dx04xv",
-      "structured_logging": false,
+      "pipeline_name": "web-prod-pipeline",
+      "pipeline_arn": "arn:aws:codepipeline:ap-northeast-2:293847561023:web-prod-pipeline",
+      "execution_id": "67ltcz53-0v75-5hug-wvo9-7cp6pq9w5gu",
+      "stage_name": "Approval",
+      "action_name": "Manual",
+      "state": "Succeeded",
+      "revision_id": "jd9huynr7q8",
+      "structured_logging": true,
       "metrics": {
         "PipelineExecutionAttempts": {
           "sum": 1
         },
         "PipelineSuccessCount": {
-          "sum": 0
+          "sum": 1
         },
         "PipelineFailureCount": {
-          "sum": 1
+          "sum": 0
         },
         "ActionExecutionAttempts": {
           "sum": 1
         },
         "ActionSuccessCount": {
-          "sum": 0
+          "sum": 1
         },
         "ActionFailureCount": {
-          "sum": 1
+          "sum": 0
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process",
       "configuration"
     ],
     "dataset": "aws.codepipeline",
     "provider": "codepipeline.amazonaws.com",
-    "duration": 139000000000
+    "duration": 21000000000
   },
-  "message": "Pipeline execution failed",
+  "message": "{\"pipeline\":\"web-prod-pipeline\",\"executionId\":\"67ltcz53-0v75-5hug-wvo9-7cp6pq9w5gu\",\"stage\":\"Approval\",\"state\":\"Succeeded\",\"timestamp\":\"2026-03-26T17:22:32.197Z\"}",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "StageFailed",
-    "message": "Pipeline stage Build failed",
-    "type": "pipeline"
+    "level": "info"
   }
 }

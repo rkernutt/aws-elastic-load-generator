@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "eu-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "servicecatalog"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "servicecatalog": {
-      "operation": "SearchProducts",
-      "product_name": "Data Pipeline",
-      "product_id": "prod-KE8155OVGCE",
-      "portfolio_id": "port-5TD09UD2WFT",
-      "provisioned_product_name": "data-pipeline-wv0eaz",
-      "record_id": "rec-GZR35R275HT",
-      "status": "AVAILABLE",
-      "requester_arn": "arn:aws:iam::738291046572:user/sre-carol",
+      "operation": "UpdateProvisionedProduct",
+      "product_name": "Standard EC2 Instance",
+      "product_id": "prod-96S6CUJP9V4",
+      "portfolio_id": "port-HC7IU6M4KJ5",
+      "provisioned_product_name": "standard-ec2-instance-lxa5uc",
+      "record_id": "rec-7AQ7SVVMDD",
+      "status": "SUCCEEDED",
+      "requester_arn": "arn:aws:iam::293847561023:user/sre-carol",
       "launch_role": "arn:aws:iam::123456789:role/ServiceCatalogLaunchRole"
     }
   },
@@ -28,7 +28,7 @@
     "name": "sre-carol"
   },
   "event": {
-    "action": "SearchProducts",
+    "action": "UpdateProvisionedProduct",
     "outcome": "success",
     "category": [
       "configuration",
@@ -36,9 +36,9 @@
     ],
     "dataset": "aws.servicecatalog",
     "provider": "servicecatalog.amazonaws.com",
-    "duration": 211000000000
+    "duration": 456000000000
   },
-  "message": "ServiceCatalog SearchProducts: sre-carol → Data Pipeline [AVAILABLE]",
+  "message": "ServiceCatalog UpdateProvisionedProduct: sre-carol → Standard EC2 Instance [SUCCEEDED]",
   "log": {
     "level": "info"
   }

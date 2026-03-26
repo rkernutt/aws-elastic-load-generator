@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "eu-north-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "guardduty"
@@ -13,81 +13,42 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "o6z0fnz5618"
+      "DetectorId": "tn09241ir8"
     },
     "guardduty": {
       "schema_version": "2.0",
-      "account_id": "738291046572",
-      "region": "ca-west-1",
+      "account_id": "814726593401",
+      "region": "eu-north-1",
       "partition": "aws",
-      "id": "mrgk4b4w1or",
-      "arn": "arn:aws:guardduty:ca-west-1:738291046572:detector/o6z0fnz5618/finding/mrgk4b4w1or",
-      "type": "Trojan:EC2/DNSDataExfiltration",
-      "title": "EC2 DNSDataExfiltration",
-      "description": "GuardDuty detected suspicious activity: Trojan:EC2/DNSDataExfiltration",
-      "created_at": "2026-03-26T16:46:26.654Z",
-      "updated_at": "2026-03-26T16:46:26.654Z",
+      "id": "76v1x93upu",
+      "arn": "arn:aws:guardduty:eu-north-1:814726593401:detector/tn09241ir8/finding/76v1x93upu",
+      "type": "UnauthorizedAccess:EC2/SSHBruteForce",
+      "title": "EC2 SSHBruteForce",
+      "description": "Routine check completed.",
+      "created_at": "2026-03-26T17:22:32.197Z",
+      "updated_at": "2026-03-26T17:22:32.197Z",
       "severity": {
-        "code": 5,
-        "value": "Medium"
+        "code": 0,
+        "value": "Informational"
       },
-      "confidence": 65.55,
+      "confidence": 95.824,
       "resource": {
-        "type": "AccessKey",
-        "instance_details": {
-          "availability_zone": "ca-west-1c",
-          "instance": {
-            "id": "i-to726pyynsr",
-            "type": "m5.large",
-            "state": "running"
-          },
-          "image": {
-            "id": "ami-dmbw64g7",
-            "description": "Amazon Linux 2"
-          },
-          "network_interfaces": [
-            {
-              "network_interface_id": "eni-thqteih4",
-              "private_ip_address": "205.165.39.182",
-              "subnet_id": "subnet-vjtgy2bx",
-              "vpc_id": "vpc-swdiv84j",
-              "security_groups": [
-                {
-                  "group_id": "sg-yisuiq4x",
-                  "group_name": "default"
-                }
-              ]
-            }
-          ]
-        }
+        "type": "AccessKey"
       },
       "service": {
-        "detector_id": "o6z0fnz5618",
-        "count": 44,
-        "archived": false,
-        "action": {
-          "action_type": "PORT_PROBE"
-        },
-        "evidence": {
-          "threat_intelligence_details": [
-            {
-              "threat_names": [
-                "DenialOfService"
-              ],
-              "threat_list_name": "ThreatIntelSet"
-            }
-          ]
-        }
+        "detector_id": "tn09241ir8",
+        "count": 347,
+        "archived": false
       },
       "metrics": {
         "FindingCount": {
-          "sum": 19
+          "sum": 0
         },
         "HighSeverityFindingCount": {
           "sum": 0
         },
         "MediumSeverityFindingCount": {
-          "sum": 11
+          "sum": 0
         },
         "LowSeverityFindingCount": {
           "sum": 0
@@ -96,39 +57,22 @@
     }
   },
   "rule": {
-    "category": "malware",
-    "ruleset": "Trojan",
-    "name": "Trojan:EC2/DNSDataExfiltration"
+    "category": "threat"
   },
   "threat": {
     "indicator": [
       {
-        "type": "domain",
-        "value": "suspicious-7y7yd1kj.example.com"
+        "type": "ip",
+        "value": "221.224.176.106"
       }
     ]
   },
-  "source": {
-    "ip": "163.225.21.248",
-    "geo": {
-      "country_iso_code": "KP",
-      "country_name": "North Korea",
-      "city_name": "Pyongyang",
-      "location": {
-        "lat": 39.0194,
-        "lon": 125.7381
-      }
-    }
-  },
-  "destination": {
-    "ip": "235.203.58.211"
-  },
   "event": {
     "kind": "alert",
-    "severity": 5,
-    "outcome": "failure",
+    "severity": 0,
+    "outcome": "success",
     "category": [
-      "malware"
+      "threat"
     ],
     "type": [
       "indicator"
@@ -136,13 +80,8 @@
     "dataset": "aws.guardduty",
     "provider": "guardduty.amazonaws.com"
   },
-  "message": "GuardDuty finding [Medium]: Trojan:EC2/DNSDataExfiltration",
+  "message": "GuardDuty: no threats detected",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "ThreatFinding",
-    "message": "GuardDuty finding: Trojan:EC2/DNSDataExfiltration",
-    "type": "security"
+    "level": "info"
   }
 }

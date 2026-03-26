@@ -1,12 +1,12 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
-    "availability_zone": "ap-south-2b",
+    "region": "me-south-1",
+    "availability_zone": "me-south-1b",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "ebs"
@@ -14,52 +14,59 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-be891h0jxuq",
-      "VolumeType": "io2"
+      "VolumeId": "vol-fkxa2e7kcw",
+      "VolumeType": "sc1"
     },
     "ebs": {
-      "volume_id": "vol-be891h0jxuq",
-      "modification_state": "modifying",
-      "original_volume_type": "io1",
-      "target_volume_type": "st1",
-      "original_size_gb": 8,
-      "target_size_gb": 108,
-      "original_iops": 3226,
-      "target_iops": 14539,
-      "progress_percent": 44,
-      "event_type": "modification",
+      "volume_id": "vol-fkxa2e7kcw",
+      "volume_type": "sc1",
+      "size_gb": 8,
+      "attached_instance": "i-ldhiv2xpsod",
+      "device": "/dev/xvdb",
+      "iops_consumed": 762,
+      "throughput_mbps": 166.715,
+      "queue_depth": 0,
+      "latency_ms": 3.572,
+      "burst_balance_percent": 77,
+      "read_ops": 4020,
+      "write_ops": 521,
+      "read_bytes": 471672654,
+      "write_bytes": 366538965,
+      "event_type": "performance",
       "metrics": {
         "VolumeReadOps": {
-          "avg": 2820
+          "avg": 4634
         },
         "VolumeWriteOps": {
-          "avg": 226
+          "avg": 5377
         },
         "VolumeReadBytes": {
-          "avg": 65684948
+          "avg": 100993011
         },
         "VolumeWriteBytes": {
-          "avg": 102285130
+          "avg": 403927071
         },
         "VolumeTotalReadTime": {
-          "sum": 2.867
+          "sum": 2.488
         },
         "VolumeTotalWriteTime": {
-          "sum": 8.036
+          "sum": 5.997
         },
         "VolumeIdleTime": {
-          "sum": 54.937
+          "sum": 8.21
         },
         "VolumeQueueLength": {
-          "avg": 3
+          "avg": 2
         },
         "VolumeThroughputPercentage": {
-          "avg": 50.706
+          "avg": 64.517
         },
         "VolumeConsumedReadWriteOps": {
-          "avg": 16857
+          "avg": 1684
         },
-        "BurstBalance": {}
+        "BurstBalance": {
+          "avg": 67
+        }
       }
     }
   },
@@ -71,9 +78,9 @@
     ],
     "dataset": "aws.ebs",
     "provider": "ec2.amazonaws.com",
-    "duration": 2395000000
+    "duration": 3699000000
   },
-  "message": "EBS volume vol-be891h0jxuq modification: io1/8GB -> st1/108GB [modifying]",
+  "message": "EBS vol-fkxa2e7kcw performance: 762 IOPS, 166.7 MB/s, latency 3.57ms",
   "log": {
     "level": "info"
   }

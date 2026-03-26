@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "sa-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "ses"
@@ -16,23 +16,25 @@
       "ses:configuration-set": "marketing",
       "ses:from-domain": "company.com",
       "ses:to-country": "AU",
-      "ses:to-isp": "Other"
+      "ses:to-isp": "Hotmail"
     },
     "ses": {
-      "message_id": "j78t8rq4mcd.rn5au4e8wy@ap-northeast-2.amazonses.com",
-      "event_type": "Open",
-      "from_address": "alerts@company.com",
-      "destination": "user_zggg93@company.org",
+      "message_id": "w3jzjbcmc6b.4xzm9thz04@sa-east-1.amazonses.com",
+      "event_type": "Complaint",
+      "from_address": "noreply@company.com",
+      "destination": "user_w50hyc@gmail.com",
       "configuration_set": "marketing",
       "bounce": {},
-      "complaint": {},
-      "sending_account_id": "738291046572",
+      "complaint": {
+        "feedback_type": "virus"
+      },
+      "sending_account_id": "164820739518",
       "delivery": {
         "recipients": [
-          "user_zggg93@company.org"
+          "user_w50hyc@gmail.com"
         ],
-        "timestamp": "2026-03-26T16:46:26.654Z",
-        "processing_time_ms": 580,
+        "timestamp": "2026-03-26T17:22:32.197Z",
+        "processing_time_ms": 2883,
         "smtp_response": "250 2.0.0 OK"
       },
       "metrics": {
@@ -67,17 +69,22 @@
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "email",
       "process"
     ],
     "dataset": "aws.ses",
     "provider": "email.amazonaws.com",
-    "duration": 2400000000
+    "duration": 327000000
   },
-  "message": "SES Open: alerts@company.com -> user_zggg93@company.org",
+  "message": "SES Complaint from user_w50hyc@gmail.com:",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "SESDeliveryFailure",
+    "message": "SES delivery failed",
+    "type": "email"
   }
 }

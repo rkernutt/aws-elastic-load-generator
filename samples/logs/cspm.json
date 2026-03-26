@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,38 +7,38 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "ap-east-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
     }
   },
   "resource": {
-    "id": "arn:aws:config:me-south-1:814726593401:config-recorder/default",
-    "name": "default",
-    "sub_type": "config",
-    "type": "cloud-configuration"
+    "id": "arn:aws:ec2:ap-east-1:814726593401:security-group/sg-st2z6jzy",
+    "name": "sg-st2z6jzy",
+    "sub_type": "security-group",
+    "type": "cloud-network"
   },
   "rule": {
-    "id": "cis_2_5",
-    "name": "Ensure AWS Config is enabled in all regions",
-    "section": "2.5",
+    "id": "cis_4_1",
+    "name": "Ensure no security group allows unrestricted SSH inbound",
+    "section": "4.1",
     "tags": [
-      "Config"
+      "Networking"
     ],
     "benchmark": {
       "id": "cis_aws",
       "version": "v1.5.0",
-      "rule_number": "2.5",
+      "rule_number": "4.1",
       "posture_type": "cspm"
     },
-    "impact": "Non-compliance with CIS AWS 2.5 may expose account to unauthorized access.",
-    "remediation": "Remediate per CIS AWS Foundations Benchmark v1.5.0 section 2.5."
+    "impact": "Non-compliance with CIS AWS 4.1 may expose account to unauthorized access.",
+    "remediation": "Remediate per CIS AWS Foundations Benchmark v1.5.0 section 4.1."
   },
   "result": {
     "evaluation": "failed"
   },
-  "severity": "medium",
+  "severity": "high",
   "event": {
     "kind": "state",
     "category": [
@@ -51,13 +51,13 @@
     "dataset": "cloud_security_posture.findings",
     "provider": "elastic_cspm"
   },
-  "message": "CSPM [CIS AWS 1.5 / 2.5] failed: Ensure AWS Config is enabled in all regions",
+  "message": "CSPM [CIS AWS 1.5 / 4.1] failed: Ensure no security group allows unrestricted SSH inbound",
   "log": {
     "level": "warn"
   },
   "error": {
-    "code": "CIS_CIS_2_5",
-    "message": "CSPM check failed: Ensure AWS Config is enabled in all regions",
+    "code": "CIS_CIS_4_1",
+    "message": "CSPM check failed: Ensure no security group allows unrestricted SSH inbound",
     "type": "compliance"
   }
 }

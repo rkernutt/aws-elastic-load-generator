@@ -1,0 +1,80 @@
+{
+  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "processor": {
+    "name": "transaction",
+    "event": "transaction"
+  },
+  "trace": {
+    "id": "3c384fe23e80d8f3a44825fd4bc654a8"
+  },
+  "transaction": {
+    "id": "6945c89ed45688f6",
+    "name": "user-events-queue process",
+    "type": "messaging",
+    "duration": {
+      "us": 4144000
+    },
+    "result": "success",
+    "sampled": true,
+    "span_count": {
+      "started": 3,
+      "dropped": 0
+    }
+  },
+  "labels": {
+    "queue_name": "user-events-queue",
+    "queue_url": "https://sqs.ap-south-2.amazonaws.com/234567890123/user-events-queue",
+    "message_count": "10",
+    "approximate_first_receive_delay_seconds": "20",
+    "parent_trace_id": "675cb19f4dba57b731d14b305b3f33ac"
+  },
+  "service": {
+    "name": "user-events-consumer",
+    "environment": "staging",
+    "version": "1.0.0",
+    "language": {
+      "name": "python"
+    },
+    "runtime": {
+      "name": "python3.12",
+      "version": "3.12.8"
+    },
+    "framework": {
+      "name": "AWS SQS"
+    }
+  },
+  "agent": {
+    "name": "otlp",
+    "version": "0.6.0"
+  },
+  "telemetry": {
+    "sdk": {
+      "name": "opentelemetry",
+      "language": "python",
+      "version": "1.29.0"
+    },
+    "distro": {
+      "name": "elastic",
+      "version": "0.6.0"
+    }
+  },
+  "cloud": {
+    "provider": "aws",
+    "region": "ap-south-2",
+    "account": {
+      "id": "234567890123",
+      "name": "staging-aws"
+    },
+    "service": {
+      "name": "sqs"
+    }
+  },
+  "event": {
+    "outcome": "success"
+  },
+  "data_stream": {
+    "type": "traces",
+    "dataset": "apm",
+    "namespace": "default"
+  }
+}

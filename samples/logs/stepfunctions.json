@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "states"
@@ -13,53 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "StateMachineArn": "arn:aws:states:eu-west-1:738291046572:stateMachine:approval-workflow"
+      "StateMachineArn": "arn:aws:states:eu-south-2:814726593401:stateMachine:user-onboarding"
     },
     "stepfunctions": {
-      "state_machine_name": "approval-workflow",
-      "state_machine_arn": "arn:aws:states:eu-west-1:738291046572:stateMachine:approval-workflow",
-      "execution_arn": "arn:aws:states:eu-west-1:738291046572:execution:approval-workflow:j3eoktwj",
-      "workflow_type": "STANDARD",
-      "execution_start_time": "2026-03-26T16:45:57.988Z",
+      "state_machine_name": "user-onboarding",
+      "state_machine_arn": "arn:aws:states:eu-south-2:814726593401:stateMachine:user-onboarding",
+      "execution_arn": "arn:aws:states:eu-south-2:814726593401:execution:user-onboarding:59cfmfr4",
+      "workflow_type": "EXPRESS",
+      "execution_start_time": "2026-03-26T17:22:26.084Z",
       "state_name": "ValidateInput",
-      "state_duration_seconds": 16.498,
+      "state_duration_seconds": 2.016,
       "status": "SUCCEEDED",
-      "duration_seconds": 28.666,
-      "structured_logging": false,
+      "duration_seconds": 6.113,
+      "structured_logging": true,
       "metrics": {
         "ExecutionsStarted": {
-          "sum": 302
+          "sum": 87083
         },
         "ExecutionsSucceeded": {
-          "sum": 32
+          "sum": 56724
         },
         "ExecutionsFailed": {
-          "sum": 0
-        },
-        "ExecutionsAborted": {
-          "sum": 5
-        },
-        "ExecutionsTimedOut": {
           "sum": 0
         },
         "ExecutionThrottled": {
           "sum": 0
         },
         "ExecutionTime": {
-          "avg": 28666,
-          "max": 57332
+          "avg": 6113,
+          "p99": 18339
+        },
+        "ExecutionsTimedOut": {
+          "sum": 0
         }
       }
     }
   },
   "event": {
-    "duration": 28666000000,
+    "duration": 6113000000,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.stepfunctions",
     "provider": "states.amazonaws.com"
   },
-  "message": "Execution succeeded",
+  "message": "{\"executionArn\":\"arn:aws:states:eu-south-2:814726593401:execution:user-onboarding:59cfmfr4\",\"stateMachine\":\"user-onboarding\",\"workflowType\":\"EXPRESS\",\"state\":\"ValidateInput\",\"status\":\"SUCCEEDED\",\"durationSeconds\":6.113,\"timestamp\":\"2026-03-26T17:22:32.197Z\"}",
   "log": {
     "level": "info"
   }

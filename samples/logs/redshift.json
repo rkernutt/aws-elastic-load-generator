@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "me-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "redshift"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterIdentifier": "prod-dw-us-west-2",
-      "NodeID": "Compute-0"
+      "ClusterIdentifier": "prod-dw-me-central-1",
+      "NodeID": "Leader"
     },
     "redshift": {
-      "cluster_id": "prod-dw-us-west-2",
+      "cluster_id": "prod-dw-me-central-1",
       "database": "analytics",
       "user": "analyst",
-      "pid": 91170,
-      "query_id": 7250653,
-      "duration_seconds": 2.644,
-      "rows_returned": 596036,
-      "query_type": "SELECT",
+      "pid": 16339,
+      "query_id": 6966899,
+      "duration_seconds": 42.12,
+      "rows_returned": 4496441,
+      "query_type": "UNLOAD",
       "wlm": {
-        "queue_name": "analyst_queue",
-        "queue_wait_seconds": 0.965
+        "queue_name": "default_queue",
+        "queue_wait_seconds": 2.646
       },
       "metrics": {
         "CPUUtilization": {
-          "avg": 30.921
+          "avg": 36.319
         },
         "PercentageDiskSpaceUsed": {
-          "avg": 55.464
+          "avg": 36.173
         },
         "DatabaseConnections": {
-          "avg": 182
+          "avg": 434
         },
         "HealthStatus": {
           "avg": 1
@@ -46,52 +46,52 @@
           "avg": 0
         },
         "NetworkReceiveThroughput": {
-          "avg": 687841868
+          "avg": 330649557
         },
         "NetworkTransmitThroughput": {
-          "avg": 426981129
+          "avg": 260475158
         },
         "QueriesCompletedPerSecond": {
-          "avg": 804.138
+          "avg": 395.041
         },
         "QueryDuration": {
-          "avg": 9097.355
+          "avg": 25825.474
         },
         "QueryRuntimeBreakdown": {
-          "avg": 20549.045
+          "avg": 24588.127
         },
         "ReadIOPS": {
-          "avg": 3115
+          "avg": 5669
         },
         "ReadLatency": {
-          "avg": 0.07
+          "avg": 0.079
         },
         "ReadThroughput": {
-          "avg": 202829199
+          "avg": 955336895
         },
         "WLMQueriesCompletedPerSecond": {
-          "avg": 342.64
+          "avg": 148.723
         },
         "WLMQueryDuration": {
-          "avg": 12866.606
+          "avg": 8776.677
         },
         "WLMRunningSlotCount": {
-          "avg": 49
+          "avg": 25
         },
         "WLMQueueLength": {
-          "avg": 4
+          "avg": 0
         },
         "WLMQueueWaitTime": {
-          "avg": 143.193
+          "avg": 257.712
         },
         "WriteIOPS": {
-          "avg": 1952
+          "avg": 917
         },
         "WriteLatency": {
-          "avg": 0.033
+          "avg": 0.011
         },
         "WriteThroughput": {
-          "avg": 273844508
+          "avg": 23103195
         }
       }
     }
@@ -101,11 +101,11 @@
       "name": "analyst"
     },
     "name": "analytics",
-    "statement": "ANALYZE dim_customers PREDICATE COLUMNS",
+    "statement": "UNLOAD ('SELECT * FROM fact_sales WHERE sale_date = CURRENT_DATE') TO 's3://exports/sales/' IAM_ROLE 'arn:aws:iam::123456789:role/RedshiftS3' PARQUET ALLOWOVERWRITE",
     "type": "sql"
   },
   "event": {
-    "duration": 2644000000,
+    "duration": 42120000000,
     "outcome": "success",
     "category": [
       "database"
@@ -113,7 +113,7 @@
     "dataset": "aws.redshift",
     "provider": "redshift.amazonaws.com"
   },
-  "message": "Redshift query completed in 2.64s",
+  "message": "Redshift query completed in 42.12s",
   "log": {
     "level": "info"
   }

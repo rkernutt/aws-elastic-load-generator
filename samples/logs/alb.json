@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "eu-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "alb"
@@ -13,66 +13,66 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "app/prod-alb-ap-northeast-2/co1uvro6yt",
-      "TargetGroup": "targetgroup/tg-api/c0v9gexkxq7",
-      "AvailabilityZone": "ap-northeast-2b"
+      "LoadBalancer": "app/prod-alb-eu-west-1/n0zt151qga",
+      "TargetGroup": "targetgroup/tg-admin/ibs3svzmm1m",
+      "AvailabilityZone": "eu-west-1c"
     },
     "elb": {
-      "name": "app/prod-alb-ap-northeast-2/co1uvro6yt",
+      "name": "app/prod-alb-eu-west-1/n0zt151qga",
       "type": "application",
-      "target_group.arn": "arn:aws:elasticloadbalancing:ap-northeast-2:293847561023:targetgroup/tg-api/c0v9gexkxq7",
-      "listener": "arn:aws:elasticloadbalancing:ap-northeast-2:293847561023:listener/app/prod-alb/i4bhta0myt/uhqwopejccs",
+      "target_group.arn": "arn:aws:elasticloadbalancing:eu-west-1:164820739518:targetgroup/tg-admin/ibs3svzmm1m",
+      "listener": "arn:aws:elasticloadbalancing:eu-west-1:164820739518:listener/app/prod-alb/g82su8e81v9/5l1l42e1aex",
       "protocol": "HTTPS",
-      "request_processing_time.sec": 0.073,
-      "backend_processing_time.sec": 0.314,
-      "response_processing_time.sec": 0.022,
-      "backend.ip": "217.65.77.188",
-      "backend.port": "7169",
-      "backend.http.response.status_code": 200,
+      "request_processing_time.sec": 0.172,
+      "backend_processing_time.sec": 0.191,
+      "response_processing_time.sec": 0.088,
+      "backend.ip": "240.200.208.116",
+      "backend.port": "6002",
+      "backend.http.response.status_code": 204,
       "ssl_protocol": "TLSv1.3",
       "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
       "tls_named_group": "x25519",
-      "chosen_cert.arn": "arn:aws:acm:ap-northeast-2:293847561023:certificate/tbw5ln8d-9fy6-fp6y-y58p-rlf5kxipvds",
-      "trace_id": "Root=1-XTXX8DEU-DZ1ORYHJPRO",
-      "matched_rule_priority": "5",
-      "action_executed": "authenticate-cognito",
-      "target_port": "217.65.77.188:7169",
-      "target_status_code": "200",
+      "chosen_cert.arn": "arn:aws:acm:eu-west-1:164820739518:certificate/anx5jcwq-2jkq-ykwh-8ya6-fx74ltp9e36",
+      "trace_id": "Root=1-6FX3P4LP-0E1UCG8HXTY",
+      "matched_rule_priority": "1",
+      "action_executed": "forward",
+      "target_port": "240.200.208.116:6002",
+      "target_status_code": "204",
       "classification": "NORMAL"
     }
   },
   "http": {
     "request": {
-      "method": "GET",
-      "bytes": 7298
+      "method": "DELETE",
+      "bytes": 4469
     },
     "response": {
-      "status_code": 200,
-      "bytes": 8385
+      "status_code": 204,
+      "bytes": 25839
     }
   },
   "url": {
-    "path": "/api/v1/search",
+    "path": "/api/v1/auth/login",
     "domain": "api.example.com"
   },
   "client": {
-    "ip": "205.7.187.148",
-    "port": 28564,
+    "ip": "23.50.61.81",
+    "port": 45753,
     "geo": {
-      "country_iso_code": "US",
-      "country_name": "United States",
-      "city_name": "San Francisco",
+      "country_iso_code": "FR",
+      "country_name": "France",
+      "city_name": "Paris",
       "location": {
-        "lat": 37.7749,
-        "lon": -122.4194
+        "lat": 48.8566,
+        "lon": 2.3522
       }
     }
   },
   "user_agent": {
-    "original": "curl/7.68.0"
+    "original": "python-requests/2.27.1"
   },
   "event": {
-    "duration": 409000000.00000006,
+    "duration": 450999999.99999994,
     "outcome": "success",
     "category": [
       "web",
@@ -84,7 +84,7 @@
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com"
   },
-  "message": "GET /api/v1/search 200 409ms",
+  "message": "DELETE /api/v1/auth/login 204 451ms",
   "log": {
     "level": "info"
   }

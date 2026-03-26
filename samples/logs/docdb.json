@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "us-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "docdb"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "DBClusterIdentifier": "docdb-af-south-1-cluster",
+      "DBClusterIdentifier": "docdb-us-west-2-cluster",
       "Role": "WRITER"
     },
     "docdb": {
-      "cluster_id": "docdb-af-south-1-cluster",
+      "cluster_id": "docdb-us-west-2-cluster",
       "database": "appdb",
-      "collection": "sessions",
+      "collection": "orders",
       "operation": "insert",
-      "duration_ms": 72,
-      "documents_affected": 834,
+      "duration_ms": 105,
+      "documents_affected": 321,
       "metrics": {
         "CPUUtilization": {
-          "avg": 59.491
+          "avg": 40.923
         },
         "DatabaseConnections": {
-          "avg": 17
+          "avg": 38
         },
         "FreeLocalStorage": {
-          "avg": 55568760164
+          "avg": 42859620928
         },
         "FreeableMemory": {
-          "avg": 2294475259
+          "avg": 2223463270
         },
         "ReadIOPS": {
-          "avg": 1782
+          "avg": 4226
         },
         "WriteIOPS": {
-          "avg": 2034
+          "avg": 886
         },
         "ReadLatency": {
-          "avg": 1.466
+          "avg": 0.608
         },
         "WriteLatency": {
-          "avg": 0.107
+          "avg": 1.574
         },
         "DocumentsInserted": {
-          "sum": 542
+          "sum": 593
         },
         "DocumentsDeleted": {
           "sum": 0
@@ -69,7 +69,7 @@
     "type": "document"
   },
   "event": {
-    "duration": 71835000,
+    "duration": 104875000,
     "outcome": "success",
     "category": [
       "database"
@@ -77,7 +77,7 @@
     "dataset": "aws.docdb",
     "provider": "docdb.amazonaws.com"
   },
-  "message": "DocumentDB insert on sessions: 71.8ms",
+  "message": "DocumentDB insert on orders: 104.9ms",
   "log": {
     "level": "info"
   }

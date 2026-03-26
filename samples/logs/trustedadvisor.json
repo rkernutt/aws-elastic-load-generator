@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "trustedadvisor"
@@ -13,31 +13,26 @@
   },
   "aws": {
     "trustedadvisor": {
-      "check_name": "Large Number of Rules in Security Group",
-      "category": "performance",
-      "status": "warning",
-      "affected_resource": "arn:aws:s3:::my-bucket",
-      "flagged_resources": 11
+      "check_name": "Amazon S3 Bucket Versioning",
+      "category": "fault_tolerance",
+      "status": "ok",
+      "affected_resource": "sg-xzj8tvz4",
+      "flagged_resources": 0
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "configuration",
       "vulnerability"
     ],
     "dataset": "aws.trustedadvisor",
     "provider": "trustedadvisor.amazonaws.com",
-    "duration": 53000000000
+    "duration": 57000000000
   },
-  "message": "Trusted Advisor [WARNING]: Large Number of Rules in Security Group - 17 resources affected",
-  "error": {
-    "code": "TrustedAdvisorFinding",
-    "message": "Large Number of Rules in Security Group: warning",
-    "type": "configuration"
-  },
+  "message": "Trusted Advisor OK: Amazon S3 Bucket Versioning",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

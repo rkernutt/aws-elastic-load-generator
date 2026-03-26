@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "sa-east-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "DomainName": "prod-search-us-east-1",
+      "DomainName": "prod-search-sa-east-1",
       "ClientId": "738291046572"
     },
     "opensearch": {
-      "domain_name": "prod-search-us-east-1",
-      "index": "app-logs",
-      "operation": "delete",
-      "took_ms": 1190,
+      "domain_name": "prod-search-sa-east-1",
+      "index": "logs-2024",
+      "operation": "bulk",
+      "took_ms": 229,
       "shards": {
-        "total": 26,
-        "successful": 26,
+        "total": 8,
+        "successful": 8,
         "failed": 0,
-        "active": 26,
+        "active": 8,
         "initializing": 0,
         "relocating": 0,
         "unassigned": 0
       },
-      "hits_total": 93333,
+      "hits_total": 68923,
       "status_code": 201,
       "metrics": {
         "CPUUtilization": {
-          "avg": 54.261
+          "avg": 58.967
         },
         "FreeStorageSpace": {
-          "avg": 320354203126
+          "avg": 472832976545
         },
         "ClusterStatus": {
           "green": 1,
@@ -45,25 +45,25 @@
           "red": 0
         },
         "Nodes": {
-          "avg": 3
+          "avg": 20
         },
         "SearchableDocuments": {
-          "avg": 104853897
+          "avg": 765338808
         },
         "IndexingLatency": {
-          "avg": 90
+          "avg": 199
         },
         "SearchLatency": {
-          "avg": 938
+          "avg": 186
         },
         "IndexingRate": {
-          "avg": 73465
+          "avg": 20952
         },
         "SearchRate": {
-          "avg": 5276
+          "avg": 6272
         },
         "JVMMemoryPressure": {
-          "avg": 64.989
+          "avg": 58.531
         },
         "AutomatedSnapshotFailure": {
           "sum": 0
@@ -78,10 +78,10 @@
           "sum": 0
         },
         "WarmStorageSpaceUsage": {
-          "avg": 33.468
+          "avg": 62.551
         },
         "DeletedDocuments": {
-          "avg": 67675
+          "avg": 42145
         }
       }
     }
@@ -92,13 +92,13 @@
     }
   },
   "event": {
-    "duration": 1189774000,
+    "duration": 229080000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.opensearch",
     "provider": "es.amazonaws.com"
   },
-  "message": "OpenSearch delete on app-logs: 1190ms",
+  "message": "OpenSearch bulk on logs-2024: 229ms",
   "log": {
     "level": "info"
   }

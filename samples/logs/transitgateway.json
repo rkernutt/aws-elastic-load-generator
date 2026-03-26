@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "il-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "transitgateway"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "TransitGateway": "tgw-4ootdejk9fw",
-      "TransitGatewayAttachment": "tgw-attach-bi0jcbawaqq"
+      "TransitGateway": "tgw-l1jaopcc7s",
+      "TransitGatewayAttachment": "tgw-attach-2oyczyuzvuv"
     },
     "transitgateway": {
-      "tgw_id": "tgw-4ootdejk9fw",
-      "tgw_attachment_id": "tgw-attach-bi0jcbawaqq",
-      "resource_type": "direct-connect-gateway",
-      "src_vpc_id": "vpc-ke41xp2p",
-      "dst_vpc_id": "vpc-l926mmiu",
+      "tgw_id": "tgw-l1jaopcc7s",
+      "tgw_attachment_id": "tgw-attach-2oyczyuzvuv",
+      "resource_type": "vpn",
+      "src_vpc_id": "vpc-4efgupbp",
+      "dst_vpc_id": "vpc-mnc9e0f3",
       "action": "accept",
-      "bytes": 52486,
-      "packets": 96,
-      "protocol": "TCP",
+      "bytes": 15521,
+      "packets": 75,
+      "protocol": "UDP",
       "metrics": {
         "BytesIn": {
-          "sum": 163169492
+          "sum": 4387194907
         },
         "BytesOut": {
-          "sum": 2525100458
+          "sum": 4850288305
         },
         "PacketsIn": {
-          "sum": 6376349
+          "sum": 6606351
         },
         "PacketsOut": {
-          "sum": 49596
+          "sum": 1690889
         },
         "PacketDropCountBlackhole": {
           "sum": 0
@@ -55,16 +55,16 @@
     }
   },
   "source": {
-    "ip": "40.88.123.40",
-    "port": 43468
+    "ip": "92.104.87.38",
+    "port": 31995
   },
   "destination": {
-    "ip": "34.26.18.40",
+    "ip": "105.107.136.195",
     "port": 443
   },
   "network": {
-    "transport": "tcp",
-    "bytes": 31660
+    "transport": "udp",
+    "bytes": 32441
   },
   "event": {
     "action": "accept",
@@ -75,7 +75,7 @@
     "dataset": "aws.transitgateway",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "TGW tgw-4ootdejk9fw ACCEPT TCP flow",
+  "message": "TGW tgw-l1jaopcc7s ACCEPT UDP flow",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "us-west-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "sqs"
@@ -13,26 +13,26 @@
   },
   "aws": {
     "dimensions": {
-      "QueueName": "job-queue"
+      "QueueName": "notification-dlq"
     },
     "sqs": {
       "queue": {
-        "name": "job-queue"
+        "name": "notification-dlq"
       },
       "oldest_message_age": {
-        "sec": 282
+        "sec": 132
       },
       "messages": {
-        "delayed": 97,
-        "not_visible": 137,
-        "visible": 201,
-        "deleted": 865,
-        "received": 677,
-        "sent": 9315
+        "delayed": 118,
+        "not_visible": 102,
+        "visible": 355,
+        "deleted": 753,
+        "received": 441,
+        "sent": 5822
       },
-      "empty_receives": 47,
+      "empty_receives": 50,
       "sent_message_size": {
-        "bytes": 134150
+        "bytes": 173635
       }
     }
   },
@@ -43,16 +43,15 @@
     ],
     "dataset": "aws.sqs",
     "provider": "sqs.amazonaws.com",
-    "duration": 182000000
+    "duration": 27000000
   },
-  "message": "SQS job-queue: 9315 messages processed",
+  "message": "SQS notification-dlq: 264 messages dead-lettered after max retries",
   "log": {
-    "level": "info"
+    "level": "warn"
   },
-  "trace": {
-    "id": "T44RX4BGY88"
-  },
-  "transaction": {
-    "id": "73XI2YX64O6"
+  "error": {
+    "code": "UnsupportedOperation",
+    "message": "SQS operation failed",
+    "type": "queue"
   }
 }

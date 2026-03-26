@@ -1,17 +1,17 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "trace": {
-    "id": "1-69c562e2-wgjv9kz5rfh"
+    "id": "1-69c56b58-09ctd97rna1r"
   },
   "span": {
-    "id": "0cxf64gt1wt6"
+    "id": "6wit4we1y5x"
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "xray"
@@ -20,24 +20,23 @@
   "aws": {
     "dimensions": {
       "GroupName": "Default",
-      "ServiceType": "AWS::ApiGateway::Stage"
+      "ServiceType": "AWS::S3::Bucket"
     },
     "xray": {
-      "trace_id": "1-69c562e2-wgjv9kz5rfh",
-      "segment_id": "0cxf64gt1wt6",
-      "parent_id": "b8onjji3b9q",
+      "trace_id": "1-69c56b58-09ctd97rna1r",
+      "segment_id": "6wit4we1y5x",
       "service": {
-        "name": "api-gateway",
-        "type": "AWS::ApiGateway::Stage"
+        "name": "s3-client",
+        "type": "AWS::S3::Bucket"
       },
-      "duration": 1.701,
+      "duration": 0.541,
       "fault": false,
       "error": false,
       "throttle": false,
       "http": {
         "request": {
-          "method": "GET",
-          "url": "/api/v1/products"
+          "method": "PATCH",
+          "url": "/health"
         },
         "response": {
           "status": 201
@@ -45,61 +44,38 @@
       },
       "annotations": {
         "env": "prod",
-        "version": "v16"
+        "version": "v2"
       },
-      "subsegments": [
-        {
-          "id": "xei5cw98au",
-          "name": "ElastiCache.set",
-          "namespace": "aws",
-          "duration": 0.366,
-          "fault": false
-        },
-        {
-          "id": "sd99mst3gip",
-          "name": "SNS.Publish",
-          "namespace": "aws",
-          "duration": 0.323,
-          "fault": false
-        },
-        {
-          "id": "yu8cd1trjmh",
-          "name": "DynamoDB.Query",
-          "namespace": "aws",
-          "duration": 0.126,
-          "fault": false
-        }
-      ],
       "metrics": {
         "ErrorRate": {
-          "avg": 0.522
+          "avg": 0.456
         },
         "FaultRate": {
-          "avg": 0.077
+          "avg": 0.457
         },
         "ThrottleRate": {
-          "avg": 0.363
+          "avg": 0.095
         },
         "TotalCount": {
-          "sum": 1235
+          "sum": 4755
         },
         "Latency": {
-          "avg": 1701,
-          "p99": 5103
+          "avg": 541,
+          "p99": 1623
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "GET"
+      "method": "PATCH"
     },
     "response": {
       "status_code": 201
     }
   },
   "event": {
-    "duration": 1701000000,
+    "duration": 541000000,
     "outcome": "success",
     "category": [
       "network"
@@ -110,7 +86,7 @@
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray: api-gateway GET → 201 (1.701s)",
+  "message": "X-Ray: s3-client PATCH → 201 (0.541s)",
   "log": {
     "level": "info"
   }

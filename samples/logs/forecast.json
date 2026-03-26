@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-south-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -14,21 +14,21 @@
   "aws": {
     "dimensions": {
       "DatasetGroup": "demand-forecast",
-      "Operation": "GetAccuracyMetrics"
+      "Operation": "CreateForecast"
     },
     "forecast": {
       "dataset_group": "demand-forecast",
-      "predictor_name": "demand-forecast-predictor-v17",
-      "action": "GetAccuracyMetrics",
-      "algorithm": "ETS",
-      "forecast_horizon": 30,
-      "weighted_quantile_loss": 0.127,
-      "duration_seconds": 4410,
+      "predictor_name": "demand-forecast-predictor-v7",
+      "action": "CreateForecast",
+      "algorithm": "NPTS",
+      "forecast_horizon": 14,
+      "weighted_quantile_loss": 0.093,
+      "duration_seconds": 4994,
       "status": "ACTIVE"
     }
   },
   "event": {
-    "duration": 4410000000000,
+    "duration": 4994000000000,
     "outcome": "success",
     "category": [
       "process"
@@ -36,7 +36,7 @@
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com"
   },
-  "message": "Forecast GetAccuracyMetrics: demand-forecast, WQL=0.127",
+  "message": "Forecast CreateForecast: demand-forecast, WQL=0.093",
   "log": {
     "level": "info"
   }

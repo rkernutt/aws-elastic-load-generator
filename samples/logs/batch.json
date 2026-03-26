@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "us-east-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "batch"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "JobQueue": "cleanup-job-queue"
+      "JobQueue": "ml-training-prep-queue"
     },
     "batch": {
       "job": {
-        "name": "cleanup-job",
-        "id": "urm87alp-od9o",
+        "name": "ml-training-prep",
+        "id": "66a2owvm-qmmm",
         "status": "SUCCEEDED"
       },
-      "job_queue": "cleanup-job-queue",
-      "compute_environment": "ce-spot",
-      "structured_logging": true,
+      "job_queue": "ml-training-prep-queue",
+      "compute_environment": "ce-ondemand",
+      "structured_logging": false,
       "metrics": {
         "PendingJobCount": {
-          "avg": 4
+          "avg": 84
         },
         "RunnableJobCount": {
-          "avg": 29
+          "avg": 1
         },
         "StartingJobCount": {
-          "avg": 7
+          "avg": 1
         },
         "RunningJobCount": {
-          "avg": 118
+          "avg": 138
         },
         "SucceededJobCount": {
           "sum": 1
@@ -44,20 +44,20 @@
           "sum": 0
         },
         "CPUReserved": {
-          "avg": "40.551"
+          "avg": "32.802"
         },
         "GPUReserved": {
           "avg": 0
         },
         "MemoryReserved": {
-          "avg": "68.409"
+          "avg": "32.507"
         }
       }
     }
   },
   "process": {
-    "pid": 3534,
-    "name": "spark-submit",
+    "pid": 60291,
+    "name": "java",
     "exit_code": 0
   },
   "log": {
@@ -70,7 +70,7 @@
     "outcome": "success",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 2833000000000
+    "duration": 1813000000000
   },
-  "message": "{\"jobId\":\"urm87alp-od9o\",\"jobName\":\"cleanup-job\",\"jobQueue\":\"cleanup-job-queue\",\"level\":\"info\",\"message\":\"Job submitted to queue\",\"timestamp\":\"2026-03-26T16:46:26.654Z\",\"arrayIndex\":26}"
+  "message": "Job run succeeded"
 }

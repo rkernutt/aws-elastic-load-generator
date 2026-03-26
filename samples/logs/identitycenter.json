@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ca-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "identitycenter"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "iam_identity_center": {
-      "event_type": "ProvisionUser",
-      "user_name": "alice@corp.com",
-      "application_name": "AWS Console",
-      "permission_set": "BillingAccess",
-      "account_id": "738291046572",
-      "mfa_authenticated": false
+      "event_type": "Authorize",
+      "user_name": "carol@corp.com",
+      "application_name": "DataDog",
+      "permission_set": "ReadOnlyAccess",
+      "account_id": "293847561023",
+      "mfa_authenticated": true
     }
   },
   "user": {
-    "name": "alice@corp.com"
+    "name": "carol@corp.com"
   },
   "source": {
-    "ip": "87.4.206.154"
+    "ip": "191.69.190.178"
   },
   "event": {
-    "action": "ProvisionUser",
+    "action": "Authorize",
     "outcome": "success",
     "category": "authentication",
     "dataset": "aws.identitycenter",
     "provider": "sso.amazonaws.com"
   },
-  "message": "IAM Identity Center ProvisionUser: alice@corp.com -> AWS Console",
+  "message": "IAM Identity Center Authorize: carol@corp.com -> DataDog",
   "log": {
     "level": "info"
   }

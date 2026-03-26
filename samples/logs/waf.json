@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T16:46:26.654Z",
+  "@timestamp": "2026-03-26T17:22:32.197Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "waf"
@@ -14,20 +14,20 @@
   "aws": {
     "dimensions": {
       "WebACL": "api-waf",
-      "Rule": "IPRateBasedRule",
-      "Region": "sa-east-1"
+      "Rule": "AWSManagedRulesPHPRuleSet",
+      "Region": "ap-southeast-1"
     },
     "waf": {
-      "id": "6jqqbqkv39f",
-      "arn": "arn:aws:wafv2:sa-east-1:293847561023:regional/webacl/api-waf/uj5lxhjg-g7ht-xumo-de0j-j3knh6s3ug",
+      "id": "tu65ojduqkq",
+      "arn": "arn:aws:wafv2:ap-southeast-1:164820739518:regional/webacl/api-waf/89vun5kt-zoef-344e-8k0z-2eeucw5op5i",
       "format_version": "1",
       "source": {
         "name": "ALB",
-        "id": "293847561023-app/api-waf/4c61y0nofdm"
+        "id": "164820739518-app/api-waf/ka2s51qdt3"
       },
       "rule_group_list": [
         {
-          "ruleGroupId": "IPRateBasedRule",
+          "ruleGroupId": "AWSManagedRulesPHPRuleSet",
           "nonTerminatingMatchingRules": []
         }
       ],
@@ -37,7 +37,7 @@
         "headers": [
           {
             "name": "User-Agent",
-            "value": "Go-http-client/1.1"
+            "value": "python-requests/2.27.1"
           },
           {
             "name": "Host",
@@ -72,44 +72,44 @@
     }
   },
   "rule": {
-    "id": "CrossSiteScripting",
-    "ruleset": "IPRateBasedRule"
+    "id": "NoUserAgent_HEADER",
+    "ruleset": "AWSManagedRulesPHPRuleSet"
   },
   "http": {
     "request": {
-      "method": "DELETE",
-      "bytes": 3167
+      "method": "GET",
+      "bytes": 2554
     }
   },
   "url": {
-    "path": "/api/v1/products"
+    "path": "/api/v1/search"
   },
   "source": {
-    "ip": "73.135.187.188",
+    "ip": "237.173.67.108",
     "geo": {
-      "country_iso_code": "BR",
-      "country_name": "Brazil",
-      "city_name": "São Paulo",
+      "country_iso_code": "KR",
+      "country_name": "South Korea",
+      "city_name": "Seoul",
       "location": {
-        "lat": -23.5505,
-        "lon": -46.6333
+        "lat": 37.5665,
+        "lon": 126.978
       }
     }
   },
   "client": {
-    "ip": "73.135.187.188",
+    "ip": "237.173.67.108",
     "geo": {
-      "country_iso_code": "BR",
-      "country_name": "Brazil",
-      "city_name": "São Paulo",
+      "country_iso_code": "KR",
+      "country_name": "South Korea",
+      "city_name": "Seoul",
       "location": {
-        "lat": -23.5505,
-        "lon": -46.6333
+        "lat": 37.5665,
+        "lon": 126.978
       }
     }
   },
   "user_agent": {
-    "original": "Go-http-client/1.1"
+    "original": "python-requests/2.27.1"
   },
   "event": {
     "action": "allow",
@@ -120,9 +120,9 @@
     ],
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com",
-    "duration": 3000000
+    "duration": 9000000
   },
-  "message": "WAF ALLOWED request - Rule: IPRateBasedRule",
+  "message": "WAF ALLOWED request - Rule: AWSManagedRulesPHPRuleSet",
   "log": {
     "level": "info"
   }
