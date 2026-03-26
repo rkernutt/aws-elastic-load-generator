@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "us-east-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "fargate"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "web-frontend",
+      "ServiceName": "api-backend",
       "ClusterName": "prod-cluster",
-      "TaskDefinitionFamily": "web-frontend"
+      "TaskDefinitionFamily": "api-backend"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 46
+          "avg": 11
         },
         "CPUReservation": {
-          "avg": 34.199
+          "avg": 26.21
         },
         "MemoryUtilization": {
-          "avg": 36.232
+          "avg": 23.624
         },
         "MemoryReservation": {
-          "avg": 57.936
+          "avg": 60.557
         },
         "GPUReservation": {
           "avg": 0
@@ -38,20 +38,20 @@
     }
   },
   "container": {
-    "id": "kpl2hye4f8k",
-    "name": "web-frontend",
+    "id": "h8dh80z4sum",
+    "name": "api-backend",
     "image": {
-      "name": "myrepo/web-frontend:latest",
+      "name": "myrepo/api-backend:latest",
       "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 13530,
-    "name": "web-frontend"
+    "pid": 7195,
+    "name": "api-backend"
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "event": {
     "outcome": "success",
@@ -61,7 +61,7 @@
     ],
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 1235000000000
+    "duration": 3499000000000
   },
-  "message": "{\"cluster\":\"prod-cluster\",\"taskId\":\"xh4b9uoe69n\",\"taskDefinition\":\"web-frontend:15\",\"container\":\"web-frontend\",\"level\":\"warn\",\"message\":\"Task approaching resource limits\",\"timestamp\":\"2026-03-26T17:22:32.197Z\"}"
+  "message": "{\"cluster\":\"prod-cluster\",\"taskId\":\"nnj4pb20n7n\",\"taskDefinition\":\"api-backend:47\",\"container\":\"api-backend\",\"level\":\"info\",\"message\":\"Container is healthy\",\"timestamp\":\"2026-03-26T17:51:02.372Z\"}"
 }

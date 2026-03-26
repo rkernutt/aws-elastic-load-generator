@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "ap-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "guardduty"
@@ -13,35 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "j5tguz96qx"
+      "DetectorId": "tz52al87ld"
     },
     "guardduty": {
       "schema_version": "2.0",
-      "account_id": "164820739518",
-      "region": "ap-south-1",
+      "account_id": "293847561023",
+      "region": "ap-east-1",
       "partition": "aws",
-      "id": "1jtc3urx3b8",
-      "arn": "arn:aws:guardduty:ap-south-1:164820739518:detector/j5tguz96qx/finding/1jtc3urx3b8",
+      "id": "rig18bda0in",
+      "arn": "arn:aws:guardduty:ap-east-1:293847561023:detector/tz52al87ld/finding/rig18bda0in",
       "type": "Exfiltration:S3/MaliciousIPCaller",
       "title": "S3 object accessed from a known malicious IP",
-      "description": "S3 bucket analytics-output-739518 was accessed by 163.119.59.26, an IP associated with known threat actors",
-      "created_at": "2026-03-26T17:22:32.197Z",
-      "updated_at": "2026-03-26T17:22:32.197Z",
+      "description": "S3 bucket analytics-output-561023 was accessed by 50.52.240.78, an IP associated with known threat actors",
+      "created_at": "2026-03-26T17:51:02.372Z",
+      "updated_at": "2026-03-26T17:51:02.372Z",
       "severity": {
         "code": 7,
         "value": "High"
       },
-      "confidence": 79.748,
+      "confidence": 76.943,
       "resource": {
         "type": "S3Bucket",
         "s3_bucket_detail": {
-          "name": "analytics-output-739518",
+          "name": "analytics-output-561023",
           "type": "Destination"
         }
       },
       "service": {
-        "detector_id": "j5tguz96qx",
-        "count": 1714,
+        "detector_id": "tz52al87ld",
+        "count": 1331,
         "archived": false,
         "action": {
           "action_type": "AWS_API_CALL",
@@ -49,23 +49,23 @@
             "api": "GetObject",
             "caller_type": "Remote IP",
             "remote_ip_details": {
-              "ip_address_v4": "163.119.59.26"
+              "ip_address_v4": "50.52.240.78"
             }
           }
         }
       },
       "metrics": {
         "FindingCount": {
-          "sum": 6
+          "sum": 5
         },
         "HighSeverityFindingCount": {
-          "sum": 1
+          "sum": 5
         }
       }
     }
   },
   "source": {
-    "ip": "163.119.59.26"
+    "ip": "50.52.240.78"
   },
   "rule": {
     "category": "exfiltration",
@@ -83,7 +83,7 @@
     "indicator": [
       {
         "type": "ip",
-        "value": "163.119.59.26"
+        "value": "50.52.240.78"
       }
     ]
   },
@@ -100,13 +100,13 @@
     "dataset": "aws.guardduty",
     "provider": "guardduty.amazonaws.com"
   },
-  "message": "GuardDuty [HIGH]: Exfiltration:S3/MaliciousIPCaller — s3://analytics-output-739518 from 163.119.59.26",
+  "message": "GuardDuty [HIGH]: Exfiltration:S3/MaliciousIPCaller — s3://analytics-output-561023 from 50.52.240.78",
   "log": {
     "level": "error"
   },
   "error": {
     "code": "ExfiltrationDetected",
-    "message": "S3 data exfiltration from analytics-output-739518",
+    "message": "S3 data exfiltration from analytics-output-561023",
     "type": "security"
   }
 }

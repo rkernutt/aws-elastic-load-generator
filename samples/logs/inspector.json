@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "inspector2"
@@ -13,57 +13,59 @@
   },
   "aws": {
     "dimensions": {
-      "Severity": "CRITICAL"
+      "Severity": "MEDIUM"
     },
     "inspector2": {
-      "finding_id": "arn:aws:inspector2:eu-north-1:293847561023:finding/41zz2b4z-s3ga-bcwx-2361-oagztvzoo8p",
-      "finding_type": "NETWORK_REACHABILITY",
+      "finding_id": "arn:aws:inspector2:eu-west-1:164820739518:finding/adt4k0rd-vj9v-twmx-sqex-b1ojdbkpjrw",
+      "finding_type": "CODE_VULNERABILITY",
       "finding_status": "ACTIVE",
-      "severity": "CRITICAL",
-      "severity_score": 9.8,
-      "exploitability": "NOT_DEFINED",
+      "severity": "MEDIUM",
+      "severity_score": 4.9,
+      "exploitability": "PROOF_OF_CONCEPT",
       "resource_type": "AWS_EC2_INSTANCE",
-      "resource_id": "i-vuyjvof5hkq",
-      "first_observed_at": "2026-03-24T17:22:32.197Z",
-      "last_observed_at": "2026-03-26T17:22:32.197Z",
-      "network_reachability": {
-        "protocol": "TCP",
-        "open_port_range": {
-          "begin": 22,
-          "end": 3306
-        },
-        "network_path": "sg -> vpc-peering"
+      "resource_id": "i-qglzyrigwe",
+      "first_observed_at": "2026-03-18T17:51:02.372Z",
+      "last_observed_at": "2026-03-26T17:51:02.372Z",
+      "code_vulnerability": {
+        "cwes": [
+          "CWE-89"
+        ],
+        "detector_name": "CodeGuru Detector",
+        "file_path": {
+          "name": "app.py",
+          "line_number": 454
+        }
       },
       "metrics": {
         "TotalFindings": {
-          "sum": 223
+          "sum": 36
         },
         "CriticalFindings": {
-          "sum": 1
+          "sum": 0
         },
         "HighFindings": {
           "sum": 0
         },
         "MediumFindings": {
-          "sum": 0
+          "sum": 158
         },
         "LowFindings": {
           "sum": 0
         },
         "CoveredResources": {
-          "avg": 3335
+          "avg": 2831
         }
       }
     }
   },
   "vulnerability": {
-    "severity": "CRITICAL",
+    "severity": "MEDIUM",
     "score": {
-      "base": 9.811
+      "base": 4.916
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "vulnerability"
     ],
@@ -73,13 +75,8 @@
     "dataset": "aws.inspector2",
     "provider": "inspector2.amazonaws.com"
   },
-  "message": "Inspector2 [CRITICAL]: NETWORK_REACHABILITY detected on AWS_EC2_INSTANCE",
+  "message": "Inspector2 [MEDIUM]: CODE_VULNERABILITY detected on AWS_EC2_INSTANCE",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "CVE-2021-54477",
-    "message": "CRITICAL vulnerability: jackson-databind",
-    "type": "vulnerability"
+    "level": "warn"
   }
 }

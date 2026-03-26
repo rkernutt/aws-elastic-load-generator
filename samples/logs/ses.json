@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "ses"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "dimensions": {
-      "ses:configuration-set": "marketing",
-      "ses:from-domain": "company.com",
-      "ses:to-country": "AU",
-      "ses:to-isp": "Hotmail"
+      "ses:configuration-set": "default",
+      "ses:from-domain": "app.io",
+      "ses:to-country": "GB",
+      "ses:to-isp": "AOL"
     },
     "ses": {
-      "message_id": "w3jzjbcmc6b.4xzm9thz04@sa-east-1.amazonses.com",
-      "event_type": "Complaint",
-      "from_address": "noreply@company.com",
-      "destination": "user_w50hyc@gmail.com",
-      "configuration_set": "marketing",
-      "bounce": {},
-      "complaint": {
-        "feedback_type": "virus"
+      "message_id": "mgpd9wk715n.y3b6aoapw9@ap-southeast-4.amazonses.com",
+      "event_type": "Bounce",
+      "from_address": "no-reply@app.io",
+      "destination": "user_3xvjrv@outlook.com",
+      "bounce": {
+        "bounce_type": "Permanent",
+        "bounce_sub_type": "MailboxFull"
       },
-      "sending_account_id": "164820739518",
+      "complaint": {},
+      "sending_account_id": "501938274650",
       "delivery": {
         "recipients": [
-          "user_w50hyc@gmail.com"
+          "user_3xvjrv@outlook.com"
         ],
-        "timestamp": "2026-03-26T17:22:32.197Z",
-        "processing_time_ms": 2883,
+        "timestamp": "2026-03-26T17:51:02.372Z",
+        "processing_time_ms": 2900,
         "smtp_response": "250 2.0.0 OK"
       },
       "metrics": {
@@ -54,7 +54,7 @@
           "sum": 0
         },
         "Open": {
-          "sum": 0
+          "sum": 1
         },
         "Click": {
           "sum": 0
@@ -76,9 +76,9 @@
     ],
     "dataset": "aws.ses",
     "provider": "email.amazonaws.com",
-    "duration": 327000000
+    "duration": 404000000
   },
-  "message": "SES Complaint from user_w50hyc@gmail.com:",
+  "message": "SES Bounce [Permanent/MailboxFull]: user_3xvjrv@outlook.com",
   "log": {
     "level": "warn"
   },

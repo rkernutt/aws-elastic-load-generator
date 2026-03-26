@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "ap-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "quicksight"
@@ -13,33 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "DashboardId": "hlne2vnmt5u",
-      "DataSetId": "jt0us1vmxep"
+      "DashboardId": "d7kagvao989",
+      "DataSetId": "ud4lwak01e9"
     },
     "quicksight": {
-      "dashboard_id": "hlne2vnmt5u",
+      "dashboard_id": "d7kagvao989",
       "dashboard_name": "ops-metrics",
-      "dataset_id": "jt0us1vmxep",
-      "action": "GetDashboardEmbedUrl",
+      "dataset_id": "ud4lwak01e9",
+      "action": "CreateAnalysis",
       "user_name": "alice@corp.com",
-      "data_source_type": "S3",
-      "query_duration_ms": 1866,
-      "rows_returned": 81943,
+      "data_source_type": "REDSHIFT",
+      "query_duration_ms": 3766,
+      "rows_returned": 21865,
       "metrics": {
         "DashboardViewEvents": {
-          "sum": 632
+          "sum": 786
         },
         "SessionEvent": {
-          "sum": 113
+          "sum": 358
         },
         "SPICECapacityUsed": {
-          "avg": 22.383
+          "avg": 72.503
         },
         "SPICECapacityScheduled": {
-          "avg": 40.339
+          "avg": 10.463
         },
         "EmbedCallCount": {
-          "sum": 239
+          "sum": 126
         },
         "ClientError": {
           "sum": 0
@@ -54,7 +54,7 @@
     "name": "alice@corp.com"
   },
   "event": {
-    "duration": 1866000000,
+    "duration": 3766000000,
     "outcome": "success",
     "category": [
       "web",
@@ -63,7 +63,7 @@
     "dataset": "aws.quicksight",
     "provider": "quicksight.amazonaws.com"
   },
-  "message": "QuickSight GetDashboardEmbedUrl: ops-metrics loaded in 1866ms for alice@corp.com",
+  "message": "QuickSight CreateAnalysis: ops-metrics loaded in 3766ms for alice@corp.com",
   "log": {
     "level": "info"
   }

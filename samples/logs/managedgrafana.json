@@ -1,0 +1,43 @@
+{
+  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-west-1",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "managedgrafana"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "WorkspaceId": "g-rx953vzkg2"
+    },
+    "managedgrafana": {
+      "workspace_id": "g-rx953vzkg2",
+      "workspace_name": "security-monitoring",
+      "workspace_status": "CREATING",
+      "grafana_version": "10.4",
+      "alert_state": "ok",
+      "dashboard_title": "RDS Metrics",
+      "datasource_type": "cloudwatch",
+      "authentication_providers": "AWS_SSO",
+      "notification_destinations": "SNS"
+    }
+  },
+  "event": {
+    "action": "DeleteApiKey",
+    "outcome": "success",
+    "category": [
+      "process"
+    ],
+    "dataset": "aws.managedgrafana",
+    "provider": "grafana.amazonaws.com"
+  },
+  "message": "Managed Grafana DeleteApiKey: workspace=security-monitoring alert=ok dashboard=\"RDS Metrics\"",
+  "log": {
+    "level": "info"
+  }
+}

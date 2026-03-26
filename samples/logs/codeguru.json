@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codeguru"
@@ -14,17 +14,17 @@
   "aws": {
     "codeguru": {
       "product": "Profiler",
-      "repository_name": "backend-api",
-      "association_id": "iss0i51pb7n",
-      "finding_id": "y13s5452m8",
-      "category": "CPU",
-      "severity": "Low",
-      "finding_description": "HighCPUFrames:Base64Encoding",
+      "repository_name": "auth-service",
+      "association_id": "bhxavy6f8bw",
+      "finding_id": "atf153d8arq",
+      "category": "Memory",
+      "severity": "Medium",
+      "finding_description": "Database N+1 queries",
       "code_file": "app/models.py",
-      "line_number": 109,
-      "profiling_group": "backend-api-profiling",
-      "frame_percent": 37.446,
-      "error_code": "ResourceNotFoundException"
+      "line_number": 204,
+      "profiling_group": "auth-service-profiling",
+      "frame_percent": 38.001,
+      "error_code": "InternalServerException"
     }
   },
   "event": {
@@ -36,7 +36,7 @@
     "dataset": "aws.codeguru",
     "provider": "codeguru.amazonaws.com"
   },
-  "message": "CodeGuru Profiler FAILED [backend-api]: Internal error:",
+  "message": "CodeGuru Profiler FAILED [auth-service]: Throttled:",
   "log": {
     "level": "error"
   },

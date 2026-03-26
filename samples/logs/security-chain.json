@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "us-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "guardduty"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "ocf3fwoiy0o"
+      "DetectorId": "78qqzqa720v"
     },
     "guardduty": {
       "schema_version": "2.0",
-      "account_id": "501938274650",
-      "region": "me-south-1",
+      "account_id": "293847561023",
+      "region": "us-west-2",
       "partition": "aws",
-      "id": "zacw3io4wd",
-      "arn": "arn:aws:guardduty:me-south-1:501938274650:detector/ocf3fwoiy0o/finding/zacw3io4wd",
-      "type": "Backdoor:EC2/C&CActivity.B",
-      "title": "EC2 C&CActivity B",
-      "description": "GuardDuty detected suspicious activity: Backdoor:EC2/C&CActivity.B",
-      "created_at": "2026-03-26T17:22:32.197Z",
-      "updated_at": "2026-03-26T17:22:32.197Z",
+      "id": "pk4ldc03bm",
+      "arn": "arn:aws:guardduty:us-west-2:293847561023:detector/78qqzqa720v/finding/pk4ldc03bm",
+      "type": "Trojan:EC2/DNSDataExfiltration",
+      "title": "EC2 DNSDataExfiltration",
+      "description": "GuardDuty detected suspicious activity: Trojan:EC2/DNSDataExfiltration",
+      "created_at": "2026-03-26T17:51:02.372Z",
+      "updated_at": "2026-03-26T17:51:02.372Z",
       "severity": {
-        "code": 4,
-        "value": "Medium"
+        "code": 7,
+        "value": "High"
       },
-      "confidence": 81.445,
+      "confidence": 93.279,
       "resource": {
-        "type": "AccessKey"
+        "type": "Instance"
       },
       "service": {
-        "detector_id": "ocf3fwoiy0o",
-        "count": 10,
+        "detector_id": "78qqzqa720v",
+        "count": 64,
         "archived": false,
         "action": {
           "action_type": "AWS_API_CALL"
@@ -45,24 +45,24 @@
       },
       "metrics": {
         "FindingCount": {
-          "sum": 44
+          "sum": 26
         },
         "HighSeverityFindingCount": {
-          "sum": 0
+          "sum": 9
         }
       }
     }
   },
   "source": {
-    "ip": "205.10.186.153"
+    "ip": "74.46.124.119"
   },
   "rule": {
     "category": "intrusion_detection",
-    "name": "Backdoor:EC2/C&CActivity.B"
+    "name": "Trojan:EC2/DNSDataExfiltration"
   },
   "event": {
     "kind": "alert",
-    "severity": 4,
+    "severity": 7,
     "outcome": "failure",
     "category": [
       "intrusion_detection"
@@ -73,13 +73,13 @@
     "dataset": "aws.guardduty",
     "provider": "guardduty.amazonaws.com"
   },
-  "message": "GuardDuty finding [MEDIUM]: Backdoor:EC2/C&CActivity.B",
+  "message": "GuardDuty finding [HIGH]: Trojan:EC2/DNSDataExfiltration",
   "log": {
-    "level": "warn"
+    "level": "error"
   },
   "error": {
     "code": "ThreatFinding",
-    "message": "GuardDuty finding: Backdoor:EC2/C&CActivity.B",
+    "message": "GuardDuty finding: Trojan:EC2/DNSDataExfiltration",
     "type": "security"
   }
 }

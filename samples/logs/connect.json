@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "connect"
@@ -13,28 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "kgb3w57b-fr9p-sl1j-85p8-8ixdls3jeep",
+      "InstanceId": "8go56n36-az40-b7rw-yw1x-mgtxiu1usv",
       "MetricGroup": "Queue"
     },
     "connect": {
-      "instance_id": "kgb3w57b-fr9p-sl1j-85p8-8ixdls3jeep",
-      "contact_id": "pdu3tyx0-gep6-va5b",
+      "instance_id": "8go56n36-az40-b7rw-yw1x-mgtxiu1usv",
+      "contact_id": "dbozi0n7-y2u0-lpvo",
       "channel": "TASK",
-      "initiation_method": "OUTBOUND_CALL",
-      "queue_name": "Billing",
-      "duration_seconds": 1236,
-      "hold_duration_seconds": 111,
-      "queue_wait_time_seconds": 21,
-      "disconnect_reason": "AGENT_DISCONNECT",
+      "initiation_method": "INBOUND_CALL",
+      "queue_name": "Sales",
+      "duration_seconds": 1231,
+      "hold_duration_seconds": 19,
+      "queue_wait_time_seconds": 298,
+      "disconnect_reason": "EXPIRED",
       "sentiment_overall": "NEUTRAL",
-      "contact_lens_enabled": false,
+      "contact_lens_enabled": true,
       "lex_bot_interacted": false,
+      "error_code": "ContactNotFoundException",
       "metrics": {
         "ContactsQueued": {
           "sum": 1
         },
         "ContactsHandled": {
-          "sum": 1
+          "sum": 0
         },
         "ContactsAbandoned": {
           "sum": 0
@@ -43,26 +44,26 @@
           "sum": 0
         },
         "AverageHandleTime": {
-          "avg": 1236
+          "avg": 1231
         },
         "AverageAfterContactWorkTime": {
-          "avg": 194
+          "avg": 88
         },
         "AverageQueueAnswerTime": {
-          "avg": 85
+          "avg": 92
         },
         "ServiceLevel": {
-          "avg": 61.74
+          "avg": 65.357
         },
         "OccupancyTime": {
-          "avg": 59.445
+          "avg": 62.967
         }
       }
     }
   },
   "event": {
-    "duration": 1236000000000,
-    "outcome": "success",
+    "duration": 1231000000000,
+    "outcome": "failure",
     "category": [
       "host",
       "session"
@@ -70,8 +71,13 @@
     "dataset": "aws.connect",
     "provider": "connect.amazonaws.com"
   },
-  "message": "Connect OUTBOUND_CALL: Billing, 1236s, NEUTRAL",
+  "message": "Connect INBOUND_CALL FAILED: Queue capacity exceeded",
+  "error": {
+    "code": "ConnectError",
+    "message": "Connect operation failed",
+    "type": "session"
+  },
   "log": {
-    "level": "warn"
+    "level": "error"
   }
 }

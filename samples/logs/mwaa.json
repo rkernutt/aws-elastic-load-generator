@@ -1,0 +1,44 @@
+{
+  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-west-1",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "mwaa"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "EnvironmentName": "staging-airflow"
+    },
+    "mwaa": {
+      "environment_name": "staging-airflow",
+      "dag_id": "report_generation",
+      "run_id": "scheduled__2026-03-26T17:05:37.372Z",
+      "task_id": "extract",
+      "run_state": "running",
+      "duration_seconds": 180,
+      "worker_count": 3,
+      "queue_name": "ml_queue",
+      "airflow_version": "2.9.3"
+    }
+  },
+  "event": {
+    "action": "WorkerScaleUp",
+    "outcome": "success",
+    "category": [
+      "process"
+    ],
+    "dataset": "aws.mwaa",
+    "provider": "airflow.amazonaws.com",
+    "duration": 180000000000
+  },
+  "message": "MWAA staging-airflow: DAG report_generation task extract running (180s)",
+  "log": {
+    "level": "info"
+  }
+}

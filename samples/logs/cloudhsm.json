@@ -1,0 +1,49 @@
+{
+  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "ap-northeast-3",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "cloudhsm"
+    },
+    "availability_zone": "ap-northeast-3b"
+  },
+  "aws": {
+    "dimensions": {
+      "ClusterId": "cluster-cve1ls533x"
+    },
+    "cloudhsm": {
+      "cluster_id": "cluster-cve1ls533x",
+      "hsm_id": "hsm-n8zhfzh2b0",
+      "hsm_state": "DEGRADED",
+      "availability_zone": "ap-northeast-3b",
+      "subnet_id": "subnet-ypht3i8x",
+      "eni_ip": "10.155.22.70",
+      "key_type": "AES_128",
+      "operation_type": "key_deletion"
+    }
+  },
+  "event": {
+    "action": "CreateHsm",
+    "outcome": "failure",
+    "category": [
+      "process",
+      "authentication"
+    ],
+    "dataset": "aws.cloudhsm",
+    "provider": "cloudhsm.amazonaws.com"
+  },
+  "message": "CloudHSM CreateHsm FAILED [cluster-cve1ls533x]: Cluster not initialized",
+  "log": {
+    "level": "error"
+  },
+  "error": {
+    "code": "CloudHsmAccessDeniedException",
+    "message": "CloudHSM operation failed",
+    "type": "security"
+  }
+}

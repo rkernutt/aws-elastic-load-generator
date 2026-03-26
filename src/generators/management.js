@@ -287,4 +287,131 @@ function generateDmsLog(ts, er) {
     "log":{level:isErr?"error":"info"}};
 }
 
-export { generateCloudFormationLog, generateSsmLog, generateCloudWatchAlarmsLog, generateHealthLog, generateTrustedAdvisorLog, generateControlTowerLog, generateOrganizationsLog, generateServiceCatalogLog, generateServiceQuotasLog, generateComputeOptimizerLog, generateBudgetsLog, generateBillingLog, generateDmsLog };
+function generateFisLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const expTemplateId = `EXT${randId(8).toUpperCase()}`;
+  const expId = `EXP${randId(8).toUpperCase()}`;
+  const expName = rand(["cpu-stress-test","network-latency-inject","az-failure-simulation","spot-interrupt-test","database-failover"]);
+  const expState = isErr ? rand(["failed","stopped"]) : rand(["running","completed","pending"]);
+  const action = rand(["StartExperiment","StopExperiment","GetExperiment","CreateExperimentTemplate","TagResource"]);
+  const target = rand(["EC2 instances","ECS tasks","RDS clusters","EKS nodes","Lambda functions"]);
+  const action_type = rand(["aws:ec2:stop-instances","aws:ec2:terminate-instances","aws:ecs:drain-container-instances","aws:eks:terminate-nodegroup-instances","aws:rds:failover-db-cluster","aws:ssm:send-command","aws:network-acl:replace-entries"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"fis" } },
+    "aws": {
+      dimensions: { ExperimentTemplateId: expTemplateId },
+      fis: {
+        experiment_id: expId,
+        experiment_template_id: expTemplateId,
+        experiment_name: expName,
+        experiment_state: expState,
+        target_resource_type: target,
+        action_type,
+        stop_condition: rand(["none","aws:cloudwatch:alarm"]),
+        role_arn: `arn:aws:iam::${acct.id}:role/FISRole-${expName}`,
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.fis", provider: "fis.amazonaws.com" },
+    "message": isErr ? `FIS ${action} FAILED [${expId}]: ${rand(["Experiment failed","Target not found","Permission denied","Stop condition triggered"])}` : `FIS ${action}: exp=${expId} (${expName}) state=${expState}, target=${target}`,
+    "log": { level: isErr ? "error" : expState === "stopped" ? "warn" : "info" },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","ValidationException","ServiceQuotaExceededException"]), message: "FIS experiment failed", type: "process" } } : {}),
+  };
+}
+
+function generateManagedGrafanaLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const workspaceId = `g-${randId(10).toLowerCase()}`;
+  const workspaceName = rand(["prod-observability","ops-dashboards","security-monitoring","business-metrics","devops-metrics"]);
+  const action = rand(["CreateWorkspace","UpdateWorkspace","CreateApiKey","DeleteApiKey","AssociateLicense","DisassociateLicense","UpdatePermissions"]);
+  const alertState = rand(["ok","alerting","pending","no_data"]);
+  const dashboardTitle = rand(["EC2 Overview","Lambda Performance","RDS Metrics","EKS Cluster Health","Cost Analysis"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"managedgrafana" } },
+    "aws": {
+      dimensions: { WorkspaceId: workspaceId },
+      managedgrafana: {
+        workspace_id: workspaceId,
+        workspace_name: workspaceName,
+        workspace_status: isErr ? "FAILED" : rand(["ACTIVE","CREATING","UPDATING"]),
+        grafana_version: rand(["9.4","10.2","10.4"]),
+        alert_state: isErr ? "alerting" : alertState,
+        dashboard_title: dashboardTitle,
+        datasource_type: rand(["prometheus","cloudwatch","elasticsearch","influxdb","athena"]),
+        authentication_providers: rand(["AWS_SSO","SAML"]),
+        notification_destinations: rand(["SNS","SLACK","PAGERDUTY"]),
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.managedgrafana", provider: "grafana.amazonaws.com" },
+    "message": isErr ? `Managed Grafana ${action} FAILED [${workspaceName}]: ${rand(["Workspace not active","License required","Access denied"])}` : `Managed Grafana ${action}: workspace=${workspaceName} alert=${alertState} dashboard="${dashboardTitle}"`,
+    "log": { level: isErr ? "error" : alertState === "alerting" ? "warn" : "info" },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","ValidationException","AccessDeniedException"]), message: "Managed Grafana operation failed", type: "process" } } : {}),
+  };
+}
+
+function generateSupplyChainLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const instanceId = `arn:aws:scn:${region}:${acct.id}:instance/${randId(12).toLowerCase()}`;
+  const instanceName = rand(["global-supply-chain","apac-logistics","emea-distribution","north-america-ops"]);
+  const namespace = rand(["aws.supply_chain.plan","aws.supply_chain.insight","aws.supply_chain.collaboration"]);
+  const action = rand(["CreateInstance","UpdateInstance","CreateDataLakeDataset","SendDataIntegrationEvent","CreateBillOfMaterialsImportJob"]);
+  const eventType = rand(["scn.data.forecast","scn.data.inventory","scn.data.purchase_order","scn.data.shipment","scn.data.supply_plan"]);
+  const jobStatus = isErr ? "FAILED" : rand(["SUCCESS","IN_PROGRESS","QUEUED"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"supplychain" } },
+    "aws": {
+      dimensions: { InstanceId: instanceId },
+      supplychain: {
+        instance_id: instanceId,
+        instance_name: instanceName,
+        namespace,
+        event_type: eventType,
+        job_status: jobStatus,
+        record_count: randInt(100, 1000000),
+        forecast_horizon_days: randInt(7, 180),
+        data_lake_dataset: rand(["demand_forecast","inventory_levels","supplier_lead_times","purchase_orders","shipments"]),
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.supplychain", provider: "scn.amazonaws.com" },
+    "message": isErr ? `Supply Chain ${action} FAILED [${instanceName}]: ${rand(["Data validation error","Integration timeout","Dataset not found"])}` : `Supply Chain ${action}: instance=${instanceName} event=${eventType} status=${jobStatus}`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","ValidationException","InternalServerException"]), message: "Supply Chain operation failed", type: "process" } } : {}),
+  };
+}
+
+function generateArcLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const resourceArn = `arn:aws:elasticloadbalancing:${region}:${acct.id}:loadbalancer/app/prod-alb/${randId(16).toLowerCase()}`;
+  const shiftId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase();
+  const az = `${region}${rand(["a","b","c"])}`;
+  const azStatus = isErr ? "IMPAIRED" : rand(["AVAILABLE","UNAVAILABLE","PARTIAL"]);
+  const shiftStatus = isErr ? "FAILED" : rand(["ACTIVE","EXPIRED","COMPLETED","CANCELLED","ENABLED"]);
+  const action = rand(["StartZonalShift","UpdateZonalShift","CancelZonalShift","GetManagedResource","UpdateRoutingControlState"]);
+  const comment = rand(["Planned maintenance","AZ degradation detected","Failover test","Proactive shift","Incident response"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"arc" }, availability_zone: az },
+    "aws": {
+      dimensions: { ResourceArn: resourceArn, AwsAccountId: acct.id },
+      arc: {
+        shift_id: shiftId,
+        resource_arn: resourceArn,
+        away_from: az,
+        zonal_shift_status: shiftStatus,
+        az_status: azStatus,
+        comment,
+        expiry_time: new Date(new Date(ts).getTime() + randInt(3600, 86400) * 1000).toISOString(),
+        routing_control_arn: `arn:aws:route53-recovery-control::${acct.id}:controlpanel/${randId(32).toLowerCase()}/routingcontrol/${randId(32).toLowerCase()}`,
+        routing_control_state: isErr ? "Off" : rand(["On","Off"]),
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["network","process"], dataset: "aws.arc", provider: "arc-zonal-shift.amazonaws.com" },
+    "message": isErr ? `ARC ${action} FAILED [${shiftId}]: ${rand(["Resource not found","Invalid state","Access denied"])}` : `ARC ${action}: shift=${shiftId}, az=${az} status=${shiftStatus}, ${comment}`,
+    "log": { level: azStatus === "IMPAIRED" || isErr ? "error" : shiftStatus === "ACTIVE" ? "warn" : "info" },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","ConflictException","ValidationException"]), message: "ARC zonal shift operation failed", type: "network" } } : {}),
+  };
+}
+
+export { generateCloudFormationLog, generateSsmLog, generateCloudWatchAlarmsLog, generateHealthLog, generateTrustedAdvisorLog, generateControlTowerLog, generateOrganizationsLog, generateServiceCatalogLog, generateServiceQuotasLog, generateComputeOptimizerLog, generateBudgetsLog, generateBillingLog, generateDmsLog, generateFisLog, generateManagedGrafanaLog, generateSupplyChainLog, generateArcLog };

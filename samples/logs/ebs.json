@@ -1,12 +1,12 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
-    "availability_zone": "me-south-1b",
+    "region": "ap-southeast-4",
+    "availability_zone": "ap-southeast-4b",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "ebs"
@@ -14,59 +14,51 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-fkxa2e7kcw",
-      "VolumeType": "sc1"
+      "VolumeId": "vol-89bdv8745v",
+      "VolumeType": "io2"
     },
     "ebs": {
-      "volume_id": "vol-fkxa2e7kcw",
-      "volume_type": "sc1",
-      "size_gb": 8,
-      "attached_instance": "i-ldhiv2xpsod",
+      "volume_id": "vol-89bdv8745v",
+      "volume_type": "io2",
+      "size_gb": 200,
+      "availability_zone": "ap-southeast-4b",
+      "previous_state": "in-use",
+      "current_state": "in-use",
+      "attached_instance": "i-lqpc61p7bp",
       "device": "/dev/xvdb",
-      "iops_consumed": 762,
-      "throughput_mbps": 166.715,
-      "queue_depth": 0,
-      "latency_ms": 3.572,
-      "burst_balance_percent": 77,
-      "read_ops": 4020,
-      "write_ops": 521,
-      "read_bytes": 471672654,
-      "write_bytes": 366538965,
-      "event_type": "performance",
+      "event_type": "state_change",
       "metrics": {
         "VolumeReadOps": {
-          "avg": 4634
+          "avg": 7022
         },
         "VolumeWriteOps": {
-          "avg": 5377
+          "avg": 8424
         },
         "VolumeReadBytes": {
-          "avg": 100993011
+          "avg": 311277052
         },
         "VolumeWriteBytes": {
-          "avg": 403927071
+          "avg": 329919544
         },
         "VolumeTotalReadTime": {
-          "sum": 2.488
+          "sum": 7.336
         },
         "VolumeTotalWriteTime": {
-          "sum": 5.997
+          "sum": 7.989
         },
         "VolumeIdleTime": {
-          "sum": 8.21
+          "sum": 49.493
         },
         "VolumeQueueLength": {
-          "avg": 2
+          "avg": 4
         },
         "VolumeThroughputPercentage": {
-          "avg": 64.517
+          "avg": 19.105
         },
         "VolumeConsumedReadWriteOps": {
-          "avg": 1684
+          "avg": 1011
         },
-        "BurstBalance": {
-          "avg": 67
-        }
+        "BurstBalance": {}
       }
     }
   },
@@ -78,9 +70,9 @@
     ],
     "dataset": "aws.ebs",
     "provider": "ec2.amazonaws.com",
-    "duration": 3699000000
+    "duration": 610000000
   },
-  "message": "EBS vol-fkxa2e7kcw performance: 762 IOPS, 166.7 MB/s, latency 3.57ms",
+  "message": "EBS volume vol-89bdv8745v state change: in-use -> in-use on i-lqpc61p7bp (/dev/xvdb)",
   "log": {
     "level": "info"
   }

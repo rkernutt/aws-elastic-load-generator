@@ -590,4 +590,43 @@ function generateVpcFlowLog(ts, er) {
   };
 }
 
-export { generateAlbLog, generateNlbLog, generateCloudFrontLog, generateWafLog, generateWafv2Log, generateRoute53Log, generateNetworkFirewallLog, generateShieldLog, generateGlobalAcceleratorLog, generateTransitGatewayLog, generateDirectConnectLog, generateVpnLog, generatePrivateLinkLog, generateNetworkManagerLog, generateNatGatewayLog, generateVpcFlowLog };
+function generateVpcLatticeLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const svcName = rand(["checkout-svc","auth-svc","inventory-svc","payment-svc","notification-svc"]);
+  const svcArn = `arn:aws:vpc-lattice:${region}:${acct.id}:service/${svcName}-${randId(8).toLowerCase()}`;
+  const svcNetworkName = rand(["prod-service-network","staging-service-network","shared-services-network"]);
+  const tgId = `tg-${randId(17).toLowerCase()}`;
+  const srcVpc = `vpc-${randId(8).toLowerCase()}`;
+  const dstVpc = `vpc-${randId(8).toLowerCase()}`;
+  const method = rand(HTTP_METHODS);
+  const responseCode = isErr ? rand([500,502,503,504]) : rand([200,200,200,201,204,301]);
+  const responseTimeMs = randInt(1, isErr ? 30000 : 500);
+  const tlsCiphers = ["TLS_AES_128_GCM_SHA256","TLS_AES_256_GCM_SHA384","ECDHE-RSA-AES128-GCM-SHA256","ECDHE-RSA-AES256-GCM-SHA384"];
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"vpclattice" } },
+    "aws": {
+      dimensions: { ServiceName:svcName, ServiceNetworkName:svcNetworkName },
+      vpclattice: {
+        service_name: svcName,
+        service_arn: svcArn,
+        service_network_name: svcNetworkName,
+        target_group_id: tgId,
+        source_vpc_id: srcVpc,
+        destination_vpc_id: dstVpc,
+        request_method: method,
+        response_code: responseCode,
+        response_time_ms: responseTimeMs,
+        bytes_received: randInt(100, 65536),
+        bytes_sent: randInt(200, 131072),
+        tls_cipher_suite: rand(tlsCiphers),
+      }
+    },
+    "event": { action: rand(["ServiceNetworkVpcAssociation","ServiceAssociation","ForwardRule","FixedResponseRule","RequestAccepted","RequestRejected","AuthPolicyCheck"]), outcome:isErr?"failure":"success", category:["network"], dataset:"aws.vpclattice", provider:"vpc-lattice.amazonaws.com", duration:responseTimeMs*1e6 },
+    "message": isErr ? `VPC Lattice ${svcName}: HTTP ${responseCode} after ${responseTimeMs}ms` : `VPC Lattice ${svcName}: ${method} ${responseCode} ${responseTimeMs}ms`,
+    "log": { level:isErr?"error":"info" },
+    ...(isErr ? { error: { code: String(responseCode), message: `VPC Lattice service error: HTTP ${responseCode}`, type: "network" } } : {})
+  };
+}
+
+export { generateAlbLog, generateNlbLog, generateCloudFrontLog, generateWafLog, generateWafv2Log, generateRoute53Log, generateNetworkFirewallLog, generateShieldLog, generateGlobalAcceleratorLog, generateTransitGatewayLog, generateDirectConnectLog, generateVpnLog, generatePrivateLinkLog, generateNetworkManagerLog, generateNatGatewayLog, generateVpcFlowLog, generateVpcLatticeLog };

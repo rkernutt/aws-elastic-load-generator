@@ -1,0 +1,45 @@
+{
+  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "mskconnect"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "ConnectorName": "jdbc-source-connector"
+    },
+    "mskconnect": {
+      "connector_name": "jdbc-source-connector",
+      "connector_arn": "arn:aws:kafkaconnect:us-east-1:501938274650:connector/jdbc-source-connector/uw9223ya",
+      "connector_state": "RUNNING",
+      "worker_count": 4,
+      "capacity_type": "MCU_2X",
+      "kafka_cluster_bootstrap_servers": "b-1.prod-kafka-us-east-1.amazonaws.com:9092,b-2.prod-kafka-us-east-1.amazonaws.com:9092",
+      "connector_class": "io.debezium.connector.postgresql.PostgresConnector",
+      "tasks_status": "RUNNING",
+      "offset_lag": 262,
+      "record_count": 87652
+    }
+  },
+  "event": {
+    "action": "TaskRestarted",
+    "outcome": "success",
+    "category": [
+      "process"
+    ],
+    "dataset": "aws.mskconnect",
+    "provider": "kafkaconnect.amazonaws.com",
+    "duration": 1673000000
+  },
+  "message": "MSK Connect jdbc-source-connector: RUNNING, lag=332",
+  "log": {
+    "level": "info"
+  }
+}

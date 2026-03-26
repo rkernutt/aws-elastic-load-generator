@@ -1,0 +1,45 @@
+{
+  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "ap-southeast-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "iotfleetwise"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "FleetId": "field-service",
+      "CampaignName": "fuel-efficiency"
+    },
+    "iotfleetwise": {
+      "fleet_id": "field-service",
+      "vehicle_id": "VIN-ICXI2VCXKYT",
+      "campaign_name": "fuel-efficiency",
+      "campaign_status": "RUNNING",
+      "signal_name": "Vehicle.Speed",
+      "signal_value": 46.511,
+      "collection_scheme": "TIME_BASED",
+      "compression": "SNAPPY",
+      "data_destination": "S3"
+    }
+  },
+  "event": {
+    "action": "CreateFleet",
+    "outcome": "success",
+    "category": [
+      "iot",
+      "process"
+    ],
+    "dataset": "aws.iotfleetwise",
+    "provider": "iotfleetwise.amazonaws.com"
+  },
+  "message": "IoT FleetWise CreateFleet: fleet=field-service, vehicle=VIN-ICXI2VCXKYT, campaign=fuel-efficiency RUNNING",
+  "log": {
+    "level": "info"
+  }
+}

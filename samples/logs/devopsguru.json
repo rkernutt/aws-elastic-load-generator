@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "ca-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "devopsguru"
@@ -13,8 +13,8 @@
   },
   "aws": {
     "devopsguru": {
-      "insight_id": "vi77ul29pcs",
-      "insight_type": "REACTIVE",
+      "insight_id": "wxjtxelcw8a",
+      "insight_type": "PROACTIVE",
       "severity": "HIGH",
       "resource_collection": {
         "cloud_formation": {
@@ -29,15 +29,15 @@
           }
         ]
       },
-      "anomaly_id": "pcnmdebphr",
+      "anomaly_id": "clpflgamgpa",
       "anomaly_description": "Unusual increase in Lambda error rate",
       "anomaly_sources": [
-        "sqs-orders"
+        "ecs-workers"
       ],
-      "start_time": "2026-03-26T17:00:37.513Z",
-      "end_time": "2026-03-26T17:22:32.378Z",
+      "start_time": "2026-03-26T17:25:23.719Z",
+      "end_time": "2026-03-26T17:51:02.591Z",
       "status": "CLOSED",
-      "recommendation": "Scale up resource",
+      "recommendation": "Check recent deployments",
       "ssm_ops_items": []
     }
   },
@@ -50,9 +50,9 @@
     ],
     "dataset": "aws.devopsguru",
     "provider": "devops-guru.amazonaws.com",
-    "duration": 694000000000
+    "duration": 128000000000
   },
-  "message": "DevOps Guru REACTIVE insight [HIGH]: Unusual increase in Lambda error rate",
+  "message": "DevOps Guru PROACTIVE insight [HIGH]: Unusual increase in Lambda error rate",
   "log": {
     "level": "warn"
   }

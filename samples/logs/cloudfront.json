@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "cloudfront"
@@ -13,46 +13,47 @@
   },
   "aws": {
     "dimensions": {
-      "DistributionId": "EDH323MX98O",
+      "DistributionId": "E21QZ0WYJGHD",
       "Region": "Global"
     },
     "cloudfront": {
-      "domain": "d8hcan1c9ozn.cloudfront.net",
-      "edge_location": "IAD89",
-      "edge_result_type": "Error",
-      "edge_response_result_type": "Error",
-      "edge_detailed_result_type": "OriginDNSError",
-      "time_to_first_byte": 0.901
+      "domain": "d9cec0dxdgo6.cloudfront.net",
+      "edge_location": "CDG50",
+      "edge_result_type": "RefreshHit",
+      "edge_response_result_type": "Redirect",
+      "edge_detailed_result_type": "Redirect",
+      "time_to_first_byte": 0.377,
+      "cookies": "user=guest"
     }
   },
   "http": {
     "request": {
       "method": "GET",
-      "bytes": 811
+      "bytes": 499
     },
     "response": {
-      "status_code": 404,
-      "bytes": 243389
+      "status_code": 200,
+      "bytes": 72621
     }
   },
   "url": {
-    "path": "/assets/app.js",
-    "domain": "dwomu8c5ksx.cloudfront.net"
+    "path": "/images/hero.webp",
+    "domain": "dudlj4fcpivo.cloudfront.net"
   },
   "client": {
-    "ip": "238.38.139.149",
+    "ip": "51.191.225.88",
     "geo": {
-      "country_iso_code": "DE",
-      "country_name": "Germany",
-      "city_name": "Frankfurt",
+      "country_iso_code": "CA",
+      "country_name": "Canada",
+      "city_name": "Toronto",
       "location": {
-        "lat": 50.1109,
-        "lon": 8.6821
+        "lat": 43.6532,
+        "lon": -79.3832
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "web",
       "network"
@@ -62,15 +63,10 @@
     ],
     "dataset": "aws.cloudfront_logs",
     "provider": "cloudfront.amazonaws.com",
-    "duration": 901000000
+    "duration": 377000000
   },
-  "message": "GET /assets/app.js 404 [IAD89]",
+  "message": "GET /images/hero.webp 200 [CDG50]",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "ClientError",
-    "message": "HTTP 404",
-    "type": "server"
+    "level": "info"
   }
 }

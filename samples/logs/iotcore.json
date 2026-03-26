@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "il-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "iotcore"
@@ -13,94 +13,100 @@
   },
   "aws": {
     "dimensions": {
-      "Protocol": "MQTT-SN"
+      "Protocol": "HTTPS"
     },
     "iotcore": {
       "client_id": "robot-arm-7",
       "thing_name": "robot-arm-7",
-      "thing_group": "factory-sensors",
-      "action": "CONNECT",
-      "topic": "cmd/device/update",
-      "protocol": "MQTT-SN",
+      "thing_group": "building-management",
+      "action": "PUBLISH",
+      "topic": "dt/factory/sensors/temperature",
+      "protocol": "HTTPS",
       "qos": 1,
-      "message_bytes": 49246,
+      "message_bytes": 40284,
       "policy_name": "FleetPolicy",
-      "structured_logging": true,
-      "rules_evaluated": 2,
+      "structured_logging": false,
+      "error_code": "DeviceDisconnected",
+      "rules_evaluated": 3,
       "metrics": {
         "Connect.Success": {
-          "sum": 469
+          "sum": 300
         },
         "Connect.Failure": {
-          "sum": 0
+          "sum": 7
         },
         "PublishIn.Success": {
-          "sum": 2936
+          "sum": 6832
         },
         "PublishIn.ClientError": {
-          "sum": 0
+          "sum": 243
         },
         "PublishIn.ServerError": {
-          "sum": 0
+          "sum": 69
         },
         "PublishOut.Success": {
-          "sum": 5400
+          "sum": 5242
         },
         "Publish.Success": {
-          "sum": 60
+          "sum": 1383
         },
         "Publish.Failure": {
-          "sum": 0
+          "sum": 415
         },
         "Subscribe.Success": {
-          "sum": 2681
+          "sum": 4980
         },
         "Subscribe.Failure": {
-          "sum": 0
+          "sum": 27
         },
         "Unsubscribe.Success": {
-          "sum": 695
+          "sum": 598
         },
         "Ping.Success": {
-          "sum": 4065
+          "sum": 9508
         },
         "Throttle.Success": {
-          "sum": 15
+          "sum": 47
         },
         "RulesMatched": {
-          "sum": 123
+          "sum": 867
         },
         "RulesFailed": {
-          "sum": 0
+          "sum": 30
         },
         "RulesNotMatched": {
-          "sum": 79
+          "sum": 34
         },
         "TopicMatch": {
-          "sum": 790
+          "sum": 8683
         },
         "ClientConnections": {
-          "avg": 63012
+          "avg": 5944
         }
       }
     }
   },
   "source": {
-    "ip": "97.85.67.152"
+    "ip": "5.18.104.68"
   },
   "event": {
-    "action": "CONNECT",
-    "outcome": "success",
+    "action": "PUBLISH",
+    "outcome": "failure",
     "category": [
       "network",
       "process"
     ],
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com",
-    "duration": 145000000
+    "duration": 3077000000
   },
-  "message": "{\"clientId\":\"robot-arm-7\",\"action\":\"CONNECT\",\"topic\":\"cmd/device/update\",\"message\":\"IoT Core CONNECT: robot-arm-7 on cmd/device/update\",\"timestamp\":\"2026-03-26T17:22:32.197Z\"}",
+  "message": "IoT Core PUBLISH FAILED for robot-arm-7: Certificate revoked",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ThrottlingException",
+    "message": "IoT Core operation failed",
+    "type": "iot"
   }
 }

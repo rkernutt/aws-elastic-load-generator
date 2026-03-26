@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "il-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "dms"
@@ -13,48 +13,48 @@
   },
   "aws": {
     "dimensions": {
-      "ReplicationInstanceIdentifier": "dms-analytics-n7sorjfe"
+      "ReplicationInstanceIdentifier": "dms-analytics-aw5hg0zx"
     },
     "dms": {
       "replication_task_id": "on-prem-to-rds",
       "migration_type": "full-load",
-      "replication_instance_identifier": "dms-analytics-n7sorjfe",
-      "source_engine": "postgresql",
-      "target_engine": "redshift",
-      "replication_instance_class": "dms.t3.medium",
+      "replication_instance_identifier": "dms-analytics-aw5hg0zx",
+      "source_engine": "oracle",
+      "target_engine": "aurora-mysql",
+      "replication_instance_class": "dms.r5.large",
       "task_status": "Load complete",
-      "full_load_rows_transferred": 788816,
+      "full_load_rows_transferred": 5830415,
       "cdc_incoming_changes": 0,
       "latency_ms": 0,
-      "tables_loaded": 328,
+      "tables_loaded": 490,
       "tables_errored": 0,
       "metrics": {
         "FullLoadThroughputRowsSource": {
-          "avg": 41126
+          "avg": 93693
         },
         "FullLoadThroughputRowsTarget": {
-          "avg": 67656
+          "avg": 91756
         },
         "CPUUtilization": {
-          "avg": "8.588"
+          "avg": "9.214"
         },
         "FreeableMemory": {
-          "avg": 6755922523
+          "avg": 2613550784
         },
         "FreeStorageSpace": {
-          "avg": 43083972657
+          "avg": 58013220635
         },
         "NetworkReceiveThroughput": {
-          "avg": 77556471
+          "avg": 43585837
         },
         "NetworkTransmitThroughput": {
-          "avg": 35932954
+          "avg": 47499389
         },
         "ReadIOPS": {
-          "avg": 1980
+          "avg": 2140
         },
         "WriteIOPS": {
-          "avg": 2433
+          "avg": 1716
         }
       }
     }
@@ -67,9 +67,9 @@
     ],
     "dataset": "aws.dms",
     "provider": "dms.amazonaws.com",
-    "duration": 16529000000000
+    "duration": 5032000000000
   },
-  "message": "DMS on-prem-to-rds: 788,816 rows (postgresql->redshift full-load)",
+  "message": "DMS on-prem-to-rds: 5,830,415 rows (oracle->aurora-mysql full-load)",
   "log": {
     "level": "info"
   }

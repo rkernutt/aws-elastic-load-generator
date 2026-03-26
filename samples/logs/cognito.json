@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
     "region": "ca-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "cognito"
@@ -13,24 +13,24 @@
   },
   "aws": {
     "dimensions": {
-      "UserPool": "ca-west-1_VVMNYTLVF",
-      "UserPoolClient": "eu-users-web"
+      "UserPool": "ca-west-1_R1NZ1ARVD",
+      "UserPoolClient": "b2b-customers-web"
     },
     "cognito": {
-      "user_pool_id": "ca-west-1_VVMNYTLVF",
-      "user_pool_name": "eu-users",
-      "event_type": "TokenGeneration_HostedUI",
-      "username": "user-2dg03wvf@example.com",
-      "source_ip": "150.22.198.118",
+      "user_pool_id": "ca-west-1_R1NZ1ARVD",
+      "user_pool_name": "b2b-customers",
+      "event_type": "SignIn",
+      "error_code": "TooManyRequestsException",
+      "source_ip": "116.21.189.167",
       "metrics": {
         "SignInSuccesses": {
-          "sum": 2672
+          "sum": 0
         },
         "SignInAttempts": {
-          "sum": 2672
+          "sum": 9017
         },
         "TokenRefreshSuccesses": {
-          "sum": 4209
+          "sum": 0
         },
         "SignUpSuccesses": {
           "sum": 0
@@ -39,13 +39,13 @@
           "sum": 0
         },
         "CallCount": {
-          "sum": 42675
+          "sum": 21616
         },
         "ThrottleCount": {
-          "sum": 0
+          "sum": 36
         },
         "AccountTakeoverRisk": {
-          "sum": 0
+          "sum": 1
         },
         "CompromisedCredentialsRisk": {
           "sum": 0
@@ -53,23 +53,26 @@
       }
     }
   },
-  "user": {
-    "name": "user-2dg03wvf@example.com"
-  },
+  "user": {},
   "source": {
-    "ip": "159.196.101.161"
+    "ip": "5.82.46.129"
   },
   "event": {
-    "action": "TokenGeneration_HostedUI",
-    "outcome": "success",
+    "action": "SignIn",
+    "outcome": "failure",
     "category": [
       "authentication"
     ],
     "dataset": "aws.cognito",
     "provider": "cognito-idp.amazonaws.com"
   },
-  "message": "Cognito TokenGeneration_HostedUI success [eu-users]",
+  "message": "Cognito SignIn FAILED: Rate limit exceeded",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "TooManyRequestsException",
+    "message": "Authentication failed",
+    "type": "authentication"
   }
 }

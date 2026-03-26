@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "us-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codeartifact"
@@ -13,19 +13,17 @@
   },
   "aws": {
     "codeartifact": {
-      "domain_name": "platform",
+      "domain_name": "corp-packages",
       "repository_name": "pypi-store",
-      "package_format": "npm",
-      "package_name": "shared-components",
-      "package_version": "2.13.1",
-      "action": "CopyPackageVersions",
-      "asset_name": "shared-components-2.13.1.tgz",
-      "download_size_bytes": 4376459,
-      "upstream_repository": "npm-upstream"
+      "package_format": "pypi",
+      "package_name": "my-lib",
+      "package_version": "2.12.3",
+      "action": "GetPackageVersionAsset",
+      "download_size_bytes": 47551133
     }
   },
   "event": {
-    "action": "CopyPackageVersions",
+    "action": "GetPackageVersionAsset",
     "outcome": "success",
     "category": [
       "package",
@@ -34,7 +32,7 @@
     "dataset": "aws.codeartifact",
     "provider": "codeartifact.amazonaws.com"
   },
-  "message": "CodeArtifact CopyPackageVersions: shared-components@2.13.1 [npm] in platform/pypi-store",
+  "message": "CodeArtifact GetPackageVersionAsset: my-lib@2.12.3 [pypi] in corp-packages/pypi-store",
   "log": {
     "level": "info"
   }

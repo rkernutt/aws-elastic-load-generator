@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "us-east-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "frauddetector"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "card-fraud-detector"
+      "DetectorId": "transaction-risk"
     },
     "frauddetector": {
-      "detector_id": "card-fraud-detector",
+      "detector_id": "transaction-risk",
       "detector_version_id": "1",
-      "event_id": "nxg2q3afjqg",
+      "event_id": "uee2uxzid3",
       "event_type": "account_registration",
       "entity_type": "customer",
-      "entity_id": "entity_vlrk3mxezs",
+      "entity_id": "entity_y7cednj7ds",
       "outcomes": [
-        "REVIEW"
+        "APPROVE"
       ],
-      "risk_score": 796,
+      "risk_score": 17,
       "model_scores": {
-        "card-fraud-detector": 796
+        "transaction-risk": 17
       },
       "used_rules": [
-        "review-medium"
+        "block-high-risk"
       ],
-      "ip_address": "108.38.97.14",
+      "ip_address": "137.52.78.121",
       "event_variables": {
-        "billing_postal": "94555",
-        "phone_verified": "true"
+        "billing_postal": "20463",
+        "phone_verified": "false"
       }
     }
   },
@@ -47,9 +47,9 @@
     ],
     "dataset": "aws.frauddetector",
     "provider": "frauddetector.amazonaws.com",
-    "duration": 88000000
+    "duration": 383000000
   },
-  "message": "Fraud Detector REVIEW [card-fraud-detector]: entity entity_vlrk3mxezs score 796/1000",
+  "message": "Fraud Detector APPROVE [transaction-risk]: entity entity_y7cednj7ds score 17/1000",
   "log": {
     "level": "info"
   }

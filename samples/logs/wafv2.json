@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,21 +13,26 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "cdn-waf",
-      "Rule": "SizeRestrictions_BODY",
-      "Region": "us-west-2"
+      "WebACL": "admin-portal-waf",
+      "Rule": "IPRateBasedRule",
+      "Region": "us-east-1"
     },
     "waf": {
-      "id": "ohy086suqed",
-      "arn": "arn:aws:wafv2:us-west-2:164820739518:regional/webacl/cdn-waf/savzv75x-eh06-l3sg-4tfc-sigvimljlv9",
+      "id": "j89mhdr7ea",
+      "arn": "arn:aws:wafv2:us-east-1:164820739518:regional/webacl/admin-portal-waf/pgan1yk8-ez3j-2fwu-4flx-6xynml0mozl",
       "format_version": "1",
       "source": {
         "name": "APIGW",
-        "id": "164820739518-app/cdn-waf/73k9491pttl"
+        "id": "164820739518-app/admin-portal-waf/xanja6aov4"
       },
       "rule_group_list": [
         {
-          "ruleGroupId": "AWSManagedRulesWindowsRuleSet",
+          "ruleGroupId": "AWSManagedRulesCommonRuleSet",
+          "terminatingRule": {
+            "action": "BLOCK",
+            "ruleId": "IPRateBasedRule",
+            "ruleMatchDetails": []
+          },
           "nonTerminatingMatchingRules": []
         }
       ],
@@ -37,7 +42,7 @@
         "headers": [
           {
             "name": "User-Agent",
-            "value": "python-requests/2.27.1"
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
           },
           {
             "name": "Host",
@@ -45,19 +50,24 @@
           }
         ]
       },
-      "labels": [],
+      "labels": [
+        {
+          "name": "awswaf:managed:aws:sql-database:SQLi_Args"
+        }
+      ],
+      "response_code_sent": 403,
       "metrics": {
         "AllowedRequests": {
-          "sum": 1
+          "sum": 0
         },
         "BlockedRequests": {
-          "sum": 0
+          "sum": 1
         },
         "CountedRequests": {
           "sum": 0
         },
         "PassedRequests": {
-          "sum": 1
+          "sum": 0
         },
         "RequestsWithValidCaptchaToken": {
           "sum": 0
@@ -72,32 +82,32 @@
     }
   },
   "source": {
-    "ip": "167.98.150.249",
+    "ip": "135.187.104.119",
     "geo": {
-      "country_iso_code": "DE",
-      "country_name": "Germany",
-      "city_name": "Frankfurt",
+      "country_iso_code": "US",
+      "country_name": "United States",
+      "city_name": "Seattle",
       "location": {
-        "lat": 50.1109,
-        "lon": 8.6821
+        "lat": 47.6062,
+        "lon": -122.3321
       }
     }
   },
   "http": {
     "request": {
-      "method": "PUT",
-      "bytes": 3136
+      "method": "PATCH",
+      "bytes": 7725
     }
   },
   "url": {
-    "path": "/api/v2/events"
+    "path": "/api/v1/orders"
   },
   "user_agent": {
-    "original": "python-requests/2.27.1"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
-    "action": "allow",
-    "outcome": "success",
+    "action": "block",
+    "outcome": "failure",
     "category": [
       "intrusion_detection",
       "network"
@@ -105,8 +115,13 @@
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com"
   },
-  "message": "WAFv2 ALLOW [cdn-waf] 167.98.150.249 PUT /api/v2/events",
+  "message": "WAFv2 BLOCK [admin-portal-waf] 135.187.104.119: AWSManagedRulesCommonRuleSet/IPRateBasedRule",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "WAFBlock",
+    "message": "WAFv2 request blocked",
+    "type": "security"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "ap-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "emr"
@@ -13,123 +13,128 @@
   },
   "aws": {
     "dimensions": {
-      "JobFlowId": "j-WFHEHIEAG3D"
+      "JobFlowId": "j-1OL3Q0CIQAX"
     },
     "emr": {
-      "cluster_id": "j-WFHEHIEAG3D",
-      "cluster_name": "ml-feature-pipeline-cluster",
-      "application": "hive",
-      "release": "emr-6.14.0",
-      "instance_group": "MASTER",
-      "executor_count": 16,
+      "cluster_id": "j-1OL3Q0CIQAX",
+      "cluster_name": "revenue-attribution-cluster",
+      "application": "spark",
+      "release": "emr-6.15.0",
+      "instance_group": "TASK",
+      "executor_count": 52,
       "job": {
-        "name": "ml-feature-pipeline",
-        "id": "application_1774545752366_9869",
-        "run_state": "SUCCEEDED"
+        "name": "revenue-attribution",
+        "id": "application_1774547462569_5281",
+        "run_state": "FAILED"
       },
-      "structured_logging": true,
+      "structured_logging": false,
       "metrics": {
-        "executor_count": 16,
-        "running_step_count": 3,
-        "failed_step_count": 0,
-        "hdfs_utilization_pct": 23,
-        "yarn_memory_used_mb": 11428,
-        "elapsedTime": 2697000,
-        "numCompletedTasks": 35,
-        "numFailedTasks": 0,
-        "jvm_heap_usage": 0.78,
-        "gc_time_ms": 16437,
-        "numberAllExecutors": 31
+        "executor_count": 52,
+        "running_step_count": 0,
+        "failed_step_count": 2,
+        "hdfs_utilization_pct": 86,
+        "yarn_memory_used_mb": 38298,
+        "elapsedTime": 5144000,
+        "numCompletedTasks": 275,
+        "numFailedTasks": 19,
+        "jvm_heap_usage": 0.43,
+        "gc_time_ms": 1783,
+        "numberAllExecutors": 69
       }
     },
     "elasticmapreduce": {
       "metrics": {
         "S3BytesWritten": {
-          "sum": 866319674865
+          "sum": 443627241262
         },
         "S3BytesRead": {
-          "sum": 679126631953
+          "sum": 654219380662
         },
         "HDFSUtilization": {
-          "avg": 23
+          "avg": 86
         },
         "HDFSBytesRead": {
-          "sum": 14103107267
+          "sum": 81192742291
         },
         "HDFSBytesWritten": {
-          "sum": 14903903861
+          "sum": 77558320833
         },
         "TotalNodesRunning": {
-          "avg": 17
+          "avg": 53
         },
         "YARNMemoryAvailablePercentage": {
-          "avg": 33.895
+          "avg": 51.261
         },
         "CoreNodesRunning": {
-          "avg": 5
+          "avg": 41
         },
         "CoreNodesPending": {
-          "avg": 0
+          "avg": 2
         },
         "TaskNodesRunning": {
-          "avg": 14
+          "avg": 31
         },
         "LiveDataNodes": {
-          "avg": 13
-        },
-        "CapacityRemainingGB": {
-          "avg": 1678.778
-        },
-        "MemoryAvailableMB": {
-          "sum": 11428
-        },
-        "MemoryReservedMB": {
-          "avg": 30006
-        },
-        "MemoryTotalMB": {
-          "sum": 78196
-        },
-        "ContainersPending": {
-          "avg": 0
-        },
-        "ContainerPendingRatio": {
-          "avg": 0.254
-        },
-        "ContainersAllocated": {
           "avg": 21
         },
+        "CapacityRemainingGB": {
+          "avg": 622.755
+        },
+        "MemoryAvailableMB": {
+          "sum": 38298
+        },
+        "MemoryReservedMB": {
+          "avg": 4422
+        },
+        "MemoryTotalMB": {
+          "sum": 54340
+        },
+        "ContainersPending": {
+          "avg": 11
+        },
+        "ContainerPendingRatio": {
+          "avg": 4.317
+        },
+        "ContainersAllocated": {
+          "avg": 11
+        },
         "AppsCompleted": {
-          "sum": 11
+          "sum": 30
         },
         "AppsFailed": {
-          "sum": 0
+          "sum": 10
         },
         "AppsKilled": {
-          "sum": 0
+          "sum": 5
         },
         "AppsPending": {
-          "avg": 5
+          "avg": 3
         },
         "AppsRunning": {
-          "avg": 5
+          "avg": 0
         }
       }
     }
   },
   "process": {
-    "name": "HiveMetastore"
+    "name": "PrestoCoordinator"
   },
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.emr",
     "provider": "elasticmapreduce.amazonaws.com",
-    "duration": 2697000000000
+    "duration": 5144000000000
   },
-  "message": "{\"clusterId\":\"j-WFHEHIEAG3D\",\"applicationId\":\"application_1774545752366_9869\",\"containerId\":\"container_1774545752366_504_01_971299\",\"logLevel\":\"INFO\",\"message\":\"Job run succeeded\",\"timestamp\":\"2026-03-26T17:22:32.197Z\",\"component\":\"driver\"}"
+  "message": "Job run failed",
+  "error": {
+    "code": "JobFailed",
+    "message": "YARN: Container killed on request. Exit code is 143",
+    "type": "process"
+  }
 }

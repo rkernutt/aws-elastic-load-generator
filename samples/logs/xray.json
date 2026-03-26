@@ -1,14 +1,14 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "trace": {
-    "id": "1-69c56b58-09ctd97rna1r"
+    "id": "1-69c57206-d15cpo5tvbf"
   },
   "span": {
-    "id": "6wit4we1y5x"
+    "id": "36cwlhbalu"
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "ap-northeast-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -20,62 +20,62 @@
   "aws": {
     "dimensions": {
       "GroupName": "Default",
-      "ServiceType": "AWS::S3::Bucket"
+      "ServiceType": "remote"
     },
     "xray": {
-      "trace_id": "1-69c56b58-09ctd97rna1r",
-      "segment_id": "6wit4we1y5x",
+      "trace_id": "1-69c57206-d15cpo5tvbf",
+      "segment_id": "36cwlhbalu",
       "service": {
-        "name": "s3-client",
-        "type": "AWS::S3::Bucket"
+        "name": "user-service",
+        "type": "remote"
       },
-      "duration": 0.541,
+      "duration": 0.697,
       "fault": false,
       "error": false,
       "throttle": false,
       "http": {
         "request": {
-          "method": "PATCH",
-          "url": "/health"
+          "method": "GET",
+          "url": "/api/v1/search"
         },
         "response": {
-          "status": 201
+          "status": 200
         }
       },
       "annotations": {
         "env": "prod",
-        "version": "v2"
+        "version": "v12"
       },
       "metrics": {
         "ErrorRate": {
-          "avg": 0.456
+          "avg": 0.099
         },
         "FaultRate": {
-          "avg": 0.457
+          "avg": 0.135
         },
         "ThrottleRate": {
-          "avg": 0.095
+          "avg": 0.385
         },
         "TotalCount": {
-          "sum": 4755
+          "sum": 4031
         },
         "Latency": {
-          "avg": 541,
-          "p99": 1623
+          "avg": 697,
+          "p99": 2091
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "PATCH"
+      "method": "GET"
     },
     "response": {
-      "status_code": 201
+      "status_code": 200
     }
   },
   "event": {
-    "duration": 541000000,
+    "duration": 697000000,
     "outcome": "success",
     "category": [
       "network"
@@ -86,7 +86,7 @@
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray: s3-client PATCH → 201 (0.541s)",
+  "message": "X-Ray: user-service GET → 200 (0.697s)",
   "log": {
     "level": "info"
   }

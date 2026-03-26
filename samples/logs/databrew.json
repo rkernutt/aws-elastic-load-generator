@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "databrew"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "JobName": "clean-customer-data-job",
-      "DatasetName": "sales-csv"
+      "JobName": "remove-pii-job",
+      "DatasetName": "event-logs"
     },
     "databrew": {
-      "project_name": "sales-csv-project",
-      "recipe_name": "clean-customer-data",
-      "job_name": "clean-customer-data-job",
-      "job_type": "RECIPE",
-      "dataset_name": "sales-csv",
+      "project_name": "event-logs-project",
+      "recipe_name": "remove-pii",
+      "job_name": "remove-pii-job",
+      "job_type": "PROFILE",
+      "dataset_name": "event-logs",
       "job_status": "SUCCEEDED",
       "run_state": "SUCCEEDED",
-      "duration_seconds": 359,
-      "rows_processed": 753685,
-      "transform_steps": 21,
-      "output_location": "s3://databrew-output/sales-csv/",
+      "duration_seconds": 565,
+      "rows_processed": 8278426,
+      "transform_steps": 16,
+      "output_location": "s3://databrew-output/event-logs/",
       "metrics": {
         "RowsProcessed": {
-          "sum": 753685
+          "sum": 8278426
         },
         "DurationSeconds": {
-          "avg": 359
+          "avg": 565
         },
         "TransformSteps": {
-          "avg": 21
+          "avg": 16
         },
         "JobSuccessCount": {
           "sum": 1
@@ -48,7 +48,7 @@
     }
   },
   "event": {
-    "duration": 359000000000,
+    "duration": 565000000000,
     "outcome": "success",
     "category": [
       "process"
@@ -56,7 +56,7 @@
     "dataset": "aws.databrew",
     "provider": "databrew.amazonaws.com"
   },
-  "message": "Job run succeeded",
+  "message": "Job run started",
   "log": {
     "level": "info"
   }

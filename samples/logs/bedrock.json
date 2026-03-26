@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "af-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "bedrock"
@@ -13,34 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "ModelId": "amazon.nova-pro-v1:0"
+      "ModelId": "mistral.mixtral-8x7b-instruct-v0:1"
     },
     "bedrock": {
-      "model_id": "amazon.nova-pro-v1:0",
-      "invocation_latency_ms": 1234,
-      "input_token_count": 2963,
-      "output_token_count": 1120,
-      "total_token_count": 4083,
+      "model_id": "mistral.mixtral-8x7b-instruct-v0:1",
+      "invocation_latency_ms": 14183,
+      "input_token_count": 1562,
+      "output_token_count": 926,
+      "total_token_count": 2488,
       "stop_reason": "end_turn",
-      "use_case": "qa",
-      "guardrail_action": "NONE",
-      "streaming": true,
-      "time_to_first_token_ms": 83,
-      "input_tokens_per_sec": 2401.1,
-      "model_family": "amazon",
+      "use_case": "text-generation",
+      "guardrail_action": "INTERVENED",
+      "streaming": false,
+      "model_family": "mistral",
       "metrics": {
         "Invocations": {
-          "sum": 134
+          "sum": 441
         },
         "InvocationLatency": {
-          "avg": 1234,
-          "p99": 2468
+          "avg": 14183,
+          "p99": 28366
         },
         "InputTokenCount": {
-          "sum": 2963
+          "sum": 1562
         },
         "OutputTokenCount": {
-          "sum": 1120
+          "sum": 926
         },
         "Throttles": {
           "sum": 0
@@ -55,10 +53,10 @@
     ],
     "dataset": "aws.bedrock",
     "provider": "bedrock.amazonaws.com",
-    "duration": 1234000000
+    "duration": 14183000000
   },
-  "message": "Bedrock nova 2963->1120 tokens 1.23s",
+  "message": "Bedrock mixtral 1562->926 tokens 14.18s",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

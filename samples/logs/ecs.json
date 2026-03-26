@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-central-2",
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "prod-cluster",
-      "ServiceName": "auth-service"
+      "ClusterName": "workers",
+      "ServiceName": "scheduler"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 7.958
+          "avg": 8.875
         },
         "CPUReservation": {
-          "avg": 15.027
+          "avg": 62.369
         },
         "MemoryUtilization": {
-          "avg": 14.733
+          "avg": 33.078
         },
         "MemoryReservation": {
-          "avg": 21.346
+          "avg": 41.34
         },
         "GPUReservation": {
           "avg": 0
@@ -37,17 +37,17 @@
     }
   },
   "container": {
-    "id": "jp7lk16p64",
-    "name": "auth-service",
+    "id": "b84namcz6z",
+    "name": "scheduler",
     "image": {
-      "name": "python:18-alpine",
+      "name": "golang:alpine",
       "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 40246,
-    "name": "auth-service"
+    "pid": 24390,
+    "name": "scheduler"
   },
   "log": {
     "level": "info"
@@ -60,11 +60,11 @@
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 2676000000000
+    "duration": 3037000000000
   },
-  "message": "Scaling event triggered",
+  "message": "{\"cluster\":\"workers\",\"service\":\"scheduler\",\"taskId\":\"263c88dzf4h\",\"container\":\"scheduler\",\"level\":\"info\",\"message\":\"Request processed\",\"timestamp\":\"2026-03-26T17:51:02.372Z\"}",
   "service": {
-    "name": "auth-service",
+    "name": "scheduler",
     "type": "ecs"
   }
 }

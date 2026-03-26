@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "af-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "forecast"
@@ -13,31 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "DatasetGroup": "demand-forecast",
-      "Operation": "CreateForecast"
+      "DatasetGroup": "web-traffic",
+      "Operation": "CreateDatasetImportJob"
     },
     "forecast": {
-      "dataset_group": "demand-forecast",
-      "predictor_name": "demand-forecast-predictor-v7",
-      "action": "CreateForecast",
-      "algorithm": "NPTS",
-      "forecast_horizon": 14,
-      "weighted_quantile_loss": 0.093,
-      "duration_seconds": 4994,
-      "status": "ACTIVE"
+      "dataset_group": "web-traffic",
+      "action": "CreateDatasetImportJob",
+      "algorithm": "AutoML",
+      "forecast_horizon": 30,
+      "duration_seconds": 53716,
+      "status": "FAILED",
+      "error_message": "Insufficient training data"
     }
   },
   "event": {
-    "duration": 4994000000000,
-    "outcome": "success",
+    "duration": 53716000000000,
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com"
   },
-  "message": "Forecast CreateForecast: demand-forecast, WQL=0.093",
+  "message": "Forecast CreateDatasetImportJob FAILED for web-traffic: Insufficient data",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ForecastError",
+    "message": "Forecast operation failed",
+    "type": "ml"
   }
 }

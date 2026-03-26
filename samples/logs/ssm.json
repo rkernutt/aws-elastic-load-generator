@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "systemsmanager"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "ssm": {
-      "command_id": "61vb031k-810t-0d80",
-      "document_name": "AWS-RunShellScript",
-      "instance_id": "i-eaox42p6wx9",
-      "action": "GetParameter",
+      "command_id": "ea1mh4ep-nulp-z9wm",
+      "document_name": "AWS-ConfigureAWSPackage",
+      "instance_id": "i-ivumcod3t9",
+      "action": "PutParameter",
       "execution_status": "Success",
       "response_code": 0,
       "parameter_name": "/prod/db/password",
-      "structured_logging": true,
+      "structured_logging": false,
       "metrics": {
         "CommandsSucceeded": {
           "sum": 1
@@ -38,10 +38,10 @@
           "sum": 1
         },
         "SessionDuration": {
-          "avg": 468
+          "avg": 104
         },
         "PatchComplianceCount": {
-          "avg": 478
+          "avg": 204
         }
       }
     }
@@ -55,9 +55,9 @@
     ],
     "dataset": "aws.ssm",
     "provider": "ssm.amazonaws.com",
-    "duration": 1000000000
+    "duration": 27000000000
   },
-  "message": "{\"commandId\":\"61vb031k-810t-0d80\",\"documentName\":\"AWS-RunShellScript\",\"instanceId\":\"i-eaox42p6wx9\",\"action\":\"GetParameter\",\"status\":\"Success\",\"timestamp\":\"2026-03-26T17:22:32.197Z\"}",
+  "message": "SSM PutParameter on i-ivumcod3t9: AWS-ConfigureAWSPackage",
   "log": {
     "level": "info"
   }

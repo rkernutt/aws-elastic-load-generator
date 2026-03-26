@@ -41,6 +41,27 @@ const ELASTIC_DATASET_MAP = {
   // Elastic Security posture (non-AWS dataset path)
   cspm:        "cloud_security_posture.findings",
   kspm:        "cloud_security_posture.findings",
+  kendra:           "aws.kendra",
+  vpclattice:       "aws.vpclattice",
+  mwaa:             "aws.mwaa",
+  fis:              "aws.fis",
+  cleanrooms:       "aws.cleanrooms",
+  datazone:         "aws.datazone",
+  securityir:       "aws.securityir",
+  cloudhsm:         "aws.cloudhsm",
+  managedgrafana:   "aws.managedgrafana",
+  supplychain:      "aws.supplychain",
+  iottwinmaker:     "aws.iottwinmaker",
+  iotfleetwise:     "aws.iotfleetwise",
+  codecatalyst:     "aws.codecatalyst",
+  entityresolution: "aws.entityresolution",
+  dataexchange:     "aws.dataexchange",
+  devicefarm:       "aws.devicefarm",
+  mskconnect:       "aws.mskconnect",
+  a2i:              "aws.a2i",
+  deadlinecloud:    "aws.deadlinecloud",
+  healthlake:       "aws.healthlake",
+  arc:              "aws.arc",
 };
 
 // ═══════════════════════════════════════════════════════════════════════════

@@ -4,6 +4,14 @@
 
 ---
 
+## What's New in v10.0
+
+- **21 new AWS service generators** — Coverage expanded from 144 to **165 services**. New services: Amazon Kendra, Amazon VPC Lattice, Amazon MWAA, AWS Fault Injection Service, AWS Clean Rooms, Amazon DataZone, AWS Security Incident Response, AWS CloudHSM, Amazon Managed Grafana, AWS Supply Chain, AWS IoT TwinMaker, AWS IoT FleetWise, Amazon CodeCatalyst, AWS Entity Resolution, AWS Data Exchange, AWS Device Farm, Amazon MSK Connect, Amazon Augmented AI (A2I), AWS Deadline Cloud, AWS HealthLake, Amazon Application Recovery Controller.
+- **Distributed across 10 existing service groups** — No new groups required; all services slotted into Networking, Security, Streaming, DevTools, Analytics, AI/ML, IoT, Management, and Media.
+- **165 log samples** — `samples/logs/` updated; metrics (139) and traces (20) unchanged.
+
+---
+
 ## What's New in v9.3
 
 - **5 new service generators** — Coverage expanded from 139 to **144 services**:

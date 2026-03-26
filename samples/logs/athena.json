@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "af-south-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,44 +13,44 @@
   },
   "aws": {
     "athena": {
-      "query_id": "e15bhshp-w5er-zh95-3pkc",
+      "query_id": "vo4oa10c-5rnz-vwiu-5ba3",
       "workgroup": "analytics",
-      "database": "staging",
+      "database": "analytics",
       "state": "SUCCEEDED",
-      "duration_seconds": 29.794,
-      "data_scanned_bytes": 6507376726,
-      "data_scanned_mb": 6206,
+      "duration_seconds": 58.437,
+      "data_scanned_bytes": 6038876187,
+      "data_scanned_mb": 5759,
       "engine_version": "Athena engine version 3",
       "structured_logging": true,
       "metrics": {
         "DataScannedInBytes": {
-          "sum": 6507376726
+          "sum": 6038876187
         },
         "EngineExecutionTimeInMillis": {
-          "avg": 29794,
-          "max": 44691
+          "avg": 58437,
+          "max": 87656
         },
         "ProcessedBytes": {
-          "sum": 6507376726
+          "sum": 6038876187
         },
         "QueryQueueTimeInMillis": {
-          "avg": 29
+          "avg": 128
         },
         "TotalExecutionTimeInMillis": {
-          "avg": 29794
+          "avg": 58437
         },
         "QueryPlanningTimeInMillis": {
-          "avg": 116
+          "avg": 186
         }
       }
     }
   },
   "db": {
-    "statement": "SELECT p.name, count(o.id) FROM products p JOIN orders o ON p.id = o.product_id GROUP BY 1",
+    "statement": "CREATE TABLE analytics.daily_summary AS SELECT * FROM raw.events",
     "type": "sql"
   },
   "event": {
-    "duration": 29794000000,
+    "duration": 58437000000,
     "outcome": "success",
     "category": [
       "database",
@@ -59,8 +59,8 @@
     "dataset": "aws.athena",
     "provider": "athena.amazonaws.com"
   },
-  "message": "{\"queryId\":\"e15bhshp-w5er-zh95-3pkc\",\"workgroup\":\"analytics\",\"database\":\"staging\",\"state\":\"SUCCEEDED\",\"durationSeconds\":29.794,\"dataScannedBytes\":6507376726,\"timestamp\":\"2026-03-26T17:22:32.197Z\"}",
+  "message": "{\"queryId\":\"vo4oa10c-5rnz-vwiu-5ba3\",\"workgroup\":\"analytics\",\"database\":\"analytics\",\"state\":\"SUCCEEDED\",\"durationSeconds\":58.437,\"dataScannedBytes\":6038876187,\"timestamp\":\"2026-03-26T17:51:02.372Z\"}",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

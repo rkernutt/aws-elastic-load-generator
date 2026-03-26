@@ -1,0 +1,56 @@
+{
+  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "ap-northeast-2",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "deadlinecloud"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "FarmId": "farm-n6egfhg56kn",
+      "QueueId": "queue-9wtdkbjism"
+    },
+    "deadlinecloud": {
+      "farm_id": "farm-n6egfhg56kn",
+      "farm_name": "vfx-render-farm",
+      "queue_id": "queue-9wtdkbjism",
+      "queue_name": "compositing",
+      "job_id": "job-cdylo954gq7",
+      "job_name": "grade_master",
+      "task_id": "task-rp79xavms8",
+      "task_status": "FAILED",
+      "job_status": "CANCELED",
+      "worker_hostname": "render-worker-cpu-02.ap-northeast-2.compute.internal",
+      "frame_start": 412,
+      "frame_end": 435,
+      "duration_seconds": 2816,
+      "renderer": "Arnold",
+      "priority": 48
+    }
+  },
+  "event": {
+    "action": "GetTaskRunStatus",
+    "outcome": "failure",
+    "category": [
+      "process"
+    ],
+    "dataset": "aws.deadlinecloud",
+    "provider": "deadline.amazonaws.com",
+    "duration": 2816000000000
+  },
+  "message": "Deadline Cloud GetTaskRunStatus FAILED [vfx-render-farm/grade_master]: Worker lost connection",
+  "log": {
+    "level": "error"
+  },
+  "error": {
+    "code": "ThrottlingException",
+    "message": "Deadline Cloud render task failed",
+    "type": "process"
+  }
+}

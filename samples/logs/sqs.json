@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "sqs"
@@ -20,19 +20,19 @@
         "name": "notification-dlq"
       },
       "oldest_message_age": {
-        "sec": 132
+        "sec": 119
       },
       "messages": {
-        "delayed": 118,
-        "not_visible": 102,
-        "visible": 355,
-        "deleted": 753,
-        "received": 441,
-        "sent": 5822
+        "delayed": 17,
+        "not_visible": 43,
+        "visible": 250,
+        "deleted": 930,
+        "received": 697,
+        "sent": 8787
       },
-      "empty_receives": 50,
+      "empty_receives": 48,
       "sent_message_size": {
-        "bytes": 173635
+        "bytes": 91513
       }
     }
   },
@@ -43,15 +43,21 @@
     ],
     "dataset": "aws.sqs",
     "provider": "sqs.amazonaws.com",
-    "duration": 27000000
+    "duration": 466000000
   },
-  "message": "SQS notification-dlq: 264 messages dead-lettered after max retries",
+  "message": "SQS notification-dlq: 521 messages dead-lettered after max retries",
   "log": {
     "level": "warn"
   },
   "error": {
-    "code": "UnsupportedOperation",
+    "code": "AWS.SimpleQueueService.TooManyEntriesInBatchRequest",
     "message": "SQS operation failed",
     "type": "queue"
+  },
+  "trace": {
+    "id": "VJODZTNPBXA"
+  },
+  "transaction": {
+    "id": "TTND3XZ3BB9"
   }
 }

@@ -370,4 +370,39 @@ function generateStepFunctionsLog(ts, er) {
   };
 }
 
-export { generateKinesisStreamsLog, generateFirehoseLog, generateKinesisAnalyticsLog, generateMskLog, generateSqsLog, generateSnsLog, generateAmazonMqLog, generateEventBridgeLog, generateStepFunctionsLog };
+function generateMskConnectLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const connectorName = rand(["s3-sink-connector","jdbc-source-connector","opensearch-sink","debezium-postgres-source","kinesis-streams-sink"]);
+  const connectorArn = `arn:aws:kafkaconnect:${region}:${acct.id}:connector/${connectorName}/${randId(8).toLowerCase()}`;
+  const connectorState = isErr ? rand(["FAILED","DEGRADED"]) : "RUNNING";
+  const capacityType = rand(["MCU_1X","MCU_2X","MCU_4X","MCU_8X"]);
+  const workerCount = randInt(1, isErr ? 2 : 10);
+  const bootstrapServers = `b-1.prod-kafka-${region}.amazonaws.com:9092,b-2.prod-kafka-${region}.amazonaws.com:9092`;
+  const connectorClasses = ["io.debezium.connector.postgresql.PostgresConnector","org.apache.kafka.connect.s3.S3SinkConnector","io.confluent.connect.elasticsearch.ElasticsearchSinkConnector","com.amazon.kinesis.kafka.AmazonKinesisSinkConnector"];
+  const taskStatuses = isErr ? rand(["FAILED","PAUSED"]) : "RUNNING";
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"mskconnect" } },
+    "aws": {
+      dimensions: { ConnectorName:connectorName },
+      mskconnect: {
+        connector_name: connectorName,
+        connector_arn: connectorArn,
+        connector_state: connectorState,
+        worker_count: workerCount,
+        capacity_type: capacityType,
+        kafka_cluster_bootstrap_servers: bootstrapServers,
+        connector_class: rand(connectorClasses),
+        tasks_status: taskStatuses,
+        offset_lag: isErr ? randInt(10000,5000000) : randInt(0,500),
+        record_count: randInt(0, isErr ? 1000 : 100000),
+      }
+    },
+    "event": { action: rand(["ConnectorCreated","ConnectorRunning","ConnectorFailed","ConnectorDeleted","WorkerAutoScaled","TaskFailed","TaskRestarted","OffsetCommit"]), outcome:isErr?"failure":"success", category:["process"], dataset:"aws.mskconnect", provider:"kafkaconnect.amazonaws.com", duration:randInt(1, isErr?60000:5000)*1e6 },
+    "message": isErr ? `MSK Connect ${connectorName}: ${connectorState} - ${rand(["Task failed","Worker crashed","Connector config error","Offset commit failed"])}` : `MSK Connect ${connectorName}: ${taskStatuses}, lag=${randInt(0,500)}`,
+    "log": { level:isErr?"error":"info" },
+    ...(isErr ? { error: { code: connectorState, message: `MSK Connect connector ${connectorState.toLowerCase()}`, type: "stream" } } : {})
+  };
+}
+
+export { generateKinesisStreamsLog, generateFirehoseLog, generateKinesisAnalyticsLog, generateMskLog, generateSqsLog, generateSnsLog, generateAmazonMqLog, generateEventBridgeLog, generateStepFunctionsLog, generateMskConnectLog };

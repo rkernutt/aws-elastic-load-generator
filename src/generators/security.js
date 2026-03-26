@@ -1210,4 +1210,69 @@ function generateDataExfilChain(ts, er) {
   return [gdDoc, ctDoc, vpcDoc];
 }
 
-export { generateGuardDutyLog, generateSecurityHubLog, generateMacieLog, generateInspectorLog, generateConfigLog, generateAccessAnalyzerLog, generateCognitoLog, generateKmsLog, generateSecretsManagerLog, generateAcmLog, generateIamIdentityCenterLog, generateDetectiveLog, generateCloudTrailLog, generateVerifiedAccessLog, generateSecurityLakeLog, generateSecurityFindingChain, generateCspmFindings, generateKspmFindings, generateIamPrivEscChain, generateDataExfilChain };
+function generateSecurityIrLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const caseId = `case-${randId(8).toLowerCase()}`;
+  const caseTitle = rand(["Unauthorized API access","Credential compromise","S3 data exposure","Ransomware detection","Insider threat"]);
+  const severity = rand(["CRITICAL","HIGH","MEDIUM","LOW"]);
+  const status = isErr ? rand(["FAILED","CLOSED_WITH_UNRESOLVED_ITEMS"]) : rand(["ACTIVE","INVESTIGATION","CONTAINMENT","ERADICATION","RECOVERY","POST_INCIDENT"]);
+  const impactedAccts = randInt(1, 10);
+  const impactedServices = rand(["EC2,S3,IAM","Lambda,DynamoDB","RDS,Secrets Manager","ECS,ECR","CloudTrail,GuardDuty"]);
+  const action = rand(["CreateCase","UpdateCase","CloseCase","AddCaseMember","CreateCaseComment","UpdateResolverType"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"securityir" } },
+    "aws": {
+      dimensions: { CaseId: caseId, Severity: severity },
+      securityir: {
+        case_id: caseId,
+        case_title: caseTitle,
+        case_status: status,
+        severity,
+        impacted_account_count: impactedAccts,
+        impacted_services: impactedServices,
+        resolver_type: rand(["AWS","SELF_MANAGED","THIRD_PARTY"]),
+        engagement_type: rand(["SECURITY_INCIDENT","INVESTIGATION","COMPROMISE_ASSESSMENT"]),
+        case_arn: `arn:aws:security-ir:${region}:${acct.id}:case/${caseId}`,
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["intrusion_detection","process"], dataset: "aws.securityir", provider: "security-ir.amazonaws.com" },
+    "message": isErr ? `Security IR ${action} FAILED [${caseId}]: ${rand(["Access denied","Case not found","Invalid state transition"])}` : `Security IR ${action}: case=${caseId} severity=${severity} status=${status}`,
+    "log": { level: severity === "CRITICAL" || severity === "HIGH" ? "error" : isErr ? "error" : "warn" },
+    ...(isErr ? { error: { code: rand(["AccessDeniedException","ResourceNotFoundException","ValidationException"]), message: "Security IR operation failed", type: "security" } } : {}),
+  };
+}
+
+function generateCloudHsmLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const clusterId = `cluster-${randId(10).toLowerCase()}`;
+  const hsmId = `hsm-${randId(10).toLowerCase()}`;
+  const hsmState = isErr ? rand(["DEGRADED","DELETED"]) : rand(["ACTIVE","CREATE_IN_PROGRESS"]);
+  const action = rand(["CreateHsm","DeleteHsm","InitializeCluster","ActivateCluster","DescribeBackups","CreateBackup","DeleteBackup","UntagResource"]);
+  const keyType = rand(["AES_128","AES_256","RSA_2048","RSA_4096","EC_P256","EC_P384"]);
+  const availabilityZone = `${region}${rand(["a","b","c"])}`;
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"cloudhsm" }, availability_zone: availabilityZone },
+    "aws": {
+      dimensions: { ClusterId: clusterId },
+      cloudhsm: {
+        cluster_id: clusterId,
+        hsm_id: hsmId,
+        hsm_state: hsmState,
+        availability_zone: availabilityZone,
+        subnet_id: `subnet-${randId(8).toLowerCase()}`,
+        eni_ip: `10.${randInt(0,255)}.${randInt(0,255)}.${randInt(1,254)}`,
+        key_type: keyType,
+        operation_type: rand(["key_generation","key_usage","key_deletion","backup","restore","cluster_management"]),
+        backup_id: action.includes("Backup") ? `backup-${randId(10).toLowerCase()}` : null,
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["process","authentication"], dataset: "aws.cloudhsm", provider: "cloudhsm.amazonaws.com" },
+    "message": isErr ? `CloudHSM ${action} FAILED [${clusterId}]: ${rand(["HSM not reachable","Cluster not initialized","Backup failed","Access denied"])}` : `CloudHSM ${action}: cluster=${clusterId}, hsm=${hsmId}, state=${hsmState}`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["CloudHsmAccessDeniedException","CloudHsmResourceNotFoundException","CloudHsmServiceException"]), message: "CloudHSM operation failed", type: "security" } } : {}),
+  };
+}
+
+export { generateGuardDutyLog, generateSecurityHubLog, generateMacieLog, generateInspectorLog, generateConfigLog, generateAccessAnalyzerLog, generateCognitoLog, generateKmsLog, generateSecretsManagerLog, generateAcmLog, generateIamIdentityCenterLog, generateDetectiveLog, generateCloudTrailLog, generateVerifiedAccessLog, generateSecurityLakeLog, generateSecurityFindingChain, generateCspmFindings, generateKspmFindings, generateIamPrivEscChain, generateDataExfilChain, generateSecurityIrLog, generateCloudHsmLog };

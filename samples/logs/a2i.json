@@ -1,0 +1,45 @@
+{
+  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-west-2",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "a2i"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "FlowDefinitionArn": "arn:aws:sagemaker:us-west-2:164820739518:flow-definition/id-verification",
+      "Operation": "ConditionThresholdBreached"
+    },
+    "a2i": {
+      "flow_definition_arn": "arn:aws:sagemaker:us-west-2:164820739518:flow-definition/id-verification",
+      "human_loop_name": "loop-0ts1okku9t3",
+      "human_loop_status": "InProgress",
+      "input_content_type": "image/jpeg",
+      "condition_threshold": 0.85,
+      "human_review_required": true,
+      "reviewer_count": 1,
+      "task_count": 1,
+      "task_completed": 1,
+      "confidence_threshold_breach": true
+    }
+  },
+  "log": {
+    "level": "warn"
+  },
+  "event": {
+    "action": "ConditionThresholdBreached",
+    "outcome": "success",
+    "category": [
+      "process"
+    ],
+    "dataset": "aws.a2i",
+    "provider": "sagemaker.amazonaws.com"
+  },
+  "message": "A2I ConditionThresholdBreached: loop=loop-0ts1okku9t3, status=InProgress, confidence=0.60<0.85 REVIEW REQUIRED"
+}

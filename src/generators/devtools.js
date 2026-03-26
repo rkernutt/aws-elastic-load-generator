@@ -310,4 +310,77 @@ function generateCodeGuruLog(ts, er) {
   return { "@timestamp":ts,"cloud":{provider:"aws",region,account:{id:acct.id,name:acct.name},service:{name:"codeguru"}},"aws":{codeguru:{product,repository_name:repo,association_id:randId(36).toLowerCase(),finding_id:randId(36).toLowerCase(),category:product==="Reviewer"?rand(["Security","CodeMaintainability","Performance","AWSBestPractices","Logging"]):rand(["CPU","Memory","Latency","IO"]),severity,finding_description:finding,code_file:rand([`src/main/${repo.replace("-","")}/Handler.java`,"lambda_function.py","app/models.py","server/routes.js"]),line_number:randInt(1,500),pull_request_id:product==="Reviewer"?randInt(1,200):null,profiling_group:product==="Profiler"?`${repo}-profiling`:null,frame_percent:product==="Profiler"?parseFloat(randFloat(1,50)):null,error_code:isErr?rand(["InternalServerException","ThrottlingException","ResourceNotFoundException"]):null}},"event":{outcome:isErr?"failure":"success",category:["vulnerability","process"],dataset:"aws.codeguru",provider:"codeguru.amazonaws.com"},"message":isErr?`CodeGuru ${product} FAILED [${repo}]: ${rand(["Internal error","Repository not found","Throttled"])}:`:`CodeGuru ${product} [${repo}] ${severity}: ${finding.split(":")[0]}`,"log":{level:isErr?"error":["Critical","High"].includes(severity)?"warn":"info"},...(isErr?{error:{code:rand(["InternalServerException","ThrottlingException","ResourceNotFoundException"]),message:"CodeGuru operation failed",type:"process"}}:{}) };
 }
 
-export { generateCodeBuildLog, generateCodePipelineLog, generateCodeDeployLog, generateCodeCommitLog, generateCodeArtifactLog, generateAmplifyLog, generateXRayLog, generateCodeGuruLog };
+function generateCodeCatalystLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const spaceName = rand(["engineering","platform-team","mobile-team","data-team","infra-team"]);
+  const projectName = rand(["backend-service","mobile-app","data-pipeline","infrastructure","api-gateway"]);
+  const workflowName = rand(["ci-pipeline","cd-pipeline","pr-checks","nightly-build","security-scan"]);
+  const workflowRunId = `run-${randId(20).toLowerCase()}`;
+  const runStatus = isErr ? rand(["FAILED","TIMED_OUT","STOPPED"]) : rand(["SUCCEEDED","IN_PROGRESS","QUEUED"]);
+  const action = rand(["StartWorkflowRun","StopWorkflowRun","CreateDevEnvironment","DeleteDevEnvironment","MergeSourceBranchesToTarget","CreateSourceRepository"]);
+  const devEnvId = `dev-${randId(16).toLowerCase()}`;
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"codecatalyst" } },
+    "aws": {
+      dimensions: { SpaceName: spaceName, ProjectName: projectName },
+      codecatalyst: {
+        space_name: spaceName,
+        project_name: projectName,
+        workflow_name: workflowName,
+        workflow_run_id: workflowRunId,
+        workflow_run_status: runStatus,
+        dev_environment_id: devEnvId,
+        dev_environment_status: isErr ? "FAILED" : rand(["RUNNING","STARTING","STOPPED","DELETING"]),
+        ide: rand(["VSCode","IntelliJ IDEA","AWS Cloud9"]),
+        branch_name: rand(["main","develop","feature/new-api","fix/bug-123","release/v2.0"]),
+        event_type: rand(["WORKFLOW_RUN","DEV_ENVIRONMENT","SOURCE_REPOSITORY","PROJECT","SPACE"]),
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.codecatalyst", provider: "codecatalyst.amazonaws.com" },
+    "message": isErr ? `CodeCatalyst ${action} FAILED [${spaceName}/${projectName}]: ${rand(["Workflow run failed","Dev environment error","Branch conflict","Quota exceeded"])}` : `CodeCatalyst ${action}: space=${spaceName}, project=${projectName}, workflow=${workflowName} ${runStatus}`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","ValidationException","ServiceQuotaExceededException"]), message: "CodeCatalyst operation failed", type: "process" } } : {}),
+  };
+}
+
+function generateDeviceFarmLog(ts, er) {
+  const region = "us-west-2"; // Device Farm only available in us-west-2
+  const acct = randAccount(); const isErr = Math.random() < er;
+  const projectName = rand(["iOS-App-Tests","Android-App-Tests","Web-App-Tests","Mobile-Regression","Performance-Suite"]);
+  const projectArn = `arn:aws:devicefarm:${region}:${acct.id}:project:${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`;
+  const runName = rand(["Sprint-42-Regression","Pre-Release-Smoke","Nightly-Full-Suite","Performance-Baseline","Accessibility-Scan"]);
+  const runStatus = isErr ? rand(["FAILED","ERRORED","STOPPED"]) : rand(["PASSED","PENDING","RUNNING","SCHEDULED"]);
+  const devicePlatform = rand(["ANDROID","IOS"]);
+  const deviceModel = rand(["Samsung Galaxy S23","Google Pixel 7","iPhone 15 Pro","iPhone 14","Samsung Galaxy A54"]);
+  const totalTests = randInt(10, 500);
+  const passedTests = isErr ? randInt(0, Math.floor(totalTests * 0.5)) : randInt(Math.floor(totalTests * 0.8), totalTests);
+  const failedTests = totalTests - passedTests;
+  const action = rand(["ScheduleRun","StopRun","CreateProject","CreateDevicePool","CreateUpload","GetRun"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"devicefarm" } },
+    "aws": {
+      dimensions: { ProjectArn: projectArn },
+      devicefarm: {
+        project_name: projectName,
+        project_arn: projectArn,
+        run_name: runName,
+        run_status: runStatus,
+        device_platform: devicePlatform,
+        device_model: deviceModel,
+        total_tests: totalTests,
+        passed_tests: passedTests,
+        failed_tests: failedTests,
+        test_type: rand(["BUILTIN_FUZZ","INSTRUMENTATION","XCTEST","APPIUM_PYTHON","APPIUM_NODE"]),
+        billing_method: rand(["METERED","UNMETERED"]),
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.devicefarm", provider: "devicefarm.amazonaws.com" },
+    "message": isErr ? `Device Farm ${action} FAILED [${projectName}]: ${rand(["Run failed","Device unavailable","Upload invalid","Timeout exceeded"])}` : `Device Farm ${action}: project=${projectName}, run=${runName} ${runStatus} (${passedTests}/${totalTests} passed)`,
+    "log": { level: isErr ? "error" : failedTests > 0 ? "warn" : "info" },
+    ...(isErr ? { error: { code: rand(["NotFoundException","ArgumentException","IdempotencyException","ServiceAccountException"]), message: "Device Farm run failed", type: "process" } } : {}),
+  };
+}
+
+export { generateCodeBuildLog, generateCodePipelineLog, generateCodeDeployLog, generateCodeCommitLog, generateCodeArtifactLog, generateAmplifyLog, generateXRayLog, generateCodeGuruLog, generateCodeCatalystLog, generateDeviceFarmLog };

@@ -535,4 +535,167 @@ function generateOpenSearchLog(ts, er) {
   };
 }
 
-export { generateEmrLog, generateGlueLog, generateAthenaLog, generateLakeFormationLog, generateQuickSightLog, generateDataBrewLog, generateAppFlowLog, generateOpenSearchLog };
+function generateMwaaLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const envName = rand(["prod-airflow","staging-airflow","data-platform","etl-orchestrator","ml-pipelines"]);
+  const dagId = rand(["etl_daily_load","ml_training_pipeline","data_quality_check","report_generation","s3_to_redshift"]);
+  const runId = `scheduled__${new Date(new Date(ts).getTime() - randInt(0,3600)*1000).toISOString()}`;
+  const taskId = rand(["extract","transform","load","validate","notify","cleanup"]);
+  const state = isErr ? rand(["failed","upstream_failed"]) : rand(["success","running","queued"]);
+  const durationSec = randInt(1, isErr ? 3600 : 600);
+  const workerCount = randInt(1, 10);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"mwaa" } },
+    "aws": {
+      dimensions: { EnvironmentName: envName },
+      mwaa: {
+        environment_name: envName,
+        dag_id: dagId,
+        run_id: runId,
+        task_id: taskId,
+        run_state: state,
+        duration_seconds: durationSec,
+        worker_count: workerCount,
+        queue_name: rand(["default","high_priority","ml_queue"]),
+        airflow_version: rand(["2.6.3","2.7.3","2.8.1","2.9.3"]),
+      }
+    },
+    "event": { action: rand(["TaskInstanceStateChanged","DagRunStateChanged","SchedulerHeartbeat","WorkerScaleUp","WorkerScaleDown"]), outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.mwaa", provider: "airflow.amazonaws.com", duration: durationSec * 1e9 },
+    "message": isErr ? `MWAA ${envName}: DAG ${dagId} task ${taskId} ${state}` : `MWAA ${envName}: DAG ${dagId} task ${taskId} ${state} (${durationSec}s)`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: "TaskFailed", message: `Airflow task ${taskId} failed in DAG ${dagId}`, type: "process" } } : {}),
+  };
+}
+
+function generateCleanRoomsLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const collabId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase();
+  const collabName = rand(["retail-analytics-collab","ad-measurement-collab","fraud-detection-collab","healthcare-insights-collab"]);
+  const tableName = rand(["customer_transactions","ad_impressions","product_catalog","health_records","loyalty_events"]);
+  const queryStatus = isErr ? rand(["FAILED","CANCELLED"]) : rand(["SUCCESS","RUNNING"]);
+  const rowsReturned = isErr ? 0 : randInt(0, 100000);
+  const queryType = rand(["SELECT","AGGREGATE","JOIN"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"cleanrooms" } },
+    "aws": {
+      dimensions: { CollaborationId: collabId },
+      cleanrooms: {
+        collaboration_id: collabId,
+        collaboration_name: collabName,
+        configured_table_name: tableName,
+        protected_query_id: `pq-${randId(16).toLowerCase()}`,
+        query_status: queryStatus,
+        protected_query_type: queryType,
+        rows_returned: rowsReturned,
+        member_account_id: randAccount().id,
+      }
+    },
+    "event": { action: rand(["StartProtectedQuery","GetProtectedQuery","BatchGetCollaborationAnalysisTemplate","CreateConfiguredTable"]), outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.cleanrooms", provider: "cleanrooms.amazonaws.com" },
+    "message": isErr ? `Clean Rooms ${collabName}: query ${queryStatus} on ${tableName}` : `Clean Rooms ${collabName}: ${queryType} on ${tableName} returned ${rowsReturned} rows`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["AccessDeniedException","ValidationException","InternalServerException"]), message: "Clean Rooms protected query failed", type: "process" } } : {}),
+  };
+}
+
+function generateDataZoneLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const domainId = `dzd_${randId(12).toLowerCase()}`;
+  const domainName = rand(["data-mesh-prod","enterprise-catalog","analytics-domain","ml-data-domain"]);
+  const projectName = rand(["marketing-analytics","customer-360","risk-modeling","supply-chain-analytics","finance-reporting"]);
+  const assetName = rand(["customer_transactions","product_catalog","ad_spend","inventory_levels","revenue_data"]);
+  const assetType = rand(["GlueTableViewType","RedshiftTableViewType","AthenaTableViewType","S3ObjectViewType"]);
+  const action = rand(["CreateAsset","PublishAsset","SubscribeToAsset","ApproveSubscription","RevokeSubscription","CreateGlossaryTerm"]);
+  const subStatus = isErr ? "REJECTED" : rand(["APPROVED","PENDING","ACTIVE"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"datazone" } },
+    "aws": {
+      dimensions: { DomainId: domainId },
+      datazone: {
+        domain_id: domainId,
+        domain_name: domainName,
+        project_name: projectName,
+        asset_name: assetName,
+        asset_type: assetType,
+        subscription_status: subStatus,
+        glossary_term: rand(["PII","Sensitive","Internal","Public","Confidential"]),
+        environment_id: `env-${randId(12).toLowerCase()}`,
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.datazone", provider: "datazone.amazonaws.com" },
+    "message": isErr ? `DataZone ${action} FAILED [${domainName}]: ${rand(["Access denied","Asset not found","Subscription rejected"])}` : `DataZone ${action}: domain=${domainName}, project=${projectName}, asset=${assetName}`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["AccessDeniedException","ResourceNotFoundException","ValidationException"]), message: "DataZone operation failed", type: "process" } } : {}),
+  };
+}
+
+function generateEntityResolutionLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const workflowName = rand(["customer-dedup","product-matching","address-resolution","entity-linking","contact-merge"]);
+  const workflowId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase();
+  const jobId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase();
+  const jobStatus = isErr ? rand(["FAILED","QUEUED_FOR_DELETION"]) : rand(["SUCCEEDED","RUNNING","QUEUED"]);
+  const inputRecords = randInt(1000, 10000000);
+  const matchedRecords = isErr ? 0 : randInt(Math.floor(inputRecords * 0.1), Math.floor(inputRecords * 0.9));
+  const uniqueRecords = isErr ? 0 : randInt(Math.floor(matchedRecords * 0.5), matchedRecords);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"entityresolution" } },
+    "aws": {
+      dimensions: { WorkflowName: workflowName },
+      entityresolution: {
+        matching_workflow_id: workflowId,
+        matching_workflow_name: workflowName,
+        job_id: jobId,
+        job_status: jobStatus,
+        matched_record_count: matchedRecords,
+        input_record_count: inputRecords,
+        unique_record_count: uniqueRecords,
+        schema_name: rand(["customer-schema","product-schema","contact-schema"]),
+        matching_technique: rand(["RULE_MATCHING","ML_MATCHING","PROVIDER_SERVICE"]),
+      }
+    },
+    "event": { action: rand(["CreateMatchingWorkflow","StartMatchingJob","GetMatchingJob","ListMatchingJobs"]), outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.entityresolution", provider: "entityresolution.amazonaws.com" },
+    "message": isErr ? `Entity Resolution ${workflowName}: job ${jobStatus}` : `Entity Resolution ${workflowName}: matched ${matchedRecords}/${inputRecords} records → ${uniqueRecords} unique`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","ValidationException","InternalServerException"]), message: "Entity resolution job failed", type: "process" } } : {}),
+  };
+}
+
+function generateDataExchangeLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const datasetId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase();
+  const datasetName = rand(["US-Weather-Data","Financial-Market-Feed","Traffic-Analytics","Healthcare-Claims","Retail-POS-Data"]);
+  const datasetType = rand(["S3","REDSHIFT","API_GATEWAY","LAKE_FORMATION"]);
+  const jobType = rand(["IMPORT_ASSETS_FROM_S3","EXPORT_ASSETS_TO_S3","IMPORT_ASSET_FROM_API_GATEWAY","EXPORT_REVISIONS_TO_S3"]);
+  const jobStatus = isErr ? rand(["ERROR","CANCELLED"]) : rand(["COMPLETED","IN_PROGRESS","WAITING"]);
+  const assetCount = randInt(1, 500);
+  const providerAcct = randAccount();
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"dataexchange" } },
+    "aws": {
+      dimensions: { DataSetId: datasetId },
+      dataexchange: {
+        dataset_id: datasetId,
+        dataset_name: datasetName,
+        data_set_type: datasetType,
+        revision_id: `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase(),
+        job_id: `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase(),
+        job_type: jobType,
+        job_status: jobStatus,
+        provider_account_id: providerAcct.id,
+        subscriber_account_id: acct.id,
+        asset_count: assetCount,
+      }
+    },
+    "event": { action: rand(["CreateJob","StartJob","CancelJob","CreateRevision","PublishDataSet","SubscribeToDataSet"]), outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.dataexchange", provider: "dataexchange.amazonaws.com" },
+    "message": isErr ? `Data Exchange ${datasetName}: job ${jobStatus}` : `Data Exchange ${datasetName}: ${jobType} ${jobStatus}, ${assetCount} assets`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","AccessDeniedException","InternalServerException"]), message: "Data Exchange job failed", type: "process" } } : {}),
+  };
+}
+
+export { generateEmrLog, generateGlueLog, generateAthenaLog, generateLakeFormationLog, generateQuickSightLog, generateDataBrewLog, generateAppFlowLog, generateOpenSearchLog, generateMwaaLog, generateCleanRoomsLog, generateDataZoneLog, generateEntityResolutionLog, generateDataExchangeLog };

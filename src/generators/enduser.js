@@ -802,4 +802,50 @@ function generateDevOpsGuruLog(ts, er) {
   };
 }
 
-export { generateWorkSpacesLog, generateConnectLog, generateAppStreamLog, generateGameLiftLog, generateSesLog, generatePinpointLog, generateTransferFamilyLog, generateLightsailLog, generateFraudDetectorLog, generateLocationServiceLog, generateMediaConvertLog, generateMediaLiveLog, generateManagedBlockchainLog, generateResilienceHubLog, generateRamLog, generateMigrationHubLog, generateDevOpsGuruLog };
+function generateDeadlineCloudLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const farmId = `farm-${randId(16).toLowerCase()}`;
+  const farmName = rand(["vfx-render-farm","game-asset-farm","animation-studio","post-production","ad-rendering"]);
+  const queueId = `queue-${randId(16).toLowerCase()}`;
+  const queueName = rand(["high-priority","standard","batch-overnight","test","compositing"]);
+  const jobId = `job-${randId(20).toLowerCase()}`;
+  const jobName = rand(["shot_comp_0010","lighting_pass_v3","fx_simulation_hero","motion_blur_final","grade_master"]);
+  const taskId = `task-${randId(20).toLowerCase()}`;
+  const taskStatus = isErr ? rand(["FAILED","NOT_COMPATIBLE","INTERRUPTED"]) : rand(["SUCCEEDED","RUNNING","QUEUED","ASSIGNED","STARTING","CANCELING"]);
+  const jobStatus = isErr ? rand(["FAILED","CANCELED"]) : rand(["SUCCEEDED","IN_PROGRESS","QUEUED","ARCHIVED"]);
+  const action = rand(["CreateJob","StartJob","UpdateJob","DeleteJob","CreateWorker","UpdateWorker","AssignedSession","GetTaskRunStatus","CreateQueueEnvironment"]);
+  const workerHostName = `render-worker-${rand(["gpu-01","gpu-02","cpu-01","cpu-02","spot-01"])}.${region}.compute.internal`;
+  const frameStart = randInt(1, 900);
+  const frameEnd = frameStart + randInt(1, 100);
+  const durationSec = randInt(1, isErr ? 7200 : 3600);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"deadlinecloud" } },
+    "aws": {
+      dimensions: { FarmId: farmId, QueueId: queueId },
+      deadlinecloud: {
+        farm_id: farmId,
+        farm_name: farmName,
+        queue_id: queueId,
+        queue_name: queueName,
+        job_id: jobId,
+        job_name: jobName,
+        task_id: taskId,
+        task_status: taskStatus,
+        job_status: jobStatus,
+        worker_hostname: workerHostName,
+        frame_start: frameStart,
+        frame_end: frameEnd,
+        duration_seconds: durationSec,
+        renderer: rand(["Arnold","V-Ray","RenderMan","Redshift","Cycles"]),
+        priority: randInt(25, 75),
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.deadlinecloud", provider: "deadline.amazonaws.com", duration: durationSec * 1e9 },
+    "message": isErr ? `Deadline Cloud ${action} FAILED [${farmName}/${jobName}]: ${rand(["Render task failed","Worker lost connection","Insufficient capacity","License unavailable"])}` : `Deadline Cloud ${action}: farm=${farmName} queue=${queueName} job=${jobName} frames ${frameStart}-${frameEnd} ${taskStatus}`,
+    "log": { level: isErr ? "error" : taskStatus === "INTERRUPTED" ? "warn" : "info" },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","AccessDeniedException","ThrottlingException","ValidationException"]), message: "Deadline Cloud render task failed", type: "process" } } : {}),
+  };
+}
+
+export { generateWorkSpacesLog, generateConnectLog, generateAppStreamLog, generateGameLiftLog, generateSesLog, generatePinpointLog, generateTransferFamilyLog, generateLightsailLog, generateFraudDetectorLog, generateLocationServiceLog, generateMediaConvertLog, generateMediaLiveLog, generateManagedBlockchainLog, generateResilienceHubLog, generateRamLog, generateMigrationHubLog, generateDevOpsGuruLog, generateDeadlineCloudLog };

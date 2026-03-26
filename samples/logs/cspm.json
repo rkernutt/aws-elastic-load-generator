@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,38 +7,36 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "ap-south-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
     }
   },
   "resource": {
-    "id": "arn:aws:ec2:ap-east-1:814726593401:security-group/sg-st2z6jzy",
-    "name": "sg-st2z6jzy",
-    "sub_type": "security-group",
-    "type": "cloud-network"
+    "id": "arn:aws:iam::814726593401:user/svc-deploy",
+    "name": "svc-deploy",
+    "sub_type": "iam-user",
+    "type": "cloud-identity-management"
   },
   "rule": {
-    "id": "cis_4_1",
-    "name": "Ensure no security group allows unrestricted SSH inbound",
-    "section": "4.1",
+    "id": "cis_1_2",
+    "name": "Ensure MFA enabled for all IAM users with console access",
+    "section": "1.2",
     "tags": [
-      "Networking"
+      "IAM"
     ],
     "benchmark": {
       "id": "cis_aws",
       "version": "v1.5.0",
-      "rule_number": "4.1",
+      "rule_number": "1.2",
       "posture_type": "cspm"
-    },
-    "impact": "Non-compliance with CIS AWS 4.1 may expose account to unauthorized access.",
-    "remediation": "Remediate per CIS AWS Foundations Benchmark v1.5.0 section 4.1."
+    }
   },
   "result": {
-    "evaluation": "failed"
+    "evaluation": "passed"
   },
-  "severity": "high",
+  "severity": "none",
   "event": {
     "kind": "state",
     "category": [
@@ -47,17 +45,12 @@
     "type": [
       "info"
     ],
-    "outcome": "failure",
+    "outcome": "success",
     "dataset": "cloud_security_posture.findings",
     "provider": "elastic_cspm"
   },
-  "message": "CSPM [CIS AWS 1.5 / 4.1] failed: Ensure no security group allows unrestricted SSH inbound",
+  "message": "CSPM [CIS AWS 1.5 / 1.2] passed: Ensure MFA enabled for all IAM users with console access",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "CIS_CIS_4_1",
-    "message": "CSPM check failed: Ensure no security group allows unrestricted SSH inbound",
-    "type": "compliance"
+    "level": "info"
   }
 }

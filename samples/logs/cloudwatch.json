@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "eu-north-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "cloudwatchalarms"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "high-cpu-alarm",
+      "alarm_name": "lambda-errors",
       "alarm_state": "OK",
-      "previous_state": "OK",
-      "namespace": "AWS/EC2",
-      "metric_name": "RequestCount",
+      "previous_state": "INSUFFICIENT_DATA",
+      "namespace": "AWS/Lambda",
+      "metric_name": "CPUUtilization",
       "threshold": 85,
-      "evaluation_periods": 3,
-      "metric_value": 72.347,
+      "evaluation_periods": 1,
+      "metric_value": 45.959,
       "statistic": "Sum",
-      "period_seconds": 3600,
+      "period_seconds": 60,
       "treat_missing_data": "breaching"
     }
   },
@@ -37,7 +37,7 @@
     "provider": "monitoring.amazonaws.com",
     "duration": 60000000000
   },
-  "message": "CloudWatch alarm \"high-cpu-alarm\": OK (AWS/EC2/RequestCount=72.3)",
+  "message": "CloudWatch alarm \"lambda-errors\": OK (AWS/Lambda/CPUUtilization=46.0)",
   "log": {
     "level": "info"
   }

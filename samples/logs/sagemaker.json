@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "il-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "sagemaker"
@@ -13,59 +13,56 @@
   },
   "aws": {
     "dimensions": {
-      "TrainingJobName": "xgboost-classifier-transform-2p2y6u",
-      "JobType": "Transform"
+      "TrainingJobName": "llama-finetuned-processing-6kny9u",
+      "JobType": "Processing"
     },
     "sagemaker": {
-      "domain_id": "d-2h6dsqwfzb",
-      "domain_name": "ds-platform",
-      "user_profile": "carol-research",
+      "domain_id": "d-mrhj6uxdjt",
+      "domain_name": "cv-team",
+      "user_profile": "bob-ml",
       "job": {
-        "name": "xgboost-classifier-transform-2p2y6u",
-        "type": "Transform",
-        "arn": "arn:aws:sagemaker:me-central-1:501938274650:training-job/xgboost-classifier-transform-2p2y6u"
+        "name": "llama-finetuned-processing-6kny9u",
+        "type": "Processing",
+        "arn": "arn:aws:sagemaker:il-central-1:293847561023:training-job/llama-finetuned-processing-6kny9u"
       },
       "model": {
-        "name": "xgboost-classifier",
+        "name": "llama-finetuned",
         "version": 16
       },
       "pipeline": {
         "name": "feature-engineering-pipeline",
-        "execution_id": "pipe-ql2p8j6123g"
+        "execution_id": "pipe-y0h52chh5ds"
       },
       "instance": {
-        "type": "ml.m5.xlarge",
-        "count": 4
+        "type": "ml.p3.2xlarge",
+        "count": 1
       },
       "metrics": {
-        "gpu_utilization_pct": 44,
-        "cpu_utilization_pct": 55
+        "gpu_utilization_pct": 10,
+        "cpu_utilization_pct": 65
       },
       "studio": {
-        "space_name": "risk-models",
-        "app_type": "RStudio",
-        "app_name": "instance-gqsgznu9",
         "lifecycle_config": false,
-        "continuous_logging": true
+        "continuous_logging": false
       },
       "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 4563
+          "sum": 1069
         },
         "ModelLatency": {
-          "avg": 158
+          "avg": 92
         },
         "GPUUtilization": {
-          "avg": 63
+          "avg": 45
         },
         "CPUUtilization": {
-          "avg": 30
+          "avg": 51
         },
         "DiskUtilization": {
-          "avg": 12
+          "avg": 14
         },
         "MemoryUtilization": {
-          "avg": 65
+          "avg": 55
         },
         "Invocations4XXError": {
           "sum": 0
@@ -80,11 +77,11 @@
     "level": "info"
   },
   "user": {
-    "name": "carol-research"
+    "name": "bob-ml"
   },
   "event": {
-    "action": "AppReady",
-    "duration": 7343052000000,
+    "action": "ProcessingJobStarted",
+    "duration": 9605447000000,
     "outcome": "success",
     "category": [
       "process"
@@ -92,5 +89,5 @@
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "{\"domainId\":\"d-2h6dsqwfzb\",\"space\":\"risk-models\",\"appType\":\"RStudio\",\"user\":\"carol-research\",\"level\":\"INFO\",\"message\":\"Transform job started\",\"timestamp\":\"2026-03-26T17:22:32.197Z\",\"event\":\"AppReady\"}"
+  "message": "Processing job started"
 }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "me-central-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,94 +13,99 @@
   },
   "aws": {
     "dimensions": {
-      "NatGatewayId": "nat-vsl4x4jnagt"
+      "NatGatewayId": "nat-44ujgvr8218"
     },
     "natgateway": {
-      "id": "nat-vsl4x4jnagt",
-      "private_ip": "10.255.150.177",
-      "public_ip": "33.35.64.2",
-      "bytes_in_from_source": 886968,
-      "bytes_out_to_destination": 886968,
-      "bytes_in_from_destination": 1060813,
-      "bytes_out_to_source": 787627,
-      "packets_in_from_source": 776,
-      "packets_out_to_destination": 776,
-      "packets_in_from_destination": 796,
-      "packets_out_to_source": 571,
-      "connection_attempt_count": 0,
-      "connection_established_count": 42,
-      "error_port_allocation": 0,
+      "id": "nat-44ujgvr8218",
+      "private_ip": "10.21.192.202",
+      "public_ip": "135.59.197.98",
+      "bytes_in_from_source": 52796,
+      "bytes_out_to_destination": 52796,
+      "bytes_in_from_destination": 63671,
+      "bytes_out_to_source": 39333,
+      "packets_in_from_source": 197,
+      "packets_out_to_destination": 197,
+      "packets_in_from_destination": 155,
+      "packets_out_to_source": 253,
+      "connection_attempt_count": 14,
+      "connection_established_count": 0,
+      "error_port_allocation": 7,
       "metrics": {
         "ActiveConnectionCount": {
-          "avg": 5217
+          "avg": 406
         },
         "BytesInFromDestination": {
-          "sum": 234602270
+          "sum": 443401835
         },
         "BytesInFromSource": {
-          "sum": 111348348
+          "sum": 543937385
         },
         "BytesOutToDestination": {
-          "sum": 104113579
+          "sum": 674022385
         },
         "BytesOutToSource": {
-          "sum": 45324857
+          "sum": 891030762
         },
         "ConnectionAttemptCount": {
-          "sum": 880
+          "sum": 85
         },
         "ConnectionEstablishedCount": {
-          "sum": 733
+          "sum": 39
         },
         "ErrorPortAllocation": {
-          "sum": 0
+          "sum": 60
         },
         "IdleTimeoutCount": {
-          "sum": 86
+          "sum": 68
         },
         "PacketsDropCount": {
-          "sum": 0
+          "sum": 656
         },
         "PacketsInFromDestination": {
-          "sum": 441298
+          "sum": 778570
         },
         "PacketsInFromSource": {
-          "sum": 49364
+          "sum": 855174
         },
         "PacketsOutToDestination": {
-          "sum": 328718
+          "sum": 335563
         },
         "PacketsOutToSource": {
-          "sum": 891785
+          "sum": 377945
         }
       }
     }
   },
   "source": {
-    "ip": "10.255.150.177",
-    "port": 28202
+    "ip": "10.21.192.202",
+    "port": 35834
   },
   "destination": {
-    "ip": "98.223.253.101",
-    "port": 8080
+    "ip": "231.160.199.254",
+    "port": 6379
   },
   "network": {
     "protocol": "tcp",
-    "bytes": 886968,
-    "packets": 776,
+    "bytes": 52796,
+    "packets": 197,
     "direction": "egress"
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "network"
     ],
     "dataset": "aws.natgateway",
     "provider": "natgateway.amazonaws.com",
-    "duration": 3748000000
+    "duration": 2365000000
   },
-  "message": "NAT Gateway nat-vsl4x4jnagt: ACCEPT TCP 10.255.150.177:25065 → 98.223.253.101:8080 886968B",
+  "message": "NAT Gateway nat-44ujgvr8218: port-allocation-error (TCP 10.21.192.202 → 231.160.199.254:6379)",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "port-allocation-error",
+    "message": "NAT Gateway ERROR: port-allocation-error",
+    "type": "network"
   }
 }

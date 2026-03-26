@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "access-analyzer"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "AnalyzerName": "analyzer-us-east-1"
+      "AnalyzerName": "analyzer-ap-south-2"
     },
     "access_analyzer": {
-      "finding_id": "zd62kec7-m95v-m0zi",
-      "analyzer_name": "analyzer-us-east-1",
+      "finding_id": "9gww47k2-z5c6-a6xf",
+      "analyzer_name": "analyzer-ap-south-2",
       "finding_type": "EXTERNAL_ACCESS",
-      "finding_description": "Unused access key",
-      "resource_type": "AWS::S3::Bucket",
+      "finding_description": "Unused IAM user",
+      "resource_type": "AWS::Lambda::Function",
       "resource_arn": "arn:aws:s3:::staging-bucket",
       "principal": "*",
-      "status": "ARCHIVED"
+      "status": "ACTIVE"
     }
   },
   "event": {
@@ -36,7 +36,7 @@
     "dataset": "aws.access_analyzer",
     "provider": "access-analyzer.amazonaws.com"
   },
-  "message": "IAM Access Analyzer: external access found on AWS::KMS::Key",
+  "message": "IAM Access Analyzer: external access found on AWS::SQS::Queue",
   "log": {
     "level": "warn"
   },

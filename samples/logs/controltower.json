@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "us-east-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "controltower"
@@ -13,28 +13,33 @@
   },
   "aws": {
     "controltower": {
-      "operation_id": "27184zz3a44i",
-      "action": "DisableGuardrail",
-      "account_id": "293847561023",
-      "organizational_unit": "Workloads",
-      "guardrail_id": "AWS-GR_S3_PUBLIC_WRITE_PROHIBITED",
-      "guardrail_compliance": "NOT_APPLICABLE",
+      "operation_id": "o62r3a0902",
+      "action": "UpdateLandingZone",
+      "account_id": "814726593401",
+      "organizational_unit": "Sandbox",
+      "guardrail_compliance": "NONCOMPLIANT",
       "landing_zone_version": "3.1",
-      "status": "IN_PROGRESS"
+      "status": "FAILED",
+      "error_message": "Enrollment failed"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "configuration",
       "iam"
     ],
     "dataset": "aws.controltower",
     "provider": "controltower.amazonaws.com",
-    "duration": 510000000000
+    "duration": 436000000000
   },
-  "message": "Control Tower DisableGuardrail: IN_PROGRESS",
+  "message": "Control Tower UpdateLandingZone FAILED: Enrollment failed",
+  "error": {
+    "code": "ControlTowerError",
+    "message": "Control Tower operation failed",
+    "type": "configuration"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "firehose"
@@ -13,49 +13,49 @@
   },
   "aws": {
     "dimensions": {
-      "DeliveryStreamName": "metrics-to-opensearch"
+      "DeliveryStreamName": "logs-to-s3"
     },
     "firehose": {
-      "delivery_stream_name": "metrics-to-opensearch",
+      "delivery_stream_name": "logs-to-s3",
       "destination": "OpenSearch",
-      "incoming_records": 37584,
-      "incoming_bytes": 32547744,
+      "incoming_records": 8719,
+      "incoming_bytes": 12659988,
       "delivery_success": true,
-      "delivery_records": 37584,
-      "data_freshness_seconds": 86,
+      "delivery_records": 8719,
+      "data_freshness_seconds": 199,
       "metrics": {
         "DeliveryToS3.Bytes": {
-          "sum": 10621385
+          "sum": 88471898
         },
         "DeliveryToS3.DataFreshness": {
-          "avg": 2831
+          "avg": 2089
         },
         "DeliveryToS3.Records": {
-          "sum": 4865
+          "sum": 959
         },
         "DeliveryToS3.Success": {
           "avg": 1
         },
         "IncomingBytes": {
-          "sum": 37084540
+          "sum": 87196041
         },
         "IncomingRecords": {
-          "sum": 8788
+          "sum": 9508
         },
         "BackupToS3.Bytes": {
-          "sum": 272003
+          "sum": 594755
         },
         "BackupToS3.Records": {
-          "sum": 791
+          "sum": 160
         },
         "BackupToS3.Success": {
           "avg": 1
         },
         "DataReadFromKinesisStream.Bytes": {
-          "sum": 31636825
+          "sum": 17202020
         },
         "DataReadFromKinesisStream.Records": {
-          "sum": 6143
+          "sum": 3687
         },
         "ThrottledGetRecords": {
           "sum": 0
@@ -73,9 +73,9 @@
     ],
     "dataset": "aws.firehose",
     "provider": "firehose.amazonaws.com",
-    "duration": 55000000000
+    "duration": 35000000000
   },
-  "message": "Firehose metrics-to-opensearch: 37584 records delivered",
+  "message": "Firehose logs-to-s3: 8719 records delivered",
   "log": {
     "level": "info"
   }

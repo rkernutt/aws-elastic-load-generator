@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "location"
@@ -13,12 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "SearchPlaceIndex"
+      "Operation": "GetDevicePosition"
     },
     "locationservice": {
-      "operation": "SearchPlaceIndex",
-      "place_index": "esri-place-index",
-      "query": "gas station"
+      "operation": "GetDevicePosition",
+      "tracker_name": "fleet-tracker",
+      "device_id": "device-krkk3skc",
+      "position": {
+        "lat": -20.695,
+        "lon": 55.805
+      }
     }
   },
   "event": {
@@ -29,9 +33,9 @@
     ],
     "dataset": "aws.location",
     "provider": "geo.amazonaws.com",
-    "duration": 84000000
+    "duration": 209000000
   },
-  "message": "Location Service SearchPlaceIndex: route calc",
+  "message": "Location Service GetDevicePosition: device-krkk3skc",
   "log": {
     "level": "info"
   }

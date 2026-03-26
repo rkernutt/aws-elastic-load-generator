@@ -32,6 +32,7 @@ const SERVICE_GROUPS = [
     {id:"vpn",label:"Site-to-Site VPN",icon:"⊔",desc:"IPSec tunnel logs"},
     {id:"privatelink",label:"PrivateLink",icon:"⊗",desc:"VPC endpoint logs"},
     {id:"natgateway",label:"NAT Gateway",icon:"⇄",desc:"NAT traffic & connection metrics"},
+    {id:"vpclattice",label:"VPC Lattice",icon:"⟺",desc:"Service-to-service networking logs"},
   ]},
   { id:"security", label:"Security & Compliance", color:"#00BFB3", icon:"⚿", services:[
     {id:"guardduty",label:"GuardDuty",icon:"⚠",desc:"Threat detection findings"},
@@ -53,6 +54,8 @@ const SERVICE_GROUPS = [
     {id:"kspm",label:"KSPM",icon:"☸",desc:"Elastic KSPM — CIS EKS 1.4 Kubernetes posture findings"},
     {id:"iam-privesc-chain",label:"IAM PrivEsc Chain",icon:"⚡",desc:"Attack chain: IAM enumeration → credential creation → policy escalation → AssumeRole"},
     {id:"data-exfil-chain",label:"Data Exfil Chain",icon:"◂",desc:"Attack chain: GuardDuty S3 detection → CloudTrail GetObject burst → VPC Flow high egress"},
+    {id:"securityir",label:"Security IR",icon:"⚠",desc:"Security incident response cases"},
+    {id:"cloudhsm",label:"CloudHSM",icon:"⊚",desc:"Hardware security module logs"},
   ]},
   { id:"storage", label:"Storage & Databases", color:"#93C90E", icon:"⊞", services:[
     {id:"s3",label:"S3",icon:"○",desc:"Object access logs"},
@@ -86,6 +89,7 @@ const SERVICE_GROUPS = [
     {id:"eventbridge",label:"EventBridge",icon:"⬡",desc:"Event routing logs"},
     {id:"stepfunctions",label:"Step Functions",icon:"⤶",desc:"State machine execution"},
     {id:"appsync",label:"AppSync",icon:"⟺",desc:"GraphQL API logs"},
+    {id:"mskconnect",label:"MSK Connect",icon:"⟿",desc:"Kafka Connect managed logs"},
   ]},
   { id:"devtools", label:"Developer & CI/CD", color:"#7C3AED", icon:"⚙", services:[
     {id:"codebuild",label:"CodeBuild",icon:"⚙",desc:"Build job logs"},
@@ -95,6 +99,8 @@ const SERVICE_GROUPS = [
     {id:"codeartifact",label:"CodeArtifact",icon:"⊛",desc:"Package publish & pull"},
     {id:"amplify",label:"Amplify",icon:"⚡",desc:"Frontend build & deploy"},
     {id:"xray",label:"X-Ray",icon:"◎",desc:"Distributed trace logs"},
+    {id:"codecatalyst",label:"CodeCatalyst",icon:"⊙",desc:"Dev environment & workflow logs"},
+    {id:"devicefarm",label:"Device Farm",icon:"□",desc:"Mobile app test run logs"},
   ]},
   { id:"analytics", label:"Analytics", color:"#F59E0B", icon:"◈", services:[
     {id:"emr",label:"EMR",icon:"⚙",desc:"Spark/Hadoop cluster logs"},
@@ -104,6 +110,11 @@ const SERVICE_GROUPS = [
     {id:"quicksight",label:"QuickSight",icon:"◎",desc:"BI dashboard usage logs"},
     {id:"databrew",label:"DataBrew",icon:"⊕",desc:"Data prep job logs"},
     {id:"appflow",label:"AppFlow",icon:"⟿",desc:"SaaS integration logs"},
+    {id:"mwaa",label:"MWAA",icon:"⟿",desc:"Managed Airflow DAG & task logs"},
+    {id:"cleanrooms",label:"Clean Rooms",icon:"◎",desc:"Privacy-safe collaboration queries"},
+    {id:"datazone",label:"DataZone",icon:"⊛",desc:"Data catalog & governance logs"},
+    {id:"entityresolution",label:"Entity Resolution",icon:"⊕",desc:"Record matching & linking logs"},
+    {id:"dataexchange",label:"Data Exchange",icon:"⟺",desc:"Data product subscription logs"},
   ]},
   { id:"aiml", label:"AI & Machine Learning", color:"#E91E63", icon:"✦", services:[
     {id:"sagemaker",label:"SageMaker",icon:"✦",desc:"Training & inference logs"},
@@ -119,11 +130,16 @@ const SERVICE_GROUPS = [
     {id:"personalize",label:"Personalize",icon:"⊕",desc:"Recommendation engine logs"},
     {id:"lex",label:"Lex",icon:"◯",desc:"Chatbot intent & session"},
     {id:"qbusiness",label:"Q Business",icon:"✦",desc:"Enterprise AI query & retrieval"},
+    {id:"kendra",label:"Kendra",icon:"◎",desc:"Enterprise search query logs"},
+    {id:"a2i",label:"Augmented AI (A2I)",icon:"⊙",desc:"Human review loop logs"},
+    {id:"healthlake",label:"HealthLake",icon:"⊛",desc:"FHIR health data store logs"},
   ]},
   { id:"iot", label:"IoT", color:"#06B6D4", icon:"⊛", services:[
     {id:"iotcore",label:"IoT Core",icon:"⊛",desc:"Device connect & message"},
     {id:"greengrass",label:"Greengrass",icon:"⊙",desc:"Edge compute deployment"},
     {id:"iotanalytics",label:"IoT Analytics",icon:"⟿",desc:"Device data pipeline"},
+    {id:"iottwinmaker",label:"IoT TwinMaker",icon:"⊙",desc:"Digital twin asset logs"},
+    {id:"iotfleetwise",label:"IoT FleetWise",icon:"⚡",desc:"Connected vehicle signal logs"},
   ]},
   { id:"management", label:"Management & Governance", color:"#64748B", icon:"⚙", services:[
     {id:"cloudformation",label:"CloudFormation",icon:"⊟",desc:"Stack create/update events"},
@@ -143,6 +159,10 @@ const SERVICE_GROUPS = [
     {id:"migrationhub",label:"Migration Hub",icon:"⟺",desc:"Server migration tracking"},
     {id:"networkmanager",label:"Network Manager",icon:"⊙",desc:"Global WAN topology logs"},
     {id:"dms",label:"DMS",icon:"⟺",desc:"Database migration logs"},
+    {id:"fis",label:"Fault Injection",icon:"⚠",desc:"Chaos experiment logs"},
+    {id:"managedgrafana",label:"Managed Grafana",icon:"◎",desc:"Grafana workspace & alert logs"},
+    {id:"supplychain",label:"Supply Chain",icon:"⟺",desc:"Supply planning & forecast logs"},
+    {id:"arc",label:"App Recovery Controller",icon:"⊛",desc:"Zonal shift & routing control logs"},
   ]},
   { id:"media", label:"Media & End User Computing", color:"#BE185D", icon:"▷", services:[
     {id:"mediaconvert",label:"MediaConvert",icon:"▷",desc:"Video transcoding jobs"},
@@ -151,6 +171,7 @@ const SERVICE_GROUPS = [
     {id:"connect",label:"Amazon Connect",icon:"◯",desc:"Contact centre call logs"},
     {id:"appstream",label:"AppStream",icon:"⊙",desc:"App streaming sessions"},
     {id:"gamelift",label:"GameLift",icon:"⬡",desc:"Game server & matchmaking"},
+    {id:"deadlinecloud",label:"Deadline Cloud",icon:"▷",desc:"Render job & task logs"},
   ]},
   { id:"messaging", label:"Messaging & Communications", color:"#DB2777", icon:"◉", services:[
     {id:"ses",label:"SES",icon:"◉",desc:"Email send/bounce/complaint"},

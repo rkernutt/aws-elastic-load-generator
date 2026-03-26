@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,10 +7,10 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
   },
   "orchestrator": {
@@ -19,25 +19,25 @@
       "name": "prod-eks-cluster"
     },
     "type": "kubernetes",
-    "namespace": "default"
+    "namespace": "production"
   },
   "resource": {
-    "id": "prod-eks-cluster/default/pod/cron-s3yej",
-    "name": "pod/cron-s3yej",
-    "sub_type": "Pod",
+    "id": "prod-eks-cluster/production/api-server/prod-eks-cluster",
+    "name": "api-server/prod-eks-cluster",
+    "sub_type": "api-server",
     "type": "k8s_object"
   },
   "rule": {
-    "id": "cis_eks_4_4",
-    "name": "Minimize containers wishing to share the host IPC namespace",
-    "section": "4.4",
+    "id": "cis_eks_2_1",
+    "name": "Enable audit logging",
+    "section": "2.1",
     "tags": [
-      "Pod Security"
+      "Logging"
     ],
     "benchmark": {
       "id": "cis_eks",
       "version": "v1.4.0",
-      "rule_number": "4.4",
+      "rule_number": "2.1",
       "posture_type": "kspm"
     }
   },
@@ -57,7 +57,7 @@
     "dataset": "cloud_security_posture.findings",
     "provider": "elastic_kspm"
   },
-  "message": "KSPM [CIS EKS / 4.4] passed: Minimize containers wishing to share the host IPC namespace [prod-eks-cluster]",
+  "message": "KSPM [CIS EKS / 2.1] passed: Enable audit logging [prod-eks-cluster]",
   "log": {
     "level": "info"
   }

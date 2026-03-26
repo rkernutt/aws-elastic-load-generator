@@ -1,0 +1,42 @@
+{
+  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "ap-northeast-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "fis"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "ExperimentTemplateId": "EXT163G4HVH"
+    },
+    "fis": {
+      "experiment_id": "EXPWEPOFFP0",
+      "experiment_template_id": "EXT163G4HVH",
+      "experiment_name": "spot-interrupt-test",
+      "experiment_state": "pending",
+      "target_resource_type": "EKS nodes",
+      "action_type": "aws:ecs:drain-container-instances",
+      "stop_condition": "aws:cloudwatch:alarm",
+      "role_arn": "arn:aws:iam::814726593401:role/FISRole-spot-interrupt-test"
+    }
+  },
+  "event": {
+    "action": "GetExperiment",
+    "outcome": "success",
+    "category": [
+      "process"
+    ],
+    "dataset": "aws.fis",
+    "provider": "fis.amazonaws.com"
+  },
+  "message": "FIS GetExperiment: exp=EXPWEPOFFP0 (spot-interrupt-test) state=pending, target=EKS nodes",
+  "log": {
+    "level": "info"
+  }
+}

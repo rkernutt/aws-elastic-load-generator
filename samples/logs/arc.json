@@ -1,0 +1,46 @@
+{
+  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "ap-south-2",
+    "account": {
+      "id": "738291046572",
+      "name": "globex-development"
+    },
+    "service": {
+      "name": "arc"
+    },
+    "availability_zone": "ap-south-2a"
+  },
+  "aws": {
+    "dimensions": {
+      "ResourceArn": "arn:aws:elasticloadbalancing:ap-south-2:738291046572:loadbalancer/app/prod-alb/pur6nizwtwj",
+      "AwsAccountId": "738291046572"
+    },
+    "arc": {
+      "shift_id": "buvno0h8-r6uz-dqc9-t1xk-bnk1vk8dc9c",
+      "resource_arn": "arn:aws:elasticloadbalancing:ap-south-2:738291046572:loadbalancer/app/prod-alb/pur6nizwtwj",
+      "away_from": "ap-south-2a",
+      "zonal_shift_status": "EXPIRED",
+      "az_status": "AVAILABLE",
+      "comment": "Incident response",
+      "expiry_time": "2026-03-27T01:00:02.372Z",
+      "routing_control_arn": "arn:aws:route53-recovery-control::738291046572:controlpanel/vbx9s2ta4y/routingcontrol/ful7tv2twpi",
+      "routing_control_state": "Off"
+    }
+  },
+  "event": {
+    "action": "UpdateRoutingControlState",
+    "outcome": "success",
+    "category": [
+      "network",
+      "process"
+    ],
+    "dataset": "aws.arc",
+    "provider": "arc-zonal-shift.amazonaws.com"
+  },
+  "message": "ARC UpdateRoutingControlState: shift=buvno0h8-r6uz-dqc9-t1xk-bnk1vk8dc9c, az=ap-south-2a status=EXPIRED, Incident response",
+  "log": {
+    "level": "info"
+  }
+}

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "cloudformation"
@@ -13,51 +13,45 @@
   },
   "aws": {
     "cloudformation": {
-      "stack_name": "api-gateway-stack",
-      "stack_id": "arn:aws:cloudformation:eu-south-2:293847561023:stack/api-gateway-stack/2czf8fbi",
-      "action": "DELETE_STACK",
-      "stack_status": "UPDATE_ROLLBACK_COMPLETE",
-      "resource_type": "AWS::EC2::VPC",
-      "logical_resource_id": "DatabaseCluster",
-      "resource_status_reason": "Insufficient capacity",
+      "stack_name": "prod-web-stack",
+      "stack_id": "arn:aws:cloudformation:us-east-1:814726593401:stack/prod-web-stack/x27ycm3g",
+      "action": "CREATE_STACK",
+      "stack_status": "CREATE_COMPLETE",
+      "resource_type": "AWS::ECS::Service",
+      "logical_resource_id": "TaskRole",
       "drift_status": "IN_SYNC",
-      "structured_logging": false,
+      "structured_logging": true,
       "metrics": {
         "TotalStack": {
-          "avg": 109
+          "avg": 38
         },
         "ErroredStack": {
-          "avg": 8
+          "avg": 0
         },
         "RollbackStack": {
-          "avg": 4
+          "avg": 0
         },
         "DeletedStack": {
-          "avg": 25
+          "avg": 38
         },
         "StackInstancesDeployed": {
-          "avg": 1373
+          "avg": 9506
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "configuration",
       "process"
     ],
     "dataset": "aws.cloudformation",
     "provider": "cloudformation.amazonaws.com",
-    "duration": 2955000000000
+    "duration": 323000000000
   },
-  "message": "CloudFormation api-gateway-stack UPDATE_ROLLBACK_COMPLETE: AWS::EC2::VPC failed - Limit exceeded",
-  "error": {
-    "code": "StackError",
-    "message": "CloudFormation stack operation failed",
-    "type": "configuration"
-  },
+  "message": "{\"stackName\":\"prod-web-stack\",\"action\":\"CREATE_STACK\",\"stackStatus\":\"CREATE_COMPLETE\",\"resourceType\":\"AWS::ECS::Service\",\"message\":\"CloudFormation prod-web-stack: CREATE_STACK -> CREATE_COMPLETE\",\"timestamp\":\"2026-03-26T17:51:02.372Z\"}",
   "log": {
-    "level": "error"
+    "level": "info"
   }
 }

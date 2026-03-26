@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "imagebuilder"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "golden-ami-pipeline",
-      "Phase": "DEPROVISION"
+      "PipelineName": "container-base-pipeline",
+      "Phase": "BUILD"
     },
     "imagebuilder": {
-      "pipeline_name": "golden-ami-pipeline",
-      "image_version": "4.7.3/1",
-      "phase": "DEPROVISION",
+      "pipeline_name": "container-base-pipeline",
+      "image_version": "2.19.2/1",
+      "phase": "BUILD",
       "phase_status": "COMPLETED",
-      "duration_seconds": 1631,
-      "os": "Windows Server 2022",
+      "duration_seconds": 786,
+      "os": "Amazon Linux 2023",
       "recipe_name": "web-server-recipe",
-      "ami_id": "ami-11kuk09l",
+      "ami_id": "ami-splndbd7",
       "metrics": {
         "BuildDuration": {
-          "avg": 1631
+          "avg": 786
         },
         "ImageBuildSuccessCount": {
           "sum": 1
@@ -36,7 +36,7 @@
           "sum": 0
         },
         "ComponentBuildDuration": {
-          "avg": 741
+          "avg": 678
         }
       }
     }
@@ -45,12 +45,12 @@
     "category": [
       "process"
     ],
-    "duration": 1631000000000,
+    "duration": 786000000000,
     "outcome": "success",
     "dataset": "aws.imagebuilder",
     "provider": "imagebuilder.amazonaws.com"
   },
-  "message": "EC2 Image Builder: golden-ami-pipeline - DEPROVISION phase STARTED",
+  "message": "Testing image: ami-splndbd7 with test component aws:TestInfrastructureAssociation",
   "log": {
     "level": "info"
   }

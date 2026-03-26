@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "lakeformation"
@@ -13,32 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "ResourceArn": "arn:aws:glue:ap-south-2:164820739518:table/curated/products",
-      "Principal": "arn:aws:iam::164820739518:role/analyst-role"
+      "ResourceArn": "arn:aws:glue:ap-northeast-1:738291046572:table/curated/products",
+      "Principal": "arn:aws:iam::738291046572:role/analyst-role"
     },
     "lakeformation": {
       "database": "curated",
       "table": "products",
-      "action": "BatchGrantPermissions",
-      "principal_arn": "arn:aws:iam::164820739518:role/analyst-role",
-      "resource_arn": "arn:aws:glue:ap-south-2:164820739518:table/curated/products",
+      "action": "CreateLakeFormationTag",
+      "principal_arn": "arn:aws:iam::738291046572:role/analyst-role",
+      "resource_arn": "arn:aws:glue:ap-northeast-1:738291046572:table/curated/products",
       "permissions": [
-        "SELECT"
+        "DESCRIBE"
       ],
-      "lf_tag_key": "team",
+      "lf_tag_key": "classification",
       "lf_tag_values": [
         "dev",
         "staging"
       ],
       "metrics": {
         "GrantCount": {
-          "sum": 8
+          "sum": 22
         },
         "DatabaseCount": {
-          "avg": 13
+          "avg": 8
         },
         "TableCount": {
-          "avg": 40
+          "avg": 32
         },
         "DataLakeSettings": {
           "avg": 1
@@ -47,8 +47,8 @@
     }
   },
   "event": {
-    "action": "BatchGrantPermissions",
-    "duration": 418000000,
+    "action": "CreateLakeFormationTag",
+    "duration": 57000000,
     "outcome": "success",
     "category": [
       "database",
@@ -57,7 +57,7 @@
     "dataset": "aws.lakeformation",
     "provider": "lakeformation.amazonaws.com"
   },
-  "message": "Lake Formation BatchGrantPermissions: SELECT on curated.products",
+  "message": "Lake Formation CreateLakeFormationTag: DESCRIBE on curated.products",
   "log": {
     "level": "info"
   }

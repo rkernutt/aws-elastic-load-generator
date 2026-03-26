@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "computeoptimizer"
@@ -13,27 +13,27 @@
   },
   "aws": {
     "computeoptimizer": {
-      "resource_type": "ECS_SERVICE_FARGATE",
-      "resource_arn": "arn:aws:ec2:eu-north-1:501938274650:instance/i-t3bo7zxpg6d",
+      "resource_type": "LAMBDA_FUNCTION",
+      "resource_arn": "arn:aws:ec2:ca-central-1:738291046572:instance/i-0xklwgpiv0c",
       "finding": "OPTIMIZED",
       "current_configuration": {
-        "instance_type": "t3.large",
-        "vcpu": 15,
-        "memory_gb": 96
+        "instance_type": "m5.xlarge",
+        "vcpu": 9,
+        "memory_gb": 121
       },
       "recommended_configuration": {
         "instance_type": "c5.xlarge",
-        "vcpu": 14,
-        "memory_gb": 37
+        "vcpu": 3,
+        "memory_gb": 55
       },
       "estimated_monthly_savings_usd": 0,
       "estimated_monthly_savings_percent": 0,
-      "lookback_period_days": 14,
+      "lookback_period_days": 93,
       "utilization": {
-        "cpu_max": 45.636,
-        "memory_max": 11.313
+        "cpu_max": 49.194,
+        "memory_max": 34.783
       },
-      "performance_risk": "Low"
+      "performance_risk": "VeryLow"
     }
   },
   "event": {
@@ -44,9 +44,9 @@
     ],
     "dataset": "aws.computeoptimizer",
     "provider": "compute-optimizer.amazonaws.com",
-    "duration": 14000000000
+    "duration": 21000000000
   },
-  "message": "Compute Optimizer: ECS_SERVICE_FARGATE OPTIMIZED (t3.large)",
+  "message": "Compute Optimizer: LAMBDA_FUNCTION OPTIMIZED (m5.xlarge)",
   "log": {
     "level": "info"
   }

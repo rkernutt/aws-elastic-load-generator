@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "qbusiness"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ApplicationId": "szzj15hy-hebo-n1kn-pqcd-yd4yc2km5vr"
+      "ApplicationId": "ddp6tmtm-82hg-ye62-yi1s-38bw27n8ryc"
     },
     "qbusiness": {
-      "application_id": "szzj15hy-hebo-n1kn-pqcd-yd4yc2km5vr",
+      "application_id": "ddp6tmtm-82hg-ye62-yi1s-38bw27n8ryc",
       "application_name": "dev-help",
-      "conversation_id": "vfhgc1s0-fqc7-t8zh-ocbv-b3tuocczdsg",
-      "message_id": "8o3tf9uh-w26n-u9xc-a619-fxng3wrxes",
-      "user_id": "eve",
-      "event_type": "QUERY",
-      "response_latency_ms": 13019,
+      "conversation_id": "r5qaaqc4-maxv-21k9-6ynt-l4is7i6sn5",
+      "message_id": "nln7j61q-0uu1-kurd-fjrj-y2yc2vfg2ts",
+      "user_id": "alice",
+      "event_type": "DOCUMENT_RETRIEVAL",
+      "response_latency_ms": 1457,
       "query": {
-        "input_token_count": 188,
+        "input_token_count": 493,
         "output_token_count": 0,
         "retrieved_documents": 5,
         "source_attributions": 5,
-        "guardrail_action": "NONE"
+        "guardrail_action": "BLOCKED"
       },
       "metrics": {
         "ConversationCount": {
@@ -38,16 +38,16 @@
           "sum": 1
         },
         "InputTokenCount": {
-          "sum": 188
+          "sum": 493
         },
         "OutputTokenCount": {
           "sum": 0
         },
         "FailedResponses": {
-          "sum": 1
+          "sum": 0
         },
         "GuardrailIntervened": {
-          "sum": 0
+          "sum": 1
         },
         "DocumentsRetrieved": {
           "sum": 5
@@ -56,24 +56,19 @@
     }
   },
   "user": {
-    "name": "eve"
+    "name": "alice"
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.qbusiness",
     "provider": "qbusiness.amazonaws.com",
-    "duration": 13019000000
+    "duration": 1457000000
   },
-  "message": "Q Business dev-help: QUERY FAILED for eve",
+  "message": "Q Business dev-help: alice document_retrieval (5 docs retrieved)",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "AccessDeniedException",
-    "message": "Q Business operation failed",
-    "type": "ai"
+    "level": "warn"
   }
 }

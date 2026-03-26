@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "codedeploy"
@@ -13,18 +13,18 @@
   },
   "aws": {
     "dimensions": {
-      "DeploymentGroupName": "prod",
-      "ApplicationName": "worker-service"
+      "DeploymentGroupName": "canary",
+      "ApplicationName": "api-service"
     },
     "codedeploy": {
-      "application_name": "worker-service",
-      "deployment_group": "prod",
-      "deployment_id": "d-ZJJWQLB53",
-      "deployment_type": "IN_PLACE",
+      "application_name": "api-service",
+      "deployment_group": "canary",
+      "deployment_id": "d-QKXYUVJCF",
+      "deployment_type": "BLUE_GREEN",
       "lifecycle_event": "BeforeInstall",
       "event_status": "Succeeded",
-      "duration_seconds": 232,
-      "instances_succeeded": 2,
+      "duration_seconds": 311,
+      "instances_succeeded": 1,
       "instances_failed": 0,
       "metrics": {
         "DeploymentAttempts": {
@@ -40,10 +40,10 @@
           "sum": 0
         },
         "DeploymentDuration": {
-          "avg": 232
+          "avg": 311
         },
         "InstanceSuccesses": {
-          "sum": 6
+          "sum": 7
         },
         "InstanceFailures": {
           "sum": 0
@@ -52,7 +52,7 @@
     }
   },
   "event": {
-    "duration": 232000000000,
+    "duration": 311000000000,
     "outcome": "success",
     "category": [
       "process",

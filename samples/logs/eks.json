@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "us-west-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,74 +13,74 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "prod-cluster-me-south-1",
-      "NodeName": "ip-242-42-134-198.me-south-1.compute.internal",
+      "ClusterName": "prod-cluster-us-west-2",
+      "NodeName": "ip-204-236-243-23.us-west-2.compute.internal",
       "Namespace": "app-prod",
-      "PodName": "cache-mhwee-i1ngz"
+      "PodName": "api-gqgg7-g2ntq"
     },
     "eks": {
-      "structured_logging": false,
+      "structured_logging": true,
       "cluster": {
-        "name": "prod-cluster-me-south-1"
+        "name": "prod-cluster-us-west-2"
       },
       "node": {
-        "name": "ip-242-42-134-198.me-south-1.compute.internal"
+        "name": "ip-204-236-243-23.us-west-2.compute.internal"
       },
       "metrics": {
         "cluster_failed_node_count": {
           "avg": 0
         },
         "node_cpu_utilization": {
-          "avg": "14.267"
+          "avg": "32.920"
         },
         "node_memory_utilization": {
-          "avg": "77.471"
+          "avg": "75.746"
         },
         "node_network_total_bytes": {
-          "sum": 465062504
+          "sum": 787657648
         },
         "node_filesystem_utilization": {
-          "avg": "22.726"
+          "avg": "66.040"
         },
         "pod_cpu_utilization": {
-          "avg": "13.631"
+          "avg": "18.276"
         },
         "pod_memory_utilization": {
-          "avg": "50.217"
+          "avg": "11.833"
         },
         "pod_network_rx_bytes": {
-          "sum": 71498898
+          "sum": 93763746
         },
         "pod_network_tx_bytes": {
-          "sum": 97535305
+          "sum": 73115193
         },
         "node_count": {
-          "avg": 43
+          "avg": 36
         },
         "pod_count": {
-          "avg": 426
+          "avg": 197
         }
       }
     }
   },
   "container": {
-    "id": "tgkmuemo6fr",
-    "name": "cache",
+    "id": "qd7uzg03vta",
+    "name": "api",
     "image": {
-      "name": "k8s.gcr.io/cache:v1.24.1"
+      "name": "k8s.gcr.io/api:v1.28.0"
     },
     "runtime": "containerd"
   },
   "kubernetes": {
     "namespace": "app-prod",
     "pod": {
-      "name": "cache-mhwee-i1ngz"
+      "name": "api-gqgg7-g2ntq"
     },
     "container": {
-      "name": "cache"
+      "name": "api"
     },
     "labels": {
-      "app": "cache",
+      "app": "api",
       "env": "prod"
     }
   },
@@ -95,7 +95,7 @@
     "outcome": "success",
     "dataset": "aws.eks",
     "provider": "eks.amazonaws.com",
-    "duration": 702000000000
+    "duration": 681000000000
   },
-  "message": "2026-03-26 17:22:32.197 I236 F0FGHW manager.go:310] Pod scheduled on node"
+  "message": "{\"cluster\":\"prod-cluster-us-west-2\",\"namespace\":\"app-prod\",\"pod\":\"api-gqgg7-g2ntq\",\"level\":\"info\",\"message\":\"Deployment rollout complete\",\"timestamp\":\"2026-03-26T17:51:02.372Z\",\"stream\":\"stderr\"}"
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "opensearch"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "DomainName": "prod-search-sa-east-1",
-      "ClientId": "738291046572"
+      "DomainName": "prod-search-eu-south-2",
+      "ClientId": "501938274650"
     },
     "opensearch": {
-      "domain_name": "prod-search-sa-east-1",
-      "index": "logs-2024",
-      "operation": "bulk",
-      "took_ms": 229,
+      "domain_name": "prod-search-eu-south-2",
+      "index": "metrics",
+      "operation": "update",
+      "took_ms": 775,
       "shards": {
-        "total": 8,
-        "successful": 8,
+        "total": 24,
+        "successful": 24,
         "failed": 0,
-        "active": 8,
+        "active": 24,
         "initializing": 0,
         "relocating": 0,
         "unassigned": 0
       },
-      "hits_total": 68923,
-      "status_code": 201,
+      "hits_total": 63397,
+      "status_code": 200,
       "metrics": {
         "CPUUtilization": {
-          "avg": 58.967
+          "avg": 45.341
         },
         "FreeStorageSpace": {
-          "avg": 472832976545
+          "avg": 276090668980
         },
         "ClusterStatus": {
           "green": 1,
@@ -45,25 +45,25 @@
           "red": 0
         },
         "Nodes": {
-          "avg": 20
+          "avg": 6
         },
         "SearchableDocuments": {
-          "avg": 765338808
+          "avg": 17945890
         },
         "IndexingLatency": {
-          "avg": 199
+          "avg": 474
         },
         "SearchLatency": {
-          "avg": 186
+          "avg": 965
         },
         "IndexingRate": {
-          "avg": 20952
+          "avg": 17828
         },
         "SearchRate": {
-          "avg": 6272
+          "avg": 8432
         },
         "JVMMemoryPressure": {
-          "avg": 58.531
+          "avg": 29.884
         },
         "AutomatedSnapshotFailure": {
           "sum": 0
@@ -78,27 +78,27 @@
           "sum": 0
         },
         "WarmStorageSpaceUsage": {
-          "avg": 62.551
+          "avg": 70.227
         },
         "DeletedDocuments": {
-          "avg": 42145
+          "avg": 63120
         }
       }
     }
   },
   "http": {
     "response": {
-      "status_code": 201
+      "status_code": 200
     }
   },
   "event": {
-    "duration": 229080000,
+    "duration": 775033000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.opensearch",
     "provider": "es.amazonaws.com"
   },
-  "message": "OpenSearch bulk on logs-2024: 229ms",
+  "message": "OpenSearch update on metrics: 775ms",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "batch"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "JobQueue": "ml-training-prep-queue"
+      "JobQueue": "data-export-queue"
     },
     "batch": {
       "job": {
-        "name": "ml-training-prep",
-        "id": "66a2owvm-qmmm",
+        "name": "data-export",
+        "id": "mc1aqmcp-c61c",
         "status": "SUCCEEDED"
       },
-      "job_queue": "ml-training-prep-queue",
+      "job_queue": "data-export-queue",
       "compute_environment": "ce-ondemand",
       "structured_logging": false,
       "metrics": {
         "PendingJobCount": {
-          "avg": 84
+          "avg": 89
         },
         "RunnableJobCount": {
-          "avg": 1
+          "avg": 4
         },
         "StartingJobCount": {
-          "avg": 1
+          "avg": 14
         },
         "RunningJobCount": {
-          "avg": 138
+          "avg": 12
         },
         "SucceededJobCount": {
           "sum": 1
@@ -44,20 +44,20 @@
           "sum": 0
         },
         "CPUReserved": {
-          "avg": "32.802"
+          "avg": "39.249"
         },
         "GPUReserved": {
           "avg": 0
         },
         "MemoryReserved": {
-          "avg": "32.507"
+          "avg": "36.870"
         }
       }
     }
   },
   "process": {
-    "pid": 60291,
-    "name": "java",
+    "pid": 22607,
+    "name": "bash",
     "exit_code": 0
   },
   "log": {
@@ -70,7 +70,7 @@
     "outcome": "success",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 1813000000000
+    "duration": 492000000000
   },
-  "message": "Job run succeeded"
+  "message": "Container started on ECS instance"
 }

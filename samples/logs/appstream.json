@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "appstream"
@@ -13,18 +13,19 @@
   },
   "aws": {
     "appstream": {
-      "stack_name": "secure-access",
-      "fleet_name": "always-on-fleet",
-      "user_id": "user_ae7tsuw6@company.com",
-      "session_id": "0od0yrl7fkgo",
-      "event_type": "FILE_DOWNLOAD",
-      "instance_type": "stream.memory.xlarge",
-      "idle_disconnect_timeout_minutes": 30,
-      "max_user_duration_hours": 4
+      "stack_name": "browser-isolation",
+      "fleet_name": "elastic-fleet",
+      "user_id": "user_vplz27ts@company.com",
+      "session_id": "89pfzav4dhj",
+      "event_type": "CLIPBOARD_COPY",
+      "instance_type": "stream.standard.medium",
+      "storage_connector": "HomeFolder",
+      "idle_disconnect_timeout_minutes": 60,
+      "max_user_duration_hours": 12
     }
   },
   "user": {
-    "name": "user_ae7tsuw6@company.com"
+    "name": "user_vplz27ts@company.com"
   },
   "event": {
     "outcome": "success",
@@ -34,9 +35,9 @@
     ],
     "dataset": "aws.appstream",
     "provider": "appstream2.amazonaws.com",
-    "duration": 3493000000
+    "duration": 1437000000
   },
-  "message": "AppStream FILE_DOWNLOAD: user_ae7tsuw6@company.com [secure-access]",
+  "message": "AppStream CLIPBOARD_COPY: user_vplz27ts@company.com [browser-isolation]",
   "log": {
     "level": "info"
   }

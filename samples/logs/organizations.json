@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "organizations"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "organizations": {
-      "action": "DetachPolicy",
-      "account_id": "738291046572",
+      "action": "AttachPolicy",
+      "account_id": "293847561023",
       "account_name": "shared-services",
-      "organizational_unit": "Infrastructure",
-      "policy_id": "p-mo60y4y3",
-      "policy_type": "TAG_POLICY",
-      "policy_name": "TagCompliance"
+      "organizational_unit": "Production",
+      "policy_id": "p-53bppd4k",
+      "policy_type": "BACKUP_POLICY",
+      "policy_name": "DenyRootUserActions"
     }
   },
   "event": {
-    "action": "DetachPolicy",
+    "action": "AttachPolicy",
     "outcome": "success",
     "category": [
       "configuration",
@@ -31,9 +31,9 @@
     ],
     "dataset": "aws.organizations",
     "provider": "organizations.amazonaws.com",
-    "duration": 399000000
+    "duration": 1979000000
   },
-  "message": "Organizations DetachPolicy: Production",
+  "message": "Organizations AttachPolicy: Infrastructure",
   "log": {
     "level": "info"
   }

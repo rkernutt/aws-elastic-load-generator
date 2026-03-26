@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "memorydb"
@@ -13,32 +13,26 @@
   },
   "aws": {
     "memorydb": {
-      "cluster_name": "prod-memorydb",
-      "node_name": "prod-memorydb-0001-001",
+      "cluster_name": "rate-limiter",
+      "node_name": "rate-limiter-0001-001",
       "engine_version": "7.1",
-      "command": "ZRANGE",
-      "latency_us": 265.097,
-      "cache_hit_rate": 0,
-      "connected_clients": 474,
-      "used_memory_mb": 51055,
-      "replication_lag_ms": 4773,
-      "error_code": "WRONGTYPE"
+      "command": "SET",
+      "latency_us": 17.324,
+      "cache_hit_rate": 93.722,
+      "connected_clients": 457,
+      "used_memory_mb": 52275,
+      "replication_lag_ms": 90
     }
   },
   "event": {
-    "duration": 265097,
-    "outcome": "failure",
+    "duration": 17324,
+    "outcome": "success",
     "category": "database",
     "dataset": "aws.memorydb",
     "provider": "memory-db.amazonaws.com"
   },
-  "message": "MemoryDB prod-memorydb ZRANGE FAILED: WRONGTYPE",
+  "message": "MemoryDB rate-limiter SET: 17.32us",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "READONLY",
-    "message": "MemoryDB command failed",
-    "type": "db"
+    "level": "info"
   }
 }

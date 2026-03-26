@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "af-south-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "cloudtrail"
@@ -13,78 +13,70 @@
   },
   "aws": {
     "dimensions": {
-      "EventName": "ListBuckets",
-      "EventSource": "s3.amazonaws.com"
+      "EventName": "UpdateFunctionCode20150331v2",
+      "EventSource": "lambda.amazonaws.com"
     },
     "cloudtrail": {
       "event_version": "1.09",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "11gbgbct-jalc-12mp-tbab-wi8th86f19d",
+      "request_id": "sr623g64-lez9-7wkx-iev0-3op0hmf255g",
       "api_version": "2012-10-17",
       "management_event": true,
-      "read_only": true,
-      "recipient_account_id": "501938274650",
-      "aws_region": "eu-central-2",
+      "read_only": false,
+      "recipient_account_id": "164820739518",
+      "aws_region": "af-south-1",
       "user_identity": {
-        "type": "AssumedRole",
-        "principal_id": "AROAP5N1NWF8ZD8:alice-session",
-        "arn": "arn:aws:iam::501938274650:user/alice",
-        "account_id": "501938274650",
-        "access_key_id": "AKIAN5UDLTFIAL",
+        "type": "IAMUser",
+        "principal_id": "164820739518:ci-pipeline",
+        "arn": "arn:aws:iam::164820739518:user/ci-pipeline",
+        "account_id": "164820739518",
+        "access_key_id": "AKIAL5F376JE1KF",
         "session_context": {
           "session_issuer": {
             "type": "Role",
-            "principal_id": "AROAP5N1NWF8ZD8",
-            "arn": "arn:aws:iam::501938274650:role/service-role/execution-role",
-            "account_id": "501938274650",
+            "principal_id": "AROAKW4P7MEEE",
+            "arn": "arn:aws:iam::164820739518:role/service-role/execution-role",
+            "account_id": "164820739518",
             "user_name": "execution-role"
           },
           "web_id_federation_data": {},
           "attributes": {
-            "creation_date": "2026-03-26T16:53:33.197Z",
+            "creation_date": "2026-03-26T16:53:12.372Z",
             "mfa_authenticated": "false"
           }
         }
       },
-      "response_elements": "{\"errorCode\":\"UnauthorizedOperation\"}",
-      "error_code": "UnauthorizedOperation",
-      "error_message": "User is not authorized to perform this operation"
+      "response_elements": "null"
     }
   },
   "user": {
-    "name": "alice"
+    "name": "ci-pipeline"
   },
   "source": {
-    "ip": "39.198.1.21",
+    "ip": "239.220.224.181",
     "geo": {
-      "country_iso_code": "GB",
-      "city_name": "London"
+      "country_iso_code": "IN",
+      "city_name": "Sydney"
     }
   },
   "user_agent": {
     "original": "python-requests/2.27.1"
   },
   "event": {
-    "action": "ListBuckets",
-    "outcome": "failure",
+    "action": "UpdateFunctionCode20150331v2",
+    "outcome": "success",
     "category": [
       "configuration"
     ],
     "type": [
-      "access",
-      "info"
+      "change"
     ],
     "dataset": "aws.cloudtrail",
     "provider": "cloudtrail.amazonaws.com"
   },
-  "message": "CloudTrail: ListBuckets by alice from 39.198.1.21 - UnauthorizedOperation",
+  "message": "CloudTrail: UpdateFunctionCode20150331v2 by ci-pipeline from 239.220.224.181 - Success",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "UnauthorizedOperation",
-    "message": "User is not authorized to perform this operation",
-    "type": "access"
+    "level": "info"
   }
 }

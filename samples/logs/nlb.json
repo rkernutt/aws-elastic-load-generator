@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "nlb"
@@ -13,58 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "net/prod-nlb-eu-north-1/8oytzzpccap",
-      "TargetGroup": "targetgroup/tg-api/ft7ssap55ab",
-      "AvailabilityZone": "eu-north-1a"
+      "LoadBalancer": "net/prod-nlb-ap-northeast-1/sv445xuqrmo",
+      "TargetGroup": "targetgroup/tg-admin/gir9asgj6s9",
+      "AvailabilityZone": "ap-northeast-1c"
     },
     "elb": {
-      "name": "net/prod-nlb-eu-north-1/8oytzzpccap",
+      "name": "net/prod-nlb-ap-northeast-1/sv445xuqrmo",
       "type": "network",
-      "listener": "arn:aws:elasticloadbalancing:eu-north-1:293847561023:listener/net/prod-nlb/47pn8chpqcf/sl4r369vie",
-      "protocol": "TLS",
-      "connection_time.ms": 5938,
-      "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
-      "ssl_protocol": "TLSv1.3",
-      "backend.ip": "108.189.112.134",
-      "backend.port": "5432",
-      "error.reason": "connection_error",
-      "received_bytes": 1011442,
-      "sent_bytes": 152217
+      "listener": "arn:aws:elasticloadbalancing:ap-northeast-1:164820739518:listener/net/prod-nlb/ng26jufi3v/tkx5vg0o9y",
+      "protocol": "UDP",
+      "connection_time.ms": 249,
+      "backend.ip": "50.117.29.105",
+      "backend.port": "22",
+      "received_bytes": 864929,
+      "sent_bytes": 302421
     }
   },
   "source": {
-    "ip": "91.11.76.89",
-    "port": 15186,
+    "ip": "6.132.51.192",
+    "port": 64375,
     "geo": {
-      "country_iso_code": "BR",
-      "country_name": "Brazil",
-      "city_name": "São Paulo",
+      "country_iso_code": "US",
+      "country_name": "United States",
+      "city_name": "Ashburn",
       "location": {
-        "lat": -23.5505,
-        "lon": -46.6333
+        "lat": 39.0438,
+        "lon": -77.4874
       }
     }
   },
   "network": {
-    "transport": "tls",
-    "bytes": 1011442
+    "transport": "udp",
+    "bytes": 864929
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "network"
     ],
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com",
-    "duration": 5938000000
+    "duration": 249000000
   },
-  "message": "NLB TLS:5432 connection connection_error",
+  "message": "NLB UDP:22 864929B in 249ms",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "connection_error",
-    "message": "NLB connection connection_error",
-    "type": "network"
+    "level": "info"
   }
 }

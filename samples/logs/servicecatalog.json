@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "us-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "servicecatalog"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "servicecatalog": {
-      "operation": "UpdateProvisionedProduct",
-      "product_name": "Standard EC2 Instance",
-      "product_id": "prod-96S6CUJP9V4",
-      "portfolio_id": "port-HC7IU6M4KJ5",
-      "provisioned_product_name": "standard-ec2-instance-lxa5uc",
-      "record_id": "rec-7AQ7SVVMDD",
-      "status": "SUCCEEDED",
-      "requester_arn": "arn:aws:iam::293847561023:user/sre-carol",
+      "operation": "SearchProducts",
+      "product_name": "EKS Cluster",
+      "product_id": "prod-DFYFIC133LT",
+      "portfolio_id": "port-87AYN6H3QKC",
+      "provisioned_product_name": "eks-cluster-wlwm8e",
+      "record_id": "rec-K0BL6I1GAM9",
+      "status": "AVAILABLE",
+      "requester_arn": "arn:aws:iam::501938274650:user/developer-alice",
       "launch_role": "arn:aws:iam::123456789:role/ServiceCatalogLaunchRole"
     }
   },
   "user": {
-    "name": "sre-carol"
+    "name": "developer-alice"
   },
   "event": {
-    "action": "UpdateProvisionedProduct",
+    "action": "SearchProducts",
     "outcome": "success",
     "category": [
       "configuration",
@@ -36,9 +36,9 @@
     ],
     "dataset": "aws.servicecatalog",
     "provider": "servicecatalog.amazonaws.com",
-    "duration": 456000000000
+    "duration": 220000000000
   },
-  "message": "ServiceCatalog UpdateProvisionedProduct: sre-carol → Standard EC2 Instance [SUCCEEDED]",
+  "message": "ServiceCatalog SearchProducts: developer-alice → EKS Cluster [AVAILABLE]",
   "log": {
     "level": "info"
   }

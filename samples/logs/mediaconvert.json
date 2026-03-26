@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "af-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "mediaconvert"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "DASH"
+      "Operation": "CMAF"
     },
     "mediaconvert": {
-      "job_id": "4922790142-95t9pv",
-      "queue_arn": "arn:aws:mediaconvert:eu-central-2:814726593401:queues/batch",
+      "job_id": "2611136154-ysejdn",
+      "queue_arn": "arn:aws:mediaconvert:af-south-1:738291046572:queues/premium",
       "job_status": "COMPLETE",
-      "output_group_type": "DASH",
-      "input_file": "s3://media-input/broadcast/live.mxf",
-      "input_duration_minutes": 81.389,
-      "video_codec": "AV1",
+      "output_group_type": "CMAF",
+      "input_file": "s3://uploads/user-video.mp4",
+      "input_duration_minutes": 110.365,
+      "video_codec": "MPEG2",
       "audio_codec": "MP3",
       "width": 1280,
-      "height": 1080,
+      "height": 2160,
       "bitrate_kbps": 3000,
-      "duration_seconds": 1031,
+      "duration_seconds": 562,
       "metrics": {
         "JobsCompletedCount": {
           "sum": 1
@@ -36,16 +36,16 @@
           "sum": 0
         },
         "StandbyTime": {
-          "avg": 6
+          "avg": 41
         },
         "TranscodingTime": {
-          "avg": 1031
+          "avg": 562
         }
       }
     }
   },
   "event": {
-    "duration": 1031000000000,
+    "duration": 562000000000,
     "outcome": "success",
     "category": [
       "process"
@@ -53,7 +53,7 @@
     "dataset": "aws.mediaconvert",
     "provider": "mediaconvert.amazonaws.com"
   },
-  "message": "MediaConvert job 4922790142-95t9pv COMPLETE: 81.4 min -> DASH",
+  "message": "MediaConvert job 2611136154-ysejdn COMPLETE: 110.4 min -> CMAF",
   "log": {
     "level": "info"
   }

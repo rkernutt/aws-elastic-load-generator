@@ -642,4 +642,116 @@ function generateQBusinessLog(ts, er) {
   };
 }
 
-export { generateSageMakerLog, generateBedrockLog, generateBedrockAgentLog, generateRekognitionLog, generateTextractLog, generateComprehendLog, generateComprehendMedicalLog, generateTranslateLog, generateTranscribeLog, generatePollyLog, generateForecastLog, generatePersonalizeLog, generateLexLog, generateLookoutMetricsLog, generateQBusinessLog };
+function generateKendraLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const indexName = rand(["hr-docs","legal-kb","product-catalog","support-articles","company-wiki"]);
+  const indexId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase();
+  const action = rand(["QueryIndex","BatchPutDocument","CreateDataSource","StartDataSourceSyncJob","SyncJobSucceeded","SyncJobFailed"]);
+  const queryId = randUUID ? randUUID() : `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`;
+  const queryText = rand(["how to reset password","onboarding policy","product return policy","escalation process","configure SSO"]);
+  const resultCount = isErr ? 0 : randInt(0, 20);
+  const responseTimeMs = randInt(50, isErr ? 10000 : 1500);
+  const relevanceScore = isErr ? 0 : parseFloat(randFloat(0.3, 0.99));
+  const dsType = rand(["S3","Confluence","SharePoint","Salesforce","ServiceNow"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"kendra" } },
+    "aws": {
+      dimensions: { IndexId: indexId, Operation: action },
+      kendra: {
+        index_id: indexId,
+        index_name: indexName,
+        query_id: action === "QueryIndex" ? queryId : null,
+        query_text: action === "QueryIndex" ? queryText : null,
+        result_count: resultCount,
+        response_time_ms: responseTimeMs,
+        relevance_score: action === "QueryIndex" ? relevanceScore : null,
+        document_count: randInt(100, 500000),
+        data_source_id: `ds-${randId(10).toLowerCase()}`,
+        data_source_type: dsType,
+      },
+    },
+    "log": { level: isErr ? "error" : "info" },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.kendra", provider: "kendra.amazonaws.com", duration: responseTimeMs * 1e6 },
+    "message": isErr
+      ? `Kendra ${action} FAILED [${indexName}]: ${rand(["Index not found","Access denied","Throttled","Service unavailable"])}`
+      : `Kendra ${action}: index=${indexName}${action==="QueryIndex"?`, results=${resultCount}, score=${relevanceScore.toFixed(2)}`:""}`,
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","AccessDeniedException","ThrottlingException","InternalServerException"]), message: "Kendra operation failed", type: "search" } } : {}),
+  };
+}
+
+function generateA2iLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const flowType = rand(["fraud-review","id-verification","content-moderation","medical-review"]);
+  const flowDefArn = `arn:aws:sagemaker:${region}:${acct.id}:flow-definition/${flowType}`;
+  const loopName = `loop-${randId(12).toLowerCase()}`;
+  const action = rand(["CreateHumanLoop","StopHumanLoop","HumanLoopCompleted","ConditionThresholdBreached","TaskTimedOut"]);
+  const confidence = parseFloat(randFloat(0.6, 0.99));
+  const threshold = 0.85;
+  const thresholdBreach = confidence < threshold;
+  const reviewerCount = randInt(1, 5);
+  const taskCount = randInt(1, reviewerCount);
+  const statusMap = { CreateHumanLoop:"InProgress", StopHumanLoop:"Stopped", HumanLoopCompleted:"Completed", ConditionThresholdBreached:"InProgress", TaskTimedOut:"Failed" };
+  const loopStatus = isErr ? "Failed" : (statusMap[action] || "InProgress");
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"a2i" } },
+    "aws": {
+      dimensions: { FlowDefinitionArn: flowDefArn, Operation: action },
+      a2i: {
+        flow_definition_arn: flowDefArn,
+        human_loop_name: loopName,
+        human_loop_status: loopStatus,
+        input_content_type: rand(["application/json","image/jpeg","image/png"]),
+        condition_threshold: threshold,
+        human_review_required: thresholdBreach || action === "ConditionThresholdBreached",
+        reviewer_count: reviewerCount,
+        task_count: taskCount,
+        task_completed: isErr ? 0 : taskCount,
+        confidence_threshold_breach: thresholdBreach,
+      },
+    },
+    "log": { level: isErr ? "error" : action === "TaskTimedOut" || thresholdBreach ? "warn" : "info" },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.a2i", provider: "sagemaker.amazonaws.com" },
+    "message": isErr
+      ? `A2I ${action} FAILED [${loopName}]: ${rand(["Loop not found","Task timed out","Access denied"])}`
+      : `A2I ${action}: loop=${loopName}, status=${loopStatus}${thresholdBreach?`, confidence=${confidence.toFixed(2)}<${threshold} REVIEW REQUIRED`:""}`,
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","ValidationException","ThrottlingException"]), message: "A2I human loop failed", type: "process" } } : {}),
+  };
+}
+
+function generateHealthLakeLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const datastoreId = `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`.toLowerCase();
+  const datastoreName = rand(["patient-records","clinical-trials","ehr-primary","diagnostics-lake","pharmacy-db"]);
+  const resourceType = rand(["Patient","Observation","Condition","MedicationRequest","Encounter","DiagnosticReport"]);
+  const action = rand(["CreateResource","ReadResource","SearchWithGet","StartFHIRImportJob","StartFHIRExportJob","DeleteResource"]);
+  const responseCode = isErr ? rand([400,403,404,500,503]) : 200;
+  const latencyMs = randInt(10, isErr ? 5000 : 500);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"healthlake" } },
+    "aws": {
+      dimensions: { DatastoreId: datastoreId, ResourceType: resourceType },
+      healthlake: {
+        datastore_id: datastoreId,
+        datastore_name: datastoreName,
+        resource_type: resourceType,
+        operation: action,
+        request_id: `${randId(8)}-${randId(4)}-${randId(4)}-${randId(4)}-${randId(12)}`,
+        response_code: responseCode,
+        import_job_id: action === "StartFHIRImportJob" ? `import-${randId(12).toLowerCase()}` : null,
+        export_job_id: action === "StartFHIRExportJob" ? `export-${randId(12).toLowerCase()}` : null,
+        fhir_version: "R4",
+      },
+    },
+    "log": { level: isErr ? "error" : "info" },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["process","database"], dataset: "aws.healthlake", provider: "healthlake.amazonaws.com", duration: latencyMs * 1e6 },
+    "message": isErr
+      ? `HealthLake ${action} FAILED [${datastoreName}/${resourceType}]: HTTP ${responseCode} - ${rand(["Resource not found","Access denied","Invalid FHIR resource","Service unavailable"])}`
+      : `HealthLake ${action}: datastore=${datastoreName}, resource=${resourceType}, ${latencyMs}ms`,
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","AccessDeniedException","ValidationException","InternalServerException"]), message: "HealthLake FHIR operation failed", type: "database" } } : {}),
+  };
+}
+
+export { generateSageMakerLog, generateBedrockLog, generateBedrockAgentLog, generateRekognitionLog, generateTextractLog, generateComprehendLog, generateComprehendMedicalLog, generateTranslateLog, generateTranscribeLog, generatePollyLog, generateForecastLog, generatePersonalizeLog, generateLexLog, generateLookoutMetricsLog, generateQBusinessLog, generateKendraLog, generateA2iLog, generateHealthLakeLog };

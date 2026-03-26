@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "config"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "dimensions": {
-      "ConfigRuleName": "cloudtrail-enabled",
-      "ResourceType": "AWS::EC2::Instance"
+      "ConfigRuleName": "access-keys-rotated",
+      "ResourceType": "AWS::EC2::SecurityGroup"
     },
     "config": {
-      "rule_name": "cloudtrail-enabled",
-      "compliance_type": "NON_COMPLIANT",
-      "resource_type": "AWS::EC2::Instance",
-      "resource_id": "i-3ik8kj4l",
-      "annotation": "Public access enabled",
+      "rule_name": "access-keys-rotated",
+      "compliance_type": "INSUFFICIENT_DATA",
+      "resource_type": "AWS::EC2::SecurityGroup",
+      "resource_id": "s3-igja5lly",
+      "annotation": "Missing required tag",
       "metrics": {
         "ComplianceByConfigRule": {
           "avg": 0
@@ -33,7 +33,7 @@
           "sum": 0
         },
         "ConfigurationItemsRecorded": {
-          "sum": 67
+          "sum": 85
         }
       }
     }
@@ -47,13 +47,13 @@
     "dataset": "aws.config",
     "provider": "config.amazonaws.com"
   },
-  "message": "Config rule FAILED: cloudtrail-enabled",
+  "message": "Config rule FAILED: access-keys-rotated",
   "log": {
     "level": "warn"
   },
   "error": {
     "code": "NonCompliant",
-    "message": "Config rule cloudtrail-enabled failed",
+    "message": "Config rule access-keys-rotated failed",
     "type": "compliance"
   }
 }

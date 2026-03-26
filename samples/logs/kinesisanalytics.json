@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ca-central-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "kinesisanalytics": {
-      "application_name": "session-aggregator",
-      "application_arn": "arn:aws:kinesisanalytics:us-east-2:293847561023:application/session-aggregator",
-      "runtime": "FLINK-1_15",
-      "records_per_second": 2404,
-      "input_watermark_lag_ms": 215,
+      "application_name": "clickstream-analytics",
+      "application_arn": "arn:aws:kinesisanalytics:ca-central-1:293847561023:application/clickstream-analytics",
+      "runtime": "FLINK-1_18",
+      "records_per_second": 111,
+      "input_watermark_lag_ms": 96,
       "checkpointing_enabled": true,
-      "last_checkpoint_duration_ms": 448,
-      "kpu_count": 36,
-      "structured_logging": false,
+      "last_checkpoint_duration_ms": 688,
+      "kpu_count": 14,
+      "structured_logging": true,
       "metrics": {
-        "records_in_per_second": 2404,
-        "input_watermark_lag_ms": 215,
-        "kpu_utilization_pct": 46,
-        "checkpoint_duration_ms": 1912
+        "records_in_per_second": 111,
+        "input_watermark_lag_ms": 96,
+        "kpu_utilization_pct": 59,
+        "checkpoint_duration_ms": 1482
       }
     }
   },
@@ -35,9 +35,9 @@
     "category": "process",
     "dataset": "aws.kinesisanalytics",
     "provider": "kinesisanalytics.amazonaws.com",
-    "duration": 544000000
+    "duration": 1798000000
   },
-  "message": "Checkpoint completed",
+  "message": "{\"applicationName\":\"clickstream-analytics\",\"recordsPerSecond\":111,\"inputWatermarkLagMs\":96,\"level\":\"info\",\"message\":\"Checkpoint completed\",\"timestamp\":\"2026-03-26T17:51:02.372Z\"}",
   "log": {
     "level": "info"
   }

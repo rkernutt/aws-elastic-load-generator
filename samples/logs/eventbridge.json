@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ca-west-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "events"
@@ -14,16 +14,16 @@
   "aws": {
     "dimensions": {
       "EventBusName": "default",
-      "RuleName": "security-event-forwarder"
+      "RuleName": "order-created-rule"
     },
     "eventbridge": {
       "event_bus": "default",
-      "rule": "security-event-forwarder",
-      "source": "aws.ec2",
+      "rule": "order-created-rule",
+      "source": "aws.health",
       "detail_type": "Order Placed",
-      "targets_invoked": 4,
+      "targets_invoked": 1,
       "targets_failed": 0,
-      "event_id": "aatewht2-ad5w-2y8j-iyai-21sq70qe4b6",
+      "event_id": "7qx2fo2t-5nxt-l6jr-z0eh-ksx4wztb1fp",
       "structured_logging": true,
       "metrics": {
         "Invocations": {
@@ -36,7 +36,7 @@
           "sum": 1
         },
         "MatchedEvents": {
-          "sum": 92
+          "sum": 9
         },
         "ThrottledRules": {
           "sum": 0
@@ -53,13 +53,13 @@
       "process"
     ],
     "type": [
-      "info"
+      "creation"
     ],
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 35000000
+    "duration": 1000000
   },
-  "message": "{\"id\":\"aatewht2-ad5w-2y8j-iyai-21sq70qe4b6\",\"source\":\"aws.ec2\",\"detailType\":\"Order Placed\",\"rule\":\"security-event-forwarder\",\"eventBus\":\"default\",\"message\":\"EventBridge event routed: aws.ec2 -> security-event-forwarder\",\"timestamp\":\"2026-03-26T17:22:32.197Z\"}",
+  "message": "{\"id\":\"7qx2fo2t-5nxt-l6jr-z0eh-ksx4wztb1fp\",\"source\":\"aws.health\",\"detailType\":\"Health Event\",\"rule\":\"order-created-rule\",\"eventBus\":\"default\",\"message\":\"EventBridge event routed: aws.health -> order-created-rule\",\"timestamp\":\"2026-03-26T17:51:02.372Z\"}",
   "log": {
     "level": "info"
   }

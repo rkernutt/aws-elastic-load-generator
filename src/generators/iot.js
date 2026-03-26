@@ -273,4 +273,70 @@ function generateIotSiteWiseLog(ts, er) {
   };
 }
 
-export { generateIotCoreLog, generateIotGreengrassLog, generateIotAnalyticsLog, generateIotDefenderLog, generateIotEventsLog, generateIotSiteWiseLog };
+function generateIotTwinMakerLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const workspaceId = rand(["factory-floor-ws","smart-building-ws","wind-farm-ws","oil-refinery-ws","data-center-ws"]);
+  const entityId = `entity-${randId(8).toLowerCase()}`;
+  const entityName = rand(["ConveyorBelt-01","HVAC-Unit-07","WindTurbine-12","PumpStation-03","ServerRack-B4"]);
+  const componentType = rand(["com.example.temperature","com.example.pressure","com.example.vibration","com.example.flow","com.example.power"]);
+  const propertyName = rand(["Temperature","Pressure","Vibration","FlowRate","PowerConsumption","OperationalStatus"]);
+  const propertyValue = isErr ? null : parseFloat(randFloat(0, 1000));
+  const action = rand(["CreateWorkspace","CreateEntity","UpdateEntity","GetPropertyValue","BatchPutPropertyValues","ExecuteQuery","CreateScene"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"iottwinmaker" } },
+    "aws": {
+      dimensions: { WorkspaceId: workspaceId },
+      iottwinmaker: {
+        workspace_id: workspaceId,
+        entity_id: entityId,
+        entity_name: entityName,
+        component_type_id: componentType,
+        property_name: propertyName,
+        property_value: propertyValue,
+        scene_id: `scene-${randId(8).toLowerCase()}`,
+        sync_source: rand(["SITEWISE","IOT_DEVICE_DATA","CUSTOM"]),
+        update_reason: rand(["ASSET_CREATED","ASSET_UPDATED","VALUE_CHANGED","CONNECTIVITY_CHANGE"]),
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["iot","process"], dataset: "aws.iottwinmaker", provider: "iottwinmaker.amazonaws.com" },
+    "message": isErr ? `IoT TwinMaker ${action} FAILED [${workspaceId}/${entityName}]: ${rand(["Entity not found","Workspace limit exceeded","Property sync failed"])}` : `IoT TwinMaker ${action}: workspace=${workspaceId}, entity=${entityName}, ${propertyName}=${propertyValue}`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","ValidationException","TooManyTagsException"]), message: "IoT TwinMaker operation failed", type: "iot" } } : {}),
+  };
+}
+
+function generateIotFleetWiseLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const fleetId = rand(["commercial-trucks","delivery-vans","field-service","executive-fleet","test-vehicles"]);
+  const vehicleId = `VIN-${randId(17).toUpperCase()}`;
+  const campaignName = rand(["engine-diagnostics","battery-monitoring","safety-systems","fuel-efficiency","predictive-maintenance"]);
+  const campaignStatus = isErr ? "SUSPENDED" : rand(["RUNNING","CREATING","WAITING_FOR_APPROVAL"]);
+  const signalName = rand(["Vehicle.Chassis.Axle.Row1.Wheel.Left.Tire.Pressure","Vehicle.Powertrain.TractionBattery.StateOfCharge","Vehicle.OBD.EngineLoad","Vehicle.Speed","Vehicle.CurrentLocation.Latitude"]);
+  const signalValue = isErr ? null : parseFloat(randFloat(0, 100));
+  const action = rand(["CreateCampaign","UpdateCampaign","CreateVehicle","UpdateVehicle","CreateFleet","AssociateVehicleFleet","CreateSignalCatalog"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"iotfleetwise" } },
+    "aws": {
+      dimensions: { FleetId: fleetId, CampaignName: campaignName },
+      iotfleetwise: {
+        fleet_id: fleetId,
+        vehicle_id: vehicleId,
+        campaign_name: campaignName,
+        campaign_status: campaignStatus,
+        signal_name: signalName,
+        signal_value: signalValue,
+        collection_scheme: rand(["TIME_BASED","CONDITION_BASED","EVENT_BASED"]),
+        compression: rand(["OFF","SNAPPY"]),
+        data_destination: rand(["S3","TIMESTREAM","IOT_SITERISE"]),
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["iot","process"], dataset: "aws.iotfleetwise", provider: "iotfleetwise.amazonaws.com" },
+    "message": isErr ? `IoT FleetWise ${action} FAILED [${fleetId}/${vehicleId}]: ${rand(["Vehicle not found","Campaign suspended","Signal not in catalog","Data collection paused"])}` : `IoT FleetWise ${action}: fleet=${fleetId}, vehicle=${vehicleId}, campaign=${campaignName} ${campaignStatus}`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","InvalidSignalsException","ThrottlingException"]), message: "IoT FleetWise operation failed", type: "iot" } } : {}),
+  };
+}
+
+export { generateIotCoreLog, generateIotGreengrassLog, generateIotAnalyticsLog, generateIotDefenderLog, generateIotEventsLog, generateIotSiteWiseLog, generateIotTwinMakerLog, generateIotFleetWiseLog };

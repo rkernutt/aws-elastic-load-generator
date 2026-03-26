@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-26T17:51:02.372Z",
   "cloud": {
     "provider": "aws",
     "region": "ap-northeast-3",
@@ -13,33 +13,27 @@
   },
   "aws": {
     "networkmanager": {
-      "global_network_id": "network-8y5waf9d2sh",
-      "global_network_name": "enterprise-wan",
-      "event_type": "LINK_STATUS_DOWN",
-      "device_id": "device-ftp5ca3somc",
-      "link_id": "link-ygf1hz8ded",
-      "site_id": "site-t21wpcjmxq",
-      "site_name": "hq-london",
-      "bandwidth_mbps": 50,
-      "provider": "BT",
-      "type": "vpn",
-      "state": "DOWN",
-      "error_code": "ValidationException"
+      "global_network_id": "network-t5q2ed718ka",
+      "global_network_name": "global-network-dr",
+      "event_type": "CONNECTION_STATUS_UP",
+      "device_id": "device-u17ey9x9uve",
+      "link_id": "link-iqpgrhlz7x",
+      "site_id": "site-owrsevx86z",
+      "site_name": "dc-us-east",
+      "bandwidth_mbps": 500,
+      "provider": "Zayo",
+      "type": "mpls",
+      "state": "UP"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "network",
     "dataset": "aws.networkmanager",
     "provider": "networkmanager.amazonaws.com"
   },
-  "message": "Network Manager LINK_STATUS_DOWN [enterprise-wan]: connection degraded",
+  "message": "Network Manager CONNECTION_STATUS_UP [global-network-dr]: hq-london link UP",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ThrottlingException",
-    "message": "Network Manager connection degraded",
-    "type": "network"
+    "level": "info"
   }
 }

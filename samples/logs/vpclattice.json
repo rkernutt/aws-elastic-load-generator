@@ -1,0 +1,48 @@
+{
+  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "ca-west-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "vpclattice"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "ServiceName": "auth-svc",
+      "ServiceNetworkName": "shared-services-network"
+    },
+    "vpclattice": {
+      "service_name": "auth-svc",
+      "service_arn": "arn:aws:vpc-lattice:ca-west-1:164820739518:service/auth-svc-mdf6g2nr",
+      "service_network_name": "shared-services-network",
+      "target_group_id": "tg-1wbkxih9wyf",
+      "source_vpc_id": "vpc-kmlcxxqn",
+      "destination_vpc_id": "vpc-u9ofvdkt",
+      "request_method": "DELETE",
+      "response_code": 200,
+      "response_time_ms": 16,
+      "bytes_received": 13702,
+      "bytes_sent": 101472,
+      "tls_cipher_suite": "ECDHE-RSA-AES256-GCM-SHA384"
+    }
+  },
+  "event": {
+    "action": "ServiceNetworkVpcAssociation",
+    "outcome": "success",
+    "category": [
+      "network"
+    ],
+    "dataset": "aws.vpclattice",
+    "provider": "vpc-lattice.amazonaws.com",
+    "duration": 16000000
+  },
+  "message": "VPC Lattice auth-svc: DELETE 200 16ms",
+  "log": {
+    "level": "info"
+  }
+}
