@@ -147,23 +147,20 @@ Elastic API Key:
 Testing connection...
   Connected to cluster: my-deployment (8.14.0)
 
-Available pipeline groups:
+What would you like to do?
+
+  1. Install pipelines
+  2. Delete pipelines
+  3. Delete then reinstall pipelines
+
+Enter 1, 2, or 3:
+> 1
+
+Available pipeline groups (install):
 
   1. aiml        (3 pipelines)
   2. analytics    (15 pipelines)
-  3. compute      (8 pipelines)
-  4. databases    (10 pipelines)
-  5. devtools     (9 pipelines)
-  6. enduser      (14 pipelines)
-  7. iot          (8 pipelines)
-  8. management   (25 pipelines)
-  9. media        (2 pipelines)
-  10. ml          (14 pipelines)
-  11. networking  (9 pipelines)
-  12. security    (16 pipelines)
-  13. serverless  (5 pipelines)
-  14. storage     (6 pipelines)
-  15. streaming   (5 pipelines)
+  ...
   16. all         (install every group)
 
 Enter number(s) comma-separated, or "all":
@@ -173,15 +170,15 @@ Installing 149 pipeline(s)...
 
   ✓ logs-aws.glue-default — installed
   ✓ logs-aws.emr_logs-default — installed
-  ✓ logs-aws.athena-default — installed
   ...
-  ✓ logs-aws.sagemaker-default — installed
 
 Installed 106 / 106 pipelines.
 Done.
 ```
 
 You can select individual groups by number (e.g. `1,3,8`) or type `all`. Already-installed pipelines are automatically skipped.
+
+**To update pipelines after an upgrade**, choose option `3. Delete then reinstall` — this removes existing pipelines and recreates them from the latest definitions.
 
 ---
 
@@ -212,9 +209,6 @@ npm run setup:dashboards
 ║     AWS → Elastic Custom Dashboard Installer         ║
 ╚══════════════════════════════════════════════════════╝
 
-Installs Kibana dashboards for AWS services monitored
-by the AWS → Elastic Load Generator.
-
 Kibana URL (e.g. https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243):
 > https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243
 
@@ -224,7 +218,16 @@ Elastic API Key:
 Testing connection...
   Connected to Kibana: my-deployment (9.4.0)
 
-Available dashboards:
+What would you like to do?
+
+  1. Install dashboards
+  2. Delete dashboards
+  3. Delete then reinstall dashboards
+
+Enter 1, 2, or 3:
+> 1
+
+Available dashboards (install):
 
   1. AWS Glue — Jobs & Performance
   2. AWS SageMaker — Endpoints & Training
@@ -243,6 +246,8 @@ Done.
 ```
 
 Already-installed dashboards are automatically skipped — the installer is safe to re-run at any time.
+
+**To update dashboards after an upgrade**, choose option `3. Delete then reinstall`.
 
 **Requires Kibana 9.4+.** For Kibana 8.11–9.3 use the legacy installer:
 
@@ -296,6 +301,15 @@ npm run setup:ml-jobs
 | Elasticsearch URL | Deployment overview → Elasticsearch endpoint |
 | API key | Kibana → Stack Management → API Keys → Create API key (needs `manage_ml` cluster privilege) |
 
+The installer presents four modes:
+
+| Option | What it does |
+|--------|-------------|
+| `1. Install jobs` | Creates jobs and datafeeds; skips any already installed |
+| `2. Stop jobs` | Stops datafeeds and closes jobs (preserves job history and model state) |
+| `3. Delete jobs` | Stops, closes, then permanently deletes jobs and datafeeds |
+| `4. Delete then reinstall` | Full delete pass followed by a fresh install — use this to pick up config changes (e.g. updated `query_delay`) |
+
 After installation, the installer offers to open jobs and start datafeeds immediately. Results appear in **Kibana → Machine Learning → Anomaly Detection → Anomaly Explorer** once at least one bucket span of data has been collected.
 
 ---
@@ -308,6 +322,7 @@ After installation, the installer offers to open jobs and start datafeeds immedi
 | Credentials | Kibana URL + API key | Elasticsearch URL + API key | Kibana URL + API key | Elasticsearch URL + API key |
 | What it configures | Dashboards, ILM, templates | Ingest pipelines | Custom Kibana dashboards | ML anomaly detection jobs |
 | Re-runnable | Yes — skips if installed | Yes — skips existing | Yes — skips by title | Yes — skips existing jobs |
+| Delete / reinstall | — | Yes — modes 2 & 3 | Yes — modes 2 & 3 | Yes — modes 2, 3 & 4 |
 | Kibana version | Any | — | 9.4+ (or 8.11+ legacy) | — |
 
 ---
