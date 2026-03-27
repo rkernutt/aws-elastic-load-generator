@@ -310,10 +310,9 @@ export default function App() {
       }
 
       /** ── Logs / Metrics mode ──────────────────────────────────────────────── */
-      const totalLogs = activeServices.length * logsPerService;
-      setProgress({ sent:0, total:totalLogs, errors:0 });
-      addLog(`Starting: ${totalLogs.toLocaleString()} ${eventType === "metrics" ? "metrics" : "logs"} across ${activeServices.length} service(s)`);
-      let totalSent = 0, totalErrors = 0;
+      setProgress({ sent:0, total:0, errors:0 });
+      addLog(`Starting: ${activeServices.length} service(s) [${eventType}] — ${logsPerService.toLocaleString()} calls each`);
+      let totalSent = 0, totalErrors = 0, totalActual = 0;
 
       const shipService = async (svc) => {
         const dataset = eventType === "metrics"
@@ -336,6 +335,7 @@ export default function App() {
               }
               return [stripNulls(enrichDoc(result, svc, src, eventType))];
             }).flat();
+        totalActual += allDocs.length;
         let svcSent = 0, svcErrors = 0, batchNum = 0;
         for (let i = 0; i < allDocs.length; i += batchSize) {
           if (abortRef.current) break;
@@ -375,7 +375,7 @@ export default function App() {
             svcErrors += batch.length;
             addLog(`  ✗ network error: ${e.message}`, "error");
           }
-          setProgress({ sent: totalSent + svcSent, total: totalLogs, errors: totalErrors + svcErrors });
+          setProgress({ sent: totalSent + svcSent, total: totalActual, errors: totalErrors + svcErrors });
           if (batchDelayMs > 0) await new Promise(r => setTimeout(r, batchDelayMs));
         }
         addLog(`✓ ${svc} complete`, "ok");
