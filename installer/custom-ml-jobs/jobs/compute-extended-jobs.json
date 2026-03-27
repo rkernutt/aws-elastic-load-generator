@@ -26,12 +26,12 @@
         "custom_settings": { "created_by": "aws-elastic-load-generator" }
       },
       "datafeed": {
-        "indices": ["logs-aws.*"],
+        "indices": ["metrics-aws.*"],
         "max_empty_searches": 10,
         "query": {
           "bool": {
             "filter": [
-              { "term": { "event.dataset": "aws.ecs" } }
+              { "term": { "event.dataset": "aws.ecs_metrics" } }
             ]
           }
         },
@@ -63,13 +63,12 @@
         "custom_settings": { "created_by": "aws-elastic-load-generator" }
       },
       "datafeed": {
-        "indices": ["logs-aws.*"],
+        "indices": ["metrics-aws.*"],
         "max_empty_searches": 10,
         "query": {
           "bool": {
             "filter": [
-              { "term": { "event.dataset": "aws.ecs" } },
-              { "term": { "event.outcome": "failure" } }
+              { "term": { "event.dataset": "aws.ecs_metrics" } }
             ]
           }
         },
