@@ -14,11 +14,11 @@
             {
               "detector_description": "high_count partitionfield=aws.mediaconvert.queue",
               "function": "high_count",
-              "partition_field_name": "aws.mediaconvert.queue",
+              "partition_field_name": "aws.mediaconvert.queue_arn",
               "detector_index": 0
             }
           ],
-          "influencers": ["aws.mediaconvert.queue", "cloud.region"]
+          "influencers": ["aws.mediaconvert.queue_arn", "cloud.region"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "32mb" },
@@ -52,11 +52,11 @@
             {
               "detector_description": "high_count partitionfield=aws.connect.queue.name",
               "function": "high_count",
-              "partition_field_name": "aws.connect.queue.name",
+              "partition_field_name": "aws.connect.queue_name",
               "detector_index": 0
             }
           ],
-          "influencers": ["aws.connect.queue.name", "cloud.region"]
+          "influencers": ["aws.connect.queue_name", "cloud.region"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "32mb" },
@@ -91,11 +91,11 @@
               "detector_description": "high_mean(event.duration) partitionfield=aws.connect.queue.name",
               "function": "high_mean",
               "field_name": "event.duration",
-              "partition_field_name": "aws.connect.queue.name",
+              "partition_field_name": "aws.connect.queue_name",
               "detector_index": 0
             }
           ],
-          "influencers": ["aws.connect.queue.name", "aws.connect.agent.username"]
+          "influencers": ["aws.connect.queue_name", "aws.connect.agent_id"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "32mb" },
@@ -132,7 +132,7 @@
               "detector_index": 0
             }
           ],
-          "influencers": ["aws.workspaces.directory_id", "cloud.region"]
+          "influencers": ["aws.workspaces.dimensions.DirectoryId", "cloud.region"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "16mb" },

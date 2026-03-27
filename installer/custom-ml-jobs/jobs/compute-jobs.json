@@ -126,14 +126,14 @@
           "bucket_span": "15m",
           "detectors": [
             {
-              "detector_description": "high_mean(aws.ec2.metrics.CPUUtilization.avg) partitionfield=cloud.instance.id",
+              "detector_description": "high_mean(aws.ec2.metrics.CPUUtilization.avg) partitionfield=aws.ec2.dimensions.InstanceId",
               "function": "high_mean",
               "field_name": "aws.ec2.metrics.CPUUtilization.avg",
-              "partition_field_name": "cloud.instance.id",
+              "partition_field_name": "aws.ec2.dimensions.InstanceId",
               "detector_index": 0
             }
           ],
-          "influencers": ["cloud.instance.id", "cloud.region"]
+          "influencers": ["aws.ec2.dimensions.InstanceId", "cloud.region"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "32mb" },
@@ -141,12 +141,12 @@
         "custom_settings": { "created_by": "aws-elastic-load-generator" }
       },
       "datafeed": {
-        "indices": ["logs-aws.*"],
+        "indices": ["metrics-aws.*"],
         "max_empty_searches": 10,
         "query": {
           "bool": {
             "filter": [
-              { "term": { "event.dataset": "aws.ec2_logs" } }
+              { "term": { "event.dataset": "aws.ec2" } }
             ]
           }
         },
@@ -164,14 +164,14 @@
           "bucket_span": "15m",
           "detectors": [
             {
-              "detector_description": "high_sum(aws.ec2.metrics.NetworkOut.sum) partitionfield=cloud.instance.id",
+              "detector_description": "high_sum(aws.ec2.metrics.NetworkOut.sum) partitionfield=aws.ec2.dimensions.InstanceId",
               "function": "high_sum",
               "field_name": "aws.ec2.metrics.NetworkOut.sum",
-              "partition_field_name": "cloud.instance.id",
+              "partition_field_name": "aws.ec2.dimensions.InstanceId",
               "detector_index": 0
             }
           ],
-          "influencers": ["cloud.instance.id", "cloud.region"]
+          "influencers": ["aws.ec2.dimensions.InstanceId", "cloud.region"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "32mb" },
@@ -179,12 +179,12 @@
         "custom_settings": { "created_by": "aws-elastic-load-generator" }
       },
       "datafeed": {
-        "indices": ["logs-aws.*"],
+        "indices": ["metrics-aws.*"],
         "max_empty_searches": 10,
         "query": {
           "bool": {
             "filter": [
-              { "term": { "event.dataset": "aws.ec2_logs" } }
+              { "term": { "event.dataset": "aws.ec2" } }
             ]
           }
         },

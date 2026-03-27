@@ -87,13 +87,13 @@
           "bucket_span": "15m",
           "detectors": [
             {
-              "detector_description": "high_count partitionfield=aws.iotcore.rule_name",
+              "detector_description": "high_count partitionfield=aws.iotcore.topic",
               "function": "high_count",
-              "partition_field_name": "aws.iotcore.rule_name",
+              "partition_field_name": "aws.iotcore.topic",
               "detector_index": 0
             }
           ],
-          "influencers": ["aws.iotcore.rule_name", "cloud.region"]
+          "influencers": ["aws.iotcore.topic", "cloud.region"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "32mb" },
@@ -107,8 +107,7 @@
           "bool": {
             "filter": [
               { "term": { "event.dataset": "aws.iotcore" } },
-              { "term": { "event.outcome": "failure" } },
-              { "exists": { "field": "aws.iotcore.rule_name" } }
+              { "term": { "event.outcome": "failure" } }
             ]
           }
         },

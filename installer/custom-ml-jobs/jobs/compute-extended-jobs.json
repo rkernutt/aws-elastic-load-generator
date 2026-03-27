@@ -12,14 +12,13 @@
           "bucket_span": "15m",
           "detectors": [
             {
-              "detector_description": "high_mean(aws.ecs.metrics.MemoryUtilization.avg) partitionfield=aws.ecs.cluster.name",
-              "function": "high_mean",
-              "field_name": "aws.ecs.metrics.MemoryUtilization.avg",
-              "partition_field_name": "aws.ecs.cluster.name",
+              "detector_description": "high_count partitionfield=aws.ecs.dimensions.ClusterName",
+              "function": "high_count",
+              "partition_field_name": "aws.ecs.dimensions.ClusterName",
               "detector_index": 0
             }
           ],
-          "influencers": ["aws.ecs.cluster.name", "cloud.region"]
+          "influencers": ["aws.ecs.dimensions.ClusterName", "cloud.region"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "32mb" },
@@ -50,13 +49,13 @@
           "bucket_span": "15m",
           "detectors": [
             {
-              "detector_description": "high_count partitionfield=aws.ecs.cluster.name",
+              "detector_description": "high_count partitionfield=aws.ecs.dimensions.ClusterName",
               "function": "high_count",
-              "partition_field_name": "aws.ecs.cluster.name",
+              "partition_field_name": "aws.ecs.dimensions.ClusterName",
               "detector_index": 0
             }
           ],
-          "influencers": ["aws.ecs.cluster.name", "cloud.region"]
+          "influencers": ["aws.ecs.dimensions.ClusterName", "cloud.region"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "32mb" },
@@ -88,14 +87,13 @@
           "bucket_span": "15m",
           "detectors": [
             {
-              "detector_description": "high_mean(aws.autoscaling.metrics.GroupPendingInstances.avg) partitionfield=aws.autoscaling.group.name",
-              "function": "high_mean",
-              "field_name": "aws.autoscaling.metrics.GroupPendingInstances.avg",
-              "partition_field_name": "aws.autoscaling.group.name",
+              "detector_description": "high_count partitionfield=aws.autoscaling.group_name",
+              "function": "high_count",
+              "partition_field_name": "aws.autoscaling.group_name",
               "detector_index": 0
             }
           ],
-          "influencers": ["aws.autoscaling.group.name", "cloud.region"]
+          "influencers": ["aws.autoscaling.group_name", "cloud.region"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "32mb" },
@@ -126,14 +124,13 @@
           "bucket_span": "15m",
           "detectors": [
             {
-              "detector_description": "high_mean(aws.elasticbeanstalk.metrics.ApplicationRequests5xx.sum) partitionfield=aws.elasticbeanstalk.environment.name",
-              "function": "high_mean",
-              "field_name": "aws.elasticbeanstalk.metrics.ApplicationRequests5xx.sum",
-              "partition_field_name": "aws.elasticbeanstalk.environment.name",
+              "detector_description": "high_count partitionfield=aws.elasticbeanstalk.environment",
+              "function": "high_count",
+              "partition_field_name": "aws.elasticbeanstalk.environment",
               "detector_index": 0
             }
           ],
-          "influencers": ["aws.elasticbeanstalk.environment.name", "cloud.region"]
+          "influencers": ["aws.elasticbeanstalk.environment", "cloud.region"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "32mb" },
@@ -164,14 +161,14 @@
           "bucket_span": "15m",
           "detectors": [
             {
-              "detector_description": "high_mean(aws.elasticbeanstalk.metrics.ApplicationLatencyP99.avg) partitionfield=aws.elasticbeanstalk.environment.name",
+              "detector_description": "high_mean(event.duration) partitionfield=aws.elasticbeanstalk.environment",
               "function": "high_mean",
-              "field_name": "aws.elasticbeanstalk.metrics.ApplicationLatencyP99.avg",
-              "partition_field_name": "aws.elasticbeanstalk.environment.name",
+              "field_name": "event.duration",
+              "partition_field_name": "aws.elasticbeanstalk.environment",
               "detector_index": 0
             }
           ],
-          "influencers": ["aws.elasticbeanstalk.environment.name"]
+          "influencers": ["aws.elasticbeanstalk.environment"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "32mb" },
