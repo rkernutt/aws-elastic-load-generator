@@ -360,12 +360,17 @@ export default function App() {
               addLog(`  ✗ batch ${batchNum} failed: ${json.error?.reason || res.status}`, "error");
             } else {
               const failedItems = json.items?.filter(i => i.create?.error || i.index?.error) || [];
-              const errs = failedItems.length;
+              const conflictItems = failedItems.filter(i => (i.create?.error?.type || i.index?.error?.type) === "version_conflict_engine_exception");
+              const realErrors = failedItems.filter(i => (i.create?.error?.type || i.index?.error?.type) !== "version_conflict_engine_exception");
+              const conflicts = conflictItems.length;
+              const errs = realErrors.length;
               svcErrors += errs;
-              svcSent += batch.length - errs;
+              svcSent += batch.length - errs - conflicts;
               if (errs > 0) {
-                const firstErr = failedItems[0]?.create?.error || failedItems[0]?.index?.error;
+                const firstErr = realErrors[0]?.create?.error || realErrors[0]?.index?.error;
                 addLog(`  ✗ batch ${batchNum}: ${errs} errors — ${firstErr?.type}: ${firstErr?.reason?.substring(0, 120)}`, "warn");
+              } else if (conflicts > 0) {
+                addLog(`  ↷ batch ${batchNum}: ${batch.length - conflicts} indexed, ${conflicts} skipped (already exists)`, "ok");
               } else {
                 addLog(`  ✓ batch ${batchNum}: ${batch.length} indexed`, "ok");
               }
@@ -744,7 +749,9 @@ export default function App() {
               <div className={styles.costEstimate}>
                 {isTracesMode
                   ? `~${estimatedDocs.toLocaleString()} traces across ${totalSelected} service${totalSelected!==1?"s":""} (each trace = transaction + spans)`
-                  : `~${estimatedDocs.toLocaleString()} documents across ${totalSelected} service${totalSelected!==1?"s":""} (${estimatedBatches} batch${estimatedBatches!==1?"es":""})`
+                  : eventType === "metrics"
+                    ? `~${estimatedDocs.toLocaleString()} calls across ${totalSelected} service${totalSelected!==1?"s":""} — actual doc count varies by service (dimensional metrics generate multiple docs per call)`
+                    : `~${estimatedDocs.toLocaleString()} documents across ${totalSelected} service${totalSelected!==1?"s":""} (${estimatedBatches} batch${estimatedBatches!==1?"es":""})`
                 }
               </div>
             )}
