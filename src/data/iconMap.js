@@ -40,6 +40,18 @@ const AWS_SERVICE_ICON_MAP = {
   comprehendmedical: "AmazonComprehendMedical", locationservice: "AmazonLocationService",
   managedblockchain: "AmazonManagedBlockchain", codeguru: "AmazonCodeGuru", devopsguru: "AmazonDevOpsGuru",
   iotevents: "AWSIoTEvents", iotsitewise: "AWSIoTSiteWise", iotdefender: "AWSIoTDeviceDefender",
+  iottwinmaker: "AWSIoTTwinMaker", iotfleetwise: "AWSIoTFleetWise",
+  verifiedaccess: "AWSVerifiedAccess", securitylake: "AmazonSecurityLake",
+  securityir: "AWSSecurityIncidentResponse", cloudhsm: "AWSCloudHSM",
+  storagelens: "AmazonS3StorageLens", qbusiness: "AmazonQ",
+  vpclattice: "AmazonVPCLattice", mskconnect: "AmazonMSKConnect",
+  mwaa: "AmazonMWAA", cleanrooms: "AWSCleanRooms", datazone: "AmazonDataZone",
+  entityresolution: "AWSEntityResolution", dataexchange: "AWSDataExchange",
+  kendra: "AmazonKendra", a2i: "AmazonAugmentedAI",
+  codecatalyst: "AmazonCodeCatalyst", devicefarm: "AWSDeviceFarm",
+  fis: "AWSFaultInjectionService", managedgrafana: "AmazonManagedGrafana",
+  supplychain: "AWSSupplyChain", arc: "AWSApplicationRecoveryController",
+  deadlinecloud: "AWSDeadlineCloud",
 };
 
 export { AWS_ICON_BASE, AWS_SERVICE_ICON_MAP };
