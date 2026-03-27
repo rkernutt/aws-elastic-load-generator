@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "forecast"
@@ -13,35 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "DatasetGroup": "web-traffic",
+      "DatasetGroup": "energy-consumption",
       "Operation": "CreateDatasetImportJob"
     },
     "forecast": {
-      "dataset_group": "web-traffic",
+      "dataset_group": "energy-consumption",
+      "predictor_name": "energy-consumption-predictor-v14",
       "action": "CreateDatasetImportJob",
-      "algorithm": "AutoML",
-      "forecast_horizon": 30,
-      "duration_seconds": 53716,
-      "status": "FAILED",
-      "error_message": "Insufficient training data"
+      "algorithm": "Prophet",
+      "forecast_horizon": 60,
+      "weighted_quantile_loss": 0.088,
+      "duration_seconds": 2418,
+      "status": "ACTIVE"
     }
   },
   "event": {
-    "duration": 53716000000000,
-    "outcome": "failure",
+    "duration": 2418000000000,
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com"
   },
-  "message": "Forecast CreateDatasetImportJob FAILED for web-traffic: Insufficient data",
+  "message": "Forecast CreateDatasetImportJob: energy-consumption, WQL=0.088",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ForecastError",
-    "message": "Forecast operation failed",
-    "type": "ml"
+    "level": "info"
   }
 }

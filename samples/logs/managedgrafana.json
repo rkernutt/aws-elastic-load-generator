@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "managedgrafana"
@@ -13,31 +13,36 @@
   },
   "aws": {
     "dimensions": {
-      "WorkspaceId": "g-rx953vzkg2"
+      "WorkspaceId": "g-naqp6tvemh"
     },
     "managedgrafana": {
-      "workspace_id": "g-rx953vzkg2",
-      "workspace_name": "security-monitoring",
-      "workspace_status": "CREATING",
-      "grafana_version": "10.4",
-      "alert_state": "ok",
+      "workspace_id": "g-naqp6tvemh",
+      "workspace_name": "prod-observability",
+      "workspace_status": "FAILED",
+      "grafana_version": "9.4",
+      "alert_state": "alerting",
       "dashboard_title": "RDS Metrics",
-      "datasource_type": "cloudwatch",
-      "authentication_providers": "AWS_SSO",
-      "notification_destinations": "SNS"
+      "datasource_type": "influxdb",
+      "authentication_providers": "SAML",
+      "notification_destinations": "PAGERDUTY"
     }
   },
   "event": {
-    "action": "DeleteApiKey",
-    "outcome": "success",
+    "action": "CreateWorkspace",
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.managedgrafana",
     "provider": "grafana.amazonaws.com"
   },
-  "message": "Managed Grafana DeleteApiKey: workspace=security-monitoring alert=ok dashboard=\"RDS Metrics\"",
+  "message": "Managed Grafana CreateWorkspace FAILED [prod-observability]: Workspace not active",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ValidationException",
+    "message": "Managed Grafana operation failed",
+    "type": "process"
   }
 }

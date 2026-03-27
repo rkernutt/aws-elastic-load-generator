@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "rds"
@@ -13,57 +13,57 @@
   },
   "aws": {
     "dimensions": {
-      "DBInstanceIdentifier": "prod-db-primary",
-      "DatabaseClass": "db.r6g.xlarge",
-      "EngineName": "aurora-mysql",
-      "SourceRegion": "eu-west-3"
+      "DBInstanceIdentifier": "prod-db-analytics",
+      "DatabaseClass": "db.r5.large",
+      "EngineName": "mysql",
+      "SourceRegion": "eu-west-2"
     },
     "rds": {
       "db_instance": {
-        "identifier": "prod-db-primary",
-        "class": "db.t3.medium",
-        "engine_name": "aurora-mysql",
-        "arn": "arn:aws:rds:eu-west-3:814726593401:db:prod-db-primary",
+        "identifier": "prod-db-analytics",
+        "class": "db.r5.large",
+        "engine_name": "mysql",
+        "arn": "arn:aws:rds:eu-west-2:164820739518:db:prod-db-analytics",
         "status": "available",
         "role": "instance"
       },
       "cpu": {
         "total": {
-          "pct": 0.5411
+          "pct": 0.0166
         }
       },
       "freeable_memory": {
-        "bytes": 7053398081
+        "bytes": 4087467308
       },
       "free_storage": {
-        "bytes": 158292220972
+        "bytes": 69643394235
       },
-      "database_connections": 44,
+      "database_connections": 9,
       "read_io": {
-        "ops_per_sec": 154.552
+        "ops_per_sec": 1188.341
       },
       "write_io": {
-        "ops_per_sec": 482.068
+        "ops_per_sec": 2636.241
       },
       "latency": {
-        "read": 0.003,
-        "write": 0.003
+        "read": 0.019,
+        "write": 0.007
       },
       "throughput": {
-        "read": 21689090,
-        "write": 5141515,
-        "network_receive": 42565566,
-        "network_transmit": 72743544
+        "read": 91359055,
+        "write": 59753485,
+        "network_receive": 43817569,
+        "network_transmit": 43382991
       },
       "replica_lag": {
-        "sec": 79.649
+        "sec": 21.774
       },
       "swap_usage": {
-        "bytes": 5715626
+        "bytes": 12244013
       },
       "disk_usage": {
         "bin_log": {
-          "bytes": 166580550
+          "bytes": 388909852
         }
       }
     }
@@ -72,12 +72,12 @@
     "user": {
       "name": "readonly"
     },
-    "name": "events",
-    "statement": "INSERT INTO orders VALUES IL28ZU",
+    "name": "analytics",
+    "statement": "INSERT INTO orders VALUES 55QSQR",
     "type": "sql"
   },
   "event": {
-    "duration": 418000000,
+    "duration": 1840000000,
     "outcome": "success",
     "category": [
       "database"
@@ -89,14 +89,8 @@
     "dataset": "aws.rds",
     "provider": "rds.amazonaws.com"
   },
-  "message": "Query_time: 0.418000  Lock_time: 0.009000  Rows_sent: 73  Rows_examined: 94086",
+  "message": "Query_time: 1.840000  Lock_time: 0.006000  Rows_sent: 931  Rows_examined: 45170",
   "log": {
     "level": "info"
-  },
-  "trace": {
-    "id": "7NRRIKJU2TS"
-  },
-  "transaction": {
-    "id": "2J02RUECIP"
   }
 }

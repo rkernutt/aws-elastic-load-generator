@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "ca-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "lakeformation"
@@ -13,32 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "ResourceArn": "arn:aws:glue:ap-northeast-1:738291046572:table/curated/products",
-      "Principal": "arn:aws:iam::738291046572:role/analyst-role"
+      "ResourceArn": "arn:aws:glue:ca-west-1:164820739518:table/raw_data/events",
+      "Principal": "arn:aws:iam::164820739518:user/alice"
     },
     "lakeformation": {
-      "database": "curated",
-      "table": "products",
-      "action": "CreateLakeFormationTag",
-      "principal_arn": "arn:aws:iam::738291046572:role/analyst-role",
-      "resource_arn": "arn:aws:glue:ap-northeast-1:738291046572:table/curated/products",
+      "database": "raw_data",
+      "table": "events",
+      "action": "Revoke",
+      "principal_arn": "arn:aws:iam::164820739518:user/alice",
+      "resource_arn": "arn:aws:glue:ca-west-1:164820739518:table/raw_data/events",
       "permissions": [
-        "DESCRIBE"
+        "ALL"
       ],
       "lf_tag_key": "classification",
       "lf_tag_values": [
-        "dev",
-        "staging"
+        "prod"
       ],
       "metrics": {
         "GrantCount": {
-          "sum": 22
+          "sum": 7
         },
         "DatabaseCount": {
-          "avg": 8
+          "avg": 18
         },
         "TableCount": {
-          "avg": 32
+          "avg": 76
         },
         "DataLakeSettings": {
           "avg": 1
@@ -47,8 +46,8 @@
     }
   },
   "event": {
-    "action": "CreateLakeFormationTag",
-    "duration": 57000000,
+    "action": "Revoke",
+    "duration": 92000000,
     "outcome": "success",
     "category": [
       "database",
@@ -57,7 +56,7 @@
     "dataset": "aws.lakeformation",
     "provider": "lakeformation.amazonaws.com"
   },
-  "message": "Lake Formation CreateLakeFormationTag: DESCRIBE on curated.products",
+  "message": "Lake Formation Revoke: ALL on raw_data.events",
   "log": {
     "level": "info"
   }

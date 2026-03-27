@@ -497,6 +497,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | Direct Connect | CloudWatch | `aws.directconnect.*`, metrics block |
 | Site-to-Site VPN | CloudWatch | `aws.vpn.*` |
 | PrivateLink | CloudWatch | `aws.privatelink.*` |
+| VPC Lattice | CloudWatch | `aws.vpclattice.*`, `network.*`, `http.*` |
 
 ### 4 · Security & Compliance
 
@@ -516,6 +517,8 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | Detective | API | `aws.detective.*` |
 | Verified Access | CloudWatch | `aws.verifiedaccess.*`, device posture, trust provider type (IAM Identity Center / OIDC), verdict/deny_reason |
 | Security Lake | S3 | `aws.securitylake.*`, OCSF 1.1.0 — 6 event classes (API_ACTIVITY, NETWORK_ACTIVITY, DNS_ACTIVITY, HTTP_ACTIVITY, AUTHENTICATION, SECURITY_FINDING) |
+| Security Incident Response | API | `aws.securityir.*`, case lifecycle, severity, `event.outcome` |
+| CloudHSM | CloudWatch | `aws.cloudhsm.*`, HSM operation types, key usage |
 
 ### 5 · Storage & Databases
 
@@ -553,6 +556,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | Amazon MQ | CloudWatch | `aws.amazonmq.*`, metrics block |
 | EventBridge | CloudWatch | Full integration — `aws.eventbridge.*` |
 | Step Functions | CloudWatch | Full integration — `aws.stepfunctions.*` |
+| MSK Connect | CloudWatch | `aws.mskconnect.*`, connector task lifecycle, offset lag |
 | AppSync | CloudWatch | `aws.appsync.*`, `http.*`, metrics block |
 
 ### 7 · Developer & CI/CD
@@ -568,6 +572,8 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | X-Ray | API | Full integration — `aws.xray.*`, trace segments, subsegments |
 | CodeGuru | CloudWatch | `aws.codeguru.*` |
 | DevOps Guru | CloudWatch | `aws.devopsguru.*` |
+| CodeCatalyst | CloudWatch | `aws.codecatalyst.*`, workflow runs, dev environments |
+| Device Farm | CloudWatch | `aws.devicefarm.*`, mobile/browser test run results |
 
 ### 8 · Analytics
 
@@ -580,6 +586,11 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | QuickSight | CloudWatch | `aws.quicksight.*`, `user.*`, `http.*` |
 | DataBrew | CloudWatch | `aws.databrew.*` |
 | AppFlow | CloudWatch | `aws.appflow.*` |
+| MWAA (Managed Airflow) | CloudWatch | `aws.mwaa.*`, DAG and task execution lifecycle |
+| Clean Rooms | CloudWatch | `aws.cleanrooms.*`, protected query lifecycle |
+| DataZone | CloudWatch | `aws.datazone.*`, data catalog and governance events |
+| Entity Resolution | CloudWatch | `aws.entityresolution.*`, matching workflow jobs |
+| Data Exchange | CloudWatch | `aws.dataexchange.*`, subscription and job events |
 
 ### 9 · AI & Machine Learning
 
@@ -600,6 +611,9 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | Lex | CloudWatch | `aws.lex.*`, `user.*` |
 | Lookout for Metrics | CloudWatch | `aws.lookoutmetrics.*` |
 | Q Business | CloudWatch | `aws.qbusiness.*`, QUERY/DOCUMENT_RETRIEVAL/PLUGIN_INVOCATION events, retrieved document attribution, guardrail tracking, token counts |
+| Kendra | CloudWatch | `aws.kendra.*`, enterprise search queries, index sync events |
+| Augmented AI (A2I) | CloudWatch | `aws.a2i.*`, human review loop lifecycle, reviewer outcomes |
+| HealthLake | CloudWatch | `aws.healthlake.*`, FHIR data store operations, import/export jobs |
 
 ### 10 · IoT
 
@@ -611,6 +625,8 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | IoT Events | CloudWatch | `aws.iotevents.*` |
 | IoT SiteWise | CloudWatch | `aws.iotsitewise.*`, asset/property model |
 | IoT Defender | CloudWatch | `aws.iotdefender.*` |
+| IoT TwinMaker | CloudWatch | `aws.iottwinmaker.*`, digital twin sync and component operations |
+| IoT FleetWise | CloudWatch | `aws.iotfleetwise.*`, vehicle signal campaign delivery |
 
 ### 11 · Management & Governance
 
@@ -633,6 +649,10 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | Migration Hub | CloudWatch | `aws.migrationhub.*` |
 | Network Manager | CloudWatch | `aws.networkmanager.*` |
 | DMS | CloudWatch | `aws.dms.*`, 17-metric block |
+| Fault Injection Service | CloudWatch | `aws.fis.*`, chaos experiment lifecycle, stop conditions |
+| Managed Grafana | CloudWatch | `aws.managedgrafana.*`, workspace alerts, user sync |
+| Supply Chain | CloudWatch | `aws.supplychain.*`, planning and integration events |
+| App Recovery Controller | CloudWatch | `aws.arc.*`, zonal shift lifecycle, readiness checks |
 
 ### 12 · Media & End-User Computing
 
@@ -644,6 +664,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | Amazon Connect | CloudWatch | `aws.connect.*`, `user.*`, metrics block (ContactsQueued, AverageHandleTime, ServiceLevel) |
 | AppStream | CloudWatch | `aws.appstream.*`, `user.*` |
 | GameLift | CloudWatch | `aws.gamelift.*`, 13-metric block |
+| Deadline Cloud | CloudWatch | `aws.deadlinecloud.*`, render farm job and task lifecycle |
 
 ### 13 · Messaging & Communications
 

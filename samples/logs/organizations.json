@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "organizations"
@@ -13,17 +13,14 @@
   },
   "aws": {
     "organizations": {
-      "action": "AttachPolicy",
-      "account_id": "293847561023",
-      "account_name": "shared-services",
-      "organizational_unit": "Production",
-      "policy_id": "p-53bppd4k",
-      "policy_type": "BACKUP_POLICY",
-      "policy_name": "DenyRootUserActions"
+      "action": "InviteAccountToOrganization",
+      "account_id": "814726593401",
+      "account_name": "security-audit",
+      "organizational_unit": "Root"
     }
   },
   "event": {
-    "action": "AttachPolicy",
+    "action": "InviteAccountToOrganization",
     "outcome": "success",
     "category": [
       "configuration",
@@ -31,9 +28,9 @@
     ],
     "dataset": "aws.organizations",
     "provider": "organizations.amazonaws.com",
-    "duration": 1979000000
+    "duration": 203000000
   },
-  "message": "Organizations AttachPolicy: Infrastructure",
+  "message": "Organizations InviteAccountToOrganization: Infrastructure",
   "log": {
     "level": "info"
   }

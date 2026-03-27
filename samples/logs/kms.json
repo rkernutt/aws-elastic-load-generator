@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "kms"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "kms": {
-      "key_id": "spgvaoh8-bt4l-ny6i-dflk-rhepw15otm",
-      "key_alias": "alias/secrets-key",
-      "operation": "EnableKeyRotation",
-      "principal_arn": "arn:aws:iam::501938274650:role/lambda-role",
+      "key_id": "e3qnq6v9-9r36-h7u1-ruhz-g9ihf9f6rew",
+      "key_alias": "alias/backup-key",
+      "operation": "Decrypt",
+      "principal_arn": "arn:aws:iam::814726593401:role/ecs-task-role",
       "key_state": "Enabled",
-      "encryption_algorithm": "RSAES_OAEP_SHA_256",
+      "encryption_algorithm": "SYMMETRIC_DEFAULT",
       "metrics": {
         "SecretsManagerCrossAccountBlocking": {
           "sum": 0
         },
         "KeysCount": {
-          "avg": 977
+          "avg": 549
         },
         "KeysPendingDeletion": {
-          "avg": 10
+          "avg": 5
         },
         "KeysDisabled": {
-          "avg": 5
+          "avg": 4
         }
       }
     }
   },
   "event": {
-    "action": "EnableKeyRotation",
+    "action": "Decrypt",
     "outcome": "success",
     "category": [
       "authentication",
@@ -45,7 +45,7 @@
     "dataset": "aws.kms",
     "provider": "kms.amazonaws.com"
   },
-  "message": "KMS EnableKeyRotation: alias/secrets-key",
+  "message": "KMS Decrypt: alias/backup-key",
   "log": {
     "level": "info"
   }

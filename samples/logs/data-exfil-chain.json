@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "us-east-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "guardduty"
@@ -13,35 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "tz52al87ld"
+      "DetectorId": "m4afvbynsg"
     },
     "guardduty": {
       "schema_version": "2.0",
-      "account_id": "293847561023",
-      "region": "ap-east-1",
+      "account_id": "501938274650",
+      "region": "us-east-2",
       "partition": "aws",
-      "id": "rig18bda0in",
-      "arn": "arn:aws:guardduty:ap-east-1:293847561023:detector/tz52al87ld/finding/rig18bda0in",
+      "id": "17wb6yuje42",
+      "arn": "arn:aws:guardduty:us-east-2:501938274650:detector/m4afvbynsg/finding/17wb6yuje42",
       "type": "Exfiltration:S3/MaliciousIPCaller",
       "title": "S3 object accessed from a known malicious IP",
-      "description": "S3 bucket analytics-output-561023 was accessed by 50.52.240.78, an IP associated with known threat actors",
-      "created_at": "2026-03-26T17:51:02.372Z",
-      "updated_at": "2026-03-26T17:51:02.372Z",
+      "description": "S3 bucket financial-records-274650 was accessed by 54.124.167.182, an IP associated with known threat actors",
+      "created_at": "2026-03-27T09:01:54.466Z",
+      "updated_at": "2026-03-27T09:01:54.466Z",
       "severity": {
         "code": 7,
         "value": "High"
       },
-      "confidence": 76.943,
+      "confidence": 77.031,
       "resource": {
         "type": "S3Bucket",
         "s3_bucket_detail": {
-          "name": "analytics-output-561023",
+          "name": "financial-records-274650",
           "type": "Destination"
         }
       },
       "service": {
-        "detector_id": "tz52al87ld",
-        "count": 1331,
+        "detector_id": "m4afvbynsg",
+        "count": 653,
         "archived": false,
         "action": {
           "action_type": "AWS_API_CALL",
@@ -49,23 +49,23 @@
             "api": "GetObject",
             "caller_type": "Remote IP",
             "remote_ip_details": {
-              "ip_address_v4": "50.52.240.78"
+              "ip_address_v4": "54.124.167.182"
             }
           }
         }
       },
       "metrics": {
         "FindingCount": {
-          "sum": 5
+          "sum": 9
         },
         "HighSeverityFindingCount": {
-          "sum": 5
+          "sum": 4
         }
       }
     }
   },
   "source": {
-    "ip": "50.52.240.78"
+    "ip": "54.124.167.182"
   },
   "rule": {
     "category": "exfiltration",
@@ -83,7 +83,7 @@
     "indicator": [
       {
         "type": "ip",
-        "value": "50.52.240.78"
+        "value": "54.124.167.182"
       }
     ]
   },
@@ -100,13 +100,13 @@
     "dataset": "aws.guardduty",
     "provider": "guardduty.amazonaws.com"
   },
-  "message": "GuardDuty [HIGH]: Exfiltration:S3/MaliciousIPCaller — s3://analytics-output-561023 from 50.52.240.78",
+  "message": "GuardDuty [HIGH]: Exfiltration:S3/MaliciousIPCaller — s3://financial-records-274650 from 54.124.167.182",
   "log": {
     "level": "error"
   },
   "error": {
     "code": "ExfiltrationDetected",
-    "message": "S3 data exfiltration from analytics-output-561023",
+    "message": "S3 data exfiltration from financial-records-274650",
     "type": "security"
   }
 }

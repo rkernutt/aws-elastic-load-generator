@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "af-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "memorydb"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "memorydb": {
-      "cluster_name": "rate-limiter",
-      "node_name": "rate-limiter-0001-001",
+      "cluster_name": "prod-memorydb",
+      "node_name": "prod-memorydb-0001-001",
       "engine_version": "7.1",
-      "command": "SET",
-      "latency_us": 17.324,
-      "cache_hit_rate": 93.722,
-      "connected_clients": 457,
-      "used_memory_mb": 52275,
-      "replication_lag_ms": 90
+      "command": "ZRANGE",
+      "latency_us": 36.204,
+      "cache_hit_rate": 94.767,
+      "connected_clients": 241,
+      "used_memory_mb": 59494,
+      "replication_lag_ms": 13
     }
   },
   "event": {
-    "duration": 17324,
+    "duration": 36204,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.memorydb",
     "provider": "memory-db.amazonaws.com"
   },
-  "message": "MemoryDB rate-limiter SET: 17.32us",
+  "message": "MemoryDB prod-memorydb ZRANGE: 36.20us",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "us-east-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "iotevents"
@@ -14,19 +14,19 @@
   "aws": {
     "dimensions": {
       "DetectorModelName": "motor-health-detector",
-      "KeyValue": "machine-prod-1"
+      "KeyValue": "zone-A"
     },
     "iotevents": {
       "detector_model_name": "motor-health-detector",
-      "detector_id": "machine-prod-1",
-      "key_value": "machine-prod-1",
-      "event_name": "StateTransition",
-      "from_state": "Warning",
-      "to_state": "Warning",
-      "input_name": "CommandInput",
+      "detector_id": "zone-A",
+      "key_value": "zone-A",
+      "event_name": "TriggerFired",
+      "from_state": "Alarm",
+      "to_state": "Alarm",
+      "input_name": "HealthCheck",
       "action_type": "SNS",
       "timer_name": "alarmTimer",
-      "condition_expression": "$input.data.value < threshold"
+      "condition_expression": "$input.SensorInput.temperature > 85"
     }
   },
   "event": {
@@ -36,10 +36,10 @@
     ],
     "dataset": "aws.iotevents",
     "provider": "iotevents.amazonaws.com",
-    "duration": 376000000
+    "duration": 484000000
   },
-  "message": "IoT Events motor-health-detector/machine-prod-1: Warning → Warning [StateTransition]",
+  "message": "IoT Events motor-health-detector/zone-A: Alarm → Alarm [TriggerFired]",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

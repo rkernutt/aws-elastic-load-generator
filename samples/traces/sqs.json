@@ -1,43 +1,43 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "3c384fe23e80d8f3a44825fd4bc654a8"
+    "id": "c5ce74c32bdf27a2b2f2bda1cd7ecaa7"
   },
   "transaction": {
-    "id": "6945c89ed45688f6",
-    "name": "user-events-queue process",
+    "id": "7bb45597010aa90c",
+    "name": "inventory-updates-queue process",
     "type": "messaging",
     "duration": {
-      "us": 4144000
+      "us": 4959000
     },
     "result": "success",
     "sampled": true,
     "span_count": {
-      "started": 3,
+      "started": 2,
       "dropped": 0
     }
   },
   "labels": {
-    "queue_name": "user-events-queue",
-    "queue_url": "https://sqs.ap-south-2.amazonaws.com/234567890123/user-events-queue",
-    "message_count": "10",
-    "approximate_first_receive_delay_seconds": "20",
-    "parent_trace_id": "675cb19f4dba57b731d14b305b3f33ac"
+    "queue_name": "inventory-updates-queue",
+    "queue_url": "https://sqs.eu-west-2.amazonaws.com/234567890123/inventory-updates-queue",
+    "message_count": "7",
+    "approximate_first_receive_delay_seconds": "28",
+    "parent_trace_id": "347ac7245aba716469df638127515c1a"
   },
   "service": {
-    "name": "user-events-consumer",
+    "name": "inventory-updates-consumer",
     "environment": "staging",
     "version": "1.0.0",
     "language": {
-      "name": "python"
+      "name": "nodejs"
     },
     "runtime": {
-      "name": "python3.12",
-      "version": "3.12.8"
+      "name": "nodejs20.x",
+      "version": "20.13.2"
     },
     "framework": {
       "name": "AWS SQS"
@@ -45,22 +45,22 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "0.6.0"
+    "version": "1.4.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "python",
-      "version": "1.29.0"
+      "language": "nodejs",
+      "version": "1.30.1"
     },
     "distro": {
       "name": "elastic",
-      "version": "0.6.0"
+      "version": "1.4.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "eu-west-2",
     "account": {
       "id": "234567890123",
       "name": "staging-aws"

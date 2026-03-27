@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "il-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "apprunner"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "frontend",
-      "ServiceId": "p5q7ojksqa"
+      "ServiceName": "admin-portal",
+      "ServiceId": "f9wo8mkrutk"
     },
     "apprunner": {
-      "service_name": "frontend",
-      "service_arn": "arn:aws:apprunner:ca-central-1:293847561023:service/frontend/p5q7ojksqa",
+      "service_name": "admin-portal",
+      "service_arn": "arn:aws:apprunner:il-central-1:814726593401:service/admin-portal/f9wo8mkrutk",
       "auto_scaling": {
-        "min_size": 0,
+        "min_size": 1,
         "max_size": 10,
-        "desired_count": 8,
+        "desired_count": 1,
         "scale_from_zero": false
       },
-      "structured_logging": true,
+      "structured_logging": false,
       "metrics": {
         "Requests": {
           "sum": 1
@@ -43,42 +43,42 @@
           "sum": 1
         },
         "RequestLatency": {
-          "avg": 489,
-          "p99": 1467
+          "avg": 260,
+          "p99": 780
         },
         "ActiveInstances": {
-          "avg": 8
+          "avg": 3
         },
         "ConcurrentRequests": {
-          "avg": 46
+          "avg": 41
         },
         "CPUUtilization": {
-          "avg": 56.376
+          "avg": 53.189
         },
         "MemoryUtilization": {
-          "avg": 50.373
+          "avg": 27.019
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "PUT",
-      "bytes": 3623
+      "method": "GET",
+      "bytes": 1136
     },
     "response": {
       "status_code": 200,
-      "bytes": 1527
+      "bytes": 7539
     }
   },
   "url": {
-    "path": "/api/v2/events"
+    "path": "/api/v1/products"
   },
   "client": {
-    "ip": "161.133.180.152"
+    "ip": "132.240.59.33"
   },
   "event": {
-    "duration": 489000000,
+    "duration": 260000000,
     "outcome": "success",
     "category": [
       "web",
@@ -87,7 +87,7 @@
     "dataset": "aws.apprunner",
     "provider": "apprunner.amazonaws.com"
   },
-  "message": "{\"service\":\"frontend\",\"status\":200,\"latency_ms\":489,\"timestamp\":\"2026-03-26T17:51:02.372Z\"}",
+  "message": "GET /health 200 260ms",
   "log": {
     "level": "info"
   }

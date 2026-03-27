@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "lookoutmetrics"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "AnomalyDetector": "error-rate-monitor",
-      "Metric": "api_calls"
+      "AnomalyDetector": "latency-outlier",
+      "Metric": "revenue"
     },
     "lookoutmetrics": {
-      "anomaly_detector_arn": "arn:aws:lookoutmetrics:af-south-1:738291046572:AnomalyDetector:error-rate-monitor",
-      "anomaly_group_id": "lk8y4xpj7d",
-      "metric_name": "api_calls",
+      "anomaly_detector_arn": "arn:aws:lookoutmetrics:ap-southeast-2:814726593401:AnomalyDetector:latency-outlier",
+      "anomaly_group_id": "voamn4oyir",
+      "metric_name": "revenue",
       "severity": "LOW",
-      "anomaly_score": 23.836,
-      "relevant_dates": 7,
-      "impact_value": 59.131,
-      "expected_value": 9568.902,
-      "actual_value": 13822.754,
+      "anomaly_score": 22.199,
+      "relevant_dates": 3,
+      "impact_value": 67.505,
+      "expected_value": 5662.08,
+      "actual_value": 5616.614,
       "dimension": {
         "region": "us-east-1"
       },
@@ -40,7 +40,7 @@
     "dataset": "aws.lookoutmetrics",
     "provider": "lookoutmetrics.amazonaws.com"
   },
-  "message": "Lookout for Metrics [error-rate-monitor]: api_calls anomaly_score=24",
+  "message": "Lookout for Metrics [latency-outlier]: revenue anomaly_score=22",
   "log": {
     "level": "info"
   }

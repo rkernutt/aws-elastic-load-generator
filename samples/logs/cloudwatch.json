@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "ap-east-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,32 +13,37 @@
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "lambda-errors",
-      "alarm_state": "OK",
-      "previous_state": "INSUFFICIENT_DATA",
-      "namespace": "AWS/Lambda",
-      "metric_name": "CPUUtilization",
+      "alarm_name": "rds-connections",
+      "alarm_state": "ALARM",
+      "previous_state": "OK",
+      "namespace": "AWS/RDS",
+      "metric_name": "RequestCount",
       "threshold": 85,
       "evaluation_periods": 1,
-      "metric_value": 45.959,
-      "statistic": "Sum",
-      "period_seconds": 60,
+      "metric_value": 87.765,
+      "statistic": "p99",
+      "period_seconds": 300,
       "treat_missing_data": "breaching"
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "configuration",
       "process"
     ],
     "dataset": "aws.cloudwatch",
     "provider": "monitoring.amazonaws.com",
-    "duration": 60000000000
+    "duration": 3600000000000
   },
-  "message": "CloudWatch alarm \"lambda-errors\": OK (AWS/Lambda/CPUUtilization=46.0)",
+  "message": "CloudWatch alarm \"rds-connections\": ALARM (AWS/RDS/RequestCount=87.8)",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "AlarmTriggered",
+    "message": "Alarm rds-connections: ALARM",
+    "type": "monitoring"
   }
 }

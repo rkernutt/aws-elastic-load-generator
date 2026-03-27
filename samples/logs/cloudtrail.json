@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "eu-central-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,69 +13,71 @@
   },
   "aws": {
     "dimensions": {
-      "EventName": "UpdateFunctionCode20150331v2",
-      "EventSource": "lambda.amazonaws.com"
+      "EventName": "AssumeRole",
+      "EventSource": "sts.amazonaws.com"
     },
     "cloudtrail": {
       "event_version": "1.09",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "sr623g64-lez9-7wkx-iev0-3op0hmf255g",
+      "request_id": "466hqbmg-5tyn-7tjy-cm9y-sxmfaq00s0c",
       "api_version": "2012-10-17",
       "management_event": true,
       "read_only": false,
       "recipient_account_id": "164820739518",
-      "aws_region": "af-south-1",
+      "aws_region": "eu-central-1",
       "user_identity": {
-        "type": "IAMUser",
-        "principal_id": "164820739518:ci-pipeline",
-        "arn": "arn:aws:iam::164820739518:user/ci-pipeline",
+        "type": "AWSService",
+        "principal_id": "164820739518:carol",
+        "arn": "arn:aws:iam::164820739518:user/carol",
         "account_id": "164820739518",
-        "access_key_id": "AKIAL5F376JE1KF",
+        "access_key_id": "AKIA0DQUT6P3MRSQ",
         "session_context": {
           "session_issuer": {
             "type": "Role",
-            "principal_id": "AROAKW4P7MEEE",
+            "principal_id": "AROAI7IQ7YIOFIJ",
             "arn": "arn:aws:iam::164820739518:role/service-role/execution-role",
             "account_id": "164820739518",
             "user_name": "execution-role"
           },
           "web_id_federation_data": {},
           "attributes": {
-            "creation_date": "2026-03-26T16:53:12.372Z",
+            "creation_date": "2026-03-27T08:26:13.466Z",
             "mfa_authenticated": "false"
           }
         }
       },
+      "request_parameters": "{\"roleArn\":\"arn:aws:iam::164820739518:role/CrossAccountRole\",\"roleSessionName\":\"session-he2zdpla\"}",
       "response_elements": "null"
     }
   },
   "user": {
-    "name": "ci-pipeline"
+    "name": "carol"
   },
   "source": {
-    "ip": "239.220.224.181",
+    "ip": "123.145.236.206",
     "geo": {
-      "country_iso_code": "IN",
-      "city_name": "Sydney"
+      "country_iso_code": "US",
+      "city_name": "Tokyo"
     }
   },
   "user_agent": {
-    "original": "python-requests/2.27.1"
+    "original": "Go-http-client/1.1"
   },
   "event": {
-    "action": "UpdateFunctionCode20150331v2",
+    "action": "AssumeRole",
     "outcome": "success",
     "category": [
-      "configuration"
+      "authentication",
+      "iam"
     ],
     "type": [
-      "change"
+      "access"
     ],
     "dataset": "aws.cloudtrail",
     "provider": "cloudtrail.amazonaws.com"
   },
-  "message": "CloudTrail: UpdateFunctionCode20150331v2 by ci-pipeline from 239.220.224.181 - Success",
+  "message": "CloudTrail: AssumeRole by carol from 123.145.236.206 - Success",
   "log": {
     "level": "info"
   }

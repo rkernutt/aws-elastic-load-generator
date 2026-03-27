@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "us-west-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -17,28 +17,28 @@
     },
     "mskconnect": {
       "connector_name": "jdbc-source-connector",
-      "connector_arn": "arn:aws:kafkaconnect:us-east-1:501938274650:connector/jdbc-source-connector/uw9223ya",
+      "connector_arn": "arn:aws:kafkaconnect:us-west-1:501938274650:connector/jdbc-source-connector/19aoxexj",
       "connector_state": "RUNNING",
-      "worker_count": 4,
-      "capacity_type": "MCU_2X",
-      "kafka_cluster_bootstrap_servers": "b-1.prod-kafka-us-east-1.amazonaws.com:9092,b-2.prod-kafka-us-east-1.amazonaws.com:9092",
-      "connector_class": "io.debezium.connector.postgresql.PostgresConnector",
+      "worker_count": 6,
+      "capacity_type": "MCU_1X",
+      "kafka_cluster_bootstrap_servers": "b-1.prod-kafka-us-west-1.amazonaws.com:9092,b-2.prod-kafka-us-west-1.amazonaws.com:9092",
+      "connector_class": "org.apache.kafka.connect.s3.S3SinkConnector",
       "tasks_status": "RUNNING",
-      "offset_lag": 262,
-      "record_count": 87652
+      "offset_lag": 324,
+      "record_count": 61918
     }
   },
   "event": {
-    "action": "TaskRestarted",
+    "action": "WorkerAutoScaled",
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.mskconnect",
     "provider": "kafkaconnect.amazonaws.com",
-    "duration": 1673000000
+    "duration": 681000000
   },
-  "message": "MSK Connect jdbc-source-connector: RUNNING, lag=332",
+  "message": "MSK Connect jdbc-source-connector: RUNNING, lag=161",
   "log": {
     "level": "info"
   }

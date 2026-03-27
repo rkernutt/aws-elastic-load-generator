@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "me-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "docdb"
@@ -13,43 +13,44 @@
   },
   "aws": {
     "dimensions": {
-      "DBClusterIdentifier": "docdb-eu-central-1-cluster",
-      "Role": "READER"
+      "DBClusterIdentifier": "docdb-me-central-1-cluster",
+      "Role": "WRITER"
     },
     "docdb": {
-      "cluster_id": "docdb-eu-central-1-cluster",
+      "cluster_id": "docdb-me-central-1-cluster",
       "database": "appdb",
-      "collection": "orders",
-      "operation": "insert",
-      "duration_ms": 444,
-      "documents_affected": 449,
+      "collection": "events",
+      "operation": "aggregate",
+      "duration_ms": 931,
+      "documents_affected": 0,
+      "error": "WriteConflict",
       "metrics": {
         "CPUUtilization": {
-          "avg": 44.02
+          "avg": 82.767
         },
         "DatabaseConnections": {
-          "avg": 38
+          "avg": 15
         },
         "FreeLocalStorage": {
-          "avg": 37140851460
+          "avg": 32918406365
         },
         "FreeableMemory": {
-          "avg": 7334553708
+          "avg": 3038229835
         },
         "ReadIOPS": {
-          "avg": 562
+          "avg": 4131
         },
         "WriteIOPS": {
-          "avg": 2948
+          "avg": 2100
         },
         "ReadLatency": {
-          "avg": 1.798
+          "avg": 20.802
         },
         "WriteLatency": {
-          "avg": 2.568
+          "avg": 43.186
         },
         "DocumentsInserted": {
-          "sum": 932
+          "sum": 0
         },
         "DocumentsDeleted": {
           "sum": 0
@@ -58,27 +59,32 @@
           "sum": 0
         },
         "DocumentsReturned": {
-          "sum": 0
+          "sum": 8172
         }
       }
     }
   },
   "db": {
     "name": "appdb",
-    "operation": "insert",
+    "operation": "aggregate",
     "type": "document"
   },
   "event": {
-    "duration": 443810000,
-    "outcome": "success",
+    "duration": 931304000,
+    "outcome": "failure",
     "category": [
       "database"
     ],
     "dataset": "aws.docdb",
     "provider": "docdb.amazonaws.com"
   },
-  "message": "DocumentDB insert on orders: 443.8ms",
+  "message": "DocumentDB aggregate on events failed: WriteConflict",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "InvalidDBClusterStateFault",
+    "message": "DocumentDB aggregate failed",
+    "type": "db"
   }
 }

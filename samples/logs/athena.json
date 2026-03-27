@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "us-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "athena"
@@ -13,44 +13,44 @@
   },
   "aws": {
     "athena": {
-      "query_id": "vo4oa10c-5rnz-vwiu-5ba3",
-      "workgroup": "analytics",
-      "database": "analytics",
+      "query_id": "ohd3dd8y-qkkv-fyv4-nv5m",
+      "workgroup": "bi-users",
+      "database": "raw",
       "state": "SUCCEEDED",
-      "duration_seconds": 58.437,
-      "data_scanned_bytes": 6038876187,
-      "data_scanned_mb": 5759,
-      "engine_version": "Athena engine version 3",
+      "duration_seconds": 15.735,
+      "data_scanned_bytes": 7025434125,
+      "data_scanned_mb": 6700,
+      "engine_version": "DuckDB 0.9.1",
       "structured_logging": true,
       "metrics": {
         "DataScannedInBytes": {
-          "sum": 6038876187
+          "sum": 7025434125
         },
         "EngineExecutionTimeInMillis": {
-          "avg": 58437,
-          "max": 87656
+          "avg": 15735,
+          "max": 23603
         },
         "ProcessedBytes": {
-          "sum": 6038876187
+          "sum": 7025434125
         },
         "QueryQueueTimeInMillis": {
-          "avg": 128
+          "avg": 315
         },
         "TotalExecutionTimeInMillis": {
-          "avg": 58437
+          "avg": 15735
         },
         "QueryPlanningTimeInMillis": {
-          "avg": 186
+          "avg": 189
         }
       }
     }
   },
   "db": {
-    "statement": "CREATE TABLE analytics.daily_summary AS SELECT * FROM raw.events",
+    "statement": "SELECT user_id, sum(revenue) FROM transactions WHERE dt >= '2024-01-01' GROUP BY 1",
     "type": "sql"
   },
   "event": {
-    "duration": 58437000000,
+    "duration": 15735000000,
     "outcome": "success",
     "category": [
       "database",
@@ -59,8 +59,8 @@
     "dataset": "aws.athena",
     "provider": "athena.amazonaws.com"
   },
-  "message": "{\"queryId\":\"vo4oa10c-5rnz-vwiu-5ba3\",\"workgroup\":\"analytics\",\"database\":\"analytics\",\"state\":\"SUCCEEDED\",\"durationSeconds\":58.437,\"dataScannedBytes\":6038876187,\"timestamp\":\"2026-03-26T17:51:02.372Z\"}",
+  "message": "{\"queryId\":\"ohd3dd8y-qkkv-fyv4-nv5m\",\"workgroup\":\"bi-users\",\"database\":\"raw\",\"state\":\"SUCCEEDED\",\"durationSeconds\":15.735,\"dataScannedBytes\":7025434125,\"timestamp\":\"2026-03-27T09:01:54.466Z\"}",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

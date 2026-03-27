@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "eu-west-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "aurora"
@@ -13,44 +13,44 @@
   },
   "aws": {
     "aurora": {
-      "cluster_id": "prod-aurora-cluster",
-      "instance_id": "prod-aurora-cluster-instance-2",
+      "cluster_id": "staging-aurora",
+      "instance_id": "staging-aurora-instance-3",
       "engine": "aurora-postgresql",
       "engine_version": "15.4",
-      "replica_lag_seconds": 2.218,
-      "db_connections": 305,
+      "replica_lag_seconds": 4.047,
+      "db_connections": 473,
       "max_connections": 1000,
       "failover_in_progress": false,
       "metrics": {
         "AuroraBinlogReplicaLag": {
-          "avg": 5
+          "avg": 3
         },
         "AuroraGlobalDBReplicatedWriteIO": {
-          "sum": 28188638
+          "sum": 17029816
         },
         "AuroraGlobalDBDataTransferBytes": {
-          "sum": 597287815
+          "sum": 408220180
         },
         "AuroraGlobalDBProgressLag": {
-          "avg": 706
+          "avg": 312
         },
         "BacktrackChangeRecordsCreationRate": {
-          "avg": 3625
+          "avg": 9378
         },
         "BacktrackChangeRecordsStored": {
-          "avg": 302989083
+          "avg": 761848389
         },
         "BacktrackWindowActual": {
-          "avg": 28708
+          "avg": 60512
         },
         "BacktrackWindowAlert": {
           "avg": 0
         },
         "ServerlessDatabaseCapacity": {
-          "avg": 17.976
+          "avg": 99.138
         },
         "ACUUtilization": {
-          "avg": 57.067
+          "avg": 44.138
         }
       }
     }
@@ -62,9 +62,9 @@
     ],
     "dataset": "aws.aurora",
     "provider": "rds.amazonaws.com",
-    "duration": 21000000000
+    "duration": 39000000000
   },
-  "message": "Cluster endpoint updated",
+  "message": "Aurora auto-scaling: adding replica",
   "log": {
     "level": "info"
   }

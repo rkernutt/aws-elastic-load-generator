@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "cognito"
@@ -13,24 +13,40 @@
   },
   "aws": {
     "dimensions": {
-      "UserPool": "ca-west-1_R1NZ1ARVD",
-      "UserPoolClient": "b2b-customers-web"
+      "UserPool": "ap-northeast-1_SYKZITNYY",
+      "UserPoolClient": "us-users-web"
     },
     "cognito": {
-      "user_pool_id": "ca-west-1_R1NZ1ARVD",
-      "user_pool_name": "b2b-customers",
-      "event_type": "SignIn",
-      "error_code": "TooManyRequestsException",
-      "source_ip": "116.21.189.167",
+      "user_pool_id": "ap-northeast-1_SYKZITNYY",
+      "user_pool_name": "us-users",
+      "event_type": "ImpossibleTravel",
+      "username": "user-xlo46tjm@example.com",
+      "source_ip": "63.171.208.179",
+      "risk_type": "ImpossibleTravel",
+      "advanced_security": {
+        "risk_level": "LOW",
+        "risk_decision": "ALLOW",
+        "compromised_credentials_detected": false,
+        "impossible_travel": true,
+        "previous_location": {
+          "ip": "246.20.87.154",
+          "country": "DE"
+        },
+        "current_location": {
+          "ip": "14.145.98.219",
+          "country": "BR"
+        },
+        "time_between_events_seconds": 125
+      },
       "metrics": {
         "SignInSuccesses": {
-          "sum": 0
+          "sum": 963
         },
         "SignInAttempts": {
-          "sum": 9017
+          "sum": 963
         },
         "TokenRefreshSuccesses": {
-          "sum": 0
+          "sum": 42634
         },
         "SignUpSuccesses": {
           "sum": 0
@@ -39,13 +55,13 @@
           "sum": 0
         },
         "CallCount": {
-          "sum": 21616
+          "sum": 5776
         },
         "ThrottleCount": {
-          "sum": 36
+          "sum": 0
         },
         "AccountTakeoverRisk": {
-          "sum": 1
+          "sum": 0
         },
         "CompromisedCredentialsRisk": {
           "sum": 0
@@ -53,26 +69,23 @@
       }
     }
   },
-  "user": {},
+  "user": {
+    "name": "user-xlo46tjm@example.com"
+  },
   "source": {
-    "ip": "5.82.46.129"
+    "ip": "13.149.74.169"
   },
   "event": {
-    "action": "SignIn",
-    "outcome": "failure",
+    "action": "ImpossibleTravel",
+    "outcome": "success",
     "category": [
       "authentication"
     ],
     "dataset": "aws.cognito",
     "provider": "cognito-idp.amazonaws.com"
   },
-  "message": "Cognito SignIn FAILED: Rate limit exceeded",
+  "message": "Cognito ImpossibleTravel detected [LOW]: decision=ALLOW pool=us-users",
   "log": {
     "level": "warn"
-  },
-  "error": {
-    "code": "TooManyRequestsException",
-    "message": "Authentication failed",
-    "type": "authentication"
   }
 }

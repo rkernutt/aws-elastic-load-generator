@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "bedrock-agent"
@@ -13,31 +13,37 @@
   },
   "aws": {
     "dimensions": {
-      "AgentId": "TM4B7QAO4CMK",
-      "Operation": "InvokeAgentWithResponseStream"
+      "AgentId": "TM44GC3Y6HQ",
+      "Operation": "Retrieve"
     },
     "bedrockagent": {
-      "agent_id": "TM4B7QAO4CMK",
+      "agent_id": "TM44GC3Y6HQ",
       "agent_alias_id": "TSTALIASID",
-      "session_id": "uaq5ev7ywns",
-      "action": "InvokeAgentWithResponseStream",
-      "input_token_count": 1755,
-      "output_token_count": 1550,
-      "invocation_latency_ms": 6671,
-      "guardrail_action": "INTERVENED",
+      "session_id": "ldkvdl2n0oa",
+      "action": "Retrieve",
+      "knowledge_base_id": "KB17KXQ6AO6",
+      "input_token_count": 2089,
+      "output_token_count": 146,
+      "invocation_latency_ms": 4568,
+      "orchestration_trace": {
+        "model_invocation": {
+          "model_arn": "arn:aws:bedrock:ap-southeast-3::foundation-model/anthropic.claude-3-5-sonnet-v2"
+        }
+      },
+      "guardrail_action": "NONE",
       "metrics": {
         "Invocations": {
-          "sum": 140
+          "sum": 106
         },
         "InvocationLatency": {
-          "avg": 6671,
-          "p99": 13342
+          "avg": 4568,
+          "p99": 9136
         },
         "InputTokenCount": {
-          "sum": 1755
+          "sum": 2089
         },
         "OutputTokenCount": {
-          "sum": 1550
+          "sum": 146
         }
       }
     }
@@ -49,9 +55,9 @@
     ],
     "dataset": "aws.bedrockagent",
     "provider": "bedrock-agent-runtime.amazonaws.com",
-    "duration": 6671000000
+    "duration": 4568000000
   },
-  "message": "Bedrock Agent TM4B7QAO4CMK: InvokeAgentWithResponseStream 1755→1550 tokens 6.67s",
+  "message": "Bedrock Agent TM44GC3Y6HQ: Retrieve 2089→146 tokens 4.57s",
   "log": {
     "level": "info"
   }

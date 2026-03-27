@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "eu-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "iotdefender"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "dimensions": {
-      "CheckName": "AUTHENTICATION_FAILURES"
+      "CheckName": "UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE"
     },
     "iotdefender": {
-      "thing_name": "camera-lobby",
-      "audit_check_name": "AUTHENTICATION_FAILURES",
-      "finding_id": "b3li0y4uppa",
-      "severity": "CRITICAL",
-      "violation_id": "9pqtmfalqso",
-      "violation_type": "cell-data-transfer",
-      "security_profile_name": "critical-devices",
+      "thing_name": "sensor-001",
+      "audit_check_name": "UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE",
+      "finding_id": "j5mzzkf449r",
+      "severity": "MEDIUM",
+      "violation_id": "vy7sarbfhkm",
+      "violation_type": "authorization-failure",
+      "security_profile_name": "factory-floor-profile",
       "behavior_name": "authorized-ip-range",
-      "current_value": 855,
-      "threshold_value": 67,
-      "consecutive_datapoints_to_alarm": 3
+      "current_value": 291,
+      "threshold_value": 68,
+      "consecutive_datapoints_to_alarm": 5
     }
   },
   "event": {
@@ -38,10 +38,10 @@
     ],
     "dataset": "aws.iotdefender",
     "provider": "iot.amazonaws.com",
-    "duration": 259000000000
+    "duration": 34000000000
   },
-  "message": "IoT Defender CRITICAL [camera-lobby]: AUTHENTICATION_FAILURES",
+  "message": "IoT Defender MEDIUM [sensor-001]: UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

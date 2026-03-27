@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "qldb"
@@ -13,24 +13,30 @@
   },
   "aws": {
     "qldb": {
-      "ledger_name": "supply-chain",
-      "table_name": "Transactions",
-      "operation": "INSERT",
-      "transaction_id": "0yu1pzadzzxq",
-      "document_id": "xd13d750f19",
-      "revision_hash": "u9w7ksbvg7m",
-      "duration_ms": 11
+      "ledger_name": "financial-records",
+      "table_name": "Orders",
+      "operation": "UPDATE",
+      "transaction_id": "734f3vrywlv",
+      "document_id": "3sanc6r0u5p",
+      "revision_hash": "8ey28n8omm9",
+      "duration_ms": 3256,
+      "error_code": "InvalidSessionException"
     }
   },
   "event": {
-    "duration": 11240000,
-    "outcome": "success",
+    "duration": 3256355000,
+    "outcome": "failure",
     "category": "database",
     "dataset": "aws.qldb",
     "provider": "qldb.amazonaws.com"
   },
-  "message": "QLDB INSERT on supply-chain.Transactions: 11ms",
+  "message": "QLDB UPDATE on financial-records.Orders FAILED: OCC conflict",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "InvalidSessionException",
+    "message": "QLDB transaction failed",
+    "type": "db"
   }
 }

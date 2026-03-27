@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "ca-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "kinesisanalytics"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "kinesisanalytics": {
-      "application_name": "clickstream-analytics",
-      "application_arn": "arn:aws:kinesisanalytics:ca-central-1:293847561023:application/clickstream-analytics",
-      "runtime": "FLINK-1_18",
-      "records_per_second": 111,
-      "input_watermark_lag_ms": 96,
+      "application_name": "anomaly-detector",
+      "application_arn": "arn:aws:kinesisanalytics:ca-west-1:814726593401:application/anomaly-detector",
+      "runtime": "SQL-1_0",
+      "records_per_second": 467,
+      "input_watermark_lag_ms": 57,
       "checkpointing_enabled": true,
-      "last_checkpoint_duration_ms": 688,
-      "kpu_count": 14,
+      "last_checkpoint_duration_ms": 730,
+      "kpu_count": 49,
       "structured_logging": true,
       "metrics": {
-        "records_in_per_second": 111,
-        "input_watermark_lag_ms": 96,
-        "kpu_utilization_pct": 59,
-        "checkpoint_duration_ms": 1482
+        "records_in_per_second": 467,
+        "input_watermark_lag_ms": 57,
+        "kpu_utilization_pct": 65,
+        "checkpoint_duration_ms": 775
       }
     }
   },
@@ -35,9 +35,9 @@
     "category": "process",
     "dataset": "aws.kinesisanalytics",
     "provider": "kinesisanalytics.amazonaws.com",
-    "duration": 1798000000
+    "duration": 1231000000
   },
-  "message": "{\"applicationName\":\"clickstream-analytics\",\"recordsPerSecond\":111,\"inputWatermarkLagMs\":96,\"level\":\"info\",\"message\":\"Checkpoint completed\",\"timestamp\":\"2026-03-26T17:51:02.372Z\"}",
+  "message": "{\"applicationName\":\"anomaly-detector\",\"recordsPerSecond\":467,\"inputWatermarkLagMs\":57,\"level\":\"info\",\"message\":\"Application run started\",\"timestamp\":\"2026-03-27T09:01:54.466Z\"}",
   "log": {
     "level": "info"
   }

@@ -119,7 +119,7 @@ Done.
 
 ### What it installs
 
-Custom Elasticsearch ingest pipelines for the ~85 AWS services not covered by the official integration. These pipelines parse the structured JSON `message` field emitted by the load generator into named fields (e.g. `glue.parsed`, `sagemaker.parsed`) — making logs fully searchable and aggregatable in Kibana.
+Custom Elasticsearch ingest pipelines for the ~106 AWS services not covered by the official integration. These pipelines parse the structured JSON `message` field emitted by the load generator into named fields (e.g. `glue.parsed`, `sagemaker.parsed`) — making logs fully searchable and aggregatable in Kibana.
 
 ### How to run
 
@@ -162,25 +162,27 @@ Testing connection...
 
 Available pipeline groups:
 
-  1. analytics    (8 pipelines)
-  2. compute      (7 pipelines)
-  3. databases    (9 pipelines)
-  4. devtools     (6 pipelines)
-  5. enduser      (14 pipelines)
-  6. iot          (6 pipelines)
-  7. management   (17 pipelines)
-  8. ml           (14 pipelines)
-  9. networking   (5 pipelines)
-  10. security    (10 pipelines)
-  11. serverless  (5 pipelines)
-  12. storage     (6 pipelines)
-  13. streaming   (4 pipelines)
+  1. aiml        (3 pipelines)
+  2. analytics    (13 pipelines)
+  3. compute      (7 pipelines)
+  4. databases    (9 pipelines)
+  5. devtools     (8 pipelines)
+  6. enduser      (14 pipelines)
+  7. iot          (8 pipelines)
+  8. management   (21 pipelines)
+  9. media        (1 pipeline)
+  10. ml          (14 pipelines)
+  11. networking  (6 pipelines)
+  12. security    (12 pipelines)
+  13. serverless  (5 pipelines)
+  14. storage     (6 pipelines)
+  15. streaming   (5 pipelines)
   14. all         (install every group)
 
 Enter number(s) comma-separated, or "all":
 > all
 
-Installing 111 pipeline(s)...
+Installing 132 pipeline(s)...
 
   ✓ logs-aws.glue-default — installed
   ✓ logs-aws.emr_logs-default — installed
@@ -188,7 +190,7 @@ Installing 111 pipeline(s)...
   ...
   ✓ logs-aws.sagemaker-default — installed
 
-Installed 111 / 111 pipelines.
+Installed 132 / 132 pipelines.
 Done.
 ```
 
@@ -198,19 +200,21 @@ You can select individual groups (e.g. `1,3,8`) or type `all`. Already-installed
 
 | Group | Pipelines | Services covered |
 |-------|-----------|-----------------|
-| analytics | 8 | Glue, EMR, Athena, Lake Formation, QuickSight, DataBrew, AppFlow |
+| aiml | 3 | Kendra, A2I, HealthLake |
+| analytics | 13 | Glue, EMR, Athena, Lake Formation, QuickSight, DataBrew, AppFlow, MWAA, Clean Rooms, DataZone, Entity Resolution, Data Exchange, OpenSearch |
 | compute | 7 | EC2, EKS, Fargate, ECR, App Runner, Batch, Elastic Beanstalk |
-| databases | 9 | ElastiCache, OpenSearch, DocumentDB, Aurora, Neptune, Timestream, QLDB, Keyspaces, MemoryDB |
-| devtools | 6 | CodeCommit, CodeArtifact, Amplify, CodeGuru, DevOps Guru, Lightsail |
+| databases | 9 | ElastiCache, DocumentDB, Aurora, Neptune, Timestream, QLDB, Keyspaces, MemoryDB, Redshift |
+| devtools | 8 | CodeCommit, CodeArtifact, Amplify, CodeGuru, DevOps Guru, Lightsail, CodeCatalyst, Device Farm |
 | enduser | 14 | WorkSpaces, Connect, AppStream, GameLift, Transfer Family, MediaConvert, MediaLive, Pinpoint, Location Service, Managed Blockchain, Fraud Detector, Lookout for Metrics, Comprehend Medical, SES |
-| iot | 6 | IoT Core, Greengrass, IoT Analytics, IoT Events, IoT SiteWise, IoT Defender |
-| management | 17 | CloudFormation, SSM, CloudWatch Alarms, AWS Health, Trusted Advisor, Control Tower, Organizations, Service Catalog, Service Quotas, Compute Optimizer, Budgets, Billing, RAM, Resilience Hub, Migration Hub, Network Manager, DMS |
+| iot | 8 | IoT Core, Greengrass, IoT Analytics, IoT Events, IoT SiteWise, IoT Defender, IoT TwinMaker, IoT FleetWise |
+| management | 21 | CloudFormation, SSM, CloudWatch Alarms, AWS Health, Trusted Advisor, Control Tower, Organizations, Service Catalog, Service Quotas, Compute Optimizer, Budgets, Billing, RAM, Resilience Hub, Migration Hub, Network Manager, DMS, FIS, Managed Grafana, Supply Chain, ARC |
+| media | 1 | Deadline Cloud |
 | ml | 14 | SageMaker, Bedrock, Bedrock Agent, Rekognition, Textract, Comprehend, Translate, Transcribe, Polly, Forecast, Personalize, Lex, Comprehend Medical, Q Business |
-| networking | 5 | Shield, Global Accelerator, Direct Connect, PrivateLink, WAF v2 |
-| security | 10 | Macie, IAM Access Analyzer, Cognito, KMS, Secrets Manager, ACM, IAM Identity Center, Detective, Verified Access, Security Lake |
+| networking | 6 | Shield, Global Accelerator, Direct Connect, PrivateLink, WAF v2, VPC Lattice |
+| security | 12 | Macie, IAM Access Analyzer, Cognito, KMS, Secrets Manager, ACM, IAM Identity Center, Detective, Verified Access, Security Lake, Security IR, CloudHSM |
 | serverless | 5 | Lambda, API Gateway, Step Functions, EventBridge, AppSync |
 | storage | 6 | EFS, FSx, DataSync, Backup, Storage Gateway, S3 Storage Lens |
-| streaming | 4 | Kinesis Analytics, Amazon MQ, SNS, SQS (custom only) |
+| streaming | 5 | Kinesis Analytics, Amazon MQ, SNS, SQS (custom only), MSK Connect |
 
 ### Using custom pipelines alongside the official AWS integration
 

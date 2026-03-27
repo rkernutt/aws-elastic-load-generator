@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "ap-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "emr"
@@ -13,128 +13,123 @@
   },
   "aws": {
     "dimensions": {
-      "JobFlowId": "j-1OL3Q0CIQAX"
+      "JobFlowId": "j-IL3EOALTN6"
     },
     "emr": {
-      "cluster_id": "j-1OL3Q0CIQAX",
-      "cluster_name": "revenue-attribution-cluster",
-      "application": "spark",
+      "cluster_id": "j-IL3EOALTN6",
+      "cluster_name": "clickstream-processing-cluster",
+      "application": "hadoop",
       "release": "emr-6.15.0",
-      "instance_group": "TASK",
-      "executor_count": 52,
+      "instance_group": "CORE",
+      "executor_count": 28,
       "job": {
-        "name": "revenue-attribution",
-        "id": "application_1774547462569_5281",
-        "run_state": "FAILED"
+        "name": "clickstream-processing",
+        "id": "application_1774602114669_6154",
+        "run_state": "SUCCEEDED"
       },
       "structured_logging": false,
       "metrics": {
-        "executor_count": 52,
-        "running_step_count": 0,
-        "failed_step_count": 2,
-        "hdfs_utilization_pct": 86,
-        "yarn_memory_used_mb": 38298,
-        "elapsedTime": 5144000,
-        "numCompletedTasks": 275,
-        "numFailedTasks": 19,
-        "jvm_heap_usage": 0.43,
-        "gc_time_ms": 1783,
-        "numberAllExecutors": 69
+        "executor_count": 28,
+        "running_step_count": 4,
+        "failed_step_count": 0,
+        "hdfs_utilization_pct": 47,
+        "yarn_memory_used_mb": 47882,
+        "elapsedTime": 1688000,
+        "numCompletedTasks": 181,
+        "numFailedTasks": 0,
+        "jvm_heap_usage": 0.5,
+        "gc_time_ms": 44935,
+        "numberAllExecutors": 42
       }
     },
     "elasticmapreduce": {
       "metrics": {
         "S3BytesWritten": {
-          "sum": 443627241262
+          "sum": 822635739548
         },
         "S3BytesRead": {
-          "sum": 654219380662
+          "sum": 311772793435
         },
         "HDFSUtilization": {
-          "avg": 86
+          "avg": 47
         },
         "HDFSBytesRead": {
-          "sum": 81192742291
+          "sum": 3290411344
         },
         "HDFSBytesWritten": {
-          "sum": 77558320833
+          "sum": 8951135823
         },
         "TotalNodesRunning": {
-          "avg": 53
+          "avg": 29
         },
         "YARNMemoryAvailablePercentage": {
-          "avg": 51.261
+          "avg": 59.986
         },
         "CoreNodesRunning": {
-          "avg": 41
+          "avg": 7
         },
         "CoreNodesPending": {
-          "avg": 2
+          "avg": 0
         },
         "TaskNodesRunning": {
-          "avg": 31
+          "avg": 0
         },
         "LiveDataNodes": {
-          "avg": 21
+          "avg": 10
         },
         "CapacityRemainingGB": {
-          "avg": 622.755
+          "avg": 3670.952
         },
         "MemoryAvailableMB": {
-          "sum": 38298
+          "sum": 47882
         },
         "MemoryReservedMB": {
-          "avg": 4422
+          "avg": 4090
         },
         "MemoryTotalMB": {
-          "sum": 54340
+          "sum": 33554
         },
         "ContainersPending": {
-          "avg": 11
+          "avg": 0
         },
         "ContainerPendingRatio": {
-          "avg": 4.317
+          "avg": 0.075
         },
         "ContainersAllocated": {
-          "avg": 11
+          "avg": 39
         },
         "AppsCompleted": {
-          "sum": 30
+          "sum": 35
         },
         "AppsFailed": {
-          "sum": 10
+          "sum": 0
         },
         "AppsKilled": {
-          "sum": 5
+          "sum": 0
         },
         "AppsPending": {
-          "avg": 3
+          "avg": 0
         },
         "AppsRunning": {
-          "avg": 0
+          "avg": 3
         }
       }
     }
   },
   "process": {
-    "name": "PrestoCoordinator"
+    "name": "YARNAppMaster"
   },
   "log": {
-    "level": "error"
+    "level": "info"
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.emr",
     "provider": "elasticmapreduce.amazonaws.com",
-    "duration": 5144000000000
+    "duration": 1688000000000
   },
-  "message": "Job run failed",
-  "error": {
-    "code": "JobFailed",
-    "message": "YARN: Container killed on request. Exit code is 143",
-    "type": "process"
-  }
+  "message": "Job submitted to YARN ResourceManager"
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "msk"
@@ -13,35 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "Cluster Name": "prod-kafka-il-central-1",
-      "Broker ID": "5",
-      "Topic": "notifications"
+      "Cluster Name": "prod-kafka-sa-east-1",
+      "Broker ID": "6",
+      "Topic": "order-updates"
     },
     "msk": {
-      "cluster_name": "prod-kafka-il-central-1",
-      "broker_id": 5,
+      "cluster_name": "prod-kafka-sa-east-1",
+      "broker_id": 6,
       "kafka_version": "3.5.1",
-      "topic": "notifications",
+      "topic": "order-updates",
       "partition": 11,
-      "offset": 92550,
-      "consumer_group": "alerting-service",
-      "lag": 73,
+      "offset": 23189683,
+      "consumer_group": "etl-pipeline",
+      "lag": 42,
       "under_replicated_partitions": 0,
       "metrics": {
         "BytesInPerSec": {
-          "avg": 1198626
+          "avg": 4974382
         },
         "BytesOutPerSec": {
-          "avg": 7915493
+          "avg": 7141059
         },
         "MessagesInPerSec": {
-          "avg": 7536
+          "avg": 3581
         },
         "FetchConsumerTotalTimeMsMean": {
-          "avg": 24
+          "avg": 12
         },
         "ProduceTotalTimeMsMean": {
-          "avg": 35
+          "avg": 15
         },
         "UnderReplicatedPartitions": {
           "avg": 0
@@ -56,19 +56,19 @@
           "avg": 1
         },
         "GlobalPartitionCount": {
-          "avg": 892
+          "avg": 849
         },
         "GlobalTopicCount": {
-          "avg": 51
+          "avg": 36
         },
         "KafkaDataLogsDiskUsed": {
-          "avg": "24.442"
+          "avg": "57.557"
         },
         "CPUUser": {
-          "avg": "42.451"
+          "avg": "79.861"
         },
         "CPUSystem": {
-          "avg": "6.539"
+          "avg": "12.140"
         },
         "NetworkRxDropped": {
           "sum": 0
@@ -80,7 +80,7 @@
     }
   },
   "kafka": {
-    "topic": "notifications",
+    "topic": "order-updates",
     "partition": 11
   },
   "event": {
@@ -91,9 +91,9 @@
     ],
     "dataset": "aws.msk",
     "provider": "kafka.amazonaws.com",
-    "duration": 97000000
+    "duration": 3000000
   },
-  "message": "MSK notifications[11] offset=39557896",
+  "message": "MSK order-updates[11] offset=51954342",
   "log": {
     "level": "info"
   }

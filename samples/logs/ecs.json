@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "eu-north-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "ecs"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "workers",
-      "ServiceName": "scheduler"
+      "ClusterName": "staging",
+      "ServiceName": "worker"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 8.875
+          "avg": 2.542
         },
         "CPUReservation": {
-          "avg": 62.369
+          "avg": 49.29
         },
         "MemoryUtilization": {
-          "avg": 33.078
+          "avg": 29.195
         },
         "MemoryReservation": {
-          "avg": 41.34
+          "avg": 55.462
         },
         "GPUReservation": {
           "avg": 0
@@ -37,20 +37,20 @@
     }
   },
   "container": {
-    "id": "b84namcz6z",
-    "name": "scheduler",
+    "id": "oc7sf915n7m",
+    "name": "worker",
     "image": {
-      "name": "golang:alpine",
-      "tag": "latest"
+      "name": "nginx:18-alpine",
+      "tag": "alpine"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 24390,
-    "name": "scheduler"
+    "pid": 24241,
+    "name": "worker"
   },
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "event": {
     "category": [
@@ -60,11 +60,11 @@
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 3037000000000
+    "duration": 1619000000000
   },
-  "message": "{\"cluster\":\"workers\",\"service\":\"scheduler\",\"taskId\":\"263c88dzf4h\",\"container\":\"scheduler\",\"level\":\"info\",\"message\":\"Request processed\",\"timestamp\":\"2026-03-26T17:51:02.372Z\"}",
+  "message": "{\"cluster\":\"staging\",\"service\":\"worker\",\"taskId\":\"zqllfo1la3\",\"container\":\"worker\",\"level\":\"warn\",\"message\":\"High memory: 85%\",\"timestamp\":\"2026-03-27T09:01:54.466Z\"}",
   "service": {
-    "name": "scheduler",
+    "name": "worker",
     "type": "ecs"
   }
 }

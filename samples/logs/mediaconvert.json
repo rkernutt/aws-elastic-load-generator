@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "mediaconvert"
@@ -13,48 +13,54 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "CMAF"
+      "Operation": "MP4"
     },
     "mediaconvert": {
-      "job_id": "2611136154-ysejdn",
-      "queue_arn": "arn:aws:mediaconvert:af-south-1:738291046572:queues/premium",
-      "job_status": "COMPLETE",
-      "output_group_type": "CMAF",
+      "job_id": "6967750891-gqa4q1",
+      "queue_arn": "arn:aws:mediaconvert:ap-southeast-3:814726593401:queues/premium",
+      "job_status": "ERROR",
+      "output_group_type": "MP4",
       "input_file": "s3://uploads/user-video.mp4",
-      "input_duration_minutes": 110.365,
-      "video_codec": "MPEG2",
-      "audio_codec": "MP3",
-      "width": 1280,
-      "height": 2160,
-      "bitrate_kbps": 3000,
-      "duration_seconds": 562,
+      "input_duration_minutes": 95.99,
+      "video_codec": "AV1",
+      "audio_codec": "AAC",
+      "width": 1920,
+      "height": 1080,
+      "bitrate_kbps": 8000,
+      "duration_seconds": 1752,
+      "error_message": "Invalid input file",
       "metrics": {
         "JobsCompletedCount": {
-          "sum": 1
-        },
-        "JobsErroredCount": {
           "sum": 0
         },
+        "JobsErroredCount": {
+          "sum": 1
+        },
         "StandbyTime": {
-          "avg": 41
+          "avg": 222
         },
         "TranscodingTime": {
-          "avg": 562
+          "avg": 1752
         }
       }
     }
   },
   "event": {
-    "duration": 562000000000,
-    "outcome": "success",
+    "duration": 1752000000000,
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.mediaconvert",
     "provider": "mediaconvert.amazonaws.com"
   },
-  "message": "MediaConvert job 2611136154-ysejdn COMPLETE: 110.4 min -> CMAF",
+  "message": "MediaConvert job 6967750891-gqa4q1 ERROR: Invalid format",
+  "error": {
+    "code": "JobError",
+    "message": "MediaConvert job failed",
+    "type": "media"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

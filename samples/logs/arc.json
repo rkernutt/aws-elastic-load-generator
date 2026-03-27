@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "eu-central-2",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -10,27 +10,27 @@
     "service": {
       "name": "arc"
     },
-    "availability_zone": "ap-south-2a"
+    "availability_zone": "eu-central-2a"
   },
   "aws": {
     "dimensions": {
-      "ResourceArn": "arn:aws:elasticloadbalancing:ap-south-2:738291046572:loadbalancer/app/prod-alb/pur6nizwtwj",
+      "ResourceArn": "arn:aws:elasticloadbalancing:eu-central-2:738291046572:loadbalancer/app/prod-alb/dphzddkrs34",
       "AwsAccountId": "738291046572"
     },
     "arc": {
-      "shift_id": "buvno0h8-r6uz-dqc9-t1xk-bnk1vk8dc9c",
-      "resource_arn": "arn:aws:elasticloadbalancing:ap-south-2:738291046572:loadbalancer/app/prod-alb/pur6nizwtwj",
-      "away_from": "ap-south-2a",
-      "zonal_shift_status": "EXPIRED",
-      "az_status": "AVAILABLE",
-      "comment": "Incident response",
-      "expiry_time": "2026-03-27T01:00:02.372Z",
-      "routing_control_arn": "arn:aws:route53-recovery-control::738291046572:controlpanel/vbx9s2ta4y/routingcontrol/ful7tv2twpi",
+      "shift_id": "ksbov9us-7vub-vg1s-v070-vlfnec2jfxp",
+      "resource_arn": "arn:aws:elasticloadbalancing:eu-central-2:738291046572:loadbalancer/app/prod-alb/dphzddkrs34",
+      "away_from": "eu-central-2a",
+      "zonal_shift_status": "ACTIVE",
+      "az_status": "PARTIAL",
+      "comment": "Failover test",
+      "expiry_time": "2026-03-28T08:03:47.466Z",
+      "routing_control_arn": "arn:aws:route53-recovery-control::738291046572:controlpanel/0imr4p1a4fls/routingcontrol/1c75934ta8v",
       "routing_control_state": "Off"
     }
   },
   "event": {
-    "action": "UpdateRoutingControlState",
+    "action": "StartZonalShift",
     "outcome": "success",
     "category": [
       "network",
@@ -39,8 +39,8 @@
     "dataset": "aws.arc",
     "provider": "arc-zonal-shift.amazonaws.com"
   },
-  "message": "ARC UpdateRoutingControlState: shift=buvno0h8-r6uz-dqc9-t1xk-bnk1vk8dc9c, az=ap-south-2a status=EXPIRED, Incident response",
+  "message": "ARC StartZonalShift: shift=ksbov9us-7vub-vg1s-v070-vlfnec2jfxp, az=eu-central-2a status=ACTIVE, Failover test",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

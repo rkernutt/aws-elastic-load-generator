@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "ses"
@@ -13,28 +13,26 @@
   },
   "aws": {
     "dimensions": {
-      "ses:configuration-set": "default",
-      "ses:from-domain": "app.io",
-      "ses:to-country": "GB",
-      "ses:to-isp": "AOL"
+      "ses:configuration-set": "marketing",
+      "ses:from-domain": "company.com",
+      "ses:to-country": "AU",
+      "ses:to-isp": "Gmail"
     },
     "ses": {
-      "message_id": "mgpd9wk715n.y3b6aoapw9@ap-southeast-4.amazonses.com",
-      "event_type": "Bounce",
-      "from_address": "no-reply@app.io",
-      "destination": "user_3xvjrv@outlook.com",
-      "bounce": {
-        "bounce_type": "Permanent",
-        "bounce_sub_type": "MailboxFull"
-      },
+      "message_id": "23a5pzuapgp.j66886of5d@ap-northeast-2.amazonses.com",
+      "event_type": "Delivery",
+      "from_address": "noreply@company.com",
+      "destination": "user_ix5crf@gmail.com",
+      "configuration_set": "marketing",
+      "bounce": {},
       "complaint": {},
-      "sending_account_id": "501938274650",
+      "sending_account_id": "738291046572",
       "delivery": {
         "recipients": [
-          "user_3xvjrv@outlook.com"
+          "user_ix5crf@gmail.com"
         ],
-        "timestamp": "2026-03-26T17:51:02.372Z",
-        "processing_time_ms": 2900,
+        "timestamp": "2026-03-27T09:01:54.466Z",
+        "processing_time_ms": 396,
         "smtp_response": "250 2.0.0 OK"
       },
       "metrics": {
@@ -69,22 +67,17 @@
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "email",
       "process"
     ],
     "dataset": "aws.ses",
     "provider": "email.amazonaws.com",
-    "duration": 404000000
+    "duration": 1394000000
   },
-  "message": "SES Bounce [Permanent/MailboxFull]: user_3xvjrv@outlook.com",
+  "message": "SES Delivery: noreply@company.com -> user_ix5crf@gmail.com",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "SESDeliveryFailure",
-    "message": "SES delivery failed",
-    "type": "email"
+    "level": "info"
   }
 }

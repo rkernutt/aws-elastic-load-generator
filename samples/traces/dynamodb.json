@@ -1,69 +1,69 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "b2eb196b0c4300631b58daa9aaf9af57"
+    "id": "86b378663a5ef8d134ae99a0fa8017bc"
   },
   "transaction": {
-    "id": "93ceffb517e849a6",
-    "name": "RemoveCartItem",
+    "id": "8bc59023f13082be",
+    "name": "LoadUserFlags",
     "type": "request",
     "duration": {
-      "us": 459000
+      "us": 67000
     },
-    "result": "failure",
+    "result": "success",
     "sampled": true,
     "span_count": {
-      "started": 3,
+      "started": 1,
       "dropped": 0
     }
   },
   "service": {
-    "name": "shopping-cart",
+    "name": "feature-flags",
     "environment": "production",
     "version": "1.0.0",
     "language": {
-      "name": "python"
+      "name": "nodejs"
     },
     "runtime": {
-      "name": "CPython",
-      "version": "3.12.3"
+      "name": "node",
+      "version": "20.15.1"
     },
     "framework": {
-      "name": "FastAPI"
+      "name": "Fastify"
     }
   },
   "agent": {
     "name": "otlp",
-    "version": "0.6.0"
+    "version": "1.4.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "python",
-      "version": "1.29.0"
+      "language": "nodejs",
+      "version": "1.30.1"
     },
     "distro": {
       "name": "elastic",
-      "version": "0.6.0"
+      "version": "1.4.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "us-east-1",
     "account": {
-      "id": "345678901234",
-      "name": "dev-aws"
+      "id": "123456789012",
+      "name": "prod-aws"
     },
     "service": {
       "name": "dynamodb"
     }
   },
   "event": {
-    "outcome": "failure"
+    "outcome": "success"
   },
   "data_stream": {
     "type": "traces",

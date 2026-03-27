@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "imagebuilder"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "container-base-pipeline",
-      "Phase": "BUILD"
+      "PipelineName": "amazon-linux-cis",
+      "Phase": "DEPROVISION"
     },
     "imagebuilder": {
-      "pipeline_name": "container-base-pipeline",
-      "image_version": "2.19.2/1",
-      "phase": "BUILD",
+      "pipeline_name": "amazon-linux-cis",
+      "image_version": "1.3.9/1",
+      "phase": "DEPROVISION",
       "phase_status": "COMPLETED",
-      "duration_seconds": 786,
+      "duration_seconds": 743,
       "os": "Amazon Linux 2023",
-      "recipe_name": "web-server-recipe",
-      "ami_id": "ami-splndbd7",
+      "recipe_name": "hardened-base",
+      "ami_id": "ami-kboyjlf3",
       "metrics": {
         "BuildDuration": {
-          "avg": 786
+          "avg": 743
         },
         "ImageBuildSuccessCount": {
           "sum": 1
@@ -36,7 +36,7 @@
           "sum": 0
         },
         "ComponentBuildDuration": {
-          "avg": 678
+          "avg": 579
         }
       }
     }
@@ -45,12 +45,12 @@
     "category": [
       "process"
     ],
-    "duration": 786000000000,
+    "duration": 743000000000,
     "outcome": "success",
     "dataset": "aws.imagebuilder",
     "provider": "imagebuilder.amazonaws.com"
   },
-  "message": "Testing image: ami-splndbd7 with test component aws:TestInfrastructureAssociation",
+  "message": "Image Builder amazon-linux-cis DEPROVISION COMPLETED in 743s",
   "log": {
     "level": "info"
   }

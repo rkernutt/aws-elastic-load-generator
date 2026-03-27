@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ca-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "budgets"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "budgets": {
-      "budget_name": "quarterly-compute",
-      "budget_type": "USAGE",
+      "budget_name": "dev-sandbox",
+      "budget_type": "RI_UTILIZATION",
       "time_period": "QUARTERLY",
       "currency": "USD",
-      "budget_limit": 8830.48,
-      "actual_spend": 2763.94,
-      "forecasted_spend": 2846.86,
+      "budget_limit": 4164.6,
+      "actual_spend": 2790.28,
+      "forecasted_spend": 3273,
       "threshold_exceeded": false,
-      "threshold_percentage": 70,
+      "threshold_percentage": 60,
       "notification_type": "FORECASTED",
       "subscribers": "ops@company.com"
     }
@@ -34,9 +34,9 @@
     ],
     "dataset": "aws.budgets",
     "provider": "budgets.amazonaws.com",
-    "duration": 4000000000
+    "duration": 15000000000
   },
-  "message": "Budget OK: quarterly-compute at 2764/8830 (31%)",
+  "message": "Budget OK: dev-sandbox at 2790/4165 (67%)",
   "log": {
     "level": "info"
   }

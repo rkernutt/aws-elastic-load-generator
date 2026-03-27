@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "timestream"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "timestream": {
-      "database_name": "financial-ticks",
+      "database_name": "application-telemetry",
       "table_name": "cpu_metrics",
-      "operation": "DescribeTable",
+      "operation": "Query",
       "records_ingested": 0,
-      "rows_returned": 0,
-      "duration_ms": 1060
+      "rows_returned": 6088,
+      "duration_ms": 237
     }
   },
   "event": {
-    "duration": 1060134000,
+    "duration": 237083000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.timestream",
     "provider": "timestream.amazonaws.com"
   },
-  "message": "Timestream DescribeTable on financial-ticks.cpu_metrics: 1060ms",
+  "message": "Timestream Query on application-telemetry.cpu_metrics: 237ms",
   "log": {
     "level": "info"
   }

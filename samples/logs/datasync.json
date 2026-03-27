@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "datasync"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "datasync": {
-      "task_arn": "arn:aws:datasync:ap-northeast-2:738291046572:task/task-jpslruqgia",
-      "source_location_uri": "nfs://on-prem-server/data",
-      "destination_location_uri": "s3://archive-bucket",
+      "task_arn": "arn:aws:datasync:ap-southeast-1:501938274650:task/task-e2223ad491",
+      "source_location_uri": "s3://source-bucket",
+      "destination_location_uri": "s3://prod-backup",
       "status": "SUCCESS",
-      "files_transferred": 548407,
-      "bytes_transferred": 492744786314,
+      "files_transferred": 195657,
+      "bytes_transferred": 78682484265,
       "files_failed": 0,
-      "duration_seconds": 847
+      "duration_seconds": 1978
     }
   },
   "event": {
@@ -30,9 +30,9 @@
     ],
     "dataset": "aws.datasync",
     "provider": "datasync.amazonaws.com",
-    "duration": 847000000000
+    "duration": 1978000000000
   },
-  "message": "DataSync: 548,407 files transferred from nfs:",
+  "message": "DataSync: 195,657 files transferred from s3:",
   "log": {
     "level": "info"
   }

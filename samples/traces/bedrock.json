@@ -1,69 +1,69 @@
 {
-  "@timestamp": "2026-03-26T17:22:32.197Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "219c2eff28d2998ae1003378a705b123"
+    "id": "6d8be3fde50a12c41068abc238ebe38f"
   },
   "transaction": {
-    "id": "11a75057f453ab10",
-    "name": "chat-assistant chat",
+    "id": "7b9f7579895338ca",
+    "name": "customer-support-bot query",
     "type": "gen_ai",
     "duration": {
-      "us": 3993000
+      "us": 5477000
     },
     "result": "success",
     "sampled": true,
     "span_count": {
-      "started": 1,
+      "started": 2,
       "dropped": 0
     }
   },
   "labels": {
     "gen_ai_system": "aws.bedrock",
-    "gen_ai_request_model": "cohere.command-r-plus-v1:0",
-    "gen_ai_usage_input_tokens": "2841",
-    "gen_ai_usage_output_tokens": "135",
+    "gen_ai_request_model": "anthropic.claude-3-5-sonnet-20241022-v2:0",
+    "gen_ai_usage_input_tokens": "1614",
+    "gen_ai_usage_output_tokens": "442",
     "gen_ai_response_finish_reason": "max_tokens"
   },
   "service": {
-    "name": "chat-assistant",
+    "name": "customer-support-bot",
     "environment": "production",
     "version": "1.0.0",
     "language": {
-      "name": "java"
+      "name": "python"
     },
     "runtime": {
-      "name": "OpenJDK",
-      "version": "21.0.3"
+      "name": "CPython",
+      "version": "3.12.3"
     },
     "framework": {
-      "name": "Spring Boot"
+      "name": "LangChain"
     }
   },
   "agent": {
     "name": "otlp",
-    "version": "1.6.0"
+    "version": "0.6.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "java",
-      "version": "2.12.0"
+      "language": "python",
+      "version": "1.29.0"
     },
     "distro": {
       "name": "elastic",
-      "version": "1.6.0"
+      "version": "0.6.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "ca-west-1",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "bedrock"

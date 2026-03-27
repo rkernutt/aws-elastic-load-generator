@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "us-east-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "cleanrooms"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "CollaborationId": "2pk8o3np-vhe2-u2p8-y6a5-eokwnonu61"
+      "CollaborationId": "u54agzaz-p4om-2ey5-f49x-6hon8zaubwc"
     },
     "cleanrooms": {
-      "collaboration_id": "2pk8o3np-vhe2-u2p8-y6a5-eokwnonu61",
-      "collaboration_name": "fraud-detection-collab",
-      "configured_table_name": "product_catalog",
-      "protected_query_id": "pq-pnsgrobj97d",
+      "collaboration_id": "u54agzaz-p4om-2ey5-f49x-6hon8zaubwc",
+      "collaboration_name": "ad-measurement-collab",
+      "configured_table_name": "ad_impressions",
+      "protected_query_id": "pq-ob7spb046o8",
       "query_status": "SUCCESS",
-      "protected_query_type": "SELECT",
-      "rows_returned": 58574,
-      "member_account_id": "814726593401"
+      "protected_query_type": "JOIN",
+      "rows_returned": 910,
+      "member_account_id": "164820739518"
     }
   },
   "event": {
-    "action": "CreateConfiguredTable",
+    "action": "BatchGetCollaborationAnalysisTemplate",
     "outcome": "success",
     "category": [
       "process"
@@ -35,7 +35,7 @@
     "dataset": "aws.cleanrooms",
     "provider": "cleanrooms.amazonaws.com"
   },
-  "message": "Clean Rooms fraud-detection-collab: SELECT on product_catalog returned 58574 rows",
+  "message": "Clean Rooms ad-measurement-collab: JOIN on ad_impressions returned 910 rows",
   "log": {
     "level": "info"
   }

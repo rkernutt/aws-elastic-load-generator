@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "me-central-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,37 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "DataSetId": "zlsk8s13-d2sf-pojp-he6p-n9a45q23al"
+      "DataSetId": "8m7qva4s-q7u6-irap-knn4-prwg9k33uk"
     },
     "dataexchange": {
-      "dataset_id": "zlsk8s13-d2sf-pojp-he6p-n9a45q23al",
-      "dataset_name": "Financial-Market-Feed",
-      "data_set_type": "LAKE_FORMATION",
-      "revision_id": "bapvvkv3-z5xv-cvjh-ne80-z12qjyjtth",
-      "job_id": "18ap0o7d-zanp-17gh-l93l-i57luakghf",
-      "job_type": "IMPORT_ASSETS_FROM_S3",
-      "job_status": "ERROR",
-      "provider_account_id": "164820739518",
+      "dataset_id": "8m7qva4s-q7u6-irap-knn4-prwg9k33uk",
+      "dataset_name": "Healthcare-Claims",
+      "data_set_type": "REDSHIFT",
+      "revision_id": "sv54x23j-87e9-vcd7-x9ly-culyw4uto2",
+      "job_id": "90byogii-inv0-d838-m4ef-wwx62cuee6",
+      "job_type": "EXPORT_ASSETS_TO_S3",
+      "job_status": "IN_PROGRESS",
+      "provider_account_id": "738291046572",
       "subscriber_account_id": "164820739518",
-      "asset_count": 241
+      "asset_count": 250
     }
   },
   "event": {
     "action": "SubscribeToDataSet",
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.dataexchange",
     "provider": "dataexchange.amazonaws.com"
   },
-  "message": "Data Exchange Financial-Market-Feed: job ERROR",
+  "message": "Data Exchange Healthcare-Claims: EXPORT_ASSETS_TO_S3 IN_PROGRESS, 250 assets",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "InternalServerException",
-    "message": "Data Exchange job failed",
-    "type": "process"
+    "level": "info"
   }
 }

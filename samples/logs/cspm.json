@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,29 +7,29 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "us-east-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
   },
   "resource": {
-    "id": "arn:aws:iam::814726593401:user/svc-deploy",
-    "name": "svc-deploy",
-    "sub_type": "iam-user",
-    "type": "cloud-identity-management"
+    "id": "arn:aws:cloudwatch:us-east-2:293847561023:alarm/root-login",
+    "name": "root-login",
+    "sub_type": "cloudwatch",
+    "type": "cloud-audit"
   },
   "rule": {
-    "id": "cis_1_2",
-    "name": "Ensure MFA enabled for all IAM users with console access",
-    "section": "1.2",
+    "id": "cis_3_3",
+    "name": "Ensure a log metric filter for root account usage exists",
+    "section": "3.3",
     "tags": [
-      "IAM"
+      "Monitoring"
     ],
     "benchmark": {
       "id": "cis_aws",
       "version": "v1.5.0",
-      "rule_number": "1.2",
+      "rule_number": "3.3",
       "posture_type": "cspm"
     }
   },
@@ -49,7 +49,7 @@
     "dataset": "cloud_security_posture.findings",
     "provider": "elastic_cspm"
   },
-  "message": "CSPM [CIS AWS 1.5 / 1.2] passed: Ensure MFA enabled for all IAM users with console access",
+  "message": "CSPM [CIS AWS 1.5 / 3.3] passed: Ensure a log metric filter for root account usage exists",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "trustedadvisor"
@@ -13,26 +13,32 @@
   },
   "aws": {
     "trustedadvisor": {
-      "check_name": "RDS DB Instances",
-      "category": "service_limits",
-      "status": "ok",
-      "affected_resource": "sg-jn5ic3ti",
-      "flagged_resources": 0
+      "check_name": "Underutilized Amazon RDS",
+      "category": "cost_optimizing",
+      "status": "error",
+      "affected_resource": "sg-01pv15f3",
+      "estimated_monthly_savings": 4307.362,
+      "flagged_resources": 18
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "configuration",
       "vulnerability"
     ],
     "dataset": "aws.trustedadvisor",
     "provider": "trustedadvisor.amazonaws.com",
-    "duration": 34000000000
+    "duration": 13000000000
   },
-  "message": "Trusted Advisor OK: RDS DB Instances",
+  "message": "Trusted Advisor [ERROR]: Underutilized Amazon RDS - 9 resources affected",
+  "error": {
+    "code": "TrustedAdvisorFinding",
+    "message": "Underutilized Amazon RDS: error",
+    "type": "configuration"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

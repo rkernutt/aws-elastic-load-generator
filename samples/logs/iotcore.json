@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "iotcore"
@@ -16,97 +16,91 @@
       "Protocol": "HTTPS"
     },
     "iotcore": {
-      "client_id": "robot-arm-7",
-      "thing_name": "robot-arm-7",
-      "thing_group": "building-management",
-      "action": "PUBLISH",
-      "topic": "dt/factory/sensors/temperature",
+      "client_id": "gateway-prod-1",
+      "thing_name": "gateway-prod-1",
+      "thing_group": "fleet",
+      "action": "DISCONNECT",
+      "topic": "dt/home/thermostat/status",
       "protocol": "HTTPS",
-      "qos": 1,
-      "message_bytes": 40284,
-      "policy_name": "FleetPolicy",
-      "structured_logging": false,
-      "error_code": "DeviceDisconnected",
-      "rules_evaluated": 3,
+      "qos": 0,
+      "message_bytes": 50007,
+      "policy_name": "SensorPolicy",
+      "structured_logging": true,
+      "rules_evaluated": 0,
       "metrics": {
         "Connect.Success": {
-          "sum": 300
+          "sum": 144
         },
         "Connect.Failure": {
-          "sum": 7
+          "sum": 0
         },
         "PublishIn.Success": {
-          "sum": 6832
+          "sum": 5482
         },
         "PublishIn.ClientError": {
-          "sum": 243
+          "sum": 0
         },
         "PublishIn.ServerError": {
-          "sum": 69
+          "sum": 0
         },
         "PublishOut.Success": {
-          "sum": 5242
+          "sum": 8432
         },
         "Publish.Success": {
-          "sum": 1383
+          "sum": 4552
         },
         "Publish.Failure": {
-          "sum": 415
+          "sum": 0
         },
         "Subscribe.Success": {
-          "sum": 4980
+          "sum": 3761
         },
         "Subscribe.Failure": {
-          "sum": 27
+          "sum": 0
         },
         "Unsubscribe.Success": {
-          "sum": 598
+          "sum": 393
         },
         "Ping.Success": {
-          "sum": 9508
+          "sum": 6243
         },
         "Throttle.Success": {
-          "sum": 47
+          "sum": 9
         },
         "RulesMatched": {
-          "sum": 867
+          "sum": 699
         },
         "RulesFailed": {
-          "sum": 30
+          "sum": 0
         },
         "RulesNotMatched": {
-          "sum": 34
+          "sum": 20
         },
         "TopicMatch": {
-          "sum": 8683
+          "sum": 3887
         },
         "ClientConnections": {
-          "avg": 5944
+          "avg": 45572
         }
       }
     }
   },
   "source": {
-    "ip": "5.18.104.68"
+    "ip": "203.168.9.100"
   },
   "event": {
-    "action": "PUBLISH",
-    "outcome": "failure",
+    "action": "DISCONNECT",
+    "outcome": "success",
     "category": [
       "network",
       "process"
     ],
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com",
-    "duration": 3077000000
+    "duration": 111000000
   },
-  "message": "IoT Core PUBLISH FAILED for robot-arm-7: Certificate revoked",
+  "message": "{\"clientId\":\"gateway-prod-1\",\"action\":\"DISCONNECT\",\"topic\":\"dt/home/thermostat/status\",\"message\":\"IoT Core DISCONNECT: gateway-prod-1 on dt/home/thermostat/status\",\"timestamp\":\"2026-03-27T09:01:54.466Z\"}",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ThrottlingException",
-    "message": "IoT Core operation failed",
-    "type": "iot"
+    "level": "info"
   }
 }

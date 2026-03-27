@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ap-south-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "qbusiness"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ApplicationId": "ddp6tmtm-82hg-ye62-yi1s-38bw27n8ryc"
+      "ApplicationId": "k6l8vtah-kfan-z7pr-tz0k-12m12lhfiigp"
     },
     "qbusiness": {
-      "application_id": "ddp6tmtm-82hg-ye62-yi1s-38bw27n8ryc",
+      "application_id": "k6l8vtah-kfan-z7pr-tz0k-12m12lhfiigp",
       "application_name": "dev-help",
-      "conversation_id": "r5qaaqc4-maxv-21k9-6ynt-l4is7i6sn5",
-      "message_id": "nln7j61q-0uu1-kurd-fjrj-y2yc2vfg2ts",
-      "user_id": "alice",
-      "event_type": "DOCUMENT_RETRIEVAL",
-      "response_latency_ms": 1457,
+      "conversation_id": "omel42wa-51ia-cqzg-ezxc-e8w36a2j0go",
+      "message_id": "bxjkp53k-60vt-y21i-jdmn-ulstgjyq0ik",
+      "user_id": "eve",
+      "event_type": "QUERY",
+      "response_latency_ms": 2006,
       "query": {
-        "input_token_count": 493,
-        "output_token_count": 0,
-        "retrieved_documents": 5,
-        "source_attributions": 5,
-        "guardrail_action": "BLOCKED"
+        "input_token_count": 238,
+        "output_token_count": 80,
+        "retrieved_documents": 4,
+        "source_attributions": 4,
+        "guardrail_action": "NONE"
       },
       "metrics": {
         "ConversationCount": {
@@ -38,25 +38,25 @@
           "sum": 1
         },
         "InputTokenCount": {
-          "sum": 493
+          "sum": 238
         },
         "OutputTokenCount": {
-          "sum": 0
+          "sum": 80
         },
         "FailedResponses": {
           "sum": 0
         },
         "GuardrailIntervened": {
-          "sum": 1
+          "sum": 0
         },
         "DocumentsRetrieved": {
-          "sum": 5
+          "sum": 4
         }
       }
     }
   },
   "user": {
-    "name": "alice"
+    "name": "eve"
   },
   "event": {
     "outcome": "success",
@@ -65,10 +65,10 @@
     ],
     "dataset": "aws.qbusiness",
     "provider": "qbusiness.amazonaws.com",
-    "duration": 1457000000
+    "duration": 2006000000
   },
-  "message": "Q Business dev-help: alice document_retrieval (5 docs retrieved)",
+  "message": "Q Business dev-help: eve query (4 docs retrieved)",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

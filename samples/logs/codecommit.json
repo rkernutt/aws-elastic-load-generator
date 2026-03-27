@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "ca-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codecommit"
@@ -14,22 +14,22 @@
   "aws": {
     "codecommit": {
       "repository_name": "ml-models",
-      "repository_arn": "arn:aws:codecommit:ap-northeast-3:164820739518:ml-models",
-      "event_type": "ReferenceCreated",
-      "reference_name": "hotfix/payment-bug",
-      "commit_id": "j5cqpi5erg7",
-      "author": "bob",
-      "files_changed": 33,
-      "lines_added": 406,
-      "lines_deleted": 140,
-      "error_code": "InvalidBranchNameException"
+      "repository_arn": "arn:aws:codecommit:ca-west-1:293847561023:ml-models",
+      "event_type": "ReferenceDeleted",
+      "reference_name": "main",
+      "commit_id": "2rvf2bptuv9",
+      "author": "codebuild",
+      "files_changed": 2,
+      "lines_added": 293,
+      "lines_deleted": 163,
+      "error_code": "EncryptionKeyUnavailableException"
     }
   },
   "user": {
-    "name": "carol"
+    "name": "bob"
   },
   "event": {
-    "action": "ReferenceCreated",
+    "action": "ReferenceDeleted",
     "outcome": "failure",
     "category": [
       "configuration",
@@ -38,12 +38,12 @@
     "dataset": "aws.codecommit",
     "provider": "codecommit.amazonaws.com"
   },
-  "message": "CodeCommit ReferenceCreated FAILED on ml-models: Repository size limit",
+  "message": "CodeCommit ReferenceDeleted FAILED on ml-models: Repository size limit",
   "log": {
     "level": "error"
   },
   "error": {
-    "code": "InvalidBranchNameException",
+    "code": "EncryptionKeyUnavailableException",
     "message": "CodeCommit operation failed",
     "type": "vcs"
   }

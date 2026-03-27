@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "sagemaker"
@@ -13,33 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "TrainingJobName": "llama-finetuned-processing-6kny9u",
-      "JobType": "Processing"
+      "TrainingJobName": "lstm-timeseries-transform-4vjy45",
+      "JobType": "Transform"
     },
     "sagemaker": {
-      "domain_id": "d-mrhj6uxdjt",
+      "domain_id": "d-t2wd3mi8x5",
       "domain_name": "cv-team",
-      "user_profile": "bob-ml",
+      "user_profile": "alice-ds",
       "job": {
-        "name": "llama-finetuned-processing-6kny9u",
-        "type": "Processing",
-        "arn": "arn:aws:sagemaker:il-central-1:293847561023:training-job/llama-finetuned-processing-6kny9u"
+        "name": "lstm-timeseries-transform-4vjy45",
+        "type": "Transform",
+        "arn": "arn:aws:sagemaker:ap-southeast-2:814726593401:training-job/lstm-timeseries-transform-4vjy45"
       },
       "model": {
-        "name": "llama-finetuned",
-        "version": 16
+        "name": "lstm-timeseries",
+        "version": 1
       },
       "pipeline": {
-        "name": "feature-engineering-pipeline",
-        "execution_id": "pipe-y0h52chh5ds"
+        "name": "model-training-pipeline",
+        "execution_id": "pipe-kgx80521wy"
       },
       "instance": {
-        "type": "ml.p3.2xlarge",
+        "type": "ml.m5.xlarge",
         "count": 1
       },
       "metrics": {
-        "gpu_utilization_pct": 10,
-        "cpu_utilization_pct": 65
+        "gpu_utilization_pct": 55,
+        "cpu_utilization_pct": 25
       },
       "studio": {
         "lifecycle_config": false,
@@ -47,22 +47,22 @@
       },
       "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 1069
+          "sum": 3909
         },
         "ModelLatency": {
-          "avg": 92
+          "avg": 93
         },
         "GPUUtilization": {
-          "avg": 45
+          "avg": 49
         },
         "CPUUtilization": {
-          "avg": 51
+          "avg": 72
         },
         "DiskUtilization": {
-          "avg": 14
+          "avg": 38
         },
         "MemoryUtilization": {
-          "avg": 55
+          "avg": 64
         },
         "Invocations4XXError": {
           "sum": 0
@@ -77,11 +77,11 @@
     "level": "info"
   },
   "user": {
-    "name": "bob-ml"
+    "name": "alice-ds"
   },
   "event": {
-    "action": "ProcessingJobStarted",
-    "duration": 9605447000000,
+    "action": "EndpointInService",
+    "duration": 250501000000,
     "outcome": "success",
     "category": [
       "process"
@@ -89,5 +89,5 @@
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "Processing job started"
+  "message": "Feature Store ingestion complete: 4,829,201 records"
 }

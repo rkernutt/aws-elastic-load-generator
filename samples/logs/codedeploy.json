@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "eu-central-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "codedeploy"
@@ -14,17 +14,17 @@
   "aws": {
     "dimensions": {
       "DeploymentGroupName": "canary",
-      "ApplicationName": "api-service"
+      "ApplicationName": "worker-service"
     },
     "codedeploy": {
-      "application_name": "api-service",
+      "application_name": "worker-service",
       "deployment_group": "canary",
-      "deployment_id": "d-QKXYUVJCF",
-      "deployment_type": "BLUE_GREEN",
-      "lifecycle_event": "BeforeInstall",
+      "deployment_id": "d-3HMEB4XB1",
+      "deployment_type": "IN_PLACE",
+      "lifecycle_event": "ValidateService",
       "event_status": "Succeeded",
-      "duration_seconds": 311,
-      "instances_succeeded": 1,
+      "duration_seconds": 423,
+      "instances_succeeded": 10,
       "instances_failed": 0,
       "metrics": {
         "DeploymentAttempts": {
@@ -40,10 +40,10 @@
           "sum": 0
         },
         "DeploymentDuration": {
-          "avg": 311
+          "avg": 423
         },
         "InstanceSuccesses": {
-          "sum": 7
+          "sum": 9
         },
         "InstanceFailures": {
           "sum": 0
@@ -52,7 +52,7 @@
     }
   },
   "event": {
-    "duration": 311000000000,
+    "duration": 423000000000,
     "outcome": "success",
     "category": [
       "process",
@@ -61,7 +61,7 @@
     "dataset": "aws.codedeploy",
     "provider": "codedeploy.amazonaws.com"
   },
-  "message": "Deployment succeeded",
+  "message": "CodeDeploy worker-service deployment SUCCEEDED in 423s",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "us-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "fis"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "ExperimentTemplateId": "EXT163G4HVH"
+      "ExperimentTemplateId": "EXTEFFDU8HB"
     },
     "fis": {
-      "experiment_id": "EXPWEPOFFP0",
-      "experiment_template_id": "EXT163G4HVH",
+      "experiment_id": "EXPODTO5L6G",
+      "experiment_template_id": "EXTEFFDU8HB",
       "experiment_name": "spot-interrupt-test",
-      "experiment_state": "pending",
-      "target_resource_type": "EKS nodes",
-      "action_type": "aws:ecs:drain-container-instances",
+      "experiment_state": "completed",
+      "target_resource_type": "ECS tasks",
+      "action_type": "aws:rds:failover-db-cluster",
       "stop_condition": "aws:cloudwatch:alarm",
-      "role_arn": "arn:aws:iam::814726593401:role/FISRole-spot-interrupt-test"
+      "role_arn": "arn:aws:iam::293847561023:role/FISRole-spot-interrupt-test"
     }
   },
   "event": {
-    "action": "GetExperiment",
+    "action": "StopExperiment",
     "outcome": "success",
     "category": [
       "process"
@@ -35,7 +35,7 @@
     "dataset": "aws.fis",
     "provider": "fis.amazonaws.com"
   },
-  "message": "FIS GetExperiment: exp=EXPWEPOFFP0 (spot-interrupt-test) state=pending, target=EKS nodes",
+  "message": "FIS StopExperiment: exp=EXPODTO5L6G (spot-interrupt-test) state=completed, target=ECS tasks",
   "log": {
     "level": "info"
   }

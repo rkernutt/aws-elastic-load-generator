@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "apigateway"
@@ -13,38 +13,40 @@
   },
   "aws": {
     "dimensions": {
-      "ApiName": "prod-api",
-      "Stage": "prod",
-      "Method": "PUT",
-      "Resource": "/api/v1/auth/login"
+      "ApiName": "mobile-api",
+      "Stage": "v2",
+      "Method": "PATCH",
+      "Resource": "/api/v1/products"
     },
     "apigateway": {
-      "request_id": "cbndkkfe-3csj",
-      "api_id": "1j5a35w1qb",
-      "domain_name": "1j5a35w1qb.execute-api.eu-west-1.amazonaws.com",
-      "stage": "prod",
-      "http_method": "PUT",
-      "resource_path": "/api/v1/auth/login",
+      "request_id": "m5zzu7eu-7i9l",
+      "api_id": "rey3efduy9",
+      "domain_name": "rey3efduy9.execute-api.us-west-2.amazonaws.com",
+      "stage": "v2",
+      "http_method": "PATCH",
+      "resource_path": "/api/v1/products",
       "protocol": "HTTP/1.1",
-      "route_key": "PUT /api/v1/auth/login",
-      "status": 200,
-      "response_length": 9872,
-      "ip_address": "93.218.251.234",
+      "route_key": "PATCH /api/v1/products",
+      "status": 201,
+      "response_length": 9504,
+      "ip_address": "236.229.134.235",
+      "caller": "arn:aws:iam::293847561023:user/api-user",
       "user": "api-user",
-      "event_type": "DISCONNECT",
-      "request_time": "2026-03-26T17:51:02.372Z",
-      "api_type": "HTTP",
-      "integration_latency": 482,
+      "connection_id": "V6VFVKHAMMI",
+      "event_type": "MESSAGE",
+      "request_time": "2026-03-27T09:01:54.466Z",
+      "api_type": "REST",
+      "integration_latency": 49,
       "metrics": {
         "Count": {
           "sum": 1
         },
         "Latency": {
-          "avg": 568,
-          "p99": 1704
+          "avg": 84,
+          "p99": 252
         },
         "IntegrationLatency": {
-          "avg": 482
+          "avg": 49
         },
         "4XXError": {
           "sum": 0
@@ -57,33 +59,33 @@
   },
   "http": {
     "request": {
-      "method": "PUT",
-      "id": "cbndkkfe-3csj",
-      "bytes": 2045
+      "method": "PATCH",
+      "id": "m5zzu7eu-7i9l",
+      "bytes": 4071
     },
     "response": {
-      "status_code": 200,
-      "bytes": 950
+      "status_code": 201,
+      "bytes": 1906
     }
   },
   "url": {
-    "path": "/api/v1/auth/login",
-    "domain": "1j5a35w1qb.execute-api.ap-south-2.amazonaws.com"
+    "path": "/api/v1/products",
+    "domain": "rey3efduy9.execute-api.ap-northeast-1.amazonaws.com"
   },
   "client": {
-    "ip": "75.49.126.170",
+    "ip": "195.236.124.121",
     "geo": {
-      "country_iso_code": "FR",
-      "country_name": "France",
-      "region_name": "Paris",
-      "city_name": "Paris"
+      "country_iso_code": "DE",
+      "country_name": "Germany",
+      "region_name": "Frankfurt",
+      "city_name": "Frankfurt"
     }
   },
   "user_agent": {
-    "original": "curl/7.68.0"
+    "original": "python-requests/2.27.1"
   },
   "event": {
-    "duration": 568000000,
+    "duration": 84000000,
     "outcome": "success",
     "category": [
       "web"
@@ -94,7 +96,7 @@
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "PUT /api/v1/auth/login 200 568ms",
+  "message": "{\"requestId\":\"m5zzu7eu-7i9l\",\"requestMethod\":\"PATCH\",\"requestPath\":\"/api/v1/products\",\"status\":201,\"responseLatency\":84,\"integrationLatency\":49,\"timestamp\":\"2026-03-27T09:01:54.466Z\"}",
   "log": {
     "level": "info"
   }

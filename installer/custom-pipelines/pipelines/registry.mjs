@@ -402,4 +402,47 @@ export const PIPELINE_REGISTRY = [
   { id: "logs-aws.blockchain-default",      dataset: "aws.blockchain",      group: "enduser",  description: "Parse Managed Blockchain transaction/network JSON",  processors: json("blockchain")      },
   { id: "logs-aws.devopsguru-default",      dataset: "aws.devopsguru",      group: "enduser",  description: "Parse DevOps Guru ML anomaly insight JSON",          processors: json("devopsguru")      },
   { id: "logs-aws.wafv2-default",           dataset: "aws.wafv2",           group: "networking", description: "Parse WAF v2 web ACL allow/block event JSON",       processors: json("wafv2")           },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // v10.0 NEW SERVICES
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // Networking
+  { id: "logs-aws.vpclattice-default",       dataset: "aws.vpclattice",       group: "networking",   description: "Parse VPC Lattice service network access log JSON",           processors: json("vpclattice")       },
+
+  // Security
+  { id: "logs-aws.securityir-default",       dataset: "aws.securityir",       group: "security",     description: "Parse AWS Security Incident Response case event JSON",        processors: json("securityir")       },
+  { id: "logs-aws.cloudhsm-default",         dataset: "aws.cloudhsm",         group: "security",     description: "Parse CloudHSM HSM operation and key usage log JSON",         processors: json("cloudhsm")         },
+
+  // Streaming
+  { id: "logs-aws.mskconnect-default",       dataset: "aws.mskconnect",       group: "streaming",    description: "Parse MSK Connect Kafka connector task log JSON",             processors: json("mskconnect")       },
+
+  // Analytics
+  { id: "logs-aws.mwaa-default",             dataset: "aws.mwaa",             group: "analytics",    description: "Parse MWAA Airflow DAG and task execution log JSON",          processors: json("mwaa")             },
+  { id: "logs-aws.cleanrooms-default",       dataset: "aws.cleanrooms",       group: "analytics",    description: "Parse Clean Rooms protected query log JSON",                  processors: json("cleanrooms")       },
+  { id: "logs-aws.datazone-default",         dataset: "aws.datazone",         group: "analytics",    description: "Parse DataZone data catalog and governance event JSON",       processors: json("datazone")         },
+  { id: "logs-aws.entityresolution-default", dataset: "aws.entityresolution", group: "analytics",    description: "Parse Entity Resolution matching workflow job log JSON",      processors: json("entityresolution") },
+  { id: "logs-aws.dataexchange-default",     dataset: "aws.dataexchange",     group: "analytics",    description: "Parse Data Exchange subscription and job event JSON",         processors: json("dataexchange")     },
+
+  // AI / ML
+  { id: "logs-aws.kendra-default",           dataset: "aws.kendra",           group: "aiml",         description: "Parse Kendra enterprise search query and sync log JSON",      processors: json("kendra")           },
+  { id: "logs-aws.a2i-default",              dataset: "aws.a2i",              group: "aiml",         description: "Parse Augmented AI (A2I) human review loop event JSON",       processors: json("a2i")              },
+  { id: "logs-aws.healthlake-default",       dataset: "aws.healthlake",       group: "aiml",         description: "Parse HealthLake FHIR data store operation log JSON",         processors: json("healthlake")       },
+
+  // IoT
+  { id: "logs-aws.iottwinmaker-default",     dataset: "aws.iottwinmaker",     group: "iot",          description: "Parse IoT TwinMaker digital twin sync and query log JSON",   processors: json("iottwinmaker")     },
+  { id: "logs-aws.iotfleetwise-default",     dataset: "aws.iotfleetwise",     group: "iot",          description: "Parse IoT FleetWise vehicle signal campaign log JSON",        processors: json("iotfleetwise")     },
+
+  // Developer Tools
+  { id: "logs-aws.codecatalyst-default",     dataset: "aws.codecatalyst",     group: "devtools",     description: "Parse CodeCatalyst workflow run and dev environment log JSON", processors: json("codecatalyst")     },
+  { id: "logs-aws.devicefarm-default",       dataset: "aws.devicefarm",       group: "devtools",     description: "Parse Device Farm mobile test run log JSON",                  processors: json("devicefarm")       },
+
+  // Management
+  { id: "logs-aws.fis-default",              dataset: "aws.fis",              group: "management",   description: "Parse Fault Injection Service chaos experiment log JSON",     processors: json("fis")              },
+  { id: "logs-aws.managedgrafana-default",   dataset: "aws.managedgrafana",   group: "management",   description: "Parse Managed Grafana workspace and alert log JSON",          processors: json("managedgrafana")   },
+  { id: "logs-aws.supplychain-default",      dataset: "aws.supplychain",      group: "management",   description: "Parse Supply Chain planning and integration event log JSON",  processors: json("supplychain")      },
+  { id: "logs-aws.arc-default",              dataset: "aws.arc",              group: "management",   description: "Parse App Recovery Controller zonal shift log JSON",          processors: json("arc")              },
+
+  // Media
+  { id: "logs-aws.deadlinecloud-default",    dataset: "aws.deadlinecloud",    group: "media",        description: "Parse Deadline Cloud render farm job and task log JSON",      processors: json("deadlinecloud")    },
 ];

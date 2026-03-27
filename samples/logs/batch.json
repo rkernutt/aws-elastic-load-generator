@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "ap-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "batch"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "JobQueue": "data-export-queue"
+      "JobQueue": "report-generation-queue"
     },
     "batch": {
       "job": {
-        "name": "data-export",
-        "id": "mc1aqmcp-c61c",
+        "name": "report-generation",
+        "id": "uop8gf8i-krmm",
         "status": "SUCCEEDED"
       },
-      "job_queue": "data-export-queue",
-      "compute_environment": "ce-ondemand",
-      "structured_logging": false,
+      "job_queue": "report-generation-queue",
+      "compute_environment": "ce-spot",
+      "structured_logging": true,
       "metrics": {
         "PendingJobCount": {
-          "avg": 89
+          "avg": 2
         },
         "RunnableJobCount": {
-          "avg": 4
+          "avg": 24
         },
         "StartingJobCount": {
-          "avg": 14
+          "avg": 19
         },
         "RunningJobCount": {
-          "avg": 12
+          "avg": 188
         },
         "SucceededJobCount": {
           "sum": 1
@@ -44,20 +44,20 @@
           "sum": 0
         },
         "CPUReserved": {
-          "avg": "39.249"
+          "avg": "16.919"
         },
         "GPUReserved": {
           "avg": 0
         },
         "MemoryReserved": {
-          "avg": "36.870"
+          "avg": "70.944"
         }
       }
     }
   },
   "process": {
-    "pid": 22607,
-    "name": "bash",
+    "pid": 20703,
+    "name": "java",
     "exit_code": 0
   },
   "log": {
@@ -70,7 +70,7 @@
     "outcome": "success",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 492000000000
+    "duration": 2149000000000
   },
-  "message": "Container started on ECS instance"
+  "message": "{\"jobId\":\"uop8gf8i-krmm\",\"jobName\":\"report-generation\",\"jobQueue\":\"report-generation-queue\",\"level\":\"info\",\"message\":\"Container started on ECS instance\",\"timestamp\":\"2026-03-27T09:01:54.466Z\",\"arrayIndex\":43}"
 }

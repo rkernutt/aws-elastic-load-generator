@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "entityresolution"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "WorkflowName": "product-matching"
+      "WorkflowName": "customer-dedup"
     },
     "entityresolution": {
-      "matching_workflow_id": "ij4gys29-ow40-ymmz-mln3-j3q68evlvvj",
-      "matching_workflow_name": "product-matching",
-      "job_id": "0qfxofqr-rwo8-mspf-c8gm-ob76z39ito",
-      "job_status": "QUEUED",
-      "matched_record_count": 2998282,
-      "input_record_count": 7089685,
-      "unique_record_count": 1644211,
-      "schema_name": "customer-schema",
-      "matching_technique": "ML_MATCHING"
+      "matching_workflow_id": "q66hp1ud-inwn-w4ao-gks8-8m4uo1gh7zv",
+      "matching_workflow_name": "customer-dedup",
+      "job_id": "flzvptv9-qkpt-m1l2-1bz6-sryudfrj90n",
+      "job_status": "RUNNING",
+      "matched_record_count": 3750732,
+      "input_record_count": 8665677,
+      "unique_record_count": 2550441,
+      "schema_name": "contact-schema",
+      "matching_technique": "PROVIDER_SERVICE"
     }
   },
   "event": {
-    "action": "GetMatchingJob",
+    "action": "CreateMatchingWorkflow",
     "outcome": "success",
     "category": [
       "process"
@@ -36,7 +36,7 @@
     "dataset": "aws.entityresolution",
     "provider": "entityresolution.amazonaws.com"
   },
-  "message": "Entity Resolution product-matching: matched 2998282/7089685 records → 1644211 unique",
+  "message": "Entity Resolution customer-dedup: matched 3750732/8665677 records → 2550441 unique",
   "log": {
     "level": "info"
   }

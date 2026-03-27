@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "ap-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "vpc"
@@ -13,38 +13,38 @@
   },
   "aws": {
     "dimensions": {
-      "VpcId": "vpc-trexg3c0"
+      "VpcId": "vpc-770mqv6m"
     },
     "vpcflow": {
       "version": "2",
-      "account_id": "814726593401",
-      "interface_id": "eni-dh7a5ucm",
+      "account_id": "164820739518",
+      "interface_id": "eni-d4gv2jtc",
       "action": "ACCEPT",
       "log_status": "OK",
-      "instance_id": "i-7379vyvj7rj",
-      "pkt_srcaddr": "191.216.103.105",
-      "pkt_dstaddr": "251.180.78.90",
-      "vpc_id": "vpc-trexg3c0",
-      "subnet_id": "subnet-wc0lyj0l",
+      "instance_id": "i-thzr2v0nqbc",
+      "pkt_srcaddr": "236.119.155.128",
+      "pkt_dstaddr": "217.45.1.15",
+      "vpc_id": "vpc-770mqv6m",
+      "subnet_id": "subnet-lmh848h5",
       "type": "IPv4"
     }
   },
   "source": {
-    "ip": "191.216.103.105",
-    "port": 22510,
+    "ip": "236.119.155.128",
+    "port": 29115,
     "geo": {
-      "country_iso_code": "FR",
-      "country_name": "France",
-      "city_name": "Paris",
+      "country_iso_code": "CN",
+      "country_name": "China",
+      "city_name": "Beijing",
       "location": {
-        "lat": 48.8566,
-        "lon": 2.3522
+        "lat": 39.9042,
+        "lon": 116.4074
       }
     }
   },
   "destination": {
-    "ip": "251.180.78.90",
-    "port": 8443,
+    "ip": "217.45.1.15",
+    "port": 22,
     "geo": {
       "country_iso_code": "US",
       "country_name": "United States",
@@ -57,9 +57,9 @@
   },
   "network": {
     "transport": "tcp",
-    "bytes": 5500,
-    "packets": 4,
-    "direction": "inbound"
+    "bytes": 12642,
+    "packets": 49,
+    "direction": "outbound"
   },
   "event": {
     "action": "accept",
@@ -72,9 +72,9 @@
     ],
     "dataset": "aws.vpcflow",
     "provider": "ec2.amazonaws.com",
-    "duration": 210000000
+    "duration": 137000000
   },
-  "message": "2 814726593401 eni-dh7a5ucm 191.216.103.105 251.180.78.90 22510 8443 6 4 5500 1774547462 1774547519 ACCEPT OK",
+  "message": "2 164820739518 eni-d4gv2jtc 236.119.155.128 217.45.1.15 29115 22 6 49 12642 1774602114 1774602152 ACCEPT OK",
   "log": {
     "level": "info"
   }

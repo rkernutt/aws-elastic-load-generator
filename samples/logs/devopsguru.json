@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "devopsguru"
@@ -13,13 +13,13 @@
   },
   "aws": {
     "devopsguru": {
-      "insight_id": "wxjtxelcw8a",
+      "insight_id": "o861fl6xm9",
       "insight_type": "PROACTIVE",
-      "severity": "HIGH",
+      "severity": "LOW",
       "resource_collection": {
         "cloud_formation": {
           "stack_names": [
-            "data-stack"
+            "prod-stack"
           ]
         },
         "tags": [
@@ -29,20 +29,21 @@
           }
         ]
       },
-      "anomaly_id": "clpflgamgpa",
-      "anomaly_description": "Unusual increase in Lambda error rate",
+      "anomaly_id": "jzuh98b7jl",
+      "anomaly_description": "DynamoDB throttling pattern detected",
       "anomaly_sources": [
-        "ecs-workers"
+        "sqs-orders"
       ],
-      "start_time": "2026-03-26T17:25:23.719Z",
-      "end_time": "2026-03-26T17:51:02.591Z",
-      "status": "CLOSED",
-      "recommendation": "Check recent deployments",
-      "ssm_ops_items": []
+      "start_time": "2026-03-27T08:49:07.608Z",
+      "status": "ONGOING",
+      "recommendation": "Scale up resource",
+      "ssm_ops_items": [
+        "oi-y6yl4hy5"
+      ]
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process",
       "configuration",
@@ -50,10 +51,15 @@
     ],
     "dataset": "aws.devopsguru",
     "provider": "devops-guru.amazonaws.com",
-    "duration": 128000000000
+    "duration": 2046000000000
   },
-  "message": "DevOps Guru PROACTIVE insight [HIGH]: Unusual increase in Lambda error rate",
+  "message": "DevOps Guru ONGOING [LOW]: DynamoDB throttling pattern detected",
   "log": {
-    "level": "warn"
+    "level": "error"
+  },
+  "error": {
+    "code": "InsightOngoing",
+    "message": "DevOps Guru ongoing anomaly",
+    "type": "process"
   }
 }

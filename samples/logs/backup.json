@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "eu-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "backup"
@@ -13,13 +13,13 @@
   },
   "aws": {
     "backup": {
-      "backup_job_id": "4qqpdvq6-nbip-uzbc",
-      "backup_plan_name": "compliance-backup",
+      "backup_job_id": "ci0loirf-bxjf-srzt",
+      "backup_plan_name": "critical-data-plan",
       "resource_type": "EFS",
-      "backup_vault_name": "compliance-vault",
-      "status": "COMPLETED",
-      "backup_size_gb": 566.255,
-      "lifecycle_delete_after_days": 90
+      "backup_vault_name": "prod-vault",
+      "status": "RUNNING",
+      "backup_size_gb": 1273.028,
+      "lifecycle_delete_after_days": 365
     }
   },
   "event": {
@@ -29,9 +29,9 @@
     ],
     "dataset": "aws.backup",
     "provider": "backup.amazonaws.com",
-    "duration": 2745000000000
+    "duration": 4497000000000
   },
-  "message": "AWS Backup COMPLETED: ec2/i-prod -> Default (566.3GB)",
+  "message": "AWS Backup RUNNING: dynamodb/users-table -> Default (1273.0GB)",
   "log": {
     "level": "info"
   }

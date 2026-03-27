@@ -1,17 +1,17 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "trace": {
-    "id": "1-69c57206-d15cpo5tvbf"
+    "id": "1-69c64782-4ancm3ttax9"
   },
   "span": {
-    "id": "36cwlhbalu"
+    "id": "r7w8tirmjcc"
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "xray"
@@ -20,62 +20,72 @@
   "aws": {
     "dimensions": {
       "GroupName": "Default",
-      "ServiceType": "remote"
+      "ServiceType": "AWS::DynamoDB::Table"
     },
     "xray": {
-      "trace_id": "1-69c57206-d15cpo5tvbf",
-      "segment_id": "36cwlhbalu",
+      "trace_id": "1-69c64782-4ancm3ttax9",
+      "segment_id": "r7w8tirmjcc",
+      "parent_id": "c4frkaiartq",
       "service": {
-        "name": "user-service",
-        "type": "remote"
+        "name": "dynamodb-client",
+        "type": "AWS::DynamoDB::Table"
       },
-      "duration": 0.697,
+      "duration": 1.722,
       "fault": false,
       "error": false,
       "throttle": false,
       "http": {
         "request": {
-          "method": "GET",
-          "url": "/api/v1/search"
+          "method": "PUT",
+          "url": "/api/v1/auth/login"
         },
         "response": {
-          "status": 200
+          "status": 201
         }
       },
       "annotations": {
         "env": "prod",
-        "version": "v12"
+        "version": "v1"
       },
+      "subsegments": [
+        {
+          "id": "qqsg278v6n",
+          "name": "SQS.SendMessage",
+          "namespace": "remote",
+          "duration": 0.024,
+          "fault": false
+        }
+      ],
       "metrics": {
         "ErrorRate": {
-          "avg": 0.099
+          "avg": 0.934
         },
         "FaultRate": {
-          "avg": 0.135
+          "avg": 0.006
         },
         "ThrottleRate": {
-          "avg": 0.385
+          "avg": 0.01
         },
         "TotalCount": {
-          "sum": 4031
+          "sum": 1645
         },
         "Latency": {
-          "avg": 697,
-          "p99": 2091
+          "avg": 1722,
+          "p99": 5166
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "GET"
+      "method": "PUT"
     },
     "response": {
-      "status_code": 200
+      "status_code": 201
     }
   },
   "event": {
-    "duration": 697000000,
+    "duration": 1722000000,
     "outcome": "success",
     "category": [
       "network"
@@ -86,7 +96,7 @@
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray: user-service GET → 200 (0.697s)",
+  "message": "X-Ray: dynamodb-client PUT → 201 (1.722s)",
   "log": {
     "level": "info"
   }

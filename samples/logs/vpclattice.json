@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "eu-central-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "auth-svc",
-      "ServiceNetworkName": "shared-services-network"
+      "ServiceName": "checkout-svc",
+      "ServiceNetworkName": "prod-service-network"
     },
     "vpclattice": {
-      "service_name": "auth-svc",
-      "service_arn": "arn:aws:vpc-lattice:ca-west-1:164820739518:service/auth-svc-mdf6g2nr",
-      "service_network_name": "shared-services-network",
-      "target_group_id": "tg-1wbkxih9wyf",
-      "source_vpc_id": "vpc-kmlcxxqn",
-      "destination_vpc_id": "vpc-u9ofvdkt",
-      "request_method": "DELETE",
-      "response_code": 200,
-      "response_time_ms": 16,
-      "bytes_received": 13702,
-      "bytes_sent": 101472,
-      "tls_cipher_suite": "ECDHE-RSA-AES256-GCM-SHA384"
+      "service_name": "checkout-svc",
+      "service_arn": "arn:aws:vpc-lattice:eu-central-1:164820739518:service/checkout-svc-t11znede",
+      "service_network_name": "prod-service-network",
+      "target_group_id": "tg-cb9c1r5tci",
+      "source_vpc_id": "vpc-nhfmscub",
+      "destination_vpc_id": "vpc-cjo2jqn0",
+      "request_method": "PUT",
+      "response_code": 301,
+      "response_time_ms": 77,
+      "bytes_received": 21534,
+      "bytes_sent": 5168,
+      "tls_cipher_suite": "TLS_AES_128_GCM_SHA256"
     }
   },
   "event": {
@@ -39,9 +39,9 @@
     ],
     "dataset": "aws.vpclattice",
     "provider": "vpc-lattice.amazonaws.com",
-    "duration": 16000000
+    "duration": 77000000
   },
-  "message": "VPC Lattice auth-svc: DELETE 200 16ms",
+  "message": "VPC Lattice checkout-svc: PUT 301 77ms",
   "log": {
     "level": "info"
   }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ap-south-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "DomainId": "dzd_eee4oxezp69"
+      "DomainId": "dzd_kjcke0l5u8"
     },
     "datazone": {
-      "domain_id": "dzd_eee4oxezp69",
-      "domain_name": "data-mesh-prod",
-      "project_name": "marketing-analytics",
-      "asset_name": "inventory_levels",
-      "asset_type": "AthenaTableViewType",
-      "subscription_status": "ACTIVE",
-      "glossary_term": "Sensitive",
-      "environment_id": "env-j4jgwgr5sp"
+      "domain_id": "dzd_kjcke0l5u8",
+      "domain_name": "analytics-domain",
+      "project_name": "customer-360",
+      "asset_name": "ad_spend",
+      "asset_type": "RedshiftTableViewType",
+      "subscription_status": "APPROVED",
+      "glossary_term": "Public",
+      "environment_id": "env-uqdkheemrcq"
     }
   },
   "event": {
-    "action": "PublishAsset",
+    "action": "RevokeSubscription",
     "outcome": "success",
     "category": [
       "process"
@@ -35,7 +35,7 @@
     "dataset": "aws.datazone",
     "provider": "datazone.amazonaws.com"
   },
-  "message": "DataZone PublishAsset: domain=data-mesh-prod, project=marketing-analytics, asset=inventory_levels",
+  "message": "DataZone RevokeSubscription: domain=analytics-domain, project=customer-360, asset=ad_spend",
   "log": {
     "level": "info"
   }

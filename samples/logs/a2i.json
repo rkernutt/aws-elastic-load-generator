@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "sa-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,33 +13,38 @@
   },
   "aws": {
     "dimensions": {
-      "FlowDefinitionArn": "arn:aws:sagemaker:us-west-2:164820739518:flow-definition/id-verification",
-      "Operation": "ConditionThresholdBreached"
+      "FlowDefinitionArn": "arn:aws:sagemaker:sa-east-1:164820739518:flow-definition/id-verification",
+      "Operation": "CreateHumanLoop"
     },
     "a2i": {
-      "flow_definition_arn": "arn:aws:sagemaker:us-west-2:164820739518:flow-definition/id-verification",
-      "human_loop_name": "loop-0ts1okku9t3",
-      "human_loop_status": "InProgress",
+      "flow_definition_arn": "arn:aws:sagemaker:sa-east-1:164820739518:flow-definition/id-verification",
+      "human_loop_name": "loop-owfm4r5bpf",
+      "human_loop_status": "Failed",
       "input_content_type": "image/jpeg",
       "condition_threshold": 0.85,
       "human_review_required": true,
-      "reviewer_count": 1,
-      "task_count": 1,
-      "task_completed": 1,
+      "reviewer_count": 4,
+      "task_count": 3,
+      "task_completed": 0,
       "confidence_threshold_breach": true
     }
   },
   "log": {
-    "level": "warn"
+    "level": "error"
   },
   "event": {
-    "action": "ConditionThresholdBreached",
-    "outcome": "success",
+    "action": "CreateHumanLoop",
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.a2i",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "A2I ConditionThresholdBreached: loop=loop-0ts1okku9t3, status=InProgress, confidence=0.60<0.85 REVIEW REQUIRED"
+  "message": "A2I CreateHumanLoop FAILED [loop-owfm4r5bpf]: Task timed out",
+  "error": {
+    "code": "ValidationException",
+    "message": "A2I human loop failed",
+    "type": "process"
+  }
 }

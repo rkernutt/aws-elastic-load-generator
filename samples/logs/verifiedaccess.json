@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "verified-access"
@@ -13,32 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "ApplicationId": "va-app-zhhzdipe"
+      "ApplicationId": "va-app-xql7hpdw"
     },
     "verifiedaccess": {
-      "endpoint_id": "vae-gq2fkg3fsd6",
-      "group_id": "vag-ge2jirzouo",
-      "instance_id": "vai-agsotx2p0po",
-      "policy_name": "jump-server-only",
+      "endpoint_id": "vae-o9omc8ym1il",
+      "group_id": "vag-0vlb16iqd9j",
+      "instance_id": "vai-rue6419k2gi",
+      "policy_name": "require-mfa",
       "trust_provider_type": "oidc-okta",
-      "device_posture": "UNKNOWN",
+      "device_posture": "COMPLIANT",
       "verdict": "allow",
       "http_method": "DELETE",
-      "http_path": "/api/v2/events",
+      "http_path": "/api/v1/search",
       "http_status": 200,
-      "request_id": "q6oy5uzt-rcye-bxbs-i9h4-4xj4p0k5sqf",
-      "connection_id": "WGRQH7M9J4H",
-      "session_id": "M2ZZ54MP33K",
+      "request_id": "zizys3jz-rphf-8a2d-bzf7-9pv41fowo2r",
+      "connection_id": "WCDAL0HS2XO",
+      "session_id": "NG4MW3ZBBUA",
       "sni_hostname": "staging-api.internal.example.com",
       "application_name": "staging-api"
     }
   },
   "user": {
-    "email": "deploy-svc@example.com",
-    "name": "deploy-svc"
+    "email": "contractor@partner.com",
+    "name": "contractor"
   },
   "source": {
-    "ip": "144.218.180.241"
+    "ip": "46.20.34.169"
   },
   "event": {
     "outcome": "success",
@@ -51,9 +51,9 @@
     ],
     "dataset": "aws.verifiedaccess",
     "provider": "verified-access.amazonaws.com",
-    "duration": 197000000
+    "duration": 72000000
   },
-  "message": "Verified Access allowed: deploy-svc@example.com -> staging-api (UNKNOWN)",
+  "message": "Verified Access allowed: contractor@partner.com -> staging-api (COMPLIANT)",
   "log": {
     "level": "info"
   }

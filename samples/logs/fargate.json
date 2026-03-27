@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ap-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "fargate"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "api-backend",
+      "ServiceName": "data-processor",
       "ClusterName": "prod-cluster",
-      "TaskDefinitionFamily": "api-backend"
+      "TaskDefinitionFamily": "data-processor"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 11
+          "avg": 56
         },
         "CPUReservation": {
-          "avg": 26.21
+          "avg": 22.497
         },
         "MemoryUtilization": {
-          "avg": 23.624
+          "avg": 54.066
         },
         "MemoryReservation": {
-          "avg": 60.557
+          "avg": 59.295
         },
         "GPUReservation": {
           "avg": 0
@@ -38,20 +38,20 @@
     }
   },
   "container": {
-    "id": "h8dh80z4sum",
-    "name": "api-backend",
+    "id": "0kjh6ow8c4ap",
+    "name": "data-processor",
     "image": {
-      "name": "myrepo/api-backend:latest",
+      "name": "myrepo/data-processor:latest",
       "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 7195,
-    "name": "api-backend"
+    "pid": 47646,
+    "name": "data-processor"
   },
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "event": {
     "outcome": "success",
@@ -61,7 +61,7 @@
     ],
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 3499000000000
+    "duration": 808000000000
   },
-  "message": "{\"cluster\":\"prod-cluster\",\"taskId\":\"nnj4pb20n7n\",\"taskDefinition\":\"api-backend:47\",\"container\":\"api-backend\",\"level\":\"info\",\"message\":\"Container is healthy\",\"timestamp\":\"2026-03-26T17:51:02.372Z\"}"
+  "message": "Task approaching resource limits"
 }

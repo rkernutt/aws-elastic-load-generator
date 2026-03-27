@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,7 +7,7 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ap-northeast-3",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -15,36 +15,38 @@
   },
   "orchestrator": {
     "cluster": {
-      "id": "prod-eks-cluster",
-      "name": "prod-eks-cluster"
+      "id": "dev-eks",
+      "name": "dev-eks"
     },
     "type": "kubernetes",
     "namespace": "production"
   },
   "resource": {
-    "id": "prod-eks-cluster/production/api-server/prod-eks-cluster",
-    "name": "api-server/prod-eks-cluster",
-    "sub_type": "api-server",
+    "id": "dev-eks/production/namespace/production",
+    "name": "namespace/production",
+    "sub_type": "Namespace",
     "type": "k8s_object"
   },
   "rule": {
-    "id": "cis_eks_2_1",
-    "name": "Enable audit logging",
-    "section": "2.1",
+    "id": "cis_eks_5_1",
+    "name": "Enable network policy on EKS worker nodes",
+    "section": "5.1",
     "tags": [
-      "Logging"
+      "Policies"
     ],
     "benchmark": {
       "id": "cis_eks",
       "version": "v1.4.0",
-      "rule_number": "2.1",
+      "rule_number": "5.1",
       "posture_type": "kspm"
-    }
+    },
+    "impact": "Enable network policy on EKS worker nodes — non-compliant configuration may allow container escape or lateral movement.",
+    "remediation": "Review and remediate per CIS EKS Benchmark v1.4.0 section 5.1."
   },
   "result": {
-    "evaluation": "passed"
+    "evaluation": "failed"
   },
-  "severity": "none",
+  "severity": "medium",
   "event": {
     "kind": "state",
     "category": [
@@ -53,12 +55,17 @@
     "type": [
       "info"
     ],
-    "outcome": "success",
+    "outcome": "failure",
     "dataset": "cloud_security_posture.findings",
     "provider": "elastic_kspm"
   },
-  "message": "KSPM [CIS EKS / 2.1] passed: Enable audit logging [prod-eks-cluster]",
+  "message": "KSPM [CIS EKS / 5.1] failed: Enable network policy on EKS worker nodes [dev-eks]",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "CIS_CIS_EKS_5_1",
+    "message": "KSPM check failed: Enable network policy on EKS worker nodes",
+    "type": "compliance"
   }
 }

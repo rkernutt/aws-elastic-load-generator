@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "sa-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "databrew"
@@ -14,29 +14,29 @@
   "aws": {
     "dimensions": {
       "JobName": "remove-pii-job",
-      "DatasetName": "event-logs"
+      "DatasetName": "sales-csv"
     },
     "databrew": {
-      "project_name": "event-logs-project",
+      "project_name": "sales-csv-project",
       "recipe_name": "remove-pii",
       "job_name": "remove-pii-job",
-      "job_type": "PROFILE",
-      "dataset_name": "event-logs",
+      "job_type": "RECIPE",
+      "dataset_name": "sales-csv",
       "job_status": "SUCCEEDED",
       "run_state": "SUCCEEDED",
-      "duration_seconds": 565,
-      "rows_processed": 8278426,
-      "transform_steps": 16,
-      "output_location": "s3://databrew-output/event-logs/",
+      "duration_seconds": 110,
+      "rows_processed": 1992693,
+      "transform_steps": 23,
+      "output_location": "s3://databrew-output/sales-csv/",
       "metrics": {
         "RowsProcessed": {
-          "sum": 8278426
+          "sum": 1992693
         },
         "DurationSeconds": {
-          "avg": 565
+          "avg": 110
         },
         "TransformSteps": {
-          "avg": 16
+          "avg": 23
         },
         "JobSuccessCount": {
           "sum": 1
@@ -48,7 +48,7 @@
     }
   },
   "event": {
-    "duration": 565000000000,
+    "duration": 110000000000,
     "outcome": "success",
     "category": [
       "process"
@@ -56,7 +56,7 @@
     "dataset": "aws.databrew",
     "provider": "databrew.amazonaws.com"
   },
-  "message": "Job run started",
+  "message": "DataBrew job remove-pii: 1,992,693 rows in 110s",
   "log": {
     "level": "info"
   }

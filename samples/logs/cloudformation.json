@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "cloudformation"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "cloudformation": {
-      "stack_name": "prod-web-stack",
-      "stack_id": "arn:aws:cloudformation:us-east-1:814726593401:stack/prod-web-stack/x27ycm3g",
+      "stack_name": "rds-cluster",
+      "stack_id": "arn:aws:cloudformation:eu-central-2:164820739518:stack/rds-cluster/4w5kjmqm",
       "action": "CREATE_STACK",
-      "stack_status": "CREATE_COMPLETE",
-      "resource_type": "AWS::ECS::Service",
+      "stack_status": "UPDATE_COMPLETE",
+      "resource_type": "AWS::EC2::VPC",
       "logical_resource_id": "TaskRole",
       "drift_status": "IN_SYNC",
       "structured_logging": true,
       "metrics": {
         "TotalStack": {
-          "avg": 38
+          "avg": 71
         },
         "ErroredStack": {
           "avg": 0
@@ -32,10 +32,10 @@
           "avg": 0
         },
         "DeletedStack": {
-          "avg": 38
+          "avg": 30
         },
         "StackInstancesDeployed": {
-          "avg": 9506
+          "avg": 7228
         }
       }
     }
@@ -48,9 +48,9 @@
     ],
     "dataset": "aws.cloudformation",
     "provider": "cloudformation.amazonaws.com",
-    "duration": 323000000000
+    "duration": 589000000000
   },
-  "message": "{\"stackName\":\"prod-web-stack\",\"action\":\"CREATE_STACK\",\"stackStatus\":\"CREATE_COMPLETE\",\"resourceType\":\"AWS::ECS::Service\",\"message\":\"CloudFormation prod-web-stack: CREATE_STACK -> CREATE_COMPLETE\",\"timestamp\":\"2026-03-26T17:51:02.372Z\"}",
+  "message": "{\"stackName\":\"rds-cluster\",\"action\":\"CREATE_STACK\",\"stackStatus\":\"UPDATE_COMPLETE\",\"resourceType\":\"AWS::EC2::VPC\",\"message\":\"CloudFormation rds-cluster: CREATE_STACK -> UPDATE_COMPLETE\",\"timestamp\":\"2026-03-27T09:01:54.466Z\"}",
   "log": {
     "level": "info"
   }

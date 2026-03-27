@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "eu-north-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "resiliencehub"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "resiliencehub": {
-      "app_arn": "arn:aws:resiliencehub:af-south-1:164820739518:app/5eh5t7iun6j",
-      "app_name": "data-pipeline",
+      "app_arn": "arn:aws:resiliencehub:eu-north-1:293847561023:app/2kkn94bph8p",
+      "app_name": "ecommerce-platform",
       "operation": "RunResiliencyAssessment",
-      "resiliency_score": 11,
+      "resiliency_score": 9,
       "compliance_status": "POLICY_BREACHED",
-      "current_rto_seconds": 3067,
-      "target_rto_seconds": 1533,
-      "current_rpo_seconds": 80,
-      "target_rpo_seconds": 40,
+      "current_rto_seconds": 2139,
+      "target_rto_seconds": 1069,
+      "current_rpo_seconds": 1956,
+      "target_rpo_seconds": 978,
       "tier": "Non-Critical",
-      "disruption_type": "Hardware",
-      "recommendation_count": 9,
-      "error_code": "ThrottlingException"
+      "disruption_type": "Region",
+      "recommendation_count": 13,
+      "error_code": "ValidationException"
     }
   },
   "event": {
@@ -36,9 +36,9 @@
     ],
     "dataset": "aws.resiliencehub",
     "provider": "resiliencehub.amazonaws.com",
-    "duration": 72000000000
+    "duration": 393000000000
   },
-  "message": "Resilience Hub data-pipeline POLICY BREACHED [Non-Critical]: score=11, RTO 3067s exceeds target",
+  "message": "Resilience Hub ecommerce-platform POLICY BREACHED [Non-Critical]: score=9, RTO 2139s exceeds target",
   "log": {
     "level": "warn"
   },

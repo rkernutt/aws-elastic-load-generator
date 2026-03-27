@@ -1,12 +1,12 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
-    "availability_zone": "ap-southeast-4b",
+    "region": "us-east-2",
+    "availability_zone": "us-east-2b",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "ebs"
@@ -14,49 +14,49 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-89bdv8745v",
+      "VolumeId": "vol-q0gvyxe87ws",
       "VolumeType": "io2"
     },
     "ebs": {
-      "volume_id": "vol-89bdv8745v",
+      "volume_id": "vol-q0gvyxe87ws",
       "volume_type": "io2",
-      "size_gb": 200,
-      "availability_zone": "ap-southeast-4b",
-      "previous_state": "in-use",
-      "current_state": "in-use",
-      "attached_instance": "i-lqpc61p7bp",
-      "device": "/dev/xvdb",
-      "event_type": "state_change",
+      "size_gb": 100,
+      "alarm_name": "ebs-burstbalance-vol-q0gvyxe87ws",
+      "alarm_state": "OK",
+      "metric_name": "BurstBalance",
+      "threshold": 71,
+      "current_value": 26,
+      "event_type": "alarm",
       "metrics": {
         "VolumeReadOps": {
-          "avg": 7022
+          "avg": 4219
         },
         "VolumeWriteOps": {
-          "avg": 8424
+          "avg": 4961
         },
         "VolumeReadBytes": {
-          "avg": 311277052
+          "avg": 257123354
         },
         "VolumeWriteBytes": {
-          "avg": 329919544
+          "avg": 380018540
         },
         "VolumeTotalReadTime": {
-          "sum": 7.336
+          "sum": 9.898
         },
         "VolumeTotalWriteTime": {
-          "sum": 7.989
+          "sum": 8.04
         },
         "VolumeIdleTime": {
-          "sum": 49.493
+          "sum": 48.914
         },
         "VolumeQueueLength": {
-          "avg": 4
+          "avg": 1
         },
         "VolumeThroughputPercentage": {
-          "avg": 19.105
+          "avg": 77.528
         },
         "VolumeConsumedReadWriteOps": {
-          "avg": 1011
+          "avg": 9465
         },
         "BurstBalance": {}
       }
@@ -70,9 +70,9 @@
     ],
     "dataset": "aws.ebs",
     "provider": "ec2.amazonaws.com",
-    "duration": 610000000
+    "duration": 291000000
   },
-  "message": "EBS volume vol-89bdv8745v state change: in-use -> in-use on i-lqpc61p7bp (/dev/xvdb)",
+  "message": "EBS CloudWatch alarm OK: BurstBalance on vol-q0gvyxe87ws within normal range",
   "log": {
     "level": "info"
   }

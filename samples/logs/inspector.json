@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-26T17:51:02.372Z",
+  "@timestamp": "2026-03-27T09:01:54.466Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-south-2",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,32 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "Severity": "MEDIUM"
+      "Severity": "INFORMATIONAL"
     },
     "inspector2": {
-      "finding_id": "arn:aws:inspector2:eu-west-1:164820739518:finding/adt4k0rd-vj9v-twmx-sqex-b1ojdbkpjrw",
-      "finding_type": "CODE_VULNERABILITY",
+      "finding_id": "arn:aws:inspector2:eu-south-2:164820739518:finding/xqsrpz95-yldf-gq91-oi0z-d44h7zouwne",
+      "finding_type": "NETWORK_REACHABILITY",
       "finding_status": "ACTIVE",
-      "severity": "MEDIUM",
-      "severity_score": 4.9,
-      "exploitability": "PROOF_OF_CONCEPT",
+      "severity": "INFORMATIONAL",
+      "severity_score": 3.3,
+      "exploitability": "NOT_DEFINED",
       "resource_type": "AWS_EC2_INSTANCE",
-      "resource_id": "i-qglzyrigwe",
-      "first_observed_at": "2026-03-18T17:51:02.372Z",
-      "last_observed_at": "2026-03-26T17:51:02.372Z",
-      "code_vulnerability": {
-        "cwes": [
-          "CWE-89"
-        ],
-        "detector_name": "CodeGuru Detector",
-        "file_path": {
-          "name": "app.py",
-          "line_number": 454
-        }
+      "resource_id": "i-0mnbbigcl2un",
+      "first_observed_at": "2026-03-09T09:01:54.466Z",
+      "last_observed_at": "2026-03-27T09:01:54.466Z",
+      "network_reachability": {
+        "protocol": "UDP",
+        "open_port_range": {
+          "begin": 5432,
+          "end": 80
+        },
+        "network_path": "sg -> vpc-peering"
       },
       "metrics": {
         "TotalFindings": {
-          "sum": 36
+          "sum": 135
         },
         "CriticalFindings": {
           "sum": 0
@@ -47,21 +45,21 @@
           "sum": 0
         },
         "MediumFindings": {
-          "sum": 158
-        },
-        "LowFindings": {
           "sum": 0
         },
+        "LowFindings": {
+          "sum": 289
+        },
         "CoveredResources": {
-          "avg": 2831
+          "avg": 2029
         }
       }
     }
   },
   "vulnerability": {
-    "severity": "MEDIUM",
+    "severity": "INFORMATIONAL",
     "score": {
-      "base": 4.916
+      "base": 3.325
     }
   },
   "event": {
@@ -75,8 +73,8 @@
     "dataset": "aws.inspector2",
     "provider": "inspector2.amazonaws.com"
   },
-  "message": "Inspector2 [MEDIUM]: CODE_VULNERABILITY detected on AWS_EC2_INSTANCE",
+  "message": "Inspector2 [INFORMATIONAL]: NETWORK_REACHABILITY detected on AWS_EC2_INSTANCE",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }
