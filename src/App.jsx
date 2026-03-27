@@ -246,7 +246,11 @@ export default function App() {
         "x-elastic-key": apiKey,
       };
       const endDate   = new Date();
-      const startDate = new Date(endDate.getTime() - 1800000); // 30 min window
+      // Metrics mode needs a wide window: TSDS deduplicates by (dimensions + @timestamp),
+      // so a narrow window saturates quickly when re-running. 7 days gives plenty of entropy.
+      // Logs and traces can stay short — their IDs are not timestamp-derived.
+      const windowMs  = eventType === "metrics" ? 7 * 24 * 3600 * 1000 : 1800000;
+      const startDate = new Date(endDate.getTime() - windowMs);
 
       /** ── Traces mode: each "trace" = 1 transaction + N spans ─────────────── */
       if (isTracesMode) {
