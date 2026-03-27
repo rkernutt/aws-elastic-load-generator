@@ -248,10 +248,11 @@ export default function App() {
         "x-elastic-key": apiKey,
       };
       const endDate   = new Date();
-      // Metrics mode needs a wide window: TSDS deduplicates by (dimensions + @timestamp),
-      // so a narrow window saturates quickly when re-running. 7 days gives plenty of entropy.
-      // Logs and traces can stay short — their IDs are not timestamp-derived.
-      const windowMs  = eventType === "metrics" ? 7 * 24 * 3600 * 1000 : 1800000;
+      // Metrics mode uses a 2-hour window: TSDS data streams only accept documents within
+      // their writable range (~2h look-back by default on Elastic Cloud). Millisecond-precision
+      // timestamps from randTs make dimension+timestamp collisions effectively impossible.
+      // Logs and traces stay at 30 minutes — their IDs are not timestamp-derived.
+      const windowMs  = eventType === "metrics" ? 2 * 3600 * 1000 : 1800000;
       const startDate = new Date(endDate.getTime() - windowMs);
 
       /** ── Traces mode: each "trace" = 1 transaction + N spans ─────────────── */
