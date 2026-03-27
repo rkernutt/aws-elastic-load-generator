@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "il-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "eks"
@@ -13,74 +13,74 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "prod-cluster-sa-east-1",
-      "NodeName": "ip-233-172-12-177.sa-east-1.compute.internal",
-      "Namespace": "kube-system",
-      "PodName": "api-ikjzk-4a56o"
+      "ClusterName": "prod-cluster-il-central-1",
+      "NodeName": "ip-72-131-152-32.il-central-1.compute.internal",
+      "Namespace": "monitoring",
+      "PodName": "cache-yji3k-tl9zp"
     },
     "eks": {
-      "structured_logging": false,
+      "structured_logging": true,
       "cluster": {
-        "name": "prod-cluster-sa-east-1"
+        "name": "prod-cluster-il-central-1"
       },
       "node": {
-        "name": "ip-233-172-12-177.sa-east-1.compute.internal"
+        "name": "ip-72-131-152-32.il-central-1.compute.internal"
       },
       "metrics": {
         "cluster_failed_node_count": {
           "avg": 0
         },
         "node_cpu_utilization": {
-          "avg": "24.657"
+          "avg": "24.688"
         },
         "node_memory_utilization": {
-          "avg": "42.863"
+          "avg": "26.686"
         },
         "node_network_total_bytes": {
-          "sum": 807650354
+          "sum": 171709055
         },
         "node_filesystem_utilization": {
-          "avg": "28.117"
+          "avg": "34.255"
         },
         "pod_cpu_utilization": {
-          "avg": "4.262"
+          "avg": "63.692"
         },
         "pod_memory_utilization": {
-          "avg": "45.989"
+          "avg": "22.339"
         },
         "pod_network_rx_bytes": {
-          "sum": 78818632
+          "sum": 21693533
         },
         "pod_network_tx_bytes": {
-          "sum": 83449954
+          "sum": 93433063
         },
         "node_count": {
-          "avg": 20
+          "avg": 36
         },
         "pod_count": {
-          "avg": 422
+          "avg": 223
         }
       }
     }
   },
   "container": {
-    "id": "pagonkyah6",
-    "name": "api",
+    "id": "ink7huso1h",
+    "name": "cache",
     "image": {
-      "name": "k8s.gcr.io/api:v1.25.1"
+      "name": "k8s.gcr.io/cache:v1.28.3"
     },
     "runtime": "containerd"
   },
   "kubernetes": {
-    "namespace": "kube-system",
+    "namespace": "monitoring",
     "pod": {
-      "name": "api-ikjzk-4a56o"
+      "name": "cache-yji3k-tl9zp"
     },
     "container": {
-      "name": "api"
+      "name": "cache"
     },
     "labels": {
-      "app": "api",
+      "app": "cache",
       "env": "prod"
     }
   },
@@ -95,7 +95,7 @@
     "outcome": "success",
     "dataset": "aws.eks",
     "provider": "eks.amazonaws.com",
-    "duration": 3400000000000
+    "duration": 2621000000000
   },
-  "message": "2026-03-27 09:01:54.466 E575 B73F3D controller.go:90] Pod scheduled on node"
+  "message": "{\"cluster\":\"prod-cluster-il-central-1\",\"namespace\":\"monitoring\",\"pod\":\"cache-yji3k-tl9zp\",\"level\":\"info\",\"message\":\"Deployment rollout complete\",\"timestamp\":\"2026-03-27T12:56:06.485Z\",\"stream\":\"stdout\"}"
 }

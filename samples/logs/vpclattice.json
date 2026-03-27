@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "us-east-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "vpclattice"
@@ -13,35 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "checkout-svc",
+      "ServiceName": "inventory-svc",
       "ServiceNetworkName": "prod-service-network"
     },
     "vpclattice": {
-      "service_name": "checkout-svc",
-      "service_arn": "arn:aws:vpc-lattice:eu-central-1:164820739518:service/checkout-svc-t11znede",
+      "service_name": "inventory-svc",
+      "service_arn": "arn:aws:vpc-lattice:us-east-2:293847561023:service/inventory-svc-v630qxyz",
       "service_network_name": "prod-service-network",
-      "target_group_id": "tg-cb9c1r5tci",
-      "source_vpc_id": "vpc-nhfmscub",
-      "destination_vpc_id": "vpc-cjo2jqn0",
-      "request_method": "PUT",
-      "response_code": 301,
-      "response_time_ms": 77,
-      "bytes_received": 21534,
-      "bytes_sent": 5168,
-      "tls_cipher_suite": "TLS_AES_128_GCM_SHA256"
+      "target_group_id": "tg-hlbu2m7exd7",
+      "source_vpc_id": "vpc-67i76n7a",
+      "destination_vpc_id": "vpc-y2kcmser",
+      "request_method": "GET",
+      "response_code": 200,
+      "response_time_ms": 468,
+      "bytes_received": 26150,
+      "bytes_sent": 12335,
+      "tls_cipher_suite": "TLS_AES_256_GCM_SHA384"
     }
   },
   "event": {
-    "action": "ServiceNetworkVpcAssociation",
+    "action": "ForwardRule",
     "outcome": "success",
     "category": [
       "network"
     ],
     "dataset": "aws.vpclattice",
     "provider": "vpc-lattice.amazonaws.com",
-    "duration": 77000000
+    "duration": 468000000
   },
-  "message": "VPC Lattice checkout-svc: PUT 301 77ms",
+  "message": "VPC Lattice inventory-svc: GET 200 468ms",
   "log": {
     "level": "info"
   }

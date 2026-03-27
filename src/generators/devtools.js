@@ -383,4 +383,28 @@ function generateDeviceFarmLog(ts, er) {
   };
 }
 
-export { generateCodeBuildLog, generateCodePipelineLog, generateCodeDeployLog, generateCodeCommitLog, generateCodeArtifactLog, generateAmplifyLog, generateXRayLog, generateCodeGuruLog, generateCodeCatalystLog, generateDeviceFarmLog };
+function generateProtonLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const environmentName = rand(["prod-env","staging-env","dev-env","sandbox-env"]);
+  const serviceName = rand(["api-service","worker-service","frontend-service","data-pipeline"]);
+  const serviceInstanceName = rand(["prod-instance","staging-instance","v2-instance"]);
+  const templateName = rand(["fargate-env-template","lambda-service-template","ecs-service-template","k8s-env-template"]);
+  const templateMajorVersion = rand(["1","2","3"]);
+  const deploymentStatus = isErr ? rand(["FAILED","DELETE_FAILED","UPDATE_FAILED"]) : rand(["SUCCEEDED","IN_PROGRESS","SUCCEEDED"]);
+  const component = rand(["environment","service","service_instance","component"]);
+  const action = rand(["CreateEnvironment","UpdateEnvironment","DeleteEnvironment","CreateService","UpdateService","DeployServiceInstance","CancelServiceInstanceDeployment"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"proton" } },
+    "aws": {
+      dimensions: { EnvironmentName: environmentName, ServiceName: serviceName },
+      proton: { environment_name:environmentName, service_name:serviceName, service_instance_name:serviceInstanceName, template_name:templateName, template_major_version:templateMajorVersion, deployment_status:deploymentStatus, component }
+    },
+    "event": { action, outcome:isErr?"failure":"success", category:["configuration"], dataset:"aws.proton", provider:"proton.amazonaws.com", duration:randInt(10,isErr?600:120)*1e9 },
+    "message": isErr ? `Proton ${component} ${serviceName} deployment FAILED on ${templateName}` : `Proton ${component} ${serviceName} ${action} ${deploymentStatus}`,
+    "log": { level:isErr?"error":"info" },
+    ...(isErr ? { error: { code: deploymentStatus, message: `Proton deployment failed for ${serviceName}`, type: "configuration" } } : {})
+  };
+}
+
+export { generateCodeBuildLog, generateCodePipelineLog, generateCodeDeployLog, generateCodeCommitLog, generateCodeArtifactLog, generateAmplifyLog, generateXRayLog, generateCodeGuruLog, generateCodeCatalystLog, generateDeviceFarmLog, generateProtonLog };

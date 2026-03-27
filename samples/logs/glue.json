@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "eu-south-2",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -14,143 +14,144 @@
   "aws": {
     "dimensions": {
       "JobName": "schema-handler",
-      "JobRunId": "jr_gt1u5qr1bq",
-      "Type": "gluestreaming"
+      "JobRunId": "jr_0rx3414a0yla",
+      "Type": "glueetl"
     },
     "glue": {
       "job": {
         "name": "schema-handler",
-        "run_id": "jr_gt1u5qr1bq",
-        "type": "gluestreaming",
-        "run_state": "SUCCEEDED"
+        "run_id": "jr_0rx3414a0yla",
+        "type": "glueetl",
+        "run_state": "STOPPED"
       },
       "database": "curated",
-      "table": "products",
-      "dpu_seconds": 115700,
+      "table": "transactions",
+      "dpu_seconds": 57050,
       "worker": {
-        "type": "G.2X",
-        "count": 50
+        "type": "G.1X",
+        "count": 10
       },
       "records": {
-        "read": 44155238,
-        "written": 43713685,
+        "read": 41117203,
+        "written": 40706030,
         "errors": 0
       },
-      "glue_version": "3.0",
+      "glue_version": "4.0",
+      "connection_name": "s3-data",
       "continuous_logging": false,
       "metrics": {
         "driver": {
           "aggregate": {
-            "numRecords": 44155238,
+            "numRecords": 41117203,
             "numFailedRecords": 0,
-            "elapsedTime": 2314000,
-            "numCompletedTasks": 253,
+            "elapsedTime": 5705000,
+            "numCompletedTasks": 154,
             "numFailedTasks": 0,
             "numKilledTasks": 0,
             "numCompletedStages": 8,
-            "bytesRead": 3929816182,
-            "shuffleBytesWritten": 2049659896,
-            "shuffleLocalBytesRead": 1838569415,
-            "gc_time_ms": 5910
+            "bytesRead": 16529115606,
+            "shuffleBytesWritten": 13211387746,
+            "shuffleLocalBytesRead": 5734919759,
+            "gc_time_ms": 5818
           },
           "memory": {
             "heap": {
-              "available": 5516820463,
-              "used": 3240037415,
-              "used_percentage": 37
+              "available": 1563059671,
+              "used": 3321501800,
+              "used_percentage": 68
             },
             "non-heap": {
-              "available": 143779759,
-              "used": 69039605,
-              "used_percentage": 25
+              "available": 173853713,
+              "used": 126567308,
+              "used_percentage": 36
             }
           },
           "jvm": {
             "heap": {
-              "usage": 0.37
+              "usage": 0.68
             }
           },
           "disk": {
-            "available_GB": 154,
-            "used_GB": 378,
-            "used_percentage": 71,
-            "diskSpaceUsed_MB": 709
+            "available_GB": 339,
+            "used_GB": 277,
+            "used_percentage": 45,
+            "diskSpaceUsed_MB": 746
           },
           "BlockManager": {
             "disk": {
-              "diskSpaceUsed_MB": 1446
+              "diskSpaceUsed_MB": 1350
             }
           },
           "ExecutorAllocationManager": {
             "executors": {
-              "numberAllExecutors": 50,
-              "numberMaxNeededExecutors": 83
+              "numberAllExecutors": 12,
+              "numberMaxNeededExecutors": 14
             }
           },
           "s3": {
             "filesystem": {
-              "read_bytes": 1218988914,
-              "write_bytes": 7227543645
+              "read_bytes": 849103126,
+              "write_bytes": 2195728639
             }
           },
           "system": {
-            "cpuSystemLoad": 0.68
+            "cpuSystemLoad": 0.26
           },
-          "workerUtilization": 0.86,
+          "workerUtilization": 0.84,
           "skewness": {
-            "stage": 1.535,
-            "job": 2.153
+            "stage": 1.266,
+            "job": 0.591
           }
         },
         "executor": {
           "aggregate": {
-            "numCompletedTasks": 253,
+            "numCompletedTasks": 154,
             "numFailedTasks": 0,
-            "gc_time_ms": 39795
+            "gc_time_ms": 36481
           }
         },
         "ALL": {
           "memory": {
             "heap": {
-              "available": 5525235510,
-              "used": 7385027077,
-              "used_percentage": 50
+              "available": 14116629723,
+              "used": 9345917236,
+              "used_percentage": 73
             },
             "non-heap": {
-              "available": 460382617,
-              "used": 196046055,
-              "used_percentage": 41
+              "available": 505454142,
+              "used": 74330404,
+              "used_percentage": 28
             }
           },
           "jvm": {
             "heap": {
-              "usage": 0.82
+              "usage": 0.74
             }
           },
           "disk": {
-            "available_GB": 632,
-            "used_GB": 372,
-            "used_percentage": 42,
-            "diskSpaceUsed_MB": 2734
+            "available_GB": 101,
+            "used_GB": 244,
+            "used_percentage": 67,
+            "diskSpaceUsed_MB": 1124
           },
           "s3": {
             "filesystem": {
-              "read_bytes": 1476427056,
-              "write_bytes": 1138266705
+              "read_bytes": 139421180,
+              "write_bytes": 5982877903
             }
           },
           "system": {
-            "cpuSystemLoad": 0.71
+            "cpuSystemLoad": 0.44
           }
         }
       }
     }
   },
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "event": {
-    "duration": 2314000000000,
+    "duration": 5705000000000,
     "outcome": "success",
     "category": [
       "process"
@@ -158,5 +159,5 @@
     "dataset": "aws.glue",
     "provider": "glue.amazonaws.com"
   },
-  "message": "Reading from S3 path: s3://data-lake/raw/"
+  "message": "Schema mismatch: column type changed"
 }

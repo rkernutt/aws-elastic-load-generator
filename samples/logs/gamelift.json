@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-south-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "gamelift"
@@ -13,37 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "FleetId": "fleet-iokfmuv4",
-      "Location": "us-east-1",
+      "FleetId": "fleet-fbfp7hgk",
+      "Location": "eu-west-1",
       "MetricGroups": "All",
-      "OperatingSystem": "WINDOWS_2012"
+      "OperatingSystem": "AMAZON_LINUX_2"
     },
     "gamelift": {
-      "fleet_id": "fleet-iokfmuv4",
-      "fleet_name": "us-east-realtime",
-      "event_type": "MatchmakingTimedOut",
-      "game_session_id": "arn:aws:gamelift:eu-south-2::gamesession/us-east-realtime/vec1npf264c",
-      "current_player_sessions": 87,
-      "maximum_player_sessions": 100,
+      "fleet_id": "fleet-fbfp7hgk",
+      "fleet_name": "game-fleet-prod",
+      "event_type": "GameSessionCreated",
+      "game_session_id": "arn:aws:gamelift:eu-south-2::gamesession/game-fleet-prod/5ikhryie9vu",
+      "current_player_sessions": 34,
+      "maximum_player_sessions": 50,
       "instance_type": "c5.2xlarge",
-      "instance_count": 6,
-      "desired_instances": 31,
-      "idle_instances": 7,
+      "instance_count": 46,
+      "desired_instances": 43,
+      "idle_instances": 4,
       "matchmaking_configuration": "BalancedMatch",
-      "matchmaking_ticket_id": "fdcds8db8u",
-      "matchmaking_duration_seconds": 43,
       "metrics": {
         "ActiveInstances": {
-          "avg": 11
+          "avg": 33
         },
         "IdleInstances": {
-          "avg": 5
+          "avg": 18
         },
         "PercentIdleInstances": {
-          "avg": 28.82
+          "avg": 19.184
         },
         "DesiredInstances": {
-          "avg": 31
+          "avg": 46
         },
         "MinInstances": {
           "avg": 2
@@ -55,22 +53,22 @@
           "sum": 0
         },
         "ActiveGameSessions": {
-          "avg": 713
+          "avg": 698
         },
         "ActivatingGameSessions": {
-          "avg": 39
+          "avg": 28
         },
         "AvailableGameSessions": {
-          "avg": 185
+          "avg": 483
         },
         "ActivePlayerSessions": {
-          "avg": 3636
+          "avg": 8448
         },
         "CurrentPlayerSessions": {
-          "avg": 2785
+          "avg": 3745
         },
         "PlayerSessionActivations": {
-          "sum": 22
+          "sum": 31
         }
       }
     }
@@ -83,10 +81,10 @@
     ],
     "dataset": "aws.gamelift",
     "provider": "gamelift.amazonaws.com",
-    "duration": 2189365000000
+    "duration": 4227771000000
   },
-  "message": "GameLift us-east-realtime: MatchmakingTimedOut",
+  "message": "GameLift game-fleet-prod: GameSessionCreated",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

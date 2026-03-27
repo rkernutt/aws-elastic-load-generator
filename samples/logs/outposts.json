@@ -1,0 +1,52 @@
+{
+  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "il-central-1",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "outposts"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "OutpostId": "op-tiju2n77tuc",
+      "InstanceType": "c5.xlarge"
+    },
+    "outposts": {
+      "outpost_id": "op-tiju2n77tuc",
+      "outpost_arn": "arn:aws:outposts:il-central-1:293847561023:outpost/op-4aopohyccqx",
+      "site_id": "os-ts7fhw0qnjo",
+      "rack_id": "or-mexuzpsd4tf",
+      "instance_type": "c5.xlarge",
+      "available_instance_count": 14,
+      "total_instance_count": 37,
+      "capacity_status": "Degraded",
+      "connectivity_status": "Disconnected",
+      "asset_state": "ISOLATED"
+    }
+  },
+  "event": {
+    "action": "ConnectivityStatusChange",
+    "outcome": "failure",
+    "category": [
+      "host",
+      "infrastructure"
+    ],
+    "dataset": "aws.outposts",
+    "provider": "outposts.amazonaws.com",
+    "duration": 2484000000
+  },
+  "message": "Outpost op-tiju2n77tuc: Degraded — 14/37 c5.xlarge available",
+  "log": {
+    "level": "error"
+  },
+  "error": {
+    "code": "Degraded",
+    "message": "Outpost connectivity: Disconnected",
+    "type": "host"
+  }
+}

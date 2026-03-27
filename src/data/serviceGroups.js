@@ -9,6 +9,7 @@ const SERVICE_GROUPS = [
   ]},
   { id:"compute", label:"Compute & Containers", color:"#F04E98", icon:"□", services:[
     {id:"ec2",label:"EC2",icon:"□",desc:"System & auth logs"},
+    {id:"outposts",label:"Outposts",icon:"⊟",desc:"Hybrid cloud capacity & instance logs"},
     {id:"eks",label:"EKS",icon:"☸",desc:"Kubernetes pod/node logs"},
     {id:"fargate",label:"Fargate",icon:"▷",desc:"Serverless container logs"},
     {id:"ecr",label:"ECR",icon:"◫",desc:"Container image & scan logs"},
@@ -33,6 +34,9 @@ const SERVICE_GROUPS = [
     {id:"privatelink",label:"PrivateLink",icon:"⊗",desc:"VPC endpoint logs"},
     {id:"natgateway",label:"NAT Gateway",icon:"⇄",desc:"NAT traffic & connection metrics"},
     {id:"vpclattice",label:"VPC Lattice",icon:"⟺",desc:"Service-to-service networking logs"},
+    {id:"appmesh",label:"App Mesh",icon:"⊛",desc:"Service mesh Envoy proxy logs"},
+    {id:"clientvpn",label:"Client VPN",icon:"⊔",desc:"VPN connection & auth logs"},
+    {id:"cloudmap",label:"Cloud Map",icon:"◎",desc:"Service discovery events"},
   ]},
   { id:"security", label:"Security & Compliance", color:"#00BFB3", icon:"⚿", services:[
     {id:"guardduty",label:"GuardDuty",icon:"⚠",desc:"Threat detection findings"},
@@ -51,6 +55,10 @@ const SERVICE_GROUPS = [
     {id:"securitylake",label:"Security Lake",icon:"◉",desc:"OCSF 1.1.0 unified security logs"},
     {id:"securityir",label:"Security IR",icon:"⚠",desc:"Security incident response cases"},
     {id:"cloudhsm",label:"CloudHSM",icon:"⊚",desc:"Hardware security module logs"},
+    {id:"auditmanager",label:"Audit Manager",icon:"◈",desc:"Compliance assessment evidence logs"},
+    {id:"verifiedpermissions",label:"Verified Permissions",icon:"⊞",desc:"Cedar policy authorisation decisions"},
+    {id:"paymentcryptography",label:"Payment Cryptography",icon:"⊕",desc:"PIN/MAC/CVV cryptographic operation logs"},
+    {id:"artifact",label:"Artifact",icon:"⊙",desc:"Compliance report access audit logs"},
   ]},
   { id:"findings", label:"Security Findings & Attack Patterns", color:"#DC2626", icon:"⚡", services:[
     {id:"security-chain",label:"GD → SecHub → Lake",icon:"⛓",desc:"Linked GuardDuty → Security Hub → Security Lake finding chain"},
@@ -78,6 +86,7 @@ const SERVICE_GROUPS = [
     {id:"neptune",label:"Neptune",icon:"⬡",desc:"Graph DB query logs"},
     {id:"timestream",label:"Timestream",icon:"⌚",desc:"Time-series write & query"},
     {id:"qldb",label:"QLDB",icon:"◈",desc:"Ledger transaction logs"},
+    {id:"dax",label:"DynamoDB DAX",icon:"⟳",desc:"DynamoDB Accelerator cache hit/miss logs"},
     {id:"keyspaces",label:"Keyspaces",icon:"⊕",desc:"Cassandra-compat logs"},
   ]},
   { id:"streaming", label:"Streaming & Messaging", color:"#FEC514", icon:"⟿", services:[
@@ -103,6 +112,7 @@ const SERVICE_GROUPS = [
     {id:"xray",label:"X-Ray",icon:"◎",desc:"Distributed trace logs"},
     {id:"codecatalyst",label:"CodeCatalyst",icon:"⊙",desc:"Dev environment & workflow logs"},
     {id:"devicefarm",label:"Device Farm",icon:"□",desc:"Mobile app test run logs"},
+    {id:"proton",label:"Proton",icon:"⊟",desc:"IaC environment & service deployment logs"},
   ]},
   { id:"analytics", label:"Analytics", color:"#F59E0B", icon:"◈", services:[
     {id:"emr",label:"EMR",icon:"⚙",desc:"Spark/Hadoop cluster logs"},
@@ -117,6 +127,8 @@ const SERVICE_GROUPS = [
     {id:"datazone",label:"DataZone",icon:"⊛",desc:"Data catalog & governance logs"},
     {id:"entityresolution",label:"Entity Resolution",icon:"⊕",desc:"Record matching & linking logs"},
     {id:"dataexchange",label:"Data Exchange",icon:"⟺",desc:"Data product subscription logs"},
+    {id:"appfabric",label:"AppFabric",icon:"⟿",desc:"SaaS audit log normalisation (OCSF)"},
+    {id:"b2bi",label:"B2B Data Interchange",icon:"⇆",desc:"EDI X12/EDIFACT transformation logs"},
   ]},
   { id:"aiml", label:"AI & Machine Learning", color:"#E91E63", icon:"✦", services:[
     {id:"sagemaker",label:"SageMaker",icon:"✦",desc:"Training & inference logs"},
@@ -165,6 +177,10 @@ const SERVICE_GROUPS = [
     {id:"managedgrafana",label:"Managed Grafana",icon:"◎",desc:"Grafana workspace & alert logs"},
     {id:"supplychain",label:"Supply Chain",icon:"⟺",desc:"Supply planning & forecast logs"},
     {id:"arc",label:"App Recovery Controller",icon:"⊛",desc:"Zonal shift & routing control logs"},
+    {id:"appconfig",label:"AppConfig",icon:"⚙",desc:"Configuration deployment & rollback events"},
+    {id:"drs",label:"Elastic Disaster Recovery",icon:"⊟",desc:"Replication, failover & recovery events"},
+    {id:"licensemanager",label:"License Manager",icon:"⊠",desc:"License grant & consumption tracking"},
+    {id:"chatbot",label:"Chatbot",icon:"◉",desc:"Slack/Teams/Chime notification delivery"},
   ]},
   { id:"media", label:"Media & End User Computing", color:"#BE185D", icon:"▷", services:[
     {id:"mediaconvert",label:"MediaConvert",icon:"▷",desc:"Video transcoding jobs"},
@@ -174,6 +190,7 @@ const SERVICE_GROUPS = [
     {id:"appstream",label:"AppStream",icon:"⊙",desc:"App streaming sessions"},
     {id:"gamelift",label:"GameLift",icon:"⬡",desc:"Game server & matchmaking"},
     {id:"deadlinecloud",label:"Deadline Cloud",icon:"▷",desc:"Render job & task logs"},
+    {id:"chimesdkvoice",label:"Chime SDK Voice",icon:"◉",desc:"VoIP call quality & SIP event logs"},
   ]},
   { id:"messaging", label:"Messaging & Communications", color:"#DB2777", icon:"◉", services:[
     {id:"ses",label:"SES",icon:"◉",desc:"Email send/bounce/complaint"},

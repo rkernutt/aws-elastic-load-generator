@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "organizations"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "organizations": {
-      "action": "InviteAccountToOrganization",
-      "account_id": "814726593401",
-      "account_name": "security-audit",
+      "action": "CreateOrganizationalUnit",
+      "account_id": "293847561023",
+      "account_name": "prod-workloads",
       "organizational_unit": "Root"
     }
   },
   "event": {
-    "action": "InviteAccountToOrganization",
+    "action": "CreateOrganizationalUnit",
     "outcome": "success",
     "category": [
       "configuration",
@@ -28,9 +28,9 @@
     ],
     "dataset": "aws.organizations",
     "provider": "organizations.amazonaws.com",
-    "duration": 203000000
+    "duration": 1527000000
   },
-  "message": "Organizations InviteAccountToOrganization: Infrastructure",
+  "message": "Organizations CreateOrganizationalUnit: Infrastructure",
   "log": {
     "level": "info"
   }

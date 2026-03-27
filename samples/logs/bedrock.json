@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "bedrock"
@@ -13,34 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "ModelId": "meta.llama3-70b-instruct-v1:0"
+      "ModelId": "mistral.mixtral-8x7b-instruct-v0:1"
     },
     "bedrock": {
-      "model_id": "meta.llama3-70b-instruct-v1:0",
-      "invocation_latency_ms": 2322,
-      "input_token_count": 4140,
-      "output_token_count": 224,
-      "total_token_count": 4364,
+      "model_id": "mistral.mixtral-8x7b-instruct-v0:1",
+      "invocation_latency_ms": 6069,
+      "input_token_count": 7711,
+      "output_token_count": 1796,
+      "total_token_count": 9507,
       "stop_reason": "stop_sequence",
-      "use_case": "summarization",
-      "guardrail_action": "NONE",
-      "streaming": true,
-      "time_to_first_token_ms": 382,
-      "input_tokens_per_sec": 1782.9,
-      "model_family": "meta",
+      "use_case": "text-generation",
+      "guardrail_action": "INTERVENED",
+      "streaming": false,
+      "model_family": "mistral",
       "metrics": {
         "Invocations": {
-          "sum": 348
+          "sum": 165
         },
         "InvocationLatency": {
-          "avg": 2322,
-          "p99": 4644
+          "avg": 6069,
+          "p99": 12138
         },
         "InputTokenCount": {
-          "sum": 4140
+          "sum": 7711
         },
         "OutputTokenCount": {
-          "sum": 224
+          "sum": 1796
         },
         "Throttles": {
           "sum": 0
@@ -55,9 +53,9 @@
     ],
     "dataset": "aws.bedrock",
     "provider": "bedrock.amazonaws.com",
-    "duration": 2322000000
+    "duration": 6069000000
   },
-  "message": "Bedrock llama3 4140->224 tokens 2.32s",
+  "message": "Bedrock mixtral 7711->1796 tokens 6.07s",
   "log": {
     "level": "info"
   }

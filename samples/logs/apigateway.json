@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "af-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "apigateway"
@@ -13,40 +13,39 @@
   },
   "aws": {
     "dimensions": {
-      "ApiName": "mobile-api",
-      "Stage": "v2",
-      "Method": "PATCH",
-      "Resource": "/api/v1/products"
+      "ApiName": "prod-api",
+      "Stage": "v1",
+      "Method": "POST",
+      "Resource": "/api/v1/auth/login"
     },
     "apigateway": {
-      "request_id": "m5zzu7eu-7i9l",
-      "api_id": "rey3efduy9",
-      "domain_name": "rey3efduy9.execute-api.us-west-2.amazonaws.com",
-      "stage": "v2",
-      "http_method": "PATCH",
-      "resource_path": "/api/v1/products",
+      "request_id": "ep7ieag5-nlzf",
+      "api_id": "beyhnb8ris",
+      "domain_name": "beyhnb8ris.execute-api.eu-west-1.amazonaws.com",
+      "stage": "v1",
+      "http_method": "POST",
+      "resource_path": "/api/v1/auth/login",
       "protocol": "HTTP/1.1",
-      "route_key": "PATCH /api/v1/products",
-      "status": 201,
-      "response_length": 9504,
-      "ip_address": "236.229.134.235",
-      "caller": "arn:aws:iam::293847561023:user/api-user",
-      "user": "api-user",
-      "connection_id": "V6VFVKHAMMI",
-      "event_type": "MESSAGE",
-      "request_time": "2026-03-27T09:01:54.466Z",
-      "api_type": "REST",
-      "integration_latency": 49,
+      "route_key": "POST /api/v1/auth/login",
+      "status": 204,
+      "response_length": 9117,
+      "ip_address": "105.241.24.205",
+      "caller": "arn:aws:iam::164820739518:user/api-user",
+      "connection_id": "L2LNVS3H6E",
+      "event_type": "DISCONNECT",
+      "request_time": "2026-03-27T12:56:06.485Z",
+      "api_type": "HTTP",
+      "integration_latency": 407,
       "metrics": {
         "Count": {
           "sum": 1
         },
         "Latency": {
-          "avg": 84,
-          "p99": 252
+          "avg": 727,
+          "p99": 2181
         },
         "IntegrationLatency": {
-          "avg": 49
+          "avg": 407
         },
         "4XXError": {
           "sum": 0
@@ -59,33 +58,33 @@
   },
   "http": {
     "request": {
-      "method": "PATCH",
-      "id": "m5zzu7eu-7i9l",
-      "bytes": 4071
+      "method": "POST",
+      "id": "ep7ieag5-nlzf",
+      "bytes": 3050
     },
     "response": {
-      "status_code": 201,
-      "bytes": 1906
+      "status_code": 204,
+      "bytes": 8020
     }
   },
   "url": {
-    "path": "/api/v1/products",
-    "domain": "rey3efduy9.execute-api.ap-northeast-1.amazonaws.com"
+    "path": "/api/v1/auth/login",
+    "domain": "beyhnb8ris.execute-api.af-south-1.amazonaws.com"
   },
   "client": {
-    "ip": "195.236.124.121",
+    "ip": "100.149.230.112",
     "geo": {
-      "country_iso_code": "DE",
-      "country_name": "Germany",
-      "region_name": "Frankfurt",
-      "city_name": "Frankfurt"
+      "country_iso_code": "BR",
+      "country_name": "Brazil",
+      "region_name": "São Paulo",
+      "city_name": "São Paulo"
     }
   },
   "user_agent": {
-    "original": "python-requests/2.27.1"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
-    "duration": 84000000,
+    "duration": 727000000,
     "outcome": "success",
     "category": [
       "web"
@@ -96,7 +95,7 @@
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "{\"requestId\":\"m5zzu7eu-7i9l\",\"requestMethod\":\"PATCH\",\"requestPath\":\"/api/v1/products\",\"status\":201,\"responseLatency\":84,\"integrationLatency\":49,\"timestamp\":\"2026-03-27T09:01:54.466Z\"}",
+  "message": "{\"requestId\":\"ep7ieag5-nlzf\",\"requestMethod\":\"POST\",\"requestPath\":\"/api/v1/auth/login\",\"status\":204,\"responseLatency\":727,\"integrationLatency\":407,\"timestamp\":\"2026-03-27T12:56:06.485Z\"}",
   "log": {
     "level": "info"
   }

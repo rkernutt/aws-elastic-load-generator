@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "ap-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "states"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "dimensions": {
-      "StateMachineArn": "arn:aws:states:eu-central-2:501938274650:stateMachine:order-fulfillment"
+      "StateMachineArn": "arn:aws:states:ap-east-1:293847561023:stateMachine:approval-workflow"
     },
     "stepfunctions": {
-      "state_machine_name": "order-fulfillment",
-      "state_machine_arn": "arn:aws:states:eu-central-2:501938274650:stateMachine:order-fulfillment",
-      "execution_arn": "arn:aws:states:eu-central-2:501938274650:execution:order-fulfillment:9yregob2",
+      "state_machine_name": "approval-workflow",
+      "state_machine_arn": "arn:aws:states:ap-east-1:293847561023:stateMachine:approval-workflow",
+      "execution_arn": "arn:aws:states:ap-east-1:293847561023:execution:approval-workflow:i3eywkzn",
       "workflow_type": "EXPRESS",
-      "execution_start_time": "2026-03-27T09:01:35.858Z",
-      "state_name": "HandleError",
-      "state_duration_seconds": 11.27,
+      "execution_start_time": "2026-03-27T12:55:54.446Z",
+      "state_name": "UpdateDatabase",
+      "state_duration_seconds": 4.985,
       "status": "SUCCEEDED",
-      "duration_seconds": 18.608,
+      "duration_seconds": 12.039,
       "structured_logging": true,
       "metrics": {
         "ExecutionsStarted": {
-          "sum": 92294
+          "sum": 38910
         },
         "ExecutionsSucceeded": {
-          "sum": 10581
+          "sum": 26706
         },
         "ExecutionsFailed": {
           "sum": 0
@@ -40,8 +40,8 @@
           "sum": 0
         },
         "ExecutionTime": {
-          "avg": 18608,
-          "p99": 55824
+          "avg": 12039,
+          "p99": 36117
         },
         "ExecutionsTimedOut": {
           "sum": 0
@@ -50,13 +50,13 @@
     }
   },
   "event": {
-    "duration": 18608000000,
+    "duration": 12039000000,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.stepfunctions",
     "provider": "states.amazonaws.com"
   },
-  "message": "{\"executionArn\":\"arn:aws:states:eu-central-2:501938274650:execution:order-fulfillment:9yregob2\",\"stateMachine\":\"order-fulfillment\",\"workflowType\":\"EXPRESS\",\"state\":\"HandleError\",\"status\":\"SUCCEEDED\",\"durationSeconds\":18.608,\"timestamp\":\"2026-03-27T09:01:54.466Z\"}",
+  "message": "{\"executionArn\":\"arn:aws:states:ap-east-1:293847561023:execution:approval-workflow:i3eywkzn\",\"stateMachine\":\"approval-workflow\",\"workflowType\":\"EXPRESS\",\"state\":\"UpdateDatabase\",\"status\":\"SUCCEEDED\",\"durationSeconds\":12.039,\"timestamp\":\"2026-03-27T12:56:06.485Z\"}",
   "log": {
     "level": "info"
   }

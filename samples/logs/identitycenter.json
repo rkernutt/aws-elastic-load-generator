@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "ap-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "identitycenter"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "iam_identity_center": {
-      "event_type": "Authorize",
-      "user_name": "carol@corp.com",
-      "application_name": "AWS Console",
-      "permission_set": "BillingAccess",
-      "account_id": "501938274650",
+      "event_type": "ProvisionUser",
+      "user_name": "bob@corp.com",
+      "application_name": "Slack",
+      "permission_set": "PowerUserAccess",
+      "account_id": "814726593401",
       "mfa_authenticated": true
     }
   },
   "user": {
-    "name": "carol@corp.com"
+    "name": "bob@corp.com"
   },
   "source": {
-    "ip": "205.156.11.11"
+    "ip": "91.142.31.101"
   },
   "event": {
-    "action": "Authorize",
+    "action": "ProvisionUser",
     "outcome": "success",
     "category": "authentication",
     "dataset": "aws.identitycenter",
     "provider": "sso.amazonaws.com"
   },
-  "message": "IAM Identity Center Authorize: carol@corp.com -> AWS Console",
+  "message": "IAM Identity Center ProvisionUser: bob@corp.com -> Slack",
   "log": {
     "level": "info"
   }

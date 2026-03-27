@@ -1,0 +1,42 @@
+{
+  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "ap-southeast-4",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "drs"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "SourceServerId": "s-mr8aa4sgy8a"
+    },
+    "drs": {
+      "source_server_id": "s-mr8aa4sgy8a",
+      "source_hostname": "db-primary",
+      "replication_status": "Continuous",
+      "lag_duration_seconds": 20,
+      "data_replication_state": "InProgress",
+      "ebs_volume_count": 8,
+      "staging_area": "eu-west-1",
+      "recovery_point_objective_seconds": 74
+    }
+  },
+  "event": {
+    "action": "ReplicationStateChange",
+    "outcome": "success",
+    "category": [
+      "host"
+    ],
+    "dataset": "aws.drs",
+    "provider": "drs.amazonaws.com"
+  },
+  "message": "DRS db-primary: replication Continuous, RPO 74s",
+  "log": {
+    "level": "info"
+  }
+}

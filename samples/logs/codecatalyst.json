@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "codecatalyst"
@@ -13,33 +13,38 @@
   },
   "aws": {
     "dimensions": {
-      "SpaceName": "data-team",
-      "ProjectName": "backend-service"
+      "SpaceName": "platform-team",
+      "ProjectName": "mobile-app"
     },
     "codecatalyst": {
-      "space_name": "data-team",
-      "project_name": "backend-service",
+      "space_name": "platform-team",
+      "project_name": "mobile-app",
       "workflow_name": "pr-checks",
-      "workflow_run_id": "run-l2tbt7cobt",
-      "workflow_run_status": "QUEUED",
-      "dev_environment_id": "dev-r5utlsd3fcs",
-      "dev_environment_status": "STARTING",
+      "workflow_run_id": "run-hzvzkqzxesp",
+      "workflow_run_status": "STOPPED",
+      "dev_environment_id": "dev-g8egt8wjxnl",
+      "dev_environment_status": "FAILED",
       "ide": "VSCode",
-      "branch_name": "main",
-      "event_type": "SPACE"
+      "branch_name": "feature/new-api",
+      "event_type": "WORKFLOW_RUN"
     }
   },
   "event": {
-    "action": "StartWorkflowRun",
-    "outcome": "success",
+    "action": "CreateDevEnvironment",
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.codecatalyst",
     "provider": "codecatalyst.amazonaws.com"
   },
-  "message": "CodeCatalyst StartWorkflowRun: space=data-team, project=backend-service, workflow=pr-checks QUEUED",
+  "message": "CodeCatalyst CreateDevEnvironment FAILED [platform-team/mobile-app]: Dev environment error",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ResourceNotFoundException",
+    "message": "CodeCatalyst operation failed",
+    "type": "process"
   }
 }

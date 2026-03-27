@@ -698,4 +698,71 @@ function generateDataExchangeLog(ts, er) {
   };
 }
 
-export { generateEmrLog, generateGlueLog, generateAthenaLog, generateLakeFormationLog, generateQuickSightLog, generateDataBrewLog, generateAppFlowLog, generateOpenSearchLog, generateMwaaLog, generateCleanRoomsLog, generateDataZoneLog, generateEntityResolutionLog, generateDataExchangeLog };
+function generateAppFabricLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const appBundle = rand(["prod-bundle","saas-audit-bundle","security-bundle"]);
+  const application = rand(["Salesforce","Microsoft365","Slack","Zoom","Okta","GitHub","Jira","ServiceNow"]);
+  const eventType = rand(["userSignIn","userSignOut","fileDownload","settingChanged","userCreated","permissionGranted","dataExport","apiAccess"]);
+  const normalizedUser = `user-${randId(8)}@example.com`;
+  const sourceIp = randIp();
+  const ingestionStatus = isErr ? rand(["FAILED","PARTIAL"]) : "ACTIVE";
+  const ocsfClass = rand(["ACCOUNT_CHANGE","AUTHENTICATION","NETWORK_ACTIVITY","FILE_ACTIVITY","API_ACTIVITY"]);
+  const action = rand(["IngestAuditLog","NormalizeEvent","DeliverToFIREHOSE","DeliverToS3","UpdateIngestion"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"appfabric" } },
+    "aws": {
+      dimensions:{ AppBundle: appBundle, Application: application },
+      appfabric: {
+        app_bundle_arn: `arn:aws:appfabric:${region}:${acct.id}:appbundle/${appBundle}`,
+        application,
+        event_type: eventType,
+        normalized_user: normalizedUser,
+        source_ip: sourceIp,
+        ingestion_status: ingestionStatus,
+        tenant_id: `tenant-${randId(8)}`,
+        ocsf_class: ocsfClass,
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["audit"], dataset: "aws.appfabric", provider: "appfabric.amazonaws.com" },
+    "message": isErr ? `AppFabric ${application}: ingestion ${ingestionStatus} for ${eventType}` : `AppFabric ${application}: ${eventType} by ${normalizedUser} normalized as OCSF ${ocsfClass}`,
+    "log": { level: isErr ? "error" : "info" },
+    "user": { email: normalizedUser },
+    "source": { ip: sourceIp },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","ValidationException","AccessDeniedException"]), message: "AppFabric ingestion failed", type: "audit" } } : {}),
+  };
+}
+
+function generateB2biLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const partnerName = rand(["Supplier-Corp","RetailChain-Inc","Logistics-Partner","HealthcareProvider-LLC"]);
+  const transactionId = `txn-${randId(16)}`;
+  const documentType = rand(["X12_204","X12_210","X12_214","X12_820","X12_850","X12_856","X12_997","EDIFACT_ORDERS"]);
+  const processingStatus = isErr ? rand(["FAILED","SPLIT_FAILED","PROCESSING_WITH_ERRORS"]) : rand(["SUCCEEDED","SUCCEEDED","DELIVERED"]);
+  const transactionCount = randInt(1,500);
+  const action = rand(["StartTransformation","CompleteTransformation","DeliverEDI","AcknowledgeFunctional","CreatePartnership","CreateTransformer"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"b2bi" } },
+    "aws": {
+      dimensions:{ PartnerName: partnerName, DocumentType: documentType },
+      b2bi: {
+        partnership_id: `ps-${randId(17)}`,
+        partner_name: partnerName,
+        transaction_id: transactionId,
+        document_type: documentType,
+        processing_status: processingStatus,
+        transformer_id: `tr-${randId(17)}`,
+        input_file_size_bytes: randInt(1024,524288),
+        transaction_count: transactionCount,
+        interchange_control_number: randInt(100000000,999999999),
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["process"], dataset: "aws.b2bi", provider: "b2bi.amazonaws.com" },
+    "message": isErr ? `B2B Data Interchange ${documentType} from ${partnerName}: ${processingStatus}` : `B2B Data Interchange ${documentType} from ${partnerName}: ${processingStatus} (${transactionCount} transactions)`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","ValidationException","InternalServerException"]), message: "B2B Data Interchange transformation failed", type: "process" } } : {}),
+  };
+}
+
+export { generateEmrLog, generateGlueLog, generateAthenaLog, generateLakeFormationLog, generateQuickSightLog, generateDataBrewLog, generateAppFlowLog, generateOpenSearchLog, generateMwaaLog, generateCleanRoomsLog, generateDataZoneLog, generateEntityResolutionLog, generateDataExchangeLog, generateAppFabricLog, generateB2biLog };

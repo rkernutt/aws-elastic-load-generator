@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "ca-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "inspector2"
@@ -13,30 +13,38 @@
   },
   "aws": {
     "dimensions": {
-      "Severity": "INFORMATIONAL"
+      "Severity": "LOW"
     },
     "inspector2": {
-      "finding_id": "arn:aws:inspector2:eu-south-2:164820739518:finding/xqsrpz95-yldf-gq91-oi0z-d44h7zouwne",
-      "finding_type": "NETWORK_REACHABILITY",
+      "finding_id": "arn:aws:inspector2:ca-west-1:738291046572:finding/8alu4xmk-b21e-a9xb-6xob-du6gtnlcai9",
+      "finding_type": "PACKAGE_VULNERABILITY",
       "finding_status": "ACTIVE",
-      "severity": "INFORMATIONAL",
-      "severity_score": 3.3,
-      "exploitability": "NOT_DEFINED",
+      "severity": "LOW",
+      "severity_score": 2.7,
+      "exploitability": "PROOF_OF_CONCEPT",
       "resource_type": "AWS_EC2_INSTANCE",
-      "resource_id": "i-0mnbbigcl2un",
-      "first_observed_at": "2026-03-09T09:01:54.466Z",
-      "last_observed_at": "2026-03-27T09:01:54.466Z",
-      "network_reachability": {
-        "protocol": "UDP",
-        "open_port_range": {
-          "begin": 5432,
-          "end": 80
-        },
-        "network_path": "sg -> vpc-peering"
+      "resource_id": "i-axecnq7gblo",
+      "first_observed_at": "2026-03-24T12:56:06.485Z",
+      "last_observed_at": "2026-03-27T12:56:06.485Z",
+      "package_vulnerability": {
+        "cve_id": "CVE-2022-23471",
+        "source": "NVD",
+        "cvss3_score": 2.658,
+        "vulnerable_packages": [
+          {
+            "name": "openssl",
+            "version": "1.18.2",
+            "fixed_in_version": "3.17.16",
+            "package_manager": "NPM"
+          }
+        ],
+        "related_vulnerabilities": [
+          "CVE-2021-42497"
+        ]
       },
       "metrics": {
         "TotalFindings": {
-          "sum": 135
+          "sum": 207
         },
         "CriticalFindings": {
           "sum": 0
@@ -48,19 +56,24 @@
           "sum": 0
         },
         "LowFindings": {
-          "sum": 289
+          "sum": 61
         },
         "CoveredResources": {
-          "avg": 2029
+          "avg": 1952
         }
       }
     }
   },
   "vulnerability": {
-    "severity": "INFORMATIONAL",
+    "severity": "LOW",
+    "id": "CVE-2022-23471",
     "score": {
-      "base": 3.325
+      "base": 2.658
     }
+  },
+  "package": {
+    "name": "openssl",
+    "version": "1.18.2"
   },
   "event": {
     "outcome": "success",
@@ -73,7 +86,7 @@
     "dataset": "aws.inspector2",
     "provider": "inspector2.amazonaws.com"
   },
-  "message": "Inspector2 [INFORMATIONAL]: NETWORK_REACHABILITY detected on AWS_EC2_INSTANCE",
+  "message": "Inspector2 [LOW]: CVE-2022-23471 in openssl 1.18.2 on AWS_EC2_INSTANCE (fix: 3.17.16)",
   "log": {
     "level": "info"
   }

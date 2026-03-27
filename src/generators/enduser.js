@@ -848,4 +848,42 @@ function generateDeadlineCloudLog(ts, er) {
   };
 }
 
-export { generateWorkSpacesLog, generateConnectLog, generateAppStreamLog, generateGameLiftLog, generateSesLog, generatePinpointLog, generateTransferFamilyLog, generateLightsailLog, generateFraudDetectorLog, generateLocationServiceLog, generateMediaConvertLog, generateMediaLiveLog, generateManagedBlockchainLog, generateResilienceHubLog, generateRamLog, generateMigrationHubLog, generateDevOpsGuruLog, generateDeadlineCloudLog };
+function generateChimeSdkLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const voiceConnectorId = `abcdefgh${randId(12)}`;
+  const callId = randUUID();
+  const direction = rand(["Inbound","Outbound"]);
+  const callStatus = isErr ? rand(["Failed","Busy","NoAnswer","Cancelled"]) : rand(["Completed","Completed","Completed","InProgress"]);
+  const durationSeconds = isErr ? randInt(0,30) : randInt(10,3600);
+  const packetLossPercent = isErr ? randFloat(5,30,1) : randFloat(0,0.5,2);
+  const mosScore = isErr ? randFloat(1,2.5,2) : randFloat(3.5,4.5,2);
+  const jitterMs = isErr ? randInt(50,500) : randInt(1,30);
+  const sipResponseCode = isErr ? rand([486,503,408,500]) : rand([200,200,200,180,183]);
+  const action = rand(["VoiceConnectorConnected","VoiceConnectorDisconnected","CallAnswered","CallCompleted","CallFailed","SIPTrunkRegistered"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"chimesdkvoice" } },
+    "aws": {
+      dimensions:{ VoiceConnectorId: voiceConnectorId, Direction: direction },
+      chimesdkvoice: {
+        voice_connector_id: voiceConnectorId,
+        call_id: callId,
+        direction,
+        call_status: callStatus,
+        from_number: `+1${randInt(2000000000,9999999999)}`,
+        to_number: `+1${randInt(2000000000,9999999999)}`,
+        duration_seconds: durationSeconds,
+        packet_loss_percent: packetLossPercent,
+        mos_score: mosScore,
+        jitter_ms: jitterMs,
+        sip_response_code: sipResponseCode,
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["network","session"], dataset: "aws.chimesdkvoice", provider: "chime.amazonaws.com" },
+    "message": isErr ? `Chime SDK Voice ${direction} call ${callId}: ${callStatus} SIP ${sipResponseCode}` : `Chime SDK Voice ${direction} call ${durationSeconds}s MOS:${mosScore} loss:${packetLossPercent}%`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["ServiceUnavailableException","ThrottlingException","BadRequestException"]), message: "Chime SDK Voice call failed", type: "network" } } : {}),
+  };
+}
+
+export { generateWorkSpacesLog, generateConnectLog, generateAppStreamLog, generateGameLiftLog, generateSesLog, generatePinpointLog, generateTransferFamilyLog, generateLightsailLog, generateFraudDetectorLog, generateLocationServiceLog, generateMediaConvertLog, generateMediaLiveLog, generateManagedBlockchainLog, generateResilienceHubLog, generateRamLog, generateMigrationHubLog, generateDevOpsGuruLog, generateDeadlineCloudLog, generateChimeSdkLog };

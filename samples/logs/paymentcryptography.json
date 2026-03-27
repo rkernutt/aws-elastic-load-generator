@@ -1,0 +1,43 @@
+{
+  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "me-central-1",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "paymentcryptography"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "KeyAlgorithm": "RSA_2048",
+      "Operation": "GenerateMac"
+    },
+    "paymentcryptography": {
+      "key_arn": "arn:aws:payment-cryptography:me-central-1:293847561023:key/E5UX7QKKA6W",
+      "key_alias": "alias/payment-pin-key",
+      "key_algorithm": "RSA_2048",
+      "key_usage": "TR31_B0_BASE_DERIVATION_KEY",
+      "operation": "GenerateMac",
+      "key_state": "CREATE_COMPLETE",
+      "exportable": false,
+      "key_check_value": "FEJITI"
+    }
+  },
+  "event": {
+    "action": "GenerateMac",
+    "outcome": "success",
+    "category": [
+      "authentication"
+    ],
+    "dataset": "aws.paymentcryptography",
+    "provider": "payment-cryptography.amazonaws.com"
+  },
+  "message": "Payment Cryptography GenerateMac using RSA_2048 (B0)",
+  "log": {
+    "level": "info"
+  }
+}

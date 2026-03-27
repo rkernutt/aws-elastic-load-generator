@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "me-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "deadlinecloud"
@@ -13,38 +13,38 @@
   },
   "aws": {
     "dimensions": {
-      "FarmId": "farm-sjbd96pb6uq",
-      "QueueId": "queue-ccdiq0bha4h"
+      "FarmId": "farm-86fnax6jc5l",
+      "QueueId": "queue-h3rwctc47h"
     },
     "deadlinecloud": {
-      "farm_id": "farm-sjbd96pb6uq",
-      "farm_name": "game-asset-farm",
-      "queue_id": "queue-ccdiq0bha4h",
-      "queue_name": "high-priority",
-      "job_id": "job-8kp6q2d403i",
-      "job_name": "shot_comp_0010",
-      "task_id": "task-kgfk6bum0q",
-      "task_status": "SUCCEEDED",
-      "job_status": "IN_PROGRESS",
-      "worker_hostname": "render-worker-cpu-02.ap-east-1.compute.internal",
-      "frame_start": 611,
-      "frame_end": 698,
-      "duration_seconds": 3146,
+      "farm_id": "farm-86fnax6jc5l",
+      "farm_name": "vfx-render-farm",
+      "queue_id": "queue-h3rwctc47h",
+      "queue_name": "batch-overnight",
+      "job_id": "job-7yiazwi881",
+      "job_name": "motion_blur_final",
+      "task_id": "task-k7wr8a16tdo",
+      "task_status": "RUNNING",
+      "job_status": "SUCCEEDED",
+      "worker_hostname": "render-worker-cpu-01.me-central-1.compute.internal",
+      "frame_start": 86,
+      "frame_end": 185,
+      "duration_seconds": 1120,
       "renderer": "Arnold",
-      "priority": 55
+      "priority": 51
     }
   },
   "event": {
-    "action": "CreateWorker",
+    "action": "UpdateJob",
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.deadlinecloud",
     "provider": "deadline.amazonaws.com",
-    "duration": 3146000000000
+    "duration": 1120000000000
   },
-  "message": "Deadline Cloud CreateWorker: farm=game-asset-farm queue=high-priority job=shot_comp_0010 frames 611-698 SUCCEEDED",
+  "message": "Deadline Cloud UpdateJob: farm=vfx-render-farm queue=batch-overnight job=motion_blur_final frames 86-185 RUNNING",
   "log": {
     "level": "info"
   }

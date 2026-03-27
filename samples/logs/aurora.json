@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "eu-south-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "aurora"
@@ -15,57 +15,62 @@
     "aurora": {
       "cluster_id": "staging-aurora",
       "instance_id": "staging-aurora-instance-3",
-      "engine": "aurora-postgresql",
-      "engine_version": "15.4",
-      "replica_lag_seconds": 4.047,
-      "db_connections": 473,
+      "engine": "aurora-mysql",
+      "engine_version": "8.0.36",
+      "replica_lag_seconds": 2851,
+      "db_connections": 683,
       "max_connections": 1000,
-      "failover_in_progress": false,
+      "failover_in_progress": true,
       "metrics": {
         "AuroraBinlogReplicaLag": {
-          "avg": 3
+          "avg": 728
         },
         "AuroraGlobalDBReplicatedWriteIO": {
-          "sum": 17029816
+          "sum": 85655192
         },
         "AuroraGlobalDBDataTransferBytes": {
-          "sum": 408220180
+          "sum": 60938227
         },
         "AuroraGlobalDBProgressLag": {
-          "avg": 312
+          "avg": 16586
         },
         "BacktrackChangeRecordsCreationRate": {
-          "avg": 9378
+          "avg": 2551
         },
         "BacktrackChangeRecordsStored": {
-          "avg": 761848389
+          "avg": 180671711
         },
         "BacktrackWindowActual": {
-          "avg": 60512
+          "avg": 3791
         },
         "BacktrackWindowAlert": {
           "avg": 0
         },
         "ServerlessDatabaseCapacity": {
-          "avg": 99.138
+          "avg": 11.625
         },
         "ACUUtilization": {
-          "avg": 44.138
+          "avg": 35.849
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "database"
     ],
     "dataset": "aws.aurora",
     "provider": "rds.amazonaws.com",
-    "duration": 39000000000
+    "duration": 132000000000
   },
-  "message": "Aurora auto-scaling: adding replica",
+  "message": "Aurora failover initiated: primary instance unhealthy",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "AuroraError",
+    "message": "Deadlock detected",
+    "type": "db"
   }
 }

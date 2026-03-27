@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "me-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "pinpoint"
@@ -13,31 +13,37 @@
   },
   "aws": {
     "pinpoint": {
-      "application_id": "zndxkc7khu",
-      "event_type": "_email.bounced",
-      "channel": "IN_APP",
-      "campaign_id": "obomzm37yn",
-      "campaign_name": "re-engagement",
-      "journey_id": "1f0amqhr6gp",
-      "segment_id": "1kkxuc9jexu",
-      "endpoint_id": "user_otysoh5bu4",
-      "message_id": "imix138z9nl",
-      "delivery_status": "SUCCESSFUL",
-      "destination": "user_otysoh5bu4",
-      "iso_country_code": "DE"
+      "application_id": "2eysrzhqyk2",
+      "event_type": "_sms.sent",
+      "channel": "PUSH",
+      "campaign_id": "978grxxwpim",
+      "campaign_name": "welcome-series",
+      "journey_id": "zgfkxkve7m",
+      "segment_id": "y479cy2c9yk",
+      "endpoint_id": "user_b9y5u3n0pf",
+      "message_id": "miwg958d9lb",
+      "delivery_status": "DUPLICATE",
+      "status_message": "Address on suppression list",
+      "destination": "user_b9y5u3n0pf",
+      "iso_country_code": "GB"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.pinpoint",
     "provider": "mobiletargeting.amazonaws.com",
-    "duration": 758000000
+    "duration": 4860000000
   },
-  "message": "Pinpoint _email.bounced [re-engagement]: user_otysoh5bu4 via IN_APP",
+  "message": "Pinpoint PUSH FAILED [welcome-series]: Invalid endpoint:",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "DeliveryFailure",
+    "message": "Pinpoint delivery failed",
+    "type": "messaging"
   }
 }

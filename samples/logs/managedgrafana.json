@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "managedgrafana"
@@ -13,36 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "WorkspaceId": "g-naqp6tvemh"
+      "WorkspaceId": "g-2x772r8czk"
     },
     "managedgrafana": {
-      "workspace_id": "g-naqp6tvemh",
-      "workspace_name": "prod-observability",
-      "workspace_status": "FAILED",
-      "grafana_version": "9.4",
-      "alert_state": "alerting",
-      "dashboard_title": "RDS Metrics",
+      "workspace_id": "g-2x772r8czk",
+      "workspace_name": "ops-dashboards",
+      "workspace_status": "ACTIVE",
+      "grafana_version": "10.4",
+      "alert_state": "no_data",
+      "dashboard_title": "Cost Analysis",
       "datasource_type": "influxdb",
-      "authentication_providers": "SAML",
+      "authentication_providers": "AWS_SSO",
       "notification_destinations": "PAGERDUTY"
     }
   },
   "event": {
-    "action": "CreateWorkspace",
-    "outcome": "failure",
+    "action": "DisassociateLicense",
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.managedgrafana",
     "provider": "grafana.amazonaws.com"
   },
-  "message": "Managed Grafana CreateWorkspace FAILED [prod-observability]: Workspace not active",
+  "message": "Managed Grafana DisassociateLicense: workspace=ops-dashboards alert=no_data dashboard=\"Cost Analysis\"",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ValidationException",
-    "message": "Managed Grafana operation failed",
-    "type": "process"
+    "level": "info"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "ap-south-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "supplychain"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "arn:aws:scn:eu-south-2:293847561023:instance/2bao0hpsk0w"
+      "InstanceId": "arn:aws:scn:ap-south-2:814726593401:instance/tzg70pa1g9"
     },
     "supplychain": {
-      "instance_id": "arn:aws:scn:eu-south-2:293847561023:instance/2bao0hpsk0w",
+      "instance_id": "arn:aws:scn:ap-south-2:814726593401:instance/tzg70pa1g9",
       "instance_name": "north-america-ops",
       "namespace": "aws.supply_chain.insight",
-      "event_type": "scn.data.shipment",
+      "event_type": "scn.data.purchase_order",
       "job_status": "FAILED",
-      "record_count": 434065,
-      "forecast_horizon_days": 101,
-      "data_lake_dataset": "supplier_lead_times"
+      "record_count": 141655,
+      "forecast_horizon_days": 171,
+      "data_lake_dataset": "purchase_orders"
     }
   },
   "event": {
-    "action": "SendDataIntegrationEvent",
+    "action": "UpdateInstance",
     "outcome": "failure",
     "category": [
       "process"
@@ -35,7 +35,7 @@
     "dataset": "aws.supplychain",
     "provider": "scn.amazonaws.com"
   },
-  "message": "Supply Chain SendDataIntegrationEvent FAILED [north-america-ops]: Data validation error",
+  "message": "Supply Chain UpdateInstance FAILED [north-america-ops]: Dataset not found",
   "log": {
     "level": "error"
   },

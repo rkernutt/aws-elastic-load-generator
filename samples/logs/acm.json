@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "acm"
@@ -13,13 +13,13 @@
   },
   "aws": {
     "acm": {
-      "certificate_arn": "arn:aws:acm:us-west-1:738291046572:certificate/yr9mxwxe-vlie",
-      "domain_name": "*.example.com",
-      "status": "ISSUED",
-      "type": "IMPORTED",
-      "days_to_expiry": 305,
+      "certificate_arn": "arn:aws:acm:ap-southeast-1:293847561023:certificate/o5p4tkh7-hzzf",
+      "domain_name": "*.internal.corp",
+      "status": "PENDING_VALIDATION",
+      "type": "AMAZON_ISSUED",
+      "days_to_expiry": 274,
       "key_algorithm": "EC_prime256v1",
-      "validation_method": "EMAIL",
+      "validation_method": "DNS",
       "renewal_status": "SUCCESS"
     }
   },
@@ -29,7 +29,7 @@
     "dataset": "aws.acm",
     "provider": "acm.amazonaws.com"
   },
-  "message": "ACM certificate for *.example.com: ISSUED, 305d remaining",
+  "message": "ACM certificate for *.internal.corp: PENDING_VALIDATION, 274d remaining",
   "log": {
     "level": "info"
   }

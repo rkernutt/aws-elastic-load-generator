@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "eu-west-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -14,42 +14,42 @@
   "aws": {
     "dimensions": {
       "TableName": "users",
-      "Operation": "GetItem"
+      "Operation": "BatchGetItem"
     },
     "dynamodb": {
       "table_name": "users",
-      "operation": "GetItem",
-      "consumed_read_capacity_units": 11.422,
-      "consumed_write_capacity_units": 7.424,
-      "items_count": 869,
-      "structured_logging": true,
+      "operation": "BatchGetItem",
+      "consumed_read_capacity_units": 4.876,
+      "consumed_write_capacity_units": 28.314,
+      "items_count": 645,
+      "structured_logging": false,
       "metrics": {
         "AccountMaxReads": {
-          "max": 854208
+          "max": 545728
         },
         "AccountMaxWrites": {
-          "max": 953075
+          "max": 724281
         },
         "AccountMaxTableLevelReads": {
-          "max": 18179
+          "max": 23358
         },
         "AccountMaxTableLevelWrites": {
-          "max": 805
+          "max": 29570
         },
         "AccountProvisionedReadCapacityUtilization": {
-          "avg": 23.286
+          "avg": 34.84
         },
         "ConsumedReadCapacityUnits": {
-          "sum": 736
+          "sum": 783
         },
         "ConsumedWriteCapacityUnits": {
-          "sum": 195
+          "sum": 417
         },
         "ProvisionedReadCapacityUnits": {
-          "avg": 8105
+          "avg": 2892
         },
         "ProvisionedWriteCapacityUnits": {
-          "avg": 1117
+          "avg": 2378
         },
         "ReadThrottleEvents": {
           "sum": 0
@@ -64,8 +64,8 @@
           "sum": 0
         },
         "SuccessfulRequestLatency": {
-          "avg": 2.143,
-          "max": 5.666
+          "avg": 0.641,
+          "max": 1.844
         },
         "ThrottledRequests": {
           "sum": 0
@@ -74,17 +74,17 @@
           "sum": 0
         },
         "ReturnedItemCount": {
-          "avg": 887
+          "avg": 596
         },
         "ReturnedBytes": {
-          "avg": 561103
+          "avg": 831145
         }
       }
     }
   },
   "db": {
     "name": "users",
-    "operation": "GetItem",
+    "operation": "BatchGetItem",
     "type": "nosql"
   },
   "event": {
@@ -97,9 +97,9 @@
     ],
     "dataset": "aws.dynamodb",
     "provider": "dynamodb.amazonaws.com",
-    "duration": 14000000
+    "duration": 30000000
   },
-  "message": "{\"table\":\"users\",\"operation\":\"GetItem\",\"consumedReadCapacityUnits\":11.422,\"consumedWriteCapacityUnits\":7.424,\"timestamp\":\"2026-03-27T09:01:54.466Z\"}",
+  "message": "DynamoDB BatchGetItem users: consumed 4.876 RCU, 28.314 WCU",
   "log": {
     "level": "info"
   }

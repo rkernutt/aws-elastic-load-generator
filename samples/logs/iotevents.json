@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ap-northeast-2",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -14,19 +14,18 @@
   "aws": {
     "dimensions": {
       "DetectorModelName": "motor-health-detector",
-      "KeyValue": "zone-A"
+      "KeyValue": "unit-02"
     },
     "iotevents": {
       "detector_model_name": "motor-health-detector",
-      "detector_id": "zone-A",
-      "key_value": "zone-A",
-      "event_name": "TriggerFired",
+      "detector_id": "unit-02",
+      "key_value": "unit-02",
+      "event_name": "AlarmAcknowledged",
       "from_state": "Alarm",
-      "to_state": "Alarm",
-      "input_name": "HealthCheck",
-      "action_type": "SNS",
-      "timer_name": "alarmTimer",
-      "condition_expression": "$input.SensorInput.temperature > 85"
+      "to_state": "Normal",
+      "input_name": "CommandInput",
+      "action_type": "SQS",
+      "timer_name": "alarmTimer"
     }
   },
   "event": {
@@ -36,10 +35,10 @@
     ],
     "dataset": "aws.iotevents",
     "provider": "iotevents.amazonaws.com",
-    "duration": 484000000
+    "duration": 290000000
   },
-  "message": "IoT Events motor-health-detector/zone-A: Alarm → Alarm [TriggerFired]",
+  "message": "IoT Events motor-health-detector/unit-02: Alarm → Normal [AlarmAcknowledged]",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

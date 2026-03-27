@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "appsync"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "appsync": {
-      "api_id": "HLIWGA8986",
-      "api_name": "mobile-api",
-      "operation_type": "mutation",
-      "operation_name": "getUserById",
-      "data_source_type": "AWS_LAMBDA",
-      "duration_ms": 313,
+      "api_id": "9N5FMROGH2J",
+      "api_name": "prod-graphql-api",
+      "operation_type": "query",
+      "operation_name": "updateInventory",
+      "data_source_type": "HTTP",
+      "duration_ms": 396,
       "status_code": 200,
       "metrics": {
         "RequestCount": {
-          "sum": 4669
+          "sum": 2405
         },
         "4XXError": {
           "sum": 0
@@ -31,8 +31,8 @@
           "sum": 0
         },
         "Latency": {
-          "avg": 312.868,
-          "p99": 1235.2
+          "avg": 395.556,
+          "p99": 1555.7
         }
       }
     }
@@ -43,13 +43,13 @@
     }
   },
   "event": {
-    "duration": 312868000,
+    "duration": 395556000,
     "outcome": "success",
     "category": "api",
     "dataset": "aws.appsync",
     "provider": "appsync.amazonaws.com"
   },
-  "message": "AppSync mutation.getUserById: 313ms [mobile-api]",
+  "message": "AppSync query.updateInventory: 396ms [prod-graphql-api]",
   "log": {
     "level": "info"
   }

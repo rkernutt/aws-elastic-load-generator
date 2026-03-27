@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "memorydb"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "memorydb": {
-      "cluster_name": "prod-memorydb",
-      "node_name": "prod-memorydb-0001-001",
+      "cluster_name": "leaderboard",
+      "node_name": "leaderboard-0001-001",
       "engine_version": "7.1",
-      "command": "ZRANGE",
-      "latency_us": 36.204,
-      "cache_hit_rate": 94.767,
-      "connected_clients": 241,
-      "used_memory_mb": 59494,
-      "replication_lag_ms": 13
+      "command": "XADD",
+      "latency_us": 36.778,
+      "cache_hit_rate": 97.934,
+      "connected_clients": 350,
+      "used_memory_mb": 45304,
+      "replication_lag_ms": 63
     }
   },
   "event": {
-    "duration": 36204,
+    "duration": 36778,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.memorydb",
     "provider": "memory-db.amazonaws.com"
   },
-  "message": "MemoryDB prod-memorydb ZRANGE: 36.20us",
+  "message": "MemoryDB leaderboard XADD: 36.78us",
   "log": {
     "level": "info"
   }

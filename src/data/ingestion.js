@@ -167,6 +167,24 @@ const SERVICE_INGESTION_DEFAULTS = {
   codecatalyst:    "cloudwatch",
   devicefarm:      "cloudwatch",
   deadlinecloud:   "cloudwatch",
+  // v11.0 new services
+  appmesh:             "cloudwatch",
+  clientvpn:           "cloudwatch",
+  cloudmap:            "cloudwatch",
+  outposts:            "cloudwatch",
+  auditmanager:        "api",
+  verifiedpermissions: "cloudwatch",
+  paymentcryptography: "cloudwatch",
+  artifact:            "api",
+  dax:                 "cloudwatch",
+  proton:              "cloudwatch",
+  appfabric:           "api",
+  b2bi:                "cloudwatch",
+  appconfig:           "cloudwatch",
+  drs:                 "cloudwatch",
+  licensemanager:      "cloudwatch",
+  chatbot:             "cloudwatch",
+  chimesdkvoice:       "cloudwatch",
 };
 
 const INGESTION_META = {

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "eu-central-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "sagemaker"
@@ -13,33 +13,36 @@
   },
   "aws": {
     "dimensions": {
-      "TrainingJobName": "lstm-timeseries-transform-4vjy45",
-      "JobType": "Transform"
+      "TrainingJobName": "xgboost-classifier-training-ojkvp2",
+      "JobType": "Training"
     },
     "sagemaker": {
-      "domain_id": "d-t2wd3mi8x5",
-      "domain_name": "cv-team",
-      "user_profile": "alice-ds",
+      "domain_id": "d-l1ajwclpzk",
+      "domain_name": "nlp-experiments",
+      "user_profile": "bob-ml",
       "job": {
-        "name": "lstm-timeseries-transform-4vjy45",
-        "type": "Transform",
-        "arn": "arn:aws:sagemaker:ap-southeast-2:814726593401:training-job/lstm-timeseries-transform-4vjy45"
+        "name": "xgboost-classifier-training-ojkvp2",
+        "type": "Training",
+        "arn": "arn:aws:sagemaker:eu-central-2:501938274650:training-job/xgboost-classifier-training-ojkvp2"
       },
       "model": {
-        "name": "lstm-timeseries",
+        "name": "xgboost-classifier",
         "version": 1
       },
       "pipeline": {
         "name": "model-training-pipeline",
-        "execution_id": "pipe-kgx80521wy"
+        "execution_id": "pipe-ex912d3zwnh"
       },
       "instance": {
         "type": "ml.m5.xlarge",
         "count": 1
       },
       "metrics": {
-        "gpu_utilization_pct": 55,
-        "cpu_utilization_pct": 25
+        "training_loss": 0.0576,
+        "accuracy": 0.7907,
+        "epoch": 37,
+        "gpu_utilization_pct": 47,
+        "cpu_utilization_pct": 83
       },
       "studio": {
         "lifecycle_config": false,
@@ -47,22 +50,22 @@
       },
       "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 3909
+          "sum": 2492
         },
         "ModelLatency": {
-          "avg": 93
+          "avg": 149
         },
         "GPUUtilization": {
-          "avg": 49
+          "avg": 85
         },
         "CPUUtilization": {
-          "avg": 72
+          "avg": 65
         },
         "DiskUtilization": {
-          "avg": 38
+          "avg": 44
         },
         "MemoryUtilization": {
-          "avg": 64
+          "avg": 69
         },
         "Invocations4XXError": {
           "sum": 0
@@ -77,11 +80,11 @@
     "level": "info"
   },
   "user": {
-    "name": "alice-ds"
+    "name": "bob-ml"
   },
   "event": {
-    "action": "EndpointInService",
-    "duration": 250501000000,
+    "action": "TrainingJobCompleted",
+    "duration": 8688330000000,
     "outcome": "success",
     "category": [
       "process"
@@ -89,5 +92,5 @@
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "Feature Store ingestion complete: 4,829,201 records"
+  "message": "Training job started on ml.p3.2xlarge (4 GPUs)"
 }

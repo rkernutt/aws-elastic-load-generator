@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "dataexchange"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "DataSetId": "8m7qva4s-q7u6-irap-knn4-prwg9k33uk"
+      "DataSetId": "qecwcca9-lc1c-qpql-vpn9-88fgzaeiaq"
     },
     "dataexchange": {
-      "dataset_id": "8m7qva4s-q7u6-irap-knn4-prwg9k33uk",
-      "dataset_name": "Healthcare-Claims",
-      "data_set_type": "REDSHIFT",
-      "revision_id": "sv54x23j-87e9-vcd7-x9ly-culyw4uto2",
-      "job_id": "90byogii-inv0-d838-m4ef-wwx62cuee6",
-      "job_type": "EXPORT_ASSETS_TO_S3",
-      "job_status": "IN_PROGRESS",
+      "dataset_id": "qecwcca9-lc1c-qpql-vpn9-88fgzaeiaq",
+      "dataset_name": "US-Weather-Data",
+      "data_set_type": "API_GATEWAY",
+      "revision_id": "ixzk95mm-oton-h0lz-nihs-4tycgy5omuj",
+      "job_id": "1p07a45n-7gr3-m3gj-o9a1-jjsope7vof9",
+      "job_type": "EXPORT_REVISIONS_TO_S3",
+      "job_status": "WAITING",
       "provider_account_id": "738291046572",
-      "subscriber_account_id": "164820739518",
-      "asset_count": 250
+      "subscriber_account_id": "814726593401",
+      "asset_count": 400
     }
   },
   "event": {
-    "action": "SubscribeToDataSet",
+    "action": "CreateRevision",
     "outcome": "success",
     "category": [
       "process"
@@ -37,7 +37,7 @@
     "dataset": "aws.dataexchange",
     "provider": "dataexchange.amazonaws.com"
   },
-  "message": "Data Exchange Healthcare-Claims: EXPORT_ASSETS_TO_S3 IN_PROGRESS, 250 assets",
+  "message": "Data Exchange US-Weather-Data: EXPORT_REVISIONS_TO_S3 WAITING, 400 assets",
   "log": {
     "level": "info"
   }

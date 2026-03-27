@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "firehose"
@@ -13,49 +13,49 @@
   },
   "aws": {
     "dimensions": {
-      "DeliveryStreamName": "logs-to-s3"
+      "DeliveryStreamName": "events-to-redshift"
     },
     "firehose": {
-      "delivery_stream_name": "logs-to-s3",
-      "destination": "OpenSearch",
-      "incoming_records": 9498,
-      "incoming_bytes": 8880630,
+      "delivery_stream_name": "events-to-redshift",
+      "destination": "S3",
+      "incoming_records": 28672,
+      "incoming_bytes": 27238400,
       "delivery_success": true,
-      "delivery_records": 9498,
-      "data_freshness_seconds": 174,
+      "delivery_records": 28672,
+      "data_freshness_seconds": 92,
       "metrics": {
         "DeliveryToS3.Bytes": {
-          "sum": 23931109
+          "sum": 71241976
         },
         "DeliveryToS3.DataFreshness": {
-          "avg": 802
+          "avg": 668
         },
         "DeliveryToS3.Records": {
-          "sum": 6045
+          "sum": 9175
         },
         "DeliveryToS3.Success": {
           "avg": 1
         },
         "IncomingBytes": {
-          "sum": 73477463
+          "sum": 87704426
         },
         "IncomingRecords": {
-          "sum": 2003
+          "sum": 2650
         },
         "BackupToS3.Bytes": {
-          "sum": 475462
+          "sum": 539322
         },
         "BackupToS3.Records": {
-          "sum": 858
+          "sum": 889
         },
         "BackupToS3.Success": {
           "avg": 1
         },
         "DataReadFromKinesisStream.Bytes": {
-          "sum": 62528282
+          "sum": 33067970
         },
         "DataReadFromKinesisStream.Records": {
-          "sum": 6088
+          "sum": 2738
         },
         "ThrottledGetRecords": {
           "sum": 0
@@ -73,9 +73,9 @@
     ],
     "dataset": "aws.firehose",
     "provider": "firehose.amazonaws.com",
-    "duration": 55000000000
+    "duration": 24000000000
   },
-  "message": "Firehose logs-to-s3: 9498 records delivered",
+  "message": "Firehose events-to-redshift: 28672 records delivered",
   "log": {
     "level": "info"
   }

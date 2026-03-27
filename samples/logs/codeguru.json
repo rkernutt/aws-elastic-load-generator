@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "me-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codeguru"
@@ -13,22 +13,20 @@
   },
   "aws": {
     "codeguru": {
-      "product": "Profiler",
-      "repository_name": "frontend-app",
-      "association_id": "ioigztouv1c",
-      "finding_id": "gulq7uflafh",
-      "category": "Memory",
-      "severity": "High",
-      "finding_description": "HighCPUFrames:Base64Encoding",
-      "code_file": "src/main/frontendapp/Handler.java",
-      "line_number": 11,
-      "profiling_group": "frontend-app-profiling",
-      "frame_percent": 18.244,
-      "error_code": "ThrottlingException"
+      "product": "Reviewer",
+      "repository_name": "backend-api",
+      "association_id": "1t7r8ijjuw3",
+      "finding_id": "a6kwtcyxzkw",
+      "category": "AWSBestPractices",
+      "severity": "Low",
+      "finding_description": "Security:TaintedDataUsedInSecurityCheck",
+      "code_file": "server/routes.js",
+      "line_number": 291,
+      "pull_request_id": 191
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "vulnerability",
       "process"
@@ -36,13 +34,8 @@
     "dataset": "aws.codeguru",
     "provider": "codeguru.amazonaws.com"
   },
-  "message": "CodeGuru Profiler FAILED [frontend-app]: Internal error:",
+  "message": "CodeGuru Reviewer [backend-api] Low: Security",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "InternalServerException",
-    "message": "CodeGuru operation failed",
-    "type": "process"
+    "level": "info"
   }
 }

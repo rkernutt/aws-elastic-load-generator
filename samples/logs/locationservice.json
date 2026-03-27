@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "eu-north-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,13 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "CreateRouteCalculator"
+      "Operation": "GetDevicePosition"
     },
     "locationservice": {
-      "operation": "CreateRouteCalculator",
-      "route_calculator": "truck-router",
-      "distance_meters": 320446,
-      "duration_seconds": 11266
+      "operation": "GetDevicePosition",
+      "tracker_name": "fleet-tracker",
+      "device_id": "device-286bbqo7",
+      "position": {
+        "lat": 81.474,
+        "lon": -70.951
+      }
     }
   },
   "event": {
@@ -30,9 +33,9 @@
     ],
     "dataset": "aws.location",
     "provider": "geo.amazonaws.com",
-    "duration": 364000000
+    "duration": 425000000
   },
-  "message": "Location Service CreateRouteCalculator: place search",
+  "message": "Location Service GetDevicePosition: device-286bbqo7",
   "log": {
     "level": "info"
   }

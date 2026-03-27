@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "iotdefender"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "CheckName": "UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE"
+      "CheckName": "REVOKED_CA_CERTIFICATE"
     },
     "iotdefender": {
-      "thing_name": "sensor-001",
-      "audit_check_name": "UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE",
-      "finding_id": "j5mzzkf449r",
-      "severity": "MEDIUM",
-      "violation_id": "vy7sarbfhkm",
-      "violation_type": "authorization-failure",
+      "thing_name": "controller-a4",
+      "audit_check_name": "REVOKED_CA_CERTIFICATE",
+      "finding_id": "sfba9b1tw1",
+      "severity": "CRITICAL",
+      "violation_id": "l1apr1a6hek",
+      "violation_type": "device-cert-expiring",
       "security_profile_name": "factory-floor-profile",
-      "behavior_name": "authorized-ip-range",
-      "current_value": 291,
-      "threshold_value": 68,
+      "behavior_name": "msg-size",
+      "current_value": 944,
+      "threshold_value": 23,
       "consecutive_datapoints_to_alarm": 5
     }
   },
@@ -38,10 +38,10 @@
     ],
     "dataset": "aws.iotdefender",
     "provider": "iot.amazonaws.com",
-    "duration": 34000000000
+    "duration": 57000000000
   },
-  "message": "IoT Defender MEDIUM [sensor-001]: UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE",
+  "message": "IoT Defender CRITICAL [controller-a4]: REVOKED_CA_CERTIFICATE",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

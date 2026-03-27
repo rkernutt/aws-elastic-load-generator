@@ -526,4 +526,30 @@ function generateRdsLog(ts, er) {
   };
 }
 
-export { generateDynamoDbLog, generateElastiCacheLog, generateRedshiftLog, generateOpenSearchLog, generateDocumentDbLog, generateAuroraLog, generateNeptuneLog, generateTimestreamLog, generateQldbLog, generateKeyspacesLog, generateMemoryDbLog, generateRdsLog };
+function generateDaxLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const clusterName = rand(["prod-dax","analytics-dax","session-dax"]);
+  const nodeId = `${clusterName}-${rand(["a","b","c"])}`;
+  const operation = rand(["GetItem","PutItem","Query","Scan","BatchGetItem","BatchWriteItem"]);
+  const cacheHit = !isErr && Math.random() > 0.25;
+  const itemSizeBytes = randInt(50, 102400);
+  const requestLatencyMs = randInt(1, isErr?5000:50);
+  const errorCode = isErr ? rand(["ItemCollectionSizeLimitExceededException","ProvisionedThroughputExceededException","RequestLimitExceeded","ClusterNotFoundFault"]) : null;
+  const consumedReadCapacityUnits = parseFloat(randFloat(0.5, 5, 1));
+  const tableName = rand(["users","sessions","products","orders","inventory"]);
+  const action = rand(["CacheHit","CacheMiss","WriteThrough","Invalidation","NodeRestart","ClusterScaling"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"dax" } },
+    "aws": {
+      dimensions: { ClusterName: clusterName, NodeId: nodeId },
+      dax: { cluster_name:clusterName, node_id:nodeId, operation, cache_hit:cacheHit, item_size_bytes:itemSizeBytes, request_latency_ms:requestLatencyMs, consumed_read_capacity_units:consumedReadCapacityUnits, table_name:tableName, ...(isErr ? { error_code: errorCode } : {}) }
+    },
+    "event": { action, outcome:isErr?"failure":"success", category:["database"], dataset:"aws.dax", provider:"dax.amazonaws.com", duration:requestLatencyMs*1e6 },
+    "message": isErr ? `DAX ${clusterName}: ${operation} failed — ${errorCode}` : `DAX ${clusterName}: ${operation} ${cacheHit?"CACHE_HIT":"CACHE_MISS"} ${requestLatencyMs}ms`,
+    "log": { level:isErr?"error":"info" },
+    ...(isErr ? { error: { code: errorCode, message: `DAX ${operation} failed`, type: "database" } } : {})
+  };
+}
+
+export { generateDynamoDbLog, generateElastiCacheLog, generateRedshiftLog, generateOpenSearchLog, generateDocumentDbLog, generateAuroraLog, generateNeptuneLog, generateTimestreamLog, generateQldbLog, generateKeyspacesLog, generateMemoryDbLog, generateRdsLog, generateDaxLog };

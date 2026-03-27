@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "me-central-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,24 +13,24 @@
   },
   "aws": {
     "dimensions": {
-      "ServerId": "s-qp6sk9yev8s",
+      "ServerId": "s-k21o2zzzof",
       "Protocol": "FTPS"
     },
     "transferfamily": {
-      "server_id": "s-qp6sk9yev8s",
+      "server_id": "s-k21o2zzzof",
       "protocol": "FTPS",
-      "user_name": "data-ingest",
-      "session_id": "diojy2gb1l",
-      "file_path": "/inbound/orders.csv",
-      "operation": "PUT",
-      "bytes_transferred": 4910018818,
-      "transfer_rate_mbps": 393.972,
-      "duration_seconds": 298.689,
-      "s3_bucket": "transfer-landing"
+      "user_name": "backup-user",
+      "session_id": "la5ru707d0r",
+      "file_path": "/data/events.json",
+      "operation": "DELETE",
+      "bytes_transferred": 4073466019,
+      "transfer_rate_mbps": 59.538,
+      "duration_seconds": 84.228,
+      "s3_bucket": "sftp-inbound"
     }
   },
   "source": {
-    "ip": "100.41.87.183"
+    "ip": "246.178.70.159"
   },
   "event": {
     "outcome": "success",
@@ -40,9 +40,9 @@
     ],
     "dataset": "aws.transfer",
     "provider": "transfer.amazonaws.com",
-    "duration": 12452000000
+    "duration": 5888000000
   },
-  "message": "Transfer Family FTPS [data-ingest] /inbound/orders.csv: 4682.6MB",
+  "message": "Transfer Family FTPS [backup-user] /data/events.json: 3884.8MB",
   "log": {
     "level": "info"
   }

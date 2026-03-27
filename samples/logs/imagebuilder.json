@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "eu-central-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "amazon-linux-cis",
-      "Phase": "DEPROVISION"
+      "PipelineName": "windows-hardened",
+      "Phase": "TEST"
     },
     "imagebuilder": {
-      "pipeline_name": "amazon-linux-cis",
-      "image_version": "1.3.9/1",
-      "phase": "DEPROVISION",
+      "pipeline_name": "windows-hardened",
+      "image_version": "3.5.4/1",
+      "phase": "TEST",
       "phase_status": "COMPLETED",
-      "duration_seconds": 743,
-      "os": "Amazon Linux 2023",
-      "recipe_name": "hardened-base",
-      "ami_id": "ami-kboyjlf3",
+      "duration_seconds": 1435,
+      "os": "RHEL 9",
+      "recipe_name": "web-server-recipe",
+      "ami_id": "ami-0egdv3ln",
       "metrics": {
         "BuildDuration": {
-          "avg": 743
+          "avg": 1435
         },
         "ImageBuildSuccessCount": {
           "sum": 1
@@ -36,7 +36,7 @@
           "sum": 0
         },
         "ComponentBuildDuration": {
-          "avg": 579
+          "avg": 671
         }
       }
     }
@@ -45,12 +45,12 @@
     "category": [
       "process"
     ],
-    "duration": 743000000000,
+    "duration": 1435000000000,
     "outcome": "success",
     "dataset": "aws.imagebuilder",
     "provider": "imagebuilder.amazonaws.com"
   },
-  "message": "Image Builder amazon-linux-cis DEPROVISION COMPLETED in 743s",
+  "message": "Running component: aws:RunShellScript",
   "log": {
     "level": "info"
   }

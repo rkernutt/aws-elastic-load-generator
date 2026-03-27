@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "kinesisanalytics"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "kinesisanalytics": {
-      "application_name": "anomaly-detector",
-      "application_arn": "arn:aws:kinesisanalytics:ca-west-1:814726593401:application/anomaly-detector",
-      "runtime": "SQL-1_0",
-      "records_per_second": 467,
-      "input_watermark_lag_ms": 57,
+      "application_name": "clickstream-analytics",
+      "application_arn": "arn:aws:kinesisanalytics:eu-central-2:738291046572:application/clickstream-analytics",
+      "runtime": "FLINK-1_15",
+      "records_per_second": 2271,
+      "input_watermark_lag_ms": 110,
       "checkpointing_enabled": true,
-      "last_checkpoint_duration_ms": 730,
-      "kpu_count": 49,
+      "last_checkpoint_duration_ms": 1594,
+      "kpu_count": 51,
       "structured_logging": true,
       "metrics": {
-        "records_in_per_second": 467,
-        "input_watermark_lag_ms": 57,
-        "kpu_utilization_pct": 65,
-        "checkpoint_duration_ms": 775
+        "records_in_per_second": 2271,
+        "input_watermark_lag_ms": 110,
+        "kpu_utilization_pct": 56,
+        "checkpoint_duration_ms": 158
       }
     }
   },
@@ -35,9 +35,9 @@
     "category": "process",
     "dataset": "aws.kinesisanalytics",
     "provider": "kinesisanalytics.amazonaws.com",
-    "duration": 1231000000
+    "duration": 281000000
   },
-  "message": "{\"applicationName\":\"anomaly-detector\",\"recordsPerSecond\":467,\"inputWatermarkLagMs\":57,\"level\":\"info\",\"message\":\"Application run started\",\"timestamp\":\"2026-03-27T09:01:54.466Z\"}",
+  "message": "{\"applicationName\":\"clickstream-analytics\",\"recordsPerSecond\":2271,\"inputWatermarkLagMs\":110,\"level\":\"info\",\"message\":\"Kinesis Analytics clickstream-analytics: 2271 rec/s, lag 364ms\",\"timestamp\":\"2026-03-27T12:56:06.485Z\"}",
   "log": {
     "level": "info"
   }

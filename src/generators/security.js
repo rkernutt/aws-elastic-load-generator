@@ -1275,4 +1275,129 @@ function generateCloudHsmLog(ts, er) {
   };
 }
 
-export { generateGuardDutyLog, generateSecurityHubLog, generateMacieLog, generateInspectorLog, generateConfigLog, generateAccessAnalyzerLog, generateCognitoLog, generateKmsLog, generateSecretsManagerLog, generateAcmLog, generateIamIdentityCenterLog, generateDetectiveLog, generateCloudTrailLog, generateVerifiedAccessLog, generateSecurityLakeLog, generateSecurityFindingChain, generateCspmFindings, generateKspmFindings, generateIamPrivEscChain, generateDataExfilChain, generateSecurityIrLog, generateCloudHsmLog };
+function generateAuditManagerLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const assessment = rand(["SOC2-Type-II","PCI-DSS-v4","CIS-AWS-Foundations","HIPAA-Readiness","NIST-800-53"]);
+  const controlId = `CTRL-${randInt(1000,9999)}`;
+  const controlSet = rand(["Access Control","Logging and Monitoring","Data Protection","Incident Response","Change Management"]);
+  const evidenceStatus = isErr ? rand(["NON_COMPLIANT","INSUFFICIENT_EVIDENCE"]) : rand(["COMPLIANT","COMPLIANT","COMPLIANT","MANUAL_EVIDENCE_NEEDED"]);
+  const action = rand(["CreateAssessment","CollectEvidence","ReviewEvidence","GenerateReport","SubmitReviewRequest","AssociateControl","UpdateAssessmentControl"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"auditmanager" } },
+    "aws": {
+      dimensions:{ AssessmentName: assessment, ControlSetId: controlSet },
+      auditmanager: {
+        assessment_name: assessment,
+        assessment_id: randUUID(),
+        control_set: controlSet,
+        control_id: controlId,
+        evidence_status: evidenceStatus,
+        data_source: rand(["AWS_CONFIG","AWS_CLOUDTRAIL","AWS_SECURITY_HUB","MANUAL"]),
+        evidence_count: randInt(1,50),
+        compliance_check: rand(["PASSED","PASSED","FAILED","WARNING"]),
+        reviewer: rand(["auto-assessment","compliance-team","security-ops"]),
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["audit"], dataset: "aws.auditmanager", provider: "auditmanager.amazonaws.com" },
+    "message": isErr ? `Audit Manager ${assessment} — ${controlId} ${evidenceStatus}: insufficient evidence in ${controlSet}` : `Audit Manager ${assessment} — ${controlId} ${evidenceStatus}`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","ValidationException","AccessDeniedException"]), message: "Audit Manager evidence collection failed", type: "audit" } } : {}),
+  };
+}
+
+function generateVerifiedPermissionsLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const policyStoreId = `EFxH${randId(20)}`;
+  const principalType = rand(["User","Group","Role","ServiceAccount"]);
+  const principalId = `${principalType.toLowerCase()}-${randId(8)}`;
+  const actionId = rand(["ReadDocument","WriteDocument","DeleteDocument","AdminAccess","ListResources","InvokeAPI"]);
+  const resourceType = rand(["Document","Record","Endpoint","Resource"]);
+  const decision = isErr ? "DENY" : rand(["ALLOW","ALLOW","ALLOW","DENY"]);
+  const action = rand(["IsAuthorized","IsAuthorizedWithToken","GetAuthorization","BatchIsAuthorized"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"verifiedpermissions" } },
+    "aws": {
+      dimensions:{ PolicyStoreId: policyStoreId },
+      verifiedpermissions: {
+        policy_store_id: policyStoreId,
+        principal_entity_type: principalType,
+        principal_entity_id: principalId,
+        action_id: actionId,
+        resource_type: resourceType,
+        decision,
+        determining_policies: randInt(1,5),
+        errors_count: isErr ? randInt(1,3) : 0,
+        evaluation_time_ms: randInt(1,50),
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["authentication","iam"], dataset: "aws.verifiedpermissions", provider: "verifiedpermissions.amazonaws.com" },
+    "message": isErr ? `Verified Permissions DENY: ${principalType}/${principalId} → ${actionId} on ${resourceType}` : `Verified Permissions ${decision}: ${principalType}/${principalId} → ${actionId}`,
+    "log": { level: isErr ? "error" : decision === "DENY" ? "warn" : "info" },
+    ...(decision === "DENY" ? { error: { code: "AccessDenied", message: `Authorization denied for ${principalType}/${principalId} to perform ${actionId}`, type: "authorization" } } : {}),
+  };
+}
+
+function generatePaymentCryptographyLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const keyArn = `arn:aws:payment-cryptography:${region}:${acct.id}:key/${randId(36)}`;
+  const keyAlgorithm = rand(["TDES_3KEY","AES_128","AES_192","AES_256","RSA_2048"]);
+  const keyUsage = rand(["TR31_P0_PIN_ENCRYPTION_KEY","TR31_C0_CARD_VERIFICATION_KEY","TR31_B0_BASE_DERIVATION_KEY","TR31_M3_ISO_9797_3_MAC_KEY"]);
+  const operation = rand(["GeneratePinData","TranslatePinData","VerifyPinData","GenerateMac","VerifyMac","EncryptData","DecryptData"]);
+  const keyState = isErr ? rand(["PENDING_DELETE","DELETE_PENDING"]) : "CREATE_COMPLETE";
+  const action = rand(["GeneratePinData","TranslatePinData","VerifyPinData","GenerateMac","VerifyMac","EncryptData","DecryptData","ImportKey","ExportKey","DeleteKey"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"paymentcryptography" } },
+    "aws": {
+      dimensions:{ KeyAlgorithm: keyAlgorithm, Operation: operation },
+      paymentcryptography: {
+        key_arn: keyArn,
+        key_alias: `alias/payment-${rand(["pin","mac","cvv","dek"])}-key`,
+        key_algorithm: keyAlgorithm,
+        key_usage: keyUsage,
+        operation,
+        key_state: keyState,
+        exportable: false,
+        key_check_value: randId(6).toUpperCase(),
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["authentication"], dataset: "aws.paymentcryptography", provider: "payment-cryptography.amazonaws.com" },
+    "message": isErr ? `Payment Cryptography ${operation} failed — key ${keyAlgorithm} state ${keyState}` : `Payment Cryptography ${operation} using ${keyAlgorithm} (${keyUsage.split("_")[1]})`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","ValidationException","AccessDeniedException"]), message: "Payment Cryptography operation failed", type: "authentication" } } : {}),
+  };
+}
+
+function generateArtifactLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const reportName = rand(["SOC2-Type-II","PCI-DSS-Attestation","ISO-27001","FedRAMP-Moderate","GDPR-DPA","HIPAA-BAA"]);
+  const reportCategory = rand(["Certification","Attestation","Agreement","Regulation"]);
+  const agreementName = rand(["Business-Associate-Agreement","GDPR-Data-Processing-Addendum","Non-Disclosure-Agreement"]);
+  const action = rand(["GetReport","GetReportMetadata","ListReports","GetTermsForReport","AcceptAgreement","TerminateAgreement","ListAgreements"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"artifact" } },
+    "aws": {
+      dimensions:{ ReportName: reportName, ReportCategory: reportCategory },
+      artifact: {
+        report_name: reportName,
+        report_arn: `arn:aws:artifact:::report/${reportName.toLowerCase()}`,
+        report_category: reportCategory,
+        report_period: rand(["2024","2024-Q4","2025-H1"]),
+        agreement_name: agreementName,
+        agreement_type: rand(["CUSTOM","DEFAULT"]),
+        accessed_by: acct.name,
+        download_format: rand(["PDF","ZIP"]),
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["audit"], dataset: "aws.artifact", provider: "artifact.amazonaws.com" },
+    "message": isErr ? `Artifact: access denied to ${reportName} for ${acct.name}` : `Artifact: ${action} — ${reportName} (${reportCategory})`,
+    "log": { level: isErr ? "error" : "info" },
+    "user": { name: acct.name },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","AccessDeniedException","ValidationException"]), message: "Artifact report access denied", type: "audit" } } : {}),
+  };
+}
+
+export { generateGuardDutyLog, generateSecurityHubLog, generateMacieLog, generateInspectorLog, generateConfigLog, generateAccessAnalyzerLog, generateCognitoLog, generateKmsLog, generateSecretsManagerLog, generateAcmLog, generateIamIdentityCenterLog, generateDetectiveLog, generateCloudTrailLog, generateVerifiedAccessLog, generateSecurityLakeLog, generateSecurityFindingChain, generateCspmFindings, generateKspmFindings, generateIamPrivEscChain, generateDataExfilChain, generateSecurityIrLog, generateCloudHsmLog, generateAuditManagerLog, generateVerifiedPermissionsLog, generatePaymentCryptographyLog, generateArtifactLog };

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "codecommit"
@@ -13,24 +13,23 @@
   },
   "aws": {
     "codecommit": {
-      "repository_name": "ml-models",
-      "repository_arn": "arn:aws:codecommit:ca-west-1:293847561023:ml-models",
-      "event_type": "ReferenceDeleted",
-      "reference_name": "main",
-      "commit_id": "2rvf2bptuv9",
-      "author": "codebuild",
-      "files_changed": 2,
-      "lines_added": 293,
-      "lines_deleted": 163,
-      "error_code": "EncryptionKeyUnavailableException"
+      "repository_name": "shared-libs",
+      "repository_arn": "arn:aws:codecommit:us-east-1:164820739518:shared-libs",
+      "event_type": "ReferenceUpdated",
+      "reference_name": "hotfix/payment-bug",
+      "commit_id": "8l1vo9azmcp",
+      "author": "github-actions",
+      "files_changed": 49,
+      "lines_added": 237,
+      "lines_deleted": 10
     }
   },
   "user": {
     "name": "bob"
   },
   "event": {
-    "action": "ReferenceDeleted",
-    "outcome": "failure",
+    "action": "ReferenceUpdated",
+    "outcome": "success",
     "category": [
       "configuration",
       "file"
@@ -38,13 +37,8 @@
     "dataset": "aws.codecommit",
     "provider": "codecommit.amazonaws.com"
   },
-  "message": "CodeCommit ReferenceDeleted FAILED on ml-models: Repository size limit",
+  "message": "CodeCommit ReferenceUpdated: shared-libs/hotfix/payment-bug",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "EncryptionKeyUnavailableException",
-    "message": "CodeCommit operation failed",
-    "type": "vcs"
+    "level": "info"
   }
 }

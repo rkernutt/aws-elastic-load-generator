@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "eu-central-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,94 +13,100 @@
   },
   "aws": {
     "dimensions": {
-      "Protocol": "HTTPS"
+      "Protocol": "WSS"
     },
     "iotcore": {
       "client_id": "gateway-prod-1",
       "thing_name": "gateway-prod-1",
-      "thing_group": "fleet",
-      "action": "DISCONNECT",
-      "topic": "dt/home/thermostat/status",
-      "protocol": "HTTPS",
+      "thing_group": "factory-sensors",
+      "action": "CONNECT",
+      "topic": "cmd/device/update",
+      "protocol": "WSS",
       "qos": 0,
-      "message_bytes": 50007,
-      "policy_name": "SensorPolicy",
-      "structured_logging": true,
-      "rules_evaluated": 0,
+      "message_bytes": 30664,
+      "policy_name": "FleetPolicy",
+      "structured_logging": false,
+      "error_code": "UnauthorizedException",
+      "rules_evaluated": 2,
       "metrics": {
         "Connect.Success": {
-          "sum": 144
+          "sum": 703
         },
         "Connect.Failure": {
-          "sum": 0
+          "sum": 10
         },
         "PublishIn.Success": {
-          "sum": 5482
+          "sum": 3797
         },
         "PublishIn.ClientError": {
-          "sum": 0
+          "sum": 77
         },
         "PublishIn.ServerError": {
-          "sum": 0
+          "sum": 50
         },
         "PublishOut.Success": {
-          "sum": 8432
+          "sum": 3019
         },
         "Publish.Success": {
-          "sum": 4552
+          "sum": 9029
         },
         "Publish.Failure": {
-          "sum": 0
+          "sum": 739
         },
         "Subscribe.Success": {
-          "sum": 3761
+          "sum": 1422
         },
         "Subscribe.Failure": {
-          "sum": 0
+          "sum": 3
         },
         "Unsubscribe.Success": {
-          "sum": 393
+          "sum": 953
         },
         "Ping.Success": {
-          "sum": 6243
+          "sum": 5278
         },
         "Throttle.Success": {
-          "sum": 9
+          "sum": 140
         },
         "RulesMatched": {
-          "sum": 699
+          "sum": 201
         },
         "RulesFailed": {
-          "sum": 0
+          "sum": 16
         },
         "RulesNotMatched": {
-          "sum": 20
+          "sum": 19
         },
         "TopicMatch": {
-          "sum": 3887
+          "sum": 7124
         },
         "ClientConnections": {
-          "avg": 45572
+          "avg": 66025
         }
       }
     }
   },
   "source": {
-    "ip": "203.168.9.100"
+    "ip": "223.239.42.185"
   },
   "event": {
-    "action": "DISCONNECT",
-    "outcome": "success",
+    "action": "CONNECT",
+    "outcome": "failure",
     "category": [
       "network",
       "process"
     ],
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com",
-    "duration": 111000000
+    "duration": 2369000000
   },
-  "message": "{\"clientId\":\"gateway-prod-1\",\"action\":\"DISCONNECT\",\"topic\":\"dt/home/thermostat/status\",\"message\":\"IoT Core DISCONNECT: gateway-prod-1 on dt/home/thermostat/status\",\"timestamp\":\"2026-03-27T09:01:54.466Z\"}",
+  "message": "IoT Core CONNECT FAILED for gateway-prod-1: Unauthorized",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "UnauthorizedException",
+    "message": "IoT Core operation failed",
+    "type": "iot"
   }
 }

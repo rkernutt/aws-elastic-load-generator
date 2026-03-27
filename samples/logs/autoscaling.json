@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "autoscaling"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "AutoScalingGroupName": "worker-asg"
+      "AutoScalingGroupName": "api-asg"
     },
     "autoscaling": {
-      "group_name": "worker-asg",
-      "activity_id": "c2cvldtv-mngw-wwo2",
+      "group_name": "api-asg",
+      "activity_id": "2tq1uxgd-vgln-i51p",
       "action_type": "Launch",
-      "instance_id": "i-mpg5gyihjj",
-      "instance_type": "t3.medium",
-      "desired_capacity": 4,
+      "instance_id": "i-1y1khd1t7ck",
+      "instance_type": "c5.2xlarge",
+      "desired_capacity": 7,
       "min_size": 2,
       "max_size": 50,
-      "current_capacity": 3,
+      "current_capacity": 6,
       "cause": "Unhealthy instance replaced",
       "status_code": "Successful",
-      "launch_template": "web-lt:5",
+      "launch_template": "api-lt:3",
       "metrics": {
         "GroupMinSize": {
           "avg": 2
@@ -36,10 +36,10 @@
           "avg": 50
         },
         "GroupDesiredCapacity": {
-          "avg": 4
+          "avg": 7
         },
         "GroupInServiceInstances": {
-          "avg": 3
+          "avg": 6
         },
         "GroupPendingInstances": {
           "avg": 0
@@ -51,10 +51,10 @@
           "avg": 0
         },
         "GroupTotalInstances": {
-          "avg": 4
+          "avg": 7
         },
         "GroupInServiceCapacity": {
-          "avg": 3
+          "avg": 6
         },
         "GroupPendingCapacity": {
           "avg": 0
@@ -66,7 +66,7 @@
           "avg": 0
         },
         "GroupTotalCapacity": {
-          "avg": 4
+          "avg": 7
         },
         "WarmPoolMinSize": {
           "avg": 0
@@ -96,9 +96,9 @@
     "outcome": "success",
     "dataset": "aws.autoscaling",
     "provider": "autoscaling.amazonaws.com",
-    "duration": 276000000000
+    "duration": 176000000000
   },
-  "message": "AutoScaling worker-asg: Launch instance",
+  "message": "AutoScaling api-asg: Launch instance",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "ap-south-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "systemsmanager"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "ssm": {
-      "command_id": "eq3fe1je-zaid-yf4d",
+      "command_id": "kvywtm3q-brg2-njrx",
       "document_name": "AWS-RunShellScript",
-      "instance_id": "i-75bsbl0zk1b",
-      "action": "PutParameter",
+      "instance_id": "i-f3h0bni7e3c",
+      "action": "PatchInstance",
       "execution_status": "Success",
       "response_code": 0,
-      "parameter_name": "/prod/db/password",
-      "structured_logging": false,
+      "patch_compliance": "Compliant",
+      "structured_logging": true,
       "metrics": {
         "CommandsSucceeded": {
           "sum": 1
@@ -38,10 +38,10 @@
           "sum": 1
         },
         "SessionDuration": {
-          "avg": 346
+          "avg": 112
         },
         "PatchComplianceCount": {
-          "avg": 136
+          "avg": 193
         }
       }
     }
@@ -55,9 +55,9 @@
     ],
     "dataset": "aws.ssm",
     "provider": "ssm.amazonaws.com",
-    "duration": 10000000000
+    "duration": 6000000000
   },
-  "message": "SSM PutParameter on i-75bsbl0zk1b: AWS-RunShellScript",
+  "message": "{\"commandId\":\"kvywtm3q-brg2-njrx\",\"documentName\":\"AWS-RunShellScript\",\"instanceId\":\"i-f3h0bni7e3c\",\"action\":\"PatchInstance\",\"status\":\"Success\",\"timestamp\":\"2026-03-27T12:56:06.485Z\"}",
   "log": {
     "level": "info"
   }

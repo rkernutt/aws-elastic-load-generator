@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "8d464ea0db823a55188180337324d5db"
+    "id": "4bb184b8df3804d215bec4ad571d865f"
   },
   "transaction": {
-    "id": "d668251e48e92401",
-    "name": "report-generator",
+    "id": "d900b17c5098c294",
+    "name": "user-auth-handler",
     "type": "lambda",
     "duration": {
-      "us": 638000
+      "us": 1486000
     },
     "result": "success",
     "sampled": true,
@@ -22,32 +22,32 @@
     },
     "faas": {
       "coldstart": false,
-      "execution": "6f9b5a7b-549f-08bd-4fa5-b2615ab039d3",
+      "execution": "fbb77800-a1f9-1b10-82ba-27a2663985c3",
       "trigger": {
-        "type": "timer"
+        "type": "other"
       }
     }
   },
   "faas": {
-    "name": "report-generator",
-    "id": "arn:aws:lambda:ca-central-1:345678901234:function:report-generator",
+    "name": "user-auth-handler",
+    "id": "arn:aws:lambda:sa-east-1:345678901234:function:user-auth-handler",
     "version": "$LATEST",
     "coldstart": false,
-    "execution": "6f9b5a7b-549f-08bd-4fa5-b2615ab039d3",
+    "execution": "fbb77800-a1f9-1b10-82ba-27a2663985c3",
     "trigger": {
-      "type": "timer"
+      "type": "other"
     }
   },
   "service": {
-    "name": "report-generator",
+    "name": "user-auth-handler",
     "environment": "staging",
     "version": "1.0.0",
     "language": {
-      "name": "java"
+      "name": "nodejs"
     },
     "runtime": {
-      "name": "java21",
-      "version": "21.0.3"
+      "name": "nodejs20.x",
+      "version": "20.15.1"
     },
     "framework": {
       "name": "AWS Lambda"
@@ -55,22 +55,22 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "1.6.0"
+    "version": "1.4.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "java",
-      "version": "2.12.0"
+      "language": "nodejs",
+      "version": "1.30.1"
     },
     "distro": {
       "name": "elastic",
-      "version": "1.6.0"
+      "version": "1.4.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "sa-east-1",
     "account": {
       "id": "345678901234",
       "name": "dev-aws"

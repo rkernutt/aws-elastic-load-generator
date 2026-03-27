@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "forecast"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "DatasetGroup": "energy-consumption",
-      "Operation": "CreateDatasetImportJob"
+      "DatasetGroup": "demand-forecast",
+      "Operation": "GetAccuracyMetrics"
     },
     "forecast": {
-      "dataset_group": "energy-consumption",
-      "predictor_name": "energy-consumption-predictor-v14",
-      "action": "CreateDatasetImportJob",
-      "algorithm": "Prophet",
-      "forecast_horizon": 60,
-      "weighted_quantile_loss": 0.088,
-      "duration_seconds": 2418,
+      "dataset_group": "demand-forecast",
+      "predictor_name": "demand-forecast-predictor-v6",
+      "action": "GetAccuracyMetrics",
+      "algorithm": "NPTS",
+      "forecast_horizon": 30,
+      "weighted_quantile_loss": 0.152,
+      "duration_seconds": 5506,
       "status": "ACTIVE"
     }
   },
   "event": {
-    "duration": 2418000000000,
+    "duration": 5506000000000,
     "outcome": "success",
     "category": [
       "process"
@@ -36,7 +36,7 @@
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com"
   },
-  "message": "Forecast CreateDatasetImportJob: energy-consumption, WQL=0.088",
+  "message": "Forecast GetAccuracyMetrics: demand-forecast, WQL=0.152",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "eu-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "computeoptimizer"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "computeoptimizer": {
-      "resource_type": "EC2_INSTANCE",
-      "resource_arn": "arn:aws:ec2:ap-south-2:293847561023:instance/i-xskitbpwq4e",
-      "finding": "OPTIMIZED",
+      "resource_type": "EBS_VOLUME",
+      "resource_arn": "arn:aws:ec2:eu-south-1:814726593401:instance/i-xr96fp9t3al",
+      "finding": "OVERPROVISIONED",
       "current_configuration": {
-        "instance_type": "t3.medium",
-        "vcpu": 6,
-        "memory_gb": 6
+        "instance_type": "r5.large",
+        "vcpu": 27,
+        "memory_gb": 52
       },
       "recommended_configuration": {
         "instance_type": "m5.large",
-        "vcpu": 6,
-        "memory_gb": 10
+        "vcpu": 9,
+        "memory_gb": 42
       },
-      "estimated_monthly_savings_usd": 0,
-      "estimated_monthly_savings_percent": 0,
-      "lookback_period_days": 32,
+      "estimated_monthly_savings_usd": 440.662,
+      "estimated_monthly_savings_percent": 48.807,
+      "lookback_period_days": 14,
       "utilization": {
-        "cpu_max": 32.31,
-        "memory_max": 86.741
+        "cpu_max": 16.366,
+        "memory_max": 39.82
       },
       "performance_risk": "High"
     }
@@ -44,9 +44,9 @@
     ],
     "dataset": "aws.computeoptimizer",
     "provider": "compute-optimizer.amazonaws.com",
-    "duration": 19000000000
+    "duration": 58000000000
   },
-  "message": "Compute Optimizer: EC2_INSTANCE OPTIMIZED (t3.medium)",
+  "message": "Compute Optimizer: EBS_VOLUME OVERPROVISIONED — downsize r5.large→m5.large, save 441/mo",
   "log": {
     "level": "info"
   }

@@ -1,0 +1,44 @@
+{
+  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-north-1",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    },
+    "service": {
+      "name": "dax"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "ClusterName": "prod-dax",
+      "NodeId": "prod-dax-a"
+    },
+    "dax": {
+      "cluster_name": "prod-dax",
+      "node_id": "prod-dax-a",
+      "operation": "Scan",
+      "cache_hit": true,
+      "item_size_bytes": 90196,
+      "request_latency_ms": 27,
+      "consumed_read_capacity_units": 1.967,
+      "table_name": "products"
+    }
+  },
+  "event": {
+    "action": "CacheMiss",
+    "outcome": "success",
+    "category": [
+      "database"
+    ],
+    "dataset": "aws.dax",
+    "provider": "dax.amazonaws.com",
+    "duration": 27000000
+  },
+  "message": "DAX prod-dax: Scan CACHE_HIT 27ms",
+  "log": {
+    "level": "info"
+  }
+}

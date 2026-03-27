@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "eu-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "guardduty"
@@ -13,52 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "7ygc7obdqsv"
+      "DetectorId": "rm8wmm8xdw"
     },
     "guardduty": {
       "schema_version": "2.0",
-      "account_id": "738291046572",
-      "region": "ap-southeast-3",
+      "account_id": "501938274650",
+      "region": "eu-south-2",
       "partition": "aws",
-      "id": "miwnicgl5fp",
-      "arn": "arn:aws:guardduty:ap-southeast-3:738291046572:detector/7ygc7obdqsv/finding/miwnicgl5fp",
-      "type": "Trojan:EC2/DNSDataExfiltration",
-      "title": "EC2 DNSDataExfiltration",
-      "description": "GuardDuty detected suspicious activity: Trojan:EC2/DNSDataExfiltration",
-      "created_at": "2026-03-27T09:01:54.466Z",
-      "updated_at": "2026-03-27T09:01:54.466Z",
+      "id": "iufokkvl23n",
+      "arn": "arn:aws:guardduty:eu-south-2:501938274650:detector/rm8wmm8xdw/finding/iufokkvl23n",
+      "type": "UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom",
+      "title": "IAMUser MaliciousIPCaller Custom",
+      "description": "GuardDuty detected suspicious activity: UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom",
+      "created_at": "2026-03-27T12:56:06.485Z",
+      "updated_at": "2026-03-27T12:56:06.485Z",
       "severity": {
         "code": 7,
         "value": "High"
       },
-      "confidence": 72.268,
+      "confidence": 84.329,
       "resource": {
         "type": "Instance"
       },
       "service": {
-        "detector_id": "7ygc7obdqsv",
-        "count": 70,
+        "detector_id": "rm8wmm8xdw",
+        "count": 62,
         "archived": false,
         "action": {
-          "action_type": "NETWORK_CONNECTION"
+          "action_type": "AWS_API_CALL"
         }
       },
       "metrics": {
         "FindingCount": {
-          "sum": 39
+          "sum": 11
         },
         "HighSeverityFindingCount": {
-          "sum": 8
+          "sum": 7
         }
       }
     }
   },
   "source": {
-    "ip": "108.105.218.133"
+    "ip": "148.184.102.18"
   },
   "rule": {
     "category": "intrusion_detection",
-    "name": "Trojan:EC2/DNSDataExfiltration"
+    "name": "UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom"
   },
   "event": {
     "kind": "alert",
@@ -73,13 +73,13 @@
     "dataset": "aws.guardduty",
     "provider": "guardduty.amazonaws.com"
   },
-  "message": "GuardDuty finding [HIGH]: Trojan:EC2/DNSDataExfiltration",
+  "message": "GuardDuty finding [HIGH]: UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom",
   "log": {
     "level": "error"
   },
   "error": {
     "code": "ThreatFinding",
-    "message": "GuardDuty finding: Trojan:EC2/DNSDataExfiltration",
+    "message": "GuardDuty finding: UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom",
     "type": "security"
   }
 }

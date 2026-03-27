@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "us-west-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "datasync"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "datasync": {
-      "task_arn": "arn:aws:datasync:ap-southeast-1:501938274650:task/task-e2223ad491",
-      "source_location_uri": "s3://source-bucket",
-      "destination_location_uri": "s3://prod-backup",
+      "task_arn": "arn:aws:datasync:us-west-1:738291046572:task/task-zhtnqnrqay",
+      "source_location_uri": "smb://file-server/share",
+      "destination_location_uri": "efs://fs-prod/backup",
       "status": "SUCCESS",
-      "files_transferred": 195657,
-      "bytes_transferred": 78682484265,
+      "files_transferred": 538750,
+      "bytes_transferred": 378371667500,
       "files_failed": 0,
-      "duration_seconds": 1978
+      "duration_seconds": 3575
     }
   },
   "event": {
@@ -30,9 +30,9 @@
     ],
     "dataset": "aws.datasync",
     "provider": "datasync.amazonaws.com",
-    "duration": 1978000000000
+    "duration": 3575000000000
   },
-  "message": "DataSync: 195,657 files transferred from s3:",
+  "message": "DataSync: 538,750 files transferred from smb:",
   "log": {
     "level": "info"
   }

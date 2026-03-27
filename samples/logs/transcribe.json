@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "transcribe"
@@ -14,50 +14,44 @@
   "aws": {
     "dimensions": {
       "Operation": "TranscriptionJob",
-      "LanguageCode": "ja-JP"
+      "LanguageCode": "en-US"
     },
     "transcribe": {
-      "transcription_job_name": "transcribe-m4dpr0u2",
-      "transcription_job_status": "FAILED",
-      "language_code": "ja-JP",
-      "media_format": "ogg",
-      "media_uri": "s3://audio-bucket/transcribe-m4dpr0u2.mp3",
-      "audio_duration_minutes": 0.103,
-      "word_count": 0,
-      "speaker_count": 1,
-      "content_redaction_enabled": false,
-      "error_code": "InternalFailure",
+      "transcription_job_name": "transcribe-bv9v9uqa",
+      "transcription_job_status": "COMPLETED",
+      "language_code": "en-US",
+      "media_format": "flac",
+      "media_uri": "s3://audio-bucket/transcribe-bv9v9uqa.mp3",
+      "audio_duration_minutes": 23.466,
+      "word_count": 3520,
+      "speaker_count": 3,
+      "content_redaction_enabled": true,
       "metrics": {
         "TranscriptionJobsCompleted": {
-          "sum": 0
-        },
-        "TranscriptionJobsFailed": {
           "sum": 1
         },
+        "TranscriptionJobsFailed": {
+          "sum": 0
+        },
         "TranscriptionJobsPending": {
-          "avg": 2
+          "avg": 1
         },
         "TranscriptionJobsRunning": {
-          "avg": 3
+          "avg": 2
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.transcribe",
     "provider": "transcribe.amazonaws.com"
   },
-  "message": "Transcribe job transcribe-m4dpr0u2 FAILED (ja-JP): Unsupported codec",
+  "message": "Transcribe job transcribe-bv9v9uqa: 23.5 min audio (en-US)",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "TranscribeError",
-    "message": "Transcribe job failed",
-    "type": "ml"
+    "level": "info"
   }
 }

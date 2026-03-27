@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "us-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "emr"
@@ -13,93 +13,93 @@
   },
   "aws": {
     "dimensions": {
-      "JobFlowId": "j-IL3EOALTN6"
+      "JobFlowId": "j-5LF0WYMO36R"
     },
     "emr": {
-      "cluster_id": "j-IL3EOALTN6",
-      "cluster_name": "clickstream-processing-cluster",
-      "application": "hadoop",
-      "release": "emr-6.15.0",
-      "instance_group": "CORE",
-      "executor_count": 28,
+      "cluster_id": "j-5LF0WYMO36R",
+      "cluster_name": "etl-daily-aggregation-cluster",
+      "application": "spark",
+      "release": "emr-6.8.0",
+      "instance_group": "TASK",
+      "executor_count": 9,
       "job": {
-        "name": "clickstream-processing",
-        "id": "application_1774602114669_6154",
+        "name": "etl-daily-aggregation",
+        "id": "application_1774616166687_1046",
         "run_state": "SUCCEEDED"
       },
-      "structured_logging": false,
+      "structured_logging": true,
       "metrics": {
-        "executor_count": 28,
+        "executor_count": 9,
         "running_step_count": 4,
         "failed_step_count": 0,
-        "hdfs_utilization_pct": 47,
-        "yarn_memory_used_mb": 47882,
-        "elapsedTime": 1688000,
-        "numCompletedTasks": 181,
+        "hdfs_utilization_pct": 51,
+        "yarn_memory_used_mb": 23691,
+        "elapsedTime": 2647000,
+        "numCompletedTasks": 433,
         "numFailedTasks": 0,
-        "jvm_heap_usage": 0.5,
-        "gc_time_ms": 44935,
-        "numberAllExecutors": 42
+        "jvm_heap_usage": 0.58,
+        "gc_time_ms": 15727,
+        "numberAllExecutors": 13
       }
     },
     "elasticmapreduce": {
       "metrics": {
         "S3BytesWritten": {
-          "sum": 822635739548
+          "sum": 582911702162
         },
         "S3BytesRead": {
-          "sum": 311772793435
+          "sum": 889080357036
         },
         "HDFSUtilization": {
-          "avg": 47
+          "avg": 51
         },
         "HDFSBytesRead": {
-          "sum": 3290411344
+          "sum": 10445088711
         },
         "HDFSBytesWritten": {
-          "sum": 8951135823
+          "sum": 4772732740
         },
         "TotalNodesRunning": {
-          "avg": 29
+          "avg": 10
         },
         "YARNMemoryAvailablePercentage": {
-          "avg": 59.986
+          "avg": 25.954
         },
         "CoreNodesRunning": {
-          "avg": 7
+          "avg": 9
         },
         "CoreNodesPending": {
           "avg": 0
         },
         "TaskNodesRunning": {
-          "avg": 0
+          "avg": 9
         },
         "LiveDataNodes": {
-          "avg": 10
+          "avg": 4
         },
         "CapacityRemainingGB": {
-          "avg": 3670.952
+          "avg": 1665.029
         },
         "MemoryAvailableMB": {
-          "sum": 47882
+          "sum": 23691
         },
         "MemoryReservedMB": {
-          "avg": 4090
+          "avg": 4234
         },
         "MemoryTotalMB": {
-          "sum": 33554
+          "sum": 56734
         },
         "ContainersPending": {
           "avg": 0
         },
         "ContainerPendingRatio": {
-          "avg": 0.075
+          "avg": 0.448
         },
         "ContainersAllocated": {
-          "avg": 39
+          "avg": 13
         },
         "AppsCompleted": {
-          "sum": 35
+          "sum": 11
         },
         "AppsFailed": {
           "sum": 0
@@ -108,7 +108,7 @@
           "sum": 0
         },
         "AppsPending": {
-          "avg": 0
+          "avg": 1
         },
         "AppsRunning": {
           "avg": 3
@@ -117,7 +117,7 @@
     }
   },
   "process": {
-    "name": "YARNAppMaster"
+    "name": "PrestoCoordinator"
   },
   "log": {
     "level": "info"
@@ -129,7 +129,7 @@
     ],
     "dataset": "aws.emr",
     "provider": "elasticmapreduce.amazonaws.com",
-    "duration": 1688000000000
+    "duration": 2647000000000
   },
-  "message": "Job submitted to YARN ResourceManager"
+  "message": "{\"clusterId\":\"j-5LF0WYMO36R\",\"applicationId\":\"application_1774616166687_1046\",\"containerId\":\"container_1774616166687_9713_01_848754\",\"logLevel\":\"INFO\",\"message\":\"Job run started\",\"timestamp\":\"2026-03-27T12:56:06.485Z\",\"component\":\"yarn\"}"
 }

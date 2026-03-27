@@ -1,6 +1,6 @@
 # Installer 4 — ML Anomaly Detection Jobs
 
-Interactive CLI that installs **Elasticsearch ML anomaly detection jobs** for AWS services across 21 service groups (120 jobs total). Jobs are created via the Elasticsearch ML API directly — no Kibana required.
+Interactive CLI that installs **Elasticsearch ML anomaly detection jobs** for AWS services across 22 service groups (137 jobs total). Jobs are created via the Elasticsearch ML API directly — no Kibana required.
 
 ---
 
@@ -63,6 +63,8 @@ The installer will prompt you for:
 | 18 | `iot` | IoT — IoT Core connection failures, message volume, rule errors, rare devices | 4 |
 | 19 | `media` | Media & end-user computing — MediaConvert jobs, Connect contacts, WorkSpaces | 4 |
 | 20 | `siem` | SIEM anomaly detection — CloudTrail source IP anomalies, root account activity, IAM creation spikes, Route53 DNS exfiltration detection | 4 |
+| 21 | `new-services` | v10 services — Kendra, VPC Lattice, FIS, Clean Rooms, DataZone, Security IR, CloudHSM, Managed Grafana, Supply Chain, IoT TwinMaker, IoT FleetWise, CodeCatalyst, Entity Resolution, Data Exchange, Device Farm, MSK Connect, A2I, Deadline Cloud, HealthLake, ARC | 21 |
+| 22 | `v11-services` | v11 services — App Mesh, Client VPN, Cloud Map, Outposts, Audit Manager, Verified Permissions, Payment Cryptography, DAX, Proton, AppFabric, B2B Interchange, AppConfig, Elastic DRS, License Manager, Chatbot, Chime SDK Voice, Artifact | 17 |
 
 You can install individual groups or all groups at once.
 

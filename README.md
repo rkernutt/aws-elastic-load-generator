@@ -1,8 +1,17 @@
 # ⚡ AWS → Elastic Load Generator
 
-A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic deployment via the Elasticsearch Bulk API. Covers **165 AWS services** across **14 service groups**, all using **ECS (Elastic Common Schema)** field naming.
+A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic deployment via the Elasticsearch Bulk API. Covers **182 AWS services** across **14 service groups**, all using **ECS (Elastic Common Schema)** field naming.
 
-Each service has its correct real-world ingestion source pre-configured — S3, CloudWatch, direct API, Firehose, OTel, or Elastic Agent — matching how each service actually delivers data to Elastic in production. Switch between **Logs**, **Metrics**, and **Traces** mode; **139 services** support Metrics mode.
+Each service has its correct real-world ingestion source pre-configured — S3, CloudWatch, direct API, Firehose, OTel, or Elastic Agent — matching how each service actually delivers data to Elastic in production. Switch between **Logs**, **Metrics**, and **Traces** mode; **147 services** support Metrics mode.
+
+---
+
+## What's New in v11.0
+
+- **17 new AWS service generators** — Coverage expanded from 165 to **182 services**: AWS App Mesh, AWS Client VPN, AWS Cloud Map, AWS Outposts, AWS Audit Manager, Amazon Verified Permissions, AWS Payment Cryptography, AWS Artifact, Amazon DynamoDB DAX, AWS Proton, AWS AppFabric, AWS B2B Data Interchange, AWS AppConfig, AWS Elastic Disaster Recovery, AWS License Manager, AWS Chatbot, Amazon Chime SDK Voice.
+- **8 new metrics services** — App Mesh, Client VPN, Cloud Map, Outposts, Verified Permissions, DAX, Chime SDK Voice, Elastic DRS now support Metrics mode (147 total).
+- **182 log samples, 147 metric samples** — `samples/` regenerated with one doc per service.
+- **17 Kibana dashboards, 17 ingest pipelines, 17 ML jobs** added to installers.
 
 ---
 
@@ -41,7 +50,7 @@ See [`installer/custom-ml-jobs/README.md`](installer/custom-ml-jobs/README.md) f
 
 ## What's New in v9.2
 
-- **Installer 4 — ML Anomaly Detection Jobs** — New `npm run setup:ml-jobs` installer adds **70 Elasticsearch ML anomaly detection jobs** across **14 service groups**, filling the gap left by the official Elastic AWS integration (which only ships ML jobs for CloudTrail). Coverage includes:
+- **Installer 4 — ML Anomaly Detection Jobs** — New `npm run setup:ml-jobs` installer adds **137 Elasticsearch ML anomaly detection jobs** across **22 service groups**, filling the gap left by the official Elastic AWS integration (which only ships ML jobs for CloudTrail). Coverage includes:
   - **Security:** VPC Flow (denied traffic, rare ports, data exfiltration), GuardDuty (finding spikes, rare types), WAF (block rate), CloudTrail (rare user actions), Security Hub (critical finding spikes), Macie (sensitive data exposure), Inspector (vulnerability spikes), AWS Config (compliance drift), KMS (unusual key operations)
   - **Compute:** Lambda (error/throttle/duration per function), EC2 (CPU, network), EKS (pod failures, rare images), ECS (memory pressure, task failures), Auto Scaling (rapid scaling), Elastic Beanstalk (5xx, p99 latency)
   - **Networking:** ALB (5xx, response time, rare user agents), API Gateway (latency, errors), CloudFront (error rate, cache miss storms), Route 53 (NXDOMAIN spikes — DNS attack detection), Network Firewall (drop spikes)
@@ -168,25 +177,27 @@ Testing connection...
 
 Available pipeline groups:
 
-  1. analytics    (8 pipelines)
-  2. compute      (7 pipelines)
-  3. databases    (9 pipelines)
-  4. devtools     (6 pipelines)
-  5. enduser      (14 pipelines)
-  6. iot          (6 pipelines)
-  7. management   (17 pipelines)
-  8. ml           (13 pipelines)
-  9. networking   (4 pipelines)
-  10. security    (8 pipelines)
-  11. serverless  (5 pipelines)
-  12. storage     (5 pipelines)
-  13. streaming   (4 pipelines)
-  14. all         (install every group)
+  1. aiml        (3 pipelines)
+  2. analytics    (15 pipelines)
+  3. compute      (8 pipelines)
+  4. databases    (10 pipelines)
+  5. devtools     (9 pipelines)
+  6. enduser      (14 pipelines)
+  7. iot          (8 pipelines)
+  8. management   (25 pipelines)
+  9. media        (2 pipelines)
+  10. ml          (14 pipelines)
+  11. networking  (9 pipelines)
+  12. security    (16 pipelines)
+  13. serverless  (5 pipelines)
+  14. storage     (6 pipelines)
+  15. streaming   (5 pipelines)
+  16. all         (install every group)
 
 Enter number(s) comma-separated, or "all":
 > all
 
-Installing 106 pipeline(s)...
+Installing 149 pipeline(s)...
 
   ✓ logs-aws.glue-default — installed
   ✓ logs-aws.emr_logs-default — installed
@@ -275,19 +286,20 @@ Or import manually: **Stack Management → Saved Objects → Import** — select
 
 | Group | Pipelines | Key services |
 |-------|-----------|-------------|
-| analytics | 8 | Glue, EMR, Athena, Lake Formation, QuickSight, DataBrew, AppFlow |
-| compute | 7 | EC2, EKS, Fargate, ECR, App Runner, Batch, Elastic Beanstalk |
-| databases | 9 | ElastiCache, OpenSearch, DocumentDB, Aurora, Neptune, Timestream, QLDB, Keyspaces, MemoryDB |
-| devtools | 6 | CodeCommit, CodeArtifact, Amplify, CodeGuru, DevOps Guru, Lightsail |
+| analytics | 15 | Glue, EMR, Athena, Lake Formation, QuickSight, DataBrew, AppFlow, AppFabric, B2B Data Interchange |
+| compute | 8 | EC2, EKS, Fargate, ECR, App Runner, Batch, Elastic Beanstalk, Outposts |
+| databases | 10 | ElastiCache, OpenSearch, DocumentDB, Aurora, Neptune, Timestream, QLDB, Keyspaces, MemoryDB, DAX |
+| devtools | 9 | CodeCommit, CodeArtifact, Amplify, CodeGuru, DevOps Guru, Lightsail, Proton |
 | enduser | 14 | WorkSpaces, Connect, AppStream, GameLift, Transfer Family, MediaConvert, MediaLive, Pinpoint, Location Service, Managed Blockchain, Fraud Detector, Lookout for Metrics, Comprehend Medical, SES |
-| iot | 6 | IoT Core, Greengrass, IoT Analytics, IoT Events, IoT SiteWise, IoT Defender |
-| management | 17 | CloudFormation, SSM, CloudWatch Alarms, AWS Health, Trusted Advisor, Control Tower, Organizations, Service Catalog, Service Quotas, Compute Optimizer, Budgets, Billing, RAM, Resilience Hub, Migration Hub, Network Manager, DMS |
-| ml | 13 | SageMaker, Bedrock, Bedrock Agent, Rekognition, Textract, Comprehend, Translate, Transcribe, Polly, Forecast, Personalize, Lex, Comprehend Medical |
-| networking | 4 | Shield, Global Accelerator, Direct Connect, PrivateLink |
-| security | 8 | Macie, IAM Access Analyzer, Cognito, KMS, Secrets Manager, ACM, IAM Identity Center, Detective |
+| iot | 8 | IoT Core, Greengrass, IoT Analytics, IoT Events, IoT SiteWise, IoT Defender |
+| management | 25 | CloudFormation, SSM, CloudWatch Alarms, AWS Health, Trusted Advisor, Control Tower, Organizations, Service Catalog, Service Quotas, Compute Optimizer, Budgets, Billing, RAM, Resilience Hub, Migration Hub, Network Manager, DMS, AppConfig, Elastic DRS, License Manager, Chatbot |
+| media | 2 | Chime SDK Voice, (additional media services) |
+| ml | 14 | SageMaker, Bedrock, Bedrock Agent, Rekognition, Textract, Comprehend, Translate, Transcribe, Polly, Forecast, Personalize, Lex |
+| networking | 9 | Shield, Global Accelerator, Direct Connect, PrivateLink, App Mesh, Client VPN, Cloud Map |
+| security | 16 | Macie, IAM Access Analyzer, Cognito, KMS, Secrets Manager, ACM, IAM Identity Center, Detective, Audit Manager, Verified Permissions, Payment Cryptography, Artifact |
 | serverless | 5 | Lambda, API Gateway, Step Functions, EventBridge, AppSync |
-| storage | 5 | EFS, FSx, DataSync, Backup, Storage Gateway |
-| streaming | 4 | Kinesis Analytics, Amazon MQ, SNS, SQS (custom pipelines only) |
+| storage | 6 | EFS, FSx, DataSync, Backup, Storage Gateway, DAX |
+| streaming | 5 | Kinesis Analytics, Amazon MQ, SNS, SQS, (custom pipelines) |
 
 **Pipeline naming convention:**
 
@@ -305,7 +317,7 @@ e.g. `logs-aws.glue-default`, `logs-aws.sagemaker-default`, `logs-aws.lambda_log
 npm run setup:ml-jobs
 ```
 
-**What it does:** Installs 70 Elasticsearch ML anomaly detection jobs across 14 groups — covering services that the official Elastic AWS integration does not include. Jobs are created directly via the Elasticsearch ML API.
+**What it does:** Installs 137 Elasticsearch ML anomaly detection jobs across 22 groups — covering services that the official Elastic AWS integration does not include. Jobs are created directly via the Elasticsearch ML API.
 
 | Prompt | Where to find it |
 |--------|-----------------|
@@ -330,8 +342,8 @@ After installation, the installer offers to open jobs and start datafeeds immedi
 
 ## Usage
 
-1. **Select services** — toggle individual services, entire groups, or all 165 at once
-2. **Choose mode** — **Logs** generates log documents for all 165 services; **Metrics** generates metrics documents for the 139 metrics-supported services; **Traces** generates APM trace documents for 20 services
+1. **Select services** — toggle individual services, entire groups, or all 182 at once
+2. **Choose mode** — **Logs** generates log documents for all 182 services; **Metrics** generates metrics documents for the 147 metrics-supported services; **Traces** generates APM trace documents for 20 services
 3. **Configure volume** — set logs per service (50–5,000), error rate (0–50%), and batch size
 4. **Set ingestion source** — leave on **Default (per-service)** or override all services to a single source for pipeline testing
 5. **Connect to Elastic** — enter your Elasticsearch URL, API key, and index prefix
@@ -453,7 +465,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 ---
 
-## Supported services (165 total)
+## Supported services (182 total)
 
 ### 1 · Serverless & Core
 
@@ -477,6 +489,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | App Runner | CloudWatch | `aws.apprunner.*`, `http.*`, `url.*` |
 | Batch | CloudWatch | `aws.batch.*`, `container.*`, `process.*` |
 | Elastic Beanstalk | CloudWatch | `aws.elasticbeanstalk.*`, `http.*` |
+| Outposts | CloudWatch | `aws.outposts.*`, capacity status, connectivity, rack/site IDs |
 | Auto Scaling | CloudWatch | `aws.autoscaling.*`, metrics block |
 | EC2 Image Builder | CloudWatch | `aws.imagebuilder.*`, `event.duration` |
 
@@ -498,6 +511,9 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | Site-to-Site VPN | CloudWatch | `aws.vpn.*` |
 | PrivateLink | CloudWatch | `aws.privatelink.*` |
 | VPC Lattice | CloudWatch | `aws.vpclattice.*`, `network.*`, `http.*` |
+| App Mesh | CloudWatch | `aws.appmesh.*`, Envoy proxy request/response metrics, circuit breaker |
+| Client VPN | CloudWatch | `aws.clientvpn.*`, `user.*`, `source.ip`, connection lifecycle |
+| Cloud Map | CloudWatch | `aws.cloudmap.*`, service discovery operations, health status |
 
 ### 4 · Security & Compliance
 
@@ -519,6 +535,10 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | Security Lake | S3 | `aws.securitylake.*`, OCSF 1.1.0 — 6 event classes (API_ACTIVITY, NETWORK_ACTIVITY, DNS_ACTIVITY, HTTP_ACTIVITY, AUTHENTICATION, SECURITY_FINDING) |
 | Security Incident Response | API | `aws.securityir.*`, case lifecycle, severity, `event.outcome` |
 | CloudHSM | CloudWatch | `aws.cloudhsm.*`, HSM operation types, key usage |
+| Audit Manager | API | `aws.auditmanager.*`, compliance assessment evidence, NON_COMPLIANT controls |
+| Verified Permissions | CloudWatch | `aws.verifiedpermissions.*`, Cedar policy ALLOW/DENY decisions, eval time |
+| Payment Cryptography | CloudWatch | `aws.paymentcryptography.*`, TR31 PIN/MAC/CVV key operations |
+| Artifact | API | `aws.artifact.*`, `user.*`, compliance report access audit |
 
 ### 5 · Storage & Databases
 
@@ -540,6 +560,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | Neptune | CloudWatch | `aws.neptune.*`, Gremlin/SPARQL/openCypher query types |
 | Timestream | CloudWatch | `aws.timestream.*` |
 | QLDB | CloudWatch | `aws.qldb.*`, ledger/transaction model |
+| DynamoDB DAX | CloudWatch | `aws.dax.*`, cache hit/miss, request latency, throughput errors |
 | Keyspaces | CloudWatch | `aws.keyspaces.*` |
 | MemoryDB | CloudWatch | `aws.memorydb.*` |
 
@@ -574,6 +595,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | DevOps Guru | CloudWatch | `aws.devopsguru.*` |
 | CodeCatalyst | CloudWatch | `aws.codecatalyst.*`, workflow runs, dev environments |
 | Device Farm | CloudWatch | `aws.devicefarm.*`, mobile/browser test run results |
+| Proton | CloudWatch | `aws.proton.*`, IaC environment & service deployment lifecycle |
 
 ### 8 · Analytics
 
@@ -591,6 +613,8 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | DataZone | CloudWatch | `aws.datazone.*`, data catalog and governance events |
 | Entity Resolution | CloudWatch | `aws.entityresolution.*`, matching workflow jobs |
 | Data Exchange | CloudWatch | `aws.dataexchange.*`, subscription and job events |
+| AppFabric | API | `aws.appfabric.*`, SaaS audit log normalisation to OCSF, `user.email`, `source.ip` |
+| B2B Data Interchange | CloudWatch | `aws.b2bi.*`, EDI X12/EDIFACT transformation, partner transactions |
 
 ### 9 · AI & Machine Learning
 
@@ -653,6 +677,10 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | Managed Grafana | CloudWatch | `aws.managedgrafana.*`, workspace alerts, user sync |
 | Supply Chain | CloudWatch | `aws.supplychain.*`, planning and integration events |
 | App Recovery Controller | CloudWatch | `aws.arc.*`, zonal shift lifecycle, readiness checks |
+| AppConfig | CloudWatch | `aws.appconfig.*`, deployment state, rollback, percentage complete |
+| Elastic Disaster Recovery | CloudWatch | `aws.drs.*`, replication lag, data replication state, RPO |
+| License Manager | CloudWatch | `aws.licensemanager.*`, consumed licenses, utilisation percentage |
+| Chatbot | CloudWatch | `aws.chatbot.*`, notification delivery, channel type, SNS topic |
 
 ### 12 · Media & End-User Computing
 
@@ -665,6 +693,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | AppStream | CloudWatch | `aws.appstream.*`, `user.*` |
 | GameLift | CloudWatch | `aws.gamelift.*`, 13-metric block |
 | Deadline Cloud | CloudWatch | `aws.deadlinecloud.*`, render farm job and task lifecycle |
+| Chime SDK Voice | CloudWatch | `aws.chimesdkvoice.*`, call quality, MOS score, SIP response code |
 
 ### 13 · Messaging & Communications
 
@@ -689,7 +718,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 | Setting | Default | Range | Description |
 |---|---|---|---|
-| Event type | Logs | Logs / Metrics / Traces | **Logs** — all 165 services. **Metrics** — 139 metrics-supported services. **Traces** — 20 trace-supported services. |
+| Event type | Logs | Logs / Metrics / Traces | **Logs** — all 182 services. **Metrics** — 147 metrics-supported services. **Traces** — 20 trace-supported services. |
 | Logs/metrics per service | 500 | 50–5,000 | Documents generated per selected service |
 | Error rate | 5% | 0–50% | Fraction of documents representing errors/failures |
 | Batch size | 250 | 50–1,000 | Documents per `_bulk` API request |
@@ -703,8 +732,8 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 The **samples/** directory contains one sample document per service generated by the same logic as the app:
 
-- **samples/logs/** — 165 JSON log documents, one per service
-- **samples/metrics/** — 139 JSON metrics documents, one per metrics-supported service
+- **samples/logs/** — 182 JSON log documents, one per service
+- **samples/metrics/** — 147 JSON metrics documents, one per metrics-supported service
 - **samples/traces/** — 20 JSON APM trace documents, one per trace-supported service
 
 Regenerate with: `npm run samples`

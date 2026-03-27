@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "us-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "polly"
@@ -13,30 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "ListSpeechSynthesisTasks"
+      "Operation": "StartSpeechSynthesisTask"
     },
     "polly": {
-      "voice_id": "Mizuki",
+      "voice_id": "Hans",
       "engine": "neural",
-      "operation": "ListSpeechSynthesisTasks",
-      "language_code": "en-GB",
-      "output_format": "pcm",
-      "text_type": "ssml",
-      "characters_synthesized": 0,
-      "sample_rate": "16000",
-      "error_code": "TextLengthExceededException",
+      "operation": "StartSpeechSynthesisTask",
+      "language_code": "es-US",
+      "output_format": "mp3",
+      "text_type": "text",
+      "characters_synthesized": 10704,
+      "sample_rate": "22050",
       "metrics": {
         "RequestCharacters": {
-          "sum": 2809
+          "sum": 376
         },
         "ResponseLatency": {
-          "avg": 1172.577
+          "avg": 444.123
         },
         "2XXCount": {
-          "sum": 0
+          "sum": 1
         },
         "4XXCount": {
-          "sum": 1
+          "sum": 0
         },
         "5XXCount": {
           "sum": 0
@@ -45,20 +44,15 @@
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.polly",
     "provider": "polly.amazonaws.com"
   },
-  "message": "Polly SynthesizeSpeech FAILED (Mizuki): Invalid SSML",
+  "message": "Polly SynthesizeSpeech: Hans (neural), 10704 chars",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "PollyError",
-    "message": "Polly synthesis failed",
-    "type": "ml"
+    "level": "info"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "af-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "ecs"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "staging",
+      "ClusterName": "workers",
       "ServiceName": "worker"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 2.542
+          "avg": 95.944
         },
         "CPUReservation": {
-          "avg": 49.29
+          "avg": 55.52
         },
         "MemoryUtilization": {
-          "avg": 29.195
+          "avg": 14.234
         },
         "MemoryReservation": {
-          "avg": 55.462
+          "avg": 23.001
         },
         "GPUReservation": {
           "avg": 0
@@ -37,34 +37,39 @@
     }
   },
   "container": {
-    "id": "oc7sf915n7m",
+    "id": "y0emjrov3pf",
     "name": "worker",
     "image": {
-      "name": "nginx:18-alpine",
+      "name": "java:3.11",
       "tag": "alpine"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 24241,
+    "pid": 57262,
     "name": "worker"
   },
   "log": {
-    "level": "warn"
+    "level": "error"
   },
   "event": {
     "category": [
       "process",
       "container"
     ],
-    "outcome": "success",
+    "outcome": "failure",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 1619000000000
+    "duration": 178000000000
   },
-  "message": "{\"cluster\":\"staging\",\"service\":\"worker\",\"taskId\":\"zqllfo1la3\",\"container\":\"worker\",\"level\":\"warn\",\"message\":\"High memory: 85%\",\"timestamp\":\"2026-03-27T09:01:54.466Z\"}",
+  "message": "Container exited with code 1",
   "service": {
     "name": "worker",
     "type": "ecs"
+  },
+  "error": {
+    "code": "MissingVersionException",
+    "message": "Health check failed",
+    "type": "container"
   }
 }

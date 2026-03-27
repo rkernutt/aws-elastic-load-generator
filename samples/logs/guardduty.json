@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "guardduty"
@@ -13,42 +13,71 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "7rhsv38fzwp"
+      "DetectorId": "0yg7mwosb3dq"
     },
     "guardduty": {
       "schema_version": "2.0",
-      "account_id": "501938274650",
-      "region": "ap-south-2",
+      "account_id": "738291046572",
+      "region": "ap-southeast-2",
       "partition": "aws",
-      "id": "g3wa3h1025t",
-      "arn": "arn:aws:guardduty:ap-south-2:501938274650:detector/7rhsv38fzwp/finding/g3wa3h1025t",
-      "type": "UnauthorizedAccess:IAMUser/InstanceCredentialExfiltration.OutsideAWS",
-      "title": "IAMUser InstanceCredentialExfiltration OutsideAWS",
-      "description": "Routine check completed.",
-      "created_at": "2026-03-27T09:01:54.466Z",
-      "updated_at": "2026-03-27T09:01:54.466Z",
+      "id": "xpbg87ib02m",
+      "arn": "arn:aws:guardduty:ap-southeast-2:738291046572:detector/0yg7mwosb3dq/finding/xpbg87ib02m",
+      "type": "UnauthorizedAccess:EC2/SSHBruteForce",
+      "title": "EC2 SSHBruteForce",
+      "description": "GuardDuty detected suspicious activity: UnauthorizedAccess:EC2/SSHBruteForce",
+      "created_at": "2026-03-27T12:56:06.485Z",
+      "updated_at": "2026-03-27T12:56:06.485Z",
       "severity": {
-        "code": 0,
-        "value": "Informational"
+        "code": 5,
+        "value": "Medium"
       },
-      "confidence": 79.734,
+      "confidence": 87.246,
       "resource": {
-        "type": "Instance"
+        "type": "Instance",
+        "instance_details": {
+          "availability_zone": "ap-southeast-2b",
+          "instance": {
+            "id": "i-4phyimuwc8",
+            "type": "m5.large",
+            "state": "running"
+          },
+          "image": {
+            "id": "ami-djashb0y",
+            "description": "Amazon Linux 2"
+          },
+          "network_interfaces": [
+            {
+              "network_interface_id": "eni-lpyd11fk",
+              "private_ip_address": "180.253.231.94",
+              "subnet_id": "subnet-l2x5kk3i",
+              "vpc_id": "vpc-pd9487p4",
+              "security_groups": [
+                {
+                  "group_id": "sg-0obtsgwy",
+                  "group_name": "default"
+                }
+              ]
+            }
+          ]
+        }
       },
       "service": {
-        "detector_id": "7rhsv38fzwp",
-        "count": 438,
-        "archived": false
+        "detector_id": "0yg7mwosb3dq",
+        "count": 500,
+        "archived": false,
+        "action": {
+          "action_type": "AWS_API_CALL"
+        }
       },
       "metrics": {
         "FindingCount": {
-          "sum": 0
+          "sum": 37
         },
         "HighSeverityFindingCount": {
           "sum": 0
         },
         "MediumSeverityFindingCount": {
-          "sum": 0
+          "sum": 9
         },
         "LowSeverityFindingCount": {
           "sum": 0
@@ -57,20 +86,37 @@
     }
   },
   "rule": {
-    "category": "threat"
+    "category": "threat",
+    "ruleset": "UnauthorizedAccess",
+    "name": "UnauthorizedAccess:EC2/SSHBruteForce"
   },
   "threat": {
     "indicator": [
       {
         "type": "ip",
-        "value": "12.237.65.87"
+        "value": "161.128.5.228"
       }
     ]
   },
+  "source": {
+    "ip": "161.128.5.228",
+    "geo": {
+      "country_iso_code": "GB",
+      "country_name": "United Kingdom",
+      "city_name": "London",
+      "location": {
+        "lat": 51.5074,
+        "lon": -0.1278
+      }
+    }
+  },
+  "destination": {
+    "ip": "187.124.223.81"
+  },
   "event": {
     "kind": "alert",
-    "severity": 0,
-    "outcome": "success",
+    "severity": 5,
+    "outcome": "failure",
     "category": [
       "threat"
     ],
@@ -80,8 +126,13 @@
     "dataset": "aws.guardduty",
     "provider": "guardduty.amazonaws.com"
   },
-  "message": "GuardDuty: no threats detected",
+  "message": "GuardDuty finding [Medium]: UnauthorizedAccess:EC2/SSHBruteForce",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "ThreatFinding",
+    "message": "GuardDuty finding: UnauthorizedAccess:EC2/SSHBruteForce",
+    "type": "security"
   }
 }

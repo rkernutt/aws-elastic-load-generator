@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "eu-north-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "rekognition"
@@ -13,47 +13,53 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "DetectText"
+      "Operation": "IndexFaces"
     },
     "rekognition": {
-      "operation": "DetectText",
-      "input_source": "S3Object",
-      "image_bytes": 8443970,
-      "duration_ms": 862,
-      "labels_detected": 32,
-      "faces_detected": 12,
-      "max_confidence": 91.866,
+      "operation": "IndexFaces",
+      "input_source": "Video",
+      "image_bytes": 1690675,
+      "duration_ms": 3172,
+      "labels_detected": 0,
+      "faces_detected": 0,
+      "max_confidence": 0,
       "confidence_threshold": 70,
+      "error_code": "InvalidS3ObjectException",
       "metrics": {
         "SuccessfulRequestCount": {
           "sum": 1
         },
         "ThrottledCount": {
-          "sum": 0
+          "sum": 1
         },
         "UserErrorCount": {
-          "sum": 0
+          "sum": 3
         },
         "ServerErrorCount": {
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 476.767
+          "avg": 4541.933
         }
       }
     }
   },
   "event": {
-    "duration": 861854000,
-    "outcome": "success",
+    "duration": 3171677000,
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.rekognition",
     "provider": "rekognition.amazonaws.com"
   },
-  "message": "Rekognition DetectText: 15 results, 91.9% confidence",
+  "message": "Rekognition IndexFaces FAILED: Throttled",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "RekognitionError",
+    "message": "Rekognition operation failed",
+    "type": "ml"
   }
 }

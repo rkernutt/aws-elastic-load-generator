@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "il-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "mediaconvert"
@@ -16,51 +16,45 @@
       "Operation": "MP4"
     },
     "mediaconvert": {
-      "job_id": "6967750891-gqa4q1",
-      "queue_arn": "arn:aws:mediaconvert:ap-southeast-3:814726593401:queues/premium",
-      "job_status": "ERROR",
+      "job_id": "6404452184-n0l6g0",
+      "queue_arn": "arn:aws:mediaconvert:il-central-1:164820739518:queues/Default",
+      "job_status": "COMPLETE",
       "output_group_type": "MP4",
-      "input_file": "s3://uploads/user-video.mp4",
-      "input_duration_minutes": 95.99,
-      "video_codec": "AV1",
+      "input_file": "s3://media-input/broadcast/live.mxf",
+      "input_duration_minutes": 114.876,
+      "video_codec": "H_264",
       "audio_codec": "AAC",
-      "width": 1920,
+      "width": 3840,
       "height": 1080,
       "bitrate_kbps": 8000,
-      "duration_seconds": 1752,
-      "error_message": "Invalid input file",
+      "duration_seconds": 1625,
       "metrics": {
         "JobsCompletedCount": {
-          "sum": 0
-        },
-        "JobsErroredCount": {
           "sum": 1
         },
+        "JobsErroredCount": {
+          "sum": 0
+        },
         "StandbyTime": {
-          "avg": 222
+          "avg": 184
         },
         "TranscodingTime": {
-          "avg": 1752
+          "avg": 1625
         }
       }
     }
   },
   "event": {
-    "duration": 1752000000000,
-    "outcome": "failure",
+    "duration": 1625000000000,
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.mediaconvert",
     "provider": "mediaconvert.amazonaws.com"
   },
-  "message": "MediaConvert job 6967750891-gqa4q1 ERROR: Invalid format",
-  "error": {
-    "code": "JobError",
-    "message": "MediaConvert job failed",
-    "type": "media"
-  },
+  "message": "MediaConvert job 6404452184-n0l6g0 COMPLETE: 114.9 min -> MP4",
   "log": {
-    "level": "error"
+    "level": "info"
   }
 }

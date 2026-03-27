@@ -445,4 +445,31 @@ export const PIPELINE_REGISTRY = [
 
   // Media
   { id: "logs-aws.deadlinecloud-default",    dataset: "aws.deadlinecloud",    group: "media",        description: "Parse Deadline Cloud render farm job and task log JSON",      processors: json("deadlinecloud")    },
+
+  // ── v11.0 NEW SERVICES ────────────────────────────────────────────────────────
+  // Networking
+  { id: "logs-aws.appmesh-default",             dataset: "aws.appmesh",             group: "networking",   description: "Parse App Mesh Envoy proxy access log JSON",                   processors: json("appmesh")             },
+  { id: "logs-aws.clientvpn-default",           dataset: "aws.clientvpn",           group: "networking",   description: "Parse Client VPN connection and auth log JSON",                processors: json("clientvpn")           },
+  { id: "logs-aws.cloudmap-default",            dataset: "aws.cloudmap",            group: "networking",   description: "Parse Cloud Map service discovery event JSON",                 processors: json("cloudmap")            },
+  // Compute
+  { id: "logs-aws.outposts-default",            dataset: "aws.outposts",            group: "compute",      description: "Parse Outposts hybrid cloud capacity event JSON",              processors: json("outposts")            },
+  // Security
+  { id: "logs-aws.auditmanager-default",        dataset: "aws.auditmanager",        group: "security",     description: "Parse Audit Manager compliance assessment evidence JSON",      processors: json("auditmanager")        },
+  { id: "logs-aws.verifiedpermissions-default", dataset: "aws.verifiedpermissions", group: "security",     description: "Parse Verified Permissions Cedar authorization decision JSON", processors: json("verifiedpermissions") },
+  { id: "logs-aws.paymentcryptography-default", dataset: "aws.paymentcryptography", group: "security",     description: "Parse Payment Cryptography key operation log JSON",            processors: json("paymentcryptography") },
+  { id: "logs-aws.artifact-default",            dataset: "aws.artifact",            group: "security",     description: "Parse Artifact compliance report access log JSON",             processors: json("artifact")            },
+  // Databases
+  { id: "logs-aws.dax-default",                 dataset: "aws.dax",                 group: "databases",    description: "Parse DynamoDB DAX cache hit/miss and operation log JSON",     processors: json("dax")                 },
+  // Developer Tools
+  { id: "logs-aws.proton-default",              dataset: "aws.proton",              group: "devtools",     description: "Parse Proton environment and service deployment log JSON",     processors: json("proton")              },
+  // Analytics
+  { id: "logs-aws.appfabric-default",           dataset: "aws.appfabric",           group: "analytics",    description: "Parse AppFabric SaaS audit log normalisation event JSON",      processors: json("appfabric")           },
+  { id: "logs-aws.b2bi-default",                dataset: "aws.b2bi",                group: "analytics",    description: "Parse B2B Data Interchange EDI transformation log JSON",      processors: json("b2bi")                },
+  // Management
+  { id: "logs-aws.appconfig-default",           dataset: "aws.appconfig",           group: "management",   description: "Parse AppConfig configuration deployment event JSON",          processors: json("appconfig")           },
+  { id: "logs-aws.drs-default",                 dataset: "aws.drs",                 group: "management",   description: "Parse Elastic Disaster Recovery replication event JSON",      processors: json("drs")                 },
+  { id: "logs-aws.licensemanager-default",      dataset: "aws.licensemanager",      group: "management",   description: "Parse License Manager grant and consumption event JSON",      processors: json("licensemanager")      },
+  { id: "logs-aws.chatbot-default",             dataset: "aws.chatbot",             group: "management",   description: "Parse Chatbot notification delivery event JSON",               processors: json("chatbot")             },
+  // Media
+  { id: "logs-aws.chimesdkvoice-default",       dataset: "aws.chimesdkvoice",       group: "media",        description: "Parse Chime SDK Voice call quality and SIP event JSON",       processors: json("chimesdkvoice")       },
 ];

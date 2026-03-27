@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "eu-south-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "comprehend"
@@ -13,12 +13,12 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "DetectDominantLanguage"
+      "Operation": "DetectPiiEntities"
     },
     "comprehend": {
-      "operation": "DetectDominantLanguage",
-      "language_code": "es",
-      "text_bytes": 64415,
+      "operation": "DetectPiiEntities",
+      "language_code": "en",
+      "text_bytes": 38594,
       "entities_detected": 0,
       "key_phrases_detected": 0,
       "pii_entities_detected": 0,
@@ -30,7 +30,7 @@
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 212.688
+          "avg": 381.638
         }
       }
     }
@@ -43,7 +43,7 @@
     "dataset": "aws.comprehend",
     "provider": "comprehend.amazonaws.com"
   },
-  "message": "Comprehend DetectDominantLanguage: lang=es",
+  "message": "Comprehend DetectPiiEntities: lang=en",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "route53"
@@ -13,27 +13,27 @@
   },
   "aws": {
     "dimensions": {
-      "HostedZoneId": "ZSB8R25W8WZL",
+      "HostedZoneId": "Z7ZFHULG5UOO",
       "Region": "us-east-1"
     },
     "route53": {
-      "hosted_zone_id": "ZSB8R25W8WZL",
-      "edge_location": "LHR90",
-      "edns_client_subnet": "175.137.0.0/24"
+      "hosted_zone_id": "Z7ZFHULG5UOO",
+      "edge_location": "IAD61",
+      "edns_client_subnet": "238.248.0.0/24"
     }
   },
   "dns": {
     "question": {
-      "name": "www.example.com",
-      "type": "MX"
+      "name": "mail.example.com",
+      "type": "CNAME"
     },
-    "response_code": "REFUSED"
+    "response_code": "NOERROR"
   },
   "client": {
-    "ip": "16.97.212.22"
+    "ip": "168.1.6.79"
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "network"
     ],
@@ -42,15 +42,10 @@
     ],
     "dataset": "aws.route53",
     "provider": "route53.amazonaws.com",
-    "duration": 416000000
+    "duration": 2000000
   },
-  "message": "2026-03-27T09:01:54.466Z P10WFM4S ip6 16.97.212.22 53 A s3.amazonaws.com. REFUSED",
+  "message": "2026-03-27T12:56:06.485Z 1GQC68HZ ip6 168.1.6.79 53 SRV db.internal. NOERROR",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "REFUSED",
-    "message": "DNS query failed: REFUSED",
-    "type": "network"
+    "level": "info"
   }
 }

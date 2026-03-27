@@ -62,6 +62,24 @@ const ELASTIC_DATASET_MAP = {
   deadlinecloud:    "aws.deadlinecloud",
   healthlake:       "aws.healthlake",
   arc:              "aws.arc",
+  // v11.0 new services
+  appmesh:              "aws.appmesh",
+  clientvpn:            "aws.clientvpn",
+  cloudmap:             "aws.cloudmap",
+  outposts:             "aws.outposts",
+  auditmanager:         "aws.auditmanager",
+  verifiedpermissions:  "aws.verifiedpermissions",
+  paymentcryptography:  "aws.paymentcryptography",
+  artifact:             "aws.artifact",
+  dax:                  "aws.dax",
+  proton:               "aws.proton",
+  appfabric:            "aws.appfabric",
+  b2bi:                 "aws.b2bi",
+  appconfig:            "aws.appconfig",
+  drs:                  "aws.drs",
+  licensemanager:       "aws.licensemanager",
+  chatbot:              "aws.chatbot",
+  chimesdkvoice:        "aws.chimesdkvoice",
 };
 
 // ═══════════════════════════════════════════════════════════════════════════

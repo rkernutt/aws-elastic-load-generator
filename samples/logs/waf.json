@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "waf"
@@ -14,20 +14,20 @@
   "aws": {
     "dimensions": {
       "WebACL": "api-waf",
-      "Rule": "CustomSQLiRule",
+      "Rule": "GeoBlockRule",
       "Region": "eu-west-2"
     },
     "waf": {
-      "id": "wzor3gpx4g",
-      "arn": "arn:aws:wafv2:eu-west-2:501938274650:regional/webacl/api-waf/6534f6af-qvzo-er6p-89lj-ledv92bwzq",
+      "id": "e89ebdaswb",
+      "arn": "arn:aws:wafv2:eu-west-2:293847561023:regional/webacl/api-waf/k6a98oa8-kom9-dx5p-khdn-ugjragtocbg",
       "format_version": "1",
       "source": {
         "name": "ALB",
-        "id": "501938274650-app/api-waf/znloz42gcz"
+        "id": "293847561023-app/api-waf/hjzdl5t85tk"
       },
       "rule_group_list": [
         {
-          "ruleGroupId": "CustomSQLiRule",
+          "ruleGroupId": "GeoBlockRule",
           "nonTerminatingMatchingRules": []
         }
       ],
@@ -37,7 +37,7 @@
         "headers": [
           {
             "name": "User-Agent",
-            "value": "python-requests/2.27.1"
+            "value": "Go-http-client/1.1"
           },
           {
             "name": "Host",
@@ -72,44 +72,44 @@
     }
   },
   "rule": {
-    "id": "GenericLFI_URIPATH",
-    "ruleset": "CustomSQLiRule"
+    "id": "IPRateBasedRule",
+    "ruleset": "GeoBlockRule"
   },
   "http": {
     "request": {
-      "method": "POST",
-      "bytes": 2483
+      "method": "PATCH",
+      "bytes": 3569
     }
   },
   "url": {
-    "path": "/api/v2/events"
+    "path": "/api/v1/auth/login"
   },
   "source": {
-    "ip": "184.15.184.225",
+    "ip": "58.163.213.101",
     "geo": {
-      "country_iso_code": "US",
-      "country_name": "United States",
-      "city_name": "Seattle",
+      "country_iso_code": "CN",
+      "country_name": "China",
+      "city_name": "Beijing",
       "location": {
-        "lat": 47.6062,
-        "lon": -122.3321
+        "lat": 39.9042,
+        "lon": 116.4074
       }
     }
   },
   "client": {
-    "ip": "184.15.184.225",
+    "ip": "58.163.213.101",
     "geo": {
-      "country_iso_code": "US",
-      "country_name": "United States",
-      "city_name": "Seattle",
+      "country_iso_code": "CN",
+      "country_name": "China",
+      "city_name": "Beijing",
       "location": {
-        "lat": 47.6062,
-        "lon": -122.3321
+        "lat": 39.9042,
+        "lon": 116.4074
       }
     }
   },
   "user_agent": {
-    "original": "python-requests/2.27.1"
+    "original": "Go-http-client/1.1"
   },
   "event": {
     "action": "allow",
@@ -120,9 +120,9 @@
     ],
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com",
-    "duration": 7000000
+    "duration": 45000000
   },
-  "message": "WAF ALLOWED request - Rule: CustomSQLiRule",
+  "message": "WAF ALLOWED request - Rule: GeoBlockRule",
   "log": {
     "level": "info"
   }

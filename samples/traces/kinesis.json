@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "79a9e3220e2e52db22f4b700f09e8444"
+    "id": "c0b2cc9bdc031f4e80d8b33fbb12469b"
   },
   "transaction": {
-    "id": "11dfe10972596356",
-    "name": "structured-logs-stream process",
+    "id": "3b9f6eb4f079c21e",
+    "name": "financial-transactions-stream process",
     "type": "messaging",
     "duration": {
-      "us": 7324000
+      "us": 151000
     },
     "result": "success",
     "sampled": true,
@@ -22,15 +22,15 @@
     }
   },
   "labels": {
-    "stream_name": "structured-logs-stream",
-    "stream_arn": "arn:aws:kinesis:ap-northeast-2:123456789012:stream/structured-logs-stream",
-    "shard_id": "shardId-000000000009",
-    "sequence_number_range": "49369...49990",
-    "record_count": "276",
-    "iterator_age_ms": "26391"
+    "stream_name": "financial-transactions-stream",
+    "stream_arn": "arn:aws:kinesis:eu-central-2:345678901234:stream/financial-transactions-stream",
+    "shard_id": "shardId-000000000008",
+    "sequence_number_range": "49876...49542",
+    "record_count": "134",
+    "iterator_age_ms": "8025"
   },
   "service": {
-    "name": "log-aggregator",
+    "name": "financial-events-processor",
     "environment": "production",
     "version": "1.0.0",
     "language": {
@@ -61,10 +61,10 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "eu-central-2",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "kinesis"

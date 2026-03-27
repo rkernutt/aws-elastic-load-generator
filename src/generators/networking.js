@@ -629,4 +629,84 @@ function generateVpcLatticeLog(ts, er) {
   };
 }
 
-export { generateAlbLog, generateNlbLog, generateCloudFrontLog, generateWafLog, generateWafv2Log, generateRoute53Log, generateNetworkFirewallLog, generateShieldLog, generateGlobalAcceleratorLog, generateTransitGatewayLog, generateDirectConnectLog, generateVpnLog, generatePrivateLinkLog, generateNetworkManagerLog, generateNatGatewayLog, generateVpcFlowLog, generateVpcLatticeLog };
+function generateAppMeshLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const meshName = rand(["prod-mesh","staging-mesh","dev-mesh"]);
+  const virtualNode = rand(["checkout-vn","auth-vn","inventory-vn","payment-vn"]);
+  const virtualService = rand(["checkout.svc","auth.svc","inventory.svc","payment.svc"]);
+  const listenerPort = rand([8080,8443,9090,3000]);
+  const protocol = rand(["http","http2","grpc"]);
+  const responseCode = isErr ? rand([500,502,503,504]) : rand([200,200,201,204]);
+  const responseTimeMs = randInt(1, isErr?5000:300);
+  const bytesReceived = randInt(100,8192);
+  const bytesSent = randInt(200,16384);
+  const envoyResponseCodeDetails = isErr ? rand(["upstream_reset_before_response","no_healthy_upstreams"]) : "via_upstream";
+  const action = rand(["RequestForwarded","RequestRejected","CircuitBreakerOpen","RetryAttempt","HealthCheckFailed"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"appmesh" } },
+    "aws": {
+      dimensions: { MeshName: meshName, VirtualNodeName: virtualNode },
+      appmesh: { mesh_name:meshName, virtual_node:virtualNode, virtual_service:virtualService, listener_port:listenerPort, protocol, response_code:responseCode, response_time_ms:responseTimeMs, bytes_received:bytesReceived, bytes_sent:bytesSent, envoy_response_code_details:envoyResponseCodeDetails }
+    },
+    "event": { action, outcome:isErr?"failure":"success", category:["network"], dataset:"aws.appmesh", provider:"appmesh.amazonaws.com", duration:responseTimeMs*1e6 },
+    "message": isErr ? `App Mesh ${virtualNode}: ${responseCode} upstream_reset after ${responseTimeMs}ms` : `App Mesh ${virtualNode}: ${protocol} ${responseCode} ${responseTimeMs}ms`,
+    "log": { level:isErr?"error":"info" },
+    ...(isErr ? { error: { code: String(responseCode), message: envoyResponseCodeDetails, type: "network" } } : {})
+  };
+}
+
+function generateClientVpnLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const endpointId = `cvpn-endpoint-` + randId(17).toLowerCase();
+  const connectionId = `cvpn-connection-` + randId(17).toLowerCase();
+  const username = rand(ACCOUNTS).name.toLowerCase().replace(/ /g,".");
+  const sourceIp = randIp();
+  const assignedIp = `10.${randInt(0,255)}.${randInt(0,255)}.${randInt(2,254)}`;
+  const egressBytes = randInt(1024, 10485760);
+  const ingressBytes = randInt(512, 5242880);
+  const connectionDurationSeconds = randInt(60, 86400);
+  const terminationReason = isErr ? rand(["User disconnected","Idle timeout","Maximum session duration","Authentication failure"]) : "User disconnected";
+  const action = rand(["connected","disconnected","authentication-failure","authorization-failure","connection-attempt"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"clientvpn" } },
+    "aws": {
+      dimensions: { Endpoint: endpointId },
+      clientvpn: { endpoint_id:endpointId, connection_id:connectionId, username, source_ip:sourceIp, assigned_ip:assignedIp, egress_bytes:egressBytes, ingress_bytes:ingressBytes, connection_duration_seconds:connectionDurationSeconds, termination_reason:terminationReason }
+    },
+    "event": { action, outcome:isErr?"failure":"success", category:["network","authentication"], dataset:"aws.clientvpn", provider:"clientvpn.amazonaws.com", duration:connectionDurationSeconds*1e9 },
+    "source": { ip: sourceIp },
+    "user": { name: username },
+    "message": isErr ? `Client VPN auth failure for ${username} from ${sourceIp}` : `Client VPN ${username} ${action} from ${sourceIp}`,
+    "log": { level:isErr?"error":"info" },
+    ...(isErr ? { error: { code: "AuthenticationFailure", message: terminationReason, type: "network" } } : {})
+  };
+}
+
+function generateCloudMapLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const namespace = rand(["prod-namespace","staging-namespace","internal-services"]);
+  const serviceName = rand(["checkout","auth","inventory","payment","notification"]);
+  const instanceId = `i-` + randId(17).toLowerCase();
+  const operation = rand(["RegisterInstance","DeregisterInstance","DiscoverInstances","GetInstancesHealthStatus"]);
+  const healthStatus = isErr ? "UNHEALTHY" : rand(["HEALTHY","HEALTHY","HEALTHY","ALL"]);
+  const instancesReturned = randInt(1, 10);
+  const queryType = rand(["DNS","API","HTTP"]);
+  const ttl = rand([15,30,60,300]);
+  const action = rand(["RegisterInstance","DeregisterInstance","DiscoverInstances","HealthStatusChange","RoutingPolicyUpdate"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"cloudmap" } },
+    "aws": {
+      dimensions: { Namespace: namespace, ServiceName: serviceName },
+      cloudmap: { namespace, service_name:serviceName, instance_id:instanceId, operation, health_status:healthStatus, instances_returned:instancesReturned, query_type:queryType, ttl }
+    },
+    "event": { action, outcome:isErr?"failure":"success", category:["network"], dataset:"aws.cloudmap", provider:"cloudmap.amazonaws.com", duration:randInt(1,500)*1e6 },
+    "message": isErr ? `Cloud Map ${serviceName}: instance ${instanceId} unhealthy` : `Cloud Map ${serviceName}: ${operation} returned ${instancesReturned} instances`,
+    "log": { level:isErr?"error":"info" },
+    ...(isErr ? { error: { code: "HealthCheckFailed", message: `Instance ${instanceId} health status: ${healthStatus}`, type: "network" } } : {})
+  };
+}
+
+export { generateAlbLog, generateNlbLog, generateCloudFrontLog, generateWafLog, generateWafv2Log, generateRoute53Log, generateNetworkFirewallLog, generateShieldLog, generateGlobalAcceleratorLog, generateTransitGatewayLog, generateDirectConnectLog, generateVpnLog, generatePrivateLinkLog, generateNetworkManagerLog, generateNatGatewayLog, generateVpcFlowLog, generateVpcLatticeLog, generateAppMeshLog, generateClientVpnLog, generateCloudMapLog };

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "ap-southeast-4",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,32 +13,26 @@
   },
   "aws": {
     "trustedadvisor": {
-      "check_name": "Underutilized Amazon RDS",
-      "category": "cost_optimizing",
-      "status": "error",
-      "affected_resource": "sg-01pv15f3",
-      "estimated_monthly_savings": 4307.362,
-      "flagged_resources": 18
+      "check_name": "Amazon RDS Backups",
+      "category": "fault_tolerance",
+      "status": "ok",
+      "affected_resource": "i-5wi2fhu7u2",
+      "flagged_resources": 0
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "configuration",
       "vulnerability"
     ],
     "dataset": "aws.trustedadvisor",
     "provider": "trustedadvisor.amazonaws.com",
-    "duration": 13000000000
+    "duration": 55000000000
   },
-  "message": "Trusted Advisor [ERROR]: Underutilized Amazon RDS - 9 resources affected",
-  "error": {
-    "code": "TrustedAdvisorFinding",
-    "message": "Underutilized Amazon RDS: error",
-    "type": "configuration"
-  },
+  "message": "Trusted Advisor OK: Amazon RDS Backups",
   "log": {
-    "level": "error"
+    "level": "info"
   }
 }

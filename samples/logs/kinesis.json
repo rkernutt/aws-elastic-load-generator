@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "af-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "kinesis"
@@ -13,52 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "StreamName": "transaction-feed"
+      "StreamName": "audit-trail"
     },
     "kinesis": {
       "metrics": {
         "GetRecords_Bytes": {
-          "avg": 846585
+          "avg": 710468
         },
         "GetRecords_IteratorAgeMilliseconds": {
-          "avg": 212
+          "avg": 530
         },
         "GetRecords_Latency": {
-          "avg": 50
+          "avg": 45
         },
         "GetRecords_Records": {
-          "avg": 246,
-          "sum": 116
+          "avg": 833,
+          "sum": 374
         },
         "GetRecords_Success": {
           "sum": 1
         },
         "IncomingBytes": {
-          "avg": 907927
+          "avg": 9092023
         },
         "IncomingRecords": {
-          "avg": 2056
+          "avg": 3484
         },
         "PutRecord_Bytes": {
-          "avg": 844745
+          "avg": 117276
         },
         "PutRecord_Latency": {
-          "avg": 9
+          "avg": 5
         },
         "PutRecords_Latency": {
-          "avg": 56
+          "avg": 74
         },
         "PutRecord_Success": {
           "avg": 1
         },
         "PutRecords_Bytes": {
-          "avg": 1292249
+          "avg": 6623507
         },
         "PutRecords_FailedRecords": {
           "sum": 0
         },
         "PutRecords_SuccessfulRecords": {
-          "sum": 608
+          "sum": 430
         },
         "PutRecords_ThrottledRecords": {
           "sum": 0
@@ -79,9 +79,9 @@
     ],
     "dataset": "aws.kinesis",
     "provider": "kinesis.amazonaws.com",
-    "duration": 2332000000
+    "duration": 2173000000
   },
-  "message": "Kinesis transaction-feed: 7512 records ingested",
+  "message": "Kinesis audit-trail: 446 records ingested",
   "log": {
     "level": "info"
   }

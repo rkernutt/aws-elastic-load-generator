@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "apprunner"
@@ -14,15 +14,15 @@
   "aws": {
     "dimensions": {
       "ServiceName": "admin-portal",
-      "ServiceId": "f9wo8mkrutk"
+      "ServiceId": "s9fnv38osqi"
     },
     "apprunner": {
       "service_name": "admin-portal",
-      "service_arn": "arn:aws:apprunner:il-central-1:814726593401:service/admin-portal/f9wo8mkrutk",
+      "service_arn": "arn:aws:apprunner:ap-southeast-4:293847561023:service/admin-portal/s9fnv38osqi",
       "auto_scaling": {
         "min_size": 1,
         "max_size": 10,
-        "desired_count": 1,
+        "desired_count": 9,
         "scale_from_zero": false
       },
       "structured_logging": false,
@@ -43,20 +43,20 @@
           "sum": 1
         },
         "RequestLatency": {
-          "avg": 260,
-          "p99": 780
+          "avg": 192,
+          "p99": 576
         },
         "ActiveInstances": {
-          "avg": 3
+          "avg": 10
         },
         "ConcurrentRequests": {
-          "avg": 41
+          "avg": 11
         },
         "CPUUtilization": {
-          "avg": 53.189
+          "avg": 22.944
         },
         "MemoryUtilization": {
-          "avg": 27.019
+          "avg": 26.239
         }
       }
     }
@@ -64,21 +64,21 @@
   "http": {
     "request": {
       "method": "GET",
-      "bytes": 1136
+      "bytes": 3628
     },
     "response": {
-      "status_code": 200,
-      "bytes": 7539
+      "status_code": 201,
+      "bytes": 3278
     }
   },
   "url": {
-    "path": "/api/v1/products"
+    "path": "/api/v2/events"
   },
   "client": {
-    "ip": "132.240.59.33"
+    "ip": "216.204.237.221"
   },
   "event": {
-    "duration": 260000000,
+    "duration": 192000000,
     "outcome": "success",
     "category": [
       "web",
@@ -87,7 +87,7 @@
     "dataset": "aws.apprunner",
     "provider": "apprunner.amazonaws.com"
   },
-  "message": "GET /health 200 260ms",
+  "message": "DELETE /health 201 192ms",
   "log": {
     "level": "info"
   }

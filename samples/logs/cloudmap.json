@@ -1,0 +1,49 @@
+{
+  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "ca-central-1",
+    "account": {
+      "id": "814726593401",
+      "name": "globex-production"
+    },
+    "service": {
+      "name": "cloudmap"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "Namespace": "prod-namespace",
+      "ServiceName": "notification"
+    },
+    "cloudmap": {
+      "namespace": "prod-namespace",
+      "service_name": "notification",
+      "instance_id": "i-shz7b4u7fi9",
+      "operation": "DiscoverInstances",
+      "health_status": "UNHEALTHY",
+      "instances_returned": 9,
+      "query_type": "API",
+      "ttl": 300
+    }
+  },
+  "event": {
+    "action": "RoutingPolicyUpdate",
+    "outcome": "failure",
+    "category": [
+      "network"
+    ],
+    "dataset": "aws.cloudmap",
+    "provider": "cloudmap.amazonaws.com",
+    "duration": 381000000
+  },
+  "message": "Cloud Map notification: instance i-shz7b4u7fi9 unhealthy",
+  "log": {
+    "level": "error"
+  },
+  "error": {
+    "code": "HealthCheckFailed",
+    "message": "Instance i-shz7b4u7fi9 health status: UNHEALTHY",
+    "type": "network"
+  }
+}

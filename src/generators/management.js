@@ -414,4 +414,132 @@ function generateArcLog(ts, er) {
   };
 }
 
-export { generateCloudFormationLog, generateSsmLog, generateCloudWatchAlarmsLog, generateHealthLog, generateTrustedAdvisorLog, generateControlTowerLog, generateOrganizationsLog, generateServiceCatalogLog, generateServiceQuotasLog, generateComputeOptimizerLog, generateBudgetsLog, generateBillingLog, generateDmsLog, generateFisLog, generateManagedGrafanaLog, generateSupplyChainLog, generateArcLog };
+function generateAppConfigLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const app = rand(["WebApp","MobileAPI","DataPipeline","AdminPortal"]);
+  const env = rand(["prod","staging","dev","qa"]);
+  const profile = rand(["FeatureFlags","LaunchDarkly","AppSettings","RateLimits"]);
+  const deploymentNum = randInt(1,500);
+  const deploymentStrategy = rand(["Linear50PercentEvery30Seconds","AllAtOnce","Canary10Percent20Minutes"]);
+  const growthFactor = rand([10,20,33,50,100]);
+  const percentageComplete = isErr ? randInt(10,90) : 100;
+  const state = isErr ? rand(["BAKING","ROLLED_BACK","ROLLING_BACK"]) : rand(["COMPLETE","VALIDATING","DEPLOYING"]);
+  const action = rand(["StartDeployment","StopDeployment","RollbackDeployment","ValidateConfiguration","RetrieveConfiguration"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"appconfig" } },
+    "aws": {
+      dimensions:{ Application: app, Environment: env },
+      appconfig: {
+        application_name: app,
+        environment_name: env,
+        configuration_profile: profile,
+        deployment_number: deploymentNum,
+        deployment_strategy: deploymentStrategy,
+        growth_factor: growthFactor,
+        percentage_complete: percentageComplete,
+        state,
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["configuration"], dataset: "aws.appconfig", provider: "appconfig.amazonaws.com" },
+    "message": isErr ? `AppConfig ${app}/${env}: deployment #${deploymentNum} ROLLED_BACK at ${percentageComplete}%` : `AppConfig ${app}/${env}: ${profile} deployment #${deploymentNum} ${state}`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["BadRequestException","ConflictException","InternalServerException"]), message: "AppConfig deployment failed", type: "configuration" } } : {}),
+  };
+}
+
+function generateDrsLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const sourceServerId = `s-` + randId(17).toLowerCase();
+  const sourceHostname = rand(["web-server-01","db-primary","api-gateway-02","app-server-03"]);
+  const replicationStatus = isErr ? rand(["Disconnected","Error","Paused"]) : rand(["Continuous","InProgress","Continuous","Continuous"]);
+  const lagDuration = isErr ? randInt(60,3600) : randInt(0,30);
+  const rpoSeconds = randInt(lagDuration, lagDuration+60);
+  const action = rand(["ReplicationStateChange","RecoveryInstanceLaunch","FailbackComplete","DrillLaunch","TerminateRecoveryInstance","SourceServerDisconnected"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"drs" } },
+    "aws": {
+      dimensions:{ SourceServerId: sourceServerId },
+      drs: {
+        source_server_id: sourceServerId,
+        source_hostname: sourceHostname,
+        replication_status: replicationStatus,
+        lag_duration_seconds: lagDuration,
+        recovery_instance_id: rand([null,null,`i-`+randId(17).toLowerCase()]),
+        data_replication_state: rand(["Continuous","InProgress","Paused","Disconnected"]),
+        ebs_volume_count: randInt(1,8),
+        staging_area: rand(["us-east-1","us-west-2","eu-west-1"]),
+        recovery_point_objective_seconds: rpoSeconds,
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["host"], dataset: "aws.drs", provider: "drs.amazonaws.com" },
+    "message": isErr ? `DRS ${sourceHostname} (${sourceServerId}): replication ${replicationStatus}, lag ${lagDuration}s` : `DRS ${sourceHostname}: replication ${replicationStatus}, RPO ${rpoSeconds}s`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["ResourceNotFoundException","UninitializedAccountException","ValidationException"]), message: "DRS replication failure", type: "host" } } : {}),
+  };
+}
+
+function generateLicenseManagerLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const licenseConfig = rand(["Windows-Server-2022","SQL-Server-Enterprise","RHEL-8-Sockets","Oracle-SE2-vCPU"]);
+  const resourceType = rand(["EC2_INSTANCE","RDS","ROLE"]);
+  const consumedLicenses = randInt(1,500);
+  const licensedCount = randInt(consumedLicenses, 1000);
+  const utilizationPercentage = Math.round((consumedLicenses/licensedCount)*100);
+  const status = isErr ? rand(["LimitExceeded","Disabled"]) : "Active";
+  const action = rand(["CheckOutLicense","CheckInLicense","ExtendLicense","CreateLicenseConfiguration","UpdateLicenseConfiguration","AssociateResource","DisassociateResource"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"licensemanager" } },
+    "aws": {
+      dimensions:{ LicenseConfigurationName: licenseConfig },
+      licensemanager: {
+        license_configuration_name: licenseConfig,
+        license_configuration_arn: `arn:aws:license-manager:${region}:${acct.id}:license-configuration:${randId(36)}`,
+        resource_type: resourceType,
+        consumed_licenses: consumedLicenses,
+        licensed_count: licensedCount,
+        utilization_percentage: utilizationPercentage,
+        rule_type: rand(["vCPU","Sockets","Cores","Instances"]),
+        status,
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["configuration"], dataset: "aws.licensemanager", provider: "license-manager.amazonaws.com" },
+    "message": isErr ? `License Manager ${licenseConfig}: limit exceeded (${consumedLicenses}/${licensedCount})` : `License Manager ${licenseConfig}: ${consumedLicenses}/${licensedCount} (${utilizationPercentage}%) ${resourceType}`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["LicenseUsageException","ResourceLimitExceededException","ValidationException"]), message: "License Manager limit exceeded", type: "configuration" } } : {}),
+  };
+}
+
+function generateChatbotLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const channelConfig = rand(["ops-alerts","security-alerts","deploy-notifications","cost-alerts"]);
+  const channelType = rand(["Slack","MicrosoftTeams","Chime"]);
+  const notificationType = rand(["CloudWatchAlarm","SecurityHubFinding","GuardDutyFinding","AWSHealthEvent","SNSNotification"]);
+  const deliveryStatus = isErr ? rand(["Failed","Throttled","Unauthorized"]) : rand(["Delivered","Delivered","Delivered","Suppressed"]);
+  const action = rand(["NotificationDelivery","CommandExecution","AlertSuppression","ChannelTest","BotInvitation"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"chatbot" } },
+    "aws": {
+      dimensions:{ ChannelConfiguration: channelConfig, ChannelType: channelType },
+      chatbot: {
+        channel_configuration_name: channelConfig,
+        channel_type: channelType,
+        notification_type: notificationType,
+        workspace_id: `T` + randId(8).toUpperCase(),
+        channel_id: `C` + randId(8).toUpperCase(),
+        delivery_status: deliveryStatus,
+        message_id: randUUID(),
+        sns_topic_arn: `arn:aws:sns:${region}:${acct.id}:${notificationType.toLowerCase()}-topic`,
+      }
+    },
+    "event": { action, outcome: isErr ? "failure" : "success", category: ["configuration"], dataset: "aws.chatbot", provider: "chatbot.amazonaws.com" },
+    "message": isErr ? `Chatbot ${channelConfig} (${channelType}): ${notificationType} delivery ${deliveryStatus}` : `Chatbot ${channelConfig}: ${notificationType} delivered to ${channelType}`,
+    "log": { level: isErr ? "error" : "info" },
+    ...(isErr ? { error: { code: rand(["InvalidParameterException","ResourceNotFoundException","ConflictException"]), message: "Chatbot notification delivery failed", type: "configuration" } } : {}),
+  };
+}
+
+export { generateCloudFormationLog, generateSsmLog, generateCloudWatchAlarmsLog, generateHealthLog, generateTrustedAdvisorLog, generateControlTowerLog, generateOrganizationsLog, generateServiceCatalogLog, generateServiceQuotasLog, generateComputeOptimizerLog, generateBudgetsLog, generateBillingLog, generateDmsLog, generateFisLog, generateManagedGrafanaLog, generateSupplyChainLog, generateArcLog, generateAppConfigLog, generateDrsLog, generateLicenseManagerLog, generateChatbotLog };

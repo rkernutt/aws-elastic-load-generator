@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "events"
@@ -14,32 +14,32 @@
   "aws": {
     "dimensions": {
       "EventBusName": "default",
-      "RuleName": "security-event-forwarder"
+      "RuleName": "cost-alert-rule"
     },
     "eventbridge": {
       "event_bus": "default",
-      "rule": "security-event-forwarder",
-      "source": "custom.app",
-      "detail_type": "Health Event",
-      "targets_invoked": 3,
-      "targets_failed": 0,
-      "event_id": "ryay8jkf-8155-y6dx-2941-wz52vvacpx",
+      "rule": "cost-alert-rule",
+      "source": "com.partner.events",
+      "detail_type": "Order Placed",
+      "targets_invoked": 5,
+      "targets_failed": 1,
+      "event_id": "gssg0iij-zvdv-789e-o6oh-p2mf80y61p8",
       "structured_logging": false,
       "metrics": {
         "Invocations": {
           "sum": 1
         },
         "FailedInvocations": {
-          "sum": 0
+          "sum": 1
         },
         "TriggeredRules": {
           "sum": 1
         },
         "MatchedEvents": {
-          "sum": 2
+          "sum": 56
         },
         "ThrottledRules": {
-          "sum": 0
+          "sum": 4
         },
         "DeadLetterInvocations": {
           "sum": 0
@@ -48,19 +48,24 @@
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "type": [
-      "info"
+      "change"
     ],
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 183000000
+    "duration": 685000000
   },
-  "message": "EventBridge event routed: custom.app -> security-event-forwarder",
+  "message": "EventBridge rule cost-alert-rule: target invocations failed",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ConcurrentModificationException",
+    "message": "EventBridge target invocations failed",
+    "type": "event"
   }
 }

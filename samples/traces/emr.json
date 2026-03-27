@@ -1,28 +1,28 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "70a507328075085c62fafb01133cb1ae"
+    "id": "42be6f8ec49856be525fd2a10b3e8c0f"
   },
   "transaction": {
-    "id": "c15040183f8c7593",
-    "name": "report-pipeline-monthly [SPARK_SQL]",
+    "id": "712215ad69eea79b",
+    "name": "log-analysis-pipeline [ETL]",
     "type": "spark_job",
     "duration": {
-      "us": 1200000000
+      "us": 840000000
     },
     "result": "success",
     "sampled": true,
     "span_count": {
-      "started": 7,
+      "started": 5,
       "dropped": 0
     }
   },
   "service": {
-    "name": "report-pipeline-monthly",
+    "name": "log-analysis-pipeline",
     "environment": "production",
     "version": "1.0.0",
     "language": {
@@ -34,7 +34,7 @@
     },
     "framework": {
       "name": "Spark",
-      "version": "3.3.2"
+      "version": "3.4.0"
     }
   },
   "agent": {
@@ -54,23 +54,23 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "us-east-1",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "234567890123",
+      "name": "staging-aws"
     },
     "service": {
       "name": "emr"
     }
   },
   "labels": {
-    "emr_cluster_id": "j-C53477DCC55EF",
-    "emr_cluster_name": "prod-aws-emr-spark_sql",
-    "emr_step_id": "s-01BB98D14B97E",
-    "spark_app_id": "application_1774602114719_7666",
-    "emr_version": "6.13.0",
-    "spark_version": "3.3.2",
-    "job_type": "spark_sql"
+    "emr_cluster_id": "j-98C5515451EAD",
+    "emr_cluster_name": "staging-aws-emr-etl",
+    "emr_step_id": "s-E2968B591DEAE",
+    "spark_app_id": "application_1774616166731_5387",
+    "emr_version": "6.14.0",
+    "spark_version": "3.4.0",
+    "job_type": "etl"
   },
   "event": {
     "outcome": "success"

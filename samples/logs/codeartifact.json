@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "codeartifact"
@@ -13,19 +13,20 @@
   },
   "aws": {
     "codeartifact": {
-      "domain_name": "corp-packages",
-      "repository_name": "pypi-store",
-      "package_format": "npm",
-      "package_name": "shared-components",
-      "package_version": "2.1.9",
-      "action": "PublishPackageVersion",
-      "asset_name": "shared-components-2.1.9.tgz",
-      "download_size_bytes": 4467027
+      "domain_name": "platform",
+      "repository_name": "maven-central",
+      "package_format": "nuget",
+      "package_name": "my-lib",
+      "package_version": "2.14.2",
+      "action": "CopyPackageVersions",
+      "download_size_bytes": 3333705,
+      "upstream_repository": "npm-upstream",
+      "error_code": "ResourceAlreadyExistsException"
     }
   },
   "event": {
-    "action": "PublishPackageVersion",
-    "outcome": "success",
+    "action": "CopyPackageVersions",
+    "outcome": "failure",
     "category": [
       "package",
       "process"
@@ -33,8 +34,13 @@
     "dataset": "aws.codeartifact",
     "provider": "codeartifact.amazonaws.com"
   },
-  "message": "CodeArtifact PublishPackageVersion: shared-components@2.1.9 [npm] in corp-packages/pypi-store",
+  "message": "CodeArtifact CopyPackageVersions FAILED: my-lib@2.14.2 in platform/maven-central",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "AccessDeniedException",
+    "message": "CodeArtifact operation failed",
+    "type": "package"
   }
 }

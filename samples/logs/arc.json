@@ -1,36 +1,36 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "eu-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "arc"
     },
-    "availability_zone": "eu-central-2a"
+    "availability_zone": "eu-west-1b"
   },
   "aws": {
     "dimensions": {
-      "ResourceArn": "arn:aws:elasticloadbalancing:eu-central-2:738291046572:loadbalancer/app/prod-alb/dphzddkrs34",
-      "AwsAccountId": "738291046572"
+      "ResourceArn": "arn:aws:elasticloadbalancing:eu-west-1:164820739518:loadbalancer/app/prod-alb/buh20wf9cem",
+      "AwsAccountId": "164820739518"
     },
     "arc": {
-      "shift_id": "ksbov9us-7vub-vg1s-v070-vlfnec2jfxp",
-      "resource_arn": "arn:aws:elasticloadbalancing:eu-central-2:738291046572:loadbalancer/app/prod-alb/dphzddkrs34",
-      "away_from": "eu-central-2a",
-      "zonal_shift_status": "ACTIVE",
-      "az_status": "PARTIAL",
-      "comment": "Failover test",
-      "expiry_time": "2026-03-28T08:03:47.466Z",
-      "routing_control_arn": "arn:aws:route53-recovery-control::738291046572:controlpanel/0imr4p1a4fls/routingcontrol/1c75934ta8v",
+      "shift_id": "zippxvxi-w7ey-75um-81mu-27sp1m6w119",
+      "resource_arn": "arn:aws:elasticloadbalancing:eu-west-1:164820739518:loadbalancer/app/prod-alb/buh20wf9cem",
+      "away_from": "eu-west-1b",
+      "zonal_shift_status": "CANCELLED",
+      "az_status": "AVAILABLE",
+      "comment": "AZ degradation detected",
+      "expiry_time": "2026-03-28T04:18:50.485Z",
+      "routing_control_arn": "arn:aws:route53-recovery-control::164820739518:controlpanel/510p65oibo2/routingcontrol/45sbgyj7f1f",
       "routing_control_state": "Off"
     }
   },
   "event": {
-    "action": "StartZonalShift",
+    "action": "UpdateZonalShift",
     "outcome": "success",
     "category": [
       "network",
@@ -39,8 +39,8 @@
     "dataset": "aws.arc",
     "provider": "arc-zonal-shift.amazonaws.com"
   },
-  "message": "ARC StartZonalShift: shift=ksbov9us-7vub-vg1s-v070-vlfnec2jfxp, az=eu-central-2a status=ACTIVE, Failover test",
+  "message": "ARC UpdateZonalShift: shift=zippxvxi-w7ey-75um-81mu-27sp1m6w119, az=eu-west-1b status=CANCELLED, AZ degradation detected",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

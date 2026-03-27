@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "ap-northeast-2",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "FlowName": "salesforce-to-s3"
+      "FlowName": "marketo-to-redshift"
     },
     "appflow": {
-      "flow_name": "salesforce-to-s3",
-      "flow_arn": "arn:aws:appflow:ca-west-1:738291046572:flow/salesforce-to-s3",
-      "source_connector_type": "Marketo",
-      "destination_connector_type": "Salesforce",
-      "trigger_type": "Scheduled",
+      "flow_name": "marketo-to-redshift",
+      "flow_arn": "arn:aws:appflow:ap-northeast-2:738291046572:flow/marketo-to-redshift",
+      "source_connector_type": "Salesforce",
+      "destination_connector_type": "EventBridge",
+      "trigger_type": "Event",
       "execution_status": "ExecutionSuccessful",
-      "records_processed": 16010,
-      "duration_ms": 25375,
+      "records_processed": 504158,
+      "duration_ms": 6653,
       "metrics": {
         "RecordsProcessed": {
-          "sum": 16010
+          "sum": 504158
         },
         "DurationMs": {
-          "avg": 25375
+          "avg": 6653
         },
         "ExecutionSuccessCount": {
           "sum": 1
@@ -47,9 +47,9 @@
     ],
     "dataset": "aws.appflow",
     "provider": "appflow.amazonaws.com",
-    "duration": 25375000000
+    "duration": 6653000000
   },
-  "message": "Flow run started",
+  "message": "Flow run succeeded",
   "log": {
     "level": "info"
   }

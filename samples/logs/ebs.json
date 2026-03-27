@@ -1,12 +1,12 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
-    "availability_zone": "us-east-2b",
+    "region": "eu-south-2",
+    "availability_zone": "eu-south-2c",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "ebs"
@@ -14,51 +14,53 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-q0gvyxe87ws",
-      "VolumeType": "io2"
+      "VolumeId": "vol-lbw0niwr2f8",
+      "VolumeType": "st1"
     },
     "ebs": {
-      "volume_id": "vol-q0gvyxe87ws",
-      "volume_type": "io2",
-      "size_gb": 100,
-      "alarm_name": "ebs-burstbalance-vol-q0gvyxe87ws",
+      "volume_id": "vol-lbw0niwr2f8",
+      "volume_type": "st1",
+      "size_gb": 20,
+      "alarm_name": "ebs-volumereadops-vol-lbw0niwr2f8",
       "alarm_state": "OK",
-      "metric_name": "BurstBalance",
-      "threshold": 71,
-      "current_value": 26,
+      "metric_name": "VolumeReadOps",
+      "threshold": 33,
+      "current_value": 47,
       "event_type": "alarm",
       "metrics": {
         "VolumeReadOps": {
-          "avg": 4219
+          "avg": 5481
         },
         "VolumeWriteOps": {
-          "avg": 4961
+          "avg": 1985
         },
         "VolumeReadBytes": {
-          "avg": 257123354
+          "avg": 462491737
         },
         "VolumeWriteBytes": {
-          "avg": 380018540
+          "avg": 36811968
         },
         "VolumeTotalReadTime": {
-          "sum": 9.898
+          "sum": 1.317
         },
         "VolumeTotalWriteTime": {
-          "sum": 8.04
+          "sum": 8.279
         },
         "VolumeIdleTime": {
-          "sum": 48.914
+          "sum": 7.463
         },
         "VolumeQueueLength": {
-          "avg": 1
+          "avg": 2
         },
         "VolumeThroughputPercentage": {
-          "avg": 77.528
+          "avg": 68.448
         },
         "VolumeConsumedReadWriteOps": {
-          "avg": 9465
+          "avg": 1893
         },
-        "BurstBalance": {}
+        "BurstBalance": {
+          "avg": 91
+        }
       }
     }
   },
@@ -70,9 +72,9 @@
     ],
     "dataset": "aws.ebs",
     "provider": "ec2.amazonaws.com",
-    "duration": 291000000
+    "duration": 3371000000
   },
-  "message": "EBS CloudWatch alarm OK: BurstBalance on vol-q0gvyxe87ws within normal range",
+  "message": "EBS CloudWatch alarm OK: VolumeReadOps on vol-lbw0niwr2f8 within normal range",
   "log": {
     "level": "info"
   }

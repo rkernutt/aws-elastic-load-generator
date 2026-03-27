@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "ap-southeast-2",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,7 +13,7 @@
   },
   "aws": {
     "devopsguru": {
-      "insight_id": "o861fl6xm9",
+      "insight_id": "4202ak2m82k",
       "insight_type": "PROACTIVE",
       "severity": "LOW",
       "resource_collection": {
@@ -29,21 +29,20 @@
           }
         ]
       },
-      "anomaly_id": "jzuh98b7jl",
+      "anomaly_id": "g2slh26uq3v",
       "anomaly_description": "DynamoDB throttling pattern detected",
       "anomaly_sources": [
-        "sqs-orders"
+        "ecs-workers"
       ],
-      "start_time": "2026-03-27T08:49:07.608Z",
-      "status": "ONGOING",
-      "recommendation": "Scale up resource",
-      "ssm_ops_items": [
-        "oi-y6yl4hy5"
-      ]
+      "start_time": "2026-03-27T12:31:31.460Z",
+      "end_time": "2026-03-27T12:56:06.703Z",
+      "status": "CLOSED",
+      "recommendation": "Review alarm thresholds",
+      "ssm_ops_items": []
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process",
       "configuration",
@@ -51,15 +50,10 @@
     ],
     "dataset": "aws.devopsguru",
     "provider": "devops-guru.amazonaws.com",
-    "duration": 2046000000000
+    "duration": 787000000000
   },
-  "message": "DevOps Guru ONGOING [LOW]: DynamoDB throttling pattern detected",
+  "message": "DevOps Guru PROACTIVE insight [LOW]: DynamoDB throttling pattern detected",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "InsightOngoing",
-    "message": "DevOps Guru ongoing anomaly",
-    "type": "process"
+    "level": "info"
   }
 }

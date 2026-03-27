@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "eu-north-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "ses"
@@ -13,26 +13,25 @@
   },
   "aws": {
     "dimensions": {
-      "ses:configuration-set": "marketing",
-      "ses:from-domain": "company.com",
-      "ses:to-country": "AU",
-      "ses:to-isp": "Gmail"
+      "ses:configuration-set": "default",
+      "ses:from-domain": "app.io",
+      "ses:to-country": "GB",
+      "ses:to-isp": "Yahoo"
     },
     "ses": {
-      "message_id": "23a5pzuapgp.j66886of5d@ap-northeast-2.amazonses.com",
-      "event_type": "Delivery",
-      "from_address": "noreply@company.com",
-      "destination": "user_ix5crf@gmail.com",
-      "configuration_set": "marketing",
+      "message_id": "559tqokqk9u.d9p9sefv8g@eu-north-1.amazonses.com",
+      "event_type": "Send",
+      "from_address": "no-reply@app.io",
+      "destination": "user_vgljzw@yahoo.com",
       "bounce": {},
       "complaint": {},
-      "sending_account_id": "738291046572",
+      "sending_account_id": "814726593401",
       "delivery": {
         "recipients": [
-          "user_ix5crf@gmail.com"
+          "user_vgljzw@yahoo.com"
         ],
-        "timestamp": "2026-03-27T09:01:54.466Z",
-        "processing_time_ms": 396,
+        "timestamp": "2026-03-27T12:56:06.485Z",
+        "processing_time_ms": 61,
         "smtp_response": "250 2.0.0 OK"
       },
       "metrics": {
@@ -52,10 +51,10 @@
           "sum": 0
         },
         "Open": {
-          "sum": 1
+          "sum": 0
         },
         "Click": {
-          "sum": 0
+          "sum": 1
         },
         "RenderingFailure": {
           "sum": 0
@@ -74,9 +73,9 @@
     ],
     "dataset": "aws.ses",
     "provider": "email.amazonaws.com",
-    "duration": 1394000000
+    "duration": 226000000
   },
-  "message": "SES Delivery: noreply@company.com -> user_ix5crf@gmail.com",
+  "message": "SES Send: no-reply@app.io -> user_vgljzw@yahoo.com",
   "log": {
     "level": "info"
   }

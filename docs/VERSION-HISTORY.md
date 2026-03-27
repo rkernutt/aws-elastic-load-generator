@@ -4,6 +4,19 @@
 
 ---
 
+## What's New in v11.0
+
+- **17 new AWS service generators** — Coverage expanded from 165 to **182 services**: AWS App Mesh, AWS Client VPN, AWS Cloud Map, AWS Outposts, AWS Audit Manager, Amazon Verified Permissions, AWS Payment Cryptography, AWS Artifact, Amazon DynamoDB DAX, AWS Proton, AWS AppFabric, AWS B2B Data Interchange, AWS AppConfig, AWS Elastic Disaster Recovery, AWS License Manager, AWS Chatbot, Amazon Chime SDK Voice.
+- **8 new metrics generators** — App Mesh, Client VPN, Cloud Map, Outposts, Verified Permissions, DAX, Chime SDK Voice, and Elastic DRS now produce CloudWatch metrics documents (147 total).
+- **17 new ingest pipelines** — One per new service, added to `installer/custom-pipelines/pipelines/registry.mjs` (149 total across 15 groups).
+- **17 new Kibana dashboards** — Added to `installer/custom-dashboards/` with matching NDJSON exports (53 total).
+- **17 new ML anomaly detection jobs** — `v11-services-jobs.json` group: error/failure spikes and anomaly detection for all 17 new services (137 total across 22 groups).
+- **182 log samples, 147 metric samples** — `samples/` directory regenerated.
+- **UI icons** — All 17 new services have AWS Architecture icons extracted from the official icon library; service group headers use category icons throughout.
+- **Security Findings & Attack Patterns group** — CSPM, KSPM, IAM Privilege Escalation Chain, and Data Exfiltration Chain moved to a dedicated `findings` group with custom icons.
+
+---
+
 ## What's New in v10.0
 
 - **21 new AWS service generators** — Coverage expanded from 144 to **165 services**. New services: Amazon Kendra, Amazon VPC Lattice, Amazon MWAA, AWS Fault Injection Service, AWS Clean Rooms, Amazon DataZone, AWS Security Incident Response, AWS CloudHSM, Amazon Managed Grafana, AWS Supply Chain, AWS IoT TwinMaker, AWS IoT FleetWise, Amazon CodeCatalyst, AWS Entity Resolution, AWS Data Exchange, AWS Device Farm, Amazon MSK Connect, Amazon Augmented AI (A2I), AWS Deadline Cloud, AWS HealthLake, Amazon Application Recovery Controller.

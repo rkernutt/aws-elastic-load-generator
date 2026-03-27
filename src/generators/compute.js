@@ -409,4 +409,31 @@ function generateImageBuilderLog(ts, er) {
     ...(isErr ? { error: { code: rand(IMAGEBUILDER_ERROR_CODES), message: errMsg, type: "process" } } : {})};
 }
 
-export { generateEc2Log, generateEcsLog, generateEksLog, generateBatchLog, generateBeanstalkLog, generateEcrLog, generateAutoScalingLog, generateImageBuilderLog };
+function generateOutpostsLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const outpostId = `op-` + randId(17).toLowerCase();
+  const outpostArn = `arn:aws:outposts:${region}:${acct.id}:outpost/op-${randId(17).toLowerCase()}`;
+  const siteId = `os-` + randId(17).toLowerCase();
+  const rackId = `or-` + randId(17).toLowerCase();
+  const instanceType = rand(["m5.xlarge","m5.2xlarge","c5.xlarge","r5.xlarge","m5d.xlarge"]);
+  const availableInstanceCount = randInt(0,20);
+  const totalInstanceCount = randInt(20,40);
+  const capacityStatus = isErr ? rand(["InsufficientCapacity","Degraded"]) : rand(["Active","Active","Active","Scheduled"]);
+  const connectivityStatus = isErr ? rand(["Disconnected","Degraded"]) : "Connected";
+  const assetState = rand(["ACTIVE","ACTIVE","RETIRING","ISOLATED"]);
+  const action = rand(["CapacityReservation","InstanceLaunch","InstanceTermination","ConnectivityStatusChange","HardwareMaintenanceScheduled","AssetStateChange"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"outposts" } },
+    "aws": {
+      dimensions: { OutpostId: outpostId, InstanceType: instanceType },
+      outposts: { outpost_id:outpostId, outpost_arn:outpostArn, site_id:siteId, rack_id:rackId, instance_type:instanceType, available_instance_count:availableInstanceCount, total_instance_count:totalInstanceCount, capacity_status:capacityStatus, connectivity_status:connectivityStatus, asset_state:assetState }
+    },
+    "event": { action, outcome:isErr?"failure":"success", category:["host","infrastructure"], dataset:"aws.outposts", provider:"outposts.amazonaws.com", duration:randInt(100,5000)*1e6 },
+    "message": isErr ? `Outpost ${outpostId}: ${capacityStatus} — ${availableInstanceCount}/${totalInstanceCount} ${instanceType} available` : `Outpost ${outpostId}: ${action} ${instanceType} ${capacityStatus}`,
+    "log": { level:isErr?"error":"info" },
+    ...(isErr ? { error: { code: capacityStatus, message: `Outpost connectivity: ${connectivityStatus}`, type: "host" } } : {})
+  };
+}
+
+export { generateEc2Log, generateEcsLog, generateEksLog, generateBatchLog, generateBeanstalkLog, generateEcrLog, generateAutoScalingLog, generateImageBuilderLog, generateOutpostsLog };

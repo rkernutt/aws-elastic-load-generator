@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "securityir"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "CaseId": "case-8oyjvifk",
-      "Severity": "CRITICAL"
+      "CaseId": "case-64ugfnbd",
+      "Severity": "MEDIUM"
     },
     "securityir": {
-      "case_id": "case-8oyjvifk",
+      "case_id": "case-64ugfnbd",
       "case_title": "Ransomware detection",
-      "case_status": "RECOVERY",
-      "severity": "CRITICAL",
-      "impacted_account_count": 10,
+      "case_status": "POST_INCIDENT",
+      "severity": "MEDIUM",
+      "impacted_account_count": 2,
       "impacted_services": "EC2,S3,IAM",
-      "resolver_type": "AWS",
-      "engagement_type": "COMPROMISE_ASSESSMENT",
-      "case_arn": "arn:aws:security-ir:ca-west-1:164820739518:case/case-8oyjvifk"
+      "resolver_type": "SELF_MANAGED",
+      "engagement_type": "SECURITY_INCIDENT",
+      "case_arn": "arn:aws:security-ir:ap-southeast-4:814726593401:case/case-64ugfnbd"
     }
   },
   "event": {
-    "action": "AddCaseMember",
+    "action": "CloseCase",
     "outcome": "success",
     "category": [
       "intrusion_detection",
@@ -38,8 +38,8 @@
     "dataset": "aws.securityir",
     "provider": "security-ir.amazonaws.com"
   },
-  "message": "Security IR AddCaseMember: case=case-8oyjvifk severity=CRITICAL status=RECOVERY",
+  "message": "Security IR CloseCase: case=case-64ugfnbd severity=MEDIUM status=POST_INCIDENT",
   "log": {
-    "level": "error"
+    "level": "warn"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "opensearch"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "DomainName": "prod-search-ap-southeast-1",
-      "ClientId": "738291046572"
+      "DomainName": "prod-search-eu-west-2",
+      "ClientId": "501938274650"
     },
     "opensearch": {
-      "domain_name": "prod-search-ap-southeast-1",
-      "index": "logs-2024",
+      "domain_name": "prod-search-eu-west-2",
+      "index": "traces",
       "operation": "delete",
-      "took_ms": 1103,
+      "took_ms": 9,
       "shards": {
-        "total": 26,
-        "successful": 26,
+        "total": 42,
+        "successful": 42,
         "failed": 0,
-        "active": 26,
+        "active": 42,
         "initializing": 0,
         "relocating": 0,
         "unassigned": 0
       },
-      "hits_total": 65413,
+      "hits_total": 58360,
       "status_code": 200,
       "metrics": {
         "CPUUtilization": {
-          "avg": 31.694
+          "avg": 17.552
         },
         "FreeStorageSpace": {
-          "avg": 459649695591
+          "avg": 348903534364
         },
         "ClusterStatus": {
           "green": 1,
@@ -45,25 +45,25 @@
           "red": 0
         },
         "Nodes": {
-          "avg": 10
+          "avg": 14
         },
         "SearchableDocuments": {
-          "avg": 2391157
+          "avg": 562738689
         },
         "IndexingLatency": {
-          "avg": 383
+          "avg": 224
         },
         "SearchLatency": {
-          "avg": 427
+          "avg": 33
         },
         "IndexingRate": {
-          "avg": 96233
+          "avg": 96513
         },
         "SearchRate": {
-          "avg": 4211
+          "avg": 3576
         },
         "JVMMemoryPressure": {
-          "avg": 46.41
+          "avg": 57.785
         },
         "AutomatedSnapshotFailure": {
           "sum": 0
@@ -78,10 +78,10 @@
           "sum": 0
         },
         "WarmStorageSpaceUsage": {
-          "avg": 14.405
+          "avg": 30.394
         },
         "DeletedDocuments": {
-          "avg": 60959
+          "avg": 98522
         }
       }
     }
@@ -92,13 +92,13 @@
     }
   },
   "event": {
-    "duration": 1103135000,
+    "duration": 9125000,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.opensearch",
     "provider": "es.amazonaws.com"
   },
-  "message": "OpenSearch delete on logs-2024: 1103ms",
+  "message": "OpenSearch delete on traces: 9ms",
   "log": {
     "level": "info"
   }

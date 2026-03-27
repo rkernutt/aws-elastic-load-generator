@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "il-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "mwaa"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "staging-airflow"
+      "EnvironmentName": "ml-pipelines"
     },
     "mwaa": {
-      "environment_name": "staging-airflow",
-      "dag_id": "report_generation",
-      "run_id": "scheduled__2026-03-27T08:19:13.466Z",
-      "task_id": "extract",
-      "run_state": "running",
-      "duration_seconds": 376,
-      "worker_count": 7,
+      "environment_name": "ml-pipelines",
+      "dag_id": "data_quality_check",
+      "run_id": "scheduled__2026-03-27T12:41:44.485Z",
+      "task_id": "validate",
+      "run_state": "success",
+      "duration_seconds": 447,
+      "worker_count": 9,
       "queue_name": "default",
-      "airflow_version": "2.6.3"
+      "airflow_version": "2.9.3"
     }
   },
   "event": {
-    "action": "SchedulerHeartbeat",
+    "action": "WorkerScaleDown",
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.mwaa",
     "provider": "airflow.amazonaws.com",
-    "duration": 376000000000
+    "duration": 447000000000
   },
-  "message": "MWAA staging-airflow: DAG report_generation task extract running (376s)",
+  "message": "MWAA ml-pipelines: DAG data_quality_check task validate success (447s)",
   "log": {
     "level": "info"
   }

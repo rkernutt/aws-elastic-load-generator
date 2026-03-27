@@ -1,46 +1,46 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "163d13cb1e740f63b67bea9824f3dd70"
+    "id": "54c43ac857cded37d1d381fbf40b98bc"
   },
   "transaction": {
-    "id": "060bb2fb8d1b06d7",
-    "name": "POST /payments/capture",
+    "id": "ebd404d4d51270c8",
+    "name": "GET /search/filters",
     "type": "request",
     "duration": {
-      "us": 61649
+      "us": 382201
     },
     "result": "HTTP 200",
     "sampled": true,
     "span_count": {
-      "started": 3,
+      "started": 2,
       "dropped": 0
     }
   },
   "http": {
     "request": {
-      "method": "POST"
+      "method": "GET"
     },
     "response": {
       "status_code": 200
     }
   },
   "url": {
-    "path": "/payments/capture"
+    "path": "/search/filters"
   },
   "labels": {
-    "k8s_namespace": "staging",
-    "k8s_pod_name": "payment-service-73e0b-a9f08",
-    "k8s_deployment": "payment-service",
-    "k8s_node": "ip-174-3-41-164.ec2.internal"
+    "k8s_namespace": "production",
+    "k8s_pod_name": "search-service-75296-6be53",
+    "k8s_deployment": "search-service",
+    "k8s_node": "ip-202-227-8-80.ec2.internal"
   },
   "service": {
-    "name": "payment-service",
-    "environment": "staging",
+    "name": "search-service",
+    "environment": "production",
     "version": "1.0.0",
     "language": {
       "name": "java"
@@ -70,10 +70,10 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "me-central-1",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "eks"

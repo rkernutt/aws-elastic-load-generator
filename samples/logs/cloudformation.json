@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "cloudformation"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "cloudformation": {
-      "stack_name": "rds-cluster",
-      "stack_id": "arn:aws:cloudformation:eu-central-2:164820739518:stack/rds-cluster/4w5kjmqm",
-      "action": "CREATE_STACK",
-      "stack_status": "UPDATE_COMPLETE",
-      "resource_type": "AWS::EC2::VPC",
-      "logical_resource_id": "TaskRole",
-      "drift_status": "IN_SYNC",
+      "stack_name": "prod-web-stack",
+      "stack_id": "arn:aws:cloudformation:ap-northeast-3:738291046572:stack/prod-web-stack/aod2hz5l",
+      "action": "DETECT_DRIFT",
+      "stack_status": "CREATE_COMPLETE",
+      "resource_type": "AWS::ECS::Service",
+      "logical_resource_id": "VPC",
+      "drift_status": "DRIFTED",
       "structured_logging": true,
       "metrics": {
         "TotalStack": {
-          "avg": 71
+          "avg": 487
         },
         "ErroredStack": {
           "avg": 0
@@ -32,10 +32,10 @@
           "avg": 0
         },
         "DeletedStack": {
-          "avg": 30
+          "avg": 3
         },
         "StackInstancesDeployed": {
-          "avg": 7228
+          "avg": 9807
         }
       }
     }
@@ -48,9 +48,9 @@
     ],
     "dataset": "aws.cloudformation",
     "provider": "cloudformation.amazonaws.com",
-    "duration": 589000000000
+    "duration": 462000000000
   },
-  "message": "{\"stackName\":\"rds-cluster\",\"action\":\"CREATE_STACK\",\"stackStatus\":\"UPDATE_COMPLETE\",\"resourceType\":\"AWS::EC2::VPC\",\"message\":\"CloudFormation rds-cluster: CREATE_STACK -> UPDATE_COMPLETE\",\"timestamp\":\"2026-03-27T09:01:54.466Z\"}",
+  "message": "{\"stackName\":\"prod-web-stack\",\"action\":\"DETECT_DRIFT\",\"stackStatus\":\"CREATE_COMPLETE\",\"resourceType\":\"AWS::ECS::Service\",\"message\":\"CloudFormation prod-web-stack: DETECT_DRIFT -> CREATE_COMPLETE\",\"timestamp\":\"2026-03-27T12:56:06.485Z\"}",
   "log": {
     "level": "info"
   }

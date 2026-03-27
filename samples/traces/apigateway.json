@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "bf0c1c318c61d0a4cf6c622ae395852d"
+    "id": "ca482d8956935bbbdc0b1d9681ec6235"
   },
   "transaction": {
-    "id": "5c5382bb50c5f220",
-    "name": "POST /webhooks",
+    "id": "d5fba4ce57932666",
+    "name": "POST /orders",
     "type": "request",
     "duration": {
-      "us": 297000
+      "us": 1924000
     },
     "result": "HTTP 2xx",
     "sampled": true,
@@ -30,16 +30,17 @@
     }
   },
   "url": {
-    "path": "/webhooks",
-    "domain": "b8c9d0e1f2.execute-api.us-east-1.amazonaws.com"
+    "path": "/orders",
+    "domain": "a1b2c3d4e5.execute-api.eu-west-1.amazonaws.com"
   },
   "labels": {
-    "api_id": "b8c9d0e1f2",
-    "api_type": "WebSocket"
+    "api_id": "a1b2c3d4e5",
+    "api_type": "REST",
+    "stage": "prod"
   },
   "service": {
-    "name": "api-webhooks",
-    "environment": "staging",
+    "name": "api-orders",
+    "environment": "production",
     "version": "1.0.0",
     "language": {
       "name": "nodejs"
@@ -69,10 +70,10 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "apigateway"

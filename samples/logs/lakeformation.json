@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "af-south-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "lakeformation"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "ResourceArn": "arn:aws:glue:ca-west-1:164820739518:table/raw_data/events",
-      "Principal": "arn:aws:iam::164820739518:user/alice"
+      "ResourceArn": "arn:aws:glue:af-south-1:738291046572:table/curated/transactions",
+      "Principal": "arn:aws:iam::738291046572:role/analyst-role"
     },
     "lakeformation": {
-      "database": "raw_data",
-      "table": "events",
-      "action": "Revoke",
-      "principal_arn": "arn:aws:iam::164820739518:user/alice",
-      "resource_arn": "arn:aws:glue:ca-west-1:164820739518:table/raw_data/events",
+      "database": "curated",
+      "table": "transactions",
+      "action": "GetDataAccess",
+      "principal_arn": "arn:aws:iam::738291046572:role/analyst-role",
+      "resource_arn": "arn:aws:glue:af-south-1:738291046572:table/curated/transactions",
       "permissions": [
         "ALL"
       ],
-      "lf_tag_key": "classification",
+      "lf_tag_key": "team",
       "lf_tag_values": [
-        "prod"
+        "pii"
       ],
       "metrics": {
         "GrantCount": {
-          "sum": 7
+          "sum": 10
         },
         "DatabaseCount": {
-          "avg": 18
+          "avg": 16
         },
         "TableCount": {
-          "avg": 76
+          "avg": 156
         },
         "DataLakeSettings": {
           "avg": 1
@@ -46,8 +46,8 @@
     }
   },
   "event": {
-    "action": "Revoke",
-    "duration": 92000000,
+    "action": "GetDataAccess",
+    "duration": 576000000,
     "outcome": "success",
     "category": [
       "database",
@@ -56,7 +56,7 @@
     "dataset": "aws.lakeformation",
     "provider": "lakeformation.amazonaws.com"
   },
-  "message": "Lake Formation Revoke: ALL on raw_data.events",
+  "message": "Lake Formation GetDataAccess: ALL on curated.transactions",
   "log": {
     "level": "info"
   }

@@ -1,37 +1,34 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "lambda"
     }
   },
-  "trace": {
-    "id": "1-hdwi0qhp-li8jhpep53t"
-  },
   "aws": {
     "dimensions": {
-      "FunctionName": "image-resizer",
-      "Resource": "image-resizer:$LATEST",
-      "ExecutedVersion": "$LATEST"
+      "FunctionName": "payment-processor",
+      "Resource": "payment-processor:$LATEST",
+      "ExecutedVersion": "$LATEST",
+      "EventSourceMappingUUID": "e5vsfrnl-9m5e-63us-4mmi-iilnp35zzip"
     },
     "cloudwatch": {
-      "log_group": "/aws/lambda/image-resizer",
-      "log_stream": "2026-03-27/[$LATEST]twqhftpefvd"
+      "log_group": "/aws/lambda/payment-processor",
+      "log_stream": "2026-03-27/[$LATEST]wndqhdufn6d"
     },
     "lambda": {
       "function": {
-        "name": "image-resizer",
+        "name": "payment-processor",
         "version": "$LATEST",
-        "arn": "arn:aws:lambda:af-south-1:164820739518:function:image-resizer"
+        "arn": "arn:aws:lambda:ap-northeast-3:738291046572:function:payment-processor"
       },
-      "request_id": "s1pdm9ul-t8tn-dg3k-ccwr-uoc405ilkwm",
-      "trace_id": "1-hdwi0qhp-li8jhpep53t",
+      "request_id": "3mcrefk5-4mz0-obpy-0dq6-u7z90viwx2n",
       "event_type": "start",
       "metrics": {
         "Invocations": {
@@ -47,14 +44,14 @@
           "avg": 0
         },
         "Duration": {
-          "avg": 1881.952,
-          "max": 2258.3424
+          "avg": 1507.309,
+          "max": 1808.7708
         },
         "ConcurrentExecutions": {
-          "avg": 74
+          "avg": 376
         },
         "UnreservedConcurrentExecutions": {
-          "avg": 204
+          "avg": 836
         },
         "DeadLetterErrors": {
           "sum": 0,
@@ -64,23 +61,41 @@
           "avg": 0
         },
         "AsyncEventsReceived": {
-          "sum": 98
+          "sum": 40
         },
         "AsyncEventAge": {
-          "avg": 1577
+          "avg": 863
         },
-        "memory_size_mb": 2048,
-        "max_memory_used_mb": 659,
-        "instance_max_memory": 2048
+        "memory_size_mb": 3008,
+        "max_memory_used_mb": 2431,
+        "instance_max_memory": 3008,
+        "PolledEventCount": {
+          "sum": 444
+        },
+        "InvokedEventCount": {
+          "sum": 989
+        },
+        "FilteredOutEventCount": {
+          "sum": 21
+        },
+        "FailedInvokeEventCount": {
+          "sum": 0
+        },
+        "DeletedEventCount": {
+          "sum": 10
+        },
+        "OnFailureDestinationDeliveredEventCount": {
+          "sum": 0
+        }
       }
     }
   },
   "log": {
     "level": "info"
   },
-  "message": "START RequestId: s1pdm9ul-t8tn-dg3k-ccwr-uoc405ilkwm Version: $LATEST",
+  "message": "START RequestId: 3mcrefk5-4mz0-obpy-0dq6-u7z90viwx2n Version: $LATEST",
   "event": {
-    "duration": 1881952000,
+    "duration": 1507309000,
     "outcome": "success",
     "category": [
       "process"
@@ -92,7 +107,7 @@
     "provider": "lambda.amazonaws.com"
   },
   "service": {
-    "name": "image-resizer",
+    "name": "payment-processor",
     "type": "lambda"
   }
 }

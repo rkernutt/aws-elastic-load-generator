@@ -303,4 +303,13 @@ export const METRICS_GENERATORS = {
 
   greengrass:       makeGenericGenerator("greengrass", "aws.greengrass"),
   ...GENERIC_GENERATORS,
+  // v11.0 — services with meaningful CloudWatch metrics
+  appmesh:             makeGenericGenerator("appmesh",             "aws.appmesh"),
+  clientvpn:           makeGenericGenerator("clientvpn",           "aws.clientvpn"),
+  cloudmap:            makeGenericGenerator("cloudmap",            "aws.cloudmap"),
+  outposts:            makeGenericGenerator("outposts",            "aws.outposts"),
+  verifiedpermissions: makeGenericGenerator("verifiedpermissions", "aws.verifiedpermissions"),
+  dax:                 makeGenericGenerator("dax",                 "aws.dax"),
+  chimesdkvoice:       makeGenericGenerator("chimesdkvoice",       "aws.chimesdkvoice"),
+  drs:                 makeGenericGenerator("drs",                 "aws.drs"),
 };

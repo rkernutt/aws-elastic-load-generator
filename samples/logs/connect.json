@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "me-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "connect"
@@ -13,56 +13,58 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "ofqulodx-49s5-wqck-ge15-54df8w0t7x3",
+      "InstanceId": "pt2e64t4-y63v-tu4n-2knk-km0d30br5h",
       "MetricGroup": "Queue"
     },
     "connect": {
-      "instance_id": "ofqulodx-49s5-wqck-ge15-54df8w0t7x3",
-      "contact_id": "3t0y07j2-uq05-t553",
+      "instance_id": "pt2e64t4-y63v-tu4n-2knk-km0d30br5h",
+      "contact_id": "ukc85jp4-cqi5-skb7",
       "channel": "TASK",
-      "initiation_method": "INBOUND_CALL",
-      "queue_name": "TechSupport",
-      "duration_seconds": 539,
-      "hold_duration_seconds": 58,
-      "queue_wait_time_seconds": 240,
-      "disconnect_reason": "AGENT_DISCONNECT",
-      "sentiment_overall": "MIXED",
-      "contact_lens_enabled": false,
-      "lex_bot_interacted": true,
+      "initiation_method": "DISCONNECT",
+      "queue_name": "Billing",
+      "agent_id": "agent-carol",
+      "duration_seconds": 525,
+      "hold_duration_seconds": 30,
+      "queue_wait_time_seconds": 64,
+      "disconnect_reason": "EXPIRED",
+      "sentiment_overall": "NEUTRAL",
+      "contact_lens_enabled": true,
+      "lex_bot_interacted": false,
+      "error_code": "QueueCapacityExceeded",
       "metrics": {
         "ContactsQueued": {
           "sum": 1
         },
         "ContactsHandled": {
-          "sum": 1
+          "sum": 0
         },
         "ContactsAbandoned": {
-          "sum": 0
+          "sum": 1
         },
         "ContactsHoldAbandonment": {
-          "sum": 0
+          "sum": 1
         },
         "AverageHandleTime": {
-          "avg": 539
+          "avg": 525
         },
         "AverageAfterContactWorkTime": {
-          "avg": 94
+          "avg": 108
         },
         "AverageQueueAnswerTime": {
-          "avg": 61
+          "avg": 35
         },
         "ServiceLevel": {
-          "avg": 95.013
+          "avg": 92.935
         },
         "OccupancyTime": {
-          "avg": 67.487
+          "avg": 47.49
         }
       }
     }
   },
   "event": {
-    "duration": 539000000000,
-    "outcome": "success",
+    "duration": 525000000000,
+    "outcome": "failure",
     "category": [
       "host",
       "session"
@@ -70,8 +72,13 @@
     "dataset": "aws.connect",
     "provider": "connect.amazonaws.com"
   },
-  "message": "Connect INBOUND_CALL: TechSupport, 539s, MIXED",
+  "message": "Connect DISCONNECT FAILED: Flow error",
+  "error": {
+    "code": "ConnectError",
+    "message": "Connect operation failed",
+    "type": "session"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

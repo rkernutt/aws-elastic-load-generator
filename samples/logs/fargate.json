@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-southeast-2",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "data-processor",
-      "ClusterName": "prod-cluster",
-      "TaskDefinitionFamily": "data-processor"
+      "ServiceName": "worker",
+      "ClusterName": "staging-cluster",
+      "TaskDefinitionFamily": "worker"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 56
+          "avg": 57
         },
         "CPUReservation": {
-          "avg": 22.497
+          "avg": 57.17
         },
         "MemoryUtilization": {
-          "avg": 54.066
+          "avg": 42.944
         },
         "MemoryReservation": {
-          "avg": 59.295
+          "avg": 52.499
         },
         "GPUReservation": {
           "avg": 0
@@ -38,20 +38,20 @@
     }
   },
   "container": {
-    "id": "0kjh6ow8c4ap",
-    "name": "data-processor",
+    "id": "4xuk82ywon6",
+    "name": "worker",
     "image": {
-      "name": "myrepo/data-processor:latest",
+      "name": "myrepo/worker:latest",
       "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 47646,
-    "name": "data-processor"
+    "pid": 12575,
+    "name": "worker"
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "event": {
     "outcome": "success",
@@ -61,7 +61,7 @@
     ],
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 808000000000
+    "duration": 1178000000000
   },
-  "message": "Task approaching resource limits"
+  "message": "{\"cluster\":\"staging-cluster\",\"taskId\":\"8clh8ivm4yq\",\"taskDefinition\":\"worker:40\",\"container\":\"worker\",\"level\":\"info\",\"message\":\"Scaling event: desired 3->5\",\"timestamp\":\"2026-03-27T12:56:06.485Z\"}"
 }

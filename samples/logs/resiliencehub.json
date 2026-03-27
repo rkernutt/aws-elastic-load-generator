@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "resiliencehub"
@@ -13,38 +13,32 @@
   },
   "aws": {
     "resiliencehub": {
-      "app_arn": "arn:aws:resiliencehub:eu-north-1:293847561023:app/2kkn94bph8p",
-      "app_name": "ecommerce-platform",
-      "operation": "RunResiliencyAssessment",
-      "resiliency_score": 9,
-      "compliance_status": "POLICY_BREACHED",
-      "current_rto_seconds": 2139,
-      "target_rto_seconds": 1069,
-      "current_rpo_seconds": 1956,
-      "target_rpo_seconds": 978,
+      "app_arn": "arn:aws:resiliencehub:sa-east-1:738291046572:app/0d8h8etvxjre",
+      "app_name": "customer-portal",
+      "operation": "DeleteResiliencyPolicy",
+      "resiliency_score": 99,
+      "compliance_status": "POLICY_MET",
+      "current_rto_seconds": 1680,
+      "target_rto_seconds": 3360,
+      "current_rpo_seconds": 1676,
+      "target_rpo_seconds": 3352,
       "tier": "Non-Critical",
-      "disruption_type": "Region",
-      "recommendation_count": 13,
-      "error_code": "ValidationException"
+      "disruption_type": "all",
+      "recommendation_count": 6
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process",
       "configuration"
     ],
     "dataset": "aws.resiliencehub",
     "provider": "resiliencehub.amazonaws.com",
-    "duration": 393000000000
+    "duration": 58000000000
   },
-  "message": "Resilience Hub ecommerce-platform POLICY BREACHED [Non-Critical]: score=9, RTO 2139s exceeds target",
+  "message": "Resilience Hub customer-portal [Non-Critical]: score=99, RTO=1680s, RPO=1676s",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "ThrottlingException",
-    "message": "Resilience Hub policy breached",
-    "type": "resilience"
+    "level": "info"
   }
 }

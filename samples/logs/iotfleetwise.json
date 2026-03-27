@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "ap-south-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "iotfleetwise"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "FleetId": "executive-fleet",
-      "CampaignName": "predictive-maintenance"
+      "FleetId": "commercial-trucks",
+      "CampaignName": "engine-diagnostics"
     },
     "iotfleetwise": {
-      "fleet_id": "executive-fleet",
-      "vehicle_id": "VIN-KDSQEHZUUCD",
-      "campaign_name": "predictive-maintenance",
-      "campaign_status": "WAITING_FOR_APPROVAL",
-      "signal_name": "Vehicle.OBD.EngineLoad",
-      "signal_value": 65.952,
-      "collection_scheme": "TIME_BASED",
-      "compression": "OFF",
-      "data_destination": "TIMESTREAM"
+      "fleet_id": "commercial-trucks",
+      "vehicle_id": "VIN-3ST7LDU5FDS",
+      "campaign_name": "engine-diagnostics",
+      "campaign_status": "RUNNING",
+      "signal_name": "Vehicle.Chassis.Axle.Row1.Wheel.Left.Tire.Pressure",
+      "signal_value": 80.382,
+      "collection_scheme": "EVENT_BASED",
+      "compression": "SNAPPY",
+      "data_destination": "IOT_SITERISE"
     }
   },
   "event": {
-    "action": "CreateSignalCatalog",
+    "action": "UpdateCampaign",
     "outcome": "success",
     "category": [
       "iot",
@@ -38,7 +38,7 @@
     "dataset": "aws.iotfleetwise",
     "provider": "iotfleetwise.amazonaws.com"
   },
-  "message": "IoT FleetWise CreateSignalCatalog: fleet=executive-fleet, vehicle=VIN-KDSQEHZUUCD, campaign=predictive-maintenance WAITING_FOR_APPROVAL",
+  "message": "IoT FleetWise UpdateCampaign: fleet=commercial-trucks, vehicle=VIN-3ST7LDU5FDS, campaign=engine-diagnostics RUNNING",
   "log": {
     "level": "info"
   }

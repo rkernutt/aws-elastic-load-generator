@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "us-east-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "fis"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "ExperimentTemplateId": "EXTEFFDU8HB"
+      "ExperimentTemplateId": "EXTB18D47F4"
     },
     "fis": {
-      "experiment_id": "EXPODTO5L6G",
-      "experiment_template_id": "EXTEFFDU8HB",
-      "experiment_name": "spot-interrupt-test",
+      "experiment_id": "EXPLJM7P67J",
+      "experiment_template_id": "EXTB18D47F4",
+      "experiment_name": "az-failure-simulation",
       "experiment_state": "completed",
-      "target_resource_type": "ECS tasks",
-      "action_type": "aws:rds:failover-db-cluster",
-      "stop_condition": "aws:cloudwatch:alarm",
-      "role_arn": "arn:aws:iam::293847561023:role/FISRole-spot-interrupt-test"
+      "target_resource_type": "Lambda functions",
+      "action_type": "aws:ec2:stop-instances",
+      "stop_condition": "none",
+      "role_arn": "arn:aws:iam::814726593401:role/FISRole-az-failure-simulation"
     }
   },
   "event": {
-    "action": "StopExperiment",
+    "action": "GetExperiment",
     "outcome": "success",
     "category": [
       "process"
@@ -35,7 +35,7 @@
     "dataset": "aws.fis",
     "provider": "fis.amazonaws.com"
   },
-  "message": "FIS StopExperiment: exp=EXPODTO5L6G (spot-interrupt-test) state=completed, target=ECS tasks",
+  "message": "FIS GetExperiment: exp=EXPLJM7P67J (az-failure-simulation) state=completed, target=Lambda functions",
   "log": {
     "level": "info"
   }

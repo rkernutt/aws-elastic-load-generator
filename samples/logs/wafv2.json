@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T09:01:54.466Z",
+  "@timestamp": "2026-03-27T12:56:06.485Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "il-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "wafv2"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "prod-api-acl",
-      "Rule": "GenericLFI_URIPATH",
-      "Region": "ap-southeast-1"
+      "WebACL": "cdn-waf",
+      "Rule": "SQLi_Args",
+      "Region": "il-central-1"
     },
     "waf": {
-      "id": "k16s7eh1m9",
-      "arn": "arn:aws:wafv2:ap-southeast-1:501938274650:regional/webacl/prod-api-acl/lrf2xmhg-2xxz-ypa1-zars-t35a72r3k1j",
+      "id": "uijoflvn7tc",
+      "arn": "arn:aws:wafv2:il-central-1:814726593401:regional/webacl/cdn-waf/33bf16t3-whns-sfms-e5y4-02czl5gxmw2q",
       "format_version": "1",
       "source": {
-        "name": "CF",
-        "id": "501938274650-app/prod-api-acl/0rn11kvjq6fr"
+        "name": "APIGW",
+        "id": "814726593401-app/cdn-waf/ng5ehmoau8g"
       },
       "rule_group_list": [
         {
-          "ruleGroupId": "AWSManagedRulesKnownBadInputsRuleSet",
+          "ruleGroupId": "AWSManagedRulesLinuxRuleSet",
           "nonTerminatingMatchingRules": []
         }
       ],
@@ -37,7 +37,7 @@
         "headers": [
           {
             "name": "User-Agent",
-            "value": "python-requests/2.27.1"
+            "value": "curl/7.68.0"
           },
           {
             "name": "Host",
@@ -72,28 +72,28 @@
     }
   },
   "source": {
-    "ip": "156.158.207.239",
+    "ip": "250.114.176.199",
     "geo": {
-      "country_iso_code": "US",
-      "country_name": "United States",
-      "city_name": "Dallas",
+      "country_iso_code": "KR",
+      "country_name": "South Korea",
+      "city_name": "Seoul",
       "location": {
-        "lat": 32.7767,
-        "lon": -96.797
+        "lat": 37.5665,
+        "lon": 126.978
       }
     }
   },
   "http": {
     "request": {
       "method": "PATCH",
-      "bytes": 1430
+      "bytes": 4790
     }
   },
   "url": {
-    "path": "/api/v1/auth/login"
+    "path": "/api/v1/products"
   },
   "user_agent": {
-    "original": "python-requests/2.27.1"
+    "original": "curl/7.68.0"
   },
   "event": {
     "action": "allow",
@@ -105,7 +105,7 @@
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com"
   },
-  "message": "WAFv2 ALLOW [prod-api-acl] 156.158.207.239 PATCH /api/v1/auth/login",
+  "message": "WAFv2 ALLOW [cdn-waf] 250.114.176.199 PATCH /api/v1/products",
   "log": {
     "level": "info"
   }
