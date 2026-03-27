@@ -31,7 +31,8 @@
         "job_id": "aws-wavelength-latency-anomaly",
         "indices": ["logs-aws.wavelength*"],
         "query": { "bool": { "filter": [{ "term": { "event.dataset": "aws.wavelength" } }] } },
-        "scroll_size": 1000
+        "scroll_size": 1000,
+        "query_delay": "60s"
       }
     },
     {
@@ -62,7 +63,8 @@
         "job_id": "aws-wavelength-failure-spike",
         "indices": ["logs-aws.wavelength*"],
         "query": { "bool": { "filter": [{ "term": { "event.outcome": "failure" } }] } },
-        "scroll_size": 1000
+        "scroll_size": 1000,
+        "query_delay": "60s"
       }
     },
     {
@@ -94,7 +96,8 @@
         "job_id": "aws-nova-latency-spike",
         "indices": ["logs-aws.nova*"],
         "query": { "bool": { "filter": [{ "term": { "event.dataset": "aws.nova" } }] } },
-        "scroll_size": 1000
+        "scroll_size": 1000,
+        "query_delay": "60s"
       }
     },
     {
@@ -124,7 +127,8 @@
         "job_id": "aws-nova-throttle-spike",
         "indices": ["logs-aws.nova*"],
         "query": { "bool": { "filter": [{ "term": { "aws.nova.error_code": "ThrottlingException" } }] } },
-        "scroll_size": 1000
+        "scroll_size": 1000,
+        "query_delay": "60s"
       }
     },
     {
@@ -155,7 +159,8 @@
         "job_id": "aws-lookoutvision-anomaly-rate-spike",
         "indices": ["logs-aws.lookoutvision*"],
         "query": { "bool": { "filter": [{ "term": { "aws.lookoutvision.is_anomalous": true } }] } },
-        "scroll_size": 1000
+        "scroll_size": 1000,
+        "query_delay": "60s"
       }
     },
     {
@@ -187,7 +192,8 @@
         "job_id": "aws-lookoutvision-confidence-drop",
         "indices": ["logs-aws.lookoutvision*"],
         "query": { "bool": { "filter": [{ "term": { "event.dataset": "aws.lookoutvision" } }] } },
-        "scroll_size": 1000
+        "scroll_size": 1000,
+        "query_delay": "60s"
       }
     }
   ]
