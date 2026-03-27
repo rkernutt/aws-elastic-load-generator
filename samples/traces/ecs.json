@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "01a86df5f1573ea0558f5e046079904b"
+    "id": "97de2e98efa4068d665f82602d422479"
   },
   "transaction": {
-    "id": "e4abf08416bc850d",
-    "name": "POST /auth/refresh",
+    "id": "86d51f129a535e35",
+    "name": "PUT /inventory/{sku}",
     "type": "request",
     "duration": {
-      "us": 109000
+      "us": 605000
     },
     "result": "HTTP 2xx",
     "sampled": true,
@@ -23,24 +23,24 @@
   },
   "http": {
     "request": {
-      "method": "POST"
+      "method": "PUT"
     },
     "response": {
       "status_code": 200
     }
   },
   "url": {
-    "path": "/auth/refresh"
+    "path": "/inventory/2971B9"
   },
   "labels": {
-    "container_id": "686662e30fcc",
-    "task_id": "arn:aws:ecs:eu-south-2:123456789012:task/staging-services-cluster/c267e03e0b5674098212ea92636b4fbc",
-    "cluster_name": "staging-services-cluster",
-    "task_definition": "auth-service:25"
+    "container_id": "b9e02180b3fd",
+    "task_id": "arn:aws:ecs:us-west-1:345678901234:task/prod-services-cluster/df021ae834a79fc0ad4b56a72840f58d",
+    "cluster_name": "prod-services-cluster",
+    "task_definition": "inventory-service:17"
   },
   "service": {
-    "name": "auth-service",
-    "environment": "dev",
+    "name": "inventory-service",
+    "environment": "staging",
     "version": "1.0.0",
     "language": {
       "name": "java"
@@ -70,10 +70,10 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "us-west-1",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "ecs"

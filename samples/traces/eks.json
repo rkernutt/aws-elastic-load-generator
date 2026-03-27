@@ -1,23 +1,23 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "54c43ac857cded37d1d381fbf40b98bc"
+    "id": "de16d6be460bd52ec3ac84b343297522"
   },
   "transaction": {
-    "id": "ebd404d4d51270c8",
-    "name": "GET /search/filters",
+    "id": "01af112ef6237475",
+    "name": "GET /api/v1/users/{id}",
     "type": "request",
     "duration": {
-      "us": 382201
+      "us": 250506
     },
     "result": "HTTP 200",
     "sampled": true,
     "span_count": {
-      "started": 2,
+      "started": 4,
       "dropped": 0
     }
   },
@@ -30,24 +30,24 @@
     }
   },
   "url": {
-    "path": "/search/filters"
+    "path": "/api/v1/users/{id}"
   },
   "labels": {
     "k8s_namespace": "production",
-    "k8s_pod_name": "search-service-75296-6be53",
-    "k8s_deployment": "search-service",
-    "k8s_node": "ip-202-227-8-80.ec2.internal"
+    "k8s_pod_name": "gateway-service-0cabd-9b777",
+    "k8s_deployment": "gateway-service",
+    "k8s_node": "ip-58-232-145-70.ec2.internal"
   },
   "service": {
-    "name": "search-service",
+    "name": "gateway-service",
     "environment": "production",
     "version": "1.0.0",
     "language": {
-      "name": "java"
+      "name": "nodejs"
     },
     "runtime": {
-      "name": "java21",
-      "version": "21.0.3"
+      "name": "nodejs20.x",
+      "version": "20.15.1"
     },
     "framework": {
       "name": "Kubernetes"
@@ -55,25 +55,25 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "1.6.0"
+    "version": "1.4.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "java",
-      "version": "2.12.0"
+      "language": "nodejs",
+      "version": "1.30.1"
     },
     "distro": {
       "name": "elastic",
-      "version": "1.6.0"
+      "version": "1.4.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ca-west-1",
     "account": {
-      "id": "345678901234",
-      "name": "dev-aws"
+      "id": "234567890123",
+      "name": "staging-aws"
     },
     "service": {
       "name": "eks"

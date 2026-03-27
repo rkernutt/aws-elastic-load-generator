@@ -1,43 +1,43 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "904e6608fd4996ff5aec2df9a0f7b2c9"
+    "id": "28fa1ade34faf9a8c74f1be1570f077e"
   },
   "transaction": {
-    "id": "331e920f93eb8d72",
-    "name": "order-queue-dlq.fifo process",
+    "id": "bf557acb0750c4be",
+    "name": "user-events-queue process",
     "type": "messaging",
     "duration": {
-      "us": 626000
+      "us": 659000
     },
     "result": "success",
     "sampled": true,
     "span_count": {
-      "started": 2,
+      "started": 3,
       "dropped": 0
     }
   },
   "labels": {
-    "queue_name": "order-queue-dlq.fifo",
-    "queue_url": "https://sqs.ap-northeast-3.amazonaws.com/234567890123/order-queue-dlq.fifo",
-    "message_count": "1",
-    "approximate_first_receive_delay_seconds": "76",
-    "parent_trace_id": "71b77c1c7eae9c1efb908a4ee913c3bc"
+    "queue_name": "user-events-queue",
+    "queue_url": "https://sqs.ap-southeast-1.amazonaws.com/123456789012/user-events-queue",
+    "message_count": "6",
+    "approximate_first_receive_delay_seconds": "1",
+    "parent_trace_id": "6318f3082b8383a498b7008af0655fc5"
   },
   "service": {
-    "name": "dead-letter-processor",
-    "environment": "production",
+    "name": "user-events-consumer",
+    "environment": "staging",
     "version": "1.0.0",
     "language": {
       "name": "python"
     },
     "runtime": {
       "name": "python3.11",
-      "version": "3.12.4"
+      "version": "3.12.8"
     },
     "framework": {
       "name": "AWS SQS"
@@ -60,10 +60,10 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "234567890123",
-      "name": "staging-aws"
+      "id": "123456789012",
+      "name": "prod-aws"
     },
     "service": {
       "name": "sqs"
