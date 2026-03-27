@@ -6,6 +6,11 @@ Each service has its correct real-world ingestion source pre-configured — S3, 
 
 ---
 
+## What's New in v11.2
+
+- **Metrics re-run errors fixed** — `version_conflict_engine_exception` responses from TSDS (`metrics-aws.*`) data streams are no longer counted as errors. When you run metrics mode a second time over the same time window, duplicate documents are silently skipped and shown in the activity log as `↷ batch N: X indexed, Y skipped (already exists)`. Only genuine indexing failures increment the error counter.
+- **Metrics volume estimate clarified** — The pre-run estimate below the Ship button now reads `~N calls across X services — actual doc count varies by service (dimensional metrics generate multiple docs per call)` instead of the misleading `~N documents`. Services like Lambda, RDS, ECS, and others generate arrays of multiple metric documents per generator call (one per function/instance/cluster), so the actual indexed doc count is always higher than the call count shown.
+
 ## What's New in v11.1
 
 - **3 new AWS service generators** — Coverage expanded from 182 to **185 services**: AWS Wavelength, Amazon Nova, Amazon Lookout for Vision.

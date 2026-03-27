@@ -4,6 +4,13 @@
 
 ---
 
+## What's New in v11.2
+
+- **Metrics re-run errors fixed** — `version_conflict_engine_exception` responses from TSDS (`metrics-aws.*`) data streams are no longer counted as errors. When you run metrics mode a second time over the same time window, duplicate documents are silently skipped and shown in the activity log as `↷ batch N: X indexed, Y skipped (already exists)`. Only genuine indexing failures increment the error counter.
+- **Metrics volume estimate clarified** — The pre-run estimate below the Ship button now reads `~N calls across X services — actual doc count varies by service (dimensional metrics generate multiple docs per call)` instead of the misleading `~N documents`. Services like Lambda, RDS, ECS, and others generate arrays of multiple metric documents per generator call (one per function/instance/cluster), so the actual indexed doc count is always higher than the call count shown.
+
+---
+
 ## What's New in v11.0
 
 - **17 new AWS service generators** — Coverage expanded from 165 to **182 services**: AWS App Mesh, AWS Client VPN, AWS Cloud Map, AWS Outposts, AWS Audit Manager, Amazon Verified Permissions, AWS Payment Cryptography, AWS Artifact, Amazon DynamoDB DAX, AWS Proton, AWS AppFabric, AWS B2B Data Interchange, AWS AppConfig, AWS Elastic Disaster Recovery, AWS License Manager, AWS Chatbot, Amazon Chime SDK Voice.
