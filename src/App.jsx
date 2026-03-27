@@ -6,7 +6,7 @@ import { METRICS_GENERATORS } from "./generators/metrics/index.js";
 import { TRACE_GENERATORS, TRACE_SERVICES } from "./generators/traces/index.js";
 import { ELASTIC_DATASET_MAP, ELASTIC_METRICS_DATASET_MAP, METRICS_SUPPORTED_SERVICE_IDS } from "./data/elasticMaps.js";
 import { SERVICE_INGESTION_DEFAULTS, INGESTION_META } from "./data/ingestion.js";
-import { AWS_ICON_BASE, AWS_SERVICE_ICON_MAP } from "./data/iconMap.js";
+import { AWS_ICON_BASE, AWS_SERVICE_ICON_MAP, CATEGORY_ICON_MAP } from "./data/iconMap.js";
 import { SERVICE_GROUPS, ALL_SERVICE_IDS } from "./data/serviceGroups.js";
 import { Card, CardHeader, QuickBtn, Field, SliderField, StatCard } from "./components/Card.jsx";
 import { StatusPill } from "./components/StatusPill.jsx";
@@ -511,7 +511,9 @@ export default function App() {
                   return (
                     <div key={group.id} style={{border:`1px solid ${allSel?group.color+"88":someSel?group.color+"66":K.border}`,borderRadius:K.radius,overflow:"hidden",background:allSel?`${group.color}12`:someSel?`${group.color}08`:K.plain,transition:"border-color 0.2s",boxShadow:K.shadow}}>
                       <div style={{display:"flex",alignItems:"center",gap:10,padding:"10px 14px",cursor:"pointer",userSelect:"none"}} onClick={()=>toggleCollapse(group.id)}>
-                        {AWS_SERVICE_ICON_MAP[group.services[0]?.id] ? (
+                        {CATEGORY_ICON_MAP[group.id] ? (
+                          <img src={`${AWS_ICON_BASE}/${CATEGORY_ICON_MAP[group.id]}.svg`} alt="" style={{width:22,height:22,objectFit:"contain"}}/>
+                        ) : AWS_SERVICE_ICON_MAP[group.services[0]?.id] ? (
                           <img src={`${AWS_ICON_BASE}/${AWS_SERVICE_ICON_MAP[group.services[0].id]}.svg`} alt="" style={{width:18,height:18,objectFit:"contain"}}/>
                         ) : (
                           <span style={{fontSize:14,minWidth:18,color:selCount>0?group.color:K.textSubdued}}>{group.icon}</span>

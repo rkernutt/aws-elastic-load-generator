@@ -55,4 +55,21 @@ const AWS_SERVICE_ICON_MAP = {
   deadlinecloud: "AWSDeadlineCloud",
 };
 
-export { AWS_ICON_BASE, AWS_SERVICE_ICON_MAP };
+// Category icons — used for service group headers in the UI
+const CATEGORY_ICON_MAP = {
+  serverless: "Category-Serverless",
+  compute:    "Category-Compute",
+  networking: "Category-Networking",
+  security:   "Category-Security",
+  storage:    "Category-Storage",
+  streaming:  "Category-AppIntegration",
+  devtools:   "Category-DevTools",
+  analytics:  "Category-Analytics",
+  aiml:       "Category-AI",
+  iot:        "Category-IoT",
+  management: "Category-Management",
+  media:      "Category-Media",
+  messaging:  "Category-BusinessApps",
+};
+
+export { AWS_ICON_BASE, AWS_SERVICE_ICON_MAP, CATEGORY_ICON_MAP };
