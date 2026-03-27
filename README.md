@@ -21,47 +21,7 @@ Each service has its correct real-world ingestion source pre-configured — S3, 
 - **Services span 10 groups** — New additions distributed across Networking, Security, Streaming, Developer Tools, Analytics, AI/ML, IoT, Management, and Media.
 - **165 log samples** — `samples/logs/` regenerated with one doc per service.
 
----
-
-## What's New in v9.3
-
-- **5 new service generators** — Coverage expanded from 139 to **144 services**:
-  - **Elastic CSPM** (`cspm`) — Cloud Security Posture Management findings against **CIS AWS Foundations Benchmark v1.5.0** across 14 rules (IAM, CloudTrail, Config, networking, VPC Flow). Routes to `logs-cloud_security_posture.findings-default` — the same index Elastic's native CSPM integration uses, so pre-built CSPM dashboards and rules work immediately.
-  - **Elastic KSPM** (`kspm`) — Kubernetes Security Posture Management findings against **CIS EKS Benchmark v1.4.0** across 10 rules (API server exposure, privileged containers, secrets management, network policy, KMS encryption). Same `cloud_security_posture.findings` index.
-  - **IAM Privilege Escalation Chain** (`iam-privesc-chain`) — A 4-document linked CloudTrail attack sequence: `ListUsers` (Discovery/T1580) → `CreateAccessKey` (Persistence/T1136.003) → `AttachUserPolicy AdministratorAccess` (Privilege Escalation/T1548) → `AssumeRole` (Lateral Movement/T1550.001). All events share the same actor, source IP, and timestamp. MITRE ATT&CK tactic/technique fields on every document.
-  - **Data Exfiltration Chain** (`data-exfil-chain`) — A 3-document cross-service attack chain: GuardDuty `Exfiltration:S3/MaliciousIPCaller` finding → CloudTrail S3 `GetObject` data event burst (200–2000 object reads) → VPC Flow high-egress record (500MB–50GB to attacker IP). All three documents share the attacker IP and target bucket, enabling correlated timeline views.
-
-- **ML jobs expanded to 99 jobs across 20 groups** (up from 70/14 in v9.2):
-  - **6 new job groups added:**
-    - `serverless` (4 jobs) — API Gateway 5xx spikes, throttle spikes, latency anomalies; Lambda cold start spikes
-    - `devtools` (5 jobs) — CodeBuild failure spikes and duration anomalies, CodePipeline failure spikes, X-Ray error rate spikes and latency anomalies
-    - `iot` (4 jobs) — IoT Core connection failures, message volume anomalies, rule engine error spikes, rare device client IDs
-    - `media` (4 jobs) — MediaConvert transcoding failures, Connect contact abandonment spikes, Connect handle time anomalies, WorkSpaces session failures
-    - `siem` (4 jobs) — CloudTrail rare source IP per user (impossible travel / credential abuse), root account API activity, IAM creation spikes, Route53 DNS exfiltration (high query volume per source IP)
-    - `security-extended` enhanced — 2 Security Lake OCSF jobs added (`aws-securitylake-ocsf-finding-spike`, `aws-securitylake-rare-ocsf-class`)
-
-- **Elastic Security product alignment** — CSPM and KSPM generators target `logs-cloud_security_posture.findings-default` directly (bypassing the `logs-aws.*` prefix), using the same index pattern and field schema as the native Elastic CSPM/KSPM integration. The `iam-privesc-chain` and `data-exfil-chain` generators produce per-document index routing so each event lands in its correct `logs-aws.<service>-default` data stream.
-
-- **Metrics generator fixes** — `securityhub` now has a proper dimensional CloudWatch metrics generator (previously log-only); `greengrass` naming aligned (was `iotgreengrass` internally); `METRICS_SUPPORTED_SERVICE_IDS` corrected to 139 entries matching the current UI service set.
-
-See [`installer/custom-ml-jobs/README.md`](installer/custom-ml-jobs/README.md) for the full ML job catalogue.
-
----
-
-## What's New in v9.2
-
-- **Installer 4 — ML Anomaly Detection Jobs** — New `npm run setup:ml-jobs` installer adds **137 Elasticsearch ML anomaly detection jobs** across **22 service groups**, filling the gap left by the official Elastic AWS integration (which only ships ML jobs for CloudTrail). Coverage includes:
-  - **Security:** VPC Flow (denied traffic, rare ports, data exfiltration), GuardDuty (finding spikes, rare types), WAF (block rate), CloudTrail (rare user actions), Security Hub (critical finding spikes), Macie (sensitive data exposure), Inspector (vulnerability spikes), AWS Config (compliance drift), KMS (unusual key operations)
-  - **Compute:** Lambda (error/throttle/duration per function), EC2 (CPU, network), EKS (pod failures, rare images), ECS (memory pressure, task failures), Auto Scaling (rapid scaling), Elastic Beanstalk (5xx, p99 latency)
-  - **Networking:** ALB (5xx, response time, rare user agents), API Gateway (latency, errors), CloudFront (error rate, cache miss storms), Route 53 (NXDOMAIN spikes — DNS attack detection), Network Firewall (drop spikes)
-  - **Databases:** RDS (latency, connections), Aurora (replica lag), ElastiCache (hit rate drop, latency), DynamoDB (throttle spikes, latency), Redshift (query duration), OpenSearch (JVM pressure, write rejections)
-  - **Streaming:** Kinesis (iterator age lag, throughput), SQS (message age, not-visible count), SNS (delivery failures), MSK/Kafka (consumer lag, under-replicated partitions), EventBridge (failed invocations), Step Functions (execution failures)
-  - **AI/ML:** Bedrock (token usage, latency, errors, rare models)
-  - **Storage:** S3 (bandwidth, errors, rare operations, rare requesters)
-  - **Analytics:** Glue (duration, failures), Athena (data scanned cost spike, query duration), EMR (task failures)
-  - **Management:** CloudWatch alarm storms (meta-monitoring), CloudFormation rollback spikes, billing cost anomalies, SSM rare commands
-
-See [`installer/custom-ml-jobs/README.md`](installer/custom-ml-jobs/README.md) for the full job catalogue.
+For older release notes see [docs/VERSION-HISTORY.md](docs/VERSION-HISTORY.md).
 
 ---
 
