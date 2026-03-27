@@ -57,6 +57,14 @@ export function createElasticClient(baseUrl, apiKey) {
     },
 
     /**
+     * DELETE /_ingest/pipeline/{pipelineId}
+     * Deletes an ingest pipeline. Returns null if not found (404).
+     */
+    async deletePipeline(pipelineId) {
+      return request("DELETE", `/_ingest/pipeline/${encodeURIComponent(pipelineId)}`);
+    },
+
+    /**
      * GET /
      * Verifies connectivity.  Returns cluster info or throws on failure.
      */

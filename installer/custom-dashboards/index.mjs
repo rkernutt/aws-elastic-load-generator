@@ -194,6 +194,11 @@ function createKibanaClient(baseUrl, apiKey) {
       return request("POST", "/api/dashboards", body, { "Elastic-Api-Version": "1" });
     },
 
+    /** Delete a dashboard by saved-object ID. Returns null if not found. */
+    async deleteDashboard(id) {
+      return request("DELETE", `/api/saved_objects/dashboard/${encodeURIComponent(id)}`);
+    },
+
     /** Import via Saved Objects API (8.11+). Builds multipart form-data manually. */
     async importSavedObject(ndjsonString) {
       const boundary = `----FormBoundary${Math.random().toString(36).slice(2)}`;
@@ -463,13 +468,30 @@ async function main() {
     }
   }
 
-  // 7. Dashboard selection menu
-  console.log("\nAvailable dashboards:\n");
+  // 7. Mode selection
+  console.log("\nWhat would you like to do?\n");
+  console.log("  1. Install dashboards");
+  console.log("  2. Delete dashboards");
+  console.log("  3. Delete then reinstall dashboards");
+  console.log("");
+
+  let mode;
+  while (true) {
+    const input = await prompt(rl, "Enter 1, 2, or 3:\n> ");
+    if (input === "1") { mode = "install";   break; }
+    if (input === "2") { mode = "delete";    break; }
+    if (input === "3") { mode = "reinstall"; break; }
+    console.error("  Please enter 1, 2, or 3.");
+  }
+  const modeLabel = { install: "install", delete: "delete", reinstall: "reinstall" }[mode];
+
+  // 8. Dashboard selection menu
+  console.log(`\nAvailable dashboards (${modeLabel}):\n`);
   dashboards.forEach((d, i) => {
     console.log(`  ${i + 1}. ${d.title}`);
   });
   const allIndex = dashboards.length + 1;
-  console.log(`  ${allIndex}. all  (install every dashboard)`);
+  console.log(`  ${allIndex}. all  (${modeLabel} every dashboard)`);
   console.log("");
 
   const selectionInput = await prompt(rl, `Enter number(s) comma-separated, or "all":\n> `);
@@ -500,8 +522,46 @@ async function main() {
     process.exit(0);
   }
 
-  // 8. Install dashboards
-  console.log(`\nInstalling ${selected.length} dashboard(s)...\n`);
+  // ── Delete pass (delete and reinstall modes) ────────────────────────────────
+  if (mode === "delete" || mode === "reinstall") {
+    console.log(`\nDeleting ${selected.length} dashboard(s)...\n`);
+    let deletedCount = 0, notFoundCount = 0, deleteFailedCount = 0;
+
+    for (const { title, ndjson, definition } of selected) {
+      try {
+        // Resolve ID: prefer ndjson ID, then look up by title via saved objects
+        let dashId = ndjson?.id;
+        if (!dashId) {
+          const found = await client.findDashboardByTitle(title);
+          dashId = found?.id ?? null;
+        }
+        if (!dashId) {
+          console.log(`  – "${title}" — not installed, skipping`);
+          notFoundCount++;
+          continue;
+        }
+        await client.deleteDashboard(dashId);
+        console.log(`  ✓ "${title}" — deleted`);
+        deletedCount++;
+      } catch (err) {
+        console.error(`  ✗ "${title}" — FAILED: ${err.message}`);
+        deleteFailedCount++;
+      }
+    }
+
+    console.log("");
+    console.log(
+      `Deleted ${deletedCount} / ${selected.length} dashboard(s).` +
+        (notFoundCount > 0 ? ` (${notFoundCount} not installed, skipped)` : "") +
+        (deleteFailedCount > 0 ? ` (${deleteFailedCount} failed)` : "")
+    );
+
+    if (mode === "delete") { console.log("Done."); return; }
+    console.log("");
+  }
+
+  // ── Install pass (install and reinstall modes) ──────────────────────────────
+  console.log(`Installing ${selected.length} dashboard(s)...\n`);
 
   let installedCount = 0;
   let skippedCount = 0;
@@ -524,7 +584,7 @@ async function main() {
     }
   }
 
-  // 9. Summary
+  // Summary
   const total = selected.length;
   console.log("");
   console.log(

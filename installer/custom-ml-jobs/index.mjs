@@ -175,6 +175,16 @@ function createElasticClient(baseUrl, apiKey) {
     async closeJob(jobId) {
       return request("POST", `/_ml/anomaly_detectors/${encodeURIComponent(jobId)}/_close`);
     },
+
+    /** DELETE /_ml/datafeeds/datafeed-{jobId} — delete datafeed */
+    async deleteDatafeed(jobId) {
+      return request("DELETE", `/_ml/datafeeds/${encodeURIComponent(`datafeed-${jobId}`)}`);
+    },
+
+    /** DELETE /_ml/anomaly_detectors/{jobId} — delete job */
+    async deleteJob(jobId) {
+      return request("DELETE", `/_ml/anomaly_detectors/${encodeURIComponent(jobId)}`);
+    },
   };
 }
 
@@ -308,14 +318,18 @@ async function main() {
   console.log("\nWhat would you like to do?\n");
   console.log("  1. Install jobs");
   console.log("  2. Stop jobs (stop datafeeds + close jobs)");
+  console.log("  3. Delete jobs (stop + delete datafeeds and jobs)");
+  console.log("  4. Delete then reinstall jobs");
   console.log("");
 
   let mode;
   while (true) {
-    const input = await prompt(rl, "Enter 1 or 2:\n> ");
-    if (input === "1") { mode = "install"; break; }
-    if (input === "2") { mode = "stop"; break; }
-    console.error("  Please enter 1 or 2.");
+    const input = await prompt(rl, "Enter 1, 2, 3, or 4:\n> ");
+    if (input === "1") { mode = "install";   break; }
+    if (input === "2") { mode = "stop";      break; }
+    if (input === "3") { mode = "delete";    break; }
+    if (input === "4") { mode = "reinstall"; break; }
+    console.error("  Please enter 1, 2, 3, or 4.");
   }
   console.log("");
 
@@ -336,7 +350,8 @@ async function main() {
   }
 
   // 9. Group selection menu
-  console.log(`Available job groups (${mode === "stop" ? "select groups to stop" : "select groups to install"}):\n`);
+  const modeLabel = { install: "install", stop: "stop", delete: "delete", reinstall: "reinstall" }[mode];
+  console.log(`Available job groups (${modeLabel}):\n`);
 
   groups.forEach((group, i) => {
     const count = group.jobs.length;
@@ -347,7 +362,7 @@ async function main() {
   });
 
   const allIndex = groups.length + 1;
-  console.log(`  ${String(allIndex).padStart(2, " ")}. all          (${mode === "stop" ? "stop every group" : "install every group"})`);
+  console.log(`  ${String(allIndex).padStart(2, " ")}. all          (${modeLabel} every group)`);
   console.log("");
 
   const selectionInput = await prompt(
@@ -436,6 +451,55 @@ async function main() {
     );
     console.log("\nDone.");
     return;
+  }
+
+  // ── Delete / Reinstall mode ───────────────────────────────────────────────────
+  if (mode === "delete" || mode === "reinstall") {
+    console.log(`\nDeleting ${selectedJobs.length} job(s)...\n`);
+
+    let deletedCount = 0;
+    let notFoundCount = 0;
+    let deleteFailedCount = 0;
+
+    for (const jobDef of selectedJobs) {
+      const { id } = jobDef;
+      try {
+        const existing = await client.getJob(id);
+        if (existing === null) {
+          console.log(`  – ${id} — not installed, skipping`);
+          notFoundCount++;
+          continue;
+        }
+
+        process.stdout.write(`  Stopping datafeed for ${id}...`);
+        try { await client.stopDatafeed(id); process.stdout.write(" stopped."); }
+        catch { process.stdout.write(" (already stopped)."); }
+
+        process.stdout.write(" Closing job...");
+        try { await client.closeJob(id); process.stdout.write(" closed."); }
+        catch { process.stdout.write(" (already closed)."); }
+
+        process.stdout.write(" Deleting datafeed...");
+        await client.deleteDatafeed(id);
+        process.stdout.write(" deleted. Deleting job...");
+        await client.deleteJob(id);
+        console.log(" deleted.");
+        deletedCount++;
+      } catch (err) {
+        console.log(` FAILED: ${err.message}`);
+        deleteFailedCount++;
+      }
+    }
+
+    console.log("");
+    console.log(
+      `Deleted ${deletedCount} / ${selectedJobs.length} job(s).` +
+        (notFoundCount > 0 ? ` (${notFoundCount} not installed, skipped)` : "") +
+        (deleteFailedCount > 0 ? ` (${deleteFailedCount} failed)` : "")
+    );
+
+    if (mode === "delete") { console.log("\nDone."); return; }
+    console.log("");
   }
 
   // ── Install mode ─────────────────────────────────────────────────────────────

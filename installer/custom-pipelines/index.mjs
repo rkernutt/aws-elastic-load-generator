@@ -151,9 +151,27 @@ async function main() {
     process.exit(1);
   }
 
-  // 6. Group selection menu
+  // 6. Mode selection
+  console.log("\nWhat would you like to do?\n");
+  console.log("  1. Install pipelines");
+  console.log("  2. Delete pipelines");
+  console.log("  3. Delete then reinstall pipelines");
+  console.log("");
+
+  let mode;
+  while (true) {
+    const input = await prompt(rl, "Enter 1, 2, or 3:\n> ");
+    if (input === "1") { mode = "install"; break; }
+    if (input === "2") { mode = "delete"; break; }
+    if (input === "3") { mode = "reinstall"; break; }
+    console.error("  Please enter 1, 2, or 3.");
+  }
+  console.log("");
+
+  // 7. Group selection menu
   const groups = getGroups();
-  console.log("\nAvailable pipeline groups:");
+  const modeLabel = mode === "install" ? "install" : mode === "delete" ? "delete" : "reinstall";
+  console.log(`\nAvailable pipeline groups (${modeLabel}):`);
   console.log("");
 
   groups.forEach((group, i) => {
@@ -161,7 +179,7 @@ async function main() {
     console.log(`  ${i + 1}. ${group}  (${pipelines.length} pipeline${pipelines.length !== 1 ? "s" : ""})`);
   });
   const allIndex = groups.length + 1;
-  console.log(`  ${allIndex}. all  (install every group)`);
+  console.log(`  ${allIndex}. all  (${modeLabel} every group)`);
   console.log("");
 
   const selectionInput = await prompt(
@@ -204,8 +222,41 @@ async function main() {
     process.exit(0);
   }
 
-  // 7. Install pipelines
-  console.log(`\nInstalling ${selectedPipelines.length} pipeline(s)...\n`);
+  // ── Delete pass (delete and reinstall modes) ────────────────────────────────
+  if (mode === "delete" || mode === "reinstall") {
+    console.log(`\nDeleting ${selectedPipelines.length} pipeline(s)...\n`);
+    let deletedCount = 0, notFoundCount = 0, deleteFailedCount = 0;
+
+    for (const { id } of selectedPipelines) {
+      try {
+        const existing = await client.getPipeline(id);
+        if (existing === null) {
+          console.log(`  – ${id} — not installed, skipping`);
+          notFoundCount++;
+          continue;
+        }
+        await client.deletePipeline(id);
+        console.log(`  ✓ ${id} — deleted`);
+        deletedCount++;
+      } catch (err) {
+        console.error(`  ✗ ${id} — FAILED: ${err.message}`);
+        deleteFailedCount++;
+      }
+    }
+
+    console.log("");
+    console.log(
+      `Deleted ${deletedCount} / ${selectedPipelines.length} pipeline(s).` +
+        (notFoundCount > 0 ? ` (${notFoundCount} not installed, skipped)` : "") +
+        (deleteFailedCount > 0 ? ` (${deleteFailedCount} failed)` : "")
+    );
+
+    if (mode === "delete") { console.log("Done."); return; }
+    console.log("");
+  }
+
+  // ── Install pass (install and reinstall modes) ──────────────────────────────
+  console.log(`Installing ${selectedPipelines.length} pipeline(s)...\n`);
 
   let installedCount = 0;
   let skippedCount = 0;
@@ -223,10 +274,7 @@ async function main() {
         continue;
       }
 
-      await client.putPipeline(id, {
-        description,
-        processors,
-      });
+      await client.putPipeline(id, { description, processors });
 
       console.log(`  ✓ ${id} — installed`);
       installedCount++;
@@ -236,7 +284,6 @@ async function main() {
     }
   }
 
-  // 8. Summary
   const total = selectedPipelines.length;
   console.log("");
   console.log(
