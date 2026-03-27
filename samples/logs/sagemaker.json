@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "us-west-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "sagemaker"
@@ -13,59 +13,62 @@
   },
   "aws": {
     "dimensions": {
-      "TrainingJobName": "xgboost-classifier-training-ojkvp2",
-      "JobType": "Training"
+      "TrainingJobName": "lstm-timeseries-hyperparametertuning-y4n0p4",
+      "JobType": "HyperparameterTuning"
     },
     "sagemaker": {
-      "domain_id": "d-l1ajwclpzk",
-      "domain_name": "nlp-experiments",
-      "user_profile": "bob-ml",
+      "domain_id": "d-3829ryjak0",
+      "domain_name": "risk-models",
+      "user_profile": "dan-platform",
       "job": {
-        "name": "xgboost-classifier-training-ojkvp2",
-        "type": "Training",
-        "arn": "arn:aws:sagemaker:eu-central-2:501938274650:training-job/xgboost-classifier-training-ojkvp2"
+        "name": "lstm-timeseries-hyperparametertuning-y4n0p4",
+        "type": "HyperparameterTuning",
+        "arn": "arn:aws:sagemaker:us-west-1:738291046572:training-job/lstm-timeseries-hyperparametertuning-y4n0p4"
       },
       "model": {
-        "name": "xgboost-classifier",
-        "version": 1
+        "name": "lstm-timeseries",
+        "version": 15
       },
       "pipeline": {
         "name": "model-training-pipeline",
-        "execution_id": "pipe-ex912d3zwnh"
+        "execution_id": "pipe-syg0r5pm30m"
       },
       "instance": {
-        "type": "ml.m5.xlarge",
+        "type": "ml.g4dn.xlarge",
         "count": 1
       },
       "metrics": {
-        "training_loss": 0.0576,
-        "accuracy": 0.7907,
-        "epoch": 37,
-        "gpu_utilization_pct": 47,
-        "cpu_utilization_pct": 83
+        "training_loss": 0.2214,
+        "accuracy": 0.8969,
+        "epoch": 36,
+        "gpu_utilization_pct": 70,
+        "cpu_utilization_pct": 57
       },
       "studio": {
+        "space_name": "ds-platform",
+        "app_type": "CodeEditor",
+        "app_name": "default",
         "lifecycle_config": false,
         "continuous_logging": false
       },
       "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 2492
+          "sum": 1863
         },
         "ModelLatency": {
-          "avg": 149
+          "avg": 114
         },
         "GPUUtilization": {
-          "avg": 85
+          "avg": 42
         },
         "CPUUtilization": {
-          "avg": 65
+          "avg": 33
         },
         "DiskUtilization": {
-          "avg": 44
+          "avg": 57
         },
         "MemoryUtilization": {
-          "avg": 69
+          "avg": 71
         },
         "Invocations4XXError": {
           "sum": 0
@@ -80,11 +83,11 @@
     "level": "info"
   },
   "user": {
-    "name": "bob-ml"
+    "name": "dan-platform"
   },
   "event": {
-    "action": "TrainingJobCompleted",
-    "duration": 8688330000000,
+    "action": "AppDeleted",
+    "duration": 12078792000000,
     "outcome": "success",
     "category": [
       "process"
@@ -92,5 +95,5 @@
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "Training job started on ml.p3.2xlarge (4 GPUs)"
+  "message": "Model registered: fraud-detector v12 (AUC: 0.9923)"
 }

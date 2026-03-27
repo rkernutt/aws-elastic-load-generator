@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "me-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "events"
@@ -13,33 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "EventBusName": "default",
-      "RuleName": "cost-alert-rule"
+      "EventBusName": "custom-events",
+      "RuleName": "security-event-forwarder"
     },
     "eventbridge": {
-      "event_bus": "default",
-      "rule": "cost-alert-rule",
+      "event_bus": "custom-events",
+      "rule": "security-event-forwarder",
       "source": "com.partner.events",
-      "detail_type": "Order Placed",
-      "targets_invoked": 5,
-      "targets_failed": 1,
-      "event_id": "gssg0iij-zvdv-789e-o6oh-p2mf80y61p8",
-      "structured_logging": false,
+      "detail_type": "Object Created",
+      "targets_invoked": 1,
+      "targets_failed": 0,
+      "event_id": "v6p0tl8r-ub5j-eelx-9pje-ebdas9unu8w",
+      "structured_logging": true,
       "metrics": {
         "Invocations": {
           "sum": 1
         },
         "FailedInvocations": {
-          "sum": 1
+          "sum": 0
         },
         "TriggeredRules": {
           "sum": 1
         },
         "MatchedEvents": {
-          "sum": 56
+          "sum": 94
         },
         "ThrottledRules": {
-          "sum": 4
+          "sum": 0
         },
         "DeadLetterInvocations": {
           "sum": 0
@@ -48,24 +48,19 @@
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process"
     ],
     "type": [
-      "change"
+      "deletion"
     ],
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 685000000
+    "duration": 90000000
   },
-  "message": "EventBridge rule cost-alert-rule: target invocations failed",
+  "message": "{\"id\":\"v6p0tl8r-ub5j-eelx-9pje-ebdas9unu8w\",\"source\":\"com.partner.events\",\"detailType\":\"EC2 Instance State-change Notification\",\"rule\":\"security-event-forwarder\",\"eventBus\":\"custom-events\",\"message\":\"EventBridge event routed: com.partner.events -> security-event-forwarder\",\"timestamp\":\"2026-03-27T13:21:40.756Z\"}",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ConcurrentModificationException",
-    "message": "EventBridge target invocations failed",
-    "type": "event"
+    "level": "info"
   }
 }

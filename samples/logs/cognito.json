@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "us-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "cognito"
@@ -13,41 +13,41 @@
   },
   "aws": {
     "dimensions": {
-      "UserPool": "us-east-2_7BM7FSS21",
-      "UserPoolClient": "mobile-users-web"
+      "UserPool": "us-west-2_IBDCIJX40",
+      "UserPoolClient": "us-users-web"
     },
     "cognito": {
-      "user_pool_id": "us-east-2_7BM7FSS21",
-      "user_pool_name": "mobile-users",
-      "event_type": "ImpossibleTravel",
-      "error_code": "TooManyRequestsException",
-      "source_ip": "120.148.205.251",
-      "mfa_type": "SMS_MFA",
-      "risk_type": "ImpossibleTravel",
+      "user_pool_id": "us-west-2_IBDCIJX40",
+      "user_pool_name": "us-users",
+      "event_type": "CompromisedCredentials",
+      "username": "user-uf4pcqdt@example.com",
+      "source_ip": "188.254.53.176",
+      "risk_type": "CompromisedCredentials",
+      "action_taken": "BLOCK",
       "advanced_security": {
-        "risk_level": "LOW",
+        "risk_level": "MEDIUM",
         "risk_decision": "ALLOW",
-        "compromised_credentials_detected": false,
-        "impossible_travel": true,
+        "compromised_credentials_detected": true,
+        "impossible_travel": false,
         "previous_location": {
-          "ip": "247.94.215.254",
-          "country": "DE"
+          "ip": "132.251.241.238",
+          "country": "GB"
         },
         "current_location": {
-          "ip": "222.168.79.211",
+          "ip": "78.40.20.49",
           "country": "IN"
         },
-        "time_between_events_seconds": 167
+        "time_between_events_seconds": 178
       },
       "metrics": {
         "SignInSuccesses": {
-          "sum": 0
+          "sum": 4053
         },
         "SignInAttempts": {
-          "sum": 4598
+          "sum": 4053
         },
         "TokenRefreshSuccesses": {
-          "sum": 0
+          "sum": 26724
         },
         "SignUpSuccesses": {
           "sum": 0
@@ -56,40 +56,37 @@
           "sum": 0
         },
         "CallCount": {
-          "sum": 83010
+          "sum": 7295
         },
         "ThrottleCount": {
-          "sum": 16
+          "sum": 0
         },
         "AccountTakeoverRisk": {
-          "sum": 5
+          "sum": 0
         },
         "CompromisedCredentialsRisk": {
-          "sum": 3
+          "sum": 5
         }
       }
     }
   },
-  "user": {},
+  "user": {
+    "name": "user-uf4pcqdt@example.com"
+  },
   "source": {
-    "ip": "17.123.146.216"
+    "ip": "151.96.58.181"
   },
   "event": {
-    "action": "ImpossibleTravel",
-    "outcome": "failure",
+    "action": "CompromisedCredentials",
+    "outcome": "success",
     "category": [
       "authentication"
     ],
     "dataset": "aws.cognito",
     "provider": "cognito-idp.amazonaws.com"
   },
-  "message": "Cognito ImpossibleTravel detected [LOW]: decision=ALLOW pool=mobile-users",
+  "message": "Cognito CompromisedCredentials detected [MEDIUM]: decision=ALLOW pool=us-users",
   "log": {
     "level": "warn"
-  },
-  "error": {
-    "code": "TooManyRequestsException",
-    "message": "Authentication failed",
-    "type": "authentication"
   }
 }

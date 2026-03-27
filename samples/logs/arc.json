@@ -1,36 +1,36 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "us-east-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "arc"
     },
-    "availability_zone": "eu-west-1b"
+    "availability_zone": "us-east-2a"
   },
   "aws": {
     "dimensions": {
-      "ResourceArn": "arn:aws:elasticloadbalancing:eu-west-1:164820739518:loadbalancer/app/prod-alb/buh20wf9cem",
-      "AwsAccountId": "164820739518"
+      "ResourceArn": "arn:aws:elasticloadbalancing:us-east-2:501938274650:loadbalancer/app/prod-alb/kzdfahj5yj",
+      "AwsAccountId": "501938274650"
     },
     "arc": {
-      "shift_id": "zippxvxi-w7ey-75um-81mu-27sp1m6w119",
-      "resource_arn": "arn:aws:elasticloadbalancing:eu-west-1:164820739518:loadbalancer/app/prod-alb/buh20wf9cem",
-      "away_from": "eu-west-1b",
-      "zonal_shift_status": "CANCELLED",
-      "az_status": "AVAILABLE",
-      "comment": "AZ degradation detected",
-      "expiry_time": "2026-03-28T04:18:50.485Z",
-      "routing_control_arn": "arn:aws:route53-recovery-control::164820739518:controlpanel/510p65oibo2/routingcontrol/45sbgyj7f1f",
+      "shift_id": "16f37phc-xm1d-kcws-zgmx-76ceayb2mtm",
+      "resource_arn": "arn:aws:elasticloadbalancing:us-east-2:501938274650:loadbalancer/app/prod-alb/kzdfahj5yj",
+      "away_from": "us-east-2a",
+      "zonal_shift_status": "EXPIRED",
+      "az_status": "UNAVAILABLE",
+      "comment": "Proactive shift",
+      "expiry_time": "2026-03-28T05:08:32.756Z",
+      "routing_control_arn": "arn:aws:route53-recovery-control::501938274650:controlpanel/ukzj3tk94ve/routingcontrol/ai96qzft01t",
       "routing_control_state": "Off"
     }
   },
   "event": {
-    "action": "UpdateZonalShift",
+    "action": "CancelZonalShift",
     "outcome": "success",
     "category": [
       "network",
@@ -39,7 +39,7 @@
     "dataset": "aws.arc",
     "provider": "arc-zonal-shift.amazonaws.com"
   },
-  "message": "ARC UpdateZonalShift: shift=zippxvxi-w7ey-75um-81mu-27sp1m6w119, az=eu-west-1b status=CANCELLED, AZ degradation detected",
+  "message": "ARC CancelZonalShift: shift=16f37phc-xm1d-kcws-zgmx-76ceayb2mtm, az=us-east-2a status=EXPIRED, Proactive shift",
   "log": {
     "level": "info"
   }

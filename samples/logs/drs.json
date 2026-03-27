@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "us-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "drs"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "SourceServerId": "s-mr8aa4sgy8a"
+      "SourceServerId": "s-ixkge4d1ee"
     },
     "drs": {
-      "source_server_id": "s-mr8aa4sgy8a",
+      "source_server_id": "s-ixkge4d1ee",
       "source_hostname": "db-primary",
       "replication_status": "Continuous",
-      "lag_duration_seconds": 20,
+      "lag_duration_seconds": 3,
       "data_replication_state": "InProgress",
-      "ebs_volume_count": 8,
-      "staging_area": "eu-west-1",
-      "recovery_point_objective_seconds": 74
+      "ebs_volume_count": 5,
+      "staging_area": "us-west-2",
+      "recovery_point_objective_seconds": 28
     }
   },
   "event": {
-    "action": "ReplicationStateChange",
+    "action": "SourceServerDisconnected",
     "outcome": "success",
     "category": [
       "host"
@@ -35,7 +35,7 @@
     "dataset": "aws.drs",
     "provider": "drs.amazonaws.com"
   },
-  "message": "DRS db-primary: replication Continuous, RPO 74s",
+  "message": "DRS db-primary: replication Continuous, RPO 28s",
   "log": {
     "level": "info"
   }

@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -9,27 +9,27 @@
     "provider": "aws",
     "region": "ap-southeast-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     }
   },
   "resource": {
-    "id": "arn:aws:iam::293847561023:user/alice",
-    "name": "alice",
-    "sub_type": "iam-user",
+    "id": "arn:aws:iam::814726593401:root",
+    "name": "arn:aws:iam::814726593401:root",
+    "sub_type": "iam-root",
     "type": "cloud-identity-management"
   },
   "rule": {
-    "id": "cis_1_2",
-    "name": "Ensure MFA enabled for all IAM users with console access",
-    "section": "1.2",
+    "id": "cis_1_3",
+    "name": "Ensure no root account access key exists",
+    "section": "1.3",
     "tags": [
       "IAM"
     ],
     "benchmark": {
       "id": "cis_aws",
       "version": "v1.5.0",
-      "rule_number": "1.2",
+      "rule_number": "1.3",
       "posture_type": "cspm"
     }
   },
@@ -49,7 +49,7 @@
     "dataset": "cloud_security_posture.findings",
     "provider": "elastic_cspm"
   },
-  "message": "CSPM [CIS AWS 1.5 / 1.2] passed: Ensure MFA enabled for all IAM users with console access",
+  "message": "CSPM [CIS AWS 1.5 / 1.3] passed: Ensure no root account access key exists",
   "log": {
     "level": "info"
   }

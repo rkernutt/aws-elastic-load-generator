@@ -1,0 +1,68 @@
+{
+  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "ap-south-2",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "bedrock"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "ModelId": "amazon.nova-premier-v1:0",
+      "ModelTier": "premier"
+    },
+    "nova": {
+      "model_id": "amazon.nova-premier-v1:0",
+      "model_tier": "premier",
+      "modality": "text",
+      "input_token_count": 5896,
+      "output_token_count": 750,
+      "cache_read_input_token_count": 0,
+      "total_token_count": 6646,
+      "invocation_latency_ms": 5581,
+      "streaming": false,
+      "use_case": "summarization",
+      "guardrail_action": "NONE",
+      "stop_reason": "stop_sequence",
+      "metrics": {
+        "Invocations": {
+          "sum": 613
+        },
+        "InvocationLatency": {
+          "avg": 5581,
+          "p99": 13953
+        },
+        "InputTokenCount": {
+          "sum": 5896
+        },
+        "OutputTokenCount": {
+          "sum": 750
+        },
+        "CacheReadInputTokenCount": {
+          "sum": 0
+        },
+        "Throttles": {
+          "sum": 0
+        }
+      }
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": [
+      "process"
+    ],
+    "dataset": "aws.nova",
+    "provider": "bedrock.amazonaws.com",
+    "duration": 5581000000
+  },
+  "message": "Nova premier 5896->750 tokens 5.58s",
+  "log": {
+    "level": "warn"
+  }
+}

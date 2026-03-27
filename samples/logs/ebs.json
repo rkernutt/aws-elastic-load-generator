@@ -1,12 +1,12 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
-    "availability_zone": "eu-south-2c",
+    "region": "us-east-1",
+    "availability_zone": "us-east-1c",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "ebs"
@@ -14,53 +14,52 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-lbw0niwr2f8",
-      "VolumeType": "st1"
+      "VolumeId": "vol-xx2zsx7l5j",
+      "VolumeType": "io2"
     },
     "ebs": {
-      "volume_id": "vol-lbw0niwr2f8",
-      "volume_type": "st1",
-      "size_gb": 20,
-      "alarm_name": "ebs-volumereadops-vol-lbw0niwr2f8",
-      "alarm_state": "OK",
-      "metric_name": "VolumeReadOps",
-      "threshold": 33,
-      "current_value": 47,
-      "event_type": "alarm",
+      "volume_id": "vol-xx2zsx7l5j",
+      "modification_state": "optimizing",
+      "original_volume_type": "io1",
+      "target_volume_type": "st1",
+      "original_size_gb": 50,
+      "target_size_gb": 100,
+      "original_iops": 10698,
+      "target_iops": 7472,
+      "progress_percent": 10,
+      "event_type": "modification",
       "metrics": {
         "VolumeReadOps": {
-          "avg": 5481
+          "avg": 2280
         },
         "VolumeWriteOps": {
-          "avg": 1985
+          "avg": 7793
         },
         "VolumeReadBytes": {
-          "avg": 462491737
+          "avg": 192632042
         },
         "VolumeWriteBytes": {
-          "avg": 36811968
+          "avg": 134794231
         },
         "VolumeTotalReadTime": {
-          "sum": 1.317
+          "sum": 1.879
         },
         "VolumeTotalWriteTime": {
-          "sum": 8.279
+          "sum": 3.83
         },
         "VolumeIdleTime": {
-          "sum": 7.463
+          "sum": 48.895
         },
         "VolumeQueueLength": {
-          "avg": 2
+          "avg": 6
         },
         "VolumeThroughputPercentage": {
-          "avg": 68.448
+          "avg": 58.572
         },
         "VolumeConsumedReadWriteOps": {
-          "avg": 1893
+          "avg": 5852
         },
-        "BurstBalance": {
-          "avg": 91
-        }
+        "BurstBalance": {}
       }
     }
   },
@@ -72,9 +71,9 @@
     ],
     "dataset": "aws.ebs",
     "provider": "ec2.amazonaws.com",
-    "duration": 3371000000
+    "duration": 4915000000
   },
-  "message": "EBS CloudWatch alarm OK: VolumeReadOps on vol-lbw0niwr2f8 within normal range",
+  "message": "EBS volume vol-xx2zsx7l5j modification: io1/50GB -> st1/100GB [optimizing]",
   "log": {
     "level": "info"
   }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "me-central-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "ecs-memory",
+      "alarm_name": "api-latency",
       "alarm_state": "OK",
-      "previous_state": "INSUFFICIENT_DATA",
-      "namespace": "AWS/RDS",
-      "metric_name": "QueueDepth",
+      "previous_state": "OK",
+      "namespace": "AWS/ECS",
+      "metric_name": "DatabaseConnections",
       "threshold": 80,
-      "evaluation_periods": 3,
-      "metric_value": 53.582,
-      "statistic": "Sum",
+      "evaluation_periods": 1,
+      "metric_value": 2.645,
+      "statistic": "Maximum",
       "period_seconds": 60,
-      "treat_missing_data": "breaching"
+      "treat_missing_data": "notBreaching"
     }
   },
   "event": {
@@ -35,9 +35,9 @@
     ],
     "dataset": "aws.cloudwatch",
     "provider": "monitoring.amazonaws.com",
-    "duration": 300000000000
+    "duration": 3600000000000
   },
-  "message": "CloudWatch alarm \"ecs-memory\": OK (AWS/RDS/QueueDepth=53.6)",
+  "message": "CloudWatch alarm \"api-latency\": OK (AWS/ECS/DatabaseConnections=2.6)",
   "log": {
     "level": "info"
   }

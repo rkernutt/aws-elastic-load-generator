@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "artifact"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ReportName": "ISO-27001",
+      "ReportName": "SOC2-Type-II",
       "ReportCategory": "Certification"
     },
     "artifact": {
-      "report_name": "ISO-27001",
-      "report_arn": "arn:aws:artifact:::report/iso-27001",
+      "report_name": "SOC2-Type-II",
+      "report_arn": "arn:aws:artifact:::report/soc2-type-ii",
       "report_category": "Certification",
-      "report_period": "2024-Q4",
-      "agreement_name": "Non-Disclosure-Agreement",
-      "agreement_type": "DEFAULT",
-      "accessed_by": "globex-staging",
-      "download_format": "ZIP"
+      "report_period": "2024",
+      "agreement_name": "Business-Associate-Agreement",
+      "agreement_type": "CUSTOM",
+      "accessed_by": "globex-security-tooling",
+      "download_format": "PDF"
     }
   },
   "event": {
-    "action": "GetReportMetadata",
+    "action": "TerminateAgreement",
     "outcome": "success",
     "category": [
       "audit"
@@ -36,11 +36,11 @@
     "dataset": "aws.artifact",
     "provider": "artifact.amazonaws.com"
   },
-  "message": "Artifact: GetReportMetadata — ISO-27001 (Certification)",
+  "message": "Artifact: TerminateAgreement — SOC2-Type-II (Certification)",
   "log": {
     "level": "info"
   },
   "user": {
-    "name": "globex-staging"
+    "name": "globex-security-tooling"
   }
 }

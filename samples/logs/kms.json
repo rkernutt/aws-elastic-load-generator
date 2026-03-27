@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "kms"
@@ -13,32 +13,31 @@
   },
   "aws": {
     "kms": {
-      "key_id": "7rcqdzh8-diot-olb0-oub1-fn538xym5j",
-      "key_alias": "alias/backup-key",
+      "key_id": "98jbgk7n-l232-wzbw-01aw-x16hgi8m1o",
+      "key_alias": "alias/secrets-key",
       "operation": "Encrypt",
-      "principal_arn": "arn:aws:iam::814726593401:user/alice",
-      "key_state": "PendingDeletion",
-      "encryption_algorithm": "SYMMETRIC_DEFAULT",
-      "error_code": "KMSInvalidStateException",
+      "principal_arn": "arn:aws:iam::293847561023:role/lambda-role",
+      "key_state": "Enabled",
+      "encryption_algorithm": "RSAES_OAEP_SHA_256",
       "metrics": {
         "SecretsManagerCrossAccountBlocking": {
           "sum": 0
         },
         "KeysCount": {
-          "avg": 993
+          "avg": 913
         },
         "KeysPendingDeletion": {
-          "avg": 6
+          "avg": 0
         },
         "KeysDisabled": {
-          "avg": 1
+          "avg": 4
         }
       }
     }
   },
   "event": {
     "action": "Encrypt",
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "authentication",
       "configuration"
@@ -46,13 +45,8 @@
     "dataset": "aws.kms",
     "provider": "kms.amazonaws.com"
   },
-  "message": "KMS Encrypt FAILED on alias/backup-key: Key disabled",
+  "message": "KMS Encrypt: alias/secrets-key",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "DisabledException",
-    "message": "KMS operation failed",
-    "type": "access"
+    "level": "info"
   }
 }

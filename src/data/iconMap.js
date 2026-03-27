@@ -56,6 +56,10 @@ const AWS_SERVICE_ICON_MAP = {
   fis: "AWSFaultInjectionService", managedgrafana: "AmazonManagedGrafana",
   supplychain: "AWSSupplyChain", arc: "AWSApplicationRecoveryController",
   deadlinecloud: "AWSDeadlineCloud",
+  // v11.1 services
+  wavelength:         "AWSWavelength",
+  nova:               "AmazonNova",
+  lookoutvision:      "AmazonLookoutforVision",
   // v11.0 services
   appmesh:            "AWSAppMesh",
   clientvpn:          "AWSClientVPN",

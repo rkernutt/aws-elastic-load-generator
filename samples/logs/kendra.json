@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "kendra"
@@ -13,31 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "IndexId": "379mjjon-vefn-chc7-27pb-z5gihrbdt8",
-      "Operation": "StartDataSourceSyncJob"
+      "IndexId": "42paivmn-ub3n-qbkx-g2kl-vixhzq8sp5f",
+      "Operation": "QueryIndex"
     },
     "kendra": {
-      "index_id": "379mjjon-vefn-chc7-27pb-z5gihrbdt8",
-      "index_name": "hr-docs",
-      "result_count": 18,
-      "response_time_ms": 733,
-      "document_count": 414697,
-      "data_source_id": "ds-73irgsxxn9",
-      "data_source_type": "Confluence"
+      "index_id": "42paivmn-ub3n-qbkx-g2kl-vixhzq8sp5f",
+      "index_name": "support-articles",
+      "query_id": "k9z5px7x-5620-lj03-tmrt-0g76c34zuckj",
+      "query_text": "how to reset password",
+      "result_count": 9,
+      "response_time_ms": 568,
+      "relevance_score": 0.672,
+      "document_count": 149515,
+      "data_source_id": "ds-fht9ljc0gt",
+      "data_source_type": "S3"
     }
   },
   "log": {
     "level": "info"
   },
   "event": {
-    "action": "StartDataSourceSyncJob",
+    "action": "QueryIndex",
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.kendra",
     "provider": "kendra.amazonaws.com",
-    "duration": 733000000
+    "duration": 568000000
   },
-  "message": "Kendra StartDataSourceSyncJob: index=hr-docs"
+  "message": "Kendra QueryIndex: index=support-articles, results=9, score=0.67"
 }

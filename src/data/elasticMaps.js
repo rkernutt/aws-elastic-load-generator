@@ -62,6 +62,10 @@ const ELASTIC_DATASET_MAP = {
   deadlinecloud:    "aws.deadlinecloud",
   healthlake:       "aws.healthlake",
   arc:              "aws.arc",
+  // v11.1 new services
+  wavelength:       "aws.wavelength",
+  nova:             "aws.nova",
+  lookoutvision:    "aws.lookoutvision",
   // v11.0 new services
   appmesh:              "aws.appmesh",
   clientvpn:            "aws.clientvpn",
@@ -88,7 +92,7 @@ const ELASTIC_DATASET_MAP = {
 
 const METRICS_SUPPORTED_SERVICE_IDS = new Set([
   // Core compute & serverless
-  "lambda", "ec2", "ecs", "fargate", "eks", "apprunner", "elasticbeanstalk", "batch",
+  "lambda", "ec2", "ecs", "fargate", "eks", "apprunner", "elasticbeanstalk", "batch", "wavelength",
   // Compute (container registry & API layer)
   "ecr", "apigateway",
   // Networking & CDN
@@ -115,7 +119,7 @@ const METRICS_SUPPORTED_SERVICE_IDS = new Set([
   "lakeformation", "databrew", "appflow",
   // ML / AI services
   "rekognition", "textract", "comprehend", "comprehendmedical", "translate", "transcribe",
-  "polly", "forecast", "personalize", "lex", "lookoutmetrics", "qbusiness",
+  "polly", "forecast", "personalize", "lex", "lookoutmetrics", "qbusiness", "nova", "lookoutvision",
   // Developer & CI/CD
   "codebuild", "codepipeline", "codedeploy", "amplify",
   // Developer tools (extended)

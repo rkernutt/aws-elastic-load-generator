@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "eu-north-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "apprunner"
@@ -14,18 +14,18 @@
   "aws": {
     "dimensions": {
       "ServiceName": "admin-portal",
-      "ServiceId": "s9fnv38osqi"
+      "ServiceId": "0vn76bv5z8c"
     },
     "apprunner": {
       "service_name": "admin-portal",
-      "service_arn": "arn:aws:apprunner:ap-southeast-4:293847561023:service/admin-portal/s9fnv38osqi",
+      "service_arn": "arn:aws:apprunner:eu-north-1:501938274650:service/admin-portal/0vn76bv5z8c",
       "auto_scaling": {
-        "min_size": 1,
-        "max_size": 10,
-        "desired_count": 9,
+        "min_size": 0,
+        "max_size": 25,
+        "desired_count": 2,
         "scale_from_zero": false
       },
-      "structured_logging": false,
+      "structured_logging": true,
       "metrics": {
         "Requests": {
           "sum": 1
@@ -43,42 +43,42 @@
           "sum": 1
         },
         "RequestLatency": {
-          "avg": 192,
-          "p99": 576
+          "avg": 416,
+          "p99": 1248
         },
         "ActiveInstances": {
-          "avg": 10
+          "avg": 5
         },
         "ConcurrentRequests": {
-          "avg": 11
+          "avg": 41
         },
         "CPUUtilization": {
-          "avg": 22.944
+          "avg": 19.1
         },
         "MemoryUtilization": {
-          "avg": 26.239
+          "avg": 21.371
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "GET",
-      "bytes": 3628
+      "method": "POST",
+      "bytes": 2464
     },
     "response": {
-      "status_code": 201,
-      "bytes": 3278
+      "status_code": 200,
+      "bytes": 7639
     }
   },
   "url": {
-    "path": "/api/v2/events"
+    "path": "/health"
   },
   "client": {
-    "ip": "216.204.237.221"
+    "ip": "112.226.66.247"
   },
   "event": {
-    "duration": 192000000,
+    "duration": 416000000,
     "outcome": "success",
     "category": [
       "web",
@@ -87,7 +87,7 @@
     "dataset": "aws.apprunner",
     "provider": "apprunner.amazonaws.com"
   },
-  "message": "DELETE /health 201 192ms",
+  "message": "{\"service\":\"admin-portal\",\"status\":200,\"latency_ms\":416,\"timestamp\":\"2026-03-27T13:21:40.756Z\"}",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "fargate"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "worker",
+      "ServiceName": "scheduler",
       "ClusterName": "staging-cluster",
-      "TaskDefinitionFamily": "worker"
+      "TaskDefinitionFamily": "scheduler"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 57
+          "avg": 35
         },
         "CPUReservation": {
-          "avg": 57.17
+          "avg": 56.328
         },
         "MemoryUtilization": {
-          "avg": 42.944
+          "avg": 54.086
         },
         "MemoryReservation": {
-          "avg": 52.499
+          "avg": 68.04
         },
         "GPUReservation": {
           "avg": 0
@@ -38,17 +38,17 @@
     }
   },
   "container": {
-    "id": "4xuk82ywon6",
-    "name": "worker",
+    "id": "k7odg0hex4c",
+    "name": "scheduler",
     "image": {
-      "name": "myrepo/worker:latest",
+      "name": "myrepo/scheduler:latest",
       "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 12575,
-    "name": "worker"
+    "pid": 49409,
+    "name": "scheduler"
   },
   "log": {
     "level": "info"
@@ -61,7 +61,7 @@
     ],
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 1178000000000
+    "duration": 2373000000000
   },
-  "message": "{\"cluster\":\"staging-cluster\",\"taskId\":\"8clh8ivm4yq\",\"taskDefinition\":\"worker:40\",\"container\":\"worker\",\"level\":\"info\",\"message\":\"Scaling event: desired 3->5\",\"timestamp\":\"2026-03-27T12:56:06.485Z\"}"
+  "message": "{\"cluster\":\"staging-cluster\",\"taskId\":\"0a8kus89jr2i\",\"taskDefinition\":\"scheduler:39\",\"container\":\"scheduler\",\"level\":\"info\",\"message\":\"Task deregistered gracefully\",\"timestamp\":\"2026-03-27T13:21:40.756Z\"}"
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "connect"
@@ -13,58 +13,56 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "pt2e64t4-y63v-tu4n-2knk-km0d30br5h",
+      "InstanceId": "r0fpyp09-h6t6-59fk-bv2e-97gdj90wmku",
       "MetricGroup": "Queue"
     },
     "connect": {
-      "instance_id": "pt2e64t4-y63v-tu4n-2knk-km0d30br5h",
-      "contact_id": "ukc85jp4-cqi5-skb7",
+      "instance_id": "r0fpyp09-h6t6-59fk-bv2e-97gdj90wmku",
+      "contact_id": "hjpcvvrv-kcpn-ebnd",
       "channel": "TASK",
-      "initiation_method": "DISCONNECT",
-      "queue_name": "Billing",
-      "agent_id": "agent-carol",
-      "duration_seconds": 525,
-      "hold_duration_seconds": 30,
-      "queue_wait_time_seconds": 64,
+      "initiation_method": "TASK",
+      "queue_name": "Sales",
+      "duration_seconds": 1055,
+      "hold_duration_seconds": 75,
+      "queue_wait_time_seconds": 270,
       "disconnect_reason": "EXPIRED",
-      "sentiment_overall": "NEUTRAL",
-      "contact_lens_enabled": true,
-      "lex_bot_interacted": false,
-      "error_code": "QueueCapacityExceeded",
+      "sentiment_overall": "NEGATIVE",
+      "contact_lens_enabled": false,
+      "lex_bot_interacted": true,
       "metrics": {
         "ContactsQueued": {
           "sum": 1
         },
         "ContactsHandled": {
-          "sum": 0
+          "sum": 1
         },
         "ContactsAbandoned": {
-          "sum": 1
+          "sum": 0
         },
         "ContactsHoldAbandonment": {
-          "sum": 1
+          "sum": 0
         },
         "AverageHandleTime": {
-          "avg": 525
+          "avg": 1055
         },
         "AverageAfterContactWorkTime": {
-          "avg": 108
+          "avg": 161
         },
         "AverageQueueAnswerTime": {
-          "avg": 35
+          "avg": 54
         },
         "ServiceLevel": {
-          "avg": 92.935
+          "avg": 73.575
         },
         "OccupancyTime": {
-          "avg": 47.49
+          "avg": 91.027
         }
       }
     }
   },
   "event": {
-    "duration": 525000000000,
-    "outcome": "failure",
+    "duration": 1055000000000,
+    "outcome": "success",
     "category": [
       "host",
       "session"
@@ -72,13 +70,8 @@
     "dataset": "aws.connect",
     "provider": "connect.amazonaws.com"
   },
-  "message": "Connect DISCONNECT FAILED: Flow error",
-  "error": {
-    "code": "ConnectError",
-    "message": "Connect operation failed",
-    "type": "session"
-  },
+  "message": "Connect TASK: Sales, 1055s, NEGATIVE",
   "log": {
-    "level": "error"
+    "level": "warn"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "eu-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "states"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "dimensions": {
-      "StateMachineArn": "arn:aws:states:ap-east-1:293847561023:stateMachine:approval-workflow"
+      "StateMachineArn": "arn:aws:states:eu-south-1:738291046572:stateMachine:data-pipeline"
     },
     "stepfunctions": {
-      "state_machine_name": "approval-workflow",
-      "state_machine_arn": "arn:aws:states:ap-east-1:293847561023:stateMachine:approval-workflow",
-      "execution_arn": "arn:aws:states:ap-east-1:293847561023:execution:approval-workflow:i3eywkzn",
+      "state_machine_name": "data-pipeline",
+      "state_machine_arn": "arn:aws:states:eu-south-1:738291046572:stateMachine:data-pipeline",
+      "execution_arn": "arn:aws:states:eu-south-1:738291046572:execution:data-pipeline:h1otjtx4",
       "workflow_type": "EXPRESS",
-      "execution_start_time": "2026-03-27T12:55:54.446Z",
+      "execution_start_time": "2026-03-27T13:21:33.242Z",
       "state_name": "UpdateDatabase",
-      "state_duration_seconds": 4.985,
+      "state_duration_seconds": 5.72,
       "status": "SUCCEEDED",
-      "duration_seconds": 12.039,
-      "structured_logging": true,
+      "duration_seconds": 7.514,
+      "structured_logging": false,
       "metrics": {
         "ExecutionsStarted": {
-          "sum": 38910
+          "sum": 13244
         },
         "ExecutionsSucceeded": {
-          "sum": 26706
+          "sum": 78429
         },
         "ExecutionsFailed": {
           "sum": 0
@@ -40,8 +40,8 @@
           "sum": 0
         },
         "ExecutionTime": {
-          "avg": 12039,
-          "p99": 36117
+          "avg": 7514,
+          "p99": 22542
         },
         "ExecutionsTimedOut": {
           "sum": 0
@@ -50,13 +50,13 @@
     }
   },
   "event": {
-    "duration": 12039000000,
+    "duration": 7514000000,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.stepfunctions",
     "provider": "states.amazonaws.com"
   },
-  "message": "{\"executionArn\":\"arn:aws:states:ap-east-1:293847561023:execution:approval-workflow:i3eywkzn\",\"stateMachine\":\"approval-workflow\",\"workflowType\":\"EXPRESS\",\"state\":\"UpdateDatabase\",\"status\":\"SUCCEEDED\",\"durationSeconds\":12.039,\"timestamp\":\"2026-03-27T12:56:06.485Z\"}",
+  "message": "Execution succeeded",
   "log": {
     "level": "info"
   }

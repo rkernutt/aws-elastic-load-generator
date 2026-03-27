@@ -167,6 +167,10 @@ const SERVICE_INGESTION_DEFAULTS = {
   codecatalyst:    "cloudwatch",
   devicefarm:      "cloudwatch",
   deadlinecloud:   "cloudwatch",
+  // v11.1 new services
+  wavelength:          "cloudwatch",
+  nova:                "cloudwatch",
+  lookoutvision:       "cloudwatch",
   // v11.0 new services
   appmesh:             "cloudwatch",
   clientvpn:           "cloudwatch",

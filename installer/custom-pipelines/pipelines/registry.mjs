@@ -472,4 +472,8 @@ export const PIPELINE_REGISTRY = [
   { id: "logs-aws.chatbot-default",             dataset: "aws.chatbot",             group: "management",   description: "Parse Chatbot notification delivery event JSON",               processors: json("chatbot")             },
   // Media
   { id: "logs-aws.chimesdkvoice-default",       dataset: "aws.chimesdkvoice",       group: "media",        description: "Parse Chime SDK Voice call quality and SIP event JSON",       processors: json("chimesdkvoice")       },
+  // ── v11.1 NEW SERVICES ──────────────────────────────────────────────────────
+  { id: "logs-aws.wavelength-default",          dataset: "aws.wavelength",          group: "compute",      description: "Parse Wavelength 5G edge compute and carrier gateway event JSON", processors: json("wavelength")          },
+  { id: "logs-aws.nova-default",                dataset: "aws.nova",                group: "aiml",         description: "Parse Amazon Nova foundation model invocation log JSON",         processors: json("nova")                },
+  { id: "logs-aws.lookoutvision-default",       dataset: "aws.lookoutvision",       group: "aiml",         description: "Parse Lookout for Vision anomaly detection and training JSON",   processors: json("lookoutvision")       },
 ];

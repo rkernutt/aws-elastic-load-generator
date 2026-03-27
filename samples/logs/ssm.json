@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "me-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "systemsmanager"
@@ -13,13 +13,13 @@
   },
   "aws": {
     "ssm": {
-      "command_id": "kvywtm3q-brg2-njrx",
-      "document_name": "AWS-RunShellScript",
-      "instance_id": "i-f3h0bni7e3c",
-      "action": "PatchInstance",
+      "command_id": "5vn91qft-1x94-ftfq",
+      "document_name": "AWS-ApplyPatchBaseline",
+      "instance_id": "i-uo2tt3qitd",
+      "action": "PutParameter",
       "execution_status": "Success",
       "response_code": 0,
-      "patch_compliance": "Compliant",
+      "parameter_name": "/prod/db/password",
       "structured_logging": true,
       "metrics": {
         "CommandsSucceeded": {
@@ -38,10 +38,10 @@
           "sum": 1
         },
         "SessionDuration": {
-          "avg": 112
+          "avg": 169
         },
         "PatchComplianceCount": {
-          "avg": 193
+          "avg": 325
         }
       }
     }
@@ -55,9 +55,9 @@
     ],
     "dataset": "aws.ssm",
     "provider": "ssm.amazonaws.com",
-    "duration": 6000000000
+    "duration": 29000000000
   },
-  "message": "{\"commandId\":\"kvywtm3q-brg2-njrx\",\"documentName\":\"AWS-RunShellScript\",\"instanceId\":\"i-f3h0bni7e3c\",\"action\":\"PatchInstance\",\"status\":\"Success\",\"timestamp\":\"2026-03-27T12:56:06.485Z\"}",
+  "message": "{\"commandId\":\"5vn91qft-1x94-ftfq\",\"documentName\":\"AWS-ApplyPatchBaseline\",\"instanceId\":\"i-uo2tt3qitd\",\"action\":\"PutParameter\",\"status\":\"Success\",\"timestamp\":\"2026-03-27T13:21:40.756Z\"}",
   "log": {
     "level": "info"
   }

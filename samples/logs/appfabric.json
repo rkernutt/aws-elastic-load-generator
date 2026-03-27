@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "appfabric"
@@ -14,21 +14,21 @@
   "aws": {
     "dimensions": {
       "AppBundle": "saas-audit-bundle",
-      "Application": "Microsoft365"
+      "Application": "ServiceNow"
     },
     "appfabric": {
-      "app_bundle_arn": "arn:aws:appfabric:eu-west-1:293847561023:appbundle/saas-audit-bundle",
-      "application": "Microsoft365",
-      "event_type": "dataExport",
-      "normalized_user": "user-TT33SS4K@example.com",
-      "source_ip": "119.173.64.5",
+      "app_bundle_arn": "arn:aws:appfabric:eu-west-3:164820739518:appbundle/saas-audit-bundle",
+      "application": "ServiceNow",
+      "event_type": "userCreated",
+      "normalized_user": "user-K2IRPRCF@example.com",
+      "source_ip": "27.69.6.181",
       "ingestion_status": "ACTIVE",
-      "tenant_id": "tenant-TLCAB0B7",
+      "tenant_id": "tenant-0FKL6SPA",
       "ocsf_class": "FILE_ACTIVITY"
     }
   },
   "event": {
-    "action": "IngestAuditLog",
+    "action": "DeliverToS3",
     "outcome": "success",
     "category": [
       "audit"
@@ -36,14 +36,14 @@
     "dataset": "aws.appfabric",
     "provider": "appfabric.amazonaws.com"
   },
-  "message": "AppFabric Microsoft365: dataExport by user-TT33SS4K@example.com normalized as OCSF FILE_ACTIVITY",
+  "message": "AppFabric ServiceNow: userCreated by user-K2IRPRCF@example.com normalized as OCSF FILE_ACTIVITY",
   "log": {
     "level": "info"
   },
   "user": {
-    "email": "user-TT33SS4K@example.com"
+    "email": "user-K2IRPRCF@example.com"
   },
   "source": {
-    "ip": "119.173.64.5"
+    "ip": "27.69.6.181"
   }
 }

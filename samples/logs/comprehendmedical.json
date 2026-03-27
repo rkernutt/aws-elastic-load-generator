@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "comprehendmedical"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "InferICD10CM"
+      "Operation": "StartEntitiesDetectionV2Job"
     },
     "comprehendmedical": {
-      "operation": "InferICD10CM",
-      "entities_detected": 23,
+      "operation": "StartEntitiesDetectionV2Job",
+      "entities_detected": 10,
       "phi_entities": 7,
-      "icd10_concepts": 3,
-      "text_characters": 2969,
-      "data_access_role_arn": "arn:aws:iam::814726593401:role/ComprehendMedicalRole",
-      "s3_bucket": "ehr-processed"
+      "text_characters": 2333,
+      "job_id": "f5kkvjnh62n",
+      "data_access_role_arn": "arn:aws:iam::164820739518:role/ComprehendMedicalRole",
+      "s3_bucket": "clinical-notes"
     }
   },
   "event": {
@@ -33,7 +33,7 @@
     "dataset": "aws.comprehendmedical",
     "provider": "comprehendmedical.amazonaws.com"
   },
-  "message": "Comprehend Medical InferICD10CM: 23 entities, 7 PHI",
+  "message": "Comprehend Medical StartEntitiesDetectionV2Job: 10 entities, 7 PHI",
   "log": {
     "level": "warn"
   }

@@ -1,0 +1,61 @@
+{
+  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "wavelength"
+    },
+    "availability_zone": "us-east-1-wl1-bos-wlz-1",
+    "instance": {
+      "id": "i-o2beji16dd"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "WavelengthZone": "us-east-1-wl1-bos-wlz-1",
+      "InstanceId": "i-o2beji16dd",
+      "CarrierGatewayId": "cagw-rv8zxg24hxa"
+    },
+    "wavelength": {
+      "zone": "us-east-1-wl1-bos-wlz-1",
+      "carrier": "Verizon",
+      "city": "Boston",
+      "instance_id": "i-o2beji16dd",
+      "instance_type": "t3.medium",
+      "carrier_gateway_id": "cagw-rv8zxg24hxa",
+      "subnet_id": "subnet-d33srqtglc",
+      "carrier_ip": "3.203.240.210",
+      "ue_ip": "14.148.40.144",
+      "bandwidth_allowance_gbps": 18,
+      "network": {
+        "uplink_mbps": 459.666,
+        "downlink_mbps": 908.487,
+        "latency_ms": 1.604,
+        "packet_loss_pct": 0.081
+      }
+    }
+  },
+  "source": {
+    "ip": "14.148.40.144"
+  },
+  "event": {
+    "action": "BandwidthThrottled",
+    "outcome": "success",
+    "category": [
+      "network",
+      "host"
+    ],
+    "dataset": "aws.wavelength",
+    "provider": "ec2.amazonaws.com",
+    "duration": 226000000
+  },
+  "message": "Wavelength [Boston/Verizon] i-o2beji16dd (t3.medium) UL=460Mbps DL=908Mbps lat=1.6ms",
+  "log": {
+    "level": "info"
+  }
+}

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "computeoptimizer"
@@ -13,27 +13,27 @@
   },
   "aws": {
     "computeoptimizer": {
-      "resource_type": "EBS_VOLUME",
-      "resource_arn": "arn:aws:ec2:eu-south-1:814726593401:instance/i-xr96fp9t3al",
+      "resource_type": "AUTO_SCALING_GROUP",
+      "resource_arn": "arn:aws:ec2:ca-central-1:164820739518:instance/i-0srr7vttwk8k",
       "finding": "OVERPROVISIONED",
       "current_configuration": {
         "instance_type": "r5.large",
-        "vcpu": 27,
-        "memory_gb": 52
+        "vcpu": 2,
+        "memory_gb": 102
       },
       "recommended_configuration": {
-        "instance_type": "m5.large",
-        "vcpu": 9,
-        "memory_gb": 42
+        "instance_type": "t3.small",
+        "vcpu": 3,
+        "memory_gb": 35
       },
-      "estimated_monthly_savings_usd": 440.662,
-      "estimated_monthly_savings_percent": 48.807,
-      "lookback_period_days": 14,
+      "estimated_monthly_savings_usd": 490.594,
+      "estimated_monthly_savings_percent": 48.493,
+      "lookback_period_days": 93,
       "utilization": {
-        "cpu_max": 16.366,
-        "memory_max": 39.82
+        "cpu_max": 64.724,
+        "memory_max": 15.512
       },
-      "performance_risk": "High"
+      "performance_risk": "Low"
     }
   },
   "event": {
@@ -44,9 +44,9 @@
     ],
     "dataset": "aws.computeoptimizer",
     "provider": "compute-optimizer.amazonaws.com",
-    "duration": 58000000000
+    "duration": 25000000000
   },
-  "message": "Compute Optimizer: EBS_VOLUME OVERPROVISIONED — downsize r5.large→m5.large, save 441/mo",
+  "message": "Compute Optimizer: AUTO_SCALING_GROUP OVERPROVISIONED — downsize r5.large→t3.small, save 491/mo",
   "log": {
     "level": "info"
   }

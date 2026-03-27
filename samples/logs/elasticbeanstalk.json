@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "us-west-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "elasticbeanstalk"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "my-web-app-staging",
-      "InstanceId": "i-rarw4tnmc69"
+      "EnvironmentName": "my-web-app-dev",
+      "InstanceId": "i-mrkes68vb6l"
     },
     "elasticbeanstalk": {
       "application": "my-web-app",
-      "environment": "my-web-app-staging",
-      "structured_logging": true,
-      "platform": "Python 3.11",
-      "version_label": "v125",
+      "environment": "my-web-app-dev",
+      "structured_logging": false,
+      "platform": "Docker",
+      "version_label": "v136",
       "metrics": {
         "ApplicationRequests2xx": {
-          "sum": 1
+          "sum": 0
         },
         "ApplicationRequests3xx": {
-          "sum": 0
+          "sum": 1
         },
         "ApplicationRequests4xx": {
           "sum": 0
@@ -36,28 +36,28 @@
           "sum": 0
         },
         "ApplicationLatencyP10": {
-          "avg": 14.56
+          "avg": 10.567
         },
         "ApplicationLatencyP50": {
-          "avg": 17.508
+          "avg": 16.634
         },
         "ApplicationLatencyP75": {
-          "avg": 28.348
+          "avg": 31.827
         },
         "ApplicationLatencyP85": {
-          "avg": 33.994
+          "avg": 35.124
         },
         "ApplicationLatencyP90": {
-          "avg": 36.976
+          "avg": 43.765
         },
         "ApplicationLatencyP95": {
-          "avg": 72.331
+          "avg": 65.724
         },
         "ApplicationLatencyP99": {
-          "avg": 206.579
+          "avg": 99.351
         },
         "ApplicationLatencyP99.9": {
-          "avg": 321.372
+          "avg": 144.499
         },
         "ApplicationRequests": {
           "sum": 1
@@ -72,7 +72,7 @@
           "avg": 0
         },
         "InstancesOk": {
-          "avg": 6
+          "avg": 4
         },
         "EnvironmentHealth": {
           "avg": 20
@@ -82,7 +82,7 @@
   },
   "http": {
     "response": {
-      "status_code": 201
+      "status_code": 301
     }
   },
   "log": {
@@ -96,7 +96,7 @@
     "outcome": "success",
     "dataset": "aws.elasticbeanstalk",
     "provider": "elasticbeanstalk.amazonaws.com",
-    "duration": 77000000000
+    "duration": 42000000000
   },
-  "message": "{\"application\":\"my-web-app\",\"environment\":\"my-web-app-staging\",\"status\":201,\"message\":\"Deployment completed successfully\",\"timestamp\":\"2026-03-27T12:56:06.485Z\"}"
+  "message": "Deployment completed successfully"
 }

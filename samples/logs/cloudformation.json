@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "eu-north-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "cloudformation"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "cloudformation": {
-      "stack_name": "prod-web-stack",
-      "stack_id": "arn:aws:cloudformation:ap-northeast-3:738291046572:stack/prod-web-stack/aod2hz5l",
-      "action": "DETECT_DRIFT",
-      "stack_status": "CREATE_COMPLETE",
+      "stack_name": "vpc-infra",
+      "stack_id": "arn:aws:cloudformation:eu-north-1:501938274650:stack/vpc-infra/bzx5nh3t",
+      "action": "UPDATE_STACK",
+      "stack_status": "CREATE_IN_PROGRESS",
       "resource_type": "AWS::ECS::Service",
-      "logical_resource_id": "VPC",
-      "drift_status": "DRIFTED",
+      "logical_resource_id": "ApiFunction",
+      "drift_status": "IN_SYNC",
       "structured_logging": true,
       "metrics": {
         "TotalStack": {
-          "avg": 487
+          "avg": 460
         },
         "ErroredStack": {
           "avg": 0
@@ -32,10 +32,10 @@
           "avg": 0
         },
         "DeletedStack": {
-          "avg": 3
+          "avg": 49
         },
         "StackInstancesDeployed": {
-          "avg": 9807
+          "avg": 8396
         }
       }
     }
@@ -48,9 +48,9 @@
     ],
     "dataset": "aws.cloudformation",
     "provider": "cloudformation.amazonaws.com",
-    "duration": 462000000000
+    "duration": 360000000000
   },
-  "message": "{\"stackName\":\"prod-web-stack\",\"action\":\"DETECT_DRIFT\",\"stackStatus\":\"CREATE_COMPLETE\",\"resourceType\":\"AWS::ECS::Service\",\"message\":\"CloudFormation prod-web-stack: DETECT_DRIFT -> CREATE_COMPLETE\",\"timestamp\":\"2026-03-27T12:56:06.485Z\"}",
+  "message": "{\"stackName\":\"vpc-infra\",\"action\":\"UPDATE_STACK\",\"stackStatus\":\"CREATE_IN_PROGRESS\",\"resourceType\":\"AWS::ECS::Service\",\"message\":\"CloudFormation vpc-infra: UPDATE_STACK -> CREATE_IN_PROGRESS\",\"timestamp\":\"2026-03-27T13:21:40.756Z\"}",
   "log": {
     "level": "info"
   }

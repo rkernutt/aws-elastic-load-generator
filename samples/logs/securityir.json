@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "eu-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "securityir"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "CaseId": "case-64ugfnbd",
+      "CaseId": "case-np4gyszu",
       "Severity": "MEDIUM"
     },
     "securityir": {
-      "case_id": "case-64ugfnbd",
-      "case_title": "Ransomware detection",
-      "case_status": "POST_INCIDENT",
+      "case_id": "case-np4gyszu",
+      "case_title": "Credential compromise",
+      "case_status": "CONTAINMENT",
       "severity": "MEDIUM",
-      "impacted_account_count": 2,
-      "impacted_services": "EC2,S3,IAM",
-      "resolver_type": "SELF_MANAGED",
-      "engagement_type": "SECURITY_INCIDENT",
-      "case_arn": "arn:aws:security-ir:ap-southeast-4:814726593401:case/case-64ugfnbd"
+      "impacted_account_count": 4,
+      "impacted_services": "RDS,Secrets Manager",
+      "resolver_type": "AWS",
+      "engagement_type": "COMPROMISE_ASSESSMENT",
+      "case_arn": "arn:aws:security-ir:eu-central-1:164820739518:case/case-np4gyszu"
     }
   },
   "event": {
-    "action": "CloseCase",
+    "action": "CreateCaseComment",
     "outcome": "success",
     "category": [
       "intrusion_detection",
@@ -38,7 +38,7 @@
     "dataset": "aws.securityir",
     "provider": "security-ir.amazonaws.com"
   },
-  "message": "Security IR CloseCase: case=case-64ugfnbd severity=MEDIUM status=POST_INCIDENT",
+  "message": "Security IR CreateCaseComment: case=case-np4gyszu severity=MEDIUM status=CONTAINMENT",
   "log": {
     "level": "warn"
   }

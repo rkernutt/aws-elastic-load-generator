@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "me-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "amazonmq"
@@ -13,77 +13,82 @@
   },
   "aws": {
     "amazonmq": {
-      "broker_id": "b-a9q3mbb8-q2uk",
-      "broker_name": "events-broker",
+      "broker_id": "b-xv4ma8yb-18zr",
+      "broker_name": "prod-broker",
       "broker_engine": "ActiveMQ",
       "engine_version": "5.17.6",
       "deployment_mode": "SINGLE_INSTANCE",
       "queue_name": "notification.exchange",
-      "messages_in": 8342,
-      "messages_out": 5621,
-      "queue_depth": 3652,
-      "broker_memory_percent": 43,
+      "messages_in": 8345,
+      "messages_out": 2162,
+      "queue_depth": 249491,
+      "broker_memory_percent": 82,
       "metrics": {
         "ConsumerCount": {
-          "avg": 99
+          "avg": 15
         },
         "ProducerCount": {
-          "avg": 35
+          "avg": 1
         },
         "QueueSize": {
-          "avg": 6324
+          "avg": 7523
         },
         "EnqueueCount": {
-          "sum": 4627
+          "sum": 9667
         },
         "DequeueCount": {
-          "sum": 117
+          "sum": 4294
         },
         "InFlightCount": {
-          "avg": 24
+          "avg": 218
         },
         "DispatchCount": {
-          "sum": 5159
+          "sum": 9069
         },
         "ExpiredCount": {
-          "sum": 43
+          "sum": 0
         },
         "NetworkConnectorStarted": {
           "sum": 0
         },
         "HeapUsage": {
-          "avg": "43.819"
+          "avg": "62.926"
         },
         "StorePercentUsage": {
-          "avg": "57.406"
+          "avg": "43.505"
         },
         "TotalEnqueueCount": {
-          "sum": 252479
+          "sum": 463660
         },
         "TotalDequeueCount": {
-          "sum": 972194
+          "sum": 973331
         },
         "TotalConsumerCount": {
-          "avg": 20
+          "avg": 1
         },
         "TotalProducerCount": {
-          "avg": 19
+          "avg": 20
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process",
       "network"
     ],
     "dataset": "aws.amazonmq",
     "provider": "mq.amazonaws.com",
-    "duration": 1687000000
+    "duration": 17052000000
   },
-  "message": "Consumer registered",
+  "message": "Broker disk usage exceeded 90%",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "BrokerError",
+    "message": "Broker disk usage exceeded 90%",
+    "type": "messaging"
   }
 }

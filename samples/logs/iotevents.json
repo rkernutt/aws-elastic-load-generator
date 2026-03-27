@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "ap-south-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "iotevents"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorModelName": "motor-health-detector",
-      "KeyValue": "unit-02"
+      "DetectorModelName": "temperature-alert-model",
+      "KeyValue": "zone-B"
     },
     "iotevents": {
-      "detector_model_name": "motor-health-detector",
-      "detector_id": "unit-02",
-      "key_value": "unit-02",
-      "event_name": "AlarmAcknowledged",
-      "from_state": "Alarm",
-      "to_state": "Normal",
-      "input_name": "CommandInput",
-      "action_type": "SQS",
-      "timer_name": "alarmTimer"
+      "detector_model_name": "temperature-alert-model",
+      "detector_id": "zone-B",
+      "key_value": "zone-B",
+      "event_name": "ActionExecuted",
+      "from_state": "Warning",
+      "to_state": "Alarm",
+      "input_name": "SensorInput",
+      "action_type": "SetVariable",
+      "condition_expression": "$input.SensorInput.temperature > 85"
     }
   },
   "event": {
@@ -35,10 +35,10 @@
     ],
     "dataset": "aws.iotevents",
     "provider": "iotevents.amazonaws.com",
-    "duration": 290000000
+    "duration": 171000000
   },
-  "message": "IoT Events motor-health-detector/unit-02: Alarm → Normal [AlarmAcknowledged]",
+  "message": "IoT Events temperature-alert-model/zone-B: Warning → Alarm [ActionExecuted]",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ap-northeast-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "JobName": "fix-encoding-job",
-      "DatasetName": "sales-csv"
+      "JobName": "clean-customer-data-job",
+      "DatasetName": "product-catalog"
     },
     "databrew": {
-      "project_name": "sales-csv-project",
-      "recipe_name": "fix-encoding",
-      "job_name": "fix-encoding-job",
+      "project_name": "product-catalog-project",
+      "recipe_name": "clean-customer-data",
+      "job_name": "clean-customer-data-job",
       "job_type": "PROFILE",
-      "dataset_name": "sales-csv",
+      "dataset_name": "product-catalog",
       "job_status": "SUCCEEDED",
       "run_state": "SUCCEEDED",
-      "duration_seconds": 327,
-      "rows_processed": 7763233,
-      "transform_steps": 11,
-      "output_location": "s3://databrew-output/sales-csv/",
+      "duration_seconds": 136,
+      "rows_processed": 3676723,
+      "transform_steps": 21,
+      "output_location": "s3://databrew-output/product-catalog/",
       "metrics": {
         "RowsProcessed": {
-          "sum": 7763233
+          "sum": 3676723
         },
         "DurationSeconds": {
-          "avg": 327
+          "avg": 136
         },
         "TransformSteps": {
-          "avg": 11
+          "avg": 21
         },
         "JobSuccessCount": {
           "sum": 1
@@ -48,7 +48,7 @@
     }
   },
   "event": {
-    "duration": 327000000000,
+    "duration": 136000000000,
     "outcome": "success",
     "category": [
       "process"

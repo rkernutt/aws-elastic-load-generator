@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "msk"
@@ -13,41 +13,41 @@
   },
   "aws": {
     "dimensions": {
-      "Cluster Name": "prod-kafka-us-west-1",
-      "Broker ID": "6",
-      "Topic": "payments"
+      "Cluster Name": "prod-kafka-ca-central-1",
+      "Broker ID": "4",
+      "Topic": "order-updates"
     },
     "msk": {
-      "cluster_name": "prod-kafka-us-west-1",
-      "broker_id": 6,
+      "cluster_name": "prod-kafka-ca-central-1",
+      "broker_id": 4,
       "kafka_version": "3.5.1",
-      "topic": "payments",
-      "partition": 14,
-      "offset": 68473564,
-      "consumer_group": "alerting-service",
-      "lag": 871820,
-      "under_replicated_partitions": 11,
+      "topic": "order-updates",
+      "partition": 12,
+      "offset": 27529934,
+      "consumer_group": "analytics-consumer",
+      "lag": 54,
+      "under_replicated_partitions": 0,
       "metrics": {
         "BytesInPerSec": {
-          "avg": 824921
+          "avg": 979768
         },
         "BytesOutPerSec": {
-          "avg": 7791622
+          "avg": 7633799
         },
         "MessagesInPerSec": {
-          "avg": 3187
+          "avg": 8712
         },
         "FetchConsumerTotalTimeMsMean": {
-          "avg": 93
+          "avg": 77
         },
         "ProduceTotalTimeMsMean": {
           "avg": 18
         },
         "UnderReplicatedPartitions": {
-          "avg": 4
+          "avg": 0
         },
         "UnderMinIsrPartitionCount": {
-          "avg": 1
+          "avg": 0
         },
         "OfflinePartitionsCount": {
           "avg": 0
@@ -56,19 +56,19 @@
           "avg": 1
         },
         "GlobalPartitionCount": {
-          "avg": 10
+          "avg": 247
         },
         "GlobalTopicCount": {
-          "avg": 7
+          "avg": 51
         },
         "KafkaDataLogsDiskUsed": {
-          "avg": "19.123"
+          "avg": "69.653"
         },
         "CPUUser": {
-          "avg": "28.454"
+          "avg": "16.927"
         },
         "CPUSystem": {
-          "avg": "8.618"
+          "avg": "13.476"
         },
         "NetworkRxDropped": {
           "sum": 0
@@ -80,26 +80,21 @@
     }
   },
   "kafka": {
-    "topic": "payments",
-    "partition": 14
+    "topic": "order-updates",
+    "partition": 12
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process",
       "network"
     ],
     "dataset": "aws.msk",
     "provider": "kafka.amazonaws.com",
-    "duration": 3793000000
+    "duration": 17000000
   },
-  "message": "MSK broker issue: under-replicated partitions on payments",
+  "message": "MSK order-updates[12] offset=38885020",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "UnderReplicatedPartitions",
-    "message": "MSK partition replication lag",
-    "type": "stream"
+    "level": "info"
   }
 }

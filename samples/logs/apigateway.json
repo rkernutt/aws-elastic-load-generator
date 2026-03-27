@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "apigateway"
@@ -13,42 +13,42 @@
   },
   "aws": {
     "dimensions": {
-      "ApiName": "prod-api",
-      "Stage": "v1",
-      "Method": "POST",
-      "Resource": "/api/v1/auth/login"
+      "ApiName": "partner-api",
+      "Stage": "prod",
+      "Method": "GET",
+      "Resource": "/health"
     },
     "apigateway": {
-      "request_id": "ep7ieag5-nlzf",
-      "api_id": "beyhnb8ris",
-      "domain_name": "beyhnb8ris.execute-api.eu-west-1.amazonaws.com",
-      "stage": "v1",
-      "http_method": "POST",
-      "resource_path": "/api/v1/auth/login",
+      "request_id": "pxyjt1cq-m8f7",
+      "api_id": "3buo7aoc71",
+      "domain_name": "3buo7aoc71.execute-api.us-west-2.amazonaws.com",
+      "stage": "prod",
+      "http_method": "GET",
+      "resource_path": "/health",
       "protocol": "HTTP/1.1",
-      "route_key": "POST /api/v1/auth/login",
-      "status": 204,
-      "response_length": 9117,
-      "ip_address": "105.241.24.205",
-      "caller": "arn:aws:iam::164820739518:user/api-user",
-      "connection_id": "L2LNVS3H6E",
-      "event_type": "DISCONNECT",
-      "request_time": "2026-03-27T12:56:06.485Z",
+      "route_key": "GET /health",
+      "status": 403,
+      "response_length": 923,
+      "ip_address": "22.180.204.127",
+      "caller": "arn:aws:iam::501938274650:user/api-user",
+      "connection_id": "Z5J1XR27CC",
+      "event_type": "CONNECT",
+      "request_time": "2026-03-27T13:21:40.756Z",
       "api_type": "HTTP",
-      "integration_latency": 407,
+      "integration_latency": 3376,
       "metrics": {
         "Count": {
           "sum": 1
         },
         "Latency": {
-          "avg": 727,
-          "p99": 2181
+          "avg": 4098,
+          "p99": 12294
         },
         "IntegrationLatency": {
-          "avg": 407
+          "avg": 3376
         },
         "4XXError": {
-          "sum": 0
+          "sum": 1
         },
         "5XXError": {
           "sum": 0
@@ -58,34 +58,34 @@
   },
   "http": {
     "request": {
-      "method": "POST",
-      "id": "ep7ieag5-nlzf",
-      "bytes": 3050
+      "method": "GET",
+      "id": "pxyjt1cq-m8f7",
+      "bytes": 1551
     },
     "response": {
-      "status_code": 204,
-      "bytes": 8020
+      "status_code": 403,
+      "bytes": 2771
     }
   },
   "url": {
-    "path": "/api/v1/auth/login",
-    "domain": "beyhnb8ris.execute-api.af-south-1.amazonaws.com"
+    "path": "/health",
+    "domain": "3buo7aoc71.execute-api.us-east-1.amazonaws.com"
   },
   "client": {
-    "ip": "100.149.230.112",
+    "ip": "34.127.187.12",
     "geo": {
-      "country_iso_code": "BR",
-      "country_name": "Brazil",
-      "region_name": "São Paulo",
-      "city_name": "São Paulo"
+      "country_iso_code": "DE",
+      "country_name": "Germany",
+      "region_name": "Frankfurt",
+      "city_name": "Frankfurt"
     }
   },
   "user_agent": {
-    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    "original": "python-requests/2.27.1"
   },
   "event": {
-    "duration": 727000000,
-    "outcome": "success",
+    "duration": 4098000000,
+    "outcome": "failure",
     "category": [
       "web"
     ],
@@ -95,8 +95,13 @@
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "{\"requestId\":\"ep7ieag5-nlzf\",\"requestMethod\":\"POST\",\"requestPath\":\"/api/v1/auth/login\",\"status\":204,\"responseLatency\":727,\"integrationLatency\":407,\"timestamp\":\"2026-03-27T12:56:06.485Z\"}",
+  "message": "GET /health 403 4098ms",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "AccessDeniedException",
+    "message": "HTTP 403",
+    "type": "server"
   }
 }

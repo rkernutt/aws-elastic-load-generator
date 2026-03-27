@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "eu-south-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "KeyAlgorithm": "RSA_2048",
-      "Operation": "GenerateMac"
+      "KeyAlgorithm": "AES_192",
+      "Operation": "VerifyPinData"
     },
     "paymentcryptography": {
-      "key_arn": "arn:aws:payment-cryptography:me-central-1:293847561023:key/E5UX7QKKA6W",
-      "key_alias": "alias/payment-pin-key",
-      "key_algorithm": "RSA_2048",
-      "key_usage": "TR31_B0_BASE_DERIVATION_KEY",
-      "operation": "GenerateMac",
+      "key_arn": "arn:aws:payment-cryptography:eu-south-2:293847561023:key/68YGD74N9D",
+      "key_alias": "alias/payment-dek-key",
+      "key_algorithm": "AES_192",
+      "key_usage": "TR31_P0_PIN_ENCRYPTION_KEY",
+      "operation": "VerifyPinData",
       "key_state": "CREATE_COMPLETE",
       "exportable": false,
-      "key_check_value": "FEJITI"
+      "key_check_value": "4AF86N"
     }
   },
   "event": {
-    "action": "GenerateMac",
+    "action": "DecryptData",
     "outcome": "success",
     "category": [
       "authentication"
@@ -36,7 +36,7 @@
     "dataset": "aws.paymentcryptography",
     "provider": "payment-cryptography.amazonaws.com"
   },
-  "message": "Payment Cryptography GenerateMac using RSA_2048 (B0)",
+  "message": "Payment Cryptography VerifyPinData using AES_192 (P0)",
   "log": {
     "level": "info"
   }

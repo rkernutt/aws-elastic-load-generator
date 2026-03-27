@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "us-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "cloudmap"
@@ -13,37 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "Namespace": "prod-namespace",
+      "Namespace": "staging-namespace",
       "ServiceName": "notification"
     },
     "cloudmap": {
-      "namespace": "prod-namespace",
+      "namespace": "staging-namespace",
       "service_name": "notification",
-      "instance_id": "i-shz7b4u7fi9",
-      "operation": "DiscoverInstances",
-      "health_status": "UNHEALTHY",
-      "instances_returned": 9,
-      "query_type": "API",
-      "ttl": 300
+      "instance_id": "i-011heoxvplfqa",
+      "operation": "RegisterInstance",
+      "health_status": "HEALTHY",
+      "instances_returned": 5,
+      "query_type": "HTTP",
+      "ttl": 30
     }
   },
   "event": {
     "action": "RoutingPolicyUpdate",
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "network"
     ],
     "dataset": "aws.cloudmap",
     "provider": "cloudmap.amazonaws.com",
-    "duration": 381000000
+    "duration": 18000000
   },
-  "message": "Cloud Map notification: instance i-shz7b4u7fi9 unhealthy",
+  "message": "Cloud Map notification: RegisterInstance returned 5 instances",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "HealthCheckFailed",
-    "message": "Instance i-shz7b4u7fi9 health status: UNHEALTHY",
-    "type": "network"
+    "level": "info"
   }
 }

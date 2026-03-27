@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "us-east-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "dms"
@@ -13,48 +13,69 @@
   },
   "aws": {
     "dimensions": {
-      "ReplicationInstanceIdentifier": "dms-prod-m0i83o0u"
+      "ReplicationInstanceIdentifier": "dms-analytics-y9rvbftg"
     },
     "dms": {
-      "replication_task_id": "oracle-to-rds",
-      "migration_type": "full-load",
-      "replication_instance_identifier": "dms-prod-m0i83o0u",
-      "source_engine": "mysql",
-      "target_engine": "docdb",
+      "replication_task_id": "on-prem-to-rds",
+      "migration_type": "cdc",
+      "replication_instance_identifier": "dms-analytics-y9rvbftg",
+      "source_engine": "sqlserver",
+      "target_engine": "dynamodb",
       "replication_instance_class": "dms.t3.medium",
       "task_status": "Load complete",
-      "full_load_rows_transferred": 5373406,
-      "cdc_incoming_changes": 0,
-      "latency_ms": 0,
-      "tables_loaded": 10,
+      "full_load_rows_transferred": 1392559,
+      "cdc_incoming_changes": 32355,
+      "latency_ms": 1211,
+      "tables_loaded": 125,
       "tables_errored": 0,
       "metrics": {
         "FullLoadThroughputRowsSource": {
-          "avg": 6580
+          "avg": 93316
         },
         "FullLoadThroughputRowsTarget": {
-          "avg": 66522
+          "avg": 89434
+        },
+        "CDCIncomingChanges": {
+          "avg": 544
+        },
+        "CDCChangesMemorySource": {
+          "avg": 618
+        },
+        "CDCChangesMemoryTarget": {
+          "avg": 138
+        },
+        "CDCChangesDiskSource": {
+          "avg": 79
+        },
+        "CDCChangesDiskTarget": {
+          "avg": 42
+        },
+        "CDCLatencySource": {
+          "avg": 5
+        },
+        "CDCLatencyTarget": {
+          "avg": 6
         },
         "CPUUtilization": {
-          "avg": "34.512"
+          "avg": "19.254"
         },
         "FreeableMemory": {
-          "avg": 5879579823
+          "avg": 5500135760
         },
         "FreeStorageSpace": {
-          "avg": 88453976327
+          "avg": 36421382140
         },
         "NetworkReceiveThroughput": {
-          "avg": 47652245
+          "avg": 81931225
         },
         "NetworkTransmitThroughput": {
-          "avg": 68564041
+          "avg": 52356672
         },
         "ReadIOPS": {
-          "avg": 1367
+          "avg": 2923
         },
         "WriteIOPS": {
-          "avg": 2595
+          "avg": 768
         }
       }
     }
@@ -67,9 +88,9 @@
     ],
     "dataset": "aws.dms",
     "provider": "dms.amazonaws.com",
-    "duration": 26093000000000
+    "duration": 9021000000000
   },
-  "message": "DMS oracle-to-rds: 5,373,406 rows (mysql->docdb full-load)",
+  "message": "DMS on-prem-to-rds: 1,392,559 rows (sqlserver->dynamodb cdc)",
   "log": {
     "level": "info"
   }

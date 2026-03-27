@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-north-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "ses"
@@ -13,25 +13,26 @@
   },
   "aws": {
     "dimensions": {
-      "ses:configuration-set": "default",
-      "ses:from-domain": "app.io",
-      "ses:to-country": "GB",
+      "ses:configuration-set": "marketing",
+      "ses:from-domain": "company.com",
+      "ses:to-country": "JP",
       "ses:to-isp": "Yahoo"
     },
     "ses": {
-      "message_id": "559tqokqk9u.d9p9sefv8g@eu-north-1.amazonses.com",
-      "event_type": "Send",
-      "from_address": "no-reply@app.io",
-      "destination": "user_vgljzw@yahoo.com",
+      "message_id": "vr4gb9q3pq.kyp9lee8m1@eu-north-1.amazonses.com",
+      "event_type": "RenderingFailure",
+      "from_address": "alerts@company.com",
+      "destination": "user_aq1484@gmail.com",
+      "configuration_set": "marketing",
       "bounce": {},
       "complaint": {},
-      "sending_account_id": "814726593401",
+      "sending_account_id": "164820739518",
       "delivery": {
         "recipients": [
-          "user_vgljzw@yahoo.com"
+          "user_aq1484@gmail.com"
         ],
-        "timestamp": "2026-03-27T12:56:06.485Z",
-        "processing_time_ms": 61,
+        "timestamp": "2026-03-27T13:21:40.756Z",
+        "processing_time_ms": 1266,
         "smtp_response": "250 2.0.0 OK"
       },
       "metrics": {
@@ -51,10 +52,10 @@
           "sum": 0
         },
         "Open": {
-          "sum": 0
+          "sum": 1
         },
         "Click": {
-          "sum": 1
+          "sum": 0
         },
         "RenderingFailure": {
           "sum": 0
@@ -73,9 +74,9 @@
     ],
     "dataset": "aws.ses",
     "provider": "email.amazonaws.com",
-    "duration": 226000000
+    "duration": 1036000000
   },
-  "message": "SES Send: no-reply@app.io -> user_vgljzw@yahoo.com",
+  "message": "SES RenderingFailure: alerts@company.com -> user_aq1484@gmail.com",
   "log": {
     "level": "info"
   }

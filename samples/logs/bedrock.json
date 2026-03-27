@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "bedrock"
@@ -17,28 +17,30 @@
     },
     "bedrock": {
       "model_id": "mistral.mixtral-8x7b-instruct-v0:1",
-      "invocation_latency_ms": 6069,
-      "input_token_count": 7711,
-      "output_token_count": 1796,
-      "total_token_count": 9507,
-      "stop_reason": "stop_sequence",
-      "use_case": "text-generation",
-      "guardrail_action": "INTERVENED",
-      "streaming": false,
+      "invocation_latency_ms": 2837,
+      "input_token_count": 4745,
+      "output_token_count": 181,
+      "total_token_count": 4926,
+      "stop_reason": "end_turn",
+      "use_case": "extraction",
+      "guardrail_action": "NONE",
+      "streaming": true,
+      "time_to_first_token_ms": 296,
+      "input_tokens_per_sec": 1672.5,
       "model_family": "mistral",
       "metrics": {
         "Invocations": {
-          "sum": 165
+          "sum": 153
         },
         "InvocationLatency": {
-          "avg": 6069,
-          "p99": 12138
+          "avg": 2837,
+          "p99": 5674
         },
         "InputTokenCount": {
-          "sum": 7711
+          "sum": 4745
         },
         "OutputTokenCount": {
-          "sum": 1796
+          "sum": 181
         },
         "Throttles": {
           "sum": 0
@@ -53,9 +55,9 @@
     ],
     "dataset": "aws.bedrock",
     "provider": "bedrock.amazonaws.com",
-    "duration": 6069000000
+    "duration": 2837000000
   },
-  "message": "Bedrock mixtral 7711->1796 tokens 6.07s",
+  "message": "Bedrock mixtral 4745->181 tokens 2.84s",
   "log": {
     "level": "info"
   }

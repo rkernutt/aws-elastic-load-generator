@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "iotanalytics"
@@ -13,36 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "ChannelName": "gps-channel",
-      "PipelineName": "device-registry-enrich"
+      "ChannelName": "alerts-channel",
+      "PipelineName": "enrichment-pipeline"
     },
     "iotanalytics": {
-      "channel_name": "gps-channel",
-      "pipeline_name": "device-registry-enrich",
-      "dataset_name": "daily-aggregates",
-      "messages_processed": 56,
-      "bytes_processed": 3864,
+      "channel_name": "alerts-channel",
+      "pipeline_name": "enrichment-pipeline",
+      "dataset_name": "fleet-summary",
+      "messages_processed": 41364,
+      "bytes_processed": 10920096,
       "activity_name": "math",
-      "pipeline_status": "REPROCESSING_FAILED",
-      "error_message": "Query error"
+      "pipeline_status": "SUCCEEDED"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.iotanalytics",
     "provider": "iotanalytics.amazonaws.com",
-    "duration": 11397000000
+    "duration": 28898000000
   },
-  "message": "IoT Analytics FAILED in device-registry-enrich: Lambda timeout",
+  "message": "IoT Analytics: 41,364 messages via enrichment-pipeline",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "PipelineError",
-    "message": "IoT Analytics pipeline failed",
-    "type": "iot"
+    "level": "info"
   }
 }

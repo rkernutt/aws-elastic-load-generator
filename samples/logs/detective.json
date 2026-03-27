@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "detective"
@@ -14,21 +14,26 @@
   "aws": {
     "detective": {
       "entity_type": "AwsIamRole",
-      "entity_id": "arn:aws:iam::738291046572:user/suspicious",
-      "behavior_type": "Normal",
-      "severity_score": 6.014,
-      "finding_count": 0
+      "entity_id": "i-7nx6bzfyfkh",
+      "behavior_type": "Brute Force",
+      "severity_score": 64.617,
+      "finding_count": 13
     }
   },
   "event": {
-    "kind": "event",
-    "outcome": "success",
+    "kind": "alert",
+    "outcome": "failure",
     "category": "intrusion_detection",
     "dataset": "aws.detective",
     "provider": "detective.amazonaws.com"
   },
-  "message": "Detective: entity behavior within normal baseline",
+  "message": "Detective [HIGH]: Brute Force detected - 16 related findings",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "AnomalousBehavior",
+    "message": "Brute Force detected",
+    "type": "security"
   }
 }

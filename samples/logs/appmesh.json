@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "appmesh"
@@ -13,33 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "MeshName": "prod-mesh",
-      "VirtualNodeName": "inventory-vn"
+      "MeshName": "dev-mesh",
+      "VirtualNodeName": "checkout-vn"
     },
     "appmesh": {
-      "mesh_name": "prod-mesh",
-      "virtual_node": "inventory-vn",
+      "mesh_name": "dev-mesh",
+      "virtual_node": "checkout-vn",
       "virtual_service": "auth.svc",
       "listener_port": 3000,
       "protocol": "grpc",
-      "response_code": 200,
-      "response_time_ms": 8,
-      "bytes_received": 7327,
-      "bytes_sent": 13935,
+      "response_code": 204,
+      "response_time_ms": 153,
+      "bytes_received": 6070,
+      "bytes_sent": 6449,
       "envoy_response_code_details": "via_upstream"
     }
   },
   "event": {
-    "action": "RequestForwarded",
+    "action": "RequestRejected",
     "outcome": "success",
     "category": [
       "network"
     ],
     "dataset": "aws.appmesh",
     "provider": "appmesh.amazonaws.com",
-    "duration": 8000000
+    "duration": 153000000
   },
-  "message": "App Mesh inventory-vn: grpc 200 8ms",
+  "message": "App Mesh checkout-vn: grpc 204 153ms",
   "log": {
     "level": "info"
   }

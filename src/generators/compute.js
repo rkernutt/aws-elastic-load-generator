@@ -436,4 +436,66 @@ function generateOutpostsLog(ts, er) {
   };
 }
 
-export { generateEc2Log, generateEcsLog, generateEksLog, generateBatchLog, generateBeanstalkLog, generateEcrLog, generateAutoScalingLog, generateImageBuilderLog, generateOutpostsLog };
+function generateWavelengthLog(ts, er) {
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const WAVELENGTH_ZONES = [
+    { zone:"us-east-1-wl1-bos-wlz-1", region:"us-east-1", carrier:"Verizon", city:"Boston" },
+    { zone:"us-east-1-wl1-nyc-wlz-1", region:"us-east-1", carrier:"Verizon", city:"New York" },
+    { zone:"us-east-1-wl1-was-wlz-1", region:"us-east-1", carrier:"Verizon", city:"Washington DC" },
+    { zone:"us-east-1-wl1-chi-wlz-1", region:"us-east-1", carrier:"Verizon", city:"Chicago" },
+    { zone:"us-east-1-wl1-sfo-wlz-1", region:"us-east-1", carrier:"Verizon", city:"San Francisco" },
+    { zone:"us-west-2-wl1-las-wlz-1", region:"us-west-2", carrier:"Verizon", city:"Las Vegas" },
+    { zone:"eu-west-2-wl1-lon-wlz-1", region:"eu-west-2", carrier:"Vodafone", city:"London" },
+    { zone:"ap-northeast-1-wl1-nrt-wlz-1", region:"ap-northeast-1", carrier:"KDDI", city:"Tokyo" },
+    { zone:"ap-northeast-2-wl1-sel-wlz-1", region:"ap-northeast-2", carrier:"SKT", city:"Seoul" },
+  ];
+  const wz = rand(WAVELENGTH_ZONES);
+  const instanceId = `i-${randId(17).toLowerCase()}`;
+  const instanceType = rand(["t3.medium","t3.xlarge","g4dn.2xlarge","r5.large","c5.2xlarge"]);
+  const carrierGwId = `cagw-${randId(17).toLowerCase()}`;
+  const subnetId = `subnet-${randId(17).toLowerCase()}`;
+  const carrierIp = randIp();
+  const ueIp = randIp();
+  const uplinkMbps = parseFloat(randFloat(1, isErr ? 10 : 500));
+  const downlinkMbps = parseFloat(randFloat(1, isErr ? 10 : 1000));
+  const latencyMs = parseFloat(randFloat(1, isErr ? 50 : 10));
+  const bandwidthAllowanceGbps = randInt(1, 25);
+  const action = rand(["RunInstances","TerminateInstances","AllocateAddress","CarrierGatewayCreated","BandwidthThrottled","PacketLoss","InstanceStateChange"]);
+  const errorCode = rand(["InsufficientCapacityInWavelengthZone","CarrierGatewayLimitExceeded","BandwidthLimitExceeded","InvalidWavelengthZone"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region:wz.region, account:{ id:acct.id, name:acct.name }, service:{ name:"wavelength" }, availability_zone:wz.zone, instance:{ id:instanceId } },
+    "aws": {
+      dimensions: { WavelengthZone:wz.zone, InstanceId:instanceId, CarrierGatewayId:carrierGwId },
+      wavelength: {
+        zone: wz.zone,
+        carrier: wz.carrier,
+        city: wz.city,
+        instance_id: instanceId,
+        instance_type: instanceType,
+        carrier_gateway_id: carrierGwId,
+        subnet_id: subnetId,
+        carrier_ip: carrierIp,
+        ue_ip: ueIp,
+        bandwidth_allowance_gbps: bandwidthAllowanceGbps,
+        network: {
+          uplink_mbps: uplinkMbps,
+          downlink_mbps: downlinkMbps,
+          latency_ms: latencyMs,
+          packet_loss_pct: isErr ? parseFloat(randFloat(1, 15)) : parseFloat(randFloat(0, 0.1)),
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    "source": { ip: ueIp },
+    "event": { action, outcome:isErr?"failure":"success", category:["network","host"], dataset:"aws.wavelength", provider:"ec2.amazonaws.com", duration:randInt(10,500)*1e6 },
+    "message": isErr
+      ? `Wavelength [${wz.city}/${wz.carrier}] ${action} FAILED on ${instanceId}: ${errorCode}`
+      : `Wavelength [${wz.city}/${wz.carrier}] ${instanceId} (${instanceType}) UL=${uplinkMbps.toFixed(0)}Mbps DL=${downlinkMbps.toFixed(0)}Mbps lat=${latencyMs.toFixed(1)}ms`,
+    "log": { level: isErr ? "error" : latencyMs > 20 ? "warn" : "info" },
+    ...(isErr ? { error: { code: errorCode, message:`Wavelength zone operation failed in ${wz.zone}`, type:"network" } } : {}),
+  };
+}
+
+export { generateEc2Log, generateEcsLog, generateEksLog, generateBatchLog, generateBeanstalkLog, generateEcrLog, generateAutoScalingLog, generateImageBuilderLog, generateOutpostsLog, generateWavelengthLog };

@@ -10,6 +10,7 @@ const SERVICE_GROUPS = [
   { id:"compute", label:"Compute & Containers", color:"#F04E98", icon:"□", services:[
     {id:"ec2",label:"EC2",icon:"□",desc:"System & auth logs"},
     {id:"outposts",label:"Outposts",icon:"⊟",desc:"Hybrid cloud capacity & instance logs"},
+    {id:"wavelength",label:"Wavelength",icon:"≋",desc:"5G edge compute logs"},
     {id:"eks",label:"EKS",icon:"☸",desc:"Kubernetes pod/node logs"},
     {id:"fargate",label:"Fargate",icon:"▷",desc:"Serverless container logs"},
     {id:"ecr",label:"ECR",icon:"◫",desc:"Container image & scan logs"},
@@ -147,6 +148,8 @@ const SERVICE_GROUPS = [
     {id:"kendra",label:"Kendra",icon:"◎",desc:"Enterprise search query logs"},
     {id:"a2i",label:"Augmented AI (A2I)",icon:"⊙",desc:"Human review loop logs"},
     {id:"healthlake",label:"HealthLake",icon:"⊛",desc:"FHIR health data store logs"},
+    {id:"nova",label:"Amazon Nova",icon:"✦",desc:"Nova foundation model invocation logs"},
+    {id:"lookoutvision",label:"Lookout for Vision",icon:"◉",desc:"Industrial visual anomaly detection logs"},
   ]},
   { id:"iot", label:"IoT", color:"#06B6D4", icon:"⊛", services:[
     {id:"iotcore",label:"IoT Core",icon:"⊛",desc:"Device connect & message"},

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "us-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "verified-access"
@@ -13,22 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "ApplicationId": "va-app-s624dxac"
+      "ApplicationId": "va-app-4icqbr79"
     },
     "verifiedaccess": {
-      "endpoint_id": "vae-0zqctr82rsd",
-      "group_id": "vag-10t1rac2u2hc",
-      "instance_id": "vai-kdomrd29lvg",
-      "policy_name": "require-mfa",
+      "endpoint_id": "vae-m5nulg5ghi",
+      "group_id": "vag-nd1oeinxm",
+      "instance_id": "vai-yklzueg7u3k",
+      "policy_name": "require-mfa-and-device",
       "trust_provider_type": "oidc-okta",
-      "device_posture": "COMPLIANT",
-      "verdict": "allow",
-      "http_method": "POST",
-      "http_path": "/api/v1/auth/login",
-      "http_status": 200,
-      "request_id": "j13324cm-b0n7-bd69-mp4b-jmer2ot9rvh",
-      "connection_id": "PA9AO4A8XIN",
-      "session_id": "IFPP45ZB9WD",
+      "device_posture": "UNKNOWN",
+      "verdict": "deny",
+      "deny_reason": "device_compliance_check_failed",
+      "http_method": "PUT",
+      "http_path": "/health",
+      "http_status": 403,
+      "request_id": "zd3vvexe-npmv-lk8u-n0pp-bxap02benxj",
+      "connection_id": "Q9PYNC2ESJ",
+      "session_id": "IJ7ORQX2QNJ",
       "sni_hostname": "internal-dashboard.internal.example.com",
       "application_name": "internal-dashboard"
     }
@@ -38,23 +39,28 @@
     "name": "contractor"
   },
   "source": {
-    "ip": "186.220.0.91"
+    "ip": "209.15.230.98"
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "authentication",
       "network"
     ],
     "type": [
-      "allowed"
+      "denied"
     ],
     "dataset": "aws.verifiedaccess",
     "provider": "verified-access.amazonaws.com",
-    "duration": 81000000
+    "duration": 75000000
   },
-  "message": "Verified Access allowed: contractor@partner.com -> internal-dashboard (COMPLIANT)",
+  "message": "Verified Access DENIED: contractor@partner.com -> internal-dashboard [device_compliance_check_failed]",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "AccessDenied",
+    "message": "Verified Access policy denied: device_compliance_check_failed",
+    "type": "authentication"
   }
 }

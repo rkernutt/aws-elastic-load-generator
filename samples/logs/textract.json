@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "us-east-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "textract"
@@ -13,17 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "AnalyzeDocument"
+      "Operation": "GetDocumentAnalysis"
     },
     "textract": {
-      "operation": "AnalyzeDocument",
-      "document_type": "id-card",
-      "pages_processed": 40,
-      "blocks_detected": 3120,
-      "words_detected": 7280,
-      "form_key_value_pairs": 20,
-      "tables_detected": 2,
-      "confidence_mean": 94.197,
+      "operation": "GetDocumentAnalysis",
+      "document_type": "contract",
+      "job_id": "v3gfktgycj9",
+      "job_status": "SUCCEEDED",
+      "pages_processed": 20,
+      "blocks_detected": 1680,
+      "words_detected": 4180,
+      "form_key_value_pairs": 0,
+      "tables_detected": 0,
+      "confidence_mean": 92.376,
       "metrics": {
         "DocumentsProcessed": {
           "sum": 1
@@ -32,7 +34,7 @@
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 4339.335
+          "avg": 2094.775
         },
         "SuccessfulRequests": {
           "sum": 1
@@ -55,7 +57,7 @@
     "dataset": "aws.textract",
     "provider": "textract.amazonaws.com"
   },
-  "message": "Textract AnalyzeDocument: id-card, 40 pages, 19360 words",
+  "message": "Textract GetDocumentAnalysis: contract, 20 pages, 5620 words",
   "log": {
     "level": "info"
   }

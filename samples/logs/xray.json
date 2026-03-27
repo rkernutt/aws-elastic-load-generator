@@ -1,14 +1,14 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "trace": {
-    "id": "1-69c67e66-8ur85ts4nf5"
+    "id": "1-69c68464-bvrhosf1lw"
   },
   "span": {
-    "id": "ncpozmjrqu8"
+    "id": "rig6rgld7ih"
   },
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-northeast-3",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -20,86 +20,79 @@
   "aws": {
     "dimensions": {
       "GroupName": "Default",
-      "ServiceType": "AWS::Lambda::Function"
+      "ServiceType": "remote"
     },
     "xray": {
-      "trace_id": "1-69c67e66-8ur85ts4nf5",
-      "segment_id": "ncpozmjrqu8",
-      "parent_id": "sdl9a6lmcj",
+      "trace_id": "1-69c68464-bvrhosf1lw",
+      "segment_id": "rig6rgld7ih",
+      "parent_id": "a96nmngi7zr",
       "service": {
-        "name": "lambda-function",
-        "type": "AWS::Lambda::Function"
+        "name": "payment-service",
+        "type": "remote"
       },
-      "duration": 1.664,
+      "duration": 2.849,
       "fault": false,
       "error": false,
       "throttle": false,
       "http": {
         "request": {
-          "method": "GET",
-          "url": "/api/v1/search"
+          "method": "POST",
+          "url": "/api/v1/auth/login"
         },
         "response": {
-          "status": 201
+          "status": 200
         }
       },
       "annotations": {
         "env": "prod",
-        "version": "v15"
+        "version": "v16"
       },
       "subsegments": [
         {
-          "id": "br3odkftkrg",
-          "name": "SQS.SendMessage",
+          "id": "923dv1xhbwi",
+          "name": "DynamoDB.GetItem",
           "namespace": "aws",
-          "duration": 0.006,
+          "duration": 0.35,
           "fault": false
         },
         {
-          "id": "e0svr7pzyxe",
-          "name": "SNS.Publish",
-          "namespace": "aws",
-          "duration": 0.458,
-          "fault": false
-        },
-        {
-          "id": "pn85xzy6nfs",
-          "name": "SNS.Publish",
+          "id": "5hjguoc74p5",
+          "name": "S3.GetObject",
           "namespace": "remote",
-          "duration": 0.434,
+          "duration": 0.384,
           "fault": false
         }
       ],
       "metrics": {
         "ErrorRate": {
-          "avg": 0.027
+          "avg": 0.466
         },
         "FaultRate": {
-          "avg": 0.082
+          "avg": 0.383
         },
         "ThrottleRate": {
-          "avg": 0.206
+          "avg": 0.38
         },
         "TotalCount": {
-          "sum": 63
+          "sum": 7659
         },
         "Latency": {
-          "avg": 1664,
-          "p99": 4992
+          "avg": 2849,
+          "p99": 8547
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "GET"
+      "method": "POST"
     },
     "response": {
-      "status_code": 201
+      "status_code": 200
     }
   },
   "event": {
-    "duration": 1664000000,
+    "duration": 2849000000,
     "outcome": "success",
     "category": [
       "network"
@@ -110,7 +103,7 @@
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray: lambda-function GET → 201 (1.664s)",
+  "message": "X-Ray: payment-service POST → 200 (2.849s)",
   "log": {
     "level": "info"
   }

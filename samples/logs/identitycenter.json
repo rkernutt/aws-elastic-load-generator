@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "us-east-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "identitycenter"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "iam_identity_center": {
-      "event_type": "ProvisionUser",
-      "user_name": "bob@corp.com",
-      "application_name": "Slack",
-      "permission_set": "PowerUserAccess",
-      "account_id": "814726593401",
+      "event_type": "RevokeAccess",
+      "user_name": "svc-account@corp.com",
+      "application_name": "Salesforce",
+      "permission_set": "ReadOnlyAccess",
+      "account_id": "164820739518",
       "mfa_authenticated": true
     }
   },
   "user": {
-    "name": "bob@corp.com"
+    "name": "svc-account@corp.com"
   },
   "source": {
-    "ip": "91.142.31.101"
+    "ip": "179.105.191.99"
   },
   "event": {
-    "action": "ProvisionUser",
+    "action": "RevokeAccess",
     "outcome": "success",
     "category": "authentication",
     "dataset": "aws.identitycenter",
     "provider": "sso.amazonaws.com"
   },
-  "message": "IAM Identity Center ProvisionUser: bob@corp.com -> Slack",
+  "message": "IAM Identity Center RevokeAccess: svc-account@corp.com -> Salesforce",
   "log": {
     "level": "info"
   }

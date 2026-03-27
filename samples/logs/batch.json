@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-south-2",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "JobQueue": "nightly-etl-queue"
+      "JobQueue": "cleanup-job-queue"
     },
     "batch": {
       "job": {
-        "name": "nightly-etl",
-        "id": "kqz7v8wy-7xbt",
+        "name": "cleanup-job",
+        "id": "lrfs0ekw-11xz",
         "status": "SUCCEEDED"
       },
-      "job_queue": "nightly-etl-queue",
-      "compute_environment": "ce-ondemand",
-      "structured_logging": true,
+      "job_queue": "cleanup-job-queue",
+      "compute_environment": "ce-spot",
+      "structured_logging": false,
       "metrics": {
         "PendingJobCount": {
-          "avg": 79
+          "avg": 54
         },
         "RunnableJobCount": {
-          "avg": 20
+          "avg": 16
         },
         "StartingJobCount": {
-          "avg": 2
+          "avg": 20
         },
         "RunningJobCount": {
-          "avg": 145
+          "avg": 69
         },
         "SucceededJobCount": {
           "sum": 1
@@ -44,20 +44,20 @@
           "sum": 0
         },
         "CPUReserved": {
-          "avg": "22.427"
+          "avg": "57.551"
         },
         "GPUReserved": {
           "avg": 0
         },
         "MemoryReserved": {
-          "avg": "56.548"
+          "avg": "49.370"
         }
       }
     }
   },
   "process": {
-    "pid": 28314,
-    "name": "bash",
+    "pid": 65467,
+    "name": "python",
     "exit_code": 0
   },
   "log": {
@@ -70,7 +70,7 @@
     "outcome": "success",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 3542000000000
+    "duration": 128000000000
   },
-  "message": "{\"jobId\":\"kqz7v8wy-7xbt\",\"jobName\":\"nightly-etl\",\"jobQueue\":\"nightly-etl-queue\",\"level\":\"info\",\"message\":\"Job run started\",\"timestamp\":\"2026-03-27T12:56:06.485Z\",\"arrayIndex\":58}"
+  "message": "Job run succeeded"
 }

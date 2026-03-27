@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ca-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "healthlake"
@@ -13,17 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "DatastoreId": "oahoouvj-nxiy-emex-vbgu-y8s8gcprzi",
-      "ResourceType": "DiagnosticReport"
+      "DatastoreId": "gfr0mx4j-fi9l-3kau-vfd0-w2xwmyq93yc",
+      "ResourceType": "Patient"
     },
     "healthlake": {
-      "datastore_id": "oahoouvj-nxiy-emex-vbgu-y8s8gcprzi",
+      "datastore_id": "gfr0mx4j-fi9l-3kau-vfd0-w2xwmyq93yc",
       "datastore_name": "diagnostics-lake",
-      "resource_type": "DiagnosticReport",
-      "operation": "StartFHIRExportJob",
-      "request_id": "23XV8FBM-4PG3-H0VG-6T11-WMZQN9SGTY",
+      "resource_type": "Patient",
+      "operation": "ReadResource",
+      "request_id": "S1GUVH0H-Z1JQ-TBZ1-NVAP-7LLDS5BZ2KE",
       "response_code": 200,
-      "export_job_id": "export-hwx0821u3q",
       "fhir_version": "R4"
     }
   },
@@ -31,7 +30,7 @@
     "level": "info"
   },
   "event": {
-    "action": "StartFHIRExportJob",
+    "action": "ReadResource",
     "outcome": "success",
     "category": [
       "process",
@@ -39,7 +38,7 @@
     ],
     "dataset": "aws.healthlake",
     "provider": "healthlake.amazonaws.com",
-    "duration": 439000000
+    "duration": 233000000
   },
-  "message": "HealthLake StartFHIRExportJob: datastore=diagnostics-lake, resource=DiagnosticReport, 439ms"
+  "message": "HealthLake ReadResource: datastore=diagnostics-lake, resource=Patient, 233ms"
 }

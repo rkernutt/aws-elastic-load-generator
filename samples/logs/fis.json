@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ap-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "fis"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "ExperimentTemplateId": "EXTB18D47F4"
+      "ExperimentTemplateId": "EXTB749RKXC"
     },
     "fis": {
-      "experiment_id": "EXPLJM7P67J",
-      "experiment_template_id": "EXTB18D47F4",
-      "experiment_name": "az-failure-simulation",
-      "experiment_state": "completed",
-      "target_resource_type": "Lambda functions",
-      "action_type": "aws:ec2:stop-instances",
+      "experiment_id": "EXP0848HV2V",
+      "experiment_template_id": "EXTB749RKXC",
+      "experiment_name": "network-latency-inject",
+      "experiment_state": "pending",
+      "target_resource_type": "EC2 instances",
+      "action_type": "aws:eks:terminate-nodegroup-instances",
       "stop_condition": "none",
-      "role_arn": "arn:aws:iam::814726593401:role/FISRole-az-failure-simulation"
+      "role_arn": "arn:aws:iam::501938274650:role/FISRole-network-latency-inject"
     }
   },
   "event": {
-    "action": "GetExperiment",
+    "action": "StartExperiment",
     "outcome": "success",
     "category": [
       "process"
@@ -35,7 +35,7 @@
     "dataset": "aws.fis",
     "provider": "fis.amazonaws.com"
   },
-  "message": "FIS GetExperiment: exp=EXPLJM7P67J (az-failure-simulation) state=completed, target=Lambda functions",
+  "message": "FIS StartExperiment: exp=EXP0848HV2V (network-latency-inject) state=pending, target=EC2 instances",
   "log": {
     "level": "info"
   }

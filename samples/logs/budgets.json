@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "il-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "budgets"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "budgets": {
-      "budget_name": "monthly-total",
-      "budget_type": "SAVINGS_PLANS_UTILIZATION",
-      "time_period": "MONTHLY",
+      "budget_name": "quarterly-compute",
+      "budget_type": "USAGE",
+      "time_period": "ANNUALLY",
       "currency": "USD",
-      "budget_limit": 1728.1,
-      "actual_spend": 1228.68,
-      "forecasted_spend": 1177.07,
+      "budget_limit": 2200.25,
+      "actual_spend": 2041.83,
+      "forecasted_spend": 2362.4,
       "threshold_exceeded": false,
-      "threshold_percentage": 50,
+      "threshold_percentage": 70,
       "notification_type": "FORECASTED",
       "subscribers": "ops@company.com"
     }
@@ -34,9 +34,9 @@
     ],
     "dataset": "aws.budgets",
     "provider": "budgets.amazonaws.com",
-    "duration": 20000000000
+    "duration": 17000000000
   },
-  "message": "Budget OK: monthly-total at 1229/1728 (71%)",
+  "message": "Budget OK: quarterly-compute at 2042/2200 (93%)",
   "log": {
     "level": "info"
   }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "me-central-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "Application": "AdminPortal",
-      "Environment": "dev"
+      "Application": "MobileAPI",
+      "Environment": "qa"
     },
     "appconfig": {
-      "application_name": "AdminPortal",
-      "environment_name": "dev",
-      "configuration_profile": "FeatureFlags",
-      "deployment_number": 106,
-      "deployment_strategy": "AllAtOnce",
+      "application_name": "MobileAPI",
+      "environment_name": "qa",
+      "configuration_profile": "AppSettings",
+      "deployment_number": 146,
+      "deployment_strategy": "Linear50PercentEvery30Seconds",
       "growth_factor": 33,
       "percentage_complete": 100,
-      "state": "COMPLETE"
+      "state": "VALIDATING"
     }
   },
   "event": {
-    "action": "StartDeployment",
+    "action": "ValidateConfiguration",
     "outcome": "success",
     "category": [
       "configuration"
@@ -36,7 +36,7 @@
     "dataset": "aws.appconfig",
     "provider": "appconfig.amazonaws.com"
   },
-  "message": "AppConfig AdminPortal/dev: FeatureFlags deployment #106 COMPLETE",
+  "message": "AppConfig MobileAPI/qa: AppSettings deployment #146 VALIDATING",
   "log": {
     "level": "info"
   }

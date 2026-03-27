@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ca-west-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "dimensions": {
-      "BucketName": "analytics-output-eu-south-1"
+      "BucketName": "customer-exports-ca-west-1"
     },
     "macie": {
-      "finding_id": "fd7eofbr-ckmy-4wio",
-      "finding_type": "none",
-      "severity": "INFORMATIONAL",
+      "finding_id": "6cxr3wog-ulue-qisu",
+      "finding_type": "Policy:IAMUser/S3BucketPublic",
+      "severity": "MEDIUM",
       "s3_bucket": {
-        "name": "analytics-output-eu-south-1",
-        "arn": "arn:aws:s3:::analytics-output-eu-south-1"
+        "name": "customer-exports-ca-west-1",
+        "arn": "arn:aws:s3:::customer-exports-ca-west-1"
       },
       "s3_bucket_full": {
-        "name": "analytics-output-eu-south-1",
-        "arn": "arn:aws:s3:::analytics-output-eu-south-1",
-        "owner_id": "58j3z0uq2y",
+        "name": "customer-exports-ca-west-1",
+        "arn": "arn:aws:s3:::customer-exports-ca-west-1",
+        "owner_id": "t0z4763a7ir",
         "default_server_side_encryption": {
           "encryption_type": "NONE"
         },
@@ -37,29 +37,38 @@
           }
         ],
         "public_access": {
-          "effective_permission": "NOT_PUBLIC",
-          "block_public_acls": true,
-          "block_public_policy": true,
-          "ignore_public_acls": true,
-          "restrict_public_buckets": true
+          "effective_permission": "PUBLIC",
+          "block_public_acls": false,
+          "block_public_policy": false,
+          "ignore_public_acls": false,
+          "restrict_public_buckets": false
         }
       },
-      "occurrences": 0,
-      "sensitive_data_categories": [],
-      "data_identifiers": []
+      "occurrences": 43135,
+      "sensitive_data_categories": [
+        "PII"
+      ],
+      "data_identifiers": [
+        "SSN_US"
+      ]
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
-      "vulnerability"
+      "intrusion_detection"
     ],
     "dataset": "aws.macie",
     "provider": "macie2.amazonaws.com"
   },
-  "message": "Macie scan complete: no sensitive data found",
+  "message": "Macie detected sensitive data in s3://customer-exports-ca-west-1: Policy:IAMUser/S3BucketPublic",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "SensitiveDataFound",
+    "message": "Sensitive data in s3://customer-exports-ca-west-1",
+    "type": "data"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "eu-west-3",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -14,44 +14,50 @@
   "aws": {
     "dimensions": {
       "Operation": "TranscriptionJob",
-      "LanguageCode": "en-US"
+      "LanguageCode": "en-GB"
     },
     "transcribe": {
-      "transcription_job_name": "transcribe-bv9v9uqa",
-      "transcription_job_status": "COMPLETED",
-      "language_code": "en-US",
-      "media_format": "flac",
-      "media_uri": "s3://audio-bucket/transcribe-bv9v9uqa.mp3",
-      "audio_duration_minutes": 23.466,
-      "word_count": 3520,
-      "speaker_count": 3,
+      "transcription_job_name": "transcribe-1q7j6k0j",
+      "transcription_job_status": "FAILED",
+      "language_code": "en-GB",
+      "media_format": "mp3",
+      "media_uri": "s3://audio-bucket/transcribe-1q7j6k0j.mp3",
+      "audio_duration_minutes": 0.173,
+      "word_count": 0,
+      "vocabulary_name": "legal-terminology",
       "content_redaction_enabled": true,
+      "error_code": "BadRequestException",
       "metrics": {
         "TranscriptionJobsCompleted": {
-          "sum": 1
-        },
-        "TranscriptionJobsFailed": {
           "sum": 0
         },
+        "TranscriptionJobsFailed": {
+          "sum": 1
+        },
         "TranscriptionJobsPending": {
-          "avg": 1
+          "avg": 4
         },
         "TranscriptionJobsRunning": {
-          "avg": 2
+          "avg": 3
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.transcribe",
     "provider": "transcribe.amazonaws.com"
   },
-  "message": "Transcribe job transcribe-bv9v9uqa: 23.5 min audio (en-US)",
+  "message": "Transcribe job transcribe-1q7j6k0j FAILED (en-GB): Unsupported codec",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "TranscribeError",
+    "message": "Transcribe job failed",
+    "type": "ml"
   }
 }

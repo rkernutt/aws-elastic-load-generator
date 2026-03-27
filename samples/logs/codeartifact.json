@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codeartifact"
@@ -13,20 +13,18 @@
   },
   "aws": {
     "codeartifact": {
-      "domain_name": "platform",
-      "repository_name": "maven-central",
-      "package_format": "nuget",
-      "package_name": "my-lib",
-      "package_version": "2.14.2",
-      "action": "CopyPackageVersions",
-      "download_size_bytes": 3333705,
-      "upstream_repository": "npm-upstream",
-      "error_code": "ResourceAlreadyExistsException"
+      "domain_name": "corp-packages",
+      "repository_name": "nuget-store",
+      "package_format": "maven",
+      "package_name": "shared-components",
+      "package_version": "4.0.3",
+      "action": "PublishPackageVersion",
+      "download_size_bytes": 23929995
     }
   },
   "event": {
-    "action": "CopyPackageVersions",
-    "outcome": "failure",
+    "action": "PublishPackageVersion",
+    "outcome": "success",
     "category": [
       "package",
       "process"
@@ -34,13 +32,8 @@
     "dataset": "aws.codeartifact",
     "provider": "codeartifact.amazonaws.com"
   },
-  "message": "CodeArtifact CopyPackageVersions FAILED: my-lib@2.14.2 in platform/maven-central",
+  "message": "CodeArtifact PublishPackageVersion: shared-components@4.0.3 [maven] in corp-packages/nuget-store",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "AccessDeniedException",
-    "message": "CodeArtifact operation failed",
-    "type": "package"
+    "level": "info"
   }
 }

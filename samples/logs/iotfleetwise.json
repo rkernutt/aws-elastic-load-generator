@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "iotfleetwise"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "FleetId": "commercial-trucks",
-      "CampaignName": "engine-diagnostics"
+      "FleetId": "executive-fleet",
+      "CampaignName": "safety-systems"
     },
     "iotfleetwise": {
-      "fleet_id": "commercial-trucks",
-      "vehicle_id": "VIN-3ST7LDU5FDS",
-      "campaign_name": "engine-diagnostics",
-      "campaign_status": "RUNNING",
-      "signal_name": "Vehicle.Chassis.Axle.Row1.Wheel.Left.Tire.Pressure",
-      "signal_value": 80.382,
-      "collection_scheme": "EVENT_BASED",
-      "compression": "SNAPPY",
-      "data_destination": "IOT_SITERISE"
+      "fleet_id": "executive-fleet",
+      "vehicle_id": "VIN-R07AEKN5MPE",
+      "campaign_name": "safety-systems",
+      "campaign_status": "WAITING_FOR_APPROVAL",
+      "signal_name": "Vehicle.Powertrain.TractionBattery.StateOfCharge",
+      "signal_value": 63.406,
+      "collection_scheme": "CONDITION_BASED",
+      "compression": "OFF",
+      "data_destination": "TIMESTREAM"
     }
   },
   "event": {
-    "action": "UpdateCampaign",
+    "action": "CreateFleet",
     "outcome": "success",
     "category": [
       "iot",
@@ -38,7 +38,7 @@
     "dataset": "aws.iotfleetwise",
     "provider": "iotfleetwise.amazonaws.com"
   },
-  "message": "IoT FleetWise UpdateCampaign: fleet=commercial-trucks, vehicle=VIN-3ST7LDU5FDS, campaign=engine-diagnostics RUNNING",
+  "message": "IoT FleetWise CreateFleet: fleet=executive-fleet, vehicle=VIN-R07AEKN5MPE, campaign=safety-systems WAITING_FOR_APPROVAL",
   "log": {
     "level": "info"
   }

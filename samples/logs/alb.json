@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "alb"
@@ -13,58 +13,58 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "app/prod-alb-us-west-1/0ae6qfiodcan",
-      "TargetGroup": "targetgroup/tg-api/1uklmkqzkac",
-      "AvailabilityZone": "us-west-1c"
+      "LoadBalancer": "app/prod-alb-ap-southeast-3/fw946pvas87",
+      "TargetGroup": "targetgroup/tg-api/otyoh1mrpaq",
+      "AvailabilityZone": "ap-southeast-3c"
     },
     "elb": {
-      "name": "app/prod-alb-us-west-1/0ae6qfiodcan",
+      "name": "app/prod-alb-ap-southeast-3/fw946pvas87",
       "type": "application",
-      "target_group.arn": "arn:aws:elasticloadbalancing:us-west-1:164820739518:targetgroup/tg-api/1uklmkqzkac",
-      "listener": "arn:aws:elasticloadbalancing:us-west-1:164820739518:listener/app/prod-alb/irdj527n8bh/08sberef38g9",
+      "target_group.arn": "arn:aws:elasticloadbalancing:ap-southeast-3:738291046572:targetgroup/tg-api/otyoh1mrpaq",
+      "listener": "arn:aws:elasticloadbalancing:ap-southeast-3:738291046572:listener/app/prod-alb/ehmic2s62t7/mcoiiifpqq",
       "protocol": "HTTPS",
-      "request_processing_time.sec": 0.035,
-      "backend_processing_time.sec": 0.363,
-      "response_processing_time.sec": 0.061,
-      "backend.ip": "127.255.238.177",
-      "backend.port": "3276",
-      "backend.http.response.status_code": 201,
+      "request_processing_time.sec": 0.047,
+      "backend_processing_time.sec": 1.115,
+      "response_processing_time.sec": 0.046,
+      "backend.ip": "183.226.2.138",
+      "backend.port": "6716",
+      "backend.http.response.status_code": 200,
       "ssl_protocol": "TLSv1.3",
       "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
       "tls_named_group": "x25519",
-      "chosen_cert.arn": "arn:aws:acm:us-west-1:164820739518:certificate/xts6q3ud-j701-dad9-mnn5-aof0ursbqmj",
-      "trace_id": "Root=1-WG64MHCD-4JHN4TD8DS",
+      "chosen_cert.arn": "arn:aws:acm:ap-southeast-3:738291046572:certificate/xl3ndgxp-pj1j-vgnx-i434-eu92dgppstg",
+      "trace_id": "Root=1-88MZCV75-9KDFYEN5FX",
       "matched_rule_priority": "default",
-      "action_executed": "forward",
-      "target_port": "127.255.238.177:3276",
-      "target_status_code": "201",
+      "action_executed": "authenticate-cognito",
+      "target_port": "183.226.2.138:6716",
+      "target_status_code": "200",
       "classification": "NORMAL"
     }
   },
   "http": {
     "request": {
-      "method": "PATCH",
-      "bytes": 2234
+      "method": "GET",
+      "bytes": 1561
     },
     "response": {
-      "status_code": 201,
-      "bytes": 47568
+      "status_code": 200,
+      "bytes": 43119
     }
   },
   "url": {
-    "path": "/api/v1/products",
+    "path": "/api/v1/search",
     "domain": "api.example.com"
   },
   "client": {
-    "ip": "105.97.155.159",
-    "port": 7406,
+    "ip": "180.51.19.103",
+    "port": 29164,
     "geo": {
-      "country_iso_code": "DE",
-      "country_name": "Germany",
-      "city_name": "Frankfurt",
+      "country_iso_code": "CA",
+      "country_name": "Canada",
+      "city_name": "Toronto",
       "location": {
-        "lat": 50.1109,
-        "lon": 8.6821
+        "lat": 43.6532,
+        "lon": -79.3832
       }
     }
   },
@@ -72,7 +72,7 @@
     "original": "curl/7.68.0"
   },
   "event": {
-    "duration": 459000000,
+    "duration": 1208000000,
     "outcome": "success",
     "category": [
       "web",
@@ -84,7 +84,7 @@
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com"
   },
-  "message": "PATCH /api/v1/products 201 459ms",
+  "message": "GET /api/v1/search 200 1208ms",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-central-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "securitylake"
@@ -13,46 +13,54 @@
   },
   "aws": {
     "dimensions": {
-      "OcsfClass": "Security Finding",
-      "SourceType": "LAMBDA:SecurityHub"
+      "OcsfClass": "Network Activity",
+      "SourceType": "LAMBDA:VpcFlow"
     },
     "securitylake": {
-      "source_type": "LAMBDA:SecurityHub",
-      "class_uid": 2001,
-      "class_name": "Security Finding",
-      "category_uid": 2,
-      "category_name": "Findings",
-      "activity_id": 5,
+      "source_type": "LAMBDA:VpcFlow",
+      "class_uid": 4001,
+      "class_name": "Network Activity",
+      "category_uid": 4,
+      "category_name": "Network Activity",
+      "activity_id": 1,
       "activity_name": "Update",
       "severity_id": 2,
       "severity": "Low",
       "status_id": 1,
       "status": "Success",
-      "time": 1774616166485,
+      "time": 1774617700756,
       "metadata": {
         "version": "1.1.0",
         "product": {
-          "name": "SecurityHub",
+          "name": "VpcFlow",
           "vendor_name": "AWS"
         },
-        "uid": "9088sr90-pfi1-9wn9-toer-g96zrwzu6lw"
+        "uid": "4ihbmzmw-tsyt-gd6y-oo55-xrm9jcuc4e"
       },
       "ocsf_cloud": {
         "provider": "AWS",
         "account": {
-          "uid": "501938274650"
+          "uid": "814726593401"
         },
-        "region": "us-east-2"
+        "region": "eu-central-2"
       },
-      "finding": {
-        "uid": "brgxnxsi-55xm-9ezt-g2yt-pdclkn0jv3k",
-        "title": "UnauthorizedAccess:IAMUser/MaliciousIPCaller",
-        "types": [
-          "TTPs/Discovery"
-        ],
-        "first_seen_time": 1774378566485,
-        "last_seen_time": 1774616166485,
-        "confidence_score": 98
+      "src_endpoint": {
+        "ip": "224.246.86.163",
+        "port": 8496
+      },
+      "dst_endpoint": {
+        "ip": "63.164.119.49",
+        "port": 8080
+      },
+      "connection_info": {
+        "protocol_num": 6,
+        "protocol_name": "TCP",
+        "direction": "Outbound",
+        "direction_id": 1
+      },
+      "traffic": {
+        "bytes": 803236,
+        "packets": 26
       }
     }
   },
@@ -65,7 +73,7 @@
     "dataset": "aws.securitylake",
     "provider": "securitylake.amazonaws.com"
   },
-  "message": "Security Lake [Security Finding/Update] Low: SecurityHub success",
+  "message": "Security Lake [Network Activity/Update] Low: VpcFlow success",
   "log": {
     "level": "info"
   }

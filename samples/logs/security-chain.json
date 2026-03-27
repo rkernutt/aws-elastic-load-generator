@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "us-east-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "guardduty"
@@ -13,56 +13,56 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "rm8wmm8xdw"
+      "DetectorId": "acssyzl7pru"
     },
     "guardduty": {
       "schema_version": "2.0",
-      "account_id": "501938274650",
-      "region": "eu-south-2",
+      "account_id": "738291046572",
+      "region": "us-east-2",
       "partition": "aws",
-      "id": "iufokkvl23n",
-      "arn": "arn:aws:guardduty:eu-south-2:501938274650:detector/rm8wmm8xdw/finding/iufokkvl23n",
-      "type": "UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom",
-      "title": "IAMUser MaliciousIPCaller Custom",
-      "description": "GuardDuty detected suspicious activity: UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom",
-      "created_at": "2026-03-27T12:56:06.485Z",
-      "updated_at": "2026-03-27T12:56:06.485Z",
+      "id": "kq06gxfxu7g",
+      "arn": "arn:aws:guardduty:us-east-2:738291046572:detector/acssyzl7pru/finding/kq06gxfxu7g",
+      "type": "InitialAccess:IAMUser/AnomalousBehavior",
+      "title": "IAMUser AnomalousBehavior",
+      "description": "GuardDuty detected suspicious activity: InitialAccess:IAMUser/AnomalousBehavior",
+      "created_at": "2026-03-27T13:21:40.756Z",
+      "updated_at": "2026-03-27T13:21:40.756Z",
       "severity": {
-        "code": 7,
+        "code": 8,
         "value": "High"
       },
-      "confidence": 84.329,
+      "confidence": 87.326,
       "resource": {
-        "type": "Instance"
+        "type": "AccessKey"
       },
       "service": {
-        "detector_id": "rm8wmm8xdw",
-        "count": 62,
+        "detector_id": "acssyzl7pru",
+        "count": 59,
         "archived": false,
         "action": {
-          "action_type": "AWS_API_CALL"
+          "action_type": "PORT_PROBE"
         }
       },
       "metrics": {
         "FindingCount": {
-          "sum": 11
+          "sum": 15
         },
         "HighSeverityFindingCount": {
-          "sum": 7
+          "sum": 4
         }
       }
     }
   },
   "source": {
-    "ip": "148.184.102.18"
+    "ip": "213.227.223.91"
   },
   "rule": {
     "category": "intrusion_detection",
-    "name": "UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom"
+    "name": "InitialAccess:IAMUser/AnomalousBehavior"
   },
   "event": {
     "kind": "alert",
-    "severity": 7,
+    "severity": 8,
     "outcome": "failure",
     "category": [
       "intrusion_detection"
@@ -73,13 +73,13 @@
     "dataset": "aws.guardduty",
     "provider": "guardduty.amazonaws.com"
   },
-  "message": "GuardDuty finding [HIGH]: UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom",
+  "message": "GuardDuty finding [CRITICAL]: InitialAccess:IAMUser/AnomalousBehavior",
   "log": {
     "level": "error"
   },
   "error": {
     "code": "ThreatFinding",
-    "message": "GuardDuty finding: UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom",
+    "message": "GuardDuty finding: InitialAccess:IAMUser/AnomalousBehavior",
     "type": "security"
   }
 }

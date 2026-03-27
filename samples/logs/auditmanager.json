@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "auditmanager"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "AssessmentName": "SOC2-Type-II",
-      "ControlSetId": "Incident Response"
+      "AssessmentName": "NIST-800-53",
+      "ControlSetId": "Data Protection"
     },
     "auditmanager": {
-      "assessment_name": "SOC2-Type-II",
-      "assessment_id": "n0gsanoi-dekk-dowg-n8mp-pfgr8zzo7sh",
-      "control_set": "Incident Response",
-      "control_id": "CTRL-1958",
-      "evidence_status": "COMPLIANT",
-      "data_source": "AWS_SECURITY_HUB",
-      "evidence_count": 35,
+      "assessment_name": "NIST-800-53",
+      "assessment_id": "hk6x0dj5-fg97-zn0w-lrb6-p7afdl1ksf",
+      "control_set": "Data Protection",
+      "control_id": "CTRL-6251",
+      "evidence_status": "MANUAL_EVIDENCE_NEEDED",
+      "data_source": "MANUAL",
+      "evidence_count": 50,
       "compliance_check": "FAILED",
-      "reviewer": "compliance-team"
+      "reviewer": "security-ops"
     }
   },
   "event": {
-    "action": "SubmitReviewRequest",
+    "action": "CollectEvidence",
     "outcome": "success",
     "category": [
       "audit"
@@ -37,7 +37,7 @@
     "dataset": "aws.auditmanager",
     "provider": "auditmanager.amazonaws.com"
   },
-  "message": "Audit Manager SOC2-Type-II — CTRL-1958 COMPLIANT",
+  "message": "Audit Manager NIST-800-53 — CTRL-6251 MANUAL_EVIDENCE_NEEDED",
   "log": {
     "level": "info"
   }

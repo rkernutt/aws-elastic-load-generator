@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "il-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "lakeformation"
@@ -13,31 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "ResourceArn": "arn:aws:glue:af-south-1:738291046572:table/curated/transactions",
-      "Principal": "arn:aws:iam::738291046572:role/analyst-role"
+      "ResourceArn": "arn:aws:glue:il-central-1:501938274650:table/data_lake/products",
+      "Principal": "arn:aws:iam::501938274650:role/glue-role"
     },
     "lakeformation": {
-      "database": "curated",
-      "table": "transactions",
-      "action": "GetDataAccess",
-      "principal_arn": "arn:aws:iam::738291046572:role/analyst-role",
-      "resource_arn": "arn:aws:glue:af-south-1:738291046572:table/curated/transactions",
+      "database": "data_lake",
+      "table": "products",
+      "action": "BatchGrantPermissions",
+      "principal_arn": "arn:aws:iam::501938274650:role/glue-role",
+      "resource_arn": "arn:aws:glue:il-central-1:501938274650:table/data_lake/products",
       "permissions": [
-        "ALL"
+        "SELECT",
+        "INSERT"
       ],
-      "lf_tag_key": "team",
+      "lf_tag_key": "environment",
       "lf_tag_values": [
-        "pii"
+        "prod"
       ],
       "metrics": {
         "GrantCount": {
-          "sum": 10
+          "sum": 19
         },
         "DatabaseCount": {
-          "avg": 16
+          "avg": 19
         },
         "TableCount": {
-          "avg": 156
+          "avg": 169
         },
         "DataLakeSettings": {
           "avg": 1
@@ -46,8 +47,8 @@
     }
   },
   "event": {
-    "action": "GetDataAccess",
-    "duration": 576000000,
+    "action": "BatchGrantPermissions",
+    "duration": 491000000,
     "outcome": "success",
     "category": [
       "database",
@@ -56,7 +57,7 @@
     "dataset": "aws.lakeformation",
     "provider": "lakeformation.amazonaws.com"
   },
-  "message": "Lake Formation GetDataAccess: ALL on curated.transactions",
+  "message": "Lake Formation BatchGrantPermissions: SELECT,INSERT on data_lake.products",
   "log": {
     "level": "info"
   }

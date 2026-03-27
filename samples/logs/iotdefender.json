@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "iotdefender"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "dimensions": {
-      "CheckName": "REVOKED_CA_CERTIFICATE"
+      "CheckName": "IOT_POLICY_OVERLY_PERMISSIVE"
     },
     "iotdefender": {
-      "thing_name": "controller-a4",
-      "audit_check_name": "REVOKED_CA_CERTIFICATE",
-      "finding_id": "sfba9b1tw1",
-      "severity": "CRITICAL",
-      "violation_id": "l1apr1a6hek",
-      "violation_type": "device-cert-expiring",
-      "security_profile_name": "factory-floor-profile",
+      "thing_name": "valve-plant-2",
+      "audit_check_name": "IOT_POLICY_OVERLY_PERMISSIVE",
+      "finding_id": "24ef235g6su",
+      "severity": "LOW",
+      "violation_id": "v9gzqfme35",
+      "violation_type": "large-msg-size",
+      "security_profile_name": "critical-devices",
       "behavior_name": "msg-size",
-      "current_value": 944,
-      "threshold_value": 23,
-      "consecutive_datapoints_to_alarm": 5
+      "current_value": 740,
+      "threshold_value": 63,
+      "consecutive_datapoints_to_alarm": 4
     }
   },
   "event": {
@@ -38,10 +38,10 @@
     ],
     "dataset": "aws.iotdefender",
     "provider": "iot.amazonaws.com",
-    "duration": 57000000000
+    "duration": 73000000000
   },
-  "message": "IoT Defender CRITICAL [controller-a4]: REVOKED_CA_CERTIFICATE",
+  "message": "IoT Defender LOW [valve-plant-2]: IOT_POLICY_OVERLY_PERMISSIVE",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

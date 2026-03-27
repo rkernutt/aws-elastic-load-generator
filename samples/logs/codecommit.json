@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codecommit"
@@ -13,22 +13,24 @@
   },
   "aws": {
     "codecommit": {
-      "repository_name": "shared-libs",
-      "repository_arn": "arn:aws:codecommit:us-east-1:164820739518:shared-libs",
-      "event_type": "ReferenceUpdated",
-      "reference_name": "hotfix/payment-bug",
-      "commit_id": "8l1vo9azmcp",
-      "author": "github-actions",
-      "files_changed": 49,
-      "lines_added": 237,
-      "lines_deleted": 10
+      "repository_name": "api-service",
+      "repository_arn": "arn:aws:codecommit:eu-west-2:293847561023:api-service",
+      "event_type": "PullRequestMerged",
+      "reference_name": "develop",
+      "commit_id": "j8qnen0qt0l",
+      "author": "bob",
+      "files_changed": 6,
+      "lines_added": 260,
+      "lines_deleted": 135,
+      "pull_request_id": "380",
+      "merge_strategy": "fast-forward"
     }
   },
   "user": {
-    "name": "bob"
+    "name": "carol"
   },
   "event": {
-    "action": "ReferenceUpdated",
+    "action": "PullRequestMerged",
     "outcome": "success",
     "category": [
       "configuration",
@@ -37,7 +39,7 @@
     "dataset": "aws.codecommit",
     "provider": "codecommit.amazonaws.com"
   },
-  "message": "CodeCommit ReferenceUpdated: shared-libs/hotfix/payment-bug",
+  "message": "CodeCommit PullRequestMerged: api-service/develop",
   "log": {
     "level": "info"
   }

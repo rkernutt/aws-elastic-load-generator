@@ -754,4 +754,120 @@ function generateHealthLakeLog(ts, er) {
   };
 }
 
-export { generateSageMakerLog, generateBedrockLog, generateBedrockAgentLog, generateRekognitionLog, generateTextractLog, generateComprehendLog, generateComprehendMedicalLog, generateTranslateLog, generateTranscribeLog, generatePollyLog, generateForecastLog, generatePersonalizeLog, generateLexLog, generateLookoutMetricsLog, generateQBusinessLog, generateKendraLog, generateA2iLog, generateHealthLakeLog };
+function generateNovaLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const NOVA_MODELS = [
+    { id:"amazon.nova-micro-v1:0", tier:"micro", maxOut:5120 },
+    { id:"amazon.nova-lite-v1:0",  tier:"lite",  maxOut:5120 },
+    { id:"amazon.nova-pro-v1:0",   tier:"pro",   maxOut:5120 },
+    { id:"amazon.nova-premier-v1:0", tier:"premier", maxOut:10240 },
+  ];
+  const model = rand(NOVA_MODELS);
+  const modality = rand(["text","text","text","image","document"]);
+  const inputTokens = randInt(50, 10000);
+  const outputTokens = isErr ? 0 : Math.min(randInt(50, 3000), model.maxOut);
+  const cacheReadTokens = Math.random() < 0.3 ? randInt(100, inputTokens) : 0;
+  const isStreaming = Math.random() < 0.5;
+  const latMs = model.tier === "micro" ? randInt(50, isErr?5000:1500) : model.tier === "premier" ? randInt(300, isErr?30000:8000) : randInt(100, isErr?10000:3000);
+  const ttftMs = isStreaming ? randInt(30, 400) : null;
+  const throughputTokensPerSec = isStreaming && !isErr ? parseFloat((outputTokens / (latMs / 1000)).toFixed(1)) : null;
+  const useCase = rand(["text-generation","summarization","code-generation","document-qa","image-understanding","agentic-reasoning"]);
+  const guardrail = rand(["NONE","NONE","NONE","NONE","INTERVENED"]);
+  const errorCode = rand(["ThrottlingException","ModelTimeoutException","ValidationException","ContextWindowExceededException"]);
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"bedrock" } },
+    "aws": {
+      dimensions: { ModelId: model.id, ModelTier: model.tier },
+      nova: {
+        model_id: model.id,
+        model_tier: model.tier,
+        modality,
+        input_token_count: inputTokens,
+        output_token_count: outputTokens,
+        cache_read_input_token_count: cacheReadTokens,
+        total_token_count: inputTokens + outputTokens,
+        invocation_latency_ms: latMs,
+        time_to_first_token_ms: ttftMs,
+        throughput_tokens_per_sec: throughputTokensPerSec,
+        streaming: isStreaming,
+        use_case: useCase,
+        guardrail_action: guardrail,
+        stop_reason: isErr ? null : rand(["end_turn","max_tokens","stop_sequence"]),
+        error_code: isErr ? errorCode : null,
+        metrics: {
+          Invocations: { sum: randInt(1, 1000) },
+          InvocationLatency: { avg: latMs, p99: Math.round(latMs * 2.5) },
+          InputTokenCount: { sum: inputTokens },
+          OutputTokenCount: { sum: outputTokens },
+          CacheReadInputTokenCount: { sum: cacheReadTokens },
+          Throttles: { sum: isErr ? randInt(1, 50) : 0 },
+        },
+      },
+    },
+    "event": { outcome:isErr?"failure":"success", category:["process"], dataset:"aws.nova", provider:"bedrock.amazonaws.com", duration:latMs*1e6 },
+    "message": isErr
+      ? `Nova ${model.tier} [${model.id}] FAILED: ${errorCode}`
+      : `Nova ${model.tier} ${inputTokens}->${outputTokens} tokens ${(latMs/1000).toFixed(2)}s${cacheReadTokens ? ` (${cacheReadTokens} cache hits)` : ""}`,
+    "log": { level: isErr?"error":latMs>5000?"warn":"info" },
+    ...(isErr ? { error: { code:errorCode, message:`Nova model invocation failed`, type:"ml" } } : {}),
+  };
+}
+
+function generateLookoutVisionLog(ts, er) {
+  const region = rand(REGIONS); const acct = randAccount(); const isErr = Math.random() < er;
+  const projectName = rand(["circuit-board-inspection","bottle-cap-defect","weld-quality-check","pcb-solder-inspection","fabric-anomaly-detector","turbine-blade-check"]);
+  const modelVersion = `${randInt(1,5)}.0`;
+  const modelArn = `arn:aws:lookoutvision:${region}:${acct.id}:model/${projectName}/${modelVersion}`;
+  const eventType = rand(["DetectAnomalies","StartModelPackagingJob","StartModelTrainingJob","StopModel","StartModel","DescribeModelPackagingJob"]);
+  const isAnomaly = isErr ? true : Math.random() < 0.08;
+  const confidence = isAnomaly
+    ? parseFloat(randFloat(0.65, 0.99))
+    : parseFloat(randFloat(0.88, 1.0));
+  const inferenceMs = randInt(20, isErr ? 5000 : 300);
+  const imageSource = rand(["s3","camera-stream","local-file"]);
+  const imageKey = `inspections/${projectName}/${randId(12).toLowerCase()}.jpg`;
+  const anomalyMask = isAnomaly ? `s3://lookoutvision-masks-${acct.id}/${projectName}/${randId(8).toLowerCase()}.png` : null;
+  const anomalyLabel = isAnomaly ? rand(["scratch","dent","crack","missing-component","solder-bridge","delamination","foreign-object"]) : null;
+  const trainingStatus = eventType.includes("Training") ? rand(["TRAINED","TRAINING","TRAINING_FAILED"]) : null;
+  const f1Score = trainingStatus === "TRAINED" ? parseFloat(randFloat(0.92, 0.999)) : null;
+  const recall = f1Score ? parseFloat(randFloat(0.90, 0.999)) : null;
+  const precision = f1Score ? parseFloat(randFloat(0.91, 0.999)) : null;
+  return {
+    "@timestamp": ts,
+    "cloud": { provider:"aws", region, account:{ id:acct.id, name:acct.name }, service:{ name:"lookoutvision" } },
+    "aws": {
+      dimensions: { ProjectName: projectName, ModelVersion: modelVersion },
+      lookoutvision: {
+        project_name: projectName,
+        model_version: modelVersion,
+        model_arn: modelArn,
+        event_type: eventType,
+        image_source: imageSource,
+        image_key: imageSource === "s3" ? imageKey : null,
+        is_anomalous: isAnomaly,
+        confidence,
+        anomaly_label: anomalyLabel,
+        anomaly_mask_uri: anomalyMask,
+        inference_latency_ms: eventType === "DetectAnomalies" ? inferenceMs : null,
+        training: trainingStatus ? {
+          status: trainingStatus,
+          f1_score: f1Score,
+          recall,
+          precision,
+        } : null,
+        error_code: isErr ? rand(["ResourceNotFoundException","ServiceQuotaExceededException","ThrottlingException","InternalServerException"]) : null,
+      },
+    },
+    "event": { outcome:isErr?"failure":isAnomaly?"success":"success", category:["process"], dataset:"aws.lookoutvision", provider:"lookoutvision.amazonaws.com", duration:inferenceMs*1e6 },
+    "message": isErr
+      ? `Lookout for Vision [${projectName} v${modelVersion}] ${eventType} FAILED: ${rand(["Model not running","Quota exceeded","Invalid image format"])}`
+      : isAnomaly
+        ? `Lookout for Vision [${projectName}] ANOMALY DETECTED: ${anomalyLabel} confidence=${confidence.toFixed(3)}`
+        : `Lookout for Vision [${projectName}] OK confidence=${confidence.toFixed(3)} ${inferenceMs}ms`,
+    "log": { level: isErr?"error":isAnomaly?"warn":"info" },
+    ...(isErr ? { error: { code:rand(["ResourceNotFoundException","ServiceQuotaExceededException"]), message:`Lookout for Vision operation failed`, type:"process" } } : {}),
+  };
+}
+
+export { generateSageMakerLog, generateBedrockLog, generateBedrockAgentLog, generateRekognitionLog, generateTextractLog, generateComprehendLog, generateComprehendMedicalLog, generateTranslateLog, generateTranscribeLog, generatePollyLog, generateForecastLog, generatePersonalizeLog, generateLexLog, generateLookoutMetricsLog, generateQBusinessLog, generateKendraLog, generateA2iLog, generateHealthLakeLog, generateNovaLog, generateLookoutVisionLog };

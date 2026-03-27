@@ -304,6 +304,9 @@ export const METRICS_GENERATORS = {
   greengrass:       makeGenericGenerator("greengrass", "aws.greengrass"),
   ...GENERIC_GENERATORS,
   // v11.0 — services with meaningful CloudWatch metrics
+  wavelength:          makeGenericGenerator("wavelength",          "aws.wavelength"),
+  nova:                makeGenericGenerator("nova",                "aws.nova"),
+  lookoutvision:       makeGenericGenerator("lookoutvision",       "aws.lookoutvision"),
   appmesh:             makeGenericGenerator("appmesh",             "aws.appmesh"),
   clientvpn:           makeGenericGenerator("clientvpn",           "aws.clientvpn"),
   cloudmap:            makeGenericGenerator("cloudmap",            "aws.cloudmap"),

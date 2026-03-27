@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "deadlinecloud"
@@ -13,38 +13,38 @@
   },
   "aws": {
     "dimensions": {
-      "FarmId": "farm-86fnax6jc5l",
-      "QueueId": "queue-h3rwctc47h"
+      "FarmId": "farm-cfpxttxtfc8",
+      "QueueId": "queue-qhghj2dpu2j"
     },
     "deadlinecloud": {
-      "farm_id": "farm-86fnax6jc5l",
-      "farm_name": "vfx-render-farm",
-      "queue_id": "queue-h3rwctc47h",
-      "queue_name": "batch-overnight",
-      "job_id": "job-7yiazwi881",
-      "job_name": "motion_blur_final",
-      "task_id": "task-k7wr8a16tdo",
-      "task_status": "RUNNING",
-      "job_status": "SUCCEEDED",
-      "worker_hostname": "render-worker-cpu-01.me-central-1.compute.internal",
-      "frame_start": 86,
-      "frame_end": 185,
-      "duration_seconds": 1120,
-      "renderer": "Arnold",
-      "priority": 51
+      "farm_id": "farm-cfpxttxtfc8",
+      "farm_name": "ad-rendering",
+      "queue_id": "queue-qhghj2dpu2j",
+      "queue_name": "high-priority",
+      "job_id": "job-m8lybd1op",
+      "job_name": "grade_master",
+      "task_id": "task-g1mljh3ja9i",
+      "task_status": "ASSIGNED",
+      "job_status": "ARCHIVED",
+      "worker_hostname": "render-worker-cpu-02.ap-southeast-3.compute.internal",
+      "frame_start": 116,
+      "frame_end": 136,
+      "duration_seconds": 365,
+      "renderer": "RenderMan",
+      "priority": 36
     }
   },
   "event": {
-    "action": "UpdateJob",
+    "action": "DeleteJob",
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.deadlinecloud",
     "provider": "deadline.amazonaws.com",
-    "duration": 1120000000000
+    "duration": 365000000000
   },
-  "message": "Deadline Cloud UpdateJob: farm=vfx-render-farm queue=batch-overnight job=motion_blur_final frames 86-185 RUNNING",
+  "message": "Deadline Cloud DeleteJob: farm=ad-rendering queue=high-priority job=grade_master frames 116-136 ASSIGNED",
   "log": {
     "level": "info"
   }

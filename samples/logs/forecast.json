@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "ap-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "forecast"
@@ -13,31 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "DatasetGroup": "demand-forecast",
+      "DatasetGroup": "web-traffic",
       "Operation": "GetAccuracyMetrics"
     },
     "forecast": {
-      "dataset_group": "demand-forecast",
-      "predictor_name": "demand-forecast-predictor-v6",
+      "dataset_group": "web-traffic",
       "action": "GetAccuracyMetrics",
       "algorithm": "NPTS",
       "forecast_horizon": 30,
-      "weighted_quantile_loss": 0.152,
-      "duration_seconds": 5506,
-      "status": "ACTIVE"
+      "duration_seconds": 70462,
+      "status": "FAILED",
+      "error_message": "Insufficient training data"
     }
   },
   "event": {
-    "duration": 5506000000000,
-    "outcome": "success",
+    "duration": 70462000000000,
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com"
   },
-  "message": "Forecast GetAccuracyMetrics: demand-forecast, WQL=0.152",
+  "message": "Forecast GetAccuracyMetrics FAILED for web-traffic: Training timeout",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ForecastError",
+    "message": "Forecast operation failed",
+    "type": "ml"
   }
 }

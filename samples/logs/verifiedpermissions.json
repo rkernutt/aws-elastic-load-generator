@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T12:56:06.485Z",
+  "@timestamp": "2026-03-27T13:21:40.756Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "verifiedpermissions"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "PolicyStoreId": "EFxH9N7SA6NGYWV"
+      "PolicyStoreId": "EFxHZR4C17PFZOC"
     },
     "verifiedpermissions": {
-      "policy_store_id": "EFxH9N7SA6NGYWV",
-      "principal_entity_type": "ServiceAccount",
-      "principal_entity_id": "serviceaccount-ZL8HB97T",
-      "action_id": "DeleteDocument",
-      "resource_type": "Resource",
-      "decision": "ALLOW",
-      "determining_policies": 1,
+      "policy_store_id": "EFxHZR4C17PFZOC",
+      "principal_entity_type": "Role",
+      "principal_entity_id": "role-J3VSGQS8",
+      "action_id": "WriteDocument",
+      "resource_type": "Endpoint",
+      "decision": "DENY",
+      "determining_policies": 3,
       "errors_count": 0,
-      "evaluation_time_ms": 1
+      "evaluation_time_ms": 49
     }
   },
   "event": {
-    "action": "GetAuthorization",
+    "action": "IsAuthorizedWithToken",
     "outcome": "success",
     "category": [
       "authentication",
@@ -37,8 +37,13 @@
     "dataset": "aws.verifiedpermissions",
     "provider": "verifiedpermissions.amazonaws.com"
   },
-  "message": "Verified Permissions ALLOW: ServiceAccount/serviceaccount-ZL8HB97T → DeleteDocument",
+  "message": "Verified Permissions DENY: Role/role-J3VSGQS8 → WriteDocument",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "AccessDenied",
+    "message": "Authorization denied for Role/role-J3VSGQS8 to perform WriteDocument",
+    "type": "authorization"
   }
 }
