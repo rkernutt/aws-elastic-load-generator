@@ -348,7 +348,10 @@ export default function App() {
                 ? `${indexPrefix}.${__dataset.replace(/^aws\./, "")}-default`
                 : `logs-${__dataset}-default`
               : indexName;
-            return [JSON.stringify({ create:{ _index:idx } }), JSON.stringify(cleanDoc)];
+            // metrics data streams use TSDS (deterministic IDs from dimensions+timestamp)
+            // — use "index" so re-runs overwrite rather than conflict; logs keep "create"
+            const op = eventType === "metrics" ? "index" : "create";
+            return [JSON.stringify({ [op]:{ _index:idx } }), JSON.stringify(cleanDoc)];
           }).join("\n") + "\n";
           try {
             const res  = await fetch(`/proxy/_bulk`, { method:"POST", headers, body:ndjson });
