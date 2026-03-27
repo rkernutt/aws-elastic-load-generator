@@ -30,6 +30,9 @@ function createReadline() {
 
 function prompt(rl, question) {
   return new Promise((resolve) => {
+    // Clear any residual text in readline's line buffer before asking the next
+    // question — prevents the previous answer from appearing pre-filled.
+    rl.write(null, { ctrl: true, name: "u" });
     rl.question(question, (answer) => resolve(answer.trim()));
   });
 }

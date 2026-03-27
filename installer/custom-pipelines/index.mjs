@@ -25,6 +25,7 @@ function createReadline() {
 
 function prompt(rl, question) {
   return new Promise((resolve) => {
+    rl.write(null, { ctrl: true, name: "u" });
     rl.question(question, (answer) => resolve(answer.trim()));
   });
 }

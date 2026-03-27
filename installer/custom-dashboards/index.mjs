@@ -33,7 +33,10 @@ function createReadline() {
 }
 
 function prompt(rl, question) {
-  return new Promise((resolve) => rl.question(question, (a) => resolve(a.trim())));
+  return new Promise((resolve) => {
+    rl.write(null, { ctrl: true, name: "u" });
+    rl.question(question, (a) => resolve(a.trim()));
+  });
 }
 
 function printHeader() {
