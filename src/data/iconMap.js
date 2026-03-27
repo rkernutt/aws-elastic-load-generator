@@ -1,7 +1,10 @@
 // Official AWS Architecture Icons (stored locally in public/aws-icons/)
-// Service id → SVG filename. Fallback: keep Unicode icon.
+// Service id → filename (no extension = .svg assumed; include extension for .png files).
 
 const AWS_ICON_BASE = (typeof import.meta !== "undefined" && import.meta.env?.BASE_URL) ? import.meta.env.BASE_URL + "aws-icons" : "/aws-icons";
+
+// Build icon src — appends .svg only when no extension is present
+const iconSrc = (name) => name.includes(".") ? `${AWS_ICON_BASE}/${name}` : `${AWS_ICON_BASE}/${name}.svg`;
 
 const AWS_SERVICE_ICON_MAP = {
   lambda: "AWSLambda", apigateway: "AmazonAPIGateway", vpc: "AmazonVirtualPrivateCloud", cloudtrail: "AWSCloudTrail",
@@ -53,6 +56,11 @@ const AWS_SERVICE_ICON_MAP = {
   fis: "AWSFaultInjectionService", managedgrafana: "AmazonManagedGrafana",
   supplychain: "AWSSupplyChain", arc: "AWSApplicationRecoveryController",
   deadlinecloud: "AWSDeadlineCloud",
+  // Security findings & attack patterns (PNG icons)
+  cspm:              "SecurityCSPM.png",
+  kspm:              "SecurityKSPM.png",
+  "iam-privesc-chain": "SecurityIAMPrivEsc.png",
+  "data-exfil-chain":  "SecurityDataExfil.png",
 };
 
 // Category icons — used for service group headers in the UI
@@ -70,6 +78,7 @@ const CATEGORY_ICON_MAP = {
   management: "Category-Management",
   media:      "Category-Media",
   messaging:  "Category-BusinessApps",
+  findings:   "Category-SecurityFindings.png",
 };
 
-export { AWS_ICON_BASE, AWS_SERVICE_ICON_MAP, CATEGORY_ICON_MAP };
+export { AWS_ICON_BASE, AWS_SERVICE_ICON_MAP, CATEGORY_ICON_MAP, iconSrc };

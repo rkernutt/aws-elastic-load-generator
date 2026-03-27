@@ -49,13 +49,15 @@ const SERVICE_GROUPS = [
     {id:"detective",label:"Detective",icon:"⊙",desc:"Behavioral analysis findings"},
     {id:"verifiedaccess",label:"Verified Access",icon:"⊜",desc:"Zero-trust access audit logs"},
     {id:"securitylake",label:"Security Lake",icon:"◉",desc:"OCSF 1.1.0 unified security logs"},
+    {id:"securityir",label:"Security IR",icon:"⚠",desc:"Security incident response cases"},
+    {id:"cloudhsm",label:"CloudHSM",icon:"⊚",desc:"Hardware security module logs"},
+  ]},
+  { id:"findings", label:"Security Findings & Attack Patterns", color:"#DC2626", icon:"⚡", services:[
     {id:"security-chain",label:"GD → SecHub → Lake",icon:"⛓",desc:"Linked GuardDuty → Security Hub → Security Lake finding chain"},
     {id:"cspm",label:"CSPM",icon:"◎",desc:"Elastic CSPM — CIS AWS 1.5 posture findings (cloud_security_posture.findings)"},
     {id:"kspm",label:"KSPM",icon:"☸",desc:"Elastic KSPM — CIS EKS 1.4 Kubernetes posture findings"},
     {id:"iam-privesc-chain",label:"IAM PrivEsc Chain",icon:"⚡",desc:"Attack chain: IAM enumeration → credential creation → policy escalation → AssumeRole"},
     {id:"data-exfil-chain",label:"Data Exfil Chain",icon:"◂",desc:"Attack chain: GuardDuty S3 detection → CloudTrail GetObject burst → VPC Flow high egress"},
-    {id:"securityir",label:"Security IR",icon:"⚠",desc:"Security incident response cases"},
-    {id:"cloudhsm",label:"CloudHSM",icon:"⊚",desc:"Hardware security module logs"},
   ]},
   { id:"storage", label:"Storage & Databases", color:"#93C90E", icon:"⊞", services:[
     {id:"s3",label:"S3",icon:"○",desc:"Object access logs"},
