@@ -80,7 +80,18 @@ export default function App() {
     setSelectedTraceServices(prev => prev.includes(id) ? prev.filter(s=>s!==id) : [...prev,id]);
   };
 
-  const addLog = (msg, type="info") => setLog(prev => [...prev.slice(-100), {msg,type,ts:new Date().toLocaleTimeString()}]);
+  const addLog = (msg, type="info") => setLog(prev => [...prev.slice(-5000), {msg,type,ts:new Date().toLocaleTimeString()}]);
+
+  const downloadLog = () => {
+    const lines = log.map(e => `[${e.ts}] [${e.type.toUpperCase().padEnd(5)}] ${e.msg}`).join("\n");
+    const blob = new Blob([lines], { type: "text/plain" });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement("a");
+    a.href     = url;
+    a.download = `load-generator-log-${new Date().toISOString().slice(0,19).replace(/[T:]/g,"-")}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const toggleService = (id) => {
     if (eventType === "metrics" && !METRICS_SUPPORTED_SERVICE_IDS.has(id) && !selectedServices.includes(id)) return;
@@ -754,7 +765,11 @@ export default function App() {
             )}
 
             <Card>
-              <CardHeader label="Activity Log"/>
+              <CardHeader label="Activity Log">
+                {log.length > 0 && (
+                  <QuickBtn onClick={downloadLog}>↓ Download</QuickBtn>
+                )}
+              </CardHeader>
               <div className={styles.logBox}>
                 {log.length===0
                   ? <span style={{color:K.textSubdued,fontStyle:"italic"}}>Waiting for activity…</span>

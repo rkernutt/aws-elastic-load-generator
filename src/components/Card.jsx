@@ -8,14 +8,17 @@ export function Card({children, style={}}) {
   );
 }
 
-export function CardHeader({label, badge, badgeColor}) {
+export function CardHeader({label, badge, badgeColor, children}) {
   const bc = badgeColor || K.primary;
   return (
     <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
       <span style={{fontSize:13,fontWeight:600,color:K.textHeading}}>{label}</span>
-      {badge && (
-        <span style={{fontSize:11,fontWeight:600,color:bc,background:`${bc}18`,border:`1px solid ${bc}44`,borderRadius:99,padding:"2px 8px"}}>{badge}</span>
-      )}
+      <div style={{display:"flex",alignItems:"center",gap:8}}>
+        {children}
+        {badge && (
+          <span style={{fontSize:11,fontWeight:600,color:bc,background:`${bc}18`,border:`1px solid ${bc}44`,borderRadius:99,padding:"2px 8px"}}>{badge}</span>
+        )}
+      </div>
     </div>
   );
 }
