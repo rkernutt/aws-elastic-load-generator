@@ -38,6 +38,7 @@ export default function App() {
   const [eventType, setEventType]               = useState(savedConfig.eventType         ?? "logs");
   const [ingestionSource, setIngestionSource]   = useState(savedConfig.ingestionSource   ?? "default");
   const [batchDelayMs, setBatchDelayMs]         = useState(savedConfig.batchDelayMs     ?? 20);
+  const [injectAnomalies, setInjectAnomalies]   = useState(savedConfig.injectAnomalies  ?? false);
   const [validationErrors, setValidationErrors] = useState({ elasticUrl: "", apiKey: "", indexPrefix: "" });
 
   const isTracesMode   = eventType === "traces";
@@ -56,12 +57,12 @@ export default function App() {
     try {
       localStorage.setItem(LS_KEY, JSON.stringify({
         logsIndexPrefix, metricsIndexPrefix,
-        logsPerService, tracesPerService, errorRate, batchSize, batchDelayMs, ingestionSource, eventType,
+        logsPerService, tracesPerService, errorRate, batchSize, batchDelayMs, ingestionSource, eventType, injectAnomalies,
       }));
     } catch (e) {
       if (import.meta.env.DEV) console.warn("[LS] Failed to save config:", e);
     }
-  }, [logsIndexPrefix, metricsIndexPrefix, logsPerService, tracesPerService, errorRate, batchSize, batchDelayMs, ingestionSource, eventType]);
+  }, [logsIndexPrefix, metricsIndexPrefix, logsPerService, tracesPerService, errorRate, batchSize, batchDelayMs, ingestionSource, eventType, injectAnomalies]);
 
   const clearSavedConfig = () => {
     try { localStorage.removeItem(LS_KEY); } catch { /* ignore */ }
@@ -74,6 +75,7 @@ export default function App() {
     setEventType("logs");
     setIngestionSource("default");
     setBatchDelayMs(20);
+    setInjectAnomalies(false);
   };
 
   const toggleTraceService  = (id) => {
@@ -307,6 +309,36 @@ export default function App() {
           totalSent += sent;
           totalErrors += errors;
         }
+
+        // ── Anomaly injection pass (traces) ────────────────────────────────
+        if (injectAnomalies && !abortRef.current) {
+          addLog("⚡ Anomaly injection pass — shipping spike traces at current time…", "info");
+          const injCount = Math.max(50, Math.round(tracesPerService * 0.3));
+          const injEnd   = new Date();
+          const injStart = new Date(injEnd.getTime() - 5 * 60 * 1000);
+          for (const svc of activeServices) {
+            if (abortRef.current) break;
+            if (!TRACE_GENERATORS[svc]) continue;
+            const injDocs = Array.from({ length: injCount }, () =>
+              TRACE_GENERATORS[svc](randTs(injStart, injEnd), 1.0).map(d => {
+                const out = stripNulls(d);
+                if (out["transaction.duration.us"]) out["transaction.duration.us"] *= 15;
+                if (out["span.duration.us"])        out["span.duration.us"]        *= 15;
+                return out;
+              })
+            ).flat();
+            const ndjson = injDocs.flatMap(doc => [JSON.stringify({ create:{ _index: APM_INDEX } }), JSON.stringify(doc)]).join("\n") + "\n";
+            try {
+              const res  = await fetch(`/proxy/_bulk`, { method:"POST", headers, body:ndjson });
+              const json = await res.json();
+              const errs = json.items?.filter(it => it.create?.error || it.index?.error).length ?? 0;
+              addLog(`  ⚡ ${svc}: ${injDocs.length - errs} anomaly trace docs injected`, errs > 0 ? "warn" : "ok");
+            } catch(e) {
+              addLog(`  ✗ anomaly injection network error (${svc}): ${e.message}`, "error");
+            }
+          }
+        }
+
         setStatus(abortRef.current ? "aborted" : "done");
         addLog(
           abortRef.current ? `Aborted. ${totalSent} traces shipped.` : `Done! ${totalSent.toLocaleString()} traces indexed, ${totalErrors} errors.`,
@@ -396,6 +428,65 @@ export default function App() {
         totalSent += sent;
         totalErrors += errors;
       }
+
+      // ── Anomaly injection pass (logs / metrics) ──────────────────────────
+      if (injectAnomalies && !abortRef.current) {
+        addLog("⚡ Anomaly injection pass — shipping spike events at current time…", "info");
+        const injCount = Math.max(50, Math.round(logsPerService * 0.3));
+        const injEnd   = new Date();
+        const injStart = new Date(injEnd.getTime() - 5 * 60 * 1000);
+        for (const svc of activeServices) {
+          if (abortRef.current) break;
+          const dataset = eventType === "metrics"
+            ? (ELASTIC_METRICS_DATASET_MAP[svc] ?? ELASTIC_DATASET_MAP[svc] ?? `aws.${svc}`)
+            : (ELASTIC_DATASET_MAP[svc] || `aws.${svc}`);
+          const dsPrefix  = dataset === "aws.xray" ? "traces-aws" : indexPrefix;
+          const indexName = `${dsPrefix}.${dataset.replace(/^aws\./, "")}-default`;
+          const isDimensional = eventType === "metrics" && METRICS_GENERATORS[svc];
+          let injDocs;
+          if (isDimensional) {
+            injDocs = Array.from({ length: injCount }, () => {
+              const docs = METRICS_GENERATORS[svc](randTs(injStart, injEnd), 1.0);
+              return (Array.isArray(docs) ? docs : [docs]).map(d => {
+                const out = stripNulls(d);
+                // Inflate all numeric metric values to create anomalies
+                for (const [k, v] of Object.entries(out)) {
+                  if (typeof v === "number" && !k.startsWith("@") && k !== "_doc_count") {
+                    out[k] = v * 20;
+                  }
+                }
+                return out;
+              });
+            }).flat();
+          } else if (GENERATORS[svc]) {
+            injDocs = Array.from({ length: injCount }, () => {
+              const result = GENERATORS[svc](randTs(injStart, injEnd), 1.0);
+              return (Array.isArray(result) ? result : [stripNulls(enrichDoc(result, svc, getEffectiveSource(svc), eventType))]).map(d => stripNulls(d));
+            }).flat();
+          } else {
+            continue;
+          }
+          const ndjson = injDocs.flatMap(doc => {
+            const { __dataset, ...cleanDoc } = doc;
+            const idx = __dataset
+              ? __dataset.startsWith("aws.")
+                ? `${indexPrefix}.${__dataset.replace(/^aws\./, "")}-default`
+                : `logs-${__dataset}-default`
+              : indexName;
+            return [JSON.stringify({ create:{ _index:idx } }), JSON.stringify(cleanDoc)];
+          }).join("\n") + "\n";
+          try {
+            const res  = await fetch(`/proxy/_bulk`, { method:"POST", headers, body:ndjson });
+            const json = await res.json();
+            const failedInj = json.items?.filter(it => it.create?.error || it.index?.error) || [];
+            const realErrInj = failedInj.filter(it => (it.create?.error?.type || it.index?.error?.type) !== "version_conflict_engine_exception");
+            addLog(`  ⚡ ${svc}: ${injDocs.length - failedInj.length} anomaly docs injected${realErrInj.length > 0 ? `, ${realErrInj.length} errors` : ""}`, realErrInj.length > 0 ? "warn" : "ok");
+          } catch(e) {
+            addLog(`  ✗ anomaly injection network error (${svc}): ${e.message}`, "error");
+          }
+        }
+      }
+
       setStatus(abortRef.current ? "aborted" : "done");
       addLog(
         abortRef.current ? `Aborted. ${totalSent} shipped.` : `Done! ${totalSent.toLocaleString()} indexed, ${totalErrors} errors.`,
@@ -406,7 +497,7 @@ export default function App() {
       addLog(`Fatal error: ${fatal.message}`, "error");
       console.error("Ship error:", fatal);
     }
-  }, [selectedServices,selectedTraceServices,logsPerService,tracesPerService,errorRate,batchSize,batchDelayMs,elasticUrl,apiKey,indexPrefix,logsIndexPrefix,metricsIndexPrefix,ingestionSource,enrichDoc,getEffectiveSource,eventType,isTracesMode,runConnectionValidation]);
+  }, [selectedServices,selectedTraceServices,logsPerService,tracesPerService,errorRate,batchSize,batchDelayMs,elasticUrl,apiKey,indexPrefix,logsIndexPrefix,metricsIndexPrefix,ingestionSource,enrichDoc,getEffectiveSource,eventType,isTracesMode,runConnectionValidation,injectAnomalies]);
 
   const pct            = progress.total>0 ? Math.round((progress.sent/progress.total)*100) : 0;
   const totalSelected  = isTracesMode ? selectedTraceServices.length : selectedServices.length;
@@ -634,6 +725,18 @@ export default function App() {
                 <SliderField label="Batch delay (ms)" value={batchDelayMs} min={0} max={2000} step={50}
                   onChange={v=>setBatchDelayMs(Number(v))} display={`${batchDelayMs} ms`}
                   sublabel="Delay between bulk requests (0 = minimal)"/>
+                <label style={{display:"flex",alignItems:"flex-start",gap:10,cursor:"pointer",padding:"10px 12px",background:injectAnomalies?"#7c3aed11":"transparent",border:`1px solid ${injectAnomalies?"#7c3aed44":K.border}`,borderRadius:K.radiusSm,transition:"all 0.15s"}}>
+                  <input
+                    type="checkbox"
+                    checked={injectAnomalies}
+                    onChange={e=>setInjectAnomalies(e.target.checked)}
+                    style={{marginTop:2,accentColor:"#7c3aed",width:14,height:14,flexShrink:0}}
+                  />
+                  <div>
+                    <div style={{fontSize:12,fontWeight:600,color:injectAnomalies?"#7c3aed":K.text}}>Inject anomalies</div>
+                    <div style={{fontSize:11,color:K.textSubdued,marginTop:2}}>After the main run, ship a second spike pass at current time — extreme values that ML anomaly detection jobs will score highly.</div>
+                  </div>
+                </label>
               </div>
             </Card>
 
