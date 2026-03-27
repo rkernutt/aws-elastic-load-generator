@@ -76,9 +76,11 @@ export default function App() {
     setBatchDelayMs(20);
   };
 
-  const toggleTraceService = (id) => {
+  const toggleTraceService  = (id) => {
     setSelectedTraceServices(prev => prev.includes(id) ? prev.filter(s=>s!==id) : [...prev,id]);
   };
+  const selectAllTraces  = () => setSelectedTraceServices(TRACE_SERVICES.map(s => s.id));
+  const selectNoneTraces = () => setSelectedTraceServices([]);
 
   const addLog = (msg, type="info") => setLog(prev => [...prev.slice(-5000), {msg,type,ts:new Date().toLocaleTimeString()}]);
 
@@ -445,11 +447,15 @@ export default function App() {
               <Card>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
                   <span style={{fontSize:13,fontWeight:600,color:K.textHeading}}>Select Trace Services</span>
-                  {totalSelected>0&&(
-                    <span style={{fontSize:11,fontWeight:600,color:"#8b5cf6",background:"#8b5cf614",border:"1px solid #8b5cf644",borderRadius:99,padding:"2px 10px"}}>
-                      {totalSelected} selected
-                    </span>
-                  )}
+                  <div style={{display:"flex",alignItems:"center",gap:6}}>
+                    <QuickBtn onClick={selectAllTraces}>All</QuickBtn>
+                    <QuickBtn onClick={selectNoneTraces}>None</QuickBtn>
+                    {totalSelected>0&&(
+                      <span style={{fontSize:11,fontWeight:600,color:"#8b5cf6",background:"#8b5cf614",border:"1px solid #8b5cf644",borderRadius:99,padding:"2px 10px"}}>
+                        {totalSelected} selected
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div style={{fontSize:11,color:K.textSubdued,marginBottom:12,padding:"8px 10px",background:"#8b5cf608",border:"1px solid #8b5cf622",borderRadius:K.radiusSm}}>
                   Traces are generated using <span style={{color:"#8b5cf6",fontWeight:600}}>OpenTelemetry (OTLP)</span> with EDOT instrumentation and shipped to <span style={{color:"#8b5cf6",fontWeight:600}}>traces-apm-default</span>.
