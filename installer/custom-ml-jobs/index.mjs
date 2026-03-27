@@ -40,7 +40,7 @@ function printHeader() {
   console.log("║     AWS → Elastic ML Anomaly Detection Installer     ║");
   console.log("╚══════════════════════════════════════════════════════╝");
   console.log("");
-  console.log("Installs Elasticsearch ML anomaly detection jobs for AWS services.");
+  console.log("Manages Elasticsearch ML anomaly detection jobs for AWS services.");
   console.log("Requires an API key with the `manage_ml` cluster privilege.");
   console.log("");
 }
@@ -164,6 +164,16 @@ function createElasticClient(baseUrl, apiKey) {
     /** POST /_ml/datafeeds/datafeed-{jobId}/_start — start datafeed */
     async startDatafeed(jobId) {
       return request("POST", `/_ml/datafeeds/${encodeURIComponent(`datafeed-${jobId}`)}/_start`);
+    },
+
+    /** POST /_ml/datafeeds/datafeed-{jobId}/_stop — stop datafeed */
+    async stopDatafeed(jobId) {
+      return request("POST", `/_ml/datafeeds/${encodeURIComponent(`datafeed-${jobId}`)}/_stop`);
+    },
+
+    /** POST /_ml/anomaly_detectors/{jobId}/_close — close job */
+    async closeJob(jobId) {
+      return request("POST", `/_ml/anomaly_detectors/${encodeURIComponent(jobId)}/_close`);
     },
   };
 }
@@ -294,7 +304,22 @@ async function main() {
     }
   }
 
-  // 7. Load job groups
+  // 7. Mode selection
+  console.log("\nWhat would you like to do?\n");
+  console.log("  1. Install jobs");
+  console.log("  2. Stop jobs (stop datafeeds + close jobs)");
+  console.log("");
+
+  let mode;
+  while (true) {
+    const input = await prompt(rl, "Enter 1 or 2:\n> ");
+    if (input === "1") { mode = "install"; break; }
+    if (input === "2") { mode = "stop"; break; }
+    console.error("  Please enter 1 or 2.");
+  }
+  console.log("");
+
+  // 8. Load job groups
   let groups;
   try {
     groups = loadJobGroups();
@@ -310,8 +335,8 @@ async function main() {
     process.exit(1);
   }
 
-  // 8. Group selection menu
-  console.log("\nAvailable job groups:\n");
+  // 9. Group selection menu
+  console.log(`Available job groups (${mode === "stop" ? "select groups to stop" : "select groups to install"}):\n`);
 
   groups.forEach((group, i) => {
     const count = group.jobs.length;
@@ -322,7 +347,7 @@ async function main() {
   });
 
   const allIndex = groups.length + 1;
-  console.log(`  ${String(allIndex).padStart(2, " ")}. all          (install every group)`);
+  console.log(`  ${String(allIndex).padStart(2, " ")}. all          (${mode === "stop" ? "stop every group" : "install every group"})`);
   console.log("");
 
   const selectionInput = await prompt(
@@ -368,7 +393,52 @@ async function main() {
     process.exit(0);
   }
 
-  // 9. Install jobs
+  // ── Stop mode ────────────────────────────────────────────────────────────────
+  if (mode === "stop") {
+    console.log(`\nStopping ${selectedJobs.length} job(s)...\n`);
+
+    let stoppedCount = 0;
+    let notRunningCount = 0;
+    let failedCount = 0;
+
+    for (const jobDef of selectedJobs) {
+      const { id } = jobDef;
+      try {
+        const existing = await client.getJob(id);
+        if (existing === null) {
+          console.log(`  – ${id} — not installed, skipping`);
+          notRunningCount++;
+          continue;
+        }
+
+        process.stdout.write(`  Stopping datafeed for ${id}...`);
+        try {
+          await client.stopDatafeed(id);
+          process.stdout.write(" stopped. Closing job...");
+        } catch {
+          process.stdout.write(" (already stopped). Closing job...");
+        }
+
+        await client.closeJob(id);
+        console.log(" closed.");
+        stoppedCount++;
+      } catch (err) {
+        console.log(` FAILED: ${err.message}`);
+        failedCount++;
+      }
+    }
+
+    console.log("");
+    console.log(
+      `Stopped ${stoppedCount} / ${selectedJobs.length} job(s).` +
+        (notRunningCount > 0 ? ` (${notRunningCount} not installed, skipped)` : "") +
+        (failedCount > 0 ? ` (${failedCount} failed)` : "")
+    );
+    console.log("\nDone.");
+    return;
+  }
+
+  // ── Install mode ─────────────────────────────────────────────────────────────
   console.log(`\nInstalling ${selectedJobs.length} job(s)...\n`);
 
   let installedCount = 0;
@@ -403,7 +473,7 @@ async function main() {
     }
   }
 
-  // 10. Summary
+  // Summary
   const total = selectedJobs.length;
   console.log("");
   console.log(
@@ -412,7 +482,7 @@ async function main() {
       (failedCount > 0 ? ` (${failedCount} failed)` : "")
   );
 
-  // 11. Offer to open jobs and start datafeeds
+  // Offer to open jobs and start datafeeds
   if (newlyInstalled.length > 0) {
     console.log("");
     const rl2 = readline.createInterface({
