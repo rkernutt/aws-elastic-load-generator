@@ -2,7 +2,6 @@
   "title": "AWS X-Ray — Distributed Tracing",
   "time_range": { "from": "now-3h", "to": "now" },
   "panels": [
-
     {
       "type": "lens",
       "uid": "xray-kpi-total-traces",
@@ -122,8 +121,8 @@
               },
               "x": { "operation": "value", "column": "bucket" },
               "y": [
-                { "operation": "value", "column": "fault_pct",    "label": "Fault %" },
-                { "operation": "value", "column": "error_pct",    "label": "Error %" },
+                { "operation": "value", "column": "fault_pct", "label": "Fault %" },
+                { "operation": "value", "column": "error_pct", "label": "Error %" },
                 { "operation": "value", "column": "throttle_pct", "label": "Throttle %" }
               ]
             }
@@ -279,7 +278,7 @@
               },
               "x": { "operation": "value", "column": "bucket" },
               "y": [
-                { "operation": "value", "column": "total",  "label": "Total" },
+                { "operation": "value", "column": "total", "label": "Total" },
                 { "operation": "value", "column": "faults", "label": "Faults" },
                 { "operation": "value", "column": "errors", "label": "Errors" }
               ]
@@ -302,22 +301,21 @@
             "query": "FROM traces-aws.xray* | KEEP @timestamp, `aws.xray.trace_id`, `aws.xray.service.name`, `aws.xray.service.type`, `aws.xray.http.request.method`, `aws.xray.http.response.status`, `aws.xray.duration`, `aws.xray.fault`, `aws.xray.error`, `aws.xray.throttle`, event.outcome | SORT @timestamp DESC | LIMIT 50"
           },
           "metrics": [
-            { "operation": "value", "column": "@timestamp",                   "label": "Timestamp" },
-            { "operation": "value", "column": "aws.xray.trace_id",            "label": "Trace ID" },
-            { "operation": "value", "column": "aws.xray.service.name",        "label": "Service" },
-            { "operation": "value", "column": "aws.xray.service.type",        "label": "Resource Type" },
+            { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
+            { "operation": "value", "column": "aws.xray.trace_id", "label": "Trace ID" },
+            { "operation": "value", "column": "aws.xray.service.name", "label": "Service" },
+            { "operation": "value", "column": "aws.xray.service.type", "label": "Resource Type" },
             { "operation": "value", "column": "aws.xray.http.request.method", "label": "Method" },
-            { "operation": "value", "column": "aws.xray.http.response.status","label": "Status" },
-            { "operation": "value", "column": "aws.xray.duration",            "label": "Duration (s)" },
-            { "operation": "value", "column": "aws.xray.fault",               "label": "Fault" },
-            { "operation": "value", "column": "aws.xray.error",               "label": "Error" },
-            { "operation": "value", "column": "aws.xray.throttle",            "label": "Throttle" },
-            { "operation": "value", "column": "event.outcome",                "label": "Outcome" }
+            { "operation": "value", "column": "aws.xray.http.response.status", "label": "Status" },
+            { "operation": "value", "column": "aws.xray.duration", "label": "Duration (s)" },
+            { "operation": "value", "column": "aws.xray.fault", "label": "Fault" },
+            { "operation": "value", "column": "aws.xray.error", "label": "Error" },
+            { "operation": "value", "column": "aws.xray.throttle", "label": "Throttle" },
+            { "operation": "value", "column": "event.outcome", "label": "Outcome" }
           ],
           "rows": []
         }
       }
     }
-
   ]
 }

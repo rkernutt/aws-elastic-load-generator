@@ -1,17 +1,27 @@
-import { Component } from "react";
+import { Component, type ErrorInfo, type ReactNode } from "react";
+
+interface ErrorBoundaryProps {
+  children?: ReactNode;
+  fallback?: (error: unknown) => ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
 
 /**
  * React error boundary to catch rendering errors and display a fallback UI.
  * Prevents the whole app from unmounting on component tree errors.
  */
-export class ErrorBoundary extends Component {
-  state = { hasError: false, error: null };
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  state: ErrorBoundaryState = { hasError: false, error: null };
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error("ErrorBoundary caught an error:", error, errorInfo);
   }
 
@@ -34,10 +44,16 @@ export class ErrorBoundary extends Component {
             color: "#1D1E24",
           }}
         >
-          <h1 style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>
-            Something went wrong
-          </h1>
-          <p style={{ fontSize: 14, color: "#64748b", marginBottom: 16, maxWidth: 480, textAlign: "center" }}>
+          <h1 style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>Something went wrong</h1>
+          <p
+            style={{
+              fontSize: 14,
+              color: "#64748b",
+              marginBottom: 16,
+              maxWidth: 480,
+              textAlign: "center",
+            }}
+          >
             The application encountered an error. You can try refreshing the page.
           </p>
           <pre

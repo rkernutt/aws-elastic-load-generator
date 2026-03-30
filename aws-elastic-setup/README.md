@@ -1,5 +1,7 @@
 # AWS → Elastic setup guides
 
+> **Canonical copies** of these guides also live under [`docs/`](../docs/) (see [`docs/README.md`](../docs/README.md)). Edit the `docs/` versions first, then keep the matching files here in sync when content changes.
+
 How-to guides for ingesting real AWS service logs from **CloudWatch** into **Elastic** and routing them to the correct indices. Covers configuration on the AWS side (logging, IAM), Elastic side (Fleet integration or Custom Logs, ingest pipelines), and troubleshooting index routing.
 
 > **For automated setup** (installing the Elastic AWS integration and custom ingest pipelines), use the onboarding installers in [`installer/`](../installer/README.md):
@@ -15,10 +17,10 @@ How-to guides for ingesting real AWS service logs from **CloudWatch** into **Ela
 
 ## Contents
 
-| Document | What it covers |
-|----------|---------------|
+| Document                                                                                     | What it covers                                                                                                                                                                                                                                                                                                |
+| -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [**guide-cloudwatch-glue-sagemaker-elastic.md**](guide-cloudwatch-glue-sagemaker-elastic.md) | **Start here for real CloudWatch ingestion.** Step-by-step AWS + Elastic setup so Glue and SageMaker logs from CloudWatch land in `logs-aws.glue` and `logs-aws.sagemaker` with JSON parsing. Covers IAM, Fleet integration vs Custom Logs, dataset routing, index templates, and ingest pipeline attachment. |
-| [**cloudwatch-to-index-routing.md**](cloudwatch-to-index-routing.md) | Why CloudWatch doesn't provide an index name and how to route logs by log group to the correct data stream. Three options: Fleet multi-input, ingest pipeline reroute, and custom Lambda/Firehose sender. |
+| [**cloudwatch-to-index-routing.md**](cloudwatch-to-index-routing.md)                         | Why CloudWatch doesn't provide an index name and how to route logs by log group to the correct data stream. Three options: Fleet multi-input, ingest pipeline reroute, and custom Lambda/Firehose sender.                                                                                                     |
 
 ---
 

@@ -31,9 +31,7 @@
         "max_empty_searches": 10,
         "query": {
           "bool": {
-            "filter": [
-              { "term": { "processor.event": "transaction" } }
-            ]
+            "filter": [{ "term": { "processor.event": "transaction" } }]
           }
         },
         "chunking_config": { "mode": "auto" },
@@ -108,9 +106,7 @@
         "max_empty_searches": 10,
         "query": {
           "bool": {
-            "filter": [
-              { "term": { "processor.event": "transaction" } }
-            ]
+            "filter": [{ "term": { "processor.event": "transaction" } }]
           }
         },
         "chunking_config": { "mode": "auto" },
@@ -135,7 +131,12 @@
               "detector_index": 0
             }
           ],
-          "influencers": ["service.name", "span.type", "span.subtype", "span.destination.service.resource"]
+          "influencers": [
+            "service.name",
+            "span.type",
+            "span.subtype",
+            "span.destination.service.resource"
+          ]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "64mb" },
@@ -147,9 +148,7 @@
         "max_empty_searches": 10,
         "query": {
           "bool": {
-            "filter": [
-              { "term": { "processor.event": "span" } }
-            ]
+            "filter": [{ "term": { "processor.event": "span" } }]
           }
         },
         "chunking_config": { "mode": "auto" },

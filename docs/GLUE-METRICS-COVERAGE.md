@@ -17,27 +17,27 @@ This document maps the load generator’s Glue events to the official AWS Glue m
 
 AWS reports these to CloudWatch every 30s; we emit equivalent fields under `aws.glue.metrics` (driver / executor / ALL) so dashboards and ML can use the same field paths.
 
-| AWS metric | Generator field | Notes |
-|------------|-----------------|--------|
-| `glue.driver.aggregate.bytesRead` | `metrics.driver.aggregate.bytesRead` | ✓ |
-| `glue.driver.aggregate.elapsedTime` (ms) | `metrics.driver.aggregate.elapsedTime` | In **milliseconds** to match CloudWatch |
-| `glue.driver.aggregate.numCompletedStages` | `metrics.driver.aggregate.numCompletedStages` | ✓ |
-| `glue.driver.aggregate.numCompletedTasks` | `metrics.driver.aggregate.numCompletedTasks` | ✓ |
-| `glue.driver.aggregate.numFailedTasks` | `metrics.driver.aggregate.numFailedTasks` | ✓ |
-| `glue.driver.aggregate.numKilledTasks` | `metrics.driver.aggregate.numKilledTasks` | ✓ |
-| `glue.driver.aggregate.recordsRead` | `metrics.driver.aggregate.numRecords` | Same semantics (records read) |
-| `glue.driver.aggregate.shuffleBytesWritten` | `metrics.driver.aggregate.shuffleBytesWritten` | ✓ |
-| `glue.driver.aggregate.shuffleLocalBytesRead` | `metrics.driver.aggregate.shuffleLocalBytesRead` | ✓ |
-| `glue.driver.BlockManager.disk.diskSpaceUsed_MB` | `metrics.driver.BlockManager.disk.diskSpaceUsed_MB` | ✓ |
-| `glue.driver.ExecutorAllocationManager.executors.numberAllExecutors` | `metrics.driver.ExecutorAllocationManager.executors.numberAllExecutors` | ✓ |
-| `glue.driver.ExecutorAllocationManager.executors.numberMaxNeededExecutors` | `metrics.driver.ExecutorAllocationManager.executors.numberMaxNeededExecutors` | ✓ |
-| `glue.driver.jvm.heap.usage` (0–1) | `metrics.driver.jvm.heap.usage` | ✓ |
-| `glue.driver.jvm.heap.used` (bytes) | `metrics.driver.memory.heap.used` | ✓ |
-| `glue.driver.s3.filesystem.read_bytes` | `metrics.driver.s3.filesystem.read_bytes` | ✓ |
-| `glue.driver.s3.filesystem.write_bytes` | `metrics.driver.s3.filesystem.write_bytes` | ✓ |
-| `glue.driver.system.cpuSystemLoad` (0–1) | `metrics.driver.system.cpuSystemLoad` | ✓ |
-| `glue.ALL.*` (executor aggregates) | `metrics.ALL.*` (memory, jvm, disk, s3, system) | ✓ |
-| `glue.driver.streaming.*` | — | Not emitted (streaming-only; generator is batch/ETL-style) |
+| AWS metric                                                                 | Generator field                                                               | Notes                                                      |
+| -------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| `glue.driver.aggregate.bytesRead`                                          | `metrics.driver.aggregate.bytesRead`                                          | ✓                                                          |
+| `glue.driver.aggregate.elapsedTime` (ms)                                   | `metrics.driver.aggregate.elapsedTime`                                        | In **milliseconds** to match CloudWatch                    |
+| `glue.driver.aggregate.numCompletedStages`                                 | `metrics.driver.aggregate.numCompletedStages`                                 | ✓                                                          |
+| `glue.driver.aggregate.numCompletedTasks`                                  | `metrics.driver.aggregate.numCompletedTasks`                                  | ✓                                                          |
+| `glue.driver.aggregate.numFailedTasks`                                     | `metrics.driver.aggregate.numFailedTasks`                                     | ✓                                                          |
+| `glue.driver.aggregate.numKilledTasks`                                     | `metrics.driver.aggregate.numKilledTasks`                                     | ✓                                                          |
+| `glue.driver.aggregate.recordsRead`                                        | `metrics.driver.aggregate.numRecords`                                         | Same semantics (records read)                              |
+| `glue.driver.aggregate.shuffleBytesWritten`                                | `metrics.driver.aggregate.shuffleBytesWritten`                                | ✓                                                          |
+| `glue.driver.aggregate.shuffleLocalBytesRead`                              | `metrics.driver.aggregate.shuffleLocalBytesRead`                              | ✓                                                          |
+| `glue.driver.BlockManager.disk.diskSpaceUsed_MB`                           | `metrics.driver.BlockManager.disk.diskSpaceUsed_MB`                           | ✓                                                          |
+| `glue.driver.ExecutorAllocationManager.executors.numberAllExecutors`       | `metrics.driver.ExecutorAllocationManager.executors.numberAllExecutors`       | ✓                                                          |
+| `glue.driver.ExecutorAllocationManager.executors.numberMaxNeededExecutors` | `metrics.driver.ExecutorAllocationManager.executors.numberMaxNeededExecutors` | ✓                                                          |
+| `glue.driver.jvm.heap.usage` (0–1)                                         | `metrics.driver.jvm.heap.usage`                                               | ✓                                                          |
+| `glue.driver.jvm.heap.used` (bytes)                                        | `metrics.driver.memory.heap.used`                                             | ✓                                                          |
+| `glue.driver.s3.filesystem.read_bytes`                                     | `metrics.driver.s3.filesystem.read_bytes`                                     | ✓                                                          |
+| `glue.driver.s3.filesystem.write_bytes`                                    | `metrics.driver.s3.filesystem.write_bytes`                                    | ✓                                                          |
+| `glue.driver.system.cpuSystemLoad` (0–1)                                   | `metrics.driver.system.cpuSystemLoad`                                         | ✓                                                          |
+| `glue.ALL.*` (executor aggregates)                                         | `metrics.ALL.*` (memory, jvm, disk, s3, system)                               | ✓                                                          |
+| `glue.driver.streaming.*`                                                  | —                                                                             | Not emitted (streaming-only; generator is batch/ETL-style) |
 
 **Dimensions:** We emit `aws.dimensions` with `JobName`, `JobRunId`, and `Type` (job type: glueetl/pythonshell/gluestreaming). CloudWatch also uses dimensions `Type: count | gauge` per metric; we don’t split by count/gauge in a single event.
 
@@ -47,19 +47,19 @@ AWS reports these to CloudWatch every 30s; we emit equivalent fields under `aws.
 
 Observability adds job_performance, error, resource_utilization, and throughput. We align with the same metric names and categories where they apply to a single job run.
 
-| Category | AWS Observability metric | Generator field | Notes |
-|----------|--------------------------|-----------------|--------|
-| **job_performance** | `glue.driver.skewness.stage` | `metrics.driver.skewness.stage` | ✓ |
-| **job_performance** | `glue.driver.skewness.job` | `metrics.driver.skewness.job` | ✓ |
-| **error** | `glue.succeed.ALL` / `glue.error.ALL` | Implied by `event.outcome` and `job.run_state` | Counts are per-run in our model |
-| **error** | `glue.error.[error category]` | `aws.glue.error_category` (on failure) | One of 9 Observability error categories |
-| **resource_utilization** | `glue.driver.workerUtilization` | `metrics.driver.workerUtilization` | ✓ |
-| **resource_utilization** | `glue.driver.memory.heap.[available\|used]` | `metrics.driver.memory.heap` | ✓ |
-| **resource_utilization** | `glue.driver.memory.heap.used.percentage` | `metrics.driver.memory.heap.used_percentage` | ✓ |
-| **resource_utilization** | `glue.driver.memory.non-heap.*` | `metrics.driver.memory["non-heap"]` | ✓ |
-| **resource_utilization** | `glue.driver.disk.[available_GB\|used_GB\|used.percentage]` | `metrics.driver.disk` | ✓ |
-| **resource_utilization** | `glue.ALL.memory.*`, `glue.ALL.disk.*` | `metrics.ALL.memory`, `metrics.ALL.disk` | ✓ |
-| **throughput** | bytes/records per source/sink | `aws.glue.records.read/written`; aggregate bytes in driver.aggregate | Job-level; per-source/sink not modeled |
+| Category                 | AWS Observability metric                                    | Generator field                                                      | Notes                                   |
+| ------------------------ | ----------------------------------------------------------- | -------------------------------------------------------------------- | --------------------------------------- |
+| **job_performance**      | `glue.driver.skewness.stage`                                | `metrics.driver.skewness.stage`                                      | ✓                                       |
+| **job_performance**      | `glue.driver.skewness.job`                                  | `metrics.driver.skewness.job`                                        | ✓                                       |
+| **error**                | `glue.succeed.ALL` / `glue.error.ALL`                       | Implied by `event.outcome` and `job.run_state`                       | Counts are per-run in our model         |
+| **error**                | `glue.error.[error category]`                               | `aws.glue.error_category` (on failure)                               | One of 9 Observability error categories |
+| **resource_utilization** | `glue.driver.workerUtilization`                             | `metrics.driver.workerUtilization`                                   | ✓                                       |
+| **resource_utilization** | `glue.driver.memory.heap.[available\|used]`                 | `metrics.driver.memory.heap`                                         | ✓                                       |
+| **resource_utilization** | `glue.driver.memory.heap.used.percentage`                   | `metrics.driver.memory.heap.used_percentage`                         | ✓                                       |
+| **resource_utilization** | `glue.driver.memory.non-heap.*`                             | `metrics.driver.memory["non-heap"]`                                  | ✓                                       |
+| **resource_utilization** | `glue.driver.disk.[available_GB\|used_GB\|used.percentage]` | `metrics.driver.disk`                                                | ✓                                       |
+| **resource_utilization** | `glue.ALL.memory.*`, `glue.ALL.disk.*`                      | `metrics.ALL.memory`, `metrics.ALL.disk`                             | ✓                                       |
+| **throughput**           | bytes/records per source/sink                               | `aws.glue.records.read/written`; aggregate bytes in driver.aggregate | Job-level; per-source/sink not modeled  |
 
 **Error categories** we emit (on failure): `OUT_OF_MEMORY_ERROR`, `PERMISSION_ERROR`, `CONNECTION_ERROR`, `RESOURCE_NOT_FOUND_ERROR`, `THROTTLING_ERROR`, `SYNTAX_ERROR`, `GLUE_OPERATION_TIMEOUT_ERROR`, `S3_ERROR`, `UNCLASSIFIED_SPARK_ERROR`.
 
@@ -78,8 +78,8 @@ Observability adds job_performance, error, resource_utilization, and throughput.
 
 - **Run state:** `aws.glue.job.run_state` (RUNNING | SUCCEEDED | FAILED | STOPPED) and `event.outcome` (success | failure).
 - **Duration:** `event.duration` (nanoseconds) and `metrics.driver.aggregate.elapsedTime` (milliseconds, ETL elapsed time).
-- **Message pool includes:**  
-  - “Job run started”, “Job run started with 10 DPUs”, “Job run succeeded”, “Job run failed”  
+- **Message pool includes:**
+  - “Job run started”, “Job run started with 10 DPUs”, “Job run succeeded”, “Job run failed”
   - For **glueetl:** “Stage N (runJob) finished in X.XXX s”, “Shuffle read: X GB, Shuffle write: Y GB”, executor registration, GC/shuffle spill warnings, Parquet write.
 
 ---

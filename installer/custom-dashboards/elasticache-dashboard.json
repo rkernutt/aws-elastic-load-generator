@@ -62,7 +62,9 @@
             "type": "esql",
             "query": "FROM logs-aws.elasticache* | STATS avg_lag = AVG(`aws.elasticache.metrics.ReplicationLag.avg`) | EVAL `Avg Replication Lag (ms)` = ROUND(avg_lag, 2)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Avg Replication Lag (ms)" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Avg Replication Lag (ms)" }
+          ]
         }
       }
     },
@@ -273,8 +275,16 @@
             { "operation": "value", "column": "aws.elasticache.cluster_id", "label": "Cluster ID" },
             { "operation": "value", "column": "aws.elasticache.command", "label": "Command" },
             { "operation": "value", "column": "aws.elasticache.cache_hit", "label": "Cache Hit" },
-            { "operation": "value", "column": "aws.elasticache.latency_us", "label": "Latency (µs)" },
-            { "operation": "value", "column": "aws.elasticache.metrics.CacheHitRate.avg", "label": "Cache Hit Rate" },
+            {
+              "operation": "value",
+              "column": "aws.elasticache.latency_us",
+              "label": "Latency (µs)"
+            },
+            {
+              "operation": "value",
+              "column": "aws.elasticache.metrics.CacheHitRate.avg",
+              "label": "Cache Hit Rate"
+            },
             { "operation": "value", "column": "event.outcome", "label": "Outcome" }
           ],
           "rows": []

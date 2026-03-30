@@ -70,9 +70,7 @@
         "max_empty_searches": 10,
         "query": {
           "bool": {
-            "filter": [
-              { "term": { "event.dataset": "aws.codebuild" } }
-            ]
+            "filter": [{ "term": { "event.dataset": "aws.codebuild" } }]
           }
         },
         "chunking_config": { "mode": "auto" },
@@ -96,7 +94,11 @@
               "detector_index": 0
             }
           ],
-          "influencers": ["aws.codepipeline.pipeline_name", "aws.codepipeline.stage_name", "cloud.region"]
+          "influencers": [
+            "aws.codepipeline.pipeline_name",
+            "aws.codepipeline.stage_name",
+            "cloud.region"
+          ]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "32mb" },
@@ -187,9 +189,7 @@
         "max_empty_searches": 10,
         "query": {
           "bool": {
-            "filter": [
-              { "term": { "event.dataset": "aws.xray" } }
-            ]
+            "filter": [{ "term": { "event.dataset": "aws.xray" } }]
           }
         },
         "chunking_config": { "mode": "auto" },

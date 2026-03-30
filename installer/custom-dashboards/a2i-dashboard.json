@@ -62,7 +62,9 @@
             "type": "esql",
             "query": "FROM logs-aws.a2i* | WHERE `aws.a2i.human_review_required` == true | STATS `Review Required Count` = COUNT()"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Review Required Count" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Review Required Count" }
+          ]
         }
       }
     },
@@ -141,9 +143,17 @@
           "metrics": [
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
             { "operation": "value", "column": "aws.a2i.human_loop_status", "label": "Loop Status" },
-            { "operation": "value", "column": "aws.a2i.human_review_required", "label": "Review Required" },
+            {
+              "operation": "value",
+              "column": "aws.a2i.human_review_required",
+              "label": "Review Required"
+            },
             { "operation": "value", "column": "aws.a2i.task_completed", "label": "Task Completed" },
-            { "operation": "value", "column": "aws.a2i.flow_definition_name", "label": "Flow Definition" }
+            {
+              "operation": "value",
+              "column": "aws.a2i.flow_definition_name",
+              "label": "Flow Definition"
+            }
           ],
           "rows": []
         }

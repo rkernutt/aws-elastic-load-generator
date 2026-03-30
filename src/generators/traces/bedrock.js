@@ -12,9 +12,15 @@
  */
 
 import {
-  TRACE_REGIONS, TRACE_ACCOUNTS,
-  newTraceId, newSpanId, rand, randInt, offsetTs,
-  serviceBlock, otelBlocks,
+  TRACE_REGIONS,
+  TRACE_ACCOUNTS,
+  newTraceId,
+  newSpanId,
+  rand,
+  randInt,
+  offsetTs,
+  serviceBlock,
+  otelBlocks,
 } from "./helpers.js";
 
 // ─── Realistic Bedrock model IDs ──────────────────────────────────────────────
@@ -41,7 +47,12 @@ const APP_CONFIGS = [
     model: "anthropic.claude-3-5-sonnet-20241022-v2:0",
     operations: [
       { opName: "query", inputTokens: [200, 2000], outputTokens: [100, 800], llmMs: [1000, 8000] },
-      { opName: "classify_intent", inputTokens: [100, 500], outputTokens: [20, 100], llmMs: [500, 3000] },
+      {
+        opName: "classify_intent",
+        inputTokens: [100, 500],
+        outputTokens: [20, 100],
+        llmMs: [500, 3000],
+      },
     ],
   },
   {
@@ -53,8 +64,18 @@ const APP_CONFIGS = [
     pattern: "single",
     model: "anthropic.claude-3-5-sonnet-20241022-v2:0",
     operations: [
-      { opName: "review", inputTokens: [1000, 8000], outputTokens: [500, 4000], llmMs: [3000, 25000] },
-      { opName: "suggest_fixes", inputTokens: [800, 4000], outputTokens: [400, 2000], llmMs: [2000, 15000] },
+      {
+        opName: "review",
+        inputTokens: [1000, 8000],
+        outputTokens: [500, 4000],
+        llmMs: [3000, 25000],
+      },
+      {
+        opName: "suggest_fixes",
+        inputTokens: [800, 4000],
+        outputTokens: [400, 2000],
+        llmMs: [2000, 15000],
+      },
     ],
   },
   {
@@ -66,8 +87,18 @@ const APP_CONFIGS = [
     pattern: "single",
     model: "anthropic.claude-3-haiku-20240307-v1:0",
     operations: [
-      { opName: "summarise", inputTokens: [3000, 8000], outputTokens: [200, 1000], llmMs: [2000, 20000] },
-      { opName: "extract_keywords", inputTokens: [2000, 6000], outputTokens: [50, 300], llmMs: [1000, 8000] },
+      {
+        opName: "summarise",
+        inputTokens: [3000, 8000],
+        outputTokens: [200, 1000],
+        llmMs: [2000, 20000],
+      },
+      {
+        opName: "extract_keywords",
+        inputTokens: [2000, 6000],
+        outputTokens: [50, 300],
+        llmMs: [1000, 8000],
+      },
     ],
   },
   {
@@ -92,8 +123,18 @@ const APP_CONFIGS = [
     pattern: "single",
     model: "mistral.mistral-large-2402-v1:0",
     operations: [
-      { opName: "extract", inputTokens: [500, 4000], outputTokens: [200, 1500], llmMs: [1000, 12000] },
-      { opName: "validate_schema", inputTokens: [300, 2000], outputTokens: [100, 600], llmMs: [800, 6000] },
+      {
+        opName: "extract",
+        inputTokens: [500, 4000],
+        outputTokens: [200, 1500],
+        llmMs: [1000, 12000],
+      },
+      {
+        opName: "validate_schema",
+        inputTokens: [300, 2000],
+        outputTokens: [100, 600],
+        llmMs: [800, 6000],
+      },
     ],
   },
   {
@@ -106,18 +147,23 @@ const APP_CONFIGS = [
     model: "cohere.command-r-plus-v1:0",
     operations: [
       { opName: "chat", inputTokens: [200, 3000], outputTokens: [100, 1500], llmMs: [800, 10000] },
-      { opName: "suggest_response", inputTokens: [300, 2000], outputTokens: [150, 800], llmMs: [600, 6000] },
+      {
+        opName: "suggest_response",
+        inputTokens: [300, 2000],
+        outputTokens: [150, 800],
+        llmMs: [600, 6000],
+      },
     ],
   },
 ];
 
 function genAiLabels(modelId, inputTokens, outputTokens, finishReason) {
   return {
-    "gen_ai_system": "aws.bedrock",
-    "gen_ai_request_model": modelId,
-    "gen_ai_usage_input_tokens": String(inputTokens),
-    "gen_ai_usage_output_tokens": String(outputTokens),
-    "gen_ai_response_finish_reason": finishReason,
+    gen_ai_system: "aws.bedrock",
+    gen_ai_request_model: modelId,
+    gen_ai_usage_input_tokens: String(inputTokens),
+    gen_ai_usage_output_tokens: String(outputTokens),
+    gen_ai_response_finish_reason: finishReason,
   };
 }
 
@@ -127,26 +173,38 @@ function buildRetrievalSpan(traceId, txId, parentId, ts, spanOffsetMs) {
 
   return {
     "@timestamp": offsetTs(new Date(ts), spanOffsetMs),
-    "processor": { "name": "transaction", "event": "span" },
-    "trace": { "id": traceId },
-    "transaction": { "id": txId },
-    "parent": { "id": parentId },
-    "span": {
-      "id": id,
-      "type": "db",
-      "subtype": "opensearch",
-      "name": "opensearch similarity_search",
-      "duration": { "us": durationUs },
-      "action": "similarity_search",
-      "db": { "type": "elasticsearch", "statement": "similarity_search" },
-      "destination": { "service": { "resource": "opensearch", "type": "db", "name": "opensearch" } },
+    processor: { name: "transaction", event: "span" },
+    trace: { id: traceId },
+    transaction: { id: txId },
+    parent: { id: parentId },
+    span: {
+      id: id,
+      type: "db",
+      subtype: "opensearch",
+      name: "opensearch similarity_search",
+      duration: { us: durationUs },
+      action: "similarity_search",
+      db: { type: "elasticsearch", statement: "similarity_search" },
+      destination: { service: { resource: "opensearch", type: "db", name: "opensearch" } },
     },
-    "event": { "outcome": "success" },
-    "data_stream": { "type": "traces", "dataset": "apm", "namespace": "default" },
+    event: { outcome: "success" },
+    data_stream: { type: "traces", dataset: "apm", namespace: "default" },
   };
 }
 
-function buildLlmSpan(traceId, txId, parentId, ts, modelId, inputTokens, outputTokens, finishReason, isErr, spanOffsetMs, llmMs) {
+function buildLlmSpan(
+  traceId,
+  txId,
+  parentId,
+  ts,
+  modelId,
+  inputTokens,
+  outputTokens,
+  finishReason,
+  isErr,
+  spanOffsetMs,
+  llmMs
+) {
   const id = newSpanId();
   const durationUs = llmMs * 1000;
 
@@ -157,22 +215,22 @@ function buildLlmSpan(traceId, txId, parentId, ts, modelId, inputTokens, outputT
 
   return {
     "@timestamp": offsetTs(new Date(ts), spanOffsetMs),
-    "processor": { "name": "transaction", "event": "span" },
-    "trace": { "id": traceId },
-    "transaction": { "id": txId },
-    "parent": { "id": parentId },
-    "span": {
-      "id": id,
-      "type": "gen_ai",
-      "subtype": "bedrock",
-      "name": `bedrock ${modelId} invoke`,
-      "duration": { "us": durationUs },
-      "action": "invoke",
-      "destination": { "service": { "resource": "bedrock", "type": "gen_ai", "name": "bedrock" } },
+    processor: { name: "transaction", event: "span" },
+    trace: { id: traceId },
+    transaction: { id: txId },
+    parent: { id: parentId },
+    span: {
+      id: id,
+      type: "gen_ai",
+      subtype: "bedrock",
+      name: `bedrock ${modelId} invoke`,
+      duration: { us: durationUs },
+      action: "invoke",
+      destination: { service: { resource: "bedrock", type: "gen_ai", name: "bedrock" } },
     },
-    "labels": labels,
-    "event": { "outcome": isErr ? "failure" : "success" },
-    "data_stream": { "type": "traces", "dataset": "apm", "namespace": "default" },
+    labels: labels,
+    event: { outcome: isErr ? "failure" : "success" },
+    data_stream: { type: "traces", dataset: "apm", namespace: "default" },
   };
 }
 
@@ -182,21 +240,21 @@ function buildGuardrailsSpan(traceId, txId, parentId, ts, spanOffsetMs) {
 
   return {
     "@timestamp": offsetTs(new Date(ts), spanOffsetMs),
-    "processor": { "name": "transaction", "event": "span" },
-    "trace": { "id": traceId },
-    "transaction": { "id": txId },
-    "parent": { "id": parentId },
-    "span": {
-      "id": id,
-      "type": "external",
-      "subtype": "aws",
-      "name": "bedrock applyGuardrail",
-      "duration": { "us": durationUs },
-      "action": "applyGuardrail",
-      "destination": { "service": { "resource": "bedrock", "type": "external", "name": "bedrock" } },
+    processor: { name: "transaction", event: "span" },
+    trace: { id: traceId },
+    transaction: { id: txId },
+    parent: { id: parentId },
+    span: {
+      id: id,
+      type: "external",
+      subtype: "aws",
+      name: "bedrock applyGuardrail",
+      duration: { us: durationUs },
+      action: "applyGuardrail",
+      destination: { service: { resource: "bedrock", type: "external", name: "bedrock" } },
     },
-    "event": { "outcome": "success" },
-    "data_stream": { "type": "traces", "dataset": "apm", "namespace": "default" },
+    event: { outcome: "success" },
+    data_stream: { type: "traces", dataset: "apm", namespace: "default" },
   };
 }
 
@@ -207,26 +265,26 @@ function buildGuardrailsSpan(traceId, txId, parentId, ts, spanOffsetMs) {
  * @returns {Object[]} array of APM documents (transaction first, then spans)
  */
 export function generateBedrockTrace(ts, er) {
-  const cfg     = rand(APP_CONFIGS);
-  const region  = rand(TRACE_REGIONS);
+  const cfg = rand(APP_CONFIGS);
+  const region = rand(TRACE_REGIONS);
   const account = rand(TRACE_ACCOUNTS);
   const traceId = newTraceId();
-  const txId    = newSpanId();
-  const env     = rand(["production", "production", "staging", "dev"]);
-  const isErr   = Math.random() < er;
+  const txId = newSpanId();
+  const env = rand(["production", "production", "staging", "dev"]);
+  const isErr = Math.random() < er;
 
-  const opConfig     = rand(cfg.operations);
-  const modelId      = cfg.model;
-  const inputTokens  = randInt(opConfig.inputTokens[0],  opConfig.inputTokens[1]);
+  const opConfig = rand(cfg.operations);
+  const modelId = cfg.model;
+  const inputTokens = randInt(opConfig.inputTokens[0], opConfig.inputTokens[1]);
   const outputTokens = isErr ? 0 : randInt(opConfig.outputTokens[0], opConfig.outputTokens[1]);
   const finishReason = isErr ? "stop_sequence" : rand(FINISH_REASONS);
-  const llmMs        = randInt(opConfig.llmMs[0], opConfig.llmMs[1]);
+  const llmMs = randInt(opConfig.llmMs[0], opConfig.llmMs[1]);
 
   // Total transaction duration covers all child spans
-  const retrievalMs   = cfg.pattern === "rag"        ? randInt(50,  500) : 0;
-  const guardrailsMs  = cfg.pattern === "guardrails" ? randInt(50,  200) : 0;
-  const totalMs       = retrievalMs + llmMs + guardrailsMs + randInt(5, 50);
-  const totalUs       = totalMs * 1000;
+  const retrievalMs = cfg.pattern === "rag" ? randInt(50, 500) : 0;
+  const guardrailsMs = cfg.pattern === "guardrails" ? randInt(50, 200) : 0;
+  const totalMs = retrievalMs + llmMs + guardrailsMs + randInt(5, 50);
+  const totalUs = totalMs * 1000;
 
   const txLabels = genAiLabels(modelId, inputTokens, outputTokens, finishReason);
   if (isErr) {
@@ -234,9 +292,12 @@ export function generateBedrockTrace(ts, er) {
   }
 
   const svcBlock = serviceBlock(
-    cfg.name, env, cfg.language,
+    cfg.name,
+    env,
+    cfg.language,
     cfg.framework,
-    cfg.runtimeName, cfg.runtimeVersion,
+    cfg.runtimeName,
+    cfg.runtimeVersion
   );
 
   const { agent, telemetry } = otelBlocks(cfg.language, "elastic");
@@ -244,32 +305,32 @@ export function generateBedrockTrace(ts, er) {
   // ── Root transaction ────────────────────────────────────────────────────────
   const txDoc = {
     "@timestamp": ts,
-    "processor": { "name": "transaction", "event": "transaction" },
-    "trace": { "id": traceId },
-    "transaction": {
-      "id": txId,
-      "name": `${cfg.name} ${opConfig.opName}`,
-      "type": "gen_ai",
-      "duration": { "us": totalUs },
-      "result": isErr ? "failure" : "success",
-      "sampled": true,
-      "span_count": {
-        "started": 1 + (cfg.pattern === "rag" ? 1 : 0) + (cfg.pattern === "guardrails" ? 1 : 0),
-        "dropped": 0,
+    processor: { name: "transaction", event: "transaction" },
+    trace: { id: traceId },
+    transaction: {
+      id: txId,
+      name: `${cfg.name} ${opConfig.opName}`,
+      type: "gen_ai",
+      duration: { us: totalUs },
+      result: isErr ? "failure" : "success",
+      sampled: true,
+      span_count: {
+        started: 1 + (cfg.pattern === "rag" ? 1 : 0) + (cfg.pattern === "guardrails" ? 1 : 0),
+        dropped: 0,
       },
     },
-    "labels": txLabels,
-    "service": svcBlock,
-    "agent": agent,
-    "telemetry": telemetry,
-    "cloud": {
-      "provider": "aws",
-      "region": region,
-      "account": { "id": account.id, "name": account.name },
-      "service": { "name": "bedrock" },
+    labels: txLabels,
+    service: svcBlock,
+    agent: agent,
+    telemetry: telemetry,
+    cloud: {
+      provider: "aws",
+      region: region,
+      account: { id: account.id, name: account.name },
+      service: { name: "bedrock" },
     },
-    "event": { "outcome": isErr ? "failure" : "success" },
-    "data_stream": { "type": "traces", "dataset": "apm", "namespace": "default" },
+    event: { outcome: isErr ? "failure" : "success" },
+    data_stream: { type: "traces", dataset: "apm", namespace: "default" },
   };
 
   // ── Child spans ──────────────────────────────────────────────────────────────
@@ -285,9 +346,17 @@ export function generateBedrockTrace(ts, er) {
 
   // Model invocation span (always present)
   const llmSpan = buildLlmSpan(
-    traceId, txId, txId, ts,
-    modelId, inputTokens, outputTokens, finishReason,
-    isErr, spanOffsetMs, llmMs,
+    traceId,
+    txId,
+    txId,
+    ts,
+    modelId,
+    inputTokens,
+    outputTokens,
+    finishReason,
+    isErr,
+    spanOffsetMs,
+    llmMs
   );
   spans.push(llmSpan);
   spanOffsetMs += llmMs + randInt(1, 10);

@@ -32,6 +32,6 @@ const K = {
   headerBg: "#1D1E24",
   headerText: "#FFFFFF",
   headerSubdued: "rgba(255,255,255,0.7)",
-};
+} as const;
 
 export default K;

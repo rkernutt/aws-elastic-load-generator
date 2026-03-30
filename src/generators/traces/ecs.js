@@ -14,17 +14,20 @@
  */
 
 import {
-  TRACE_REGIONS, TRACE_ACCOUNTS,
-  randHex, newTraceId, newSpanId, rand, randInt, offsetTs,
-  serviceBlock, otelBlocks,
+  TRACE_REGIONS,
+  TRACE_ACCOUNTS,
+  randHex,
+  newTraceId,
+  newSpanId,
+  rand,
+  randInt,
+  offsetTs,
+  serviceBlock,
+  otelBlocks,
 } from "./helpers.js";
 
 // ─── ECS cluster names ────────────────────────────────────────────────────────
-const CLUSTER_NAMES = [
-  "prod-services-cluster",
-  "staging-services-cluster",
-  "prod-backend-cluster",
-];
+const CLUSTER_NAMES = ["prod-services-cluster", "staging-services-cluster", "prod-backend-cluster"];
 
 // ─── Service configs ──────────────────────────────────────────────────────────
 const SERVICE_CONFIGS = [
@@ -34,9 +37,7 @@ const SERVICE_CONFIGS = [
     runtimeName: "nodejs20.x",
     runtimeVersion: "20.15.1",
     taskDefinition: () => `checkout-service:${randInt(30, 60)}`,
-    routes: [
-      { method: "POST", template: "/checkout", path: () => "/checkout" },
-    ],
+    routes: [{ method: "POST", template: "/checkout", path: () => "/checkout" }],
     spans: ["rds", "redis", "sqs"],
   },
   {
@@ -47,7 +48,7 @@ const SERVICE_CONFIGS = [
     taskDefinition: () => `product-catalogue:${randInt(10, 40)}`,
     routes: [
       { method: "GET", template: "/products/{id}", path: () => `/products/${randHex(8)}` },
-      { method: "GET", template: "/products",      path: () => "/products" },
+      { method: "GET", template: "/products", path: () => "/products" },
     ],
     spans: ["elasticache", "dynamodb"],
   },
@@ -58,7 +59,7 @@ const SERVICE_CONFIGS = [
     runtimeVersion: "21.0.3",
     taskDefinition: () => `auth-service:${randInt(5, 25)}`,
     routes: [
-      { method: "POST", template: "/auth/token",   path: () => "/auth/token" },
+      { method: "POST", template: "/auth/token", path: () => "/auth/token" },
       { method: "POST", template: "/auth/refresh", path: () => "/auth/refresh" },
     ],
     spans: ["dynamodb", "secretsmanager"],
@@ -70,7 +71,7 @@ const SERVICE_CONFIGS = [
     runtimeVersion: "3.12.3",
     taskDefinition: () => `notification-service:${randInt(8, 30)}`,
     routes: [
-      { method: "POST", template: "/notify",       path: () => "/notify" },
+      { method: "POST", template: "/notify", path: () => "/notify" },
       { method: "POST", template: "/notify/batch", path: () => "/notify/batch" },
     ],
     spans: ["ses", "sns", "dynamodb"],
@@ -82,9 +83,9 @@ const SERVICE_CONFIGS = [
     runtimeVersion: "20.15.1",
     taskDefinition: () => `order-service:${randInt(15, 50)}`,
     routes: [
-      { method: "POST", template: "/orders",         path: () => "/orders" },
-      { method: "GET",  template: "/orders/{id}",    path: () => `/orders/${randHex(8)}` },
-      { method: "PUT",  template: "/orders/{id}",    path: () => `/orders/${randHex(8)}` },
+      { method: "POST", template: "/orders", path: () => "/orders" },
+      { method: "GET", template: "/orders/{id}", path: () => `/orders/${randHex(8)}` },
+      { method: "PUT", template: "/orders/{id}", path: () => `/orders/${randHex(8)}` },
     ],
     spans: ["rds", "sqs", "sns"],
   },
@@ -95,9 +96,17 @@ const SERVICE_CONFIGS = [
     runtimeVersion: "21.0.3",
     taskDefinition: () => `inventory-service:${randInt(5, 20)}`,
     routes: [
-      { method: "PUT",  template: "/inventory/{sku}", path: () => `/inventory/${randHex(6).toUpperCase()}` },
-      { method: "GET",  template: "/inventory/{sku}", path: () => `/inventory/${randHex(6).toUpperCase()}` },
-      { method: "POST", template: "/inventory/bulk",  path: () => "/inventory/bulk" },
+      {
+        method: "PUT",
+        template: "/inventory/{sku}",
+        path: () => `/inventory/${randHex(6).toUpperCase()}`,
+      },
+      {
+        method: "GET",
+        template: "/inventory/{sku}",
+        path: () => `/inventory/${randHex(6).toUpperCase()}`,
+      },
+      { method: "POST", template: "/inventory/bulk", path: () => "/inventory/bulk" },
     ],
     spans: ["dynamodb", "eventbridge"],
   },
@@ -108,8 +117,8 @@ const SERVICE_CONFIGS = [
     runtimeVersion: "3.11.9",
     taskDefinition: () => `report-service:${randInt(3, 15)}`,
     routes: [
-      { method: "POST", template: "/reports",       path: () => "/reports" },
-      { method: "GET",  template: "/reports/{id}",  path: () => `/reports/${randHex(8)}` },
+      { method: "POST", template: "/reports", path: () => "/reports" },
+      { method: "GET", template: "/reports/{id}", path: () => `/reports/${randHex(8)}` },
     ],
     spans: ["rds", "s3", "ses"],
   },
@@ -120,7 +129,7 @@ const SERVICE_CONFIGS = [
     runtimeVersion: "21.0.3",
     taskDefinition: () => `search-service:${randInt(5, 20)}`,
     routes: [
-      { method: "GET",  template: "/search",         path: () => "/search" },
+      { method: "GET", template: "/search", path: () => "/search" },
       { method: "POST", template: "/search/suggest", path: () => "/search/suggest" },
     ],
     spans: ["elasticache", "dynamodb", "sqs"],
@@ -141,14 +150,26 @@ function httpResult(code) {
 }
 
 // ─── Span builder ─────────────────────────────────────────────────────────────
-function buildEcsSpan(traceId, txId, parentId, ts, spanKey, isErr, spanOffsetMs, spanUs, ecsLabels) {
+function buildEcsSpan(
+  traceId,
+  txId,
+  parentId,
+  ts,
+  spanKey,
+  isErr,
+  spanOffsetMs,
+  spanUs,
+  ecsLabels
+) {
   const id = newSpanId();
 
   const shapes = {
     rds: {
-      type: "db", subtype: "postgresql",
-      name: () => `${rand(["SELECT","INSERT","UPDATE","DELETE"])} ${rand(["orders","users","products","events","inventory"])}`,
-      action: () => rand(["query","execute"]),
+      type: "db",
+      subtype: "postgresql",
+      name: () =>
+        `${rand(["SELECT", "INSERT", "UPDATE", "DELETE"])} ${rand(["orders", "users", "products", "events", "inventory"])}`,
+      action: () => rand(["query", "execute"]),
       db: () => ({
         type: "sql",
         statement: rand([
@@ -162,94 +183,111 @@ function buildEcsSpan(traceId, txId, parentId, ts, spanKey, isErr, spanOffsetMs,
       dest: "postgresql",
     },
     redis: {
-      type: "db", subtype: "redis",
-      name: () => `Redis ${rand(["GET","SET","HGET","HSET","ZADD","ZRANGE","DEL"])}`,
-      action: () => rand(["GET","SET","query"]),
-      db: () => ({ type: "redis", statement: rand(["GET key","SET key value","HGETALL hash","DEL key"]) }),
+      type: "db",
+      subtype: "redis",
+      name: () => `Redis ${rand(["GET", "SET", "HGET", "HSET", "ZADD", "ZRANGE", "DEL"])}`,
+      action: () => rand(["GET", "SET", "query"]),
+      db: () => ({
+        type: "redis",
+        statement: rand(["GET key", "SET key value", "HGETALL hash", "DEL key"]),
+      }),
       dest: "redis",
     },
     elasticache: {
-      type: "db", subtype: "redis",
-      name: () => `Redis ${rand(["GET","SET","HGET","HSET","ZADD","ZRANGE"])}`,
-      action: () => rand(["GET","SET","query"]),
-      db: () => ({ type: "redis", statement: rand(["GET key","SET key value","HGETALL hash"]) }),
+      type: "db",
+      subtype: "redis",
+      name: () => `Redis ${rand(["GET", "SET", "HGET", "HSET", "ZADD", "ZRANGE"])}`,
+      action: () => rand(["GET", "SET", "query"]),
+      db: () => ({ type: "redis", statement: rand(["GET key", "SET key value", "HGETALL hash"]) }),
       dest: "redis",
     },
     dynamodb: {
-      type: "db", subtype: "dynamodb",
-      name: () => `DynamoDB.${rand(["GetItem","PutItem","Query","UpdateItem","BatchGetItem","Scan"])}`,
-      action: () => rand(["GetItem","PutItem","Query","UpdateItem","Scan"]),
-      db: () => ({ type: "nosql", statement: `${rand(["GetItem","Query","Scan"])} ${rand(["orders","users","inventory","sessions","events"])}` }),
+      type: "db",
+      subtype: "dynamodb",
+      name: () =>
+        `DynamoDB.${rand(["GetItem", "PutItem", "Query", "UpdateItem", "BatchGetItem", "Scan"])}`,
+      action: () => rand(["GetItem", "PutItem", "Query", "UpdateItem", "Scan"]),
+      db: () => ({
+        type: "nosql",
+        statement: `${rand(["GetItem", "Query", "Scan"])} ${rand(["orders", "users", "inventory", "sessions", "events"])}`,
+      }),
       dest: "dynamodb",
     },
     sqs: {
-      type: "messaging", subtype: "sqs",
-      name: () => `SQS.${rand(["SendMessage","ReceiveMessage","DeleteMessage","SendMessageBatch"])}`,
-      action: () => rand(["send","receive","delete"]),
+      type: "messaging",
+      subtype: "sqs",
+      name: () =>
+        `SQS.${rand(["SendMessage", "ReceiveMessage", "DeleteMessage", "SendMessageBatch"])}`,
+      action: () => rand(["send", "receive", "delete"]),
       db: null,
       dest: "sqs",
     },
     sns: {
-      type: "messaging", subtype: "sns",
-      name: () => `SNS.${rand(["Publish","PublishBatch"])}`,
+      type: "messaging",
+      subtype: "sns",
+      name: () => `SNS.${rand(["Publish", "PublishBatch"])}`,
       action: () => "send",
       db: null,
       dest: "sns",
     },
     ses: {
-      type: "messaging", subtype: "ses",
-      name: () => `SES.${rand(["SendEmail","SendRawEmail"])}`,
+      type: "messaging",
+      subtype: "ses",
+      name: () => `SES.${rand(["SendEmail", "SendRawEmail"])}`,
       action: () => "send",
       db: null,
       dest: "ses",
     },
     s3: {
-      type: "storage", subtype: "s3",
-      name: () => `S3.${rand(["GetObject","PutObject","DeleteObject","ListObjectsV2"])}`,
-      action: () => rand(["GetObject","PutObject","DeleteObject","ListObjectsV2"]),
+      type: "storage",
+      subtype: "s3",
+      name: () => `S3.${rand(["GetObject", "PutObject", "DeleteObject", "ListObjectsV2"])}`,
+      action: () => rand(["GetObject", "PutObject", "DeleteObject", "ListObjectsV2"]),
       db: null,
       dest: "s3",
     },
     secretsmanager: {
-      type: "external", subtype: "aws",
+      type: "external",
+      subtype: "aws",
       name: () => "SecretsManager.GetSecretValue",
       action: () => "GetSecretValue",
       db: null,
       dest: "secretsmanager",
     },
     eventbridge: {
-      type: "messaging", subtype: "eventbridge",
-      name: () => `EventBridge.${rand(["PutEvents","PutRule"])}`,
+      type: "messaging",
+      subtype: "eventbridge",
+      name: () => `EventBridge.${rand(["PutEvents", "PutRule"])}`,
       action: () => "send",
       db: null,
       dest: "eventbridge",
     },
   };
 
-  const shape     = shapes[spanKey] || shapes.dynamodb;
-  const spanName  = shape.name();
-  const action    = shape.action();
-  const dbBlock   = shape.db ? shape.db() : undefined;
+  const shape = shapes[spanKey] || shapes.dynamodb;
+  const spanName = shape.name();
+  const action = shape.action();
+  const dbBlock = shape.db ? shape.db() : undefined;
 
   return {
     "@timestamp": offsetTs(new Date(ts), spanOffsetMs),
-    "processor": { "name": "transaction", "event": "span" },
-    "trace": { "id": traceId },
-    "transaction": { "id": txId },
-    "parent": { "id": parentId },
-    "span": {
-      "id": id,
-      "type": shape.type,
-      "subtype": shape.subtype,
-      "name": spanName,
-      "duration": { "us": spanUs },
-      "action": action,
-      ...(dbBlock ? { "db": dbBlock } : {}),
-      "destination": { "service": { "resource": shape.dest, "type": shape.type, "name": shape.dest } },
+    processor: { name: "transaction", event: "span" },
+    trace: { id: traceId },
+    transaction: { id: txId },
+    parent: { id: parentId },
+    span: {
+      id: id,
+      type: shape.type,
+      subtype: shape.subtype,
+      name: spanName,
+      duration: { us: spanUs },
+      action: action,
+      ...(dbBlock ? { db: dbBlock } : {}),
+      destination: { service: { resource: shape.dest, type: shape.type, name: shape.dest } },
     },
-    "labels": ecsLabels,
-    "event": { "outcome": isErr ? "failure" : "success" },
-    "data_stream": { "type": "traces", "dataset": "apm", "namespace": "default" },
+    labels: ecsLabels,
+    event: { outcome: isErr ? "failure" : "success" },
+    data_stream: { type: "traces", dataset: "apm", namespace: "default" },
   };
 }
 
@@ -260,27 +298,27 @@ function buildEcsSpan(traceId, txId, parentId, ts, spanKey, isErr, spanOffsetMs,
  * @returns {Object[]} array of APM documents (transaction first, then spans)
  */
 export function generateEcsTrace(ts, er) {
-  const cfg     = rand(SERVICE_CONFIGS);
-  const region  = rand(TRACE_REGIONS);
+  const cfg = rand(SERVICE_CONFIGS);
+  const region = rand(TRACE_REGIONS);
   const account = rand(TRACE_ACCOUNTS);
-  const route   = rand(cfg.routes);
+  const route = rand(cfg.routes);
   const traceId = newTraceId();
-  const txId    = newSpanId();
-  const env     = rand(["production","production","staging","dev"]);
-  const isErr   = Math.random() < er;
+  const txId = newSpanId();
+  const env = rand(["production", "production", "staging", "dev"]);
+  const isErr = Math.random() < er;
   const cluster = rand(CLUSTER_NAMES);
 
-  const statusCode   = pickStatusCode(isErr);
+  const statusCode = pickStatusCode(isErr);
   const resolvedPath = route.path();
-  const containerId  = randHex(12);
-  const taskArn      = `arn:aws:ecs:${region}:${account.id}:task/${cluster}/${randHex(32)}`;
-  const taskDef      = cfg.taskDefinition();
+  const containerId = randHex(12);
+  const taskArn = `arn:aws:ecs:${region}:${account.id}:task/${cluster}/${randHex(32)}`;
+  const taskDef = cfg.taskDefinition();
 
   // ECS-specific labels applied to all docs in this trace
   const ecsLabels = {
-    container_id:    containerId,
-    task_id:         taskArn,
-    cluster_name:    cluster,
+    container_id: containerId,
+    task_id: taskArn,
+    cluster_name: cluster,
     task_definition: taskDef,
   };
 
@@ -288,9 +326,12 @@ export function generateEcsTrace(ts, er) {
   const totalUs = randInt(10, 1500) * 1000;
 
   const svcBlock = serviceBlock(
-    cfg.serviceName, env, cfg.language,
+    cfg.serviceName,
+    env,
+    cfg.language,
     "ECS",
-    cfg.runtimeName, cfg.runtimeVersion,
+    cfg.runtimeName,
+    cfg.runtimeVersion
   );
 
   const { agent, telemetry } = otelBlocks(cfg.language, "elastic");
@@ -298,36 +339,36 @@ export function generateEcsTrace(ts, er) {
   // ── Root transaction ─────────────────────────────────────────────────────────
   const txDoc = {
     "@timestamp": ts,
-    "processor": { "name": "transaction", "event": "transaction" },
-    "trace": { "id": traceId },
-    "transaction": {
-      "id": txId,
-      "name": `${route.method} ${route.template}`,
-      "type": "request",
-      "duration": { "us": totalUs },
-      "result": httpResult(statusCode),
-      "sampled": true,
-      "span_count": { "started": cfg.spans.length, "dropped": 0 },
+    processor: { name: "transaction", event: "transaction" },
+    trace: { id: traceId },
+    transaction: {
+      id: txId,
+      name: `${route.method} ${route.template}`,
+      type: "request",
+      duration: { us: totalUs },
+      result: httpResult(statusCode),
+      sampled: true,
+      span_count: { started: cfg.spans.length, dropped: 0 },
     },
-    "http": {
-      "request":  { "method": route.method },
-      "response": { "status_code": statusCode },
+    http: {
+      request: { method: route.method },
+      response: { status_code: statusCode },
     },
-    "url": {
-      "path": resolvedPath,
+    url: {
+      path: resolvedPath,
     },
-    "labels": ecsLabels,
-    "service": svcBlock,
-    "agent": agent,
-    "telemetry": telemetry,
-    "cloud": {
-      "provider": "aws",
-      "region": region,
-      "account": { "id": account.id, "name": account.name },
-      "service": { "name": "ecs" },
+    labels: ecsLabels,
+    service: svcBlock,
+    agent: agent,
+    telemetry: telemetry,
+    cloud: {
+      provider: "aws",
+      region: region,
+      account: { id: account.id, name: account.name },
+      service: { name: "ecs" },
     },
-    "event": { "outcome": isErr ? "failure" : "success" },
-    "data_stream": { "type": "traces", "dataset": "apm", "namespace": "default" },
+    event: { outcome: isErr ? "failure" : "success" },
+    data_stream: { type: "traces", dataset: "apm", namespace: "default" },
   };
 
   // ── Child spans ──────────────────────────────────────────────────────────────
@@ -336,14 +377,21 @@ export function generateEcsTrace(ts, er) {
   const usPerSpan = Math.floor(totalUs / (cfg.spans.length + 1));
 
   for (let i = 0; i < cfg.spans.length; i++) {
-    const spanUs    = randInt(Math.floor(usPerSpan * 0.2), Math.floor(usPerSpan * 0.9));
+    const spanUs = randInt(Math.floor(usPerSpan * 0.2), Math.floor(usPerSpan * 0.9));
     const spanIsErr = isErr && i === cfg.spans.length - 1;
-    spans.push(buildEcsSpan(
-      traceId, txId, txId,
-      ts, cfg.spans[i], spanIsErr,
-      spanOffsetMs, spanUs,
-      ecsLabels,
-    ));
+    spans.push(
+      buildEcsSpan(
+        traceId,
+        txId,
+        txId,
+        ts,
+        cfg.spans[i],
+        spanIsErr,
+        spanOffsetMs,
+        spanUs,
+        ecsLabels
+      )
+    );
     spanOffsetMs += Math.floor(spanUs / 1000) + randInt(1, 15);
   }
 

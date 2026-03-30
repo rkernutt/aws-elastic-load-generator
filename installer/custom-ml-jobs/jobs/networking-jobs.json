@@ -18,10 +18,7 @@
               "detector_index": 0
             }
           ],
-          "influencers": [
-            "aws.elb.target_group.arn",
-            "client.ip"
-          ]
+          "influencers": ["aws.elb.target_group.arn", "client.ip"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "32mb" },
@@ -33,9 +30,7 @@
         "max_empty_searches": 10,
         "query": {
           "bool": {
-            "filter": [
-              { "term": { "event.dataset": "aws.elb_logs" } }
-            ],
+            "filter": [{ "term": { "event.dataset": "aws.elb_logs" } }],
             "must": [
               {
                 "range": {
@@ -66,10 +61,7 @@
               "detector_index": 0
             }
           ],
-          "influencers": [
-            "aws.elb.target_group.arn",
-            "cloud.region"
-          ]
+          "influencers": ["aws.elb.target_group.arn", "cloud.region"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "16mb" },
@@ -81,9 +73,7 @@
         "max_empty_searches": 10,
         "query": {
           "bool": {
-            "filter": [
-              { "term": { "event.dataset": "aws.elb_logs" } }
-            ]
+            "filter": [{ "term": { "event.dataset": "aws.elb_logs" } }]
           }
         },
         "chunking_config": { "mode": "auto" },
@@ -107,10 +97,7 @@
               "detector_index": 0
             }
           ],
-          "influencers": [
-            "client.ip",
-            "user_agent.original"
-          ]
+          "influencers": ["client.ip", "user_agent.original"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "16mb" },
@@ -122,9 +109,7 @@
         "max_empty_searches": 10,
         "query": {
           "bool": {
-            "filter": [
-              { "term": { "event.dataset": "aws.elb_logs" } }
-            ]
+            "filter": [{ "term": { "event.dataset": "aws.elb_logs" } }]
           }
         },
         "chunking_config": { "mode": "auto" },
@@ -149,10 +134,7 @@
               "detector_index": 0
             }
           ],
-          "influencers": [
-            "aws.apigateway.stage",
-            "cloud.region"
-          ]
+          "influencers": ["aws.apigateway.stage", "cloud.region"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "32mb" },
@@ -164,9 +146,7 @@
         "max_empty_searches": 10,
         "query": {
           "bool": {
-            "filter": [
-              { "term": { "event.dataset": "aws.apigateway_logs" } }
-            ]
+            "filter": [{ "term": { "event.dataset": "aws.apigateway_logs" } }]
           }
         },
         "chunking_config": { "mode": "auto" },
@@ -190,10 +170,7 @@
               "detector_index": 0
             }
           ],
-          "influencers": [
-            "aws.apigateway.stage",
-            "client.ip"
-          ]
+          "influencers": ["aws.apigateway.stage", "client.ip"]
         },
         "allow_lazy_open": true,
         "analysis_limits": { "model_memory_limit": "32mb" },
@@ -205,9 +182,7 @@
         "max_empty_searches": 10,
         "query": {
           "bool": {
-            "filter": [
-              { "term": { "event.dataset": "aws.apigateway_logs" } }
-            ],
+            "filter": [{ "term": { "event.dataset": "aws.apigateway_logs" } }],
             "must": [
               {
                 "range": {

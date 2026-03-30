@@ -19,7 +19,10 @@ function isRetryableStatusCode(statusCode, retryCount) {
 }
 
 function isRetryableError(code, retryCount) {
-  return (code === "ECONNRESET" || code === "ETIMEDOUT" || code === "ECONNREFUSED") && retryCount < MAX_RETRIES;
+  return (
+    (code === "ECONNRESET" || code === "ETIMEDOUT" || code === "ECONNREFUSED") &&
+    retryCount < MAX_RETRIES
+  );
 }
 
 // ── Tests ─────────────────────────────────────────────────────────────────────
@@ -101,7 +104,7 @@ describe("Proxy max retry limit", () => {
   });
 
   it("at most 3 retries before giving up (retry indices 0,1,2 are retryable; 3 is not)", () => {
-    const retryable = [0, 1, 2].every(n => isRetryableStatusCode(500, n));
+    const retryable = [0, 1, 2].every((n) => isRetryableStatusCode(500, n));
     const exhausted = !isRetryableStatusCode(500, 3);
     expect(retryable).toBe(true);
     expect(exhausted).toBe(true);

@@ -46,7 +46,9 @@
             "type": "esql",
             "query": "FROM logs-aws.appmesh* | STATS avg_rt = AVG(`aws.appmesh.response_time_ms`) | EVAL `Avg Response Time (ms)` = ROUND(avg_rt, 0)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Avg Response Time (ms)" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Avg Response Time (ms)" }
+          ]
         }
       }
     },
@@ -141,8 +143,16 @@
           "metrics": [
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
             { "operation": "value", "column": "aws.appmesh.virtual_node", "label": "Virtual Node" },
-            { "operation": "value", "column": "aws.appmesh.response_code", "label": "Response Code" },
-            { "operation": "value", "column": "aws.appmesh.response_time_ms", "label": "Response Time (ms)" },
+            {
+              "operation": "value",
+              "column": "aws.appmesh.response_code",
+              "label": "Response Code"
+            },
+            {
+              "operation": "value",
+              "column": "aws.appmesh.response_time_ms",
+              "label": "Response Time (ms)"
+            },
             { "operation": "value", "column": "event.outcome", "label": "Outcome" }
           ],
           "rows": []

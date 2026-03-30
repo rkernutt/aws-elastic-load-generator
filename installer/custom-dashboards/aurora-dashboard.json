@@ -46,7 +46,9 @@
             "type": "esql",
             "query": "FROM logs-aws.aurora* | STATS avg_a = AVG(`aws.aurora.metrics.ACUUtilization.avg`) | EVAL `Avg ACU Utilization %` = ROUND(avg_a, 1)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Avg ACU Utilization %" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Avg ACU Utilization %" }
+          ]
         }
       }
     },
@@ -270,8 +272,16 @@
             { "operation": "value", "column": "aws.aurora.cluster_id", "label": "Cluster ID" },
             { "operation": "value", "column": "aws.aurora.instance_id", "label": "Instance ID" },
             { "operation": "value", "column": "aws.aurora.engine", "label": "Engine" },
-            { "operation": "value", "column": "aws.aurora.db_connections", "label": "DB Connections" },
-            { "operation": "value", "column": "aws.aurora.replica_lag_seconds", "label": "Replica Lag (s)" },
+            {
+              "operation": "value",
+              "column": "aws.aurora.db_connections",
+              "label": "DB Connections"
+            },
+            {
+              "operation": "value",
+              "column": "aws.aurora.replica_lag_seconds",
+              "label": "Replica Lag (s)"
+            },
             { "operation": "value", "column": "event.outcome", "label": "Outcome" }
           ],
           "rows": []

@@ -46,7 +46,9 @@
             "type": "esql",
             "query": "FROM logs-aws.supplychain* | STATS `Total Records Processed` = SUM(`aws.supplychain.record_count`)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Total Records Processed" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Total Records Processed" }
+          ]
         }
       }
     },
@@ -145,7 +147,11 @@
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
             { "operation": "value", "column": "aws.supplychain.event_type", "label": "Event Type" },
             { "operation": "value", "column": "aws.supplychain.job_status", "label": "Job Status" },
-            { "operation": "value", "column": "aws.supplychain.record_count", "label": "Record Count" }
+            {
+              "operation": "value",
+              "column": "aws.supplychain.record_count",
+              "label": "Record Count"
+            }
           ],
           "rows": []
         }

@@ -12,9 +12,17 @@
  */
 
 import {
-  TRACE_REGIONS, TRACE_ACCOUNTS,
-  randHex, newTraceId, newSpanId, rand, randInt, randFloat, offsetTs,
-  serviceBlock, otelBlocks,
+  TRACE_REGIONS,
+  TRACE_ACCOUNTS,
+  randHex,
+  newTraceId,
+  newSpanId,
+  rand,
+  randInt,
+  randFloat,
+  offsetTs,
+  serviceBlock,
+  otelBlocks,
 } from "./helpers.js";
 
 // ─── Job configurations ───────────────────────────────────────────────────────
@@ -27,10 +35,10 @@ const JOB_CONFIGS = [
     runtimeName: "CPython",
     runtimeVersion: "3.9.18",
     phases: [
-      { name: "ExtractCustomerRecords",  type: "extract",   loadSubtype: null },
-      { name: "TransformAndNormalise",   type: "transform", loadSubtype: null },
-      { name: "ValidateSchema",          type: "validate",  loadSubtype: null },
-      { name: "LoadToRedshift",          type: "load",      loadSubtype: "redshift" },
+      { name: "ExtractCustomerRecords", type: "extract", loadSubtype: null },
+      { name: "TransformAndNormalise", type: "transform", loadSubtype: null },
+      { name: "ValidateSchema", type: "validate", loadSubtype: null },
+      { name: "LoadToRedshift", type: "load", loadSubtype: "redshift" },
     ],
   },
   {
@@ -41,11 +49,11 @@ const JOB_CONFIGS = [
     runtimeName: "CPython",
     runtimeVersion: "3.10.14",
     phases: [
-      { name: "ExtractProductFeed",      type: "extract",   loadSubtype: null },
-      { name: "DeduplicateRecords",      type: "transform", loadSubtype: null },
-      { name: "EnrichWithMetadata",      type: "transform", loadSubtype: null },
-      { name: "LoadToDynamoDB",          type: "load",      loadSubtype: "dynamodb" },
-      { name: "ValidateLoadCount",       type: "validate",  loadSubtype: null },
+      { name: "ExtractProductFeed", type: "extract", loadSubtype: null },
+      { name: "DeduplicateRecords", type: "transform", loadSubtype: null },
+      { name: "EnrichWithMetadata", type: "transform", loadSubtype: null },
+      { name: "LoadToDynamoDB", type: "load", loadSubtype: "dynamodb" },
+      { name: "ValidateLoadCount", type: "validate", loadSubtype: null },
     ],
   },
   {
@@ -56,10 +64,10 @@ const JOB_CONFIGS = [
     runtimeName: "CPython",
     runtimeVersion: "3.10.14",
     phases: [
-      { name: "ExtractClickEvents",      type: "extract",   loadSubtype: null },
-      { name: "SessioniseEvents",        type: "transform", loadSubtype: null },
-      { name: "AggregateByPage",         type: "transform", loadSubtype: null },
-      { name: "WriteAggregateParquet",   type: "load",      loadSubtype: "s3" },
+      { name: "ExtractClickEvents", type: "extract", loadSubtype: null },
+      { name: "SessioniseEvents", type: "transform", loadSubtype: null },
+      { name: "AggregateByPage", type: "transform", loadSubtype: null },
+      { name: "WriteAggregateParquet", type: "load", loadSubtype: "s3" },
     ],
   },
   {
@@ -70,10 +78,10 @@ const JOB_CONFIGS = [
     runtimeName: "CPython",
     runtimeVersion: "3.9.18",
     phases: [
-      { name: "ExtractAuditLogs",        type: "extract",   loadSubtype: null },
-      { name: "FilterSensitiveFields",   type: "transform", loadSubtype: null },
-      { name: "ValidateComplianceRules", type: "validate",  loadSubtype: null },
-      { name: "ExportReportToS3",        type: "load",      loadSubtype: "s3" },
+      { name: "ExtractAuditLogs", type: "extract", loadSubtype: null },
+      { name: "FilterSensitiveFields", type: "transform", loadSubtype: null },
+      { name: "ValidateComplianceRules", type: "validate", loadSubtype: null },
+      { name: "ExportReportToS3", type: "load", loadSubtype: "s3" },
     ],
   },
   {
@@ -84,21 +92,21 @@ const JOB_CONFIGS = [
     runtimeName: "CPython",
     runtimeVersion: "3.10.14",
     phases: [
-      { name: "ExtractSampleDataset",    type: "extract",   loadSubtype: null },
-      { name: "RunNullChecks",           type: "validate",  loadSubtype: null },
-      { name: "RunRangeChecks",          type: "validate",  loadSubtype: null },
-      { name: "RunReferentialIntegrity", type: "validate",  loadSubtype: null },
-      { name: "WriteQualityReport",      type: "load",      loadSubtype: "s3" },
+      { name: "ExtractSampleDataset", type: "extract", loadSubtype: null },
+      { name: "RunNullChecks", type: "validate", loadSubtype: null },
+      { name: "RunRangeChecks", type: "validate", loadSubtype: null },
+      { name: "RunReferentialIntegrity", type: "validate", loadSubtype: null },
+      { name: "WriteQualityReport", type: "load", loadSubtype: "s3" },
     ],
   },
 ];
 
 // Phase span type/subtype/action mapping
 const PHASE_PROPS = {
-  extract:   { type: "storage",  subtype: "s3",        action: "read",    durationMs: [500, 8000]  },
-  transform: { type: "compute",  subtype: "glue",      action: "execute", durationMs: [1000, 30000] },
-  load:      { type: "storage",  subtype: null,        action: "write",   durationMs: [800, 15000] },
-  validate:  { type: "compute",  subtype: "glue",      action: "execute", durationMs: [200, 4000]  },
+  extract: { type: "storage", subtype: "s3", action: "read", durationMs: [500, 8000] },
+  transform: { type: "compute", subtype: "glue", action: "execute", durationMs: [1000, 30000] },
+  load: { type: "storage", subtype: null, action: "write", durationMs: [800, 15000] },
+  validate: { type: "compute", subtype: "glue", action: "execute", durationMs: [200, 4000] },
 };
 
 const LOAD_SUBTYPES = { s3: "s3", dynamodb: "dynamodb", redshift: "redshift" };
@@ -108,27 +116,26 @@ function buildGluePhaseSpan(traceId, txId, parentId, ts, phase, isErr, spanOffse
   const baseProps = PHASE_PROPS[phase.type] || PHASE_PROPS.transform;
   const durationUs = randInt(baseProps.durationMs[0], baseProps.durationMs[1]) * 1000;
 
-  const subtype = phase.type === "load"
-    ? (LOAD_SUBTYPES[phase.loadSubtype] || "s3")
-    : baseProps.subtype;
+  const subtype =
+    phase.type === "load" ? LOAD_SUBTYPES[phase.loadSubtype] || "s3" : baseProps.subtype;
 
   return {
     "@timestamp": offsetTs(new Date(ts), spanOffsetMs),
-    "processor": { "name": "transaction", "event": "span" },
-    "trace": { "id": traceId },
-    "transaction": { "id": txId },
-    "parent": { "id": parentId },
-    "span": {
-      "id": id,
-      "type": baseProps.type,
-      "subtype": subtype,
-      "name": `Glue.${phase.name}`,
-      "duration": { "us": durationUs },
-      "action": baseProps.action,
-      "destination": { "service": { "resource": subtype, "type": baseProps.type, "name": subtype } },
+    processor: { name: "transaction", event: "span" },
+    trace: { id: traceId },
+    transaction: { id: txId },
+    parent: { id: parentId },
+    span: {
+      id: id,
+      type: baseProps.type,
+      subtype: subtype,
+      name: `Glue.${phase.name}`,
+      duration: { us: durationUs },
+      action: baseProps.action,
+      destination: { service: { resource: subtype, type: baseProps.type, name: subtype } },
     },
-    "event": { "outcome": isErr ? "failure" : "success" },
-    "data_stream": { "type": "traces", "dataset": "apm", "namespace": "default" },
+    event: { outcome: isErr ? "failure" : "success" },
+    data_stream: { type: "traces", dataset: "apm", namespace: "default" },
   };
 }
 
@@ -139,22 +146,25 @@ function buildGluePhaseSpan(traceId, txId, parentId, ts, phase, isErr, spanOffse
  * @returns {Object[]} array of APM documents (transaction first, then spans)
  */
 export function generateGlueTrace(ts, er) {
-  const cfg     = rand(JOB_CONFIGS);
-  const region  = rand(TRACE_REGIONS);
+  const cfg = rand(JOB_CONFIGS);
+  const region = rand(TRACE_REGIONS);
   const account = rand(TRACE_ACCOUNTS);
   const traceId = newTraceId();
-  const txId    = newSpanId();
-  const env     = rand(["production", "production", "staging", "dev"]);
-  const isErr   = Math.random() < er;
+  const txId = newSpanId();
+  const env = rand(["production", "production", "staging", "dev"]);
+  const isErr = Math.random() < er;
 
-  const jobRunId  = `jr_${randHex(32)}`;
-  const dpuHours  = randFloat(0.1, 10.0, 2);
-  const totalUs   = randInt(5000, 120000) * 1000; // Glue jobs are long-running
+  const jobRunId = `jr_${randHex(32)}`;
+  const dpuHours = randFloat(0.1, 10.0, 2);
+  const totalUs = randInt(5000, 120000) * 1000; // Glue jobs are long-running
 
   const svcBlock = serviceBlock(
-    cfg.jobName, env, cfg.language,
+    cfg.jobName,
+    env,
+    cfg.language,
     cfg.framework,
-    cfg.runtimeName, cfg.runtimeVersion,
+    cfg.runtimeName,
+    cfg.runtimeVersion
   );
 
   const { agent, telemetry } = otelBlocks(cfg.language, "elastic");
@@ -162,34 +172,34 @@ export function generateGlueTrace(ts, er) {
   // ── Root transaction (job run) ───────────────────────────────────────────────
   const txDoc = {
     "@timestamp": ts,
-    "processor": { "name": "transaction", "event": "transaction" },
-    "trace": { "id": traceId },
-    "transaction": {
-      "id": txId,
-      "name": `${cfg.jobName} [${cfg.jobType}]`,
-      "type": "glue_job",
-      "duration": { "us": totalUs },
-      "result": isErr ? "failure" : "success",
-      "sampled": true,
-      "span_count": { "started": cfg.phases.length, "dropped": 0 },
+    processor: { name: "transaction", event: "transaction" },
+    trace: { id: traceId },
+    transaction: {
+      id: txId,
+      name: `${cfg.jobName} [${cfg.jobType}]`,
+      type: "glue_job",
+      duration: { us: totalUs },
+      result: isErr ? "failure" : "success",
+      sampled: true,
+      span_count: { started: cfg.phases.length, dropped: 0 },
     },
-    "labels": {
-      "glue_job_name":    cfg.jobName,
-      "glue_job_run_id":  jobRunId,
-      "glue_job_type":    cfg.jobType,
-      "glue_dpu_hours":   String(dpuHours),
+    labels: {
+      glue_job_name: cfg.jobName,
+      glue_job_run_id: jobRunId,
+      glue_job_type: cfg.jobType,
+      glue_dpu_hours: String(dpuHours),
     },
-    "service": svcBlock,
-    "agent": agent,
-    "telemetry": telemetry,
-    "cloud": {
-      "provider": "aws",
-      "region": region,
-      "account": { "id": account.id, "name": account.name },
-      "service": { "name": "glue" },
+    service: svcBlock,
+    agent: agent,
+    telemetry: telemetry,
+    cloud: {
+      provider: "aws",
+      region: region,
+      account: { id: account.id, name: account.name },
+      service: { name: "glue" },
     },
-    "event": { "outcome": isErr ? "failure" : "success" },
-    "data_stream": { "type": "traces", "dataset": "apm", "namespace": "default" },
+    event: { outcome: isErr ? "failure" : "success" },
+    data_stream: { type: "traces", dataset: "apm", namespace: "default" },
   };
 
   // ── Child spans (job phases) ─────────────────────────────────────────────────
@@ -197,15 +207,12 @@ export function generateGlueTrace(ts, er) {
   let spanOffsetMs = randInt(50, 200);
 
   for (let i = 0; i < cfg.phases.length; i++) {
-    const phase     = cfg.phases[i];
+    const phase = cfg.phases[i];
     const spanIsErr = isErr && i === cfg.phases.length - 1;
     const baseProps = PHASE_PROPS[phase.type] || PHASE_PROPS.transform;
     const durationUs = randInt(baseProps.durationMs[0], baseProps.durationMs[1]) * 1000;
 
-    spans.push(buildGluePhaseSpan(
-      traceId, txId, txId, ts,
-      phase, spanIsErr, spanOffsetMs,
-    ));
+    spans.push(buildGluePhaseSpan(traceId, txId, txId, ts, phase, spanIsErr, spanOffsetMs));
 
     spanOffsetMs += durationUs / 1000 + randInt(10, 100);
   }

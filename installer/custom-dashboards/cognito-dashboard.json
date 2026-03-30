@@ -30,7 +30,9 @@
             "type": "esql",
             "query": "FROM logs-aws.cognito* | EVAL s = CASE(event.outcome == \"success\", 1, 0) | STATS r = AVG(s) | EVAL `Sign-In Success Rate %` = ROUND(r * 100, 1)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Sign-In Success Rate %" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Sign-In Success Rate %" }
+          ]
         }
       }
     },
@@ -167,9 +169,7 @@
                 "query": "FROM logs-aws.cognito* | STATS throttles = SUM(`aws.cognito.metrics.ThrottleCount.sum`) BY bucket = BUCKET(@timestamp, 75, ?_tstart, ?_tend) | SORT bucket"
               },
               "x": { "operation": "value", "column": "bucket" },
-              "y": [
-                { "operation": "value", "column": "throttles", "label": "Throttle Count" }
-              ]
+              "y": [{ "operation": "value", "column": "throttles", "label": "Throttle Count" }]
             }
           ]
         }
@@ -197,7 +197,11 @@
               "x": { "operation": "value", "column": "bucket" },
               "y": [
                 { "operation": "value", "column": "takeover", "label": "Account Takeover Risk" },
-                { "operation": "value", "column": "compromised", "label": "Compromised Credentials Risk" }
+                {
+                  "operation": "value",
+                  "column": "compromised",
+                  "label": "Compromised Credentials Risk"
+                }
               ]
             }
           ]
@@ -224,9 +228,7 @@
                 "query": "FROM logs-aws.cognito* | WHERE event.outcome == \"failure\" | STATS count = COUNT() BY err_code = `aws.cognito.error_code` | SORT count DESC | LIMIT 10"
               },
               "x": { "operation": "value", "column": "err_code" },
-              "y": [
-                { "operation": "value", "column": "count", "label": "Failures" }
-              ]
+              "y": [{ "operation": "value", "column": "count", "label": "Failures" }]
             }
           ]
         }
@@ -252,9 +254,7 @@
                 "query": "FROM logs-aws.cognito* | STATS signins = SUM(`aws.cognito.metrics.SignInSuccesses.sum`) BY pool = `aws.cognito.user_pool_name` | SORT signins DESC | LIMIT 10"
               },
               "x": { "operation": "value", "column": "pool" },
-              "y": [
-                { "operation": "value", "column": "signins", "label": "Sign-Ins" }
-              ]
+              "y": [{ "operation": "value", "column": "signins", "label": "Sign-Ins" }]
             }
           ]
         }

@@ -14,7 +14,9 @@
             "type": "esql",
             "query": "FROM logs-aws.outposts* | STATS `Total Capacity Events` = COUNT()"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Total Capacity Events" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Total Capacity Events" }
+          ]
         }
       }
     },
@@ -30,7 +32,9 @@
             "type": "esql",
             "query": "FROM logs-aws.outposts* | WHERE `aws.outposts.connectivity_status` == \"DISCONNECTED\" | STATS `Disconnected Outposts` = COUNT_DISTINCT(`aws.outposts.outpost_id`)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Disconnected Outposts" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Disconnected Outposts" }
+          ]
         }
       }
     },
@@ -46,7 +50,9 @@
             "type": "esql",
             "query": "FROM logs-aws.outposts* | STATS avg_i = AVG(`aws.outposts.available_instance_count`) | EVAL `Avg Available Instances` = ROUND(avg_i, 0)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Avg Available Instances" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Avg Available Instances" }
+          ]
         }
       }
     },
@@ -141,9 +147,21 @@
           "metrics": [
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
             { "operation": "value", "column": "aws.outposts.outpost_id", "label": "Outpost ID" },
-            { "operation": "value", "column": "aws.outposts.instance_type", "label": "Instance Type" },
-            { "operation": "value", "column": "aws.outposts.capacity_status", "label": "Capacity Status" },
-            { "operation": "value", "column": "aws.outposts.available_instance_count", "label": "Available Instances" }
+            {
+              "operation": "value",
+              "column": "aws.outposts.instance_type",
+              "label": "Instance Type"
+            },
+            {
+              "operation": "value",
+              "column": "aws.outposts.capacity_status",
+              "label": "Capacity Status"
+            },
+            {
+              "operation": "value",
+              "column": "aws.outposts.available_instance_count",
+              "label": "Available Instances"
+            }
           ],
           "rows": []
         }

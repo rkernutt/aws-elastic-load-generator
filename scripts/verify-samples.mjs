@@ -12,7 +12,10 @@ const rootDir = path.join(__dirname, "..");
 function idsInDir(relDir, ext = ".json") {
   const dir = path.join(rootDir, relDir);
   if (!fs.existsSync(dir)) return [];
-  return fs.readdirSync(dir).filter((f) => f.endsWith(ext)).map((f) => f.slice(0, -ext.length));
+  return fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith(ext))
+    .map((f) => f.slice(0, -ext.length));
 }
 
 function assertMatch(name, expectedKeys, actualIds, samplesDir) {
@@ -27,9 +30,9 @@ function assertMatch(name, expectedKeys, actualIds, samplesDir) {
   }
 }
 
-const { GENERATORS } = await import("../src/generators/index.js");
-const { METRICS_GENERATORS } = await import("../src/generators/metrics/index.js");
-const { TRACE_GENERATORS } = await import("../src/generators/traces/index.js");
+const { GENERATORS } = await import("../src/generators/index.ts");
+const { METRICS_GENERATORS } = await import("../src/generators/metrics/index.ts");
+const { TRACE_GENERATORS } = await import("../src/generators/traces/index.ts");
 
 const logKeys = Object.keys(GENERATORS).sort();
 const metricKeys = Object.keys(METRICS_GENERATORS).sort();

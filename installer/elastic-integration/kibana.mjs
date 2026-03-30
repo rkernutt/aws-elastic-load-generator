@@ -6,7 +6,7 @@
  *   const client = createKibanaClient('https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243', '<apiKey>');
  */
 
-const EPR_BASE_URL = 'https://epr.elastic.co';
+const EPR_BASE_URL = "https://epr.elastic.co";
 
 /**
  * Creates a Kibana Fleet API client.
@@ -16,10 +16,10 @@ const EPR_BASE_URL = 'https://epr.elastic.co';
  * @returns {object} Client with getInstalledPackage, installPackage, and getLatestVersion methods
  */
 export default function createKibanaClient(baseUrl, apiKey) {
-  const base = baseUrl.replace(/\/$/, '');
+  const base = baseUrl.replace(/\/$/, "");
 
   const commonHeaders = {
-    'kbn-xsrf': 'true',
+    "kbn-xsrf": "true",
     Authorization: `ApiKey ${apiKey}`,
   };
 
@@ -35,14 +35,14 @@ export default function createKibanaClient(baseUrl, apiKey) {
     }
 
     if (!response.ok) {
-      let body = '';
+      let body = "";
       try {
         body = await response.text();
       } catch (_) {
         // ignore body read errors
       }
       const err = new Error(
-        `HTTP ${response.status} ${response.statusText} — ${url}\n${body}`.trim(),
+        `HTTP ${response.status} ${response.statusText} — ${url}\n${body}`.trim()
       );
       err.status = response.status;
       err.body = body;
@@ -61,7 +61,7 @@ export default function createKibanaClient(baseUrl, apiKey) {
       const url = `${base}/api/fleet/epm/packages/${encodeURIComponent(packageName)}`;
       try {
         return await apiFetch(url, {
-          method: 'GET',
+          method: "GET",
           headers: commonHeaders,
         });
       } catch (err) {
@@ -76,10 +76,10 @@ export default function createKibanaClient(baseUrl, apiKey) {
     async installPackage(packageName, version) {
       const url = `${base}/api/fleet/epm/packages/${encodeURIComponent(packageName)}/${encodeURIComponent(version)}`;
       return apiFetch(url, {
-        method: 'POST',
+        method: "POST",
         headers: {
           ...commonHeaders,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ force: false }),
       });
@@ -98,7 +98,7 @@ export default function createKibanaClient(baseUrl, apiKey) {
       // 1. Try the Kibana Fleet API first
       try {
         const url = `${base}/api/fleet/epm/packages/${encodeURIComponent(packageName)}`;
-        const data = await apiFetch(url, { method: 'GET', headers: commonHeaders });
+        const data = await apiFetch(url, { method: "GET", headers: commonHeaders });
         const version = data?.item?.latestVersion;
         if (version) return version;
       } catch (_) {
@@ -112,29 +112,27 @@ export default function createKibanaClient(baseUrl, apiKey) {
         results = await fetch(eprUrl);
       } catch (networkErr) {
         throw new Error(
-          `Network error while reaching Elastic Package Registry: ${networkErr.message}`,
+          `Network error while reaching Elastic Package Registry: ${networkErr.message}`
         );
       }
 
       if (!results.ok) {
-        const body = await results.text().catch(() => '');
+        const body = await results.text().catch(() => "");
         throw new Error(
-          `Failed to query Elastic Package Registry (HTTP ${results.status}): ${body}`.trim(),
+          `Failed to query Elastic Package Registry (HTTP ${results.status}): ${body}`.trim()
         );
       }
 
       const data = await results.json();
 
       if (!Array.isArray(data) || data.length === 0) {
-        throw new Error(
-          `No packages found for "${packageName}" in the Elastic Package Registry.`,
-        );
+        throw new Error(`No packages found for "${packageName}" in the Elastic Package Registry.`);
       }
 
       const version = data[0]?.version;
       if (!version) {
         throw new Error(
-          `Could not parse version from Elastic Package Registry response for "${packageName}".`,
+          `Could not parse version from Elastic Package Registry response for "${packageName}".`
         );
       }
 

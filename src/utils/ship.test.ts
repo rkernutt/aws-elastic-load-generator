@@ -3,16 +3,18 @@
  * Tests batch assembly, error handling, abort, and progress tracking.
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { stripNulls } from "../helpers/index.js";
+import { stripNulls } from "../helpers";
 import { generateLambdaLog } from "../generators/serverless.js";
-import { ELASTIC_DATASET_MAP } from "../data/elasticMaps.js";
+import { ELASTIC_DATASET_MAP } from "../data/elasticMaps";
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
 function buildNdjson(indexName, docs) {
-  return docs
-    .flatMap(doc => [JSON.stringify({ create: { _index: indexName } }), JSON.stringify(doc)])
-    .join("\n") + "\n";
+  return (
+    docs
+      .flatMap((doc) => [JSON.stringify({ create: { _index: indexName } }), JSON.stringify(doc)])
+      .join("\n") + "\n"
+  );
 }
 
 function mockBulkOk(count) {
@@ -33,9 +35,13 @@ function mockBulkPartialError(count, errCount) {
     json: async () => ({
       errors: true,
       items: Array.from({ length: count }, (_, i) => ({
-        create: i < errCount
-          ? { status: 400, error: { type: "mapper_parsing_exception", reason: "field type mismatch" } }
-          : { status: 201 },
+        create:
+          i < errCount
+            ? {
+                status: 400,
+                error: { type: "mapper_parsing_exception", reason: "field type mismatch" },
+              }
+            : { status: 201 },
       })),
     }),
   };
@@ -70,12 +76,18 @@ describe("Batch NDJSON assembly", () => {
 });
 
 describe("Fetch response handling", () => {
-  beforeEach(() => { vi.stubGlobal("fetch", vi.fn()); });
-  afterEach(() => { vi.unstubAllGlobals(); });
+  const mockFetch = vi.fn();
+  beforeEach(() => {
+    vi.stubGlobal("fetch", mockFetch);
+  });
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    mockFetch.mockReset();
+  });
 
   it("counts successful docs from bulk ok response", async () => {
     const batchSize = 10;
-    fetch.mockResolvedValueOnce(mockBulkOk(batchSize));
+    mockFetch.mockResolvedValueOnce(mockBulkOk(batchSize));
 
     const docs = Array.from({ length: batchSize }, () =>
       stripNulls(generateLambdaLog(new Date().toISOString(), 0))
@@ -85,27 +97,28 @@ describe("Fetch response handling", () => {
     const json = await res.json();
 
     expect(res.ok).toBe(true);
-    const failedItems = json.items?.filter(i => i.create?.error || i.index?.error) || [];
+    const failedItems = json.items?.filter((i) => i.create?.error || i.index?.error) || [];
     expect(failedItems).toHaveLength(0);
     const sent = batchSize - failedItems.length;
     expect(sent).toBe(10);
   });
 
   it("counts partial errors from bulk partial-error response", async () => {
-    const batchSize = 10, errCount = 3;
-    fetch.mockResolvedValueOnce(mockBulkPartialError(batchSize, errCount));
+    const batchSize = 10,
+      errCount = 3;
+    mockFetch.mockResolvedValueOnce(mockBulkPartialError(batchSize, errCount));
 
     const res = await fetch("/proxy/_bulk", { method: "POST", body: "" });
     const json = await res.json();
 
-    const failedItems = json.items?.filter(i => i.create?.error || i.index?.error) || [];
+    const failedItems = json.items?.filter((i) => i.create?.error || i.index?.error) || [];
     expect(failedItems).toHaveLength(errCount);
     const sent = batchSize - failedItems.length;
     expect(sent).toBe(7);
   });
 
   it("treats non-ok response as full batch error", async () => {
-    fetch.mockResolvedValueOnce(mockBulkServerError());
+    mockFetch.mockResolvedValueOnce(mockBulkServerError());
 
     const batchSize = 5;
     const res = await fetch("/proxy/_bulk", { method: "POST", body: "" });
@@ -118,16 +131,16 @@ describe("Fetch response handling", () => {
   });
 
   it("catches network errors and treats batch as errored", async () => {
-    fetch.mockRejectedValueOnce(new Error("ERR_CONNECTION_REFUSED"));
+    mockFetch.mockRejectedValueOnce(new Error("ERR_CONNECTION_REFUSED"));
 
-    let caught = null;
+    let caught: unknown = null;
     try {
       await fetch("/proxy/_bulk", { method: "POST", body: "" });
-    } catch(e) {
+    } catch (e) {
       caught = e;
     }
     expect(caught).not.toBeNull();
-    expect(caught.message).toBe("ERR_CONNECTION_REFUSED");
+    expect((caught as Error).message).toBe("ERR_CONNECTION_REFUSED");
   });
 });
 

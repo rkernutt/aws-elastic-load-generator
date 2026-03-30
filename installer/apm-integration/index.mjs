@@ -45,7 +45,7 @@ function printHeader() {
 const DEPLOYMENT_TYPES = [
   { id: "self-managed", label: "Self-Managed  (on-premises, Docker, VM)" },
   { id: "cloud-hosted", label: "Elastic Cloud Hosted  (cloud.elastic.co)" },
-  { id: "serverless",   label: "Elastic Serverless  (cloud.elastic.co/serverless)" },
+  { id: "serverless", label: "Elastic Serverless  (cloud.elastic.co/serverless)" },
 ];
 
 async function promptDeploymentType(rl) {
@@ -122,9 +122,7 @@ function createKibanaClient(baseUrl, apiKey) {
       } catch {
         text = "(unable to read response body)";
       }
-      throw new Error(
-        `Kibana request failed: ${method} ${path} → HTTP ${res.status}\n${text}`
-      );
+      throw new Error(`Kibana request failed: ${method} ${path} → HTTP ${res.status}\n${text}`);
     }
 
     return res.json();
@@ -254,13 +252,9 @@ async function main() {
     const state = status?.status?.overall?.state ?? "(unknown)";
     const version = status?.version?.number ?? "";
     if (state !== "green" && state !== "available") {
-      console.log(
-        `  ⚠  Kibana status is "${state}" — proceeding anyway.`
-      );
+      console.log(`  ⚠  Kibana status is "${state}" — proceeding anyway.`);
     } else {
-      console.log(
-        `  ✓ Connected to Kibana${version ? ` v${version}` : ""} (status: ${state})`
-      );
+      console.log(`  ✓ Connected to Kibana${version ? ` v${version}` : ""} (status: ${state})`);
     }
   } catch (err) {
     console.error(`  ✗ Kibana connection failed: ${err.message}`);
@@ -284,9 +278,7 @@ async function main() {
     const dataStream = await esClient.checkApmDataStream();
     if (dataStream !== null) {
       apmAlreadyConfigured = true;
-      console.log(
-        "  ✓ APM data streams already configured (traces-apm-default exists)."
-      );
+      console.log("  ✓ APM data streams already configured (traces-apm-default exists).");
     } else {
       console.log("  APM data streams not yet configured.");
     }
@@ -319,14 +311,13 @@ async function main() {
     }
     // Response shape: { item: { version: "8.x.x", ... } } or { version: "8.x.x" }
     apmVersion =
-      packageInfo?.item?.version ??
-      packageInfo?.response?.version ??
-      packageInfo?.version;
+      packageInfo?.item?.version ?? packageInfo?.response?.version ?? packageInfo?.version;
 
     if (!apmVersion) {
       throw new Error(
         "Could not determine APM package version from Fleet API response.\n" +
-        "Response: " + JSON.stringify(packageInfo).slice(0, 300)
+          "Response: " +
+          JSON.stringify(packageInfo).slice(0, 300)
       );
     }
     console.log(`  ✓ Latest APM package version: ${apmVersion}`);
@@ -342,9 +333,7 @@ async function main() {
     const result = await kibanaClient.installApmPackage(apmVersion);
     const installed = result?.items ?? result?.response ?? [];
     const count = Array.isArray(installed) ? installed.length : 0;
-    console.log(
-      `  ✓ APM integration installed${count > 0 ? ` (${count} asset(s) created)` : ""}.`
-    );
+    console.log(`  ✓ APM integration installed${count > 0 ? ` (${count} asset(s) created)` : ""}.`);
   } catch (err) {
     console.error(`  ✗ APM integration install failed: ${err.message}`);
     rl.close();
@@ -379,9 +368,7 @@ async function main() {
   console.log("  ✓ metrics-apm.internal-default — JVM / runtime metrics");
   console.log("");
   console.log("Next step:");
-  console.log(
-    "  Run the load generator in Traces mode to ship OTel trace data."
-  );
+  console.log("  Run the load generator in Traces mode to ship OTel trace data.");
   console.log("");
 
   rl.close();

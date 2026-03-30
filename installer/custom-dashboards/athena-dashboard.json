@@ -163,7 +163,9 @@
                 "query": "FROM logs-aws.athena* | STATS avg_engine = AVG(`aws.athena.metrics.EngineExecutionTimeInMillis.avg`) BY bucket = BUCKET(@timestamp, 75, ?_tstart, ?_tend) | SORT bucket"
               },
               "x": { "operation": "value", "column": "bucket" },
-              "y": [{ "operation": "value", "column": "avg_engine", "label": "Engine Exec Time (ms)" }]
+              "y": [
+                { "operation": "value", "column": "avg_engine", "label": "Engine Exec Time (ms)" }
+              ]
             }
           ]
         }
@@ -307,8 +309,16 @@
             { "operation": "value", "column": "aws.athena.workgroup", "label": "Workgroup" },
             { "operation": "value", "column": "aws.athena.database", "label": "Database" },
             { "operation": "value", "column": "aws.athena.state", "label": "State" },
-            { "operation": "value", "column": "aws.athena.duration_seconds", "label": "Duration (s)" },
-            { "operation": "value", "column": "aws.athena.data_scanned_mb", "label": "Scanned (MB)" },
+            {
+              "operation": "value",
+              "column": "aws.athena.duration_seconds",
+              "label": "Duration (s)"
+            },
+            {
+              "operation": "value",
+              "column": "aws.athena.data_scanned_mb",
+              "label": "Scanned (MB)"
+            },
             { "operation": "value", "column": "aws.athena.error_code", "label": "Error Code" }
           ],
           "rows": []

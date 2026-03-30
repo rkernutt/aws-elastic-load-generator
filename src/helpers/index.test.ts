@@ -11,7 +11,7 @@ import {
   randUUID,
   REGIONS,
   ACCOUNTS,
-} from "./index.js";
+} from "./index";
 
 describe("stripNulls", () => {
   it("returns primitives unchanged", () => {

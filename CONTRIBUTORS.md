@@ -10,4 +10,4 @@ Thanks to everyone who contributes to this project.
 
 ---
 
-*If you contribute code, docs, or ideas, you can add yourself to this file in a pull request.*
+_If you contribute code, docs, or ideas, you can add yourself to this file in a pull request._

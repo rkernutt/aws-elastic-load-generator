@@ -8,14 +8,14 @@ You can use either the **default Elastic AWS CloudWatch integration** or the **E
 
 ## Overview
 
-| Step | Where | What |
-|------|--------|------|
-| 1–2 | AWS | Enable Glue and SageMaker logging to CloudWatch; note log group names |
-| 3 | AWS | IAM role (or user) for the Elastic Agent to read CloudWatch Logs |
-| 4–5 | Elastic | Add Glue and SageMaker log groups in the AWS integration (or Custom Logs) and set dataset so indices are `logs-aws.glue` and `logs-aws.sagemaker` |
-| 6 | Elastic | (Optional) Create index templates for `logs-aws.glue` and `logs-aws.sagemaker` if they don’t exist |
-| 7–8 | Elastic | Create and attach ingest pipelines to parse JSON from `message` into `glue.parsed` and `sagemaker.parsed` |
-| 9 | Both | Verify end-to-end |
+| Step | Where   | What                                                                                                                                              |
+| ---- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1–2  | AWS     | Enable Glue and SageMaker logging to CloudWatch; note log group names                                                                             |
+| 3    | AWS     | IAM role (or user) for the Elastic Agent to read CloudWatch Logs                                                                                  |
+| 4–5  | Elastic | Add Glue and SageMaker log groups in the AWS integration (or Custom Logs) and set dataset so indices are `logs-aws.glue` and `logs-aws.sagemaker` |
+| 6    | Elastic | (Optional) Create index templates for `logs-aws.glue` and `logs-aws.sagemaker` if they don’t exist                                                |
+| 7–8  | Elastic | Create and attach ingest pipelines to parse JSON from `message` into `glue.parsed` and `sagemaker.parsed`                                         |
+| 9    | Both    | Verify end-to-end                                                                                                                                 |
 
 ---
 
@@ -262,17 +262,17 @@ After this, documents ingested into those indices will have `message` parsed int
 
 ## Summary checklist
 
-| # | Task | Done |
-|---|------|------|
-| 1 | AWS: Enable Glue continuous logging; note log groups (`/aws-glue/jobs/output`, `/aws-glue/jobs/error` or custom) | ☐ |
-| 2 | AWS: Enable SageMaker logging to CloudWatch; note log groups | ☐ |
-| 3 | AWS: IAM role/user for Elastic Agent with `logs:DescribeLogGroups`, `logs:DescribeLogStreams`, `logs:GetLogEvents` on Glue and SageMaker log groups | ☐ |
-| 4 | Elastic: Add AWS (or Custom Logs) integration; add inputs for Glue and SageMaker log groups with dataset `aws.glue` and `aws.sagemaker` | ☐ |
-| 5 | Elastic: Deploy/reload Agent so it starts collecting those log groups | ☐ |
-| 6 | Elastic: (Optional) Create index templates for `logs-aws.glue*` and `logs-aws.sagemaker*` | ☐ |
-| 7 | Elastic: Create ingest pipelines — run `npm run setup:pipelines` or use manual curl commands | ☐ |
-| 8 | Elastic: Attach pipelines to `logs-aws.glue*` and `logs-aws.sagemaker*` (template or integration UI) | ☐ |
-| 9 | Verify: Generate Glue/SageMaker logs, then see them in Discover in the correct indices with optional `*.parsed` fields | ☐ |
+| #   | Task                                                                                                                                                | Done |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
+| 1   | AWS: Enable Glue continuous logging; note log groups (`/aws-glue/jobs/output`, `/aws-glue/jobs/error` or custom)                                    | ☐    |
+| 2   | AWS: Enable SageMaker logging to CloudWatch; note log groups                                                                                        | ☐    |
+| 3   | AWS: IAM role/user for Elastic Agent with `logs:DescribeLogGroups`, `logs:DescribeLogStreams`, `logs:GetLogEvents` on Glue and SageMaker log groups | ☐    |
+| 4   | Elastic: Add AWS (or Custom Logs) integration; add inputs for Glue and SageMaker log groups with dataset `aws.glue` and `aws.sagemaker`             | ☐    |
+| 5   | Elastic: Deploy/reload Agent so it starts collecting those log groups                                                                               | ☐    |
+| 6   | Elastic: (Optional) Create index templates for `logs-aws.glue*` and `logs-aws.sagemaker*`                                                           | ☐    |
+| 7   | Elastic: Create ingest pipelines — run `npm run setup:pipelines` or use manual curl commands                                                        | ☐    |
+| 8   | Elastic: Attach pipelines to `logs-aws.glue*` and `logs-aws.sagemaker*` (template or integration UI)                                                | ☐    |
+| 9   | Verify: Generate Glue/SageMaker logs, then see them in Discover in the correct indices with optional `*.parsed` fields                              | ☐    |
 
 ---
 

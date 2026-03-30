@@ -16,12 +16,12 @@ To get Glue and SageMaker logs into the **same indices** the load generator uses
 
 ## Target indices (align with load generator)
 
-| Source (CloudWatch log group) | Target index (logs) | Target data_stream.dataset |
-|-------------------------------|---------------------|----------------------------|
-| Glue job logs | `logs-aws.glue` | `aws.glue` |
-| SageMaker logs | `logs-aws.sagemaker` | `aws.sagemaker` |
+| Source (CloudWatch log group) | Target index (logs)  | Target data_stream.dataset |
+| ----------------------------- | -------------------- | -------------------------- |
+| Glue job logs                 | `logs-aws.glue`      | `aws.glue`                 |
+| SageMaker logs                | `logs-aws.sagemaker` | `aws.sagemaker`            |
 
-*(If you use a different index prefix, replace `logs-aws` with your prefix.)*
+_(If you use a different index prefix, replace `logs-aws` with your prefix.)_
 
 ---
 
@@ -40,7 +40,7 @@ If the integration does **not** support per–log-group dataset/index, use **Opt
 
 If the ingestion path sends each event to a **single** index (e.g. `logs-aws.cloudwatch`) but includes the **log group name** in the document (e.g. `log.file.path`, `aws.log.group`, or a custom field), you **cannot** change the index from inside an ingest pipeline (the index is fixed at bulk request time). So you must either:
 
-- Use **Option 1** (different dataset per log group in the integration), or  
+- Use **Option 1** (different dataset per log group in the integration), or
 - Use **Option 3** (custom sender that sets `_index` per document).
 
 If you only need to **enrich** documents (e.g. set `event.dataset` or a custom field from the log group) for search/filtering, you can use an ingest pipeline that sets a field from the log group; the document will still live in whatever index the client chose.
@@ -76,9 +76,9 @@ Use the **same index names** and (if you set it) **data_stream.dataset** as in t
 
 Typical CloudWatch log groups for these services:
 
-| Service   | Typical log group(s) |
-|-----------|-----------------------|
-| **Glue**  | `/aws-glue/jobs/output`, `/aws-glue/jobs/error`, or custom prefix (e.g. `my-prefix/aws-glue/jobs/output`) |
+| Service       | Typical log group(s)                                                                                                                |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **Glue**      | `/aws-glue/jobs/output`, `/aws-glue/jobs/error`, or custom prefix (e.g. `my-prefix/aws-glue/jobs/output`)                           |
 | **SageMaker** | `/aws/sagemaker/NotebookInstances/...`, `/aws/sagemaker/TrainingJobs/...`, `/aws/sagemaker/Endpoints/...`, or Studio-related groups |
 
 Use these (or your actual log group names) in the routing logic so that Glue → `logs-aws.glue` and SageMaker → `logs-aws.sagemaker`.

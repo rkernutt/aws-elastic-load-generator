@@ -14,9 +14,9 @@
  *     Stack Management → API Keys)
  */
 
-import readline from 'readline';
-import process from 'process';
-import createKibanaClient from './kibana.mjs';
+import readline from "readline";
+import process from "process";
+import createKibanaClient from "./kibana.mjs";
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -43,31 +43,31 @@ function createPrompter() {
 // ---------------------------------------------------------------------------
 
 const DEPLOYMENT_TYPES = [
-  { id: 'self-managed',  label: 'Self-Managed  (on-premises, Docker, VM)' },
-  { id: 'cloud-hosted',  label: 'Elastic Cloud Hosted  (cloud.elastic.co)' },
-  { id: 'serverless',    label: 'Elastic Serverless  (cloud.elastic.co/serverless)' },
+  { id: "self-managed", label: "Self-Managed  (on-premises, Docker, VM)" },
+  { id: "cloud-hosted", label: "Elastic Cloud Hosted  (cloud.elastic.co)" },
+  { id: "serverless", label: "Elastic Serverless  (cloud.elastic.co/serverless)" },
 ];
 
 async function promptDeploymentType(prompt) {
-  console.log('Select your Elastic deployment type:');
-  console.log('');
+  console.log("Select your Elastic deployment type:");
+  console.log("");
   DEPLOYMENT_TYPES.forEach(({ label }, i) => console.log(`  ${i + 1}. ${label}`));
-  console.log('');
+  console.log("");
 
   while (true) {
-    const input = await prompt('Enter 1, 2, or 3:\n> ');
+    const input = await prompt("Enter 1, 2, or 3:\n> ");
     const idx = parseInt(input, 10) - 1;
     if (idx >= 0 && idx < DEPLOYMENT_TYPES.length) return DEPLOYMENT_TYPES[idx].id;
-    console.error('  Please enter 1, 2, or 3.');
+    console.error("  Please enter 1, 2, or 3.");
   }
 }
 
 function getUrlExample(deploymentType) {
-  if (deploymentType === 'self-managed')
-    return 'http://localhost:5601  or  https://kibana.yourdomain.internal:5601';
-  if (deploymentType === 'serverless')
-    return 'https://my-deployment.kb.eu-west-2.aws.elastic.cloud';
-  return 'https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243';
+  if (deploymentType === "self-managed")
+    return "http://localhost:5601  or  https://kibana.yourdomain.internal:5601";
+  if (deploymentType === "serverless")
+    return "https://my-deployment.kb.eu-west-2.aws.elastic.cloud";
+  return "https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243";
 }
 
 // ---------------------------------------------------------------------------
@@ -75,14 +75,14 @@ function getUrlExample(deploymentType) {
 // ---------------------------------------------------------------------------
 
 function validateKibanaUrl(raw, deploymentType) {
-  if (!raw) return { valid: false, message: 'Kibana URL must not be empty.' };
+  if (!raw) return { valid: false, message: "Kibana URL must not be empty." };
 
-  if (deploymentType === 'self-managed') {
-    if (!raw.startsWith('http://') && !raw.startsWith('https://'))
-      return { valid: false, message: 'URL must start with http:// or https://.' };
+  if (deploymentType === "self-managed") {
+    if (!raw.startsWith("http://") && !raw.startsWith("https://"))
+      return { valid: false, message: "URL must start with http:// or https://." };
   } else {
-    if (!raw.startsWith('https://'))
-      return { valid: false, message: 'URL must start with https://.' };
+    if (!raw.startsWith("https://"))
+      return { valid: false, message: "URL must start with https://." };
   }
 
   try {
@@ -95,7 +95,7 @@ function validateKibanaUrl(raw, deploymentType) {
 }
 
 function validateApiKey(raw) {
-  if (!raw) return { valid: false, message: 'API key must not be empty.' };
+  if (!raw) return { valid: false, message: "API key must not be empty." };
   return { valid: true };
 }
 
@@ -104,16 +104,16 @@ function validateApiKey(raw) {
 // ---------------------------------------------------------------------------
 
 async function maybeSKipTls(prompt, deploymentType) {
-  if (deploymentType !== 'self-managed') return;
+  if (deploymentType !== "self-managed") return;
 
   const answer = await prompt(
-    'Skip TLS certificate verification? Required for self-signed / internal CA certs. (y/N):\n> ',
+    "Skip TLS certificate verification? Required for self-signed / internal CA certs. (y/N):\n> "
   );
-  if (answer.toLowerCase() === 'y' || answer.toLowerCase() === 'yes') {
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-    console.log('  ⚠  TLS verification disabled — ensure you trust this endpoint.');
+  if (answer.toLowerCase() === "y" || answer.toLowerCase() === "yes") {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+    console.log("  ⚠  TLS verification disabled — ensure you trust this endpoint.");
   }
-  console.log('');
+  console.log("");
 }
 
 // ---------------------------------------------------------------------------
@@ -121,11 +121,11 @@ async function maybeSKipTls(prompt, deploymentType) {
 // ---------------------------------------------------------------------------
 
 async function main() {
-  console.log('');
-  console.log('╔══════════════════════════════════════════════╗');
-  console.log('║   AWS → Elastic Integration Installer        ║');
-  console.log('╚══════════════════════════════════════════════╝');
-  console.log('');
+  console.log("");
+  console.log("╔══════════════════════════════════════════════╗");
+  console.log("║   AWS → Elastic Integration Installer        ║");
+  console.log("╚══════════════════════════════════════════════╝");
+  console.log("");
 
   const { prompt, close } = createPrompter();
 
@@ -135,19 +135,17 @@ async function main() {
   try {
     // -- Deployment type -------------------------------------------------------
     const deploymentType = await promptDeploymentType(prompt);
-    console.log('');
+    console.log("");
 
     // -- TLS (self-managed only) -----------------------------------------------
     await maybeSKipTls(prompt, deploymentType);
 
     // -- Kibana URL ------------------------------------------------------------
     while (true) {
-      const raw = await prompt(
-        `Kibana URL (e.g. ${getUrlExample(deploymentType)}): `,
-      );
+      const raw = await prompt(`Kibana URL (e.g. ${getUrlExample(deploymentType)}): `);
       const { valid, message } = validateKibanaUrl(raw, deploymentType);
       if (valid) {
-        kibanaUrl = raw.replace(/\/$/, '');
+        kibanaUrl = raw.replace(/\/$/, "");
         break;
       }
       console.error(`  ✗ ${message}`);
@@ -155,9 +153,7 @@ async function main() {
 
     // -- API key ---------------------------------------------------------------
     while (true) {
-      const raw = await prompt(
-        '\nElastic API key (from Kibana → Stack Management → API Keys): ',
-      );
+      const raw = await prompt("\nElastic API key (from Kibana → Stack Management → API Keys): ");
       const { valid, message } = validateApiKey(raw);
       if (valid) {
         apiKey = raw;
@@ -169,7 +165,7 @@ async function main() {
     close();
   }
 
-  console.log('');
+  console.log("");
 
   // -- Build client ------------------------------------------------------------
   const client = createKibanaClient(kibanaUrl, apiKey);
@@ -177,26 +173,26 @@ async function main() {
   // -- Check if already installed ----------------------------------------------
   let installed = null;
   try {
-    console.log('Checking whether the AWS integration is already installed...');
-    installed = await client.getInstalledPackage('aws');
+    console.log("Checking whether the AWS integration is already installed...");
+    installed = await client.getInstalledPackage("aws");
   } catch (err) {
     console.error(`✗ Failed to query Kibana: ${err.message}`);
     process.exit(1);
   }
 
-  if (installed && installed.item?.status === 'installed') {
-    const version = installed.item?.version ?? 'unknown';
+  if (installed && installed.item?.status === "installed") {
+    const version = installed.item?.version ?? "unknown";
     console.log(`✓ AWS integration already installed (v${version}) — skipping.`);
-    console.log('');
-    console.log('Done.');
+    console.log("");
+    console.log("Done.");
     process.exit(0);
   }
 
   // -- Resolve latest version --------------------------------------------------
   let latestVersion;
   try {
-    console.log('Fetching latest AWS integration version...');
-    latestVersion = await client.getLatestVersion('aws');
+    console.log("Fetching latest AWS integration version...");
+    latestVersion = await client.getLatestVersion("aws");
   } catch (err) {
     console.error(`✗ Could not determine latest package version: ${err.message}`);
     process.exit(1);
@@ -205,16 +201,16 @@ async function main() {
   // -- Install -----------------------------------------------------------------
   try {
     console.log(`Installing AWS integration v${latestVersion}...`);
-    await client.installPackage('aws', latestVersion);
+    await client.installPackage("aws", latestVersion);
   } catch (err) {
     console.error(`✗ Installation failed: ${err.message}`);
     process.exit(1);
   }
 
   console.log(`✓ AWS integration installed successfully (v${latestVersion})`);
-  console.log('  Index templates, ILM policies, and dashboards are now available in Kibana.');
-  console.log('');
-  console.log('Done.');
+  console.log("  Index templates, ILM policies, and dashboards are now available in Kibana.");
+  console.log("");
+  console.log("Done.");
   process.exit(0);
 }
 

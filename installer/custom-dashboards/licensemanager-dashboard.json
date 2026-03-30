@@ -14,7 +14,9 @@
             "type": "esql",
             "query": "FROM logs-aws.licensemanager* | STATS `Total Tracked Licenses` = SUM(`aws.licensemanager.licensed_count`)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Total Tracked Licenses" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Total Tracked Licenses" }
+          ]
         }
       }
     },
@@ -62,7 +64,9 @@
             "type": "esql",
             "query": "FROM logs-aws.licensemanager* | STATS `License Configurations` = COUNT_DISTINCT(`aws.licensemanager.license_configuration_name`)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "License Configurations" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "License Configurations" }
+          ]
         }
       }
     },
@@ -140,10 +144,26 @@
           },
           "metrics": [
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
-            { "operation": "value", "column": "aws.licensemanager.license_configuration_name", "label": "Configuration" },
-            { "operation": "value", "column": "aws.licensemanager.consumed_licenses", "label": "Consumed" },
-            { "operation": "value", "column": "aws.licensemanager.licensed_count", "label": "Licensed Count" },
-            { "operation": "value", "column": "aws.licensemanager.utilization_percentage", "label": "Utilization (%)" }
+            {
+              "operation": "value",
+              "column": "aws.licensemanager.license_configuration_name",
+              "label": "Configuration"
+            },
+            {
+              "operation": "value",
+              "column": "aws.licensemanager.consumed_licenses",
+              "label": "Consumed"
+            },
+            {
+              "operation": "value",
+              "column": "aws.licensemanager.licensed_count",
+              "label": "Licensed Count"
+            },
+            {
+              "operation": "value",
+              "column": "aws.licensemanager.utilization_percentage",
+              "label": "Utilization (%)"
+            }
           ],
           "rows": []
         }

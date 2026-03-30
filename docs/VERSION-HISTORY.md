@@ -4,6 +4,15 @@
 
 ---
 
+## What's New in v11.3
+
+> Feature highlights: [README § What's New in v11.3](../README.md#whats-new-in-v113).
+
+- **localStorage excludes cluster credentials** — Only allowlisted UI settings (volume, batching, index prefixes, ingestion source, mode, schedule options, inject-anomalies toggle, etc.) are written to `localStorage`. **Elasticsearch URL and API key are never persisted** and stay in memory for the session. On load, any keys outside the allowlist (including legacy copies of URL or API key) are **scrubbed** from the stored JSON so secrets do not remain on disk.
+- **Parallel shipping progress** — Progress and totals under concurrent service shipping use functional updates and per-service doc counts so the bar stays accurate when multiple workers run at once.
+
+---
+
 ## What's New in v11.2
 
 - **Metrics re-run errors fixed** — `version_conflict_engine_exception` responses from TSDS (`metrics-aws.*`) data streams are no longer counted as errors. When you run metrics mode a second time over the same time window, duplicate documents are silently skipped and shown in the activity log as `↷ batch N: X indexed, Y skipped (already exists)`. Only genuine indexing failures increment the error counter.
@@ -199,7 +208,7 @@
 
 - **NAT Gateway** — Added `natgateway` service to the Networking & CDN group. Generates realistic NAT Gateway connection and traffic metrics (bytes, packets, connections, port allocation errors) mapped to `aws.natgateway`. Available in both Logs and Metrics mode.
 - **Cost estimation** — A doc count estimate now appears below the Ship button when services are selected: `~{N} documents across {X} services ({B} batches)`. Helps confirm volume before shipping.
-- **Save / restore config** — Connection settings, volume sliders, and ingestion preferences are now persisted to `localStorage` and restored on next visit. A **Clear saved config** button resets to defaults.
+- **Save / restore config** — Volume sliders, index prefixes, ingestion preferences, and related UI settings are persisted to `localStorage` and restored on next visit. (Cluster URL and API key are **not** stored; in current builds only an allowlisted subset is saved, and legacy extra keys are scrubbed on load.) A **Clear saved config** button resets persisted defaults.
 - **Module split** — The codebase has been refactored from a monolithic `App.jsx` (~5000 lines) into focused ES modules: `src/helpers/`, `src/theme/`, `src/data/`, `src/generators/` (14 category files), and `src/components/`. `App.jsx` now contains only React state, logic, and JSX.
 
 ---

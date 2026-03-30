@@ -46,7 +46,9 @@
             "type": "esql",
             "query": "FROM logs-aws.fis* | WHERE `aws.fis.experiment_state` == \"completed\" | STATS `Completed Experiments` = COUNT()"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Completed Experiments" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Completed Experiments" }
+          ]
         }
       }
     },
@@ -140,9 +142,17 @@
           },
           "metrics": [
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
-            { "operation": "value", "column": "aws.fis.experiment_name", "label": "Experiment Name" },
+            {
+              "operation": "value",
+              "column": "aws.fis.experiment_name",
+              "label": "Experiment Name"
+            },
             { "operation": "value", "column": "aws.fis.experiment_state", "label": "State" },
-            { "operation": "value", "column": "aws.fis.target_resource_type", "label": "Target Resource Type" }
+            {
+              "operation": "value",
+              "column": "aws.fis.target_resource_type",
+              "label": "Target Resource Type"
+            }
           ],
           "rows": []
         }

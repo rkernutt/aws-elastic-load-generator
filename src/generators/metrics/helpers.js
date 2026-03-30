@@ -3,8 +3,8 @@
  * Each metric doc matches the shape produced by the Elastic AWS integration.
  */
 
-export { REGIONS, ACCOUNTS, rand, randInt, randFloat, randId } from "../../helpers/index.js";
-import { rand } from "../../helpers/index.js";
+export { REGIONS, ACCOUNTS, rand, randInt, randFloat, randId } from "../../helpers";
+import { rand } from "../../helpers";
 
 /**
  * Build a single CloudWatch metric document.
@@ -19,23 +19,32 @@ import { rand } from "../../helpers/index.js";
  * @param {number}   period     - collection period ms (default 60 000)
  * @returns {Object}
  */
-export function metricDoc(ts, service, dataset, region, account, dimensions, metrics, period = 60_000) {
+export function metricDoc(
+  ts,
+  service,
+  dataset,
+  region,
+  account,
+  dimensions,
+  metrics,
+  period = 60_000
+) {
   return {
     "@timestamp": ts,
-    "cloud": {
-      "provider": "aws",
-      "region": region,
-      "account": { "id": account.id, "name": account.name },
+    cloud: {
+      provider: "aws",
+      region: region,
+      account: { id: account.id, name: account.name },
     },
-    "aws": {
+    aws: {
       [service]: {
-        "metrics": metrics,
-        "dimensions": dimensions,
+        metrics: metrics,
+        dimensions: dimensions,
       },
     },
-    "metricset": { "name": service, "period": period },
-    "data_stream": { "type": "metrics", "dataset": dataset, "namespace": "default" },
-    "event": { "dataset": dataset, "module": "aws" },
+    metricset: { name: service, period: period },
+    data_stream: { type: "metrics", dataset: dataset, namespace: "default" },
+    event: { dataset: dataset, module: "aws" },
   };
 }
 
@@ -65,10 +74,11 @@ export function stat(avg, { sum, count = 1, max, min } = {}) {
 }
 
 /** Simple counter stat (avg = sum = value, count = 1). */
-export function counter(value) { return stat(value, { sum: value }); }
+export function counter(value) {
+  return stat(value, { sum: value });
+}
 
 /** Pick a random region+account pair (same for all docs in one generator call). */
 export function pickCloudContext(REGIONS, ACCOUNTS) {
   return { region: rand(REGIONS), account: rand(ACCOUNTS) };
 }
-

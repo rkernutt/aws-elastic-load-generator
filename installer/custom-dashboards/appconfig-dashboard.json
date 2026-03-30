@@ -30,7 +30,9 @@
             "type": "esql",
             "query": "FROM logs-aws.appconfig* | WHERE `aws.appconfig.state` == \"ROLLED_BACK\" | STATS `Rolled-Back Deployments` = COUNT()"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Rolled-Back Deployments" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Rolled-Back Deployments" }
+          ]
         }
       }
     },
@@ -46,7 +48,9 @@
             "type": "esql",
             "query": "FROM logs-aws.appconfig* | STATS `Applications Configured` = COUNT_DISTINCT(`aws.appconfig.application_name`)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Applications Configured" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Applications Configured" }
+          ]
         }
       }
     },
@@ -140,10 +144,22 @@
           },
           "metrics": [
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
-            { "operation": "value", "column": "aws.appconfig.application_name", "label": "Application" },
-            { "operation": "value", "column": "aws.appconfig.environment_name", "label": "Environment" },
+            {
+              "operation": "value",
+              "column": "aws.appconfig.application_name",
+              "label": "Application"
+            },
+            {
+              "operation": "value",
+              "column": "aws.appconfig.environment_name",
+              "label": "Environment"
+            },
             { "operation": "value", "column": "aws.appconfig.state", "label": "State" },
-            { "operation": "value", "column": "aws.appconfig.percentage_complete", "label": "Completion (%)" }
+            {
+              "operation": "value",
+              "column": "aws.appconfig.percentage_complete",
+              "label": "Completion (%)"
+            }
           ],
           "rows": []
         }

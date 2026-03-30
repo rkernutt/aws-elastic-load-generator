@@ -146,7 +146,9 @@
                 "query": "FROM logs-aws.glue* | STATS avg_ns = AVG(event.duration) BY bucket = BUCKET(@timestamp, 75, ?_tstart, ?_tend) | EVAL avg_duration_s = avg_ns / 1000000000 | SORT bucket"
               },
               "x": { "operation": "value", "column": "bucket" },
-              "y": [{ "operation": "value", "column": "avg_duration_s", "label": "Avg Duration (s)" }]
+              "y": [
+                { "operation": "value", "column": "avg_duration_s", "label": "Avg Duration (s)" }
+              ]
             }
           ]
         }

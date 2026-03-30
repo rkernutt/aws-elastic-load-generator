@@ -24,9 +24,9 @@ function stripNulls(obj) {
   return out;
 }
 
-const { GENERATORS } = await import("../src/generators/index.js");
-const { METRICS_GENERATORS } = await import("../src/generators/metrics/index.js");
-const { TRACE_GENERATORS } = await import("../src/generators/traces/index.js");
+const { GENERATORS } = await import("../src/generators/index.ts");
+const { METRICS_GENERATORS } = await import("../src/generators/metrics/index.ts");
+const { TRACE_GENERATORS } = await import("../src/generators/traces/index.ts");
 
 fs.mkdirSync(logsDir, { recursive: true });
 fs.mkdirSync(metricsDir, { recursive: true });
@@ -38,12 +38,8 @@ for (const [id, fn] of Object.entries(GENERATORS)) {
   const result = fn(ts, errorRate);
   // Chain generators return arrays — write first doc; strip __dataset routing key
   const raw = Array.isArray(result) ? result[0] : result;
-  const { __dataset, ...doc } = stripNulls(raw);
-  fs.writeFileSync(
-    path.join(logsDir, `${id}.json`),
-    JSON.stringify(doc, null, 2),
-    "utf8"
-  );
+  const { __dataset: _omitDataset, ...doc } = stripNulls(raw);
+  fs.writeFileSync(path.join(logsDir, `${id}.json`), JSON.stringify(doc, null, 2), "utf8");
   logCount++;
 }
 
@@ -51,12 +47,8 @@ for (const [id, fn] of Object.entries(GENERATORS)) {
 let metricsCount = 0;
 for (const [id, fn] of Object.entries(METRICS_GENERATORS)) {
   const docs = fn(ts, errorRate);
-  const doc  = stripNulls(Array.isArray(docs) ? docs[0] : docs);
-  fs.writeFileSync(
-    path.join(metricsDir, `${id}.json`),
-    JSON.stringify(doc, null, 2),
-    "utf8"
-  );
+  const doc = stripNulls(Array.isArray(docs) ? docs[0] : docs);
+  fs.writeFileSync(path.join(metricsDir, `${id}.json`), JSON.stringify(doc, null, 2), "utf8");
   metricsCount++;
 }
 
@@ -64,12 +56,8 @@ for (const [id, fn] of Object.entries(METRICS_GENERATORS)) {
 let tracesCount = 0;
 for (const [id, fn] of Object.entries(TRACE_GENERATORS)) {
   const docs = fn(ts, errorRate);
-  const doc  = stripNulls(Array.isArray(docs) ? docs[0] : docs);
-  fs.writeFileSync(
-    path.join(tracesDir, `${id}.json`),
-    JSON.stringify(doc, null, 2),
-    "utf8"
-  );
+  const doc = stripNulls(Array.isArray(docs) ? docs[0] : docs);
+  fs.writeFileSync(path.join(tracesDir, `${id}.json`), JSON.stringify(doc, null, 2), "utf8");
   tracesCount++;
 }
 

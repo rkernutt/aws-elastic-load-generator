@@ -46,7 +46,9 @@
             "type": "esql",
             "query": "FROM logs-aws.kendra* | STATS avg_rt = AVG(`aws.kendra.response_time_ms`) | EVAL `Avg Response Time (ms)` = ROUND(avg_rt, 0)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Avg Response Time (ms)" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Avg Response Time (ms)" }
+          ]
         }
       }
     },
@@ -144,8 +146,16 @@
           "metrics": [
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
             { "operation": "value", "column": "aws.kendra.index_name", "label": "Index Name" },
-            { "operation": "value", "column": "aws.kendra.data_source_type", "label": "Data Source Type" },
-            { "operation": "value", "column": "aws.kendra.response_time_ms", "label": "Response Time (ms)" },
+            {
+              "operation": "value",
+              "column": "aws.kendra.data_source_type",
+              "label": "Data Source Type"
+            },
+            {
+              "operation": "value",
+              "column": "aws.kendra.response_time_ms",
+              "label": "Response Time (ms)"
+            },
             { "operation": "value", "column": "aws.kendra.result_count", "label": "Result Count" },
             { "operation": "value", "column": "event.outcome", "label": "Outcome" }
           ],

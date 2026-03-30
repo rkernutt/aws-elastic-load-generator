@@ -1,16 +1,24 @@
 const http = require("http");
 const https = require("https");
 
-const PORT = process.env.PROXY_PORT || 3001;
+const PORT = Number(process.env.PROXY_PORT) || 3001;
+/** Bind address. Default `127.0.0.1` limits exposure on shared machines. Use `0.0.0.0` only if you must accept remote TCP (e.g. published container port). */
+const HOST = process.env.PROXY_HOST || "127.0.0.1";
 
 /** Request timeout in ms (e.g. 120s for large bulk requests). */
 const REQUEST_TIMEOUT_MS = Number(process.env.PROXY_REQUEST_TIMEOUT_MS) || 120000;
+
+/** Max incoming body size (bytes) before rejecting with 413. */
+const MAX_BODY_BYTES = Number(process.env.PROXY_MAX_BODY_BYTES) || 50 * 1024 * 1024;
 
 /** Max retries for transient failures (5xx, ECONNRESET, timeouts). */
 const MAX_RETRIES = 3;
 
 /** Base delay in ms for exponential backoff. */
 const BACKOFF_BASE_MS = 1000;
+
+/** Set `PROXY_QUIET=1` to disable stderr access logs (metadata only; never logs API keys or bodies). */
+const QUIET = process.env.PROXY_QUIET === "1";
 
 function sendJson(res, statusCode, body) {
   res.writeHead(statusCode, {
@@ -59,12 +67,16 @@ function proxyRequest(transport, options, body, retryCount, res) {
         proxyRequest(transport, options, body, retryCount + 1, res);
       }, delay);
     } else {
-      sendJson(res, 504, { error: "Proxy request timeout after " + (REQUEST_TIMEOUT_MS / 1000) + "s" });
+      sendJson(res, 504, {
+        error: "Proxy request timeout after " + REQUEST_TIMEOUT_MS / 1000 + "s",
+      });
     }
   });
 
   req.on("error", (err) => {
-    const retryable = (err.code === "ECONNRESET" || err.code === "ETIMEDOUT" || err.code === "ECONNREFUSED") && retryCount < MAX_RETRIES;
+    const retryable =
+      (err.code === "ECONNRESET" || err.code === "ETIMEDOUT" || err.code === "ECONNREFUSED") &&
+      retryCount < MAX_RETRIES;
     if (retryable) {
       const delay = BACKOFF_BASE_MS * Math.pow(2, retryCount);
       setTimeout(() => {
@@ -80,9 +92,32 @@ function proxyRequest(transport, options, body, retryCount, res) {
 }
 
 const server = http.createServer((req, res) => {
+  const started = Date.now();
+  let bytesIn = 0;
+
+  res.on("finish", () => {
+    if (QUIET) return;
+    const line = {
+      t: new Date().toISOString(),
+      event: "proxy_access",
+      method: req.method,
+      path: req.url || "",
+      status: res.statusCode,
+      ms: Date.now() - started,
+      bytesIn,
+    };
+    if (req.proxyTargetHost) line.targetHost = req.proxyTargetHost;
+    console.error(JSON.stringify(line));
+  });
+
   if (req.method === "GET" && req.url === "/health") {
     res.writeHead(200);
     res.end("ok");
+    return;
+  }
+
+  if (req.method !== "POST") {
+    sendJson(res, 405, { error: "Method not allowed" });
     return;
   }
 
@@ -103,8 +138,23 @@ const server = http.createServer((req, res) => {
   }
 
   const chunks = [];
-  req.on("data", (chunk) => chunks.push(chunk));
+  let tooLarge = false;
+  req.on("data", (chunk) => {
+    if (tooLarge) return;
+    bytesIn += chunk.length;
+    if (bytesIn > MAX_BODY_BYTES) {
+      tooLarge = true;
+      req.destroy();
+      sendJson(res, 413, {
+        error: "Request body too large (max " + MAX_BODY_BYTES + " bytes)",
+      });
+      return;
+    }
+    chunks.push(chunk);
+  });
   req.on("end", () => {
+    if (tooLarge) return;
+    req.proxyTargetHost = parsed.hostname;
     const body = Buffer.concat(chunks);
     const options = {
       hostname: parsed.hostname,
@@ -114,7 +164,7 @@ const server = http.createServer((req, res) => {
       headers: {
         "Content-Type": "application/x-ndjson",
         "Content-Length": body.length,
-        "Authorization": "ApiKey " + apiKey,
+        Authorization: "ApiKey " + apiKey,
       },
     };
 
@@ -123,6 +173,18 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log("Elastic proxy listening on port " + PORT + " (timeout " + REQUEST_TIMEOUT_MS + "ms, max retries " + MAX_RETRIES + ")");
+server.listen(PORT, HOST, () => {
+  console.log(
+    "Elastic proxy listening on " +
+      HOST +
+      ":" +
+      PORT +
+      " (timeout " +
+      REQUEST_TIMEOUT_MS +
+      "ms, max body " +
+      MAX_BODY_BYTES +
+      " bytes, max retries " +
+      MAX_RETRIES +
+      ")"
+  );
 });

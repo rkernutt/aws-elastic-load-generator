@@ -46,7 +46,9 @@
             "type": "esql",
             "query": "FROM logs-aws.wavelength* | STATS avg_lat = AVG(`aws.wavelength.network.latency_ms`) | EVAL `Avg Edge Latency (ms)` = ROUND(avg_lat, 2)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Avg Edge Latency (ms)" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Avg Edge Latency (ms)" }
+          ]
         }
       }
     },
@@ -62,7 +64,9 @@
             "type": "esql",
             "query": "FROM logs-aws.wavelength* | STATS `Active Wavelength Zones` = COUNT_DISTINCT(`aws.wavelength.zone`)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Active Wavelength Zones" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Active Wavelength Zones" }
+          ]
         }
       }
     },
@@ -142,9 +146,21 @@
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
             { "operation": "value", "column": "aws.wavelength.zone", "label": "Wavelength Zone" },
             { "operation": "value", "column": "aws.wavelength.carrier", "label": "Carrier" },
-            { "operation": "value", "column": "aws.wavelength.instance_type", "label": "Instance Type" },
-            { "operation": "value", "column": "aws.wavelength.network.latency_ms", "label": "Latency (ms)" },
-            { "operation": "value", "column": "aws.wavelength.network.uplink_mbps", "label": "UL Mbps" },
+            {
+              "operation": "value",
+              "column": "aws.wavelength.instance_type",
+              "label": "Instance Type"
+            },
+            {
+              "operation": "value",
+              "column": "aws.wavelength.network.latency_ms",
+              "label": "Latency (ms)"
+            },
+            {
+              "operation": "value",
+              "column": "aws.wavelength.network.uplink_mbps",
+              "label": "UL Mbps"
+            },
             { "operation": "value", "column": "event.outcome", "label": "Outcome" }
           ],
           "rows": []

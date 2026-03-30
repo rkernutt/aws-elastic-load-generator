@@ -126,7 +126,9 @@
         "datafeed_id": "datafeed-aws-nova-throttle-spike",
         "job_id": "aws-nova-throttle-spike",
         "indices": ["logs-aws.nova*"],
-        "query": { "bool": { "filter": [{ "term": { "aws.nova.error_code": "ThrottlingException" } }] } },
+        "query": {
+          "bool": { "filter": [{ "term": { "aws.nova.error_code": "ThrottlingException" } }] }
+        },
         "scroll_size": 1000,
         "query_delay": "60s"
       }
@@ -147,7 +149,11 @@
               "partition_field_name": "aws.lookoutvision.project_name"
             }
           ],
-          "influencers": ["aws.lookoutvision.project_name", "aws.lookoutvision.anomaly_label", "cloud.account.id"]
+          "influencers": [
+            "aws.lookoutvision.project_name",
+            "aws.lookoutvision.anomaly_label",
+            "cloud.account.id"
+          ]
         },
         "data_description": { "time_field": "@timestamp" },
         "model_plot_config": { "enabled": false },
@@ -180,7 +186,11 @@
               "by_field_name": "aws.lookoutvision.project_name"
             }
           ],
-          "influencers": ["aws.lookoutvision.project_name", "aws.lookoutvision.model_version", "cloud.account.id"]
+          "influencers": [
+            "aws.lookoutvision.project_name",
+            "aws.lookoutvision.model_version",
+            "cloud.account.id"
+          ]
         },
         "data_description": { "time_field": "@timestamp" },
         "model_plot_config": { "enabled": false },

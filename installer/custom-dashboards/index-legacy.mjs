@@ -47,15 +47,13 @@ function loadNdjsonFiles() {
   try {
     files = readdirSync(NDJSON_DIR).filter((f) => f.endsWith(".ndjson"));
   } catch {
-    console.error(
-      `No ndjson/ directory found. Run this first:\n  node generate-ndjson.mjs`
-    );
+    console.error(`No ndjson/ directory found. Run this first:\n  node generate-ndjson.mjs`);
     process.exit(1);
   }
 
   return files.map((file) => {
-    const raw  = readFileSync(join(NDJSON_DIR, file), "utf-8").trim();
-    const obj  = JSON.parse(raw);
+    const raw = readFileSync(join(NDJSON_DIR, file), "utf-8").trim();
+    const obj = JSON.parse(raw);
     return { file, id: obj.id, title: obj.attributes.title, raw };
   });
 }
@@ -63,10 +61,10 @@ function loadNdjsonFiles() {
 // ─── Kibana client ───────────────────────────────────────────────────────────
 
 function createKibanaClient(baseUrl, apiKey) {
-  const base    = baseUrl.replace(/\/$/, "");
+  const base = baseUrl.replace(/\/$/, "");
   const headers = {
-    Authorization:  `ApiKey ${apiKey}`,
-    "kbn-xsrf":    "true",
+    Authorization: `ApiKey ${apiKey}`,
+    "kbn-xsrf": "true",
   };
 
   async function request(method, path, body, extraHeaders = {}) {
@@ -78,7 +76,11 @@ function createKibanaClient(baseUrl, apiKey) {
     if (res.status === 404) return null;
     if (!res.ok) {
       let text;
-      try { text = await res.text(); } catch { text = "(unable to read response)"; }
+      try {
+        text = await res.text();
+      } catch {
+        text = "(unable to read response)";
+      }
       throw new Error(`Kibana ${method} ${path} → HTTP ${res.status}\n${text}`);
     }
     return res.json();
@@ -105,25 +107,22 @@ function createKibanaClient(baseUrl, apiKey) {
 
       // Build form-data manually — no external deps
       const boundary = `----FormBoundary${Math.random().toString(36).slice(2)}`;
-      const crlf     = "\r\n";
-      const encoded  = Buffer.from(ndjsonString);
+      const crlf = "\r\n";
+      const encoded = Buffer.from(ndjsonString);
 
       const parts = Buffer.concat([
         Buffer.from(
           `--${boundary}${crlf}` +
-          `Content-Disposition: form-data; name="file"; filename="import.ndjson"${crlf}` +
-          `Content-Type: application/ndjson${crlf}${crlf}`
+            `Content-Disposition: form-data; name="file"; filename="import.ndjson"${crlf}` +
+            `Content-Type: application/ndjson${crlf}${crlf}`
         ),
         encoded,
         Buffer.from(`${crlf}--${boundary}--${crlf}`),
       ]);
 
-      return request(
-        "POST",
-        `/api/saved_objects/_import?overwrite=${overwrite}`,
-        parts,
-        { "Content-Type": `multipart/form-data; boundary=${boundary}` }
-      );
+      return request("POST", `/api/saved_objects/_import?overwrite=${overwrite}`, parts, {
+        "Content-Type": `multipart/form-data; boundary=${boundary}`,
+      });
     },
   };
 }
@@ -146,18 +145,26 @@ async function main() {
     rl,
     "Kibana URL (e.g. https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243):\n> "
   );
-  if (!kibanaUrl) { console.error("No URL provided. Exiting."); rl.close(); process.exit(1); }
+  if (!kibanaUrl) {
+    console.error("No URL provided. Exiting.");
+    rl.close();
+    process.exit(1);
+  }
 
   const apiKey = await prompt(rl, "\nElastic API Key:\n> ");
-  if (!apiKey) { console.error("No API key provided. Exiting."); rl.close(); process.exit(1); }
+  if (!apiKey) {
+    console.error("No API key provided. Exiting.");
+    rl.close();
+    process.exit(1);
+  }
 
   console.log("\nTesting connection...");
   const client = createKibanaClient(kibanaUrl, apiKey);
 
   try {
-    const status  = await client.testConnection();
+    const status = await client.testConnection();
     const version = status?.version?.number ?? "";
-    const name    = status?.name ?? "(unknown)";
+    const name = status?.name ?? "(unknown)";
     console.log(`  Connected to Kibana: ${name}${version ? ` (${version})` : ""}`);
   } catch (err) {
     console.error(`  Connection failed: ${err.message}`);
@@ -179,27 +186,40 @@ async function main() {
   if (selectionInput.toLowerCase() === "all") {
     selected = dashboards;
   } else {
-    const tokens = selectionInput.split(",").map(s => s.trim()).filter(Boolean);
-    const seen   = new Set();
+    const tokens = selectionInput
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const seen = new Set();
     for (const token of tokens) {
       const num = parseInt(token, 10);
       if (isNaN(num) || num < 1 || num > allIndex) {
-        console.warn(`  Warning: invalid selection "${token}" — skipping.`); continue;
+        console.warn(`  Warning: invalid selection "${token}" — skipping.`);
+        continue;
       }
-      if (num === allIndex) { selected = dashboards; break; }
+      if (num === allIndex) {
+        selected = dashboards;
+        break;
+      }
       const d = dashboards[num - 1];
-      if (!seen.has(d.id)) { seen.add(d.id); selected.push(d); }
+      if (!seen.has(d.id)) {
+        seen.add(d.id);
+        selected.push(d);
+      }
     }
   }
 
-  if (selected.length === 0) { console.log("\nNo dashboards selected. Exiting."); process.exit(0); }
+  if (selected.length === 0) {
+    console.log("\nNo dashboards selected. Exiting.");
+    process.exit(0);
+  }
 
   // Install
   console.log(`\nInstalling ${selected.length} dashboard(s)...\n`);
 
   let installedCount = 0;
-  let skippedCount   = 0;
-  let failedCount    = 0;
+  let skippedCount = 0;
+  let failedCount = 0;
 
   for (const { id, title, raw } of selected) {
     try {
@@ -213,15 +233,17 @@ async function main() {
 
       const result = await client.importSavedObject(raw, false);
 
-      const success = result?.success === true ||
-        result?.successResults?.some(r => r.id === id);
+      const success = result?.success === true || result?.successResults?.some((r) => r.id === id);
 
       if (success) {
         console.log(`  ✓ "${title}" — installed (id: ${id})`);
         installedCount++;
       } else {
         const errors = result?.errors ?? result?.successResults ?? result;
-        console.error(`  ✗ "${title}" — import returned unexpected result:`, JSON.stringify(errors));
+        console.error(
+          `  ✗ "${title}" — import returned unexpected result:`,
+          JSON.stringify(errors)
+        );
         failedCount++;
       }
     } catch (err) {
@@ -233,8 +255,8 @@ async function main() {
   console.log("");
   console.log(
     `Installed ${installedCount} / ${selected.length} dashboard(s).` +
-    (skippedCount > 0 ? ` (${skippedCount} already installed, skipped)` : "") +
-    (failedCount  > 0 ? ` (${failedCount} failed)` : "")
+      (skippedCount > 0 ? ` (${skippedCount} already installed, skipped)` : "") +
+      (failedCount > 0 ? ` (${failedCount} failed)` : "")
   );
   console.log("Done.");
 }

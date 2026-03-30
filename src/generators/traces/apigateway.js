@@ -13,9 +13,16 @@
  */
 
 import {
-  TRACE_REGIONS, TRACE_ACCOUNTS,
-  randHex, newTraceId, newSpanId, rand, randInt, offsetTs,
-  serviceBlock, otelBlocks,
+  TRACE_REGIONS,
+  TRACE_ACCOUNTS,
+  randHex,
+  newTraceId,
+  newSpanId,
+  rand,
+  randInt,
+  offsetTs,
+  serviceBlock,
+  otelBlocks,
 } from "./helpers.js";
 
 // ─── Function / route configs ─────────────────────────────────────────────────
@@ -26,9 +33,9 @@ const FUNCTION_CONFIGS = [
     apiId: "a1b2c3d4e5",
     stage: "prod",
     routes: [
-      { method: "GET",    template: "/orders/{orderId}",    path: () => `/orders/${randHex(8)}` },
-      { method: "POST",   template: "/orders",              path: () => "/orders" },
-      { method: "DELETE", template: "/orders/{orderId}",    path: () => `/orders/${randHex(8)}` },
+      { method: "GET", template: "/orders/{orderId}", path: () => `/orders/${randHex(8)}` },
+      { method: "POST", template: "/orders", path: () => "/orders" },
+      { method: "DELETE", template: "/orders/{orderId}", path: () => `/orders/${randHex(8)}` },
     ],
     lambdaName: "order-processor",
     downstreamSdk: ["dynamodb", "sqs", "sns"],
@@ -39,9 +46,13 @@ const FUNCTION_CONFIGS = [
     apiId: "b2c3d4e5f6",
     stage: "prod",
     routes: [
-      { method: "GET",   template: "/users/{userId}/profile", path: () => `/users/${randHex(8)}/profile` },
-      { method: "POST",  template: "/users",                  path: () => "/users" },
-      { method: "PUT",   template: "/users/{userId}",         path: () => `/users/${randHex(8)}` },
+      {
+        method: "GET",
+        template: "/users/{userId}/profile",
+        path: () => `/users/${randHex(8)}/profile`,
+      },
+      { method: "POST", template: "/users", path: () => "/users" },
+      { method: "PUT", template: "/users/{userId}", path: () => `/users/${randHex(8)}` },
     ],
     lambdaName: "user-auth-handler",
     downstreamSdk: ["dynamodb", "cognito", "secretsmanager"],
@@ -52,10 +63,10 @@ const FUNCTION_CONFIGS = [
     apiId: "c3d4e5f6a7",
     stage: "v1",
     routes: [
-      { method: "GET",    template: "/products/{productId}", path: () => `/products/${randHex(8)}` },
-      { method: "GET",    template: "/products",             path: () => "/products" },
-      { method: "POST",   template: "/products",             path: () => "/products" },
-      { method: "PATCH",  template: "/products/{productId}", path: () => `/products/${randHex(8)}` },
+      { method: "GET", template: "/products/{productId}", path: () => `/products/${randHex(8)}` },
+      { method: "GET", template: "/products", path: () => "/products" },
+      { method: "POST", template: "/products", path: () => "/products" },
+      { method: "PATCH", template: "/products/{productId}", path: () => `/products/${randHex(8)}` },
     ],
     lambdaName: "product-catalogue",
     downstreamSdk: ["dynamodb", "s3", "elasticache"],
@@ -66,8 +77,8 @@ const FUNCTION_CONFIGS = [
     apiId: "d4e5f6a7b8",
     stage: "prod",
     routes: [
-      { method: "POST",  template: "/payments",              path: () => "/payments" },
-      { method: "GET",   template: "/payments/{paymentId}",  path: () => `/payments/${randHex(8)}` },
+      { method: "POST", template: "/payments", path: () => "/payments" },
+      { method: "GET", template: "/payments/{paymentId}", path: () => `/payments/${randHex(8)}` },
     ],
     lambdaName: "payment-processor",
     downstreamSdk: ["dynamodb", "sqs", "secretsmanager"],
@@ -78,8 +89,16 @@ const FUNCTION_CONFIGS = [
     apiId: "e5f6a7b8c9",
     stage: "prod",
     routes: [
-      { method: "GET",  template: "/inventory/{sku}",  path: () => `/inventory/${randHex(6).toUpperCase()}` },
-      { method: "PUT",  template: "/inventory/{sku}",  path: () => `/inventory/${randHex(6).toUpperCase()}` },
+      {
+        method: "GET",
+        template: "/inventory/{sku}",
+        path: () => `/inventory/${randHex(6).toUpperCase()}`,
+      },
+      {
+        method: "PUT",
+        template: "/inventory/{sku}",
+        path: () => `/inventory/${randHex(6).toUpperCase()}`,
+      },
     ],
     lambdaName: "inventory-updater",
     downstreamSdk: ["dynamodb", "sns", "sqs"],
@@ -91,7 +110,7 @@ const FUNCTION_CONFIGS = [
     stage: "prod",
     routes: [
       { method: "POST", template: "/api/v2/stream", path: () => "/api/v2/stream" },
-      { method: "GET",  template: "/api/v2/stream", path: () => "/api/v2/stream" },
+      { method: "GET", template: "/api/v2/stream", path: () => "/api/v2/stream" },
     ],
     lambdaName: "stream-processor",
     downstreamSdk: ["kinesis", "dynamodb", "firehose"],
@@ -102,7 +121,7 @@ const FUNCTION_CONFIGS = [
     apiId: "a7b8c9d0e1",
     stage: "prod",
     routes: [
-      { method: "GET",  template: "/api/v2/search", path: () => "/api/v2/search" },
+      { method: "GET", template: "/api/v2/search", path: () => "/api/v2/search" },
       { method: "POST", template: "/api/v2/search", path: () => "/api/v2/search" },
     ],
     lambdaName: "api-backend",
@@ -114,8 +133,8 @@ const FUNCTION_CONFIGS = [
     apiId: "b8c9d0e1f2",
     stage: "prod",
     routes: [
-      { method: "POST", template: "/webhooks",           path: () => "/webhooks" },
-      { method: "POST", template: "/webhooks/{hookId}",  path: () => `/webhooks/${randHex(8)}` },
+      { method: "POST", template: "/webhooks", path: () => "/webhooks" },
+      { method: "POST", template: "/webhooks/{hookId}", path: () => `/webhooks/${randHex(8)}` },
     ],
     lambdaName: "webhook-dispatcher",
     downstreamSdk: ["sqs", "dynamodb", "secretsmanager"],
@@ -146,93 +165,107 @@ function buildDownstreamSpan(traceId, txId, parentId, ts, sdkKey, isErr, spanOff
 
   const shapes = {
     dynamodb: {
-      type: "db", subtype: "dynamodb",
-      name: () => `DynamoDB.${rand(["GetItem","PutItem","Query","UpdateItem","BatchGetItem","Scan"])}`,
-      action: () => rand(["GetItem","PutItem","Query","UpdateItem","Scan"]),
-      db: () => ({ type: "nosql", statement: `${rand(["GetItem","Query","Scan"])} ${rand(["orders","users","inventory","sessions","events"])}` }),
+      type: "db",
+      subtype: "dynamodb",
+      name: () =>
+        `DynamoDB.${rand(["GetItem", "PutItem", "Query", "UpdateItem", "BatchGetItem", "Scan"])}`,
+      action: () => rand(["GetItem", "PutItem", "Query", "UpdateItem", "Scan"]),
+      db: () => ({
+        type: "nosql",
+        statement: `${rand(["GetItem", "Query", "Scan"])} ${rand(["orders", "users", "inventory", "sessions", "events"])}`,
+      }),
       dest: "dynamodb",
     },
     s3: {
-      type: "storage", subtype: "s3",
-      name: () => `S3.${rand(["GetObject","PutObject","DeleteObject","ListObjectsV2"])}`,
-      action: () => rand(["GetObject","PutObject","DeleteObject","ListObjectsV2"]),
+      type: "storage",
+      subtype: "s3",
+      name: () => `S3.${rand(["GetObject", "PutObject", "DeleteObject", "ListObjectsV2"])}`,
+      action: () => rand(["GetObject", "PutObject", "DeleteObject", "ListObjectsV2"]),
       db: null,
       dest: "s3",
     },
     sqs: {
-      type: "messaging", subtype: "sqs",
-      name: () => `SQS.${rand(["SendMessage","ReceiveMessage","DeleteMessage","SendMessageBatch"])}`,
-      action: () => rand(["send","receive","delete"]),
+      type: "messaging",
+      subtype: "sqs",
+      name: () =>
+        `SQS.${rand(["SendMessage", "ReceiveMessage", "DeleteMessage", "SendMessageBatch"])}`,
+      action: () => rand(["send", "receive", "delete"]),
       db: null,
       dest: "sqs",
     },
     sns: {
-      type: "messaging", subtype: "sns",
-      name: () => `SNS.${rand(["Publish","PublishBatch"])}`,
+      type: "messaging",
+      subtype: "sns",
+      name: () => `SNS.${rand(["Publish", "PublishBatch"])}`,
       action: () => "send",
       db: null,
       dest: "sns",
     },
     kinesis: {
-      type: "messaging", subtype: "kinesis",
-      name: () => `Kinesis.${rand(["PutRecord","PutRecords","GetRecords"])}`,
-      action: () => rand(["send","receive"]),
+      type: "messaging",
+      subtype: "kinesis",
+      name: () => `Kinesis.${rand(["PutRecord", "PutRecords", "GetRecords"])}`,
+      action: () => rand(["send", "receive"]),
       db: null,
       dest: "kinesis",
     },
     firehose: {
-      type: "messaging", subtype: "firehose",
+      type: "messaging",
+      subtype: "firehose",
       name: () => "Firehose.PutRecordBatch",
       action: () => "send",
       db: null,
       dest: "firehose",
     },
     secretsmanager: {
-      type: "external", subtype: "aws",
+      type: "external",
+      subtype: "aws",
       name: () => "SecretsManager.GetSecretValue",
       action: () => "GetSecretValue",
       db: null,
       dest: "secretsmanager",
     },
     cognito: {
-      type: "external", subtype: "aws",
-      name: () => `Cognito.${rand(["GetUser","InitiateAuth","RespondToAuthChallenge"])}`,
-      action: () => rand(["GetUser","InitiateAuth"]),
+      type: "external",
+      subtype: "aws",
+      name: () => `Cognito.${rand(["GetUser", "InitiateAuth", "RespondToAuthChallenge"])}`,
+      action: () => rand(["GetUser", "InitiateAuth"]),
       db: null,
       dest: "cognito",
     },
     elasticache: {
-      type: "db", subtype: "redis",
-      name: () => `Redis ${rand(["GET","SET","HGET","HSET","ZADD","ZRANGE"])}`,
-      action: () => rand(["GET","SET","query"]),
-      db: () => ({ type: "redis", statement: rand(["GET key","SET key value","HGETALL hash"]) }),
+      type: "db",
+      subtype: "redis",
+      name: () => `Redis ${rand(["GET", "SET", "HGET", "HSET", "ZADD", "ZRANGE"])}`,
+      action: () => rand(["GET", "SET", "query"]),
+      db: () => ({ type: "redis", statement: rand(["GET key", "SET key value", "HGETALL hash"]) }),
       dest: "redis",
     },
   };
 
   const shape = shapes[sdkKey] || shapes.dynamodb;
-  const spanName   = shape.name();
+  const spanName = shape.name();
   const spanAction = shape.action();
-  const dbBlock    = shape.db ? shape.db() : undefined;
+  const dbBlock = shape.db ? shape.db() : undefined;
 
   return {
     "@timestamp": offsetTs(new Date(ts), spanOffsetMs),
-    "processor": { "name": "transaction", "event": "span" },
-    "trace": { "id": traceId },
-    "transaction": { "id": txId },
-    "parent": { "id": parentId },
-    "span": {
-      "id": id,
-      "type": shape.type,
-      "subtype": shape.subtype,
-      "name": spanName,
-      "duration": { "us": spanUs },
-      "action": spanAction,
-      ...(dbBlock ? { "db": dbBlock } : {}),
-      "destination": { "service": { "resource": shape.dest, "type": shape.type, "name": shape.dest } },
+    processor: { name: "transaction", event: "span" },
+    trace: { id: traceId },
+    transaction: { id: txId },
+    parent: { id: parentId },
+    span: {
+      id: id,
+      type: shape.type,
+      subtype: shape.subtype,
+      name: spanName,
+      duration: { us: spanUs },
+      action: spanAction,
+      ...(dbBlock ? { db: dbBlock } : {}),
+      destination: { service: { resource: shape.dest, type: shape.type, name: shape.dest } },
     },
-    "event": { "outcome": isErr ? "failure" : "success" },
-    "data_stream": { "type": "traces", "dataset": "apm", "namespace": "default" },
+    event: { outcome: isErr ? "failure" : "success" },
+    data_stream: { type: "traces", dataset: "apm", namespace: "default" },
   };
 }
 
@@ -243,29 +276,30 @@ function buildDownstreamSpan(traceId, txId, parentId, ts, sdkKey, isErr, spanOff
  * @returns {Object[]} array of APM documents (transaction first, then spans)
  */
 export function generateApiGatewayTrace(ts, er) {
-  const cfg     = rand(FUNCTION_CONFIGS);
-  const region  = rand(TRACE_REGIONS);
+  const cfg = rand(FUNCTION_CONFIGS);
+  const region = rand(TRACE_REGIONS);
   const account = rand(TRACE_ACCOUNTS);
-  const route   = rand(cfg.routes);
+  const route = rand(cfg.routes);
   const traceId = newTraceId();
-  const txId    = newSpanId();
-  const env     = rand(["production","production","staging","dev"]);
-  const isErr   = Math.random() < er;
+  const txId = newSpanId();
+  const env = rand(["production", "production", "staging", "dev"]);
+  const isErr = Math.random() < er;
 
-  const statusCode  = pickStatusCode(isErr);
+  const statusCode = pickStatusCode(isErr);
   const resolvedPath = route.path();
-  const domainId    = cfg.apiId;
-  const domain      = `${domainId}.execute-api.${region}.amazonaws.com`;
+  const domainId = cfg.apiId;
+  const domain = `${domainId}.execute-api.${region}.amazonaws.com`;
 
   // Total request duration: HTTP APIs are faster than REST
-  const totalUs = cfg.apiType === "HTTP"
-    ? randInt(5, 800) * 1000
-    : randInt(20, 2000) * 1000;
+  const totalUs = cfg.apiType === "HTTP" ? randInt(5, 800) * 1000 : randInt(20, 2000) * 1000;
 
   const svcBlock = serviceBlock(
-    cfg.serviceName, env, LANGUAGE,
+    cfg.serviceName,
+    env,
+    LANGUAGE,
     "Amazon API Gateway",
-    RUNTIME_NAME, RUNTIME_VERSION,
+    RUNTIME_NAME,
+    RUNTIME_VERSION
   );
 
   const { agent, telemetry } = otelBlocks(LANGUAGE, "elastic");
@@ -273,66 +307,66 @@ export function generateApiGatewayTrace(ts, er) {
   // ── Root transaction (the HTTP server span for the API GW request) ───────────
   const txDoc = {
     "@timestamp": ts,
-    "processor": { "name": "transaction", "event": "transaction" },
-    "trace": { "id": traceId },
-    "transaction": {
-      "id": txId,
-      "name": `${route.method} ${route.template}`,
-      "type": "request",
-      "duration": { "us": totalUs },
-      "result": httpResult(statusCode),
-      "sampled": true,
-      "span_count": { "started": 1 + cfg.downstreamSdk.length, "dropped": 0 },
+    processor: { name: "transaction", event: "transaction" },
+    trace: { id: traceId },
+    transaction: {
+      id: txId,
+      name: `${route.method} ${route.template}`,
+      type: "request",
+      duration: { us: totalUs },
+      result: httpResult(statusCode),
+      sampled: true,
+      span_count: { started: 1 + cfg.downstreamSdk.length, dropped: 0 },
     },
-    "http": {
-      "request":  { "method": route.method },
-      "response": { "status_code": statusCode },
+    http: {
+      request: { method: route.method },
+      response: { status_code: statusCode },
     },
-    "url": {
-      "path":   resolvedPath,
-      "domain": domain,
+    url: {
+      path: resolvedPath,
+      domain: domain,
     },
-    "labels": {
-      "api_id":   domainId,
-      "api_type": cfg.apiType,
-      ...(cfg.apiType === "REST" ? { "stage": cfg.stage } : {}),
+    labels: {
+      api_id: domainId,
+      api_type: cfg.apiType,
+      ...(cfg.apiType === "REST" ? { stage: cfg.stage } : {}),
     },
-    "service": svcBlock,
-    "agent": agent,
-    "telemetry": telemetry,
-    "cloud": {
-      "provider": "aws",
-      "region": region,
-      "account": { "id": account.id, "name": account.name },
-      "service": { "name": "apigateway" },
+    service: svcBlock,
+    agent: agent,
+    telemetry: telemetry,
+    cloud: {
+      provider: "aws",
+      region: region,
+      account: { id: account.id, name: account.name },
+      service: { name: "apigateway" },
     },
-    "event": { "outcome": isErr ? "failure" : "success" },
-    "data_stream": { "type": "traces", "dataset": "apm", "namespace": "default" },
+    event: { outcome: isErr ? "failure" : "success" },
+    data_stream: { type: "traces", dataset: "apm", namespace: "default" },
   };
 
   // ── Child spans ──────────────────────────────────────────────────────────────
   // Span 1: Lambda invocation (parent = transaction)
-  const lambdaSpanId  = newSpanId();
+  const lambdaSpanId = newSpanId();
   const lambdaOffsetMs = randInt(1, 10);
-  const lambdaUs       = Math.floor(totalUs * randInt(70, 95) / 100);
+  const lambdaUs = Math.floor((totalUs * randInt(70, 95)) / 100);
 
   const lambdaSpan = {
     "@timestamp": offsetTs(new Date(ts), lambdaOffsetMs),
-    "processor": { "name": "transaction", "event": "span" },
-    "trace": { "id": traceId },
-    "transaction": { "id": txId },
-    "parent": { "id": txId },
-    "span": {
-      "id": lambdaSpanId,
-      "type": "external",
-      "subtype": "lambda",
-      "name": `Lambda invoke ${cfg.lambdaName}`,
-      "duration": { "us": lambdaUs },
-      "action": "invoke",
-      "destination": { "service": { "resource": "lambda", "type": "external", "name": "lambda" } },
+    processor: { name: "transaction", event: "span" },
+    trace: { id: traceId },
+    transaction: { id: txId },
+    parent: { id: txId },
+    span: {
+      id: lambdaSpanId,
+      type: "external",
+      subtype: "lambda",
+      name: `Lambda invoke ${cfg.lambdaName}`,
+      duration: { us: lambdaUs },
+      action: "invoke",
+      destination: { service: { resource: "lambda", type: "external", name: "lambda" } },
     },
-    "event": { "outcome": isErr ? "failure" : "success" },
-    "data_stream": { "type": "traces", "dataset": "apm", "namespace": "default" },
+    event: { outcome: isErr ? "failure" : "success" },
+    data_stream: { type: "traces", dataset: "apm", namespace: "default" },
   };
 
   // Spans 2-N: downstream AWS SDK calls (parent = Lambda invocation span)
@@ -342,13 +376,20 @@ export function generateApiGatewayTrace(ts, er) {
   const usPerSdk = Math.floor(lambdaUs / (sdkKeys.length + 1));
 
   for (let i = 0; i < sdkKeys.length; i++) {
-    const spanUs    = randInt(Math.floor(usPerSdk * 0.2), Math.floor(usPerSdk * 0.9));
+    const spanUs = randInt(Math.floor(usPerSdk * 0.2), Math.floor(usPerSdk * 0.9));
     const spanIsErr = isErr && i === sdkKeys.length - 1;
-    spans.push(buildDownstreamSpan(
-      traceId, txId, lambdaSpanId,
-      ts, sdkKeys[i], spanIsErr,
-      spanOffsetMs, spanUs,
-    ));
+    spans.push(
+      buildDownstreamSpan(
+        traceId,
+        txId,
+        lambdaSpanId,
+        ts,
+        sdkKeys[i],
+        spanIsErr,
+        spanOffsetMs,
+        spanUs
+      )
+    );
     spanOffsetMs += Math.floor(spanUs / 1000) + randInt(1, 15);
   }
 

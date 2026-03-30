@@ -46,7 +46,9 @@
             "type": "esql",
             "query": "FROM logs-aws.cloudmap* | STATS avg_i = AVG(`aws.cloudmap.instances_returned`) | EVAL `Avg Instances Returned` = ROUND(avg_i, 1)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Avg Instances Returned" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Avg Instances Returned" }
+          ]
         }
       }
     },
@@ -141,8 +143,16 @@
           "metrics": [
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
             { "operation": "value", "column": "aws.cloudmap.namespace", "label": "Namespace" },
-            { "operation": "value", "column": "aws.cloudmap.service_name", "label": "Service Name" },
-            { "operation": "value", "column": "aws.cloudmap.health_status", "label": "Health Status" },
+            {
+              "operation": "value",
+              "column": "aws.cloudmap.service_name",
+              "label": "Service Name"
+            },
+            {
+              "operation": "value",
+              "column": "aws.cloudmap.health_status",
+              "label": "Health Status"
+            },
             { "operation": "value", "column": "event.action", "label": "Action" }
           ],
           "rows": []

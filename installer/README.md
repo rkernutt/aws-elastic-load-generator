@@ -20,14 +20,14 @@ Select your Elastic deployment type:
 
 Your selection controls the URL format shown in the prompts and the validation rules applied.
 
-| | Self-Managed | Cloud Hosted | Serverless |
-|---|---|---|---|
-| **Kibana port** | `:5601` (default) | `:9243` | none |
-| **Elasticsearch port** | `:9200` (default) | `:9243` | none |
-| **Protocol** | `http://` or `https://` | `https://` only | `https://` only |
-| **TLS skip option** | yes (prompted) | no | no |
-| **Package Registry** | Kibana-proxied (air-gap safe) + EPR fallback | EPR via Kibana | EPR via Kibana |
-| **Fleet required** | yes — must be enabled | pre-configured | pre-configured |
+|                        | Self-Managed                                 | Cloud Hosted    | Serverless      |
+| ---------------------- | -------------------------------------------- | --------------- | --------------- |
+| **Kibana port**        | `:5601` (default)                            | `:9243`         | none            |
+| **Elasticsearch port** | `:9200` (default)                            | `:9243`         | none            |
+| **Protocol**           | `http://` or `https://`                      | `https://` only | `https://` only |
+| **TLS skip option**    | yes (prompted)                               | no              | no              |
+| **Package Registry**   | Kibana-proxied (air-gap safe) + EPR fallback | EPR via Kibana  | EPR via Kibana  |
+| **Fleet required**     | yes — must be enabled                        | pre-configured  | pre-configured  |
 
 ### Self-Managed notes
 
@@ -77,10 +77,10 @@ node installer/elastic-integration/index.mjs
 
 ### Credentials
 
-| Prompt | Where to find it |
-|--------|-----------------|
+| Prompt         | Where to find it                                                                                             |
+| -------------- | ------------------------------------------------------------------------------------------------------------ |
 | **Kibana URL** | Deployment overview → Kibana endpoint (e.g. `https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243`) |
-| **API key** | Kibana → Stack Management → API Keys → Create API key — needs `cluster: manage` + `kibana: all` privileges |
+| **API key**    | Kibana → Stack Management → API Keys → Create API key — needs `cluster: manage` + `kibana: all` privileges   |
 
 ### What happens
 
@@ -131,10 +131,10 @@ node installer/custom-pipelines/index.mjs
 
 ### Credentials
 
-| Prompt | Where to find it |
-|--------|-----------------|
+| Prompt                | Where to find it                                                                                                    |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | **Elasticsearch URL** | Deployment overview → Elasticsearch endpoint (e.g. `https://my-deployment.es.us-east-1.aws.elastic-cloud.com:9243`) |
-| **API key** | Kibana → Stack Management → API Keys → Create API key — needs `manage_ingest_pipelines` cluster privilege |
+| **API key**           | Kibana → Stack Management → API Keys → Create API key — needs `manage_ingest_pipelines` cluster privilege           |
 
 ### What happens
 
@@ -198,23 +198,23 @@ You can select individual groups (e.g. `1,3,8`) or type `all`. Already-installed
 
 ### Pipeline groups
 
-| Group | Pipelines | Services covered |
-|-------|-----------|-----------------|
-| aiml | 3 | Kendra, A2I, HealthLake |
-| analytics | 13 | Glue, EMR, Athena, Lake Formation, QuickSight, DataBrew, AppFlow, MWAA, Clean Rooms, DataZone, Entity Resolution, Data Exchange, OpenSearch |
-| compute | 7 | EC2, EKS, Fargate, ECR, App Runner, Batch, Elastic Beanstalk |
-| databases | 9 | ElastiCache, DocumentDB, Aurora, Neptune, Timestream, QLDB, Keyspaces, MemoryDB, Redshift |
-| devtools | 8 | CodeCommit, CodeArtifact, Amplify, CodeGuru, DevOps Guru, Lightsail, CodeCatalyst, Device Farm |
-| enduser | 14 | WorkSpaces, Connect, AppStream, GameLift, Transfer Family, MediaConvert, MediaLive, Pinpoint, Location Service, Managed Blockchain, Fraud Detector, Lookout for Metrics, Comprehend Medical, SES |
-| iot | 8 | IoT Core, Greengrass, IoT Analytics, IoT Events, IoT SiteWise, IoT Defender, IoT TwinMaker, IoT FleetWise |
-| management | 21 | CloudFormation, SSM, CloudWatch Alarms, AWS Health, Trusted Advisor, Control Tower, Organizations, Service Catalog, Service Quotas, Compute Optimizer, Budgets, Billing, RAM, Resilience Hub, Migration Hub, Network Manager, DMS, FIS, Managed Grafana, Supply Chain, ARC |
-| media | 1 | Deadline Cloud |
-| ml | 14 | SageMaker, Bedrock, Bedrock Agent, Rekognition, Textract, Comprehend, Translate, Transcribe, Polly, Forecast, Personalize, Lex, Comprehend Medical, Q Business |
-| networking | 6 | Shield, Global Accelerator, Direct Connect, PrivateLink, WAF v2, VPC Lattice |
-| security | 12 | Macie, IAM Access Analyzer, Cognito, KMS, Secrets Manager, ACM, IAM Identity Center, Detective, Verified Access, Security Lake, Security IR, CloudHSM |
-| serverless | 5 | Lambda, API Gateway, Step Functions, EventBridge, AppSync |
-| storage | 6 | EFS, FSx, DataSync, Backup, Storage Gateway, S3 Storage Lens |
-| streaming | 5 | Kinesis Analytics, Amazon MQ, SNS, SQS (custom only), MSK Connect |
+| Group      | Pipelines | Services covered                                                                                                                                                                                                                                                           |
+| ---------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| aiml       | 3         | Kendra, A2I, HealthLake                                                                                                                                                                                                                                                    |
+| analytics  | 13        | Glue, EMR, Athena, Lake Formation, QuickSight, DataBrew, AppFlow, MWAA, Clean Rooms, DataZone, Entity Resolution, Data Exchange, OpenSearch                                                                                                                                |
+| compute    | 7         | EC2, EKS, Fargate, ECR, App Runner, Batch, Elastic Beanstalk                                                                                                                                                                                                               |
+| databases  | 9         | ElastiCache, DocumentDB, Aurora, Neptune, Timestream, QLDB, Keyspaces, MemoryDB, Redshift                                                                                                                                                                                  |
+| devtools   | 8         | CodeCommit, CodeArtifact, Amplify, CodeGuru, DevOps Guru, Lightsail, CodeCatalyst, Device Farm                                                                                                                                                                             |
+| enduser    | 14        | WorkSpaces, Connect, AppStream, GameLift, Transfer Family, MediaConvert, MediaLive, Pinpoint, Location Service, Managed Blockchain, Fraud Detector, Lookout for Metrics, Comprehend Medical, SES                                                                           |
+| iot        | 8         | IoT Core, Greengrass, IoT Analytics, IoT Events, IoT SiteWise, IoT Defender, IoT TwinMaker, IoT FleetWise                                                                                                                                                                  |
+| management | 21        | CloudFormation, SSM, CloudWatch Alarms, AWS Health, Trusted Advisor, Control Tower, Organizations, Service Catalog, Service Quotas, Compute Optimizer, Budgets, Billing, RAM, Resilience Hub, Migration Hub, Network Manager, DMS, FIS, Managed Grafana, Supply Chain, ARC |
+| media      | 1         | Deadline Cloud                                                                                                                                                                                                                                                             |
+| ml         | 14        | SageMaker, Bedrock, Bedrock Agent, Rekognition, Textract, Comprehend, Translate, Transcribe, Polly, Forecast, Personalize, Lex, Comprehend Medical, Q Business                                                                                                             |
+| networking | 6         | Shield, Global Accelerator, Direct Connect, PrivateLink, WAF v2, VPC Lattice                                                                                                                                                                                               |
+| security   | 12        | Macie, IAM Access Analyzer, Cognito, KMS, Secrets Manager, ACM, IAM Identity Center, Detective, Verified Access, Security Lake, Security IR, CloudHSM                                                                                                                      |
+| serverless | 5         | Lambda, API Gateway, Step Functions, EventBridge, AppSync                                                                                                                                                                                                                  |
+| storage    | 6         | EFS, FSx, DataSync, Backup, Storage Gateway, S3 Storage Lens                                                                                                                                                                                                               |
+| streaming  | 5         | Kinesis Analytics, Amazon MQ, SNS, SQS (custom only), MSK Connect                                                                                                                                                                                                          |
 
 ### Using custom pipelines alongside the official AWS integration
 
@@ -231,17 +231,17 @@ None of these have a custom pipeline — there is nothing to conflict with.
 For services where the load generator produces logs under a different dataset name than the official integration uses, both pipelines coexist safely and target separate data streams:
 
 | Service | Official dataset | Load generator dataset |
-|---------|-----------------|----------------------|
-| Lambda | `aws.lambda` | `aws.lambda_logs` |
-| EC2 | `aws.ec2` | `aws.ec2_logs` |
-| EMR | `aws.emr` | `aws.emr_logs` |
+| ------- | ---------------- | ---------------------- |
+| Lambda  | `aws.lambda`     | `aws.lambda_logs`      |
+| EC2     | `aws.ec2`        | `aws.ec2_logs`         |
+| EMR     | `aws.emr`        | `aws.emr_logs`         |
 
 **Two pipelines that will overwrite official integration pipelines if installed:**
 
-| Pipeline | Group | Notes |
-|----------|-------|-------|
+| Pipeline               | Group     | Notes                                                                                                                                                                                                                                                                                                                                              |
+| ---------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `logs-aws.rds-default` | databases | RDS has official integration coverage. The custom pipeline adds structured JSON parsing for the load generator's simulated log format but **replaces** the official pipeline for the `logs-aws.rds` data stream. Skip this pipeline if you want to preserve the official integration's RDS field mappings and ECS normalization for real RDS logs. |
-| `logs-aws.eks-default` | compute | Same situation as RDS above — EKS is covered by the official integration. |
+| `logs-aws.eks-default` | compute   | Same situation as RDS above — EKS is covered by the official integration.                                                                                                                                                                                                                                                                          |
 
 **Recommendation:** If you are running the official AWS integration alongside the load generator, consider skipping the **RDS** entry from the `databases` group and the **EKS** entry from the `compute` group when prompted during installation. All other custom pipelines are safe to install without affecting the official integration.
 
@@ -256,6 +256,7 @@ logs-aws.{dataset_suffix}-default
 ```
 
 Examples:
+
 - `logs-aws.glue-default`
 - `logs-aws.sagemaker-default`
 - `logs-aws.lambda_logs-default`
@@ -265,10 +266,10 @@ These match the index names the load generator writes to, so pipelines are appli
 
 ### Processor strategy
 
-| Service type | Processors |
-|---|---|
-| Services with structured JSON logging (Glue, EMR, SageMaker, Lambda, etc.) | `json` processor → parse `message` into `{ns}.parsed`, then targeted `rename` processors for key fields |
-| All other services | Single `json` processor with `ignore_failure: true` — passes plain-text safely, parses JSON when present |
+| Service type                                                               | Processors                                                                                               |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Services with structured JSON logging (Glue, EMR, SageMaker, Lambda, etc.) | `json` processor → parse `message` into `{ns}.parsed`, then targeted `rename` processors for key fields  |
+| All other services                                                         | Single `json` processor with `ignore_failure: true` — passes plain-text safely, parses JSON when present |
 
 ---
 
@@ -288,101 +289,101 @@ the `logs-aws.*` data streams written by the app.
 
 15 pre-built dashboards covering key AWS services. Each dashboard supports both import methods — the Kibana Dashboards API (9.4+) and Saved Objects ndjson import (8.11–9.3) — so all versions are covered automatically.
 
-| File | Title | Panels | Index pattern |
-|------|-------|--------|---------------|
-| `glue-dashboard.json` | AWS Glue — Jobs & Performance | 15 | `logs-aws.glue*` |
-| `sagemaker-dashboard.json` | AWS SageMaker — Endpoints & Training | 13 | `logs-aws.sagemaker*` |
-| `emr-dashboard.json` | AWS EMR — Clusters & Job Performance | 15 | `logs-aws.emr*` |
-| `athena-dashboard.json` | AWS Athena — Query Performance & Cost | 15 | `logs-aws.athena*` |
-| `xray-dashboard.json` | AWS X-Ray — Distributed Tracing | 14 | `logs-aws.xray*` |
-| `lambda-dashboard.json` | AWS Lambda — Invocations & Performance | 13 | `logs-aws.lambda*` |
-| `eks-dashboard.json` | AWS EKS — Cluster & Pod Health | 14 | `logs-aws.eks*` |
-| `stepfunctions-dashboard.json` | AWS Step Functions — Execution & State Performance | 13 | `logs-aws.stepfunctions*` |
-| `bedrock-dashboard.json` | AWS Bedrock — Model Invocations & Token Usage | 13 | `logs-aws.bedrock*` |
-| `aurora-dashboard.json` | AWS Aurora — Cluster & Replication Health | 13 | `logs-aws.aurora*` |
-| `elasticache-dashboard.json` | AWS ElastiCache — Cache Performance & Replication | 13 | `logs-aws.elasticache*` |
-| `opensearch-dashboard.json` | AWS OpenSearch — Cluster Health & Performance | 13 | `logs-aws.opensearch*` |
-| `cicd-dashboard.json` | AWS CI/CD — CodePipeline & CodeBuild | 14 | `logs-aws.codepipeline*` |
-| `cognito-dashboard.json` | AWS Cognito — Authentication & Risk Events | 13 | `logs-aws.cognito*` |
-| `kinesis-dashboard.json` | AWS Kinesis Streams — Throughput & Iterator Health | 13 | `logs-aws.kinesis*` |
+| File                           | Title                                              | Panels | Index pattern             |
+| ------------------------------ | -------------------------------------------------- | ------ | ------------------------- |
+| `glue-dashboard.json`          | AWS Glue — Jobs & Performance                      | 15     | `logs-aws.glue*`          |
+| `sagemaker-dashboard.json`     | AWS SageMaker — Endpoints & Training               | 13     | `logs-aws.sagemaker*`     |
+| `emr-dashboard.json`           | AWS EMR — Clusters & Job Performance               | 15     | `logs-aws.emr*`           |
+| `athena-dashboard.json`        | AWS Athena — Query Performance & Cost              | 15     | `logs-aws.athena*`        |
+| `xray-dashboard.json`          | AWS X-Ray — Distributed Tracing                    | 14     | `logs-aws.xray*`          |
+| `lambda-dashboard.json`        | AWS Lambda — Invocations & Performance             | 13     | `logs-aws.lambda*`        |
+| `eks-dashboard.json`           | AWS EKS — Cluster & Pod Health                     | 14     | `logs-aws.eks*`           |
+| `stepfunctions-dashboard.json` | AWS Step Functions — Execution & State Performance | 13     | `logs-aws.stepfunctions*` |
+| `bedrock-dashboard.json`       | AWS Bedrock — Model Invocations & Token Usage      | 13     | `logs-aws.bedrock*`       |
+| `aurora-dashboard.json`        | AWS Aurora — Cluster & Replication Health          | 13     | `logs-aws.aurora*`        |
+| `elasticache-dashboard.json`   | AWS ElastiCache — Cache Performance & Replication  | 13     | `logs-aws.elasticache*`   |
+| `opensearch-dashboard.json`    | AWS OpenSearch — Cluster Health & Performance      | 13     | `logs-aws.opensearch*`    |
+| `cicd-dashboard.json`          | AWS CI/CD — CodePipeline & CodeBuild               | 14     | `logs-aws.codepipeline*`  |
+| `cognito-dashboard.json`       | AWS Cognito — Authentication & Risk Events         | 13     | `logs-aws.cognito*`       |
+| `kinesis-dashboard.json`       | AWS Kinesis Streams — Throughput & Iterator Health | 13     | `logs-aws.kinesis*`       |
 
 #### AWS Glue — Jobs & Performance
 
-| Panel | Type | Metric |
-|-------|------|--------|
-| Total Runs | KPI metric | Count of all events |
-| Success Rate % | KPI metric | % of events with `event.outcome` = success |
-| Avg Duration (s) | KPI metric | Avg `event.duration` in seconds |
-| Failed Runs | KPI metric | Count where `event.outcome` = failure |
-| Run Outcomes | Donut | Count by `event.outcome` (success / failure) |
-| Runs by State | Donut | Count by `aws.glue.job.run_state` |
-| Failures by Error Category | Horizontal bar | Count by `aws.glue.error_category` (failures only) |
-| Avg Job Duration | Line | Avg `event.duration` converted to seconds |
-| JVM Heap Usage | Line | Avg `aws.glue.metrics.driver.jvm.heap.usage` (0–1) |
-| Executor Count | Line | Avg `aws.glue.metrics.driver.ExecutorAllocationManager.executors.numberAllExecutors` |
-| Failed / Killed Tasks | Stacked bar | Sum of `numFailedTasks` and `numKilledTasks` over time |
-| Elapsed Time ETL | Line | Avg `aws.glue.metrics.driver.aggregate.elapsedTime` (ms) |
-| Records Read | Line | Sum `aws.glue.metrics.driver.aggregate.numRecords` over time |
-| Throughput by Job Name | Horizontal bar | Count by `aws.glue.job.name` (top 10 jobs) |
-| Recent Job Runs | Data table | Last 100 events: timestamp, job name, state, outcome, duration, error category |
+| Panel                      | Type           | Metric                                                                               |
+| -------------------------- | -------------- | ------------------------------------------------------------------------------------ |
+| Total Runs                 | KPI metric     | Count of all events                                                                  |
+| Success Rate %             | KPI metric     | % of events with `event.outcome` = success                                           |
+| Avg Duration (s)           | KPI metric     | Avg `event.duration` in seconds                                                      |
+| Failed Runs                | KPI metric     | Count where `event.outcome` = failure                                                |
+| Run Outcomes               | Donut          | Count by `event.outcome` (success / failure)                                         |
+| Runs by State              | Donut          | Count by `aws.glue.job.run_state`                                                    |
+| Failures by Error Category | Horizontal bar | Count by `aws.glue.error_category` (failures only)                                   |
+| Avg Job Duration           | Line           | Avg `event.duration` converted to seconds                                            |
+| JVM Heap Usage             | Line           | Avg `aws.glue.metrics.driver.jvm.heap.usage` (0–1)                                   |
+| Executor Count             | Line           | Avg `aws.glue.metrics.driver.ExecutorAllocationManager.executors.numberAllExecutors` |
+| Failed / Killed Tasks      | Stacked bar    | Sum of `numFailedTasks` and `numKilledTasks` over time                               |
+| Elapsed Time ETL           | Line           | Avg `aws.glue.metrics.driver.aggregate.elapsedTime` (ms)                             |
+| Records Read               | Line           | Sum `aws.glue.metrics.driver.aggregate.numRecords` over time                         |
+| Throughput by Job Name     | Horizontal bar | Count by `aws.glue.job.name` (top 10 jobs)                                           |
+| Recent Job Runs            | Data table     | Last 100 events: timestamp, job name, state, outcome, duration, error category       |
 
 #### AWS SageMaker — Endpoints & Training
 
-| Panel | Type | Metric |
-|-------|------|--------|
-| Total Invocations | KPI metric | Sum `aws.sagemaker.cloudwatch_metrics.Invocations.sum` |
-| Avg Latency (ms) | KPI metric | Avg `aws.sagemaker.cloudwatch_metrics.ModelLatency.avg` |
-| Total 4xx Errors | KPI metric | Sum `Invocations4XXError.sum` |
-| Total 5xx Errors | KPI metric | Sum `Invocations5XXError.sum` |
-| Invocations Over Time | Area | Sum `aws.sagemaker.cloudwatch_metrics.Invocations.sum` |
-| Model Latency | Line | Avg `aws.sagemaker.cloudwatch_metrics.ModelLatency.avg` |
-| 4xx / 5xx Errors | Line (2 series) | Sum of `Invocations4XXError.sum` and `Invocations5XXError.sum` |
-| GPU / CPU Utilization | Line (2 series) | Avg of `GPUUtilization.avg` and `CPUUtilization.avg` |
-| Job Outcomes | Donut | Count by `event.outcome` |
-| Events by Job Type | Horizontal bar | Count by `aws.sagemaker.job.type` |
-| Events by Action | Horizontal bar | Count by `event.action` (top 10 actions) |
-| Training Loss & Accuracy | Line (2 series) | Avg `training_loss` and `accuracy` (Training jobs only) |
-| Recent SageMaker Events | Data table | Last 100 events: timestamp, job name, type, action, outcome, duration |
+| Panel                    | Type            | Metric                                                                |
+| ------------------------ | --------------- | --------------------------------------------------------------------- |
+| Total Invocations        | KPI metric      | Sum `aws.sagemaker.cloudwatch_metrics.Invocations.sum`                |
+| Avg Latency (ms)         | KPI metric      | Avg `aws.sagemaker.cloudwatch_metrics.ModelLatency.avg`               |
+| Total 4xx Errors         | KPI metric      | Sum `Invocations4XXError.sum`                                         |
+| Total 5xx Errors         | KPI metric      | Sum `Invocations5XXError.sum`                                         |
+| Invocations Over Time    | Area            | Sum `aws.sagemaker.cloudwatch_metrics.Invocations.sum`                |
+| Model Latency            | Line            | Avg `aws.sagemaker.cloudwatch_metrics.ModelLatency.avg`               |
+| 4xx / 5xx Errors         | Line (2 series) | Sum of `Invocations4XXError.sum` and `Invocations5XXError.sum`        |
+| GPU / CPU Utilization    | Line (2 series) | Avg of `GPUUtilization.avg` and `CPUUtilization.avg`                  |
+| Job Outcomes             | Donut           | Count by `event.outcome`                                              |
+| Events by Job Type       | Horizontal bar  | Count by `aws.sagemaker.job.type`                                     |
+| Events by Action         | Horizontal bar  | Count by `event.action` (top 10 actions)                              |
+| Training Loss & Accuracy | Line (2 series) | Avg `training_loss` and `accuracy` (Training jobs only)               |
+| Recent SageMaker Events  | Data table      | Last 100 events: timestamp, job name, type, action, outcome, duration |
 
 #### AWS EMR — Clusters & Job Performance
 
-| Panel | Type | Metric |
-|-------|------|--------|
-| Total Jobs | KPI metric | Count of all events |
-| Success Rate % | KPI metric | % of events with `event.outcome` = success |
-| Avg Duration (s) | KPI metric | Avg `event.duration` in seconds |
-| Failed Jobs | KPI metric | Count where `event.outcome` = failure |
-| Job Outcomes | Donut | Count by `event.outcome` (success / failure) |
-| Jobs by Application | Donut | Count by `aws.emr.application` (Spark, Hive, Flink, etc.) |
-| Jobs by Run State | Donut | Count by `aws.emr.job.run_state` (SUCCEEDED / FAILED / RUNNING / WAITING) |
-| Job Runs Over Time | Line | Count of job events over time |
-| Avg HDFS Utilisation % | Line | Avg `aws.emr.metrics.hdfs_utilization_pct` |
-| Avg YARN Memory Used (MB) | Line | Avg `aws.emr.metrics.yarn_memory_used_mb` |
-| JVM Heap Usage (0–1) | Line | Avg `aws.emr.metrics.jvm_heap_usage` |
-| Avg Executor Count | Line | Avg `aws.emr.metrics.executor_count` |
-| Avg GC Time (ms) | Line | Avg `aws.emr.metrics.gc_time_ms` |
-| Completed vs Failed Tasks | Stacked bar | Sum of `numCompletedTasks` and `numFailedTasks` over time |
-| Recent Job Runs | Data table | Last 100 events: timestamp, cluster, application, job name, run state, outcome, duration |
+| Panel                     | Type        | Metric                                                                                   |
+| ------------------------- | ----------- | ---------------------------------------------------------------------------------------- |
+| Total Jobs                | KPI metric  | Count of all events                                                                      |
+| Success Rate %            | KPI metric  | % of events with `event.outcome` = success                                               |
+| Avg Duration (s)          | KPI metric  | Avg `event.duration` in seconds                                                          |
+| Failed Jobs               | KPI metric  | Count where `event.outcome` = failure                                                    |
+| Job Outcomes              | Donut       | Count by `event.outcome` (success / failure)                                             |
+| Jobs by Application       | Donut       | Count by `aws.emr.application` (Spark, Hive, Flink, etc.)                                |
+| Jobs by Run State         | Donut       | Count by `aws.emr.job.run_state` (SUCCEEDED / FAILED / RUNNING / WAITING)                |
+| Job Runs Over Time        | Line        | Count of job events over time                                                            |
+| Avg HDFS Utilisation %    | Line        | Avg `aws.emr.metrics.hdfs_utilization_pct`                                               |
+| Avg YARN Memory Used (MB) | Line        | Avg `aws.emr.metrics.yarn_memory_used_mb`                                                |
+| JVM Heap Usage (0–1)      | Line        | Avg `aws.emr.metrics.jvm_heap_usage`                                                     |
+| Avg Executor Count        | Line        | Avg `aws.emr.metrics.executor_count`                                                     |
+| Avg GC Time (ms)          | Line        | Avg `aws.emr.metrics.gc_time_ms`                                                         |
+| Completed vs Failed Tasks | Stacked bar | Sum of `numCompletedTasks` and `numFailedTasks` over time                                |
+| Recent Job Runs           | Data table  | Last 100 events: timestamp, cluster, application, job name, run state, outcome, duration |
 
 #### AWS Athena — Query Performance & Cost
 
-| Panel | Type | Metric |
-|-------|------|--------|
-| Total Queries | KPI metric | Count of all events |
-| Success Rate % | KPI metric | % of events with `event.outcome` = success |
-| Avg Duration (s) | KPI metric | Avg `event.duration` in seconds |
-| Total Scanned (GB) | KPI metric | Sum `aws.athena.data_scanned_bytes` converted to GB |
-| Query Outcomes | Donut | Count by `event.outcome` (success / failure) |
-| Queries by Workgroup | Donut | Count by `aws.athena.workgroup` |
-| Queries by Database | Donut | Count by `aws.athena.database` |
-| Query Volume Over Time | Line | Count of query events over time |
-| Avg Engine Execution Time (ms) | Line | Avg `aws.athena.metrics.EngineExecutionTimeInMillis.avg` |
-| Avg Query Queue Time (ms) | Line | Avg `aws.athena.metrics.QueryQueueTimeInMillis.avg` |
-| Avg Query Planning Time (ms) | Line | Avg `aws.athena.metrics.QueryPlanningTimeInMillis.avg` |
-| Data Scanned by Workgroup (GB) | Horizontal bar | Sum `aws.athena.data_scanned_bytes` / 1 GB, grouped by workgroup |
-| Top Error Codes | Horizontal bar | Count of failures by `aws.athena.error_code` (top 10) |
-| Engine Version Split | Donut | Count by `aws.athena.engine_version` |
-| Recent Queries | Data table | Last 100 events: timestamp, workgroup, database, state, duration, scanned MB, error code |
+| Panel                          | Type           | Metric                                                                                   |
+| ------------------------------ | -------------- | ---------------------------------------------------------------------------------------- |
+| Total Queries                  | KPI metric     | Count of all events                                                                      |
+| Success Rate %                 | KPI metric     | % of events with `event.outcome` = success                                               |
+| Avg Duration (s)               | KPI metric     | Avg `event.duration` in seconds                                                          |
+| Total Scanned (GB)             | KPI metric     | Sum `aws.athena.data_scanned_bytes` converted to GB                                      |
+| Query Outcomes                 | Donut          | Count by `event.outcome` (success / failure)                                             |
+| Queries by Workgroup           | Donut          | Count by `aws.athena.workgroup`                                                          |
+| Queries by Database            | Donut          | Count by `aws.athena.database`                                                           |
+| Query Volume Over Time         | Line           | Count of query events over time                                                          |
+| Avg Engine Execution Time (ms) | Line           | Avg `aws.athena.metrics.EngineExecutionTimeInMillis.avg`                                 |
+| Avg Query Queue Time (ms)      | Line           | Avg `aws.athena.metrics.QueryQueueTimeInMillis.avg`                                      |
+| Avg Query Planning Time (ms)   | Line           | Avg `aws.athena.metrics.QueryPlanningTimeInMillis.avg`                                   |
+| Data Scanned by Workgroup (GB) | Horizontal bar | Sum `aws.athena.data_scanned_bytes` / 1 GB, grouped by workgroup                         |
+| Top Error Codes                | Horizontal bar | Count of failures by `aws.athena.error_code` (top 10)                                    |
+| Engine Version Split           | Donut          | Count by `aws.athena.engine_version`                                                     |
+| Recent Queries                 | Data table     | Last 100 events: timestamp, workgroup, database, state, duration, scanned MB, error code |
 
 ### How to run
 
@@ -394,12 +395,13 @@ node installer/custom-dashboards/index.mjs
 
 ### Credentials
 
-| Prompt | Where to find it |
-|--------|-----------------|
+| Prompt         | Where to find it                                                                                             |
+| -------------- | ------------------------------------------------------------------------------------------------------------ |
 | **Kibana URL** | Deployment overview → Kibana endpoint (e.g. `https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243`) |
-| **API key** | Kibana → Stack Management → API Keys → Create API key — needs `kibana_admin` built-in role |
+| **API key**    | Kibana → Stack Management → API Keys → Create API key — needs `kibana_admin` built-in role                   |
 
 **Note:** The dashboard installer automatically selects the best import method for your Kibana version:
+
 - **Kibana 9.4+** — uses the Dashboards API (`Elastic-Api-Version: 1`) as primary, falls back to Saved Objects import if unavailable
 - **Kibana 8.11–9.3** — uses Saved Objects ndjson import as primary, falls back to Dashboards API
 
@@ -517,11 +519,11 @@ node installer/custom-dashboards/generate-ndjson.mjs
 You can also import the `.ndjson` files manually via the Kibana UI:
 **Stack Management → Saved Objects → Import → select the file → Import**
 
-| Method | Kibana version | Command |
-|--------|---------------|---------|
-| Dashboards API | 9.4+ | `npm run setup:dashboards` |
-| Saved Objects import | 8.11 – 9.3 | `npm run setup:dashboards:legacy` |
-| Manual UI import | 8.11+ | Stack Management → Saved Objects → Import |
+| Method               | Kibana version | Command                                   |
+| -------------------- | -------------- | ----------------------------------------- |
+| Dashboards API       | 9.4+           | `npm run setup:dashboards`                |
+| Saved Objects import | 8.11 – 9.3     | `npm run setup:dashboards:legacy`         |
+| Manual UI import     | 8.11+          | Stack Management → Saved Objects → Import |
 
 ---
 
@@ -566,47 +568,47 @@ node installer/custom-ml-jobs/index.mjs
 
 ### Credentials
 
-| Prompt | Where to find it |
-|--------|-----------------|
-| **Elasticsearch URL** | Deployment overview → Elasticsearch endpoint |
-| **API key** | Kibana → Stack Management → API Keys → Create API key — needs `manage_ml` cluster privilege |
+| Prompt                | Where to find it                                                                            |
+| --------------------- | ------------------------------------------------------------------------------------------- |
+| **Elasticsearch URL** | Deployment overview → Elasticsearch endpoint                                                |
+| **API key**           | Kibana → Stack Management → API Keys → Create API key — needs `manage_ml` cluster privilege |
 
 ### Job groups
 
-| Group | Jobs | Services covered |
-|-------|------|-----------------|
-| security | 7 | VPC Flow, GuardDuty, WAF, CloudTrail |
-| security-extended | 7 | Security Hub, Macie, Inspector, Config, KMS, Security Lake |
-| compute | 7 | Lambda, EC2, EKS |
-| compute-extended | 5 | ECS, Auto Scaling, Elastic Beanstalk |
-| networking | 5 | ALB, API Gateway |
-| networking-extended | 4 | CloudFront, Route 53, Network Firewall |
-| databases | 6 | RDS, Aurora, ElastiCache |
-| databases-extended | 5 | DynamoDB, Redshift, OpenSearch |
-| streaming | 4 | Kinesis Streams, SQS |
-| messaging | 5 | SNS, MSK/Kafka, EventBridge, Step Functions |
-| analytics | 5 | Glue, Athena, EMR |
-| aiml | 4 | Bedrock |
-| storage | 4 | S3 |
-| management | 4 | CloudWatch, CloudFormation, Billing, SSM |
-| apm-traces | 6 | APM transactions, spans, Lambda cold starts, EMR stages |
-| serverless | 4 | API Gateway, Lambda cold starts |
-| devtools | 5 | CodeBuild, CodePipeline, X-Ray |
-| iot | 4 | IoT Core |
-| media | 4 | MediaConvert, Connect, WorkSpaces |
-| siem | 4 | SIEM anomaly detection — CloudTrail source IP anomalies, root account activity, IAM creation spikes, Route53 DNS exfiltration |
+| Group               | Jobs | Services covered                                                                                                              |
+| ------------------- | ---- | ----------------------------------------------------------------------------------------------------------------------------- |
+| security            | 7    | VPC Flow, GuardDuty, WAF, CloudTrail                                                                                          |
+| security-extended   | 7    | Security Hub, Macie, Inspector, Config, KMS, Security Lake                                                                    |
+| compute             | 7    | Lambda, EC2, EKS                                                                                                              |
+| compute-extended    | 5    | ECS, Auto Scaling, Elastic Beanstalk                                                                                          |
+| networking          | 5    | ALB, API Gateway                                                                                                              |
+| networking-extended | 4    | CloudFront, Route 53, Network Firewall                                                                                        |
+| databases           | 6    | RDS, Aurora, ElastiCache                                                                                                      |
+| databases-extended  | 5    | DynamoDB, Redshift, OpenSearch                                                                                                |
+| streaming           | 4    | Kinesis Streams, SQS                                                                                                          |
+| messaging           | 5    | SNS, MSK/Kafka, EventBridge, Step Functions                                                                                   |
+| analytics           | 5    | Glue, Athena, EMR                                                                                                             |
+| aiml                | 4    | Bedrock                                                                                                                       |
+| storage             | 4    | S3                                                                                                                            |
+| management          | 4    | CloudWatch, CloudFormation, Billing, SSM                                                                                      |
+| apm-traces          | 6    | APM transactions, spans, Lambda cold starts, EMR stages                                                                       |
+| serverless          | 4    | API Gateway, Lambda cold starts                                                                                               |
+| devtools            | 5    | CodeBuild, CodePipeline, X-Ray                                                                                                |
+| iot                 | 4    | IoT Core                                                                                                                      |
+| media               | 4    | MediaConvert, Connect, WorkSpaces                                                                                             |
+| siem                | 4    | SIEM anomaly detection — CloudTrail source IP anomalies, root account activity, IAM creation spikes, Route53 DNS exfiltration |
 
 ---
 
 ## Why four separate installers?
 
-| | `setup:integration` | `setup:pipelines` | `setup:dashboards` | `setup:ml-jobs` |
-|---|---|---|---|---|
-| **API** | Kibana Fleet API | Elasticsearch Ingest API | Kibana Dashboards API | Elasticsearch ML API |
-| **URL needed** | Kibana URL | Elasticsearch URL | Kibana URL | Elasticsearch URL |
-| **Privileges** | `cluster: manage` + `kibana: all` | `manage_ingest_pipelines` | `kibana_admin` | `manage_ml` |
-| **What it configures** | Dashboards, ILM, index templates | Ingest pipelines | Custom Kibana dashboards | ML anomaly detection jobs |
-| **Re-runnable** | Yes — skips if already installed | Yes — skips existing pipelines | Yes — skips by title | Yes — skips existing jobs |
-| **When to re-run** | When Elastic releases a new integration version | When new services are added | When new dashboards are added | When new ML jobs are added |
+|                        | `setup:integration`                             | `setup:pipelines`              | `setup:dashboards`            | `setup:ml-jobs`            |
+| ---------------------- | ----------------------------------------------- | ------------------------------ | ----------------------------- | -------------------------- |
+| **API**                | Kibana Fleet API                                | Elasticsearch Ingest API       | Kibana Dashboards API         | Elasticsearch ML API       |
+| **URL needed**         | Kibana URL                                      | Elasticsearch URL              | Kibana URL                    | Elasticsearch URL          |
+| **Privileges**         | `cluster: manage` + `kibana: all`               | `manage_ingest_pipelines`      | `kibana_admin`                | `manage_ml`                |
+| **What it configures** | Dashboards, ILM, index templates                | Ingest pipelines               | Custom Kibana dashboards      | ML anomaly detection jobs  |
+| **Re-runnable**        | Yes — skips if already installed                | Yes — skips existing pipelines | Yes — skips by title          | Yes — skips existing jobs  |
+| **When to re-run**     | When Elastic releases a new integration version | When new services are added    | When new dashboards are added | When new ML jobs are added |
 
 Running all four gives you full coverage across all 144 services.

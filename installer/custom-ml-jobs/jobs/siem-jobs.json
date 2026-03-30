@@ -36,9 +36,7 @@
               { "exists": { "field": "user.name" } },
               { "exists": { "field": "source.ip" } }
             ],
-            "must_not": [
-              { "term": { "source.ip": "AWS Internal" } }
-            ]
+            "must_not": [{ "term": { "source.ip": "AWS Internal" } }]
           }
         },
         "chunking_config": { "mode": "auto" },
@@ -114,7 +112,19 @@
           "bool": {
             "filter": [
               { "term": { "event.dataset": "aws.cloudtrail" } },
-              { "terms": { "event.action": ["CreateUser", "CreateRole", "CreatePolicy", "CreateAccessKey", "AttachUserPolicy", "AttachRolePolicy", "PutUserPolicy"] } }
+              {
+                "terms": {
+                  "event.action": [
+                    "CreateUser",
+                    "CreateRole",
+                    "CreatePolicy",
+                    "CreateAccessKey",
+                    "AttachUserPolicy",
+                    "AttachRolePolicy",
+                    "PutUserPolicy"
+                  ]
+                }
+              }
             ]
           }
         },
@@ -151,9 +161,7 @@
         "max_empty_searches": 10,
         "query": {
           "bool": {
-            "filter": [
-              { "term": { "event.dataset": "aws.route53_public_logs" } }
-            ]
+            "filter": [{ "term": { "event.dataset": "aws.route53_public_logs" } }]
           }
         },
         "chunking_config": { "mode": "auto" },

@@ -39,16 +39,76 @@ function errMsg(e: unknown): string {
 }
 
 // ─── localStorage config persistence ─────────────────────────────────────────
+// Only non-sensitive UI/generator settings. Never persist cluster URL, API keys, or secrets.
 const LS_KEY = "awsElasticConfig";
 
-const savedConfig = (() => {
+const PERSISTED_CONFIG_KEYS = [
+  "logsIndexPrefix",
+  "metricsIndexPrefix",
+  "logsPerService",
+  "tracesPerService",
+  "errorRate",
+  "batchSize",
+  "batchDelayMs",
+  "ingestionSource",
+  "eventType",
+  "injectAnomalies",
+  "scheduleEnabled",
+  "scheduleTotalRuns",
+  "scheduleIntervalMin",
+] as const;
+
+const ALLOWED_LS_KEYS = new Set<string>(PERSISTED_CONFIG_KEYS);
+
+/** Only fields we ever read from localStorage (credentials are never stored). */
+type PersistedConfigShape = Partial<{
+  logsIndexPrefix: string;
+  metricsIndexPrefix: string;
+  logsPerService: number;
+  tracesPerService: number;
+  errorRate: number;
+  batchSize: number;
+  batchDelayMs: number;
+  ingestionSource: string;
+  eventType: string;
+  injectAnomalies: boolean;
+  scheduleEnabled: boolean;
+  scheduleTotalRuns: number;
+  scheduleIntervalMin: number;
+}>;
+
+function loadAndScrubSavedConfig(): PersistedConfigShape {
   try {
-    return JSON.parse(localStorage.getItem(LS_KEY) || "{}");
+    const stored = localStorage.getItem(LS_KEY);
+    if (stored == null) return {};
+    const raw: unknown = JSON.parse(stored);
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+      localStorage.removeItem(LS_KEY);
+      return {};
+    }
+    const record = raw as Record<string, unknown>;
+    const sanitized: Record<string, unknown> = {};
+    for (const k of PERSISTED_CONFIG_KEYS) {
+      if (Object.prototype.hasOwnProperty.call(record, k)) {
+        sanitized[k] = record[k];
+      }
+    }
+    const hasDisallowedKeys = Object.keys(record).some((k) => !ALLOWED_LS_KEYS.has(k));
+    if (hasDisallowedKeys) {
+      try {
+        localStorage.setItem(LS_KEY, JSON.stringify(sanitized));
+      } catch (e) {
+        if (import.meta.env.DEV) console.warn("[LS] Failed to scrub saved config:", e);
+      }
+    }
+    return sanitized as PersistedConfigShape;
   } catch (e) {
     if (import.meta.env.DEV) console.warn("[LS] Failed to read saved config:", e);
     return {};
   }
-})();
+}
+
+const savedConfig = loadAndScrubSavedConfig();
 
 export default function App() {
   const [selectedServices, setSelectedServices] = useState(["lambda", "apigateway"]);
@@ -94,27 +154,25 @@ export default function App() {
   const abortRef = useRef(false);
   const scheduleLoopRef = useRef<AbortController | null>(null);
 
-  // ─── Persist config to localStorage ────────────────────────────────────────
+  // ─── Persist config to localStorage (allowlisted keys only — no URL/API key) ─
   useEffect(() => {
+    const payload: PersistedConfigShape = {
+      logsIndexPrefix,
+      metricsIndexPrefix,
+      logsPerService,
+      tracesPerService,
+      errorRate,
+      batchSize,
+      batchDelayMs,
+      ingestionSource,
+      eventType,
+      injectAnomalies,
+      scheduleEnabled,
+      scheduleTotalRuns,
+      scheduleIntervalMin,
+    };
     try {
-      localStorage.setItem(
-        LS_KEY,
-        JSON.stringify({
-          logsIndexPrefix,
-          metricsIndexPrefix,
-          logsPerService,
-          tracesPerService,
-          errorRate,
-          batchSize,
-          batchDelayMs,
-          ingestionSource,
-          eventType,
-          injectAnomalies,
-          scheduleEnabled,
-          scheduleTotalRuns,
-          scheduleIntervalMin,
-        })
-      );
+      localStorage.setItem(LS_KEY, JSON.stringify(payload));
     } catch (e) {
       if (import.meta.env.DEV) console.warn("[LS] Failed to save config:", e);
     }
@@ -428,7 +486,7 @@ export default function App() {
     const CONCURRENCY = 4;
     const runPool = async <T,>(
       items: string[],
-      task: (item: string) => Promise<T>
+      task: (item: string, index: number) => Promise<T>
     ): Promise<T[]> => {
       const results: T[] = new Array(items.length);
       let next = 0;
@@ -436,7 +494,7 @@ export default function App() {
         while (next < items.length) {
           if (abortRef.current) return;
           const i = next++;
-          results[i] = await task(items[i]);
+          results[i] = await task(items[i], i);
         }
       };
       await Promise.all(Array.from({ length: Math.min(CONCURRENCY, items.length) }, worker));
@@ -471,15 +529,18 @@ export default function App() {
         let totalSent = 0,
           totalErrors = 0;
 
-        const shipTraceService = async (svc) => {
+        const shipTraceService = async (svc: string) => {
           addLog(`▶ ${svc} → ${APM_INDEX} [OTel / OTLP]`, "info");
           // Flatten all trace docs for this service (each trace = array of docs)
           const allDocs = Array.from({ length: tracesPerService }, () =>
             TRACE_GENERATORS[svc](randTs(startDate, endDate), errorRate).map((d) => stripNulls(d))
           ).flat();
+          const dpt =
+            tracesPerService > 0 && allDocs.length > 0 ? allDocs.length / tracesPerService : 1;
           let svcSent = 0,
             svcErrors = 0,
-            batchNum = 0;
+            batchNum = 0,
+            lastReportedTraces = 0;
           for (let i = 0; i < allDocs.length; i += batchSize) {
             if (abortRef.current) break;
             batchNum++;
@@ -491,11 +552,13 @@ export default function App() {
                   JSON.stringify(doc),
                 ])
                 .join("\n") + "\n";
+            let errDelta = 0;
             try {
               const res = await fetch(`/proxy/_bulk`, { method: "POST", headers, body: ndjson });
               const json = await res.json();
               if (!res.ok) {
                 svcErrors += batch.length;
+                errDelta = batch.length;
                 addLog(
                   `  ✗ batch ${batchNum} failed: ${json.error?.reason || res.status}`,
                   "error"
@@ -505,6 +568,7 @@ export default function App() {
                   json.items?.filter((it) => it.create?.error || it.index?.error) || [];
                 const errs = failedItems.length;
                 svcErrors += errs;
+                errDelta = errs;
                 svcSent += batch.length - errs;
                 if (errs > 0) {
                   const firstErr = failedItems[0]?.create?.error || failedItems[0]?.index?.error;
@@ -518,13 +582,17 @@ export default function App() {
               }
             } catch (e: unknown) {
               svcErrors += batch.length;
+              errDelta = batch.length;
               addLog(`  ✗ network error: ${errMsg(e)}`, "error");
             }
-            setProgress({
-              sent: totalSent + Math.floor(svcSent / (allDocs.length / tracesPerService)),
+            const currentTraces = Math.min(tracesPerService, Math.floor(svcSent / dpt));
+            const sentDelta = currentTraces - lastReportedTraces;
+            lastReportedTraces = currentTraces;
+            setProgress((prev) => ({
+              sent: prev.sent + sentDelta,
               total: totalTraces,
-              errors: totalErrors + svcErrors,
-            });
+              errors: prev.errors + errDelta,
+            }));
             if (batchDelayMs > 0) await new Promise((r) => setTimeout(r, batchDelayMs));
           }
           addLog(`✓ ${svc} complete (${svcSent} span docs for ${tracesPerService} traces)`, "ok");
@@ -533,7 +601,10 @@ export default function App() {
 
         const traceResults = await runPool(activeServices, shipTraceService);
         for (const r of traceResults) {
-          if (r) { totalSent += r.sent; totalErrors += r.errors; }
+          if (r) {
+            totalSent += r.sent;
+            totalErrors += r.errors;
+          }
         }
 
         // ── Anomaly injection pass (traces) ────────────────────────────────
@@ -553,18 +624,27 @@ export default function App() {
                 return out;
               })
             ).flat();
-            let injIndexed = 0, injErrs = 0;
+            let injIndexed = 0,
+              injErrs = 0;
             for (let i = 0; i < injDocs.length; i += batchSize) {
               if (abortRef.current) break;
               const batch = injDocs.slice(i, i + batchSize);
-              const ndjsonInj = batch.flatMap((doc) => [
-                JSON.stringify({ create: { _index: APM_INDEX } }),
-                JSON.stringify(doc),
-              ]).join("\n") + "\n";
+              const ndjsonInj =
+                batch
+                  .flatMap((doc) => [
+                    JSON.stringify({ create: { _index: APM_INDEX } }),
+                    JSON.stringify(doc),
+                  ])
+                  .join("\n") + "\n";
               try {
-                const res = await fetch(`/proxy/_bulk`, { method: "POST", headers, body: ndjsonInj });
+                const res = await fetch(`/proxy/_bulk`, {
+                  method: "POST",
+                  headers,
+                  body: ndjsonInj,
+                });
                 const json = await res.json();
-                const bErrs = json.items?.filter((it) => it.create?.error || it.index?.error).length ?? 0;
+                const bErrs =
+                  json.items?.filter((it) => it.create?.error || it.index?.error).length ?? 0;
                 injIndexed += batch.length - bErrs;
                 injErrs += bErrs;
               } catch (e: unknown) {
@@ -572,7 +652,10 @@ export default function App() {
                 injErrs += batch.length;
               }
             }
-            addLog(`  ⚡ ${svc}: ${injIndexed} anomaly trace docs injected`, injErrs > 0 ? "warn" : "ok");
+            addLog(
+              `  ⚡ ${svc}: ${injIndexed} anomaly trace docs injected`,
+              injErrs > 0 ? "warn" : "ok"
+            );
           }
         }
 
@@ -592,10 +675,11 @@ export default function App() {
         `Starting: ${activeServices.length} service(s) [${eventType}] — ${logsPerService.toLocaleString()} calls each`
       );
       let totalSent = 0,
-        totalErrors = 0,
-        totalActual = 0;
+        totalErrors = 0;
 
-      const shipService = async (svc) => {
+      const docCountByIdx: number[] = new Array(activeServices.length);
+
+      const shipService = async (svc: string, svcIndex: number) => {
         const dataset =
           eventType === "metrics"
             ? (ELASTIC_METRICS_DATASET_MAP[svc] ?? ELASTIC_DATASET_MAP[svc] ?? `aws.${svc}`)
@@ -619,7 +703,11 @@ export default function App() {
               }
               return [stripNulls(enrichDoc(result, svc, src, eventType))];
             }).flat();
-        totalActual += allDocs.length;
+        docCountByIdx[svcIndex] = allDocs.length;
+        setProgress((prev) => {
+          const t = docCountByIdx.reduce((s, x) => s + (typeof x === "number" ? x : 0), 0);
+          return { ...prev, total: t };
+        });
         let svcSent = 0,
           svcErrors = 0,
           batchNum = 0;
@@ -640,11 +728,14 @@ export default function App() {
                 return [JSON.stringify({ create: { _index: idx } }), JSON.stringify(cleanDoc)];
               })
               .join("\n") + "\n";
+          let sentDelta = 0;
+          let errDelta = 0;
           try {
             const res = await fetch(`/proxy/_bulk`, { method: "POST", headers, body: ndjson });
             const json = await res.json();
             if (!res.ok) {
               svcErrors += batch.length;
+              errDelta = batch.length;
               addLog(`  ✗ batch ${batchNum} failed: ${json.error?.reason || res.status}`, "error");
             } else {
               const failedItems =
@@ -662,7 +753,9 @@ export default function App() {
               const conflicts = conflictItems.length;
               const errs = realErrors.length;
               svcErrors += errs;
-              svcSent += batch.length - errs - conflicts;
+              errDelta = errs;
+              sentDelta = batch.length - errs - conflicts;
+              svcSent += sentDelta;
               if (errs > 0) {
                 const firstErr = realErrors[0]?.create?.error || realErrors[0]?.index?.error;
                 addLog(
@@ -680,13 +773,14 @@ export default function App() {
             }
           } catch (e: unknown) {
             svcErrors += batch.length;
+            errDelta = batch.length;
             addLog(`  ✗ network error: ${errMsg(e)}`, "error");
           }
-          setProgress({
-            sent: totalSent + svcSent,
-            total: totalActual,
-            errors: totalErrors + svcErrors,
-          });
+          setProgress((prev) => ({
+            ...prev,
+            sent: prev.sent + sentDelta,
+            errors: prev.errors + errDelta,
+          }));
           if (batchDelayMs > 0) await new Promise((r) => setTimeout(r, batchDelayMs));
         }
         addLog(`✓ ${svc} complete`, "ok");
@@ -695,7 +789,10 @@ export default function App() {
 
       const svcResults = await runPool(activeServices, shipService);
       for (const r of svcResults) {
-        if (r) { totalSent += r.sent; totalErrors += r.errors; }
+        if (r) {
+          totalSent += r.sent;
+          totalErrors += r.errors;
+        }
       }
 
       // ── Anomaly injection pass (logs / metrics) ──────────────────────────
@@ -740,25 +837,32 @@ export default function App() {
           } else {
             continue;
           }
-          let injIndexed = 0, injRealErrs = 0;
+          let injIndexed = 0,
+            injRealErrs = 0;
           for (let i = 0; i < injDocs.length; i += batchSize) {
             if (abortRef.current) break;
             const batch = injDocs.slice(i, i + batchSize);
-            const ndjsonInj = batch.flatMap((doc: LooseDoc) => {
-              const { __dataset, ...cleanDoc } = doc;
-              const idx = __dataset
-                ? __dataset.startsWith("aws.")
-                  ? `${indexPrefix}.${__dataset.replace(/^aws\./, "")}-default`
-                  : `logs-${__dataset}-default`
-                : indexName;
-              return [JSON.stringify({ create: { _index: idx } }), JSON.stringify(cleanDoc)];
-            }).join("\n") + "\n";
+            const ndjsonInj =
+              batch
+                .flatMap((doc: LooseDoc) => {
+                  const { __dataset, ...cleanDoc } = doc;
+                  const idx = __dataset
+                    ? __dataset.startsWith("aws.")
+                      ? `${indexPrefix}.${__dataset.replace(/^aws\./, "")}-default`
+                      : `logs-${__dataset}-default`
+                    : indexName;
+                  return [JSON.stringify({ create: { _index: idx } }), JSON.stringify(cleanDoc)];
+                })
+                .join("\n") + "\n";
             try {
               const res = await fetch(`/proxy/_bulk`, { method: "POST", headers, body: ndjsonInj });
               const json = await res.json();
-              const failedInj = json.items?.filter((it) => it.create?.error || it.index?.error) || [];
+              const failedInj =
+                json.items?.filter((it) => it.create?.error || it.index?.error) || [];
               const realErrInj = failedInj.filter(
-                (it) => (it.create?.error?.type || it.index?.error?.type) !== "version_conflict_engine_exception"
+                (it) =>
+                  (it.create?.error?.type || it.index?.error?.type) !==
+                  "version_conflict_engine_exception"
               );
               injIndexed += batch.length - failedInj.length;
               injRealErrs += realErrInj.length;
@@ -825,10 +929,14 @@ export default function App() {
       setNextRunAt(nextTime);
       await new Promise<void>((resolve) => {
         const id = setTimeout(resolve, scheduleIntervalMin * 60 * 1000);
-        controller.signal.addEventListener("abort", () => {
-          clearTimeout(id);
-          resolve();
-        });
+        controller.signal.addEventListener(
+          "abort",
+          () => {
+            clearTimeout(id);
+            resolve();
+          },
+          { once: true }
+        );
       });
     }
 
@@ -1603,8 +1711,10 @@ export default function App() {
                       Enable scheduled mode
                     </div>
                     <div style={{ fontSize: 11, color: K.textSubdued, marginTop: 2 }}>
-                      Automatically repeat shipping runs to build an ML baseline. 12 runs × 15 min
-                      = 3 hours of normal traffic before injecting anomalies.
+                      Automatically repeat shipping runs to build an ML baseline (for example 12
+                      runs × 15 min ≈ 3 hours of spaced loads). If &quot;Inject anomalies&quot; is
+                      on, each run ships the main load and then the anomaly spike pass — not only
+                      after the last run.
                     </div>
                   </div>
                 </label>

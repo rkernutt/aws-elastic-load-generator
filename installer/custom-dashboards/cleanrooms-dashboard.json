@@ -62,7 +62,9 @@
             "type": "esql",
             "query": "FROM logs-aws.cleanrooms* | STATS `Active Collaborations` = COUNT_DISTINCT(`aws.cleanrooms.collaboration_name`)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Active Collaborations" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Active Collaborations" }
+          ]
         }
       }
     },
@@ -143,9 +145,21 @@
           },
           "metrics": [
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
-            { "operation": "value", "column": "aws.cleanrooms.collaboration_name", "label": "Collaboration Name" },
-            { "operation": "value", "column": "aws.cleanrooms.query_status", "label": "Query Status" },
-            { "operation": "value", "column": "aws.cleanrooms.rows_returned", "label": "Rows Returned" }
+            {
+              "operation": "value",
+              "column": "aws.cleanrooms.collaboration_name",
+              "label": "Collaboration Name"
+            },
+            {
+              "operation": "value",
+              "column": "aws.cleanrooms.query_status",
+              "label": "Query Status"
+            },
+            {
+              "operation": "value",
+              "column": "aws.cleanrooms.rows_returned",
+              "label": "Rows Returned"
+            }
           ],
           "rows": []
         }

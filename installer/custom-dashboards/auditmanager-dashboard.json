@@ -30,7 +30,9 @@
             "type": "esql",
             "query": "FROM logs-aws.auditmanager* | WHERE `aws.auditmanager.compliance_check` == \"NON_COMPLIANT\" | STATS `Non-Compliant Controls` = COUNT_DISTINCT(`aws.auditmanager.control_id`)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Non-Compliant Controls" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Non-Compliant Controls" }
+          ]
         }
       }
     },
@@ -140,10 +142,26 @@
           },
           "metrics": [
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
-            { "operation": "value", "column": "aws.auditmanager.assessment_name", "label": "Assessment Name" },
-            { "operation": "value", "column": "aws.auditmanager.control_id", "label": "Control ID" },
-            { "operation": "value", "column": "aws.auditmanager.evidence_status", "label": "Evidence Status" },
-            { "operation": "value", "column": "aws.auditmanager.compliance_check", "label": "Compliance Check" }
+            {
+              "operation": "value",
+              "column": "aws.auditmanager.assessment_name",
+              "label": "Assessment Name"
+            },
+            {
+              "operation": "value",
+              "column": "aws.auditmanager.control_id",
+              "label": "Control ID"
+            },
+            {
+              "operation": "value",
+              "column": "aws.auditmanager.evidence_status",
+              "label": "Evidence Status"
+            },
+            {
+              "operation": "value",
+              "column": "aws.auditmanager.compliance_check",
+              "label": "Compliance Check"
+            }
           ],
           "rows": []
         }

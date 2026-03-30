@@ -67,9 +67,7 @@
         "max_empty_searches": 10,
         "query": {
           "bool": {
-            "filter": [
-              { "term": { "event.dataset": "aws.cloudformation" } }
-            ],
+            "filter": [{ "term": { "event.dataset": "aws.cloudformation" } }],
             "should": [
               { "wildcard": { "aws.cloudformation.stack_status": "*ROLLBACK*" } },
               { "wildcard": { "aws.cloudformation.stack_status": "*FAILED*" } }
@@ -110,9 +108,7 @@
         "max_empty_searches": 10,
         "query": {
           "bool": {
-            "filter": [
-              { "term": { "event.dataset": "aws.billing" } }
-            ]
+            "filter": [{ "term": { "event.dataset": "aws.billing" } }]
           }
         },
         "chunking_config": { "mode": "auto" },
@@ -149,9 +145,7 @@
         "max_empty_searches": 10,
         "query": {
           "bool": {
-            "filter": [
-              { "term": { "event.dataset": "aws.ssm" } }
-            ]
+            "filter": [{ "term": { "event.dataset": "aws.ssm" } }]
           }
         },
         "chunking_config": { "mode": "auto" },

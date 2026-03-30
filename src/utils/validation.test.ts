@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { validateElasticUrl, validateApiKey, validateIndexPrefix } from "./validation.js";
+import { validateElasticUrl, validateApiKey, validateIndexPrefix } from "./validation";
 
 describe("validateElasticUrl", () => {
   it("rejects empty", () => {
@@ -8,8 +8,12 @@ describe("validateElasticUrl", () => {
   });
 
   it("accepts valid HTTPS URL", () => {
-    expect(validateElasticUrl("https://my-deployment.es.us-east-1.aws.elastic.cloud").valid).toBe(true);
-    expect(validateElasticUrl("https://my-deployment.es.us-east-1.aws.elastic.cloud/").valid).toBe(true);
+    expect(validateElasticUrl("https://my-deployment.es.us-east-1.aws.elastic.cloud").valid).toBe(
+      true
+    );
+    expect(validateElasticUrl("https://my-deployment.es.us-east-1.aws.elastic.cloud/").valid).toBe(
+      true
+    );
   });
 
   it("rejects HTTP", () => {

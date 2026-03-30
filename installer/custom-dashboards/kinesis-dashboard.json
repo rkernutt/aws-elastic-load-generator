@@ -30,7 +30,9 @@
             "type": "esql",
             "query": "FROM logs-aws.kinesis* | STATS avg_ia = AVG(`aws.kinesis.metrics.GetRecords_IteratorAgeMilliseconds.avg`) | EVAL `Avg Iterator Age (ms)` = ROUND(avg_ia, 0)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Avg Iterator Age (ms)" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Avg Iterator Age (ms)" }
+          ]
         }
       }
     },
@@ -166,9 +168,7 @@
                 "query": "FROM logs-aws.kinesis* | STATS iter_age = AVG(`aws.kinesis.metrics.GetRecords_IteratorAgeMilliseconds.avg`) BY bucket = BUCKET(@timestamp, 75, ?_tstart, ?_tend) | SORT bucket"
               },
               "x": { "operation": "value", "column": "bucket" },
-              "y": [
-                { "operation": "value", "column": "iter_age", "label": "Iterator Age (ms)" }
-              ]
+              "y": [{ "operation": "value", "column": "iter_age", "label": "Iterator Age (ms)" }]
             }
           ]
         }
@@ -276,9 +276,21 @@
           "metrics": [
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
             { "operation": "value", "column": "aws.dimensions.StreamName", "label": "Stream Name" },
-            { "operation": "value", "column": "aws.kinesis.metrics.IncomingRecords.avg", "label": "Incoming Records (avg)" },
-            { "operation": "value", "column": "aws.kinesis.metrics.GetRecords_IteratorAgeMilliseconds.avg", "label": "Iterator Age (ms)" },
-            { "operation": "value", "column": "aws.kinesis.metrics.PutRecords_FailedRecords.sum", "label": "Failed Put Records" },
+            {
+              "operation": "value",
+              "column": "aws.kinesis.metrics.IncomingRecords.avg",
+              "label": "Incoming Records (avg)"
+            },
+            {
+              "operation": "value",
+              "column": "aws.kinesis.metrics.GetRecords_IteratorAgeMilliseconds.avg",
+              "label": "Iterator Age (ms)"
+            },
+            {
+              "operation": "value",
+              "column": "aws.kinesis.metrics.PutRecords_FailedRecords.sum",
+              "label": "Failed Put Records"
+            },
             { "operation": "value", "column": "event.outcome", "label": "Outcome" }
           ],
           "rows": []

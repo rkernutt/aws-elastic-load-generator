@@ -14,7 +14,9 @@
             "type": "esql",
             "query": "FROM logs-aws.artifact* | STATS `Total Report Accesses` = COUNT()"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Total Report Accesses" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Total Report Accesses" }
+          ]
         }
       }
     },
@@ -141,7 +143,11 @@
           "metrics": [
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
             { "operation": "value", "column": "aws.artifact.report_name", "label": "Report Name" },
-            { "operation": "value", "column": "aws.artifact.report_category", "label": "Report Category" },
+            {
+              "operation": "value",
+              "column": "aws.artifact.report_category",
+              "label": "Report Category"
+            },
             { "operation": "value", "column": "user.name", "label": "User" },
             { "operation": "value", "column": "event.action", "label": "Action" }
           ],

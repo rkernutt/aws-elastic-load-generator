@@ -244,7 +244,9 @@
                 "query": "FROM logs-aws.lambda* | STATS avg_conc = AVG(`aws.lambda.metrics.ConcurrentExecutions.avg`) BY bucket = BUCKET(@timestamp, 75, ?_tstart, ?_tend) | SORT bucket"
               },
               "x": { "operation": "value", "column": "bucket" },
-              "y": [{ "operation": "value", "column": "avg_conc", "label": "Concurrent Executions" }]
+              "y": [
+                { "operation": "value", "column": "avg_conc", "label": "Concurrent Executions" }
+              ]
             }
           ]
         }
@@ -267,7 +269,11 @@
             { "operation": "value", "column": "aws.lambda.function.name", "label": "Function" },
             { "operation": "value", "column": "aws.lambda.event_type", "label": "Event Type" },
             { "operation": "value", "column": "event.outcome", "label": "Outcome" },
-            { "operation": "value", "column": "aws.lambda.metrics.Duration.avg", "label": "Duration (ms)" },
+            {
+              "operation": "value",
+              "column": "aws.lambda.metrics.Duration.avg",
+              "label": "Duration (ms)"
+            },
             { "operation": "value", "column": "aws.lambda.metrics.Errors.sum", "label": "Errors" },
             { "operation": "value", "column": "aws.lambda.request_id", "label": "Request ID" }
           ],

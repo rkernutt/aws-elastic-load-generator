@@ -30,7 +30,9 @@
             "type": "esql",
             "query": "FROM logs-aws.b2bi* | WHERE `aws.b2bi.processing_status` == \"FAILED\" | STATS `Failed Transformations` = COUNT()"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Failed Transformations" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Failed Transformations" }
+          ]
         }
       }
     },
@@ -46,7 +48,9 @@
             "type": "esql",
             "query": "FROM logs-aws.b2bi* | STATS `Total Transaction Count` = SUM(`aws.b2bi.transaction_count`)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Total Transaction Count" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Total Transaction Count" }
+          ]
         }
       }
     },
@@ -142,8 +146,16 @@
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
             { "operation": "value", "column": "aws.b2bi.partner_name", "label": "Partner Name" },
             { "operation": "value", "column": "aws.b2bi.document_type", "label": "Document Type" },
-            { "operation": "value", "column": "aws.b2bi.processing_status", "label": "Processing Status" },
-            { "operation": "value", "column": "aws.b2bi.transaction_count", "label": "Transaction Count" }
+            {
+              "operation": "value",
+              "column": "aws.b2bi.processing_status",
+              "label": "Processing Status"
+            },
+            {
+              "operation": "value",
+              "column": "aws.b2bi.transaction_count",
+              "label": "Transaction Count"
+            }
           ],
           "rows": []
         }

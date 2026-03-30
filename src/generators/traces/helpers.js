@@ -4,27 +4,46 @@
 
 export const TRACE_REGIONS = [
   // US
-  "us-east-1","us-east-2","us-west-1","us-west-2",
+  "us-east-1",
+  "us-east-2",
+  "us-west-1",
+  "us-west-2",
   // Canada
-  "ca-central-1","ca-west-1",
+  "ca-central-1",
+  "ca-west-1",
   // South America
   "sa-east-1",
   // Europe
-  "eu-west-1","eu-west-2","eu-west-3",
-  "eu-central-1","eu-central-2",
-  "eu-north-1","eu-south-1","eu-south-2",
+  "eu-west-1",
+  "eu-west-2",
+  "eu-west-3",
+  "eu-central-1",
+  "eu-central-2",
+  "eu-north-1",
+  "eu-south-1",
+  "eu-south-2",
   // Middle East & Africa
-  "me-south-1","me-central-1","af-south-1","il-central-1",
+  "me-south-1",
+  "me-central-1",
+  "af-south-1",
+  "il-central-1",
   // Asia Pacific
-  "ap-east-1","ap-south-1","ap-south-2",
-  "ap-southeast-1","ap-southeast-2","ap-southeast-3","ap-southeast-4",
-  "ap-northeast-1","ap-northeast-2","ap-northeast-3",
+  "ap-east-1",
+  "ap-south-1",
+  "ap-south-2",
+  "ap-southeast-1",
+  "ap-southeast-2",
+  "ap-southeast-3",
+  "ap-southeast-4",
+  "ap-northeast-1",
+  "ap-northeast-2",
+  "ap-northeast-3",
 ];
 
 export const TRACE_ACCOUNTS = [
-  { id:"123456789012", name:"prod-aws" },
-  { id:"234567890123", name:"staging-aws" },
-  { id:"345678901234", name:"dev-aws" },
+  { id: "123456789012", name: "prod-aws" },
+  { id: "234567890123", name: "staging-aws" },
+  { id: "345678901234", name: "dev-aws" },
 ];
 
 /** Lowercase hex string of `len` characters (len = 2× byte count). */
@@ -35,14 +54,24 @@ export function randHex(len) {
 }
 
 /** 32-char hex trace ID (16 bytes, OTel spec). */
-export function newTraceId() { return randHex(32); }
+export function newTraceId() {
+  return randHex(32);
+}
 
 /** 16-char hex span ID (8 bytes, OTel spec). */
-export function newSpanId() { return randHex(16); }
+export function newSpanId() {
+  return randHex(16);
+}
 
-export function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-export function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-export function randFloat(min, max, dp = 2) { return parseFloat((Math.random() * (max - min) + min).toFixed(dp)); }
+export function rand(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+export function randInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+export function randFloat(min, max, dp = 2) {
+  return parseFloat((Math.random() * (max - min) + min).toFixed(dp));
+}
 
 /** Offset a Date by +ms and return ISO string. */
 export function offsetTs(baseDate, offsetMs) {
@@ -72,13 +101,16 @@ export function otelBlocks(language, distro = "elastic") {
   const sdkVersions = { python: "1.29.0", nodejs: "1.30.1", java: "2.12.0", go: "1.32.0" };
   const distroVersions = {
     elastic: { python: "0.6.0", nodejs: "1.4.0", java: "1.6.0", go: "0.5.0" },
-    aws:     { python: "1.0.4", nodejs: "1.30.1", java: "1.32.2", go: "1.32.0" },
+    aws: { python: "1.0.4", nodejs: "1.30.1", java: "1.32.2", go: "1.32.0" },
   };
   return {
     agent: { name: "otlp", version: distroVersions[distro]?.[language] ?? "1.0.0" },
     telemetry: {
       sdk: { name: "opentelemetry", language, version: sdkVersions[language] ?? "1.0.0" },
-      distro: { name: distro === "elastic" ? "elastic" : "aws-otel", version: distroVersions[distro]?.[language] ?? "1.0.0" },
+      distro: {
+        name: distro === "elastic" ? "elastic" : "aws-otel",
+        version: distroVersions[distro]?.[language] ?? "1.0.0",
+      },
     },
   };
 }

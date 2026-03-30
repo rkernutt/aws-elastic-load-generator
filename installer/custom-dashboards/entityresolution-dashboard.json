@@ -62,7 +62,9 @@
             "type": "esql",
             "query": "FROM logs-aws.entityresolution* | STATS `Total Matched Records` = SUM(`aws.entityresolution.matched_record_count`)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Total Matched Records" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Total Matched Records" }
+          ]
         }
       }
     },
@@ -143,10 +145,26 @@
           },
           "metrics": [
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
-            { "operation": "value", "column": "aws.entityresolution.matching_workflow_name", "label": "Workflow Name" },
-            { "operation": "value", "column": "aws.entityresolution.job_status", "label": "Job Status" },
-            { "operation": "value", "column": "aws.entityresolution.input_record_count", "label": "Input Records" },
-            { "operation": "value", "column": "aws.entityresolution.matched_record_count", "label": "Matched Records" }
+            {
+              "operation": "value",
+              "column": "aws.entityresolution.matching_workflow_name",
+              "label": "Workflow Name"
+            },
+            {
+              "operation": "value",
+              "column": "aws.entityresolution.job_status",
+              "label": "Job Status"
+            },
+            {
+              "operation": "value",
+              "column": "aws.entityresolution.input_record_count",
+              "label": "Input Records"
+            },
+            {
+              "operation": "value",
+              "column": "aws.entityresolution.matched_record_count",
+              "label": "Matched Records"
+            }
           ],
           "rows": []
         }

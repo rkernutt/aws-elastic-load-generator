@@ -62,7 +62,9 @@
             "type": "esql",
             "query": "FROM logs-aws.codecatalyst* | WHERE `aws.codecatalyst.dev_environment_status` == \"RUNNING\" | STATS `Active Dev Environments` = COUNT()"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Active Dev Environments" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Active Dev Environments" }
+          ]
         }
       }
     },
@@ -140,9 +142,21 @@
           },
           "metrics": [
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
-            { "operation": "value", "column": "aws.codecatalyst.space_name", "label": "Space Name" },
-            { "operation": "value", "column": "aws.codecatalyst.project_name", "label": "Project Name" },
-            { "operation": "value", "column": "aws.codecatalyst.workflow_run_status", "label": "Run Status" }
+            {
+              "operation": "value",
+              "column": "aws.codecatalyst.space_name",
+              "label": "Space Name"
+            },
+            {
+              "operation": "value",
+              "column": "aws.codecatalyst.project_name",
+              "label": "Project Name"
+            },
+            {
+              "operation": "value",
+              "column": "aws.codecatalyst.workflow_run_status",
+              "label": "Run Status"
+            }
           ],
           "rows": []
         }

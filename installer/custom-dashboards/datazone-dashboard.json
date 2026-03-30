@@ -30,7 +30,9 @@
             "type": "esql",
             "query": "FROM logs-aws.datazone* | WHERE `aws.datazone.subscription_status` == \"REJECTED\" | STATS `Rejected Subscriptions` = COUNT()"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Rejected Subscriptions" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Rejected Subscriptions" }
+          ]
         }
       }
     },
@@ -142,7 +144,11 @@
             { "operation": "value", "column": "@timestamp", "label": "Timestamp" },
             { "operation": "value", "column": "aws.datazone.domain_name", "label": "Domain Name" },
             { "operation": "value", "column": "aws.datazone.asset_type", "label": "Asset Type" },
-            { "operation": "value", "column": "aws.datazone.subscription_status", "label": "Subscription Status" }
+            {
+              "operation": "value",
+              "column": "aws.datazone.subscription_status",
+              "label": "Subscription Status"
+            }
           ],
           "rows": []
         }

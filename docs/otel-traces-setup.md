@@ -24,11 +24,11 @@ Accept defaults for all settings. The integration creates the required data stre
 
 Lambda and EMR both send trace data via **OTLP** (the OTel wire protocol). You need a destination that accepts OTLP:
 
-| Option | When to use | OTLP endpoint format |
-|--------|------------|----------------------|
-| **Elastic APM Server** (bundled with Fleet/Cloud) | All deployments | `https://<kibana-host>:8200` |
-| **Elastic Cloud APM endpoint** | Elastic Cloud only | Available in Cloud console → Integrations → APM |
-| **OTel Collector** (self-managed) | When you need buffering, sampling, or fan-out | Your collector's gRPC/HTTP port |
+| Option                                            | When to use                                   | OTLP endpoint format                            |
+| ------------------------------------------------- | --------------------------------------------- | ----------------------------------------------- |
+| **Elastic APM Server** (bundled with Fleet/Cloud) | All deployments                               | `https://<kibana-host>:8200`                    |
+| **Elastic Cloud APM endpoint**                    | Elastic Cloud only                            | Available in Cloud console → Integrations → APM |
+| **OTel Collector** (self-managed)                 | When you need buffering, sampling, or fan-out | Your collector's gRPC/HTTP port                 |
 
 Retrieve your APM Server URL and secret token (or API key) from:
 
@@ -47,21 +47,21 @@ The Elastic Distribution of OpenTelemetry (EDOT) Lambda layers are the recommend
 
 **EDOT layers (Elastic-managed):**
 
-| Runtime | Layer ARN (eu-west-2) |
-|---------|----------------------|
-| Node.js 18.x / 20.x | `arn:aws:lambda:eu-west-2:267093732750:layer:elastic-otel-node-x86_64:5` |
-| Python 3.11 / 3.12 | `arn:aws:lambda:eu-west-2:267093732750:layer:elastic-otel-python-x86_64:5` |
-| Java 11 / 17 / 21 | `arn:aws:lambda:eu-west-2:267093732750:layer:elastic-otel-java-x86_64:5` |
+| Runtime             | Layer ARN (eu-west-2)                                                      |
+| ------------------- | -------------------------------------------------------------------------- |
+| Node.js 18.x / 20.x | `arn:aws:lambda:eu-west-2:267093732750:layer:elastic-otel-node-x86_64:5`   |
+| Python 3.11 / 3.12  | `arn:aws:lambda:eu-west-2:267093732750:layer:elastic-otel-python-x86_64:5` |
+| Java 11 / 17 / 21   | `arn:aws:lambda:eu-west-2:267093732750:layer:elastic-otel-java-x86_64:5`   |
 
 > Replace `eu-west-2` with your function's region. Full layer ARN lists for all regions: [ela.st/edot-lambda-layers](https://ela.st/edot-lambda-layers)
 
 **ADOT layers (AWS-managed alternative):**
 
-| Runtime | Layer ARN (eu-west-2) |
-|---------|----------------------|
+| Runtime | Layer ARN (eu-west-2)                                                  |
+| ------- | ---------------------------------------------------------------------- |
 | Node.js | `arn:aws:lambda:eu-west-2:901920570463:layer:aws-otel-nodejs-x86_64:5` |
-| Python | `arn:aws:lambda:eu-west-2:901920570463:layer:aws-otel-python-x86_64:5` |
-| Java | `arn:aws:lambda:eu-west-2:901920570463:layer:aws-otel-java-x86_64:5` |
+| Python  | `arn:aws:lambda:eu-west-2:901920570463:layer:aws-otel-python-x86_64:5` |
+| Java    | `arn:aws:lambda:eu-west-2:901920570463:layer:aws-otel-java-x86_64:5`   |
 
 Add the layer via AWS CLI:
 
@@ -136,14 +136,14 @@ Invoke the function once, then check **Kibana → Observability → APM → Serv
 
 The EDOT/ADOT Lambda layer auto-instruments the following without code changes:
 
-| SDK call | Span type | Span name example |
-|----------|-----------|------------------|
-| DynamoDB GetItem / PutItem / Query | `db` / `dynamodb` | `DynamoDB.GetItem` |
-| S3 GetObject / PutObject | `storage` / `s3` | `S3.GetObject` |
-| SQS SendMessage / ReceiveMessage | `messaging` / `sqs` | `SQS.SendMessage` |
-| SNS Publish | `messaging` / `sns` | `SNS.Publish` |
-| Secrets Manager GetSecretValue | `external` / `aws` | `SecretsManager.GetSecretValue` |
-| HTTP/HTTPS outbound calls | `external` / `http` | `GET https://api.example.com` |
+| SDK call                           | Span type           | Span name example               |
+| ---------------------------------- | ------------------- | ------------------------------- |
+| DynamoDB GetItem / PutItem / Query | `db` / `dynamodb`   | `DynamoDB.GetItem`              |
+| S3 GetObject / PutObject           | `storage` / `s3`    | `S3.GetObject`                  |
+| SQS SendMessage / ReceiveMessage   | `messaging` / `sqs` | `SQS.SendMessage`               |
+| SNS Publish                        | `messaging` / `sns` | `SNS.Publish`                   |
+| Secrets Manager GetSecretValue     | `external` / `aws`  | `SecretsManager.GetSecretValue` |
+| HTTP/HTTPS outbound calls          | `external` / `http` | `GET https://api.example.com`   |
 
 ### Cold start visibility
 
@@ -201,7 +201,7 @@ The `-javaagent` JVM flag must be added to both the **driver** and **executor** 
   {
     "Classification": "spark-defaults",
     "Properties": {
-      "spark.driver.extraJavaOptions":   "-javaagent:/opt/edot/elastic-otel-javaagent.jar",
+      "spark.driver.extraJavaOptions": "-javaagent:/opt/edot/elastic-otel-javaagent.jar",
       "spark.executor.extraJavaOptions": "-javaagent:/opt/edot/elastic-otel-javaagent.jar"
     }
   }
@@ -227,14 +227,14 @@ spark-submit \
 
 OTel configuration is passed via environment variables. For EMR, these are set per-role (`driverEnv` vs `executorEnv`):
 
-| Variable | Value | Scope |
-|----------|-------|-------|
-| `OTEL_SERVICE_NAME` | Your Spark app name, e.g. `etl-daily-orders` | Driver + Executor |
-| `OTEL_EXPORTER_OTLP_ENDPOINT` | `https://your-apm-server:8200` | Driver + Executor |
-| `OTEL_EXPORTER_OTLP_HEADERS` | `Authorization=Bearer <secret-token>` | Driver + Executor |
-| `OTEL_RESOURCE_ATTRIBUTES` | `deployment.environment=production,cloud.provider=aws` | Driver + Executor |
-| `OTEL_TRACES_SAMPLER` | `parentbased_traceidratio` | Driver + Executor |
-| `OTEL_TRACES_SAMPLER_ARG` | `0.1` (10%) — see sampling note below | Driver + Executor |
+| Variable                      | Value                                                  | Scope             |
+| ----------------------------- | ------------------------------------------------------ | ----------------- |
+| `OTEL_SERVICE_NAME`           | Your Spark app name, e.g. `etl-daily-orders`           | Driver + Executor |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | `https://your-apm-server:8200`                         | Driver + Executor |
+| `OTEL_EXPORTER_OTLP_HEADERS`  | `Authorization=Bearer <secret-token>`                  | Driver + Executor |
+| `OTEL_RESOURCE_ATTRIBUTES`    | `deployment.environment=production,cloud.provider=aws` | Driver + Executor |
+| `OTEL_TRACES_SAMPLER`         | `parentbased_traceidratio`                             | Driver + Executor |
+| `OTEL_TRACES_SAMPLER_ARG`     | `0.1` (10%) — see sampling note below                  | Driver + Executor |
 
 Add these to the `spark-defaults` classification:
 
@@ -243,20 +243,20 @@ Add these to the `spark-defaults` classification:
   {
     "Classification": "spark-defaults",
     "Properties": {
-      "spark.driver.extraJavaOptions":   "-javaagent:/opt/edot/elastic-otel-javaagent.jar",
+      "spark.driver.extraJavaOptions": "-javaagent:/opt/edot/elastic-otel-javaagent.jar",
       "spark.executor.extraJavaOptions": "-javaagent:/opt/edot/elastic-otel-javaagent.jar",
-      "spark.driverEnv.OTEL_SERVICE_NAME":                 "etl-daily-orders",
-      "spark.driverEnv.OTEL_EXPORTER_OTLP_ENDPOINT":       "https://your-apm-server:8200",
-      "spark.driverEnv.OTEL_EXPORTER_OTLP_HEADERS":        "Authorization=Bearer abc123",
-      "spark.driverEnv.OTEL_RESOURCE_ATTRIBUTES":          "deployment.environment=production,cloud.provider=aws",
-      "spark.driverEnv.OTEL_TRACES_SAMPLER":               "parentbased_traceidratio",
-      "spark.driverEnv.OTEL_TRACES_SAMPLER_ARG":           "0.1",
-      "spark.executorEnv.OTEL_SERVICE_NAME":               "etl-daily-orders",
-      "spark.executorEnv.OTEL_EXPORTER_OTLP_ENDPOINT":     "https://your-apm-server:8200",
-      "spark.executorEnv.OTEL_EXPORTER_OTLP_HEADERS":      "Authorization=Bearer abc123",
-      "spark.executorEnv.OTEL_RESOURCE_ATTRIBUTES":        "deployment.environment=production,cloud.provider=aws",
-      "spark.executorEnv.OTEL_TRACES_SAMPLER":             "parentbased_traceidratio",
-      "spark.executorEnv.OTEL_TRACES_SAMPLER_ARG":         "0.1"
+      "spark.driverEnv.OTEL_SERVICE_NAME": "etl-daily-orders",
+      "spark.driverEnv.OTEL_EXPORTER_OTLP_ENDPOINT": "https://your-apm-server:8200",
+      "spark.driverEnv.OTEL_EXPORTER_OTLP_HEADERS": "Authorization=Bearer abc123",
+      "spark.driverEnv.OTEL_RESOURCE_ATTRIBUTES": "deployment.environment=production,cloud.provider=aws",
+      "spark.driverEnv.OTEL_TRACES_SAMPLER": "parentbased_traceidratio",
+      "spark.driverEnv.OTEL_TRACES_SAMPLER_ARG": "0.1",
+      "spark.executorEnv.OTEL_SERVICE_NAME": "etl-daily-orders",
+      "spark.executorEnv.OTEL_EXPORTER_OTLP_ENDPOINT": "https://your-apm-server:8200",
+      "spark.executorEnv.OTEL_EXPORTER_OTLP_HEADERS": "Authorization=Bearer abc123",
+      "spark.executorEnv.OTEL_RESOURCE_ATTRIBUTES": "deployment.environment=production,cloud.provider=aws",
+      "spark.executorEnv.OTEL_TRACES_SAMPLER": "parentbased_traceidratio",
+      "spark.executorEnv.OTEL_TRACES_SAMPLER_ARG": "0.1"
     }
   }
 ]
@@ -354,13 +354,13 @@ cluster = emr.CfnCluster(
 
 Once the agent is attached, the OTel Spark instrumentation library (bundled in the EDOT Java agent) captures the following automatically:
 
-| Spark activity | Span type | Attributes captured |
-|----------------|-----------|-------------------|
-| Spark Job execution | `compute` / `spark` (root transaction) | Job ID, job name, duration, success/failure |
-| Spark Stage | `compute` / `spark` (child span) | Stage ID, attempt, input records, output records, shuffle bytes written |
-| SparkSQL query | `db` / `spark_sql` (child span) | SQL statement (truncated), execution plan hash, query duration |
-| JDBC reads (RDS, Redshift) | `db` / `postgresql` or `redshift` | SQL statement, row count |
-| S3 reads/writes via Hadoop | `storage` / `s3` | Bucket, key prefix, bytes transferred |
+| Spark activity             | Span type                              | Attributes captured                                                     |
+| -------------------------- | -------------------------------------- | ----------------------------------------------------------------------- |
+| Spark Job execution        | `compute` / `spark` (root transaction) | Job ID, job name, duration, success/failure                             |
+| Spark Stage                | `compute` / `spark` (child span)       | Stage ID, attempt, input records, output records, shuffle bytes written |
+| SparkSQL query             | `db` / `spark_sql` (child span)        | SQL statement (truncated), execution plan hash, query duration          |
+| JDBC reads (RDS, Redshift) | `db` / `postgresql` or `redshift`      | SQL statement, row count                                                |
+| S3 reads/writes via Hadoop | `storage` / `s3`                       | Bucket, key prefix, bytes transferred                                   |
 
 ### Sampling for EMR — important
 
@@ -451,30 +451,30 @@ FROM traces-apm-default
 
 ## Troubleshooting
 
-| Symptom | Likely cause | Fix |
-|---------|-------------|-----|
-| No services appear in APM UI | APM integration not installed | Install via Fleet (see Prerequisites) |
-| Bulk writes return 400 mapping error | Index template missing | Install APM integration first |
-| Lambda traces appear but no child spans | Wrong `AWS_LAMBDA_EXEC_WRAPPER` value | Use `/opt/otel-handler` (EDOT) or `/opt/otel-proxy-handler` (ADOT) |
-| EMR job runs but no traces appear | Bootstrap action failed silently | SSH to master node and check `/var/log/bootstrap-actions/` |
-| EMR traces appear only for driver, not executors | `spark.executor.extraJavaOptions` not set | Add executor config to `spark-defaults` classification |
-| Traces arrive but `service.name` is wrong | `OTEL_SERVICE_NAME` not set on executors | Set `spark.executorEnv.OTEL_SERVICE_NAME` explicitly |
-| High volume of spans filling APM storage | Sampling not configured on EMR | Set `OTEL_TRACES_SAMPLER=parentbased_traceidratio` + `OTEL_TRACES_SAMPLER_ARG=0.1` |
-| Authentication errors (401) from APM Server | Secret token expired or incorrect | Regenerate token in Fleet → APM integration settings |
+| Symptom                                          | Likely cause                              | Fix                                                                                |
+| ------------------------------------------------ | ----------------------------------------- | ---------------------------------------------------------------------------------- |
+| No services appear in APM UI                     | APM integration not installed             | Install via Fleet (see Prerequisites)                                              |
+| Bulk writes return 400 mapping error             | Index template missing                    | Install APM integration first                                                      |
+| Lambda traces appear but no child spans          | Wrong `AWS_LAMBDA_EXEC_WRAPPER` value     | Use `/opt/otel-handler` (EDOT) or `/opt/otel-proxy-handler` (ADOT)                 |
+| EMR job runs but no traces appear                | Bootstrap action failed silently          | SSH to master node and check `/var/log/bootstrap-actions/`                         |
+| EMR traces appear only for driver, not executors | `spark.executor.extraJavaOptions` not set | Add executor config to `spark-defaults` classification                             |
+| Traces arrive but `service.name` is wrong        | `OTEL_SERVICE_NAME` not set on executors  | Set `spark.executorEnv.OTEL_SERVICE_NAME` explicitly                               |
+| High volume of spans filling APM storage         | Sampling not configured on EMR            | Set `OTEL_TRACES_SAMPLER=parentbased_traceidratio` + `OTEL_TRACES_SAMPLER_ARG=0.1` |
+| Authentication errors (401) from APM Server      | Secret token expired or incorrect         | Regenerate token in Fleet → APM integration settings                               |
 
 ---
 
 ## Version compatibility
 
-| Component | Minimum version |
-|-----------|----------------|
-| Elastic Stack | 8.6 (GA APM OTel support) |
+| Component                | Minimum version                           |
+| ------------------------ | ----------------------------------------- |
+| Elastic Stack            | 8.6 (GA APM OTel support)                 |
 | Elastic Cloud Serverless | All versions (OTel supported from launch) |
-| EDOT Java agent | 1.0.0 |
-| ADOT Lambda layer | 1.30.x |
-| EMR release | 6.9.0 (Spark 3.3.x) or later |
-| EMR 7.x | 7.0.0+ (Spark 3.5.x) — recommended |
-| Java runtime (EMR) | Java 11 minimum, Java 21 recommended |
+| EDOT Java agent          | 1.0.0                                     |
+| ADOT Lambda layer        | 1.30.x                                    |
+| EMR release              | 6.9.0 (Spark 3.3.x) or later              |
+| EMR 7.x                  | 7.0.0+ (Spark 3.5.x) — recommended        |
+| Java runtime (EMR)       | Java 11 minimum, Java 21 recommended      |
 
 ---
 
@@ -499,6 +499,7 @@ If API Gateway X-Ray tracing is enabled, the ADOT layer bridges X-Ray segments i
 **AWS Console:** API Gateway → your API → Stages → your stage → Logs/Tracing → Enable X-Ray Tracing
 
 **AWS CLI:**
+
 ```bash
 aws apigateway update-stage \
   --rest-api-id <api-id> \
@@ -509,6 +510,7 @@ aws apigateway update-stage \
 ### What the generator simulates
 
 The `apigateway` trace generator produces:
+
 - One transaction per API request (type: `request`) with HTTP method, path, status code, and API stage
 - One child Lambda-invoke span
 - 1–3 downstream SDK spans (DynamoDB, S3, SQS) from the backing Lambda
@@ -537,9 +539,7 @@ Add a sidecar container to your ECS task definition that runs the OpenTelemetry 
 {
   "name": "otel-collector",
   "image": "public.ecr.aws/aws-observability/aws-otel-collector:latest",
-  "environment": [
-    { "name": "AOT_CONFIG_CONTENT", "value": "..." }
-  ],
+  "environment": [{ "name": "AOT_CONFIG_CONTENT", "value": "..." }],
   "portMappings": [{ "containerPort": 4317, "protocol": "tcp" }]
 }
 ```
@@ -556,10 +556,10 @@ OTEL_RESOURCE_ATTRIBUTES=deployment.environment=production
 
 For language-specific EDOT agents on ECS:
 
-| Language | Agent image / package |
-|----------|----------------------|
-| Node.js  | `@elastic/opentelemetry-node` npm package |
-| Python   | `elastic-opentelemetry` pip package |
+| Language | Agent image / package                              |
+| -------- | -------------------------------------------------- |
+| Node.js  | `@elastic/opentelemetry-node` npm package          |
+| Python   | `elastic-opentelemetry` pip package                |
 | Java     | `elastic-otel-javaagent.jar` via `-javaagent` flag |
 
 ### Task role IAM permissions
@@ -577,6 +577,7 @@ ECS tasks communicating with AWS services (DynamoDB, S3, SQS) need IAM task role
 ### What the generator simulates
 
 The `ecs` trace generator produces:
+
 - One transaction per HTTP request to the service
 - 2–4 AWS SDK child spans (DynamoDB, S3, SQS, ElastiCache, Secrets Manager)
 - All docs carry ECS-specific labels: `container_id`, `task_id` (full ARN), `cluster_name`, `task_definition`
@@ -625,6 +626,7 @@ aws stepfunctions update-state-machine \
 ### What the generator simulates
 
 The `stepfunctions` trace generator produces:
+
 - One root transaction for the execution (type: `workflow`)
 - One span per state: Lambda invocations, S3/DynamoDB operations, SageMaker endpoints, Bedrock calls
 - Labels include `execution_arn`, `state_machine_arn`, `execution_status` (SUCCEEDED/FAILED), and per-span `state_type` and `lambda_function_name`
@@ -685,6 +687,7 @@ Supported annotation values: `inject-java`, `inject-nodejs`, `inject-python`, `i
 ### What the generator simulates
 
 The `eks` trace generator produces:
+
 - HTTP request transactions for web services (Java, Python, Node.js)
 - Kafka consumer transactions for event-driven services (type: `messaging`)
 - AWS SDK child spans (DynamoDB, S3, SQS, ElastiCache, SageMaker, Bedrock)
@@ -744,6 +747,7 @@ with tracer.start_as_current_span("process-message", context=context):
 ### What the generator simulates
 
 The `sqs` trace generator produces:
+
 - One transaction per batch poll (type: `messaging`, name `"{queue} process"`)
 - Processing spans for each message
 - Labels: `queue_name`, `queue_url`, `message_count`, `approximate_first_receive_delay_seconds`
@@ -801,6 +805,7 @@ for record in event["Records"]:
 ### What the generator simulates
 
 The `kinesis` trace generator produces:
+
 - One transaction per shard poll covering a batch of records
 - Labels: `stream_name`, `stream_arn`, `shard_id`, `sequence_number_range`, `record_count`, `iterator_age_ms`
 
@@ -822,6 +827,7 @@ No DynamoDB-specific configuration is needed beyond instrumenting the calling se
 ### What the generator simulates
 
 The `dynamodb` trace generator produces:
+
 - One root transaction representing a service request that drives DynamoDB traffic
 - 3–7 DynamoDB operation spans (GetItem, PutItem, Query, UpdateItem, BatchGetItem, Scan)
 - Labels: `table_name`, `consumed_read_capacity_units`, `consumed_write_capacity_units`
@@ -834,13 +840,14 @@ RDS traces capture individual SQL queries as child spans under the service trans
 
 ### Instrumentation
 
-| Language | Library | Auto-instrumented |
-|----------|---------|-------------------|
-| Node.js  | `@opentelemetry/instrumentation-pg` (PostgreSQL) | Yes, with EDOT |
-| Python   | `opentelemetry-instrumentation-psycopg2` | Yes, with EDOT |
-| Java     | EDOT Java agent — JDBC auto-instrumentation | Yes, automatic |
+| Language | Library                                          | Auto-instrumented |
+| -------- | ------------------------------------------------ | ----------------- |
+| Node.js  | `@opentelemetry/instrumentation-pg` (PostgreSQL) | Yes, with EDOT    |
+| Python   | `opentelemetry-instrumentation-psycopg2`         | Yes, with EDOT    |
+| Java     | EDOT Java agent — JDBC auto-instrumentation      | Yes, automatic    |
 
 Each SQL statement generates a span with:
+
 - `span.type: db`
 - `span.subtype: postgresql` or `mysql`
 - `span.db.statement`: the SQL query text
@@ -857,6 +864,7 @@ jdbc:postgresql://<cluster>.cluster-<id>.<region>.rds.amazonaws.com:5432/<databa
 ### What the generator simulates
 
 The `rds` trace generator produces:
+
 - One root transaction per service operation
 - BEGIN/COMMIT control spans for transactional services (1–5ms)
 - 3–8 SQL query spans covering SELECT, INSERT, UPDATE, DELETE
@@ -912,6 +920,7 @@ response = bedrock.invoke_model(
 ```
 
 The span carries:
+
 - `gen_ai.system: aws.bedrock`
 - `gen_ai.request.model`: the model ID
 - `gen_ai.usage.input_tokens` / `gen_ai.usage.output_tokens`
@@ -930,6 +939,7 @@ Transaction: rag-query-handler
 ### What the generator simulates
 
 The `bedrock` trace generator produces:
+
 - One root transaction per application request (type: `gen_ai`)
 - For RAG patterns: a knowledge base retrieval span + a model invocation span
 - For guardrail patterns: model invocation + guardrail evaluation span
@@ -961,11 +971,11 @@ Client HTTP POST /orders
 
 **What to instrument:**
 
-| Service | Method |
-|---------|--------|
-| API Gateway | Lambda Powertools Tracer or ADOT X-Ray bridge (enabled per stage) |
-| order-processor Lambda | EDOT Python layer — auto-instruments DynamoDB and SQS SDK calls |
-| notification-sender Lambda | EDOT Python layer — auto-instruments SES SDK calls |
+| Service                    | Method                                                            |
+| -------------------------- | ----------------------------------------------------------------- |
+| API Gateway                | Lambda Powertools Tracer or ADOT X-Ray bridge (enabled per stage) |
+| order-processor Lambda     | EDOT Python layer — auto-instruments DynamoDB and SQS SDK calls   |
+| notification-sender Lambda | EDOT Python layer — auto-instruments SES SDK calls                |
 
 **Trace propagation:** The EDOT/ADOT Lambda layer reads `traceparent` from the Lambda event automatically when triggered by API Gateway or SQS. No code changes are required.
 
@@ -989,9 +999,9 @@ Client HTTP POST /inference
 
 **What to instrument:**
 
-| Service | Method |
-|---------|--------|
-| API Gateway | Lambda Powertools Tracer or ADOT X-Ray bridge |
+| Service                 | Method                                                               |
+| ----------------------- | -------------------------------------------------------------------- |
+| API Gateway             | Lambda Powertools Tracer or ADOT X-Ray bridge                        |
 | inference-router Lambda | EDOT Python layer — auto-instruments S3, Bedrock, DynamoDB SDK calls |
 
 **GenAI span fields:** The Bedrock span carries `gen_ai.system`, `gen_ai.request.model`, `gen_ai.usage.input_tokens`, and `gen_ai.usage.output_tokens` per the OTel GenAI semantic conventions.
@@ -1017,14 +1027,15 @@ Kinesis shard poll                         [transaction: messaging]
 
 **What to instrument:**
 
-| Service | Method |
-|---------|--------|
-| stream-processor Lambda | EDOT Node.js layer — auto-instruments Kinesis, S3, Glue SDK calls |
-| EMR Spark job | EDOT Java agent via bootstrap action (`-javaagent:/opt/aws/otel/elastic-otel-javaagent.jar`) — see EMR section |
+| Service                 | Method                                                                                                         |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------- |
+| stream-processor Lambda | EDOT Node.js layer — auto-instruments Kinesis, S3, Glue SDK calls                                              |
+| EMR Spark job           | EDOT Java agent via bootstrap action (`-javaagent:/opt/aws/otel/elastic-otel-javaagent.jar`) — see EMR section |
 
 **Trace continuity — Glue → EMR:** Glue does not natively propagate `traceparent` to the Spark executor JVMs. To maintain trace continuity:
 
 1. Pass the `traceparent` as a Spark configuration property in `StartJobRun`:
+
    ```python
    glue.start_job_run(
        JobName=job_name,
@@ -1066,13 +1077,13 @@ EventBridge rule fires                    [transaction: messaging]
 
 **What to instrument:**
 
-| Service | Method |
-|---------|--------|
-| EventBridge rule target | Lambda Powertools Tracer — generates root transaction |
-| Step Functions | Enable X-Ray tracing on the state machine (bridges into OTel via ADOT) |
-| order-validator Lambda | EDOT Python layer |
-| payment-processor Lambda | EDOT Java layer — auto-instruments PostgreSQL JDBC |
-| notification-sender Lambda | EDOT Python layer |
+| Service                    | Method                                                                 |
+| -------------------------- | ---------------------------------------------------------------------- |
+| EventBridge rule target    | Lambda Powertools Tracer — generates root transaction                  |
+| Step Functions             | Enable X-Ray tracing on the state machine (bridges into OTel via ADOT) |
+| order-validator Lambda     | EDOT Python layer                                                      |
+| payment-processor Lambda   | EDOT Java layer — auto-instruments PostgreSQL JDBC                     |
+| notification-sender Lambda | EDOT Python layer                                                      |
 
 **X-Ray → OTel bridge for Step Functions:**
 
@@ -1107,16 +1118,16 @@ The ADOT Lambda layer on each invoked Lambda will pick up the X-Ray trace contex
 
 ## Related documentation
 
-| Doc | Description |
-|-----|-------------|
-| [Elastic EDOT Java](https://www.elastic.co/docs/reference/opentelemetry/edot-java) | Full EDOT Java agent reference |
-| [Elastic EDOT Lambda layers](https://www.elastic.co/docs/reference/opentelemetry/edot-lambda) | Layer ARNs for all regions and runtimes |
-| [AWS ADOT Lambda layers](https://aws-otel.github.io/docs/getting-started/lambda) | AWS-managed OTel Lambda layers |
-| [EDOT Kubernetes Operator](https://www.elastic.co/docs/reference/opentelemetry/edot-collector/k8s) | Auto-inject OTel agents into pods |
-| [OTel AWS SDK instrumentation](https://opentelemetry.io/docs/zero-code/js/aws-sdk/) | Auto-instrument AWS SDK calls |
-| [OTel GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) | GenAI span attribute reference |
-| [OTel Semantic Conventions — FaaS](https://opentelemetry.io/docs/specs/semconv/faas/faas-spans/) | Lambda span attribute reference |
-| [OTel Semantic Conventions — Spark](https://opentelemetry.io/docs/specs/semconv/database/spark/) | Spark span attribute reference |
-| [OTel Semantic Conventions — DB](https://opentelemetry.io/docs/specs/semconv/database/) | Database span attribute reference |
-| [OTel Semantic Conventions — Messaging](https://opentelemetry.io/docs/specs/semconv/messaging/) | SQS/Kinesis span attribute reference |
-| [VERSION-HISTORY.md](VERSION-HISTORY.md) | Load generator release notes |
+| Doc                                                                                                | Description                             |
+| -------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| [Elastic EDOT Java](https://www.elastic.co/docs/reference/opentelemetry/edot-java)                 | Full EDOT Java agent reference          |
+| [Elastic EDOT Lambda layers](https://www.elastic.co/docs/reference/opentelemetry/edot-lambda)      | Layer ARNs for all regions and runtimes |
+| [AWS ADOT Lambda layers](https://aws-otel.github.io/docs/getting-started/lambda)                   | AWS-managed OTel Lambda layers          |
+| [EDOT Kubernetes Operator](https://www.elastic.co/docs/reference/opentelemetry/edot-collector/k8s) | Auto-inject OTel agents into pods       |
+| [OTel AWS SDK instrumentation](https://opentelemetry.io/docs/zero-code/js/aws-sdk/)                | Auto-instrument AWS SDK calls           |
+| [OTel GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/)             | GenAI span attribute reference          |
+| [OTel Semantic Conventions — FaaS](https://opentelemetry.io/docs/specs/semconv/faas/faas-spans/)   | Lambda span attribute reference         |
+| [OTel Semantic Conventions — Spark](https://opentelemetry.io/docs/specs/semconv/database/spark/)   | Spark span attribute reference          |
+| [OTel Semantic Conventions — DB](https://opentelemetry.io/docs/specs/semconv/database/)            | Database span attribute reference       |
+| [OTel Semantic Conventions — Messaging](https://opentelemetry.io/docs/specs/semconv/messaging/)    | SQS/Kinesis span attribute reference    |
+| [VERSION-HISTORY.md](VERSION-HISTORY.md)                                                           | Load generator release notes            |
