@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "appconfig"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "Application": "MobileAPI",
-      "Environment": "qa"
+      "Application": "WebApp",
+      "Environment": "dev"
     },
     "appconfig": {
-      "application_name": "MobileAPI",
-      "environment_name": "qa",
-      "configuration_profile": "AppSettings",
-      "deployment_number": 146,
-      "deployment_strategy": "Linear50PercentEvery30Seconds",
+      "application_name": "WebApp",
+      "environment_name": "dev",
+      "configuration_profile": "LaunchDarkly",
+      "deployment_number": 244,
+      "deployment_strategy": "Canary10Percent20Minutes",
       "growth_factor": 33,
       "percentage_complete": 100,
-      "state": "VALIDATING"
+      "state": "DEPLOYING"
     }
   },
   "event": {
-    "action": "ValidateConfiguration",
+    "action": "RollbackDeployment",
     "outcome": "success",
     "category": [
       "configuration"
@@ -36,7 +36,7 @@
     "dataset": "aws.appconfig",
     "provider": "appconfig.amazonaws.com"
   },
-  "message": "AppConfig MobileAPI/qa: AppSettings deployment #146 VALIDATING",
+  "message": "AppConfig WebApp/dev: LaunchDarkly deployment #244 DEPLOYING",
   "log": {
     "level": "info"
   }

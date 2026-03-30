@@ -1,50 +1,50 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "us-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "wavelength"
     },
-    "availability_zone": "us-east-1-wl1-bos-wlz-1",
+    "availability_zone": "us-west-2-wl1-las-wlz-1",
     "instance": {
-      "id": "i-o2beji16dd"
+      "id": "i-wb3ymbr3cf"
     }
   },
   "aws": {
     "dimensions": {
-      "WavelengthZone": "us-east-1-wl1-bos-wlz-1",
-      "InstanceId": "i-o2beji16dd",
-      "CarrierGatewayId": "cagw-rv8zxg24hxa"
+      "WavelengthZone": "us-west-2-wl1-las-wlz-1",
+      "InstanceId": "i-wb3ymbr3cf",
+      "CarrierGatewayId": "cagw-zaqj4vq9df"
     },
     "wavelength": {
-      "zone": "us-east-1-wl1-bos-wlz-1",
+      "zone": "us-west-2-wl1-las-wlz-1",
       "carrier": "Verizon",
-      "city": "Boston",
-      "instance_id": "i-o2beji16dd",
-      "instance_type": "t3.medium",
-      "carrier_gateway_id": "cagw-rv8zxg24hxa",
-      "subnet_id": "subnet-d33srqtglc",
-      "carrier_ip": "3.203.240.210",
-      "ue_ip": "14.148.40.144",
-      "bandwidth_allowance_gbps": 18,
+      "city": "Las Vegas",
+      "instance_id": "i-wb3ymbr3cf",
+      "instance_type": "t3.xlarge",
+      "carrier_gateway_id": "cagw-zaqj4vq9df",
+      "subnet_id": "subnet-fplix60j6q",
+      "carrier_ip": "219.158.234.221",
+      "ue_ip": "176.164.20.149",
+      "bandwidth_allowance_gbps": 24,
       "network": {
-        "uplink_mbps": 459.666,
-        "downlink_mbps": 908.487,
-        "latency_ms": 1.604,
-        "packet_loss_pct": 0.081
+        "uplink_mbps": 51.182,
+        "downlink_mbps": 804.301,
+        "latency_ms": 9.209,
+        "packet_loss_pct": 0.022
       }
     }
   },
   "source": {
-    "ip": "14.148.40.144"
+    "ip": "176.164.20.149"
   },
   "event": {
-    "action": "BandwidthThrottled",
+    "action": "TerminateInstances",
     "outcome": "success",
     "category": [
       "network",
@@ -52,9 +52,9 @@
     ],
     "dataset": "aws.wavelength",
     "provider": "ec2.amazonaws.com",
-    "duration": 226000000
+    "duration": 324000000
   },
-  "message": "Wavelength [Boston/Verizon] i-o2beji16dd (t3.medium) UL=460Mbps DL=908Mbps lat=1.6ms",
+  "message": "Wavelength [Las Vegas/Verizon] i-wb3ymbr3cf (t3.xlarge) UL=51Mbps DL=804Mbps lat=9.2ms",
   "log": {
     "level": "info"
   }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "eu-south-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -14,31 +14,37 @@
   "aws": {
     "dimensions": {
       "ClusterName": "session-dax",
-      "NodeId": "session-dax-b"
+      "NodeId": "session-dax-c"
     },
     "dax": {
       "cluster_name": "session-dax",
-      "node_id": "session-dax-b",
-      "operation": "BatchGetItem",
+      "node_id": "session-dax-c",
+      "operation": "BatchWriteItem",
       "cache_hit": false,
-      "item_size_bytes": 93760,
-      "request_latency_ms": 3,
-      "consumed_read_capacity_units": 3.358,
-      "table_name": "orders"
+      "item_size_bytes": 10149,
+      "request_latency_ms": 13,
+      "consumed_read_capacity_units": 2.869,
+      "table_name": "users",
+      "error_code": "ItemCollectionSizeLimitExceededException"
     }
   },
   "event": {
-    "action": "Invalidation",
-    "outcome": "success",
+    "action": "ClusterScaling",
+    "outcome": "failure",
     "category": [
       "database"
     ],
     "dataset": "aws.dax",
     "provider": "dax.amazonaws.com",
-    "duration": 3000000
+    "duration": 13000000
   },
-  "message": "DAX session-dax: BatchGetItem CACHE_MISS 3ms",
+  "message": "DAX session-dax: BatchWriteItem failed — ItemCollectionSizeLimitExceededException",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ItemCollectionSizeLimitExceededException",
+    "message": "DAX BatchWriteItem failed",
+    "type": "database"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "inspector2"
@@ -16,33 +16,35 @@
       "Severity": "HIGH"
     },
     "inspector2": {
-      "finding_id": "arn:aws:inspector2:eu-south-1:501938274650:finding/de68lwoi-dpo3-d3kk-zvdr-vej4mlj5qh",
-      "finding_type": "NETWORK_REACHABILITY",
+      "finding_id": "arn:aws:inspector2:eu-west-2:293847561023:finding/aznhnxgp-2xlc-0mcr-ok8j-ef7s41wvkem",
+      "finding_type": "CODE_VULNERABILITY",
       "finding_status": "ACTIVE",
       "severity": "HIGH",
-      "severity_score": 8.6,
+      "severity_score": 8.4,
       "exploitability": "PROOF_OF_CONCEPT",
       "resource_type": "AWS_EC2_INSTANCE",
-      "resource_id": "i-41ozwomwtmz",
-      "first_observed_at": "2026-03-15T13:21:40.756Z",
-      "last_observed_at": "2026-03-27T13:21:40.756Z",
-      "network_reachability": {
-        "protocol": "TCP",
-        "open_port_range": {
-          "begin": 80,
-          "end": 8080
-        },
-        "network_path": "sg -> vpc-peering"
+      "resource_id": "i-mid82q7zmx",
+      "first_observed_at": "2026-03-21T12:56:00.184Z",
+      "last_observed_at": "2026-03-30T12:56:00.184Z",
+      "code_vulnerability": {
+        "cwes": [
+          "CWE-287"
+        ],
+        "detector_name": "CodeGuru Detector",
+        "file_path": {
+          "name": "main.go",
+          "line_number": 214
+        }
       },
       "metrics": {
         "TotalFindings": {
-          "sum": 9
+          "sum": 347
         },
         "CriticalFindings": {
           "sum": 0
         },
         "HighFindings": {
-          "sum": 17
+          "sum": 16
         },
         "MediumFindings": {
           "sum": 0
@@ -51,7 +53,7 @@
           "sum": 0
         },
         "CoveredResources": {
-          "avg": 2945
+          "avg": 2807
         }
       }
     }
@@ -59,7 +61,7 @@
   "vulnerability": {
     "severity": "HIGH",
     "score": {
-      "base": 8.635
+      "base": 8.447
     }
   },
   "event": {
@@ -73,13 +75,13 @@
     "dataset": "aws.inspector2",
     "provider": "inspector2.amazonaws.com"
   },
-  "message": "Inspector2 [HIGH]: NETWORK_REACHABILITY detected on AWS_EC2_INSTANCE",
+  "message": "Inspector2 [HIGH]: CODE_VULNERABILITY detected on AWS_EC2_INSTANCE",
   "log": {
     "level": "error"
   },
   "error": {
-    "code": "CVE-2024-59649",
-    "message": "HIGH vulnerability: axios",
+    "code": "CVE-2020-47271",
+    "message": "HIGH vulnerability: requests",
     "type": "vulnerability"
   }
 }

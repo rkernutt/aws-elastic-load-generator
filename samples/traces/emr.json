@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "eddaf531c151ad3cfea46315c5ce5c07"
+    "id": "c667ebb7d1c78ff56f927d9023147160"
   },
   "transaction": {
-    "id": "2f6ef468b49a2f7f",
-    "name": "data-quality-checks [SPARK_SQL]",
+    "id": "bf5f5dea04f9bb54",
+    "name": "etl-daily-orders [ETL]",
     "type": "spark_job",
     "duration": {
-      "us": 840000000
+      "us": 600000000
     },
     "result": "success",
     "sampled": true,
@@ -22,8 +22,8 @@
     }
   },
   "service": {
-    "name": "data-quality-checks",
-    "environment": "production",
+    "name": "etl-daily-orders",
+    "environment": "staging",
     "version": "1.0.0",
     "language": {
       "name": "java"
@@ -34,7 +34,7 @@
     },
     "framework": {
       "name": "Spark",
-      "version": "3.5.0"
+      "version": "3.4.0"
     }
   },
   "agent": {
@@ -54,7 +54,7 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "eu-west-2",
     "account": {
       "id": "345678901234",
       "name": "dev-aws"
@@ -64,13 +64,13 @@
     }
   },
   "labels": {
-    "emr_cluster_id": "j-0EA04EA5EFA85",
-    "emr_cluster_name": "dev-aws-emr-spark_sql",
-    "emr_step_id": "s-E3A15BA19F2A1",
-    "spark_app_id": "application_1774617701018_7997",
-    "emr_version": "7.0.0",
-    "spark_version": "3.5.0",
-    "job_type": "spark_sql"
+    "emr_cluster_id": "j-2ECC0F1D926F6",
+    "emr_cluster_name": "dev-aws-emr-etl",
+    "emr_step_id": "s-4EC70F5E51030",
+    "spark_app_id": "application_1774875360412_9146",
+    "emr_version": "6.14.0",
+    "spark_version": "3.4.0",
+    "job_type": "etl"
   },
   "event": {
     "outcome": "success"

@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "820edf69342f15e407386ee75538e9fb"
+    "id": "1ce1c8ec3162ccdae48b7cdc9551b6d3"
   },
   "transaction": {
-    "id": "87572716184c335a",
-    "name": "DELETE /orders/{orderId}",
+    "id": "4314159ed682a62d",
+    "name": "GET /products/{productId}",
     "type": "request",
     "duration": {
-      "us": 849000
+      "us": 1026000
     },
     "result": "HTTP 2xx",
     "sampled": true,
@@ -23,24 +23,24 @@
   },
   "http": {
     "request": {
-      "method": "DELETE"
+      "method": "GET"
     },
     "response": {
-      "status_code": 204
+      "status_code": 200
     }
   },
   "url": {
-    "path": "/orders/7114d0be",
-    "domain": "a1b2c3d4e5.execute-api.ap-southeast-3.amazonaws.com"
+    "path": "/products/8b012278",
+    "domain": "c3d4e5f6a7.execute-api.ap-southeast-2.amazonaws.com"
   },
   "labels": {
-    "api_id": "a1b2c3d4e5",
+    "api_id": "c3d4e5f6a7",
     "api_type": "REST",
-    "stage": "prod"
+    "stage": "v1"
   },
   "service": {
-    "name": "api-orders",
-    "environment": "production",
+    "name": "api-products",
+    "environment": "staging",
     "version": "1.0.0",
     "language": {
       "name": "nodejs"
@@ -70,7 +70,7 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "ap-southeast-2",
     "account": {
       "id": "234567890123",
       "name": "staging-aws"

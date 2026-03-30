@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "eu-north-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "medialive"
@@ -13,49 +13,54 @@
   },
   "aws": {
     "dimensions": {
-      "ChannelId": "KHGHXA1IWY",
+      "ChannelId": "KWQ3TQ21WL",
       "Pipeline": "PIPELINE_0"
     },
     "medialive": {
-      "channel_id": "KHGHXA1IWY",
-      "channel_name": "concert-stream",
-      "channel_state": "RUNNING",
+      "channel_id": "KWQ3TQ21WL",
+      "channel_name": "live-news",
+      "channel_state": "ERROR",
       "pipeline": "PIPELINE_0",
-      "input_type": "RTMP_PUSH",
+      "input_type": "MEDIACONNECT",
       "output_type": "RTMP",
-      "video_bitrate_kbps": 6930,
-      "input_loss_frames": 0,
-      "encoder_fps": 30,
+      "video_bitrate_kbps": 1283,
+      "input_loss_frames": 620,
+      "encoder_fps": 11,
       "metrics": {
         "ActiveAlerts": {
-          "sum": 0
+          "sum": 4
         },
         "ChannelInputErrorSeconds": {
-          "sum": 0
+          "sum": 207
         },
         "NetworkOut": {
-          "avg": 37425036
+          "avg": 33997290
         },
         "OutputLossSeconds": {
-          "sum": 0
+          "sum": 12
         },
         "FillMsec": {
-          "sum": 0
+          "sum": 260
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.medialive",
     "provider": "medialive.amazonaws.com",
-    "duration": 3375000000
+    "duration": 2547000000
   },
-  "message": "Input switch to backup completed",
+  "message": "Audio track desync detected",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "MediaLiveError",
+    "message": "Audio track desync detected",
+    "type": "media"
   }
 }

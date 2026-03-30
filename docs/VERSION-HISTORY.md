@@ -8,6 +8,9 @@
 
 - **Metrics re-run errors fixed** — `version_conflict_engine_exception` responses from TSDS (`metrics-aws.*`) data streams are no longer counted as errors. When you run metrics mode a second time over the same time window, duplicate documents are silently skipped and shown in the activity log as `↷ batch N: X indexed, Y skipped (already exists)`. Only genuine indexing failures increment the error counter.
 - **Metrics volume estimate clarified** — The pre-run estimate below the Ship button now reads `~N calls across X services — actual doc count varies by service (dimensional metrics generate multiple docs per call)` instead of the misleading `~N documents`. Services like Lambda, RDS, ECS, and others generate arrays of multiple metric documents per generator call (one per function/instance/cluster), so the actual indexed doc count is always higher than the call count shown.
+- **Metrics selector & version alignment** — `package.json` version set to **11.2.0**. `METRICS_SUPPORTED_SERVICE_IDS` updated so Metrics mode includes all **150** services with entries in `METRICS_GENERATORS` (App Mesh, Client VPN, Cloud Map, Outposts, Verified Permissions, DAX, Chime SDK Voice, Elastic DRS). README usage and reference tables use **185** / **150** / **20** for logs / metrics / traces.
+- **ESM package & proxy** — `package.json` sets **`"type": "module"`**. The Elasticsearch bulk proxy is **`proxy.cjs`** (CommonJS) so it runs with `require` in all environments; Docker/supervisor use `node /app/proxy.cjs`.
+- **Sample coverage check** — **`npm run samples:verify`** ensures `samples/logs/`, `samples/metrics/`, and `samples/traces/` each contain exactly one JSON file per `GENERATORS` / `METRICS_GENERATORS` / `TRACE_GENERATORS` key.
 
 ---
 
@@ -184,7 +187,7 @@
 
 - **Input validation** — Elasticsearch URL, API key, and index prefix are validated on blur and before Ship. Invalid fields show inline errors and disable the Ship button until fixed. URL must be HTTPS with a proper hostname; API key has minimum length and character rules; index prefix allows only letters, numbers, hyphens, and underscores.
 - **React error boundary** — The app is wrapped in an error boundary that catches rendering errors and shows a fallback UI with a "Try again" action instead of a blank screen.
-- **Proxy timeout and retries** — The Node.js bulk proxy (`proxy.js`) uses a configurable request timeout (default 120s via `PROXY_REQUEST_TIMEOUT_MS`) and retries with exponential backoff (up to 3 retries) on 5xx, timeouts, and connection errors.
+- **Proxy timeout and retries** — The Node.js bulk proxy (`proxy.cjs`) uses a configurable request timeout (default 120s via `PROXY_REQUEST_TIMEOUT_MS`) and retries with exponential backoff (up to 3 retries) on 5xx, timeouts, and connection errors.
 - **Configurable batch delay** — A **Batch delay (ms)** slider (0–2000 ms) in Volume & Settings controls the pause between bulk requests. Persisted with saved config. Reduces load on Elastic when shipping large volumes.
 - **Unit tests (Vitest)** — Smoke tests with Vitest and jsdom: helpers (`stripNulls`, `rand`, `randInt`, etc.), validation (URL, API key, index prefix), and generator shape (Lambda, API Gateway). Run with `npm run test`; watch mode with `npm run test:watch`.
 - **CSS modules** — Main layout and shared controls (root, header, main, inputs, buttons, log box, preview) use `App.module.css` instead of inline styles. Dynamic values (e.g. group colors) remain inline where needed.

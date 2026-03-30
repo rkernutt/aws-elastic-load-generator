@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "me-south-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "ecs"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "workers",
-      "ServiceName": "worker"
+      "ClusterName": "prod-cluster",
+      "ServiceName": "scheduler"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 23.44
+          "avg": 48.172
         },
         "CPUReservation": {
-          "avg": 75.775
+          "avg": 23.876
         },
         "MemoryUtilization": {
-          "avg": 18.526
+          "avg": 49.45
         },
         "MemoryReservation": {
-          "avg": 59.215
+          "avg": 50.477
         },
         "GPUReservation": {
           "avg": 0
@@ -37,17 +37,17 @@
     }
   },
   "container": {
-    "id": "movofoowehj",
-    "name": "worker",
+    "id": "lgpv667suf",
+    "name": "scheduler",
     "image": {
-      "name": "golang:1.24",
-      "tag": "alpine"
+      "name": "nginx:1.24",
+      "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 28804,
-    "name": "worker"
+    "pid": 22079,
+    "name": "scheduler"
   },
   "log": {
     "level": "info"
@@ -60,11 +60,11 @@
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 2003000000000
+    "duration": 701000000000
   },
-  "message": "Request processed",
+  "message": "Scaling event triggered",
   "service": {
-    "name": "worker",
+    "name": "scheduler",
     "type": "ecs"
   }
 }

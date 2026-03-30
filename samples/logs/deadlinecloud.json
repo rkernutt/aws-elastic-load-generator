@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "deadlinecloud"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "dimensions": {
-      "FarmId": "farm-cfpxttxtfc8",
-      "QueueId": "queue-qhghj2dpu2j"
+      "FarmId": "farm-j8c5y64z3c",
+      "QueueId": "queue-hr5xkjl9i4e"
     },
     "deadlinecloud": {
-      "farm_id": "farm-cfpxttxtfc8",
-      "farm_name": "ad-rendering",
-      "queue_id": "queue-qhghj2dpu2j",
+      "farm_id": "farm-j8c5y64z3c",
+      "farm_name": "post-production",
+      "queue_id": "queue-hr5xkjl9i4e",
       "queue_name": "high-priority",
-      "job_id": "job-m8lybd1op",
-      "job_name": "grade_master",
-      "task_id": "task-g1mljh3ja9i",
-      "task_status": "ASSIGNED",
-      "job_status": "ARCHIVED",
-      "worker_hostname": "render-worker-cpu-02.ap-southeast-3.compute.internal",
-      "frame_start": 116,
-      "frame_end": 136,
-      "duration_seconds": 365,
-      "renderer": "RenderMan",
-      "priority": 36
+      "job_id": "job-m38zm59th",
+      "job_name": "shot_comp_0010",
+      "task_id": "task-oj708l726l",
+      "task_status": "RUNNING",
+      "job_status": "SUCCEEDED",
+      "worker_hostname": "render-worker-gpu-01.ap-northeast-2.compute.internal",
+      "frame_start": 149,
+      "frame_end": 173,
+      "duration_seconds": 3194,
+      "renderer": "Cycles",
+      "priority": 65
     }
   },
   "event": {
@@ -42,9 +42,9 @@
     ],
     "dataset": "aws.deadlinecloud",
     "provider": "deadline.amazonaws.com",
-    "duration": 365000000000
+    "duration": 3194000000000
   },
-  "message": "Deadline Cloud DeleteJob: farm=ad-rendering queue=high-priority job=grade_master frames 116-136 ASSIGNED",
+  "message": "Deadline Cloud DeleteJob: farm=post-production queue=high-priority job=shot_comp_0010 frames 149-173 RUNNING",
   "log": {
     "level": "info"
   }

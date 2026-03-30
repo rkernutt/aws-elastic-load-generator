@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-northeast-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,35 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "ModelId": "amazon.nova-premier-v1:0",
-      "ModelTier": "premier"
+      "ModelId": "amazon.nova-pro-v1:0",
+      "ModelTier": "pro"
     },
     "nova": {
-      "model_id": "amazon.nova-premier-v1:0",
-      "model_tier": "premier",
+      "model_id": "amazon.nova-pro-v1:0",
+      "model_tier": "pro",
       "modality": "text",
-      "input_token_count": 5896,
-      "output_token_count": 750,
+      "input_token_count": 6400,
+      "output_token_count": 2787,
       "cache_read_input_token_count": 0,
-      "total_token_count": 6646,
-      "invocation_latency_ms": 5581,
+      "total_token_count": 9187,
+      "invocation_latency_ms": 1040,
       "streaming": false,
-      "use_case": "summarization",
+      "use_case": "document-qa",
       "guardrail_action": "NONE",
-      "stop_reason": "stop_sequence",
+      "stop_reason": "end_turn",
       "metrics": {
         "Invocations": {
-          "sum": 613
+          "sum": 329
         },
         "InvocationLatency": {
-          "avg": 5581,
-          "p99": 13953
+          "avg": 1040,
+          "p99": 2600
         },
         "InputTokenCount": {
-          "sum": 5896
+          "sum": 6400
         },
         "OutputTokenCount": {
-          "sum": 750
+          "sum": 2787
         },
         "CacheReadInputTokenCount": {
           "sum": 0
@@ -59,10 +59,10 @@
     ],
     "dataset": "aws.nova",
     "provider": "bedrock.amazonaws.com",
-    "duration": 5581000000
+    "duration": 1040000000
   },
-  "message": "Nova premier 5896->750 tokens 5.58s",
+  "message": "Nova pro 6400->2787 tokens 1.04s",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

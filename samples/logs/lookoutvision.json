@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "me-south-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,17 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "ProjectName": "bottle-cap-defect",
-      "ModelVersion": "2.0"
+      "ProjectName": "turbine-blade-check",
+      "ModelVersion": "4.0"
     },
     "lookoutvision": {
-      "project_name": "bottle-cap-defect",
-      "model_version": "2.0",
-      "model_arn": "arn:aws:lookoutvision:eu-south-2:501938274650:model/bottle-cap-defect/2.0",
-      "event_type": "StopModel",
-      "image_source": "camera-stream",
+      "project_name": "turbine-blade-check",
+      "model_version": "4.0",
+      "model_arn": "arn:aws:lookoutvision:me-south-1:501938274650:model/turbine-blade-check/4.0",
+      "event_type": "DetectAnomalies",
+      "image_source": "s3",
+      "image_key": "inspections/turbine-blade-check/1bpe9owkn9g.jpg",
       "is_anomalous": false,
-      "confidence": 0.964
+      "confidence": 0.939,
+      "inference_latency_ms": 200
     }
   },
   "event": {
@@ -33,9 +35,9 @@
     ],
     "dataset": "aws.lookoutvision",
     "provider": "lookoutvision.amazonaws.com",
-    "duration": 65000000
+    "duration": 200000000
   },
-  "message": "Lookout for Vision [bottle-cap-defect] OK confidence=0.964 65ms",
+  "message": "Lookout for Vision [turbine-blade-check] OK confidence=0.939 200ms",
   "log": {
     "level": "info"
   }

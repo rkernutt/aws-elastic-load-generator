@@ -1,46 +1,46 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "97de2e98efa4068d665f82602d422479"
+    "id": "3292c349fffa050721b98cdb23be446c"
   },
   "transaction": {
-    "id": "86d51f129a535e35",
-    "name": "PUT /inventory/{sku}",
+    "id": "95487ad5cac75c8b",
+    "name": "GET /search",
     "type": "request",
     "duration": {
-      "us": 605000
+      "us": 888000
     },
-    "result": "HTTP 2xx",
+    "result": "HTTP 4xx",
     "sampled": true,
     "span_count": {
-      "started": 2,
+      "started": 3,
       "dropped": 0
     }
   },
   "http": {
     "request": {
-      "method": "PUT"
+      "method": "GET"
     },
     "response": {
-      "status_code": 200
+      "status_code": 401
     }
   },
   "url": {
-    "path": "/inventory/2971B9"
+    "path": "/search"
   },
   "labels": {
-    "container_id": "b9e02180b3fd",
-    "task_id": "arn:aws:ecs:us-west-1:345678901234:task/prod-services-cluster/df021ae834a79fc0ad4b56a72840f58d",
+    "container_id": "04f1a2c018ce",
+    "task_id": "arn:aws:ecs:eu-west-2:345678901234:task/prod-services-cluster/4eacf7de3d2d235c7f46aab86f917e34",
     "cluster_name": "prod-services-cluster",
-    "task_definition": "inventory-service:17"
+    "task_definition": "search-service:18"
   },
   "service": {
-    "name": "inventory-service",
-    "environment": "staging",
+    "name": "search-service",
+    "environment": "production",
     "version": "1.0.0",
     "language": {
       "name": "java"
@@ -70,7 +70,7 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "eu-west-2",
     "account": {
       "id": "345678901234",
       "name": "dev-aws"
@@ -80,7 +80,7 @@
     }
   },
   "event": {
-    "outcome": "success"
+    "outcome": "failure"
   },
   "data_stream": {
     "type": "traces",

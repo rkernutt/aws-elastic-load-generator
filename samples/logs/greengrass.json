@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "us-east-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "greengrass"
@@ -13,50 +13,55 @@
   },
   "aws": {
     "dimensions": {
-      "CoreDeviceName": "vehicle-edge"
+      "CoreDeviceName": "retail-kiosk"
     },
     "greengrass": {
-      "core_device_name": "vehicle-edge",
-      "component_name": "com.example.inference",
-      "component_version": "3.8.5",
+      "core_device_name": "retail-kiosk",
+      "component_name": "com.aws.greengrass.Nucleus",
+      "component_version": "3.5.8",
       "nucleus_version": "2.12.0",
-      "platform": "linux/arm64",
-      "deployment_id": "l48yrn70fcj",
-      "status": "COMPLETED",
+      "platform": "linux/amd64",
+      "deployment_id": "o9pjczn1m",
+      "status": "FAILED",
       "metrics": {
         "ComponentDeployedCount": {
-          "sum": 31
+          "sum": 1
         },
         "ComponentBrokenCount": {
-          "sum": 0
+          "sum": 6
         },
         "StreamManagerMemoryUsage": {
-          "avg": 120.588
+          "avg": 219.238
         },
         "StreamManagerBytesAppended": {
-          "sum": 6777455
+          "sum": 9602411
         },
         "NucleusRestartCount": {
-          "sum": 0
+          "sum": 1
         },
         "DeploymentQueueSize": {
-          "avg": 6.275
+          "avg": 14.781
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process",
       "host"
     ],
     "dataset": "aws.greengrass",
     "provider": "greengrass.amazonaws.com",
-    "duration": 45000000000
+    "duration": 566000000000
   },
-  "message": "Deployment completed",
+  "message": "Component failed to start: missing dependency",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "GreengrassError",
+    "message": "OOM: component process killed",
+    "type": "iot"
   }
 }

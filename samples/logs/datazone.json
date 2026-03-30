@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "ap-south-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "datazone"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "DomainId": "dzd_5ph80v03fhv"
+      "DomainId": "dzd_rn9g5cjgye"
     },
     "datazone": {
-      "domain_id": "dzd_5ph80v03fhv",
-      "domain_name": "analytics-domain",
-      "project_name": "supply-chain-analytics",
-      "asset_name": "revenue_data",
-      "asset_type": "S3ObjectViewType",
+      "domain_id": "dzd_rn9g5cjgye",
+      "domain_name": "data-mesh-prod",
+      "project_name": "finance-reporting",
+      "asset_name": "ad_spend",
+      "asset_type": "RedshiftTableViewType",
       "subscription_status": "ACTIVE",
-      "glossary_term": "Internal",
-      "environment_id": "env-bzc6dwnbesb"
+      "glossary_term": "Confidential",
+      "environment_id": "env-zix0t513tb"
     }
   },
   "event": {
-    "action": "CreateGlossaryTerm",
+    "action": "SubscribeToAsset",
     "outcome": "success",
     "category": [
       "process"
@@ -35,7 +35,7 @@
     "dataset": "aws.datazone",
     "provider": "datazone.amazonaws.com"
   },
-  "message": "DataZone CreateGlossaryTerm: domain=analytics-domain, project=supply-chain-analytics, asset=revenue_data",
+  "message": "DataZone SubscribeToAsset: domain=data-mesh-prod, project=finance-reporting, asset=ad_spend",
   "log": {
     "level": "info"
   }

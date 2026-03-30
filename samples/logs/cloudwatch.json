@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "us-east-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -16,13 +16,13 @@
       "alarm_name": "api-latency",
       "alarm_state": "OK",
       "previous_state": "OK",
-      "namespace": "AWS/ECS",
-      "metric_name": "DatabaseConnections",
-      "threshold": 80,
-      "evaluation_periods": 1,
-      "metric_value": 2.645,
-      "statistic": "Maximum",
-      "period_seconds": 60,
+      "namespace": "AWS/EC2",
+      "metric_name": "MemoryUtilization",
+      "threshold": 95,
+      "evaluation_periods": 2,
+      "metric_value": 48.606,
+      "statistic": "p99",
+      "period_seconds": 3600,
       "treat_missing_data": "notBreaching"
     }
   },
@@ -37,7 +37,7 @@
     "provider": "monitoring.amazonaws.com",
     "duration": 3600000000000
   },
-  "message": "CloudWatch alarm \"api-latency\": OK (AWS/ECS/DatabaseConnections=2.6)",
+  "message": "CloudWatch alarm \"api-latency\": OK (AWS/EC2/MemoryUtilization=48.6)",
   "log": {
     "level": "info"
   }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-southeast-3",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,24 +13,22 @@
   },
   "aws": {
     "codecommit": {
-      "repository_name": "api-service",
-      "repository_arn": "arn:aws:codecommit:eu-west-2:293847561023:api-service",
-      "event_type": "PullRequestMerged",
-      "reference_name": "develop",
-      "commit_id": "j8qnen0qt0l",
-      "author": "bob",
-      "files_changed": 6,
-      "lines_added": 260,
-      "lines_deleted": 135,
-      "pull_request_id": "380",
-      "merge_strategy": "fast-forward"
+      "repository_name": "web-app",
+      "repository_arn": "arn:aws:codecommit:ap-southeast-3:293847561023:web-app",
+      "event_type": "ReferenceCreated",
+      "reference_name": "release/v2.1",
+      "commit_id": "nh9wsc6i7em",
+      "author": "codebuild",
+      "files_changed": 14,
+      "lines_added": 256,
+      "lines_deleted": 13
     }
   },
   "user": {
-    "name": "carol"
+    "name": "bob"
   },
   "event": {
-    "action": "PullRequestMerged",
+    "action": "ReferenceCreated",
     "outcome": "success",
     "category": [
       "configuration",
@@ -39,7 +37,7 @@
     "dataset": "aws.codecommit",
     "provider": "codecommit.amazonaws.com"
   },
-  "message": "CodeCommit PullRequestMerged: api-service/develop",
+  "message": "CodeCommit ReferenceCreated: web-app/release/v2.1",
   "log": {
     "level": "info"
   }

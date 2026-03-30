@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "events"
@@ -14,17 +14,17 @@
   "aws": {
     "dimensions": {
       "EventBusName": "custom-events",
-      "RuleName": "security-event-forwarder"
+      "RuleName": "cost-alert-rule"
     },
     "eventbridge": {
       "event_bus": "custom-events",
-      "rule": "security-event-forwarder",
-      "source": "com.partner.events",
-      "detail_type": "Object Created",
-      "targets_invoked": 1,
+      "rule": "cost-alert-rule",
+      "source": "aws.ec2",
+      "detail_type": "Health Event",
+      "targets_invoked": 2,
       "targets_failed": 0,
-      "event_id": "v6p0tl8r-ub5j-eelx-9pje-ebdas9unu8w",
-      "structured_logging": true,
+      "event_id": "ll2e1uvj-7vxb-jw8r-jahz-o9f71cybsxn",
+      "structured_logging": false,
       "metrics": {
         "Invocations": {
           "sum": 1
@@ -36,7 +36,7 @@
           "sum": 1
         },
         "MatchedEvents": {
-          "sum": 94
+          "sum": 46
         },
         "ThrottledRules": {
           "sum": 0
@@ -53,13 +53,13 @@
       "process"
     ],
     "type": [
-      "deletion"
+      "change"
     ],
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 90000000
+    "duration": 186000000
   },
-  "message": "{\"id\":\"v6p0tl8r-ub5j-eelx-9pje-ebdas9unu8w\",\"source\":\"com.partner.events\",\"detailType\":\"EC2 Instance State-change Notification\",\"rule\":\"security-event-forwarder\",\"eventBus\":\"custom-events\",\"message\":\"EventBridge event routed: com.partner.events -> security-event-forwarder\",\"timestamp\":\"2026-03-27T13:21:40.756Z\"}",
+  "message": "EventBridge event routed: aws.ec2 -> cost-alert-rule",
   "log": {
     "level": "info"
   }

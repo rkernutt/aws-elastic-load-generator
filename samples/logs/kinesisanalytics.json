@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ap-southeast-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "kinesisanalytics": {
-      "application_name": "fraud-detection-stream",
-      "application_arn": "arn:aws:kinesisanalytics:us-west-1:164820739518:application/fraud-detection-stream",
+      "application_name": "clickstream-analytics",
+      "application_arn": "arn:aws:kinesisanalytics:ap-southeast-1:164820739518:application/clickstream-analytics",
       "runtime": "FLINK-1_15",
-      "records_per_second": 3193,
-      "input_watermark_lag_ms": 485,
+      "records_per_second": 6582,
+      "input_watermark_lag_ms": 943,
       "checkpointing_enabled": true,
-      "last_checkpoint_duration_ms": 1331,
-      "kpu_count": 30,
-      "structured_logging": false,
+      "last_checkpoint_duration_ms": 1520,
+      "kpu_count": 51,
+      "structured_logging": true,
       "metrics": {
-        "records_in_per_second": 3193,
-        "input_watermark_lag_ms": 485,
-        "kpu_utilization_pct": 67,
-        "checkpoint_duration_ms": 1613
+        "records_in_per_second": 6582,
+        "input_watermark_lag_ms": 943,
+        "kpu_utilization_pct": 40,
+        "checkpoint_duration_ms": 333
       }
     }
   },
@@ -35,9 +35,9 @@
     "category": "process",
     "dataset": "aws.kinesisanalytics",
     "provider": "kinesisanalytics.amazonaws.com",
-    "duration": 1225000000
+    "duration": 324000000
   },
-  "message": "Kinesis Analytics fraud-detection-stream: 3193 rec/s, lag 40ms",
+  "message": "{\"applicationName\":\"clickstream-analytics\",\"recordsPerSecond\":6582,\"inputWatermarkLagMs\":943,\"level\":\"info\",\"message\":\"Application run started\",\"timestamp\":\"2026-03-30T12:56:00.184Z\"}",
   "log": {
     "level": "info"
   }

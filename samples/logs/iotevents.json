@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "eu-west-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,18 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorModelName": "temperature-alert-model",
-      "KeyValue": "zone-B"
+      "DetectorModelName": "pressure-monitor",
+      "KeyValue": "machine-prod-1"
     },
     "iotevents": {
-      "detector_model_name": "temperature-alert-model",
-      "detector_id": "zone-B",
-      "key_value": "zone-B",
-      "event_name": "ActionExecuted",
+      "detector_model_name": "pressure-monitor",
+      "detector_id": "machine-prod-1",
+      "key_value": "machine-prod-1",
+      "event_name": "AlarmReset",
       "from_state": "Warning",
-      "to_state": "Alarm",
-      "input_name": "SensorInput",
-      "action_type": "SetVariable",
+      "to_state": "Warning",
+      "input_name": "HealthCheck",
+      "action_type": "SNS",
+      "timer_name": "idleTimer",
       "condition_expression": "$input.SensorInput.temperature > 85"
     }
   },
@@ -35,10 +36,10 @@
     ],
     "dataset": "aws.iotevents",
     "provider": "iotevents.amazonaws.com",
-    "duration": 171000000
+    "duration": 469000000
   },
-  "message": "IoT Events temperature-alert-model/zone-B: Warning → Alarm [ActionExecuted]",
+  "message": "IoT Events pressure-monitor/machine-prod-1: Warning → Warning [AlarmReset]",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

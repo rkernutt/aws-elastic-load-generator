@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "forecast"
@@ -13,35 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "DatasetGroup": "web-traffic",
-      "Operation": "GetAccuracyMetrics"
+      "DatasetGroup": "sales-prediction",
+      "Operation": "CreatePredictor"
     },
     "forecast": {
-      "dataset_group": "web-traffic",
-      "action": "GetAccuracyMetrics",
-      "algorithm": "NPTS",
-      "forecast_horizon": 30,
-      "duration_seconds": 70462,
-      "status": "FAILED",
-      "error_message": "Insufficient training data"
+      "dataset_group": "sales-prediction",
+      "predictor_name": "sales-prediction-predictor-v4",
+      "action": "CreatePredictor",
+      "algorithm": "CNN-QR",
+      "forecast_horizon": 14,
+      "weighted_quantile_loss": 0.199,
+      "duration_seconds": 2149,
+      "status": "ACTIVE"
     }
   },
   "event": {
-    "duration": 70462000000000,
-    "outcome": "failure",
+    "duration": 2149000000000,
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com"
   },
-  "message": "Forecast GetAccuracyMetrics FAILED for web-traffic: Training timeout",
+  "message": "Forecast CreatePredictor: sales-prediction, WQL=0.199",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ForecastError",
-    "message": "Forecast operation failed",
-    "type": "ml"
+    "level": "info"
   }
 }

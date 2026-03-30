@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "cognito"
@@ -13,41 +13,24 @@
   },
   "aws": {
     "dimensions": {
-      "UserPool": "us-west-2_IBDCIJX40",
-      "UserPoolClient": "us-users-web"
+      "UserPool": "ap-northeast-1_93LA0C18O",
+      "UserPoolClient": "b2b-customers-web"
     },
     "cognito": {
-      "user_pool_id": "us-west-2_IBDCIJX40",
-      "user_pool_name": "us-users",
-      "event_type": "CompromisedCredentials",
-      "username": "user-uf4pcqdt@example.com",
-      "source_ip": "188.254.53.176",
-      "risk_type": "CompromisedCredentials",
-      "action_taken": "BLOCK",
-      "advanced_security": {
-        "risk_level": "MEDIUM",
-        "risk_decision": "ALLOW",
-        "compromised_credentials_detected": true,
-        "impossible_travel": false,
-        "previous_location": {
-          "ip": "132.251.241.238",
-          "country": "GB"
-        },
-        "current_location": {
-          "ip": "78.40.20.49",
-          "country": "IN"
-        },
-        "time_between_events_seconds": 178
-      },
+      "user_pool_id": "ap-northeast-1_93LA0C18O",
+      "user_pool_name": "b2b-customers",
+      "event_type": "SignIn",
+      "username": "user-gznt3jgu@example.com",
+      "source_ip": "231.20.194.191",
       "metrics": {
         "SignInSuccesses": {
-          "sum": 4053
+          "sum": 9163
         },
         "SignInAttempts": {
-          "sum": 4053
+          "sum": 9163
         },
         "TokenRefreshSuccesses": {
-          "sum": 26724
+          "sum": 11048
         },
         "SignUpSuccesses": {
           "sum": 0
@@ -56,7 +39,7 @@
           "sum": 0
         },
         "CallCount": {
-          "sum": 7295
+          "sum": 93497
         },
         "ThrottleCount": {
           "sum": 0
@@ -65,19 +48,19 @@
           "sum": 0
         },
         "CompromisedCredentialsRisk": {
-          "sum": 5
+          "sum": 0
         }
       }
     }
   },
   "user": {
-    "name": "user-uf4pcqdt@example.com"
+    "name": "user-gznt3jgu@example.com"
   },
   "source": {
-    "ip": "151.96.58.181"
+    "ip": "131.87.85.49"
   },
   "event": {
-    "action": "CompromisedCredentials",
+    "action": "SignIn",
     "outcome": "success",
     "category": [
       "authentication"
@@ -85,8 +68,8 @@
     "dataset": "aws.cognito",
     "provider": "cognito-idp.amazonaws.com"
   },
-  "message": "Cognito CompromisedCredentials detected [MEDIUM]: decision=ALLOW pool=us-users",
+  "message": "Cognito SignIn success [b2b-customers]",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

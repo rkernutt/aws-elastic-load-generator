@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "elasticbeanstalk"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "my-web-app-dev",
-      "InstanceId": "i-mrkes68vb6l"
+      "EnvironmentName": "worker-app-production",
+      "InstanceId": "i-rtwy5n1wou8"
     },
     "elasticbeanstalk": {
-      "application": "my-web-app",
-      "environment": "my-web-app-dev",
+      "application": "worker-app",
+      "environment": "worker-app-production",
       "structured_logging": false,
       "platform": "Docker",
-      "version_label": "v136",
+      "version_label": "v149",
       "metrics": {
         "ApplicationRequests2xx": {
-          "sum": 0
+          "sum": 1
         },
         "ApplicationRequests3xx": {
-          "sum": 1
+          "sum": 0
         },
         "ApplicationRequests4xx": {
           "sum": 0
@@ -36,28 +36,28 @@
           "sum": 0
         },
         "ApplicationLatencyP10": {
-          "avg": 10.567
+          "avg": 9.907
         },
         "ApplicationLatencyP50": {
-          "avg": 16.634
+          "avg": 19.2
         },
         "ApplicationLatencyP75": {
-          "avg": 31.827
+          "avg": 29.037
         },
         "ApplicationLatencyP85": {
-          "avg": 35.124
+          "avg": 36.428
         },
         "ApplicationLatencyP90": {
-          "avg": 43.765
+          "avg": 47.598
         },
         "ApplicationLatencyP95": {
-          "avg": 65.724
+          "avg": 81.76
         },
         "ApplicationLatencyP99": {
-          "avg": 99.351
+          "avg": 230.055
         },
         "ApplicationLatencyP99.9": {
-          "avg": 144.499
+          "avg": 453.655
         },
         "ApplicationRequests": {
           "sum": 1
@@ -82,7 +82,7 @@
   },
   "http": {
     "response": {
-      "status_code": 301
+      "status_code": 204
     }
   },
   "log": {
@@ -96,7 +96,7 @@
     "outcome": "success",
     "dataset": "aws.elasticbeanstalk",
     "provider": "elasticbeanstalk.amazonaws.com",
-    "duration": 42000000000
+    "duration": 110000000000
   },
-  "message": "Deployment completed successfully"
+  "message": "Rolling update complete"
 }

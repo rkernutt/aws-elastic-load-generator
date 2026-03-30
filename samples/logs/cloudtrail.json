@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "us-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "cloudtrail"
@@ -13,58 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "EventName": "RunInstances",
-      "EventSource": "ec2.amazonaws.com"
+      "EventName": "GetUser",
+      "EventSource": "iam.amazonaws.com"
     },
     "cloudtrail": {
       "event_version": "1.09",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "tcv9fely-xn9h-al2y-tskv-idk7udn7xa",
+      "request_id": "jjl2admz-44sn-g5zy-efzc-pkm6tf9vtzm",
       "api_version": "2012-10-17",
       "management_event": true,
-      "read_only": false,
-      "recipient_account_id": "293847561023",
-      "aws_region": "ca-central-1",
+      "read_only": true,
+      "recipient_account_id": "814726593401",
+      "aws_region": "us-west-2",
       "user_identity": {
-        "type": "IAMUser",
-        "principal_id": "293847561023:admin",
-        "arn": "arn:aws:iam::293847561023:user/admin",
-        "account_id": "293847561023",
-        "access_key_id": "AKIAA45QPX2CG0V",
+        "type": "AssumedRole",
+        "principal_id": "AROA57QGBUAOUPR:deploy-bot-session",
+        "arn": "arn:aws:iam::814726593401:user/deploy-bot",
+        "account_id": "814726593401",
+        "access_key_id": "AKIAXUU3MVB2E2D",
         "session_context": {
           "session_issuer": {
             "type": "Role",
-            "principal_id": "AROA3J0SJ8ZNXTK",
-            "arn": "arn:aws:iam::293847561023:role/service-role/execution-role",
-            "account_id": "293847561023",
+            "principal_id": "AROA57QGBUAOUPR",
+            "arn": "arn:aws:iam::814726593401:role/service-role/execution-role",
+            "account_id": "814726593401",
             "user_name": "execution-role"
           },
           "web_id_federation_data": {},
           "attributes": {
-            "creation_date": "2026-03-27T12:56:02.756Z",
-            "mfa_authenticated": "false"
+            "creation_date": "2026-03-30T12:37:02.184Z",
+            "mfa_authenticated": "true"
           }
         }
       },
-      "resources": [
-        {
-          "arn": "arn:aws:ec2:ca-central-1:293847561023:instance/i-mrno46zi76f",
-          "account_id": "293847561023",
-          "type": "AWS::EC2::Instance"
-        }
-      ],
-      "request_parameters": "{\"instanceType\":\"t3.medium\",\"imageId\":\"ami-0abcdef1234567890\",\"minCount\":1,\"maxCount\":1}",
-      "response_elements": "{\"instancesSet\":{\"items\":[{\"instanceId\":\"i-4ezvi3ftcw6\",\"currentState\":{\"name\":\"pending\"}}]}}"
+      "response_elements": "null"
     }
   },
   "user": {
-    "name": "admin"
+    "name": "deploy-bot"
   },
   "source": {
-    "ip": "13.212.54.248",
+    "ip": "179.122.122.115",
     "geo": {
-      "country_iso_code": "CA",
+      "country_iso_code": "JP",
       "city_name": "Toronto"
     }
   },
@@ -72,18 +64,19 @@
     "original": "Go-http-client/1.1"
   },
   "event": {
-    "action": "RunInstances",
+    "action": "GetUser",
     "outcome": "success",
     "category": [
       "configuration"
     ],
     "type": [
-      "creation"
+      "access",
+      "info"
     ],
     "dataset": "aws.cloudtrail",
     "provider": "cloudtrail.amazonaws.com"
   },
-  "message": "CloudTrail: RunInstances by admin from 13.212.54.248 - Success",
+  "message": "CloudTrail: GetUser by deploy-bot from 179.122.122.115 - Success",
   "log": {
     "level": "info"
   }

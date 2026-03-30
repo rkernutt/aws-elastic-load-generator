@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "appfabric"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "AppBundle": "saas-audit-bundle",
-      "Application": "ServiceNow"
+      "AppBundle": "prod-bundle",
+      "Application": "Okta"
     },
     "appfabric": {
-      "app_bundle_arn": "arn:aws:appfabric:eu-west-3:164820739518:appbundle/saas-audit-bundle",
-      "application": "ServiceNow",
-      "event_type": "userCreated",
-      "normalized_user": "user-K2IRPRCF@example.com",
-      "source_ip": "27.69.6.181",
+      "app_bundle_arn": "arn:aws:appfabric:us-east-1:814726593401:appbundle/prod-bundle",
+      "application": "Okta",
+      "event_type": "dataExport",
+      "normalized_user": "user-3ZZFQOCW@example.com",
+      "source_ip": "22.105.178.111",
       "ingestion_status": "ACTIVE",
-      "tenant_id": "tenant-0FKL6SPA",
-      "ocsf_class": "FILE_ACTIVITY"
+      "tenant_id": "tenant-1CTKBSNO",
+      "ocsf_class": "ACCOUNT_CHANGE"
     }
   },
   "event": {
-    "action": "DeliverToS3",
+    "action": "UpdateIngestion",
     "outcome": "success",
     "category": [
       "audit"
@@ -36,14 +36,14 @@
     "dataset": "aws.appfabric",
     "provider": "appfabric.amazonaws.com"
   },
-  "message": "AppFabric ServiceNow: userCreated by user-K2IRPRCF@example.com normalized as OCSF FILE_ACTIVITY",
+  "message": "AppFabric Okta: dataExport by user-3ZZFQOCW@example.com normalized as OCSF ACCOUNT_CHANGE",
   "log": {
     "level": "info"
   },
   "user": {
-    "email": "user-K2IRPRCF@example.com"
+    "email": "user-3ZZFQOCW@example.com"
   },
   "source": {
-    "ip": "27.69.6.181"
+    "ip": "22.105.178.111"
   }
 }

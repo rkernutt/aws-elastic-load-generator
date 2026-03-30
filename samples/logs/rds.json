@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "rds"
@@ -14,70 +14,70 @@
   "aws": {
     "dimensions": {
       "DBInstanceIdentifier": "prod-db-primary",
-      "DatabaseClass": "db.r5.large",
-      "EngineName": "aurora-mysql",
-      "SourceRegion": "us-east-1"
+      "DatabaseClass": "db.r6g.xlarge",
+      "EngineName": "postgres",
+      "SourceRegion": "ca-central-1"
     },
     "rds": {
       "db_instance": {
         "identifier": "prod-db-primary",
         "class": "db.r5.large",
-        "engine_name": "aurora-mysql",
-        "arn": "arn:aws:rds:us-east-1:738291046572:db:prod-db-primary",
+        "engine_name": "postgres",
+        "arn": "arn:aws:rds:ca-central-1:293847561023:db:prod-db-primary",
         "status": "available",
-        "role": "instance"
+        "role": "read-replica"
       },
       "cpu": {
         "total": {
-          "pct": 0.0298
+          "pct": 0.3503
         }
       },
       "freeable_memory": {
-        "bytes": 6978000581
+        "bytes": 6985378248
       },
       "free_storage": {
-        "bytes": 16453246374
+        "bytes": 347779018575
       },
-      "database_connections": 362,
+      "database_connections": 244,
       "read_io": {
-        "ops_per_sec": 1164.727
+        "ops_per_sec": 2943.642
       },
       "write_io": {
-        "ops_per_sec": 2645.133
+        "ops_per_sec": 1788.623
       },
       "latency": {
-        "read": 0.019,
-        "write": 0.005
+        "read": 0.009,
+        "write": 0.004
       },
       "throughput": {
-        "read": 49266547,
-        "write": 15827474,
-        "network_receive": 40233246,
-        "network_transmit": 43755822
+        "read": 27699149,
+        "write": 39483764,
+        "network_receive": 24613408,
+        "network_transmit": 2462961
       },
       "replica_lag": {
-        "sec": 71.183
+        "sec": 30.452
       },
       "swap_usage": {
-        "bytes": 67569833
+        "bytes": 58889841
       },
       "disk_usage": {
         "bin_log": {
-          "bytes": 879776715
+          "bytes": 836198336
         }
       }
     }
   },
   "db": {
     "user": {
-      "name": "appuser"
+      "name": "readonly"
     },
-    "name": "users",
-    "statement": "DELETE FROM sessions WHERE CKW8TN",
+    "name": "events",
+    "statement": "DELETE FROM sessions WHERE KQPO15",
     "type": "sql"
   },
   "event": {
-    "duration": 937000000,
+    "duration": 487000000,
     "outcome": "success",
     "category": [
       "database"
@@ -89,8 +89,14 @@
     "dataset": "aws.rds",
     "provider": "rds.amazonaws.com"
   },
-  "message": "{\"instanceId\":\"prod-db-primary\",\"engine\":\"aurora-mysql\",\"userId\":\"appuser\",\"queryTime\":0.937,\"error\":null,\"timestamp\":\"2026-03-27T13:21:40.756Z\",\"osMetrics\":{\"cpuUtilization\":{\"guest\":0.122,\"irq\":0.15,\"system\":7.141,\"wait\":4.835,\"idle\":60.2,\"user\":27.561,\"total\":39.8},\"memory\":{\"total\":46883893974,\"free\":4635571036,\"cached\":2570506622,\"active\":13628462468,\"inactive\":2664989914,\"buffers\":418083062},\"disk\":{\"readIOsPS\":2743.677,\"writeIOsPS\":210.861,\"readKbPS\":232906.04,\"writeKbPS\":91790.239,\"avgQueueLen\":0.6,\"await\":17.231},\"network\":{\"rx\":997111,\"tx\":83619548},\"numVCPUs\":32,\"uptime\":\"2 days, 8:00:31\"}}",
+  "message": "{\"instanceId\":\"prod-db-primary\",\"engine\":\"postgres\",\"userId\":\"readonly\",\"queryTime\":0.487,\"error\":null,\"timestamp\":\"2026-03-30T12:56:00.184Z\",\"osMetrics\":{\"cpuUtilization\":{\"guest\":1.399,\"irq\":0.374,\"system\":6.209,\"wait\":4.582,\"idle\":67.4,\"user\":19.989,\"total\":32.6},\"memory\":{\"total\":53660894437,\"free\":2707629677,\"cached\":3613964674,\"active\":13003589149,\"inactive\":3169372844,\"buffers\":482030540},\"disk\":{\"readIOsPS\":2705.009,\"writeIOsPS\":127.026,\"readKbPS\":311158.72,\"writeKbPS\":258627.14,\"avgQueueLen\":4.696,\"await\":5.209},\"network\":{\"rx\":99700263,\"tx\":17256123},\"numVCPUs\":64,\"uptime\":\"64 days, 23:36:52\"}}",
   "log": {
     "level": "info"
+  },
+  "trace": {
+    "id": "V8JJJS34U1B"
+  },
+  "transaction": {
+    "id": "LZFDMXW7E9"
   }
 }

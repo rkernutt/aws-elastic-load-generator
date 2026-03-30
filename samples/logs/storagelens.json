@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ca-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "s3"
@@ -13,45 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "StorageLensConfigurationId": "prod-buckets",
+      "StorageLensConfigurationId": "cost-optimization",
       "StorageType": "DeepArchive"
     },
     "s3storagelens": {
-      "config_id": "prod-buckets",
-      "bucket_count": 65,
-      "total_storage_bytes": 2942155012427,
-      "total_object_count": 7453220267,
+      "config_id": "cost-optimization",
+      "bucket_count": 260,
+      "total_storage_bytes": 61208430175339,
+      "total_object_count": 584100498,
       "storage_type": "DeepArchive",
       "metrics": {
         "BucketCount": {
-          "avg": 65
+          "avg": 260
         },
         "TotalStorageBytes": {
-          "sum": 2942155012427
+          "sum": 61208430175339
         },
         "TotalObjectCount": {
-          "sum": 7453220267
+          "sum": 584100498
         },
         "BytesUsed": {
-          "sum": 2942155012427
+          "sum": 61208430175339
         },
         "ObjectCount": {
-          "sum": 7453220267
+          "sum": 584100498
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "metric"
     ],
     "dataset": "aws.s3_storage_lens",
     "provider": "s3.amazonaws.com",
-    "duration": 76000000000
+    "duration": 293000000000
   },
-  "message": "S3 Storage Lens prod-buckets: 65 buckets, 2942.2 GB, 7453220267 objects",
+  "message": "S3 Storage Lens cost-optimization: report generation failed",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ReportGenerationFailed",
+    "message": "Storage Lens report failed",
+    "type": "storage"
   }
 }

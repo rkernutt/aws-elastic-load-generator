@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "eu-west-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "codedeploy"
@@ -19,12 +19,12 @@
     "codedeploy": {
       "application_name": "api-service",
       "deployment_group": "prod",
-      "deployment_id": "d-W3O1A6HD8",
-      "deployment_type": "IN_PLACE",
-      "lifecycle_event": "AfterAllowTraffic",
+      "deployment_id": "d-T3WBGS1WM",
+      "deployment_type": "BLUE_GREEN",
+      "lifecycle_event": "ApplicationStart",
       "event_status": "Succeeded",
-      "duration_seconds": 432,
-      "instances_succeeded": 4,
+      "duration_seconds": 396,
+      "instances_succeeded": 5,
       "instances_failed": 0,
       "metrics": {
         "DeploymentAttempts": {
@@ -40,10 +40,10 @@
           "sum": 0
         },
         "DeploymentDuration": {
-          "avg": 432
+          "avg": 396
         },
         "InstanceSuccesses": {
-          "sum": 4
+          "sum": 7
         },
         "InstanceFailures": {
           "sum": 0
@@ -52,7 +52,7 @@
     }
   },
   "event": {
-    "duration": 432000000000,
+    "duration": 396000000000,
     "outcome": "success",
     "category": [
       "process",
@@ -61,7 +61,7 @@
     "dataset": "aws.codedeploy",
     "provider": "codedeploy.amazonaws.com"
   },
-  "message": "Deployment succeeded",
+  "message": "Deployment started",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "budgets"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "budgets": {
-      "budget_name": "quarterly-compute",
-      "budget_type": "USAGE",
-      "time_period": "ANNUALLY",
+      "budget_name": "data-transfer",
+      "budget_type": "RI_COVERAGE",
+      "time_period": "QUARTERLY",
       "currency": "USD",
-      "budget_limit": 2200.25,
-      "actual_spend": 2041.83,
-      "forecasted_spend": 2362.4,
+      "budget_limit": 1321.85,
+      "actual_spend": 609.37,
+      "forecasted_spend": 567.32,
       "threshold_exceeded": false,
-      "threshold_percentage": 70,
-      "notification_type": "FORECASTED",
-      "subscribers": "ops@company.com"
+      "threshold_percentage": 50,
+      "notification_type": "ACTUAL",
+      "subscribers": "finance@company.com"
     }
   },
   "event": {
@@ -34,9 +34,9 @@
     ],
     "dataset": "aws.budgets",
     "provider": "budgets.amazonaws.com",
-    "duration": 17000000000
+    "duration": 14000000000
   },
-  "message": "Budget OK: quarterly-compute at 2042/2200 (93%)",
+  "message": "Budget OK: data-transfer at 609/1322 (46%)",
   "log": {
     "level": "info"
   }

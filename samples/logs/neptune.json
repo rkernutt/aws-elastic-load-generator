@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "us-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "neptune"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "neptune": {
-      "cluster_id": "recommendation-engine",
+      "cluster_id": "knowledge-graph",
       "query_language": "openCypher",
-      "query": "MATCH (u:User)-[:FOLLOWS]->(f:User) RETURN count(f)",
-      "duration_ms": 4636,
+      "query": "MATCH (n)-[r]->(m) WHERE n.id=$id RETURN n,r,m",
+      "duration_ms": 1822,
       "http_status": 200,
-      "db_connections": 133,
+      "db_connections": 179,
       "metrics": {
         "CPUUtilization": {
-          "avg": 27.135
+          "avg": 34.677
         },
         "FreeableMemory": {
-          "avg": 3055929885
+          "avg": 7959563495
         },
         "DatabaseConnections": {
-          "avg": 76
+          "avg": 93
         },
         "GremlinRequestsPerSec": {
           "avg": 0
@@ -36,13 +36,13 @@
           "avg": 0
         },
         "ServerlessDBCapacity": {
-          "avg": 39.838
+          "avg": 23.246
         }
       }
     }
   },
   "event": {
-    "duration": 4635767000,
+    "duration": 1821743000,
     "outcome": "success",
     "category": [
       "database"
@@ -50,7 +50,7 @@
     "dataset": "aws.neptune",
     "provider": "neptune.amazonaws.com"
   },
-  "message": "Neptune openCypher: 4636ms",
+  "message": "Neptune openCypher: 1822ms",
   "log": {
     "level": "info"
   }

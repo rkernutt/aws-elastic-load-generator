@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "us-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "fis"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "ExperimentTemplateId": "EXTB749RKXC"
+      "ExperimentTemplateId": "EXT8KWI5YQ7"
     },
     "fis": {
-      "experiment_id": "EXP0848HV2V",
-      "experiment_template_id": "EXTB749RKXC",
-      "experiment_name": "network-latency-inject",
-      "experiment_state": "pending",
+      "experiment_id": "EXPP5VZL5KB",
+      "experiment_template_id": "EXT8KWI5YQ7",
+      "experiment_name": "cpu-stress-test",
+      "experiment_state": "running",
       "target_resource_type": "EC2 instances",
-      "action_type": "aws:eks:terminate-nodegroup-instances",
-      "stop_condition": "none",
-      "role_arn": "arn:aws:iam::501938274650:role/FISRole-network-latency-inject"
+      "action_type": "aws:ec2:terminate-instances",
+      "stop_condition": "aws:cloudwatch:alarm",
+      "role_arn": "arn:aws:iam::814726593401:role/FISRole-cpu-stress-test"
     }
   },
   "event": {
-    "action": "StartExperiment",
+    "action": "CreateExperimentTemplate",
     "outcome": "success",
     "category": [
       "process"
@@ -35,7 +35,7 @@
     "dataset": "aws.fis",
     "provider": "fis.amazonaws.com"
   },
-  "message": "FIS StartExperiment: exp=EXP0848HV2V (network-latency-inject) state=pending, target=EC2 instances",
+  "message": "FIS CreateExperimentTemplate: exp=EXPP5VZL5KB (cpu-stress-test) state=running, target=EC2 instances",
   "log": {
     "level": "info"
   }

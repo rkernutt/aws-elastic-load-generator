@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "me-central-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "cloudformation": {
-      "stack_name": "vpc-infra",
-      "stack_id": "arn:aws:cloudformation:eu-north-1:501938274650:stack/vpc-infra/bzx5nh3t",
-      "action": "UPDATE_STACK",
+      "stack_name": "prod-web-stack",
+      "stack_id": "arn:aws:cloudformation:me-central-1:501938274650:stack/prod-web-stack/4q917n3k",
+      "action": "CREATE_STACK",
       "stack_status": "CREATE_IN_PROGRESS",
-      "resource_type": "AWS::ECS::Service",
-      "logical_resource_id": "ApiFunction",
-      "drift_status": "IN_SYNC",
+      "resource_type": "AWS::IAM::Role",
+      "logical_resource_id": "DatabaseCluster",
+      "drift_status": "DRIFTED",
       "structured_logging": true,
       "metrics": {
         "TotalStack": {
-          "avg": 460
+          "avg": 46
         },
         "ErroredStack": {
           "avg": 0
@@ -32,10 +32,10 @@
           "avg": 0
         },
         "DeletedStack": {
-          "avg": 49
+          "avg": 19
         },
         "StackInstancesDeployed": {
-          "avg": 8396
+          "avg": 5841
         }
       }
     }
@@ -48,9 +48,9 @@
     ],
     "dataset": "aws.cloudformation",
     "provider": "cloudformation.amazonaws.com",
-    "duration": 360000000000
+    "duration": 304000000000
   },
-  "message": "{\"stackName\":\"vpc-infra\",\"action\":\"UPDATE_STACK\",\"stackStatus\":\"CREATE_IN_PROGRESS\",\"resourceType\":\"AWS::ECS::Service\",\"message\":\"CloudFormation vpc-infra: UPDATE_STACK -> CREATE_IN_PROGRESS\",\"timestamp\":\"2026-03-27T13:21:40.756Z\"}",
+  "message": "{\"stackName\":\"prod-web-stack\",\"action\":\"CREATE_STACK\",\"stackStatus\":\"CREATE_IN_PROGRESS\",\"resourceType\":\"AWS::IAM::Role\",\"message\":\"CloudFormation prod-web-stack: CREATE_STACK -> CREATE_IN_PROGRESS\",\"timestamp\":\"2026-03-30T12:56:00.184Z\"}",
   "log": {
     "level": "info"
   }

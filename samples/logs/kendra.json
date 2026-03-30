@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "eu-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "kendra"
@@ -13,34 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "IndexId": "42paivmn-ub3n-qbkx-g2kl-vixhzq8sp5f",
-      "Operation": "QueryIndex"
+      "IndexId": "ojz48jfa-ombj-hbiv-ikvr-vfem8ep6u9p",
+      "Operation": "SyncJobFailed"
     },
     "kendra": {
-      "index_id": "42paivmn-ub3n-qbkx-g2kl-vixhzq8sp5f",
-      "index_name": "support-articles",
-      "query_id": "k9z5px7x-5620-lj03-tmrt-0g76c34zuckj",
-      "query_text": "how to reset password",
-      "result_count": 9,
-      "response_time_ms": 568,
-      "relevance_score": 0.672,
-      "document_count": 149515,
-      "data_source_id": "ds-fht9ljc0gt",
-      "data_source_type": "S3"
+      "index_id": "ojz48jfa-ombj-hbiv-ikvr-vfem8ep6u9p",
+      "index_name": "legal-kb",
+      "result_count": 20,
+      "response_time_ms": 713,
+      "document_count": 202318,
+      "data_source_id": "ds-amyck7p6gr",
+      "data_source_type": "Salesforce"
     }
   },
   "log": {
     "level": "info"
   },
   "event": {
-    "action": "QueryIndex",
+    "action": "SyncJobFailed",
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.kendra",
     "provider": "kendra.amazonaws.com",
-    "duration": 568000000
+    "duration": 713000000
   },
-  "message": "Kendra QueryIndex: index=support-articles, results=9, score=0.67"
+  "message": "Kendra SyncJobFailed: index=legal-kb"
 }

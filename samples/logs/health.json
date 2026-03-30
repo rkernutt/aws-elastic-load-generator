@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
     "region": "ap-northeast-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "health"
@@ -13,29 +13,34 @@
   },
   "aws": {
     "health": {
-      "event_arn": "arn:aws:health:ap-northeast-2::event/rds/9qzkexwr/v2ovq4xzuca",
-      "event_type_code": "AWS_RDS_API_ISSUE",
+      "event_arn": "arn:aws:health:ap-northeast-2::event/route53/6chs4ut0/5rhimf6a2tb",
+      "event_type_code": "AWS_ROUTE53_MAINTENANCE_SCHEDULED",
       "event_type_category": "issue",
-      "service": "RDS",
-      "region": "global",
-      "status_code": "closed",
+      "service": "Route53",
+      "region": "ap-northeast-2",
+      "status_code": "open",
       "event_scope": "PUBLIC",
-      "affected_entities_count": 42,
-      "description": "RDS Degraded performance in ap-northeast-2"
+      "affected_entities_count": 40,
+      "description": "Route53 Degraded performance in ap-northeast-2"
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "configuration"
     ],
     "dataset": "aws.health",
     "provider": "health.amazonaws.com",
-    "duration": 382000000000
+    "duration": 4422000000000
   },
-  "message": "AWS Health: RDS event resolved in ap-northeast-2",
+  "message": "AWS Health: Route53 service issue in ap-northeast-2 - Increased errors",
+  "error": {
+    "code": "HealthIssue",
+    "message": "AWS Health service issue",
+    "type": "configuration"
+  },
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

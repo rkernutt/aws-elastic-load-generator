@@ -1,54 +1,56 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "apigateway"
     }
   },
+  "trace": {
+    "id": "1-m738ovlr-9uwoqsshk5h"
+  },
   "aws": {
     "dimensions": {
-      "ApiName": "partner-api",
+      "ApiName": "internal-api",
       "Stage": "prod",
-      "Method": "GET",
-      "Resource": "/health"
+      "Method": "DELETE",
+      "Resource": "/api/v1/auth/login"
     },
     "apigateway": {
-      "request_id": "pxyjt1cq-m8f7",
-      "api_id": "3buo7aoc71",
-      "domain_name": "3buo7aoc71.execute-api.us-west-2.amazonaws.com",
+      "request_id": "w9mt41k2-n4x9",
+      "api_id": "0k2723argm",
+      "domain_name": "0k2723argm.execute-api.us-east-1.amazonaws.com",
       "stage": "prod",
-      "http_method": "GET",
-      "resource_path": "/health",
+      "http_method": "DELETE",
+      "resource_path": "/api/v1/auth/login",
       "protocol": "HTTP/1.1",
-      "route_key": "GET /health",
-      "status": 403,
-      "response_length": 923,
-      "ip_address": "22.180.204.127",
-      "caller": "arn:aws:iam::501938274650:user/api-user",
-      "connection_id": "Z5J1XR27CC",
-      "event_type": "CONNECT",
-      "request_time": "2026-03-27T13:21:40.756Z",
+      "route_key": "DELETE /api/v1/auth/login",
+      "status": 201,
+      "response_length": 405,
+      "ip_address": "40.82.7.246",
+      "connection_id": "QOAUN11B5D",
+      "event_type": "DISCONNECT",
+      "request_time": "2026-03-30T12:56:00.184Z",
       "api_type": "HTTP",
-      "integration_latency": 3376,
+      "integration_latency": 224,
       "metrics": {
         "Count": {
           "sum": 1
         },
         "Latency": {
-          "avg": 4098,
-          "p99": 12294
+          "avg": 253,
+          "p99": 759
         },
         "IntegrationLatency": {
-          "avg": 3376
+          "avg": 224
         },
         "4XXError": {
-          "sum": 1
+          "sum": 0
         },
         "5XXError": {
           "sum": 0
@@ -58,34 +60,34 @@
   },
   "http": {
     "request": {
-      "method": "GET",
-      "id": "pxyjt1cq-m8f7",
-      "bytes": 1551
+      "method": "DELETE",
+      "id": "w9mt41k2-n4x9",
+      "bytes": 1465
     },
     "response": {
-      "status_code": 403,
-      "bytes": 2771
+      "status_code": 201,
+      "bytes": 7613
     }
   },
   "url": {
-    "path": "/health",
-    "domain": "3buo7aoc71.execute-api.us-east-1.amazonaws.com"
+    "path": "/api/v1/auth/login",
+    "domain": "0k2723argm.execute-api.eu-west-2.amazonaws.com"
   },
   "client": {
-    "ip": "34.127.187.12",
+    "ip": "222.34.251.157",
     "geo": {
-      "country_iso_code": "DE",
-      "country_name": "Germany",
-      "region_name": "Frankfurt",
-      "city_name": "Frankfurt"
+      "country_iso_code": "SG",
+      "country_name": "Singapore",
+      "region_name": "Singapore",
+      "city_name": "Singapore"
     }
   },
   "user_agent": {
-    "original": "python-requests/2.27.1"
+    "original": "Go-http-client/1.1"
   },
   "event": {
-    "duration": 4098000000,
-    "outcome": "failure",
+    "duration": 253000000,
+    "outcome": "success",
     "category": [
       "web"
     ],
@@ -95,13 +97,8 @@
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "GET /health 403 4098ms",
+  "message": "DELETE /api/v1/auth/login 201 253ms",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "AccessDeniedException",
-    "message": "HTTP 403",
-    "type": "server"
+    "level": "info"
   }
 }

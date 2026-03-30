@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ca-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "vpclattice"
@@ -13,41 +13,36 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "notification-svc",
-      "ServiceNetworkName": "staging-service-network"
+      "ServiceName": "auth-svc",
+      "ServiceNetworkName": "shared-services-network"
     },
     "vpclattice": {
-      "service_name": "notification-svc",
-      "service_arn": "arn:aws:vpc-lattice:eu-west-2:501938274650:service/notification-svc-c4cc4up8",
-      "service_network_name": "staging-service-network",
-      "target_group_id": "tg-fx5046kj80m",
-      "source_vpc_id": "vpc-9e9l6hvc",
-      "destination_vpc_id": "vpc-uwwg52lo",
+      "service_name": "auth-svc",
+      "service_arn": "arn:aws:vpc-lattice:ca-central-1:814726593401:service/auth-svc-dulnjnx5",
+      "service_network_name": "shared-services-network",
+      "target_group_id": "tg-ebskhsattb",
+      "source_vpc_id": "vpc-45z06asb",
+      "destination_vpc_id": "vpc-ux8dddd4",
       "request_method": "PATCH",
-      "response_code": 503,
-      "response_time_ms": 18018,
-      "bytes_received": 59775,
-      "bytes_sent": 41284,
-      "tls_cipher_suite": "TLS_AES_128_GCM_SHA256"
+      "response_code": 204,
+      "response_time_ms": 459,
+      "bytes_received": 4561,
+      "bytes_sent": 47135,
+      "tls_cipher_suite": "TLS_AES_256_GCM_SHA384"
     }
   },
   "event": {
-    "action": "ForwardRule",
-    "outcome": "failure",
+    "action": "ServiceNetworkVpcAssociation",
+    "outcome": "success",
     "category": [
       "network"
     ],
     "dataset": "aws.vpclattice",
     "provider": "vpc-lattice.amazonaws.com",
-    "duration": 18018000000
+    "duration": 459000000
   },
-  "message": "VPC Lattice notification-svc: HTTP 503 after 18018ms",
+  "message": "VPC Lattice auth-svc: PATCH 204 459ms",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "503",
-    "message": "VPC Lattice service error: HTTP 503",
-    "type": "network"
+    "level": "info"
   }
 }

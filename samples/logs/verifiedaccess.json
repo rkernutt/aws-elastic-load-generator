@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "sa-east-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,33 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "ApplicationId": "va-app-4icqbr79"
+      "ApplicationId": "va-app-rlcz7w66"
     },
     "verifiedaccess": {
-      "endpoint_id": "vae-m5nulg5ghi",
-      "group_id": "vag-nd1oeinxm",
-      "instance_id": "vai-yklzueg7u3k",
-      "policy_name": "require-mfa-and-device",
-      "trust_provider_type": "oidc-okta",
+      "endpoint_id": "vae-yqgqygk2wff",
+      "group_id": "vag-wojjra0fwxi",
+      "instance_id": "vai-w3kpxm8j5eo",
+      "policy_name": "require-mfa",
+      "trust_provider_type": "iam-identity-center",
       "device_posture": "UNKNOWN",
       "verdict": "deny",
-      "deny_reason": "device_compliance_check_failed",
+      "deny_reason": "mfa_required",
       "http_method": "PUT",
-      "http_path": "/health",
+      "http_path": "/api/v1/search",
       "http_status": 403,
-      "request_id": "zd3vvexe-npmv-lk8u-n0pp-bxap02benxj",
-      "connection_id": "Q9PYNC2ESJ",
-      "session_id": "IJ7ORQX2QNJ",
+      "request_id": "j6c8y1pe-ap03-4uqx-tv68-ogy3rwom65",
+      "connection_id": "Y5MRW8OBDI",
+      "session_id": "G4SMSUHCXKS",
       "sni_hostname": "internal-dashboard.internal.example.com",
       "application_name": "internal-dashboard"
     }
   },
   "user": {
-    "email": "contractor@partner.com",
-    "name": "contractor"
+    "email": "deploy-svc@example.com",
+    "name": "deploy-svc"
   },
   "source": {
-    "ip": "209.15.230.98"
+    "ip": "38.224.143.172"
   },
   "event": {
     "outcome": "failure",
@@ -52,15 +52,15 @@
     ],
     "dataset": "aws.verifiedaccess",
     "provider": "verified-access.amazonaws.com",
-    "duration": 75000000
+    "duration": 30000000
   },
-  "message": "Verified Access DENIED: contractor@partner.com -> internal-dashboard [device_compliance_check_failed]",
+  "message": "Verified Access DENIED: deploy-svc@example.com -> internal-dashboard [mfa_required]",
   "log": {
     "level": "warn"
   },
   "error": {
     "code": "AccessDenied",
-    "message": "Verified Access policy denied: device_compliance_check_failed",
+    "message": "Verified Access policy denied: mfa_required",
     "type": "authentication"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "states"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "dimensions": {
-      "StateMachineArn": "arn:aws:states:eu-south-1:738291046572:stateMachine:data-pipeline"
+      "StateMachineArn": "arn:aws:states:ap-southeast-1:293847561023:stateMachine:order-fulfillment"
     },
     "stepfunctions": {
-      "state_machine_name": "data-pipeline",
-      "state_machine_arn": "arn:aws:states:eu-south-1:738291046572:stateMachine:data-pipeline",
-      "execution_arn": "arn:aws:states:eu-south-1:738291046572:execution:data-pipeline:h1otjtx4",
+      "state_machine_name": "order-fulfillment",
+      "state_machine_arn": "arn:aws:states:ap-southeast-1:293847561023:stateMachine:order-fulfillment",
+      "execution_arn": "arn:aws:states:ap-southeast-1:293847561023:execution:order-fulfillment:vpblqbmr",
       "workflow_type": "EXPRESS",
-      "execution_start_time": "2026-03-27T13:21:33.242Z",
+      "execution_start_time": "2026-03-30T12:55:49.876Z",
       "state_name": "UpdateDatabase",
-      "state_duration_seconds": 5.72,
+      "state_duration_seconds": 6.037,
       "status": "SUCCEEDED",
-      "duration_seconds": 7.514,
+      "duration_seconds": 10.308,
       "structured_logging": false,
       "metrics": {
         "ExecutionsStarted": {
-          "sum": 13244
+          "sum": 34959
         },
         "ExecutionsSucceeded": {
-          "sum": 78429
+          "sum": 81037
         },
         "ExecutionsFailed": {
           "sum": 0
@@ -40,8 +40,8 @@
           "sum": 0
         },
         "ExecutionTime": {
-          "avg": 7514,
-          "p99": 22542
+          "avg": 10308,
+          "p99": 30924
         },
         "ExecutionsTimedOut": {
           "sum": 0
@@ -50,13 +50,13 @@
     }
   },
   "event": {
-    "duration": 7514000000,
+    "duration": 10308000000,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.stepfunctions",
     "provider": "states.amazonaws.com"
   },
-  "message": "Execution succeeded",
+  "message": "Execution started",
   "log": {
     "level": "info"
   }

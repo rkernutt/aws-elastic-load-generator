@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "codeartifact"
@@ -13,13 +13,14 @@
   },
   "aws": {
     "codeartifact": {
-      "domain_name": "corp-packages",
-      "repository_name": "nuget-store",
-      "package_format": "maven",
-      "package_name": "shared-components",
-      "package_version": "4.0.3",
+      "domain_name": "internal",
+      "repository_name": "maven-central",
+      "package_format": "pypi",
+      "package_name": "my-lib",
+      "package_version": "4.13.3",
       "action": "PublishPackageVersion",
-      "download_size_bytes": 23929995
+      "download_size_bytes": 11316166,
+      "upstream_repository": "npm-upstream"
     }
   },
   "event": {
@@ -32,7 +33,7 @@
     "dataset": "aws.codeartifact",
     "provider": "codeartifact.amazonaws.com"
   },
-  "message": "CodeArtifact PublishPackageVersion: shared-components@4.0.3 [maven] in corp-packages/nuget-store",
+  "message": "CodeArtifact PublishPackageVersion: my-lib@4.13.3 [pypi] in internal/maven-central",
   "log": {
     "level": "info"
   }

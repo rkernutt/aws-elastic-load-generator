@@ -1,43 +1,43 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "28fa1ade34faf9a8c74f1be1570f077e"
+    "id": "99064248801a62b1c5ce2867756f1744"
   },
   "transaction": {
-    "id": "bf557acb0750c4be",
-    "name": "user-events-queue process",
+    "id": "35d56a8a044c9df8",
+    "name": "audit-log-queue process",
     "type": "messaging",
     "duration": {
-      "us": 659000
+      "us": 3176000
     },
     "result": "success",
     "sampled": true,
     "span_count": {
-      "started": 3,
+      "started": 2,
       "dropped": 0
     }
   },
   "labels": {
-    "queue_name": "user-events-queue",
-    "queue_url": "https://sqs.ap-southeast-1.amazonaws.com/123456789012/user-events-queue",
-    "message_count": "6",
-    "approximate_first_receive_delay_seconds": "1",
-    "parent_trace_id": "6318f3082b8383a498b7008af0655fc5"
+    "queue_name": "audit-log-queue",
+    "queue_url": "https://sqs.ap-east-1.amazonaws.com/123456789012/audit-log-queue",
+    "message_count": "9",
+    "approximate_first_receive_delay_seconds": "5",
+    "parent_trace_id": "ee15df07ac55936c831b663fc143c669"
   },
   "service": {
-    "name": "user-events-consumer",
+    "name": "audit-log-consumer",
     "environment": "staging",
     "version": "1.0.0",
     "language": {
-      "name": "python"
+      "name": "java"
     },
     "runtime": {
-      "name": "python3.11",
-      "version": "3.12.8"
+      "name": "java21",
+      "version": "21.0.3"
     },
     "framework": {
       "name": "AWS SQS"
@@ -45,22 +45,22 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "0.6.0"
+    "version": "1.6.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "python",
-      "version": "1.29.0"
+      "language": "java",
+      "version": "2.12.0"
     },
     "distro": {
       "name": "elastic",
-      "version": "0.6.0"
+      "version": "1.6.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "ap-east-1",
     "account": {
       "id": "123456789012",
       "name": "prod-aws"

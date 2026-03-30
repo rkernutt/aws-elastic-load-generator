@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "me-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "kms"
@@ -13,10 +13,10 @@
   },
   "aws": {
     "kms": {
-      "key_id": "98jbgk7n-l232-wzbw-01aw-x16hgi8m1o",
+      "key_id": "jjy3nz32-l9uw-ri50-ahsa-dr6be6gu8nb",
       "key_alias": "alias/secrets-key",
-      "operation": "Encrypt",
-      "principal_arn": "arn:aws:iam::293847561023:role/lambda-role",
+      "operation": "DescribeKey",
+      "principal_arn": "arn:aws:iam::501938274650:user/alice",
       "key_state": "Enabled",
       "encryption_algorithm": "RSAES_OAEP_SHA_256",
       "metrics": {
@@ -24,19 +24,19 @@
           "sum": 0
         },
         "KeysCount": {
-          "avg": 913
+          "avg": 643
         },
         "KeysPendingDeletion": {
-          "avg": 0
+          "avg": 3
         },
         "KeysDisabled": {
-          "avg": 4
+          "avg": 0
         }
       }
     }
   },
   "event": {
-    "action": "Encrypt",
+    "action": "DescribeKey",
     "outcome": "success",
     "category": [
       "authentication",
@@ -45,7 +45,7 @@
     "dataset": "aws.kms",
     "provider": "kms.amazonaws.com"
   },
-  "message": "KMS Encrypt: alias/secrets-key",
+  "message": "KMS DescribeKey: alias/secrets-key",
   "log": {
     "level": "info"
   }

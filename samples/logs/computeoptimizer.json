@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "us-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "computeoptimizer"
@@ -13,27 +13,27 @@
   },
   "aws": {
     "computeoptimizer": {
-      "resource_type": "AUTO_SCALING_GROUP",
-      "resource_arn": "arn:aws:ec2:ca-central-1:164820739518:instance/i-0srr7vttwk8k",
-      "finding": "OVERPROVISIONED",
+      "resource_type": "ECS_SERVICE_FARGATE",
+      "resource_arn": "arn:aws:ec2:us-west-1:814726593401:instance/i-o6jq0z3lsz",
+      "finding": "OPTIMIZED",
       "current_configuration": {
-        "instance_type": "r5.large",
-        "vcpu": 2,
-        "memory_gb": 102
+        "instance_type": "t3.large",
+        "vcpu": 29,
+        "memory_gb": 123
       },
       "recommended_configuration": {
-        "instance_type": "t3.small",
-        "vcpu": 3,
-        "memory_gb": 35
+        "instance_type": "t3.medium",
+        "vcpu": 2,
+        "memory_gb": 56
       },
-      "estimated_monthly_savings_usd": 490.594,
-      "estimated_monthly_savings_percent": 48.493,
-      "lookback_period_days": 93,
+      "estimated_monthly_savings_usd": 0,
+      "estimated_monthly_savings_percent": 0,
+      "lookback_period_days": 14,
       "utilization": {
-        "cpu_max": 64.724,
-        "memory_max": 15.512
+        "cpu_max": 89.592,
+        "memory_max": 28.038
       },
-      "performance_risk": "Low"
+      "performance_risk": "VeryLow"
     }
   },
   "event": {
@@ -44,9 +44,9 @@
     ],
     "dataset": "aws.computeoptimizer",
     "provider": "compute-optimizer.amazonaws.com",
-    "duration": 25000000000
+    "duration": 49000000000
   },
-  "message": "Compute Optimizer: AUTO_SCALING_GROUP OVERPROVISIONED — downsize r5.large→t3.small, save 491/mo",
+  "message": "Compute Optimizer: ECS_SERVICE_FARGATE OPTIMIZED (t3.large)",
   "log": {
     "level": "info"
   }

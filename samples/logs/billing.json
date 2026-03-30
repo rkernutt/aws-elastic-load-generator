@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "billing"
@@ -13,39 +13,44 @@
   },
   "aws": {
     "billing": {
-      "service": "AmazonEC2",
-      "usage_type": "Requests-Tier1",
-      "estimated_charges": 5.598,
+      "service": "AmazonRDS",
+      "usage_type": "USE2-BoxUsage",
+      "estimated_charges": 4751.709,
       "currency": "USD",
       "period_start": "2026-03-01",
-      "linked_account_id": "738291046572",
+      "linked_account_id": "501938274650",
       "dimensions": {
-        "Service": "AmazonEC2",
-        "LinkedAccount": "738291046572",
-        "UsageType": "Requests-Tier1"
+        "Service": "AmazonRDS",
+        "LinkedAccount": "501938274650",
+        "UsageType": "USE2-BoxUsage"
       },
       "metrics": {
         "EstimatedCharges": {
-          "sum": 5.598
+          "sum": 4751.709
         },
         "NumberOfRequests": {
-          "sum": 105248
+          "sum": 29803
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "configuration",
       "process"
     ],
     "dataset": "aws.billing",
     "provider": "ce.amazonaws.com",
-    "duration": 4101000000
+    "duration": 2665000000
   },
-  "message": "Billing: AmazonEC2 5.60 USD",
+  "message": "Billing anomaly: AmazonRDS 4751.71 USD",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "BillingAnomaly",
+    "message": "Unusual cost detected",
+    "type": "billing"
   }
 }

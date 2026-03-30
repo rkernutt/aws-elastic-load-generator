@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "servicecatalog"
@@ -13,21 +13,22 @@
   },
   "aws": {
     "servicecatalog": {
-      "operation": "SearchProducts",
-      "product_name": "EKS Cluster",
-      "product_id": "prod-ZXHH2XKKEGK",
-      "portfolio_id": "port-KDMWHMXEHQC",
-      "provisioned_product_name": "eks-cluster-3wdshr",
-      "record_id": "rec-6245CM6N49V",
+      "operation": "TerminateProvisionedProduct",
+      "product_name": "Standard EC2 Instance",
+      "product_id": "prod-N2JQD6OBSQ",
+      "portfolio_id": "port-V5I1IYTDX0O",
+      "provisioned_product_name": "standard-ec2-instance-6c8ywk",
+      "record_id": "rec-A9CQFST8OIF",
       "status": "AVAILABLE",
-      "requester_arn": "arn:aws:iam::293847561023:user/contractor-dan"
+      "requester_arn": "arn:aws:iam::738291046572:user/team-lead-bob",
+      "launch_role": "arn:aws:iam::123456789:role/ServiceCatalogLaunchRole"
     }
   },
   "user": {
-    "name": "contractor-dan"
+    "name": "team-lead-bob"
   },
   "event": {
-    "action": "SearchProducts",
+    "action": "TerminateProvisionedProduct",
     "outcome": "success",
     "category": [
       "configuration",
@@ -35,9 +36,9 @@
     ],
     "dataset": "aws.servicecatalog",
     "provider": "servicecatalog.amazonaws.com",
-    "duration": 177000000000
+    "duration": 248000000000
   },
-  "message": "ServiceCatalog SearchProducts: contractor-dan → EKS Cluster [AVAILABLE]",
+  "message": "ServiceCatalog TerminateProvisionedProduct: team-lead-bob → Standard EC2 Instance [AVAILABLE]",
   "log": {
     "level": "info"
   }

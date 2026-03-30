@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "eu-south-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "imagebuilder"
@@ -14,20 +14,20 @@
   "aws": {
     "dimensions": {
       "PipelineName": "container-base-pipeline",
-      "Phase": "TEST"
+      "Phase": "DEPROVISION"
     },
     "imagebuilder": {
       "pipeline_name": "container-base-pipeline",
-      "image_version": "1.20.8/1",
-      "phase": "TEST",
+      "image_version": "3.7.3/1",
+      "phase": "DEPROVISION",
       "phase_status": "COMPLETED",
-      "duration_seconds": 1054,
-      "os": "Ubuntu 22.04",
-      "recipe_name": "web-server-recipe",
-      "ami_id": "ami-uh46i0o3",
+      "duration_seconds": 1564,
+      "os": "Windows Server 2022",
+      "recipe_name": "docker-host",
+      "ami_id": "ami-kbhiryq6",
       "metrics": {
         "BuildDuration": {
-          "avg": 1054
+          "avg": 1564
         },
         "ImageBuildSuccessCount": {
           "sum": 1
@@ -36,7 +36,7 @@
           "sum": 0
         },
         "ComponentBuildDuration": {
-          "avg": 711
+          "avg": 623
         }
       }
     }
@@ -45,12 +45,12 @@
     "category": [
       "process"
     ],
-    "duration": 1054000000000,
+    "duration": 1564000000000,
     "outcome": "success",
     "dataset": "aws.imagebuilder",
     "provider": "imagebuilder.amazonaws.com"
   },
-  "message": "Testing image: ami-uh46i0o3 with test component aws:TestInfrastructureAssociation",
+  "message": "Testing image: ami-kbhiryq6 with test component aws:TestInfrastructureAssociation",
   "log": {
     "level": "info"
   }

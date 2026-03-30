@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ap-south-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "lambda"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "FunctionName": "notification-sender",
-      "Resource": "notification-sender:$LATEST",
+      "FunctionName": "payment-processor",
+      "Resource": "payment-processor:$LATEST",
       "ExecutedVersion": "$LATEST",
-      "EventSourceMappingUUID": "wsz06dx2-j7xa-yrs1-iaj3-zy52shhnx3"
+      "EventSourceMappingUUID": "h0vmx20e-vz78-3ek2-c3pc-0kz2il6pupsh"
     },
     "cloudwatch": {
-      "log_group": "/aws/lambda/notification-sender",
-      "log_stream": "2026-03-27/[$LATEST]vqo7sl4sxvp"
+      "log_group": "/aws/lambda/payment-processor",
+      "log_stream": "2026-03-30/[$LATEST]9ax6d4fb08q"
     },
     "lambda": {
       "function": {
-        "name": "notification-sender",
+        "name": "payment-processor",
         "version": "$LATEST",
-        "arn": "arn:aws:lambda:ap-southeast-4:164820739518:function:notification-sender"
+        "arn": "arn:aws:lambda:ap-south-2:293847561023:function:payment-processor"
       },
-      "request_id": "eintn3e3-eypg-thrd-906t-8owhwvxzdbb",
-      "event_type": "app",
+      "request_id": "dbhhzpi2-2oql-h7a3-dc6l-g9mub1f42hh",
+      "event_type": "end",
       "metrics": {
         "Invocations": {
           "sum": 1,
@@ -44,14 +44,14 @@
           "avg": 0
         },
         "Duration": {
-          "avg": 741.54,
-          "max": 889.848
+          "avg": 453.204,
+          "max": 543.8448
         },
         "ConcurrentExecutions": {
-          "avg": 415
+          "avg": 68
         },
         "UnreservedConcurrentExecutions": {
-          "avg": 918
+          "avg": 614
         },
         "DeadLetterErrors": {
           "sum": 0,
@@ -61,28 +61,28 @@
           "avg": 0
         },
         "AsyncEventsReceived": {
-          "sum": 3
+          "sum": 57
         },
         "AsyncEventAge": {
-          "avg": 3754
+          "avg": 958
         },
         "memory_size_mb": 3008,
-        "max_memory_used_mb": 672,
+        "max_memory_used_mb": 2318,
         "instance_max_memory": 3008,
         "PolledEventCount": {
-          "sum": 910
+          "sum": 638
         },
         "InvokedEventCount": {
-          "sum": 63
+          "sum": 132
         },
         "FilteredOutEventCount": {
-          "sum": 0
+          "sum": 45
         },
         "FailedInvokeEventCount": {
           "sum": 0
         },
         "DeletedEventCount": {
-          "sum": 10
+          "sum": 3
         },
         "OnFailureDestinationDeliveredEventCount": {
           "sum": 0
@@ -93,9 +93,9 @@
   "log": {
     "level": "info"
   },
-  "message": "{\"requestId\":\"eintn3e3-eypg-thrd-906t-8owhwvxzdbb\",\"level\":\"INFO\",\"message\":\"Processing complete\",\"timestamp\":\"2026-03-27T13:21:40.756Z\",\"duration_ms\":742,\"memory_used_mb\":672}",
+  "message": "END RequestId: dbhhzpi2-2oql-h7a3-dc6l-g9mub1f42hh",
   "event": {
-    "duration": 741540000,
+    "duration": 453204000,
     "outcome": "success",
     "category": [
       "process"
@@ -107,7 +107,7 @@
     "provider": "lambda.amazonaws.com"
   },
   "service": {
-    "name": "notification-sender",
+    "name": "payment-processor",
     "type": "lambda"
   }
 }

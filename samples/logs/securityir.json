@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "ca-central-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "CaseId": "case-np4gyszu",
-      "Severity": "MEDIUM"
+      "CaseId": "case-dnztoidk",
+      "Severity": "CRITICAL"
     },
     "securityir": {
-      "case_id": "case-np4gyszu",
-      "case_title": "Credential compromise",
-      "case_status": "CONTAINMENT",
-      "severity": "MEDIUM",
-      "impacted_account_count": 4,
-      "impacted_services": "RDS,Secrets Manager",
+      "case_id": "case-dnztoidk",
+      "case_title": "Insider threat",
+      "case_status": "ERADICATION",
+      "severity": "CRITICAL",
+      "impacted_account_count": 7,
+      "impacted_services": "Lambda,DynamoDB",
       "resolver_type": "AWS",
-      "engagement_type": "COMPROMISE_ASSESSMENT",
-      "case_arn": "arn:aws:security-ir:eu-central-1:164820739518:case/case-np4gyszu"
+      "engagement_type": "SECURITY_INCIDENT",
+      "case_arn": "arn:aws:security-ir:ca-central-1:164820739518:case/case-dnztoidk"
     }
   },
   "event": {
-    "action": "CreateCaseComment",
+    "action": "AddCaseMember",
     "outcome": "success",
     "category": [
       "intrusion_detection",
@@ -38,8 +38,8 @@
     "dataset": "aws.securityir",
     "provider": "security-ir.amazonaws.com"
   },
-  "message": "Security IR CreateCaseComment: case=case-np4gyszu severity=MEDIUM status=CONTAINMENT",
+  "message": "Security IR AddCaseMember: case=case-dnztoidk severity=CRITICAL status=ERADICATION",
   "log": {
-    "level": "warn"
+    "level": "error"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "artifact"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ReportName": "SOC2-Type-II",
-      "ReportCategory": "Certification"
+      "ReportName": "PCI-DSS-Attestation",
+      "ReportCategory": "Regulation"
     },
     "artifact": {
-      "report_name": "SOC2-Type-II",
-      "report_arn": "arn:aws:artifact:::report/soc2-type-ii",
-      "report_category": "Certification",
-      "report_period": "2024",
+      "report_name": "PCI-DSS-Attestation",
+      "report_arn": "arn:aws:artifact:::report/pci-dss-attestation",
+      "report_category": "Regulation",
+      "report_period": "2024-Q4",
       "agreement_name": "Business-Associate-Agreement",
-      "agreement_type": "CUSTOM",
-      "accessed_by": "globex-security-tooling",
+      "agreement_type": "DEFAULT",
+      "accessed_by": "globex-development",
       "download_format": "PDF"
     }
   },
   "event": {
-    "action": "TerminateAgreement",
+    "action": "ListAgreements",
     "outcome": "success",
     "category": [
       "audit"
@@ -36,11 +36,11 @@
     "dataset": "aws.artifact",
     "provider": "artifact.amazonaws.com"
   },
-  "message": "Artifact: TerminateAgreement — SOC2-Type-II (Certification)",
+  "message": "Artifact: ListAgreements — PCI-DSS-Attestation (Regulation)",
   "log": {
     "level": "info"
   },
   "user": {
-    "name": "globex-security-tooling"
+    "name": "globex-development"
   }
 }

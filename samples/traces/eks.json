@@ -1,23 +1,23 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "de16d6be460bd52ec3ac84b343297522"
+    "id": "01a35a08c4aaebb2c1fccc00ecc8ddc3"
   },
   "transaction": {
-    "id": "01af112ef6237475",
-    "name": "GET /api/v1/users/{id}",
+    "id": "8ea95acfacfb589a",
+    "name": "GET /users/{id}",
     "type": "request",
     "duration": {
-      "us": 250506
+      "us": 262363
     },
     "result": "HTTP 200",
     "sampled": true,
     "span_count": {
-      "started": 4,
+      "started": 2,
       "dropped": 0
     }
   },
@@ -30,24 +30,24 @@
     }
   },
   "url": {
-    "path": "/api/v1/users/{id}"
+    "path": "/users/{id}"
   },
   "labels": {
     "k8s_namespace": "production",
-    "k8s_pod_name": "gateway-service-0cabd-9b777",
-    "k8s_deployment": "gateway-service",
-    "k8s_node": "ip-58-232-145-70.ec2.internal"
+    "k8s_pod_name": "user-profile-service-98da2-52351",
+    "k8s_deployment": "user-profile-service",
+    "k8s_node": "ip-138-169-129-175.ec2.internal"
   },
   "service": {
-    "name": "gateway-service",
+    "name": "user-profile-service",
     "environment": "production",
     "version": "1.0.0",
     "language": {
-      "name": "nodejs"
+      "name": "python"
     },
     "runtime": {
-      "name": "nodejs20.x",
-      "version": "20.15.1"
+      "name": "python3.12",
+      "version": "3.12.3"
     },
     "framework": {
       "name": "Kubernetes"
@@ -55,25 +55,25 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "1.4.0"
+    "version": "0.6.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "nodejs",
-      "version": "1.30.1"
+      "language": "python",
+      "version": "1.29.0"
     },
     "distro": {
       "name": "elastic",
-      "version": "1.4.0"
+      "version": "0.6.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "234567890123",
-      "name": "staging-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "eks"

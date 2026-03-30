@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "eu-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "transcribe"
@@ -14,17 +14,18 @@
   "aws": {
     "dimensions": {
       "Operation": "TranscriptionJob",
-      "LanguageCode": "en-GB"
+      "LanguageCode": "es-US"
     },
     "transcribe": {
-      "transcription_job_name": "transcribe-1q7j6k0j",
+      "transcription_job_name": "transcribe-onn56y5g",
       "transcription_job_status": "FAILED",
-      "language_code": "en-GB",
-      "media_format": "mp3",
-      "media_uri": "s3://audio-bucket/transcribe-1q7j6k0j.mp3",
-      "audio_duration_minutes": 0.173,
+      "language_code": "es-US",
+      "media_format": "ogg",
+      "media_uri": "s3://audio-bucket/transcribe-onn56y5g.mp3",
+      "audio_duration_minutes": 0.052,
       "word_count": 0,
       "vocabulary_name": "legal-terminology",
+      "speaker_count": 2,
       "content_redaction_enabled": true,
       "error_code": "BadRequestException",
       "metrics": {
@@ -38,7 +39,7 @@
           "avg": 4
         },
         "TranscriptionJobsRunning": {
-          "avg": 3
+          "avg": 2
         }
       }
     }
@@ -51,7 +52,7 @@
     "dataset": "aws.transcribe",
     "provider": "transcribe.amazonaws.com"
   },
-  "message": "Transcribe job transcribe-1q7j6k0j FAILED (en-GB): Unsupported codec",
+  "message": "Transcribe job transcribe-onn56y5g FAILED (es-US): Unsupported codec",
   "log": {
     "level": "error"
   },

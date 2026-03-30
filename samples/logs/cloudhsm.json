@@ -1,34 +1,35 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "cloudhsm"
     },
-    "availability_zone": "af-south-1c"
+    "availability_zone": "ap-south-2c"
   },
   "aws": {
     "dimensions": {
-      "ClusterId": "cluster-lgksknbp3m"
+      "ClusterId": "cluster-jy9qywp8qe"
     },
     "cloudhsm": {
-      "cluster_id": "cluster-lgksknbp3m",
-      "hsm_id": "hsm-o1lobqmwuu",
+      "cluster_id": "cluster-jy9qywp8qe",
+      "hsm_id": "hsm-f5rke2vet4",
       "hsm_state": "ACTIVE",
-      "availability_zone": "af-south-1c",
-      "subnet_id": "subnet-x5p0suml",
-      "eni_ip": "10.87.36.103",
-      "key_type": "RSA_4096",
-      "operation_type": "key_deletion"
+      "availability_zone": "ap-south-2c",
+      "subnet_id": "subnet-e2xtlbuv",
+      "eni_ip": "10.194.143.225",
+      "key_type": "RSA_2048",
+      "operation_type": "cluster_management",
+      "backup_id": "backup-sh1oqbw0pu"
     }
   },
   "event": {
-    "action": "ActivateCluster",
+    "action": "CreateBackup",
     "outcome": "success",
     "category": [
       "process",
@@ -37,7 +38,7 @@
     "dataset": "aws.cloudhsm",
     "provider": "cloudhsm.amazonaws.com"
   },
-  "message": "CloudHSM ActivateCluster: cluster=cluster-lgksknbp3m, hsm=hsm-o1lobqmwuu, state=ACTIVE",
+  "message": "CloudHSM CreateBackup: cluster=cluster-jy9qywp8qe, hsm=hsm-f5rke2vet4, state=ACTIVE",
   "log": {
     "level": "info"
   }

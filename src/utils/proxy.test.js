@@ -5,7 +5,7 @@
  */
 import { describe, it, expect } from "vitest";
 
-// ── Retry helpers (extracted from proxy.js logic) ────────────────────────────
+// ── Retry helpers (extracted from proxy.cjs logic) ────────────────────────────
 
 const MAX_RETRIES = 3;
 const BACKOFF_BASE_MS = 1000;

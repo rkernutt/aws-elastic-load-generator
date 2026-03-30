@@ -17,3 +17,13 @@ npm run samples
 ```
 
 This uses the same generators as the app and writes into `samples/logs/`, `samples/metrics/`, and `samples/traces/`. Use these samples as reference for index mapping, ingest pipelines, or testing ingestion.
+
+## Verifying coverage
+
+After changing generators, run:
+
+```bash
+npm run samples:verify
+```
+
+This fails with a non-zero exit code if any log, metric, or trace sample file is missing for a registered generator (or if unexpected files exist). Run `npm run samples` first to regenerate, then `npm run samples:verify` to confirm **185 + 150 + 20** files line up with `GENERATORS`, `METRICS_GENERATORS`, and `TRACE_GENERATORS`.

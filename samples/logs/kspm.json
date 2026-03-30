@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,10 +7,10 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "us-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
   },
   "orchestrator": {
@@ -22,22 +22,22 @@
     "namespace": "logging"
   },
   "resource": {
-    "id": "staging-eks/logging/pod/frontend-li9y5",
-    "name": "pod/frontend-li9y5",
-    "sub_type": "Pod",
+    "id": "staging-eks/logging/api-server/staging-eks",
+    "name": "api-server/staging-eks",
+    "sub_type": "api-server",
     "type": "k8s_object"
   },
   "rule": {
-    "id": "cis_eks_4_4",
-    "name": "Minimize containers wishing to share the host IPC namespace",
-    "section": "4.4",
+    "id": "cis_eks_1_1",
+    "name": "Restrict anonymous access to the API server",
+    "section": "1.1",
     "tags": [
-      "Pod Security"
+      "API Server"
     ],
     "benchmark": {
       "id": "cis_eks",
       "version": "v1.4.0",
-      "rule_number": "4.4",
+      "rule_number": "1.1",
       "posture_type": "kspm"
     }
   },
@@ -57,7 +57,7 @@
     "dataset": "cloud_security_posture.findings",
     "provider": "elastic_kspm"
   },
-  "message": "KSPM [CIS EKS / 4.4] passed: Minimize containers wishing to share the host IPC namespace [staging-eks]",
+  "message": "KSPM [CIS EKS / 1.1] passed: Restrict anonymous access to the API server [staging-eks]",
   "log": {
     "level": "info"
   }

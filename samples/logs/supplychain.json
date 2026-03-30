@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "supplychain"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "arn:aws:scn:us-west-1:164820739518:instance/l5ksvrrx4ng"
+      "InstanceId": "arn:aws:scn:sa-east-1:501938274650:instance/9sitv1gwkv9"
     },
     "supplychain": {
-      "instance_id": "arn:aws:scn:us-west-1:164820739518:instance/l5ksvrrx4ng",
+      "instance_id": "arn:aws:scn:sa-east-1:501938274650:instance/9sitv1gwkv9",
       "instance_name": "global-supply-chain",
-      "namespace": "aws.supply_chain.collaboration",
-      "event_type": "scn.data.supply_plan",
-      "job_status": "SUCCESS",
-      "record_count": 482665,
-      "forecast_horizon_days": 42,
+      "namespace": "aws.supply_chain.plan",
+      "event_type": "scn.data.inventory",
+      "job_status": "QUEUED",
+      "record_count": 903396,
+      "forecast_horizon_days": 164,
       "data_lake_dataset": "purchase_orders"
     }
   },
   "event": {
-    "action": "SendDataIntegrationEvent",
+    "action": "CreateBillOfMaterialsImportJob",
     "outcome": "success",
     "category": [
       "process"
@@ -35,7 +35,7 @@
     "dataset": "aws.supplychain",
     "provider": "scn.amazonaws.com"
   },
-  "message": "Supply Chain SendDataIntegrationEvent: instance=global-supply-chain event=scn.data.supply_plan status=SUCCESS",
+  "message": "Supply Chain CreateBillOfMaterialsImportJob: instance=global-supply-chain event=scn.data.inventory status=QUEUED",
   "log": {
     "level": "info"
   }

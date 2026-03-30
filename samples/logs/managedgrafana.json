@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "eu-central-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "managedgrafana"
@@ -13,18 +13,18 @@
   },
   "aws": {
     "dimensions": {
-      "WorkspaceId": "g-n6lphgixmx"
+      "WorkspaceId": "g-jz2psf28n8"
     },
     "managedgrafana": {
-      "workspace_id": "g-n6lphgixmx",
-      "workspace_name": "ops-dashboards",
-      "workspace_status": "UPDATING",
-      "grafana_version": "10.2",
-      "alert_state": "ok",
-      "dashboard_title": "Cost Analysis",
-      "datasource_type": "elasticsearch",
+      "workspace_id": "g-jz2psf28n8",
+      "workspace_name": "devops-metrics",
+      "workspace_status": "ACTIVE",
+      "grafana_version": "9.4",
+      "alert_state": "no_data",
+      "dashboard_title": "RDS Metrics",
+      "datasource_type": "athena",
       "authentication_providers": "SAML",
-      "notification_destinations": "SNS"
+      "notification_destinations": "PAGERDUTY"
     }
   },
   "event": {
@@ -36,7 +36,7 @@
     "dataset": "aws.managedgrafana",
     "provider": "grafana.amazonaws.com"
   },
-  "message": "Managed Grafana DisassociateLicense: workspace=ops-dashboards alert=ok dashboard=\"Cost Analysis\"",
+  "message": "Managed Grafana DisassociateLicense: workspace=devops-metrics alert=no_data dashboard=\"RDS Metrics\"",
   "log": {
     "level": "info"
   }

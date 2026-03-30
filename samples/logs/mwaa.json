@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "il-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "mwaa"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "ml-pipelines"
+      "EnvironmentName": "staging-airflow"
     },
     "mwaa": {
-      "environment_name": "ml-pipelines",
-      "dag_id": "data_quality_check",
-      "run_id": "scheduled__2026-03-27T13:12:01.756Z",
-      "task_id": "extract",
+      "environment_name": "staging-airflow",
+      "dag_id": "s3_to_redshift",
+      "run_id": "scheduled__2026-03-30T12:10:26.184Z",
+      "task_id": "load",
       "run_state": "running",
-      "duration_seconds": 449,
-      "worker_count": 9,
-      "queue_name": "high_priority",
-      "airflow_version": "2.7.3"
+      "duration_seconds": 271,
+      "worker_count": 10,
+      "queue_name": "default",
+      "airflow_version": "2.6.3"
     }
   },
   "event": {
-    "action": "DagRunStateChanged",
+    "action": "WorkerScaleUp",
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.mwaa",
     "provider": "airflow.amazonaws.com",
-    "duration": 449000000000
+    "duration": 271000000000
   },
-  "message": "MWAA ml-pipelines: DAG data_quality_check task extract running (449s)",
+  "message": "MWAA staging-airflow: DAG s3_to_redshift task load running (271s)",
   "log": {
     "level": "info"
   }

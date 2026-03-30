@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "ap-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "paymentcryptography"
@@ -17,18 +17,18 @@
       "Operation": "VerifyPinData"
     },
     "paymentcryptography": {
-      "key_arn": "arn:aws:payment-cryptography:eu-south-2:293847561023:key/68YGD74N9D",
-      "key_alias": "alias/payment-dek-key",
+      "key_arn": "arn:aws:payment-cryptography:ap-south-1:164820739518:key/YZR6HRXZJ8",
+      "key_alias": "alias/payment-pin-key",
       "key_algorithm": "AES_192",
-      "key_usage": "TR31_P0_PIN_ENCRYPTION_KEY",
+      "key_usage": "TR31_C0_CARD_VERIFICATION_KEY",
       "operation": "VerifyPinData",
       "key_state": "CREATE_COMPLETE",
       "exportable": false,
-      "key_check_value": "4AF86N"
+      "key_check_value": "SC96UA"
     }
   },
   "event": {
-    "action": "DecryptData",
+    "action": "GenerateMac",
     "outcome": "success",
     "category": [
       "authentication"
@@ -36,7 +36,7 @@
     "dataset": "aws.paymentcryptography",
     "provider": "payment-cryptography.amazonaws.com"
   },
-  "message": "Payment Cryptography VerifyPinData using AES_192 (P0)",
+  "message": "Payment Cryptography VerifyPinData using AES_192 (C0)",
   "log": {
     "level": "info"
   }

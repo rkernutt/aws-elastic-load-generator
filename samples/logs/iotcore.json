@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "iotcore"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "Protocol": "HTTPS"
+      "Protocol": "MQTT-SN"
     },
     "iotcore": {
-      "client_id": "sensor-001",
-      "thing_name": "sensor-001",
-      "thing_group": "home-devices",
-      "action": "PUBLISH",
+      "client_id": "robot-arm-7",
+      "thing_name": "robot-arm-7",
+      "thing_group": "factory-sensors",
+      "action": "RECEIVE",
       "topic": "dt/home/thermostat/status",
-      "protocol": "HTTPS",
-      "qos": 0,
-      "message_bytes": 51830,
+      "protocol": "MQTT-SN",
+      "qos": 1,
+      "message_bytes": 18954,
       "policy_name": "FleetPolicy",
-      "structured_logging": true,
-      "rules_evaluated": 1,
+      "structured_logging": false,
+      "rules_evaluated": 5,
       "metrics": {
         "Connect.Success": {
-          "sum": 989
+          "sum": 924
         },
         "Connect.Failure": {
           "sum": 0
         },
         "PublishIn.Success": {
-          "sum": 3119
+          "sum": 8529
         },
         "PublishIn.ClientError": {
           "sum": 0
@@ -44,52 +44,52 @@
           "sum": 0
         },
         "PublishOut.Success": {
-          "sum": 6041
+          "sum": 7872
         },
         "Publish.Success": {
-          "sum": 7808
+          "sum": 5135
         },
         "Publish.Failure": {
           "sum": 0
         },
         "Subscribe.Success": {
-          "sum": 107
+          "sum": 157
         },
         "Subscribe.Failure": {
           "sum": 0
         },
         "Unsubscribe.Success": {
-          "sum": 563
+          "sum": 887
         },
         "Ping.Success": {
-          "sum": 2349
+          "sum": 5462
         },
         "Throttle.Success": {
-          "sum": 5
+          "sum": 166
         },
         "RulesMatched": {
-          "sum": 87
+          "sum": 139
         },
         "RulesFailed": {
           "sum": 0
         },
         "RulesNotMatched": {
-          "sum": 92
+          "sum": 42
         },
         "TopicMatch": {
-          "sum": 6366
+          "sum": 6948
         },
         "ClientConnections": {
-          "avg": 90999
+          "avg": 80248
         }
       }
     }
   },
   "source": {
-    "ip": "23.61.115.223"
+    "ip": "29.205.43.146"
   },
   "event": {
-    "action": "PUBLISH",
+    "action": "RECEIVE",
     "outcome": "success",
     "category": [
       "network",
@@ -97,9 +97,9 @@
     ],
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com",
-    "duration": 7000000
+    "duration": 15000000
   },
-  "message": "{\"clientId\":\"sensor-001\",\"action\":\"PUBLISH\",\"topic\":\"dt/home/thermostat/status\",\"message\":\"IoT Core PUBLISH: sensor-001 on dt/home/thermostat/status\",\"timestamp\":\"2026-03-27T13:21:40.756Z\"}",
+  "message": "IoT Core RECEIVE: robot-arm-7 on dt/home/thermostat/status",
   "log": {
     "level": "info"
   }

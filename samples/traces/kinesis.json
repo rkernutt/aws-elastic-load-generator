@@ -1,20 +1,20 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "0541cd7df5334dcee232b32a60e513a4"
+    "id": "b189061a33c5fdbd3ba65f5fd58a4d54"
   },
   "transaction": {
-    "id": "6aad2784a33f6a92",
-    "name": "iot-telemetry-stream process",
+    "id": "91f7ef1323b3bfee",
+    "name": "metrics-stream process",
     "type": "messaging",
     "duration": {
-      "us": 3510000
+      "us": 8254000
     },
-    "result": "failure",
+    "result": "success",
     "sampled": true,
     "span_count": {
       "started": 2,
@@ -22,23 +22,23 @@
     }
   },
   "labels": {
-    "stream_name": "iot-telemetry-stream",
-    "stream_arn": "arn:aws:kinesis:eu-south-1:123456789012:stream/iot-telemetry-stream",
-    "shard_id": "shardId-000000000000",
-    "sequence_number_range": "49173...49465",
-    "record_count": "126",
-    "iterator_age_ms": "17268"
+    "stream_name": "metrics-stream",
+    "stream_arn": "arn:aws:kinesis:me-central-1:345678901234:stream/metrics-stream",
+    "shard_id": "shardId-000000000009",
+    "sequence_number_range": "49821...49309",
+    "record_count": "172",
+    "iterator_age_ms": "6799"
   },
   "service": {
-    "name": "iot-sensor-processor",
+    "name": "metrics-rollup",
     "environment": "production",
     "version": "1.0.0",
     "language": {
-      "name": "java"
+      "name": "python"
     },
     "runtime": {
-      "name": "java21",
-      "version": "21.0.3"
+      "name": "python3.12",
+      "version": "3.12.2"
     },
     "framework": {
       "name": "AWS Kinesis"
@@ -46,32 +46,32 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "1.6.0"
+    "version": "0.6.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "java",
-      "version": "2.12.0"
+      "language": "python",
+      "version": "1.29.0"
     },
     "distro": {
       "name": "elastic",
-      "version": "1.6.0"
+      "version": "0.6.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "me-central-1",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "kinesis"
     }
   },
   "event": {
-    "outcome": "failure"
+    "outcome": "success"
   },
   "data_stream": {
     "type": "traces",

@@ -1,17 +1,17 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "trace": {
-    "id": "1-69c68464-bvrhosf1lw"
+    "id": "1-69ca72e0-xu2h6c9i8of"
   },
   "span": {
-    "id": "rig6rgld7ih"
+    "id": "bvgqv68sdf"
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "us-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "xray"
@@ -20,80 +20,63 @@
   "aws": {
     "dimensions": {
       "GroupName": "Default",
-      "ServiceType": "remote"
+      "ServiceType": "AWS::SQS::Queue"
     },
     "xray": {
-      "trace_id": "1-69c68464-bvrhosf1lw",
-      "segment_id": "rig6rgld7ih",
-      "parent_id": "a96nmngi7zr",
+      "trace_id": "1-69ca72e0-xu2h6c9i8of",
+      "segment_id": "bvgqv68sdf",
       "service": {
-        "name": "payment-service",
-        "type": "remote"
+        "name": "sqs-consumer",
+        "type": "AWS::SQS::Queue"
       },
-      "duration": 2.849,
+      "duration": 2.713,
       "fault": false,
-      "error": false,
+      "error": true,
       "throttle": false,
       "http": {
         "request": {
-          "method": "POST",
-          "url": "/api/v1/auth/login"
+          "method": "PUT",
+          "url": "/api/v2/events"
         },
         "response": {
-          "status": 200
+          "status": 400
         }
       },
       "annotations": {
         "env": "prod",
-        "version": "v16"
+        "version": "v5"
       },
-      "subsegments": [
-        {
-          "id": "923dv1xhbwi",
-          "name": "DynamoDB.GetItem",
-          "namespace": "aws",
-          "duration": 0.35,
-          "fault": false
-        },
-        {
-          "id": "5hjguoc74p5",
-          "name": "S3.GetObject",
-          "namespace": "remote",
-          "duration": 0.384,
-          "fault": false
-        }
-      ],
       "metrics": {
         "ErrorRate": {
-          "avg": 0.466
+          "avg": 11.404
         },
         "FaultRate": {
-          "avg": 0.383
+          "avg": 0.14
         },
         "ThrottleRate": {
-          "avg": 0.38
+          "avg": 0.421
         },
         "TotalCount": {
-          "sum": 7659
+          "sum": 1487
         },
         "Latency": {
-          "avg": 2849,
-          "p99": 8547
+          "avg": 2713,
+          "p99": 8139
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "POST"
+      "method": "PUT"
     },
     "response": {
-      "status_code": 200
+      "status_code": 400
     }
   },
   "event": {
-    "duration": 2849000000,
-    "outcome": "success",
+    "duration": 2713000000,
+    "outcome": "failure",
     "category": [
       "network"
     ],
@@ -103,8 +86,8 @@
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray: payment-service POST → 200 (2.849s)",
+  "message": "X-Ray: sqs-consumer PUT → 400 (2.713s)",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

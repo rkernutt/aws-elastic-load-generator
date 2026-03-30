@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "ap-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "backup"
@@ -13,13 +13,13 @@
   },
   "aws": {
     "backup": {
-      "backup_job_id": "st2zpbmu-qf1y-ll57",
-      "backup_plan_name": "critical-data-plan",
-      "resource_type": "DynamoDB",
+      "backup_job_id": "rv7yxver-z7n9-irwc",
+      "backup_plan_name": "daily-backup-plan",
+      "resource_type": "EC2",
       "backup_vault_name": "Default",
-      "status": "COMPLETED",
-      "backup_size_gb": 1657.564,
-      "lifecycle_delete_after_days": 7
+      "status": "RUNNING",
+      "backup_size_gb": 1418.991,
+      "lifecycle_delete_after_days": 90
     }
   },
   "event": {
@@ -29,9 +29,9 @@
     ],
     "dataset": "aws.backup",
     "provider": "backup.amazonaws.com",
-    "duration": 5468000000000
+    "duration": 6955000000000
   },
-  "message": "AWS Backup COMPLETED: efs/fs-prod -> prod-vault (1657.6GB)",
+  "message": "AWS Backup RUNNING: fsx/fs-prod -> Default (1419.0GB)",
   "log": {
     "level": "info"
   }

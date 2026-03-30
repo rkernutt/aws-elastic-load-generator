@@ -24,8 +24,8 @@ COPY nginx.conf /etc/nginx/http.d/default.conf
 # Copy built SPA assets
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copy proxy server (uses only Node built-ins — no npm install needed)
-COPY proxy.js /app/proxy.js
+# Copy proxy server (CommonJS .cjs — works regardless of package "type" in image)
+COPY proxy.cjs /app/proxy.cjs
 
 # Supervisor config to run nginx + node proxy together
 RUN mkdir -p /var/log/supervisor

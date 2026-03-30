@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "us-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "FlowDefinitionArn": "arn:aws:sagemaker:eu-central-1:164820739518:flow-definition/id-verification",
-      "Operation": "CreateHumanLoop"
+      "FlowDefinitionArn": "arn:aws:sagemaker:us-east-1:164820739518:flow-definition/fraud-review",
+      "Operation": "TaskTimedOut"
     },
     "a2i": {
-      "flow_definition_arn": "arn:aws:sagemaker:eu-central-1:164820739518:flow-definition/id-verification",
-      "human_loop_name": "loop-tubkbhrke1",
-      "human_loop_status": "InProgress",
-      "input_content_type": "image/png",
+      "flow_definition_arn": "arn:aws:sagemaker:us-east-1:164820739518:flow-definition/fraud-review",
+      "human_loop_name": "loop-tw5dakewxi",
+      "human_loop_status": "Failed",
+      "input_content_type": "image/jpeg",
       "condition_threshold": 0.85,
       "human_review_required": true,
-      "reviewer_count": 1,
-      "task_count": 1,
-      "task_completed": 1,
+      "reviewer_count": 5,
+      "task_count": 4,
+      "task_completed": 4,
       "confidence_threshold_breach": true
     }
   },
@@ -33,7 +33,7 @@
     "level": "warn"
   },
   "event": {
-    "action": "CreateHumanLoop",
+    "action": "TaskTimedOut",
     "outcome": "success",
     "category": [
       "process"
@@ -41,5 +41,5 @@
     "dataset": "aws.a2i",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "A2I CreateHumanLoop: loop=loop-tubkbhrke1, status=InProgress, confidence=0.69<0.85 REVIEW REQUIRED"
+  "message": "A2I TaskTimedOut: loop=loop-tw5dakewxi, status=Failed, confidence=0.67<0.85 REVIEW REQUIRED"
 }

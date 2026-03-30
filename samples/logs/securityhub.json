@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "ca-central-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,53 +13,53 @@
   },
   "aws": {
     "dimensions": {
-      "ComplianceStandard": "cis-aws-foundations-benchmark",
-      "ControlId": "CloudTrail.2"
+      "ComplianceStandard": "pci-dss",
+      "ControlId": "S3.1"
     },
     "securityhub_findings": {
-      "id": "C49YHW28-JRLB-4U38-L2UN-SYP3U3JBWKS",
+      "id": "O73QNYJ5-QAZ6-SPZ8-7FJP-JCF99RDCNJB",
       "aws_account_id": "738291046572",
-      "region": "ap-northeast-2",
-      "description": "Security check failed: CloudTrail.2 - MFA not enabled for root",
-      "created_at": "2026-03-27T03:50:18.232Z",
-      "first_observed_at": "2026-03-27T03:50:18.232Z",
-      "last_observed_at": "2026-03-27T13:21:40.756Z",
+      "region": "ca-central-1",
+      "description": "Security check failed: S3.1 - Default security group allows all traffic",
+      "created_at": "2026-03-29T19:38:07.671Z",
+      "first_observed_at": "2026-03-29T19:38:07.671Z",
+      "last_observed_at": "2026-03-30T12:56:00.184Z",
       "generator": {
-        "id": "CloudTrail.2"
+        "id": "S3.1"
       },
       "types": [
-        "Software and Configuration Checks/Industry and Regulatory Standards/CIS AWS Foundations Benchmark"
+        "Threat Detections/Tactics/Impact"
       ],
       "compliance": {
-        "security_control_id": "CloudTrail.2",
+        "security_control_id": "S3.1",
         "status": "FAILED"
       },
       "severity": {
-        "label": "LOW",
-        "normalized": 20
+        "label": "HIGH",
+        "normalized": 70
       },
       "workflow": {
         "status": "RESOLVED"
       },
       "record_state": "ACTIVE",
       "product": {
-        "arn": "arn:aws:securityhub:ap-northeast-2::product/aws/securityhub",
+        "arn": "arn:aws:securityhub:ca-central-1::product/aws/securityhub",
         "name": "Security Hub"
       },
-      "criticality": 4,
-      "confidence": 87
+      "criticality": 7,
+      "confidence": 89
     }
   },
   "rule": {
-    "id": "CloudTrail.2",
-    "name": "CloudTrail.2 — MFA not enabled for root"
+    "id": "S3.1",
+    "name": "S3.1 — MFA not enabled for root"
   },
   "event": {
     "kind": "alert",
-    "severity": 4,
+    "severity": 7,
     "outcome": "failure",
     "category": [
-      "compliance"
+      "vulnerability"
     ],
     "type": [
       "indicator"
@@ -67,13 +67,13 @@
     "dataset": "aws.securityhub_findings",
     "provider": "securityhub.amazonaws.com"
   },
-  "message": "Security Hub [LOW]: Compliance check failed",
+  "message": "Security Hub [HIGH]: Compliance check failed",
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "error": {
     "code": "ComplianceFailed",
-    "message": "Control CloudTrail.2 failed",
+    "message": "Control S3.1 failed",
     "type": "compliance"
   }
 }

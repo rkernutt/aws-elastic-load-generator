@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "me-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "outposts"
@@ -13,24 +13,24 @@
   },
   "aws": {
     "dimensions": {
-      "OutpostId": "op-cy0cyuii59",
-      "InstanceType": "r5.xlarge"
+      "OutpostId": "op-2nvoc4d1hlz",
+      "InstanceType": "c5.xlarge"
     },
     "outposts": {
-      "outpost_id": "op-cy0cyuii59",
-      "outpost_arn": "arn:aws:outposts:ap-south-1:501938274650:outpost/op-i8m9cyttydm",
-      "site_id": "os-mtv3n3q0scd",
-      "rack_id": "or-dhqsitwu9m",
-      "instance_type": "r5.xlarge",
-      "available_instance_count": 1,
-      "total_instance_count": 25,
-      "capacity_status": "InsufficientCapacity",
-      "connectivity_status": "Degraded",
+      "outpost_id": "op-2nvoc4d1hlz",
+      "outpost_arn": "arn:aws:outposts:me-central-1:164820739518:outpost/op-2i8e3jilir9",
+      "site_id": "os-ahuqkrxvp",
+      "rack_id": "or-47byntrwg6e",
+      "instance_type": "c5.xlarge",
+      "available_instance_count": 0,
+      "total_instance_count": 37,
+      "capacity_status": "Degraded",
+      "connectivity_status": "Disconnected",
       "asset_state": "ACTIVE"
     }
   },
   "event": {
-    "action": "ConnectivityStatusChange",
+    "action": "AssetStateChange",
     "outcome": "failure",
     "category": [
       "host",
@@ -38,15 +38,15 @@
     ],
     "dataset": "aws.outposts",
     "provider": "outposts.amazonaws.com",
-    "duration": 1630000000
+    "duration": 1188000000
   },
-  "message": "Outpost op-cy0cyuii59: InsufficientCapacity — 1/25 r5.xlarge available",
+  "message": "Outpost op-2nvoc4d1hlz: Degraded — 0/37 c5.xlarge available",
   "log": {
     "level": "error"
   },
   "error": {
-    "code": "InsufficientCapacity",
-    "message": "Outpost connectivity: Degraded",
+    "code": "Degraded",
+    "message": "Outpost connectivity: Disconnected",
     "type": "host"
   }
 }

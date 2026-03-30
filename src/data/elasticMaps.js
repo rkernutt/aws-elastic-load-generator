@@ -100,6 +100,13 @@ const METRICS_SUPPORTED_SERVICE_IDS = new Set([
   "globalaccelerator", "directconnect", "vpc",
   // Networking (private connectivity & WAN)
   "privatelink", "networkmanager",
+  "appmesh", "clientvpn", "cloudmap",
+  // Hybrid / edge
+  "outposts",
+  // Security / data (v11 metrics generators)
+  "verifiedpermissions", "dax",
+  // Voice / DR (v11 metrics generators)
+  "chimesdkvoice", "drs",
   // Databases & storage
   "rds", "aurora", "dynamodb", "redshift", "ebs", "s3", "storagelens",
   "elasticache", "opensearch", "docdb", "neptune", "keyspaces", "memorydb", "qldb", "timestream",

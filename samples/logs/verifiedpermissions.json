@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "verifiedpermissions"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "PolicyStoreId": "EFxHZR4C17PFZOC"
+      "PolicyStoreId": "EFxH2MDERZFKUSU"
     },
     "verifiedpermissions": {
-      "policy_store_id": "EFxHZR4C17PFZOC",
-      "principal_entity_type": "Role",
-      "principal_entity_id": "role-J3VSGQS8",
-      "action_id": "WriteDocument",
-      "resource_type": "Endpoint",
+      "policy_store_id": "EFxH2MDERZFKUSU",
+      "principal_entity_type": "Group",
+      "principal_entity_id": "group-5JY8JCZ5",
+      "action_id": "AdminAccess",
+      "resource_type": "Document",
       "decision": "DENY",
       "determining_policies": 3,
-      "errors_count": 0,
-      "evaluation_time_ms": 49
+      "errors_count": 2,
+      "evaluation_time_ms": 10
     }
   },
   "event": {
-    "action": "IsAuthorizedWithToken",
-    "outcome": "success",
+    "action": "IsAuthorized",
+    "outcome": "failure",
     "category": [
       "authentication",
       "iam"
@@ -37,13 +37,13 @@
     "dataset": "aws.verifiedpermissions",
     "provider": "verifiedpermissions.amazonaws.com"
   },
-  "message": "Verified Permissions DENY: Role/role-J3VSGQS8 → WriteDocument",
+  "message": "Verified Permissions DENY: Group/group-5JY8JCZ5 → AdminAccess on Document",
   "log": {
-    "level": "warn"
+    "level": "error"
   },
   "error": {
     "code": "AccessDenied",
-    "message": "Authorization denied for Role/role-J3VSGQS8 to perform WriteDocument",
+    "message": "Authorization denied for Group/group-5JY8JCZ5 to perform AdminAccess",
     "type": "authorization"
   }
 }

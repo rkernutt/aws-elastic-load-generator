@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "trustedadvisor"
@@ -13,26 +13,31 @@
   },
   "aws": {
     "trustedadvisor": {
-      "check_name": "VPCs",
-      "category": "service_limits",
-      "status": "ok",
-      "affected_resource": "sg-zgw9mifq",
-      "flagged_resources": 0
+      "check_name": "Security Groups - Ports Unrestricted",
+      "category": "security",
+      "status": "warning",
+      "affected_resource": "i-q2ah70fj2oi",
+      "flagged_resources": 12
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "configuration",
       "vulnerability"
     ],
     "dataset": "aws.trustedadvisor",
     "provider": "trustedadvisor.amazonaws.com",
-    "duration": 45000000000
+    "duration": 15000000000
   },
-  "message": "Trusted Advisor OK: VPCs",
+  "message": "Trusted Advisor [WARNING]: Security Groups - Ports Unrestricted - 5 resources affected",
+  "error": {
+    "code": "TrustedAdvisorFinding",
+    "message": "Security Groups - Ports Unrestricted: warning",
+    "type": "configuration"
+  },
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

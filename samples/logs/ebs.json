@@ -1,9 +1,9 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
-    "availability_zone": "us-east-1c",
+    "region": "eu-central-1",
+    "availability_zone": "eu-central-1c",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -14,50 +14,47 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-xx2zsx7l5j",
-      "VolumeType": "io2"
+      "VolumeId": "vol-2jfp8fcwr5",
+      "VolumeType": "io1"
     },
     "ebs": {
-      "volume_id": "vol-xx2zsx7l5j",
-      "modification_state": "optimizing",
-      "original_volume_type": "io1",
-      "target_volume_type": "st1",
-      "original_size_gb": 50,
-      "target_size_gb": 100,
-      "original_iops": 10698,
-      "target_iops": 7472,
-      "progress_percent": 10,
-      "event_type": "modification",
+      "volume_id": "vol-2jfp8fcwr5",
+      "volume_type": "io1",
+      "size_gb": 8,
+      "availability_zone": "eu-central-1c",
+      "previous_state": "available",
+      "current_state": "available",
+      "event_type": "state_change",
       "metrics": {
         "VolumeReadOps": {
-          "avg": 2280
+          "avg": 9933
         },
         "VolumeWriteOps": {
-          "avg": 7793
+          "avg": 6194
         },
         "VolumeReadBytes": {
-          "avg": 192632042
+          "avg": 27102555
         },
         "VolumeWriteBytes": {
-          "avg": 134794231
+          "avg": 324028226
         },
         "VolumeTotalReadTime": {
-          "sum": 1.879
+          "sum": 9.223
         },
         "VolumeTotalWriteTime": {
-          "sum": 3.83
+          "sum": 7.116
         },
         "VolumeIdleTime": {
-          "sum": 48.895
+          "sum": 9.837
         },
         "VolumeQueueLength": {
-          "avg": 6
+          "avg": 0
         },
         "VolumeThroughputPercentage": {
-          "avg": 58.572
+          "avg": 31.226
         },
         "VolumeConsumedReadWriteOps": {
-          "avg": 5852
+          "avg": 5387
         },
         "BurstBalance": {}
       }
@@ -71,9 +68,9 @@
     ],
     "dataset": "aws.ebs",
     "provider": "ec2.amazonaws.com",
-    "duration": 4915000000
+    "duration": 2992000000
   },
-  "message": "EBS volume vol-xx2zsx7l5j modification: io1/50GB -> st1/100GB [optimizing]",
+  "message": "EBS volume vol-2jfp8fcwr5 state change: available -> available",
   "log": {
     "level": "info"
   }

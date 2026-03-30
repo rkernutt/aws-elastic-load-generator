@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "wafv2"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "prod-api-acl",
-      "Rule": "NoUserAgent",
-      "Region": "eu-west-3"
+      "WebACL": "cdn-waf",
+      "Rule": "SizeRestrictions_BODY",
+      "Region": "ap-southeast-2"
     },
     "waf": {
-      "id": "r03gul5k4bb",
-      "arn": "arn:aws:wafv2:eu-west-3:501938274650:regional/webacl/prod-api-acl/7nk7y935-fxva-mkyt-i5yw-c1inrypgty",
+      "id": "7mzeydlor2v",
+      "arn": "arn:aws:wafv2:ap-southeast-2:738291046572:regional/webacl/cdn-waf/dt44tw2h-w4jf-mnz5-6wgv-uowjizv3z1p",
       "format_version": "1",
       "source": {
-        "name": "ALB",
-        "id": "501938274650-app/prod-api-acl/7ugevfno2lw"
+        "name": "APIGW",
+        "id": "738291046572-app/cdn-waf/iettfx9ulv"
       },
       "rule_group_list": [
         {
-          "ruleGroupId": "AWSManagedRulesPHPRuleSet",
+          "ruleGroupId": "CustomSQLiRule",
           "nonTerminatingMatchingRules": []
         }
       ],
@@ -72,25 +72,25 @@
     }
   },
   "source": {
-    "ip": "244.57.73.104",
+    "ip": "58.234.51.234",
     "geo": {
-      "country_iso_code": "IN",
-      "country_name": "India",
-      "city_name": "Mumbai",
+      "country_iso_code": "ZA",
+      "country_name": "South Africa",
+      "city_name": "Johannesburg",
       "location": {
-        "lat": 19.076,
-        "lon": 72.8777
+        "lat": -26.2041,
+        "lon": 28.0473
       }
     }
   },
   "http": {
     "request": {
-      "method": "PATCH",
-      "bytes": 1732
+      "method": "DELETE",
+      "bytes": 8470
     }
   },
   "url": {
-    "path": "/api/v2/events"
+    "path": "/api/v1/orders"
   },
   "user_agent": {
     "original": "Go-http-client/1.1"
@@ -105,7 +105,7 @@
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com"
   },
-  "message": "WAFv2 ALLOW [prod-api-acl] 244.57.73.104 PATCH /api/v2/events",
+  "message": "WAFv2 ALLOW [cdn-waf] 58.234.51.234 DELETE /api/v1/orders",
   "log": {
     "level": "info"
   }

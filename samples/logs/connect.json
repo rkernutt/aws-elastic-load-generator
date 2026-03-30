@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "connect"
@@ -13,22 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "r0fpyp09-h6t6-59fk-bv2e-97gdj90wmku",
+      "InstanceId": "p58jgk5u-1gz4-botk-b7c5-66jec1ri7na",
       "MetricGroup": "Queue"
     },
     "connect": {
-      "instance_id": "r0fpyp09-h6t6-59fk-bv2e-97gdj90wmku",
-      "contact_id": "hjpcvvrv-kcpn-ebnd",
-      "channel": "TASK",
-      "initiation_method": "TASK",
-      "queue_name": "Sales",
-      "duration_seconds": 1055,
-      "hold_duration_seconds": 75,
-      "queue_wait_time_seconds": 270,
+      "instance_id": "p58jgk5u-1gz4-botk-b7c5-66jec1ri7na",
+      "contact_id": "ycs6kq76-bgwd-kxjz",
+      "channel": "VOICE",
+      "initiation_method": "TRANSFER",
+      "queue_name": "BasicQueue",
+      "agent_id": "agent-bob",
+      "duration_seconds": 859,
+      "hold_duration_seconds": 24,
+      "queue_wait_time_seconds": 177,
       "disconnect_reason": "EXPIRED",
-      "sentiment_overall": "NEGATIVE",
-      "contact_lens_enabled": false,
-      "lex_bot_interacted": true,
+      "sentiment_overall": "POSITIVE",
+      "contact_lens_enabled": true,
+      "lex_bot_interacted": false,
       "metrics": {
         "ContactsQueued": {
           "sum": 1
@@ -43,25 +44,25 @@
           "sum": 0
         },
         "AverageHandleTime": {
-          "avg": 1055
+          "avg": 859
         },
         "AverageAfterContactWorkTime": {
-          "avg": 161
+          "avg": 66
         },
         "AverageQueueAnswerTime": {
-          "avg": 54
+          "avg": 98
         },
         "ServiceLevel": {
-          "avg": 73.575
+          "avg": 96.808
         },
         "OccupancyTime": {
-          "avg": 91.027
+          "avg": 66.426
         }
       }
     }
   },
   "event": {
-    "duration": 1055000000000,
+    "duration": 859000000000,
     "outcome": "success",
     "category": [
       "host",
@@ -70,7 +71,7 @@
     "dataset": "aws.connect",
     "provider": "connect.amazonaws.com"
   },
-  "message": "Connect TASK: Sales, 1055s, NEGATIVE",
+  "message": "Connect TRANSFER: BasicQueue agent=agent-bob, 859s, POSITIVE",
   "log": {
     "level": "warn"
   }

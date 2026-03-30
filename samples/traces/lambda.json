@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "d44447787356377cd99fbb33827f2ea6"
+    "id": "2c57a0c4225f2ddcb36db125284beca9"
   },
   "transaction": {
-    "id": "30b7bc4f55df2f54",
-    "name": "data-pipeline-ingest",
+    "id": "24995906ff12b764",
+    "name": "inventory-updater",
     "type": "lambda",
     "duration": {
-      "us": 2663000
+      "us": 2488000
     },
     "result": "success",
     "sampled": true,
@@ -22,32 +22,32 @@
     },
     "faas": {
       "coldstart": false,
-      "execution": "5c7c327c-8a6b-1f5f-2648-1e9dce721713",
+      "execution": "9226b20b-3533-3707-3d2b-fc89145efc02",
       "trigger": {
         "type": "pubsub"
       }
     }
   },
   "faas": {
-    "name": "data-pipeline-ingest",
-    "id": "arn:aws:lambda:eu-north-1:123456789012:function:data-pipeline-ingest",
+    "name": "inventory-updater",
+    "id": "arn:aws:lambda:eu-south-1:123456789012:function:inventory-updater",
     "version": "$LATEST",
     "coldstart": false,
-    "execution": "5c7c327c-8a6b-1f5f-2648-1e9dce721713",
+    "execution": "9226b20b-3533-3707-3d2b-fc89145efc02",
     "trigger": {
       "type": "pubsub"
     }
   },
   "service": {
-    "name": "data-pipeline-ingest",
-    "environment": "dev",
+    "name": "inventory-updater",
+    "environment": "production",
     "version": "1.0.0",
     "language": {
       "name": "python"
     },
     "runtime": {
-      "name": "python3.11",
-      "version": "3.11.9"
+      "name": "python3.12",
+      "version": "3.12.3"
     },
     "framework": {
       "name": "AWS Lambda"
@@ -70,7 +70,7 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "eu-south-1",
     "account": {
       "id": "123456789012",
       "name": "prod-aws"

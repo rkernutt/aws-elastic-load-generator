@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codeguru"
@@ -13,17 +13,16 @@
   },
   "aws": {
     "codeguru": {
-      "product": "Profiler",
-      "repository_name": "auth-service",
-      "association_id": "vd4aha00s",
-      "finding_id": "mhsfdce087p",
-      "category": "Latency",
-      "severity": "Critical",
-      "finding_description": "Database N+1 queries",
-      "code_file": "src/main/authservice/Handler.java",
-      "line_number": 298,
-      "profiling_group": "auth-service-profiling",
-      "frame_percent": 18.647
+      "product": "Reviewer",
+      "repository_name": "data-pipeline",
+      "association_id": "cpoygfmvpd",
+      "finding_id": "p31pxzpl09g",
+      "category": "Performance",
+      "severity": "High",
+      "finding_description": "CodeMaintainability:LongMethod",
+      "code_file": "app/models.py",
+      "line_number": 109,
+      "pull_request_id": 180
     }
   },
   "event": {
@@ -35,7 +34,7 @@
     "dataset": "aws.codeguru",
     "provider": "codeguru.amazonaws.com"
   },
-  "message": "CodeGuru Profiler [auth-service] Critical: Database N+1 queries",
+  "message": "CodeGuru Reviewer [data-pipeline] High: CodeMaintainability",
   "log": {
     "level": "warn"
   }

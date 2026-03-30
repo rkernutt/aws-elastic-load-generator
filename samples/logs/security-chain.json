@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "guardduty"
@@ -13,56 +13,56 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "acssyzl7pru"
+      "DetectorId": "33m7c9yhgu3"
     },
     "guardduty": {
       "schema_version": "2.0",
-      "account_id": "738291046572",
-      "region": "us-east-2",
+      "account_id": "293847561023",
+      "region": "ap-southeast-2",
       "partition": "aws",
-      "id": "kq06gxfxu7g",
-      "arn": "arn:aws:guardduty:us-east-2:738291046572:detector/acssyzl7pru/finding/kq06gxfxu7g",
-      "type": "InitialAccess:IAMUser/AnomalousBehavior",
+      "id": "8gyeew8t9tn",
+      "arn": "arn:aws:guardduty:ap-southeast-2:293847561023:detector/33m7c9yhgu3/finding/8gyeew8t9tn",
+      "type": "PrivilegeEscalation:IAMUser/AnomalousBehavior",
       "title": "IAMUser AnomalousBehavior",
-      "description": "GuardDuty detected suspicious activity: InitialAccess:IAMUser/AnomalousBehavior",
-      "created_at": "2026-03-27T13:21:40.756Z",
-      "updated_at": "2026-03-27T13:21:40.756Z",
+      "description": "GuardDuty detected suspicious activity: PrivilegeEscalation:IAMUser/AnomalousBehavior",
+      "created_at": "2026-03-30T12:56:00.184Z",
+      "updated_at": "2026-03-30T12:56:00.184Z",
       "severity": {
-        "code": 8,
+        "code": 7,
         "value": "High"
       },
-      "confidence": 87.326,
+      "confidence": 73.593,
       "resource": {
-        "type": "AccessKey"
+        "type": "Instance"
       },
       "service": {
-        "detector_id": "acssyzl7pru",
-        "count": 59,
+        "detector_id": "33m7c9yhgu3",
+        "count": 96,
         "archived": false,
         "action": {
-          "action_type": "PORT_PROBE"
+          "action_type": "DNS_REQUEST"
         }
       },
       "metrics": {
         "FindingCount": {
-          "sum": 15
+          "sum": 7
         },
         "HighSeverityFindingCount": {
-          "sum": 4
+          "sum": 1
         }
       }
     }
   },
   "source": {
-    "ip": "213.227.223.91"
+    "ip": "98.97.4.57"
   },
   "rule": {
     "category": "intrusion_detection",
-    "name": "InitialAccess:IAMUser/AnomalousBehavior"
+    "name": "PrivilegeEscalation:IAMUser/AnomalousBehavior"
   },
   "event": {
     "kind": "alert",
-    "severity": 8,
+    "severity": 7,
     "outcome": "failure",
     "category": [
       "intrusion_detection"
@@ -73,13 +73,13 @@
     "dataset": "aws.guardduty",
     "provider": "guardduty.amazonaws.com"
   },
-  "message": "GuardDuty finding [CRITICAL]: InitialAccess:IAMUser/AnomalousBehavior",
+  "message": "GuardDuty finding [HIGH]: PrivilegeEscalation:IAMUser/AnomalousBehavior",
   "log": {
     "level": "error"
   },
   "error": {
     "code": "ThreatFinding",
-    "message": "GuardDuty finding: InitialAccess:IAMUser/AnomalousBehavior",
+    "message": "GuardDuty finding: PrivilegeEscalation:IAMUser/AnomalousBehavior",
     "type": "security"
   }
 }

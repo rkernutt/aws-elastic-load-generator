@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-27T13:21:40.756Z",
+  "@timestamp": "2026-03-30T12:56:00.184Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-south-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "proton"
@@ -13,36 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "sandbox-env",
-      "ServiceName": "frontend-service"
+      "EnvironmentName": "staging-env",
+      "ServiceName": "data-pipeline"
     },
     "proton": {
-      "environment_name": "sandbox-env",
-      "service_name": "frontend-service",
+      "environment_name": "staging-env",
+      "service_name": "data-pipeline",
       "service_instance_name": "v2-instance",
-      "template_name": "lambda-service-template",
-      "template_major_version": "2",
-      "deployment_status": "FAILED",
+      "template_name": "fargate-env-template",
+      "template_major_version": "1",
+      "deployment_status": "SUCCEEDED",
       "component": "component"
     }
   },
   "event": {
-    "action": "DeleteEnvironment",
-    "outcome": "failure",
+    "action": "CancelServiceInstanceDeployment",
+    "outcome": "success",
     "category": [
       "configuration"
     ],
     "dataset": "aws.proton",
     "provider": "proton.amazonaws.com",
-    "duration": 104000000000
+    "duration": 45000000000
   },
-  "message": "Proton component frontend-service deployment FAILED on lambda-service-template",
+  "message": "Proton component data-pipeline CancelServiceInstanceDeployment SUCCEEDED",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "FAILED",
-    "message": "Proton deployment failed for frontend-service",
-    "type": "configuration"
+    "level": "info"
   }
 }
