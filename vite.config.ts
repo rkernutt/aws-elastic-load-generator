@@ -17,5 +17,15 @@ export default defineConfig({
   build: {
     outDir: "dist",
     sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) return "vendor";
+          if (id.includes("/generators/traces/")) return "gen-traces";
+          if (id.includes("/generators/metrics/")) return "gen-metrics";
+          if (id.includes("/generators/")) return "gen-logs";
+        },
+      },
+    },
   },
 });

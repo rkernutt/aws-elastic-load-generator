@@ -13,8 +13,6 @@ export default tseslint.config(
       "node_modules/**",
       "public/aws-icons/**",
       "coverage/**",
-      // Shared-import style across 180+ services; lint the TS app/registries first.
-      "src/**/*.js",
       "installer/**",
     ],
   },
@@ -65,6 +63,21 @@ export default tseslint.config(
     rules: {
       "no-unused-vars": [
         "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+        },
+      ],
+    },
+  },
+  {
+    // Generator files share a common import set from helpers; not every helper is
+    // used in every service file. Downgrade no-unused-vars to a warning so CI stays
+    // green while still surfacing genuinely unused locals at review time.
+    files: ["src/generators/**/*.js"],
+    rules: {
+      "no-unused-vars": [
+        "warn",
         {
           argsIgnorePattern: "^_",
           varsIgnorePattern: "^_",

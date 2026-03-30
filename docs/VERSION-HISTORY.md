@@ -8,8 +8,21 @@
 
 > Feature highlights: [README § What's New in v11.3](../README.md#whats-new-in-v113).
 
-- **localStorage excludes cluster credentials** — Only allowlisted UI settings (volume, batching, index prefixes, ingestion source, mode, schedule options, inject-anomalies toggle, etc.) are written to `localStorage`. **Elasticsearch URL and API key are never persisted** and stay in memory for the session. On load, any keys outside the allowlist (including legacy copies of URL or API key) are **scrubbed** from the stored JSON so secrets do not remain on disk.
-- **Parallel shipping progress** — Progress and totals under concurrent service shipping use functional updates and per-service doc counts so the bar stays accurate when multiple workers run at once.
+- **Scheduled mode** — new UI card repeats shipping runs automatically on a configurable timer (1–24 runs, 5–60 min interval). A header badge shows `Run N/M` live; a countdown between runs is shown in the progress card. The Stop button cancels both the active run and any pending countdown. Default: 12 runs × 15 min ≈ 3 hours of baseline traffic.
+- **Inject anomalies** — when checked, every Ship (including each scheduled run) appends a spike pass at current time: metrics ×20, logs error rate 100%, trace durations ×15. For a clean baseline-first workflow, leave it off during the schedule and enable it only for the final spike run.
+- **TypeScript migration** — `App.jsx` and all components, data modules, utils, and tests migrated to `.tsx` / `.ts`. Generator `.js` files remain JS (180+ service files). `src/vite-env.d.ts` added.
+- **GitHub Actions CI** — `.github/workflows/ci.yml` runs `format:check`, `lint`, `typecheck`, `test`, and `build` on Node 20 for every push and PR to `main`.
+- **ESLint + Prettier** — `eslint.config.js` covers all `*.ts`/`*.tsx` files with typescript-eslint, react-hooks, and react-refresh rules. Generator `*.js` files now included with `no-unused-vars` as a warning (shared import pattern). `eslint-config-prettier` disables formatting rules. `.prettierrc.json` enforces consistent style across the whole repo.
+- **localStorage security** — Only an explicit allowlist of non-sensitive UI settings (`PERSISTED_CONFIG_KEYS`) is written to `localStorage`. Elasticsearch URL and API key are never persisted. On load, any keys outside the allowlist are scrubbed from the stored JSON.
+- **Parallel shipping progress fix** — progress bar and totals use functional state updates and per-service doc counts so the display stays accurate when multiple workers run concurrently.
+- **Abort listener cleanup** — `{ once: true }` added to the schedule abort event listener to prevent listener accumulation across repeated runs.
+- **Bundle splitting** — Vite `manualChunks` splits output into `vendor` (React), `gen-logs`, `gen-metrics`, and `gen-traces`. Largest chunk drops from 728 KB to 339 KB; chunk size warning eliminated.
+- **Concurrent service shipping** — 4-worker pool ships services in parallel instead of sequentially.
+- **Metrics timestamp window** — reduced from 7 days to 2 hours to stay within the TSDS writable range on Elastic Cloud.
+- **ML datafeed `query_delay: 60s`** — added to all 143 datafeed configs to prevent missed-document warnings.
+- **Installer delete/reinstall modes** — all three installers (pipelines, dashboards, ML jobs) now support delete and delete+reinstall so updated configs can be applied without manual Kibana intervention.
+- **Installer README** — expanded with deployment-type comparison table, corrected pipeline group counts and service lists, naming convention reference.
+- **Readline input bleed fix** — API key prompt in all three installers no longer pre-populates with the previous answer.
 
 ---
 
