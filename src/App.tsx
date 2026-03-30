@@ -28,7 +28,8 @@ import { AwsLogo, PipelineRoute } from "./components/Logo";
 import { validateElasticUrl, validateApiKey, validateIndexPrefix } from "./utils/validation";
 import styles from "./App.module.css";
 
-type LogEntry = { msg: string; type: string; ts: string };
+type LogEntry = { id: number; msg: string; type: string; ts: string };
+let _logSeq = 0; // stable key counter — never resets so keys are always unique
 type ShipStatus = "running" | "done" | "aborted" | null;
 /** Generator / enrich output — intentionally loose (ECS-shaped JSON). */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ECS docs are dynamic per service
@@ -235,7 +236,10 @@ export default function App() {
   const selectNoneTraces = () => setSelectedTraceServices([]);
 
   const addLog = (msg, type = "info") =>
-    setLog((prev) => [...prev.slice(-5000), { msg, type, ts: new Date().toLocaleTimeString() }]);
+    setLog((prev) => [
+      ...prev.slice(-5000),
+      { id: _logSeq++, msg, type, ts: new Date().toLocaleTimeString() },
+    ]);
 
   const downloadLog = () => {
     const lines = log
@@ -250,43 +254,55 @@ export default function App() {
     URL.revokeObjectURL(url);
   };
 
-  const toggleService = (id) => {
-    if (
-      eventType === "metrics" &&
-      !METRICS_SUPPORTED_SERVICE_IDS.has(id) &&
-      !selectedServices.includes(id)
-    )
-      return;
-    setSelectedServices((prev) =>
-      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
-    );
-  };
+  const toggleService = useCallback(
+    (id: string) => {
+      if (
+        eventType === "metrics" &&
+        !METRICS_SUPPORTED_SERVICE_IDS.has(id) &&
+        !selectedServices.includes(id)
+      )
+        return;
+      setSelectedServices((prev) =>
+        prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
+      );
+    },
+    [eventType, selectedServices]
+  );
 
-  const toggleGroup = (gid: string) => {
-    const grp = SERVICE_GROUPS.find((g) => g.id === gid);
-    if (!grp) return;
-    const groupIds = grp.services.map((s) => s.id);
-    const selectableIds =
-      eventType === "metrics"
-        ? groupIds.filter((id) => METRICS_SUPPORTED_SERVICE_IDS.has(id))
-        : groupIds;
-    const allSel =
-      selectableIds.length > 0 && selectableIds.every((id) => selectedServices.includes(id));
-    setSelectedServices((prev) =>
-      allSel
-        ? prev.filter((id) => !groupIds.includes(id))
-        : [...new Set([...prev, ...selectableIds])]
-    );
-  };
+  const toggleGroup = useCallback(
+    (gid: string) => {
+      const grp = SERVICE_GROUPS.find((g) => g.id === gid);
+      if (!grp) return;
+      const groupIds = grp.services.map((s) => s.id);
+      const selectableIds =
+        eventType === "metrics"
+          ? groupIds.filter((id) => METRICS_SUPPORTED_SERVICE_IDS.has(id))
+          : groupIds;
+      const allSel =
+        selectableIds.length > 0 && selectableIds.every((id) => selectedServices.includes(id));
+      setSelectedServices((prev) =>
+        allSel
+          ? prev.filter((id) => !groupIds.includes(id))
+          : [...new Set([...prev, ...selectableIds])]
+      );
+    },
+    [eventType, selectedServices]
+  );
 
-  const selectAll = () =>
-    setSelectedServices(
-      eventType === "metrics"
-        ? ALL_SERVICE_IDS.filter((id) => METRICS_SUPPORTED_SERVICE_IDS.has(id))
-        : [...ALL_SERVICE_IDS]
-    );
-  const selectNone = () => setSelectedServices([]);
-  const toggleCollapse = (gid) => setCollapsedGroups((prev) => ({ ...prev, [gid]: !prev[gid] }));
+  const selectAll = useCallback(
+    () =>
+      setSelectedServices(
+        eventType === "metrics"
+          ? ALL_SERVICE_IDS.filter((id) => METRICS_SUPPORTED_SERVICE_IDS.has(id))
+          : [...ALL_SERVICE_IDS]
+      ),
+    [eventType]
+  );
+  const selectNone = useCallback(() => setSelectedServices([]), []);
+  const toggleCollapse = useCallback(
+    (gid: string) => setCollapsedGroups((prev) => ({ ...prev, [gid]: !prev[gid] })),
+    []
+  );
 
   const getEffectiveSource = useCallback(
     (svcId) => {
@@ -503,6 +519,32 @@ export default function App() {
     abortRef.current = false;
     setStatus("running");
     setLog([]);
+    // Throttle progress bar updates — accumulate deltas and flush at most every 120 ms.
+    // Each service worker has its own accumulator; React batches the resulting setState calls.
+    const makeProgressFlusher = () => {
+      let pendingSent = 0,
+        pendingErrs = 0,
+        lastFlush = 0;
+      const flush = (force = false) => {
+        const now = Date.now();
+        if (!force && now - lastFlush < 120) return;
+        if (pendingSent === 0 && pendingErrs === 0) return;
+        const s = pendingSent,
+          e = pendingErrs;
+        pendingSent = 0;
+        pendingErrs = 0;
+        lastFlush = now;
+        setProgress((prev) => ({ ...prev, sent: prev.sent + s, errors: prev.errors + e }));
+      };
+      return {
+        add: (sent: number, errs: number) => {
+          pendingSent += sent;
+          pendingErrs += errs;
+          flush();
+        },
+        done: () => flush(true),
+      };
+    };
     try {
       const url = elasticUrl.replace(/\/$/, "");
       const headers = {
@@ -537,6 +579,7 @@ export default function App() {
           ).flat();
           const dpt =
             tracesPerService > 0 && allDocs.length > 0 ? allDocs.length / tracesPerService : 1;
+          const progress = makeProgressFlusher();
           let svcSent = 0,
             svcErrors = 0,
             batchNum = 0,
@@ -545,13 +588,11 @@ export default function App() {
             if (abortRef.current) break;
             batchNum++;
             const batch = allDocs.slice(i, i + batchSize);
-            const ndjson =
-              batch
-                .flatMap((doc) => [
-                  JSON.stringify({ create: { _index: APM_INDEX } }),
-                  JSON.stringify(doc),
-                ])
-                .join("\n") + "\n";
+            const apmMeta = JSON.stringify({ create: { _index: APM_INDEX } });
+            let ndjson = "";
+            for (const doc of batch) {
+              ndjson += apmMeta + "\n" + JSON.stringify(doc) + "\n";
+            }
             let errDelta = 0;
             try {
               const res = await fetch(`/proxy/_bulk`, { method: "POST", headers, body: ndjson });
@@ -588,13 +629,10 @@ export default function App() {
             const currentTraces = Math.min(tracesPerService, Math.floor(svcSent / dpt));
             const sentDelta = currentTraces - lastReportedTraces;
             lastReportedTraces = currentTraces;
-            setProgress((prev) => ({
-              sent: prev.sent + sentDelta,
-              total: totalTraces,
-              errors: prev.errors + errDelta,
-            }));
+            progress.add(sentDelta, errDelta);
             if (batchDelayMs > 0) await new Promise((r) => setTimeout(r, batchDelayMs));
           }
+          progress.done();
           addLog(`✓ ${svc} complete (${svcSent} span docs for ${tracesPerService} traces)`, "ok");
           return { sent: tracesPerService, errors: svcErrors > 0 ? 1 : 0 };
         };
@@ -629,13 +667,11 @@ export default function App() {
             for (let i = 0; i < injDocs.length; i += batchSize) {
               if (abortRef.current) break;
               const batch = injDocs.slice(i, i + batchSize);
-              const ndjsonInj =
-                batch
-                  .flatMap((doc) => [
-                    JSON.stringify({ create: { _index: APM_INDEX } }),
-                    JSON.stringify(doc),
-                  ])
-                  .join("\n") + "\n";
+              const apmMetaInj = JSON.stringify({ create: { _index: APM_INDEX } });
+              let ndjsonInj = "";
+              for (const doc of batch) {
+                ndjsonInj += apmMetaInj + "\n" + JSON.stringify(doc) + "\n";
+              }
               try {
                 const res = await fetch(`/proxy/_bulk`, {
                   method: "POST",
@@ -708,6 +744,7 @@ export default function App() {
           const t = docCountByIdx.reduce((s, x) => s + (typeof x === "number" ? x : 0), 0);
           return { ...prev, total: t };
         });
+        const svcProgress = makeProgressFlusher();
         let svcSent = 0,
           svcErrors = 0,
           batchNum = 0;
@@ -715,19 +752,16 @@ export default function App() {
           if (abortRef.current) break;
           batchNum++;
           const batch = allDocs.slice(i, i + batchSize);
-          const ndjson =
-            batch
-              .flatMap((doc: unknown) => {
-                const row = doc as LooseDoc;
-                const { __dataset, ...cleanDoc } = row;
-                const idx = __dataset
-                  ? __dataset.startsWith("aws.")
-                    ? `${indexPrefix}.${__dataset.replace(/^aws\./, "")}-default`
-                    : `logs-${__dataset}-default`
-                  : indexName;
-                return [JSON.stringify({ create: { _index: idx } }), JSON.stringify(cleanDoc)];
-              })
-              .join("\n") + "\n";
+          let ndjson = "";
+          for (const doc of batch) {
+            const { __dataset, ...cleanDoc } = doc as LooseDoc;
+            const idx = __dataset
+              ? __dataset.startsWith("aws.")
+                ? `${indexPrefix}.${__dataset.replace(/^aws\./, "")}-default`
+                : `logs-${__dataset}-default`
+              : indexName;
+            ndjson += JSON.stringify({ create: { _index: idx } }) + "\n" + JSON.stringify(cleanDoc) + "\n";
+          }
           let sentDelta = 0;
           let errDelta = 0;
           try {
@@ -776,13 +810,10 @@ export default function App() {
             errDelta = batch.length;
             addLog(`  ✗ network error: ${errMsg(e)}`, "error");
           }
-          setProgress((prev) => ({
-            ...prev,
-            sent: prev.sent + sentDelta,
-            errors: prev.errors + errDelta,
-          }));
+          svcProgress.add(sentDelta, errDelta);
           if (batchDelayMs > 0) await new Promise((r) => setTimeout(r, batchDelayMs));
         }
+        svcProgress.done();
         addLog(`✓ ${svc} complete`, "ok");
         return { sent: svcSent, errors: svcErrors };
       };
@@ -842,18 +873,16 @@ export default function App() {
           for (let i = 0; i < injDocs.length; i += batchSize) {
             if (abortRef.current) break;
             const batch = injDocs.slice(i, i + batchSize);
-            const ndjsonInj =
-              batch
-                .flatMap((doc: LooseDoc) => {
-                  const { __dataset, ...cleanDoc } = doc;
-                  const idx = __dataset
-                    ? __dataset.startsWith("aws.")
-                      ? `${indexPrefix}.${__dataset.replace(/^aws\./, "")}-default`
-                      : `logs-${__dataset}-default`
-                    : indexName;
-                  return [JSON.stringify({ create: { _index: idx } }), JSON.stringify(cleanDoc)];
-                })
-                .join("\n") + "\n";
+            let ndjsonInj = "";
+            for (const doc of batch as LooseDoc[]) {
+              const { __dataset, ...cleanDoc } = doc;
+              const idx = __dataset
+                ? __dataset.startsWith("aws.")
+                  ? `${indexPrefix}.${__dataset.replace(/^aws\./, "")}-default`
+                  : `logs-${__dataset}-default`
+                : indexName;
+              ndjsonInj += JSON.stringify({ create: { _index: idx } }) + "\n" + JSON.stringify(cleanDoc) + "\n";
+            }
             try {
               const res = await fetch(`/proxy/_bulk`, { method: "POST", headers, body: ndjsonInj });
               const json = await res.json();
@@ -2152,9 +2181,9 @@ export default function App() {
                     Waiting for activity…
                   </span>
                 ) : (
-                  log.map((e, i) => (
+                  log.map((e) => (
                     <div
-                      key={i}
+                      key={e.id}
                       style={{
                         color:
                           { ok: K.success, error: K.danger, warn: K.warning, info: K.textSubdued }[
