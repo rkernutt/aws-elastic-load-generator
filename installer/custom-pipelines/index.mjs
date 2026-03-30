@@ -46,7 +46,7 @@ function printHeader() {
 const DEPLOYMENT_TYPES = [
   { id: "self-managed", label: "Self-Managed  (on-premises, Docker, VM)" },
   { id: "cloud-hosted", label: "Elastic Cloud Hosted  (cloud.elastic.co)" },
-  { id: "serverless",   label: "Elastic Serverless  (cloud.elastic.co/serverless)" },
+  { id: "serverless", label: "Elastic Serverless  (cloud.elastic.co/serverless)" },
 ];
 
 async function promptDeploymentType(rl) {
@@ -100,10 +100,7 @@ async function main() {
   await maybeSKipTls(rl, deploymentType);
 
   // 3. Elasticsearch URL
-  const esUrl = await prompt(
-    rl,
-    `Elasticsearch URL (e.g. ${getUrlExample(deploymentType)}):\n> `
-  );
+  const esUrl = await prompt(rl, `Elasticsearch URL (e.g. ${getUrlExample(deploymentType)}):\n> `);
 
   if (!esUrl) {
     console.error("No URL provided. Exiting.");
@@ -143,9 +140,7 @@ async function main() {
     clusterInfo = await client.testConnection();
     const clusterName = clusterInfo?.cluster_name ?? "(unknown)";
     const version = clusterInfo?.version?.number ?? "";
-    console.log(
-      `  Connected to cluster: ${clusterName}${version ? ` (${version})` : ""}`
-    );
+    console.log(`  Connected to cluster: ${clusterName}${version ? ` (${version})` : ""}`);
   } catch (err) {
     console.error(`  Connection failed: ${err.message}`);
     rl.close();
@@ -162,9 +157,18 @@ async function main() {
   let mode;
   while (true) {
     const input = await prompt(rl, "Enter 1, 2, or 3:\n> ");
-    if (input === "1") { mode = "install"; break; }
-    if (input === "2") { mode = "delete"; break; }
-    if (input === "3") { mode = "reinstall"; break; }
+    if (input === "1") {
+      mode = "install";
+      break;
+    }
+    if (input === "2") {
+      mode = "delete";
+      break;
+    }
+    if (input === "3") {
+      mode = "reinstall";
+      break;
+    }
     console.error("  Please enter 1, 2, or 3.");
   }
   console.log("");
@@ -177,16 +181,15 @@ async function main() {
 
   groups.forEach((group, i) => {
     const pipelines = getPipelinesByGroup(group);
-    console.log(`  ${i + 1}. ${group}  (${pipelines.length} pipeline${pipelines.length !== 1 ? "s" : ""})`);
+    console.log(
+      `  ${i + 1}. ${group}  (${pipelines.length} pipeline${pipelines.length !== 1 ? "s" : ""})`
+    );
   });
   const allIndex = groups.length + 1;
   console.log(`  ${allIndex}. all  (${modeLabel} every group)`);
   console.log("");
 
-  const selectionInput = await prompt(
-    rl,
-    `Enter number(s) comma-separated, or "all":\n> `
-  );
+  const selectionInput = await prompt(rl, `Enter number(s) comma-separated, or "all":\n> `);
 
   rl.close();
 
@@ -196,7 +199,10 @@ async function main() {
   if (selectionInput.toLowerCase() === "all") {
     selectedPipelines = getPipelinesByGroup("all");
   } else {
-    const tokens = selectionInput.split(",").map((s) => s.trim()).filter(Boolean);
+    const tokens = selectionInput
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
     const selectedGroups = new Set();
 
     for (const token of tokens) {
@@ -226,7 +232,9 @@ async function main() {
   // ── Delete pass (delete and reinstall modes) ────────────────────────────────
   if (mode === "delete" || mode === "reinstall") {
     console.log(`\nDeleting ${selectedPipelines.length} pipeline(s)...\n`);
-    let deletedCount = 0, notFoundCount = 0, deleteFailedCount = 0;
+    let deletedCount = 0,
+      notFoundCount = 0,
+      deleteFailedCount = 0;
 
     for (const { id } of selectedPipelines) {
       try {
@@ -252,7 +260,10 @@ async function main() {
         (deleteFailedCount > 0 ? ` (${deleteFailedCount} failed)` : "")
     );
 
-    if (mode === "delete") { console.log("Done."); return; }
+    if (mode === "delete") {
+      console.log("Done.");
+      return;
+    }
     console.log("");
   }
 

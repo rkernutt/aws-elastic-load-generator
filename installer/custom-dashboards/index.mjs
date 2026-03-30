@@ -55,7 +55,7 @@ function printHeader() {
 const DEPLOYMENT_TYPES = [
   { id: "self-managed", label: "Self-Managed  (on-premises, Docker, VM)" },
   { id: "cloud-hosted", label: "Elastic Cloud Hosted  (cloud.elastic.co)" },
-  { id: "serverless",   label: "Elastic Serverless  (cloud.elastic.co/serverless)" },
+  { id: "serverless", label: "Elastic Serverless  (cloud.elastic.co/serverless)" },
 ];
 
 async function promptDeploymentType(rl) {
@@ -134,7 +134,11 @@ function createKibanaClient(baseUrl, apiKey) {
 
     if (!res.ok) {
       let text;
-      try { text = await res.text(); } catch { text = "(unable to read response)"; }
+      try {
+        text = await res.text();
+      } catch {
+        text = "(unable to read response)";
+      }
       throw new Error(`Kibana request failed: ${method} ${path} → HTTP ${res.status}\n${text}`);
     }
 
@@ -210,8 +214,8 @@ function createKibanaClient(baseUrl, apiKey) {
       const parts = Buffer.concat([
         Buffer.from(
           `--${boundary}${crlf}` +
-          `Content-Disposition: form-data; name="file"; filename="import.ndjson"${crlf}` +
-          `Content-Type: application/ndjson${crlf}${crlf}`
+            `Content-Disposition: form-data; name="file"; filename="import.ndjson"${crlf}` +
+            `Content-Type: application/ndjson${crlf}${crlf}`
         ),
         encoded,
         Buffer.from(`${crlf}--${boundary}--${crlf}`),
@@ -225,8 +229,14 @@ function createKibanaClient(baseUrl, apiKey) {
 
       if (!res.ok) {
         let text;
-        try { text = await res.text(); } catch { text = "(unable to read response)"; }
-        throw new Error(`Kibana request failed: POST /api/saved_objects/_import → HTTP ${res.status}\n${text}`);
+        try {
+          text = await res.text();
+        } catch {
+          text = "(unable to read response)";
+        }
+        throw new Error(
+          `Kibana request failed: POST /api/saved_objects/_import → HTTP ${res.status}\n${text}`
+        );
       }
       return res.json();
     },
@@ -235,8 +245,10 @@ function createKibanaClient(baseUrl, apiKey) {
 
 /** Returns true when the error is an "endpoint exists but unavailable" 400. */
 function isUnavailable(err) {
-  return err.message.includes("HTTP 400") &&
-    (err.message.includes("not available") || err.message.includes("configuration"));
+  return (
+    err.message.includes("HTTP 400") &&
+    (err.message.includes("not available") || err.message.includes("configuration"))
+  );
 }
 
 // ─── Version-aware NDJSON patching ───────────────────────────────────────────
@@ -296,7 +308,9 @@ function patchNdjsonForVersion(ndjsonString, kibanaVersion) {
       if (v.major >= 10 && !layer.colorMapping) {
         layer.colorMapping = {
           assignments: [],
-          specialAssignments: [{ rules: [{ type: "other" }], color: { type: "loop" }, touched: false }],
+          specialAssignments: [
+            { rules: [{ type: "other" }], color: { type: "loop" }, touched: false },
+          ],
           paletteId: "default",
           colorMode: { type: "categorical" },
         };
@@ -305,9 +319,18 @@ function patchNdjsonForVersion(ndjsonString, kibanaVersion) {
 
       // 8.13–9.x — legendStats / truncateLegend / maxLegendLines required
       if ((v.major === 8 && v.minor >= 13) || v.major === 9) {
-        if (!("legendStats"    in layer)) { layer.legendStats    = [];   changed = true; }
-        if (!("truncateLegend" in layer)) { layer.truncateLegend = true; changed = true; }
-        if (!("maxLegendLines" in layer)) { layer.maxLegendLines = 1;    changed = true; }
+        if (!("legendStats" in layer)) {
+          layer.legendStats = [];
+          changed = true;
+        }
+        if (!("truncateLegend" in layer)) {
+          layer.truncateLegend = true;
+          changed = true;
+        }
+        if (!("maxLegendLines" in layer)) {
+          layer.maxLegendLines = 1;
+          changed = true;
+        }
       }
     }
   }
@@ -353,7 +376,7 @@ async function installOne(client, title, definition, ndjson, kibanaVersion = "")
   if (!ndjson) {
     throw new Error(
       "Dashboards API unavailable on this deployment and no pre-generated ndjson found.\n" +
-      "       Run 'npm run generate:dashboards:ndjson' then retry."
+        "       Run 'npm run generate:dashboards:ndjson' then retry."
     );
   }
 
@@ -365,8 +388,7 @@ async function installOne(client, title, definition, ndjson, kibanaVersion = "")
 
   const result = await client.importSavedObject(patchedRaw);
   const success =
-    result?.success === true ||
-    result?.successResults?.some((r) => r.id === ndjson.id);
+    result?.success === true || result?.successResults?.some((r) => r.id === ndjson.id);
 
   if (!success) {
     const errors = result?.errors ?? result?.successResults ?? result;
@@ -400,10 +422,7 @@ async function main() {
   await maybeSKipTls(rl, deploymentType);
 
   // 3. Kibana URL
-  const kibanaUrl = await prompt(
-    rl,
-    `Kibana URL (e.g. ${getUrlExample(deploymentType)}):\n> `
-  );
+  const kibanaUrl = await prompt(rl, `Kibana URL (e.g. ${getUrlExample(deploymentType)}):\n> `);
 
   if (!kibanaUrl) {
     console.error("No URL provided. Exiting.");
@@ -453,7 +472,7 @@ async function main() {
   // 6. Ensure required data views exist
   console.log("\nChecking data views...");
   const DATA_VIEWS = [
-    { title: "logs-*",    name: "Logs (all)" },
+    { title: "logs-*", name: "Logs (all)" },
     { title: "metrics-*", name: "Metrics (all)" },
   ];
   for (const { title, name } of DATA_VIEWS) {
@@ -481,9 +500,18 @@ async function main() {
   let mode;
   while (true) {
     const input = await prompt(rl, "Enter 1, 2, or 3:\n> ");
-    if (input === "1") { mode = "install";   break; }
-    if (input === "2") { mode = "delete";    break; }
-    if (input === "3") { mode = "reinstall"; break; }
+    if (input === "1") {
+      mode = "install";
+      break;
+    }
+    if (input === "2") {
+      mode = "delete";
+      break;
+    }
+    if (input === "3") {
+      mode = "reinstall";
+      break;
+    }
     console.error("  Please enter 1, 2, or 3.");
   }
   const modeLabel = { install: "install", delete: "delete", reinstall: "reinstall" }[mode];
@@ -506,7 +534,10 @@ async function main() {
   if (selectionInput.toLowerCase() === "all") {
     selected = dashboards;
   } else {
-    const tokens = selectionInput.split(",").map((s) => s.trim()).filter(Boolean);
+    const tokens = selectionInput
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
     const seen = new Set();
     for (const token of tokens) {
       const num = parseInt(token, 10);
@@ -514,9 +545,15 @@ async function main() {
         console.warn(`  Warning: invalid selection "${token}" — skipping.`);
         continue;
       }
-      if (num === allIndex) { selected = dashboards; break; }
+      if (num === allIndex) {
+        selected = dashboards;
+        break;
+      }
       const d = dashboards[num - 1];
-      if (!seen.has(d.title)) { seen.add(d.title); selected.push(d); }
+      if (!seen.has(d.title)) {
+        seen.add(d.title);
+        selected.push(d);
+      }
     }
   }
 
@@ -528,7 +565,9 @@ async function main() {
   // ── Delete pass (delete and reinstall modes) ────────────────────────────────
   if (mode === "delete" || mode === "reinstall") {
     console.log(`\nDeleting ${selected.length} dashboard(s)...\n`);
-    let deletedCount = 0, notFoundCount = 0, deleteFailedCount = 0;
+    let deletedCount = 0,
+      notFoundCount = 0,
+      deleteFailedCount = 0;
 
     for (const { title, ndjson, definition } of selected) {
       try {
@@ -559,7 +598,10 @@ async function main() {
         (deleteFailedCount > 0 ? ` (${deleteFailedCount} failed)` : "")
     );
 
-    if (mode === "delete") { console.log("Done."); return; }
+    if (mode === "delete") {
+      console.log("Done.");
+      return;
+    }
     console.log("");
   }
 
@@ -578,7 +620,9 @@ async function main() {
         skippedCount++;
       } else {
         const patchNote = outcome.patched ? ` [patched for Kibana ${kibanaVersion}]` : "";
-        console.log(`  ✓ "${title}" — installed via ${outcome.via} (id: ${outcome.id})${patchNote}`);
+        console.log(
+          `  ✓ "${title}" — installed via ${outcome.via} (id: ${outcome.id})${patchNote}`
+        );
         installedCount++;
       }
     } catch (err) {
@@ -599,9 +643,9 @@ async function main() {
   if (failedCount > 0) {
     console.log(
       "\nIf the error above mentions 'not available with the current configuration',\n" +
-      "your deployment may not support either the Dashboards API or Saved Objects import.\n" +
-      "Import manually: Kibana → Stack Management → Saved Objects → Import\n" +
-      "and select a file from installer/custom-dashboards/ndjson/"
+        "your deployment may not support either the Dashboards API or Saved Objects import.\n" +
+        "Import manually: Kibana → Stack Management → Saved Objects → Import\n" +
+        "and select a file from installer/custom-dashboards/ndjson/"
     );
   }
 

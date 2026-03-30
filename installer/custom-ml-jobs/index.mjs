@@ -53,7 +53,7 @@ function printHeader() {
 const DEPLOYMENT_TYPES = [
   { id: "self-managed", label: "Self-Managed  (on-premises, Docker, VM)" },
   { id: "cloud-hosted", label: "Elastic Cloud Hosted  (cloud.elastic.co)" },
-  { id: "serverless",   label: "Elastic Serverless  (cloud.elastic.co/serverless)" },
+  { id: "serverless", label: "Elastic Serverless  (cloud.elastic.co/serverless)" },
 ];
 
 async function promptDeploymentType(rl) {
@@ -231,10 +231,7 @@ async function main() {
   await maybeSkipTls(rl, deploymentType);
 
   // 3. Elasticsearch URL
-  const esUrl = await prompt(
-    rl,
-    `Elasticsearch URL (e.g. ${getUrlExample(deploymentType)}):\n> `
-  );
+  const esUrl = await prompt(rl, `Elasticsearch URL (e.g. ${getUrlExample(deploymentType)}):\n> `);
 
   if (!esUrl) {
     console.error("No URL provided. Exiting.");
@@ -257,10 +254,7 @@ async function main() {
   }
 
   // 4. API Key
-  const apiKey = await prompt(
-    rl,
-    "\nElastic API Key (requires `manage_ml` privilege):\n> "
-  );
+  const apiKey = await prompt(rl, "\nElastic API Key (requires `manage_ml` privilege):\n> ");
 
   if (!apiKey) {
     console.error("No API key provided. Exiting.");
@@ -300,8 +294,8 @@ async function main() {
       if (mlInfo === null || mlInfo?._not_available) {
         console.error(
           "  ML is not available on this cluster.\n" +
-          "  ML anomaly detection requires a Platinum or Enterprise licence on Elastic Stack,\n" +
-          "  or an Elastic Cloud / Serverless Security or Observability project with ML enabled."
+            "  ML anomaly detection requires a Platinum or Enterprise licence on Elastic Stack,\n" +
+            "  or an Elastic Cloud / Serverless Security or Observability project with ML enabled."
         );
         rl.close();
         process.exit(1);
@@ -310,7 +304,7 @@ async function main() {
     } catch (err) {
       console.error(
         `  ML availability check failed: ${err.message}\n` +
-        "  Ensure your API key has the `manage_ml` cluster privilege."
+          "  Ensure your API key has the `manage_ml` cluster privilege."
       );
       rl.close();
       process.exit(1);
@@ -328,10 +322,22 @@ async function main() {
   let mode;
   while (true) {
     const input = await prompt(rl, "Enter 1, 2, 3, or 4:\n> ");
-    if (input === "1") { mode = "install";   break; }
-    if (input === "2") { mode = "stop";      break; }
-    if (input === "3") { mode = "delete";    break; }
-    if (input === "4") { mode = "reinstall"; break; }
+    if (input === "1") {
+      mode = "install";
+      break;
+    }
+    if (input === "2") {
+      mode = "stop";
+      break;
+    }
+    if (input === "3") {
+      mode = "delete";
+      break;
+    }
+    if (input === "4") {
+      mode = "reinstall";
+      break;
+    }
     console.error("  Please enter 1, 2, 3, or 4.");
   }
   console.log("");
@@ -353,7 +359,9 @@ async function main() {
   }
 
   // 9. Group selection menu
-  const modeLabel = { install: "install", stop: "stop", delete: "delete", reinstall: "reinstall" }[mode];
+  const modeLabel = { install: "install", stop: "stop", delete: "delete", reinstall: "reinstall" }[
+    mode
+  ];
   console.log(`Available job groups (${modeLabel}):\n`);
 
   groups.forEach((group, i) => {
@@ -368,10 +376,7 @@ async function main() {
   console.log(`  ${String(allIndex).padStart(2, " ")}. all          (${modeLabel} every group)`);
   console.log("");
 
-  const selectionInput = await prompt(
-    rl,
-    `Enter number(s) comma-separated, or "all":\n> `
-  );
+  const selectionInput = await prompt(rl, `Enter number(s) comma-separated, or "all":\n> `);
 
   rl.close();
 
@@ -381,7 +386,10 @@ async function main() {
   if (selectionInput.toLowerCase() === "all" || selectionInput === String(allIndex)) {
     selectedJobs = groups.flatMap((g) => g.jobs);
   } else {
-    const tokens = selectionInput.split(",").map((s) => s.trim()).filter(Boolean);
+    const tokens = selectionInput
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
     const seen = new Set();
     let expandedAll = false;
 
@@ -475,12 +483,20 @@ async function main() {
         }
 
         process.stdout.write(`  Stopping datafeed for ${id}...`);
-        try { await client.stopDatafeed(id); process.stdout.write(" stopped."); }
-        catch { process.stdout.write(" (already stopped)."); }
+        try {
+          await client.stopDatafeed(id);
+          process.stdout.write(" stopped.");
+        } catch {
+          process.stdout.write(" (already stopped).");
+        }
 
         process.stdout.write(" Closing job...");
-        try { await client.closeJob(id); process.stdout.write(" closed."); }
-        catch { process.stdout.write(" (already closed)."); }
+        try {
+          await client.closeJob(id);
+          process.stdout.write(" closed.");
+        } catch {
+          process.stdout.write(" (already closed).");
+        }
 
         process.stdout.write(" Deleting datafeed...");
         await client.deleteDatafeed(id);
@@ -501,7 +517,10 @@ async function main() {
         (deleteFailedCount > 0 ? ` (${deleteFailedCount} failed)` : "")
     );
 
-    if (mode === "delete") { console.log("\nDone."); return; }
+    if (mode === "delete") {
+      console.log("\nDone.");
+      return;
+    }
     console.log("");
   }
 
@@ -558,13 +577,10 @@ async function main() {
     });
 
     const openAnswer = await new Promise((resolve) => {
-      rl2.question(
-        "Open jobs and start datafeeds? This begins ML analysis. (y/N):\n> ",
-        (a) => {
-          rl2.close();
-          resolve(a.trim().toLowerCase());
-        }
-      );
+      rl2.question("Open jobs and start datafeeds? This begins ML analysis. (y/N):\n> ", (a) => {
+        rl2.close();
+        resolve(a.trim().toLowerCase());
+      });
     });
 
     if (openAnswer === "y" || openAnswer === "yes") {
@@ -583,7 +599,7 @@ async function main() {
     } else {
       console.log(
         "\nJobs installed but not started. To start them later, go to:\n" +
-        "  Kibana → Machine Learning → Anomaly Detection → Jobs → Start datafeed"
+          "  Kibana → Machine Learning → Anomaly Detection → Jobs → Start datafeed"
       );
     }
   }
