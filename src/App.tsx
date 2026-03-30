@@ -67,6 +67,15 @@ export default function App() {
   const [ingestionSource, setIngestionSource] = useState(savedConfig.ingestionSource ?? "default");
   const [batchDelayMs, setBatchDelayMs] = useState(savedConfig.batchDelayMs ?? 20);
   const [injectAnomalies, setInjectAnomalies] = useState(savedConfig.injectAnomalies ?? false);
+  const [scheduleEnabled, setScheduleEnabled] = useState(savedConfig.scheduleEnabled ?? false);
+  const [scheduleTotalRuns, setScheduleTotalRuns] = useState(savedConfig.scheduleTotalRuns ?? 12);
+  const [scheduleIntervalMin, setScheduleIntervalMin] = useState(
+    savedConfig.scheduleIntervalMin ?? 15
+  );
+  const [scheduleActive, setScheduleActive] = useState(false);
+  const [scheduleCurrentRun, setScheduleCurrentRun] = useState(0);
+  const [nextRunAt, setNextRunAt] = useState<Date | null>(null);
+  const [countdown, setCountdown] = useState(0);
   const [validationErrors, setValidationErrors] = useState({
     elasticUrl: "",
     apiKey: "",
@@ -83,6 +92,7 @@ export default function App() {
   const [preview, setPreview] = useState<string | null>(null);
   const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
   const abortRef = useRef(false);
+  const scheduleLoopRef = useRef<AbortController | null>(null);
 
   // ─── Persist config to localStorage ────────────────────────────────────────
   useEffect(() => {
@@ -100,6 +110,9 @@ export default function App() {
           ingestionSource,
           eventType,
           injectAnomalies,
+          scheduleEnabled,
+          scheduleTotalRuns,
+          scheduleIntervalMin,
         })
       );
     } catch (e) {
@@ -116,6 +129,9 @@ export default function App() {
     ingestionSource,
     eventType,
     injectAnomalies,
+    scheduleEnabled,
+    scheduleTotalRuns,
+    scheduleIntervalMin,
   ]);
 
   const clearSavedConfig = () => {
@@ -134,7 +150,23 @@ export default function App() {
     setIngestionSource("default");
     setBatchDelayMs(20);
     setInjectAnomalies(false);
+    setScheduleEnabled(false);
+    setScheduleTotalRuns(12);
+    setScheduleIntervalMin(15);
   };
+
+  // ─── Scheduled mode countdown ────────────────────────────────────────────────
+  useEffect(() => {
+    if (!nextRunAt) {
+      setCountdown(0);
+      return;
+    }
+    const tick = () =>
+      setCountdown(Math.max(0, Math.ceil((nextRunAt.getTime() - Date.now()) / 1000)));
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [nextRunAt]);
 
   const toggleTraceService = (id) => {
     setSelectedTraceServices((prev) =>
@@ -774,6 +806,38 @@ export default function App() {
     injectAnomalies,
   ]);
 
+  // ─── Scheduled mode loop ─────────────────────────────────────────────────────
+  const startSchedule = useCallback(async () => {
+    const controller = new AbortController();
+    scheduleLoopRef.current = controller;
+    setScheduleActive(true);
+
+    for (let run = 1; run <= scheduleTotalRuns; run++) {
+      if (controller.signal.aborted) break;
+      setScheduleCurrentRun(run);
+      setNextRunAt(null);
+      await ship();
+      // If the user stopped the current run, cancel the whole schedule too
+      if (abortRef.current) controller.abort();
+      if (controller.signal.aborted || run === scheduleTotalRuns) break;
+
+      const nextTime = new Date(Date.now() + scheduleIntervalMin * 60 * 1000);
+      setNextRunAt(nextTime);
+      await new Promise<void>((resolve) => {
+        const id = setTimeout(resolve, scheduleIntervalMin * 60 * 1000);
+        controller.signal.addEventListener("abort", () => {
+          clearTimeout(id);
+          resolve();
+        });
+      });
+    }
+
+    scheduleLoopRef.current = null;
+    setScheduleActive(false);
+    setScheduleCurrentRun(0);
+    setNextRunAt(null);
+  }, [ship, scheduleTotalRuns, scheduleIntervalMin]);
+
   const pct = progress.total > 0 ? Math.round((progress.sent / progress.total) * 100) : 0;
   const totalSelected = isTracesMode ? selectedTraceServices.length : selectedServices.length;
   const totalServices = isTracesMode
@@ -815,6 +879,11 @@ export default function App() {
           {status === "aborted" && (
             <StatusPill color="#EE4C48" light>
               Aborted
+            </StatusPill>
+          )}
+          {scheduleActive && (
+            <StatusPill color={K.primary} dot light>
+              Run {scheduleCurrentRun}/{scheduleTotalRuns}
             </StatusPill>
           )}
         </div>
@@ -1496,6 +1565,77 @@ export default function App() {
             </Card>
 
             <Card>
+              <CardHeader label="Scheduled Mode" />
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <label
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: 10,
+                    cursor: "pointer",
+                    padding: "10px 12px",
+                    background: scheduleEnabled ? "#0B64DD11" : "transparent",
+                    border: `1px solid ${scheduleEnabled ? "#0B64DD44" : K.border}`,
+                    borderRadius: K.radiusSm,
+                    transition: "all 0.15s",
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={scheduleEnabled}
+                    onChange={(e) => setScheduleEnabled(e.target.checked)}
+                    style={{
+                      marginTop: 2,
+                      accentColor: K.primary,
+                      width: 14,
+                      height: 14,
+                      flexShrink: 0,
+                    }}
+                  />
+                  <div>
+                    <div
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 600,
+                        color: scheduleEnabled ? K.primary : K.text,
+                      }}
+                    >
+                      Enable scheduled mode
+                    </div>
+                    <div style={{ fontSize: 11, color: K.textSubdued, marginTop: 2 }}>
+                      Automatically repeat shipping runs to build an ML baseline. 12 runs × 15 min
+                      = 3 hours of normal traffic before injecting anomalies.
+                    </div>
+                  </div>
+                </label>
+                {scheduleEnabled && (
+                  <>
+                    <SliderField
+                      label="Total runs"
+                      min={1}
+                      max={24}
+                      step={1}
+                      value={scheduleTotalRuns}
+                      onChange={(v) => setScheduleTotalRuns(v)}
+                      display={`${scheduleTotalRuns} run${scheduleTotalRuns !== 1 ? "s" : ""}`}
+                      sublabel={`~${((scheduleTotalRuns * scheduleIntervalMin) / 60).toFixed(1).replace(/\.0$/, "")} hours total`}
+                    />
+                    <SliderField
+                      label="Interval between runs"
+                      min={5}
+                      max={60}
+                      step={5}
+                      value={scheduleIntervalMin}
+                      onChange={(v) => setScheduleIntervalMin(v)}
+                      display={`${scheduleIntervalMin} min`}
+                      sublabel="Wait between shipping runs"
+                    />
+                  </>
+                )}
+              </div>
+            </Card>
+
+            <Card>
               <CardHeader label="Elastic Cloud Connection" />
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 <Field label="Elasticsearch URL">
@@ -1751,16 +1891,17 @@ export default function App() {
                   type="button"
                   onClick={() => {
                     abortRef.current = true;
+                    scheduleLoopRef.current?.abort();
                   }}
                   style={{ flex: 1 }}
                   className={styles.btnDanger}
                 >
-                  Stop shipping
+                  {scheduleActive ? "Stop schedule" : "Stop shipping"}
                 </button>
               ) : (
                 <button
                   type="button"
-                  onClick={ship}
+                  onClick={scheduleEnabled ? startSchedule : ship}
                   disabled={
                     !totalSelected ||
                     !elasticUrl ||
@@ -1864,6 +2005,23 @@ export default function App() {
                     color={progress.errors > 0 ? K.danger : K.textSubdued}
                   />
                 </div>
+                {scheduleActive && (
+                  <div
+                    style={{
+                      marginTop: 10,
+                      padding: "6px 10px",
+                      background: K.highlight,
+                      borderRadius: K.radiusSm,
+                      fontSize: 11,
+                      color: K.primaryText,
+                      textAlign: "center",
+                    }}
+                  >
+                    {nextRunAt
+                      ? `Run ${scheduleCurrentRun} / ${scheduleTotalRuns} complete · next run in ${Math.floor(countdown / 60)}:${String(countdown % 60).padStart(2, "0")}`
+                      : `Run ${scheduleCurrentRun} / ${scheduleTotalRuns} · shipping…`}
+                  </div>
+                )}
               </Card>
             )}
 
