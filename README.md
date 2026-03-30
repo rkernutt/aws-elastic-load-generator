@@ -8,6 +8,16 @@ Each service has its correct real-world ingestion source pre-configured — S3, 
 
 ---
 
+## What's New in v11.3
+
+- **Scheduled mode** — new card in the UI lets you run shipping on a repeat timer to build an ML baseline automatically. Set **Total runs** (1–24, default 12) and **Interval** (5–60 min, default 15). 12 × 15 min = 3 hours of normal traffic, which is enough for ML models to establish a baseline before anomaly injection is meaningful. A header badge shows `Run N/M` during the schedule, and a countdown timer in the progress card shows the wait between runs. The **Stop** button cancels both the current run and the pending countdown.
+- **Inject anomalies checkbox** — when checked, shipping fires a second spike pass immediately after the main run using current-time timestamps. Metrics values are inflated **20×**, log error rate is forced to **100%**, and trace durations are multiplied **15×**. Produces the sharp deviations that ML anomaly detection jobs score highly. Use after running scheduled mode to establish the baseline.
+- **Concurrent service shipping** — services are now shipped in parallel (4-worker pool) rather than sequentially, significantly reducing wall-clock time for large service selections.
+- **Metrics timestamp window reduced to 2 hours** — `metrics-aws.*` data streams are TSDS-backed with an approximate 2-hour look-back writable range on Elastic Cloud. The previous 7-day window generated timestamps outside this range, causing `timestamp_error` rejections. Millisecond-precision timestamps make dimension+timestamp collisions effectively impossible even within the narrower window.
+- **ML datafeed `query_delay: 60s`** — added to all 143 ML job datafeed configs to prevent "missed documents due to ingest latency" warnings. Datafeeds now trail real time by 60 seconds before querying, giving ingestion time to complete before the datafeed window closes.
+- **Delete and reinstall modes for all three installers** — the custom pipelines, dashboards, and ML jobs installers now offer delete and delete+reinstall modes so updated configs can be applied without manual Kibana intervention. See the installer sections below for details.
+- **Readline input bleed fix** — in all three interactive installers, the API key prompt no longer pre-populates with the previous answer (Elasticsearch/Kibana URL).
+
 ## What's New in v11.2
 
 - **Metrics re-run errors fixed** — `version_conflict_engine_exception` responses from TSDS (`metrics-aws.*`) data streams are no longer counted as errors. When you run metrics mode a second time over the same time window, duplicate documents are silently skipped and shown in the activity log as `↷ batch N: X indexed, Y skipped (already exists)`. Only genuine indexing failures increment the error counter.
@@ -379,9 +389,11 @@ After installation, the installer offers to open jobs and start datafeeds immedi
 2. **Choose mode** — **Logs** generates log documents for all 185 services; **Metrics** generates metrics documents for the 150 metrics-supported services; **Traces** generates APM trace documents for 20 services
 3. **Configure volume** — set logs per service (50–5,000), error rate (0–50%), and batch size
 4. **Set ingestion source** — leave on **Default (per-service)** or override all services to a single source for pipeline testing
-5. **Connect to Elastic** — enter your Elasticsearch URL, API key, and index prefix
-6. **Preview** — click **Preview doc** to inspect a sample document before shipping
-7. **Ship** — click ⚡ **Ship** and watch real-time progress in the activity log
+5. **Scheduled mode** *(optional)* — enable to automatically repeat shipping on a timer. Set **Total runs** and **Interval** to build a consistent ML baseline without manual re-runs. See [ML anomaly detection workflow](#ml-anomaly-detection-workflow) for the recommended end-to-end flow.
+6. **Inject anomalies** *(optional)* — when checked, a second spike pass is sent after the main run with extreme values at current time. Enable this only after the ML models have a baseline; use scheduled mode first.
+7. **Connect to Elastic** — enter your Elasticsearch URL, API key, and index prefix
+8. **Preview** — click **Preview doc** to inspect a sample document before shipping
+9. **Ship** — click ⚡ **Ship** and watch real-time progress in the activity log
 
 ### Getting an Elastic API key
 
@@ -399,7 +411,60 @@ Indices follow the pattern **`{prefix}.{dataset_suffix}`**. The suffix comes fro
 | Logs    | `logs-aws`     | `logs-aws.lambda`, `logs-aws.elb_logs`, `logs-aws.vpcflow` |
 | Metrics | `metrics-aws`  | `metrics-aws.lambda`, `metrics-aws.elb`                    |
 
-Timestamps are spread across the **last 24 hours** so data appears naturally in Kibana time-based views.
+Timestamp windows per mode:
+
+| Mode    | Window   | Reason                                                                                       |
+| ------- | -------- | -------------------------------------------------------------------------------------------- |
+| Logs    | 30 min   | Gives spread across a short recent window; log IDs are not timestamp-derived                 |
+| Metrics | 2 hours  | TSDS-backed `metrics-aws.*` data streams have an ~2 h look-back writable range on Elastic Cloud |
+| Traces  | 30 min   | APM trace IDs are not timestamp-derived                                                      |
+
+---
+
+### ML anomaly detection workflow
+
+The load generator includes two features designed to work together for demonstrating Elastic ML anomaly detection:
+
+#### Step 1 — Build a baseline with scheduled mode
+
+ML models need several hours of "normal" traffic to establish a baseline before they can score deviations. With `bucket_span: 15m`, roughly 8–12 filled buckets (2–3 hours) are needed.
+
+1. Enable **Scheduled mode** and set **12 runs × 15 min interval** (the defaults)
+2. Leave **Inject anomalies** unchecked
+3. Click **Ship** — the generator will run 12 times automatically, pausing 15 minutes between each run
+4. Monitor progress: the header shows `Run N/12` and the progress card counts down to the next run
+5. While the schedule runs, open all ML jobs and start all datafeeds from Kibana or Dev Console:
+
+```
+POST /_ml/anomaly_detectors/_all/_open
+
+POST /_ml/datafeeds/_all/_start
+{ "start": "now-3d" }
+```
+
+#### Step 2 — Inject anomalies
+
+Once the schedule completes and the ML models have a baseline:
+
+1. Enable **Inject anomalies**
+2. Optionally disable **Scheduled mode** (single run is enough for the spike)
+3. Click **Ship** — the normal run completes, then a second spike pass fires at current time:
+   - **Metrics** — all numeric fields inflated **20×**
+   - **Logs** — error rate forced to **100%**
+   - **Traces** — durations multiplied **15×**
+4. Wait 1–2 minutes (datafeed `query_delay: 60s` + one bucket span)
+5. Check **Kibana → Machine Learning → Anomaly Detection → Anomaly Explorer** — jobs with `record_score ≥ 75` indicate major anomalies
+
+#### Checking anomaly results directly
+
+```
+GET /.ml-anomalies-*/_search
+{
+  "query": { "range": { "record_score": { "gte": 50 } } },
+  "sort": [{ "timestamp": "desc" }],
+  "size": 10
+}
+```
 
 ---
 

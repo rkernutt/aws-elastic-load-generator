@@ -1,16 +1,24 @@
 {
   "name": "aws-elastic-load-generator",
-  "version": "11.2.0",
+  "version": "11.3.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "samples": "vite-node scripts/export-samples.mjs",
-    "samples:verify": "node scripts/verify-samples.mjs",
+    "samples:verify": "vite-node scripts/verify-samples.mjs",
     "copy-icons": "node scripts/copy-aws-icons.mjs",
     "postinstall": "npm run copy-icons",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "vitest run && npm run samples:verify",
     "test:watch": "vitest",
     "setup:integration": "node installer/elastic-integration/index.mjs",
@@ -26,11 +34,23 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "@types/node": "^22.19.15",
+    "@types/react": "^18.3.28",
+    "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react": "^4.3.1",
     "aws-icons": "^3.3.0",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.26",
+    "globals": "^15.15.0",
     "jsdom": "^25.0.0",
+    "prettier": "^3.8.1",
+    "typescript": "~5.6.3",
+    "typescript-eslint": "^8.57.2",
     "vite": "^5.4.1",
-    "vitest": "^2.1.0",
-    "vite-node": "^3.2.4"
+    "vite-node": "^3.2.4",
+    "vitest": "^2.1.0"
   }
 }
