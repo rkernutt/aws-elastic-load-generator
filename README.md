@@ -17,18 +17,6 @@ Each service has its correct real-world ingestion source pre-configured — S3, 
 - **Proper AWS icons** — 9 new SVG icons added to `public/aws-icons/` from the official AWS Architecture Icon library (`AWSPrivate5G`, `AWSMainframeModernization`, `AWSParallelComputingService`, `AmazonElasticVMwareService`, `AWSSimSpaceWeaver`, `AmazonHealthOmics`, `AWSGroundStation`, `AmazonWorkMail`, `AWSWickr`).
 - **UI fully updated** — all 15 new services appear in the service picker with correct group, icon, and description.
 
-## What's New in v11.3
-
-- **Scheduled mode** — new card in the UI runs shipping on a repeat timer to build an ML baseline. Set **Total runs** (1–24, default 12) and **Interval** (5–60 min, default 15); for example 12 × 15 min ≈ 3 hours of spaced loads. A header badge shows `Run N/M` during the schedule, and a countdown timer in the progress card shows the wait between runs. The **Stop** button cancels both the current run and the pending countdown.
-- **Inject anomalies checkbox** — when checked, each **Ship** (including every run under scheduled mode) completes the main load and then runs a second spike pass at current time. Metrics values are inflated **20×**, log error rate is forced to **100%**, and trace durations are multiplied **15×**, producing sharp deviations for ML anomaly detection. For a clean baseline-first demo, leave this off during the schedule and enable it only when you want the spike.
-- **Browser storage** — **Elasticsearch URL and API key are never written to `localStorage`.** Only non-sensitive UI preferences are saved. If an older build left extra keys in the stored object, they are stripped on load so credentials are not kept on disk.
-- **Concurrent service shipping** — services are now shipped in parallel (4-worker pool) rather than sequentially, significantly reducing wall-clock time for large service selections.
-- **Metrics timestamp window reduced to 2 hours** — `metrics-aws.*` data streams are TSDS-backed with an approximate 2-hour look-back writable range on Elastic Cloud. The previous 7-day window generated timestamps outside this range, causing `timestamp_error` rejections. Millisecond-precision timestamps make dimension+timestamp collisions effectively impossible even within the narrower window.
-- **ML datafeed `query_delay: 60s`** — added to all 158 ML job datafeed configs to prevent "missed documents due to ingest latency" warnings. Datafeeds now trail real time by 60 seconds before querying, giving ingestion time to complete before the datafeed window closes.
-- **Delete and reinstall modes for all three installers** — the custom pipelines, dashboards, and ML jobs installers now offer delete and delete+reinstall modes so updated configs can be applied without manual Kibana intervention. See the installer sections below for details.
-- **Readline input bleed fix** — in all three interactive installers, the API key prompt no longer pre-populates with the previous answer (Elasticsearch/Kibana URL).
-- **Traces mode** — **23** APM scenarios: single-service traces plus multi-service workflows (e‑commerce, ML, ingestion, Step Functions, cascading failure, **SNS fan-out**, **data pipelines** for S3→SQS→Glue and EventBridge→SFN). The trace picker groups workflows and shows correct AWS icons; pipeline generators live in `workflow-pipelines.js` beside the shared `workflow-internal.js` builders.
-
 For earlier releases see [docs/VERSION-HISTORY.md](docs/VERSION-HISTORY.md).
 
 ---
