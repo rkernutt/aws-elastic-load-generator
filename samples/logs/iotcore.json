@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "iotcore"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "Protocol": "WSS"
+      "Protocol": "MQTT"
     },
     "iotcore": {
       "client_id": "gateway-prod-1",
       "thing_name": "gateway-prod-1",
-      "thing_group": "building-management",
-      "action": "CONNECT",
+      "thing_group": "fleet",
+      "action": "PUBLISH",
       "topic": "telemetry/metrics",
-      "protocol": "WSS",
+      "protocol": "MQTT",
       "qos": 1,
-      "message_bytes": 57315,
+      "message_bytes": 31689,
       "policy_name": "FleetPolicy",
-      "structured_logging": false,
+      "structured_logging": true,
       "rules_evaluated": 2,
       "metrics": {
         "Connect.Success": {
-          "sum": 145
+          "sum": 51
         },
         "Connect.Failure": {
           "sum": 0
         },
         "PublishIn.Success": {
-          "sum": 4388
+          "sum": 744
         },
         "PublishIn.ClientError": {
           "sum": 0
@@ -44,62 +44,59 @@
           "sum": 0
         },
         "PublishOut.Success": {
-          "sum": 3207
+          "sum": 3527
         },
         "Publish.Success": {
-          "sum": 3760
+          "sum": 4228
         },
         "Publish.Failure": {
           "sum": 0
         },
         "Subscribe.Success": {
-          "sum": 4504
+          "sum": 2131
         },
         "Subscribe.Failure": {
           "sum": 0
         },
         "Unsubscribe.Success": {
-          "sum": 249
+          "sum": 966
         },
         "Ping.Success": {
-          "sum": 9924
+          "sum": 9698
         },
         "Throttle.Success": {
-          "sum": 34
+          "sum": 110
         },
         "RulesMatched": {
-          "sum": 570
+          "sum": 780
         },
         "RulesFailed": {
           "sum": 0
         },
         "RulesNotMatched": {
-          "sum": 76
+          "sum": 68
         },
         "TopicMatch": {
-          "sum": 2821
+          "sum": 7572
         },
         "ClientConnections": {
-          "avg": 34985
+          "avg": 91998
         }
       }
     }
   },
   "source": {
-    "ip": "209.136.29.245"
+    "ip": "74.255.234.94"
   },
   "event": {
-    "action": "CONNECT",
+    "action": "PUBLISH",
     "outcome": "success",
-    "category": [
-      "network",
-      "process"
-    ],
+    "category": ["network", "process"],
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com",
-    "duration": 169000000
+    "duration": 140000000
   },
-  "message": "IoT Core CONNECT: gateway-prod-1 on telemetry/metrics",
+  "message": "{\"clientId\":\"gateway-prod-1\",\"action\":\"PUBLISH\",\"topic\":\"telemetry/metrics\",\"message\":\"IoT Core PUBLISH: gateway-prod-1 on telemetry/metrics\",\"timestamp\":\"2026-03-31T13:15:29.271Z\"}",
   "log": {
     "level": "info"
   }

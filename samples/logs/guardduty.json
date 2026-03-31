@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "guardduty"
@@ -13,68 +13,39 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "95grdpusn2i"
+      "DetectorId": "u4p85slxnv"
     },
     "guardduty": {
       "schema_version": "2.0",
-      "account_id": "164820739518",
-      "region": "me-central-1",
+      "account_id": "293847561023",
+      "region": "ap-southeast-1",
       "partition": "aws",
-      "id": "g3tyiewbwdf",
-      "arn": "arn:aws:guardduty:me-central-1:164820739518:detector/95grdpusn2i/finding/g3tyiewbwdf",
-      "type": "Policy:IAMUser/RootCredentialUsage",
-      "title": "IAMUser RootCredentialUsage",
-      "description": "GuardDuty detected suspicious activity: Policy:IAMUser/RootCredentialUsage",
-      "created_at": "2026-03-31T10:14:12.846Z",
-      "updated_at": "2026-03-31T10:14:12.846Z",
+      "id": "e7pzhmn3m4t",
+      "arn": "arn:aws:guardduty:ap-southeast-1:293847561023:detector/u4p85slxnv/finding/e7pzhmn3m4t",
+      "type": "Exfiltration:S3/MaliciousIPCaller",
+      "title": "S3 MaliciousIPCaller",
+      "description": "Routine check completed.",
+      "created_at": "2026-03-31T13:15:29.271Z",
+      "updated_at": "2026-03-31T13:15:29.271Z",
       "severity": {
-        "code": 7,
-        "value": "High"
+        "code": 0,
+        "value": "Informational"
       },
-      "confidence": 79.581,
+      "confidence": 81.335,
       "resource": {
-        "type": "Instance",
-        "instance_details": {
-          "availability_zone": "me-central-1a",
-          "instance": {
-            "id": "i-l8ugxceac9k",
-            "type": "m5.large",
-            "state": "running"
-          },
-          "image": {
-            "id": "ami-872v8ymt",
-            "description": "Amazon Linux 2"
-          },
-          "network_interfaces": [
-            {
-              "network_interface_id": "eni-07evlyiy",
-              "private_ip_address": "115.52.68.125",
-              "subnet_id": "subnet-nhh7dsk4",
-              "vpc_id": "vpc-l4kr7rlh",
-              "security_groups": [
-                {
-                  "group_id": "sg-tdto106u",
-                  "group_name": "default"
-                }
-              ]
-            }
-          ]
-        }
+        "type": "AccessKey"
       },
       "service": {
-        "detector_id": "95grdpusn2i",
-        "count": 222,
-        "archived": false,
-        "action": {
-          "action_type": "NETWORK_CONNECTION"
-        }
+        "detector_id": "u4p85slxnv",
+        "count": 19,
+        "archived": false
       },
       "metrics": {
         "FindingCount": {
-          "sum": 40
+          "sum": 0
         },
         "HighSeverityFindingCount": {
-          "sum": 3
+          "sum": 0
         },
         "MediumSeverityFindingCount": {
           "sum": 0
@@ -86,38 +57,27 @@
     }
   },
   "rule": {
-    "category": "threat",
-    "ruleset": "Policy",
-    "name": "Policy:IAMUser/RootCredentialUsage"
+    "category": "threat"
   },
   "threat": {
     "indicator": [
       {
         "type": "ip",
-        "value": "195.255.184.209"
+        "value": "90.251.235.212"
       }
     ]
   },
   "event": {
     "kind": "alert",
-    "severity": 7,
-    "outcome": "failure",
-    "category": [
-      "threat"
-    ],
-    "type": [
-      "indicator"
-    ],
+    "severity": 0,
+    "outcome": "success",
+    "category": ["threat"],
+    "type": ["indicator"],
     "dataset": "aws.guardduty",
     "provider": "guardduty.amazonaws.com"
   },
-  "message": "GuardDuty finding [High]: Policy:IAMUser/RootCredentialUsage",
+  "message": "GuardDuty: no threats detected",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ThreatFinding",
-    "message": "GuardDuty finding: Policy:IAMUser/RootCredentialUsage",
-    "type": "security"
+    "level": "info"
   }
 }

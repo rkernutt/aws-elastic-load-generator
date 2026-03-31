@@ -188,6 +188,21 @@ const GENERIC_SERVICE_IDS = [
   "qbusiness",
   "comprehendmedical",
   "networkmanager",
+  "vpcipam",
+  "private5g",
+  "neptuneanalytics",
+  "auroradsql",
+  "mainframemodernization",
+  "parallelcomputing",
+  "evs",
+  "simspaceweaver",
+  "healthomics",
+  "bedrockdataautomation",
+  "groundstation",
+  "workmail",
+  "wickr",
+  "qdeveloper",
+  "endusermessaging",
 ];
 
 const GENERIC_GENERATORS = Object.fromEntries(

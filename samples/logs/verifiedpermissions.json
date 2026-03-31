@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "verifiedpermissions"
@@ -13,31 +13,28 @@
   },
   "aws": {
     "dimensions": {
-      "PolicyStoreId": "EFxHRHR3PFAHAQ8"
+      "PolicyStoreId": "EFxHGHZ3ABS4GBL"
     },
     "verifiedpermissions": {
-      "policy_store_id": "EFxHRHR3PFAHAQ8",
-      "principal_entity_type": "Role",
-      "principal_entity_id": "role-VE144BFD",
+      "policy_store_id": "EFxHGHZ3ABS4GBL",
+      "principal_entity_type": "ServiceAccount",
+      "principal_entity_id": "serviceaccount-JTGHWFC6",
       "action_id": "AdminAccess",
       "resource_type": "Resource",
       "decision": "ALLOW",
-      "determining_policies": 3,
+      "determining_policies": 1,
       "errors_count": 0,
-      "evaluation_time_ms": 13
+      "evaluation_time_ms": 47
     }
   },
   "event": {
-    "action": "GetAuthorization",
+    "action": "IsAuthorizedWithToken",
     "outcome": "success",
-    "category": [
-      "authentication",
-      "iam"
-    ],
+    "category": ["authentication", "iam"],
     "dataset": "aws.verifiedpermissions",
     "provider": "verifiedpermissions.amazonaws.com"
   },
-  "message": "Verified Permissions ALLOW: Role/role-VE144BFD → AdminAccess",
+  "message": "Verified Permissions ALLOW: ServiceAccount/serviceaccount-JTGHWFC6 → AdminAccess",
   "log": {
     "level": "info"
   }

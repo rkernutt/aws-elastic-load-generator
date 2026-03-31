@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "ap-south-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,34 +13,37 @@
   },
   "aws": {
     "dimensions": {
-      "ReportName": "FedRAMP-Moderate",
+      "ReportName": "GDPR-DPA",
       "ReportCategory": "Attestation"
     },
     "artifact": {
-      "report_name": "FedRAMP-Moderate",
-      "report_arn": "arn:aws:artifact:::report/fedramp-moderate",
+      "report_name": "GDPR-DPA",
+      "report_arn": "arn:aws:artifact:::report/gdpr-dpa",
       "report_category": "Attestation",
-      "report_period": "2025-H1",
-      "agreement_name": "GDPR-Data-Processing-Addendum",
+      "report_period": "2024",
+      "agreement_name": "Non-Disclosure-Agreement",
       "agreement_type": "CUSTOM",
       "accessed_by": "globex-security-tooling",
-      "download_format": "ZIP"
+      "download_format": "PDF"
     }
   },
   "event": {
     "action": "ListAgreements",
-    "outcome": "success",
-    "category": [
-      "audit"
-    ],
+    "outcome": "failure",
+    "category": ["audit"],
     "dataset": "aws.artifact",
     "provider": "artifact.amazonaws.com"
   },
-  "message": "Artifact: ListAgreements — FedRAMP-Moderate (Attestation)",
+  "message": "Artifact: access denied to GDPR-DPA for globex-security-tooling",
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "user": {
     "name": "globex-security-tooling"
+  },
+  "error": {
+    "code": "AccessDeniedException",
+    "message": "Artifact report access denied",
+    "type": "audit"
   }
 }

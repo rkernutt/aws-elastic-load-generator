@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "ap-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "polly"
@@ -13,30 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "SynthesizeSpeech"
+      "Operation": "StartSpeechSynthesisTask"
     },
     "polly": {
-      "voice_id": "Amy",
-      "engine": "standard",
-      "operation": "SynthesizeSpeech",
-      "language_code": "en-US",
-      "output_format": "pcm",
-      "text_type": "ssml",
-      "characters_synthesized": 0,
-      "sample_rate": "16000",
-      "error_code": "InvalidSsmlException",
+      "voice_id": "Celine",
+      "engine": "long-form",
+      "operation": "StartSpeechSynthesisTask",
+      "language_code": "en-GB",
+      "output_format": "mp3",
+      "text_type": "text",
+      "characters_synthesized": 666,
+      "sample_rate": "24000",
       "metrics": {
         "RequestCharacters": {
-          "sum": 259
+          "sum": 1262
         },
         "ResponseLatency": {
-          "avg": 1686.815
+          "avg": 477.593
         },
         "2XXCount": {
-          "sum": 0
+          "sum": 1
         },
         "4XXCount": {
-          "sum": 4
+          "sum": 0
         },
         "5XXCount": {
           "sum": 0
@@ -45,20 +44,13 @@
     }
   },
   "event": {
-    "outcome": "failure",
-    "category": [
-      "process"
-    ],
+    "outcome": "success",
+    "category": ["process"],
     "dataset": "aws.polly",
     "provider": "polly.amazonaws.com"
   },
-  "message": "Polly SynthesizeSpeech FAILED (Amy): Invalid SSML",
+  "message": "Polly SynthesizeSpeech: Celine (long-form), 666 chars",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "PollyError",
-    "message": "Polly synthesis failed",
-    "type": "ml"
+    "level": "info"
   }
 }

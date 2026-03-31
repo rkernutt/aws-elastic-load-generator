@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "ap-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "supplychain"
@@ -13,29 +13,27 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "arn:aws:scn:eu-central-2:814726593401:instance/2kpvedsor06"
+      "InstanceId": "arn:aws:scn:ap-east-1:738291046572:instance/zl2yabjwkap"
     },
     "supplychain": {
-      "instance_id": "arn:aws:scn:eu-central-2:814726593401:instance/2kpvedsor06",
-      "instance_name": "apac-logistics",
-      "namespace": "aws.supply_chain.insight",
-      "event_type": "scn.data.supply_plan",
-      "job_status": "SUCCESS",
-      "record_count": 378522,
-      "forecast_horizon_days": 139,
+      "instance_id": "arn:aws:scn:ap-east-1:738291046572:instance/zl2yabjwkap",
+      "instance_name": "north-america-ops",
+      "namespace": "aws.supply_chain.collaboration",
+      "event_type": "scn.data.forecast",
+      "job_status": "QUEUED",
+      "record_count": 105893,
+      "forecast_horizon_days": 102,
       "data_lake_dataset": "purchase_orders"
     }
   },
   "event": {
-    "action": "SendDataIntegrationEvent",
+    "action": "CreateInstance",
     "outcome": "success",
-    "category": [
-      "process"
-    ],
+    "category": ["process"],
     "dataset": "aws.supplychain",
     "provider": "scn.amazonaws.com"
   },
-  "message": "Supply Chain SendDataIntegrationEvent: instance=apac-logistics event=scn.data.supply_plan status=SUCCESS",
+  "message": "Supply Chain CreateInstance: instance=north-america-ops event=scn.data.forecast status=QUEUED",
   "log": {
     "level": "info"
   }

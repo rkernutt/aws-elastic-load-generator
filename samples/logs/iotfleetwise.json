@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "us-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "iotfleetwise"
@@ -13,37 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "FleetId": "field-service",
-      "CampaignName": "engine-diagnostics"
+      "FleetId": "test-vehicles",
+      "CampaignName": "safety-systems"
     },
     "iotfleetwise": {
-      "fleet_id": "field-service",
-      "vehicle_id": "VIN-OYK9EWE8LVB",
-      "campaign_name": "engine-diagnostics",
-      "campaign_status": "SUSPENDED",
-      "signal_name": "Vehicle.Speed",
-      "collection_scheme": "EVENT_BASED",
+      "fleet_id": "test-vehicles",
+      "vehicle_id": "VIN-YVV79REX8EA",
+      "campaign_name": "safety-systems",
+      "campaign_status": "WAITING_FOR_APPROVAL",
+      "signal_name": "Vehicle.CurrentLocation.Latitude",
+      "signal_value": 81.881,
+      "collection_scheme": "CONDITION_BASED",
       "compression": "OFF",
       "data_destination": "S3"
     }
   },
   "event": {
-    "action": "CreateVehicle",
-    "outcome": "failure",
-    "category": [
-      "iot",
-      "process"
-    ],
+    "action": "CreateCampaign",
+    "outcome": "success",
+    "category": ["iot", "process"],
     "dataset": "aws.iotfleetwise",
     "provider": "iotfleetwise.amazonaws.com"
   },
-  "message": "IoT FleetWise CreateVehicle FAILED [field-service/VIN-OYK9EWE8LVB]: Campaign suspended",
+  "message": "IoT FleetWise CreateCampaign: fleet=test-vehicles, vehicle=VIN-YVV79REX8EA, campaign=safety-systems WAITING_FOR_APPROVAL",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "InvalidSignalsException",
-    "message": "IoT FleetWise operation failed",
-    "type": "iot"
+    "level": "info"
   }
 }

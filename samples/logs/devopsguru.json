@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ap-east-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,14 +13,12 @@
   },
   "aws": {
     "devopsguru": {
-      "insight_id": "no5v7ep65as",
+      "insight_id": "6oznmtlrevb",
       "insight_type": "PROACTIVE",
       "severity": "HIGH",
       "resource_collection": {
         "cloud_formation": {
-          "stack_names": [
-            "prod-stack"
-          ]
+          "stack_names": ["data-stack"]
         },
         "tags": [
           {
@@ -29,13 +27,11 @@
           }
         ]
       },
-      "anomaly_id": "ark0od5yvyg",
-      "anomaly_description": "RDS CPU spike correlated with API latency",
-      "anomaly_sources": [
-        "elasticache-cache"
-      ],
-      "start_time": "2026-03-31T09:16:46.272Z",
-      "end_time": "2026-03-31T10:14:13.135Z",
+      "anomaly_id": "j2kazm8glxq",
+      "anomaly_description": "ElastiCache eviction rate spike",
+      "anomaly_sources": ["dynamodb-sessions"],
+      "start_time": "2026-03-31T13:14:57.572Z",
+      "end_time": "2026-03-31T13:15:29.536Z",
       "status": "CLOSED",
       "recommendation": "Review alarm thresholds",
       "ssm_ops_items": []
@@ -43,16 +39,12 @@
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "process",
-      "configuration",
-      "vulnerability"
-    ],
+    "category": ["process", "configuration", "vulnerability"],
     "dataset": "aws.devopsguru",
     "provider": "devops-guru.amazonaws.com",
-    "duration": 314000000000
+    "duration": 402000000000
   },
-  "message": "DevOps Guru PROACTIVE insight [HIGH]: RDS CPU spike correlated with API latency",
+  "message": "DevOps Guru PROACTIVE insight [HIGH]: ElastiCache eviction rate spike",
   "log": {
     "level": "warn"
   }

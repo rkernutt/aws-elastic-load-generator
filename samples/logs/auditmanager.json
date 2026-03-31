@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "eu-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "auditmanager"
@@ -13,32 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "AssessmentName": "SOC2-Type-II",
-      "ControlSetId": "Logging and Monitoring"
+      "AssessmentName": "CIS-AWS-Foundations",
+      "ControlSetId": "Change Management"
     },
     "auditmanager": {
-      "assessment_name": "SOC2-Type-II",
-      "assessment_id": "ho9k7wez-aygv-evx8-lx59-6sy475p42f8",
-      "control_set": "Logging and Monitoring",
-      "control_id": "CTRL-3631",
-      "evidence_status": "MANUAL_EVIDENCE_NEEDED",
+      "assessment_name": "CIS-AWS-Foundations",
+      "assessment_id": "xht5phe4-iu06-fagj-soie-acl7lzldi5e",
+      "control_set": "Change Management",
+      "control_id": "CTRL-5263",
+      "evidence_status": "INSUFFICIENT_EVIDENCE",
       "data_source": "AWS_CONFIG",
-      "evidence_count": 34,
-      "compliance_check": "PASSED",
+      "evidence_count": 15,
+      "compliance_check": "WARNING",
       "reviewer": "security-ops"
     }
   },
   "event": {
-    "action": "ReviewEvidence",
-    "outcome": "success",
-    "category": [
-      "audit"
-    ],
+    "action": "UpdateAssessmentControl",
+    "outcome": "failure",
+    "category": ["audit"],
     "dataset": "aws.auditmanager",
     "provider": "auditmanager.amazonaws.com"
   },
-  "message": "Audit Manager SOC2-Type-II — CTRL-3631 MANUAL_EVIDENCE_NEEDED",
+  "message": "Audit Manager CIS-AWS-Foundations — CTRL-5263 INSUFFICIENT_EVIDENCE: insufficient evidence in Change Management",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "AccessDeniedException",
+    "message": "Audit Manager evidence collection failed",
+    "type": "audit"
   }
 }

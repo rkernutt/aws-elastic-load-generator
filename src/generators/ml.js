@@ -1654,6 +1654,128 @@ function generateLookoutVisionLog(ts, er) {
   };
 }
 
+function generateHealthOmicsLog(ts, er) {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const workflowId = `wfl-${randId(10).toLowerCase()}`;
+  const runId = `run-${randId(10).toLowerCase()}`;
+  const workflowType = rand(["READY2RUN", "PRIVATE"]);
+  const engine = rand(["WDL", "CWL", "NEXTFLOW"]);
+  const runStatus = isErr ? "FAILED" : rand(["COMPLETED", "RUNNING", "COMPLETED"]);
+  const tasksCompleted = isErr ? randInt(0, 10) : randInt(1, 200);
+  const tasksFailed = isErr ? randInt(1, 10) : 0;
+  const storageGbUsed = parseFloat(randFloat(1, 5000));
+  const errorCode = rand(["WorkflowRunFailed", "StorageCapacityExceeded"]);
+  return {
+    "@timestamp": ts,
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "omics" },
+    },
+    aws: {
+      dimensions: { WorkflowId: workflowId, RunId: runId },
+      healthomics: {
+        workflow_id: workflowId,
+        run_id: runId,
+        workflow_type: workflowType,
+        engine,
+        run_status: runStatus,
+        metrics: {
+          tasks_completed: tasksCompleted,
+          tasks_failed: tasksFailed,
+          storage_gb_used: storageGbUsed,
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    event: {
+      outcome: isErr ? "failure" : "success",
+      category: ["process"],
+      dataset: "aws.healthomics",
+      provider: "omics.amazonaws.com",
+      duration: randInt(60, isErr ? 7200 : 86400) * 1e9,
+    },
+    data_stream: { type: "logs", dataset: "aws.healthomics", namespace: "default" },
+    message: isErr
+      ? `HealthOmics workflow ${workflowId} run ${runId}: ${errorCode} (${engine})`
+      : `HealthOmics workflow ${workflowId}: status=${runStatus}, tasks=${tasksCompleted}, storage=${storageGbUsed.toFixed(1)}GB`,
+    log: { level: isErr ? "error" : "info" },
+    ...(isErr
+      ? {
+          error: {
+            code: errorCode,
+            message: `HealthOmics workflow run ${runId} failed`,
+            type: "process",
+          },
+        }
+      : {}),
+  };
+}
+
+function generateBedrockDataAutomationLog(ts, er) {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const projectId = `proj-${randId(8).toLowerCase()}`;
+  const invocationId = `inv-${randId(10).toLowerCase()}`;
+  const inputType = rand(["pdf", "image", "video", "audio"]);
+  const blueprintId = `bp-${randId(8).toLowerCase()}`;
+  const status = isErr ? "Failed" : rand(["Success", "PartialSuccess", "Success"]);
+  const pagesProcessed = isErr ? 0 : randInt(1, 500);
+  const tokensUsed = isErr ? 0 : randInt(100, 100000);
+  const confidenceScore = isErr ? 0 : parseFloat(randFloat(0.5, 1.0));
+  const errorCode = rand(["ExtractionFailed", "BlueprintMismatch"]);
+  return {
+    "@timestamp": ts,
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "bedrock-data-automation" },
+    },
+    aws: {
+      dimensions: { ProjectId: projectId, InvocationId: invocationId },
+      bedrockdataautomation: {
+        project_id: projectId,
+        invocation_id: invocationId,
+        input_type: inputType,
+        blueprint_id: blueprintId,
+        status,
+        metrics: {
+          pages_processed: pagesProcessed,
+          tokens_used: tokensUsed,
+          confidence_score: confidenceScore,
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    event: {
+      outcome: isErr ? "failure" : "success",
+      category: ["process"],
+      dataset: "aws.bedrockdataautomation",
+      provider: "bedrock-data-automation.amazonaws.com",
+      duration: randInt(100, isErr ? 30000 : 5000) * 1e6,
+    },
+    data_stream: { type: "logs", dataset: "aws.bedrockdataautomation", namespace: "default" },
+    message: isErr
+      ? `Bedrock Data Automation project ${projectId}: ${errorCode} for ${inputType} input`
+      : `Bedrock Data Automation project ${projectId}: ${status}, pages=${pagesProcessed}, tokens=${tokensUsed}, confidence=${confidenceScore.toFixed(3)}`,
+    log: { level: isErr ? "error" : "info" },
+    ...(isErr
+      ? {
+          error: {
+            code: errorCode,
+            message: `Bedrock Data Automation extraction failed for project ${projectId}`,
+            type: "process",
+          },
+        }
+      : {}),
+  };
+}
+
 export {
   generateSageMakerLog,
   generateBedrockLog,
@@ -1675,4 +1797,6 @@ export {
   generateHealthLakeLog,
   generateNovaLog,
   generateLookoutVisionLog,
+  generateHealthOmicsLog,
+  generateBedrockDataAutomationLog,
 };

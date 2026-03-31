@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "us-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "bedrock"
@@ -20,33 +20,31 @@
       "model_id": "amazon.nova-micro-v1:0",
       "model_tier": "micro",
       "modality": "text",
-      "input_token_count": 7811,
-      "output_token_count": 2577,
-      "cache_read_input_token_count": 1057,
-      "total_token_count": 10388,
-      "invocation_latency_ms": 864,
-      "time_to_first_token_ms": 310,
-      "throughput_tokens_per_sec": 2982.6,
-      "streaming": true,
-      "use_case": "text-generation",
-      "guardrail_action": "INTERVENED",
+      "input_token_count": 6975,
+      "output_token_count": 491,
+      "cache_read_input_token_count": 4044,
+      "total_token_count": 7466,
+      "invocation_latency_ms": 1455,
+      "streaming": false,
+      "use_case": "summarization",
+      "guardrail_action": "NONE",
       "stop_reason": "max_tokens",
       "metrics": {
         "Invocations": {
-          "sum": 905
+          "sum": 266
         },
         "InvocationLatency": {
-          "avg": 864,
-          "p99": 2160
+          "avg": 1455,
+          "p99": 3638
         },
         "InputTokenCount": {
-          "sum": 7811
+          "sum": 6975
         },
         "OutputTokenCount": {
-          "sum": 2577
+          "sum": 491
         },
         "CacheReadInputTokenCount": {
-          "sum": 1057
+          "sum": 4044
         },
         "Throttles": {
           "sum": 0
@@ -56,14 +54,12 @@
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "process"
-    ],
+    "category": ["process"],
     "dataset": "aws.nova",
     "provider": "bedrock.amazonaws.com",
-    "duration": 864000000
+    "duration": 1455000000
   },
-  "message": "Nova micro 7811->2577 tokens 0.86s (1057 cache hits)",
+  "message": "Nova micro 6975->491 tokens 1.46s (4044 cache hits)",
   "log": {
     "level": "info"
   }

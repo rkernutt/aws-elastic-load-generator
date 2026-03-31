@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-north-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "proton"
@@ -13,31 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "sandbox-env",
-      "ServiceName": "data-pipeline"
+      "EnvironmentName": "staging-env",
+      "ServiceName": "worker-service"
     },
     "proton": {
-      "environment_name": "sandbox-env",
-      "service_name": "data-pipeline",
-      "service_instance_name": "prod-instance",
+      "environment_name": "staging-env",
+      "service_name": "worker-service",
+      "service_instance_name": "v2-instance",
       "template_name": "fargate-env-template",
-      "template_major_version": "3",
-      "deployment_status": "SUCCEEDED",
-      "component": "environment"
+      "template_major_version": "2",
+      "deployment_status": "UPDATE_FAILED",
+      "component": "service_instance"
     }
   },
   "event": {
     "action": "DeployServiceInstance",
-    "outcome": "success",
-    "category": [
-      "configuration"
-    ],
+    "outcome": "failure",
+    "category": ["configuration"],
     "dataset": "aws.proton",
     "provider": "proton.amazonaws.com",
-    "duration": 116000000000
+    "duration": 582000000000
   },
-  "message": "Proton environment data-pipeline DeployServiceInstance SUCCEEDED",
+  "message": "Proton service_instance worker-service deployment FAILED on fargate-env-template",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "UPDATE_FAILED",
+    "message": "Proton deployment failed for worker-service",
+    "type": "configuration"
   }
 }

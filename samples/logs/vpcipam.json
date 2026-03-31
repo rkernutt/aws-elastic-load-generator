@@ -1,0 +1,48 @@
+{
+  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-central-1",
+    "account": {
+      "id": "738291046572",
+      "name": "globex-development"
+    },
+    "service": {
+      "name": "ipam"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "PoolId": "ipam-pool-h2360bg0",
+      "ScopeId": "ipam-scope-4of3x4b7"
+    },
+    "vpcipam": {
+      "pool_id": "ipam-pool-h2360bg0",
+      "scope_id": "ipam-scope-4of3x4b7",
+      "allocation_id": "ipam-alloc-rvy0f20s",
+      "cidr": "10.0.0.0/16",
+      "allocation_type": "resource",
+      "metrics": {
+        "allocations_count": 169,
+        "free_count": 162,
+        "used_count": 169
+      }
+    }
+  },
+  "event": {
+    "outcome": "success",
+    "category": ["network"],
+    "dataset": "aws.vpcipam",
+    "provider": "ec2.amazonaws.com",
+    "duration": 187000000
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.vpcipam",
+    "namespace": "default"
+  },
+  "message": "VPC IPAM pool ipam-pool-h2360bg0: allocated 10.0.0.0/16 (resource), free=162",
+  "log": {
+    "level": "info"
+  }
+}

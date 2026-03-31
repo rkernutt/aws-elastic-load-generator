@@ -964,6 +964,65 @@ function generateProtonLog(ts, er) {
   };
 }
 
+function generateQDeveloperLog(ts, er) {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const subscriptionId = `sub-${randId(10).toLowerCase()}`;
+  const ide = rand(["VSCode", "JetBrains", "AWS Cloud9"]);
+  const language = rand(["python", "typescript", "java", "go", "rust"]);
+  const feature = rand(["inline_completion", "chat", "transform", "review"]);
+  const suggestionsAccepted = isErr ? 0 : randInt(0, 200);
+  const suggestionsRejected = randInt(0, isErr ? 200 : 50);
+  const activeUsers = randInt(1, 1000);
+  const errorCode = rand(["CompletionTimeout", "TransformFailed"]);
+  return {
+    "@timestamp": ts,
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "q-developer" },
+    },
+    aws: {
+      dimensions: { SubscriptionId: subscriptionId, Ide: ide },
+      qdeveloper: {
+        subscription_id: subscriptionId,
+        ide,
+        language,
+        feature,
+        metrics: {
+          suggestions_accepted: suggestionsAccepted,
+          suggestions_rejected: suggestionsRejected,
+          active_users: activeUsers,
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    event: {
+      outcome: isErr ? "failure" : "success",
+      category: ["process"],
+      dataset: "aws.qdeveloper",
+      provider: "q.amazonaws.com",
+      duration: randInt(10, isErr ? 30000 : 2000) * 1e6,
+    },
+    data_stream: { type: "logs", dataset: "aws.qdeveloper", namespace: "default" },
+    message: isErr
+      ? `Q Developer ${feature} ${errorCode} for ${language} in ${ide}`
+      : `Q Developer ${feature}: ${suggestionsAccepted} accepted, ${suggestionsRejected} rejected (${language}/${ide})`,
+    log: { level: isErr ? "error" : "info" },
+    ...(isErr
+      ? {
+          error: {
+            code: errorCode,
+            message: `Q Developer ${feature} failed for ${language}`,
+            type: "process",
+          },
+        }
+      : {}),
+  };
+}
+
 export {
   generateCodeBuildLog,
   generateCodePipelineLog,
@@ -976,4 +1035,5 @@ export {
   generateCodeCatalystLog,
   generateDeviceFarmLog,
   generateProtonLog,
+  generateQDeveloperLog,
 };

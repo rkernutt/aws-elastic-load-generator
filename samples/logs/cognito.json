@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "cognito"
@@ -13,24 +13,25 @@
   },
   "aws": {
     "dimensions": {
-      "UserPool": "eu-west-1_R64OCZ3HA",
+      "UserPool": "us-east-1_23XL1I3LK",
       "UserPoolClient": "b2b-customers-web"
     },
     "cognito": {
-      "user_pool_id": "eu-west-1_R64OCZ3HA",
+      "user_pool_id": "us-east-1_23XL1I3LK",
       "user_pool_name": "b2b-customers",
-      "event_type": "SignUp",
-      "error_code": "TooManyRequestsException",
-      "source_ip": "138.122.160.32",
+      "event_type": "TokenGeneration_HostedUI",
+      "username": "user-hhccmvnn@example.com",
+      "source_ip": "203.87.164.61",
+      "mfa_type": "SMS_MFA",
       "metrics": {
         "SignInSuccesses": {
-          "sum": 0
+          "sum": 8188
         },
         "SignInAttempts": {
-          "sum": 2984
+          "sum": 8188
         },
         "TokenRefreshSuccesses": {
-          "sum": 0
+          "sum": 44671
         },
         "SignUpSuccesses": {
           "sum": 0
@@ -39,40 +40,35 @@
           "sum": 0
         },
         "CallCount": {
-          "sum": 37665
+          "sum": 22194
         },
         "ThrottleCount": {
-          "sum": 65
+          "sum": 0
         },
         "AccountTakeoverRisk": {
-          "sum": 2
+          "sum": 0
         },
         "CompromisedCredentialsRisk": {
-          "sum": 1
+          "sum": 0
         }
       }
     }
   },
-  "user": {},
+  "user": {
+    "name": "user-hhccmvnn@example.com"
+  },
   "source": {
-    "ip": "77.232.123.199"
+    "ip": "214.249.107.46"
   },
   "event": {
-    "action": "SignUp",
-    "outcome": "failure",
-    "category": [
-      "authentication"
-    ],
+    "action": "TokenGeneration_HostedUI",
+    "outcome": "success",
+    "category": ["authentication"],
     "dataset": "aws.cognito",
     "provider": "cognito-idp.amazonaws.com"
   },
-  "message": "Cognito SignUp FAILED: User not found",
+  "message": "Cognito TokenGeneration_HostedUI success [b2b-customers]",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "TooManyRequestsException",
-    "message": "Authentication failed",
-    "type": "authentication"
+    "level": "info"
   }
 }

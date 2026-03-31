@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "autoscaling"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "AutoScalingGroupName": "worker-asg"
+      "AutoScalingGroupName": "web-asg"
     },
     "autoscaling": {
-      "group_name": "worker-asg",
-      "activity_id": "irzdj2q0-y1t0-nz8q",
-      "action_type": "HealthCheck",
-      "instance_id": "i-f4z1gqdks5m",
-      "instance_type": "m5.xlarge",
-      "desired_capacity": 14,
+      "group_name": "web-asg",
+      "activity_id": "b9yywthy-dpbg-70qo",
+      "action_type": "Launch",
+      "instance_id": "i-m7vnd88xlq9",
+      "instance_type": "c5.2xlarge",
+      "desired_capacity": 20,
       "min_size": 2,
       "max_size": 50,
-      "current_capacity": 12,
-      "cause": "ELB health check: InService",
-      "status_code": "Successful",
-      "launch_template": "api-lt:3",
+      "current_capacity": 17,
+      "cause": "Unhealthy instance replaced",
+      "status_code": "Failed",
+      "launch_template": "web-lt:5",
       "metrics": {
         "GroupMinSize": {
           "avg": 2
@@ -36,37 +36,37 @@
           "avg": 50
         },
         "GroupDesiredCapacity": {
-          "avg": 14
+          "avg": 20
         },
         "GroupInServiceInstances": {
-          "avg": 12
+          "avg": 17
         },
         "GroupPendingInstances": {
-          "avg": 0
+          "avg": 2
         },
         "GroupStandbyInstances": {
-          "avg": 2
+          "avg": 1
         },
         "GroupTerminatingInstances": {
           "avg": 0
         },
         "GroupTotalInstances": {
-          "avg": 14
+          "avg": 20
         },
         "GroupInServiceCapacity": {
-          "avg": 12
+          "avg": 17
         },
         "GroupPendingCapacity": {
-          "avg": 0
+          "avg": 2
         },
         "GroupStandbyCapacity": {
-          "avg": 2
+          "avg": 1
         },
         "GroupTerminatingCapacity": {
           "avg": 0
         },
         "GroupTotalCapacity": {
-          "avg": 14
+          "avg": 20
         },
         "WarmPoolMinSize": {
           "avg": 0
@@ -90,16 +90,19 @@
     }
   },
   "event": {
-    "category": [
-      "host"
-    ],
-    "outcome": "success",
+    "category": ["host"],
+    "outcome": "failure",
     "dataset": "aws.autoscaling",
     "provider": "autoscaling.amazonaws.com",
-    "duration": 53000000000
+    "duration": 334000000000
   },
-  "message": "AutoScaling worker-asg: HealthCheck instance",
+  "message": "AutoScaling web-asg: Launch FAILED - VPC limit",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "LaunchTemplateError",
+    "message": "AutoScaling web-asg: Launch FAILED - VPC limit",
+    "type": "host"
   }
 }

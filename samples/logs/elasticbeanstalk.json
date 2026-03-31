@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "us-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "elasticbeanstalk"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "api-service-staging",
-      "InstanceId": "i-m2ggri0l6b9"
+      "EnvironmentName": "worker-app-production",
+      "InstanceId": "i-ext894purtr"
     },
     "elasticbeanstalk": {
-      "application": "api-service",
-      "environment": "api-service-staging",
-      "structured_logging": false,
-      "platform": "Docker",
-      "version_label": "v190",
+      "application": "worker-app",
+      "environment": "worker-app-production",
+      "structured_logging": true,
+      "platform": "Node.js 18",
+      "version_label": "v182",
       "metrics": {
         "ApplicationRequests2xx": {
-          "sum": 1
+          "sum": 0
         },
         "ApplicationRequests3xx": {
-          "sum": 0
+          "sum": 1
         },
         "ApplicationRequests4xx": {
           "sum": 0
@@ -36,28 +36,28 @@
           "sum": 0
         },
         "ApplicationLatencyP10": {
-          "avg": 13.595
+          "avg": 26.454
         },
         "ApplicationLatencyP50": {
-          "avg": 18.173
+          "avg": 67.711
         },
         "ApplicationLatencyP75": {
-          "avg": 26.11
+          "avg": 118.229
         },
         "ApplicationLatencyP85": {
-          "avg": 30.312
+          "avg": 165.3
         },
         "ApplicationLatencyP90": {
-          "avg": 41.802
+          "avg": 234.664
         },
         "ApplicationLatencyP95": {
-          "avg": 65.897
+          "avg": 458.951
         },
         "ApplicationLatencyP99": {
-          "avg": 113.821
+          "avg": 877.506
         },
         "ApplicationLatencyP99.9": {
-          "avg": 183.364
+          "avg": 1581.261
         },
         "ApplicationRequests": {
           "sum": 1
@@ -72,7 +72,7 @@
           "avg": 0
         },
         "InstancesOk": {
-          "avg": 2
+          "avg": 3
         },
         "EnvironmentHealth": {
           "avg": 20
@@ -82,21 +82,18 @@
   },
   "http": {
     "response": {
-      "status_code": 201
+      "status_code": 301
     }
   },
   "log": {
     "level": "info"
   },
   "event": {
-    "category": [
-      "web",
-      "process"
-    ],
+    "category": ["web", "process"],
     "outcome": "success",
     "dataset": "aws.elasticbeanstalk",
     "provider": "elasticbeanstalk.amazonaws.com",
-    "duration": 71000000000
+    "duration": 34000000000
   },
-  "message": "Auto Scaling event: +2 instances"
+  "message": "{\"application\":\"worker-app\",\"environment\":\"worker-app-production\",\"status\":301,\"message\":\"Rolling update complete\",\"timestamp\":\"2026-03-31T13:15:29.271Z\"}"
 }

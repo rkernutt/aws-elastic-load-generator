@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "outposts"
@@ -13,40 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "OutpostId": "op-534rxh1ysfk",
-      "InstanceType": "r5.xlarge"
+      "OutpostId": "op-tdu6gpehgu",
+      "InstanceType": "m5d.xlarge"
     },
     "outposts": {
-      "outpost_id": "op-534rxh1ysfk",
-      "outpost_arn": "arn:aws:outposts:us-east-1:814726593401:outpost/op-ohpdxpjigh",
-      "site_id": "os-pi1f69bci7m",
-      "rack_id": "or-koqepddevsq",
-      "instance_type": "r5.xlarge",
-      "available_instance_count": 10,
-      "total_instance_count": 24,
-      "capacity_status": "InsufficientCapacity",
-      "connectivity_status": "Disconnected",
+      "outpost_id": "op-tdu6gpehgu",
+      "outpost_arn": "arn:aws:outposts:ap-southeast-4:164820739518:outpost/op-v6ui1vzzzg",
+      "site_id": "os-p09faafie5q",
+      "rack_id": "or-wb05wjzjay",
+      "instance_type": "m5d.xlarge",
+      "available_instance_count": 7,
+      "total_instance_count": 33,
+      "capacity_status": "Active",
+      "connectivity_status": "Connected",
       "asset_state": "ACTIVE"
     }
   },
   "event": {
-    "action": "InstanceTermination",
-    "outcome": "failure",
-    "category": [
-      "host",
-      "infrastructure"
-    ],
+    "action": "CapacityReservation",
+    "outcome": "success",
+    "category": ["host", "infrastructure"],
     "dataset": "aws.outposts",
     "provider": "outposts.amazonaws.com",
-    "duration": 1614000000
+    "duration": 564000000
   },
-  "message": "Outpost op-534rxh1ysfk: InsufficientCapacity — 10/24 r5.xlarge available",
+  "message": "Outpost op-tdu6gpehgu: CapacityReservation m5d.xlarge Active",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "InsufficientCapacity",
-    "message": "Outpost connectivity: Disconnected",
-    "type": "host"
+    "level": "info"
   }
 }

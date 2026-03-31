@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,32 +13,27 @@
   },
   "aws": {
     "dimensions": {
-      "ResourceArn": "arn:aws:glue:af-south-1:164820739518:table/curated/events",
-      "Principal": "arn:aws:iam::164820739518:user/alice"
+      "ResourceArn": "arn:aws:glue:ap-east-1:164820739518:table/curated/products",
+      "Principal": "arn:aws:iam::164820739518:role/analyst-role"
     },
     "lakeformation": {
       "database": "curated",
-      "table": "events",
-      "action": "CreateLakeFormationTag",
-      "principal_arn": "arn:aws:iam::164820739518:user/alice",
-      "resource_arn": "arn:aws:glue:af-south-1:164820739518:table/curated/events",
-      "permissions": [
-        "ALL"
-      ],
-      "lf_tag_key": "pii",
-      "lf_tag_values": [
-        "dev",
-        "staging"
-      ],
+      "table": "products",
+      "action": "BatchGrantPermissions",
+      "principal_arn": "arn:aws:iam::164820739518:role/analyst-role",
+      "resource_arn": "arn:aws:glue:ap-east-1:164820739518:table/curated/products",
+      "permissions": ["ALL"],
+      "lf_tag_key": "environment",
+      "lf_tag_values": ["dev", "staging"],
       "metrics": {
         "GrantCount": {
-          "sum": 48
+          "sum": 18
         },
         "DatabaseCount": {
-          "avg": 13
+          "avg": 5
         },
         "TableCount": {
-          "avg": 46
+          "avg": 119
         },
         "DataLakeSettings": {
           "avg": 1
@@ -47,17 +42,14 @@
     }
   },
   "event": {
-    "action": "CreateLakeFormationTag",
-    "duration": 647000000,
+    "action": "BatchGrantPermissions",
+    "duration": 361000000,
     "outcome": "success",
-    "category": [
-      "database",
-      "iam"
-    ],
+    "category": ["database", "iam"],
     "dataset": "aws.lakeformation",
     "provider": "lakeformation.amazonaws.com"
   },
-  "message": "Lake Formation CreateLakeFormationTag: ALL on curated.events",
+  "message": "Lake Formation BatchGrantPermissions: ALL on curated.products",
   "log": {
     "level": "info"
   }

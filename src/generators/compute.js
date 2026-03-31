@@ -1031,6 +1031,255 @@ function generateWavelengthLog(ts, er) {
   };
 }
 
+function generateMainframeModernizationLog(ts, er) {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const applicationId = `app-${randId(6).toLowerCase()}`;
+  const environmentId = `env-${randId(8).toLowerCase()}`;
+  const engineType = rand(["microfocus", "bluage"]);
+  const deploymentId = `deploy-${randId(8).toLowerCase()}`;
+  const batchJobStatus = isErr ? "Failed" : rand(["Succeeded", "Running", "Succeeded"]);
+  const batchJobsRunning = isErr ? 0 : randInt(0, 20);
+  const onlineTps = isErr ? 0 : parseFloat(randFloat(1, 500));
+  const cpuUtilization = isErr ? parseFloat(randFloat(90, 100)) : parseFloat(randFloat(5, 75));
+  const errorCode = rand(["BatchJobFailed", "ApplicationStartFailed"]);
+  return {
+    "@timestamp": ts,
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "m2" },
+    },
+    aws: {
+      dimensions: { ApplicationId: applicationId, EnvironmentId: environmentId },
+      m2: {
+        application_id: applicationId,
+        environment_id: environmentId,
+        engine_type: engineType,
+        deployment_id: deploymentId,
+        batch_job_status: batchJobStatus,
+        metrics: {
+          batch_jobs_running: batchJobsRunning,
+          online_transactions_per_sec: onlineTps,
+          cpu_utilization: cpuUtilization,
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    event: {
+      outcome: isErr ? "failure" : "success",
+      category: ["process"],
+      dataset: "aws.m2",
+      provider: "m2.amazonaws.com",
+      duration: randInt(100, isErr ? 30000 : 5000) * 1e6,
+    },
+    data_stream: { type: "logs", dataset: "aws.m2", namespace: "default" },
+    message: isErr
+      ? `Mainframe Modernization ${applicationId}: ${errorCode} (${engineType})`
+      : `Mainframe Modernization ${applicationId}: batch_status=${batchJobStatus}, tps=${onlineTps.toFixed(0)}, cpu=${cpuUtilization.toFixed(1)}%`,
+    log: { level: isErr ? "error" : "info" },
+    ...(isErr
+      ? {
+          error: {
+            code: errorCode,
+            message: `Mainframe Modernization application ${applicationId} failed`,
+            type: "process",
+          },
+        }
+      : {}),
+  };
+}
+
+function generateParallelComputingLog(ts, er) {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const clusterId = `pcs-${randId(8).toLowerCase()}`;
+  const scheduler = "slurm";
+  const queueName = rand(["high-priority", "batch", "gpu"]);
+  const jobId = `job-${randInt(1, 999999)}`;
+  const jobState = isErr ? "FAILED" : rand(["PENDING", "RUNNING", "COMPLETED", "RUNNING"]);
+  const runningJobs = isErr ? 0 : randInt(0, 500);
+  const pendingJobs = randInt(0, isErr ? 1000 : 200);
+  const computeNodesActive = isErr ? 0 : randInt(1, 1000);
+  const errorCode = rand(["JobFailed", "NodeProvisioningFailed"]);
+  return {
+    "@timestamp": ts,
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "pcs" },
+    },
+    aws: {
+      dimensions: { ClusterId: clusterId, QueueName: queueName },
+      pcs: {
+        cluster_id: clusterId,
+        scheduler,
+        queue_name: queueName,
+        job_id: jobId,
+        job_state: jobState,
+        metrics: {
+          running_jobs: runningJobs,
+          pending_jobs: pendingJobs,
+          compute_nodes_active: computeNodesActive,
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    event: {
+      outcome: isErr ? "failure" : "success",
+      category: ["process"],
+      dataset: "aws.pcs",
+      provider: "pcs.amazonaws.com",
+      duration: randInt(1, isErr ? 60000 : 3600) * 1e6,
+    },
+    data_stream: { type: "logs", dataset: "aws.pcs", namespace: "default" },
+    message: isErr
+      ? `PCS cluster ${clusterId}: ${errorCode} for job ${jobId} in queue ${queueName}`
+      : `PCS cluster ${clusterId}: ${runningJobs} running, ${pendingJobs} pending, ${computeNodesActive} nodes active`,
+    log: { level: isErr ? "error" : "info" },
+    ...(isErr
+      ? {
+          error: {
+            code: errorCode,
+            message: `Parallel Computing Service job failed on cluster ${clusterId}`,
+            type: "process",
+          },
+        }
+      : {}),
+  };
+}
+
+function generateEvsLog(ts, er) {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const environmentId = `evs-${randId(8).toLowerCase()}`;
+  const vcenterHostname = `vcenter-${randId(6).toLowerCase()}.internal`;
+  const esxiVersion = "8.0.3";
+  const hostCount = randInt(3, 20);
+  const vsanDatastoreId = `datastore-${randInt(1, 999)}`;
+  const hostsOnline = isErr ? randInt(1, hostCount - 1) : hostCount;
+  const vsanCapacityUsedTb = parseFloat(randFloat(1, 100));
+  const vcpuAllocationRatio = parseFloat(randFloat(1, isErr ? 20 : 8));
+  const errorCode = rand(["HostFailure", "VsanDegradedError"]);
+  return {
+    "@timestamp": ts,
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "evs" },
+    },
+    aws: {
+      dimensions: { EnvironmentId: environmentId },
+      evs: {
+        environment_id: environmentId,
+        vcenter_hostname: vcenterHostname,
+        esxi_version: esxiVersion,
+        host_count: hostCount,
+        vsan_datastore_id: vsanDatastoreId,
+        metrics: {
+          hosts_online: hostsOnline,
+          vsan_capacity_used_tb: vsanCapacityUsedTb,
+          vcpu_allocation_ratio: vcpuAllocationRatio,
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    event: {
+      outcome: isErr ? "failure" : "success",
+      category: ["host"],
+      dataset: "aws.evs",
+      provider: "evs.amazonaws.com",
+      duration: randInt(50, 2000) * 1e6,
+    },
+    data_stream: { type: "logs", dataset: "aws.evs", namespace: "default" },
+    message: isErr
+      ? `EVS environment ${environmentId}: ${errorCode} — ${hostsOnline}/${hostCount} hosts online`
+      : `EVS environment ${environmentId}: ${hostsOnline}/${hostCount} hosts, vSAN=${vsanCapacityUsedTb.toFixed(1)}TB, vCPU ratio=${vcpuAllocationRatio.toFixed(1)}`,
+    log: { level: isErr ? "error" : hostsOnline < hostCount ? "warn" : "info" },
+    ...(isErr
+      ? {
+          error: {
+            code: errorCode,
+            message: `Elastic VMware Service failure in environment ${environmentId}`,
+            type: "host",
+          },
+        }
+      : {}),
+  };
+}
+
+function generateSimSpaceWeaverLog(ts, er) {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const simulationId = `sim-${randId(10).toLowerCase()}`;
+  const appName = rand([
+    "urban-traffic-sim",
+    "crowd-simulation",
+    "logistics-optimizer",
+    "battlefield-sim",
+  ]);
+  const domainName = rand(["Terrain", "Agents", "Traffic"]);
+  const clockTickMs = randInt(100, 1000);
+  const simulationStatus = isErr ? "FAILED" : rand(["RUNNING", "STARTING", "RUNNING"]);
+  const entitiesCount = isErr ? 0 : randInt(100, 1000000);
+  const computeWorkers = isErr ? 0 : randInt(1, 200);
+  const clockLagMs = isErr ? randInt(500, 5000) : randInt(0, 50);
+  const errorCode = rand(["PartitionFailed", "ClockDesyncError"]);
+  return {
+    "@timestamp": ts,
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "simspaceweaver" },
+    },
+    aws: {
+      dimensions: { SimulationId: simulationId, DomainName: domainName },
+      simspaceweaver: {
+        simulation_id: simulationId,
+        app_name: appName,
+        domain_name: domainName,
+        clock_tick_ms: clockTickMs,
+        simulation_status: simulationStatus,
+        metrics: {
+          entities_count: entitiesCount,
+          compute_workers: computeWorkers,
+          clock_lag_ms: clockLagMs,
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    event: {
+      outcome: isErr ? "failure" : "success",
+      category: ["process"],
+      dataset: "aws.simspaceweaver",
+      provider: "simspaceweaver.amazonaws.com",
+      duration: clockTickMs * 1e6,
+    },
+    data_stream: { type: "logs", dataset: "aws.simspaceweaver", namespace: "default" },
+    message: isErr
+      ? `SimSpace Weaver simulation ${simulationId}: ${errorCode} in domain ${domainName}`
+      : `SimSpace Weaver ${simulationId} [${appName}]: status=${simulationStatus}, entities=${entitiesCount}, lag=${clockLagMs}ms`,
+    log: { level: isErr ? "error" : clockLagMs > 100 ? "warn" : "info" },
+    ...(isErr
+      ? {
+          error: {
+            code: errorCode,
+            message: `SimSpace Weaver simulation ${simulationId} failed`,
+            type: "process",
+          },
+        }
+      : {}),
+  };
+}
+
 export {
   generateEc2Log,
   generateEcsLog,
@@ -1042,4 +1291,8 @@ export {
   generateImageBuilderLog,
   generateOutpostsLog,
   generateWavelengthLog,
+  generateMainframeModernizationLog,
+  generateParallelComputingLog,
+  generateEvsLog,
+  generateSimSpaceWeaverLog,
 };

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "ap-south-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "kinesisanalytics"
@@ -13,20 +13,20 @@
   },
   "aws": {
     "kinesisanalytics": {
-      "application_name": "anomaly-detector",
-      "application_arn": "arn:aws:kinesisanalytics:eu-central-2:164820739518:application/anomaly-detector",
+      "application_name": "clickstream-analytics",
+      "application_arn": "arn:aws:kinesisanalytics:ap-south-1:738291046572:application/clickstream-analytics",
       "runtime": "SQL-1_0",
-      "records_per_second": 9508,
-      "input_watermark_lag_ms": 811,
+      "records_per_second": 7773,
+      "input_watermark_lag_ms": 571,
       "checkpointing_enabled": true,
-      "last_checkpoint_duration_ms": 433,
-      "kpu_count": 61,
-      "structured_logging": false,
+      "last_checkpoint_duration_ms": 1531,
+      "kpu_count": 64,
+      "structured_logging": true,
       "metrics": {
-        "records_in_per_second": 9508,
-        "input_watermark_lag_ms": 811,
-        "kpu_utilization_pct": 42,
-        "checkpoint_duration_ms": 712
+        "records_in_per_second": 7773,
+        "input_watermark_lag_ms": 571,
+        "kpu_utilization_pct": 59,
+        "checkpoint_duration_ms": 1542
       }
     }
   },
@@ -35,9 +35,9 @@
     "category": "process",
     "dataset": "aws.kinesisanalytics",
     "provider": "kinesisanalytics.amazonaws.com",
-    "duration": 316000000
+    "duration": 1188000000
   },
-  "message": "Kinesis Analytics anomaly-detector: 9508 rec/s, lag 136ms",
+  "message": "{\"applicationName\":\"clickstream-analytics\",\"recordsPerSecond\":7773,\"inputWatermarkLagMs\":571,\"level\":\"info\",\"message\":\"Application run started\",\"timestamp\":\"2026-03-31T13:15:29.271Z\"}",
   "log": {
     "level": "info"
   }

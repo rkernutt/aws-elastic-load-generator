@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ap-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "vpclattice"
@@ -13,35 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "payment-svc",
+      "ServiceName": "checkout-svc",
       "ServiceNetworkName": "staging-service-network"
     },
     "vpclattice": {
-      "service_name": "payment-svc",
-      "service_arn": "arn:aws:vpc-lattice:eu-south-1:501938274650:service/payment-svc-jxgsaxwj",
+      "service_name": "checkout-svc",
+      "service_arn": "arn:aws:vpc-lattice:ap-east-1:164820739518:service/checkout-svc-2ybg6g4r",
       "service_network_name": "staging-service-network",
-      "target_group_id": "tg-l59ya8gjp5q",
-      "source_vpc_id": "vpc-6210iuq7",
-      "destination_vpc_id": "vpc-1116vlj9",
-      "request_method": "POST",
-      "response_code": 200,
-      "response_time_ms": 49,
-      "bytes_received": 33011,
-      "bytes_sent": 100335,
-      "tls_cipher_suite": "ECDHE-RSA-AES256-GCM-SHA384"
+      "target_group_id": "tg-618ptg49xse",
+      "source_vpc_id": "vpc-6llmzhy3",
+      "destination_vpc_id": "vpc-acogtevy",
+      "request_method": "GET",
+      "response_code": 204,
+      "response_time_ms": 484,
+      "bytes_received": 25778,
+      "bytes_sent": 84458,
+      "tls_cipher_suite": "ECDHE-RSA-AES128-GCM-SHA256"
     }
   },
   "event": {
-    "action": "FixedResponseRule",
+    "action": "ServiceNetworkVpcAssociation",
     "outcome": "success",
-    "category": [
-      "network"
-    ],
+    "category": ["network"],
     "dataset": "aws.vpclattice",
     "provider": "vpc-lattice.amazonaws.com",
-    "duration": 49000000
+    "duration": 484000000
   },
-  "message": "VPC Lattice payment-svc: POST 200 49ms",
+  "message": "VPC Lattice checkout-svc: GET 204 484ms",
   "log": {
     "level": "info"
   }

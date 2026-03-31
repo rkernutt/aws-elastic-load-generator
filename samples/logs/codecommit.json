@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "us-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "codecommit"
@@ -13,31 +13,30 @@
   },
   "aws": {
     "codecommit": {
-      "repository_name": "ml-models",
-      "repository_arn": "arn:aws:codecommit:ap-southeast-3:814726593401:ml-models",
-      "event_type": "ReferenceDeleted",
-      "reference_name": "feature/new-auth",
-      "commit_id": "zvltf04e0i",
-      "author": "bob",
-      "files_changed": 15,
-      "lines_added": 457,
-      "lines_deleted": 169
+      "repository_name": "api-service",
+      "repository_arn": "arn:aws:codecommit:us-west-2:164820739518:api-service",
+      "event_type": "PullRequestMerged",
+      "reference_name": "hotfix/payment-bug",
+      "commit_id": "ohwfp0axrhg",
+      "author": "carol",
+      "files_changed": 5,
+      "lines_added": 469,
+      "lines_deleted": 12,
+      "pull_request_id": "478",
+      "merge_strategy": "fast-forward"
     }
   },
   "user": {
-    "name": "alice"
+    "name": "bob"
   },
   "event": {
-    "action": "ReferenceDeleted",
+    "action": "PullRequestMerged",
     "outcome": "success",
-    "category": [
-      "configuration",
-      "file"
-    ],
+    "category": ["configuration", "file"],
     "dataset": "aws.codecommit",
     "provider": "codecommit.amazonaws.com"
   },
-  "message": "CodeCommit ReferenceDeleted: ml-models/feature/new-auth",
+  "message": "CodeCommit PullRequestMerged: api-service/hotfix/payment-bug",
   "log": {
     "level": "info"
   }

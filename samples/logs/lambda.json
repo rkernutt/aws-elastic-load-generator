@@ -1,34 +1,38 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "lambda"
     }
   },
+  "trace": {
+    "id": "1-k5tj7fol-e0v74fu06nh"
+  },
   "aws": {
     "dimensions": {
-      "FunctionName": "data-pipeline",
-      "Resource": "data-pipeline:$LATEST",
+      "FunctionName": "user-auth",
+      "Resource": "user-auth:$LATEST",
       "ExecutedVersion": "$LATEST",
-      "EventSourceMappingUUID": "6bkthup4-48bl-uy36-ux02-pizjg5xmp5"
+      "EventSourceMappingUUID": "o47iv35b-r6h1-9g8c-96si-q56rwot87j"
     },
     "cloudwatch": {
-      "log_group": "/aws/lambda/data-pipeline",
-      "log_stream": "2026-03-31/[$LATEST]s89qqxq8bt"
+      "log_group": "/aws/lambda/user-auth",
+      "log_stream": "2026-03-31/[$LATEST]m2igz4hat9"
     },
     "lambda": {
       "function": {
-        "name": "data-pipeline",
+        "name": "user-auth",
         "version": "$LATEST",
-        "arn": "arn:aws:lambda:me-central-1:501938274650:function:data-pipeline"
+        "arn": "arn:aws:lambda:ap-south-2:293847561023:function:user-auth"
       },
-      "request_id": "125fk6b5-zdsb-9ltm-qhi3-fqkahb9cbgh",
+      "request_id": "prn8hmgp-jz0q-hpvf-yvzf-dx3r9bpktyg",
+      "trace_id": "1-k5tj7fol-e0v74fu06nh",
       "event_type": "app",
       "metrics": {
         "Invocations": {
@@ -44,14 +48,14 @@
           "avg": 0
         },
         "Duration": {
-          "avg": 487.501,
-          "max": 585.0011999999999
+          "avg": 712.22,
+          "max": 854.664
         },
         "ConcurrentExecutions": {
-          "avg": 54
+          "avg": 260
         },
         "UnreservedConcurrentExecutions": {
-          "avg": 638
+          "avg": 640
         },
         "DeadLetterErrors": {
           "sum": 0,
@@ -61,28 +65,28 @@
           "avg": 0
         },
         "AsyncEventsReceived": {
-          "sum": 7
+          "sum": 42
         },
         "AsyncEventAge": {
-          "avg": 4704
+          "avg": 3013
         },
-        "memory_size_mb": 2048,
-        "max_memory_used_mb": 1509,
-        "instance_max_memory": 2048,
+        "memory_size_mb": 1024,
+        "max_memory_used_mb": 259,
+        "instance_max_memory": 1024,
         "PolledEventCount": {
-          "sum": 268
+          "sum": 282
         },
         "InvokedEventCount": {
-          "sum": 511
+          "sum": 253
         },
         "FilteredOutEventCount": {
-          "sum": 0
+          "sum": 1
         },
         "FailedInvokeEventCount": {
           "sum": 0
         },
         "DeletedEventCount": {
-          "sum": 10
+          "sum": 1
         },
         "OnFailureDestinationDeliveredEventCount": {
           "sum": 0
@@ -91,23 +95,19 @@
     }
   },
   "log": {
-    "level": "info"
+    "level": "warn"
   },
-  "message": "{\"requestId\":\"125fk6b5-zdsb-9ltm-qhi3-fqkahb9cbgh\",\"level\":\"INFO\",\"message\":\"Request received\",\"timestamp\":\"2026-03-31T10:14:12.846Z\",\"duration_ms\":488,\"memory_used_mb\":1509}",
+  "message": "{\"requestId\":\"prn8hmgp-jz0q-hpvf-yvzf-dx3r9bpktyg\",\"level\":\"WARN\",\"message\":\"Memory usage at 80%\",\"timestamp\":\"2026-03-31T13:15:29.271Z\",\"duration_ms\":712,\"memory_used_mb\":259,\"traceId\":\"1-k5tj7fol-e0v74fu06nh\"}",
   "event": {
-    "duration": 487501000,
+    "duration": 712220000,
     "outcome": "success",
-    "category": [
-      "process"
-    ],
-    "type": [
-      "info"
-    ],
+    "category": ["process"],
+    "type": ["info"],
     "dataset": "aws.lambda",
     "provider": "lambda.amazonaws.com"
   },
   "service": {
-    "name": "data-pipeline",
+    "name": "user-auth",
     "type": "lambda"
   }
 }

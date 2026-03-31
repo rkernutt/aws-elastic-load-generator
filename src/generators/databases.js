@@ -1119,6 +1119,131 @@ function generateDaxLog(ts, er) {
   };
 }
 
+function generateNeptuneAnalyticsLog(ts, er) {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const graphId = `g-${randId(9).toLowerCase()}`;
+  const queryId = `query-${randId(8).toLowerCase()}`;
+  const algorithm = rand([
+    "PageRank",
+    "BetweennessCentrality",
+    "LouvainCommunityDetection",
+    "LabelPropagation",
+    "ShortestPath",
+  ]);
+  const nodesProcessed = randInt(1000, 5000000);
+  const edgesProcessed = randInt(5000, 50000000);
+  const durationMs = isErr ? randInt(30000, 300000) : randInt(100, 60000);
+  const errorCode = rand(["GraphAlgorithmTimeout", "InsufficientGraphCapacity"]);
+  return {
+    "@timestamp": ts,
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "neptune-graph" },
+    },
+    aws: {
+      dimensions: { GraphId: graphId },
+      neptuneanalytics: {
+        graph_id: graphId,
+        query_id: queryId,
+        algorithm,
+        metrics: {
+          nodes_processed: nodesProcessed,
+          edges_processed: edgesProcessed,
+          duration_ms: durationMs,
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    event: {
+      outcome: isErr ? "failure" : "success",
+      category: ["database"],
+      dataset: "aws.neptuneanalytics",
+      provider: "neptune-graph.amazonaws.com",
+      duration: durationMs * 1e6,
+    },
+    data_stream: { type: "logs", dataset: "aws.neptuneanalytics", namespace: "default" },
+    message: isErr
+      ? `Neptune Analytics graph ${graphId}: ${errorCode} running ${algorithm}`
+      : `Neptune Analytics graph ${graphId}: ${algorithm} processed ${nodesProcessed} nodes, ${edgesProcessed} edges in ${durationMs}ms`,
+    log: { level: isErr ? "error" : "info" },
+    ...(isErr
+      ? {
+          error: {
+            code: errorCode,
+            message: `Neptune Analytics ${algorithm} failed on graph ${graphId}`,
+            type: "database",
+          },
+        }
+      : {}),
+  };
+}
+
+function generateAuroraDsqlLog(ts, er) {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const clusterId = `dsql-${randId(10).toLowerCase()}`;
+  const linkedClusterArns = [
+    `arn:aws:dsql:us-east-1:${acct.id}:cluster/dsql-${randId(8).toLowerCase()}`,
+    `arn:aws:dsql:us-west-2:${acct.id}:cluster/dsql-${randId(8).toLowerCase()}`,
+  ].slice(0, randInt(1, 2));
+  const transactionId = `txn-${randId(12).toLowerCase()}`;
+  const regionMode = rand(["primary", "replica"]);
+  const tps = isErr ? 0 : parseFloat(randFloat(10, 10000));
+  const storageGb = parseFloat(randFloat(1, 500));
+  const replicationLagMs = regionMode === "replica" ? randInt(1, isErr ? 5000 : 100) : 0;
+  const errorCode = rand(["ConflictError", "TransactionAborted"]);
+  return {
+    "@timestamp": ts,
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "dsql" },
+    },
+    aws: {
+      dimensions: { ClusterId: clusterId, RegionMode: regionMode },
+      auroradsql: {
+        cluster_id: clusterId,
+        linked_cluster_arns: linkedClusterArns,
+        transaction_id: transactionId,
+        region_mode: regionMode,
+        metrics: {
+          transactions_per_sec: tps,
+          storage_used_gb: storageGb,
+          replication_lag_ms: replicationLagMs,
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    event: {
+      outcome: isErr ? "failure" : "success",
+      category: ["database"],
+      dataset: "aws.auroradsql",
+      provider: "dsql.amazonaws.com",
+      duration: randInt(1, isErr ? 5000 : 200) * 1e6,
+    },
+    data_stream: { type: "logs", dataset: "aws.auroradsql", namespace: "default" },
+    message: isErr
+      ? `Aurora DSQL cluster ${clusterId}: ${errorCode} (${regionMode})`
+      : `Aurora DSQL cluster ${clusterId}: ${tps.toFixed(0)} TPS, storage=${storageGb.toFixed(1)}GB, replication_lag=${replicationLagMs}ms`,
+    log: { level: isErr ? "error" : "info" },
+    ...(isErr
+      ? {
+          error: {
+            code: errorCode,
+            message: `Aurora DSQL transaction failed on cluster ${clusterId}`,
+            type: "database",
+          },
+        }
+      : {}),
+  };
+}
+
 export {
   generateDynamoDbLog,
   generateElastiCacheLog,
@@ -1133,4 +1258,6 @@ export {
   generateMemoryDbLog,
   generateRdsLog,
   generateDaxLog,
+  generateNeptuneAnalyticsLog,
+  generateAuroraDsqlLog,
 };

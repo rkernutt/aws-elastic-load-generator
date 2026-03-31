@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-southeast-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,29 +13,27 @@
   },
   "aws": {
     "dimensions": {
-      "LicenseConfigurationName": "RHEL-8-Sockets"
+      "LicenseConfigurationName": "SQL-Server-Enterprise"
     },
     "licensemanager": {
-      "license_configuration_name": "RHEL-8-Sockets",
-      "license_configuration_arn": "arn:aws:license-manager:ap-south-2:814726593401:license-configuration:9T0GIIMHY7U",
-      "resource_type": "EC2_INSTANCE",
-      "consumed_licenses": 8,
-      "licensed_count": 158,
-      "utilization_percentage": 5,
-      "rule_type": "Cores",
+      "license_configuration_name": "SQL-Server-Enterprise",
+      "license_configuration_arn": "arn:aws:license-manager:ap-southeast-1:814726593401:license-configuration:UH432L09K9L",
+      "resource_type": "ROLE",
+      "consumed_licenses": 258,
+      "licensed_count": 591,
+      "utilization_percentage": 44,
+      "rule_type": "vCPU",
       "status": "Active"
     }
   },
   "event": {
-    "action": "DisassociateResource",
+    "action": "ExtendLicense",
     "outcome": "success",
-    "category": [
-      "configuration"
-    ],
+    "category": ["configuration"],
     "dataset": "aws.licensemanager",
     "provider": "license-manager.amazonaws.com"
   },
-  "message": "License Manager RHEL-8-Sockets: 8/158 (5%) EC2_INSTANCE",
+  "message": "License Manager SQL-Server-Enterprise: 258/591 (44%) ROLE",
   "log": {
     "level": "info"
   }

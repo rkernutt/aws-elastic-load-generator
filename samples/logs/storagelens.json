@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ap-south-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "s3"
@@ -14,43 +14,41 @@
   "aws": {
     "dimensions": {
       "StorageLensConfigurationId": "prod-buckets",
-      "StorageType": "Standard"
+      "StorageType": "GlacierIR"
     },
     "s3storagelens": {
       "config_id": "prod-buckets",
-      "bucket_count": 375,
-      "total_storage_bytes": 66417126754087,
-      "total_object_count": 1516456513,
-      "storage_type": "Standard",
+      "bucket_count": 430,
+      "total_storage_bytes": 22259240913578,
+      "total_object_count": 9413342827,
+      "storage_type": "GlacierIR",
       "metrics": {
         "BucketCount": {
-          "avg": 375
+          "avg": 430
         },
         "TotalStorageBytes": {
-          "sum": 66417126754087
+          "sum": 22259240913578
         },
         "TotalObjectCount": {
-          "sum": 1516456513
+          "sum": 9413342827
         },
         "BytesUsed": {
-          "sum": 66417126754087
+          "sum": 22259240913578
         },
         "ObjectCount": {
-          "sum": 1516456513
+          "sum": 9413342827
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "metric"
-    ],
+    "category": ["metric"],
     "dataset": "aws.s3_storage_lens",
     "provider": "s3.amazonaws.com",
-    "duration": 266000000000
+    "duration": 268000000000
   },
-  "message": "S3 Storage Lens prod-buckets: 375 buckets, 66417.1 GB, 1516456513 objects",
+  "message": "S3 Storage Lens prod-buckets: 430 buckets, 22259.2 GB, 9413342827 objects",
   "log": {
     "level": "info"
   }

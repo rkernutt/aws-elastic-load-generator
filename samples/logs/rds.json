@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "eu-central-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,90 +13,79 @@
   },
   "aws": {
     "dimensions": {
-      "DBInstanceIdentifier": "prod-db-primary",
-      "DatabaseClass": "db.r6g.xlarge",
+      "DBInstanceIdentifier": "prod-db-replica",
+      "DatabaseClass": "db.r5.large",
       "EngineName": "postgres",
-      "SourceRegion": "eu-west-3"
+      "SourceRegion": "eu-central-1"
     },
     "rds": {
       "db_instance": {
-        "identifier": "prod-db-primary",
-        "class": "db.r5.large",
+        "identifier": "prod-db-replica",
+        "class": "db.r6g.xlarge",
         "engine_name": "postgres",
-        "arn": "arn:aws:rds:eu-west-3:501938274650:db:prod-db-primary",
+        "arn": "arn:aws:rds:eu-central-1:501938274650:db:prod-db-replica",
         "status": "available",
         "role": "instance"
       },
       "cpu": {
         "total": {
-          "pct": 0.1743
+          "pct": 0.0193
         }
       },
       "freeable_memory": {
-        "bytes": 1935028908
+        "bytes": 4298168058
       },
       "free_storage": {
-        "bytes": 311359896375
+        "bytes": 423774709268
       },
-      "database_connections": 104,
+      "database_connections": 274,
       "read_io": {
-        "ops_per_sec": 630.948
+        "ops_per_sec": 710.129
       },
       "write_io": {
-        "ops_per_sec": 321.784
+        "ops_per_sec": 1269.817
       },
       "latency": {
-        "read": 0.008,
-        "write": 0.001
+        "read": 0.009,
+        "write": 0.004
       },
       "throughput": {
-        "read": 49969258,
-        "write": 58121801,
-        "network_receive": 81172525,
-        "network_transmit": 36905109
+        "read": 20692284,
+        "write": 26960771,
+        "network_receive": 15281968,
+        "network_transmit": 66569732
       },
       "replica_lag": {
-        "sec": 63.732
+        "sec": 40.519
       },
       "swap_usage": {
-        "bytes": 39754529
+        "bytes": 69148356
       },
       "disk_usage": {
         "bin_log": {
-          "bytes": 724283755
+          "bytes": 72824927
         }
       }
     }
   },
   "db": {
     "user": {
-      "name": "readonly"
+      "name": "admin"
     },
     "name": "events",
-    "statement": "DELETE FROM sessions WHERE HBGF7D",
+    "statement": "SELECT * FROM users WHERE B3OX54",
     "type": "sql"
   },
   "event": {
-    "duration": 1754000000,
+    "duration": 132000000,
     "outcome": "success",
-    "category": [
-      "database"
-    ],
-    "type": [
-      "info",
-      "access"
-    ],
+    "category": ["database"],
+    "type": ["info", "access"],
     "dataset": "aws.rds",
     "provider": "rds.amazonaws.com"
   },
-  "message": "LOG: duration: 1754.000 ms statement: SELECT * FROM users WHERE id = 296026",
+  "message": "{\"instanceId\":\"prod-db-replica\",\"engine\":\"postgres\",\"userId\":\"admin\",\"queryTime\":0.132,\"error\":null,\"timestamp\":\"2026-03-31T13:15:29.271Z\",\"osMetrics\":{\"cpuUtilization\":{\"guest\":0.294,\"irq\":0.345,\"system\":4.679,\"wait\":3.409,\"idle\":65,\"user\":26.227,\"total\":35},\"memory\":{\"total\":40938492689,\"free\":5003451664,\"cached\":7576097424,\"active\":13447065801,\"inactive\":2491767760,\"buffers\":149256887},\"disk\":{\"readIOsPS\":2996.443,\"writeIOsPS\":1215.838,\"readKbPS\":68142.317,\"writeKbPS\":415910.616,\"avgQueueLen\":7.586,\"await\":10.527},\"network\":{\"rx\":32725598,\"tx\":94367602},\"numVCPUs\":4,\"uptime\":\"99 days, 1:13:40\"}}",
   "log": {
     "level": "info"
-  },
-  "trace": {
-    "id": "EEQ9B571MEP"
-  },
-  "transaction": {
-    "id": "PHZMVNJY5OG"
   }
 }

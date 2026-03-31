@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ap-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "servicecatalog"
@@ -13,31 +13,28 @@
   },
   "aws": {
     "servicecatalog": {
-      "operation": "ProvisionProduct",
-      "product_name": "EKS Cluster",
-      "product_id": "prod-7MY7E06NX4D",
-      "portfolio_id": "port-MBRK8JYALS",
-      "provisioned_product_name": "eks-cluster-1bksve",
-      "record_id": "rec-RYQ10OYRILJ",
+      "operation": "TerminateProvisionedProduct",
+      "product_name": "RDS PostgreSQL",
+      "product_id": "prod-2LOXAUY2GN2",
+      "portfolio_id": "port-F47YDCMTY1V",
+      "provisioned_product_name": "rds-postgresql-ubwb6z",
+      "record_id": "rec-D8SBB4DOW4N",
       "status": "SUCCEEDED",
-      "requester_arn": "arn:aws:iam::738291046572:user/developer-alice"
+      "requester_arn": "arn:aws:iam::164820739518:user/developer-alice"
     }
   },
   "user": {
     "name": "developer-alice"
   },
   "event": {
-    "action": "ProvisionProduct",
+    "action": "TerminateProvisionedProduct",
     "outcome": "success",
-    "category": [
-      "configuration",
-      "process"
-    ],
+    "category": ["configuration", "process"],
     "dataset": "aws.servicecatalog",
     "provider": "servicecatalog.amazonaws.com",
-    "duration": 405000000000
+    "duration": 290000000000
   },
-  "message": "ServiceCatalog ProvisionProduct: developer-alice → EKS Cluster [SUCCEEDED]",
+  "message": "ServiceCatalog TerminateProvisionedProduct: developer-alice → RDS PostgreSQL [SUCCEEDED]",
   "log": {
     "level": "info"
   }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "eu-west-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -14,29 +14,27 @@
   "aws": {
     "dimensions": {
       "Application": "DataPipeline",
-      "Environment": "staging"
+      "Environment": "prod"
     },
     "appconfig": {
       "application_name": "DataPipeline",
-      "environment_name": "staging",
-      "configuration_profile": "RateLimits",
-      "deployment_number": 460,
-      "deployment_strategy": "AllAtOnce",
+      "environment_name": "prod",
+      "configuration_profile": "AppSettings",
+      "deployment_number": 325,
+      "deployment_strategy": "Canary10Percent20Minutes",
       "growth_factor": 33,
       "percentage_complete": 100,
-      "state": "DEPLOYING"
+      "state": "COMPLETE"
     }
   },
   "event": {
-    "action": "RollbackDeployment",
+    "action": "ValidateConfiguration",
     "outcome": "success",
-    "category": [
-      "configuration"
-    ],
+    "category": ["configuration"],
     "dataset": "aws.appconfig",
     "provider": "appconfig.amazonaws.com"
   },
-  "message": "AppConfig DataPipeline/staging: RateLimits deployment #460 DEPLOYING",
+  "message": "AppConfig DataPipeline/prod: AppSettings deployment #325 COMPLETE",
   "log": {
     "level": "info"
   }

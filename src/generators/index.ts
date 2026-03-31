@@ -23,6 +23,10 @@ import {
   generateImageBuilderLog,
   generateOutpostsLog,
   generateWavelengthLog,
+  generateMainframeModernizationLog,
+  generateParallelComputingLog,
+  generateEvsLog,
+  generateSimSpaceWeaverLog,
 } from "./compute.js";
 import {
   generateAlbLog,
@@ -45,6 +49,8 @@ import {
   generateAppMeshLog,
   generateClientVpnLog,
   generateCloudMapLog,
+  generateVpcIpamLog,
+  generatePrivate5gLog,
 } from "./networking.js";
 import {
   generateGuardDutyLog,
@@ -98,6 +104,8 @@ import {
   generateMemoryDbLog,
   generateRdsLog,
   generateDaxLog,
+  generateNeptuneAnalyticsLog,
+  generateAuroraDsqlLog,
 } from "./databases.js";
 import {
   generateKinesisStreamsLog,
@@ -110,6 +118,7 @@ import {
   generateEventBridgeLog,
   generateStepFunctionsLog,
   generateMskConnectLog,
+  generateEndUserMessagingLog,
 } from "./streaming.js";
 import {
   generateCodeBuildLog,
@@ -123,6 +132,7 @@ import {
   generateCodeCatalystLog,
   generateDeviceFarmLog,
   generateProtonLog,
+  generateQDeveloperLog,
 } from "./devtools.js";
 import {
   generateEmrLog,
@@ -161,6 +171,8 @@ import {
   generateHealthLakeLog,
   generateNovaLog,
   generateLookoutVisionLog,
+  generateHealthOmicsLog,
+  generateBedrockDataAutomationLog,
 } from "./ml.js";
 import {
   generateIotCoreLog,
@@ -171,6 +183,7 @@ import {
   generateIotSiteWiseLog,
   generateIotTwinMakerLog,
   generateIotFleetWiseLog,
+  generateGroundStationLog,
 } from "./iot.js";
 import {
   generateCloudFormationLog,
@@ -215,6 +228,8 @@ import {
   generateDevOpsGuruLog,
   generateDeadlineCloudLog,
   generateChimeSdkLog,
+  generateWorkMailLog,
+  generateWickrLog,
 } from "./enduser.js";
 
 const GENERATORS = {
@@ -237,6 +252,10 @@ const GENERATORS = {
   fargate: generateFargateLog,
   autoscaling: generateAutoScalingLog,
   imagebuilder: generateImageBuilderLog,
+  mainframemodernization: generateMainframeModernizationLog,
+  parallelcomputing: generateParallelComputingLog,
+  evs: generateEvsLog,
+  simspaceweaver: generateSimSpaceWeaverLog,
   // Group 3 — Networking & CDN
   alb: generateAlbLog,
   cloudfront: generateCloudFrontLog,
@@ -256,6 +275,8 @@ const GENERATORS = {
   appmesh: generateAppMeshLog,
   clientvpn: generateClientVpnLog,
   cloudmap: generateCloudMapLog,
+  vpcipam: generateVpcIpamLog,
+  private5g: generatePrivate5gLog,
   // Group 4 — Security & Compliance
   guardduty: generateGuardDutyLog,
   securityhub: generateSecurityHubLog,
@@ -304,6 +325,8 @@ const GENERATORS = {
   dax: generateDaxLog,
   keyspaces: generateKeyspacesLog,
   memorydb: generateMemoryDbLog,
+  neptuneanalytics: generateNeptuneAnalyticsLog,
+  auroradsql: generateAuroraDsqlLog,
   // Group 6 — Streaming & Messaging
   kinesis: generateKinesisStreamsLog,
   firehose: generateFirehoseLog,
@@ -316,6 +339,7 @@ const GENERATORS = {
   appsync: generateAppSyncLog,
   kinesisanalytics: generateKinesisAnalyticsLog,
   mskconnect: generateMskConnectLog,
+  endusermessaging: generateEndUserMessagingLog,
   // Group 7 — Developer & CI/CD
   codebuild: generateCodeBuildLog,
   codepipeline: generateCodePipelineLog,
@@ -327,6 +351,7 @@ const GENERATORS = {
   codeguru: generateCodeGuruLog,
   codecatalyst: generateCodeCatalystLog,
   devicefarm: generateDeviceFarmLog,
+  qdeveloper: generateQDeveloperLog,
   // Group 8 — Analytics
   emr: generateEmrLog,
   glue: generateGlueLog,
@@ -361,12 +386,15 @@ const GENERATORS = {
   healthlake: generateHealthLakeLog,
   nova: generateNovaLog,
   lookoutvision: generateLookoutVisionLog,
+  healthomics: generateHealthOmicsLog,
+  bedrockdataautomation: generateBedrockDataAutomationLog,
   // Group 10 — IoT
   iotcore: generateIotCoreLog,
   greengrass: generateIotGreengrassLog,
   iotanalytics: generateIotAnalyticsLog,
   iottwinmaker: generateIotTwinMakerLog,
   iotfleetwise: generateIotFleetWiseLog,
+  groundstation: generateGroundStationLog,
   // Group 11 — Management & Governance
   cloudformation: generateCloudFormationLog,
   ssm: generateSsmLog,
@@ -400,6 +428,8 @@ const GENERATORS = {
   appstream: generateAppStreamLog,
   deadlinecloud: generateDeadlineCloudLog,
   chimesdkvoice: generateChimeSdkLog,
+  workmail: generateWorkMailLog,
+  wickr: generateWickrLog,
   // Group 13 — Messaging & Communications
   ses: generateSesLog,
   pinpoint: generatePinpointLog,

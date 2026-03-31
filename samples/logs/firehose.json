@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "us-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "firehose"
@@ -17,45 +17,45 @@
     },
     "firehose": {
       "delivery_stream_name": "events-to-redshift",
-      "destination": "OpenSearch",
-      "incoming_records": 19277,
-      "incoming_bytes": 11893909,
+      "destination": "S3",
+      "incoming_records": 28370,
+      "incoming_bytes": 6865540,
       "delivery_success": true,
-      "delivery_records": 19277,
-      "data_freshness_seconds": 167,
+      "delivery_records": 28370,
+      "data_freshness_seconds": 88,
       "metrics": {
         "DeliveryToS3.Bytes": {
-          "sum": 94929004
+          "sum": 67548692
         },
         "DeliveryToS3.DataFreshness": {
-          "avg": 1743
+          "avg": 1217
         },
         "DeliveryToS3.Records": {
-          "sum": 4581
+          "sum": 9989
         },
         "DeliveryToS3.Success": {
           "avg": 1
         },
         "IncomingBytes": {
-          "sum": 66346787
+          "sum": 80706890
         },
         "IncomingRecords": {
-          "sum": 5324
+          "sum": 2323
         },
         "BackupToS3.Bytes": {
-          "sum": 312788
+          "sum": 188917
         },
         "BackupToS3.Records": {
-          "sum": 722
+          "sum": 281
         },
         "BackupToS3.Success": {
           "avg": 1
         },
         "DataReadFromKinesisStream.Bytes": {
-          "sum": 46900107
+          "sum": 90323648
         },
         "DataReadFromKinesisStream.Records": {
-          "sum": 3471
+          "sum": 9094
         },
         "ThrottledGetRecords": {
           "sum": 0
@@ -68,14 +68,12 @@
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "process"
-    ],
+    "category": ["process"],
     "dataset": "aws.firehose",
     "provider": "firehose.amazonaws.com",
-    "duration": 35000000000
+    "duration": 17000000000
   },
-  "message": "Firehose events-to-redshift: 19277 records delivered",
+  "message": "Firehose events-to-redshift: 28370 records delivered",
   "log": {
     "level": "info"
   }

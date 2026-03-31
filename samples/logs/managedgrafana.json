@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "managedgrafana"
@@ -13,31 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "WorkspaceId": "g-rnjfd1imc9"
+      "WorkspaceId": "g-hlwfv7m47k"
     },
     "managedgrafana": {
-      "workspace_id": "g-rnjfd1imc9",
+      "workspace_id": "g-hlwfv7m47k",
       "workspace_name": "prod-observability",
-      "workspace_status": "ACTIVE",
+      "workspace_status": "CREATING",
       "grafana_version": "9.4",
-      "alert_state": "alerting",
-      "dashboard_title": "EKS Cluster Health",
-      "datasource_type": "athena",
-      "authentication_providers": "AWS_SSO",
-      "notification_destinations": "SLACK"
+      "alert_state": "pending",
+      "dashboard_title": "RDS Metrics",
+      "datasource_type": "prometheus",
+      "authentication_providers": "SAML",
+      "notification_destinations": "PAGERDUTY"
     }
   },
   "event": {
-    "action": "CreateWorkspace",
+    "action": "DeleteApiKey",
     "outcome": "success",
-    "category": [
-      "process"
-    ],
+    "category": ["process"],
     "dataset": "aws.managedgrafana",
     "provider": "grafana.amazonaws.com"
   },
-  "message": "Managed Grafana CreateWorkspace: workspace=prod-observability alert=alerting dashboard=\"EKS Cluster Health\"",
+  "message": "Managed Grafana DeleteApiKey: workspace=prod-observability alert=pending dashboard=\"RDS Metrics\"",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

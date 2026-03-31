@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "ca-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "ses"
@@ -13,25 +13,24 @@
   },
   "aws": {
     "dimensions": {
-      "ses:configuration-set": "default",
+      "ses:configuration-set": "transactional",
       "ses:from-domain": "company.com",
       "ses:to-country": "CA",
-      "ses:to-isp": "AOL"
+      "ses:to-isp": "Other"
     },
     "ses": {
-      "message_id": "6ng11m7g6ps.lyb4p6f97m@eu-central-2.amazonses.com",
-      "event_type": "Delivery",
+      "message_id": "3hmkmgcdosx.dtu9dbflqq@ca-central-1.amazonses.com",
+      "event_type": "Click",
       "from_address": "alerts@company.com",
-      "destination": "user_nimkre@yahoo.com",
+      "destination": "user_pbz3y4@yahoo.com",
+      "configuration_set": "transactional",
       "bounce": {},
       "complaint": {},
-      "sending_account_id": "501938274650",
+      "sending_account_id": "164820739518",
       "delivery": {
-        "recipients": [
-          "user_nimkre@yahoo.com"
-        ],
-        "timestamp": "2026-03-31T10:14:12.846Z",
-        "processing_time_ms": 76,
+        "recipients": ["user_pbz3y4@yahoo.com"],
+        "timestamp": "2026-03-31T13:15:29.271Z",
+        "processing_time_ms": 2806,
         "smtp_response": "250 2.0.0 OK"
       },
       "metrics": {
@@ -67,15 +66,12 @@
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "email",
-      "process"
-    ],
+    "category": ["email", "process"],
     "dataset": "aws.ses",
     "provider": "email.amazonaws.com",
-    "duration": 968000000
+    "duration": 2179000000
   },
-  "message": "SES Delivery: alerts@company.com -> user_nimkre@yahoo.com",
+  "message": "SES Click: alerts@company.com -> user_pbz3y4@yahoo.com",
   "log": {
     "level": "info"
   }

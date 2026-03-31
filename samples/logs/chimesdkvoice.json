@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "chimesdkvoice"
@@ -13,34 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "VoiceConnectorId": "abcdefghNS1GJ19KU1",
-      "Direction": "Inbound"
+      "VoiceConnectorId": "abcdefghI0PW5W46BPB",
+      "Direction": "Outbound"
     },
     "chimesdkvoice": {
-      "voice_connector_id": "abcdefghNS1GJ19KU1",
-      "call_id": "y8egzm73-w79u-eh1j-jct9-p0hmjmia8hp",
-      "direction": "Inbound",
-      "call_status": "InProgress",
-      "from_number": "+17122421549",
-      "to_number": "+15646608888",
-      "duration_seconds": 1195,
-      "packet_loss_percent": "0.192",
-      "mos_score": "4.244",
-      "jitter_ms": 20,
-      "sip_response_code": 180
+      "voice_connector_id": "abcdefghI0PW5W46BPB",
+      "call_id": "u91lox04-b4l3-4pd9-gbuq-aak9a8bdnar",
+      "direction": "Outbound",
+      "call_status": "Completed",
+      "from_number": "+13070284713",
+      "to_number": "+12718873232",
+      "duration_seconds": 2050,
+      "packet_loss_percent": "0.427",
+      "mos_score": "4.439",
+      "jitter_ms": 18,
+      "sip_response_code": 200
     }
   },
   "event": {
-    "action": "CallAnswered",
+    "action": "CallFailed",
     "outcome": "success",
-    "category": [
-      "network",
-      "session"
-    ],
+    "category": ["network", "session"],
     "dataset": "aws.chimesdkvoice",
     "provider": "chime.amazonaws.com"
   },
-  "message": "Chime SDK Voice Inbound call 1195s MOS:4.244 loss:0.192%",
+  "message": "Chime SDK Voice Outbound call 2050s MOS:4.439 loss:0.427%",
   "log": {
     "level": "info"
   }

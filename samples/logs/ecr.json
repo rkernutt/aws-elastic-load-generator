@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "ca-central-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,32 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "RepositoryName": "nginx-custom",
+      "RepositoryName": "worker",
       "RegistryId": "293847561023"
     },
     "ecr": {
-      "repository_name": "nginx-custom",
+      "repository_name": "worker",
       "registry_id": "293847561023",
-      "image_tag": "release-42",
-      "image_digest": "sha256:3eb76ttpsyp",
-      "action": "scan",
-      "image_size_bytes": 376994064,
-      "pushed_by": "github-actions",
-      "scan_status": "COMPLETE",
+      "image_tag": "main",
+      "image_digest": "sha256:p7mz0c0s93",
+      "action": "pull",
+      "image_size_bytes": 1316185365,
+      "pushed_by": "ci-pipeline",
+      "scan_status": "NOT_STARTED",
       "finding_count": 0,
       "vulnerability_scan_enabled": true,
       "metrics": {
         "ImageCount": {
-          "avg": 966
+          "avg": 322
         },
         "RepositorySizeInBytes": {
-          "avg": 23304006042
+          "avg": 1914828375
         },
         "LifecyclePolicyRuleEvaluationCount": {
           "sum": 0
         },
         "PullCount": {
-          "sum": 0
+          "sum": 868
         },
         "PushCount": {
           "sum": 0
@@ -53,24 +53,22 @@
           "sum": 0
         },
         "ScanFindingsSeverityLow": {
-          "sum": 46
+          "sum": 75
         },
         "ScanFindingsSeverityInformational": {
-          "sum": 154
+          "sum": 176
         }
       }
     }
   },
   "event": {
-    "category": [
-      "package"
-    ],
+    "category": ["package"],
     "outcome": "success",
     "dataset": "aws.ecr",
     "provider": "ecr.amazonaws.com",
-    "duration": 4326000000
+    "duration": 3630000000
   },
-  "message": "ECR scan: nginx-custom:release-42",
+  "message": "ECR pull: worker:main",
   "log": {
     "level": "info"
   }

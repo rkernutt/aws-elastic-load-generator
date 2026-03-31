@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,37 +7,35 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "eu-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
   },
   "orchestrator": {
     "cluster": {
-      "id": "staging-eks",
-      "name": "staging-eks"
+      "id": "data-processing-eks",
+      "name": "data-processing-eks"
     },
     "type": "kubernetes",
-    "namespace": "monitoring"
+    "namespace": "default"
   },
   "resource": {
-    "id": "staging-eks/monitoring/api-server/staging-eks",
-    "name": "api-server/staging-eks",
-    "sub_type": "api-server",
+    "id": "data-processing-eks/default/pod/cron-j9gj9",
+    "name": "pod/cron-j9gj9",
+    "sub_type": "Pod",
     "type": "k8s_object"
   },
   "rule": {
-    "id": "cis_eks_1_1",
-    "name": "Restrict anonymous access to the API server",
-    "section": "1.1",
-    "tags": [
-      "API Server"
-    ],
+    "id": "cis_eks_4_3",
+    "name": "Minimize containers wishing to share the host process ID namespace",
+    "section": "4.3",
+    "tags": ["Pod Security"],
     "benchmark": {
       "id": "cis_eks",
       "version": "v1.4.0",
-      "rule_number": "1.1",
+      "rule_number": "4.3",
       "posture_type": "kspm"
     }
   },
@@ -47,17 +45,13 @@
   "severity": "none",
   "event": {
     "kind": "state",
-    "category": [
-      "configuration"
-    ],
-    "type": [
-      "info"
-    ],
+    "category": ["configuration"],
+    "type": ["info"],
     "outcome": "success",
     "dataset": "cloud_security_posture.findings",
     "provider": "elastic_kspm"
   },
-  "message": "KSPM [CIS EKS / 1.1] passed: Restrict anonymous access to the API server [staging-eks]",
+  "message": "KSPM [CIS EKS / 4.3] passed: Minimize containers wishing to share the host process ID namespace [data-processing-eks]",
   "log": {
     "level": "info"
   }

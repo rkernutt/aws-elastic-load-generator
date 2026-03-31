@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "eu-south-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "iotevents"
@@ -13,38 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorModelName": "door-sensor-model",
+      "DetectorModelName": "pressure-monitor",
       "KeyValue": "unit-01"
     },
     "iotevents": {
-      "detector_model_name": "door-sensor-model",
+      "detector_model_name": "pressure-monitor",
       "detector_id": "unit-01",
       "key_value": "unit-01",
-      "event_name": "StateTransition",
-      "from_state": "Normal",
+      "event_name": "AlarmAcknowledged",
+      "from_state": "Acknowledged",
       "to_state": "Alarm",
       "input_name": "HealthCheck",
       "action_type": "SQS",
-      "timer_name": "idleTimer",
-      "error_code": "InvalidRequestException"
+      "timer_name": "idleTimer"
     }
   },
   "event": {
-    "outcome": "failure",
-    "category": [
-      "process"
-    ],
+    "outcome": "success",
+    "category": ["process"],
     "dataset": "aws.iotevents",
     "provider": "iotevents.amazonaws.com",
-    "duration": 445000000
+    "duration": 454000000
   },
-  "message": "IoT Events door-sensor-model/unit-01 ERROR: State machine error",
+  "message": "IoT Events pressure-monitor/unit-01: Acknowledged → Alarm [AlarmAcknowledged]",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "InvalidRequestException",
-    "message": "IoT Events error",
-    "type": "iot"
+    "level": "warn"
   }
 }

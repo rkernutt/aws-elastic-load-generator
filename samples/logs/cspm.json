@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,29 +7,27 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
   },
   "resource": {
-    "id": "arn:aws:ec2:ap-south-2:738291046572:vpc/vpc-p20tfckr",
-    "name": "vpc-p20tfckr",
-    "sub_type": "vpc",
-    "type": "cloud-network"
+    "id": "arn:aws:iam::164820739518:root",
+    "name": "arn:aws:iam::164820739518:root",
+    "sub_type": "iam-root",
+    "type": "cloud-identity-management"
   },
   "rule": {
-    "id": "cis_5_1",
-    "name": "Ensure VPC Flow Logs are enabled in all VPCs",
-    "section": "5.1",
-    "tags": [
-      "Networking"
-    ],
+    "id": "cis_1_1",
+    "name": "Avoid use of the root account",
+    "section": "1.1",
+    "tags": ["IAM"],
     "benchmark": {
       "id": "cis_aws",
       "version": "v1.5.0",
-      "rule_number": "5.1",
+      "rule_number": "1.1",
       "posture_type": "cspm"
     }
   },
@@ -39,17 +37,13 @@
   "severity": "none",
   "event": {
     "kind": "state",
-    "category": [
-      "configuration"
-    ],
-    "type": [
-      "info"
-    ],
+    "category": ["configuration"],
+    "type": ["info"],
     "outcome": "success",
     "dataset": "cloud_security_posture.findings",
     "provider": "elastic_cspm"
   },
-  "message": "CSPM [CIS AWS 1.5 / 5.1] passed: Ensure VPC Flow Logs are enabled in all VPCs",
+  "message": "CSPM [CIS AWS 1.5 / 1.1] passed: Avoid use of the root account",
   "log": {
     "level": "info"
   }

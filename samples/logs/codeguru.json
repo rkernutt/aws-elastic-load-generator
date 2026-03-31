@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "us-west-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,30 +13,32 @@
   },
   "aws": {
     "codeguru": {
-      "product": "Profiler",
-      "repository_name": "backend-api",
-      "association_id": "kj8goj4om49",
-      "finding_id": "8xqbbfl85se",
-      "category": "Memory",
-      "severity": "Medium",
-      "finding_description": "Hot method: HashMap.get",
-      "code_file": "app/models.py",
-      "line_number": 75,
-      "profiling_group": "backend-api-profiling",
-      "frame_percent": 28.026
+      "product": "Reviewer",
+      "repository_name": "frontend-app",
+      "association_id": "8fnavpjbc4i",
+      "finding_id": "50o7ca8pyb",
+      "category": "Logging",
+      "severity": "Critical",
+      "finding_description": "CodeMaintainability:LongMethod",
+      "code_file": "server/routes.js",
+      "line_number": 153,
+      "pull_request_id": 113,
+      "error_code": "ThrottlingException"
     }
   },
   "event": {
-    "outcome": "success",
-    "category": [
-      "vulnerability",
-      "process"
-    ],
+    "outcome": "failure",
+    "category": ["vulnerability", "process"],
     "dataset": "aws.codeguru",
     "provider": "codeguru.amazonaws.com"
   },
-  "message": "CodeGuru Profiler [backend-api] Medium: Hot method",
+  "message": "CodeGuru Reviewer FAILED [frontend-app]: Repository not found:",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ThrottlingException",
+    "message": "CodeGuru operation failed",
+    "type": "process"
   }
 }

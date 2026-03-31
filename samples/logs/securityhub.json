@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "securityhub"
@@ -13,62 +13,61 @@
   },
   "aws": {
     "dimensions": {
-      "ComplianceStandard": "aws-foundational-security-best-practices",
-      "ControlId": "CloudTrail.1"
+      "ComplianceStandard": "pci-dss",
+      "ControlId": "IAM.3"
     },
     "securityhub_findings": {
-      "id": "Q38RJVFY-F33L-CQSM-B8J8-EZZSTPE7NYT",
-      "aws_account_id": "738291046572",
-      "region": "eu-south-1",
-      "description": "Control passed.",
-      "created_at": "2026-03-30T20:06:17.389Z",
-      "first_observed_at": "2026-03-30T20:06:17.389Z",
-      "last_observed_at": "2026-03-31T10:14:12.846Z",
+      "id": "048EFJU7-C6W0-ZX1K-CEPF-O1HJ48BQAPM",
+      "aws_account_id": "814726593401",
+      "region": "ap-southeast-2",
+      "description": "Security check failed: IAM.3 - MFA not enabled for root",
+      "created_at": "2026-03-30T16:08:29.134Z",
+      "first_observed_at": "2026-03-30T16:08:29.134Z",
+      "last_observed_at": "2026-03-31T13:15:29.271Z",
       "generator": {
-        "id": "CloudTrail.1"
+        "id": "IAM.3"
       },
-      "types": [
-        "Software and Configuration Checks/AWS Security Best Practices"
-      ],
+      "types": ["Threat Detections/Tactics/Impact"],
       "compliance": {
-        "security_control_id": "CloudTrail.1",
-        "status": "PASSED"
+        "security_control_id": "IAM.3",
+        "status": "FAILED"
       },
       "severity": {
         "label": "INFORMATIONAL",
         "normalized": 0
       },
       "workflow": {
-        "status": "RESOLVED"
+        "status": "SUPPRESSED"
       },
-      "record_state": "ARCHIVED",
+      "record_state": "ACTIVE",
       "product": {
-        "arn": "arn:aws:securityhub:eu-south-1::product/aws/securityhub",
+        "arn": "arn:aws:securityhub:ap-southeast-2::product/aws/securityhub",
         "name": "Security Hub"
       },
       "criticality": 4,
-      "confidence": 78
+      "confidence": 73
     }
   },
   "rule": {
-    "id": "CloudTrail.1",
-    "name": "CloudTrail.1 — VPC flow logs disabled"
+    "id": "IAM.3",
+    "name": "IAM.3 — Security group allows all traffic"
   },
   "event": {
     "kind": "alert",
     "severity": 4,
-    "outcome": "success",
-    "category": [
-      "compliance"
-    ],
-    "type": [
-      "info"
-    ],
+    "outcome": "failure",
+    "category": ["vulnerability"],
+    "type": ["indicator"],
     "dataset": "aws.securityhub_findings",
     "provider": "securityhub.amazonaws.com"
   },
-  "message": "Security Hub: control passed",
+  "message": "Security Hub [INFORMATIONAL]: Compliance check failed",
   "log": {
     "level": "info"
+  },
+  "error": {
+    "code": "ComplianceFailed",
+    "message": "Control IAM.3 failed",
+    "type": "compliance"
   }
 }

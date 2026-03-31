@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "af-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "chatbot"
@@ -13,30 +13,28 @@
   },
   "aws": {
     "dimensions": {
-      "ChannelConfiguration": "ops-alerts",
+      "ChannelConfiguration": "security-alerts",
       "ChannelType": "MicrosoftTeams"
     },
     "chatbot": {
-      "channel_configuration_name": "ops-alerts",
+      "channel_configuration_name": "security-alerts",
       "channel_type": "MicrosoftTeams",
-      "notification_type": "SecurityHubFinding",
-      "workspace_id": "TLAD23M9N",
-      "channel_id": "C7QZ8GSXH",
+      "notification_type": "SNSNotification",
+      "workspace_id": "T33Z99SPG",
+      "channel_id": "C7ES4PSVL",
       "delivery_status": "Delivered",
-      "message_id": "88yqei3v-1pib-1ff2-kjy7-bkyc14fqwob",
-      "sns_topic_arn": "arn:aws:sns:ap-southeast-3:293847561023:securityhubfinding-topic"
+      "message_id": "0e7bzjgs-7gbu-iy0m-5t50-nq0ac02kqdp",
+      "sns_topic_arn": "arn:aws:sns:af-south-1:501938274650:snsnotification-topic"
     }
   },
   "event": {
-    "action": "ChannelTest",
+    "action": "BotInvitation",
     "outcome": "success",
-    "category": [
-      "configuration"
-    ],
+    "category": ["configuration"],
     "dataset": "aws.chatbot",
     "provider": "chatbot.amazonaws.com"
   },
-  "message": "Chatbot ops-alerts: SecurityHubFinding delivered to MicrosoftTeams",
+  "message": "Chatbot security-alerts: SNSNotification delivered to MicrosoftTeams",
   "log": {
     "level": "info"
   }

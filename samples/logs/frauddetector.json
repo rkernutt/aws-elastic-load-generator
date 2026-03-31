@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "frauddetector"
@@ -13,43 +13,36 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "account-takeover"
+      "DetectorId": "online-fraud-v2"
     },
     "frauddetector": {
-      "detector_id": "account-takeover",
-      "detector_version_id": "5",
-      "event_id": "3v0893hqbfc",
-      "event_type": "card_transaction",
+      "detector_id": "online-fraud-v2",
+      "detector_version_id": "3",
+      "event_id": "2215yvjvovo",
+      "event_type": "wire_transfer",
       "entity_type": "customer",
-      "entity_id": "entity_5k43utmxj1",
-      "outcomes": [
-        "REVIEW"
-      ],
-      "risk_score": 404,
+      "entity_id": "entity_gb7eiilu6t",
+      "outcomes": ["APPROVE"],
+      "risk_score": 355,
       "model_scores": {
-        "account-takeover": 404
+        "online-fraud-v2": 355
       },
-      "used_rules": [
-        "approve-low"
-      ],
-      "ip_address": "234.7.154.20",
+      "used_rules": ["review-medium"],
+      "ip_address": "167.134.229.182",
       "event_variables": {
-        "billing_postal": "97067",
+        "billing_postal": "15472",
         "phone_verified": "false"
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "intrusion_detection",
-      "process"
-    ],
+    "category": ["intrusion_detection", "process"],
     "dataset": "aws.frauddetector",
     "provider": "frauddetector.amazonaws.com",
-    "duration": 293000000
+    "duration": 218000000
   },
-  "message": "Fraud Detector REVIEW [account-takeover]: entity entity_5k43utmxj1 score 404/1000",
+  "message": "Fraud Detector APPROVE [online-fraud-v2]: entity entity_gb7eiilu6t score 355/1000",
   "log": {
     "level": "info"
   }

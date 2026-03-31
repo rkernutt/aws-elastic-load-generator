@@ -1,0 +1,60 @@
+{
+  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-central-2",
+    "account": {
+      "id": "293847561023",
+      "name": "globex-staging"
+    },
+    "service": {
+      "name": "workmail"
+    }
+  },
+  "aws": {
+    "dimensions": {
+      "OrganizationId": "m-j2w97s"
+    },
+    "workmail": {
+      "organization_id": "m-j2w97s",
+      "mailbox_id": "mailbox-fpts9h7tn7",
+      "action": "EmailBounced",
+      "metrics": {
+        "emails_delivered": 0,
+        "emails_bounced": 66,
+        "active_users": 380
+      },
+      "error_code": "MailboxQuotaExceeded"
+    }
+  },
+  "email": {
+    "from": {
+      "address": "frank@globex.example.com"
+    },
+    "to": {
+      "address": "frank@globex.example.com"
+    }
+  },
+  "event": {
+    "action": "EmailBounced",
+    "outcome": "failure",
+    "category": ["email"],
+    "dataset": "aws.workmail",
+    "provider": "workmail.amazonaws.com",
+    "duration": 28000000
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.workmail",
+    "namespace": "default"
+  },
+  "message": "WorkMail org m-j2w97s: MailboxQuotaExceeded for EmailBounced",
+  "log": {
+    "level": "error"
+  },
+  "error": {
+    "code": "MailboxQuotaExceeded",
+    "message": "WorkMail email delivery failed in organization m-j2w97s",
+    "type": "email"
+  }
+}

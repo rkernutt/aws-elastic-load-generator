@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "fsx"
@@ -13,57 +13,54 @@
   },
   "aws": {
     "dimensions": {
-      "FileSystemId": "fs-vxr3890a7y"
+      "FileSystemId": "fs-yotrg0vaea"
     },
     "fsx": {
-      "file_system_id": "fs-vxr3890a7y",
-      "file_system_type": "NETAPP_ONTAP",
-      "deployment_type": "MULTI_AZ_1",
-      "storage_capacity_gb": 2400,
-      "throughput_capacity_mbps": 256,
-      "storage_used_percent": 32,
+      "file_system_id": "fs-yotrg0vaea",
+      "file_system_type": "WINDOWS",
+      "deployment_type": "SINGLE_AZ_2",
+      "storage_capacity_gb": 9600,
+      "throughput_capacity_mbps": 512,
+      "storage_used_percent": 79,
       "metrics": {
         "DataReadBytes": {
-          "sum": 547183441
+          "sum": 702628525
         },
         "DataWriteBytes": {
-          "sum": 730545966
+          "sum": 623022795
         },
         "DataReadOperations": {
-          "sum": 6211
+          "sum": 5118
         },
         "DataWriteOperations": {
-          "sum": 3886
+          "sum": 2361
         },
         "MetadataOperations": {
-          "sum": 3558
+          "sum": 2641
         },
         "FreeStorageCapacity": {
-          "avg": 22103184709
+          "avg": 41540828681
         },
         "StorageCapacity": {
-          "avg": 152377958092
+          "avg": 673833780767
         },
         "CPUUtilization": {
-          "avg": 2.787
+          "avg": 79.921
         },
         "NetworkThroughputUtilization": {
-          "avg": 33.502
+          "avg": 29.067
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "host",
-      "file"
-    ],
+    "category": ["host", "file"],
     "dataset": "aws.fsx",
     "provider": "fsx.amazonaws.com",
-    "duration": 3141000000
+    "duration": 3271000000
   },
-  "message": "Snapshot created",
+  "message": "File system available",
   "log": {
     "level": "info"
   }

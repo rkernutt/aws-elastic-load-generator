@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "verified-access"
@@ -13,25 +13,24 @@
   },
   "aws": {
     "dimensions": {
-      "ApplicationId": "va-app-0zy69t44"
+      "ApplicationId": "va-app-3g56m17r"
     },
     "verifiedaccess": {
-      "endpoint_id": "vae-by0r37jeb69",
-      "group_id": "vag-dla9fwrsomb",
-      "instance_id": "vai-7mj7p1j3qjd",
-      "policy_name": "require-mfa",
+      "endpoint_id": "vae-qh26akyjvxp",
+      "group_id": "vag-qeg84ii34u",
+      "instance_id": "vai-ry1kwwhagoh",
+      "policy_name": "jump-server-only",
       "trust_provider_type": "oidc-okta",
-      "device_posture": "NON_COMPLIANT",
-      "verdict": "deny",
-      "deny_reason": "mfa_required",
-      "http_method": "PUT",
-      "http_path": "/api/v1/auth/login",
-      "http_status": 403,
-      "request_id": "368rf2qz-r2gx-xjr5-jpxu-rk7z31dp6ns",
-      "connection_id": "X91DVFFSRRT",
-      "session_id": "J06J7W6ZKA",
-      "sni_hostname": "staging-api.internal.example.com",
-      "application_name": "staging-api"
+      "device_posture": "COMPLIANT",
+      "verdict": "allow",
+      "http_method": "POST",
+      "http_path": "/api/v2/events",
+      "http_status": 200,
+      "request_id": "e4kp9kt7-7m5z-t7tq-ngx9-vdvnpvvwopg",
+      "connection_id": "VLZZKDHRBB",
+      "session_id": "AY6S32U3KHD",
+      "sni_hostname": "internal-dashboard.internal.example.com",
+      "application_name": "internal-dashboard"
     }
   },
   "user": {
@@ -39,28 +38,18 @@
     "name": "bob"
   },
   "source": {
-    "ip": "209.247.178.36"
+    "ip": "17.24.119.240"
   },
   "event": {
-    "outcome": "failure",
-    "category": [
-      "authentication",
-      "network"
-    ],
-    "type": [
-      "denied"
-    ],
+    "outcome": "success",
+    "category": ["authentication", "network"],
+    "type": ["allowed"],
     "dataset": "aws.verifiedaccess",
     "provider": "verified-access.amazonaws.com",
-    "duration": 194000000
+    "duration": 190000000
   },
-  "message": "Verified Access DENIED: bob@example.com -> staging-api [mfa_required]",
+  "message": "Verified Access allowed: bob@example.com -> internal-dashboard (COMPLIANT)",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "AccessDenied",
-    "message": "Verified Access policy denied: mfa_required",
-    "type": "authentication"
+    "level": "info"
   }
 }

@@ -1,17 +1,17 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "trace": {
-    "id": "1-69cb9e74-exh4bbrclb4"
+    "id": "1-69cbc8f1-uqw6395yel"
   },
   "span": {
-    "id": "v5j1ippifgo"
+    "id": "vjl3slwlixc"
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "af-south-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "xray"
@@ -23,62 +23,45 @@
       "ServiceType": "AWS::SQS::Queue"
     },
     "xray": {
-      "trace_id": "1-69cb9e74-exh4bbrclb4",
-      "segment_id": "v5j1ippifgo",
-      "parent_id": "vandnbd6gdp",
+      "trace_id": "1-69cbc8f1-uqw6395yel",
+      "segment_id": "vjl3slwlixc",
       "service": {
         "name": "sqs-consumer",
         "type": "AWS::SQS::Queue"
       },
-      "duration": 0.244,
-      "fault": false,
+      "duration": 16.344,
+      "fault": true,
       "error": false,
       "throttle": false,
       "http": {
         "request": {
           "method": "PUT",
-          "url": "/api/v2/events"
+          "url": "/api/v1/products"
         },
         "response": {
-          "status": 204
+          "status": 502
         }
       },
       "annotations": {
         "env": "prod",
-        "version": "v2"
+        "version": "v16"
       },
-      "subsegments": [
-        {
-          "id": "esij9sf8z7",
-          "name": "SQS.SendMessage",
-          "namespace": "aws",
-          "duration": 0.384,
-          "fault": false
-        },
-        {
-          "id": "nxl3vi0pqx",
-          "name": "ElastiCache.get",
-          "namespace": "aws",
-          "duration": 0.096,
-          "fault": false
-        }
-      ],
       "metrics": {
         "ErrorRate": {
-          "avg": 0.81
+          "avg": 0.582
         },
         "FaultRate": {
-          "avg": 0.424
+          "avg": 2.284
         },
         "ThrottleRate": {
-          "avg": 0.398
+          "avg": 0.378
         },
         "TotalCount": {
-          "sum": 5995
+          "sum": 4446
         },
         "Latency": {
-          "avg": 244,
-          "p99": 732
+          "avg": 16344.000000000002,
+          "p99": 49032
         }
       }
     }
@@ -88,23 +71,24 @@
       "method": "PUT"
     },
     "response": {
-      "status_code": 204
+      "status_code": 502
     }
   },
   "event": {
-    "duration": 244000000,
-    "outcome": "success",
-    "category": [
-      "network"
-    ],
-    "type": [
-      "connection"
-    ],
+    "duration": 16344000000,
+    "outcome": "failure",
+    "category": ["network"],
+    "type": ["connection", "denied"],
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray: sqs-consumer PUT → 204 (0.244s)",
+  "message": "X-Ray FAULT: sqs-consumer PUT → 502 (16.344s)",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "TraceFault",
+    "message": "Service fault: HTTP 502",
+    "type": "trace"
   }
 }

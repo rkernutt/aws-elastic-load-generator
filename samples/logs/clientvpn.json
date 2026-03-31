@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "af-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "clientvpn"
@@ -13,38 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "Endpoint": "cvpn-endpoint-08axucz6nire"
+      "Endpoint": "cvpn-endpoint-4retcj3ba6u"
     },
     "clientvpn": {
-      "endpoint_id": "cvpn-endpoint-08axucz6nire",
-      "connection_id": "cvpn-connection-9yd0ybr6tkj",
-      "username": "globex-staging",
-      "source_ip": "109.9.202.88",
-      "assigned_ip": "10.9.182.124",
-      "egress_bytes": 5893693,
-      "ingress_bytes": 1288951,
-      "connection_duration_seconds": 61340,
+      "endpoint_id": "cvpn-endpoint-4retcj3ba6u",
+      "connection_id": "cvpn-connection-xmie9h1tm7l",
+      "username": "globex-production",
+      "source_ip": "214.51.237.129",
+      "assigned_ip": "10.22.213.246",
+      "egress_bytes": 1828074,
+      "ingress_bytes": 3057404,
+      "connection_duration_seconds": 83220,
       "termination_reason": "User disconnected"
     }
   },
   "event": {
-    "action": "connection-attempt",
+    "action": "connected",
     "outcome": "success",
-    "category": [
-      "network",
-      "authentication"
-    ],
+    "category": ["network", "authentication"],
     "dataset": "aws.clientvpn",
     "provider": "clientvpn.amazonaws.com",
-    "duration": 61340000000000
+    "duration": 83220000000000
   },
   "source": {
-    "ip": "109.9.202.88"
+    "ip": "214.51.237.129"
   },
   "user": {
-    "name": "globex-staging"
+    "name": "globex-production"
   },
-  "message": "Client VPN globex-staging connection-attempt from 109.9.202.88",
+  "message": "Client VPN globex-production connected from 214.51.237.129",
   "log": {
     "level": "info"
   }

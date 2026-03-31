@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "appfabric"
@@ -13,37 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "AppBundle": "saas-audit-bundle",
-      "Application": "Salesforce"
+      "AppBundle": "prod-bundle",
+      "Application": "Microsoft365"
     },
     "appfabric": {
-      "app_bundle_arn": "arn:aws:appfabric:us-west-2:814726593401:appbundle/saas-audit-bundle",
-      "application": "Salesforce",
-      "event_type": "userSignOut",
-      "normalized_user": "user-4BJASEAC@example.com",
-      "source_ip": "58.86.160.250",
+      "app_bundle_arn": "arn:aws:appfabric:ap-southeast-2:293847561023:appbundle/prod-bundle",
+      "application": "Microsoft365",
+      "event_type": "permissionGranted",
+      "normalized_user": "user-Z5CEHGE2@example.com",
+      "source_ip": "214.242.115.164",
       "ingestion_status": "ACTIVE",
-      "tenant_id": "tenant-L56VUP5S",
-      "ocsf_class": "API_ACTIVITY"
+      "tenant_id": "tenant-ZJLM2DBI",
+      "ocsf_class": "AUTHENTICATION"
     }
   },
   "event": {
     "action": "DeliverToFIREHOSE",
     "outcome": "success",
-    "category": [
-      "audit"
-    ],
+    "category": ["audit"],
     "dataset": "aws.appfabric",
     "provider": "appfabric.amazonaws.com"
   },
-  "message": "AppFabric Salesforce: userSignOut by user-4BJASEAC@example.com normalized as OCSF API_ACTIVITY",
+  "message": "AppFabric Microsoft365: permissionGranted by user-Z5CEHGE2@example.com normalized as OCSF AUTHENTICATION",
   "log": {
     "level": "info"
   },
   "user": {
-    "email": "user-4BJASEAC@example.com"
+    "email": "user-Z5CEHGE2@example.com"
   },
   "source": {
-    "ip": "58.86.160.250"
+    "ip": "214.242.115.164"
   }
 }

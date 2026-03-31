@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "ap-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -16,33 +16,33 @@
       "Severity": "MEDIUM"
     },
     "inspector2": {
-      "finding_id": "arn:aws:inspector2:eu-west-1:164820739518:finding/ntswqw2f-1ln1-5phf-vzzo-u3azq04m058",
+      "finding_id": "arn:aws:inspector2:ap-east-1:164820739518:finding/pzkb5ibs-tsil-k05t-vrh4-nz67h71q17k",
       "finding_type": "PACKAGE_VULNERABILITY",
       "finding_status": "ACTIVE",
       "severity": "MEDIUM",
-      "severity_score": 6,
-      "exploitability": "PROOF_OF_CONCEPT",
-      "resource_type": "AWS_EC2_INSTANCE",
-      "resource_id": "i-pypbbq6e3tj",
-      "first_observed_at": "2026-03-03T10:14:12.846Z",
-      "last_observed_at": "2026-03-31T10:14:12.846Z",
+      "severity_score": 5.6,
+      "exploitability": "FUNCTIONAL",
+      "resource_type": "AWS_LAMBDA_FUNCTION",
+      "resource_id": "arn:aws:lambda:ap-east-1:164820739518:function:my-fn",
+      "first_observed_at": "2026-03-18T13:15:29.271Z",
+      "last_observed_at": "2026-03-31T13:15:29.271Z",
       "package_vulnerability": {
-        "cve_id": "CVE-2024-59004",
-        "source": "GHSA",
-        "cvss3_score": 5.987,
+        "cve_id": "CVE-2024-86570",
+        "source": "NVD",
+        "cvss3_score": 5.551,
         "vulnerable_packages": [
           {
-            "name": "werkzeug",
-            "version": "2.6.4",
-            "fixed_in_version": "1.7.15",
-            "package_manager": "JAVA"
+            "name": "jackson-databind",
+            "version": "3.3.5",
+            "fixed_in_version": "1.0.19",
+            "package_manager": "DOTNET"
           }
         ],
-        "related_vulnerabilities": []
+        "related_vulnerabilities": ["CVE-2024-52355"]
       },
       "metrics": {
         "TotalFindings": {
-          "sum": 329
+          "sum": 90
         },
         "CriticalFindings": {
           "sum": 0
@@ -51,40 +51,36 @@
           "sum": 0
         },
         "MediumFindings": {
-          "sum": 20
+          "sum": 58
         },
         "LowFindings": {
           "sum": 0
         },
         "CoveredResources": {
-          "avg": 328
+          "avg": 1129
         }
       }
     }
   },
   "vulnerability": {
     "severity": "MEDIUM",
-    "id": "CVE-2024-59004",
+    "id": "CVE-2024-86570",
     "score": {
-      "base": 5.987
+      "base": 5.551
     }
   },
   "package": {
-    "name": "werkzeug",
-    "version": "2.6.4"
+    "name": "jackson-databind",
+    "version": "3.3.5"
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "vulnerability"
-    ],
-    "type": [
-      "info"
-    ],
+    "category": ["vulnerability"],
+    "type": ["info"],
     "dataset": "aws.inspector2",
     "provider": "inspector2.amazonaws.com"
   },
-  "message": "Inspector2 [MEDIUM]: CVE-2024-59004 in werkzeug 2.6.4 on AWS_EC2_INSTANCE (fix: 1.7.15)",
+  "message": "Inspector2 [MEDIUM]: CVE-2024-86570 in jackson-databind 3.3.5 on AWS_LAMBDA_FUNCTION (fix: 1.0.19)",
   "log": {
     "level": "warn"
   }

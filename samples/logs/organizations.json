@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "organizations"
@@ -13,25 +13,28 @@
   },
   "aws": {
     "organizations": {
-      "action": "CreateOrganizationalUnit",
-      "account_id": "814726593401",
-      "account_name": "security-audit",
-      "organizational_unit": "Workloads"
+      "action": "MoveAccount",
+      "account_id": "293847561023",
+      "account_name": "shared-services",
+      "organizational_unit": "Sandbox",
+      "error_code": "ConstraintViolationException"
     }
   },
   "event": {
-    "action": "CreateOrganizationalUnit",
-    "outcome": "success",
-    "category": [
-      "configuration",
-      "iam"
-    ],
+    "action": "MoveAccount",
+    "outcome": "failure",
+    "category": ["configuration", "iam"],
     "dataset": "aws.organizations",
     "provider": "organizations.amazonaws.com",
-    "duration": 1005000000
+    "duration": 2358000000
   },
-  "message": "Organizations CreateOrganizationalUnit: Security",
+  "message": "Organizations MoveAccount FAILED: Constraint violation",
+  "error": {
+    "code": "OrganizationsError",
+    "message": "Organizations operation failed",
+    "type": "iam"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "eu-north-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -11,76 +11,77 @@
       "name": "ec2"
     },
     "instance": {
-      "id": "i-wvg2x78514"
+      "id": "i-jmi4kc7snc"
     }
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "i-wvg2x78514",
-      "InstanceType": "m5.xlarge",
-      "ImageId": "ami-v5q2lzxx"
+      "InstanceId": "i-jmi4kc7snc",
+      "InstanceType": "t3.medium",
+      "ImageId": "ami-4ecawbks",
+      "AutoScalingGroupName": "web-asg"
     },
     "ec2": {
       "instance": {
         "image": {
-          "id": "ami-k9o0425s"
+          "id": "ami-77zk1ydw"
         },
         "state": {
           "name": "running",
           "code": 16
         },
         "monitoring": {
-          "state": "disabled"
+          "state": "enabled"
         },
         "core": {
-          "count": 4
+          "count": 2
         },
-        "type": "m5.xlarge",
+        "type": "t3.medium",
         "threads_per_core": 2,
         "private": {
-          "ip": "4.65.204.137",
-          "dns_name": "ip-142-11-225-163.ca-central-1.compute.internal"
+          "ip": "116.159.70.28",
+          "dns_name": "ip-40-234-29-91.eu-west-1.compute.internal"
         },
         "public": {
-          "ip": "176.48.229.95",
-          "dns_name": "ec2-55-90-116-148.compute-1.amazonaws.com"
+          "ip": "29.160.60.80",
+          "dns_name": "ec2-224-225-250-160.compute-1.amazonaws.com"
         }
       },
       "cpu": {
         "total": {
-          "pct": 0.3422
+          "pct": 0.2259
         },
-        "credit_usage": 2.649,
-        "credit_balance": 468.256,
+        "credit_usage": 2.219,
+        "credit_balance": 350.888,
         "surplus_credit_balance": 0,
         "surplus_credits_charged": 0
       },
       "network": {
         "in": {
-          "bytes": 434690210,
-          "bytes_per_sec": 252577.037,
-          "packets": 594885,
-          "packets_per_sec": 3333.721
+          "bytes": 533040430,
+          "bytes_per_sec": 624862.748,
+          "packets": 674768,
+          "packets_per_sec": 5920.789
         },
         "out": {
-          "bytes": 217174833,
-          "bytes_per_sec": 25927.59,
-          "packets": 941383,
-          "packets_per_sec": 6724.078
+          "bytes": 280480209,
+          "bytes_per_sec": 87242.457,
+          "packets": 899309,
+          "packets_per_sec": 6026.946
         }
       },
       "diskio": {
         "read": {
-          "bytes": 414950635,
-          "bytes_per_sec": 383283.215,
-          "count": 1304,
-          "count_per_sec": 326.935
+          "bytes": 263472467,
+          "bytes_per_sec": 22385.342,
+          "count": 8744,
+          "count_per_sec": 623.822
         },
         "write": {
-          "bytes": 351543923,
-          "bytes_per_sec": 238396.074,
-          "count": 4742,
-          "count_per_sec": 901.9
+          "bytes": 807602592,
+          "bytes_per_sec": 763001.152,
+          "count": 659,
+          "count_per_sec": 957.654
         }
       },
       "status": {
@@ -91,49 +92,44 @@
     }
   },
   "host": {
-    "hostname": "ip-1-56-94-230",
+    "hostname": "ip-69-52-30-253",
     "os": {
       "type": "linux",
-      "kernel": "5.10.132-89.amzn2.x86_64",
+      "kernel": "5.10.113-54.amzn2.x86_64",
       "version": "2"
     },
     "architecture": "arm64",
     "cpu": {
-      "count": 8,
-      "usage": 0.34219
+      "count": 4,
+      "usage": 0.22585999999999998
     },
     "disk": {
       "read": {
-        "bytes": 69296231
+        "bytes": 447983208
       },
       "write": {
-        "bytes": 921443604
+        "bytes": 279843780
       }
     },
     "network": {
       "ingress": {
-        "bytes": 392388548
+        "bytes": 471698253
       },
       "egress": {
-        "bytes": 560728870
+        "bytes": 257124868
       }
     }
   },
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "event": {
-    "category": [
-      "host",
-      "process"
-    ],
-    "type": [
-      "info"
-    ],
+    "category": ["host", "process"],
+    "type": ["info"],
     "outcome": "success",
     "dataset": "aws.ec2",
     "provider": "ec2.amazonaws.com",
-    "duration": 2084000000000
+    "duration": 3504000000000
   },
-  "message": "cloud-init: modules done"
+  "message": "{\"instanceId\":\"i-jmi4kc7snc\",\"instanceType\":\"t3.medium\",\"level\":\"warn\",\"message\":\"Memory available below 512MB\",\"timestamp\":\"2026-03-31T13:15:29.271Z\",\"component\":\"syslog\"}"
 }

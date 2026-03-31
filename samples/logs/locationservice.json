@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "location"
@@ -18,22 +18,25 @@
     "locationservice": {
       "operation": "CalculateRoute",
       "route_calculator": "truck-router",
-      "distance_meters": 305994,
-      "duration_seconds": 6807
+      "distance_meters": 447209,
+      "duration_seconds": 6527,
+      "error_code": "ValidationException"
     }
   },
   "event": {
-    "outcome": "success",
-    "category": [
-      "process",
-      "network"
-    ],
+    "outcome": "failure",
+    "category": ["process", "network"],
     "dataset": "aws.location",
     "provider": "geo.amazonaws.com",
-    "duration": 300000000
+    "duration": 447000000
   },
-  "message": "Location Service CalculateRoute: place search",
+  "message": "Location Service CalculateRoute FAILED: Invalid coordinates:",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ThrottlingException",
+    "message": "Location Service failed",
+    "type": "geo"
   }
 }

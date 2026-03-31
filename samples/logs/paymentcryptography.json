@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "us-east-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "paymentcryptography"
@@ -13,30 +13,28 @@
   },
   "aws": {
     "dimensions": {
-      "KeyAlgorithm": "AES_128",
-      "Operation": "TranslatePinData"
+      "KeyAlgorithm": "AES_192",
+      "Operation": "DecryptData"
     },
     "paymentcryptography": {
-      "key_arn": "arn:aws:payment-cryptography:af-south-1:814726593401:key/H7U33B7186R",
-      "key_alias": "alias/payment-cvv-key",
-      "key_algorithm": "AES_128",
+      "key_arn": "arn:aws:payment-cryptography:us-east-2:164820739518:key/AP2AHAQ1T9T",
+      "key_alias": "alias/payment-mac-key",
+      "key_algorithm": "AES_192",
       "key_usage": "TR31_M3_ISO_9797_3_MAC_KEY",
-      "operation": "TranslatePinData",
+      "operation": "DecryptData",
       "key_state": "CREATE_COMPLETE",
       "exportable": false,
-      "key_check_value": "RZWIXD"
+      "key_check_value": "W899BB"
     }
   },
   "event": {
-    "action": "VerifyMac",
+    "action": "GeneratePinData",
     "outcome": "success",
-    "category": [
-      "authentication"
-    ],
+    "category": ["authentication"],
     "dataset": "aws.paymentcryptography",
     "provider": "payment-cryptography.amazonaws.com"
   },
-  "message": "Payment Cryptography TranslatePinData using AES_128 (M3)",
+  "message": "Payment Cryptography DecryptData using AES_192 (M3)",
   "log": {
     "level": "info"
   }

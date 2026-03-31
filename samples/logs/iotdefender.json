@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "us-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "iotdefender"
@@ -13,35 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "CheckName": "IOT_POLICY_OVERLY_PERMISSIVE"
+      "CheckName": "REVOKED_CA_CERTIFICATE"
     },
     "iotdefender": {
-      "thing_name": "controller-a4",
-      "audit_check_name": "IOT_POLICY_OVERLY_PERMISSIVE",
-      "finding_id": "b6xvv01jxeh",
-      "severity": "CRITICAL",
-      "violation_id": "qoo5tmwf70b",
-      "violation_type": "large-msg-size",
+      "thing_name": "valve-plant-2",
+      "audit_check_name": "REVOKED_CA_CERTIFICATE",
+      "finding_id": "ooljkgrm7vr",
+      "severity": "MEDIUM",
+      "violation_id": "u60zifj82e",
+      "violation_type": "blanket-request",
       "security_profile_name": "baseline-security-profile",
-      "behavior_name": "authorized-ip-range",
-      "current_value": 912,
-      "threshold_value": 80,
+      "behavior_name": "data-bytes-out",
+      "current_value": 699,
+      "threshold_value": 18,
       "consecutive_datapoints_to_alarm": 3
     }
   },
   "event": {
     "kind": "alert",
     "outcome": "success",
-    "category": [
-      "intrusion_detection",
-      "vulnerability"
-    ],
+    "category": ["intrusion_detection", "vulnerability"],
     "dataset": "aws.iotdefender",
     "provider": "iot.amazonaws.com",
-    "duration": 43000000000
+    "duration": 223000000000
   },
-  "message": "IoT Defender CRITICAL [controller-a4]: IOT_POLICY_OVERLY_PERMISSIVE",
+  "message": "IoT Defender MEDIUM [valve-plant-2]: REVOKED_CA_CERTIFICATE",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

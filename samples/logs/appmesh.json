@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "sa-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "appmesh"
@@ -13,33 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "MeshName": "dev-mesh",
+      "MeshName": "prod-mesh",
       "VirtualNodeName": "payment-vn"
     },
     "appmesh": {
-      "mesh_name": "dev-mesh",
+      "mesh_name": "prod-mesh",
       "virtual_node": "payment-vn",
-      "virtual_service": "inventory.svc",
-      "listener_port": 3000,
+      "virtual_service": "checkout.svc",
+      "listener_port": 8080,
       "protocol": "http",
-      "response_code": 201,
-      "response_time_ms": 212,
-      "bytes_received": 1133,
-      "bytes_sent": 11698,
+      "response_code": 204,
+      "response_time_ms": 181,
+      "bytes_received": 3324,
+      "bytes_sent": 12863,
       "envoy_response_code_details": "via_upstream"
     }
   },
   "event": {
-    "action": "CircuitBreakerOpen",
+    "action": "RetryAttempt",
     "outcome": "success",
-    "category": [
-      "network"
-    ],
+    "category": ["network"],
     "dataset": "aws.appmesh",
     "provider": "appmesh.amazonaws.com",
-    "duration": 212000000
+    "duration": 181000000
   },
-  "message": "App Mesh payment-vn: http 201 212ms",
+  "message": "App Mesh payment-vn: http 204 181ms",
   "log": {
     "level": "info"
   }

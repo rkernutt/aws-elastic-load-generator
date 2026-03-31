@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "eu-south-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,31 +13,28 @@
   },
   "aws": {
     "resiliencehub": {
-      "app_arn": "arn:aws:resiliencehub:ap-southeast-1:293847561023:app/68tvps8pq6v",
-      "app_name": "customer-portal",
-      "operation": "ImportResourcesToDraft",
-      "resiliency_score": 99,
+      "app_arn": "arn:aws:resiliencehub:eu-south-2:293847561023:app/ot7v9bwj5p",
+      "app_name": "ecommerce-platform",
+      "operation": "CreateRecommendationTemplate",
+      "resiliency_score": 80,
       "compliance_status": "POLICY_MET",
-      "current_rto_seconds": 2869,
-      "target_rto_seconds": 5738,
-      "current_rpo_seconds": 3457,
-      "target_rpo_seconds": 6914,
-      "tier": "Non-Critical",
-      "disruption_type": "AZ",
-      "recommendation_count": 10
+      "current_rto_seconds": 2241,
+      "target_rto_seconds": 4482,
+      "current_rpo_seconds": 3566,
+      "target_rpo_seconds": 7132,
+      "tier": "Critical",
+      "disruption_type": "Hardware",
+      "recommendation_count": 14
     }
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "process",
-      "configuration"
-    ],
+    "category": ["process", "configuration"],
     "dataset": "aws.resiliencehub",
     "provider": "resiliencehub.amazonaws.com",
-    "duration": 110000000000
+    "duration": 88000000000
   },
-  "message": "Resilience Hub customer-portal [Non-Critical]: score=99, RTO=2869s, RPO=3457s",
+  "message": "Resilience Hub ecommerce-platform [Critical]: score=80, RTO=2241s, RPO=3566s",
   "log": {
     "level": "info"
   }

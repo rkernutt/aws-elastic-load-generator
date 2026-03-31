@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "us-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "glue"
@@ -13,57 +13,113 @@
   },
   "aws": {
     "dimensions": {
-      "JobName": "pii-masking",
-      "JobRunId": "jr_umd2azdv1a",
-      "Type": "pythonshell"
+      "JobName": "schema-handler",
+      "JobRunId": "jr_mq1wroi3bu",
+      "Type": "glueetl"
     },
     "glue": {
-      "error_category": "THROTTLING_ERROR",
       "job": {
-        "name": "pii-masking",
-        "run_id": "jr_umd2azdv1a",
-        "type": "pythonshell",
-        "run_state": "FAILED"
+        "name": "schema-handler",
+        "run_id": "jr_mq1wroi3bu",
+        "type": "glueetl",
+        "run_state": "SUCCEEDED"
       },
-      "database": "raw_data",
+      "database": "analytics",
       "table": "products",
-      "dpu_seconds": 100,
+      "dpu_seconds": 1400,
       "worker": {
         "type": "G.2X",
-        "count": 5
+        "count": 10
       },
       "records": {
-        "read": 41798925,
-        "written": 41380935,
-        "errors": 978
+        "read": 12954032,
+        "written": 12824491,
+        "errors": 0
       },
-      "glue_version": "4.0",
+      "glue_version": "3.0",
       "continuous_logging": false,
       "metrics": {
         "driver": {
           "aggregate": {
-            "numRecords": 41798925,
-            "numFailedRecords": 978,
-            "elapsedTime": 20000,
-            "numCompletedTasks": 293,
-            "numFailedTasks": 11,
-            "numKilledTasks": 2,
-            "numCompletedStages": 5,
-            "bytesRead": 7691002200,
-            "shuffleBytesWritten": 1688181529,
-            "shuffleLocalBytesRead": 318629066,
-            "gc_time_ms": 2744
+            "numRecords": 12954032,
+            "numFailedRecords": 0,
+            "elapsedTime": 140000,
+            "numCompletedTasks": 434,
+            "numFailedTasks": 0,
+            "numKilledTasks": 0,
+            "numCompletedStages": 7,
+            "bytesRead": 6373383744,
+            "shuffleBytesWritten": 1675631998,
+            "shuffleLocalBytesRead": 1153913723,
+            "gc_time_ms": 35437
           },
           "memory": {
             "heap": {
-              "available": 2944411498,
-              "used": 2409063953,
-              "used_percentage": 45
+              "available": 3515705865,
+              "used": 3964519380,
+              "used_percentage": 53
             },
             "non-heap": {
-              "available": 247058113,
-              "used": 126300072,
-              "used_percentage": 34
+              "available": 154469207,
+              "used": 83456256,
+              "used_percentage": 40
+            }
+          },
+          "jvm": {
+            "heap": {
+              "usage": 0.53
+            }
+          },
+          "disk": {
+            "available_GB": 67,
+            "used_GB": 143,
+            "used_percentage": 68,
+            "diskSpaceUsed_MB": 1746
+          },
+          "BlockManager": {
+            "disk": {
+              "diskSpaceUsed_MB": 477
+            }
+          },
+          "ExecutorAllocationManager": {
+            "executors": {
+              "numberAllExecutors": 11,
+              "numberMaxNeededExecutors": 19
+            }
+          },
+          "s3": {
+            "filesystem": {
+              "read_bytes": 4061207749,
+              "write_bytes": 1649286544
+            }
+          },
+          "system": {
+            "cpuSystemLoad": 0.53
+          },
+          "workerUtilization": 0.48,
+          "skewness": {
+            "stage": 1.468,
+            "job": 0.422
+          }
+        },
+        "executor": {
+          "aggregate": {
+            "numCompletedTasks": 434,
+            "numFailedTasks": 0,
+            "gc_time_ms": 33717
+          }
+        },
+        "ALL": {
+          "memory": {
+            "heap": {
+              "available": 3500740733,
+              "used": 10670214227,
+              "used_percentage": 37
+            },
+            "non-heap": {
+              "available": 424659799,
+              "used": 251090375,
+              "used_percentage": 36
             }
           },
           "jvm": {
@@ -72,97 +128,33 @@
             }
           },
           "disk": {
-            "available_GB": 170,
-            "used_GB": 208,
-            "used_percentage": 55,
-            "diskSpaceUsed_MB": 739
-          },
-          "BlockManager": {
-            "disk": {
-              "diskSpaceUsed_MB": 744
-            }
-          },
-          "ExecutorAllocationManager": {
-            "executors": {
-              "numberAllExecutors": 8,
-              "numberMaxNeededExecutors": 12
-            }
+            "available_GB": 414,
+            "used_GB": 161,
+            "used_percentage": 34,
+            "diskSpaceUsed_MB": 3189
           },
           "s3": {
             "filesystem": {
-              "read_bytes": 793512248,
-              "write_bytes": 1291595720
+              "read_bytes": 4596780808,
+              "write_bytes": 1150580442
             }
           },
           "system": {
-            "cpuSystemLoad": 0.33
-          },
-          "workerUtilization": 0.92,
-          "skewness": {
-            "stage": 0.16,
-            "job": 0.185
-          }
-        },
-        "executor": {
-          "aggregate": {
-            "numCompletedTasks": 293,
-            "numFailedTasks": 11,
-            "gc_time_ms": 55167
-          }
-        },
-        "ALL": {
-          "memory": {
-            "heap": {
-              "available": 7910556931,
-              "used": 6411190585,
-              "used_percentage": 69
-            },
-            "non-heap": {
-              "available": 283065030,
-              "used": 118831357,
-              "used_percentage": 49
-            }
-          },
-          "jvm": {
-            "heap": {
-              "usage": 0.86
-            }
-          },
-          "disk": {
-            "available_GB": 477,
-            "used_GB": 252,
-            "used_percentage": 54,
-            "diskSpaceUsed_MB": 2013
-          },
-          "s3": {
-            "filesystem": {
-              "read_bytes": 4406466605,
-              "write_bytes": 3337098582
-            }
-          },
-          "system": {
-            "cpuSystemLoad": 0.83
+            "cpuSystemLoad": 0.58
           }
         }
       }
     }
   },
   "log": {
-    "level": "error"
+    "level": "info"
   },
   "event": {
-    "duration": 20000000000,
-    "outcome": "failure",
-    "category": [
-      "process"
-    ],
+    "duration": 140000000000,
+    "outcome": "success",
+    "category": ["process"],
     "dataset": "aws.glue",
     "provider": "glue.amazonaws.com"
   },
-  "message": "GlueException: Could not find table",
-  "error": {
-    "code": "GlueException",
-    "message": "Connection to Redshift failed: max_connections exceeded",
-    "type": "service"
-  }
+  "message": "Bookmark updated: processed up to offset 9823741"
 }

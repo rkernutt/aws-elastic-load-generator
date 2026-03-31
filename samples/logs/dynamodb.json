@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "af-south-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "TableName": "sessions",
-      "Operation": "BatchWriteItem"
+      "TableName": "events",
+      "Operation": "TransactWriteItems"
     },
     "dynamodb": {
-      "table_name": "sessions",
-      "operation": "BatchWriteItem",
-      "consumed_read_capacity_units": 35.606,
-      "consumed_write_capacity_units": 5.579,
-      "items_count": 429,
+      "table_name": "events",
+      "operation": "TransactWriteItems",
+      "consumed_read_capacity_units": 32.915,
+      "consumed_write_capacity_units": 6.172,
+      "items_count": 831,
       "structured_logging": true,
       "metrics": {
         "AccountMaxReads": {
-          "max": 668933
+          "max": 404793
         },
         "AccountMaxWrites": {
-          "max": 356359
+          "max": 435570
         },
         "AccountMaxTableLevelReads": {
-          "max": 62372
+          "max": 67210
         },
         "AccountMaxTableLevelWrites": {
-          "max": 8714
+          "max": 88861
         },
         "AccountProvisionedReadCapacityUtilization": {
-          "avg": 18.94
+          "avg": 15.027
         },
         "ConsumedReadCapacityUnits": {
-          "sum": 682
+          "sum": 490
         },
         "ConsumedWriteCapacityUnits": {
-          "sum": 309
+          "sum": 306
         },
         "ProvisionedReadCapacityUnits": {
-          "avg": 6969
+          "avg": 1976
         },
         "ProvisionedWriteCapacityUnits": {
-          "avg": 2364
+          "avg": 37
         },
         "ReadThrottleEvents": {
           "sum": 0
@@ -64,8 +64,8 @@
           "sum": 0
         },
         "SuccessfulRequestLatency": {
-          "avg": 1.912,
-          "max": 5.668
+          "avg": 1.063,
+          "max": 4.993
         },
         "ThrottledRequests": {
           "sum": 0
@@ -74,39 +74,29 @@
           "sum": 0
         },
         "ReturnedItemCount": {
-          "avg": 253
+          "avg": 867
         },
         "ReturnedBytes": {
-          "avg": 486482
+          "avg": 223107
         }
       }
     }
   },
   "db": {
-    "name": "sessions",
-    "operation": "BatchWriteItem",
+    "name": "events",
+    "operation": "TransactWriteItems",
     "type": "nosql"
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "database"
-    ],
-    "type": [
-      "access"
-    ],
+    "category": ["database"],
+    "type": ["access"],
     "dataset": "aws.dynamodb",
     "provider": "dynamodb.amazonaws.com",
-    "duration": 17000000
+    "duration": 29000000
   },
-  "message": "{\"table\":\"sessions\",\"operation\":\"BatchWriteItem\",\"consumedReadCapacityUnits\":35.606,\"consumedWriteCapacityUnits\":5.579,\"timestamp\":\"2026-03-31T10:14:12.846Z\"}",
+  "message": "{\"table\":\"events\",\"operation\":\"TransactWriteItems\",\"consumedReadCapacityUnits\":32.915,\"consumedWriteCapacityUnits\":6.172,\"timestamp\":\"2026-03-31T13:15:29.271Z\"}",
   "log": {
     "level": "info"
-  },
-  "trace": {
-    "id": "LVPST93AQJR"
-  },
-  "transaction": {
-    "id": "3MF9VRN0F8Y"
   }
 }

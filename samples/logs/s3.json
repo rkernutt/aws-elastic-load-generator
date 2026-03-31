@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "me-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "s3"
@@ -13,84 +13,84 @@
   },
   "aws": {
     "dimensions": {
-      "BucketName": "raw-data-eu-south-2",
+      "BucketName": "logs-me-central-1",
       "StorageType": "StandardStorage",
-      "FilterId": "EntireBucket",
-      "aws_account_number": "501938274650",
-      "aws_region": "eu-south-2",
-      "bucket_name": "raw-data-eu-south-2",
-      "record_type": "PREFIX",
-      "storage_class": "GLACIER"
+      "FilterId": "prefix-filter",
+      "aws_account_number": "164820739518",
+      "aws_region": "me-central-1",
+      "bucket_name": "logs-me-central-1",
+      "record_type": "BUCKET",
+      "storage_class": "DEEP_ARCHIVE"
     },
     "s3access": {
-      "bucket_owner": "501938274650",
-      "bucket": "raw-data-eu-south-2",
-      "remote_ip": "217.43.90.233",
+      "bucket_owner": "164820739518",
+      "bucket": "logs-me-central-1",
+      "remote_ip": "158.232.16.58",
       "requester": "-",
-      "request_id": "MM4080RAVGP",
-      "operation": "REST.PUT.OBJECT",
-      "key": "reports/tru5e80l.zip",
-      "request_uri": "/raw-data-eu-south-2/reports/tru5e80l.zip",
-      "http_status": 204,
+      "request_id": "L3FVN92Q7OO",
+      "operation": "REST.DELETE.OBJECT",
+      "key": "data/l0poabei.parquet",
+      "request_uri": "/logs-me-central-1/data/l0poabei.parquet",
+      "http_status": 200,
       "error_code": "-",
-      "bytes_sent": 288245383,
+      "bytes_sent": 526311657,
       "object_size": "-",
-      "total_time": 348,
-      "turn_around_time": 278,
+      "total_time": 226,
+      "turn_around_time": 180,
       "referrer": "-",
       "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-      "host_id": "5M9TG8O5S4A+WXFQL3",
+      "host_id": "BYE6K1ZS17P+9R5RQ8",
       "signature_version": "SigV4",
       "cipher_suite": "ECDHE-RSA-AES128-GCM-SHA256",
       "authentication_type": "-",
-      "host_header": "raw-data-eu-south-2.s3.eu-south-2.amazonaws.com",
+      "host_header": "logs-me-central-1.s3.me-central-1.amazonaws.com",
       "tls_version": "TLSv1.2"
     },
     "s3": {
       "bucket": {
-        "name": "raw-data-eu-south-2",
-        "arn": "arn:aws:s3:::raw-data-eu-south-2"
+        "name": "logs-me-central-1",
+        "arn": "arn:aws:s3:::logs-me-central-1"
       },
       "object": {
-        "key": "reports/tru5e80l.zip",
-        "size": 49445683,
-        "etag": "rse8c1tye5s"
+        "key": "data/l0poabei.parquet",
+        "size": 279705886,
+        "etag": "9ge0errzgh"
       },
-      "operation": "REST.PUT.OBJECT",
-      "request_id": "MM4080RAVGP",
+      "operation": "REST.DELETE.OBJECT",
+      "request_id": "L3FVN92Q7OO",
       "metrics": {
         "BucketSizeBytes": {
-          "avg": 671347398002
+          "avg": 46824936459
         },
         "NumberOfObjects": {
-          "avg": 879923
+          "avg": 956894
         },
         "AllRequests": {
-          "sum": 74444
+          "sum": 13609
         },
         "GetRequests": {
-          "sum": 18004
+          "sum": 10411
         },
         "PutRequests": {
-          "sum": 4845
+          "sum": 9760
         },
         "DeleteRequests": {
-          "sum": 78
+          "sum": 293
         },
         "HeadRequests": {
-          "sum": 4068
+          "sum": 4748
         },
         "PostRequests": {
-          "sum": 355
+          "sum": 278
         },
         "ListRequests": {
-          "sum": 1381
+          "sum": 3892
         },
         "BytesDownloaded": {
-          "sum": 9130487482
+          "sum": 4541796936
         },
         "BytesUploaded": {
-          "sum": 265338908
+          "sum": 541121730
         },
         "4xxErrors": {
           "sum": 0
@@ -99,36 +99,36 @@
           "sum": 0
         },
         "FirstByteLatency": {
-          "avg": 94.125,
-          "p99": 230.844
+          "avg": 35.488,
+          "p99": 122.089
         },
         "TotalRequestLatency": {
-          "avg": 37.634,
-          "p99": 427.115
+          "avg": 61.078,
+          "p99": 1281.161
         }
       }
     },
     "s3_request": {
       "uploaded": {
-        "bytes": 55014632
+        "bytes": 732584361
       },
       "downloaded": {
-        "bytes": 6632202372
+        "bytes": 4456716069
       },
       "requests": {
-        "total": 29439,
-        "get": 13971,
-        "put": 6992,
-        "delete": 184,
-        "head": 2461,
-        "post": 708,
-        "select": 331,
-        "list": 3152,
+        "total": 45341,
+        "get": 23689,
+        "put": 8464,
+        "delete": 88,
+        "head": 982,
+        "post": 119,
+        "select": 260,
+        "list": 2849,
         "select_scanned": {
-          "bytes": 437329579
+          "bytes": 815574380
         },
         "select_returned": {
-          "bytes": 90326621
+          "bytes": 92974338
         }
       },
       "errors": {
@@ -137,64 +137,61 @@
       },
       "latency": {
         "total_request": {
-          "ms": 239.687
+          "ms": 34.611
         },
         "first_byte": {
-          "ms": 72.822
+          "ms": 15.526
         }
       }
     },
     "s3_daily_storage": {
       "bucket": {
         "size": {
-          "bytes": 658035192146
+          "bytes": 156772981308
         }
       },
-      "number_of_objects": 110828
+      "number_of_objects": 471388
     },
     "s3_storage_lens": {
       "metrics": {
         "StorageBytes": {
-          "avg": 715538072356
+          "avg": 914769702432
         },
         "ObjectCount": {
-          "avg": 844183
+          "avg": 243913
         },
         "DeleteMarkerObjectCount": {
-          "avg": 961
+          "avg": 674
         },
         "CurrentVersionStorageBytes": {
-          "avg": 51500408230
+          "avg": 35814173578
         },
         "IncompleteMultipartUploadStorageBytes": {
-          "avg": 65400408
+          "avg": 1549410
         }
       }
     }
   },
   "http": {
     "response": {
-      "status_code": 204,
-      "bytes": 288245383
+      "status_code": 200,
+      "bytes": 526311657
     }
   },
   "client": {
-    "ip": "217.43.90.233"
+    "ip": "158.232.16.58"
   },
   "user_agent": {
-    "original": "python-requests/2.27.1"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "web",
-      "file"
-    ],
+    "category": ["web", "file"],
     "dataset": "aws.s3",
     "provider": "s3.amazonaws.com",
-    "duration": 348000000
+    "duration": 226000000
   },
-  "message": "REST.PUT.OBJECT s3://raw-data-eu-south-2/reports/tru5e80l.zip 204",
+  "message": "REST.DELETE.OBJECT s3://logs-me-central-1/data/l0poabei.parquet 200",
   "log": {
     "level": "info"
   }

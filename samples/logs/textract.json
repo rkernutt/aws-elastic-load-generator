@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ca-west-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "textract"
@@ -13,19 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "GetExpenseAnalysis"
+      "Operation": "AnalyzeDocument"
     },
     "textract": {
-      "operation": "GetExpenseAnalysis",
+      "operation": "AnalyzeDocument",
       "document_type": "invoice",
-      "job_id": "56u318h6l73",
-      "job_status": "SUCCEEDED",
-      "pages_processed": 28,
-      "blocks_detected": 2576,
-      "words_detected": 12936,
-      "form_key_value_pairs": 0,
-      "tables_detected": 0,
-      "confidence_mean": 86.039,
+      "pages_processed": 46,
+      "blocks_detected": 5290,
+      "words_detected": 9246,
+      "form_key_value_pairs": 22,
+      "tables_detected": 7,
+      "confidence_mean": 90.072,
       "metrics": {
         "DocumentsProcessed": {
           "sum": 1
@@ -34,7 +32,7 @@
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 2983.934
+          "avg": 2223.729
         },
         "SuccessfulRequests": {
           "sum": 1
@@ -50,14 +48,11 @@
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "process",
-      "file"
-    ],
+    "category": ["process", "file"],
     "dataset": "aws.textract",
     "provider": "textract.amazonaws.com"
   },
-  "message": "Textract GetExpenseAnalysis: invoice, 28 pages, 1400 words",
+  "message": "Textract AnalyzeDocument: invoice, 46 pages, 20746 words",
   "log": {
     "level": "info"
   }

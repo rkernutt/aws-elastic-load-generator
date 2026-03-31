@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "batch"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "JobQueue": "cleanup-job-queue"
+      "JobQueue": "data-export-queue"
     },
     "batch": {
       "job": {
-        "name": "cleanup-job",
-        "id": "mw324e0f-eoq8",
+        "name": "data-export",
+        "id": "ku1fm499-1z92",
         "status": "SUCCEEDED"
       },
-      "job_queue": "cleanup-job-queue",
+      "job_queue": "data-export-queue",
       "compute_environment": "ce-ondemand",
       "structured_logging": false,
       "metrics": {
         "PendingJobCount": {
-          "avg": 18
+          "avg": 52
         },
         "RunnableJobCount": {
-          "avg": 21
+          "avg": 4
         },
         "StartingJobCount": {
-          "avg": 20
+          "avg": 1
         },
         "RunningJobCount": {
-          "avg": 186
+          "avg": 190
         },
         "SucceededJobCount": {
           "sum": 1
@@ -44,33 +44,31 @@
           "sum": 0
         },
         "CPUReserved": {
-          "avg": "72.710"
+          "avg": "52.018"
         },
         "GPUReserved": {
           "avg": 0
         },
         "MemoryReserved": {
-          "avg": "30.158"
+          "avg": "57.998"
         }
       }
     }
   },
   "process": {
-    "pid": 57554,
-    "name": "bash",
+    "pid": 9733,
+    "name": "java",
     "exit_code": 0
   },
   "log": {
     "level": "info"
   },
   "event": {
-    "category": [
-      "process"
-    ],
+    "category": ["process"],
     "outcome": "success",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 2387000000000
+    "duration": 3511000000000
   },
-  "message": "Job completed successfully"
+  "message": "Container started on ECS instance"
 }

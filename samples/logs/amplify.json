@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "amplify"
@@ -13,29 +13,33 @@
   },
   "aws": {
     "amplify": {
-      "app_id": "S8JC4TX7RN",
-      "app_name": "web-portal",
-      "branch_name": "feature-auth",
-      "job_id": "15",
+      "app_id": "VHMABSH483",
+      "app_name": "docs-site",
+      "branch_name": "staging",
+      "job_id": "26",
       "job_type": "MANUAL",
-      "build_status": "SUCCEED",
-      "duration_seconds": 304,
-      "commit_id": "6jjm1qzk7ac",
+      "build_status": "FAILED",
+      "duration_seconds": 1058,
+      "commit_id": "1pj8a35a9gx",
       "commit_message": "feat: add auth",
-      "framework": "Angular"
+      "framework": "Next.js",
+      "error_message": "npm install error"
     }
   },
   "event": {
-    "duration": 304000000000,
-    "outcome": "success",
-    "category": [
-      "process"
-    ],
+    "duration": 1058000000000,
+    "outcome": "failure",
+    "category": ["process"],
     "dataset": "aws.amplify",
     "provider": "amplify.amazonaws.com"
   },
-  "message": "Amplify build SUCCEED: web-portal/feature-auth in 304s",
+  "message": "Amplify build FAILED: docs-site/staging - Build script failed",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "BuildFailed",
+    "message": "Amplify build failed",
+    "type": "build"
   }
 }

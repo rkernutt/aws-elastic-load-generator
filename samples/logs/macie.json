@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "macie"
@@ -13,62 +13,56 @@
   },
   "aws": {
     "dimensions": {
-      "BucketName": "prod-data-sa-east-1"
+      "BucketName": "analytics-output-ap-southeast-3"
     },
     "macie": {
-      "finding_id": "5zwxebm4-7vcv-2rnw",
-      "finding_type": "SensitiveData:S3Object/Financial",
-      "severity": "MEDIUM",
+      "finding_id": "cm04xt9u-iwcz-0h6s",
+      "finding_type": "Policy:IAMUser/S3BucketPublic",
+      "severity": "HIGH",
       "s3_bucket": {
-        "name": "prod-data-sa-east-1",
-        "arn": "arn:aws:s3:::prod-data-sa-east-1"
+        "name": "analytics-output-ap-southeast-3",
+        "arn": "arn:aws:s3:::analytics-output-ap-southeast-3"
       },
       "s3_bucket_full": {
-        "name": "prod-data-sa-east-1",
-        "arn": "arn:aws:s3:::prod-data-sa-east-1",
-        "owner_id": "lrztz5g9lqm",
+        "name": "analytics-output-ap-southeast-3",
+        "arn": "arn:aws:s3:::analytics-output-ap-southeast-3",
+        "owner_id": "umxeuq5ux7s",
         "default_server_side_encryption": {
-          "encryption_type": "NONE"
+          "encryption_type": "AES256"
         },
         "tags": [
           {
             "key": "Environment",
-            "value": "dev"
+            "value": "prod"
           }
         ],
         "public_access": {
-          "effective_permission": "NOT_PUBLIC",
-          "block_public_acls": true,
-          "block_public_policy": true,
-          "ignore_public_acls": true,
-          "restrict_public_buckets": true
+          "effective_permission": "PUBLIC",
+          "block_public_acls": false,
+          "block_public_policy": false,
+          "ignore_public_acls": false,
+          "restrict_public_buckets": false
         }
       },
-      "occurrences": 46634,
-      "sensitive_data_categories": [
-        "FINANCIAL"
-      ],
-      "data_identifiers": [
-        "EMAIL_ADDRESS"
-      ]
+      "occurrences": 18028,
+      "sensitive_data_categories": ["FINANCIAL"],
+      "data_identifiers": ["AWS_CREDENTIALS"]
     }
   },
   "event": {
     "kind": "alert",
     "outcome": "failure",
-    "category": [
-      "vulnerability"
-    ],
+    "category": ["intrusion_detection"],
     "dataset": "aws.macie",
     "provider": "macie2.amazonaws.com"
   },
-  "message": "Macie detected sensitive data in s3://prod-data-sa-east-1: SensitiveData:S3Object/Financial",
+  "message": "Macie detected sensitive data in s3://analytics-output-ap-southeast-3: Policy:IAMUser/S3BucketPublic",
   "log": {
     "level": "warn"
   },
   "error": {
     "code": "SensitiveDataFound",
-    "message": "Sensitive data in s3://prod-data-sa-east-1",
+    "message": "Sensitive data in s3://analytics-output-ap-southeast-3",
     "type": "data"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "sa-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "events"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "EventBusName": "custom-events",
-      "RuleName": "user-signup-trigger"
+      "EventBusName": "default",
+      "RuleName": "security-event-forwarder"
     },
     "eventbridge": {
-      "event_bus": "custom-events",
-      "rule": "user-signup-trigger",
+      "event_bus": "default",
+      "rule": "security-event-forwarder",
       "source": "aws.health",
-      "detail_type": "EC2 Instance State-change Notification",
+      "detail_type": "Order Placed",
       "targets_invoked": 4,
       "targets_failed": 0,
-      "event_id": "dj38lgng-gs8y-wvgp-3g93-5ns68spyhen",
+      "event_id": "d822edh3-bs4r-tdpl-p3l6-4035wzt34um",
       "structured_logging": true,
       "metrics": {
         "Invocations": {
@@ -36,7 +36,7 @@
           "sum": 1
         },
         "MatchedEvents": {
-          "sum": 81
+          "sum": 34
         },
         "ThrottledRules": {
           "sum": 0
@@ -49,17 +49,13 @@
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "process"
-    ],
-    "type": [
-      "info"
-    ],
+    "category": ["process"],
+    "type": ["deletion"],
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 22000000
+    "duration": 150000000
   },
-  "message": "{\"id\":\"dj38lgng-gs8y-wvgp-3g93-5ns68spyhen\",\"source\":\"aws.health\",\"detailType\":\"Object Created\",\"rule\":\"user-signup-trigger\",\"eventBus\":\"custom-events\",\"message\":\"EventBridge event routed: aws.health -> user-signup-trigger\",\"timestamp\":\"2026-03-31T10:14:12.846Z\"}",
+  "message": "{\"id\":\"d822edh3-bs4r-tdpl-p3l6-4035wzt34um\",\"source\":\"aws.health\",\"detailType\":\"Object Created\",\"rule\":\"security-event-forwarder\",\"eventBus\":\"default\",\"message\":\"EventBridge event routed: aws.health -> security-event-forwarder\",\"timestamp\":\"2026-03-31T13:15:29.271Z\"}",
   "log": {
     "level": "info"
   }

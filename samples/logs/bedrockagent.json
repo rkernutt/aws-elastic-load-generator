@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "ca-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "bedrock-agent"
@@ -13,51 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "AgentId": "TGGGFMAXX9HI",
-      "Operation": "InvokeAgent"
+      "AgentId": "TEWMQ0G1XZO",
+      "Operation": "InvokeAgentWithResponseStream"
     },
     "bedrockagent": {
-      "agent_id": "TGGGFMAXX9HI",
+      "agent_id": "TEWMQ0G1XZO",
       "agent_alias_id": "LIVE",
-      "session_id": "8jnpo2ho5lk",
-      "action": "InvokeAgent",
-      "input_token_count": 313,
-      "output_token_count": 920,
-      "invocation_latency_ms": 5326,
-      "orchestration_trace": {
-        "model_invocation": {
-          "model_arn": "arn:aws:bedrock:ap-northeast-3::foundation-model/anthropic.claude-3-5-sonnet-v2"
-        }
-      },
+      "session_id": "g4msh0r0wx9",
+      "action": "InvokeAgentWithResponseStream",
+      "input_token_count": 954,
+      "output_token_count": 9,
+      "invocation_latency_ms": 3674,
       "guardrail_action": "NONE",
+      "error_code": "ServiceQuotaExceededException",
       "metrics": {
         "Invocations": {
-          "sum": 155
+          "sum": 32
         },
         "InvocationLatency": {
-          "avg": 5326,
-          "p99": 10652
+          "avg": 3674,
+          "p99": 7348
         },
         "InputTokenCount": {
-          "sum": 313
+          "sum": 954
         },
         "OutputTokenCount": {
-          "sum": 920
+          "sum": 9
         }
       }
     }
   },
   "event": {
-    "outcome": "success",
-    "category": [
-      "process"
-    ],
+    "outcome": "failure",
+    "category": ["process"],
     "dataset": "aws.bedrockagent",
     "provider": "bedrock-agent-runtime.amazonaws.com",
-    "duration": 5326000000
+    "duration": 3674000000
   },
-  "message": "Bedrock Agent TGGGFMAXX9HI: InvokeAgent 313→920 tokens 5.33s",
+  "message": "Bedrock Agent TEWMQ0G1XZO InvokeAgentWithResponseStream FAILED",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "BedrockAgentError",
+    "message": "Agent invocation failed",
+    "type": "ml"
   }
 }

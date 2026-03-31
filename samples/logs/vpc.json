@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "eu-central-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,68 +13,64 @@
   },
   "aws": {
     "dimensions": {
-      "VpcId": "vpc-kh5w3m5y"
+      "VpcId": "vpc-76ke139a"
     },
     "vpcflow": {
       "version": "2",
       "account_id": "293847561023",
-      "interface_id": "eni-uoewjlbw",
+      "interface_id": "eni-miujk5mt",
       "action": "ACCEPT",
       "log_status": "OK",
-      "instance_id": "i-53qllpo1fts",
-      "pkt_srcaddr": "208.97.225.61",
-      "pkt_dstaddr": "132.64.32.87",
-      "vpc_id": "vpc-kh5w3m5y",
-      "subnet_id": "subnet-0ih89m2t",
+      "instance_id": "i-bro6537rrg",
+      "pkt_srcaddr": "194.56.97.87",
+      "pkt_dstaddr": "132.118.211.151",
+      "vpc_id": "vpc-76ke139a",
+      "subnet_id": "subnet-c4w4z0pf",
       "type": "IPv4"
     }
   },
   "source": {
-    "ip": "208.97.225.61",
-    "port": 7894,
+    "ip": "194.56.97.87",
+    "port": 51361,
     "geo": {
-      "country_iso_code": "ZA",
-      "country_name": "South Africa",
-      "city_name": "Johannesburg",
+      "country_iso_code": "DE",
+      "country_name": "Germany",
+      "city_name": "Frankfurt",
       "location": {
-        "lat": -26.2041,
-        "lon": 28.0473
+        "lat": 50.1109,
+        "lon": 8.6821
       }
     }
   },
   "destination": {
-    "ip": "132.64.32.87",
-    "port": 443,
+    "ip": "132.118.211.151",
+    "port": 8080,
     "geo": {
-      "country_iso_code": "CN",
-      "country_name": "China",
-      "city_name": "Beijing",
+      "country_iso_code": "US",
+      "country_name": "United States",
+      "city_name": "Ashburn",
       "location": {
-        "lat": 39.9042,
-        "lon": 116.4074
+        "lat": 39.0438,
+        "lon": -77.4874
       }
     }
   },
   "network": {
-    "transport": "icmp",
-    "bytes": 50274,
-    "packets": 98,
+    "transport": "tcp",
+    "bytes": 32486,
+    "packets": 37,
     "direction": "inbound"
   },
   "event": {
     "action": "accept",
     "outcome": "success",
-    "category": [
-      "network"
-    ],
-    "type": [
-      "connection"
-    ],
+    "category": ["network"],
+    "type": ["connection"],
     "dataset": "aws.vpcflow",
     "provider": "ec2.amazonaws.com",
-    "duration": 485000000
+    "duration": 215000000
   },
-  "message": "2 293847561023 eni-uoewjlbw 208.97.225.61 132.64.32.87 7894 443 1 98 50274 1774952052 1774952094 ACCEPT OK",
+  "message": "2 293847561023 eni-miujk5mt 194.56.97.87 132.118.211.151 51361 8080 6 37 32486 1774962929 1774962977 ACCEPT OK",
   "log": {
     "level": "info"
   }

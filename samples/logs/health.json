@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "ap-south-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "health"
@@ -13,28 +13,26 @@
   },
   "aws": {
     "health": {
-      "event_arn": "arn:aws:health:eu-west-3::event/ec2/0wz2s6o3/dlhm6t3f3xg",
-      "event_type_code": "AWS_EC2_API_ISSUE",
-      "event_type_category": "accountNotification",
-      "service": "EC2",
-      "region": "eu-west-3",
-      "status_code": "resolved",
-      "event_scope": "PUBLIC",
-      "affected_entities_count": 44,
-      "description": "EC2 Connectivity issues in eu-west-3"
+      "event_arn": "arn:aws:health:ap-south-2::event/lambda/sa5jiosl/tvdwr3iod8",
+      "event_type_code": "AWS_LAMBDA_MAINTENANCE_SCHEDULED",
+      "event_type_category": "scheduledChange",
+      "service": "Lambda",
+      "region": "ap-south-2",
+      "status_code": "closed",
+      "event_scope": "ACCOUNT",
+      "affected_entities_count": 49,
+      "description": "Lambda Scheduled maintenance in ap-south-2"
     }
   },
   "event": {
     "kind": "alert",
     "outcome": "success",
-    "category": [
-      "configuration"
-    ],
+    "category": ["configuration"],
     "dataset": "aws.health",
     "provider": "health.amazonaws.com",
-    "duration": 478000000000
+    "duration": 363000000000
   },
-  "message": "AWS Health: EC2 event resolved in eu-west-3",
+  "message": "AWS Health: Lambda event resolved in ap-south-2",
   "log": {
     "level": "info"
   }

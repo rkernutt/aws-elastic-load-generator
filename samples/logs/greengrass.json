@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "us-east-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "greengrass"
@@ -13,55 +13,47 @@
   },
   "aws": {
     "dimensions": {
-      "CoreDeviceName": "retail-kiosk"
+      "CoreDeviceName": "factory-edge"
     },
     "greengrass": {
-      "core_device_name": "retail-kiosk",
-      "component_name": "com.aws.greengrass.StreamManager",
-      "component_version": "3.1.1",
+      "core_device_name": "factory-edge",
+      "component_name": "com.aws.greengrass.Nucleus",
+      "component_version": "3.5.10",
       "nucleus_version": "2.12.0",
-      "platform": "linux/amd64",
-      "deployment_id": "ormy3h8wxr",
-      "status": "FAILED",
+      "platform": "linux/arm64",
+      "deployment_id": "4ok5j2uttcr",
+      "status": "COMPLETED",
       "metrics": {
         "ComponentDeployedCount": {
-          "sum": 42
+          "sum": 45
         },
         "ComponentBrokenCount": {
-          "sum": 4
+          "sum": 0
         },
         "StreamManagerMemoryUsage": {
-          "avg": 47.98
+          "avg": 153.517
         },
         "StreamManagerBytesAppended": {
-          "sum": 4658773
+          "sum": 780402
         },
         "NucleusRestartCount": {
-          "sum": 1
+          "sum": 0
         },
         "DeploymentQueueSize": {
-          "avg": 11.522
+          "avg": 15.48
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
-    "category": [
-      "process",
-      "host"
-    ],
+    "outcome": "success",
+    "category": ["process", "host"],
     "dataset": "aws.greengrass",
     "provider": "greengrass.amazonaws.com",
-    "duration": 507000000000
+    "duration": 31000000000
   },
-  "message": "Deployment rollback initiated",
+  "message": "Component started successfully",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "GreengrassError",
-    "message": "Deployment rollback initiated",
-    "type": "iot"
+    "level": "info"
   }
 }

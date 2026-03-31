@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "sa-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "connect"
@@ -13,72 +13,62 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "z0ndda83-erbj-rlim-k3ky-43gufcomlsc",
+      "InstanceId": "xotmpnci-pqcy-d3cu-x1kz-x1hakio8lyi",
       "MetricGroup": "Queue"
     },
     "connect": {
-      "instance_id": "z0ndda83-erbj-rlim-k3ky-43gufcomlsc",
-      "contact_id": "3cr5t0lr-nz5m-re34",
-      "channel": "CHAT",
+      "instance_id": "xotmpnci-pqcy-d3cu-x1kz-x1hakio8lyi",
+      "contact_id": "w0p16o68-fj5o-0yve",
+      "channel": "TASK",
       "initiation_method": "CHAT",
-      "queue_name": "Sales",
-      "agent_id": "agent-bob",
-      "duration_seconds": 202,
-      "hold_duration_seconds": 28,
-      "queue_wait_time_seconds": 224,
-      "disconnect_reason": "CUSTOMER_DISCONNECT",
-      "sentiment_overall": "NEUTRAL",
+      "queue_name": "TechSupport",
+      "duration_seconds": 883,
+      "hold_duration_seconds": 102,
+      "queue_wait_time_seconds": 188,
+      "disconnect_reason": "EXPIRED",
+      "sentiment_overall": "MIXED",
       "contact_lens_enabled": false,
       "lex_bot_interacted": false,
-      "error_code": "QueueCapacityExceeded",
       "metrics": {
         "ContactsQueued": {
           "sum": 1
         },
         "ContactsHandled": {
-          "sum": 0
+          "sum": 1
         },
         "ContactsAbandoned": {
-          "sum": 1
+          "sum": 0
         },
         "ContactsHoldAbandonment": {
           "sum": 0
         },
         "AverageHandleTime": {
-          "avg": 202
+          "avg": 883
         },
         "AverageAfterContactWorkTime": {
-          "avg": 69
+          "avg": 294
         },
         "AverageQueueAnswerTime": {
-          "avg": 102
+          "avg": 73
         },
         "ServiceLevel": {
-          "avg": 88.225
+          "avg": 96.262
         },
         "OccupancyTime": {
-          "avg": 57.818
+          "avg": 74.481
         }
       }
     }
   },
   "event": {
-    "duration": 202000000000,
-    "outcome": "failure",
-    "category": [
-      "host",
-      "session"
-    ],
+    "duration": 883000000000,
+    "outcome": "success",
+    "category": ["host", "session"],
     "dataset": "aws.connect",
     "provider": "connect.amazonaws.com"
   },
-  "message": "Connect CHAT FAILED: Flow error",
-  "error": {
-    "code": "ConnectError",
-    "message": "Connect operation failed",
-    "type": "session"
-  },
+  "message": "Connect CHAT: TechSupport, 883s, MIXED",
   "log": {
-    "level": "error"
+    "level": "warn"
   }
 }

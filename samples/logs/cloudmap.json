@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ca-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "cloudmap"
@@ -14,30 +14,28 @@
   "aws": {
     "dimensions": {
       "Namespace": "staging-namespace",
-      "ServiceName": "payment"
+      "ServiceName": "notification"
     },
     "cloudmap": {
       "namespace": "staging-namespace",
-      "service_name": "payment",
-      "instance_id": "i-c2ruto5rqj",
-      "operation": "RegisterInstance",
-      "health_status": "ALL",
-      "instances_returned": 8,
-      "query_type": "API",
-      "ttl": 60
+      "service_name": "notification",
+      "instance_id": "i-7wvw3oqm8tr",
+      "operation": "DiscoverInstances",
+      "health_status": "HEALTHY",
+      "instances_returned": 10,
+      "query_type": "DNS",
+      "ttl": 15
     }
   },
   "event": {
-    "action": "RegisterInstance",
+    "action": "DiscoverInstances",
     "outcome": "success",
-    "category": [
-      "network"
-    ],
+    "category": ["network"],
     "dataset": "aws.cloudmap",
     "provider": "cloudmap.amazonaws.com",
-    "duration": 193000000
+    "duration": 185000000
   },
-  "message": "Cloud Map payment: RegisterInstance returned 8 instances",
+  "message": "Cloud Map notification: DiscoverInstances returned 10 instances",
   "log": {
     "level": "info"
   }

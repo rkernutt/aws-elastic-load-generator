@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "ap-south-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "identitycenter"
@@ -13,35 +13,29 @@
   },
   "aws": {
     "iam_identity_center": {
-      "event_type": "ProvisionUser",
-      "user_name": "carol@corp.com",
-      "application_name": "Slack",
-      "permission_set": "AdministratorAccess",
-      "account_id": "164820739518",
-      "error_code": "MFARequired",
+      "event_type": "Authorize",
+      "user_name": "alice@corp.com",
+      "application_name": "Salesforce",
+      "permission_set": "PowerUserAccess",
+      "account_id": "814726593401",
       "mfa_authenticated": true
     }
   },
   "user": {
-    "name": "carol@corp.com"
+    "name": "alice@corp.com"
   },
   "source": {
-    "ip": "226.191.220.52"
+    "ip": "184.247.208.15"
   },
   "event": {
-    "action": "ProvisionUser",
-    "outcome": "failure",
+    "action": "Authorize",
+    "outcome": "success",
     "category": "authentication",
     "dataset": "aws.identitycenter",
     "provider": "sso.amazonaws.com"
   },
-  "message": "IAM Identity Center ProvisionUser FAILED for carol@corp.com on Slack",
+  "message": "IAM Identity Center Authorize: alice@corp.com -> Salesforce",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "AccessDeniedException",
-    "message": "SSO authentication failed",
-    "type": "authentication"
+    "level": "info"
   }
 }

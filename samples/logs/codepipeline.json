@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "us-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "codepipeline"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "hotfix-pipeline"
+      "PipelineName": "infra-pipeline"
     },
     "codepipeline": {
-      "pipeline_name": "hotfix-pipeline",
-      "pipeline_arn": "arn:aws:codepipeline:sa-east-1:501938274650:hotfix-pipeline",
-      "execution_id": "z5mvj0dw-nrzt-dfia-6cgk-fvxfem85ywp",
-      "stage_name": "Approval",
-      "action_name": "Lambda",
+      "pipeline_name": "infra-pipeline",
+      "pipeline_arn": "arn:aws:codepipeline:us-east-1:814726593401:infra-pipeline",
+      "execution_id": "lwuvzf2t-ocy0-fg24-ng7l-9izxodk3ute",
+      "stage_name": "Test",
+      "action_name": "CodeBuild",
       "state": "Succeeded",
-      "revision_id": "5gehtlszhj9",
+      "revision_id": "j0cppbfc95o",
       "structured_logging": true,
       "metrics": {
         "PipelineExecutionAttempts": {
@@ -48,15 +48,12 @@
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "process",
-      "configuration"
-    ],
+    "category": ["process", "configuration"],
     "dataset": "aws.codepipeline",
     "provider": "codepipeline.amazonaws.com",
-    "duration": 61000000000
+    "duration": 94000000000
   },
-  "message": "{\"pipeline\":\"hotfix-pipeline\",\"executionId\":\"z5mvj0dw-nrzt-dfia-6cgk-fvxfem85ywp\",\"stage\":\"Approval\",\"state\":\"Succeeded\",\"timestamp\":\"2026-03-31T10:14:12.846Z\"}",
+  "message": "{\"pipeline\":\"infra-pipeline\",\"executionId\":\"lwuvzf2t-ocy0-fg24-ng7l-9izxodk3ute\",\"stage\":\"Test\",\"state\":\"Succeeded\",\"timestamp\":\"2026-03-31T13:15:29.271Z\"}",
   "log": {
     "level": "info"
   }

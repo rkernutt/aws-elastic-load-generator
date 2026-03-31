@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "bedrock"
@@ -13,34 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "ModelId": "anthropic.claude-3-5-sonnet-20241022-v2:0"
+      "ModelId": "anthropic.claude-3-haiku-20240307-v1:0"
     },
     "bedrock": {
-      "model_id": "anthropic.claude-3-5-sonnet-20241022-v2:0",
-      "invocation_latency_ms": 6222,
-      "input_token_count": 6143,
-      "output_token_count": 1851,
-      "total_token_count": 7994,
-      "stop_reason": "max_tokens",
-      "use_case": "summarization",
-      "guardrail_action": "NONE",
+      "model_id": "anthropic.claude-3-haiku-20240307-v1:0",
+      "invocation_latency_ms": 10463,
+      "input_token_count": 3586,
+      "output_token_count": 104,
+      "total_token_count": 3690,
+      "stop_reason": "end_turn",
+      "use_case": "classification",
+      "guardrail_action": "INTERVENED",
       "streaming": true,
-      "time_to_first_token_ms": 518,
-      "input_tokens_per_sec": 987.3,
+      "time_to_first_token_ms": 528,
+      "input_tokens_per_sec": 342.7,
       "model_family": "anthropic",
       "metrics": {
         "Invocations": {
-          "sum": 484
+          "sum": 429
         },
         "InvocationLatency": {
-          "avg": 6222,
-          "p99": 12444
+          "avg": 10463,
+          "p99": 20926
         },
         "InputTokenCount": {
-          "sum": 6143
+          "sum": 3586
         },
         "OutputTokenCount": {
-          "sum": 1851
+          "sum": 104
         },
         "Throttles": {
           "sum": 0
@@ -50,15 +50,13 @@
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "process"
-    ],
+    "category": ["process"],
     "dataset": "aws.bedrock",
     "provider": "bedrock.amazonaws.com",
-    "duration": 6222000000
+    "duration": 10463000000
   },
-  "message": "Bedrock claude 6143->1851 tokens 6.22s",
+  "message": "Bedrock claude 3586->104 tokens 10.46s",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

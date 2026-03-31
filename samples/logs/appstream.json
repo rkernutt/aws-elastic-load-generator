@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "ap-south-2",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,31 +13,28 @@
   },
   "aws": {
     "appstream": {
-      "stack_name": "browser-isolation",
-      "fleet_name": "elastic-fleet",
-      "user_id": "user_hurv5u6p@company.com",
-      "session_id": "81nkmrlpbds",
-      "event_type": "APPLICATION_LAUNCHED",
-      "application_name": "MATLAB",
-      "instance_type": "stream.memory.xlarge",
-      "idle_disconnect_timeout_minutes": 30,
+      "stack_name": "dev-tools-stack",
+      "fleet_name": "on-demand-fleet",
+      "user_id": "user_pq5upt3j@company.com",
+      "session_id": "murjkmqy3",
+      "event_type": "FILE_DOWNLOAD",
+      "instance_type": "stream.compute.large",
+      "storage_connector": "GoogleDrive",
+      "idle_disconnect_timeout_minutes": 15,
       "max_user_duration_hours": 2
     }
   },
   "user": {
-    "name": "user_hurv5u6p@company.com"
+    "name": "user_pq5upt3j@company.com"
   },
   "event": {
     "outcome": "success",
-    "category": [
-      "host",
-      "session"
-    ],
+    "category": ["host", "session"],
     "dataset": "aws.appstream",
     "provider": "appstream2.amazonaws.com",
-    "duration": 3279000000
+    "duration": 505000000
   },
-  "message": "AppStream APPLICATION_LAUNCHED: user_hurv5u6p@company.com [browser-isolation]",
+  "message": "AppStream FILE_DOWNLOAD: user_pq5upt3j@company.com [dev-tools-stack]",
   "log": {
     "level": "info"
   }

@@ -1475,6 +1475,135 @@ function generateChimeSdkLog(ts, er) {
   };
 }
 
+function generateWorkMailLog(ts, er) {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const organizationId = `m-${randId(6).toLowerCase()}`;
+  const mailboxId = `mailbox-${randId(10).toLowerCase()}`;
+  const action = isErr
+    ? rand(["EmailBounced", "EmailBounced"])
+    : rand(["EmailDelivered", "Login", "Logout", "SendMail"]);
+  const users = ["alice", "bob", "carol", "david", "eva", "frank", "grace"];
+  const fromUser = rand(users);
+  const toUser = rand(users);
+  const domain = "globex.example.com";
+  const emailsDelivered = isErr ? 0 : randInt(1, 1000);
+  const emailsBounced = isErr ? randInt(1, 100) : 0;
+  const activeUsers = randInt(1, 500);
+  const errorCode = rand(["DeliveryFailure", "MailboxQuotaExceeded"]);
+  return {
+    "@timestamp": ts,
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "workmail" },
+    },
+    aws: {
+      dimensions: { OrganizationId: organizationId },
+      workmail: {
+        organization_id: organizationId,
+        mailbox_id: mailboxId,
+        action,
+        metrics: {
+          emails_delivered: emailsDelivered,
+          emails_bounced: emailsBounced,
+          active_users: activeUsers,
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    email: {
+      from: { address: `${fromUser}@${domain}` },
+      to: { address: `${toUser}@${domain}` },
+    },
+    event: {
+      action,
+      outcome: isErr ? "failure" : "success",
+      category: ["email"],
+      dataset: "aws.workmail",
+      provider: "workmail.amazonaws.com",
+      duration: randInt(10, 500) * 1e6,
+    },
+    data_stream: { type: "logs", dataset: "aws.workmail", namespace: "default" },
+    message: isErr
+      ? `WorkMail org ${organizationId}: ${errorCode} for ${action}`
+      : `WorkMail org ${organizationId}: ${action} from ${fromUser}@${domain} to ${toUser}@${domain}`,
+    log: { level: isErr ? "error" : "info" },
+    ...(isErr
+      ? {
+          error: {
+            code: errorCode,
+            message: `WorkMail email delivery failed in organization ${organizationId}`,
+            type: "email",
+          },
+        }
+      : {}),
+  };
+}
+
+function generateWickrLog(ts, er) {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const networkId = `wickr-${randId(8).toLowerCase()}`;
+  const roomId = `room-${randId(8).toLowerCase()}`;
+  const messageType = rand(["text", "file", "call"]);
+  const retentionPolicy = rand(["30d", "90d", "365d", "7d"]);
+  const userName = rand(["alice.smith", "bob.jones", "carol.white", "david.brown", "eva.martin"]);
+  const messagesSent = isErr ? 0 : randInt(1, 10000);
+  const activeUsers = randInt(1, 500);
+  const filesShared = isErr ? 0 : randInt(0, 100);
+  const errorCode = rand(["MessageRetentionViolation", "ComplianceExportFailed"]);
+  return {
+    "@timestamp": ts,
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "wickr" },
+    },
+    aws: {
+      dimensions: { NetworkId: networkId, RoomId: roomId },
+      wickr: {
+        network_id: networkId,
+        room_id: roomId,
+        message_type: messageType,
+        retention_policy: retentionPolicy,
+        metrics: {
+          messages_sent: messagesSent,
+          active_users: activeUsers,
+          files_shared: filesShared,
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    user: { name: userName },
+    event: {
+      outcome: isErr ? "failure" : "success",
+      category: ["authentication"],
+      dataset: "aws.wickr",
+      provider: "wickr.amazonaws.com",
+      duration: randInt(1, 200) * 1e6,
+    },
+    data_stream: { type: "logs", dataset: "aws.wickr", namespace: "default" },
+    message: isErr
+      ? `Wickr network ${networkId}: ${errorCode} for user ${userName}`
+      : `Wickr network ${networkId}: ${messagesSent} messages sent, ${activeUsers} active users`,
+    log: { level: isErr ? "error" : "info" },
+    ...(isErr
+      ? {
+          error: {
+            code: errorCode,
+            message: `Wickr compliance event in network ${networkId}`,
+            type: "authentication",
+          },
+        }
+      : {}),
+  };
+}
+
 export {
   generateWorkSpacesLog,
   generateConnectLog,
@@ -1495,4 +1624,6 @@ export {
   generateDevOpsGuruLog,
   generateDeadlineCloudLog,
   generateChimeSdkLog,
+  generateWorkMailLog,
+  generateWickrLog,
 };

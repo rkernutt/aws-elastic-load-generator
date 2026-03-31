@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "docdb"
@@ -13,47 +13,46 @@
   },
   "aws": {
     "dimensions": {
-      "DBClusterIdentifier": "docdb-us-west-1-cluster",
+      "DBClusterIdentifier": "docdb-eu-central-2-cluster",
       "Role": "WRITER"
     },
     "docdb": {
-      "cluster_id": "docdb-us-west-1-cluster",
+      "cluster_id": "docdb-eu-central-2-cluster",
       "database": "appdb",
-      "collection": "orders",
+      "collection": "users",
       "operation": "delete",
-      "duration_ms": 4994,
-      "documents_affected": 0,
-      "error": "CursorNotFound",
+      "duration_ms": 121,
+      "documents_affected": 486,
       "metrics": {
         "CPUUtilization": {
-          "avg": 61.218
+          "avg": 37.707
         },
         "DatabaseConnections": {
-          "avg": 154
+          "avg": 73
         },
         "FreeLocalStorage": {
-          "avg": 29097352962
+          "avg": 34046519732
         },
         "FreeableMemory": {
-          "avg": 5010800205
+          "avg": 2644667190
         },
         "ReadIOPS": {
-          "avg": 4207
+          "avg": 3507
         },
         "WriteIOPS": {
-          "avg": 3054
+          "avg": 1101
         },
         "ReadLatency": {
-          "avg": 31.637
+          "avg": 3.308
         },
         "WriteLatency": {
-          "avg": 30.664
+          "avg": 4.213
         },
         "DocumentsInserted": {
           "sum": 0
         },
         "DocumentsDeleted": {
-          "sum": 50
+          "sum": 54
         },
         "DocumentsUpdated": {
           "sum": 0
@@ -70,21 +69,14 @@
     "type": "document"
   },
   "event": {
-    "duration": 4993591000,
-    "outcome": "failure",
-    "category": [
-      "database"
-    ],
+    "duration": 120543000,
+    "outcome": "success",
+    "category": ["database"],
     "dataset": "aws.docdb",
     "provider": "docdb.amazonaws.com"
   },
-  "message": "DocumentDB delete on orders failed: DuplicateKey",
+  "message": "DocumentDB delete on users: 120.5ms",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "InsufficientDBClusterCapacityFault",
-    "message": "DocumentDB delete failed",
-    "type": "db"
+    "level": "info"
   }
 }

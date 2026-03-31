@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "sa-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "cloudtrail"
@@ -13,70 +13,80 @@
   },
   "aws": {
     "dimensions": {
-      "EventName": "UpdateRole",
-      "EventSource": "iam.amazonaws.com"
+      "EventName": "ConsoleLogin",
+      "EventSource": "sts.amazonaws.com"
     },
     "cloudtrail": {
       "event_version": "1.09",
-      "event_category": "Management",
-      "event_type": "AwsApiCall",
-      "request_id": "o39rpl2t-55z3-s7jm-h82g-htcg16k55zg",
+      "event_category": "SignIn",
+      "event_type": "AwsConsoleSignIn",
+      "request_id": "kdozyxhu-8p6e-17wz-gwid-do50uhyj8x8",
       "api_version": "2012-10-17",
       "management_event": true,
       "read_only": false,
-      "recipient_account_id": "814726593401",
-      "aws_region": "eu-central-2",
+      "recipient_account_id": "293847561023",
+      "aws_region": "sa-east-1",
       "user_identity": {
-        "type": "IAMUser",
-        "principal_id": "814726593401:deploy-bot",
-        "arn": "arn:aws:iam::814726593401:user/deploy-bot",
-        "account_id": "814726593401",
-        "access_key_id": "AKIAGEKSJV9RHRF",
+        "type": "AWSService",
+        "principal_id": "293847561023:carol",
+        "arn": "arn:aws:iam::293847561023:user/carol",
+        "account_id": "293847561023",
+        "access_key_id": "AKIAYGPUORLK0JC",
         "session_context": {
           "session_issuer": {
             "type": "Role",
-            "principal_id": "AROA3QPTC34PRLV",
-            "arn": "arn:aws:iam::814726593401:role/service-role/execution-role",
-            "account_id": "814726593401",
+            "principal_id": "AROA4WK03D3J2R7",
+            "arn": "arn:aws:iam::293847561023:role/service-role/execution-role",
+            "account_id": "293847561023",
             "user_name": "execution-role"
           },
           "web_id_federation_data": {},
           "attributes": {
-            "creation_date": "2026-03-31T09:23:04.846Z",
+            "creation_date": "2026-03-31T12:24:57.271Z",
             "mfa_authenticated": "false"
           }
         }
       },
-      "response_elements": "null"
+      "response_elements": "{\"errorCode\":\"InvalidInputException\"}",
+      "error_code": "InvalidInputException",
+      "error_message": "User is not authorized to perform this operation",
+      "console_login": {
+        "additional_eventdata": {
+          "mobile_version": false,
+          "login_to": "https://293847561023.signin.aws.amazon.com/console",
+          "mfa_used": true
+        }
+      }
     }
   },
   "user": {
-    "name": "deploy-bot"
+    "name": "carol"
   },
   "source": {
-    "ip": "79.152.78.141",
+    "ip": "11.228.98.254",
     "geo": {
-      "country_iso_code": "IN",
-      "city_name": "Ashburn"
+      "country_iso_code": "CA",
+      "city_name": "Sydney"
     }
   },
   "user_agent": {
     "original": "Go-http-client/1.1"
   },
   "event": {
-    "action": "UpdateRole",
-    "outcome": "success",
-    "category": [
-      "iam"
-    ],
-    "type": [
-      "change"
-    ],
+    "action": "ConsoleLogin",
+    "outcome": "failure",
+    "category": ["authentication", "iam"],
+    "type": ["authentication", "info"],
     "dataset": "aws.cloudtrail",
     "provider": "cloudtrail.amazonaws.com"
   },
-  "message": "CloudTrail: UpdateRole by deploy-bot from 79.152.78.141 - Success",
+  "message": "CloudTrail: ConsoleLogin by carol from 11.228.98.254 - InvalidInputException",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "InvalidInputException",
+    "message": "User is not authorized to perform this operation",
+    "type": "access"
   }
 }

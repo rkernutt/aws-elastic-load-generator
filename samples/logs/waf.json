@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "waf"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "admin-waf",
-      "Rule": "GeoBlockRule",
-      "Region": "eu-central-1"
+      "WebACL": "prod-waf",
+      "Rule": "IPRateBasedRule",
+      "Region": "ap-southeast-2"
     },
     "waf": {
-      "id": "6p76ulbibbj",
-      "arn": "arn:aws:wafv2:eu-central-1:501938274650:regional/webacl/admin-waf/r3t8wc6f-dfso-vztp-zdem-3j8tzytpbg",
+      "id": "2v897kdqosc",
+      "arn": "arn:aws:wafv2:ap-southeast-2:293847561023:regional/webacl/prod-waf/r7xn0l4p-fxmm-wf0r-yp2q-6396jcxz4h8",
       "format_version": "1",
       "source": {
         "name": "ALB",
-        "id": "501938274650-app/admin-waf/kcnb9lkxmbc"
+        "id": "293847561023-app/prod-waf/v0pd8r1wlpb"
       },
       "rule_group_list": [
         {
-          "ruleGroupId": "GeoBlockRule",
+          "ruleGroupId": "IPRateBasedRule",
           "nonTerminatingMatchingRules": []
         }
       ],
@@ -37,7 +37,7 @@
         "headers": [
           {
             "name": "User-Agent",
-            "value": "Go-http-client/1.1"
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
           },
           {
             "name": "Host",
@@ -72,57 +72,54 @@
     }
   },
   "rule": {
-    "id": "GenericLFI_URIPATH",
-    "ruleset": "GeoBlockRule"
+    "id": "BadBot",
+    "ruleset": "IPRateBasedRule"
   },
   "http": {
     "request": {
       "method": "POST",
-      "bytes": 6598
+      "bytes": 8549
     }
   },
   "url": {
-    "path": "/api/v1/auth/login"
+    "path": "/api/v1/orders"
   },
   "source": {
-    "ip": "172.0.110.56",
+    "ip": "199.210.153.150",
     "geo": {
-      "country_iso_code": "NL",
-      "country_name": "Netherlands",
-      "city_name": "Amsterdam",
+      "country_iso_code": "FR",
+      "country_name": "France",
+      "city_name": "Paris",
       "location": {
-        "lat": 52.3676,
-        "lon": 4.9041
+        "lat": 48.8566,
+        "lon": 2.3522
       }
     }
   },
   "client": {
-    "ip": "172.0.110.56",
+    "ip": "199.210.153.150",
     "geo": {
-      "country_iso_code": "NL",
-      "country_name": "Netherlands",
-      "city_name": "Amsterdam",
+      "country_iso_code": "FR",
+      "country_name": "France",
+      "city_name": "Paris",
       "location": {
-        "lat": 52.3676,
-        "lon": 4.9041
+        "lat": 48.8566,
+        "lon": 2.3522
       }
     }
   },
   "user_agent": {
-    "original": "Go-http-client/1.1"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
     "action": "allow",
     "outcome": "success",
-    "category": [
-      "intrusion_detection",
-      "network"
-    ],
+    "category": ["intrusion_detection", "network"],
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com",
-    "duration": 31000000
+    "duration": 10000000
   },
-  "message": "WAF ALLOWED request - Rule: GeoBlockRule",
+  "message": "WAF ALLOWED request - Rule: IPRateBasedRule",
   "log": {
     "level": "info"
   }

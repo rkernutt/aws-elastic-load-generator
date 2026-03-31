@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "deadlinecloud"
@@ -13,44 +13,37 @@
   },
   "aws": {
     "dimensions": {
-      "FarmId": "farm-rakap2xcb8h",
-      "QueueId": "queue-pvnhxunamv8"
+      "FarmId": "farm-b4jivlduu1m",
+      "QueueId": "queue-z2ho1h81aql"
     },
     "deadlinecloud": {
-      "farm_id": "farm-rakap2xcb8h",
-      "farm_name": "ad-rendering",
-      "queue_id": "queue-pvnhxunamv8",
+      "farm_id": "farm-b4jivlduu1m",
+      "farm_name": "post-production",
+      "queue_id": "queue-z2ho1h81aql",
       "queue_name": "test",
-      "job_id": "job-dt95nw43jva",
-      "job_name": "lighting_pass_v3",
-      "task_id": "task-vcvs3vgc5bj",
-      "task_status": "NOT_COMPATIBLE",
-      "job_status": "CANCELED",
-      "worker_hostname": "render-worker-spot-01.eu-central-2.compute.internal",
-      "frame_start": 220,
-      "frame_end": 240,
-      "duration_seconds": 1629,
-      "renderer": "RenderMan",
-      "priority": 32
+      "job_id": "job-6awjyocobsb",
+      "job_name": "shot_comp_0010",
+      "task_id": "task-myeohktp9fp",
+      "task_status": "SUCCEEDED",
+      "job_status": "QUEUED",
+      "worker_hostname": "render-worker-cpu-02.ap-southeast-3.compute.internal",
+      "frame_start": 793,
+      "frame_end": 802,
+      "duration_seconds": 1766,
+      "renderer": "Arnold",
+      "priority": 36
     }
   },
   "event": {
-    "action": "CreateWorker",
-    "outcome": "failure",
-    "category": [
-      "process"
-    ],
+    "action": "CreateJob",
+    "outcome": "success",
+    "category": ["process"],
     "dataset": "aws.deadlinecloud",
     "provider": "deadline.amazonaws.com",
-    "duration": 1629000000000
+    "duration": 1766000000000
   },
-  "message": "Deadline Cloud CreateWorker FAILED [ad-rendering/lighting_pass_v3]: Worker lost connection",
+  "message": "Deadline Cloud CreateJob: farm=post-production queue=test job=shot_comp_0010 frames 793-802 SUCCEEDED",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "AccessDeniedException",
-    "message": "Deadline Cloud render task failed",
-    "type": "process"
+    "level": "info"
   }
 }

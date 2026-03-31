@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "appsync"
@@ -13,50 +13,44 @@
   },
   "aws": {
     "appsync": {
-      "api_id": "JOSIY814NBE",
-      "api_name": "prod-graphql-api",
-      "operation_type": "query",
+      "api_id": "1UGH8LA3I4O",
+      "api_name": "partner-api",
+      "operation_type": "mutation",
       "operation_name": "updateInventory",
-      "data_source_type": "AMAZON_DYNAMODB",
-      "duration_ms": 2341,
-      "status_code": 403,
-      "error_type": "DatasourceError",
+      "data_source_type": "HTTP",
+      "duration_ms": 165,
+      "status_code": 200,
       "metrics": {
         "RequestCount": {
-          "sum": 1656
+          "sum": 689
         },
         "4XXError": {
-          "sum": 104
+          "sum": 0
         },
         "5XXError": {
           "sum": 0
         },
         "Latency": {
-          "avg": 2341.051,
-          "p99": 7067.6
+          "avg": 165.043,
+          "p99": 282.9
         }
       }
     }
   },
   "http": {
     "response": {
-      "status_code": 403
+      "status_code": 200
     }
   },
   "event": {
-    "duration": 2341051000,
-    "outcome": "failure",
+    "duration": 165043000,
+    "outcome": "success",
     "category": "api",
     "dataset": "aws.appsync",
     "provider": "appsync.amazonaws.com"
   },
-  "message": "AppSync query.updateInventory FAILED [403]: DatasourceError",
+  "message": "AppSync mutation.updateInventory: 165ms [partner-api]",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "UnauthorizedException",
-    "message": "AppSync operation failed",
-    "type": "api"
+    "level": "info"
   }
 }

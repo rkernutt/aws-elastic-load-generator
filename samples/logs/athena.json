@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "athena"
@@ -13,35 +13,34 @@
   },
   "aws": {
     "athena": {
-      "query_id": "16b4ro78-rki1-nvnv-v7qz",
-      "workgroup": "bi-users",
+      "query_id": "mr2gpi8q-b657-xefy-9lia",
+      "workgroup": "analytics",
       "database": "analytics",
-      "state": "FAILED",
-      "duration_seconds": 179.16,
-      "data_scanned_bytes": 0,
-      "data_scanned_mb": 0,
-      "engine_version": "DuckDB 0.9.1",
-      "structured_logging": true,
-      "error_code": "PERMISSION_DENIED",
+      "state": "SUCCEEDED",
+      "duration_seconds": 56.725,
+      "data_scanned_bytes": 821976443,
+      "data_scanned_mb": 784,
+      "engine_version": "Athena engine version 3",
+      "structured_logging": false,
       "metrics": {
         "DataScannedInBytes": {
-          "sum": 0
+          "sum": 821976443
         },
         "EngineExecutionTimeInMillis": {
-          "avg": 179160,
-          "max": 268740
+          "avg": 56725,
+          "max": 85088
         },
         "ProcessedBytes": {
-          "sum": 0
+          "sum": 821976443
         },
         "QueryQueueTimeInMillis": {
-          "avg": 20
+          "avg": 158
         },
         "TotalExecutionTimeInMillis": {
-          "avg": 179160
+          "avg": 56725
         },
         "QueryPlanningTimeInMillis": {
-          "avg": 194
+          "avg": 149
         }
       }
     }
@@ -51,22 +50,14 @@
     "type": "sql"
   },
   "event": {
-    "duration": 179160000000,
-    "outcome": "failure",
-    "category": [
-      "database",
-      "process"
-    ],
+    "duration": 56725000000,
+    "outcome": "success",
+    "category": ["database", "process"],
     "dataset": "aws.athena",
     "provider": "athena.amazonaws.com"
   },
-  "message": "{\"queryId\":\"16b4ro78-rki1-nvnv-v7qz\",\"workgroup\":\"bi-users\",\"database\":\"analytics\",\"state\":\"FAILED\",\"durationSeconds\":179.16,\"dataScannedBytes\":0,\"timestamp\":\"2026-03-31T10:14:12.846Z\"}",
+  "message": "Query started",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "PERMISSION_DENIED",
-    "message": "Athena query failed",
-    "type": "db"
+    "level": "warn"
   }
 }

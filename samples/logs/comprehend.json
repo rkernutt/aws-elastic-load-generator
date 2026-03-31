@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "sa-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "comprehend"
@@ -13,44 +13,36 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "DetectDominantLanguage"
+      "Operation": "StartEntitiesDetectionJob"
     },
     "comprehend": {
-      "operation": "DetectDominantLanguage",
+      "operation": "StartEntitiesDetectionJob",
       "language_code": "ja",
-      "text_bytes": 83875,
+      "text_bytes": 83049,
       "entities_detected": 0,
       "key_phrases_detected": 0,
       "pii_entities_detected": 0,
-      "error_code": "TextSizeLimitExceededException",
       "metrics": {
         "NumberOfSuccessfulRequest": {
           "sum": 1
         },
         "NumberOfFailedRequest": {
-          "sum": 1
+          "sum": 0
         },
         "ResponseTime": {
-          "avg": 2954.559
+          "avg": 188.418
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
-    "category": [
-      "process"
-    ],
+    "outcome": "success",
+    "category": ["process"],
     "dataset": "aws.comprehend",
     "provider": "comprehend.amazonaws.com"
   },
-  "message": "Comprehend DetectDominantLanguage FAILED: Unsupported language",
+  "message": "Comprehend StartEntitiesDetectionJob: lang=ja",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ComprehendError",
-    "message": "Comprehend operation failed",
-    "type": "ml"
+    "level": "info"
   }
 }

@@ -662,6 +662,67 @@ function generateIotFleetWiseLog(ts, er) {
   };
 }
 
+function generateGroundStationLog(ts, er) {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const contactId = `contact-${randId(10).toLowerCase()}`;
+  const groundStationId = rand(["Dubbo", "Punta Arenas", "AWS_GROUND_STATION_US_EAST_1"]);
+  const satelliteArn = `arn:aws:groundstation::${acct.id}:satellite/satellite-${randId(8).toLowerCase()}`;
+  const missionProfileId = `profile-${randId(8).toLowerCase()}`;
+  const contactStatus = isErr ? "FAILED" : rand(["COMPLETED", "SCHEDULED", "COMPLETED"]);
+  const dataReceivedMb = isErr ? 0 : parseFloat(randFloat(10, 5000));
+  const elevationDegrees = parseFloat(randFloat(5, 90));
+  const contactDurationSec = isErr ? randInt(5, 60) : randInt(300, 1800);
+  const errorCode = rand(["ContactFailed", "AntennaDepointing"]);
+  return {
+    "@timestamp": ts,
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "groundstation" },
+    },
+    aws: {
+      dimensions: { GroundStationId: groundStationId, ContactId: contactId },
+      groundstation: {
+        contact_id: contactId,
+        ground_station_id: groundStationId,
+        satellite_arn: satelliteArn,
+        mission_profile_id: missionProfileId,
+        contact_status: contactStatus,
+        metrics: {
+          data_received_mb: dataReceivedMb,
+          elevation_degrees: elevationDegrees,
+          contact_duration_sec: contactDurationSec,
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    event: {
+      outcome: isErr ? "failure" : "success",
+      category: ["network"],
+      dataset: "aws.groundstation",
+      provider: "groundstation.amazonaws.com",
+      duration: contactDurationSec * 1e9,
+    },
+    data_stream: { type: "logs", dataset: "aws.groundstation", namespace: "default" },
+    message: isErr
+      ? `Ground Station ${groundStationId}: ${errorCode} for contact ${contactId}`
+      : `Ground Station ${groundStationId}: contact ${contactId} ${contactStatus}, received=${dataReceivedMb.toFixed(1)}MB, elevation=${elevationDegrees.toFixed(1)}°`,
+    log: { level: isErr ? "error" : "info" },
+    ...(isErr
+      ? {
+          error: {
+            code: errorCode,
+            message: `Ground Station contact failed at ${groundStationId}`,
+            type: "network",
+          },
+        }
+      : {}),
+  };
+}
+
 export {
   generateIotCoreLog,
   generateIotGreengrassLog,
@@ -671,4 +732,5 @@ export {
   generateIotSiteWiseLog,
   generateIotTwinMakerLog,
   generateIotFleetWiseLog,
+  generateGroundStationLog,
 };

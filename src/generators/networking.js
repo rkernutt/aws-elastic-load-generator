@@ -1648,6 +1648,136 @@ function generateCloudMapLog(ts, er) {
   };
 }
 
+function generateVpcIpamLog(ts, er) {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const poolId = `ipam-pool-${randId(8).toLowerCase()}`;
+  const scopeId = `ipam-scope-${randId(8).toLowerCase()}`;
+  const allocationId = `ipam-alloc-${randId(8).toLowerCase()}`;
+  const cidrBlocks = [
+    "10.0.0.0/16",
+    "10.1.0.0/16",
+    "172.16.0.0/12",
+    "192.168.0.0/24",
+    "10.100.0.0/16",
+  ];
+  const cidr = rand(cidrBlocks);
+  const allocationType = rand(["vpc", "subnet", "resource"]);
+  const allocationsCount = randInt(1, 200);
+  const totalCount = randInt(200, 500);
+  const freeCount = isErr ? randInt(0, 5) : totalCount - allocationsCount;
+  const usedCount = totalCount - freeCount;
+  const errorCode = rand(["AllocationFailure", "CidrOverlapConflict"]);
+  return {
+    "@timestamp": ts,
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "ipam" },
+    },
+    aws: {
+      dimensions: { PoolId: poolId, ScopeId: scopeId },
+      vpcipam: {
+        pool_id: poolId,
+        scope_id: scopeId,
+        allocation_id: allocationId,
+        cidr,
+        allocation_type: allocationType,
+        metrics: {
+          allocations_count: allocationsCount,
+          free_count: freeCount,
+          used_count: usedCount,
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    event: {
+      outcome: isErr ? "failure" : "success",
+      category: ["network"],
+      dataset: "aws.vpcipam",
+      provider: "ec2.amazonaws.com",
+      duration: randInt(1, 200) * 1e6,
+    },
+    data_stream: { type: "logs", dataset: "aws.vpcipam", namespace: "default" },
+    message: isErr
+      ? `VPC IPAM pool ${poolId}: ${errorCode} for CIDR ${cidr}`
+      : `VPC IPAM pool ${poolId}: allocated ${cidr} (${allocationType}), free=${freeCount}`,
+    log: { level: isErr ? "error" : "info" },
+    ...(isErr
+      ? {
+          error: {
+            code: errorCode,
+            message: `VPC IPAM allocation failed for CIDR ${cidr}`,
+            type: "network",
+          },
+        }
+      : {}),
+  };
+}
+
+function generatePrivate5gLog(ts, er) {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const networkArn = `arn:aws:private5g:${region}:${acct.id}:network/net-${randId(8).toLowerCase()}`;
+  const networkSiteId = `site-${randId(8).toLowerCase()}`;
+  const deviceIdentifier = `device-${randId(10).toLowerCase()}`;
+  const orderId = `order-${randId(8).toLowerCase()}`;
+  const radioUnitStatus = isErr ? "OFFLINE" : rand(["ACTIVE", "PROVISIONED", "ACTIVE"]);
+  const activatedDevices = randInt(1, 50);
+  const radioUnitsOnline = isErr ? 0 : randInt(1, 10);
+  const throughputMbps = isErr ? 0 : parseFloat(randFloat(10, 1000));
+  const errorCode = rand(["RadioUnitOffline", "ActivationFailed"]);
+  return {
+    "@timestamp": ts,
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "private5g" },
+    },
+    aws: {
+      dimensions: { NetworkSiteId: networkSiteId },
+      private5g: {
+        network_arn: networkArn,
+        network_site_id: networkSiteId,
+        device_identifier: deviceIdentifier,
+        order_id: orderId,
+        radio_unit_status: radioUnitStatus,
+        metrics: {
+          activated_device_identifiers: activatedDevices,
+          radio_units_online: radioUnitsOnline,
+          throughput_mbps: throughputMbps,
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    event: {
+      outcome: isErr ? "failure" : "success",
+      category: ["network"],
+      dataset: "aws.private5g",
+      provider: "private5g.amazonaws.com",
+      duration: randInt(10, 500) * 1e6,
+    },
+    data_stream: { type: "logs", dataset: "aws.private5g", namespace: "default" },
+    message: isErr
+      ? `Private 5G site ${networkSiteId}: ${errorCode} — radio unit ${radioUnitStatus}`
+      : `Private 5G site ${networkSiteId}: ${radioUnitsOnline} radio units online, ${throughputMbps.toFixed(1)}Mbps`,
+    log: { level: isErr ? "error" : "info" },
+    ...(isErr
+      ? {
+          error: {
+            code: errorCode,
+            message: `Private 5G radio unit failure at site ${networkSiteId}`,
+            type: "network",
+          },
+        }
+      : {}),
+  };
+}
+
 export {
   generateAlbLog,
   generateNlbLog,
@@ -1669,4 +1799,6 @@ export {
   generateAppMeshLog,
   generateClientVpnLog,
   generateCloudMapLog,
+  generateVpcIpamLog,
+  generatePrivate5gLog,
 };

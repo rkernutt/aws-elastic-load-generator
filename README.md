@@ -1,6 +1,6 @@
 # ⚡ AWS → Elastic Load Generator
 
-A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic deployment via the Elasticsearch Bulk API. Covers **185 AWS services** across **14 service groups**, all using **ECS (Elastic Common Schema)** field naming.
+A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic deployment via the Elasticsearch Bulk API. Covers **200 AWS services** across **14 service groups**, all using **ECS (Elastic Common Schema)** field naming.
 
 Each service has its correct real-world ingestion source pre-configured — S3, CloudWatch, direct API, Firehose, OTel, or Elastic Agent — matching how each service actually delivers data to Elastic in production. Switch between **Logs**, **Metrics**, and **Traces** mode; **150 services** support Metrics mode.
 
@@ -248,8 +248,8 @@ After installation, the installer offers to open jobs and start datafeeds immedi
 
 ## Usage
 
-1. **Select services** — toggle individual services, entire groups, or all 185 at once
-2. **Choose mode** — **Logs** generates log documents for all 185 services; **Metrics** generates metrics documents for the 150 metrics-supported services; **Traces** generates APM trace documents for 23 services
+1. **Select services** — toggle individual services, entire groups, or all 200 at once
+2. **Choose mode** — **Logs** generates log documents for all 200 services; **Metrics** generates metrics documents for the 150 metrics-supported services; **Traces** generates APM trace documents for 23 services
 3. **Configure volume** — set logs per service (50–5,000), error rate (0–50%), and batch size
 4. **Set ingestion source** — leave on **Default (per-service)** or override all services to a single source for pipeline testing
 5. **Scheduled mode** _(optional)_ — enable to automatically repeat shipping on a timer. Set **Total runs** and **Interval** to build a consistent ML baseline without manual re-runs. See [ML anomaly detection workflow](#ml-anomaly-detection-workflow) for a recommended baseline-then-spike flow.
@@ -426,26 +426,26 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 ---
 
-## Supported services (185 total)
+## Supported services (200 total)
 
-185 services across 14 groups are supported. Each entry includes the default ingestion source (S3, CloudWatch, API, Firehose) and the ECS dataset field used. For the full per-service breakdown, browse [src/generators/logs/](src/generators/logs/) or [src/generators/metrics/](src/generators/metrics/), or use the service picker in the UI.
+200 services across 14 groups are supported. Each entry includes the default ingestion source (S3, CloudWatch, API, Firehose) and the ECS dataset field used. For the full per-service breakdown, browse [src/generators/logs/](src/generators/logs/) or [src/generators/metrics/](src/generators/metrics/), or use the service picker in the UI.
 
-| Group | Services (examples) |
-| ----- | ------------------- |
-| Serverless & Core | Lambda, API Gateway, VPC Flow, CloudTrail, RDS, ECS |
-| Compute & Containers | EC2, EKS, Fargate, ECR, App Runner, Batch, Elastic Beanstalk, Outposts |
-| Networking & CDN | ALB, NLB, CloudFront, WAF, Route 53, Network Firewall, Shield, App Mesh, Client VPN |
-| Security & Compliance | GuardDuty, Security Hub, Macie, Inspector v2, Config, IAM Access Analyzer, KMS, Security Lake |
-| Storage & Databases | S3, DynamoDB, ElastiCache, Redshift, OpenSearch, DocumentDB, EFS, Aurora, Neptune |
-| Streaming & Messaging | Kinesis, MSK, SQS, SNS, EventBridge, Step Functions, AppSync |
-| Developer & CI/CD | CodeBuild, CodePipeline, CodeDeploy, CodeCommit, Amplify, X-Ray, CodeGuru |
-| Analytics | EMR, Glue, Athena, Lake Formation, QuickSight, MWAA, Clean Rooms, DataZone |
-| AI & Machine Learning | SageMaker, Bedrock, Bedrock Agent, Rekognition, Textract, Comprehend, Lex, Kendra |
-| IoT | IoT Core, Greengrass, IoT Analytics, IoT Events, IoT SiteWise, IoT TwinMaker, IoT FleetWise |
-| Management & Governance | CloudFormation, Systems Manager, CloudWatch Alarms, Trusted Advisor, Control Tower, DMS |
-| Media & End-User Computing | MediaConvert, MediaLive, WorkSpaces, Amazon Connect, AppStream, GameLift, Chime SDK Voice |
-| Messaging & Communications | SES, Pinpoint |
-| Additional Services | Transfer Family, Lightsail, Fraud Detector, Location Service, Managed Blockchain |
+| Group                      | Services (examples)                                                                                                                       |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Serverless & Core          | Lambda, API Gateway, VPC Flow, CloudTrail, RDS, ECS                                                                                       |
+| Compute & Containers       | EC2, EKS, Fargate, ECR, App Runner, Batch, Elastic Beanstalk, Outposts, Mainframe Modernization, Parallel Computing, EVS, SimSpace Weaver |
+| Networking & CDN           | ALB, NLB, CloudFront, WAF, Route 53, Network Firewall, Shield, App Mesh, Client VPN, VPC IPAM, Private 5G                                 |
+| Security & Compliance      | GuardDuty, Security Hub, Macie, Inspector v2, Config, IAM Access Analyzer, KMS, Security Lake                                             |
+| Storage & Databases        | S3, DynamoDB, ElastiCache, Redshift, OpenSearch, DocumentDB, EFS, Aurora, Neptune, Neptune Analytics, Aurora DSQL                         |
+| Streaming & Messaging      | Kinesis, MSK, SQS, SNS, EventBridge, Step Functions, AppSync, End User Messaging                                                          |
+| Developer & CI/CD          | CodeBuild, CodePipeline, CodeDeploy, CodeCommit, Amplify, X-Ray, CodeGuru, Q Developer                                                    |
+| Analytics                  | EMR, Glue, Athena, Lake Formation, QuickSight, MWAA, Clean Rooms, DataZone                                                                |
+| AI & Machine Learning      | SageMaker, Bedrock, Bedrock Agent, Rekognition, Textract, Comprehend, Lex, Kendra, HealthOmics, Bedrock Data Automation                   |
+| IoT                        | IoT Core, Greengrass, IoT Analytics, IoT Events, IoT SiteWise, IoT TwinMaker, IoT FleetWise, Ground Station                               |
+| Management & Governance    | CloudFormation, Systems Manager, CloudWatch Alarms, Trusted Advisor, Control Tower, DMS                                                   |
+| Media & End-User Computing | MediaConvert, MediaLive, WorkSpaces, Amazon Connect, AppStream, GameLift, Chime SDK Voice, WorkMail, Wickr                                |
+| Messaging & Communications | SES, Pinpoint                                                                                                                             |
+| Additional Services        | Transfer Family, Lightsail, Fraud Detector, Location Service, Managed Blockchain                                                          |
 
 ---
 
@@ -453,7 +453,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 | Setting                  | Default                    | Range                   | Description                                                                                                          |
 | ------------------------ | -------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Event type               | Logs                       | Logs / Metrics / Traces | **Logs** — all 185 services. **Metrics** — 150 metrics-supported services. **Traces** — 23 trace-supported services. |
+| Event type               | Logs                       | Logs / Metrics / Traces | **Logs** — all 200 services. **Metrics** — 150 metrics-supported services. **Traces** — 23 trace-supported services. |
 | Logs/metrics per service | 500                        | 50–5,000                | Documents generated per selected service                                                                             |
 | Error rate               | 5%                         | 0–50%                   | Fraction of documents representing errors/failures                                                                   |
 | Batch size               | 250                        | 50–1,000                | Documents per `_bulk` API request                                                                                    |
@@ -467,7 +467,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 The **samples/** directory contains one sample document per service generated by the same logic as the app:
 
-- **samples/logs/** — 185 JSON log documents, one per service
+- **samples/logs/** — 200 JSON log documents, one per service
 - **samples/metrics/** — 150 JSON metrics documents, one per metrics-supported service
 - **samples/traces/** — 23 JSON APM trace documents, one per trace-supported service
 

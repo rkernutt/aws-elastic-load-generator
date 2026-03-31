@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "mediaconvert"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "MP4"
+      "Operation": "DASH"
     },
     "mediaconvert": {
-      "job_id": "2970156442-t3gkir",
-      "queue_arn": "arn:aws:mediaconvert:us-west-2:814726593401:queues/batch",
+      "job_id": "7071325676-0uzhyw",
+      "queue_arn": "arn:aws:mediaconvert:ap-northeast-2:501938274650:queues/batch",
       "job_status": "COMPLETE",
-      "output_group_type": "MP4",
+      "output_group_type": "DASH",
       "input_file": "s3://media-input/broadcast/live.mxf",
-      "input_duration_minutes": 72.823,
-      "video_codec": "MPEG2",
+      "input_duration_minutes": 15.718,
+      "video_codec": "AV1",
       "audio_codec": "AC3",
       "width": 3840,
       "height": 2160,
-      "bitrate_kbps": 5000,
-      "duration_seconds": 245,
+      "bitrate_kbps": 1500,
+      "duration_seconds": 1502,
       "metrics": {
         "JobsCompletedCount": {
           "sum": 1
@@ -36,24 +36,22 @@
           "sum": 0
         },
         "StandbyTime": {
-          "avg": 282
+          "avg": 120
         },
         "TranscodingTime": {
-          "avg": 245
+          "avg": 1502
         }
       }
     }
   },
   "event": {
-    "duration": 245000000000,
+    "duration": 1502000000000,
     "outcome": "success",
-    "category": [
-      "process"
-    ],
+    "category": ["process"],
     "dataset": "aws.mediaconvert",
     "provider": "mediaconvert.amazonaws.com"
   },
-  "message": "MediaConvert job 2970156442-t3gkir COMPLETE: 72.8 min -> MP4",
+  "message": "MediaConvert job 7071325676-0uzhyw COMPLETE: 15.7 min -> DASH",
   "log": {
     "level": "info"
   }

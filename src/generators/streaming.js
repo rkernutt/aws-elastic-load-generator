@@ -875,6 +875,67 @@ function generateMskConnectLog(ts, er) {
   };
 }
 
+function generateEndUserMessagingLog(ts, er) {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const originationIdentity = `orig-${randId(10).toLowerCase()}`;
+  const messageId = `msg-${randId(12).toLowerCase()}`;
+  const channel = rand(["SMS", "MMS", "VOICE", "PUSH"]);
+  const destinationCountry = rand(["US", "GB", "DE", "FR", "AU"]);
+  const messageStatus = isErr ? "FAILED" : rand(["DELIVERED", "PENDING", "DELIVERED"]);
+  const messagesSent = isErr ? 0 : randInt(1, 100000);
+  const deliveryRate = isErr ? parseFloat(randFloat(0, 0.5)) : parseFloat(randFloat(0.9, 1.0));
+  const optOutRate = parseFloat(randFloat(0, isErr ? 0.1 : 0.02));
+  const errorCode = rand(["DeliveryFailed", "NumberBlocked"]);
+  return {
+    "@timestamp": ts,
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "end-user-messaging" },
+    },
+    aws: {
+      dimensions: { OriginationIdentity: originationIdentity, Channel: channel },
+      endusermessaging: {
+        origination_identity: originationIdentity,
+        message_id: messageId,
+        channel,
+        destination_country: destinationCountry,
+        message_status: messageStatus,
+        metrics: {
+          messages_sent: messagesSent,
+          delivery_rate: deliveryRate,
+          opt_out_rate: optOutRate,
+        },
+        error_code: isErr ? errorCode : null,
+      },
+    },
+    event: {
+      outcome: isErr ? "failure" : "success",
+      category: ["network"],
+      dataset: "aws.endusermessaging",
+      provider: "sms-voice.amazonaws.com",
+      duration: randInt(10, isErr ? 10000 : 1000) * 1e6,
+    },
+    data_stream: { type: "logs", dataset: "aws.endusermessaging", namespace: "default" },
+    message: isErr
+      ? `End User Messaging ${channel}: ${errorCode} for ${destinationCountry} (${originationIdentity})`
+      : `End User Messaging ${channel}: ${messagesSent} sent to ${destinationCountry}, delivery_rate=${(deliveryRate * 100).toFixed(1)}%`,
+    log: { level: isErr ? "error" : "info" },
+    ...(isErr
+      ? {
+          error: {
+            code: errorCode,
+            message: `End User Messaging delivery failed for ${channel} to ${destinationCountry}`,
+            type: "network",
+          },
+        }
+      : {}),
+  };
+}
+
 export {
   generateKinesisStreamsLog,
   generateFirehoseLog,
@@ -886,4 +947,5 @@ export {
   generateEventBridgeLog,
   generateStepFunctionsLog,
   generateMskConnectLog,
+  generateEndUserMessagingLog,
 };

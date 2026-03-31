@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "dax"
@@ -14,30 +14,28 @@
   "aws": {
     "dimensions": {
       "ClusterName": "session-dax",
-      "NodeId": "session-dax-a"
+      "NodeId": "session-dax-b"
     },
     "dax": {
       "cluster_name": "session-dax",
-      "node_id": "session-dax-a",
-      "operation": "BatchGetItem",
+      "node_id": "session-dax-b",
+      "operation": "GetItem",
       "cache_hit": true,
-      "item_size_bytes": 59231,
-      "request_latency_ms": 24,
-      "consumed_read_capacity_units": 4.633,
+      "item_size_bytes": 78982,
+      "request_latency_ms": 38,
+      "consumed_read_capacity_units": 2.817,
       "table_name": "products"
     }
   },
   "event": {
     "action": "CacheMiss",
     "outcome": "success",
-    "category": [
-      "database"
-    ],
+    "category": ["database"],
     "dataset": "aws.dax",
     "provider": "dax.amazonaws.com",
-    "duration": 24000000
+    "duration": 38000000
   },
-  "message": "DAX session-dax: BatchGetItem CACHE_HIT 24ms",
+  "message": "DAX session-dax: GetItem CACHE_HIT 38ms",
   "log": {
     "level": "info"
   }
