@@ -8,6 +8,8 @@ This document compares what the **AWS → Elastic Load Generator** currently emi
 
 **v11.2 update:** Metrics mode now covers **150 services** (`METRICS_SUPPORTED_SERVICE_IDS` aligned with `METRICS_GENERATORS`); `package.json` version tracks documented releases (11.2.0).
 
+**Current (`GENERATORS` / `samples:verify` as of main):** **200** log services, **165** metrics-supported services, **23** trace generators — see [README](../README.md) and `npm run samples:verify`.
+
 **v7.6 update:** Full CloudWatch metric name and dimension alignment across all 135 generators. `event.category` as ECS array on all generators. Metrics blocks added to 30+ previously uncovered services.
 
 **v7.5 update:** `event.duration` gap closed across all 135 generators. RDS Enhanced Monitoring gap addressed. Lambda START/END/REPORT gap addressed.
@@ -60,8 +62,8 @@ From Elastic’s reference table, the following services have **Metrics** and/or
 
 ### 1.2 App state (high level)
 
-- **Logs:** 135 services; each generator returns one document shape (single “log event” style).
-- **Metrics:** **150 services** support metrics mode (`METRICS_SUPPORTED_SERVICE_IDS`, aligned with `METRICS_GENERATORS`); documents include `data_stream.type: “metrics”`, `metricset`, and `aws.<service>.metrics` (or equivalent).
+- **Logs:** **200** services; each generator returns one document shape (single “log event” style).
+- **Metrics:** **165 services** support metrics mode (`METRICS_SUPPORTED_SERVICE_IDS`, aligned with `METRICS_GENERATORS`); documents include `data_stream.type: “metrics”`, `metricset`, and `aws.<service>.metrics` (or equivalent).
 - **Structured `message`:** Many services probabilistically emit JSON in `message` (see [INGEST-PIPELINE-REFERENCE.md](INGEST-PIPELINE-REFERENCE.md)); not all do.
 - **`event.duration`:** Present on all time-bound services (closed in v7.5).
 - **`aws.dimensions`:** Always-present on all generators (closed in v8.0).
@@ -202,7 +204,7 @@ Items marked ✅ are now addressed.
 
 1. **Closed (High)**
    - ✅ Lambda START/REPORT/END log events and REPORT fields (Billed Duration, Max Memory Used, Init Duration) — v7.5
-   - ✅ Metrics: CloudWatch metric name and dimension alignment across all 150 metrics-supported services — v7.6 through v11.x
+   - ✅ Metrics: CloudWatch metric name and dimension alignment across all metrics-supported services (currently **165**) — v7.6 through v11.x+
    - ✅ `event.duration` on all time-bound services — v7.5
    - ✅ `aws.dimensions` always-present on all generators — v8.0
    - ✅ Real AWS API error codes on all failure paths — v7.6

@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import K from "./theme";
 import {
   rand,
@@ -19,15 +19,14 @@ import { ServiceGrid } from "./components/ServiceGrid";
 // The browser module cache ensures each chunk is fetched at most once per session.
 const loadMetricsGenerators = () =>
   import("./generators/metrics").then((m) => m.METRICS_GENERATORS);
-const loadTraceGenerators = () =>
-  import("./generators/traces").then((m) => m.TRACE_GENERATORS);
+const loadTraceGenerators = () => import("./generators/traces").then((m) => m.TRACE_GENERATORS);
 import {
   ELASTIC_DATASET_MAP,
   ELASTIC_METRICS_DATASET_MAP,
   METRICS_SUPPORTED_SERVICE_IDS,
 } from "./data/elasticMaps";
 import { SERVICE_INGESTION_DEFAULTS, INGESTION_META } from "./data/ingestion";
-import { AWS_SERVICE_ICON_MAP, iconSrc } from "./data/iconMap";
+import { AWS_SERVICE_ICON_MAP, TRACE_SERVICE_ICON_MAP, iconSrc } from "./data/iconMap";
 import { SERVICE_GROUPS, ALL_SERVICE_IDS } from "./data/serviceGroups";
 import { Card, CardHeader, QuickBtn, Field, SliderField, StatCard } from "./components/Card";
 import { StatusPill } from "./components/StatusPill";
@@ -37,7 +36,6 @@ import { loadAndScrubSavedConfig, toPersistedStorageObject } from "./utils/persi
 import styles from "./App.module.css";
 
 type LogEntry = { id: number; msg: string; type: string; ts: string };
-let _logSeq = 0; // stable key counter — never resets so keys are always unique
 type ShipStatus = "running" | "done" | "aborted" | null;
 type ShipProgressPhase = "main" | "injection";
 type ShipProgress = { sent: number; total: number; errors: number; phase: ShipProgressPhase };
@@ -101,6 +99,23 @@ export default function App() {
   const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
   const abortRef = useRef(false);
   const scheduleLoopRef = useRef<AbortController | null>(null);
+  const logSeqRef = useRef(0);
+
+  const traceServiceGroups = useMemo(() => {
+    const order = ["Multi-Service Workflow", "Data Pipeline", "Single-Service"];
+    const m = new Map<string, (typeof TRACE_SERVICES)[number][]>();
+    for (const s of TRACE_SERVICES) {
+      const g = s.group;
+      const list = m.get(g) ?? [];
+      list.push(s);
+      m.set(g, list);
+    }
+    const tail = [...m.keys()].filter((g) => !order.includes(g));
+    return [...order.filter((g) => m.has(g)), ...tail].map((title) => ({
+      title,
+      items: m.get(title)!,
+    }));
+  }, []);
 
   // ─── Persist config to localStorage (allowlisted keys only — no URL/API key) ─
   useEffect(() => {
@@ -186,10 +201,15 @@ export default function App() {
   const selectAllTraces = () => setSelectedTraceServices(TRACE_SERVICES.map((s) => s.id));
   const selectNoneTraces = () => setSelectedTraceServices([]);
 
-  const addLog = (msg, type = "info") =>
+  const addLog = (msg: string, type = "info") =>
     setLog((prev) => [
       ...prev.slice(-5000),
-      { id: _logSeq++, msg, type, ts: new Date().toLocaleTimeString() },
+      {
+        id: logSeqRef.current++,
+        msg,
+        type,
+        ts: new Date().toLocaleTimeString(),
+      },
     ]);
 
   const downloadLog = () => {
@@ -706,8 +726,7 @@ export default function App() {
       }
 
       /** ── Logs / Metrics mode ──────────────────────────────────────────────── */
-      const METRICS_GENERATORS =
-        eventType === "metrics" ? await loadMetricsGenerators() : null;
+      const METRICS_GENERATORS = eventType === "metrics" ? await loadMetricsGenerators() : null;
       setProgress({ sent: 0, total: 0, errors: 0, phase: "main" });
       addLog(
         `Starting: ${activeServices.length} service(s) [${eventType}] — ${logsPerService.toLocaleString()} calls each`
@@ -1080,10 +1099,10 @@ export default function App() {
           <h1 className={styles.pageTitle}>Generate and ship AWS logs &amp; metrics to Elastic</h1>
           <p className={styles.pageDesc}>
             {isTracesMode
-              ? `${totalServices} services with OTel/APM trace support · EDOT instrumentation · Ships to traces-apm-default`
+              ? `${totalServices} OTel-style APM scenarios (single-service + workflows) · EDOT / ADOT paths · Ships to traces-apm-default`
               : eventType === "metrics"
                 ? `${totalServices} AWS services with Elastic metrics support`
-                : `${totalServices} AWS services across 14 groups`}
+                : `${totalServices} AWS services across ${SERVICE_GROUPS.length} groups`}
             {isTracesMode
               ? ""
               : " · ECS-compliant · Per-service ingestion (S3, CloudWatch, API, Firehose, OTel). Ships directly to Elasticsearch."}
@@ -1137,86 +1156,112 @@ export default function App() {
                     borderRadius: K.radiusSm,
                   }}
                 >
-                  Traces are generated using{" "}
-                  <span style={{ color: "#8b5cf6", fontWeight: 600 }}>OpenTelemetry (OTLP)</span>{" "}
-                  with EDOT instrumentation and shipped to{" "}
+                  Documents match Elastic APM shape (OTLP-style). Single-service and workflow traces use{" "}
+                  <span style={{ color: "#8b5cf6", fontWeight: 600 }}>EDOT</span> or{" "}
+                  <span style={{ color: "#8b5cf6", fontWeight: 600 }}>ADOT</span> conventions; ship to{" "}
                   <span style={{ color: "#8b5cf6", fontWeight: 600 }}>traces-apm-default</span>.
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  {TRACE_SERVICES.map((svc) => {
-                    const sel = selectedTraceServices.includes(svc.id);
-                    return (
-                      <button
-                        key={svc.id}
-                        onClick={() => toggleTraceService(svc.id)}
+                <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                  {traceServiceGroups.map(({ title, items }) => (
+                    <div key={title}>
+                      <div
                         style={{
-                          border: `1.5px solid ${sel ? "#8b5cf6" : "#e2e8f0"}`,
-                          borderRadius: K.radius,
-                          padding: "12px 14px",
-                          background: sel ? "#8b5cf60e" : "#f8fafc",
-                          cursor: "pointer",
-                          textAlign: "left",
-                          transition: "all 0.15s",
-                          position: "relative",
-                          overflow: "hidden",
+                          fontSize: 10,
+                          fontWeight: 700,
+                          color: K.textSubdued,
+                          textTransform: "uppercase",
+                          letterSpacing: "0.04em",
+                          marginBottom: 8,
                         }}
                       >
-                        {sel && (
-                          <div
-                            style={{
-                              position: "absolute",
-                              top: 0,
-                              left: 0,
-                              right: 0,
-                              height: 2,
-                              background: "#8b5cf6",
-                              borderRadius: "8px 8px 0 0",
-                            }}
-                          />
-                        )}
-                        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                          {AWS_SERVICE_ICON_MAP[svc.id] ? (
-                            <img
-                              src={iconSrc(AWS_SERVICE_ICON_MAP[svc.id])}
-                              alt=""
-                              style={{ width: 32, height: 32, objectFit: "contain" }}
-                            />
-                          ) : (
-                            <div style={{ fontSize: 22, minWidth: 32, textAlign: "center" }}>
-                              ⚡
-                            </div>
-                          )}
-                          <div>
-                            <div
+                        {title}
+                      </div>
+
+                      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                        {items.map((svc) => {
+                          const sel = selectedTraceServices.includes(svc.id);
+                          const iconFile =
+                            AWS_SERVICE_ICON_MAP[svc.id as keyof typeof AWS_SERVICE_ICON_MAP] ??
+                            TRACE_SERVICE_ICON_MAP[svc.id];
+                          return (
+                            <button
+                              key={svc.id}
+                              onClick={() => toggleTraceService(svc.id)}
                               style={{
-                                fontSize: 13,
-                                fontWeight: 700,
-                                color: sel ? "#8b5cf6" : "#334155",
-                                marginBottom: 2,
+                                border: `1.5px solid ${sel ? "#8b5cf6" : "#e2e8f0"}`,
+                                borderRadius: K.radius,
+                                padding: "12px 14px",
+                                background: sel ? "#8b5cf60e" : "#f8fafc",
+                                cursor: "pointer",
+                                textAlign: "left",
+                                transition: "all 0.15s",
+                                position: "relative",
+                                overflow: "hidden",
                               }}
                             >
-                              {svc.label}
-                            </div>
-                            <div style={{ fontSize: 11, color: "#64748b", lineHeight: 1.4 }}>
-                              {svc.desc}
-                            </div>
-                          </div>
-                          {sel && (
-                            <span
-                              style={{
-                                marginLeft: "auto",
-                                color: "#8b5cf6",
-                                fontSize: 14,
-                                fontWeight: 700,
-                              }}
-                            >
-                              ✓
-                            </span>
-                          )}
-                        </div>
-                      </button>
-                    );
-                  })}
+                              {sel && (
+                                <div
+                                  style={{
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    height: 2,
+                                    background: "#8b5cf6",
+                                    borderRadius: "8px 8px 0 0",
+                                  }}
+                                />
+                              )}
+                              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                                {iconFile ? (
+                                  <img
+                                    src={iconSrc(iconFile)}
+                                    alt=""
+                                    style={{ width: 32, height: 32, objectFit: "contain" }}
+                                  />
+                                ) : (
+                                  <div
+                                    style={{ fontSize: 22, minWidth: 32, textAlign: "center" }}
+                                  >
+                                    ⚡
+                                  </div>
+                                )}
+                                <div>
+                                  <div
+                                    style={{
+                                      fontSize: 13,
+                                      fontWeight: 700,
+                                      color: sel ? "#8b5cf6" : "#334155",
+                                      marginBottom: 2,
+                                    }}
+                                  >
+                                    {svc.label}
+                                  </div>
+                                  <div
+                                    style={{ fontSize: 11, color: "#64748b", lineHeight: 1.4 }}
+                                  >
+                                    {svc.desc}
+                                  </div>
+                                </div>
+                                {sel && (
+                                  <span
+                                    style={{
+                                      marginLeft: "auto",
+                                      color: "#8b5cf6",
+                                      fontSize: 14,
+                                      fontWeight: 700,
+                                    }}
+                                  >
+                                    ✓
+                                  </span>
+                                )}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
                 </div>
                 <div
                   style={{
@@ -1234,12 +1279,12 @@ export default function App() {
                   </div>
                   <div style={{ fontSize: 10, color: K.textSubdued, lineHeight: 1.6 }}>
                     <div>
-                      <span style={{ color: "#8b5cf6", fontWeight: 600 }}>Lambda</span> — EDOT
-                      Lambda layer + OTLP → APM Server
+                      <span style={{ color: "#8b5cf6", fontWeight: 600 }}>Lambda</span> — EDOT or ADOT
+                      layer, OTLP → APM / Elastic
                     </div>
                     <div>
-                      <span style={{ color: "#8b5cf6", fontWeight: 600 }}>EMR Spark</span> — EDOT
-                      Java agent bootstrap action + OTLP → APM Server
+                      <span style={{ color: "#8b5cf6", fontWeight: 600 }}>Containers / Spark</span> — EDOT
+                      Java agent or sidecar; workflows add HTTP, messaging, and AWS SDK spans
                     </div>
                   </div>
                 </div>
@@ -1350,8 +1395,8 @@ export default function App() {
                   )}
                   {isTracesMode && (
                     <div style={{ fontSize: 11, color: "#8b5cf6", marginTop: 4 }}>
-                      OTel APM traces for Lambda &amp; EMR Spark. Ships to{" "}
-                      <strong>traces-apm-default</strong>.
+                      OTel-style APM traces for the selected scenarios (services and multi-step workflows).
+                      Ships to <strong>traces-apm-default</strong>.
                     </div>
                   )}
                 </div>

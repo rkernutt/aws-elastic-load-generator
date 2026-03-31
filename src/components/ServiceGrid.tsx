@@ -45,9 +45,7 @@ const ServiceGrid = memo(function ServiceGrid({
           marginBottom: 12,
         }}
       >
-        <span style={{ fontSize: 13, fontWeight: 600, color: K.textHeading }}>
-          Select Services
-        </span>
+        <span style={{ fontSize: 13, fontWeight: 600, color: K.textHeading }}>Select Services</span>
         <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
           <QuickBtn onClick={selectAll}>All {totalServices}</QuickBtn>
           <QuickBtn onClick={selectNone}>None</QuickBtn>
@@ -108,9 +106,7 @@ const ServiceGrid = memo(function ServiceGrid({
           </span>
         ))}
         {ingestionSource !== "default" && (
-          <span
-            style={{ fontSize: 9, color: K.warning, marginLeft: 4, alignSelf: "center" }}
-          >
+          <span style={{ fontSize: 9, color: K.warning, marginLeft: 4, alignSelf: "center" }}>
             Override: all using {INGESTION_META[ingestionSource]?.label}
           </span>
         )}
@@ -122,11 +118,8 @@ const ServiceGrid = memo(function ServiceGrid({
             eventType === "metrics"
               ? groupIds.filter((id) => METRICS_SUPPORTED_SERVICE_IDS.has(id))
               : groupIds;
-          const selCount = selectableInGroup.filter((id) =>
-            selectedServices.includes(id)
-          ).length;
-          const allSel =
-            selectableInGroup.length > 0 && selCount === selectableInGroup.length;
+          const selCount = selectableInGroup.filter((id) => selectedServices.includes(id)).length;
+          const allSel = selectableInGroup.length > 0 && selCount === selectableInGroup.length;
           const someSel = selCount > 0 && !allSel;
           const collapsed = collapsedGroups[group.id];
           return (
@@ -136,11 +129,7 @@ const ServiceGrid = memo(function ServiceGrid({
                 border: `1px solid ${allSel ? group.color + "88" : someSel ? group.color + "66" : K.border}`,
                 borderRadius: K.radius,
                 overflow: "hidden",
-                background: allSel
-                  ? `${group.color}12`
-                  : someSel
-                    ? `${group.color}08`
-                    : K.plain,
+                background: allSel ? `${group.color}12` : someSel ? `${group.color}08` : K.plain,
                 transition: "border-color 0.2s",
                 boxShadow: K.shadow,
               }}
@@ -245,8 +234,7 @@ const ServiceGrid = memo(function ServiceGrid({
                   {group.services.map((svc) => {
                     const sel = selectedServices.includes(svc.id);
                     const metricsDisabled =
-                      eventType === "metrics" &&
-                      !METRICS_SUPPORTED_SERVICE_IDS.has(svc.id);
+                      eventType === "metrics" && !METRICS_SUPPORTED_SERVICE_IDS.has(svc.id);
                     const src = getEffectiveSource(svc.id);
                     const meta = INGESTION_META[src];
                     return (
@@ -296,11 +284,7 @@ const ServiceGrid = memo(function ServiceGrid({
                           style={{
                             fontSize: 11,
                             fontWeight: 700,
-                            color: sel
-                              ? group.color
-                              : metricsDisabled
-                                ? "#94a3b8"
-                                : "#475569",
+                            color: sel ? group.color : metricsDisabled ? "#94a3b8" : "#475569",
                             marginBottom: 2,
                           }}
                         >
@@ -317,9 +301,7 @@ const ServiceGrid = memo(function ServiceGrid({
                           {svc.desc}
                         </div>
                         {metricsDisabled ? (
-                          <div
-                            style={{ fontSize: 10, color: "#94a3b8", fontWeight: 600 }}
-                          >
+                          <div style={{ fontSize: 10, color: "#94a3b8", fontWeight: 600 }}>
                             No metrics
                           </div>
                         ) : (

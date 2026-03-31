@@ -13,9 +13,11 @@ import {
   generateDataIngestionTrace,
   generateStepFunctionsWorkflowTrace,
   generateCascadingFailureTrace,
+} from "./workflow.js";
+import {
   generatePipelineS3SqsChainedTrace,
   generatePipelineStepFunctionsOrchestratedTrace,
-} from "./workflow.js";
+} from "./workflow-pipelines.js";
 import { generateApiGatewayTrace } from "./apigateway.js";
 import { generateS3Trace } from "./s3.js";
 import { generateGlueTrace } from "./glue.js";

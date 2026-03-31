@@ -1,20 +1,20 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "641b3e333e932904fe2d0ac0fa7f1feb"
+    "id": "56e95cabb3cb569346a05d2d839b66dc"
   },
   "transaction": {
-    "id": "8e557a3a57e12f2a",
-    "name": "webhook-dispatcher",
+    "id": "ac6c1e560746f002",
+    "name": "notification-sender",
     "type": "lambda",
     "duration": {
-      "us": 3938000
+      "us": 1298000
     },
-    "result": "success",
+    "result": "failure",
     "sampled": true,
     "span_count": {
       "started": 3,
@@ -22,24 +22,24 @@
     },
     "faas": {
       "coldstart": false,
-      "execution": "8c3e3177-8b26-f100-def5-dfd61412f2d2",
+      "execution": "fb1e48a7-c9bd-e33e-0d41-af3cb10ee622",
       "trigger": {
-        "type": "other"
+        "type": "timer"
       }
     }
   },
   "faas": {
-    "name": "webhook-dispatcher",
-    "id": "arn:aws:lambda:eu-south-2:345678901234:function:webhook-dispatcher",
+    "name": "notification-sender",
+    "id": "arn:aws:lambda:af-south-1:123456789012:function:notification-sender",
     "version": "$LATEST",
     "coldstart": false,
-    "execution": "8c3e3177-8b26-f100-def5-dfd61412f2d2",
+    "execution": "fb1e48a7-c9bd-e33e-0d41-af3cb10ee622",
     "trigger": {
-      "type": "other"
+      "type": "timer"
     }
   },
   "service": {
-    "name": "webhook-dispatcher",
+    "name": "notification-sender",
     "environment": "staging",
     "version": "1.0.0",
     "language": {
@@ -55,7 +55,7 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "0.6.0"
+    "version": "1.0.4"
   },
   "telemetry": {
     "sdk": {
@@ -64,23 +64,27 @@
       "version": "1.29.0"
     },
     "distro": {
-      "name": "elastic",
-      "version": "0.6.0"
+      "name": "aws-otel",
+      "version": "1.0.4"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "af-south-1",
     "account": {
-      "id": "345678901234",
-      "name": "dev-aws"
+      "id": "123456789012",
+      "name": "prod-aws"
     },
     "service": {
       "name": "lambda"
     }
   },
+  "labels": {
+    "aws.xray.trace_id": "1-f2b8bd07-aa6f5a26c1169042e2d6743c",
+    "aws.xray.segment_id": "205e080bf4f995df"
+  },
   "event": {
-    "outcome": "success"
+    "outcome": "failure"
   },
   "data_stream": {
     "type": "traces",

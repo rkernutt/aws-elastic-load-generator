@@ -1,20 +1,20 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "b7da719c2d4a2dc6d6ca4bb060afc853"
+    "id": "208d787d91fa4c08ea74af2658207667"
   },
   "transaction": {
-    "id": "77b05fe94c8cc661",
-    "name": "GET /api/v2/stream",
+    "id": "39d123bbde517d4a",
+    "name": "GET /api/v2/search",
     "type": "request",
     "duration": {
-      "us": 105000
+      "us": 351000
     },
-    "result": "HTTP 2xx",
+    "result": "HTTP 5xx",
     "sampled": true,
     "span_count": {
       "started": 4,
@@ -26,19 +26,19 @@
       "method": "GET"
     },
     "response": {
-      "status_code": 201
+      "status_code": 503
     }
   },
   "url": {
-    "path": "/api/v2/stream",
-    "domain": "f6a7b8c9d0.execute-api.ap-southeast-2.amazonaws.com"
+    "path": "/api/v2/search",
+    "domain": "a7b8c9d0e1.execute-api.eu-south-1.amazonaws.com"
   },
   "labels": {
-    "api_id": "f6a7b8c9d0",
+    "api_id": "a7b8c9d0e1",
     "api_type": "HTTP"
   },
   "service": {
-    "name": "api-stream",
+    "name": "api-search",
     "environment": "staging",
     "version": "1.0.0",
     "language": {
@@ -69,17 +69,17 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "eu-south-1",
     "account": {
-      "id": "234567890123",
-      "name": "staging-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "apigateway"
     }
   },
   "event": {
-    "outcome": "success"
+    "outcome": "failure"
   },
   "data_stream": {
     "type": "traces",

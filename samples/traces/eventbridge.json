@@ -1,35 +1,35 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "4d9a5cbfd85afbec3415f5d991746ca7"
+    "id": "0bcd9d891bafb043139b099e76fe721c"
   },
   "transaction": {
-    "id": "b74944ccf01a6015",
-    "name": "security.finding process",
+    "id": "71fe3c7cab5ad875",
+    "name": "scheduled.report process",
     "type": "messaging",
     "duration": {
-      "us": 116000
+      "us": 327000
     },
     "result": "success",
     "sampled": true,
     "span_count": {
-      "started": 2,
+      "started": 1,
       "dropped": 0
     }
   },
   "labels": {
-    "rule_name": "security.finding",
+    "rule_name": "scheduled.report",
     "event_bus_name": "default",
-    "event_source": "aws.securityhub",
-    "detail_type": "Security Hub Findings - Imported",
-    "matched_rule_count": "2"
+    "event_source": "aws.events",
+    "detail_type": "Scheduled Event",
+    "matched_rule_count": "1"
   },
   "service": {
-    "name": "security.finding",
+    "name": "scheduled.report",
     "environment": "production",
     "version": "1.0.0",
     "language": {
@@ -37,10 +37,10 @@
     },
     "runtime": {
       "name": "CPython",
-      "version": "3.12.3"
+      "version": "3.11.9"
     },
     "framework": {
-      "name": "FastAPI"
+      "name": "Flask"
     }
   },
   "agent": {
@@ -60,10 +60,10 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "234567890123",
-      "name": "staging-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "events"

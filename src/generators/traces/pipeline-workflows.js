@@ -1,12 +1,10 @@
 /**
- * Data pipeline trace generators — re-exported from the main workflow module.
+ * Data pipeline trace generators — re-exported from workflow-pipelines.js.
  *
- * This module provides a focused entry point for the two data-pipeline workflow
- * generators so that imports, tests, and documentation can reference pipeline
- * traces independently of the other multi-service workflow patterns.
+ * Thin entry point for tests and call sites that prefer a dedicated import path.
  */
 
 export {
   generatePipelineS3SqsChainedTrace,
   generatePipelineStepFunctionsOrchestratedTrace,
-} from "./workflow.js";
+} from "./workflow-pipelines.js";

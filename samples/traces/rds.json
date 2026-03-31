@@ -1,62 +1,62 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.846Z",
+  "@timestamp": "2026-03-31T13:15:29.271Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "c2ed2953f5f3ac3cfee0e4ddb33d3ca0"
+    "id": "cbca321c6f26539e8e03bab899568dca"
   },
   "transaction": {
-    "id": "ef89b0e2bcafba33",
-    "name": "GenerateSalesReport",
+    "id": "84053df0e4a0d86c",
+    "name": "ProcessCharge",
     "type": "request",
     "duration": {
-      "us": 48166000
+      "us": 591000
     },
     "result": "success",
     "sampled": true,
     "span_count": {
-      "started": 2,
+      "started": 5,
       "dropped": 0
     }
   },
   "service": {
-    "name": "analytics-service",
-    "environment": "dev",
+    "name": "billing-service",
+    "environment": "production",
     "version": "1.0.0",
     "language": {
-      "name": "python"
+      "name": "java"
     },
     "runtime": {
-      "name": "CPython",
-      "version": "3.12.3"
+      "name": "OpenJDK",
+      "version": "21.0.3"
     },
     "framework": {
-      "name": "Django"
+      "name": "Micronaut"
     }
   },
   "agent": {
     "name": "otlp",
-    "version": "0.6.0"
+    "version": "1.6.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "python",
-      "version": "1.29.0"
+      "language": "java",
+      "version": "2.12.0"
     },
     "distro": {
       "name": "elastic",
-      "version": "0.6.0"
+      "version": "1.6.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "234567890123",
-      "name": "staging-aws"
+      "id": "123456789012",
+      "name": "prod-aws"
     },
     "service": {
       "name": "rds"

@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-03-31T10:14:12.849Z",
+  "@timestamp": "2026-03-31T13:15:29.274Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "3d32a84bd50769e35243b80ec59f1d75"
+    "id": "a51f04d889e1fbde50e38eaeace463be"
   },
   "transaction": {
-    "id": "84393cb0a2987f30",
+    "id": "f46ded91f56abe4f",
     "name": "pipeline-sqs-handler",
-    "type": "lambda",
+    "type": "messaging",
     "duration": {
-      "us": 32752000
+      "us": 670000
     },
     "result": "success",
     "sampled": true,
@@ -22,10 +22,10 @@
     },
     "faas": {
       "name": "pipeline-sqs-handler",
-      "id": "arn:aws:lambda:ap-east-1:345678901234:function:pipeline-sqs-handler",
+      "id": "arn:aws:lambda:eu-south-2:234567890123:function:pipeline-sqs-handler",
       "version": "$LATEST",
       "coldstart": false,
-      "execution": "aa6fe381-c9be-6ef9-1a90-dcf05910a426",
+      "execution": "3685fbe8-7ba2-7e5b-2066-ee29c25744ba",
       "trigger": {
         "type": "pubsub"
       }
@@ -33,10 +33,10 @@
   },
   "faas": {
     "name": "pipeline-sqs-handler",
-    "id": "arn:aws:lambda:ap-east-1:345678901234:function:pipeline-sqs-handler",
+    "id": "arn:aws:lambda:eu-south-2:234567890123:function:pipeline-sqs-handler",
     "version": "$LATEST",
     "coldstart": false,
-    "execution": "aa6fe381-c9be-6ef9-1a90-dcf05910a426",
+    "execution": "3685fbe8-7ba2-7e5b-2066-ee29c25744ba",
     "trigger": {
       "type": "pubsub"
     }
@@ -58,7 +58,7 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "0.6.0"
+    "version": "1.0.4"
   },
   "telemetry": {
     "sdk": {
@@ -67,16 +67,16 @@
       "version": "1.29.0"
     },
     "distro": {
-      "name": "elastic",
-      "version": "0.6.0"
+      "name": "aws-otel",
+      "version": "1.0.4"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "345678901234",
-      "name": "dev-aws"
+      "id": "234567890123",
+      "name": "staging-aws"
     },
     "service": {
       "name": "lambda"
@@ -84,8 +84,11 @@
   },
   "labels": {
     "s3_notification_prefix": "raw/",
-    "sqs_queue": "s3-lake-notifications-prod",
-    "landing_bucket": "dev-aws-landing-raw"
+    "sqs_queue": "s3-lake-notifications-staging",
+    "landing_bucket": "staging-aws-landing-raw",
+    "sqs_message_id": "0f127c84-5d4d-822c-b72e-8654a103ad87",
+    "aws.xray.trace_id": "1-6a45e71c-28e7595ce569b1d1b256754c",
+    "aws.xray.segment_id": "917cae32ae741aba"
   },
   "event": {
     "outcome": "success"
