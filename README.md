@@ -8,6 +8,15 @@ Each service has its correct real-world ingestion source pre-configured — S3, 
 
 ---
 
+## What's New in v11.4
+
+- **200-service milestone** — 15 new AWS service generators: Amazon VPC IPAM, AWS Private 5G, Amazon Neptune Analytics, Amazon Aurora DSQL, AWS Mainframe Modernization, AWS Parallel Computing Service, Amazon Elastic VMware Service (EVS), AWS SimSpace Weaver, Amazon HealthOmics, Amazon Bedrock Data Automation, AWS Ground Station, Amazon WorkMail, AWS Wickr, Amazon Q Developer, AWS End User Messaging.
+- **165 metrics generators** — all 15 new services included in Metrics mode via the generic CloudWatch generator.
+- **167 ingest pipelines** — 15 new pipelines added to the custom pipeline installer across 8 groups (networking, databases, compute, aiml, iot, enduser, devtools, streaming).
+- **158 ML anomaly detection jobs across 24 groups** — `v114-services-jobs.json` adds one targeted detector per new service, partitioned by the most operationally meaningful dimension (pool ID, site ID, cluster ID, graph ID, queue, channel, etc.).
+- **Proper AWS icons** — 9 new SVG icons added to `public/aws-icons/` from the official AWS Architecture Icon library (`AWSPrivate5G`, `AWSMainframeModernization`, `AWSParallelComputingService`, `AmazonElasticVMwareService`, `AWSSimSpaceWeaver`, `AmazonHealthOmics`, `AWSGroundStation`, `AmazonWorkMail`, `AWSWickr`).
+- **UI fully updated** — all 15 new services appear in the service picker with correct group, icon, and description.
+
 ## What's New in v11.3
 
 - **Scheduled mode** — new card in the UI runs shipping on a repeat timer to build an ML baseline. Set **Total runs** (1–24, default 12) and **Interval** (5–60 min, default 15); for example 12 × 15 min ≈ 3 hours of spaced loads. A header badge shows `Run N/M` during the schedule, and a countdown timer in the progress card shows the wait between runs. The **Stop** button cancels both the current run and the pending countdown.
