@@ -53,6 +53,13 @@ export default tseslint.config(
     },
   },
   {
+    // APM/trace builders use loosely shaped Record payloads and dynamic span lists.
+    files: ["src/generators/traces/**/*.ts", "src/generators/metrics/compute.ts"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
+  {
     files: ["**/*.{js,mjs}"],
     extends: [js.configs.recommended],
     languageOptions: {
@@ -63,21 +70,6 @@ export default tseslint.config(
     rules: {
       "no-unused-vars": [
         "error",
-        {
-          argsIgnorePattern: "^_",
-          varsIgnorePattern: "^_",
-        },
-      ],
-    },
-  },
-  {
-    // Generator files share a common import set from helpers; not every helper is
-    // used in every service file. Downgrade no-unused-vars to a warning so CI stays
-    // green while still surfacing genuinely unused locals at review time.
-    files: ["src/generators/**/*.js"],
-    rules: {
-      "no-unused-vars": [
-        "warn",
         {
           argsIgnorePattern: "^_",
           varsIgnorePattern: "^_",

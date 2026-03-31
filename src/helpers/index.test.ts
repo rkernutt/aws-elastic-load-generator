@@ -54,11 +54,11 @@ describe("randInt", () => {
 });
 
 describe("randFloat", () => {
-  it("returns string with 3 decimal places", () => {
-    const s = randFloat(0, 1);
-    expect(typeof s).toBe("string");
-    expect(Number(s)).toBeGreaterThanOrEqual(0);
-    expect(Number(s)).toBeLessThanOrEqual(1);
+  it("returns a number in [min, max]", () => {
+    const n = randFloat(0, 1);
+    expect(typeof n).toBe("number");
+    expect(n).toBeGreaterThanOrEqual(0);
+    expect(n).toBeLessThanOrEqual(1);
   });
 });
 

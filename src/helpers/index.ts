@@ -39,8 +39,8 @@ export const REGIONS = [
 export const rand = <T>(arr: readonly T[]): T => arr[Math.floor(Math.random() * arr.length)]!;
 export const randInt = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
-export const randFloat = (min: number, max: number) =>
-  (Math.random() * (max - min) + min).toFixed(3);
+/** Uniform random float in [min, max]. */
+export const randFloat = (min: number, max: number): number => Math.random() * (max - min) + min;
 export const randId = (len = 8) =>
   Math.random()
     .toString(36)

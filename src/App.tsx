@@ -1156,10 +1156,10 @@ export default function App() {
                     borderRadius: K.radiusSm,
                   }}
                 >
-                  Documents match Elastic APM shape (OTLP-style). Single-service and workflow traces use{" "}
-                  <span style={{ color: "#8b5cf6", fontWeight: 600 }}>EDOT</span> or{" "}
-                  <span style={{ color: "#8b5cf6", fontWeight: 600 }}>ADOT</span> conventions; ship to{" "}
-                  <span style={{ color: "#8b5cf6", fontWeight: 600 }}>traces-apm-default</span>.
+                  Documents match Elastic APM shape (OTLP-style). Single-service and workflow traces
+                  use <span style={{ color: "#8b5cf6", fontWeight: 600 }}>EDOT</span> or{" "}
+                  <span style={{ color: "#8b5cf6", fontWeight: 600 }}>ADOT</span> conventions; ship
+                  to <span style={{ color: "#8b5cf6", fontWeight: 600 }}>traces-apm-default</span>.
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                   {traceServiceGroups.map(({ title, items }) => (
@@ -1220,9 +1220,7 @@ export default function App() {
                                     style={{ width: 32, height: 32, objectFit: "contain" }}
                                   />
                                 ) : (
-                                  <div
-                                    style={{ fontSize: 22, minWidth: 32, textAlign: "center" }}
-                                  >
+                                  <div style={{ fontSize: 22, minWidth: 32, textAlign: "center" }}>
                                     ⚡
                                   </div>
                                 )}
@@ -1237,9 +1235,7 @@ export default function App() {
                                   >
                                     {svc.label}
                                   </div>
-                                  <div
-                                    style={{ fontSize: 11, color: "#64748b", lineHeight: 1.4 }}
-                                  >
+                                  <div style={{ fontSize: 11, color: "#64748b", lineHeight: 1.4 }}>
                                     {svc.desc}
                                   </div>
                                 </div>
@@ -1279,12 +1275,12 @@ export default function App() {
                   </div>
                   <div style={{ fontSize: 10, color: K.textSubdued, lineHeight: 1.6 }}>
                     <div>
-                      <span style={{ color: "#8b5cf6", fontWeight: 600 }}>Lambda</span> — EDOT or ADOT
-                      layer, OTLP → APM / Elastic
+                      <span style={{ color: "#8b5cf6", fontWeight: 600 }}>Lambda</span> — EDOT or
+                      ADOT layer, OTLP → APM / Elastic
                     </div>
                     <div>
-                      <span style={{ color: "#8b5cf6", fontWeight: 600 }}>Containers / Spark</span> — EDOT
-                      Java agent or sidecar; workflows add HTTP, messaging, and AWS SDK spans
+                      <span style={{ color: "#8b5cf6", fontWeight: 600 }}>Containers / Spark</span>{" "}
+                      — EDOT Java agent or sidecar; workflows add HTTP, messaging, and AWS SDK spans
                     </div>
                   </div>
                 </div>
@@ -1395,8 +1391,8 @@ export default function App() {
                   )}
                   {isTracesMode && (
                     <div style={{ fontSize: 11, color: "#8b5cf6", marginTop: 4 }}>
-                      OTel-style APM traces for the selected scenarios (services and multi-step workflows).
-                      Ships to <strong>traces-apm-default</strong>.
+                      OTel-style APM traces for the selected scenarios (services and multi-step
+                      workflows). Ships to <strong>traces-apm-default</strong>.
                     </div>
                   )}
                 </div>

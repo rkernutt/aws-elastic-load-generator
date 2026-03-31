@@ -4,7 +4,7 @@ import { generateLambdaLog, generateApiGatewayLog } from "./serverless.js";
 describe("generateLambdaLog", () => {
   it("returns object with required top-level fields", () => {
     const ts = new Date().toISOString();
-    const doc = generateLambdaLog(ts, 0);
+    const doc: any = generateLambdaLog(ts, 0);
     expect(doc).toHaveProperty("@timestamp", ts);
     expect(doc).toHaveProperty("cloud");
     expect(doc.cloud).toHaveProperty("provider", "aws");
@@ -20,7 +20,7 @@ describe("generateLambdaLog", () => {
   });
 
   it("includes metrics when present", () => {
-    const doc = generateLambdaLog(new Date().toISOString(), 0);
+    const doc: any = generateLambdaLog(new Date().toISOString(), 0);
     expect(doc.aws.lambda).toHaveProperty("metrics");
     expect(doc.aws.lambda.metrics).toHaveProperty("Invocations");
     expect(doc.aws.lambda.metrics).toHaveProperty("Duration");
@@ -30,7 +30,7 @@ describe("generateLambdaLog", () => {
 describe("generateApiGatewayLog", () => {
   it("returns object with required top-level fields", () => {
     const ts = new Date().toISOString();
-    const doc = generateApiGatewayLog(ts, 0);
+    const doc: any = generateApiGatewayLog(ts, 0);
     expect(doc).toHaveProperty("@timestamp", ts);
     expect(doc).toHaveProperty("cloud");
     expect(doc.cloud).toHaveProperty("provider", "aws");

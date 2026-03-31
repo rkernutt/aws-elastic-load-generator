@@ -120,7 +120,7 @@ function assertDuration(doc: any) {
 // ─── Serverless ──────────────────────────────────────────────────────────────
 describe("Serverless generators", () => {
   it("Lambda - base fields and event_type", () => {
-    const doc = generateLambdaLog(TS, 0);
+    const doc: any = generateLambdaLog(TS, 0);
     assertBase(doc, TS);
     assertDuration(doc);
     expect(doc.aws.lambda).toHaveProperty("request_id");
@@ -131,7 +131,7 @@ describe("Serverless generators", () => {
     // Run enough times to likely get a REPORT event
     let reportDoc: any = null;
     for (let i = 0; i < 100; i++) {
-      const d = generateLambdaLog(TS, 0);
+      const d: any = generateLambdaLog(TS, 0);
       if (d.aws.lambda.event_type === "report") {
         reportDoc = d;
         break;
@@ -146,7 +146,7 @@ describe("Serverless generators", () => {
   it("Lambda - START event message format", () => {
     let startDoc: any = null;
     for (let i = 0; i < 100; i++) {
-      const d = generateLambdaLog(TS, 0);
+      const d: any = generateLambdaLog(TS, 0);
       if (d.aws.lambda.event_type === "start") {
         startDoc = d;
         break;
@@ -156,7 +156,7 @@ describe("Serverless generators", () => {
   });
 
   it("ApiGateway - base fields and duration", () => {
-    const doc = generateApiGatewayLog(TS, 0);
+    const doc: any = generateApiGatewayLog(TS, 0);
     assertBase(doc, TS);
     assertDuration(doc);
     expect(doc.aws.apigateway).toHaveProperty("api_id");
@@ -271,7 +271,7 @@ describe("Database generators", () => {
     // Run a few times to hit the enhanced monitoring path
     let emDoc: any = null;
     for (let i = 0; i < 20; i++) {
-      const d = generateRdsLog(TS, 0);
+      const d: any = generateRdsLog(TS, 0);
       if (d.aws.rds.enhanced_monitoring) {
         emDoc = d;
         break;
@@ -391,21 +391,21 @@ describe("End User generators", () => {
 describe("Error rate consistency", () => {
   it("Lambda at 100% error rate always sets outcome=failure", () => {
     for (let i = 0; i < 20; i++) {
-      const doc = generateLambdaLog(TS, 1);
+      const doc: any = generateLambdaLog(TS, 1);
       expect(doc.event.outcome).toBe("failure");
     }
   });
 
   it("DynamoDB at 100% error rate always sets outcome=failure", () => {
     for (let i = 0; i < 20; i++) {
-      const doc = generateDynamoDbLog(TS, 1);
+      const doc: any = generateDynamoDbLog(TS, 1);
       expect(doc.event.outcome).toBe("failure");
     }
   });
 
   it("S3 at 0% error rate always sets outcome=success", () => {
     for (let i = 0; i < 20; i++) {
-      const doc = generateS3Log(TS, 0);
+      const doc: any = generateS3Log(TS, 0);
       expect(doc.event.outcome).toBe("success");
     }
   });
