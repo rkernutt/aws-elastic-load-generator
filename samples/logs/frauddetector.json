@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "eu-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "frauddetector"
@@ -13,36 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "card-fraud-detector"
+      "DetectorId": "account-takeover"
     },
     "frauddetector": {
-      "detector_id": "card-fraud-detector",
-      "detector_version_id": "3",
-      "event_id": "iaxpqjwv9sl",
-      "event_type": "online_purchase",
+      "detector_id": "account-takeover",
+      "detector_version_id": "5",
+      "event_id": "3v0893hqbfc",
+      "event_type": "card_transaction",
       "entity_type": "customer",
-      "entity_id": "entity_ugn3jzi9ag",
-      "outcomes": ["APPROVE"],
-      "risk_score": 239,
+      "entity_id": "entity_5k43utmxj1",
+      "outcomes": [
+        "REVIEW"
+      ],
+      "risk_score": 404,
       "model_scores": {
-        "card-fraud-detector": 239
+        "account-takeover": 404
       },
-      "used_rules": ["block-high-risk"],
-      "ip_address": "61.83.191.45",
+      "used_rules": [
+        "approve-low"
+      ],
+      "ip_address": "234.7.154.20",
       "event_variables": {
-        "billing_postal": "66131",
+        "billing_postal": "97067",
         "phone_verified": "false"
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["intrusion_detection", "process"],
+    "category": [
+      "intrusion_detection",
+      "process"
+    ],
     "dataset": "aws.frauddetector",
     "provider": "frauddetector.amazonaws.com",
-    "duration": 109000000
+    "duration": 293000000
   },
-  "message": "Fraud Detector APPROVE [card-fraud-detector]: entity entity_ugn3jzi9ag score 239/1000",
+  "message": "Fraud Detector REVIEW [account-takeover]: entity entity_5k43utmxj1 score 404/1000",
   "log": {
     "level": "info"
   }

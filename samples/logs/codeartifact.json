@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "codeartifact"
@@ -13,24 +13,27 @@
   },
   "aws": {
     "codeartifact": {
-      "domain_name": "internal",
-      "repository_name": "maven-central",
-      "package_format": "pypi",
-      "package_name": "my-lib",
-      "package_version": "4.13.3",
-      "action": "PublishPackageVersion",
-      "download_size_bytes": 11316166,
+      "domain_name": "platform",
+      "repository_name": "pypi-store",
+      "package_format": "nuget",
+      "package_name": "shared-components",
+      "package_version": "3.1.10",
+      "action": "DeletePackageVersions",
+      "download_size_bytes": 29495860,
       "upstream_repository": "npm-upstream"
     }
   },
   "event": {
-    "action": "PublishPackageVersion",
+    "action": "DeletePackageVersions",
     "outcome": "success",
-    "category": ["package", "process"],
+    "category": [
+      "package",
+      "process"
+    ],
     "dataset": "aws.codeartifact",
     "provider": "codeartifact.amazonaws.com"
   },
-  "message": "CodeArtifact PublishPackageVersion: my-lib@4.13.3 [pypi] in internal/maven-central",
+  "message": "CodeArtifact DeletePackageVersions: shared-components@3.1.10 [nuget] in platform/pypi-store",
   "log": {
     "level": "info"
   }

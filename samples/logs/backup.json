@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "backup"
@@ -13,24 +13,32 @@
   },
   "aws": {
     "backup": {
-      "backup_job_id": "rv7yxver-z7n9-irwc",
-      "backup_plan_name": "daily-backup-plan",
-      "resource_type": "EC2",
+      "backup_job_id": "jwk23004-pluk-6jw1",
+      "backup_plan_name": "compliance-backup",
+      "resource_type": "EFS",
       "backup_vault_name": "Default",
-      "status": "RUNNING",
-      "backup_size_gb": 1418.991,
-      "lifecycle_delete_after_days": 90
+      "status": "FAILED",
+      "backup_size_gb": 0,
+      "lifecycle_delete_after_days": 30,
+      "error_code": "RESOURCE_NOT_FOUND"
     }
   },
   "event": {
-    "outcome": "success",
-    "category": ["process"],
+    "outcome": "failure",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.backup",
     "provider": "backup.amazonaws.com",
-    "duration": 6955000000000
+    "duration": 3084000000000
   },
-  "message": "AWS Backup RUNNING: fsx/fs-prod -> Default (1419.0GB)",
+  "message": "AWS Backup FAILED for fsx/fs-prod: Vault full",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "IAM_ROLE_ERROR",
+    "message": "Backup job failed",
+    "type": "storage"
   }
 }

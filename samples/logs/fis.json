@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "eu-west-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "fis"
@@ -13,27 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "ExperimentTemplateId": "EXT8KWI5YQ7"
+      "ExperimentTemplateId": "EXTREEOHO74"
     },
     "fis": {
-      "experiment_id": "EXPP5VZL5KB",
-      "experiment_template_id": "EXT8KWI5YQ7",
-      "experiment_name": "cpu-stress-test",
-      "experiment_state": "running",
-      "target_resource_type": "EC2 instances",
-      "action_type": "aws:ec2:terminate-instances",
-      "stop_condition": "aws:cloudwatch:alarm",
-      "role_arn": "arn:aws:iam::814726593401:role/FISRole-cpu-stress-test"
+      "experiment_id": "EXPTP6VWI4O",
+      "experiment_template_id": "EXTREEOHO74",
+      "experiment_name": "database-failover",
+      "experiment_state": "completed",
+      "target_resource_type": "RDS clusters",
+      "action_type": "aws:eks:terminate-nodegroup-instances",
+      "stop_condition": "none",
+      "role_arn": "arn:aws:iam::164820739518:role/FISRole-database-failover"
     }
   },
   "event": {
-    "action": "CreateExperimentTemplate",
+    "action": "GetExperiment",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.fis",
     "provider": "fis.amazonaws.com"
   },
-  "message": "FIS CreateExperimentTemplate: exp=EXPP5VZL5KB (cpu-stress-test) state=running, target=EC2 instances",
+  "message": "FIS GetExperiment: exp=EXPTP6VWI4O (database-failover) state=completed, target=RDS clusters",
   "log": {
     "level": "info"
   }

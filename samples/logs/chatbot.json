@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-southeast-3",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,28 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "ChannelConfiguration": "security-alerts",
+      "ChannelConfiguration": "ops-alerts",
       "ChannelType": "MicrosoftTeams"
     },
     "chatbot": {
-      "channel_configuration_name": "security-alerts",
+      "channel_configuration_name": "ops-alerts",
       "channel_type": "MicrosoftTeams",
-      "notification_type": "GuardDutyFinding",
-      "workspace_id": "T3KITLPIX",
-      "channel_id": "CE62OOJIZ",
+      "notification_type": "SecurityHubFinding",
+      "workspace_id": "TLAD23M9N",
+      "channel_id": "C7QZ8GSXH",
       "delivery_status": "Delivered",
-      "message_id": "z67aclq8-3uz6-ec5v-o2h3-qes7a11iz9j",
-      "sns_topic_arn": "arn:aws:sns:il-central-1:293847561023:guarddutyfinding-topic"
+      "message_id": "88yqei3v-1pib-1ff2-kjy7-bkyc14fqwob",
+      "sns_topic_arn": "arn:aws:sns:ap-southeast-3:293847561023:securityhubfinding-topic"
     }
   },
   "event": {
-    "action": "NotificationDelivery",
+    "action": "ChannelTest",
     "outcome": "success",
-    "category": ["configuration"],
+    "category": [
+      "configuration"
+    ],
     "dataset": "aws.chatbot",
     "provider": "chatbot.amazonaws.com"
   },
-  "message": "Chatbot security-alerts: GuardDutyFinding delivered to MicrosoftTeams",
+  "message": "Chatbot ops-alerts: SecurityHubFinding delivered to MicrosoftTeams",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "eu-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "vpclattice"
@@ -13,33 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "auth-svc",
-      "ServiceNetworkName": "shared-services-network"
+      "ServiceName": "payment-svc",
+      "ServiceNetworkName": "staging-service-network"
     },
     "vpclattice": {
-      "service_name": "auth-svc",
-      "service_arn": "arn:aws:vpc-lattice:ca-central-1:814726593401:service/auth-svc-dulnjnx5",
-      "service_network_name": "shared-services-network",
-      "target_group_id": "tg-ebskhsattb",
-      "source_vpc_id": "vpc-45z06asb",
-      "destination_vpc_id": "vpc-ux8dddd4",
-      "request_method": "PATCH",
-      "response_code": 204,
-      "response_time_ms": 459,
-      "bytes_received": 4561,
-      "bytes_sent": 47135,
-      "tls_cipher_suite": "TLS_AES_256_GCM_SHA384"
+      "service_name": "payment-svc",
+      "service_arn": "arn:aws:vpc-lattice:eu-south-1:501938274650:service/payment-svc-jxgsaxwj",
+      "service_network_name": "staging-service-network",
+      "target_group_id": "tg-l59ya8gjp5q",
+      "source_vpc_id": "vpc-6210iuq7",
+      "destination_vpc_id": "vpc-1116vlj9",
+      "request_method": "POST",
+      "response_code": 200,
+      "response_time_ms": 49,
+      "bytes_received": 33011,
+      "bytes_sent": 100335,
+      "tls_cipher_suite": "ECDHE-RSA-AES256-GCM-SHA384"
     }
   },
   "event": {
-    "action": "ServiceNetworkVpcAssociation",
+    "action": "FixedResponseRule",
     "outcome": "success",
-    "category": ["network"],
+    "category": [
+      "network"
+    ],
     "dataset": "aws.vpclattice",
     "provider": "vpc-lattice.amazonaws.com",
-    "duration": 459000000
+    "duration": 49000000
   },
-  "message": "VPC Lattice auth-svc: PATCH 204 459ms",
+  "message": "VPC Lattice payment-svc: POST 200 49ms",
   "log": {
     "level": "info"
   }

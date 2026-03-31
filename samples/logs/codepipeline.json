@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "codepipeline"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "release-train"
+      "PipelineName": "hotfix-pipeline"
     },
     "codepipeline": {
-      "pipeline_name": "release-train",
-      "pipeline_arn": "arn:aws:codepipeline:eu-south-1:164820739518:release-train",
-      "execution_id": "1y1deyuv-vd7u-1bgx-dfu7-xkgfdn0porm",
-      "stage_name": "Staging",
-      "action_name": "Deploy",
+      "pipeline_name": "hotfix-pipeline",
+      "pipeline_arn": "arn:aws:codepipeline:sa-east-1:501938274650:hotfix-pipeline",
+      "execution_id": "z5mvj0dw-nrzt-dfia-6cgk-fvxfem85ywp",
+      "stage_name": "Approval",
+      "action_name": "Lambda",
       "state": "Succeeded",
-      "revision_id": "f8cpqk3e4qt",
+      "revision_id": "5gehtlszhj9",
       "structured_logging": true,
       "metrics": {
         "PipelineExecutionAttempts": {
@@ -48,12 +48,15 @@
   },
   "event": {
     "outcome": "success",
-    "category": ["process", "configuration"],
+    "category": [
+      "process",
+      "configuration"
+    ],
     "dataset": "aws.codepipeline",
     "provider": "codepipeline.amazonaws.com",
-    "duration": 60000000000
+    "duration": 61000000000
   },
-  "message": "{\"pipeline\":\"release-train\",\"executionId\":\"1y1deyuv-vd7u-1bgx-dfu7-xkgfdn0porm\",\"stage\":\"Staging\",\"state\":\"Succeeded\",\"timestamp\":\"2026-03-30T12:56:00.184Z\"}",
+  "message": "{\"pipeline\":\"hotfix-pipeline\",\"executionId\":\"z5mvj0dw-nrzt-dfia-6cgk-fvxfem85ywp\",\"stage\":\"Approval\",\"state\":\"Succeeded\",\"timestamp\":\"2026-03-31T10:14:12.846Z\"}",
   "log": {
     "level": "info"
   }

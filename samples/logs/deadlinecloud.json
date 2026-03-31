@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "eu-central-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,37 +13,44 @@
   },
   "aws": {
     "dimensions": {
-      "FarmId": "farm-j8c5y64z3c",
-      "QueueId": "queue-hr5xkjl9i4e"
+      "FarmId": "farm-rakap2xcb8h",
+      "QueueId": "queue-pvnhxunamv8"
     },
     "deadlinecloud": {
-      "farm_id": "farm-j8c5y64z3c",
-      "farm_name": "post-production",
-      "queue_id": "queue-hr5xkjl9i4e",
-      "queue_name": "high-priority",
-      "job_id": "job-m38zm59th",
-      "job_name": "shot_comp_0010",
-      "task_id": "task-oj708l726l",
-      "task_status": "RUNNING",
-      "job_status": "SUCCEEDED",
-      "worker_hostname": "render-worker-gpu-01.ap-northeast-2.compute.internal",
-      "frame_start": 149,
-      "frame_end": 173,
-      "duration_seconds": 3194,
-      "renderer": "Cycles",
-      "priority": 65
+      "farm_id": "farm-rakap2xcb8h",
+      "farm_name": "ad-rendering",
+      "queue_id": "queue-pvnhxunamv8",
+      "queue_name": "test",
+      "job_id": "job-dt95nw43jva",
+      "job_name": "lighting_pass_v3",
+      "task_id": "task-vcvs3vgc5bj",
+      "task_status": "NOT_COMPATIBLE",
+      "job_status": "CANCELED",
+      "worker_hostname": "render-worker-spot-01.eu-central-2.compute.internal",
+      "frame_start": 220,
+      "frame_end": 240,
+      "duration_seconds": 1629,
+      "renderer": "RenderMan",
+      "priority": 32
     }
   },
   "event": {
-    "action": "DeleteJob",
-    "outcome": "success",
-    "category": ["process"],
+    "action": "CreateWorker",
+    "outcome": "failure",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.deadlinecloud",
     "provider": "deadline.amazonaws.com",
-    "duration": 3194000000000
+    "duration": 1629000000000
   },
-  "message": "Deadline Cloud DeleteJob: farm=post-production queue=high-priority job=shot_comp_0010 frames 149-173 RUNNING",
+  "message": "Deadline Cloud CreateWorker FAILED [ad-rendering/lighting_pass_v3]: Worker lost connection",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "AccessDeniedException",
+    "message": "Deadline Cloud render task failed",
+    "type": "process"
   }
 }

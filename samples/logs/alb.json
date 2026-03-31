@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "alb"
@@ -13,74 +13,78 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "app/prod-alb-ap-south-1/thqo1jctr5",
-      "TargetGroup": "targetgroup/tg-web/lwux3qtaxel",
-      "AvailabilityZone": "ap-south-1c"
+      "LoadBalancer": "app/prod-alb-eu-central-1/5z0u7n9bbo",
+      "TargetGroup": "targetgroup/tg-web/pj0pp5qhl1",
+      "AvailabilityZone": "eu-central-1a"
     },
     "elb": {
-      "name": "app/prod-alb-ap-south-1/thqo1jctr5",
+      "name": "app/prod-alb-eu-central-1/5z0u7n9bbo",
       "type": "application",
-      "target_group.arn": "arn:aws:elasticloadbalancing:ap-south-1:293847561023:targetgroup/tg-web/lwux3qtaxel",
-      "listener": "arn:aws:elasticloadbalancing:ap-south-1:293847561023:listener/app/prod-alb/1r3g5cvf2o9/ixzbgkosbxg",
+      "target_group.arn": "arn:aws:elasticloadbalancing:eu-central-1:501938274650:targetgroup/tg-web/pj0pp5qhl1",
+      "listener": "arn:aws:elasticloadbalancing:eu-central-1:501938274650:listener/app/prod-alb/kikc3ernpxr/fe90bniajjr",
       "protocol": "HTTPS",
-      "request_processing_time.sec": 0.084,
-      "backend_processing_time.sec": 0.516,
-      "response_processing_time.sec": 0.077,
-      "backend.ip": "138.104.247.98",
-      "backend.port": "7514",
+      "request_processing_time.sec": 0.149,
+      "backend_processing_time.sec": 1.201,
+      "response_processing_time.sec": 0.024,
+      "backend.ip": "98.197.200.202",
+      "backend.port": "6255",
       "backend.http.response.status_code": 200,
       "ssl_protocol": "TLSv1.3",
       "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
       "tls_named_group": "x25519",
-      "chosen_cert.arn": "arn:aws:acm:ap-south-1:293847561023:certificate/v7fe8u0m-px6h-hv6w-x4v1-xeub4f8xgp",
-      "trace_id": "Root=1-U8U4UV65-08G57MM0FZJI",
-      "matched_rule_priority": "3",
-      "action_executed": "authenticate-cognito",
-      "target_port": "138.104.247.98:7514",
+      "chosen_cert.arn": "arn:aws:acm:eu-central-1:501938274650:certificate/jfgfdfdc-rxy0-qqzd-79qz-6w5zwdo3xdx",
+      "trace_id": "Root=1-G90YNTY0-2F9A5QTXXJF",
+      "matched_rule_priority": "default",
+      "action_executed": "forward",
+      "target_port": "98.197.200.202:6255",
       "target_status_code": "200",
       "classification": "NORMAL"
     }
   },
   "http": {
     "request": {
-      "method": "DELETE",
-      "bytes": 456,
-      "referrer": "https://www.google.com/"
+      "method": "PUT",
+      "bytes": 818
     },
     "response": {
       "status_code": 200,
-      "bytes": 28272
+      "bytes": 33174
     }
   },
   "url": {
-    "path": "/api/v1/orders",
+    "path": "/api/v2/events",
     "domain": "api.example.com"
   },
   "client": {
-    "ip": "211.91.57.197",
-    "port": 53832,
+    "ip": "192.255.100.203",
+    "port": 49840,
     "geo": {
-      "country_iso_code": "AU",
-      "country_name": "Australia",
-      "city_name": "Sydney",
+      "country_iso_code": "US",
+      "country_name": "United States",
+      "city_name": "Dallas",
       "location": {
-        "lat": -33.8688,
-        "lon": 151.2093
+        "lat": 32.7767,
+        "lon": -96.797
       }
     }
   },
   "user_agent": {
-    "original": "Go-http-client/1.1"
+    "original": "python-requests/2.27.1"
   },
   "event": {
-    "duration": 676999999.9999999,
+    "duration": 1374000000,
     "outcome": "success",
-    "category": ["web", "network"],
-    "type": ["access"],
+    "category": [
+      "web",
+      "network"
+    ],
+    "type": [
+      "access"
+    ],
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com"
   },
-  "message": "DELETE /api/v1/orders 200 677ms",
+  "message": "PUT /api/v2/events 200 1374ms",
   "log": {
     "level": "info"
   }

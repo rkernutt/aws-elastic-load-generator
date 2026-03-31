@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-central-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -17,48 +17,51 @@
     },
     "greengrass": {
       "core_device_name": "retail-kiosk",
-      "component_name": "com.aws.greengrass.Nucleus",
-      "component_version": "3.5.8",
+      "component_name": "com.aws.greengrass.StreamManager",
+      "component_version": "3.1.1",
       "nucleus_version": "2.12.0",
       "platform": "linux/amd64",
-      "deployment_id": "o9pjczn1m",
+      "deployment_id": "ormy3h8wxr",
       "status": "FAILED",
       "metrics": {
         "ComponentDeployedCount": {
-          "sum": 1
+          "sum": 42
         },
         "ComponentBrokenCount": {
-          "sum": 6
+          "sum": 4
         },
         "StreamManagerMemoryUsage": {
-          "avg": 219.238
+          "avg": 47.98
         },
         "StreamManagerBytesAppended": {
-          "sum": 9602411
+          "sum": 4658773
         },
         "NucleusRestartCount": {
           "sum": 1
         },
         "DeploymentQueueSize": {
-          "avg": 14.781
+          "avg": 11.522
         }
       }
     }
   },
   "event": {
     "outcome": "failure",
-    "category": ["process", "host"],
+    "category": [
+      "process",
+      "host"
+    ],
     "dataset": "aws.greengrass",
     "provider": "greengrass.amazonaws.com",
-    "duration": 566000000000
+    "duration": 507000000000
   },
-  "message": "Component failed to start: missing dependency",
+  "message": "Deployment rollback initiated",
   "log": {
     "level": "error"
   },
   "error": {
     "code": "GreengrassError",
-    "message": "OOM: component process killed",
+    "message": "Deployment rollback initiated",
     "type": "iot"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "proton"
@@ -13,28 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "staging-env",
+      "EnvironmentName": "sandbox-env",
       "ServiceName": "data-pipeline"
     },
     "proton": {
-      "environment_name": "staging-env",
+      "environment_name": "sandbox-env",
       "service_name": "data-pipeline",
-      "service_instance_name": "v2-instance",
+      "service_instance_name": "prod-instance",
       "template_name": "fargate-env-template",
-      "template_major_version": "1",
+      "template_major_version": "3",
       "deployment_status": "SUCCEEDED",
-      "component": "component"
+      "component": "environment"
     }
   },
   "event": {
-    "action": "CancelServiceInstanceDeployment",
+    "action": "DeployServiceInstance",
     "outcome": "success",
-    "category": ["configuration"],
+    "category": [
+      "configuration"
+    ],
     "dataset": "aws.proton",
     "provider": "proton.amazonaws.com",
-    "duration": 45000000000
+    "duration": 116000000000
   },
-  "message": "Proton component data-pipeline CancelServiceInstanceDeployment SUCCEEDED",
+  "message": "Proton environment data-pipeline DeployServiceInstance SUCCEEDED",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "network-firewall"
@@ -13,38 +13,38 @@
   },
   "aws": {
     "dimensions": {
-      "FirewallName": "fw-il-central-1",
-      "AvailabilityZone": "il-central-1a",
+      "FirewallName": "fw-ap-southeast-1",
+      "AvailabilityZone": "ap-southeast-1c",
       "CustomAction": "CustomPassAction"
     },
     "firewall_logs": {
-      "flow_id": 490273,
-      "event_timestamp": "2026-03-30T12:56:00.184Z",
+      "flow_id": 894347,
+      "event_timestamp": "2026-03-31T10:14:12.846Z",
       "action": "PASS",
-      "src_ip": "65.27.120.200",
-      "dest_ip": "241.254.5.245",
-      "src_port": 27326,
-      "dest_port": 5432,
-      "protocol": "ICMP",
-      "firewall_name": "fw-il-central-1",
-      "availability_zone": "il-central-1a"
+      "src_ip": "178.241.54.142",
+      "dest_ip": "244.228.241.236",
+      "src_port": 64016,
+      "dest_port": 3306,
+      "protocol": "TCP",
+      "firewall_name": "fw-ap-southeast-1",
+      "availability_zone": "ap-southeast-1c"
     },
     "network_firewall": {
-      "firewall_name": "fw-il-central-1",
-      "availability_zone": "il-central-1a",
+      "firewall_name": "fw-ap-southeast-1",
+      "availability_zone": "ap-southeast-1c",
       "policy_name": "prod-fw-policy",
       "metrics": {
         "DroppedPackets": {
           "sum": 0
         },
         "PassedPackets": {
-          "sum": 93164
+          "sum": 64431
         },
         "RejectedPackets": {
           "sum": 0
         },
         "Packets": {
-          "sum": 90297
+          "sum": 91250
         },
         "DroppedBytes": {
           "sum": 0
@@ -53,27 +53,30 @@
     }
   },
   "source": {
-    "ip": "65.27.120.200",
-    "port": 27326
+    "ip": "178.241.54.142",
+    "port": 64016
   },
   "destination": {
-    "ip": "241.254.5.245",
-    "port": 5432
+    "ip": "244.228.241.236",
+    "port": 3306
   },
   "network": {
-    "transport": "icmp",
-    "bytes": 16859,
-    "packets": 46
+    "transport": "tcp",
+    "bytes": 57859,
+    "packets": 24
   },
   "event": {
     "action": "pass",
     "outcome": "success",
-    "category": ["intrusion_detection", "network"],
+    "category": [
+      "intrusion_detection",
+      "network"
+    ],
     "dataset": "aws.firewall_logs",
     "provider": "network-firewall.amazonaws.com",
-    "duration": 35000000
+    "duration": 20000000
   },
-  "message": "PASS ICMP flow",
+  "message": "PASS TCP flow",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "comprehendmedical"
@@ -13,25 +13,26 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "StartEntitiesDetectionV2Job"
+      "Operation": "DetectPHI"
     },
     "comprehendmedical": {
-      "operation": "StartEntitiesDetectionV2Job",
+      "operation": "DetectPHI",
       "entities_detected": 26,
-      "phi_entities": 6,
-      "text_characters": 1499,
-      "job_id": "pzu9yg6k91m",
-      "data_access_role_arn": "arn:aws:iam::814726593401:role/ComprehendMedicalRole",
-      "s3_bucket": "medical-records"
+      "phi_entities": 10,
+      "text_characters": 6541,
+      "data_access_role_arn": "arn:aws:iam::164820739518:role/ComprehendMedicalRole",
+      "s3_bucket": "ehr-processed"
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.comprehendmedical",
     "provider": "comprehendmedical.amazonaws.com"
   },
-  "message": "Comprehend Medical StartEntitiesDetectionV2Job: 26 entities, 6 PHI",
+  "message": "Comprehend Medical DetectPHI: 26 entities, 10 PHI",
   "log": {
     "level": "warn"
   }

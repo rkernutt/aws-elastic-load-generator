@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "me-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "forecast"
@@ -13,29 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "DatasetGroup": "sales-prediction",
-      "Operation": "CreatePredictor"
+      "DatasetGroup": "energy-consumption",
+      "Operation": "CreateDatasetImportJob"
     },
     "forecast": {
-      "dataset_group": "sales-prediction",
-      "predictor_name": "sales-prediction-predictor-v4",
-      "action": "CreatePredictor",
-      "algorithm": "CNN-QR",
-      "forecast_horizon": 14,
-      "weighted_quantile_loss": 0.199,
-      "duration_seconds": 2149,
-      "status": "ACTIVE"
+      "dataset_group": "energy-consumption",
+      "action": "CreateDatasetImportJob",
+      "algorithm": "ETS",
+      "forecast_horizon": 90,
+      "duration_seconds": 37091,
+      "status": "FAILED",
+      "error_message": "AutoML timed out"
     }
   },
   "event": {
-    "duration": 2149000000000,
-    "outcome": "success",
-    "category": ["process"],
+    "duration": 37091000000000,
+    "outcome": "failure",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com"
   },
-  "message": "Forecast CreatePredictor: sales-prediction, WQL=0.199",
+  "message": "Forecast CreateDatasetImportJob FAILED for energy-consumption: Training timeout",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ForecastError",
+    "message": "Forecast operation failed",
+    "type": "ml"
   }
 }

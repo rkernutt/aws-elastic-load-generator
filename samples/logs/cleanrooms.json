@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "il-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "cleanrooms"
@@ -13,33 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "CollaborationId": "dhx8d2pn-4x3u-arg1-1qnm-g49p1a39u1p"
+      "CollaborationId": "jk72sekh-j59y-nfkx-4lud-qx7p66xs5c"
     },
     "cleanrooms": {
-      "collaboration_id": "dhx8d2pn-4x3u-arg1-1qnm-g49p1a39u1p",
-      "collaboration_name": "retail-analytics-collab",
-      "configured_table_name": "health_records",
-      "protected_query_id": "pq-qqlq3ipyx8o",
-      "query_status": "FAILED",
-      "protected_query_type": "AGGREGATE",
-      "rows_returned": 0,
+      "collaboration_id": "jk72sekh-j59y-nfkx-4lud-qx7p66xs5c",
+      "collaboration_name": "fraud-detection-collab",
+      "configured_table_name": "loyalty_events",
+      "protected_query_id": "pq-uq6sbxqijgm",
+      "query_status": "RUNNING",
+      "protected_query_type": "JOIN",
+      "rows_returned": 55169,
       "member_account_id": "501938274650"
     }
   },
   "event": {
-    "action": "StartProtectedQuery",
-    "outcome": "failure",
-    "category": ["process"],
+    "action": "GetProtectedQuery",
+    "outcome": "success",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.cleanrooms",
     "provider": "cleanrooms.amazonaws.com"
   },
-  "message": "Clean Rooms retail-analytics-collab: query FAILED on health_records",
+  "message": "Clean Rooms fraud-detection-collab: JOIN on loyalty_events returned 55169 rows",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "InternalServerException",
-    "message": "Clean Rooms protected query failed",
-    "type": "process"
+    "level": "info"
   }
 }

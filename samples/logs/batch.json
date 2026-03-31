@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "il-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "batch"
@@ -18,7 +18,7 @@
     "batch": {
       "job": {
         "name": "cleanup-job",
-        "id": "84hw4dx8-4la0",
+        "id": "mw324e0f-eoq8",
         "status": "SUCCEEDED"
       },
       "job_queue": "cleanup-job-queue",
@@ -26,16 +26,16 @@
       "structured_logging": false,
       "metrics": {
         "PendingJobCount": {
-          "avg": 70
+          "avg": 18
         },
         "RunnableJobCount": {
-          "avg": 2
+          "avg": 21
         },
         "StartingJobCount": {
-          "avg": 3
+          "avg": 20
         },
         "RunningJobCount": {
-          "avg": 135
+          "avg": 186
         },
         "SucceededJobCount": {
           "sum": 1
@@ -44,31 +44,33 @@
           "sum": 0
         },
         "CPUReserved": {
-          "avg": "28.992"
+          "avg": "72.710"
         },
         "GPUReserved": {
           "avg": 0
         },
         "MemoryReserved": {
-          "avg": "59.386"
+          "avg": "30.158"
         }
       }
     }
   },
   "process": {
-    "pid": 51594,
-    "name": "python",
+    "pid": 57554,
+    "name": "bash",
     "exit_code": 0
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "event": {
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "outcome": "success",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 1341000000000
+    "duration": 2387000000000
   },
-  "message": "vCPU limit approaching: 980/1000"
+  "message": "Job completed successfully"
 }

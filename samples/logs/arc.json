@@ -1,42 +1,45 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "arc"
     },
-    "availability_zone": "sa-east-1a"
+    "availability_zone": "eu-central-1b"
   },
   "aws": {
     "dimensions": {
-      "ResourceArn": "arn:aws:elasticloadbalancing:sa-east-1:738291046572:loadbalancer/app/prod-alb/6rohrk0cq6k",
-      "AwsAccountId": "738291046572"
+      "ResourceArn": "arn:aws:elasticloadbalancing:eu-central-1:293847561023:loadbalancer/app/prod-alb/murxqcc7mk9",
+      "AwsAccountId": "293847561023"
     },
     "arc": {
-      "shift_id": "6wq9w243-gmle-q1rs-0pdx-bk04gx6lx88",
-      "resource_arn": "arn:aws:elasticloadbalancing:sa-east-1:738291046572:loadbalancer/app/prod-alb/6rohrk0cq6k",
-      "away_from": "sa-east-1a",
-      "zonal_shift_status": "ENABLED",
+      "shift_id": "v8oqcoh1-e2w8-96uq-m7o3-ocwjvue41b",
+      "resource_arn": "arn:aws:elasticloadbalancing:eu-central-1:293847561023:loadbalancer/app/prod-alb/murxqcc7mk9",
+      "away_from": "eu-central-1b",
+      "zonal_shift_status": "COMPLETED",
       "az_status": "UNAVAILABLE",
-      "comment": "Proactive shift",
-      "expiry_time": "2026-03-31T10:32:50.184Z",
-      "routing_control_arn": "arn:aws:route53-recovery-control::738291046572:controlpanel/ycwz5u9b42/routingcontrol/8a7hxm2ua0u",
-      "routing_control_state": "Off"
+      "comment": "Failover test",
+      "expiry_time": "2026-04-01T02:15:17.846Z",
+      "routing_control_arn": "arn:aws:route53-recovery-control::293847561023:controlpanel/b4zyf91st8/routingcontrol/hwmhhedw9id",
+      "routing_control_state": "On"
     }
   },
   "event": {
-    "action": "StartZonalShift",
+    "action": "GetManagedResource",
     "outcome": "success",
-    "category": ["network", "process"],
+    "category": [
+      "network",
+      "process"
+    ],
     "dataset": "aws.arc",
     "provider": "arc-zonal-shift.amazonaws.com"
   },
-  "message": "ARC StartZonalShift: shift=6wq9w243-gmle-q1rs-0pdx-bk04gx6lx88, az=sa-east-1a status=ENABLED, Proactive shift",
+  "message": "ARC GetManagedResource: shift=v8oqcoh1-e2w8-96uq-m7o3-ocwjvue41b, az=eu-central-1b status=COMPLETED, Failover test",
   "log": {
     "level": "info"
   }

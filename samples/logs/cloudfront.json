@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "cloudfront"
@@ -13,55 +13,64 @@
   },
   "aws": {
     "dimensions": {
-      "DistributionId": "EA7PFH7F0K3W",
+      "DistributionId": "EDP8WXYGXJ2",
       "Region": "Global"
     },
     "cloudfront": {
-      "domain": "dewt68cvbe9i.cloudfront.net",
+      "domain": "dcepeb1tluqo.cloudfront.net",
       "edge_location": "GRU3",
-      "edge_result_type": "RefreshHit",
-      "edge_response_result_type": "Miss",
-      "edge_detailed_result_type": "Miss",
-      "time_to_first_byte": 0.088,
-      "cookies": "user=guest"
+      "edge_result_type": "Error",
+      "edge_response_result_type": "Error",
+      "edge_detailed_result_type": "OriginConnectError",
+      "time_to_first_byte": 3.172
     }
   },
   "http": {
     "request": {
       "method": "GET",
-      "bytes": 8
+      "bytes": 815
     },
     "response": {
-      "status_code": 301,
-      "bytes": 359207
+      "status_code": 503,
+      "bytes": 484414
     }
   },
   "url": {
     "path": "/assets/style.css",
-    "domain": "dap5of9uyelh.cloudfront.net"
+    "domain": "daotc1qdxu85.cloudfront.net"
   },
   "client": {
-    "ip": "74.41.66.110",
+    "ip": "4.167.156.75",
     "geo": {
-      "country_iso_code": "RU",
-      "country_name": "Russia",
-      "city_name": "Moscow",
+      "country_iso_code": "US",
+      "country_name": "United States",
+      "city_name": "Dallas",
       "location": {
-        "lat": 55.7558,
-        "lon": 37.6173
+        "lat": 32.7767,
+        "lon": -96.797
       }
     }
   },
   "event": {
-    "outcome": "success",
-    "category": ["web", "network"],
-    "type": ["access"],
+    "outcome": "failure",
+    "category": [
+      "web",
+      "network"
+    ],
+    "type": [
+      "access"
+    ],
     "dataset": "aws.cloudfront_logs",
     "provider": "cloudfront.amazonaws.com",
-    "duration": 88000000
+    "duration": 3172000000
   },
-  "message": "GET /assets/style.css 301 [GRU3]",
+  "message": "GET /assets/style.css 503 [GRU3]",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "OriginError",
+    "message": "HTTP 503",
+    "type": "server"
   }
 }

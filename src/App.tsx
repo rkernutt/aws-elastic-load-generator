@@ -12,25 +12,35 @@ import {
   stripNulls,
 } from "./helpers";
 import { GENERATORS } from "./generators";
-import { METRICS_GENERATORS } from "./generators/metrics";
-import { TRACE_GENERATORS, TRACE_SERVICES } from "./generators/traces";
+import { TRACE_SERVICES } from "./generators/traces/services";
+import { ServiceGrid } from "./components/ServiceGrid";
+
+// Lazy-load heavy generator chunks — only downloaded on first use (logs mode = no download).
+// The browser module cache ensures each chunk is fetched at most once per session.
+const loadMetricsGenerators = () =>
+  import("./generators/metrics").then((m) => m.METRICS_GENERATORS);
+const loadTraceGenerators = () =>
+  import("./generators/traces").then((m) => m.TRACE_GENERATORS);
 import {
   ELASTIC_DATASET_MAP,
   ELASTIC_METRICS_DATASET_MAP,
   METRICS_SUPPORTED_SERVICE_IDS,
 } from "./data/elasticMaps";
 import { SERVICE_INGESTION_DEFAULTS, INGESTION_META } from "./data/ingestion";
-import { AWS_SERVICE_ICON_MAP, CATEGORY_ICON_MAP, iconSrc } from "./data/iconMap";
+import { AWS_SERVICE_ICON_MAP, iconSrc } from "./data/iconMap";
 import { SERVICE_GROUPS, ALL_SERVICE_IDS } from "./data/serviceGroups";
 import { Card, CardHeader, QuickBtn, Field, SliderField, StatCard } from "./components/Card";
 import { StatusPill } from "./components/StatusPill";
 import { AwsLogo, PipelineRoute } from "./components/Logo";
 import { validateElasticUrl, validateApiKey, validateIndexPrefix } from "./utils/validation";
+import { loadAndScrubSavedConfig, toPersistedStorageObject } from "./utils/persistedConfig";
 import styles from "./App.module.css";
 
 type LogEntry = { id: number; msg: string; type: string; ts: string };
 let _logSeq = 0; // stable key counter — never resets so keys are always unique
 type ShipStatus = "running" | "done" | "aborted" | null;
+type ShipProgressPhase = "main" | "injection";
+type ShipProgress = { sent: number; total: number; errors: number; phase: ShipProgressPhase };
 /** Generator / enrich output — intentionally loose (ECS-shaped JSON). */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ECS docs are dynamic per service
 type LooseDoc = Record<string, any>;
@@ -40,76 +50,8 @@ function errMsg(e: unknown): string {
 }
 
 // ─── localStorage config persistence ─────────────────────────────────────────
-// Only non-sensitive UI/generator settings. Never persist cluster URL, API keys, or secrets.
 const LS_KEY = "awsElasticConfig";
-
-const PERSISTED_CONFIG_KEYS = [
-  "logsIndexPrefix",
-  "metricsIndexPrefix",
-  "logsPerService",
-  "tracesPerService",
-  "errorRate",
-  "batchSize",
-  "batchDelayMs",
-  "ingestionSource",
-  "eventType",
-  "injectAnomalies",
-  "scheduleEnabled",
-  "scheduleTotalRuns",
-  "scheduleIntervalMin",
-] as const;
-
-const ALLOWED_LS_KEYS = new Set<string>(PERSISTED_CONFIG_KEYS);
-
-/** Only fields we ever read from localStorage (credentials are never stored). */
-type PersistedConfigShape = Partial<{
-  logsIndexPrefix: string;
-  metricsIndexPrefix: string;
-  logsPerService: number;
-  tracesPerService: number;
-  errorRate: number;
-  batchSize: number;
-  batchDelayMs: number;
-  ingestionSource: string;
-  eventType: string;
-  injectAnomalies: boolean;
-  scheduleEnabled: boolean;
-  scheduleTotalRuns: number;
-  scheduleIntervalMin: number;
-}>;
-
-function loadAndScrubSavedConfig(): PersistedConfigShape {
-  try {
-    const stored = localStorage.getItem(LS_KEY);
-    if (stored == null) return {};
-    const raw: unknown = JSON.parse(stored);
-    if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
-      localStorage.removeItem(LS_KEY);
-      return {};
-    }
-    const record = raw as Record<string, unknown>;
-    const sanitized: Record<string, unknown> = {};
-    for (const k of PERSISTED_CONFIG_KEYS) {
-      if (Object.prototype.hasOwnProperty.call(record, k)) {
-        sanitized[k] = record[k];
-      }
-    }
-    const hasDisallowedKeys = Object.keys(record).some((k) => !ALLOWED_LS_KEYS.has(k));
-    if (hasDisallowedKeys) {
-      try {
-        localStorage.setItem(LS_KEY, JSON.stringify(sanitized));
-      } catch (e) {
-        if (import.meta.env.DEV) console.warn("[LS] Failed to scrub saved config:", e);
-      }
-    }
-    return sanitized as PersistedConfigShape;
-  } catch (e) {
-    if (import.meta.env.DEV) console.warn("[LS] Failed to read saved config:", e);
-    return {};
-  }
-}
-
-const savedConfig = loadAndScrubSavedConfig();
+const savedConfig = loadAndScrubSavedConfig(LS_KEY);
 
 export default function App() {
   const [selectedServices, setSelectedServices] = useState(["lambda", "apigateway"]);
@@ -148,7 +90,12 @@ export default function App() {
   const setIndexPrefix = eventType === "metrics" ? setMetricsIndexPrefix : setLogsIndexPrefix;
 
   const [status, setStatus] = useState<ShipStatus>(null);
-  const [progress, setProgress] = useState({ sent: 0, total: 0, errors: 0 });
+  const [progress, setProgress] = useState<ShipProgress>({
+    sent: 0,
+    total: 0,
+    errors: 0,
+    phase: "main",
+  });
   const [log, setLog] = useState<LogEntry[]>([]);
   const [preview, setPreview] = useState<string | null>(null);
   const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
@@ -157,23 +104,27 @@ export default function App() {
 
   // ─── Persist config to localStorage (allowlisted keys only — no URL/API key) ─
   useEffect(() => {
-    const payload: PersistedConfigShape = {
-      logsIndexPrefix,
-      metricsIndexPrefix,
-      logsPerService,
-      tracesPerService,
-      errorRate,
-      batchSize,
-      batchDelayMs,
-      ingestionSource,
-      eventType,
-      injectAnomalies,
-      scheduleEnabled,
-      scheduleTotalRuns,
-      scheduleIntervalMin,
-    };
     try {
-      localStorage.setItem(LS_KEY, JSON.stringify(payload));
+      localStorage.setItem(
+        LS_KEY,
+        JSON.stringify(
+          toPersistedStorageObject({
+            logsIndexPrefix,
+            metricsIndexPrefix,
+            logsPerService,
+            tracesPerService,
+            errorRate,
+            batchSize,
+            batchDelayMs,
+            ingestionSource,
+            eventType,
+            injectAnomalies,
+            scheduleEnabled,
+            scheduleTotalRuns,
+            scheduleIntervalMin,
+          })
+        )
+      );
     } catch (e) {
       if (import.meta.env.DEV) console.warn("[LS] Failed to save config:", e);
     }
@@ -443,33 +394,37 @@ export default function App() {
     []
   );
 
-  const generatePreview = () => {
+  const generatePreview = async () => {
     if (isTracesMode) {
       if (!selectedTraceServices.length) return;
       const svc = rand(selectedTraceServices);
+      const TRACE_GENERATORS = await loadTraceGenerators();
       const traceDocs = TRACE_GENERATORS[svc](new Date().toISOString(), errorRate);
       setPreview(JSON.stringify(stripNulls(traceDocs[0]), null, 2));
     } else {
       if (!selectedServices.length) return;
       const svc = rand(selectedServices);
-      if (eventType === "metrics" && METRICS_GENERATORS[svc]) {
-        const docs = METRICS_GENERATORS[svc](new Date().toISOString(), errorRate);
-        setPreview(JSON.stringify(stripNulls(docs[0]), null, 2));
-      } else {
-        const result = GENERATORS[svc](new Date().toISOString(), errorRate);
-        if (Array.isArray(result)) {
-          const row = stripNulls(result[0]) as LooseDoc;
-          const { __dataset: _omitDataset, ...cleanDoc } = row;
-          setPreview(JSON.stringify(cleanDoc, null, 2));
-        } else {
-          setPreview(
-            JSON.stringify(
-              stripNulls(enrichDoc(result as LooseDoc, svc, getEffectiveSource(svc), eventType)),
-              null,
-              2
-            )
-          );
+      if (eventType === "metrics") {
+        const METRICS_GENERATORS = await loadMetricsGenerators();
+        if (METRICS_GENERATORS[svc]) {
+          const docs = METRICS_GENERATORS[svc](new Date().toISOString(), errorRate);
+          setPreview(JSON.stringify(stripNulls(docs[0]), null, 2));
+          return;
         }
+      }
+      const result = GENERATORS[svc](new Date().toISOString(), errorRate);
+      if (Array.isArray(result)) {
+        const row = stripNulls(result[0]) as LooseDoc;
+        const { __dataset: _omitDataset, ...cleanDoc } = row;
+        setPreview(JSON.stringify(cleanDoc, null, 2));
+      } else {
+        setPreview(
+          JSON.stringify(
+            stripNulls(enrichDoc(result as LooseDoc, svc, getEffectiveSource(svc), eventType)),
+            null,
+            2
+          )
+        );
       }
     }
   };
@@ -496,6 +451,7 @@ export default function App() {
       addLog("Fix connection field errors before shipping.", "error");
       return;
     }
+    abortRef.current = false;
 
     // Run up to CONCURRENCY service shippers in parallel. Workers pull from a shared
     // index so fast services don't block behind slow ones.
@@ -516,12 +472,11 @@ export default function App() {
       await Promise.all(Array.from({ length: Math.min(CONCURRENCY, items.length) }, worker));
       return results;
     };
-    abortRef.current = false;
     setStatus("running");
     setLog([]);
     // Throttle progress bar updates — accumulate deltas and flush at most every 120 ms.
     // Each service worker has its own accumulator; React batches the resulting setState calls.
-    const makeProgressFlusher = () => {
+    const makeProgressFlusher = (phase: ShipProgressPhase) => {
       let pendingSent = 0,
         pendingErrs = 0,
         lastFlush = 0;
@@ -534,7 +489,12 @@ export default function App() {
         pendingSent = 0;
         pendingErrs = 0;
         lastFlush = now;
-        setProgress((prev) => ({ ...prev, sent: prev.sent + s, errors: prev.errors + e }));
+        setProgress((prev) => ({
+          ...prev,
+          phase,
+          sent: prev.sent + s,
+          errors: prev.errors + e,
+        }));
       };
       return {
         add: (sent: number, errs: number) => {
@@ -562,24 +522,29 @@ export default function App() {
 
       /** ── Traces mode: each "trace" = 1 transaction + N spans ─────────────── */
       if (isTracesMode) {
+        const TRACE_GENERATORS = await loadTraceGenerators();
         const APM_INDEX = "traces-apm-default";
         const totalTraces = activeServices.length * tracesPerService;
-        setProgress({ sent: 0, total: totalTraces, errors: 0 });
+        setProgress({ sent: 0, total: totalTraces, errors: 0, phase: "main" });
         addLog(
           `Starting: ${totalTraces.toLocaleString()} traces across ${activeServices.length} service(s) → ${APM_INDEX}`
         );
         let totalSent = 0,
           totalErrors = 0;
 
-        const shipTraceService = async (svc: string) => {
+        const shipTraceService = async (svc: string, _svcIndex: number) => {
           addLog(`▶ ${svc} → ${APM_INDEX} [OTel / OTLP]`, "info");
-          // Flatten all trace docs for this service (each trace = array of docs)
-          const allDocs = Array.from({ length: tracesPerService }, () =>
+          const traceChunks = Array.from({ length: tracesPerService }, () =>
             TRACE_GENERATORS[svc](randTs(startDate, endDate), errorRate).map((d) => stripNulls(d))
-          ).flat();
-          const dpt =
-            tracesPerService > 0 && allDocs.length > 0 ? allDocs.length / tracesPerService : 1;
-          const progress = makeProgressFlusher();
+          );
+          const prefixEnd: number[] = [];
+          let acc = 0;
+          for (const ch of traceChunks) {
+            acc += ch.length;
+            prefixEnd.push(acc);
+          }
+          const allDocs = traceChunks.flat();
+          const progress = makeProgressFlusher("main");
           let svcSent = 0,
             svcErrors = 0,
             batchNum = 0,
@@ -626,7 +591,11 @@ export default function App() {
               errDelta = batch.length;
               addLog(`  ✗ network error: ${errMsg(e)}`, "error");
             }
-            const currentTraces = Math.min(tracesPerService, Math.floor(svcSent / dpt));
+            let tComplete = 0;
+            while (tComplete < prefixEnd.length && prefixEnd[tComplete] <= svcSent) {
+              tComplete++;
+            }
+            const currentTraces = Math.min(tracesPerService, tComplete);
             const sentDelta = currentTraces - lastReportedTraces;
             lastReportedTraces = currentTraces;
             progress.add(sentDelta, errDelta);
@@ -651,10 +620,10 @@ export default function App() {
           const injCount = Math.max(50, Math.round(tracesPerService * 0.3));
           const injEnd = new Date();
           const injStart = new Date(injEnd.getTime() - 5 * 60 * 1000);
+          const injWork: { svc: string; docs: LooseDoc[] }[] = [];
           for (const svc of activeServices) {
-            if (abortRef.current) break;
             if (!TRACE_GENERATORS[svc]) continue;
-            const injDocs = Array.from({ length: injCount }, () =>
+            const docs = Array.from({ length: injCount }, () =>
               TRACE_GENERATORS[svc](randTs(injStart, injEnd), 1.0).map((d) => {
                 const out = stripNulls(d) as LooseDoc;
                 if (out["transaction.duration.us"]) out["transaction.duration.us"] *= 15;
@@ -662,39 +631,70 @@ export default function App() {
                 return out;
               })
             ).flat();
-            let injIndexed = 0,
-              injErrs = 0;
-            for (let i = 0; i < injDocs.length; i += batchSize) {
+            injWork.push({ svc, docs });
+          }
+          const injTotalDocs = injWork.reduce((s, w) => s + w.docs.length, 0);
+          if (injWork.length > 0) {
+            setProgress({
+              phase: "injection",
+              sent: 0,
+              total: Math.max(1, injTotalDocs),
+              errors: 0,
+            });
+            const injFlush = makeProgressFlusher("injection");
+            for (const { svc, docs: injDocs } of injWork) {
               if (abortRef.current) break;
-              const batch = injDocs.slice(i, i + batchSize);
-              const apmMetaInj = JSON.stringify({ create: { _index: APM_INDEX } });
-              let ndjsonInj = "";
-              for (const doc of batch) {
-                ndjsonInj += apmMetaInj + "\n" + JSON.stringify(doc) + "\n";
+              let injIndexed = 0,
+                injErrs = 0;
+              for (let i = 0; i < injDocs.length; i += batchSize) {
+                if (abortRef.current) break;
+                const batch = injDocs.slice(i, i + batchSize);
+                const apmMetaInj = JSON.stringify({ create: { _index: APM_INDEX } });
+                let ndjsonInj = "";
+                for (const doc of batch) {
+                  ndjsonInj += apmMetaInj + "\n" + JSON.stringify(doc) + "\n";
+                }
+                let sentDelta = 0;
+                let errDelta = 0;
+                try {
+                  const res = await fetch(`/proxy/_bulk`, {
+                    method: "POST",
+                    headers,
+                    body: ndjsonInj,
+                  });
+                  const json = await res.json();
+                  if (!res.ok) {
+                    injErrs += batch.length;
+                    errDelta = batch.length;
+                    addLog(
+                      `  ✗ anomaly injection batch failed (${svc}): ${json.error?.reason || res.status}`,
+                      "error"
+                    );
+                  } else {
+                    const bErrs =
+                      json.items?.filter((it) => it.create?.error || it.index?.error).length ?? 0;
+                    injIndexed += batch.length - bErrs;
+                    injErrs += bErrs;
+                    sentDelta = batch.length - bErrs;
+                    errDelta = bErrs;
+                  }
+                } catch (e: unknown) {
+                  addLog(`  ✗ anomaly injection network error (${svc}): ${errMsg(e)}`, "error");
+                  injErrs += batch.length;
+                  errDelta = batch.length;
+                }
+                injFlush.add(sentDelta, errDelta);
               }
-              try {
-                const res = await fetch(`/proxy/_bulk`, {
-                  method: "POST",
-                  headers,
-                  body: ndjsonInj,
-                });
-                const json = await res.json();
-                const bErrs =
-                  json.items?.filter((it) => it.create?.error || it.index?.error).length ?? 0;
-                injIndexed += batch.length - bErrs;
-                injErrs += bErrs;
-              } catch (e: unknown) {
-                addLog(`  ✗ anomaly injection network error (${svc}): ${errMsg(e)}`, "error");
-                injErrs += batch.length;
-              }
+              injFlush.done();
+              addLog(
+                `  ⚡ ${svc}: ${injIndexed} anomaly trace docs injected`,
+                injErrs > 0 ? "warn" : "ok"
+              );
             }
-            addLog(
-              `  ⚡ ${svc}: ${injIndexed} anomaly trace docs injected`,
-              injErrs > 0 ? "warn" : "ok"
-            );
           }
         }
 
+        setProgress((p) => ({ ...p, phase: "main" }));
         setStatus(abortRef.current ? "aborted" : "done");
         addLog(
           abortRef.current
@@ -706,7 +706,9 @@ export default function App() {
       }
 
       /** ── Logs / Metrics mode ──────────────────────────────────────────────── */
-      setProgress({ sent: 0, total: 0, errors: 0 });
+      const METRICS_GENERATORS =
+        eventType === "metrics" ? await loadMetricsGenerators() : null;
+      setProgress({ sent: 0, total: 0, errors: 0, phase: "main" });
       addLog(
         `Starting: ${activeServices.length} service(s) [${eventType}] — ${logsPerService.toLocaleString()} calls each`
       );
@@ -725,10 +727,10 @@ export default function App() {
         const src = getEffectiveSource(svc);
         addLog(`▶ ${svc} → ${indexName} [${INGESTION_META[src]?.label || src}]`, "info");
         // In metrics mode, prefer dimensional generators that produce per-resource docs
-        const isDimensionalMetrics = eventType === "metrics" && METRICS_GENERATORS[svc];
+        const isDimensionalMetrics = METRICS_GENERATORS?.[svc] != null;
         const allDocs = isDimensionalMetrics
           ? Array.from({ length: logsPerService }, () =>
-              METRICS_GENERATORS[svc](randTs(startDate, endDate), errorRate)
+              METRICS_GENERATORS![svc](randTs(startDate, endDate), errorRate)
             )
               .flat()
               .map((d) => stripNulls(d))
@@ -742,9 +744,9 @@ export default function App() {
         docCountByIdx[svcIndex] = allDocs.length;
         setProgress((prev) => {
           const t = docCountByIdx.reduce((s, x) => s + (typeof x === "number" ? x : 0), 0);
-          return { ...prev, total: t };
+          return { ...prev, phase: "main", total: t };
         });
-        const svcProgress = makeProgressFlusher();
+        const svcProgress = makeProgressFlusher("main");
         let svcSent = 0,
           svcErrors = 0,
           batchNum = 0;
@@ -760,7 +762,8 @@ export default function App() {
                 ? `${indexPrefix}.${__dataset.replace(/^aws\./, "")}-default`
                 : `logs-${__dataset}-default`
               : indexName;
-            ndjson += JSON.stringify({ create: { _index: idx } }) + "\n" + JSON.stringify(cleanDoc) + "\n";
+            ndjson +=
+              JSON.stringify({ create: { _index: idx } }) + "\n" + JSON.stringify(cleanDoc) + "\n";
           }
           let sentDelta = 0;
           let errDelta = 0;
@@ -832,22 +835,21 @@ export default function App() {
         const injCount = Math.max(50, Math.round(logsPerService * 0.3));
         const injEnd = new Date();
         const injStart = new Date(injEnd.getTime() - 5 * 60 * 1000);
+        const injWork: { svc: string; indexName: string; docs: LooseDoc[] }[] = [];
         for (const svc of activeServices) {
-          if (abortRef.current) break;
           const dataset =
             eventType === "metrics"
               ? (ELASTIC_METRICS_DATASET_MAP[svc] ?? ELASTIC_DATASET_MAP[svc] ?? `aws.${svc}`)
               : ELASTIC_DATASET_MAP[svc] || `aws.${svc}`;
           const dsPrefix = dataset === "aws.xray" ? "traces-aws" : indexPrefix;
           const indexName = `${dsPrefix}.${dataset.replace(/^aws\./, "")}-default`;
-          const isDimensional = eventType === "metrics" && METRICS_GENERATORS[svc];
-          let injDocs;
+          const isDimensional = METRICS_GENERATORS?.[svc] != null;
+          let injDocs: LooseDoc[] | undefined;
           if (isDimensional) {
             injDocs = Array.from({ length: injCount }, () => {
-              const docs = METRICS_GENERATORS[svc](randTs(injStart, injEnd), 1.0);
+              const docs = METRICS_GENERATORS![svc](randTs(injStart, injEnd), 1.0);
               return (Array.isArray(docs) ? docs : [docs]).map((d) => {
                 const out = stripNulls(d) as LooseDoc;
-                // Inflate all numeric metric values to create anomalies
                 for (const [k, v] of Object.entries(out)) {
                   if (typeof v === "number" && !k.startsWith("@") && k !== "_doc_count") {
                     out[k] = v * 20;
@@ -855,7 +857,7 @@ export default function App() {
                 }
                 return out;
               });
-            }).flat();
+            }).flat() as LooseDoc[];
           } else if (GENERATORS[svc]) {
             injDocs = Array.from({ length: injCount }, () => {
               const result = GENERATORS[svc](randTs(injStart, injEnd), 1.0);
@@ -864,49 +866,93 @@ export default function App() {
                   ? result
                   : [stripNulls(enrichDoc(result, svc, getEffectiveSource(svc), eventType))]
               ).map((d) => stripNulls(d));
-            }).flat();
-          } else {
-            continue;
+            }).flat() as LooseDoc[];
           }
-          let injIndexed = 0,
-            injRealErrs = 0;
-          for (let i = 0; i < injDocs.length; i += batchSize) {
+          if (injDocs?.length) injWork.push({ svc, indexName, docs: injDocs });
+        }
+        const injTotalDocs = injWork.reduce((s, w) => s + w.docs.length, 0);
+        if (injWork.length > 0) {
+          setProgress({
+            phase: "injection",
+            sent: 0,
+            total: Math.max(1, injTotalDocs),
+            errors: 0,
+          });
+          const injFlush = makeProgressFlusher("injection");
+          for (const { svc, indexName, docs: injDocs } of injWork) {
             if (abortRef.current) break;
-            const batch = injDocs.slice(i, i + batchSize);
-            let ndjsonInj = "";
-            for (const doc of batch as LooseDoc[]) {
-              const { __dataset, ...cleanDoc } = doc;
-              const idx = __dataset
-                ? __dataset.startsWith("aws.")
-                  ? `${indexPrefix}.${__dataset.replace(/^aws\./, "")}-default`
-                  : `logs-${__dataset}-default`
-                : indexName;
-              ndjsonInj += JSON.stringify({ create: { _index: idx } }) + "\n" + JSON.stringify(cleanDoc) + "\n";
+            let injIndexed = 0,
+              injRealErrs = 0;
+            for (let i = 0; i < injDocs.length; i += batchSize) {
+              if (abortRef.current) break;
+              const batch = injDocs.slice(i, i + batchSize);
+              let ndjsonInj = "";
+              for (const doc of batch) {
+                const { __dataset, ...cleanDoc } = doc;
+                const idx = __dataset
+                  ? __dataset.startsWith("aws.")
+                    ? `${indexPrefix}.${__dataset.replace(/^aws\./, "")}-default`
+                    : `logs-${__dataset}-default`
+                  : indexName;
+                ndjsonInj +=
+                  JSON.stringify({ create: { _index: idx } }) +
+                  "\n" +
+                  JSON.stringify(cleanDoc) +
+                  "\n";
+              }
+              let sentDelta = 0;
+              let errDelta = 0;
+              try {
+                const res = await fetch(`/proxy/_bulk`, {
+                  method: "POST",
+                  headers,
+                  body: ndjsonInj,
+                });
+                const json = await res.json();
+                if (!res.ok) {
+                  injRealErrs += batch.length;
+                  errDelta = batch.length;
+                  addLog(
+                    `  ✗ anomaly injection batch failed (${svc}): ${json.error?.reason || res.status}`,
+                    "error"
+                  );
+                } else {
+                  const failedInj =
+                    json.items?.filter((it) => it.create?.error || it.index?.error) || [];
+                  const conflictInj = failedInj.filter(
+                    (it) =>
+                      (it.create?.error?.type || it.index?.error?.type) ===
+                      "version_conflict_engine_exception"
+                  );
+                  const realErrInj = failedInj.filter(
+                    (it) =>
+                      (it.create?.error?.type || it.index?.error?.type) !==
+                      "version_conflict_engine_exception"
+                  );
+                  const conflicts = conflictInj.length;
+                  const errs = realErrInj.length;
+                  injIndexed += batch.length - errs - conflicts;
+                  injRealErrs += errs;
+                  sentDelta = batch.length - errs - conflicts;
+                  errDelta = errs;
+                }
+              } catch (e: unknown) {
+                addLog(`  ✗ anomaly injection network error (${svc}): ${errMsg(e)}`, "error");
+                injRealErrs += batch.length;
+                errDelta = batch.length;
+              }
+              injFlush.add(sentDelta, errDelta);
             }
-            try {
-              const res = await fetch(`/proxy/_bulk`, { method: "POST", headers, body: ndjsonInj });
-              const json = await res.json();
-              const failedInj =
-                json.items?.filter((it) => it.create?.error || it.index?.error) || [];
-              const realErrInj = failedInj.filter(
-                (it) =>
-                  (it.create?.error?.type || it.index?.error?.type) !==
-                  "version_conflict_engine_exception"
-              );
-              injIndexed += batch.length - failedInj.length;
-              injRealErrs += realErrInj.length;
-            } catch (e: unknown) {
-              addLog(`  ✗ anomaly injection network error (${svc}): ${errMsg(e)}`, "error");
-              injRealErrs += batch.length;
-            }
+            injFlush.done();
+            addLog(
+              `  ⚡ ${svc}: ${injIndexed} anomaly docs injected${injRealErrs > 0 ? `, ${injRealErrs} errors` : ""}`,
+              injRealErrs > 0 ? "warn" : "ok"
+            );
           }
-          addLog(
-            `  ⚡ ${svc}: ${injIndexed} anomaly docs injected${injRealErrs > 0 ? `, ${injRealErrs} errors` : ""}`,
-            injRealErrs > 0 ? "warn" : "ok"
-          );
         }
       }
 
+      setProgress((p) => ({ ...p, phase: "main" }));
       setStatus(abortRef.current ? "aborted" : "done");
       addLog(
         abortRef.current
@@ -915,6 +961,7 @@ export default function App() {
         totalErrors > 0 ? "warn" : "ok"
       );
     } catch (fatal: unknown) {
+      setProgress((p) => ({ ...p, phase: "main" }));
       setStatus("done");
       addLog(`Fatal error: ${errMsg(fatal)}`, "error");
       console.error("Ship error:", fatal);
@@ -976,6 +1023,8 @@ export default function App() {
   }, [ship, scheduleTotalRuns, scheduleIntervalMin]);
 
   const pct = progress.total > 0 ? Math.round((progress.sent / progress.total) * 100) : 0;
+  const progressBarColor =
+    pct === 100 ? K.success : progress.phase === "injection" ? "#7c3aed" : K.primary;
   const totalSelected = isTracesMode ? selectedTraceServices.length : selectedServices.length;
   const totalServices = isTracesMode
     ? TRACE_SERVICES.length
@@ -1196,318 +1245,20 @@ export default function App() {
                 </div>
               </Card>
             ) : (
-              <Card>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    marginBottom: 12,
-                  }}
-                >
-                  <span style={{ fontSize: 13, fontWeight: 600, color: K.textHeading }}>
-                    Select Services
-                  </span>
-                  <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
-                    <QuickBtn onClick={selectAll}>All {totalServices}</QuickBtn>
-                    <QuickBtn onClick={selectNone}>None</QuickBtn>
-                    {totalSelected > 0 && (
-                      <span
-                        style={{
-                          fontSize: 11,
-                          fontWeight: 600,
-                          color: K.success,
-                          background: K.successBg,
-                          border: `1px solid ${K.successBorder}`,
-                          borderRadius: 99,
-                          padding: "2px 10px",
-                        }}
-                      >
-                        {totalSelected} selected
-                      </span>
-                    )}
-                  </div>
-                </div>
-                {/* Ingestion source legend */}
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: 6,
-                    marginBottom: 12,
-                    padding: "8px 10px",
-                    background: K.subdued,
-                    borderRadius: K.radiusSm,
-                    border: `1px solid ${K.border}`,
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: 10,
-                      color: K.textSubdued,
-                      marginRight: 4,
-                      alignSelf: "center",
-                    }}
-                  >
-                    Ingestion:
-                  </span>
-                  {Object.entries(INGESTION_META).map(([key, m]) => (
-                    <span
-                      key={key}
-                      style={{
-                        fontSize: 9,
-                        fontWeight: 600,
-                        color: m.color,
-                        background: `${m.color}18`,
-                        border: `1px solid ${m.color}44`,
-                        borderRadius: K.radiusSm,
-                        padding: "2px 7px",
-                      }}
-                    >
-                      {m.label}
-                    </span>
-                  ))}
-                  {ingestionSource !== "default" && (
-                    <span
-                      style={{ fontSize: 9, color: K.warning, marginLeft: 4, alignSelf: "center" }}
-                    >
-                      Override: all using {INGESTION_META[ingestionSource]?.label}
-                    </span>
-                  )}
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  {SERVICE_GROUPS.map((group) => {
-                    const groupIds = group.services.map((s) => s.id);
-                    const selectableInGroup =
-                      eventType === "metrics"
-                        ? groupIds.filter((id) => METRICS_SUPPORTED_SERVICE_IDS.has(id))
-                        : groupIds;
-                    const selCount = selectableInGroup.filter((id) =>
-                      selectedServices.includes(id)
-                    ).length;
-                    const allSel =
-                      selectableInGroup.length > 0 && selCount === selectableInGroup.length;
-                    const someSel = selCount > 0 && !allSel;
-                    const collapsed = collapsedGroups[group.id];
-                    return (
-                      <div
-                        key={group.id}
-                        style={{
-                          border: `1px solid ${allSel ? group.color + "88" : someSel ? group.color + "66" : K.border}`,
-                          borderRadius: K.radius,
-                          overflow: "hidden",
-                          background: allSel
-                            ? `${group.color}12`
-                            : someSel
-                              ? `${group.color}08`
-                              : K.plain,
-                          transition: "border-color 0.2s",
-                          boxShadow: K.shadow,
-                        }}
-                      >
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 10,
-                            padding: "10px 14px",
-                            cursor: "pointer",
-                            userSelect: "none",
-                          }}
-                          onClick={() => toggleCollapse(group.id)}
-                        >
-                          {CATEGORY_ICON_MAP[group.id] ? (
-                            <img
-                              src={iconSrc(CATEGORY_ICON_MAP[group.id])}
-                              alt=""
-                              style={{ width: 22, height: 22, objectFit: "contain" }}
-                            />
-                          ) : AWS_SERVICE_ICON_MAP[group.services[0]?.id] ? (
-                            <img
-                              src={iconSrc(AWS_SERVICE_ICON_MAP[group.services[0].id])}
-                              alt=""
-                              style={{ width: 18, height: 18, objectFit: "contain" }}
-                            />
-                          ) : (
-                            <span
-                              style={{
-                                fontSize: 14,
-                                minWidth: 18,
-                                color: selCount > 0 ? group.color : K.textSubdued,
-                              }}
-                            >
-                              {group.icon}
-                            </span>
-                          )}
-                          <span
-                            style={{
-                              fontSize: 12,
-                              fontWeight: 600,
-                              color: selCount > 0 ? group.color : "#475569",
-                              flex: 1,
-                            }}
-                          >
-                            {group.label}
-                          </span>
-                          <span style={{ fontSize: 10, color: K.textSubdued }}>
-                            {eventType === "metrics"
-                              ? `${selectableInGroup.length} metrics`
-                              : `${group.services.length} services`}
-                          </span>
-                          {selCount > 0 && (
-                            <span
-                              style={{
-                                fontSize: 10,
-                                fontWeight: 700,
-                                color: group.color,
-                                background: `${group.color}20`,
-                                border: `1px solid ${group.color}44`,
-                                borderRadius: 99,
-                                padding: "1px 8px",
-                              }}
-                            >
-                              {selCount}/{selectableInGroup.length}
-                            </span>
-                          )}
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toggleGroup(group.id);
-                            }}
-                            style={{
-                              fontSize: 10,
-                              padding: "3px 10px",
-                              borderRadius: 6,
-                              border: `1px solid ${group.color}44`,
-                              background: allSel ? `${group.color}22` : "transparent",
-                              color: group.color,
-                              cursor: "pointer",
-                              fontFamily: "inherit",
-                              fontWeight: 600,
-                              transition: "all 0.15s",
-                            }}
-                          >
-                            {allSel ? "Deselect all" : "Select all"}
-                          </button>
-                          <span style={{ color: "#94a3b8", fontSize: 10, marginLeft: 2 }}>
-                            {collapsed ? "▶" : "▼"}
-                          </span>
-                        </div>
-                        {!collapsed && (
-                          <div
-                            style={{
-                              display: "grid",
-                              gridTemplateColumns: "repeat(3,1fr)",
-                              gap: 6,
-                              padding: "0 10px 10px",
-                            }}
-                          >
-                            {group.services.map((svc) => {
-                              const sel = selectedServices.includes(svc.id);
-                              const metricsDisabled =
-                                eventType === "metrics" &&
-                                !METRICS_SUPPORTED_SERVICE_IDS.has(svc.id);
-                              const src = getEffectiveSource(svc.id);
-                              const meta = INGESTION_META[src];
-                              return (
-                                <button
-                                  key={svc.id}
-                                  onClick={() => !metricsDisabled && toggleService(svc.id)}
-                                  style={{
-                                    border: `1px solid ${sel ? group.color + "99" : metricsDisabled ? K.border : K.borderPlain}`,
-                                    borderRadius: K.radiusSm,
-                                    padding: "8px",
-                                    background: sel
-                                      ? `${group.color}18`
-                                      : metricsDisabled
-                                        ? K.controlDisabled
-                                        : K.subdued,
-                                    cursor: metricsDisabled ? "not-allowed" : "pointer",
-                                    textAlign: "left",
-                                    transition: "all 0.15s",
-                                    position: "relative",
-                                    overflow: "hidden",
-                                    opacity: metricsDisabled ? 0.7 : 1,
-                                  }}
-                                >
-                                  {sel && (
-                                    <div
-                                      style={{
-                                        position: "absolute",
-                                        top: 0,
-                                        left: 0,
-                                        right: 0,
-                                        height: 2,
-                                        background: group.color,
-                                        borderRadius: "8px 8px 0 0",
-                                      }}
-                                    />
-                                  )}
-                                  {AWS_SERVICE_ICON_MAP[svc.id] ? (
-                                    <img
-                                      src={iconSrc(AWS_SERVICE_ICON_MAP[svc.id])}
-                                      alt=""
-                                      style={{ width: 28, height: 28, objectFit: "contain" }}
-                                    />
-                                  ) : (
-                                    <div style={{ fontSize: 15, marginBottom: 4 }}>{svc.icon}</div>
-                                  )}
-                                  <div
-                                    style={{
-                                      fontSize: 11,
-                                      fontWeight: 700,
-                                      color: sel
-                                        ? group.color
-                                        : metricsDisabled
-                                          ? "#94a3b8"
-                                          : "#475569",
-                                      marginBottom: 2,
-                                    }}
-                                  >
-                                    {svc.label}
-                                  </div>
-                                  <div
-                                    style={{
-                                      fontSize: 10,
-                                      color: metricsDisabled ? "#94a3b8" : "#64748b",
-                                      lineHeight: 1.3,
-                                      marginBottom: 5,
-                                    }}
-                                  >
-                                    {svc.desc}
-                                  </div>
-                                  {metricsDisabled ? (
-                                    <div
-                                      style={{ fontSize: 10, color: "#94a3b8", fontWeight: 600 }}
-                                    >
-                                      No metrics
-                                    </div>
-                                  ) : (
-                                    <div
-                                      style={{
-                                        fontSize: 10,
-                                        fontWeight: 600,
-                                        color: meta?.color || "#64748b",
-                                        background: `${meta?.color || "#64748b"}18`,
-                                        border: `1px solid ${meta?.color || "#64748b"}44`,
-                                        borderRadius: 4,
-                                        padding: "1px 5px",
-                                        display: "inline-block",
-                                      }}
-                                    >
-                                      {meta?.label || src}
-                                    </div>
-                                  )}
-                                </button>
-                              );
-                            })}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </Card>
+              <ServiceGrid
+                eventType={eventType}
+                selectedServices={selectedServices}
+                totalServices={totalServices}
+                totalSelected={totalSelected}
+                collapsedGroups={collapsedGroups}
+                ingestionSource={ingestionSource}
+                selectAll={selectAll}
+                selectNone={selectNone}
+                toggleService={toggleService}
+                toggleGroup={toggleGroup}
+                toggleCollapse={toggleCollapse}
+                getEffectiveSource={getEffectiveSource}
+              />
             )}
           </div>
 
@@ -2106,8 +1857,22 @@ export default function App() {
                 <CardHeader
                   label="Progress"
                   badge={`${pct}%`}
-                  badgeColor={pct === 100 ? K.success : K.warning}
+                  badgeColor={
+                    progress.phase === "injection" ? "#a78bfa" : pct === 100 ? K.success : K.warning
+                  }
                 />
+                {progress.phase === "injection" && (
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: K.textSubdued,
+                      marginTop: -4,
+                      marginBottom: 10,
+                    }}
+                  >
+                    Phase 2 — anomaly injection (documents indexed toward total below)
+                  </div>
+                )}
                 <div
                   style={{
                     height: 6,
@@ -2121,7 +1886,7 @@ export default function App() {
                     style={{
                       height: "100%",
                       width: `${pct}%`,
-                      background: pct === 100 ? K.success : K.primary,
+                      background: progressBarColor,
                       borderRadius: 99,
                       transition: "width 0.3s",
                     }}
@@ -2129,7 +1894,7 @@ export default function App() {
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
                   <StatCard
-                    label="Indexed"
+                    label={progress.phase === "injection" ? "Injected" : "Indexed"}
                     value={progress.sent.toLocaleString()}
                     color={K.success}
                   />

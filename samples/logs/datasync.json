@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "me-south-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "datasync"
@@ -13,24 +13,26 @@
   },
   "aws": {
     "datasync": {
-      "task_arn": "arn:aws:datasync:ap-northeast-3:164820739518:task/task-wcsprqioeb",
+      "task_arn": "arn:aws:datasync:me-south-1:293847561023:task/task-9m5ew8nbeub",
       "source_location_uri": "nfs://on-prem-server/data",
       "destination_location_uri": "efs://fs-prod/backup",
       "status": "SUCCESS",
-      "files_transferred": 68164,
-      "bytes_transferred": 36591866644,
+      "files_transferred": 888190,
+      "bytes_transferred": 755416253280,
       "files_failed": 0,
-      "duration_seconds": 740
+      "duration_seconds": 705
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["file"],
+    "category": [
+      "file"
+    ],
     "dataset": "aws.datasync",
     "provider": "datasync.amazonaws.com",
-    "duration": 740000000000
+    "duration": 705000000000
   },
-  "message": "DataSync: 68,164 files transferred from nfs:",
+  "message": "DataSync: 888,190 files transferred from nfs:",
   "log": {
     "level": "info"
   }

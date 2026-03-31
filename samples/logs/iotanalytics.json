@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "iotanalytics"
@@ -13,27 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "ChannelName": "temperature-channel",
+      "ChannelName": "gps-channel",
       "PipelineName": "enrichment-pipeline"
     },
     "iotanalytics": {
-      "channel_name": "temperature-channel",
+      "channel_name": "gps-channel",
       "pipeline_name": "enrichment-pipeline",
       "dataset_name": "anomaly-detection-output",
-      "messages_processed": 11343,
-      "bytes_processed": 3539016,
-      "activity_name": "math",
+      "messages_processed": 91038,
+      "bytes_processed": 44790696,
+      "activity_name": "selectAttributes",
       "pipeline_status": "SUCCEEDED"
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.iotanalytics",
     "provider": "iotanalytics.amazonaws.com",
-    "duration": 21813000000
+    "duration": 21424000000
   },
-  "message": "IoT Analytics: 11,343 messages via enrichment-pipeline",
+  "message": "IoT Analytics: 91,038 messages via enrichment-pipeline",
   "log": {
     "level": "info"
   }

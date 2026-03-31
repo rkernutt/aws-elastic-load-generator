@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,15 +7,15 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ap-south-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     }
   },
   "resource": {
-    "id": "arn:aws:ec2:ap-southeast-4:814726593401:vpc/vpc-1k33k1vs",
-    "name": "vpc-1k33k1vs",
+    "id": "arn:aws:ec2:ap-south-2:738291046572:vpc/vpc-p20tfckr",
+    "name": "vpc-p20tfckr",
     "sub_type": "vpc",
     "type": "cloud-network"
   },
@@ -23,35 +23,34 @@
     "id": "cis_5_1",
     "name": "Ensure VPC Flow Logs are enabled in all VPCs",
     "section": "5.1",
-    "tags": ["Networking"],
+    "tags": [
+      "Networking"
+    ],
     "benchmark": {
       "id": "cis_aws",
       "version": "v1.5.0",
       "rule_number": "5.1",
       "posture_type": "cspm"
-    },
-    "impact": "Non-compliance with CIS AWS 5.1 may expose account to unauthorized access.",
-    "remediation": "Remediate per CIS AWS Foundations Benchmark v1.5.0 section 5.1."
+    }
   },
   "result": {
-    "evaluation": "failed"
+    "evaluation": "passed"
   },
-  "severity": "medium",
+  "severity": "none",
   "event": {
     "kind": "state",
-    "category": ["configuration"],
-    "type": ["info"],
-    "outcome": "failure",
+    "category": [
+      "configuration"
+    ],
+    "type": [
+      "info"
+    ],
+    "outcome": "success",
     "dataset": "cloud_security_posture.findings",
     "provider": "elastic_cspm"
   },
-  "message": "CSPM [CIS AWS 1.5 / 5.1] failed: Ensure VPC Flow Logs are enabled in all VPCs",
+  "message": "CSPM [CIS AWS 1.5 / 5.1] passed: Ensure VPC Flow Logs are enabled in all VPCs",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "CIS_CIS_5_1",
-    "message": "CSPM check failed: Ensure VPC Flow Logs are enabled in all VPCs",
-    "type": "compliance"
+    "level": "info"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "eu-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "devopsguru"
@@ -13,12 +13,14 @@
   },
   "aws": {
     "devopsguru": {
-      "insight_id": "k351olh5io",
-      "insight_type": "REACTIVE",
-      "severity": "MEDIUM",
+      "insight_id": "no5v7ep65as",
+      "insight_type": "PROACTIVE",
+      "severity": "HIGH",
       "resource_collection": {
         "cloud_formation": {
-          "stack_names": ["api-stack"]
+          "stack_names": [
+            "prod-stack"
+          ]
         },
         "tags": [
           {
@@ -27,25 +29,31 @@
           }
         ]
       },
-      "anomaly_id": "wpkg2te55",
+      "anomaly_id": "ark0od5yvyg",
       "anomaly_description": "RDS CPU spike correlated with API latency",
-      "anomaly_sources": ["elasticache-cache"],
-      "start_time": "2026-03-30T12:26:18.342Z",
-      "end_time": "2026-03-30T12:56:00.384Z",
+      "anomaly_sources": [
+        "elasticache-cache"
+      ],
+      "start_time": "2026-03-31T09:16:46.272Z",
+      "end_time": "2026-03-31T10:14:13.135Z",
       "status": "CLOSED",
-      "recommendation": "Enable enhanced monitoring",
+      "recommendation": "Review alarm thresholds",
       "ssm_ops_items": []
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process", "configuration", "vulnerability"],
+    "category": [
+      "process",
+      "configuration",
+      "vulnerability"
+    ],
     "dataset": "aws.devopsguru",
     "provider": "devops-guru.amazonaws.com",
-    "duration": 710000000000
+    "duration": 314000000000
   },
-  "message": "DevOps Guru REACTIVE insight [MEDIUM]: RDS CPU spike correlated with API latency",
+  "message": "DevOps Guru PROACTIVE insight [HIGH]: RDS CPU spike correlated with API latency",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

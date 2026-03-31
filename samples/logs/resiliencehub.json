@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "resiliencehub"
@@ -13,28 +13,31 @@
   },
   "aws": {
     "resiliencehub": {
-      "app_arn": "arn:aws:resiliencehub:me-south-1:738291046572:app/hdmtsqkidx",
-      "app_name": "payment-gateway",
-      "operation": "CreateRecommendationTemplate",
-      "resiliency_score": 81,
+      "app_arn": "arn:aws:resiliencehub:ap-southeast-1:293847561023:app/68tvps8pq6v",
+      "app_name": "customer-portal",
+      "operation": "ImportResourcesToDraft",
+      "resiliency_score": 99,
       "compliance_status": "POLICY_MET",
-      "current_rto_seconds": 2433,
-      "target_rto_seconds": 4866,
-      "current_rpo_seconds": 3274,
-      "target_rpo_seconds": 6548,
+      "current_rto_seconds": 2869,
+      "target_rto_seconds": 5738,
+      "current_rpo_seconds": 3457,
+      "target_rpo_seconds": 6914,
       "tier": "Non-Critical",
       "disruption_type": "AZ",
-      "recommendation_count": 13
+      "recommendation_count": 10
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process", "configuration"],
+    "category": [
+      "process",
+      "configuration"
+    ],
     "dataset": "aws.resiliencehub",
     "provider": "resiliencehub.amazonaws.com",
-    "duration": 77000000000
+    "duration": 110000000000
   },
-  "message": "Resilience Hub payment-gateway [Non-Critical]: score=81, RTO=2433s, RPO=3274s",
+  "message": "Resilience Hub customer-portal [Non-Critical]: score=99, RTO=2869s, RPO=3457s",
   "log": {
     "level": "info"
   }

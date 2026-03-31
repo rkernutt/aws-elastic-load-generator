@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "transitgateway"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "TransitGateway": "tgw-1jbo4t2o14q",
-      "TransitGatewayAttachment": "tgw-attach-mtzf9nem7ic"
+      "TransitGateway": "tgw-x15jg76pacs",
+      "TransitGatewayAttachment": "tgw-attach-kar7bxfb9jf"
     },
     "transitgateway": {
-      "tgw_id": "tgw-1jbo4t2o14q",
-      "tgw_attachment_id": "tgw-attach-mtzf9nem7ic",
-      "resource_type": "peering",
-      "src_vpc_id": "vpc-s0s6p5xi",
-      "dst_vpc_id": "vpc-ms2ini7q",
-      "action": "blackhole",
-      "bytes": 61455,
-      "packets": 77,
+      "tgw_id": "tgw-x15jg76pacs",
+      "tgw_attachment_id": "tgw-attach-kar7bxfb9jf",
+      "resource_type": "vpn",
+      "src_vpc_id": "vpc-15xs27mz",
+      "dst_vpc_id": "vpc-7vuhzh62",
+      "action": "accept",
+      "bytes": 39651,
+      "packets": 45,
       "protocol": "UDP",
       "metrics": {
         "BytesIn": {
-          "sum": 2395853974
+          "sum": 1889490212
         },
         "BytesOut": {
-          "sum": 4366588833
+          "sum": 2567197781
         },
         "PacketsIn": {
-          "sum": 179509
+          "sum": 9351172
         },
         "PacketsOut": {
-          "sum": 8866010
+          "sum": 5519453
         },
         "PacketDropCountBlackhole": {
           "sum": 0
@@ -55,31 +55,28 @@
     }
   },
   "source": {
-    "ip": "79.28.130.188",
-    "port": 11465
+    "ip": "79.96.233.151",
+    "port": 24877
   },
   "destination": {
-    "ip": "52.209.141.62",
-    "port": 80
+    "ip": "41.234.183.24",
+    "port": 443
   },
   "network": {
     "transport": "udp",
-    "bytes": 62091
+    "bytes": 30929
   },
   "event": {
-    "action": "blackhole",
-    "outcome": "failure",
-    "category": ["network"],
+    "action": "accept",
+    "outcome": "success",
+    "category": [
+      "network"
+    ],
     "dataset": "aws.transitgateway",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "TGW tgw-1jbo4t2o14q BLACKHOLE UDP flow",
+  "message": "TGW tgw-x15jg76pacs ACCEPT UDP flow",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "FlowDropped",
-    "message": "TGW blackhole - no route or blackhole",
-    "type": "network"
+    "level": "info"
   }
 }

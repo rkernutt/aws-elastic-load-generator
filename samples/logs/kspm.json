@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,10 +7,10 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     }
   },
   "orchestrator": {
@@ -19,10 +19,10 @@
       "name": "staging-eks"
     },
     "type": "kubernetes",
-    "namespace": "logging"
+    "namespace": "monitoring"
   },
   "resource": {
-    "id": "staging-eks/logging/api-server/staging-eks",
+    "id": "staging-eks/monitoring/api-server/staging-eks",
     "name": "api-server/staging-eks",
     "sub_type": "api-server",
     "type": "k8s_object"
@@ -31,7 +31,9 @@
     "id": "cis_eks_1_1",
     "name": "Restrict anonymous access to the API server",
     "section": "1.1",
-    "tags": ["API Server"],
+    "tags": [
+      "API Server"
+    ],
     "benchmark": {
       "id": "cis_eks",
       "version": "v1.4.0",
@@ -45,8 +47,12 @@
   "severity": "none",
   "event": {
     "kind": "state",
-    "category": ["configuration"],
-    "type": ["info"],
+    "category": [
+      "configuration"
+    ],
+    "type": [
+      "info"
+    ],
     "outcome": "success",
     "dataset": "cloud_security_posture.findings",
     "provider": "elastic_kspm"

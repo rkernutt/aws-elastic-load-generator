@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "eu-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "artifact"
@@ -13,32 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "ReportName": "PCI-DSS-Attestation",
-      "ReportCategory": "Regulation"
+      "ReportName": "FedRAMP-Moderate",
+      "ReportCategory": "Attestation"
     },
     "artifact": {
-      "report_name": "PCI-DSS-Attestation",
-      "report_arn": "arn:aws:artifact:::report/pci-dss-attestation",
-      "report_category": "Regulation",
-      "report_period": "2024-Q4",
-      "agreement_name": "Business-Associate-Agreement",
-      "agreement_type": "DEFAULT",
-      "accessed_by": "globex-development",
-      "download_format": "PDF"
+      "report_name": "FedRAMP-Moderate",
+      "report_arn": "arn:aws:artifact:::report/fedramp-moderate",
+      "report_category": "Attestation",
+      "report_period": "2025-H1",
+      "agreement_name": "GDPR-Data-Processing-Addendum",
+      "agreement_type": "CUSTOM",
+      "accessed_by": "globex-security-tooling",
+      "download_format": "ZIP"
     }
   },
   "event": {
     "action": "ListAgreements",
     "outcome": "success",
-    "category": ["audit"],
+    "category": [
+      "audit"
+    ],
     "dataset": "aws.artifact",
     "provider": "artifact.amazonaws.com"
   },
-  "message": "Artifact: ListAgreements — PCI-DSS-Attestation (Regulation)",
+  "message": "Artifact: ListAgreements — FedRAMP-Moderate (Attestation)",
   "log": {
     "level": "info"
   },
   "user": {
-    "name": "globex-development"
+    "name": "globex-security-tooling"
   }
 }

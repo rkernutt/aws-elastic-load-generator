@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "outposts"
@@ -13,36 +13,39 @@
   },
   "aws": {
     "dimensions": {
-      "OutpostId": "op-2nvoc4d1hlz",
-      "InstanceType": "c5.xlarge"
+      "OutpostId": "op-534rxh1ysfk",
+      "InstanceType": "r5.xlarge"
     },
     "outposts": {
-      "outpost_id": "op-2nvoc4d1hlz",
-      "outpost_arn": "arn:aws:outposts:me-central-1:164820739518:outpost/op-2i8e3jilir9",
-      "site_id": "os-ahuqkrxvp",
-      "rack_id": "or-47byntrwg6e",
-      "instance_type": "c5.xlarge",
-      "available_instance_count": 0,
-      "total_instance_count": 37,
-      "capacity_status": "Degraded",
+      "outpost_id": "op-534rxh1ysfk",
+      "outpost_arn": "arn:aws:outposts:us-east-1:814726593401:outpost/op-ohpdxpjigh",
+      "site_id": "os-pi1f69bci7m",
+      "rack_id": "or-koqepddevsq",
+      "instance_type": "r5.xlarge",
+      "available_instance_count": 10,
+      "total_instance_count": 24,
+      "capacity_status": "InsufficientCapacity",
       "connectivity_status": "Disconnected",
       "asset_state": "ACTIVE"
     }
   },
   "event": {
-    "action": "AssetStateChange",
+    "action": "InstanceTermination",
     "outcome": "failure",
-    "category": ["host", "infrastructure"],
+    "category": [
+      "host",
+      "infrastructure"
+    ],
     "dataset": "aws.outposts",
     "provider": "outposts.amazonaws.com",
-    "duration": 1188000000
+    "duration": 1614000000
   },
-  "message": "Outpost op-2nvoc4d1hlz: Degraded — 0/37 c5.xlarge available",
+  "message": "Outpost op-534rxh1ysfk: InsufficientCapacity — 10/24 r5.xlarge available",
   "log": {
     "level": "error"
   },
   "error": {
-    "code": "Degraded",
+    "code": "InsufficientCapacity",
     "message": "Outpost connectivity: Disconnected",
     "type": "host"
   }

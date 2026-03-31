@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "organizations"
@@ -13,21 +13,24 @@
   },
   "aws": {
     "organizations": {
-      "action": "MoveAccount",
-      "account_id": "293847561023",
-      "account_name": "prod-workloads",
-      "organizational_unit": "Infrastructure"
+      "action": "CreateOrganizationalUnit",
+      "account_id": "814726593401",
+      "account_name": "security-audit",
+      "organizational_unit": "Workloads"
     }
   },
   "event": {
-    "action": "MoveAccount",
+    "action": "CreateOrganizationalUnit",
     "outcome": "success",
-    "category": ["configuration", "iam"],
+    "category": [
+      "configuration",
+      "iam"
+    ],
     "dataset": "aws.organizations",
     "provider": "organizations.amazonaws.com",
-    "duration": 436000000
+    "duration": 1005000000
   },
-  "message": "Organizations MoveAccount: Security",
+  "message": "Organizations CreateOrganizationalUnit: Security",
   "log": {
     "level": "info"
   }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "ca-central-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -14,41 +14,43 @@
   "aws": {
     "neptune": {
       "cluster_id": "knowledge-graph",
-      "query_language": "openCypher",
-      "query": "MATCH (n)-[r]->(m) WHERE n.id=$id RETURN n,r,m",
-      "duration_ms": 1822,
+      "query_language": "Gremlin",
+      "query": "g.V().hasLabel('user').out('follows').count()",
+      "duration_ms": 2285,
       "http_status": 200,
-      "db_connections": 179,
+      "db_connections": 104,
       "metrics": {
         "CPUUtilization": {
-          "avg": 34.677
+          "avg": 58.652
         },
         "FreeableMemory": {
-          "avg": 7959563495
+          "avg": 3887104929
         },
         "DatabaseConnections": {
-          "avg": 93
+          "avg": 46
         },
         "GremlinRequestsPerSec": {
-          "avg": 0
+          "avg": 703.649
         },
         "SparqlRequestsPerSec": {
           "avg": 0
         },
         "ServerlessDBCapacity": {
-          "avg": 23.246
+          "avg": 50.769
         }
       }
     }
   },
   "event": {
-    "duration": 1821743000,
+    "duration": 2285205000,
     "outcome": "success",
-    "category": ["database"],
+    "category": [
+      "database"
+    ],
     "dataset": "aws.neptune",
     "provider": "neptune.amazonaws.com"
   },
-  "message": "Neptune openCypher: 1822ms",
+  "message": "Neptune Gremlin: 2285ms",
   "log": {
     "level": "info"
   }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "eu-central-2",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,13 +13,13 @@
   },
   "aws": {
     "ssm": {
-      "command_id": "ffiip9i1-aqpj-lm2z",
-      "document_name": "AWS-ConfigureAWSPackage",
-      "instance_id": "i-2rfzasg82jb",
-      "action": "PutParameter",
+      "command_id": "1pwbtk2o-2e24-z7lr",
+      "document_name": "AWS-RunShellScript",
+      "instance_id": "i-ot9juzg9qa",
+      "action": "PatchInstance",
       "execution_status": "Success",
       "response_code": 0,
-      "parameter_name": "/prod/db/password",
+      "patch_compliance": "NonCompliant",
       "structured_logging": true,
       "metrics": {
         "CommandsSucceeded": {
@@ -38,22 +38,26 @@
           "sum": 1
         },
         "SessionDuration": {
-          "avg": 289
+          "avg": 266
         },
         "PatchComplianceCount": {
-          "avg": 77
+          "avg": 170
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process", "configuration", "host"],
+    "category": [
+      "process",
+      "configuration",
+      "host"
+    ],
     "dataset": "aws.ssm",
     "provider": "ssm.amazonaws.com",
-    "duration": 11000000000
+    "duration": 24000000000
   },
-  "message": "{\"commandId\":\"ffiip9i1-aqpj-lm2z\",\"documentName\":\"AWS-ConfigureAWSPackage\",\"instanceId\":\"i-2rfzasg82jb\",\"action\":\"PutParameter\",\"status\":\"Success\",\"timestamp\":\"2026-03-30T12:56:00.184Z\"}",
+  "message": "{\"commandId\":\"1pwbtk2o-2e24-z7lr\",\"documentName\":\"AWS-RunShellScript\",\"instanceId\":\"i-ot9juzg9qa\",\"action\":\"PatchInstance\",\"status\":\"Success\",\"timestamp\":\"2026-03-31T10:14:12.846Z\"}",
   "log": {
     "level": "info"
   }

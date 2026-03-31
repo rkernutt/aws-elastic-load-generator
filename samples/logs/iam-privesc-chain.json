@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "sa-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "cloudtrail"
@@ -20,33 +20,33 @@
       "event_version": "1.09",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "4wqed0z6-iu5d-fo9f-wau2-oz5prsvrn1",
+      "request_id": "ozbn3lb9-f6mw-xu86-if26-aq1k5058scg",
       "management_event": true,
       "read_only": true,
-      "recipient_account_id": "738291046572",
-      "aws_region": "eu-south-2",
+      "recipient_account_id": "293847561023",
+      "aws_region": "sa-east-1",
       "user_identity": {
         "type": "IAMUser",
-        "principal_id": "AIDA1LOQ2SUG52M",
-        "arn": "arn:aws:iam::738291046572:user/temp-user",
-        "account_id": "738291046572",
-        "access_key_id": "AKIAS455Y7ZL5Y",
+        "principal_id": "AIDAF8XLTH9NM9C",
+        "arn": "arn:aws:iam::293847561023:user/svc-account",
+        "account_id": "293847561023",
+        "access_key_id": "AKIAMFV0NYMST5",
         "session_context": {
           "attributes": {
-            "creation_date": "2026-03-30T12:56:00.184Z",
+            "creation_date": "2026-03-31T10:14:12.846Z",
             "mfa_authenticated": false
           }
         }
       },
       "request_parameters": "{\"maxItems\":100}",
-      "response_elements": "{\"users\":[{\"arn\":\"arn:aws:iam::738291046572:user/alice\",\"userId\":\"AIDAHG3JQO9T555\",\"userName\":\"alice\",\"path\":\"/\",\"createDate\":\"2026-03-30T12:56:00.184Z\"}]}"
+      "response_elements": "{\"users\":[{\"arn\":\"arn:aws:iam::293847561023:user/bob\",\"userId\":\"AIDA0EKWVFEFHP17\",\"userName\":\"bob\",\"path\":\"/\",\"createDate\":\"2026-03-31T10:14:12.846Z\"}]}"
     }
   },
   "user": {
-    "name": "temp-user"
+    "name": "svc-account"
   },
   "source": {
-    "ip": "75.215.30.130"
+    "ip": "97.147.6.109"
   },
   "user_agent": {
     "original": "aws-sdk-python/1.26.0 Python/3.11 Linux/5.15 exec-env/EC2"
@@ -54,8 +54,13 @@
   "event": {
     "action": "ListUsers",
     "outcome": "success",
-    "category": ["iam", "configuration"],
-    "type": ["change"],
+    "category": [
+      "iam",
+      "configuration"
+    ],
+    "type": [
+      "change"
+    ],
     "dataset": "aws.cloudtrail",
     "provider": "cloudtrail.amazonaws.com"
   },
@@ -72,5 +77,5 @@
       "id": "T1580"
     }
   },
-  "message": "CloudTrail [PrivEsc Step 1/4]: ListUsers by temp-user from 75.215.30.130 — enumeration"
+  "message": "CloudTrail [PrivEsc Step 1/4]: ListUsers by svc-account from 97.147.6.109 — enumeration"
 }

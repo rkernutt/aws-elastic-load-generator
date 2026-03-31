@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "emr"
@@ -13,93 +13,93 @@
   },
   "aws": {
     "dimensions": {
-      "JobFlowId": "j-63NRN9V9QVF"
+      "JobFlowId": "j-MPLNQ5H9KT"
     },
     "emr": {
-      "cluster_id": "j-63NRN9V9QVF",
+      "cluster_id": "j-MPLNQ5H9KT",
       "cluster_name": "etl-daily-aggregation-cluster",
-      "application": "hadoop",
-      "release": "emr-6.12.0",
-      "instance_group": "CORE",
-      "executor_count": 63,
+      "application": "flink",
+      "release": "emr-6.14.0",
+      "instance_group": "MASTER",
+      "executor_count": 42,
       "job": {
         "name": "etl-daily-aggregation",
-        "id": "application_1774875360370_3018",
+        "id": "application_1774952053117_2248",
         "run_state": "SUCCEEDED"
       },
-      "structured_logging": true,
+      "structured_logging": false,
       "metrics": {
-        "executor_count": 63,
-        "running_step_count": 3,
+        "executor_count": 42,
+        "running_step_count": 5,
         "failed_step_count": 0,
-        "hdfs_utilization_pct": 60,
-        "yarn_memory_used_mb": 13027,
-        "elapsedTime": 423000,
-        "numCompletedTasks": 474,
+        "hdfs_utilization_pct": 71,
+        "yarn_memory_used_mb": 34125,
+        "elapsedTime": 1227000,
+        "numCompletedTasks": 295,
         "numFailedTasks": 0,
-        "jvm_heap_usage": 0.85,
-        "gc_time_ms": 14780,
-        "numberAllExecutors": 93
+        "jvm_heap_usage": 0.83,
+        "gc_time_ms": 44676,
+        "numberAllExecutors": 48
       }
     },
     "elasticmapreduce": {
       "metrics": {
         "S3BytesWritten": {
-          "sum": 938923301061
+          "sum": 66503713239
         },
         "S3BytesRead": {
-          "sum": 376031770306
+          "sum": 240361989494
         },
         "HDFSUtilization": {
-          "avg": 60
+          "avg": 71
         },
         "HDFSBytesRead": {
-          "sum": 80829201260
+          "sum": 90390728205
         },
         "HDFSBytesWritten": {
-          "sum": 18398320196
+          "sum": 68846423042
         },
         "TotalNodesRunning": {
-          "avg": 64
+          "avg": 43
         },
         "YARNMemoryAvailablePercentage": {
-          "avg": 27.841
+          "avg": 49.031
         },
         "CoreNodesRunning": {
-          "avg": 61
+          "avg": 7
         },
         "CoreNodesPending": {
           "avg": 0
         },
         "TaskNodesRunning": {
-          "avg": 40
+          "avg": 34
         },
         "LiveDataNodes": {
-          "avg": 62
+          "avg": 22
         },
         "CapacityRemainingGB": {
-          "avg": 4577.899
+          "avg": 4751.807
         },
         "MemoryAvailableMB": {
-          "sum": 13027
+          "sum": 34125
         },
         "MemoryReservedMB": {
-          "avg": 5751
+          "avg": 9433
         },
         "MemoryTotalMB": {
-          "sum": 90658
+          "sum": 40562
         },
         "ContainersPending": {
           "avg": 0
         },
         "ContainerPendingRatio": {
-          "avg": 0.114
+          "avg": 0.308
         },
         "ContainersAllocated": {
-          "avg": 34
+          "avg": 8
         },
         "AppsCompleted": {
-          "sum": 22
+          "sum": 54
         },
         "AppsFailed": {
           "sum": 0
@@ -108,10 +108,10 @@
           "sum": 0
         },
         "AppsPending": {
-          "avg": 0
+          "avg": 3
         },
         "AppsRunning": {
-          "avg": 1
+          "avg": 5
         }
       }
     }
@@ -124,10 +124,12 @@
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.emr",
     "provider": "elasticmapreduce.amazonaws.com",
-    "duration": 423000000000
+    "duration": 1227000000000
   },
-  "message": "{\"clusterId\":\"j-63NRN9V9QVF\",\"applicationId\":\"application_1774875360370_3018\",\"containerId\":\"container_1774875360370_5475_01_343075\",\"logLevel\":\"INFO\",\"message\":\"Writing Parquet to s3://data-lake/processed/\",\"timestamp\":\"2026-03-30T12:56:00.184Z\",\"component\":\"driver\"}"
+  "message": "Writing Parquet to s3://data-lake/processed/"
 }

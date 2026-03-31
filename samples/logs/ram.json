@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,25 +13,27 @@
   },
   "aws": {
     "ram": {
-      "resource_share_arn": "arn:aws:ram:us-east-1:814726593401:resource-share/8gcgq9b3rzo",
-      "resource_share_name": "transit-gateway-share",
+      "resource_share_arn": "arn:aws:ram:eu-west-1:814726593401:resource-share/x11gmjrz2s",
+      "resource_share_name": "shared-subnets",
       "resource_type": "ec2:Subnet",
-      "action": "GetResourceShareInvitations",
+      "action": "CreateResourceShare",
       "principal": "814726593401",
-      "allow_external_principals": true,
-      "status": "ACTIVE",
-      "invitation_status": "ACCEPTED"
+      "allow_external_principals": false,
+      "status": "PENDING"
     }
   },
   "event": {
-    "action": "GetResourceShareInvitations",
+    "action": "CreateResourceShare",
     "outcome": "success",
-    "category": ["configuration", "iam"],
+    "category": [
+      "configuration",
+      "iam"
+    ],
     "dataset": "aws.ram",
     "provider": "ram.amazonaws.com",
-    "duration": 250000000
+    "duration": 498000000
   },
-  "message": "RAM GetResourceShareInvitations: ec2:Subnet shared with account 814726593401",
+  "message": "RAM CreateResourceShare: ec2:Subnet shared with account 814726593401",
   "log": {
     "level": "info"
   }

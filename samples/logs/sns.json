@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "ap-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "sns"
@@ -13,7 +13,7 @@
   },
   "aws": {
     "dimensions": {
-      "TopicName": "deployment-events"
+      "TopicName": "system-events"
     },
     "sns": {
       "metrics": {
@@ -42,7 +42,7 @@
           "sum": 0
         },
         "PublishSize": {
-          "avg": 94990
+          "avg": 199136
         },
         "SMSSuccessRate": {},
         "SMSMonthToDateSpentUSD": {
@@ -53,12 +53,14 @@
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.sns",
     "provider": "sns.amazonaws.com",
-    "duration": 48833000
+    "duration": 389705000
   },
-  "message": "SNS delivered: deployment-events -> sqs (38001B)",
+  "message": "SNS delivered: system-events -> email (1713B)",
   "log": {
     "level": "info"
   }

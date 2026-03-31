@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "ap-southeast-4",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,28 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "WorkflowName": "entity-linking"
+      "WorkflowName": "address-resolution"
     },
     "entityresolution": {
-      "matching_workflow_id": "tpuyt7th-7op6-nmvl-u2j7-fl24bwhxqet",
-      "matching_workflow_name": "entity-linking",
-      "job_id": "j5wpar6r-7uqk-pwef-wfz6-iwgxfk2zm2",
+      "matching_workflow_id": "fd3lm7fz-14up-t28f-9nzr-ee7y2z0li8m",
+      "matching_workflow_name": "address-resolution",
+      "job_id": "6q48bj7t-khse-ww42-n4g7-a3sze4f5gv",
       "job_status": "SUCCEEDED",
-      "matched_record_count": 1879388,
-      "input_record_count": 7651355,
-      "unique_record_count": 1459769,
-      "schema_name": "customer-schema",
-      "matching_technique": "ML_MATCHING"
+      "matched_record_count": 5429163,
+      "input_record_count": 6875775,
+      "unique_record_count": 5232333,
+      "schema_name": "product-schema",
+      "matching_technique": "PROVIDER_SERVICE"
     }
   },
   "event": {
-    "action": "ListMatchingJobs",
+    "action": "CreateMatchingWorkflow",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.entityresolution",
     "provider": "entityresolution.amazonaws.com"
   },
-  "message": "Entity Resolution entity-linking: matched 1879388/7651355 records → 1459769 unique",
+  "message": "Entity Resolution address-resolution: matched 5429163/6875775 records → 5232333 unique",
   "log": {
     "level": "info"
   }

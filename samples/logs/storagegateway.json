@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "storagegateway"
@@ -13,73 +13,76 @@
   },
   "aws": {
     "dimensions": {
-      "GatewayId": "sgw-qc70f419",
+      "GatewayId": "sgw-6w55ghed",
       "GatewayName": "prod-sgw-primary"
     },
     "storagegateway": {
-      "gateway_id": "sgw-qc70f419",
+      "gateway_id": "sgw-6w55ghed",
       "gateway_name": "prod-sgw-primary",
-      "gateway_type": "VOLUME",
+      "gateway_type": "FILE_FSX",
       "cache_used_percent": 29,
-      "upload_buffer_used_percent": 36,
-      "cloud_bytes_uploaded": 452622495,
+      "upload_buffer_used_percent": 27,
+      "cloud_bytes_uploaded": 6135131,
       "metrics": {
         "CacheHit.Percent": {
-          "avg": 95.234
+          "avg": 60.535
         },
         "CacheMiss.Percent": {
-          "avg": 4.77
+          "avg": 39.47
         },
         "CacheUsed.Percent": {
-          "avg": 45.287
+          "avg": 70.574
         },
         "CloudBytesDownloaded": {
-          "sum": 408086822
+          "sum": 492068649
         },
         "CloudBytesUploaded": {
-          "sum": 641226500
+          "sum": 902595422
         },
         "CloudDownloadLatency": {
-          "avg": 3053.116
+          "avg": 2064.305
         },
         "ReadBytes": {
-          "sum": 842304619
+          "sum": 355695753
         },
         "WriteBytes": {
-          "sum": 68263908
+          "sum": 292429495
         },
         "QueuedWrites": {
-          "avg": 464
+          "avg": 177
         },
         "UploadBufferUsed": {
-          "avg": 775173024
+          "avg": 661739565
         },
         "UploadBufferFree": {
-          "avg": 25125946
+          "avg": 854448482
         },
         "CacheHits": {
-          "sum": 62486
+          "sum": 61692
         },
         "CacheMisses": {
-          "sum": 170
+          "sum": 559
         },
         "CachePercentDirty": {
-          "avg": 4.529
+          "avg": 8.486
         },
         "CachePercentUsed": {
-          "avg": 82.398
+          "avg": 58.629
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["host", "file"],
+    "category": [
+      "host",
+      "file"
+    ],
     "dataset": "aws.storagegateway",
     "provider": "storagegateway.amazonaws.com",
-    "duration": 877000000
+    "duration": 1226000000
   },
-  "message": "Gateway activated",
+  "message": "Volume snapshot complete",
   "log": {
     "level": "info"
   }

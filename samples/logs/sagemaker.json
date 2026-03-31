@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "sagemaker"
@@ -13,59 +13,56 @@
   },
   "aws": {
     "dimensions": {
-      "TrainingJobName": "lstm-timeseries-transform-tkq75r",
+      "TrainingJobName": "lstm-timeseries-transform-1vt1vx",
       "JobType": "Transform"
     },
     "sagemaker": {
-      "domain_id": "d-yb9qhxsou4",
-      "domain_name": "ml-research",
-      "user_profile": "dan-platform",
+      "domain_id": "d-7b1u97jgd6",
+      "domain_name": "risk-models",
+      "user_profile": "carol-research",
       "job": {
-        "name": "lstm-timeseries-transform-tkq75r",
+        "name": "lstm-timeseries-transform-1vt1vx",
         "type": "Transform",
-        "arn": "arn:aws:sagemaker:us-west-1:501938274650:training-job/lstm-timeseries-transform-tkq75r"
+        "arn": "arn:aws:sagemaker:ap-southeast-1:814726593401:training-job/lstm-timeseries-transform-1vt1vx"
       },
       "model": {
         "name": "lstm-timeseries",
-        "version": 4
+        "version": 13
       },
       "pipeline": {
-        "name": "feature-engineering-pipeline",
-        "execution_id": "pipe-wqj4gqsy1p"
+        "name": "model-training-pipeline",
+        "execution_id": "pipe-091xxo2amyca"
       },
       "instance": {
-        "type": "ml.p3.2xlarge",
+        "type": "ml.g4dn.xlarge",
         "count": 2
       },
       "metrics": {
-        "gpu_utilization_pct": 71,
-        "cpu_utilization_pct": 57
+        "gpu_utilization_pct": 74,
+        "cpu_utilization_pct": 40
       },
       "studio": {
-        "space_name": "cv-team",
-        "app_type": "RStudio",
-        "app_name": "default",
         "lifecycle_config": false,
-        "continuous_logging": true
+        "continuous_logging": false
       },
       "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 3748
+          "sum": 2473
         },
         "ModelLatency": {
-          "avg": 147
+          "avg": 167
         },
         "GPUUtilization": {
-          "avg": 60
+          "avg": 40
         },
         "CPUUtilization": {
-          "avg": 50
+          "avg": 42
         },
         "DiskUtilization": {
-          "avg": 47
+          "avg": 33
         },
         "MemoryUtilization": {
-          "avg": 77
+          "avg": 71
         },
         "Invocations4XXError": {
           "sum": 0
@@ -80,15 +77,17 @@
     "level": "info"
   },
   "user": {
-    "name": "dan-platform"
+    "name": "carol-research"
   },
   "event": {
-    "action": "AppCreated",
-    "duration": 10094132000000,
+    "action": "PipelineExecutionStarted",
+    "duration": 9466364000000,
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "{\"domainId\":\"d-yb9qhxsou4\",\"space\":\"cv-team\",\"appType\":\"RStudio\",\"user\":\"dan-platform\",\"level\":\"INFO\",\"message\":\"Transform job succeeded\",\"timestamp\":\"2026-03-30T12:56:00.184Z\",\"event\":\"AppCreated\"}"
+  "message": "Transform job started"
 }

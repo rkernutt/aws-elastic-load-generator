@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "eu-west-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "iotcore"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "Protocol": "MQTT-SN"
+      "Protocol": "WSS"
     },
     "iotcore": {
-      "client_id": "robot-arm-7",
-      "thing_name": "robot-arm-7",
-      "thing_group": "factory-sensors",
-      "action": "RECEIVE",
-      "topic": "dt/home/thermostat/status",
-      "protocol": "MQTT-SN",
+      "client_id": "gateway-prod-1",
+      "thing_name": "gateway-prod-1",
+      "thing_group": "building-management",
+      "action": "CONNECT",
+      "topic": "telemetry/metrics",
+      "protocol": "WSS",
       "qos": 1,
-      "message_bytes": 18954,
+      "message_bytes": 57315,
       "policy_name": "FleetPolicy",
       "structured_logging": false,
-      "rules_evaluated": 5,
+      "rules_evaluated": 2,
       "metrics": {
         "Connect.Success": {
-          "sum": 924
+          "sum": 145
         },
         "Connect.Failure": {
           "sum": 0
         },
         "PublishIn.Success": {
-          "sum": 8529
+          "sum": 4388
         },
         "PublishIn.ClientError": {
           "sum": 0
@@ -44,59 +44,62 @@
           "sum": 0
         },
         "PublishOut.Success": {
-          "sum": 7872
+          "sum": 3207
         },
         "Publish.Success": {
-          "sum": 5135
+          "sum": 3760
         },
         "Publish.Failure": {
           "sum": 0
         },
         "Subscribe.Success": {
-          "sum": 157
+          "sum": 4504
         },
         "Subscribe.Failure": {
           "sum": 0
         },
         "Unsubscribe.Success": {
-          "sum": 887
+          "sum": 249
         },
         "Ping.Success": {
-          "sum": 5462
+          "sum": 9924
         },
         "Throttle.Success": {
-          "sum": 166
+          "sum": 34
         },
         "RulesMatched": {
-          "sum": 139
+          "sum": 570
         },
         "RulesFailed": {
           "sum": 0
         },
         "RulesNotMatched": {
-          "sum": 42
+          "sum": 76
         },
         "TopicMatch": {
-          "sum": 6948
+          "sum": 2821
         },
         "ClientConnections": {
-          "avg": 80248
+          "avg": 34985
         }
       }
     }
   },
   "source": {
-    "ip": "29.205.43.146"
+    "ip": "209.136.29.245"
   },
   "event": {
-    "action": "RECEIVE",
+    "action": "CONNECT",
     "outcome": "success",
-    "category": ["network", "process"],
+    "category": [
+      "network",
+      "process"
+    ],
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com",
-    "duration": 15000000
+    "duration": 169000000
   },
-  "message": "IoT Core RECEIVE: robot-arm-7 on dt/home/thermostat/status",
+  "message": "IoT Core CONNECT: gateway-prod-1 on telemetry/metrics",
   "log": {
     "level": "info"
   }

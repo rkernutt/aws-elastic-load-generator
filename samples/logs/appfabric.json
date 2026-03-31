@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "us-west-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,35 +13,37 @@
   },
   "aws": {
     "dimensions": {
-      "AppBundle": "prod-bundle",
-      "Application": "Okta"
+      "AppBundle": "saas-audit-bundle",
+      "Application": "Salesforce"
     },
     "appfabric": {
-      "app_bundle_arn": "arn:aws:appfabric:us-east-1:814726593401:appbundle/prod-bundle",
-      "application": "Okta",
-      "event_type": "dataExport",
-      "normalized_user": "user-3ZZFQOCW@example.com",
-      "source_ip": "22.105.178.111",
+      "app_bundle_arn": "arn:aws:appfabric:us-west-2:814726593401:appbundle/saas-audit-bundle",
+      "application": "Salesforce",
+      "event_type": "userSignOut",
+      "normalized_user": "user-4BJASEAC@example.com",
+      "source_ip": "58.86.160.250",
       "ingestion_status": "ACTIVE",
-      "tenant_id": "tenant-1CTKBSNO",
-      "ocsf_class": "ACCOUNT_CHANGE"
+      "tenant_id": "tenant-L56VUP5S",
+      "ocsf_class": "API_ACTIVITY"
     }
   },
   "event": {
-    "action": "UpdateIngestion",
+    "action": "DeliverToFIREHOSE",
     "outcome": "success",
-    "category": ["audit"],
+    "category": [
+      "audit"
+    ],
     "dataset": "aws.appfabric",
     "provider": "appfabric.amazonaws.com"
   },
-  "message": "AppFabric Okta: dataExport by user-3ZZFQOCW@example.com normalized as OCSF ACCOUNT_CHANGE",
+  "message": "AppFabric Salesforce: userSignOut by user-4BJASEAC@example.com normalized as OCSF API_ACTIVITY",
   "log": {
     "level": "info"
   },
   "user": {
-    "email": "user-3ZZFQOCW@example.com"
+    "email": "user-4BJASEAC@example.com"
   },
   "source": {
-    "ip": "22.105.178.111"
+    "ip": "58.86.160.250"
   }
 }

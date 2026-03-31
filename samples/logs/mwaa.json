@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "us-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "mwaa"
@@ -13,29 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "staging-airflow"
+      "EnvironmentName": "prod-airflow"
     },
     "mwaa": {
-      "environment_name": "staging-airflow",
-      "dag_id": "s3_to_redshift",
-      "run_id": "scheduled__2026-03-30T12:10:26.184Z",
-      "task_id": "load",
-      "run_state": "running",
-      "duration_seconds": 271,
-      "worker_count": 10,
-      "queue_name": "default",
+      "environment_name": "prod-airflow",
+      "dag_id": "ml_training_pipeline",
+      "run_id": "scheduled__2026-03-31T10:01:36.846Z",
+      "task_id": "notify",
+      "run_state": "success",
+      "duration_seconds": 20,
+      "worker_count": 3,
+      "queue_name": "ml_queue",
       "airflow_version": "2.6.3"
     }
   },
   "event": {
-    "action": "WorkerScaleUp",
+    "action": "SchedulerHeartbeat",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.mwaa",
     "provider": "airflow.amazonaws.com",
-    "duration": 271000000000
+    "duration": 20000000000
   },
-  "message": "MWAA staging-airflow: DAG s3_to_redshift task load running (271s)",
+  "message": "MWAA prod-airflow: DAG ml_training_pipeline task notify success (20s)",
   "log": {
     "level": "info"
   }

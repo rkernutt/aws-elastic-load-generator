@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "il-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "glue"
@@ -13,148 +13,156 @@
   },
   "aws": {
     "dimensions": {
-      "JobName": "s3-to-redshift-etl",
-      "JobRunId": "jr_z61zftkdmxq",
-      "Type": "gluestreaming"
+      "JobName": "pii-masking",
+      "JobRunId": "jr_umd2azdv1a",
+      "Type": "pythonshell"
     },
     "glue": {
+      "error_category": "THROTTLING_ERROR",
       "job": {
-        "name": "s3-to-redshift-etl",
-        "run_id": "jr_z61zftkdmxq",
-        "type": "gluestreaming",
-        "run_state": "SUCCEEDED"
+        "name": "pii-masking",
+        "run_id": "jr_umd2azdv1a",
+        "type": "pythonshell",
+        "run_state": "FAILED"
       },
-      "database": "curated",
-      "table": "users",
-      "dpu_seconds": 122540,
+      "database": "raw_data",
+      "table": "products",
+      "dpu_seconds": 100,
       "worker": {
         "type": "G.2X",
-        "count": 20
+        "count": 5
       },
       "records": {
-        "read": 16576602,
-        "written": 16410835,
-        "errors": 0
+        "read": 41798925,
+        "written": 41380935,
+        "errors": 978
       },
-      "glue_version": "3.0",
-      "continuous_logging": true,
+      "glue_version": "4.0",
+      "continuous_logging": false,
       "metrics": {
         "driver": {
           "aggregate": {
-            "numRecords": 16576602,
-            "numFailedRecords": 0,
-            "elapsedTime": 6127000,
-            "numCompletedTasks": 340,
-            "numFailedTasks": 0,
-            "numKilledTasks": 0,
-            "numCompletedStages": 2,
-            "bytesRead": 4077844092,
-            "shuffleBytesWritten": 1672915868,
-            "shuffleLocalBytesRead": 1439285491,
-            "gc_time_ms": 15343
+            "numRecords": 41798925,
+            "numFailedRecords": 978,
+            "elapsedTime": 20000,
+            "numCompletedTasks": 293,
+            "numFailedTasks": 11,
+            "numKilledTasks": 2,
+            "numCompletedStages": 5,
+            "bytesRead": 7691002200,
+            "shuffleBytesWritten": 1688181529,
+            "shuffleLocalBytesRead": 318629066,
+            "gc_time_ms": 2744
           },
           "memory": {
             "heap": {
-              "available": 1950765652,
-              "used": 2693914472,
-              "used_percentage": 58
+              "available": 2944411498,
+              "used": 2409063953,
+              "used_percentage": 45
             },
             "non-heap": {
-              "available": 228925180,
-              "used": 59962388,
-              "used_percentage": 60
+              "available": 247058113,
+              "used": 126300072,
+              "used_percentage": 34
             }
           },
           "jvm": {
             "heap": {
-              "usage": 0.58
+              "usage": 0.45
             }
           },
           "disk": {
-            "available_GB": 14,
-            "used_GB": 63,
-            "used_percentage": 82,
-            "diskSpaceUsed_MB": 1626
+            "available_GB": 170,
+            "used_GB": 208,
+            "used_percentage": 55,
+            "diskSpaceUsed_MB": 739
           },
           "BlockManager": {
             "disk": {
-              "diskSpaceUsed_MB": 1753
+              "diskSpaceUsed_MB": 744
             }
           },
           "ExecutorAllocationManager": {
             "executors": {
-              "numberAllExecutors": 28,
-              "numberMaxNeededExecutors": 55
+              "numberAllExecutors": 8,
+              "numberMaxNeededExecutors": 12
             }
           },
           "s3": {
             "filesystem": {
-              "read_bytes": 352269002,
-              "write_bytes": 2688255078
+              "read_bytes": 793512248,
+              "write_bytes": 1291595720
             }
           },
           "system": {
-            "cpuSystemLoad": 0.64
+            "cpuSystemLoad": 0.33
           },
-          "workerUtilization": 0.81,
+          "workerUtilization": 0.92,
           "skewness": {
-            "stage": 2.243,
-            "job": 0.094
+            "stage": 0.16,
+            "job": 0.185
           }
         },
         "executor": {
           "aggregate": {
-            "numCompletedTasks": 340,
-            "numFailedTasks": 0,
-            "gc_time_ms": 34707
+            "numCompletedTasks": 293,
+            "numFailedTasks": 11,
+            "gc_time_ms": 55167
           }
         },
         "ALL": {
           "memory": {
             "heap": {
-              "available": 10223904043,
-              "used": 11090530635,
-              "used_percentage": 40
+              "available": 7910556931,
+              "used": 6411190585,
+              "used_percentage": 69
             },
             "non-heap": {
-              "available": 196668772,
-              "used": 72810504,
-              "used_percentage": 29
+              "available": 283065030,
+              "used": 118831357,
+              "used_percentage": 49
             }
           },
           "jvm": {
             "heap": {
-              "usage": 0.39
+              "usage": 0.86
             }
           },
           "disk": {
-            "available_GB": 276,
-            "used_GB": 106,
-            "used_percentage": 41,
-            "diskSpaceUsed_MB": 2872
+            "available_GB": 477,
+            "used_GB": 252,
+            "used_percentage": 54,
+            "diskSpaceUsed_MB": 2013
           },
           "s3": {
             "filesystem": {
-              "read_bytes": 3154148604,
-              "write_bytes": 1852934238
+              "read_bytes": 4406466605,
+              "write_bytes": 3337098582
             }
           },
           "system": {
-            "cpuSystemLoad": 0.56
+            "cpuSystemLoad": 0.83
           }
         }
       }
     }
   },
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "event": {
-    "duration": 6127000000000,
-    "outcome": "success",
-    "category": ["process"],
+    "duration": 20000000000,
+    "outcome": "failure",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.glue",
     "provider": "glue.amazonaws.com"
   },
-  "message": "{\"jobName\":\"s3-to-redshift-etl\",\"jobRunId\":\"jr_z61zftkdmxq\",\"level\":\"INFO\",\"message\":\"Bookmark updated: processed up to offset 9823741\",\"timestamp\":\"2026-03-30T12:56:00.184Z\",\"thread\":\"driver-9itp2nr2\",\"logger\":\"com.amazonaws.glue\"}"
+  "message": "GlueException: Could not find table",
+  "error": {
+    "code": "GlueException",
+    "message": "Connection to Redshift failed: max_connections exceeded",
+    "type": "service"
+  }
 }

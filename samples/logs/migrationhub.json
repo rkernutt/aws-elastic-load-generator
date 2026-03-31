@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "ap-south-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "migrationhub"
@@ -13,29 +13,32 @@
   },
   "aws": {
     "migrationhub": {
-      "application_id": "app-flusivt4d4p",
-      "application_name": "on-prem-k8s",
-      "server_id": "d-server-W4VW3VIK2H",
-      "server_name": "server-lvxgm9sv",
-      "migration_status": "MIGRATION_IN_PROGRESS",
-      "migration_tool": "Carbonite",
-      "progress_update_stream": "MGN-stream",
+      "application_id": "app-ez7d2vcm6al",
+      "application_name": "web-tier-migration",
+      "server_id": "d-server-RLH95PBPNQ7",
+      "server_name": "server-i6dij9k0",
+      "migration_status": "MIGRATION_COMPLETE",
+      "migration_tool": "DatabaseMigrationService",
+      "progress_update_stream": "DMS-stream",
       "task": {
         "status": "IN_PROGRESS",
-        "progress_percent": 90,
-        "total_objects": 165,
-        "replicated_objects": 757
+        "progress_percent": 70,
+        "total_objects": 183,
+        "replicated_objects": 309
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process", "configuration"],
+    "category": [
+      "process",
+      "configuration"
+    ],
     "dataset": "aws.migrationhub",
     "provider": "mgh.amazonaws.com",
-    "duration": 18016000000000
+    "duration": 28616000000000
   },
-  "message": "Migration Hub on-prem-k8s [Carbonite]: MIGRATION_IN_PROGRESS — server-lvxgm9sv",
+  "message": "Migration Hub web-tier-migration [DatabaseMigrationService]: MIGRATION_COMPLETE — server-i6dij9k0",
   "log": {
     "level": "info"
   }

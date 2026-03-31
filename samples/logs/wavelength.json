@@ -1,57 +1,60 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "wavelength"
     },
-    "availability_zone": "us-west-2-wl1-las-wlz-1",
+    "availability_zone": "ap-northeast-1-wl1-nrt-wlz-1",
     "instance": {
-      "id": "i-wb3ymbr3cf"
+      "id": "i-sbdoz18qclh"
     }
   },
   "aws": {
     "dimensions": {
-      "WavelengthZone": "us-west-2-wl1-las-wlz-1",
-      "InstanceId": "i-wb3ymbr3cf",
-      "CarrierGatewayId": "cagw-zaqj4vq9df"
+      "WavelengthZone": "ap-northeast-1-wl1-nrt-wlz-1",
+      "InstanceId": "i-sbdoz18qclh",
+      "CarrierGatewayId": "cagw-w4j5w6fuhy"
     },
     "wavelength": {
-      "zone": "us-west-2-wl1-las-wlz-1",
-      "carrier": "Verizon",
-      "city": "Las Vegas",
-      "instance_id": "i-wb3ymbr3cf",
-      "instance_type": "t3.xlarge",
-      "carrier_gateway_id": "cagw-zaqj4vq9df",
-      "subnet_id": "subnet-fplix60j6q",
-      "carrier_ip": "219.158.234.221",
-      "ue_ip": "176.164.20.149",
-      "bandwidth_allowance_gbps": 24,
+      "zone": "ap-northeast-1-wl1-nrt-wlz-1",
+      "carrier": "KDDI",
+      "city": "Tokyo",
+      "instance_id": "i-sbdoz18qclh",
+      "instance_type": "c5.2xlarge",
+      "carrier_gateway_id": "cagw-w4j5w6fuhy",
+      "subnet_id": "subnet-g7kdpeq4z0i",
+      "carrier_ip": "90.42.194.128",
+      "ue_ip": "169.164.22.247",
+      "bandwidth_allowance_gbps": 6,
       "network": {
-        "uplink_mbps": 51.182,
-        "downlink_mbps": 804.301,
-        "latency_ms": 9.209,
-        "packet_loss_pct": 0.022
+        "uplink_mbps": 126.884,
+        "downlink_mbps": 936.051,
+        "latency_ms": 5.568,
+        "packet_loss_pct": 0.1
       }
     }
   },
   "source": {
-    "ip": "176.164.20.149"
+    "ip": "169.164.22.247"
   },
   "event": {
     "action": "TerminateInstances",
     "outcome": "success",
-    "category": ["network", "host"],
+    "category": [
+      "network",
+      "host"
+    ],
     "dataset": "aws.wavelength",
     "provider": "ec2.amazonaws.com",
-    "duration": 324000000
+    "duration": 254000000
   },
-  "message": "Wavelength [Las Vegas/Verizon] i-wb3ymbr3cf (t3.xlarge) UL=51Mbps DL=804Mbps lat=9.2ms",
+  "message": "Wavelength [Tokyo/KDDI] i-sbdoz18qclh (c5.2xlarge) UL=127Mbps DL=936Mbps lat=5.6ms",
   "log": {
     "level": "info"
   }

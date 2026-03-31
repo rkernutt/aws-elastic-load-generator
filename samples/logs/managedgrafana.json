@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "il-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "managedgrafana"
@@ -13,29 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "WorkspaceId": "g-jz2psf28n8"
+      "WorkspaceId": "g-rnjfd1imc9"
     },
     "managedgrafana": {
-      "workspace_id": "g-jz2psf28n8",
-      "workspace_name": "devops-metrics",
+      "workspace_id": "g-rnjfd1imc9",
+      "workspace_name": "prod-observability",
       "workspace_status": "ACTIVE",
       "grafana_version": "9.4",
-      "alert_state": "no_data",
-      "dashboard_title": "RDS Metrics",
+      "alert_state": "alerting",
+      "dashboard_title": "EKS Cluster Health",
       "datasource_type": "athena",
-      "authentication_providers": "SAML",
-      "notification_destinations": "PAGERDUTY"
+      "authentication_providers": "AWS_SSO",
+      "notification_destinations": "SLACK"
     }
   },
   "event": {
-    "action": "DisassociateLicense",
+    "action": "CreateWorkspace",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.managedgrafana",
     "provider": "grafana.amazonaws.com"
   },
-  "message": "Managed Grafana DisassociateLicense: workspace=devops-metrics alert=no_data dashboard=\"RDS Metrics\"",
+  "message": "Managed Grafana CreateWorkspace: workspace=prod-observability alert=alerting dashboard=\"EKS Cluster Health\"",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

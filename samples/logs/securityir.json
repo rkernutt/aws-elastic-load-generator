@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "securityir"
@@ -13,30 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "CaseId": "case-dnztoidk",
-      "Severity": "CRITICAL"
+      "CaseId": "case-twz8zihs",
+      "Severity": "MEDIUM"
     },
     "securityir": {
-      "case_id": "case-dnztoidk",
-      "case_title": "Insider threat",
-      "case_status": "ERADICATION",
-      "severity": "CRITICAL",
-      "impacted_account_count": 7,
-      "impacted_services": "Lambda,DynamoDB",
-      "resolver_type": "AWS",
-      "engagement_type": "SECURITY_INCIDENT",
-      "case_arn": "arn:aws:security-ir:ca-central-1:164820739518:case/case-dnztoidk"
+      "case_id": "case-twz8zihs",
+      "case_title": "Unauthorized API access",
+      "case_status": "ACTIVE",
+      "severity": "MEDIUM",
+      "impacted_account_count": 3,
+      "impacted_services": "EC2,S3,IAM",
+      "resolver_type": "THIRD_PARTY",
+      "engagement_type": "COMPROMISE_ASSESSMENT",
+      "case_arn": "arn:aws:security-ir:ap-northeast-2:814726593401:case/case-twz8zihs"
     }
   },
   "event": {
-    "action": "AddCaseMember",
+    "action": "UpdateResolverType",
     "outcome": "success",
-    "category": ["intrusion_detection", "process"],
+    "category": [
+      "intrusion_detection",
+      "process"
+    ],
     "dataset": "aws.securityir",
     "provider": "security-ir.amazonaws.com"
   },
-  "message": "Security IR AddCaseMember: case=case-dnztoidk severity=CRITICAL status=ERADICATION",
+  "message": "Security IR UpdateResolverType: case=case-twz8zihs severity=MEDIUM status=ACTIVE",
   "log": {
-    "level": "error"
+    "level": "warn"
   }
 }

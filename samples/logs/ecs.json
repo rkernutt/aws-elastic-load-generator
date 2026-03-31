@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "ecs"
@@ -19,16 +19,16 @@
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 48.172
+          "avg": 34.34
         },
         "CPUReservation": {
-          "avg": 23.876
+          "avg": 77.857
         },
         "MemoryUtilization": {
-          "avg": 49.45
+          "avg": 44.593
         },
         "MemoryReservation": {
-          "avg": 50.477
+          "avg": 65.1
         },
         "GPUReservation": {
           "avg": 0
@@ -37,31 +37,39 @@
     }
   },
   "container": {
-    "id": "lgpv667suf",
+    "id": "9b9zrvyaift",
     "name": "scheduler",
     "image": {
-      "name": "nginx:1.24",
+      "name": "node:3.11",
       "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 22079,
+    "pid": 48877,
     "name": "scheduler"
   },
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "event": {
-    "category": ["process", "container"],
-    "outcome": "success",
+    "category": [
+      "process",
+      "container"
+    ],
+    "outcome": "failure",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 701000000000
+    "duration": 292000000000
   },
-  "message": "Scaling event triggered",
+  "message": "Failed to pull image",
   "service": {
     "name": "scheduler",
     "type": "ecs"
+  },
+  "error": {
+    "code": "ServiceNotActiveException",
+    "message": "Container exited with code 1",
+    "type": "container"
   }
 }

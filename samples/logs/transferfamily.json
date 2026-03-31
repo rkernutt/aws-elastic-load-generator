@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "us-east-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "transferfamily"
@@ -13,34 +13,36 @@
   },
   "aws": {
     "dimensions": {
-      "ServerId": "s-jcc6bjgz0b",
-      "Protocol": "AS2"
+      "ServerId": "s-6i5sqx8v47f",
+      "Protocol": "FTP"
     },
     "transferfamily": {
-      "server_id": "s-jcc6bjgz0b",
-      "protocol": "AS2",
-      "user_name": "etl-transfer",
-      "session_id": "mo0v16elehl",
+      "server_id": "s-6i5sqx8v47f",
+      "protocol": "FTP",
+      "user_name": "backup-user",
+      "session_id": "4y9nro5bg4j",
       "file_path": "/reports/daily-sales.xlsx",
-      "operation": "MKDIR",
-      "bytes_transferred": 447371435,
-      "transfer_rate_mbps": 147.955,
-      "duration_seconds": 127.374,
-      "s3_bucket": "transfer-landing",
-      "as2_message_id": "xtzrlrv15q"
+      "operation": "RENAME",
+      "bytes_transferred": 1867412810,
+      "transfer_rate_mbps": 359.719,
+      "duration_seconds": 283.304,
+      "s3_bucket": "transfer-landing"
     }
   },
   "source": {
-    "ip": "126.89.145.99"
+    "ip": "65.71.154.84"
   },
   "event": {
     "outcome": "success",
-    "category": ["file", "network"],
+    "category": [
+      "file",
+      "network"
+    ],
     "dataset": "aws.transfer",
     "provider": "transfer.amazonaws.com",
-    "duration": 25326000000
+    "duration": 1129000000
   },
-  "message": "Transfer Family AS2 [etl-transfer] /reports/daily-sales.xlsx: 426.6MB",
+  "message": "Transfer Family FTP [backup-user] /reports/daily-sales.xlsx: 1780.9MB",
   "log": {
     "level": "info"
   }

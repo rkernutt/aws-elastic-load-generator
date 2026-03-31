@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-south-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,30 +13,37 @@
   },
   "aws": {
     "dimensions": {
-      "FleetId": "delivery-vans",
-      "CampaignName": "battery-monitoring"
+      "FleetId": "field-service",
+      "CampaignName": "engine-diagnostics"
     },
     "iotfleetwise": {
-      "fleet_id": "delivery-vans",
-      "vehicle_id": "VIN-W7CCL3VZYMH",
-      "campaign_name": "battery-monitoring",
-      "campaign_status": "RUNNING",
-      "signal_name": "Vehicle.OBD.EngineLoad",
-      "signal_value": 75.381,
-      "collection_scheme": "TIME_BASED",
-      "compression": "SNAPPY",
+      "fleet_id": "field-service",
+      "vehicle_id": "VIN-OYK9EWE8LVB",
+      "campaign_name": "engine-diagnostics",
+      "campaign_status": "SUSPENDED",
+      "signal_name": "Vehicle.Speed",
+      "collection_scheme": "EVENT_BASED",
+      "compression": "OFF",
       "data_destination": "S3"
     }
   },
   "event": {
-    "action": "CreateFleet",
-    "outcome": "success",
-    "category": ["iot", "process"],
+    "action": "CreateVehicle",
+    "outcome": "failure",
+    "category": [
+      "iot",
+      "process"
+    ],
     "dataset": "aws.iotfleetwise",
     "provider": "iotfleetwise.amazonaws.com"
   },
-  "message": "IoT FleetWise CreateFleet: fleet=delivery-vans, vehicle=VIN-W7CCL3VZYMH, campaign=battery-monitoring RUNNING",
+  "message": "IoT FleetWise CreateVehicle FAILED [field-service/VIN-OYK9EWE8LVB]: Campaign suspended",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "InvalidSignalsException",
+    "message": "IoT FleetWise operation failed",
+    "type": "iot"
   }
 }

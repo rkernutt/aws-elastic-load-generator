@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "access-analyzer"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "dimensions": {
-      "AnalyzerName": "analyzer-us-west-1"
+      "AnalyzerName": "analyzer-ca-central-1"
     },
     "access_analyzer": {
-      "finding_id": "3mezdlkk-0h4j-f0qu",
-      "analyzer_name": "analyzer-us-west-1",
+      "finding_id": "clibjl4a-gerq-8x2i",
+      "analyzer_name": "analyzer-ca-central-1",
       "finding_type": "none",
       "finding_description": "No external access",
-      "resource_type": "AWS::Lambda::Function",
+      "resource_type": "AWS::KMS::Key",
       "resource_arn": "arn:aws:s3:::staging-bucket",
       "status": "RESOLVED"
     }
@@ -28,7 +28,10 @@
   "event": {
     "kind": "event",
     "outcome": "success",
-    "category": ["configuration", "iam"],
+    "category": [
+      "configuration",
+      "iam"
+    ],
     "dataset": "aws.access_analyzer",
     "provider": "access-analyzer.amazonaws.com"
   },

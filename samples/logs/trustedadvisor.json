@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "trustedadvisor"
@@ -13,25 +13,28 @@
   },
   "aws": {
     "trustedadvisor": {
-      "check_name": "Security Groups - Ports Unrestricted",
-      "category": "security",
+      "check_name": "High Utilization Amazon EC2 Instances",
+      "category": "performance",
       "status": "warning",
-      "affected_resource": "i-q2ah70fj2oi",
-      "flagged_resources": 12
+      "affected_resource": "sg-li2m8ifh",
+      "flagged_resources": 15
     }
   },
   "event": {
     "kind": "alert",
     "outcome": "failure",
-    "category": ["configuration", "vulnerability"],
+    "category": [
+      "configuration",
+      "vulnerability"
+    ],
     "dataset": "aws.trustedadvisor",
     "provider": "trustedadvisor.amazonaws.com",
-    "duration": 15000000000
+    "duration": 6000000000
   },
-  "message": "Trusted Advisor [WARNING]: Security Groups - Ports Unrestricted - 5 resources affected",
+  "message": "Trusted Advisor [WARNING]: High Utilization Amazon EC2 Instances - 13 resources affected",
   "error": {
     "code": "TrustedAdvisorFinding",
-    "message": "Security Groups - Ports Unrestricted: warning",
+    "message": "High Utilization Amazon EC2 Instances: warning",
     "type": "configuration"
   },
   "log": {

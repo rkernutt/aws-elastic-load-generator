@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "il-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "cloudwatchalarms"
@@ -13,28 +13,31 @@
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "api-latency",
+      "alarm_name": "rds-connections",
       "alarm_state": "OK",
       "previous_state": "OK",
       "namespace": "AWS/EC2",
-      "metric_name": "MemoryUtilization",
-      "threshold": 95,
+      "metric_name": "QueueDepth",
+      "threshold": 85,
       "evaluation_periods": 2,
-      "metric_value": 48.606,
-      "statistic": "p99",
-      "period_seconds": 3600,
-      "treat_missing_data": "notBreaching"
+      "metric_value": 29.068,
+      "statistic": "Maximum",
+      "period_seconds": 60,
+      "treat_missing_data": "missing"
     }
   },
   "event": {
     "kind": "alert",
     "outcome": "success",
-    "category": ["configuration", "process"],
+    "category": [
+      "configuration",
+      "process"
+    ],
     "dataset": "aws.cloudwatch",
     "provider": "monitoring.amazonaws.com",
-    "duration": 3600000000000
+    "duration": 300000000000
   },
-  "message": "CloudWatch alarm \"api-latency\": OK (AWS/EC2/MemoryUtilization=48.6)",
+  "message": "CloudWatch alarm \"rds-connections\": OK (AWS/EC2/QueueDepth=29.1)",
   "log": {
     "level": "info"
   }

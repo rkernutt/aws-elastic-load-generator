@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "auditmanager"
@@ -13,29 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "AssessmentName": "PCI-DSS-v4",
-      "ControlSetId": "Access Control"
+      "AssessmentName": "SOC2-Type-II",
+      "ControlSetId": "Logging and Monitoring"
     },
     "auditmanager": {
-      "assessment_name": "PCI-DSS-v4",
-      "assessment_id": "iwuclyqk-sgtq-5mug-6pwp-afz7u70ppwn",
-      "control_set": "Access Control",
-      "control_id": "CTRL-9047",
-      "evidence_status": "COMPLIANT",
+      "assessment_name": "SOC2-Type-II",
+      "assessment_id": "ho9k7wez-aygv-evx8-lx59-6sy475p42f8",
+      "control_set": "Logging and Monitoring",
+      "control_id": "CTRL-3631",
+      "evidence_status": "MANUAL_EVIDENCE_NEEDED",
       "data_source": "AWS_CONFIG",
-      "evidence_count": 18,
+      "evidence_count": 34,
       "compliance_check": "PASSED",
       "reviewer": "security-ops"
     }
   },
   "event": {
-    "action": "GenerateReport",
+    "action": "ReviewEvidence",
     "outcome": "success",
-    "category": ["audit"],
+    "category": [
+      "audit"
+    ],
     "dataset": "aws.auditmanager",
     "provider": "auditmanager.amazonaws.com"
   },
-  "message": "Audit Manager PCI-DSS-v4 — CTRL-9047 COMPLIANT",
+  "message": "Audit Manager SOC2-Type-II — CTRL-3631 MANUAL_EVIDENCE_NEEDED",
   "log": {
     "level": "info"
   }

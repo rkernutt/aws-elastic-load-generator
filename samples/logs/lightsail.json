@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "lightsail"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "lightsail": {
-      "resource_name": "portfolio-site",
+      "resource_name": "game-server",
       "resource_type": "Database",
-      "bundle_id": "medium_2_0",
-      "blueprint": "amazon_linux_2",
-      "state": "running",
-      "event_type": "ALERT_TRIGGERED",
-      "public_ip": "161.113.72.195",
+      "bundle_id": "small_2_0",
+      "blueprint": "django",
+      "state": "pending",
+      "event_type": "INSTANCE_STATE_CHANGE",
+      "public_ip": "98.235.9.76",
       "monthly_transfer": {
-        "used_gb": 858,
-        "limit_gb": 12288
+        "used_gb": 287,
+        "limit_gb": 6144
       },
-      "alert": {
-        "name": "NetworkOut",
-        "threshold": 92
-      }
+      "alert": {}
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["host", "network"],
+    "category": [
+      "host",
+      "network"
+    ],
     "dataset": "aws.lightsail",
     "provider": "lightsail.amazonaws.com",
-    "duration": 427000000
+    "duration": 973000000
   },
-  "message": "Lightsail portfolio-site: ALERT_TRIGGERED [running]",
+  "message": "Lightsail game-server: INSTANCE_STATE_CHANGE [pending]",
   "log": {
     "level": "info"
   }

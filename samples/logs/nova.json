@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "bedrock"
@@ -13,38 +13,40 @@
   },
   "aws": {
     "dimensions": {
-      "ModelId": "amazon.nova-pro-v1:0",
-      "ModelTier": "pro"
+      "ModelId": "amazon.nova-micro-v1:0",
+      "ModelTier": "micro"
     },
     "nova": {
-      "model_id": "amazon.nova-pro-v1:0",
-      "model_tier": "pro",
+      "model_id": "amazon.nova-micro-v1:0",
+      "model_tier": "micro",
       "modality": "text",
-      "input_token_count": 6400,
-      "output_token_count": 2787,
-      "cache_read_input_token_count": 0,
-      "total_token_count": 9187,
-      "invocation_latency_ms": 1040,
-      "streaming": false,
-      "use_case": "document-qa",
-      "guardrail_action": "NONE",
-      "stop_reason": "end_turn",
+      "input_token_count": 7811,
+      "output_token_count": 2577,
+      "cache_read_input_token_count": 1057,
+      "total_token_count": 10388,
+      "invocation_latency_ms": 864,
+      "time_to_first_token_ms": 310,
+      "throughput_tokens_per_sec": 2982.6,
+      "streaming": true,
+      "use_case": "text-generation",
+      "guardrail_action": "INTERVENED",
+      "stop_reason": "max_tokens",
       "metrics": {
         "Invocations": {
-          "sum": 329
+          "sum": 905
         },
         "InvocationLatency": {
-          "avg": 1040,
-          "p99": 2600
+          "avg": 864,
+          "p99": 2160
         },
         "InputTokenCount": {
-          "sum": 6400
+          "sum": 7811
         },
         "OutputTokenCount": {
-          "sum": 2787
+          "sum": 2577
         },
         "CacheReadInputTokenCount": {
-          "sum": 0
+          "sum": 1057
         },
         "Throttles": {
           "sum": 0
@@ -54,12 +56,14 @@
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.nova",
     "provider": "bedrock.amazonaws.com",
-    "duration": 1040000000
+    "duration": 864000000
   },
-  "message": "Nova pro 6400->2787 tokens 1.04s",
+  "message": "Nova micro 7811->2577 tokens 0.86s (1057 cache hits)",
   "log": {
     "level": "info"
   }

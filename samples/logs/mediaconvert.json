@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "us-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "mediaconvert"
@@ -13,52 +13,48 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "DASH"
+      "Operation": "MP4"
     },
     "mediaconvert": {
-      "job_id": "4892415681-ug7jwm",
-      "queue_arn": "arn:aws:mediaconvert:ap-northeast-2:164820739518:queues/Default",
-      "job_status": "ERROR",
-      "output_group_type": "DASH",
-      "input_file": "s3://uploads/user-video.mp4",
-      "input_duration_minutes": 108.79,
-      "video_codec": "H_265",
-      "audio_codec": "AAC",
+      "job_id": "2970156442-t3gkir",
+      "queue_arn": "arn:aws:mediaconvert:us-west-2:814726593401:queues/batch",
+      "job_status": "COMPLETE",
+      "output_group_type": "MP4",
+      "input_file": "s3://media-input/broadcast/live.mxf",
+      "input_duration_minutes": 72.823,
+      "video_codec": "MPEG2",
+      "audio_codec": "AC3",
       "width": 3840,
-      "height": 720,
-      "bitrate_kbps": 1500,
-      "duration_seconds": 2204,
-      "error_message": "Output permissions denied",
+      "height": 2160,
+      "bitrate_kbps": 5000,
+      "duration_seconds": 245,
       "metrics": {
         "JobsCompletedCount": {
-          "sum": 0
-        },
-        "JobsErroredCount": {
           "sum": 1
         },
+        "JobsErroredCount": {
+          "sum": 0
+        },
         "StandbyTime": {
-          "avg": 1
+          "avg": 282
         },
         "TranscodingTime": {
-          "avg": 2204
+          "avg": 245
         }
       }
     }
   },
   "event": {
-    "duration": 2204000000000,
-    "outcome": "failure",
-    "category": ["process"],
+    "duration": 245000000000,
+    "outcome": "success",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.mediaconvert",
     "provider": "mediaconvert.amazonaws.com"
   },
-  "message": "MediaConvert job 4892415681-ug7jwm ERROR: S3 write denied",
-  "error": {
-    "code": "JobError",
-    "message": "MediaConvert job failed",
-    "type": "media"
-  },
+  "message": "MediaConvert job 2970156442-t3gkir COMPLETE: 72.8 min -> MP4",
   "log": {
-    "level": "error"
+    "level": "info"
   }
 }

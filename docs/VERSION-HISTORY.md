@@ -23,6 +23,7 @@
 - **Installer delete/reinstall modes** — all three installers (pipelines, dashboards, ML jobs) now support delete and delete+reinstall so updated configs can be applied without manual Kibana intervention.
 - **Installer README** — expanded with deployment-type comparison table, corrected pipeline group counts and service lists, naming convention reference.
 - **Readline input bleed fix** — API key prompt in all three installers no longer pre-populates with the previous answer.
+- **Trace workflows** — **Data pipeline (S3 → SQS)** (`workflow-pipeline-s3sqs`), **data pipeline (EventBridge + Step Functions)** (`workflow-pipeline-sfn`), and **SNS event fan-out** (`workflow-sns-fanout`) generators; **23** trace sample files under `samples/traces/`.
 
 ---
 

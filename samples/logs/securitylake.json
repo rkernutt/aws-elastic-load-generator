@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "securitylake"
@@ -13,73 +13,60 @@
   },
   "aws": {
     "dimensions": {
-      "OcsfClass": "API Activity",
-      "SourceType": "LAMBDA:CloudTrail"
+      "OcsfClass": "Security Finding",
+      "SourceType": "LAMBDA:SecurityHub"
     },
     "securitylake": {
-      "source_type": "LAMBDA:CloudTrail",
-      "class_uid": 6003,
-      "class_name": "API Activity",
-      "category_uid": 6,
-      "category_name": "Application Activity",
-      "activity_id": 3,
+      "source_type": "LAMBDA:SecurityHub",
+      "class_uid": 2001,
+      "class_name": "Security Finding",
+      "category_uid": 2,
+      "category_name": "Findings",
+      "activity_id": 5,
       "activity_name": "Update",
-      "severity_id": 3,
-      "severity": "Medium",
+      "severity_id": 1,
+      "severity": "Informational",
       "status_id": 1,
       "status": "Success",
-      "time": 1774875360184,
+      "time": 1774952052846,
       "metadata": {
         "version": "1.1.0",
         "product": {
-          "name": "CloudTrail",
+          "name": "SecurityHub",
           "vendor_name": "AWS"
         },
-        "uid": "3mdeqpeu-yeww-1gmw-uxer-ec1k982sff7"
+        "uid": "ksjrrtzo-bgwj-izdx-npq7-ccn88u82o28"
       },
       "ocsf_cloud": {
         "provider": "AWS",
         "account": {
-          "uid": "501938274650"
+          "uid": "814726593401"
         },
-        "region": "ap-east-1"
+        "region": "ap-northeast-1"
       },
-      "api": {
-        "operation": "AttachRolePolicy",
-        "service": {
-          "name": "ec2.amazonaws.com"
-        },
-        "request": {
-          "uid": "7rii54yn-5m8g-srep-c2a1-uhqc8iw388l"
-        },
-        "response": {
-          "code": 200
-        }
-      },
-      "actor": {
-        "user": {
-          "uid": "arn:aws:iam::501938274650:user/deploy-bot",
-          "name": "deploy-bot",
-          "type": "IAMUser"
-        },
-        "session": {
-          "uid": "ASIAX3JWT1PVP4A",
-          "is_mfa": true
-        }
-      },
-      "src_endpoint": {
-        "ip": "26.147.23.254"
+      "finding": {
+        "uid": "dycdnum9-it23-epzc-m2yh-m21h5kgaaf",
+        "title": "Trojan:EC2/DNSDataExfiltration",
+        "types": [
+          "Effects/DataExposure"
+        ],
+        "first_seen_time": 1774923252846,
+        "last_seen_time": 1774952052846,
+        "confidence_score": 46
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["intrusion_detection", "network"],
+    "category": [
+      "intrusion_detection",
+      "network"
+    ],
     "dataset": "aws.securitylake",
     "provider": "securitylake.amazonaws.com"
   },
-  "message": "Security Lake [API Activity/Update] Medium: CloudTrail success",
+  "message": "Security Lake [Security Finding/Update] Informational: SecurityHub success",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

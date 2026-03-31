@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "dataexchange"
@@ -13,29 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "DataSetId": "vep1d32d-85i9-mt1e-t4z6-4qlff986r5h"
+      "DataSetId": "rrs4k8fx-3lq8-uahq-dnsh-iufxqip7n6d"
     },
     "dataexchange": {
-      "dataset_id": "vep1d32d-85i9-mt1e-t4z6-4qlff986r5h",
-      "dataset_name": "Healthcare-Claims",
-      "data_set_type": "REDSHIFT",
-      "revision_id": "nmr89x9g-8r6w-1kf6-t4wa-hsmys8oo55",
-      "job_id": "6glrq68h-s2u2-t8rj-j05p-fq1l8eh156g",
-      "job_type": "IMPORT_ASSETS_FROM_S3",
+      "dataset_id": "rrs4k8fx-3lq8-uahq-dnsh-iufxqip7n6d",
+      "dataset_name": "Traffic-Analytics",
+      "data_set_type": "S3",
+      "revision_id": "u6gkrgo8-cubz-n3x9-apc7-2rtm3z3x74y",
+      "job_id": "zy2wipdy-ccjk-ghem-iorc-yyl9xbegtm",
+      "job_type": "IMPORT_ASSET_FROM_API_GATEWAY",
       "job_status": "IN_PROGRESS",
-      "provider_account_id": "164820739518",
-      "subscriber_account_id": "164820739518",
-      "asset_count": 491
+      "provider_account_id": "501938274650",
+      "subscriber_account_id": "501938274650",
+      "asset_count": 106
     }
   },
   "event": {
-    "action": "CreateRevision",
+    "action": "PublishDataSet",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.dataexchange",
     "provider": "dataexchange.amazonaws.com"
   },
-  "message": "Data Exchange Healthcare-Claims: IMPORT_ASSETS_FROM_S3 IN_PROGRESS, 491 assets",
+  "message": "Data Exchange Traffic-Analytics: IMPORT_ASSET_FROM_API_GATEWAY IN_PROGRESS, 106 assets",
   "log": {
     "level": "info"
   }

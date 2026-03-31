@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "us-east-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "appmesh"
@@ -13,37 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "MeshName": "prod-mesh",
-      "VirtualNodeName": "inventory-vn"
+      "MeshName": "dev-mesh",
+      "VirtualNodeName": "payment-vn"
     },
     "appmesh": {
-      "mesh_name": "prod-mesh",
-      "virtual_node": "inventory-vn",
-      "virtual_service": "checkout.svc",
-      "listener_port": 8443,
-      "protocol": "grpc",
-      "response_code": 503,
-      "response_time_ms": 619,
-      "bytes_received": 5085,
-      "bytes_sent": 9217,
-      "envoy_response_code_details": "no_healthy_upstreams"
+      "mesh_name": "dev-mesh",
+      "virtual_node": "payment-vn",
+      "virtual_service": "inventory.svc",
+      "listener_port": 3000,
+      "protocol": "http",
+      "response_code": 201,
+      "response_time_ms": 212,
+      "bytes_received": 1133,
+      "bytes_sent": 11698,
+      "envoy_response_code_details": "via_upstream"
     }
   },
   "event": {
     "action": "CircuitBreakerOpen",
-    "outcome": "failure",
-    "category": ["network"],
+    "outcome": "success",
+    "category": [
+      "network"
+    ],
     "dataset": "aws.appmesh",
     "provider": "appmesh.amazonaws.com",
-    "duration": 619000000
+    "duration": 212000000
   },
-  "message": "App Mesh inventory-vn: 503 upstream_reset after 619ms",
+  "message": "App Mesh payment-vn: http 201 212ms",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "503",
-    "message": "no_healthy_upstreams",
-    "type": "network"
+    "level": "info"
   }
 }

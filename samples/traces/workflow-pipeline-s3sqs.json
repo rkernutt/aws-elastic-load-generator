@@ -1,0 +1,98 @@
+{
+  "@timestamp": "2026-03-31T10:14:12.849Z",
+  "processor": {
+    "name": "transaction",
+    "event": "transaction"
+  },
+  "trace": {
+    "id": "3d32a84bd50769e35243b80ec59f1d75"
+  },
+  "transaction": {
+    "id": "84393cb0a2987f30",
+    "name": "pipeline-sqs-handler",
+    "type": "lambda",
+    "duration": {
+      "us": 32752000
+    },
+    "result": "success",
+    "sampled": true,
+    "span_count": {
+      "started": 3,
+      "dropped": 0
+    },
+    "faas": {
+      "name": "pipeline-sqs-handler",
+      "id": "arn:aws:lambda:ap-east-1:345678901234:function:pipeline-sqs-handler",
+      "version": "$LATEST",
+      "coldstart": false,
+      "execution": "aa6fe381-c9be-6ef9-1a90-dcf05910a426",
+      "trigger": {
+        "type": "pubsub"
+      }
+    }
+  },
+  "faas": {
+    "name": "pipeline-sqs-handler",
+    "id": "arn:aws:lambda:ap-east-1:345678901234:function:pipeline-sqs-handler",
+    "version": "$LATEST",
+    "coldstart": false,
+    "execution": "aa6fe381-c9be-6ef9-1a90-dcf05910a426",
+    "trigger": {
+      "type": "pubsub"
+    }
+  },
+  "service": {
+    "name": "pipeline-sqs-handler",
+    "environment": "staging",
+    "version": "1.0.0",
+    "language": {
+      "name": "python"
+    },
+    "runtime": {
+      "name": "python3.12",
+      "version": "3.12.3"
+    },
+    "framework": {
+      "name": "AWS Lambda"
+    }
+  },
+  "agent": {
+    "name": "otlp",
+    "version": "0.6.0"
+  },
+  "telemetry": {
+    "sdk": {
+      "name": "opentelemetry",
+      "language": "python",
+      "version": "1.29.0"
+    },
+    "distro": {
+      "name": "elastic",
+      "version": "0.6.0"
+    }
+  },
+  "cloud": {
+    "provider": "aws",
+    "region": "ap-east-1",
+    "account": {
+      "id": "345678901234",
+      "name": "dev-aws"
+    },
+    "service": {
+      "name": "lambda"
+    }
+  },
+  "labels": {
+    "s3_notification_prefix": "raw/",
+    "sqs_queue": "s3-lake-notifications-prod",
+    "landing_bucket": "dev-aws-landing-raw"
+  },
+  "event": {
+    "outcome": "success"
+  },
+  "data_stream": {
+    "type": "traces",
+    "dataset": "apm",
+    "namespace": "default"
+  }
+}

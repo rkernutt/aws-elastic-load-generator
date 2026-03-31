@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "efs"
@@ -13,68 +13,71 @@
   },
   "aws": {
     "dimensions": {
-      "FileSystemId": "fs-qfrt3n1t",
+      "FileSystemId": "fs-tccpkz8w",
       "StorageClass": "InfrequentAccess"
     },
     "efs": {
-      "file_system_id": "fs-qfrt3n1t",
-      "file_system_name": "jenkins-home",
-      "mount_target_id": "fsmt-fmr3nw1t",
-      "availability_zone": "eu-central-1b",
+      "file_system_id": "fs-tccpkz8w",
+      "file_system_name": "prod-shared",
+      "mount_target_id": "fsmt-0cubcubs",
+      "availability_zone": "eu-west-1a",
       "throughput_mode": "elastic",
-      "performance_mode": "maxIO",
-      "throughput_mbps": 87.106,
-      "iops": 3059,
-      "client_connections": 163,
-      "percent_io_limit": 35,
+      "performance_mode": "generalPurpose",
+      "throughput_mbps": 178.842,
+      "iops": 2291,
+      "client_connections": 219,
+      "percent_io_limit": 26,
       "metrics": {
         "BurstCreditBalance": {
-          "avg": 666957465913
+          "avg": 897999345998
         },
         "ClientConnections": {
-          "avg": 35
+          "avg": 359
         },
         "DataReadIOBytes": {
-          "sum": 181933793
+          "sum": 529324080
         },
         "DataWriteIOBytes": {
-          "sum": 548558174
+          "sum": 96676437
         },
         "MetadataIOBytes": {
-          "sum": 2734016
+          "sum": 3935754
         },
         "TotalIOBytes": {
-          "sum": 855374013
+          "sum": 241838171
         },
         "PermittedThroughput": {
-          "avg": 181.783
+          "avg": 1337.519
         },
         "MeteredIOBytes": {
-          "sum": 115447903
+          "sum": 389931475
         },
         "StorageBytes": {
-          "avg": 370974013084
+          "avg": 687941461795
         },
         "PercentIOLimit": {
-          "avg": 38.005
+          "avg": 15.419
         },
         "DataReadIOBytesWithQuota": {
-          "sum": 949697947
+          "sum": 135735279
         },
         "DataWriteIOBytesWithQuota": {
-          "sum": 23846414
+          "sum": 650887821
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["host", "file"],
+    "category": [
+      "host",
+      "file"
+    ],
     "dataset": "aws.efs",
     "provider": "elasticfilesystem.amazonaws.com",
-    "duration": 61000000
+    "duration": 157000000
   },
-  "message": "EFS fs-qfrt3n1t: 87.1 MB/s, 304 connections",
+  "message": "EFS fs-tccpkz8w: 178.8 MB/s, 304 connections",
   "log": {
     "level": "info"
   }

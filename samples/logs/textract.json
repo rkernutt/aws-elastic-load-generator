@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "textract"
@@ -13,17 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "DetectDocumentText"
+      "Operation": "GetExpenseAnalysis"
     },
     "textract": {
-      "operation": "DetectDocumentText",
-      "document_type": "tax-form",
-      "pages_processed": 49,
-      "blocks_detected": 5390,
-      "words_detected": 4410,
+      "operation": "GetExpenseAnalysis",
+      "document_type": "invoice",
+      "job_id": "56u318h6l73",
+      "job_status": "SUCCEEDED",
+      "pages_processed": 28,
+      "blocks_detected": 2576,
+      "words_detected": 12936,
       "form_key_value_pairs": 0,
       "tables_detected": 0,
-      "confidence_mean": 94.881,
+      "confidence_mean": 86.039,
       "metrics": {
         "DocumentsProcessed": {
           "sum": 1
@@ -32,7 +34,7 @@
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 1202.584
+          "avg": 2983.934
         },
         "SuccessfulRequests": {
           "sum": 1
@@ -48,11 +50,14 @@
   },
   "event": {
     "outcome": "success",
-    "category": ["process", "file"],
+    "category": [
+      "process",
+      "file"
+    ],
     "dataset": "aws.textract",
     "provider": "textract.amazonaws.com"
   },
-  "message": "Textract DetectDocumentText: tax-form, 49 pages, 10339 words",
+  "message": "Textract GetExpenseAnalysis: invoice, 28 pages, 1400 words",
   "log": {
     "level": "info"
   }

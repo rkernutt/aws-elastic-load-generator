@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "eu-west-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "container-base-pipeline",
-      "Phase": "DEPROVISION"
+      "PipelineName": "windows-hardened",
+      "Phase": "TEST"
     },
     "imagebuilder": {
-      "pipeline_name": "container-base-pipeline",
-      "image_version": "3.7.3/1",
-      "phase": "DEPROVISION",
+      "pipeline_name": "windows-hardened",
+      "image_version": "3.2.0/1",
+      "phase": "TEST",
       "phase_status": "COMPLETED",
-      "duration_seconds": 1564,
-      "os": "Windows Server 2022",
+      "duration_seconds": 626,
+      "os": "Amazon Linux 2023",
       "recipe_name": "docker-host",
-      "ami_id": "ami-kbhiryq6",
+      "ami_id": "ami-jvnk96sq",
       "metrics": {
         "BuildDuration": {
-          "avg": 1564
+          "avg": 626
         },
         "ImageBuildSuccessCount": {
           "sum": 1
@@ -36,19 +36,21 @@
           "sum": 0
         },
         "ComponentBuildDuration": {
-          "avg": 623
+          "avg": 329
         }
       }
     }
   },
   "event": {
-    "category": ["process"],
-    "duration": 1564000000000,
+    "category": [
+      "process"
+    ],
+    "duration": 626000000000,
     "outcome": "success",
     "dataset": "aws.imagebuilder",
     "provider": "imagebuilder.amazonaws.com"
   },
-  "message": "Testing image: ami-kbhiryq6 with test component aws:TestInfrastructureAssociation",
+  "message": "Testing image: ami-jvnk96sq with test component aws:TestInfrastructureAssociation",
   "log": {
     "level": "info"
   }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ap-east-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,27 +13,22 @@
   },
   "aws": {
     "detective": {
-      "entity_type": "AwsIamRole",
+      "entity_type": "Ec2Instance",
       "entity_id": "arn:aws:iam::293847561023:user/suspicious",
-      "behavior_type": "Unusual API Calls",
-      "severity_score": 80.418,
-      "finding_count": 16
+      "behavior_type": "Normal",
+      "severity_score": 4.738,
+      "finding_count": 0
     }
   },
   "event": {
-    "kind": "alert",
-    "outcome": "failure",
+    "kind": "event",
+    "outcome": "success",
     "category": "intrusion_detection",
     "dataset": "aws.detective",
     "provider": "detective.amazonaws.com"
   },
-  "message": "Detective [HIGH]: Unusual API Calls detected - 15 related findings",
+  "message": "Detective: entity behavior within normal baseline",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "AnomalousBehavior",
-    "message": "Unusual API Calls detected",
-    "type": "security"
+    "level": "info"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "cloudmap"
@@ -19,23 +19,25 @@
     "cloudmap": {
       "namespace": "staging-namespace",
       "service_name": "payment",
-      "instance_id": "i-a1y7xqi5h6",
-      "operation": "DeregisterInstance",
+      "instance_id": "i-c2ruto5rqj",
+      "operation": "RegisterInstance",
       "health_status": "ALL",
-      "instances_returned": 4,
-      "query_type": "DNS",
+      "instances_returned": 8,
+      "query_type": "API",
       "ttl": 60
     }
   },
   "event": {
-    "action": "HealthStatusChange",
+    "action": "RegisterInstance",
     "outcome": "success",
-    "category": ["network"],
+    "category": [
+      "network"
+    ],
     "dataset": "aws.cloudmap",
     "provider": "cloudmap.amazonaws.com",
-    "duration": 74000000
+    "duration": 193000000
   },
-  "message": "Cloud Map payment: DeregisterInstance returned 4 instances",
+  "message": "Cloud Map payment: RegisterInstance returned 8 instances",
   "log": {
     "level": "info"
   }

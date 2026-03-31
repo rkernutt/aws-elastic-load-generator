@@ -1,18 +1,15 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "sa-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "apigateway"
     }
-  },
-  "trace": {
-    "id": "1-m738ovlr-9uwoqsshk5h"
   },
   "aws": {
     "dimensions": {
@@ -22,32 +19,32 @@
       "Resource": "/api/v1/auth/login"
     },
     "apigateway": {
-      "request_id": "w9mt41k2-n4x9",
-      "api_id": "0k2723argm",
-      "domain_name": "0k2723argm.execute-api.us-east-1.amazonaws.com",
+      "request_id": "myiab65p-t8i0",
+      "api_id": "00c6zv985q",
+      "domain_name": "00c6zv985q.execute-api.us-west-2.amazonaws.com",
       "stage": "prod",
       "http_method": "DELETE",
       "resource_path": "/api/v1/auth/login",
       "protocol": "HTTP/1.1",
       "route_key": "DELETE /api/v1/auth/login",
-      "status": 201,
-      "response_length": 405,
-      "ip_address": "40.82.7.246",
-      "connection_id": "QOAUN11B5D",
-      "event_type": "DISCONNECT",
-      "request_time": "2026-03-30T12:56:00.184Z",
+      "status": 200,
+      "response_length": 9241,
+      "ip_address": "42.25.159.221",
+      "caller": "arn:aws:iam::293847561023:user/api-user",
+      "event_type": "CONNECT",
+      "request_time": "2026-03-31T10:14:12.846Z",
       "api_type": "HTTP",
-      "integration_latency": 224,
+      "integration_latency": 35,
       "metrics": {
         "Count": {
           "sum": 1
         },
         "Latency": {
-          "avg": 253,
-          "p99": 759
+          "avg": 48,
+          "p99": 144
         },
         "IntegrationLatency": {
-          "avg": 224
+          "avg": 35
         },
         "4XXError": {
           "sum": 0
@@ -61,39 +58,43 @@
   "http": {
     "request": {
       "method": "DELETE",
-      "id": "w9mt41k2-n4x9",
-      "bytes": 1465
+      "id": "myiab65p-t8i0",
+      "bytes": 2048
     },
     "response": {
-      "status_code": 201,
-      "bytes": 7613
+      "status_code": 200,
+      "bytes": 6341
     }
   },
   "url": {
     "path": "/api/v1/auth/login",
-    "domain": "0k2723argm.execute-api.eu-west-2.amazonaws.com"
+    "domain": "00c6zv985q.execute-api.sa-east-1.amazonaws.com"
   },
   "client": {
-    "ip": "222.34.251.157",
+    "ip": "142.25.63.67",
     "geo": {
-      "country_iso_code": "SG",
-      "country_name": "Singapore",
-      "region_name": "Singapore",
-      "city_name": "Singapore"
+      "country_iso_code": "FR",
+      "country_name": "France",
+      "region_name": "Paris",
+      "city_name": "Paris"
     }
   },
   "user_agent": {
-    "original": "Go-http-client/1.1"
+    "original": "curl/7.68.0"
   },
   "event": {
-    "duration": 253000000,
+    "duration": 48000000,
     "outcome": "success",
-    "category": ["web"],
-    "type": ["access"],
+    "category": [
+      "web"
+    ],
+    "type": [
+      "access"
+    ],
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "DELETE /api/v1/auth/login 201 253ms",
+  "message": "DELETE /api/v1/auth/login 200 48ms",
   "log": {
     "level": "info"
   }

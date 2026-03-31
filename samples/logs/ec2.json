@@ -1,140 +1,139 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "ec2"
     },
     "instance": {
-      "id": "i-bndvprg8xks"
+      "id": "i-wvg2x78514"
     }
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "i-bndvprg8xks",
-      "InstanceType": "t3.medium",
-      "ImageId": "ami-1lczlvcf",
-      "AutoScalingGroupName": "api-asg"
+      "InstanceId": "i-wvg2x78514",
+      "InstanceType": "m5.xlarge",
+      "ImageId": "ami-v5q2lzxx"
     },
     "ec2": {
       "instance": {
         "image": {
-          "id": "ami-uvlrt2cn"
+          "id": "ami-k9o0425s"
         },
         "state": {
-          "name": "stopping",
-          "code": 64
+          "name": "running",
+          "code": 16
         },
         "monitoring": {
           "state": "disabled"
         },
         "core": {
-          "count": 2
+          "count": 4
         },
-        "type": "t3.medium",
+        "type": "m5.xlarge",
         "threads_per_core": 2,
         "private": {
-          "ip": "7.12.146.178",
-          "dns_name": "ip-118-72-163-173.af-south-1.compute.internal"
+          "ip": "4.65.204.137",
+          "dns_name": "ip-142-11-225-163.ca-central-1.compute.internal"
         },
         "public": {
-          "ip": "76.95.157.156",
-          "dns_name": "ec2-246-193-65-2.compute-1.amazonaws.com"
+          "ip": "176.48.229.95",
+          "dns_name": "ec2-55-90-116-148.compute-1.amazonaws.com"
         }
       },
       "cpu": {
         "total": {
-          "pct": 0.2588
+          "pct": 0.3422
         },
-        "credit_usage": 0.466,
-        "credit_balance": 396.997,
+        "credit_usage": 2.649,
+        "credit_balance": 468.256,
         "surplus_credit_balance": 0,
         "surplus_credits_charged": 0
       },
       "network": {
         "in": {
-          "bytes": 362599355,
-          "bytes_per_sec": 641267.204,
-          "packets": 991825,
-          "packets_per_sec": 2237.735
+          "bytes": 434690210,
+          "bytes_per_sec": 252577.037,
+          "packets": 594885,
+          "packets_per_sec": 3333.721
         },
         "out": {
-          "bytes": 113893542,
-          "bytes_per_sec": 550001.223,
-          "packets": 377181,
-          "packets_per_sec": 5176.285
+          "bytes": 217174833,
+          "bytes_per_sec": 25927.59,
+          "packets": 941383,
+          "packets_per_sec": 6724.078
         }
       },
       "diskio": {
         "read": {
-          "bytes": 714255133,
-          "bytes_per_sec": 153938.303,
-          "count": 746,
-          "count_per_sec": 818.612
+          "bytes": 414950635,
+          "bytes_per_sec": 383283.215,
+          "count": 1304,
+          "count_per_sec": 326.935
         },
         "write": {
-          "bytes": 344588709,
-          "bytes_per_sec": 730304.623,
-          "count": 9644,
-          "count_per_sec": 98.853
+          "bytes": 351543923,
+          "bytes_per_sec": 238396.074,
+          "count": 4742,
+          "count_per_sec": 901.9
         }
       },
       "status": {
-        "check_failed": 1,
+        "check_failed": 0,
         "check_failed_system": 0,
-        "check_failed_instance": 1
+        "check_failed_instance": 0
       }
     }
   },
   "host": {
-    "hostname": "ip-207-103-59-191",
+    "hostname": "ip-1-56-94-230",
     "os": {
       "type": "linux",
-      "kernel": "5.10.187-71.amzn2.x86_64",
-      "version": "2023"
+      "kernel": "5.10.132-89.amzn2.x86_64",
+      "version": "2"
     },
     "architecture": "arm64",
     "cpu": {
-      "count": 4,
-      "usage": 0.25877
+      "count": 8,
+      "usage": 0.34219
     },
     "disk": {
       "read": {
-        "bytes": 118233820
+        "bytes": 69296231
       },
       "write": {
-        "bytes": 755696682
+        "bytes": 921443604
       }
     },
     "network": {
       "ingress": {
-        "bytes": 647192054
+        "bytes": 392388548
       },
       "egress": {
-        "bytes": 59153832
+        "bytes": 560728870
       }
     }
   },
   "log": {
-    "level": "error"
+    "level": "info"
   },
   "event": {
-    "category": ["host", "process"],
-    "type": ["error"],
-    "outcome": "failure",
+    "category": [
+      "host",
+      "process"
+    ],
+    "type": [
+      "info"
+    ],
+    "outcome": "success",
     "dataset": "aws.ec2",
     "provider": "ec2.amazonaws.com",
-    "duration": 451000000000
+    "duration": 2084000000000
   },
-  "message": "kernel: Out of memory: Killed process",
-  "error": {
-    "code": "AuthFailure",
-    "message": "kernel: EXT4-fs error (device xvda1): ext4_validate_block_bitmap: bg 0: bad block bitmap checksum",
-    "type": "host"
-  }
+  "message": "cloud-init: modules done"
 }

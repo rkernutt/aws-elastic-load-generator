@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "eu-central-2",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -14,52 +14,61 @@
   "aws": {
     "dimensions": {
       "DeploymentGroupName": "prod",
-      "ApplicationName": "api-service"
+      "ApplicationName": "web-app"
     },
     "codedeploy": {
-      "application_name": "api-service",
+      "application_name": "web-app",
       "deployment_group": "prod",
-      "deployment_id": "d-T3WBGS1WM",
-      "deployment_type": "BLUE_GREEN",
-      "lifecycle_event": "ApplicationStart",
-      "event_status": "Succeeded",
-      "duration_seconds": 396,
-      "instances_succeeded": 5,
-      "instances_failed": 0,
+      "deployment_id": "d-BRZJAZZ8T",
+      "deployment_type": "IN_PLACE",
+      "lifecycle_event": "BeforeAllowTraffic",
+      "event_status": "Failed",
+      "duration_seconds": 301,
+      "error_code": "SCRIPT_FAILED",
+      "instances_succeeded": 3,
+      "instances_failed": 1,
       "metrics": {
         "DeploymentAttempts": {
           "sum": 1
         },
         "DeploymentSuccesses": {
-          "sum": 1
+          "sum": 0
         },
         "DeploymentFailures": {
-          "sum": 0
+          "sum": 1
         },
         "RollbackAttempts": {
-          "sum": 0
+          "sum": 1
         },
         "DeploymentDuration": {
-          "avg": 396
+          "avg": 301
         },
         "InstanceSuccesses": {
-          "sum": 7
+          "sum": 3
         },
         "InstanceFailures": {
-          "sum": 0
+          "sum": 3
         }
       }
     }
   },
   "event": {
-    "duration": 396000000000,
-    "outcome": "success",
-    "category": ["process", "configuration"],
+    "duration": 301000000000,
+    "outcome": "failure",
+    "category": [
+      "process",
+      "configuration"
+    ],
     "dataset": "aws.codedeploy",
     "provider": "codedeploy.amazonaws.com"
   },
-  "message": "Deployment started",
+  "message": "CodeDeploy web-app FAILED at BeforeAllowTraffic: Timeout",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "SCRIPT_FAILED",
+    "message": "CodeDeploy failed at BeforeAllowTraffic",
+    "type": "deployment"
   }
 }

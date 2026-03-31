@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "eu-central-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "ses"
@@ -13,26 +13,25 @@
   },
   "aws": {
     "dimensions": {
-      "ses:configuration-set": "marketing",
+      "ses:configuration-set": "default",
       "ses:from-domain": "company.com",
       "ses:to-country": "CA",
-      "ses:to-isp": "Yahoo"
+      "ses:to-isp": "AOL"
     },
     "ses": {
-      "message_id": "8a6yidw6ypu.kxzti6nsfa@ap-southeast-4.amazonses.com",
-      "event_type": "Complaint",
-      "from_address": "noreply@company.com",
-      "destination": "user_znnf3l@yahoo.com",
-      "configuration_set": "marketing",
+      "message_id": "6ng11m7g6ps.lyb4p6f97m@eu-central-2.amazonses.com",
+      "event_type": "Delivery",
+      "from_address": "alerts@company.com",
+      "destination": "user_nimkre@yahoo.com",
       "bounce": {},
-      "complaint": {
-        "feedback_type": "abuse"
-      },
-      "sending_account_id": "738291046572",
+      "complaint": {},
+      "sending_account_id": "501938274650",
       "delivery": {
-        "recipients": ["user_znnf3l@yahoo.com"],
-        "timestamp": "2026-03-30T12:56:00.184Z",
-        "processing_time_ms": 2841,
+        "recipients": [
+          "user_nimkre@yahoo.com"
+        ],
+        "timestamp": "2026-03-31T10:14:12.846Z",
+        "processing_time_ms": 76,
         "smtp_response": "250 2.0.0 OK"
       },
       "metrics": {
@@ -52,10 +51,10 @@
           "sum": 0
         },
         "Open": {
-          "sum": 1
+          "sum": 0
         },
         "Click": {
-          "sum": 1
+          "sum": 0
         },
         "RenderingFailure": {
           "sum": 0
@@ -67,19 +66,17 @@
     }
   },
   "event": {
-    "outcome": "failure",
-    "category": ["email", "process"],
+    "outcome": "success",
+    "category": [
+      "email",
+      "process"
+    ],
     "dataset": "aws.ses",
     "provider": "email.amazonaws.com",
-    "duration": 2821000000
+    "duration": 968000000
   },
-  "message": "SES Complaint from user_znnf3l@yahoo.com:",
+  "message": "SES Delivery: alerts@company.com -> user_nimkre@yahoo.com",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "SESDeliveryFailure",
-    "message": "SES delivery failed",
-    "type": "email"
+    "level": "info"
   }
 }

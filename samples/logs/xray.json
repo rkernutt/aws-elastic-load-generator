@@ -1,14 +1,14 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "trace": {
-    "id": "1-69ca72e0-xu2h6c9i8of"
+    "id": "1-69cb9e74-exh4bbrclb4"
   },
   "span": {
-    "id": "bvgqv68sdf"
+    "id": "v5j1ippifgo"
   },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "eu-south-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -23,15 +23,16 @@
       "ServiceType": "AWS::SQS::Queue"
     },
     "xray": {
-      "trace_id": "1-69ca72e0-xu2h6c9i8of",
-      "segment_id": "bvgqv68sdf",
+      "trace_id": "1-69cb9e74-exh4bbrclb4",
+      "segment_id": "v5j1ippifgo",
+      "parent_id": "vandnbd6gdp",
       "service": {
         "name": "sqs-consumer",
         "type": "AWS::SQS::Queue"
       },
-      "duration": 2.713,
+      "duration": 0.244,
       "fault": false,
-      "error": true,
+      "error": false,
       "throttle": false,
       "http": {
         "request": {
@@ -39,29 +40,45 @@
           "url": "/api/v2/events"
         },
         "response": {
-          "status": 400
+          "status": 204
         }
       },
       "annotations": {
         "env": "prod",
-        "version": "v5"
+        "version": "v2"
       },
+      "subsegments": [
+        {
+          "id": "esij9sf8z7",
+          "name": "SQS.SendMessage",
+          "namespace": "aws",
+          "duration": 0.384,
+          "fault": false
+        },
+        {
+          "id": "nxl3vi0pqx",
+          "name": "ElastiCache.get",
+          "namespace": "aws",
+          "duration": 0.096,
+          "fault": false
+        }
+      ],
       "metrics": {
         "ErrorRate": {
-          "avg": 11.404
+          "avg": 0.81
         },
         "FaultRate": {
-          "avg": 0.14
+          "avg": 0.424
         },
         "ThrottleRate": {
-          "avg": 0.421
+          "avg": 0.398
         },
         "TotalCount": {
-          "sum": 1487
+          "sum": 5995
         },
         "Latency": {
-          "avg": 2713,
-          "p99": 8139
+          "avg": 244,
+          "p99": 732
         }
       }
     }
@@ -71,19 +88,23 @@
       "method": "PUT"
     },
     "response": {
-      "status_code": 400
+      "status_code": 204
     }
   },
   "event": {
-    "duration": 2713000000,
-    "outcome": "failure",
-    "category": ["network"],
-    "type": ["connection"],
+    "duration": 244000000,
+    "outcome": "success",
+    "category": [
+      "network"
+    ],
+    "type": [
+      "connection"
+    ],
     "dataset": "aws.xray",
     "provider": "xray.amazonaws.com"
   },
-  "message": "X-Ray: sqs-consumer PUT → 400 (2.713s)",
+  "message": "X-Ray: sqs-consumer PUT → 204 (0.244s)",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

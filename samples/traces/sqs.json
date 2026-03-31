@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "99064248801a62b1c5ce2867756f1744"
+    "id": "dd08949a084444e7b2231db25856147c"
   },
   "transaction": {
-    "id": "35d56a8a044c9df8",
-    "name": "audit-log-queue process",
+    "id": "fe1537178e4e293e",
+    "name": "inventory-updates-queue process",
     "type": "messaging",
     "duration": {
-      "us": 3176000
+      "us": 1811000
     },
     "result": "success",
     "sampled": true,
@@ -22,22 +22,22 @@
     }
   },
   "labels": {
-    "queue_name": "audit-log-queue",
-    "queue_url": "https://sqs.ap-east-1.amazonaws.com/123456789012/audit-log-queue",
-    "message_count": "9",
-    "approximate_first_receive_delay_seconds": "5",
-    "parent_trace_id": "ee15df07ac55936c831b663fc143c669"
+    "queue_name": "inventory-updates-queue",
+    "queue_url": "https://sqs.ap-northeast-3.amazonaws.com/123456789012/inventory-updates-queue",
+    "message_count": "8",
+    "approximate_first_receive_delay_seconds": "56",
+    "parent_trace_id": "1bf333dc84b7730e221d8cb4a03e3d2f"
   },
   "service": {
-    "name": "audit-log-consumer",
+    "name": "inventory-updates-consumer",
     "environment": "staging",
     "version": "1.0.0",
     "language": {
-      "name": "java"
+      "name": "nodejs"
     },
     "runtime": {
-      "name": "java21",
-      "version": "21.0.3"
+      "name": "nodejs20.x",
+      "version": "20.9.5"
     },
     "framework": {
       "name": "AWS SQS"
@@ -45,22 +45,22 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "1.6.0"
+    "version": "1.4.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "java",
-      "version": "2.12.0"
+      "language": "nodejs",
+      "version": "1.30.1"
     },
     "distro": {
       "name": "elastic",
-      "version": "1.6.0"
+      "version": "1.4.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "ap-northeast-3",
     "account": {
       "id": "123456789012",
       "name": "prod-aws"

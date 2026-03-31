@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "inspector2"
@@ -13,69 +13,79 @@
   },
   "aws": {
     "dimensions": {
-      "Severity": "HIGH"
+      "Severity": "MEDIUM"
     },
     "inspector2": {
-      "finding_id": "arn:aws:inspector2:eu-west-2:293847561023:finding/aznhnxgp-2xlc-0mcr-ok8j-ef7s41wvkem",
-      "finding_type": "CODE_VULNERABILITY",
+      "finding_id": "arn:aws:inspector2:eu-west-1:164820739518:finding/ntswqw2f-1ln1-5phf-vzzo-u3azq04m058",
+      "finding_type": "PACKAGE_VULNERABILITY",
       "finding_status": "ACTIVE",
-      "severity": "HIGH",
-      "severity_score": 8.4,
+      "severity": "MEDIUM",
+      "severity_score": 6,
       "exploitability": "PROOF_OF_CONCEPT",
       "resource_type": "AWS_EC2_INSTANCE",
-      "resource_id": "i-mid82q7zmx",
-      "first_observed_at": "2026-03-21T12:56:00.184Z",
-      "last_observed_at": "2026-03-30T12:56:00.184Z",
-      "code_vulnerability": {
-        "cwes": ["CWE-287"],
-        "detector_name": "CodeGuru Detector",
-        "file_path": {
-          "name": "main.go",
-          "line_number": 214
-        }
+      "resource_id": "i-pypbbq6e3tj",
+      "first_observed_at": "2026-03-03T10:14:12.846Z",
+      "last_observed_at": "2026-03-31T10:14:12.846Z",
+      "package_vulnerability": {
+        "cve_id": "CVE-2024-59004",
+        "source": "GHSA",
+        "cvss3_score": 5.987,
+        "vulnerable_packages": [
+          {
+            "name": "werkzeug",
+            "version": "2.6.4",
+            "fixed_in_version": "1.7.15",
+            "package_manager": "JAVA"
+          }
+        ],
+        "related_vulnerabilities": []
       },
       "metrics": {
         "TotalFindings": {
-          "sum": 347
+          "sum": 329
         },
         "CriticalFindings": {
           "sum": 0
         },
         "HighFindings": {
-          "sum": 16
+          "sum": 0
         },
         "MediumFindings": {
-          "sum": 0
+          "sum": 20
         },
         "LowFindings": {
           "sum": 0
         },
         "CoveredResources": {
-          "avg": 2807
+          "avg": 328
         }
       }
     }
   },
   "vulnerability": {
-    "severity": "HIGH",
+    "severity": "MEDIUM",
+    "id": "CVE-2024-59004",
     "score": {
-      "base": 8.447
+      "base": 5.987
     }
   },
+  "package": {
+    "name": "werkzeug",
+    "version": "2.6.4"
+  },
   "event": {
-    "outcome": "failure",
-    "category": ["vulnerability"],
-    "type": ["info"],
+    "outcome": "success",
+    "category": [
+      "vulnerability"
+    ],
+    "type": [
+      "info"
+    ],
     "dataset": "aws.inspector2",
     "provider": "inspector2.amazonaws.com"
   },
-  "message": "Inspector2 [HIGH]: CODE_VULNERABILITY detected on AWS_EC2_INSTANCE",
+  "message": "Inspector2 [MEDIUM]: CVE-2024-59004 in werkzeug 2.6.4 on AWS_EC2_INSTANCE (fix: 1.7.15)",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "CVE-2020-47271",
-    "message": "HIGH vulnerability: requests",
-    "type": "vulnerability"
+    "level": "warn"
   }
 }

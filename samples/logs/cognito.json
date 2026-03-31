@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "eu-west-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,24 +13,24 @@
   },
   "aws": {
     "dimensions": {
-      "UserPool": "ap-northeast-1_93LA0C18O",
+      "UserPool": "eu-west-1_R64OCZ3HA",
       "UserPoolClient": "b2b-customers-web"
     },
     "cognito": {
-      "user_pool_id": "ap-northeast-1_93LA0C18O",
+      "user_pool_id": "eu-west-1_R64OCZ3HA",
       "user_pool_name": "b2b-customers",
-      "event_type": "SignIn",
-      "username": "user-gznt3jgu@example.com",
-      "source_ip": "231.20.194.191",
+      "event_type": "SignUp",
+      "error_code": "TooManyRequestsException",
+      "source_ip": "138.122.160.32",
       "metrics": {
         "SignInSuccesses": {
-          "sum": 9163
+          "sum": 0
         },
         "SignInAttempts": {
-          "sum": 9163
+          "sum": 2984
         },
         "TokenRefreshSuccesses": {
-          "sum": 11048
+          "sum": 0
         },
         "SignUpSuccesses": {
           "sum": 0
@@ -39,35 +39,40 @@
           "sum": 0
         },
         "CallCount": {
-          "sum": 93497
+          "sum": 37665
         },
         "ThrottleCount": {
-          "sum": 0
+          "sum": 65
         },
         "AccountTakeoverRisk": {
-          "sum": 0
+          "sum": 2
         },
         "CompromisedCredentialsRisk": {
-          "sum": 0
+          "sum": 1
         }
       }
     }
   },
-  "user": {
-    "name": "user-gznt3jgu@example.com"
-  },
+  "user": {},
   "source": {
-    "ip": "131.87.85.49"
+    "ip": "77.232.123.199"
   },
   "event": {
-    "action": "SignIn",
-    "outcome": "success",
-    "category": ["authentication"],
+    "action": "SignUp",
+    "outcome": "failure",
+    "category": [
+      "authentication"
+    ],
     "dataset": "aws.cognito",
     "provider": "cognito-idp.amazonaws.com"
   },
-  "message": "Cognito SignIn success [b2b-customers]",
+  "message": "Cognito SignUp FAILED: User not found",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "TooManyRequestsException",
+    "message": "Authentication failed",
+    "type": "authentication"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "ap-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "appconfig"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "dimensions": {
-      "Application": "WebApp",
-      "Environment": "dev"
+      "Application": "DataPipeline",
+      "Environment": "staging"
     },
     "appconfig": {
-      "application_name": "WebApp",
-      "environment_name": "dev",
-      "configuration_profile": "LaunchDarkly",
-      "deployment_number": 244,
-      "deployment_strategy": "Canary10Percent20Minutes",
+      "application_name": "DataPipeline",
+      "environment_name": "staging",
+      "configuration_profile": "RateLimits",
+      "deployment_number": 460,
+      "deployment_strategy": "AllAtOnce",
       "growth_factor": 33,
       "percentage_complete": 100,
       "state": "DEPLOYING"
@@ -30,11 +30,13 @@
   "event": {
     "action": "RollbackDeployment",
     "outcome": "success",
-    "category": ["configuration"],
+    "category": [
+      "configuration"
+    ],
     "dataset": "aws.appconfig",
     "provider": "appconfig.amazonaws.com"
   },
-  "message": "AppConfig WebApp/dev: LaunchDarkly deployment #244 DEPLOYING",
+  "message": "AppConfig DataPipeline/staging: RateLimits deployment #460 DEPLOYING",
   "log": {
     "level": "info"
   }

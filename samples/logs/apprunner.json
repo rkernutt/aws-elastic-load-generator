@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "af-south-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,84 +13,82 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "frontend",
-      "ServiceId": "e0ddghhrvyd"
+      "ServiceName": "web-api",
+      "ServiceId": "ztz0ybdvf4"
     },
     "apprunner": {
-      "service_name": "frontend",
-      "service_arn": "arn:aws:apprunner:eu-south-1:501938274650:service/frontend/e0ddghhrvyd",
+      "service_name": "web-api",
+      "service_arn": "arn:aws:apprunner:af-south-1:501938274650:service/web-api/ztz0ybdvf4",
       "auto_scaling": {
         "min_size": 1,
         "max_size": 25,
-        "desired_count": 2,
+        "desired_count": 5,
         "scale_from_zero": false
       },
-      "structured_logging": true,
+      "structured_logging": false,
       "metrics": {
         "Requests": {
           "sum": 1
         },
         "2xxStatusResponses": {
-          "sum": 0
+          "sum": 1
         },
         "4xxStatusResponses": {
           "sum": 0
         },
         "5xxStatusResponses": {
-          "sum": 1
-        },
-        "HttpStatusCode2XX": {
           "sum": 0
         },
+        "HttpStatusCode2XX": {
+          "sum": 1
+        },
         "RequestLatency": {
-          "avg": 1863,
-          "p99": 5589
+          "avg": 219,
+          "p99": 657
         },
         "ActiveInstances": {
-          "avg": 7
+          "avg": 3
         },
         "ConcurrentRequests": {
-          "avg": 40
+          "avg": 50
         },
         "CPUUtilization": {
-          "avg": 73.573
+          "avg": 30.097
         },
         "MemoryUtilization": {
-          "avg": 36.359
+          "avg": 62.692
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "DELETE",
-      "bytes": 2646
+      "method": "PUT",
+      "bytes": 3258
     },
     "response": {
-      "status_code": 504,
-      "bytes": 1182
+      "status_code": 201,
+      "bytes": 4193
     }
   },
   "url": {
-    "path": "/health"
+    "path": "/api/v1/products"
   },
   "client": {
-    "ip": "76.202.107.234"
+    "ip": "68.112.44.182"
   },
   "event": {
-    "duration": 1863000000,
-    "outcome": "failure",
-    "category": ["web", "process"],
+    "duration": 219000000,
+    "outcome": "success",
+    "category": [
+      "web",
+      "process"
+    ],
     "dataset": "aws.apprunner",
     "provider": "apprunner.amazonaws.com"
   },
-  "message": "{\"service\":\"frontend\",\"status\":504,\"latency_ms\":1863,\"timestamp\":\"2026-03-30T12:56:00.184Z\"}",
+  "message": "PUT /api/v1/auth/login 201 219ms",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "GatewayTimeout",
-    "message": "HTTP 504",
-    "type": "server"
+    "level": "info"
   }
 }

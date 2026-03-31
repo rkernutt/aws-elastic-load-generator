@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "dms"
@@ -13,81 +13,84 @@
   },
   "aws": {
     "dimensions": {
-      "ReplicationInstanceIdentifier": "dms-prod-oovlr0j8"
+      "ReplicationInstanceIdentifier": "dms-analytics-sj3u9jn8"
     },
     "dms": {
-      "replication_task_id": "prod-mysql-to-aurora",
-      "migration_type": "cdc",
-      "replication_instance_identifier": "dms-prod-oovlr0j8",
+      "replication_task_id": "mongodb-to-documentdb",
+      "migration_type": "full-load-and-cdc",
+      "replication_instance_identifier": "dms-analytics-sj3u9jn8",
       "source_engine": "postgresql",
-      "target_engine": "aurora-postgresql",
-      "replication_instance_class": "dms.t3.medium",
+      "target_engine": "redshift",
+      "replication_instance_class": "dms.r5.large",
       "task_status": "Load complete",
-      "full_load_rows_transferred": 6516698,
-      "cdc_incoming_changes": 78907,
-      "latency_ms": 462,
-      "tables_loaded": 221,
+      "full_load_rows_transferred": 9677757,
+      "cdc_incoming_changes": 7950,
+      "latency_ms": 1533,
+      "tables_loaded": 423,
       "tables_errored": 0,
       "metrics": {
         "FullLoadThroughputRowsSource": {
-          "avg": 41559
+          "avg": 6025
         },
         "FullLoadThroughputRowsTarget": {
-          "avg": 16948
+          "avg": 75931
         },
         "CDCIncomingChanges": {
-          "avg": 4685
+          "avg": 5934
         },
         "CDCChangesMemorySource": {
-          "avg": 465
+          "avg": 972
         },
         "CDCChangesMemoryTarget": {
-          "avg": 161
+          "avg": 993
         },
         "CDCChangesDiskSource": {
-          "avg": 86
+          "avg": 41
         },
         "CDCChangesDiskTarget": {
-          "avg": 38
+          "avg": 71
         },
         "CDCLatencySource": {
-          "avg": 3
+          "avg": 2
         },
         "CDCLatencyTarget": {
-          "avg": 3
+          "avg": 9
         },
         "CPUUtilization": {
-          "avg": "12.915"
+          "avg": "24.850"
         },
         "FreeableMemory": {
-          "avg": 6953627870
+          "avg": 7848090799
         },
         "FreeStorageSpace": {
-          "avg": 2442877539
+          "avg": 21584580037
         },
         "NetworkReceiveThroughput": {
-          "avg": 44559207
+          "avg": 58471766
         },
         "NetworkTransmitThroughput": {
-          "avg": 712904
+          "avg": 74375256
         },
         "ReadIOPS": {
-          "avg": 1979
+          "avg": 393
         },
         "WriteIOPS": {
-          "avg": 1577
+          "avg": 2191
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["database", "process"],
+    "category": [
+      "database",
+      "process"
+    ],
     "dataset": "aws.dms",
     "provider": "dms.amazonaws.com",
-    "duration": 9890000000000
+    "duration": 12551000000000
   },
-  "message": "DMS prod-mysql-to-aurora: 6,516,698 rows (postgresql->aurora-postgresql cdc)",
+  "message": "DMS mongodb-to-documentdb: 9,677,757 rows (postgresql->redshift full-load-and-cdc)",
   "log": {
     "level": "info"
   }

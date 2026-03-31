@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "aurora"
@@ -14,53 +14,55 @@
   "aws": {
     "aurora": {
       "cluster_id": "staging-aurora",
-      "instance_id": "staging-aurora-instance-2",
-      "engine": "aurora-mysql",
-      "engine_version": "8.0.36",
-      "replica_lag_seconds": 2.934,
-      "db_connections": 16,
+      "instance_id": "staging-aurora-instance-5",
+      "engine": "aurora-postgresql",
+      "engine_version": "15.4",
+      "replica_lag_seconds": 1.578,
+      "db_connections": 364,
       "max_connections": 1000,
       "failover_in_progress": false,
       "metrics": {
         "AuroraBinlogReplicaLag": {
-          "avg": 3
+          "avg": 4
         },
         "AuroraGlobalDBReplicatedWriteIO": {
-          "sum": 73601912
+          "sum": 32726315
         },
         "AuroraGlobalDBDataTransferBytes": {
-          "sum": 198903183
+          "sum": 744416300
         },
         "AuroraGlobalDBProgressLag": {
-          "avg": 140
+          "avg": 676
         },
         "BacktrackChangeRecordsCreationRate": {
-          "avg": 7186
+          "avg": 8237
         },
         "BacktrackChangeRecordsStored": {
-          "avg": 978833847
+          "avg": 286936309
         },
         "BacktrackWindowActual": {
-          "avg": 15787
+          "avg": 49165
         },
         "BacktrackWindowAlert": {
           "avg": 0
         },
         "ServerlessDatabaseCapacity": {
-          "avg": 125.612
+          "avg": 18.726
         },
         "ACUUtilization": {
-          "avg": 31.873
+          "avg": 48.665
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["database"],
+    "category": [
+      "database"
+    ],
     "dataset": "aws.aurora",
     "provider": "rds.amazonaws.com",
-    "duration": 34000000000
+    "duration": 47000000000
   },
   "message": "Global Database replication lag: 0.8s",
   "log": {

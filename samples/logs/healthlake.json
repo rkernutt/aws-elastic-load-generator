@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "healthlake"
@@ -13,29 +13,38 @@
   },
   "aws": {
     "dimensions": {
-      "DatastoreId": "z0g112b3-py7w-lpif-halx-d3dnz6ghbv",
-      "ResourceType": "MedicationRequest"
+      "DatastoreId": "aeikrhgz-r48r-5gqk-v6gg-f9igk21a9u",
+      "ResourceType": "Condition"
     },
     "healthlake": {
-      "datastore_id": "z0g112b3-py7w-lpif-halx-d3dnz6ghbv",
+      "datastore_id": "aeikrhgz-r48r-5gqk-v6gg-f9igk21a9u",
       "datastore_name": "patient-records",
-      "resource_type": "MedicationRequest",
-      "operation": "CreateResource",
-      "request_id": "JQNSSHX0-LWH8-WPMP-MNML-FGEHJCTI76",
-      "response_code": 200,
+      "resource_type": "Condition",
+      "operation": "StartFHIRExportJob",
+      "request_id": "4PUXKN7C-CMYN-HGK3-4HRQ-45V95Y4YSYQ",
+      "response_code": 503,
+      "export_job_id": "export-pry1cg4eg6j",
       "fhir_version": "R4"
     }
   },
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "event": {
-    "action": "CreateResource",
-    "outcome": "success",
-    "category": ["process", "database"],
+    "action": "StartFHIRExportJob",
+    "outcome": "failure",
+    "category": [
+      "process",
+      "database"
+    ],
     "dataset": "aws.healthlake",
     "provider": "healthlake.amazonaws.com",
-    "duration": 201000000
+    "duration": 3555000000
   },
-  "message": "HealthLake CreateResource: datastore=patient-records, resource=MedicationRequest, 201ms"
+  "message": "HealthLake StartFHIRExportJob FAILED [patient-records/Condition]: HTTP 503 - Resource not found",
+  "error": {
+    "code": "ResourceNotFoundException",
+    "message": "HealthLake FHIR operation failed",
+    "type": "database"
+  }
 }

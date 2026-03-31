@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "01a35a08c4aaebb2c1fccc00ecc8ddc3"
+    "id": "c7b59539cc160df3a6312003e44aac23"
   },
   "transaction": {
-    "id": "8ea95acfacfb589a",
-    "name": "GET /users/{id}",
+    "id": "4a442698e36bf5dd",
+    "name": "GET /search/filters",
     "type": "request",
     "duration": {
-      "us": 262363
+      "us": 278977
     },
     "result": "HTTP 200",
     "sampled": true,
@@ -30,24 +30,24 @@
     }
   },
   "url": {
-    "path": "/users/{id}"
+    "path": "/search/filters"
   },
   "labels": {
-    "k8s_namespace": "production",
-    "k8s_pod_name": "user-profile-service-98da2-52351",
-    "k8s_deployment": "user-profile-service",
-    "k8s_node": "ip-138-169-129-175.ec2.internal"
+    "k8s_namespace": "staging",
+    "k8s_pod_name": "search-service-e121a-719de",
+    "k8s_deployment": "search-service",
+    "k8s_node": "ip-59-14-176-144.ec2.internal"
   },
   "service": {
-    "name": "user-profile-service",
-    "environment": "production",
+    "name": "search-service",
+    "environment": "staging",
     "version": "1.0.0",
     "language": {
-      "name": "python"
+      "name": "java"
     },
     "runtime": {
-      "name": "python3.12",
-      "version": "3.12.3"
+      "name": "java21",
+      "version": "21.0.3"
     },
     "framework": {
       "name": "Kubernetes"
@@ -55,25 +55,25 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "0.6.0"
+    "version": "1.6.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "python",
-      "version": "1.29.0"
+      "language": "java",
+      "version": "2.12.0"
     },
     "distro": {
       "name": "elastic",
-      "version": "0.6.0"
+      "version": "1.6.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "us-west-1",
     "account": {
-      "id": "345678901234",
-      "name": "dev-aws"
+      "id": "234567890123",
+      "name": "staging-aws"
     },
     "service": {
       "name": "eks"

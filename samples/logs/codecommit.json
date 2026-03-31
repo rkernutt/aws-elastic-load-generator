@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
     "region": "ap-southeast-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "codecommit"
@@ -13,28 +13,31 @@
   },
   "aws": {
     "codecommit": {
-      "repository_name": "web-app",
-      "repository_arn": "arn:aws:codecommit:ap-southeast-3:293847561023:web-app",
-      "event_type": "ReferenceCreated",
-      "reference_name": "release/v2.1",
-      "commit_id": "nh9wsc6i7em",
-      "author": "codebuild",
-      "files_changed": 14,
-      "lines_added": 256,
-      "lines_deleted": 13
+      "repository_name": "ml-models",
+      "repository_arn": "arn:aws:codecommit:ap-southeast-3:814726593401:ml-models",
+      "event_type": "ReferenceDeleted",
+      "reference_name": "feature/new-auth",
+      "commit_id": "zvltf04e0i",
+      "author": "bob",
+      "files_changed": 15,
+      "lines_added": 457,
+      "lines_deleted": 169
     }
   },
   "user": {
-    "name": "bob"
+    "name": "alice"
   },
   "event": {
-    "action": "ReferenceCreated",
+    "action": "ReferenceDeleted",
     "outcome": "success",
-    "category": ["configuration", "file"],
+    "category": [
+      "configuration",
+      "file"
+    ],
     "dataset": "aws.codecommit",
     "provider": "codecommit.amazonaws.com"
   },
-  "message": "CodeCommit ReferenceCreated: web-app/release/v2.1",
+  "message": "CodeCommit ReferenceDeleted: ml-models/feature/new-auth",
   "log": {
     "level": "info"
   }

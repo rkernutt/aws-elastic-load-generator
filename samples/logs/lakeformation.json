@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "af-south-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,27 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "ResourceArn": "arn:aws:glue:eu-west-2:164820739518:table/data_lake/transactions",
+      "ResourceArn": "arn:aws:glue:af-south-1:164820739518:table/curated/events",
       "Principal": "arn:aws:iam::164820739518:user/alice"
     },
     "lakeformation": {
-      "database": "data_lake",
-      "table": "transactions",
-      "action": "GetDataAccess",
+      "database": "curated",
+      "table": "events",
+      "action": "CreateLakeFormationTag",
       "principal_arn": "arn:aws:iam::164820739518:user/alice",
-      "resource_arn": "arn:aws:glue:eu-west-2:164820739518:table/data_lake/transactions",
-      "permissions": ["SELECT", "INSERT"],
-      "lf_tag_key": "team",
-      "lf_tag_values": ["prod"],
+      "resource_arn": "arn:aws:glue:af-south-1:164820739518:table/curated/events",
+      "permissions": [
+        "ALL"
+      ],
+      "lf_tag_key": "pii",
+      "lf_tag_values": [
+        "dev",
+        "staging"
+      ],
       "metrics": {
         "GrantCount": {
-          "sum": 46
+          "sum": 48
         },
         "DatabaseCount": {
-          "avg": 17
+          "avg": 13
         },
         "TableCount": {
-          "avg": 81
+          "avg": 46
         },
         "DataLakeSettings": {
           "avg": 1
@@ -42,14 +47,17 @@
     }
   },
   "event": {
-    "action": "GetDataAccess",
-    "duration": 251000000,
+    "action": "CreateLakeFormationTag",
+    "duration": 647000000,
     "outcome": "success",
-    "category": ["database", "iam"],
+    "category": [
+      "database",
+      "iam"
+    ],
     "dataset": "aws.lakeformation",
     "provider": "lakeformation.amazonaws.com"
   },
-  "message": "Lake Formation GetDataAccess: SELECT,INSERT on data_lake.transactions",
+  "message": "Lake Formation CreateLakeFormationTag: ALL on curated.events",
   "log": {
     "level": "info"
   }

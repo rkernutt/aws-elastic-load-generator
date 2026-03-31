@@ -1,42 +1,49 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "cloudhsm"
     },
-    "availability_zone": "ap-south-2c"
+    "availability_zone": "ap-south-1a"
   },
   "aws": {
     "dimensions": {
-      "ClusterId": "cluster-jy9qywp8qe"
+      "ClusterId": "cluster-l1rsbpodzj"
     },
     "cloudhsm": {
-      "cluster_id": "cluster-jy9qywp8qe",
-      "hsm_id": "hsm-f5rke2vet4",
-      "hsm_state": "ACTIVE",
-      "availability_zone": "ap-south-2c",
-      "subnet_id": "subnet-e2xtlbuv",
-      "eni_ip": "10.194.143.225",
-      "key_type": "RSA_2048",
-      "operation_type": "cluster_management",
-      "backup_id": "backup-sh1oqbw0pu"
+      "cluster_id": "cluster-l1rsbpodzj",
+      "hsm_id": "hsm-vrqkxe3tcf",
+      "hsm_state": "DELETED",
+      "availability_zone": "ap-south-1a",
+      "subnet_id": "subnet-v2g52l8u",
+      "eni_ip": "10.232.195.51",
+      "key_type": "EC_P384",
+      "operation_type": "restore"
     }
   },
   "event": {
-    "action": "CreateBackup",
-    "outcome": "success",
-    "category": ["process", "authentication"],
+    "action": "CreateHsm",
+    "outcome": "failure",
+    "category": [
+      "process",
+      "authentication"
+    ],
     "dataset": "aws.cloudhsm",
     "provider": "cloudhsm.amazonaws.com"
   },
-  "message": "CloudHSM CreateBackup: cluster=cluster-jy9qywp8qe, hsm=hsm-f5rke2vet4, state=ACTIVE",
+  "message": "CloudHSM CreateHsm FAILED [cluster-l1rsbpodzj]: Cluster not initialized",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "CloudHsmResourceNotFoundException",
+    "message": "CloudHSM operation failed",
+    "type": "security"
   }
 }

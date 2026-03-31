@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "eu-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "lex"
@@ -13,30 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "BotName": "order-bot",
+      "BotName": "booking-assistant",
       "Operation": "BookAppointment"
     },
     "lex": {
-      "bot_id": "TDVVC7UDYL",
-      "bot_name": "order-bot",
+      "bot_id": "JZC4HRIHHM",
+      "bot_name": "booking-assistant",
       "bot_version": "2",
       "locale_id": "en_GB",
-      "session_id": "kde7ty41zz",
-      "input_transcript": "I want to order a product",
+      "session_id": "ykvjxy08ats",
+      "input_transcript": "What is my order status",
       "intent_name": "BookAppointment",
-      "intent_nlu_confidence_score": 0.824,
+      "intent_nlu_confidence_score": 0.651,
       "dialog_state": "Fulfilled",
-      "sentiment": "POSITIVE"
+      "sentiment": "NEUTRAL"
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.lex",
     "provider": "lex.amazonaws.com"
   },
-  "message": "Lex order-bot: intent=BookAppointment (82%)",
+  "message": "Lex booking-assistant: intent=BookAppointment (65%)",
   "log": {
-    "level": "info"
+    "level": "warn"
   }
 }

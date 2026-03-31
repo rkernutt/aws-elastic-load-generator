@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ap-northeast-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,44 +13,50 @@
   },
   "aws": {
     "appsync": {
-      "api_id": "0KOZTVO4OHC",
+      "api_id": "JOSIY814NBE",
       "api_name": "prod-graphql-api",
       "operation_type": "query",
       "operation_name": "updateInventory",
-      "data_source_type": "AWS_LAMBDA",
-      "duration_ms": 171,
-      "status_code": 200,
+      "data_source_type": "AMAZON_DYNAMODB",
+      "duration_ms": 2341,
+      "status_code": 403,
+      "error_type": "DatasourceError",
       "metrics": {
         "RequestCount": {
-          "sum": 3518
+          "sum": 1656
         },
         "4XXError": {
-          "sum": 0
+          "sum": 104
         },
         "5XXError": {
           "sum": 0
         },
         "Latency": {
-          "avg": 170.711,
-          "p99": 465.4
+          "avg": 2341.051,
+          "p99": 7067.6
         }
       }
     }
   },
   "http": {
     "response": {
-      "status_code": 200
+      "status_code": 403
     }
   },
   "event": {
-    "duration": 170711000,
-    "outcome": "success",
+    "duration": 2341051000,
+    "outcome": "failure",
     "category": "api",
     "dataset": "aws.appsync",
     "provider": "appsync.amazonaws.com"
   },
-  "message": "AppSync query.updateInventory: 171ms [prod-graphql-api]",
+  "message": "AppSync query.updateInventory FAILED [403]: DatasourceError",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "UnauthorizedException",
+    "message": "AppSync operation failed",
+    "type": "api"
   }
 }

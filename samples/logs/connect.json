@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "connect"
@@ -13,63 +13,72 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "p58jgk5u-1gz4-botk-b7c5-66jec1ri7na",
+      "InstanceId": "z0ndda83-erbj-rlim-k3ky-43gufcomlsc",
       "MetricGroup": "Queue"
     },
     "connect": {
-      "instance_id": "p58jgk5u-1gz4-botk-b7c5-66jec1ri7na",
-      "contact_id": "ycs6kq76-bgwd-kxjz",
-      "channel": "VOICE",
-      "initiation_method": "TRANSFER",
-      "queue_name": "BasicQueue",
+      "instance_id": "z0ndda83-erbj-rlim-k3ky-43gufcomlsc",
+      "contact_id": "3cr5t0lr-nz5m-re34",
+      "channel": "CHAT",
+      "initiation_method": "CHAT",
+      "queue_name": "Sales",
       "agent_id": "agent-bob",
-      "duration_seconds": 859,
-      "hold_duration_seconds": 24,
-      "queue_wait_time_seconds": 177,
-      "disconnect_reason": "EXPIRED",
-      "sentiment_overall": "POSITIVE",
-      "contact_lens_enabled": true,
+      "duration_seconds": 202,
+      "hold_duration_seconds": 28,
+      "queue_wait_time_seconds": 224,
+      "disconnect_reason": "CUSTOMER_DISCONNECT",
+      "sentiment_overall": "NEUTRAL",
+      "contact_lens_enabled": false,
       "lex_bot_interacted": false,
+      "error_code": "QueueCapacityExceeded",
       "metrics": {
         "ContactsQueued": {
           "sum": 1
         },
         "ContactsHandled": {
-          "sum": 1
+          "sum": 0
         },
         "ContactsAbandoned": {
-          "sum": 0
+          "sum": 1
         },
         "ContactsHoldAbandonment": {
           "sum": 0
         },
         "AverageHandleTime": {
-          "avg": 859
+          "avg": 202
         },
         "AverageAfterContactWorkTime": {
-          "avg": 66
+          "avg": 69
         },
         "AverageQueueAnswerTime": {
-          "avg": 98
+          "avg": 102
         },
         "ServiceLevel": {
-          "avg": 96.808
+          "avg": 88.225
         },
         "OccupancyTime": {
-          "avg": 66.426
+          "avg": 57.818
         }
       }
     }
   },
   "event": {
-    "duration": 859000000000,
-    "outcome": "success",
-    "category": ["host", "session"],
+    "duration": 202000000000,
+    "outcome": "failure",
+    "category": [
+      "host",
+      "session"
+    ],
     "dataset": "aws.connect",
     "provider": "connect.amazonaws.com"
   },
-  "message": "Connect TRANSFER: BasicQueue agent=agent-bob, 859s, POSITIVE",
+  "message": "Connect CHAT FAILED: Flow error",
+  "error": {
+    "code": "ConnectError",
+    "message": "Connect operation failed",
+    "type": "session"
+  },
   "log": {
-    "level": "warn"
+    "level": "error"
   }
 }

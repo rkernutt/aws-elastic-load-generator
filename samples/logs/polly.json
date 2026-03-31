@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "polly"
@@ -13,29 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "StartSpeechSynthesisTask"
+      "Operation": "SynthesizeSpeech"
     },
     "polly": {
-      "voice_id": "Celine",
+      "voice_id": "Amy",
       "engine": "standard",
-      "operation": "StartSpeechSynthesisTask",
-      "language_code": "en-GB",
-      "output_format": "mp3",
+      "operation": "SynthesizeSpeech",
+      "language_code": "en-US",
+      "output_format": "pcm",
       "text_type": "ssml",
-      "characters_synthesized": 2293,
+      "characters_synthesized": 0,
       "sample_rate": "16000",
+      "error_code": "InvalidSsmlException",
       "metrics": {
         "RequestCharacters": {
-          "sum": 742
+          "sum": 259
         },
         "ResponseLatency": {
-          "avg": 309.295
+          "avg": 1686.815
         },
         "2XXCount": {
-          "sum": 1
+          "sum": 0
         },
         "4XXCount": {
-          "sum": 0
+          "sum": 4
         },
         "5XXCount": {
           "sum": 0
@@ -44,13 +45,20 @@
     }
   },
   "event": {
-    "outcome": "success",
-    "category": ["process"],
+    "outcome": "failure",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.polly",
     "provider": "polly.amazonaws.com"
   },
-  "message": "Polly SynthesizeSpeech: Celine (standard), 2293 chars",
+  "message": "Polly SynthesizeSpeech FAILED (Amy): Invalid SSML",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "PollyError",
+    "message": "Polly synthesis failed",
+    "type": "ml"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "us-east-2",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,29 +13,31 @@
   },
   "aws": {
     "servicecatalog": {
-      "operation": "TerminateProvisionedProduct",
-      "product_name": "Standard EC2 Instance",
-      "product_id": "prod-N2JQD6OBSQ",
-      "portfolio_id": "port-V5I1IYTDX0O",
-      "provisioned_product_name": "standard-ec2-instance-6c8ywk",
-      "record_id": "rec-A9CQFST8OIF",
-      "status": "AVAILABLE",
-      "requester_arn": "arn:aws:iam::738291046572:user/team-lead-bob",
-      "launch_role": "arn:aws:iam::123456789:role/ServiceCatalogLaunchRole"
+      "operation": "ProvisionProduct",
+      "product_name": "EKS Cluster",
+      "product_id": "prod-7MY7E06NX4D",
+      "portfolio_id": "port-MBRK8JYALS",
+      "provisioned_product_name": "eks-cluster-1bksve",
+      "record_id": "rec-RYQ10OYRILJ",
+      "status": "SUCCEEDED",
+      "requester_arn": "arn:aws:iam::738291046572:user/developer-alice"
     }
   },
   "user": {
-    "name": "team-lead-bob"
+    "name": "developer-alice"
   },
   "event": {
-    "action": "TerminateProvisionedProduct",
+    "action": "ProvisionProduct",
     "outcome": "success",
-    "category": ["configuration", "process"],
+    "category": [
+      "configuration",
+      "process"
+    ],
     "dataset": "aws.servicecatalog",
     "provider": "servicecatalog.amazonaws.com",
-    "duration": 248000000000
+    "duration": 405000000000
   },
-  "message": "ServiceCatalog TerminateProvisionedProduct: team-lead-bob → Standard EC2 Instance [AVAILABLE]",
+  "message": "ServiceCatalog ProvisionProduct: developer-alice → EKS Cluster [SUCCEEDED]",
   "log": {
     "level": "info"
   }

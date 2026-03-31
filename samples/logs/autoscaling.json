@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "ap-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "autoscaling"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "AutoScalingGroupName": "web-asg"
+      "AutoScalingGroupName": "worker-asg"
     },
     "autoscaling": {
-      "group_name": "web-asg",
-      "activity_id": "u5kdc0s8-9fho-9gqn",
-      "action_type": "Launch",
-      "instance_id": "i-d106mpcka5",
-      "instance_type": "c5.2xlarge",
-      "desired_capacity": 17,
+      "group_name": "worker-asg",
+      "activity_id": "irzdj2q0-y1t0-nz8q",
+      "action_type": "HealthCheck",
+      "instance_id": "i-f4z1gqdks5m",
+      "instance_type": "m5.xlarge",
+      "desired_capacity": 14,
       "min_size": 2,
       "max_size": 50,
-      "current_capacity": 16,
-      "cause": "Scale out triggered: capacity below desired",
+      "current_capacity": 12,
+      "cause": "ELB health check: InService",
       "status_code": "Successful",
       "launch_template": "api-lt:3",
       "metrics": {
@@ -36,37 +36,37 @@
           "avg": 50
         },
         "GroupDesiredCapacity": {
-          "avg": 17
+          "avg": 14
         },
         "GroupInServiceInstances": {
-          "avg": 16
+          "avg": 12
         },
         "GroupPendingInstances": {
           "avg": 0
         },
         "GroupStandbyInstances": {
-          "avg": 1
+          "avg": 2
         },
         "GroupTerminatingInstances": {
           "avg": 0
         },
         "GroupTotalInstances": {
-          "avg": 17
+          "avg": 14
         },
         "GroupInServiceCapacity": {
-          "avg": 16
+          "avg": 12
         },
         "GroupPendingCapacity": {
           "avg": 0
         },
         "GroupStandbyCapacity": {
-          "avg": 1
+          "avg": 2
         },
         "GroupTerminatingCapacity": {
           "avg": 0
         },
         "GroupTotalCapacity": {
-          "avg": 17
+          "avg": 14
         },
         "WarmPoolMinSize": {
           "avg": 0
@@ -90,13 +90,15 @@
     }
   },
   "event": {
-    "category": ["host"],
+    "category": [
+      "host"
+    ],
     "outcome": "success",
     "dataset": "aws.autoscaling",
     "provider": "autoscaling.amazonaws.com",
-    "duration": 109000000000
+    "duration": 53000000000
   },
-  "message": "AutoScaling web-asg: Launch instance",
+  "message": "AutoScaling worker-asg: HealthCheck instance",
   "log": {
     "level": "info"
   }

@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "2c57a0c4225f2ddcb36db125284beca9"
+    "id": "641b3e333e932904fe2d0ac0fa7f1feb"
   },
   "transaction": {
-    "id": "24995906ff12b764",
-    "name": "inventory-updater",
+    "id": "8e557a3a57e12f2a",
+    "name": "webhook-dispatcher",
     "type": "lambda",
     "duration": {
-      "us": 2488000
+      "us": 3938000
     },
     "result": "success",
     "sampled": true,
@@ -22,25 +22,25 @@
     },
     "faas": {
       "coldstart": false,
-      "execution": "9226b20b-3533-3707-3d2b-fc89145efc02",
+      "execution": "8c3e3177-8b26-f100-def5-dfd61412f2d2",
       "trigger": {
-        "type": "pubsub"
+        "type": "other"
       }
     }
   },
   "faas": {
-    "name": "inventory-updater",
-    "id": "arn:aws:lambda:eu-south-1:123456789012:function:inventory-updater",
+    "name": "webhook-dispatcher",
+    "id": "arn:aws:lambda:eu-south-2:345678901234:function:webhook-dispatcher",
     "version": "$LATEST",
     "coldstart": false,
-    "execution": "9226b20b-3533-3707-3d2b-fc89145efc02",
+    "execution": "8c3e3177-8b26-f100-def5-dfd61412f2d2",
     "trigger": {
-      "type": "pubsub"
+      "type": "other"
     }
   },
   "service": {
-    "name": "inventory-updater",
-    "environment": "production",
+    "name": "webhook-dispatcher",
+    "environment": "staging",
     "version": "1.0.0",
     "language": {
       "name": "python"
@@ -70,10 +70,10 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "lambda"

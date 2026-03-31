@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "sa-east-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,52 +13,49 @@
   },
   "aws": {
     "dimensions": {
-      "ChannelId": "KWQ3TQ21WL",
+      "ChannelId": "LDPV1BDQ70Q",
       "Pipeline": "PIPELINE_0"
     },
     "medialive": {
-      "channel_id": "KWQ3TQ21WL",
-      "channel_name": "live-news",
-      "channel_state": "ERROR",
+      "channel_id": "LDPV1BDQ70Q",
+      "channel_name": "concert-stream",
+      "channel_state": "IDLE",
       "pipeline": "PIPELINE_0",
       "input_type": "MEDIACONNECT",
-      "output_type": "RTMP",
-      "video_bitrate_kbps": 1283,
-      "input_loss_frames": 620,
-      "encoder_fps": 11,
+      "output_type": "HLS",
+      "video_bitrate_kbps": 14981,
+      "input_loss_frames": 0,
+      "encoder_fps": 29.97,
       "metrics": {
         "ActiveAlerts": {
-          "sum": 4
+          "sum": 0
         },
         "ChannelInputErrorSeconds": {
-          "sum": 207
+          "sum": 0
         },
         "NetworkOut": {
-          "avg": 33997290
+          "avg": 15610643
         },
         "OutputLossSeconds": {
-          "sum": 12
+          "sum": 0
         },
         "FillMsec": {
-          "sum": 260
+          "sum": 0
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
-    "category": ["process"],
+    "outcome": "success",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.medialive",
     "provider": "medialive.amazonaws.com",
-    "duration": 2547000000
+    "duration": 3469000000
   },
-  "message": "Audio track desync detected",
+  "message": "Input switch to backup completed",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "MediaLiveError",
-    "message": "Audio track desync detected",
-    "type": "media"
+    "level": "info"
   }
 }

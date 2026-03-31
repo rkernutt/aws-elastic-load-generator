@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "eu-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "fargate"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "api-backend",
-      "ClusterName": "staging-cluster",
-      "TaskDefinitionFamily": "api-backend"
+      "ServiceName": "web-frontend",
+      "ClusterName": "batch-workers-cluster",
+      "TaskDefinitionFamily": "web-frontend"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 32
+          "avg": 22
         },
         "CPUReservation": {
-          "avg": 42.237
+          "avg": 20.249
         },
         "MemoryUtilization": {
-          "avg": 18.381
+          "avg": 43.185
         },
         "MemoryReservation": {
-          "avg": 25.158
+          "avg": 65.591
         },
         "GPUReservation": {
           "avg": 0
@@ -38,27 +38,30 @@
     }
   },
   "container": {
-    "id": "70idnqfxfbn",
-    "name": "api-backend",
+    "id": "s4zm7glr4xf",
+    "name": "web-frontend",
     "image": {
-      "name": "myrepo/api-backend:latest",
+      "name": "myrepo/web-frontend:latest",
       "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 48911,
-    "name": "api-backend"
+    "pid": 6885,
+    "name": "web-frontend"
   },
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "event": {
     "outcome": "success",
-    "category": ["process", "container"],
+    "category": [
+      "process",
+      "container"
+    ],
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 270000000000
+    "duration": 3422000000000
   },
-  "message": "{\"cluster\":\"staging-cluster\",\"taskId\":\"usk5wwkita\",\"taskDefinition\":\"api-backend:11\",\"container\":\"api-backend\",\"level\":\"info\",\"message\":\"Task started successfully\",\"timestamp\":\"2026-03-30T12:56:00.184Z\"}"
+  "message": "Network throughput spike detected"
 }

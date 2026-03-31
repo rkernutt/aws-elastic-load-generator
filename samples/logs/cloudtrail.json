@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "eu-central-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,37 +13,37 @@
   },
   "aws": {
     "dimensions": {
-      "EventName": "GetUser",
+      "EventName": "UpdateRole",
       "EventSource": "iam.amazonaws.com"
     },
     "cloudtrail": {
       "event_version": "1.09",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "jjl2admz-44sn-g5zy-efzc-pkm6tf9vtzm",
+      "request_id": "o39rpl2t-55z3-s7jm-h82g-htcg16k55zg",
       "api_version": "2012-10-17",
       "management_event": true,
-      "read_only": true,
+      "read_only": false,
       "recipient_account_id": "814726593401",
-      "aws_region": "us-west-2",
+      "aws_region": "eu-central-2",
       "user_identity": {
-        "type": "AssumedRole",
-        "principal_id": "AROA57QGBUAOUPR:deploy-bot-session",
+        "type": "IAMUser",
+        "principal_id": "814726593401:deploy-bot",
         "arn": "arn:aws:iam::814726593401:user/deploy-bot",
         "account_id": "814726593401",
-        "access_key_id": "AKIAXUU3MVB2E2D",
+        "access_key_id": "AKIAGEKSJV9RHRF",
         "session_context": {
           "session_issuer": {
             "type": "Role",
-            "principal_id": "AROA57QGBUAOUPR",
+            "principal_id": "AROA3QPTC34PRLV",
             "arn": "arn:aws:iam::814726593401:role/service-role/execution-role",
             "account_id": "814726593401",
             "user_name": "execution-role"
           },
           "web_id_federation_data": {},
           "attributes": {
-            "creation_date": "2026-03-30T12:37:02.184Z",
-            "mfa_authenticated": "true"
+            "creation_date": "2026-03-31T09:23:04.846Z",
+            "mfa_authenticated": "false"
           }
         }
       },
@@ -54,24 +54,28 @@
     "name": "deploy-bot"
   },
   "source": {
-    "ip": "179.122.122.115",
+    "ip": "79.152.78.141",
     "geo": {
-      "country_iso_code": "JP",
-      "city_name": "Toronto"
+      "country_iso_code": "IN",
+      "city_name": "Ashburn"
     }
   },
   "user_agent": {
     "original": "Go-http-client/1.1"
   },
   "event": {
-    "action": "GetUser",
+    "action": "UpdateRole",
     "outcome": "success",
-    "category": ["configuration"],
-    "type": ["access", "info"],
+    "category": [
+      "iam"
+    ],
+    "type": [
+      "change"
+    ],
     "dataset": "aws.cloudtrail",
     "provider": "cloudtrail.amazonaws.com"
   },
-  "message": "CloudTrail: GetUser by deploy-bot from 179.122.122.115 - Success",
+  "message": "CloudTrail: UpdateRole by deploy-bot from 79.152.78.141 - Success",
   "log": {
     "level": "info"
   }

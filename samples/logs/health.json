@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "eu-west-3",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,32 +13,29 @@
   },
   "aws": {
     "health": {
-      "event_arn": "arn:aws:health:ap-northeast-2::event/route53/6chs4ut0/5rhimf6a2tb",
-      "event_type_code": "AWS_ROUTE53_MAINTENANCE_SCHEDULED",
-      "event_type_category": "issue",
-      "service": "Route53",
-      "region": "ap-northeast-2",
-      "status_code": "open",
+      "event_arn": "arn:aws:health:eu-west-3::event/ec2/0wz2s6o3/dlhm6t3f3xg",
+      "event_type_code": "AWS_EC2_API_ISSUE",
+      "event_type_category": "accountNotification",
+      "service": "EC2",
+      "region": "eu-west-3",
+      "status_code": "resolved",
       "event_scope": "PUBLIC",
-      "affected_entities_count": 40,
-      "description": "Route53 Degraded performance in ap-northeast-2"
+      "affected_entities_count": 44,
+      "description": "EC2 Connectivity issues in eu-west-3"
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "failure",
-    "category": ["configuration"],
+    "outcome": "success",
+    "category": [
+      "configuration"
+    ],
     "dataset": "aws.health",
     "provider": "health.amazonaws.com",
-    "duration": 4422000000000
+    "duration": 478000000000
   },
-  "message": "AWS Health: Route53 service issue in ap-northeast-2 - Increased errors",
-  "error": {
-    "code": "HealthIssue",
-    "message": "AWS Health service issue",
-    "type": "configuration"
-  },
+  "message": "AWS Health: EC2 event resolved in eu-west-3",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

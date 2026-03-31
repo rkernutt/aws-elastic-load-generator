@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "kendra"
@@ -13,29 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "IndexId": "ojz48jfa-ombj-hbiv-ikvr-vfem8ep6u9p",
-      "Operation": "SyncJobFailed"
+      "IndexId": "9oeilq1r-utn3-ntwt-254d-lasgh7ctsh",
+      "Operation": "CreateDataSource"
     },
     "kendra": {
-      "index_id": "ojz48jfa-ombj-hbiv-ikvr-vfem8ep6u9p",
-      "index_name": "legal-kb",
-      "result_count": 20,
-      "response_time_ms": 713,
-      "document_count": 202318,
-      "data_source_id": "ds-amyck7p6gr",
-      "data_source_type": "Salesforce"
+      "index_id": "9oeilq1r-utn3-ntwt-254d-lasgh7ctsh",
+      "index_name": "support-articles",
+      "result_count": 19,
+      "response_time_ms": 78,
+      "document_count": 365298,
+      "data_source_id": "ds-2lr4yf1r9l",
+      "data_source_type": "Confluence"
     }
   },
   "log": {
     "level": "info"
   },
   "event": {
-    "action": "SyncJobFailed",
+    "action": "CreateDataSource",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.kendra",
     "provider": "kendra.amazonaws.com",
-    "duration": 713000000
+    "duration": 78000000
   },
-  "message": "Kendra SyncJobFailed: index=legal-kb"
+  "message": "Kendra CreateDataSource: index=support-articles"
 }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "eu-south-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,61 +13,62 @@
   },
   "aws": {
     "dimensions": {
-      "ComplianceStandard": "pci-dss",
-      "ControlId": "S3.1"
+      "ComplianceStandard": "aws-foundational-security-best-practices",
+      "ControlId": "CloudTrail.1"
     },
     "securityhub_findings": {
-      "id": "O73QNYJ5-QAZ6-SPZ8-7FJP-JCF99RDCNJB",
+      "id": "Q38RJVFY-F33L-CQSM-B8J8-EZZSTPE7NYT",
       "aws_account_id": "738291046572",
-      "region": "ca-central-1",
-      "description": "Security check failed: S3.1 - Default security group allows all traffic",
-      "created_at": "2026-03-29T19:38:07.671Z",
-      "first_observed_at": "2026-03-29T19:38:07.671Z",
-      "last_observed_at": "2026-03-30T12:56:00.184Z",
+      "region": "eu-south-1",
+      "description": "Control passed.",
+      "created_at": "2026-03-30T20:06:17.389Z",
+      "first_observed_at": "2026-03-30T20:06:17.389Z",
+      "last_observed_at": "2026-03-31T10:14:12.846Z",
       "generator": {
-        "id": "S3.1"
+        "id": "CloudTrail.1"
       },
-      "types": ["Threat Detections/Tactics/Impact"],
+      "types": [
+        "Software and Configuration Checks/AWS Security Best Practices"
+      ],
       "compliance": {
-        "security_control_id": "S3.1",
-        "status": "FAILED"
+        "security_control_id": "CloudTrail.1",
+        "status": "PASSED"
       },
       "severity": {
-        "label": "HIGH",
-        "normalized": 70
+        "label": "INFORMATIONAL",
+        "normalized": 0
       },
       "workflow": {
         "status": "RESOLVED"
       },
-      "record_state": "ACTIVE",
+      "record_state": "ARCHIVED",
       "product": {
-        "arn": "arn:aws:securityhub:ca-central-1::product/aws/securityhub",
+        "arn": "arn:aws:securityhub:eu-south-1::product/aws/securityhub",
         "name": "Security Hub"
       },
-      "criticality": 7,
-      "confidence": 89
+      "criticality": 4,
+      "confidence": 78
     }
   },
   "rule": {
-    "id": "S3.1",
-    "name": "S3.1 — MFA not enabled for root"
+    "id": "CloudTrail.1",
+    "name": "CloudTrail.1 — VPC flow logs disabled"
   },
   "event": {
     "kind": "alert",
-    "severity": 7,
-    "outcome": "failure",
-    "category": ["vulnerability"],
-    "type": ["indicator"],
+    "severity": 4,
+    "outcome": "success",
+    "category": [
+      "compliance"
+    ],
+    "type": [
+      "info"
+    ],
     "dataset": "aws.securityhub_findings",
     "provider": "securityhub.amazonaws.com"
   },
-  "message": "Security Hub [HIGH]: Compliance check failed",
+  "message": "Security Hub: control passed",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "ComplianceFailed",
-    "message": "Control S3.1 failed",
-    "type": "compliance"
+    "level": "info"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "me-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "sqs"
@@ -13,43 +13,46 @@
   },
   "aws": {
     "dimensions": {
-      "QueueName": "notification-dlq"
+      "QueueName": "webhook-events"
     },
     "sqs": {
       "queue": {
-        "name": "notification-dlq"
+        "name": "webhook-events"
       },
       "oldest_message_age": {
-        "sec": 260
+        "sec": 137
       },
       "messages": {
-        "delayed": 19,
-        "not_visible": 598,
-        "visible": 891,
-        "deleted": 638,
-        "received": 571,
-        "sent": 8971
+        "delayed": 302,
+        "not_visible": 844,
+        "visible": 292,
+        "deleted": 103,
+        "received": 564,
+        "sent": 5805
       },
-      "empty_receives": 51,
+      "empty_receives": 15,
       "sent_message_size": {
-        "bytes": 175595
+        "bytes": 235334
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.sqs",
     "provider": "sqs.amazonaws.com",
-    "duration": 427000000
+    "duration": 126000000
   },
-  "message": "SQS notification-dlq: 308 messages dead-lettered after max retries",
+  "message": "SQS webhook-events: 5805 messages processed",
   "log": {
-    "level": "warn"
+    "level": "info"
   },
-  "error": {
-    "code": "UnsupportedOperation",
-    "message": "SQS operation failed",
-    "type": "queue"
+  "trace": {
+    "id": "BFEU89X1BXJ"
+  },
+  "transaction": {
+    "id": "Z1RRMQ4EKQP"
   }
 }

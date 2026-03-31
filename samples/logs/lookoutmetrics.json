@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "lookoutmetrics"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "AnomalyDetector": "error-rate-monitor",
-      "Metric": "conversion_rate"
+      "AnomalyDetector": "conversion-drop",
+      "Metric": "revenue"
     },
     "lookoutmetrics": {
-      "anomaly_detector_arn": "arn:aws:lookoutmetrics:eu-south-1:738291046572:AnomalyDetector:error-rate-monitor",
-      "anomaly_group_id": "im9pnxuiiji",
-      "metric_name": "conversion_rate",
-      "severity": "MEDIUM",
-      "anomaly_score": 27.239,
-      "relevant_dates": 30,
-      "impact_value": -25.814,
-      "expected_value": 8087.615,
-      "actual_value": 7613.39,
+      "anomaly_detector_arn": "arn:aws:lookoutmetrics:eu-central-1:293847561023:AnomalyDetector:conversion-drop",
+      "anomaly_group_id": "xrkzluvrfb",
+      "metric_name": "revenue",
+      "severity": "LOW",
+      "anomaly_score": 10.267,
+      "relevant_dates": 3,
+      "impact_value": 14.947,
+      "expected_value": 9501.718,
+      "actual_value": 2999.81,
       "dimension": {
         "environment": "prod"
       },
@@ -34,11 +34,13 @@
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.lookoutmetrics",
     "provider": "lookoutmetrics.amazonaws.com"
   },
-  "message": "Lookout for Metrics [error-rate-monitor]: conversion_rate anomaly_score=27",
+  "message": "Lookout for Metrics [conversion-drop]: revenue anomaly_score=10",
   "log": {
     "level": "info"
   }

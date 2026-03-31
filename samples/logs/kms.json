@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "kms"
@@ -13,36 +13,39 @@
   },
   "aws": {
     "kms": {
-      "key_id": "jjy3nz32-l9uw-ri50-ahsa-dr6be6gu8nb",
-      "key_alias": "alias/secrets-key",
-      "operation": "DescribeKey",
-      "principal_arn": "arn:aws:iam::501938274650:user/alice",
+      "key_id": "b8ohnm2u-gxu4-kw8o-iltp-es2iu4ut3p5",
+      "key_alias": "alias/rds-encryption",
+      "operation": "Sign",
+      "principal_arn": "arn:aws:iam::814726593401:user/alice",
       "key_state": "Enabled",
-      "encryption_algorithm": "RSAES_OAEP_SHA_256",
+      "encryption_algorithm": "SYMMETRIC_DEFAULT",
       "metrics": {
         "SecretsManagerCrossAccountBlocking": {
           "sum": 0
         },
         "KeysCount": {
-          "avg": 643
+          "avg": 438
         },
         "KeysPendingDeletion": {
-          "avg": 3
+          "avg": 5
         },
         "KeysDisabled": {
-          "avg": 0
+          "avg": 5
         }
       }
     }
   },
   "event": {
-    "action": "DescribeKey",
+    "action": "Sign",
     "outcome": "success",
-    "category": ["authentication", "configuration"],
+    "category": [
+      "authentication",
+      "configuration"
+    ],
     "dataset": "aws.kms",
     "provider": "kms.amazonaws.com"
   },
-  "message": "KMS DescribeKey: alias/secrets-key",
+  "message": "KMS Sign: alias/rds-encryption",
   "log": {
     "level": "info"
   }

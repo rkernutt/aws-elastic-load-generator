@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "opensearch"
@@ -13,98 +13,93 @@
   },
   "aws": {
     "dimensions": {
-      "DomainName": "prod-search-ca-central-1",
-      "ClientId": "501938274650"
+      "DomainName": "prod-search-eu-central-2",
+      "ClientId": "814726593401"
     },
     "opensearch": {
-      "domain_name": "prod-search-ca-central-1",
-      "index": "logs-2024",
-      "operation": "delete",
-      "took_ms": 22847,
+      "domain_name": "prod-search-eu-central-2",
+      "index": "traces",
+      "operation": "update",
+      "took_ms": 1436,
       "shards": {
-        "total": 43,
-        "successful": 20,
-        "failed": 1,
-        "active": 39,
-        "initializing": 2,
-        "relocating": 2,
-        "unassigned": 4
+        "total": 45,
+        "successful": 45,
+        "failed": 0,
+        "active": 45,
+        "initializing": 0,
+        "relocating": 0,
+        "unassigned": 0
       },
-      "hits_total": 0,
-      "status_code": 429,
+      "hits_total": 97144,
+      "status_code": 200,
       "metrics": {
         "CPUUtilization": {
-          "avg": 82.382
+          "avg": 44.389
         },
         "FreeStorageSpace": {
-          "avg": 411235406829
+          "avg": 45932161284
         },
         "ClusterStatus": {
-          "green": 0,
-          "yellow": 1,
+          "green": 1,
+          "yellow": 0,
           "red": 0
         },
         "Nodes": {
           "avg": 5
         },
         "SearchableDocuments": {
-          "avg": 384951089
+          "avg": 257785877
         },
         "IndexingLatency": {
-          "avg": 4507
+          "avg": 110
         },
         "SearchLatency": {
-          "avg": 4226
+          "avg": 477
         },
         "IndexingRate": {
-          "avg": 6990
+          "avg": 33089
         },
         "SearchRate": {
-          "avg": 7471
+          "avg": 9989
         },
         "JVMMemoryPressure": {
-          "avg": 81.962
+          "avg": 25.612
         },
         "AutomatedSnapshotFailure": {
-          "sum": 1
+          "sum": 0
         },
         "CoordinatingWriteRejected": {
-          "sum": 200
+          "sum": 0
         },
         "PrimaryWriteRejected": {
-          "sum": 118
+          "sum": 0
         },
         "ReplicaWriteRejected": {
-          "sum": 23
+          "sum": 0
         },
         "WarmStorageSpaceUsage": {
-          "avg": 21.082
+          "avg": 31.315
         },
         "DeletedDocuments": {
-          "avg": 26583
+          "avg": 65102
         }
       }
     }
   },
   "http": {
     "response": {
-      "status_code": 429
+      "status_code": 200
     }
   },
   "event": {
-    "duration": 22846788000,
-    "outcome": "failure",
+    "duration": 1435530000,
+    "outcome": "success",
     "category": "database",
     "dataset": "aws.opensearch",
     "provider": "es.amazonaws.com"
   },
-  "message": "OpenSearch delete on logs-2024 failed [429] after 22847ms",
+  "message": "OpenSearch update on traces: 1436ms",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "429",
-    "message": "OpenSearch delete failed",
-    "type": "db"
+    "level": "info"
   }
 }

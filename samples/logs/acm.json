@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "eu-north-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "acm"
@@ -13,24 +13,29 @@
   },
   "aws": {
     "acm": {
-      "certificate_arn": "arn:aws:acm:af-south-1:738291046572:certificate/5m7rcq1e-ap66",
+      "certificate_arn": "arn:aws:acm:eu-north-1:501938274650:certificate/1depfkqz-bwk0",
       "domain_name": "www.example.com",
-      "status": "PENDING_VALIDATION",
-      "type": "AMAZON_ISSUED",
-      "days_to_expiry": 36,
-      "key_algorithm": "EC_prime256v1",
+      "status": "EXPIRED",
+      "type": "IMPORTED",
+      "days_to_expiry": 20,
+      "key_algorithm": "RSA_2048",
       "validation_method": "DNS",
-      "renewal_status": "SUCCESS"
+      "renewal_status": "FAILED"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "network",
     "dataset": "aws.acm",
     "provider": "acm.amazonaws.com"
   },
-  "message": "ACM certificate for www.example.com: PENDING_VALIDATION, 36d remaining",
+  "message": "ACM certificate for www.example.com: EXPIRED",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "EXPIRED",
+    "message": "Certificate www.example.com: EXPIRED",
+    "type": "certificate"
   }
 }

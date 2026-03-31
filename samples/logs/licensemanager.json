@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "licensemanager"
@@ -13,27 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "LicenseConfigurationName": "Windows-Server-2022"
+      "LicenseConfigurationName": "RHEL-8-Sockets"
     },
     "licensemanager": {
-      "license_configuration_name": "Windows-Server-2022",
-      "license_configuration_arn": "arn:aws:license-manager:me-south-1:164820739518:license-configuration:GR4HYWSLBQU",
+      "license_configuration_name": "RHEL-8-Sockets",
+      "license_configuration_arn": "arn:aws:license-manager:ap-south-2:814726593401:license-configuration:9T0GIIMHY7U",
       "resource_type": "EC2_INSTANCE",
-      "consumed_licenses": 353,
-      "licensed_count": 763,
-      "utilization_percentage": 46,
+      "consumed_licenses": 8,
+      "licensed_count": 158,
+      "utilization_percentage": 5,
       "rule_type": "Cores",
       "status": "Active"
     }
   },
   "event": {
-    "action": "CheckOutLicense",
+    "action": "DisassociateResource",
     "outcome": "success",
-    "category": ["configuration"],
+    "category": [
+      "configuration"
+    ],
     "dataset": "aws.licensemanager",
     "provider": "license-manager.amazonaws.com"
   },
-  "message": "License Manager Windows-Server-2022: 353/763 (46%) EC2_INSTANCE",
+  "message": "License Manager RHEL-8-Sockets: 8/158 (5%) EC2_INSTANCE",
   "log": {
     "level": "info"
   }

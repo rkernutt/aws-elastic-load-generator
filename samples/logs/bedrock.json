@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-30T12:56:00.184Z",
+  "@timestamp": "2026-03-31T10:14:12.846Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "bedrock"
@@ -13,32 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "ModelId": "anthropic.claude-3-haiku-20240307-v1:0"
+      "ModelId": "anthropic.claude-3-5-sonnet-20241022-v2:0"
     },
     "bedrock": {
-      "model_id": "anthropic.claude-3-haiku-20240307-v1:0",
-      "invocation_latency_ms": 2399,
-      "input_token_count": 5453,
-      "output_token_count": 308,
-      "total_token_count": 5761,
+      "model_id": "anthropic.claude-3-5-sonnet-20241022-v2:0",
+      "invocation_latency_ms": 6222,
+      "input_token_count": 6143,
+      "output_token_count": 1851,
+      "total_token_count": 7994,
       "stop_reason": "max_tokens",
-      "use_case": "qa",
-      "guardrail_action": "INTERVENED",
-      "streaming": false,
+      "use_case": "summarization",
+      "guardrail_action": "NONE",
+      "streaming": true,
+      "time_to_first_token_ms": 518,
+      "input_tokens_per_sec": 987.3,
       "model_family": "anthropic",
       "metrics": {
         "Invocations": {
-          "sum": 245
+          "sum": 484
         },
         "InvocationLatency": {
-          "avg": 2399,
-          "p99": 4798
+          "avg": 6222,
+          "p99": 12444
         },
         "InputTokenCount": {
-          "sum": 5453
+          "sum": 6143
         },
         "OutputTokenCount": {
-          "sum": 308
+          "sum": 1851
         },
         "Throttles": {
           "sum": 0
@@ -48,12 +50,14 @@
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.bedrock",
     "provider": "bedrock.amazonaws.com",
-    "duration": 2399000000
+    "duration": 6222000000
   },
-  "message": "Bedrock claude 5453->308 tokens 2.40s",
+  "message": "Bedrock claude 6143->1851 tokens 6.22s",
   "log": {
     "level": "info"
   }

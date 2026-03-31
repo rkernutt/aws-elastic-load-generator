@@ -315,7 +315,8 @@ export function generateLambdaTrace(ts, er) {
     RUNTIME_VERSION[cfg.runtime] || "unknown"
   );
 
-  const { agent, telemetry } = otelBlocks(lang, "elastic");
+  const distro = rand(["elastic", "aws"]);
+  const { agent, telemetry } = otelBlocks(lang, distro);
 
   // ── Root transaction (the Lambda invocation) ────────────────────────────────
   const txDoc = {
@@ -353,6 +354,14 @@ export function generateLambdaTrace(ts, er) {
       account: { id: account.id, name: account.name },
       service: { name: "lambda" },
     },
+    ...(distro === "aws"
+      ? {
+          labels: {
+            "aws.xray.trace_id": `1-${randHex(8)}-${randHex(24)}`,
+            "aws.xray.segment_id": randHex(16),
+          },
+        }
+      : {}),
     event: { outcome: isErr ? "failure" : "success" },
     data_stream: { type: "traces", dataset: "apm", namespace: "default" },
   };
@@ -370,5 +379,33 @@ export function generateLambdaTrace(ts, er) {
     spanOffset += spanUs / 1000 + randInt(1, 20); // small gap between calls (ms)
   }
 
-  return [txDoc, ...spans];
+  // ── Cold start init span ─────────────────────────────────────────────────────
+  // When the Lambda container was not warm, an init phase precedes the handler.
+  // Emitted as a child of the transaction so it appears at the top of the waterfall.
+  const initSpans = coldStart
+    ? [
+        {
+          "@timestamp": ts,
+          processor: { name: "transaction", event: "span" },
+          trace: { id: traceId },
+          transaction: { id: txId },
+          parent: { id: txId },
+          span: {
+            id: newSpanId(),
+            type: "app",
+            subtype: "cold-start",
+            name: `Lambda init: ${cfg.name}`,
+            duration: { us: initUs },
+            action: "init",
+          },
+          service: svcBlock,
+          agent,
+          telemetry,
+          event: { outcome: "success" },
+          data_stream: { type: "traces", dataset: "apm", namespace: "default" },
+        },
+      ]
+    : [];
+
+  return [txDoc, ...initSpans, ...spans];
 }
