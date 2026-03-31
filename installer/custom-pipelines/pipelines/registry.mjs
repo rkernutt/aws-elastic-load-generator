@@ -1683,4 +1683,118 @@ export const PIPELINE_REGISTRY = [
     description: "Parse Lookout for Vision anomaly detection and training JSON",
     processors: json("lookoutvision"),
   },
+  // ── v11.4 NEW SERVICES (200-service milestone) ───────────────────────────────
+  // Networking
+  {
+    id: "logs-aws.vpcipam-default",
+    dataset: "aws.vpcipam",
+    group: "networking",
+    description: "Parse VPC IPAM allocation and pool event JSON",
+    processors: json("vpcipam"),
+  },
+  {
+    id: "logs-aws.private5g-default",
+    dataset: "aws.private5g",
+    group: "networking",
+    description: "Parse AWS Private 5G radio unit and device activation event JSON",
+    processors: json("private5g"),
+  },
+  // Databases
+  {
+    id: "logs-aws.neptuneanalytics-default",
+    dataset: "aws.neptuneanalytics",
+    group: "databases",
+    description: "Parse Neptune Analytics graph algorithm run event JSON",
+    processors: json("neptuneanalytics"),
+  },
+  {
+    id: "logs-aws.auroradsql-default",
+    dataset: "aws.auroradsql",
+    group: "databases",
+    description: "Parse Aurora DSQL distributed transaction and replication event JSON",
+    processors: json("auroradsql"),
+  },
+  // Compute
+  {
+    id: "logs-aws.m2-default",
+    dataset: "aws.m2",
+    group: "compute",
+    description: "Parse AWS Mainframe Modernization batch job and online transaction event JSON",
+    processors: json("m2"),
+  },
+  {
+    id: "logs-aws.pcs-default",
+    dataset: "aws.pcs",
+    group: "compute",
+    description: "Parse AWS Parallel Computing Service job queue and cluster event JSON",
+    processors: json("pcs"),
+  },
+  {
+    id: "logs-aws.evs-default",
+    dataset: "aws.evs",
+    group: "compute",
+    description: "Parse Amazon Elastic VMware Service host and vSAN event JSON",
+    processors: json("evs"),
+  },
+  {
+    id: "logs-aws.simspaceweaver-default",
+    dataset: "aws.simspaceweaver",
+    group: "compute",
+    description: "Parse AWS SimSpace Weaver simulation partition and clock event JSON",
+    processors: json("simspaceweaver"),
+  },
+  // AI / ML
+  {
+    id: "logs-aws.healthomics-default",
+    dataset: "aws.healthomics",
+    group: "aiml",
+    description: "Parse Amazon HealthOmics workflow run and task event JSON",
+    processors: json("healthomics"),
+  },
+  {
+    id: "logs-aws.bedrockdataautomation-default",
+    dataset: "aws.bedrockdataautomation",
+    group: "aiml",
+    description: "Parse Bedrock Data Automation document extraction invocation JSON",
+    processors: json("bedrockdataautomation"),
+  },
+  // IoT
+  {
+    id: "logs-aws.groundstation-default",
+    dataset: "aws.groundstation",
+    group: "iot",
+    description: "Parse AWS Ground Station satellite contact and antenna event JSON",
+    processors: json("groundstation"),
+  },
+  // End-User Computing
+  {
+    id: "logs-aws.workmail-default",
+    dataset: "aws.workmail",
+    group: "enduser",
+    description: "Parse Amazon WorkMail email delivery and mailbox event JSON",
+    processors: json("workmail"),
+  },
+  {
+    id: "logs-aws.wickr-default",
+    dataset: "aws.wickr",
+    group: "enduser",
+    description: "Parse AWS Wickr encrypted messaging and compliance event JSON",
+    processors: json("wickr"),
+  },
+  // Developer Tools
+  {
+    id: "logs-aws.qdeveloper-default",
+    dataset: "aws.qdeveloper",
+    group: "devtools",
+    description: "Parse Amazon Q Developer code suggestion and transform event JSON",
+    processors: json("qdeveloper"),
+  },
+  // Messaging
+  {
+    id: "logs-aws.endusermessaging-default",
+    dataset: "aws.endusermessaging",
+    group: "streaming",
+    description: "Parse AWS End User Messaging SMS/MMS/voice delivery event JSON",
+    processors: json("endusermessaging"),
+  },
 ];

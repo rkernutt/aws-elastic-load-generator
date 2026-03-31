@@ -1,8 +1,8 @@
 # ⚡ AWS → Elastic Load Generator
 
-A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic deployment via the Elasticsearch Bulk API. Covers **200 AWS services** across **14 service groups**, all using **ECS (Elastic Common Schema)** field naming.
+A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic deployment via the Elasticsearch Bulk API. Covers **200 AWS services** across **15 service groups**, all using **ECS (Elastic Common Schema)** field naming.
 
-Each service has its correct real-world ingestion source pre-configured — S3, CloudWatch, direct API, Firehose, OTel, or Elastic Agent — matching how each service actually delivers data to Elastic in production. Switch between **Logs**, **Metrics**, and **Traces** mode; **150 services** support Metrics mode.
+Each service has its correct real-world ingestion source pre-configured — S3, CloudWatch, direct API, Firehose, OTel, or Elastic Agent — matching how each service actually delivers data to Elastic in production. Switch between **Logs**, **Metrics**, and **Traces** mode; **165 services** support Metrics mode.
 
 **Documentation index** (canonical reference material, version history, pipeline reference): [docs/README.md](docs/README.md). Shorter-path copies of two CloudWatch guides also live under [aws-elastic-setup/](aws-elastic-setup/).
 
@@ -15,9 +15,10 @@ Each service has its correct real-world ingestion source pre-configured — S3, 
 - **Browser storage** — **Elasticsearch URL and API key are never written to `localStorage`.** Only non-sensitive UI preferences are saved. If an older build left extra keys in the stored object, they are stripped on load so credentials are not kept on disk.
 - **Concurrent service shipping** — services are now shipped in parallel (4-worker pool) rather than sequentially, significantly reducing wall-clock time for large service selections.
 - **Metrics timestamp window reduced to 2 hours** — `metrics-aws.*` data streams are TSDS-backed with an approximate 2-hour look-back writable range on Elastic Cloud. The previous 7-day window generated timestamps outside this range, causing `timestamp_error` rejections. Millisecond-precision timestamps make dimension+timestamp collisions effectively impossible even within the narrower window.
-- **ML datafeed `query_delay: 60s`** — added to all 143 ML job datafeed configs to prevent "missed documents due to ingest latency" warnings. Datafeeds now trail real time by 60 seconds before querying, giving ingestion time to complete before the datafeed window closes.
+- **ML datafeed `query_delay: 60s`** — added to all 158 ML job datafeed configs to prevent "missed documents due to ingest latency" warnings. Datafeeds now trail real time by 60 seconds before querying, giving ingestion time to complete before the datafeed window closes.
 - **Delete and reinstall modes for all three installers** — the custom pipelines, dashboards, and ML jobs installers now offer delete and delete+reinstall modes so updated configs can be applied without manual Kibana intervention. See the installer sections below for details.
 - **Readline input bleed fix** — in all three interactive installers, the API key prompt no longer pre-populates with the previous answer (Elasticsearch/Kibana URL).
+- **Traces mode** — **23** APM scenarios: single-service traces plus multi-service workflows (e‑commerce, ML, ingestion, Step Functions, cascading failure, **SNS fan-out**, **data pipelines** for S3→SQS→Glue and EventBridge→SFN). The trace picker groups workflows and shows correct AWS icons; pipeline generators live in `workflow-pipelines.js` beside the shared `workflow-internal.js` builders.
 
 For earlier releases see [docs/VERSION-HISTORY.md](docs/VERSION-HISTORY.md).
 
@@ -129,7 +130,7 @@ If the integration is already installed, the installer skips — it is safe to r
 npm run setup:pipelines
 ```
 
-**What it does:** Installs Elasticsearch ingest pipelines for the ~85 AWS services not covered by the official integration. These pipelines parse the structured JSON `message` field emitted by the load generator into named fields (e.g. `glue.parsed`, `sagemaker.parsed`), making logs fully searchable and aggregatable in Kibana.
+**What it does:** Installs Elasticsearch ingest pipelines for the ~100 AWS services not covered by the official integration. These pipelines parse the structured JSON `message` field emitted by the load generator into named fields (e.g. `glue.parsed`, `sagemaker.parsed`), making logs fully searchable and aggregatable in Kibana.
 
 **What you'll be prompted for:**
 
@@ -213,7 +214,7 @@ e.g. `logs-aws.glue-default`, `logs-aws.sagemaker-default`, `logs-aws.lambda_log
 npm run setup:ml-jobs
 ```
 
-**What it does:** Installs 137 Elasticsearch ML anomaly detection jobs across 22 groups — covering services that the official Elastic AWS integration does not include. Jobs are created directly via the Elasticsearch ML API.
+**What it does:** Installs 158 Elasticsearch ML anomaly detection jobs across 24 groups — covering services that the official Elastic AWS integration does not include. Jobs are created directly via the Elasticsearch ML API.
 
 | Prompt            | Where to find it                                                                            |
 | ----------------- | ------------------------------------------------------------------------------------------- |
@@ -249,7 +250,7 @@ After installation, the installer offers to open jobs and start datafeeds immedi
 ## Usage
 
 1. **Select services** — toggle individual services, entire groups, or all 200 at once
-2. **Choose mode** — **Logs** generates log documents for all 200 services; **Metrics** generates metrics documents for the 150 metrics-supported services; **Traces** generates APM trace documents for 23 services
+2. **Choose mode** — **Logs** generates log documents for all 200 services; **Metrics** generates metrics documents for the 165 metrics-supported services; **Traces** generates APM trace documents for 23 services
 3. **Configure volume** — set logs per service (50–5,000), error rate (0–50%), and batch size
 4. **Set ingestion source** — leave on **Default (per-service)** or override all services to a single source for pipeline testing
 5. **Scheduled mode** _(optional)_ — enable to automatically repeat shipping on a timer. Set **Total runs** and **Interval** to build a consistent ML baseline without manual re-runs. See [ML anomaly detection workflow](#ml-anomaly-detection-workflow) for a recommended baseline-then-spike flow.
@@ -428,7 +429,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 ## Supported services (200 total)
 
-200 services across 14 groups are supported. Each entry includes the default ingestion source (S3, CloudWatch, API, Firehose) and the ECS dataset field used. For the full per-service breakdown, browse [src/generators/logs/](src/generators/logs/) or [src/generators/metrics/](src/generators/metrics/), or use the service picker in the UI.
+200 services across 15 groups are supported. Each entry includes the default ingestion source (S3, CloudWatch, API, Firehose) and the ECS dataset field used. For the full per-service breakdown, browse [src/generators/logs/](src/generators/logs/) or [src/generators/metrics/](src/generators/metrics/), or use the service picker in the UI.
 
 | Group                      | Services (examples)                                                                                                                       |
 | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
@@ -453,7 +454,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 | Setting                  | Default                    | Range                   | Description                                                                                                          |
 | ------------------------ | -------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Event type               | Logs                       | Logs / Metrics / Traces | **Logs** — all 200 services. **Metrics** — 150 metrics-supported services. **Traces** — 23 trace-supported services. |
+| Event type               | Logs                       | Logs / Metrics / Traces | **Logs** — all 200 services. **Metrics** — 165 metrics-supported services. **Traces** — 23 trace-supported services. |
 | Logs/metrics per service | 500                        | 50–5,000                | Documents generated per selected service                                                                             |
 | Error rate               | 5%                         | 0–50%                   | Fraction of documents representing errors/failures                                                                   |
 | Batch size               | 250                        | 50–1,000                | Documents per `_bulk` API request                                                                                    |
@@ -468,7 +469,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 The **samples/** directory contains one sample document per service generated by the same logic as the app:
 
 - **samples/logs/** — 200 JSON log documents, one per service
-- **samples/metrics/** — 150 JSON metrics documents, one per metrics-supported service
+- **samples/metrics/** — 165 JSON metrics documents, one per metrics-supported service
 - **samples/traces/** — 23 JSON APM trace documents, one per trace-supported service
 
 Regenerate with: `npm run samples` · Verify full coverage: `npm run samples:verify`

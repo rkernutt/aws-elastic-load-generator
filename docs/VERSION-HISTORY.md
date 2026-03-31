@@ -4,6 +4,18 @@
 
 ---
 
+## What's New in v11.4
+
+- **200-service milestone** — 15 new AWS service generators added: Amazon VPC IPAM, AWS Private 5G, Amazon Neptune Analytics, Amazon Aurora DSQL, AWS Mainframe Modernization, AWS Parallel Computing Service, Amazon Elastic VMware Service (EVS), AWS SimSpace Weaver, Amazon HealthOmics, Amazon Bedrock Data Automation, AWS Ground Station, Amazon WorkMail, AWS Wickr, Amazon Q Developer, AWS End User Messaging.
+- **165 metrics generators** — all 15 new services added to `METRICS_GENERATORS` via the generic CloudWatch fallback.
+- **167 ingest pipelines** — 15 new pipelines added to `installer/custom-pipelines/pipelines/registry.mjs` (groups: networking, databases, compute, aiml, iot, enduser, devtools, streaming).
+- **158 ML anomaly detection jobs across 24 groups** — `v114-services-jobs.json` adds one targeted `high_count` detector per new service, partitioned by the most operationally meaningful dimension (pool ID, site ID, cluster ID, graph ID, etc.).
+- **Proper AWS icons** — 9 service-specific SVG icons added to `public/aws-icons/` from the official AWS Architecture Icon library: `AWSPrivate5G`, `AWSMainframeModernization`, `AWSParallelComputingService`, `AmazonElasticVMwareService`, `AWSSimSpaceWeaver`, `AmazonHealthOmics`, `AWSGroundStation`, `AmazonWorkMail`, `AWSWickr`. Remaining 6 reuse the closest parent-service icon.
+- **UI fully updated** — all 15 new services present in `serviceGroups.ts` (correct group, unicode icon, description), `iconMap.ts`, `elasticMaps.ts`, and `ingestion.ts`.
+- **200 log samples, 165 metric samples** — `samples/` regenerated; `samples:verify` passes.
+
+---
+
 ## What's New in v11.3
 
 > Feature highlights: [README § What's New in v11.3](../README.md#whats-new-in-v113).
@@ -23,7 +35,9 @@
 - **Installer delete/reinstall modes** — all three installers (pipelines, dashboards, ML jobs) now support delete and delete+reinstall so updated configs can be applied without manual Kibana intervention.
 - **Installer README** — expanded with deployment-type comparison table, corrected pipeline group counts and service lists, naming convention reference.
 - **Readline input bleed fix** — API key prompt in all three installers no longer pre-populates with the previous answer.
-- **Trace workflows** — **Data pipeline (S3 → SQS)** (`workflow-pipeline-s3sqs`), **data pipeline (EventBridge + Step Functions)** (`workflow-pipeline-sfn`), and **SNS event fan-out** (`workflow-sns-fanout`) generators; **23** trace sample files under `samples/traces/`.
+- **Trace workflows** — **Data pipeline (S3 → SQS)** (`workflow-pipeline-s3sqs`), **data pipeline (EventBridge + Step Functions)** (`workflow-pipeline-sfn`), and **SNS event fan-out** (`workflow-sns-fanout`) generators; **23** trace sample files under `samples/traces/`. Shared APM document builders moved to **`workflow-internal.js`**; data-pipeline implementations in **`workflow-pipelines.js`**. Traces UI: grouped picker (Multi-Service Workflow / Data Pipeline / Single-Service) and **`TRACE_SERVICE_ICON_MAP`** for workflow rows.
+- **Coverage counts** — **`npm run samples:verify`** expects **200** log samples, **165** metrics samples, and **23** trace samples (matching `GENERATORS` / `METRICS_GENERATORS` / `TRACE_GENERATORS`). README and **samples/README** use the same totals; the service picker has **15** groups.
+- **Repository hygiene** — Removed a stray root-level **`AWS icons/`** tree (duplicate of curated icons under **`public/aws-icons/`**). **`.gitignore`** now includes **`AWS icons/`** so full AWS Architecture packs are not committed by mistake.
 
 ---
 

@@ -189,6 +189,22 @@ const SERVICE_INGESTION_DEFAULTS = {
   licensemanager: "cloudwatch",
   chatbot: "cloudwatch",
   chimesdkvoice: "cloudwatch",
+  // v11.4 new services
+  vpcipam: "cloudwatch",
+  private5g: "cloudwatch",
+  neptuneanalytics: "cloudwatch",
+  auroradsql: "cloudwatch",
+  mainframemodernization: "cloudwatch",
+  parallelcomputing: "cloudwatch",
+  evs: "cloudwatch",
+  simspaceweaver: "cloudwatch",
+  healthomics: "cloudwatch",
+  bedrockdataautomation: "cloudwatch",
+  groundstation: "cloudwatch",
+  workmail: "cloudwatch",
+  wickr: "cloudwatch",
+  qdeveloper: "cloudwatch",
+  endusermessaging: "cloudwatch",
 };
 
 const INGESTION_META = {

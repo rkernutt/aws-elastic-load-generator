@@ -11,17 +11,17 @@ flowchart LR
     end
 
     subgraph Engine["Load Generator Engine"]
-        SEL["Service Selector\n185 services / 15 groups"]
+        SEL["Service Selector\n200 services / 15 groups"]
         MODE["Mode Switch\nLogs · Metrics · Traces"]
         GEN["Generator Functions\nECS-shaped documents"]
         BUF["Batch Buffer\n50–1,000 docs / request"]
     end
 
     subgraph Elastic["Elastic Stack"]
-        PIPE["Ingest Pipelines\n152 custom pipelines"]
+        PIPE["Ingest Pipelines\n167 custom pipelines"]
         DS[("Data Streams\nlogs-aws.*\nmetrics-aws.*\ntraces-apm.*")]
         KB["Kibana\n56 custom dashboards"]
-        ML["ML Anomaly Detection\n143 jobs / 23 groups"]
+        ML["ML Anomaly Detection\n158 jobs / 24 groups"]
     end
 
     UI -->|"select services\nset volume + error rate"| SEL
@@ -84,11 +84,11 @@ flowchart TD
 
 ---
 
-## 3 · Service Groups (185 services)
+## 3 · Service Groups (200 services)
 
 ```mermaid
 mindmap
-  root((185 AWS Services))
+  root((200 AWS Services))
     Serverless and Core
       Lambda
       API Gateway
@@ -330,7 +330,7 @@ flowchart TD
     subgraph I4["setup:ml-jobs"]
         direction TB
         D1["Elasticsearch ML API"]
-        D2["143 anomaly detection jobs\n23 groups\ndatafeeds auto-started"]
+        D2["158 anomaly detection jobs\n24 groups\ndatafeeds auto-started"]
     end
 
     I1 --> DONE

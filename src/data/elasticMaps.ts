@@ -84,6 +84,22 @@ const ELASTIC_DATASET_MAP = {
   licensemanager: "aws.licensemanager",
   chatbot: "aws.chatbot",
   chimesdkvoice: "aws.chimesdkvoice",
+  // v11.4 new services
+  vpcipam: "aws.vpcipam",
+  private5g: "aws.private5g",
+  neptuneanalytics: "aws.neptuneanalytics",
+  auroradsql: "aws.auroradsql",
+  mainframemodernization: "aws.m2",
+  parallelcomputing: "aws.pcs",
+  evs: "aws.evs",
+  simspaceweaver: "aws.simspaceweaver",
+  healthomics: "aws.healthomics",
+  bedrockdataautomation: "aws.bedrockdataautomation",
+  groundstation: "aws.groundstation",
+  workmail: "aws.workmail",
+  wickr: "aws.wickr",
+  qdeveloper: "aws.qdeveloper",
+  endusermessaging: "aws.endusermessaging",
 };
 
 // ═══════════════════════════════════════════════════════════════════════════

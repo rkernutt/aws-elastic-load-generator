@@ -193,11 +193,42 @@ const AWS_SERVICE_ICON_MAP = {
   licensemanager: "AWSLicenseManager",
   chatbot: "AWSChatbot",
   chimesdkvoice: "AmazonChimeSDK",
+  // v11.4 new services
+  vpcipam: "AmazonVirtualPrivateCloud",
+  private5g: "AWSPrivate5G",
+  neptuneanalytics: "AmazonNeptune",
+  auroradsql: "AmazonAurora",
+  mainframemodernization: "AWSMainframeModernization",
+  parallelcomputing: "AWSParallelComputingService",
+  evs: "AmazonElasticVMwareService",
+  simspaceweaver: "AWSSimSpaceWeaver",
+  healthomics: "AmazonHealthOmics",
+  bedrockdataautomation: "AmazonBedrock",
+  groundstation: "AWSGroundStation",
+  workmail: "AmazonWorkMail",
+  wickr: "AWSWickr",
+  qdeveloper: "AmazonQ",
+  endusermessaging: "AmazonPinpoint",
   // Security findings & attack patterns (PNG icons)
   cspm: "SecurityCSPM.png",
   kspm: "SecurityKSPM.png",
   "iam-privesc-chain": "SecurityIAMPrivEsc.png",
   "data-exfil-chain": "SecurityDataExfil.png",
+};
+
+/**
+ * Trace picker entries whose `id` is not a logs/metrics service id (e.g. multi-service workflows).
+ * Values match filenames under `public/aws-icons/` (same rules as `AWS_SERVICE_ICON_MAP`).
+ */
+const TRACE_SERVICE_ICON_MAP: Record<string, string> = {
+  "workflow-ecommerce": "AWSLambda",
+  "workflow-ml": "AmazonBedrock",
+  "workflow-ingestion": "AmazonKinesisDataStreams",
+  "workflow-stepfunctions": "AWSStepFunctions",
+  "workflow-cascading": "AWSLambda",
+  "workflow-sns-fanout": "AmazonSimpleNotificationService",
+  "workflow-pipeline-s3sqs": "AmazonSimpleStorageService",
+  "workflow-pipeline-sfn": "AWSStepFunctions",
 };
 
 // Category icons — used for service group headers in the UI
@@ -218,4 +249,4 @@ const CATEGORY_ICON_MAP = {
   findings: "Category-SecurityFindings.png",
 };
 
-export { AWS_ICON_BASE, AWS_SERVICE_ICON_MAP, CATEGORY_ICON_MAP, iconSrc };
+export { AWS_ICON_BASE, AWS_SERVICE_ICON_MAP, TRACE_SERVICE_ICON_MAP, CATEGORY_ICON_MAP, iconSrc };

@@ -49,6 +49,30 @@ const SERVICE_GROUPS: ServiceGroup[] = [
       { id: "elasticbeanstalk", label: "Beanstalk", icon: "⊕", desc: "App deployment logs" },
       { id: "autoscaling", label: "Auto Scaling", icon: "⤢", desc: "Scale in/out events" },
       { id: "imagebuilder", label: "Image Builder", icon: "⊙", desc: "AMI pipeline logs" },
+      {
+        id: "mainframemodernization",
+        label: "Mainframe Modernization",
+        icon: "▦",
+        desc: "Batch job & online transaction logs",
+      },
+      {
+        id: "parallelcomputing",
+        label: "Parallel Computing",
+        icon: "⊞",
+        desc: "HPC cluster job queue events",
+      },
+      {
+        id: "evs",
+        label: "Elastic VMware Service",
+        icon: "▣",
+        desc: "ESXi host & vSAN operation logs",
+      },
+      {
+        id: "simspaceweaver",
+        label: "SimSpace Weaver",
+        icon: "⊙",
+        desc: "Spatial simulation partition logs",
+      },
     ],
   },
   {
@@ -89,6 +113,18 @@ const SERVICE_GROUPS: ServiceGroup[] = [
       { id: "appmesh", label: "App Mesh", icon: "⊛", desc: "Service mesh Envoy proxy logs" },
       { id: "clientvpn", label: "Client VPN", icon: "⊔", desc: "VPN connection & auth logs" },
       { id: "cloudmap", label: "Cloud Map", icon: "◎", desc: "Service discovery events" },
+      {
+        id: "vpcipam",
+        label: "VPC IPAM",
+        icon: "⊘",
+        desc: "IP address pool allocation & CIDR events",
+      },
+      {
+        id: "private5g",
+        label: "Private 5G",
+        icon: "≋",
+        desc: "Radio unit status & device activation",
+      },
     ],
   },
   {
@@ -238,6 +274,18 @@ const SERVICE_GROUPS: ServiceGroup[] = [
         desc: "DynamoDB Accelerator cache hit/miss logs",
       },
       { id: "keyspaces", label: "Keyspaces", icon: "⊕", desc: "Cassandra-compat logs" },
+      {
+        id: "neptuneanalytics",
+        label: "Neptune Analytics",
+        icon: "⬡",
+        desc: "Graph algorithm run logs",
+      },
+      {
+        id: "auroradsql",
+        label: "Aurora DSQL",
+        icon: "⬡",
+        desc: "Distributed SQL transaction events",
+      },
     ],
   },
   {
@@ -262,6 +310,12 @@ const SERVICE_GROUPS: ServiceGroup[] = [
       { id: "stepfunctions", label: "Step Functions", icon: "⤶", desc: "State machine execution" },
       { id: "appsync", label: "AppSync", icon: "⟺", desc: "GraphQL API logs" },
       { id: "mskconnect", label: "MSK Connect", icon: "⟿", desc: "Kafka Connect managed logs" },
+      {
+        id: "endusermessaging",
+        label: "End User Messaging",
+        icon: "✉",
+        desc: "SMS/MMS/voice delivery events",
+      },
     ],
   },
   {
@@ -289,6 +343,12 @@ const SERVICE_GROUPS: ServiceGroup[] = [
         label: "Proton",
         icon: "⊟",
         desc: "IaC environment & service deployment logs",
+      },
+      {
+        id: "qdeveloper",
+        label: "Q Developer",
+        icon: "⊙",
+        desc: "Code suggestion & transform events",
       },
     ],
   },
@@ -378,6 +438,13 @@ const SERVICE_GROUPS: ServiceGroup[] = [
         icon: "◉",
         desc: "Industrial visual anomaly detection logs",
       },
+      { id: "healthomics", label: "HealthOmics", icon: "✦", desc: "Genomics workflow run events" },
+      {
+        id: "bedrockdataautomation",
+        label: "Bedrock Data Automation",
+        icon: "⊙",
+        desc: "Document extraction invocation logs",
+      },
     ],
   },
   {
@@ -395,6 +462,12 @@ const SERVICE_GROUPS: ServiceGroup[] = [
         label: "IoT FleetWise",
         icon: "⚡",
         desc: "Connected vehicle signal logs",
+      },
+      {
+        id: "groundstation",
+        label: "Ground Station",
+        icon: "◎",
+        desc: "Satellite contact & antenna events",
       },
     ],
   },
@@ -520,6 +593,8 @@ const SERVICE_GROUPS: ServiceGroup[] = [
         icon: "◉",
         desc: "VoIP call quality & SIP event logs",
       },
+      { id: "workmail", label: "WorkMail", icon: "✉", desc: "Email delivery & mailbox events" },
+      { id: "wickr", label: "Wickr", icon: "⬡", desc: "Encrypted messaging & compliance logs" },
     ],
   },
   {
