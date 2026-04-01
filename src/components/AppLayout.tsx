@@ -6,11 +6,9 @@ import {
   EuiBadge,
   EuiFlexGroup,
   EuiFlexItem,
-  EuiText,
   EuiSpacer,
   EuiStepsHorizontal,
   EuiHeader,
-  EuiHeaderSection,
   EuiHeaderSectionItem,
   EuiTitle,
 } from "@elastic/eui";
@@ -28,11 +26,13 @@ interface AppLayoutProps {
   scheduleTotalRuns: number;
   isConnected: boolean;
   hasServicesSelected: boolean;
+  isSetupDone: boolean;
 }
 
 /** Wizard steps in logical order */
 const STEPS = [
   { id: "connection", title: "Start" },
+  { id: "setup", title: "Setup" },
   { id: "services", title: "Select" },
   { id: "config", title: "Configure" },
   { id: "ship", title: "Ship" },
@@ -59,17 +59,22 @@ export function AppLayout({
   scheduleTotalRuns,
   isConnected,
   hasServicesSelected,
+  isSetupDone,
 }: AppLayoutProps) {
   /** Determine step status for the horizontal stepper */
   const activeStepIdx = STEP_IDS.indexOf(activePage as (typeof STEP_IDS)[number]);
 
   const stepStatuses = STEPS.map((step, idx) => {
-    // Determine completion
+    // A step can only be complete if the user has moved past it
+    const isPast = activeStepIdx === -1 || idx < activeStepIdx;
     let isComplete = false;
-    if (step.id === "connection") isComplete = isConnected;
-    if (step.id === "services") isComplete = hasServicesSelected;
-    if (step.id === "config") isComplete = hasServicesSelected; // config has defaults, always "ready"
-    if (step.id === "ship") isComplete = status === "done";
+    if (isPast) {
+      if (step.id === "connection") isComplete = isConnected;
+      if (step.id === "setup") isComplete = isSetupDone;
+      if (step.id === "services") isComplete = hasServicesSelected;
+      if (step.id === "config") isComplete = hasServicesSelected;
+      if (step.id === "ship") isComplete = status === "done";
+    }
 
     let stepStatus: "complete" | "current" | "incomplete" | "disabled";
     if (idx === activeStepIdx) {
@@ -119,15 +124,33 @@ export function AppLayout({
             items: [
               <EuiHeaderSectionItem key="brand">
                 <EuiFlexGroup gutterSize="m" alignItems="center" responsive={false}>
+                  {/* AWS logo — white version via CSS filter */}
                   <EuiFlexItem grow={false}>
-                    <EuiIcon type="logoAWS" size="xl" />
+                    <EuiIcon
+                      type="logoAWS"
+                      style={{
+                        width: 40,
+                        height: 40,
+                        filter: "brightness(0) invert(1)",
+                      }}
+                    />
                   </EuiFlexItem>
+
+                  {/* Pipeline logo */}
                   <EuiFlexItem grow={false}>
                     <PipelineLogo size={32} />
                   </EuiFlexItem>
+
+                  {/* Elastic horizontal wordmark — color-reverse SVG from public/ */}
                   <EuiFlexItem grow={false}>
-                    <EuiIcon type="logoElastic" size="xl" />
+                    <img
+                      src="/elastic-logo.svg"
+                      alt="elastic"
+                      style={{ height: 26, display: "block" }}
+                    />
                   </EuiFlexItem>
+
+                  {/* App title */}
                   <EuiFlexItem grow={false}>
                     <EuiTitle size="s">
                       <h1
@@ -164,7 +187,7 @@ export function AppLayout({
                     </EuiFlexItem>
                   )}
                   <EuiFlexItem grow={false}>
-                    <EuiBadge color="hollow">v12.0.0</EuiBadge>
+                    <EuiBadge color="hollow">v12.1.0</EuiBadge>
                   </EuiFlexItem>
                 </EuiFlexGroup>
               </EuiHeaderSectionItem>,

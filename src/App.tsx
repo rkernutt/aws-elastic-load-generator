@@ -30,6 +30,7 @@ import { ConfigPage } from "./pages/ConfigPage";
 import { SchedulePage } from "./pages/SchedulePage";
 import { AnomaliesPage } from "./pages/AnomaliesPage";
 import { ActivityPage } from "./pages/ActivityPage";
+import { SetupPage } from "./pages/SetupPage";
 
 type LogEntry = { id: number; msg: string; type: string; ts: string };
 type ShipStatus = "running" | "done" | "aborted" | null;
@@ -85,8 +86,15 @@ export default function App() {
   const [tracesPerService, setTracesPerService] = useState(savedConfig.tracesPerService ?? 100);
   const [errorRate, setErrorRate] = useState(savedConfig.errorRate ?? 0.05);
   const [batchSize, setBatchSize] = useState(savedConfig.batchSize ?? 250);
+  const [deploymentType, setDeploymentType] = useState<
+    "self-managed" | "cloud-hosted" | "serverless"
+  >(
+    (savedConfig.deploymentType as "self-managed" | "cloud-hosted" | "serverless") ?? "cloud-hosted"
+  );
   const [elasticUrl, setElasticUrl] = useState("");
+  const [kibanaUrl, setKibanaUrl] = useState("");
   const [apiKey, setApiKey] = useState("");
+  const [setupHasInstalled, setSetupHasInstalled] = useState(false);
   const [logsIndexPrefix, setLogsIndexPrefix] = useState(savedConfig.logsIndexPrefix ?? "logs-aws");
   const [metricsIndexPrefix, setMetricsIndexPrefix] = useState(
     savedConfig.metricsIndexPrefix ?? "metrics-aws"
@@ -118,6 +126,13 @@ export default function App() {
   const isTracesMode = eventType === "traces";
   const indexPrefix = eventType === "metrics" ? metricsIndexPrefix : logsIndexPrefix;
   const setIndexPrefix = eventType === "metrics" ? setMetricsIndexPrefix : setLogsIndexPrefix;
+
+  // Auto-derive Kibana URL from ES URL for cloud deployments (.es. → .kb.)
+  const effectiveKibanaUrl =
+    kibanaUrl ||
+    (deploymentType !== "self-managed" && elasticUrl.includes(".es.")
+      ? elasticUrl.replace(".es.", ".kb.")
+      : "");
 
   const [status, setStatus] = useState<ShipStatus>(null);
   const [progress, setProgress] = useState<ShipProgress>({
@@ -156,6 +171,7 @@ export default function App() {
             scheduleEnabled,
             scheduleTotalRuns,
             scheduleIntervalMin,
+            deploymentType,
           })
         )
       );
@@ -176,6 +192,7 @@ export default function App() {
     scheduleEnabled,
     scheduleTotalRuns,
     scheduleIntervalMin,
+    deploymentType,
   ]);
 
   const clearSavedConfig = () => {
@@ -197,6 +214,7 @@ export default function App() {
     setScheduleEnabled(false);
     setScheduleTotalRuns(12);
     setScheduleIntervalMin(15);
+    setDeploymentType("cloud-hosted");
   };
 
   // ─── Scheduled mode countdown ────────────────────────────────────────────────
@@ -1035,6 +1053,7 @@ export default function App() {
       scheduleTotalRuns={scheduleTotalRuns}
       isConnected={!!(elasticUrl && apiKey)}
       hasServicesSelected={totalSelected > 0}
+      isSetupDone={setupHasInstalled}
     >
       {activePage === "ship" && (
         <ShipPage
@@ -1070,7 +1089,9 @@ export default function App() {
 
       {activePage === "connection" && (
         <ConnectionPage
+          deploymentType={deploymentType}
           elasticUrl={elasticUrl}
+          kibanaUrl={effectiveKibanaUrl}
           apiKey={apiKey}
           indexPrefix={indexPrefix}
           isTracesMode={isTracesMode}
@@ -1079,10 +1100,12 @@ export default function App() {
           connectionMsg={connectionMsg}
           validationErrors={validationErrors}
           ingestionSource={ingestionSource}
+          onDeploymentTypeChange={setDeploymentType}
           onElasticUrlChange={(val) => {
             setElasticUrl(val);
             setValidationErrors((prev) => ({ ...prev, elasticUrl: "" }));
           }}
+          onKibanaUrlChange={setKibanaUrl}
           onApiKeyChange={(val) => {
             setApiKey(val);
             setValidationErrors((prev) => ({ ...prev, apiKey: "" }));
@@ -1119,6 +1142,15 @@ export default function App() {
                 : (validateIndexPrefix(indexPrefix).message ?? ""),
             }))
           }
+        />
+      )}
+
+      {activePage === "setup" && (
+        <SetupPage
+          elasticUrl={elasticUrl}
+          kibanaUrl={effectiveKibanaUrl}
+          apiKey={apiKey}
+          onInstallComplete={() => setSetupHasInstalled(true)}
         />
       )}
 

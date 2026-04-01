@@ -19,6 +19,7 @@ export const PERSISTED_CONFIG_KEYS = [
   "scheduleEnabled",
   "scheduleTotalRuns",
   "scheduleIntervalMin",
+  "deploymentType",
 ] as const;
 
 export type PersistedConfigKey = (typeof PERSISTED_CONFIG_KEYS)[number];
@@ -39,6 +40,7 @@ export type PersistedConfigShape = Partial<{
   scheduleEnabled: boolean;
   scheduleTotalRuns: number;
   scheduleIntervalMin: number;
+  deploymentType: string;
 }>;
 
 /** Live React state shape — same keys as persisted (for save effect). */
@@ -56,6 +58,7 @@ export type PersistedStateSlice = {
   scheduleEnabled: boolean;
   scheduleTotalRuns: number;
   scheduleIntervalMin: number;
+  deploymentType: string;
 };
 
 /** Compile-time guard: PersistedStateSlice keys must match PERSISTED_CONFIG_KEYS exactly. */
@@ -140,6 +143,10 @@ export function parsePersistedRecord(raw: Record<string, unknown>): PersistedCon
     Number.isFinite(raw.scheduleIntervalMin)
   ) {
     out.scheduleIntervalMin = Math.round(clamp(raw.scheduleIntervalMin, 5, 60));
+  }
+  if ("deploymentType" in raw) {
+    const v = raw.deploymentType;
+    if (v === "self-managed" || v === "cloud-hosted" || v === "serverless") out.deploymentType = v;
   }
   return out;
 }

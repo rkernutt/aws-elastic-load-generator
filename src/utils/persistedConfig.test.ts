@@ -72,6 +72,7 @@ describe("toPersistedStorageObject", () => {
       scheduleEnabled: false,
       scheduleTotalRuns: 12,
       scheduleIntervalMin: 15,
+      deploymentType: "cloud-hosted",
     };
     const obj = toPersistedStorageObject(slice);
     const keys = Object.keys(obj).sort();

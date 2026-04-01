@@ -14,8 +14,12 @@ import {
   EuiText,
 } from "@elastic/eui";
 
+type DeploymentType = "self-managed" | "cloud-hosted" | "serverless";
+
 interface ConnectionPageProps {
+  deploymentType: DeploymentType;
   elasticUrl: string;
+  kibanaUrl: string;
   apiKey: string;
   indexPrefix: string;
   isTracesMode: boolean;
@@ -24,7 +28,9 @@ interface ConnectionPageProps {
   connectionMsg: string;
   validationErrors: { elasticUrl: string; apiKey: string; indexPrefix: string };
   ingestionSource: string;
+  onDeploymentTypeChange: (val: DeploymentType) => void;
   onElasticUrlChange: (val: string) => void;
+  onKibanaUrlChange: (val: string) => void;
   onApiKeyChange: (val: string) => void;
   onIndexPrefixChange: (val: string) => void;
   onEventTypeChange: (val: string) => void;
@@ -38,24 +44,51 @@ interface ConnectionPageProps {
   onBlurIndexPrefix: () => void;
 }
 
+const DEPLOYMENT_OPTIONS = [
+  { id: "self-managed", label: "Self-Managed" },
+  { id: "cloud-hosted", label: "Cloud Hosted" },
+  { id: "serverless", label: "Cloud Serverless" },
+];
+
 const EVENT_TYPE_OPTIONS = [
   { id: "logs", label: "Logs" },
   { id: "metrics", label: "Metrics" },
   { id: "traces", label: "Traces" },
 ];
 
-const INGESTION_OPTIONS = [
+// 7 options laid out as 4 + 3
+const INGESTION_ROW1 = [
   { id: "default", label: "Default" },
   { id: "s3", label: "S3" },
   { id: "cloudwatch", label: "CloudWatch" },
   { id: "firehose", label: "Firehose" },
+];
+const INGESTION_ROW2 = [
   { id: "api", label: "API" },
   { id: "otel", label: "OTel" },
   { id: "agent", label: "Agent" },
 ];
 
+function esUrlPlaceholder(deploymentType: DeploymentType): string {
+  if (deploymentType === "serverless")
+    return "https://my-deployment.es.eu-west-2.aws.elastic.cloud";
+  if (deploymentType === "cloud-hosted")
+    return "https://my-deployment.es.us-east-1.aws.elastic-cloud.com:9243";
+  return "http://localhost:9200";
+}
+
+function kbUrlPlaceholder(deploymentType: DeploymentType): string {
+  if (deploymentType === "serverless")
+    return "https://my-deployment.kb.eu-west-2.aws.elastic.cloud";
+  if (deploymentType === "cloud-hosted")
+    return "https://my-deployment.kb.us-east-1.aws.elastic-cloud.com:9243";
+  return "http://localhost:5601";
+}
+
 export function ConnectionPage({
+  deploymentType,
   elasticUrl,
+  kibanaUrl,
   apiKey,
   indexPrefix,
   isTracesMode,
@@ -64,7 +97,9 @@ export function ConnectionPage({
   connectionMsg,
   validationErrors,
   ingestionSource,
+  onDeploymentTypeChange,
   onElasticUrlChange,
+  onKibanaUrlChange,
   onApiKeyChange,
   onIndexPrefixChange,
   onEventTypeChange,
@@ -90,7 +125,22 @@ export function ConnectionPage({
       </EuiTitle>
       <EuiSpacer size="m" />
 
-      {/* Event type — choose what to generate */}
+      {/* Deployment type — first thing the user selects */}
+      <EuiFormRow
+        label="Deployment Type"
+        helpText="Determines how Kibana URL is derived and which features are available"
+      >
+        <EuiButtonGroup
+          legend="Deployment type selection"
+          options={DEPLOYMENT_OPTIONS}
+          idSelected={deploymentType}
+          onChange={(id) => onDeploymentTypeChange(id as DeploymentType)}
+        />
+      </EuiFormRow>
+
+      <EuiSpacer size="l" />
+
+      {/* Event type */}
       <EuiFormRow label="Event Type" helpText="Choose what type of data to generate">
         <EuiButtonGroup
           legend="Event type selection"
@@ -106,14 +156,30 @@ export function ConnectionPage({
         label="Elasticsearch URL"
         error={validationErrors.elasticUrl || undefined}
         isInvalid={!!validationErrors.elasticUrl}
-        helpText="e.g. https://my-deployment.es.eu-west-2.aws.elastic-cloud.com"
+        helpText={`e.g. ${esUrlPlaceholder(deploymentType)}`}
       >
         <EuiFieldText
           value={elasticUrl}
           onChange={(e) => onElasticUrlChange(e.target.value)}
           onBlur={onBlurElasticUrl}
           isInvalid={!!validationErrors.elasticUrl}
-          placeholder="https://..."
+          placeholder={esUrlPlaceholder(deploymentType)}
+        />
+      </EuiFormRow>
+
+      {/* Kibana URL — auto-derived for cloud, manual for self-managed */}
+      <EuiFormRow
+        label="Kibana URL"
+        helpText={
+          deploymentType !== "self-managed"
+            ? "Auto-derived from ES URL — edit to override. Required for Dashboard and Integration installs."
+            : "Required for Dashboard and Integration installs."
+        }
+      >
+        <EuiFieldText
+          value={kibanaUrl}
+          onChange={(e) => onKibanaUrlChange(e.target.value)}
+          placeholder={kbUrlPlaceholder(deploymentType)}
         />
       </EuiFormRow>
 
@@ -165,7 +231,7 @@ export function ConnectionPage({
 
       <EuiSpacer size="l" />
 
-      {/* Index prefix — dynamic label based on event type */}
+      {/* Index prefix */}
       {!isTracesMode && (
         <EuiFormRow
           label={prefixLabel}
@@ -196,19 +262,29 @@ export function ConnectionPage({
 
       <EuiSpacer size="l" />
 
-      {/* Ingestion source selector — full-width so labels aren't clipped */}
+      {/* Ingestion source — 4 on top row, 3 on bottom row */}
       <EuiFormRow
         label="Ingestion Source"
         helpText="Override default per-service ingestion path"
         fullWidth
       >
-        <EuiButtonGroup
-          legend="Ingestion source selection"
-          options={INGESTION_OPTIONS}
-          idSelected={ingestionSource}
-          onChange={(id) => onIngestionSourceChange(id)}
-          isFullWidth
-        />
+        <>
+          <EuiButtonGroup
+            legend="Ingestion source selection (row 1)"
+            options={INGESTION_ROW1}
+            idSelected={ingestionSource}
+            onChange={(id) => onIngestionSourceChange(id)}
+            isFullWidth
+          />
+          <EuiSpacer size="xs" />
+          <EuiButtonGroup
+            legend="Ingestion source selection (row 2)"
+            options={INGESTION_ROW2}
+            idSelected={ingestionSource}
+            onChange={(id) => onIngestionSourceChange(id)}
+            isFullWidth
+          />
+        </>
       </EuiFormRow>
 
       <EuiSpacer size="l" />

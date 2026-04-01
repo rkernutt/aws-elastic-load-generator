@@ -161,7 +161,8 @@ const server = http.createServer((req, res) => {
     res.writeHead(204, {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, x-elastic-url, x-elastic-key",
+      "Access-Control-Allow-Headers":
+        "Content-Type, x-elastic-url, x-elastic-key, x-elastic-path, x-elastic-method",
       "Access-Control-Max-Age": "86400",
     });
     res.end();
@@ -209,20 +210,37 @@ const server = http.createServer((req, res) => {
     if (tooLarge) return;
     req.proxyTargetHost = parsed.hostname;
     const body = Buffer.concat(chunks);
+
+    // If x-elastic-path is provided, this is a setup/API call (not bulk indexing).
+    const targetPath = req.headers["x-elastic-path"] || "/_bulk";
+    const isBulk = !req.headers["x-elastic-path"];
+    const targetMethod = req.headers["x-elastic-method"] || (isBulk ? "POST" : "PUT");
+    const isGet = targetMethod.toUpperCase() === "GET";
+    const contentType = isBulk ? "application/x-ndjson" : "application/json";
+
+    const outHeaders = {
+      Authorization: "ApiKey " + apiKey,
+    };
+    if (!isGet) {
+      outHeaders["Content-Type"] = contentType;
+      outHeaders["Content-Length"] = String(body.length);
+    }
+    // Kibana requires kbn-xsrf for write operations; harmless for ES.
+    if (!isBulk && !isGet) {
+      outHeaders["kbn-xsrf"] = "true";
+      outHeaders["Elastic-Api-Version"] = "1";
+    }
+
     const options = {
       hostname: parsed.hostname,
       port: parsed.port || (parsed.protocol === "https:" ? 443 : 80),
-      path: "/_bulk",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-ndjson",
-        "Content-Length": body.length,
-        Authorization: "ApiKey " + apiKey,
-      },
+      path: targetPath,
+      method: targetMethod.toUpperCase(),
+      headers: outHeaders,
     };
 
     const transport = parsed.protocol === "https:" ? https : http;
-    proxyRequest(transport, options, body, 0, res, requestId);
+    proxyRequest(transport, options, isGet ? Buffer.alloc(0) : body, 0, res, requestId);
   });
 });
 
