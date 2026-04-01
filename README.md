@@ -15,23 +15,6 @@ Each service has its correct real-world ingestion source pre-configured — S3, 
 - **Shared enrichment module** — new `src/helpers/enrich.ts` extracts document enrichment into a reusable function applied consistently across logs, metrics, traces, and sample exports.
 - **Component architecture** — `App.tsx` reduced from 2,110 to 1,210 lines. UI decomposed into 7 page components + layout shell, all using EUI's `EuiPanel`, `EuiRange`, `EuiStat`, `EuiButtonGroup`, `EuiCodeBlock`, `EuiProgress`, and other standard components.
 
----
-
-## What's New in v11.5
-
-- **211 service generators** — 11 new standalone AWS service generators: CloudWatch RUM, Lookout for Equipment, Monitron, Network Access Analyzer, Incident Manager, CloudShell, Cloud9, RoboMaker, Kinesis Video Streams, Panorama, FreeRTOS.
-- **Sub-service folding** — 10 sub-services (RDS Proxy, RDS Custom, DMS Serverless, ElastiCache Global, SageMaker Feature Store / Pipelines / Model Monitor, S3 Intelligent-Tiering / Batch Operations) now generate as random event types within their parent generators using `__dataset` tags for correct pipeline routing.
-- **176 metrics generators** — all new services support Metrics mode via the generic CloudWatch generator.
-- **187 ingest pipelines** — 20 new pipelines for all new and sub-service datasets.
-- **178 ML anomaly detection jobs** — `v115-services-jobs.json` adds 20 detectors for all new services.
-- **76 Kibana dashboards** — 20 new dashboards with ES|QL queries for all new services.
-- **15 new AWS icons** — dedicated SVGs for CloudShell, Cloud9, RoboMaker, Lookout for Equipment, Monitron, Kinesis Video Streams, Panorama, FreeRTOS, CloudWatch RUM, RDS Proxy, S3 Batch Operations, S3 Intelligent-Tiering, Network Access Analyzer, Incident Manager.
-- **Proxy improvements** — request ID correlation (`X-Request-Id` header) and backoff jitter to prevent thundering-herd retries.
-- **Fetch retry** — browser shipping loop now retries transient network failures and 5xx responses with exponential backoff.
-- **Error rate clamp** — `makeSetup` clamps error rate to [0,1] to prevent undefined behaviour.
-- **Test connection** — new `testConnection()` validation function probes the Elasticsearch cluster before shipping.
-- **Env-based proxy config** — Vite dev server reads `PROXY_HOST`/`PROXY_PORT` from environment.
-
 For earlier releases see [docs/VERSION-HISTORY.md](docs/VERSION-HISTORY.md).
 
 ---
