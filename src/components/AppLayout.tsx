@@ -28,7 +28,7 @@ interface AppLayoutProps {
 
 /** Wizard steps in logical order */
 const STEPS = [
-  { id: "connection", title: "Connect" },
+  { id: "connection", title: "Start" },
   { id: "services", title: "Select" },
   { id: "config", title: "Configure" },
   { id: "ship", title: "Ship" },

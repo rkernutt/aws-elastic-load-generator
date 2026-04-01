@@ -238,6 +238,13 @@ export default function App() {
     URL.revokeObjectURL(url);
   };
 
+  const handleEventTypeChange = (val: string) => {
+    setEventType(val);
+    if (val === "metrics") {
+      setSelectedServices((prev) => prev.filter((id) => METRICS_SUPPORTED_SERVICE_IDS.has(id)));
+    }
+  };
+
   const handleTestConnection = async () => {
     if (!validateElasticUrl(elasticUrl).valid || !validateApiKey(apiKey).valid) {
       runConnectionValidation();
@@ -1084,6 +1091,7 @@ export default function App() {
             setIndexPrefix(val);
             setValidationErrors((prev) => ({ ...prev, indexPrefix: "" }));
           }}
+          onEventTypeChange={handleEventTypeChange}
           onTestConnection={handleTestConnection}
           onIngestionSourceChange={setIngestionSource}
           onExportConfig={exportConfig}
@@ -1182,21 +1190,12 @@ export default function App() {
           batchSize={batchSize}
           batchDelayMs={batchDelayMs}
           injectAnomalies={injectAnomalies}
-          onEventTypeChange={(val) => {
-            setEventType(val);
-            if (val === "metrics") {
-              setSelectedServices((prev) =>
-                prev.filter((id) => METRICS_SUPPORTED_SERVICE_IDS.has(id))
-              );
-            }
-          }}
           onLogsPerServiceChange={setLogsPerService}
           onTracesPerServiceChange={setTracesPerService}
           onErrorRateChange={setErrorRate}
           onBatchSizeChange={setBatchSize}
           onBatchDelayMsChange={setBatchDelayMs}
           onInjectAnomaliesChange={setInjectAnomalies}
-          metricsSupported={METRICS_SUPPORTED_SERVICE_IDS}
         />
       )}
 

@@ -27,6 +27,7 @@ interface ConnectionPageProps {
   onElasticUrlChange: (val: string) => void;
   onApiKeyChange: (val: string) => void;
   onIndexPrefixChange: (val: string) => void;
+  onEventTypeChange: (val: string) => void;
   onTestConnection: () => void;
   onIngestionSourceChange: (val: string) => void;
   onExportConfig: () => void;
@@ -36,6 +37,12 @@ interface ConnectionPageProps {
   onBlurApiKey: () => void;
   onBlurIndexPrefix: () => void;
 }
+
+const EVENT_TYPE_OPTIONS = [
+  { id: "logs", label: "Logs" },
+  { id: "metrics", label: "Metrics" },
+  { id: "traces", label: "Traces" },
+];
 
 const INGESTION_OPTIONS = [
   { id: "default", label: "Default" },
@@ -60,6 +67,7 @@ export function ConnectionPage({
   onElasticUrlChange,
   onApiKeyChange,
   onIndexPrefixChange,
+  onEventTypeChange,
   onTestConnection,
   onIngestionSourceChange,
   onExportConfig,
@@ -69,12 +77,30 @@ export function ConnectionPage({
   onBlurApiKey,
   onBlurIndexPrefix,
 }: ConnectionPageProps) {
+  const prefixLabel = isTracesMode
+    ? "Traces Index Prefix"
+    : eventType === "metrics"
+      ? "Metrics Index Prefix"
+      : "Logs Index Prefix";
+
   return (
     <>
       <EuiTitle size="s">
-        <h2>Connection</h2>
+        <h2>Start</h2>
       </EuiTitle>
       <EuiSpacer size="m" />
+
+      {/* Event type — choose what to generate */}
+      <EuiFormRow label="Event Type" helpText="Choose what type of data to generate">
+        <EuiButtonGroup
+          legend="Event type selection"
+          options={EVENT_TYPE_OPTIONS}
+          idSelected={eventType}
+          onChange={(id) => onEventTypeChange(id)}
+        />
+      </EuiFormRow>
+
+      <EuiSpacer size="l" />
 
       <EuiFormRow
         label="Elasticsearch URL"
@@ -139,10 +165,10 @@ export function ConnectionPage({
 
       <EuiSpacer size="l" />
 
-      {/* Index prefix — hidden in traces mode */}
+      {/* Index prefix — dynamic label based on event type */}
       {!isTracesMode && (
         <EuiFormRow
-          label={`${eventType === "metrics" ? "Metrics" : "Logs"} Index Prefix`}
+          label={prefixLabel}
           error={validationErrors.indexPrefix || undefined}
           isInvalid={!!validationErrors.indexPrefix}
         >

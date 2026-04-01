@@ -1,12 +1,4 @@
-import {
-  EuiButtonGroup,
-  EuiFormRow,
-  EuiRange,
-  EuiSwitch,
-  EuiCallOut,
-  EuiSpacer,
-  EuiTitle,
-} from "@elastic/eui";
+import { EuiFormRow, EuiRange, EuiSwitch, EuiCallOut, EuiSpacer, EuiTitle } from "@elastic/eui";
 
 interface ConfigPageProps {
   eventType: string;
@@ -17,21 +9,13 @@ interface ConfigPageProps {
   batchSize: number;
   batchDelayMs: number;
   injectAnomalies: boolean;
-  onEventTypeChange: (val: string) => void;
   onLogsPerServiceChange: (val: number) => void;
   onTracesPerServiceChange: (val: number) => void;
   onErrorRateChange: (val: number) => void;
   onBatchSizeChange: (val: number) => void;
   onBatchDelayMsChange: (val: number) => void;
   onInjectAnomaliesChange: (val: boolean) => void;
-  metricsSupported: Set<string>;
 }
-
-const EVENT_TYPE_OPTIONS = [
-  { id: "logs", label: "Logs" },
-  { id: "metrics", label: "Metrics" },
-  { id: "traces", label: "Traces" },
-];
 
 export function ConfigPage({
   eventType,
@@ -42,7 +26,6 @@ export function ConfigPage({
   batchSize,
   batchDelayMs,
   injectAnomalies,
-  onEventTypeChange,
   onLogsPerServiceChange,
   onTracesPerServiceChange,
   onErrorRateChange,
@@ -55,17 +38,6 @@ export function ConfigPage({
       <EuiTitle size="s">
         <h2>Configuration</h2>
       </EuiTitle>
-      <EuiSpacer size="m" />
-
-      <EuiFormRow label="Event Type">
-        <EuiButtonGroup
-          legend="Event type selection"
-          options={EVENT_TYPE_OPTIONS}
-          idSelected={eventType}
-          onChange={(id) => onEventTypeChange(id)}
-        />
-      </EuiFormRow>
-
       <EuiSpacer size="m" />
 
       {isTracesMode ? (
