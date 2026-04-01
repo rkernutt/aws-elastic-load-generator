@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "organizations"
@@ -14,27 +14,24 @@
   "aws": {
     "organizations": {
       "action": "MoveAccount",
-      "account_id": "293847561023",
-      "account_name": "shared-services",
-      "organizational_unit": "Sandbox",
-      "error_code": "ConstraintViolationException"
+      "account_id": "164820739518",
+      "account_name": "sandbox-dev",
+      "organizational_unit": "Root"
     }
   },
   "event": {
     "action": "MoveAccount",
-    "outcome": "failure",
-    "category": ["configuration", "iam"],
+    "outcome": "success",
+    "category": [
+      "configuration",
+      "iam"
+    ],
     "dataset": "aws.organizations",
     "provider": "organizations.amazonaws.com",
-    "duration": 2358000000
+    "duration": 1452000000
   },
-  "message": "Organizations MoveAccount FAILED: Constraint violation",
-  "error": {
-    "code": "OrganizationsError",
-    "message": "Organizations operation failed",
-    "type": "iam"
-  },
+  "message": "Organizations MoveAccount: Infrastructure",
   "log": {
-    "level": "error"
+    "level": "info"
   }
 }

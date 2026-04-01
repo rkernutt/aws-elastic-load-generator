@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "af-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "iotfleetwise"
@@ -13,30 +13,37 @@
   },
   "aws": {
     "dimensions": {
-      "FleetId": "test-vehicles",
-      "CampaignName": "safety-systems"
+      "FleetId": "executive-fleet",
+      "CampaignName": "engine-diagnostics"
     },
     "iotfleetwise": {
-      "fleet_id": "test-vehicles",
-      "vehicle_id": "VIN-YVV79REX8EA",
-      "campaign_name": "safety-systems",
-      "campaign_status": "WAITING_FOR_APPROVAL",
-      "signal_name": "Vehicle.CurrentLocation.Latitude",
-      "signal_value": 81.881,
-      "collection_scheme": "CONDITION_BASED",
+      "fleet_id": "executive-fleet",
+      "vehicle_id": "VIN-ZIDWIQH50O8",
+      "campaign_name": "engine-diagnostics",
+      "campaign_status": "SUSPENDED",
+      "signal_name": "Vehicle.Speed",
+      "collection_scheme": "TIME_BASED",
       "compression": "OFF",
-      "data_destination": "S3"
+      "data_destination": "TIMESTREAM"
     }
   },
   "event": {
-    "action": "CreateCampaign",
-    "outcome": "success",
-    "category": ["iot", "process"],
+    "action": "CreateVehicle",
+    "outcome": "failure",
+    "category": [
+      "iot",
+      "process"
+    ],
     "dataset": "aws.iotfleetwise",
     "provider": "iotfleetwise.amazonaws.com"
   },
-  "message": "IoT FleetWise CreateCampaign: fleet=test-vehicles, vehicle=VIN-YVV79REX8EA, campaign=safety-systems WAITING_FOR_APPROVAL",
+  "message": "IoT FleetWise CreateVehicle FAILED [executive-fleet/VIN-ZIDWIQH50O8]: Data collection paused",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ResourceNotFoundException",
+    "message": "IoT FleetWise operation failed",
+    "type": "iot"
   }
 }

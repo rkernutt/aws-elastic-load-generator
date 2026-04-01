@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "eu-south-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,34 +13,36 @@
   },
   "aws": {
     "dimensions": {
-      "ServerId": "s-7yn4jret6m",
-      "Protocol": "AS2"
+      "ServerId": "s-fta04o2jsbl",
+      "Protocol": "SFTP"
     },
     "transferfamily": {
-      "server_id": "s-7yn4jret6m",
-      "protocol": "AS2",
-      "user_name": "vendor-upload",
-      "session_id": "5dy8vqr8uxq",
-      "file_path": "/uploads/inventory.xml",
+      "server_id": "s-fta04o2jsbl",
+      "protocol": "SFTP",
+      "user_name": "data-ingest",
+      "session_id": "ivfkcndk9ai",
+      "file_path": "/inbound/orders.csv",
       "operation": "GET",
-      "bytes_transferred": 2121101467,
-      "transfer_rate_mbps": 169.028,
-      "duration_seconds": 178.776,
-      "s3_bucket": "partner-data",
-      "as2_message_id": "ob6dxg00h0h"
+      "bytes_transferred": 2837480029,
+      "transfer_rate_mbps": 220.04950459342268,
+      "duration_seconds": 171.58757845894334,
+      "s3_bucket": "transfer-landing"
     }
   },
   "source": {
-    "ip": "15.37.68.170"
+    "ip": "216.159.147.196"
   },
   "event": {
     "outcome": "success",
-    "category": ["file", "network"],
+    "category": [
+      "file",
+      "network"
+    ],
     "dataset": "aws.transfer",
     "provider": "transfer.amazonaws.com",
-    "duration": 17623000000
+    "duration": 13744000000
   },
-  "message": "Transfer Family AS2 [vendor-upload] /uploads/inventory.xml: 2022.8MB",
+  "message": "Transfer Family SFTP [data-ingest] /inbound/orders.csv: 2706.0MB",
   "log": {
     "level": "info"
   }

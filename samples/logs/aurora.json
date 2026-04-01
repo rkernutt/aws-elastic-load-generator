@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "aurora"
@@ -13,12 +13,12 @@
   },
   "aws": {
     "aurora": {
-      "cluster_id": "staging-aurora",
-      "instance_id": "staging-aurora-instance-1",
+      "cluster_id": "analytics-aurora",
+      "instance_id": "analytics-aurora-instance-1",
       "engine": "aurora-postgresql",
       "engine_version": "15.4",
-      "replica_lag_seconds": 0.741,
-      "db_connections": 421,
+      "replica_lag_seconds": 1.5100505149555121,
+      "db_connections": 38,
       "max_connections": 1000,
       "failover_in_progress": false,
       "metrics": {
@@ -26,44 +26,46 @@
           "avg": 1
         },
         "AuroraGlobalDBReplicatedWriteIO": {
-          "sum": 31981273
+          "sum": 24218657
         },
         "AuroraGlobalDBDataTransferBytes": {
-          "sum": 479937916
+          "sum": 729935003
         },
         "AuroraGlobalDBProgressLag": {
-          "avg": 918
+          "avg": 323
         },
         "BacktrackChangeRecordsCreationRate": {
-          "avg": 4538
+          "avg": 1834
         },
         "BacktrackChangeRecordsStored": {
-          "avg": 570450789
+          "avg": 749636319
         },
         "BacktrackWindowActual": {
-          "avg": 74756
+          "avg": 5735
         },
         "BacktrackWindowAlert": {
           "avg": 0
         },
         "ServerlessDatabaseCapacity": {
-          "avg": 0.924
+          "avg": 19.185277583101943
         },
         "ACUUtilization": {
-          "avg": 7.923
+          "avg": 30.609492884765192
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["database"],
+    "category": [
+      "database"
+    ],
     "dataset": "aws.aurora",
     "provider": "rds.amazonaws.com",
-    "duration": 47000000000
+    "duration": 5000000000
   },
-  "message": "Aurora replica lag: 8.4 seconds",
+  "message": "Multi-AZ failover completed in 22s",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

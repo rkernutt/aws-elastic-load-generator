@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "privatelink"
@@ -13,22 +13,27 @@
   },
   "aws": {
     "privatelink": {
-      "endpoint_id": "vpce-406l36soyol",
-      "service_name": "com.amazonaws.vpce.ap-east-1.dynamodb",
+      "endpoint_id": "vpce-h56f7rjx98h",
+      "service_name": "com.amazonaws.vpce.ap-south-2.s3",
       "endpoint_type": "GatewayLoadBalancer",
-      "vpc_id": "vpc-1kzvxun4",
-      "state": "pending",
+      "vpc_id": "vpc-88hsmur9",
+      "state": "failed",
       "private_dns_enabled": true
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "network",
     "dataset": "aws.privatelink",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "PrivateLink endpoint vpce-406l36soyol for com.amazonaws.vpce.ap-east-1.dynamodb: pending",
+  "message": "PrivateLink endpoint vpce-h56f7rjx98h: failed - Request rejected",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "failed",
+    "message": "PrivateLink endpoint vpce-h56f7rjx98h: failed",
+    "type": "network"
   }
 }

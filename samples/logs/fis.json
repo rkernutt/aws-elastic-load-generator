@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "il-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "fis"
@@ -13,27 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "ExperimentTemplateId": "EXT6CQD139C"
+      "ExperimentTemplateId": "EXTVR40RK4K"
     },
     "fis": {
-      "experiment_id": "EXP72OFGVDL",
-      "experiment_template_id": "EXT6CQD139C",
+      "experiment_id": "EXPIN7D8L10",
+      "experiment_template_id": "EXTVR40RK4K",
       "experiment_name": "database-failover",
-      "experiment_state": "completed",
-      "target_resource_type": "ECS tasks",
-      "action_type": "aws:ecs:drain-container-instances",
-      "stop_condition": "aws:cloudwatch:alarm",
-      "role_arn": "arn:aws:iam::501938274650:role/FISRole-database-failover"
+      "experiment_state": "running",
+      "target_resource_type": "EKS nodes",
+      "action_type": "aws:rds:failover-db-cluster",
+      "stop_condition": "none",
+      "role_arn": "arn:aws:iam::814726593401:role/FISRole-database-failover"
     }
   },
   "event": {
-    "action": "StartExperiment",
+    "action": "TagResource",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.fis",
     "provider": "fis.amazonaws.com"
   },
-  "message": "FIS StartExperiment: exp=EXP72OFGVDL (database-failover) state=completed, target=ECS tasks",
+  "message": "FIS TagResource: exp=EXPIN7D8L10 (database-failover) state=running, target=EKS nodes",
   "log": {
     "level": "info"
   }

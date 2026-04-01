@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "pcs"
@@ -13,35 +13,37 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterId": "pcs-uebfx7jl",
-      "QueueName": "high-priority"
+      "ClusterId": "pcs-qh4m1hkk",
+      "QueueName": "gpu"
     },
     "pcs": {
-      "cluster_id": "pcs-uebfx7jl",
+      "cluster_id": "pcs-qh4m1hkk",
       "scheduler": "slurm",
-      "queue_name": "high-priority",
-      "job_id": "job-363165",
+      "queue_name": "gpu",
+      "job_id": "job-594021",
       "job_state": "COMPLETED",
       "metrics": {
-        "running_jobs": 452,
-        "pending_jobs": 144,
-        "compute_nodes_active": 6
+        "running_jobs": 40,
+        "pending_jobs": 28,
+        "compute_nodes_active": 673
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.pcs",
     "provider": "pcs.amazonaws.com",
-    "duration": 172000000
+    "duration": 245000000
   },
   "data_stream": {
     "type": "logs",
     "dataset": "aws.pcs",
     "namespace": "default"
   },
-  "message": "PCS cluster pcs-uebfx7jl: 452 running, 144 pending, 6 nodes active",
+  "message": "PCS cluster pcs-qh4m1hkk: 40 running, 28 pending, 673 nodes active",
   "log": {
     "level": "info"
   }

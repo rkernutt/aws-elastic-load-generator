@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ca-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "greengrass"
@@ -13,46 +13,49 @@
   },
   "aws": {
     "dimensions": {
-      "CoreDeviceName": "factory-edge"
+      "CoreDeviceName": "vehicle-edge"
     },
     "greengrass": {
-      "core_device_name": "factory-edge",
+      "core_device_name": "vehicle-edge",
       "component_name": "com.aws.greengrass.Nucleus",
-      "component_version": "3.5.10",
+      "component_version": "1.2.8",
       "nucleus_version": "2.12.0",
       "platform": "linux/arm64",
-      "deployment_id": "4ok5j2uttcr",
+      "deployment_id": "cz6cz4kno3",
       "status": "COMPLETED",
       "metrics": {
         "ComponentDeployedCount": {
-          "sum": 45
+          "sum": 36
         },
         "ComponentBrokenCount": {
           "sum": 0
         },
         "StreamManagerMemoryUsage": {
-          "avg": 153.517
+          "avg": 149.4901494014573
         },
         "StreamManagerBytesAppended": {
-          "sum": 780402
+          "sum": 6086778
         },
         "NucleusRestartCount": {
           "sum": 0
         },
         "DeploymentQueueSize": {
-          "avg": 15.48
+          "avg": 17.79807135844351
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process", "host"],
+    "category": [
+      "process",
+      "host"
+    ],
     "dataset": "aws.greengrass",
     "provider": "greengrass.amazonaws.com",
-    "duration": 31000000000
+    "duration": 45000000000
   },
-  "message": "Component started successfully",
+  "message": "Health check passed",
   "log": {
     "level": "info"
   }

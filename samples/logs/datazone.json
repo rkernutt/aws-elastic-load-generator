@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "datazone"
@@ -13,27 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "DomainId": "dzd_fxvpssueeui"
+      "DomainId": "dzd_p1ps3lma9o8"
     },
     "datazone": {
-      "domain_id": "dzd_fxvpssueeui",
-      "domain_name": "enterprise-catalog",
-      "project_name": "risk-modeling",
+      "domain_id": "dzd_p1ps3lma9o8",
+      "domain_name": "data-mesh-prod",
+      "project_name": "finance-reporting",
       "asset_name": "customer_transactions",
-      "asset_type": "S3ObjectViewType",
-      "subscription_status": "PENDING",
-      "glossary_term": "Public",
-      "environment_id": "env-e6flzjs096"
+      "asset_type": "AthenaTableViewType",
+      "subscription_status": "APPROVED",
+      "glossary_term": "Sensitive",
+      "environment_id": "env-trppac4lmjn"
     }
   },
   "event": {
-    "action": "CreateGlossaryTerm",
+    "action": "ApproveSubscription",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.datazone",
     "provider": "datazone.amazonaws.com"
   },
-  "message": "DataZone CreateGlossaryTerm: domain=enterprise-catalog, project=risk-modeling, asset=customer_transactions",
+  "message": "DataZone ApproveSubscription: domain=data-mesh-prod, project=finance-reporting, asset=customer_transactions",
   "log": {
     "level": "info"
   }

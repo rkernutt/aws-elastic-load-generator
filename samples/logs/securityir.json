@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "ca-west-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,30 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "CaseId": "case-dogexcf5",
-      "Severity": "MEDIUM"
+      "CaseId": "case-1gdvwduf",
+      "Severity": "HIGH"
     },
     "securityir": {
-      "case_id": "case-dogexcf5",
-      "case_title": "Ransomware detection",
-      "case_status": "ACTIVE",
-      "severity": "MEDIUM",
-      "impacted_account_count": 8,
-      "impacted_services": "EC2,S3,IAM",
+      "case_id": "case-1gdvwduf",
+      "case_title": "Unauthorized API access",
+      "case_status": "INVESTIGATION",
+      "severity": "HIGH",
+      "impacted_account_count": 9,
+      "impacted_services": "Lambda,DynamoDB",
       "resolver_type": "AWS",
-      "engagement_type": "SECURITY_INCIDENT",
-      "case_arn": "arn:aws:security-ir:eu-central-2:293847561023:case/case-dogexcf5"
+      "engagement_type": "COMPROMISE_ASSESSMENT",
+      "case_arn": "arn:aws:security-ir:ca-west-1:293847561023:case/case-1gdvwduf"
     }
   },
   "event": {
-    "action": "UpdateCase",
+    "action": "UpdateResolverType",
     "outcome": "success",
-    "category": ["intrusion_detection", "process"],
+    "category": [
+      "intrusion_detection",
+      "process"
+    ],
     "dataset": "aws.securityir",
     "provider": "security-ir.amazonaws.com"
   },
-  "message": "Security IR UpdateCase: case=case-dogexcf5 severity=MEDIUM status=ACTIVE",
+  "message": "Security IR UpdateResolverType: case=case-1gdvwduf severity=HIGH status=INVESTIGATION",
   "log": {
-    "level": "warn"
+    "level": "error"
   }
 }

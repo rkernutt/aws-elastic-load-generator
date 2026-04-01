@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "ap-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "access-analyzer"
@@ -13,27 +13,36 @@
   },
   "aws": {
     "dimensions": {
-      "AnalyzerName": "analyzer-ap-northeast-2"
+      "AnalyzerName": "analyzer-ap-east-1"
     },
     "access_analyzer": {
-      "finding_id": "wrjl9g7d-fgb0-4wln",
-      "analyzer_name": "analyzer-ap-northeast-2",
-      "finding_type": "none",
-      "finding_description": "No external access",
-      "resource_type": "AWS::KMS::Key",
+      "finding_id": "uccfmlpz-rbh7-c1cl",
+      "analyzer_name": "analyzer-ap-east-1",
+      "finding_type": "UNUSED_ACCESS",
+      "finding_description": "Unused IAM user",
+      "resource_type": "AWS::SQS::Queue",
       "resource_arn": "arn:aws:s3:::dev-bucket",
-      "status": "RESOLVED"
+      "principal": "*",
+      "status": "ACTIVE"
     }
   },
   "event": {
-    "kind": "event",
-    "outcome": "success",
-    "category": ["configuration", "iam"],
+    "kind": "alert",
+    "outcome": "failure",
+    "category": [
+      "configuration",
+      "iam"
+    ],
     "dataset": "aws.access_analyzer",
     "provider": "access-analyzer.amazonaws.com"
   },
-  "message": "Access Analyzer: no external access paths detected",
+  "message": "IAM Access Analyzer: external access found on AWS::Lambda::Function",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "ExternalAccess",
+    "message": "External access path detected",
+    "type": "access"
   }
 }

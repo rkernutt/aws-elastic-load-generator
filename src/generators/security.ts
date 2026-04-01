@@ -3352,6 +3352,76 @@ function generateArtifactLog(ts: string, er: number): EcsDocument {
   };
 }
 
+// ─── Network Access Analyzer ──────────────────────────────────────────────
+function generateNetworkAccessAnalyzerLog(ts: string, er: number): EcsDocument {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const scopes = ["internet-reachability", "cross-vpc-access", "vpc-peering-paths", "transit-gateway-routes"];
+  const scope = rand(scopes);
+  const findings = ["InternetAccess", "CrossVpcAccess", "UnexpectedPeeringRoute", "OverlyPermissiveSecurityGroup", "UnreachableResource"];
+  return {
+    "@timestamp": ts,
+    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "network-access-analyzer" } },
+    aws: {
+      network_access_analyzer: {
+        scope_id: `naa-scope-${randId(8).toLowerCase()}`,
+        scope_name: scope,
+        analysis_id: `naa-analysis-${randId(12).toLowerCase()}`,
+        finding_type: rand(findings),
+        finding_count: isErr ? randInt(5, 50) : randInt(0, 3),
+        resources_analyzed: randInt(50, 500),
+        paths_found: randInt(0, isErr ? 20 : 5),
+        source_vpc: `vpc-${randId(8).toLowerCase()}`,
+        destination_resource: `arn:aws:ec2:${region}:${acct.id}:instance/i-${randId(17).toLowerCase()}`,
+        protocol: rand(["tcp", "udp", "icmp"]),
+        port_range: `${randInt(1, 1024)}-${randInt(1025, 65535)}`,
+      },
+    },
+    event: { outcome: isErr ? "failure" : "success", duration: randInt(5e6, 3e8) },
+    message: isErr
+      ? `Network Access Analyzer: ${scope} — ${randInt(5, 50)} findings detected`
+      : `Network Access Analyzer: ${scope} analysis complete (${randInt(50, 500)} resources)`,
+  };
+}
+
+// ─── Incident Manager ─────────────────────────────────────────────────────
+function generateIncidentManagerLog(ts: string, er: number): EcsDocument {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const plans = ["high-severity-incident", "database-outage", "security-breach", "service-degradation"];
+  const plan = rand(plans);
+  const events = ["CreateIncident", "UpdateIncident", "ResolveIncident", "TriggerRunbook", "AddTimeline", "CreateContactChannel", "StartEngagement"];
+  const ev = rand(events);
+  const impacts = [1, 2, 3, 4, 5];
+  const statuses = isErr ? ["OPEN", "OPEN"] : ["OPEN", "RESOLVED"];
+  const errMsgs = ["Runbook execution failed", "Contact channel unreachable", "Engagement timed out", "SSM automation error"];
+  return {
+    "@timestamp": ts,
+    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "incident-manager" } },
+    aws: {
+      incident_manager: {
+        response_plan: plan,
+        incident_id: `inc-${randId(10).toLowerCase()}`,
+        event_type: ev,
+        impact: rand(impacts),
+        status: rand(statuses),
+        title: `${plan.replace(/-/g, " ")} — auto-detected`,
+        runbook_arn: `arn:aws:ssm:${region}:${acct.id}:automation-definition/${plan}-runbook`,
+        engagements: randInt(0, 5),
+        timeline_events: randInt(1, 20),
+        related_items: randInt(0, 10),
+        duration_minutes: randInt(5, isErr ? 480 : 120),
+      },
+    },
+    event: { outcome: isErr ? "failure" : "success", duration: randInt(1e5, 2.88e10) },
+    message: isErr
+      ? `Incident Manager: ${ev} failed for ${plan} — ${rand(errMsgs)}`
+      : `Incident Manager: ${ev} on incident ${plan}`,
+  };
+}
+
 export {
   generateGuardDutyLog,
   generateSecurityHubLog,
@@ -3379,4 +3449,6 @@ export {
   generateVerifiedPermissionsLog,
   generatePaymentCryptographyLog,
   generateArtifactLog,
+  generateNetworkAccessAnalyzerLog,
+  generateIncidentManagerLog,
 };

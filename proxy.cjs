@@ -1,5 +1,6 @@
 const http = require("http");
 const https = require("https");
+const crypto = require("crypto");
 
 const PORT = Number(process.env.PROXY_PORT) || 3001;
 /** Bind address. Default `127.0.0.1` limits exposure on shared machines. Use `0.0.0.0` only if you must accept remote TCP (e.g. published container port). */
@@ -17,8 +18,16 @@ const MAX_RETRIES = 3;
 /** Base delay in ms for exponential backoff. */
 const BACKOFF_BASE_MS = 1000;
 
+/** Max jitter added to backoff delay to prevent thundering-herd retries. */
+const BACKOFF_JITTER_MS = 500;
+
 /** Set `PROXY_QUIET=1` to disable stderr access logs (metadata only; never logs API keys or bodies). */
 const QUIET = process.env.PROXY_QUIET === "1";
+
+/** Compute exponential backoff with random jitter to avoid thundering-herd retries. */
+function backoffDelay(retryCount) {
+  return BACKOFF_BASE_MS * Math.pow(2, retryCount) + Math.random() * BACKOFF_JITTER_MS;
+}
 
 function sendJson(res, statusCode, body) {
   res.writeHead(statusCode, {
@@ -28,7 +37,7 @@ function sendJson(res, statusCode, body) {
   res.end(typeof body === "string" ? body : JSON.stringify(body));
 }
 
-function proxyRequest(transport, options, body, retryCount, res) {
+function proxyRequest(transport, options, body, retryCount, res, requestId) {
   const req = transport.request(options, (proxyRes) => {
     const chunks = [];
     proxyRes.on("data", (chunk) => chunks.push(chunk));
@@ -40,20 +49,31 @@ function proxyRequest(transport, options, body, retryCount, res) {
         res.writeHead(proxyRes.statusCode, {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
+          "X-Request-Id": requestId,
         });
         res.end(data);
         return;
       }
       if (retryable) {
-        const delay = BACKOFF_BASE_MS * Math.pow(2, retryCount);
+        if (!QUIET)
+          console.error(
+            JSON.stringify({
+              t: new Date().toISOString(),
+              event: "proxy_retry",
+              requestId,
+              retry: retryCount + 1,
+              status: proxyRes.statusCode,
+            })
+          );
         setTimeout(() => {
-          proxyRequest(transport, options, body, retryCount + 1, res);
-        }, delay);
+          proxyRequest(transport, options, body, retryCount + 1, res, requestId);
+        }, backoffDelay(retryCount));
         return;
       }
       res.writeHead(proxyRes.statusCode, {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
+        "X-Request-Id": requestId,
       });
       res.end(data);
     });
@@ -62,13 +82,22 @@ function proxyRequest(transport, options, body, retryCount, res) {
   req.setTimeout(REQUEST_TIMEOUT_MS, () => {
     req.destroy();
     if (retryCount < MAX_RETRIES) {
-      const delay = BACKOFF_BASE_MS * Math.pow(2, retryCount);
+      if (!QUIET)
+        console.error(
+          JSON.stringify({
+            t: new Date().toISOString(),
+            event: "proxy_timeout_retry",
+            requestId,
+            retry: retryCount + 1,
+          })
+        );
       setTimeout(() => {
-        proxyRequest(transport, options, body, retryCount + 1, res);
-      }, delay);
+        proxyRequest(transport, options, body, retryCount + 1, res, requestId);
+      }, backoffDelay(retryCount));
     } else {
       sendJson(res, 504, {
         error: "Proxy request timeout after " + REQUEST_TIMEOUT_MS / 1000 + "s",
+        requestId,
       });
     }
   });
@@ -78,12 +107,21 @@ function proxyRequest(transport, options, body, retryCount, res) {
       (err.code === "ECONNRESET" || err.code === "ETIMEDOUT" || err.code === "ECONNREFUSED") &&
       retryCount < MAX_RETRIES;
     if (retryable) {
-      const delay = BACKOFF_BASE_MS * Math.pow(2, retryCount);
+      if (!QUIET)
+        console.error(
+          JSON.stringify({
+            t: new Date().toISOString(),
+            event: "proxy_error_retry",
+            requestId,
+            retry: retryCount + 1,
+            code: err.code,
+          })
+        );
       setTimeout(() => {
-        proxyRequest(transport, options, body, retryCount + 1, res);
-      }, delay);
+        proxyRequest(transport, options, body, retryCount + 1, res, requestId);
+      }, backoffDelay(retryCount));
     } else {
-      sendJson(res, 502, { error: "Proxy error: " + err.message });
+      sendJson(res, 502, { error: "Proxy error: " + err.message, requestId });
     }
   });
 
@@ -92,6 +130,7 @@ function proxyRequest(transport, options, body, retryCount, res) {
 }
 
 const server = http.createServer((req, res) => {
+  const requestId = crypto.randomUUID().slice(0, 8);
   const started = Date.now();
   let bytesIn = 0;
 
@@ -100,6 +139,7 @@ const server = http.createServer((req, res) => {
     const line = {
       t: new Date().toISOString(),
       event: "proxy_access",
+      requestId,
       method: req.method,
       path: req.url || "",
       status: res.statusCode,
@@ -116,8 +156,20 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // CORS preflight
+  if (req.method === "OPTIONS") {
+    res.writeHead(204, {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, x-elastic-url, x-elastic-key",
+      "Access-Control-Max-Age": "86400",
+    });
+    res.end();
+    return;
+  }
+
   if (req.method !== "POST") {
-    sendJson(res, 405, { error: "Method not allowed" });
+    sendJson(res, 405, { error: "Method not allowed", requestId });
     return;
   }
 
@@ -125,7 +177,7 @@ const server = http.createServer((req, res) => {
   const apiKey = req.headers["x-elastic-key"];
 
   if (!targetUrl || !apiKey) {
-    sendJson(res, 400, { error: "Missing x-elastic-url or x-elastic-key header" });
+    sendJson(res, 400, { error: "Missing x-elastic-url or x-elastic-key header", requestId });
     return;
   }
 
@@ -133,7 +185,7 @@ const server = http.createServer((req, res) => {
   try {
     parsed = new URL(targetUrl);
   } catch (e) {
-    sendJson(res, 400, { error: "Invalid x-elastic-url: " + e.message });
+    sendJson(res, 400, { error: "Invalid x-elastic-url: " + e.message, requestId });
     return;
   }
 
@@ -147,6 +199,7 @@ const server = http.createServer((req, res) => {
       req.destroy();
       sendJson(res, 413, {
         error: "Request body too large (max " + MAX_BODY_BYTES + " bytes)",
+        requestId,
       });
       return;
     }
@@ -169,7 +222,7 @@ const server = http.createServer((req, res) => {
     };
 
     const transport = parsed.protocol === "https:" ? https : http;
-    proxyRequest(transport, options, body, 0, res);
+    proxyRequest(transport, options, body, 0, res, requestId);
   });
 });
 

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "cloudmap"
@@ -13,29 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "Namespace": "staging-namespace",
-      "ServiceName": "notification"
+      "Namespace": "internal-services",
+      "ServiceName": "auth"
     },
     "cloudmap": {
-      "namespace": "staging-namespace",
-      "service_name": "notification",
-      "instance_id": "i-7wvw3oqm8tr",
-      "operation": "DiscoverInstances",
+      "namespace": "internal-services",
+      "service_name": "auth",
+      "instance_id": "i-i1p23uawg0e",
+      "operation": "DeregisterInstance",
       "health_status": "HEALTHY",
-      "instances_returned": 10,
-      "query_type": "DNS",
-      "ttl": 15
+      "instances_returned": 4,
+      "query_type": "API",
+      "ttl": 60
     }
   },
   "event": {
-    "action": "DiscoverInstances",
+    "action": "HealthStatusChange",
     "outcome": "success",
-    "category": ["network"],
+    "category": [
+      "network"
+    ],
     "dataset": "aws.cloudmap",
     "provider": "cloudmap.amazonaws.com",
-    "duration": 185000000
+    "duration": 449000000
   },
-  "message": "Cloud Map notification: DiscoverInstances returned 10 instances",
+  "message": "Cloud Map auth: DeregisterInstance returned 4 instances",
   "log": {
     "level": "info"
   }

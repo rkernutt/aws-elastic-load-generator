@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "apprunner"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "web-api",
-      "ServiceId": "aku2l841h85"
+      "ServiceName": "frontend",
+      "ServiceId": "nksfdd5eedb"
     },
     "apprunner": {
-      "service_name": "web-api",
-      "service_arn": "arn:aws:apprunner:il-central-1:814726593401:service/web-api/aku2l841h85",
+      "service_name": "frontend",
+      "service_arn": "arn:aws:apprunner:eu-central-1:293847561023:service/frontend/nksfdd5eedb",
       "auto_scaling": {
         "min_size": 0,
-        "max_size": 50,
-        "desired_count": 9,
+        "max_size": 10,
+        "desired_count": 8,
         "scale_from_zero": false
       },
-      "structured_logging": true,
+      "structured_logging": false,
       "metrics": {
         "Requests": {
           "sum": 1
@@ -43,48 +43,51 @@
           "sum": 1
         },
         "RequestLatency": {
-          "avg": 137,
-          "p99": 411
+          "avg": 492,
+          "p99": 1476
         },
         "ActiveInstances": {
-          "avg": 8
+          "avg": 4
         },
         "ConcurrentRequests": {
-          "avg": 26
+          "avg": 25
         },
         "CPUUtilization": {
-          "avg": 45.632
+          "avg": 30.661956428855568
         },
         "MemoryUtilization": {
-          "avg": 41.02
+          "avg": 30.42465237783565
         }
       }
     }
   },
   "http": {
     "request": {
-      "method": "POST",
-      "bytes": 4846
+      "method": "PUT",
+      "bytes": 4741
     },
     "response": {
-      "status_code": 204,
-      "bytes": 7888
+      "status_code": 200,
+      "bytes": 808
     }
   },
   "url": {
-    "path": "/api/v1/orders"
+    "path": "/api/v1/products"
   },
   "client": {
-    "ip": "108.84.126.249"
+    "ip": "218.253.211.248"
   },
   "event": {
-    "duration": 137000000,
+    "duration": 492000000,
     "outcome": "success",
-    "category": ["web", "process"],
+    "category": [
+      "web",
+      "process"
+    ],
     "dataset": "aws.apprunner",
     "provider": "apprunner.amazonaws.com"
   },
-  "message": "{\"service\":\"web-api\",\"status\":204,\"latency_ms\":137,\"timestamp\":\"2026-03-31T13:15:29.271Z\"}",
+  "message": "GET /health 200 492ms",
   "log": {
     "level": "info"
   }

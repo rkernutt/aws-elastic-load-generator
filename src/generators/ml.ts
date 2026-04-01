@@ -1761,6 +1761,176 @@ function generateBedrockDataAutomationLog(ts: string, er: number): EcsDocument {
   };
 }
 
+// ─── SageMaker Feature Store ──────────────────────────────────────────────
+function generateSageMakerFeatureStoreLog(ts: string, er: number): EcsDocument {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const featureGroups = ["customer-features", "product-embeddings", "fraud-signals", "session-features", "recommendation-features"];
+  const fg = rand(featureGroups);
+  const ops = ["PutRecord", "GetRecord", "BatchGetRecord", "DeleteRecord", "CreateFeatureGroup", "DescribeFeatureGroup"];
+  const op = rand(ops);
+  const errCodes = ["ResourceNotFound", "ValidationError", "AccessDeniedException", "InternalFailure", "ThrottlingException"];
+  return {
+    "@timestamp": ts,
+    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "sagemaker-featurestore" } },
+    aws: {
+      sagemaker_featurestore: {
+        feature_group_name: fg,
+        operation: op,
+        record_identifier: randId(12).toLowerCase(),
+        online_store_latency_ms: randFloat(1, isErr ? 500 : 20),
+        offline_store_status: rand(["Active", "Creating", "Deleting"]),
+        feature_count: randInt(5, 50),
+        record_count: randInt(1, 100),
+        ttl_duration_seconds: randInt(3600, 86400 * 30),
+      },
+    },
+    event: { outcome: isErr ? "failure" : "success", duration: randInt(1e4, isErr ? 5e6 : 2e5) },
+    message: isErr
+      ? `SageMaker Feature Store ${fg}: ${op} failed — ${rand(errCodes)}`
+      : `SageMaker Feature Store ${fg}: ${op} OK (${randInt(1, 100)} records)`,
+  };
+}
+
+// ─── SageMaker Pipelines ──────────────────────────────────────────────────
+function generateSageMakerPipelinesLog(ts: string, er: number): EcsDocument {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const pipelines = ["training-pipeline", "etl-feature-pipeline", "batch-inference", "model-retraining", "data-quality-check"];
+  const pipeline = rand(pipelines);
+  const steps = ["Processing", "Training", "Transform", "RegisterModel", "Condition", "Callback", "QualityCheck", "ClarifyCheck"];
+  const step = rand(steps);
+  const statuses = isErr ? ["Failed", "Stopped"] : ["Succeeded", "Executing"];
+  const status = rand(statuses);
+  const errMsgs = ["Step timed out after 3600s", "Training job failed: OOM", "Data quality check below threshold", "Model registry conflict"];
+  return {
+    "@timestamp": ts,
+    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "sagemaker-pipelines" } },
+    aws: {
+      sagemaker_pipelines: {
+        pipeline_name: pipeline,
+        pipeline_execution_id: `exec-${randId(12).toLowerCase()}`,
+        step_name: `${step}-${randInt(1, 5)}`,
+        step_type: step,
+        status,
+        execution_duration_seconds: randInt(10, isErr ? 3600 : 7200),
+        parallelism: randInt(1, 10),
+        retry_count: isErr ? randInt(1, 3) : 0,
+        cache_hit: !isErr && Math.random() < 0.3,
+      },
+    },
+    event: { outcome: isErr ? "failure" : "success", duration: randInt(1e7, 7.2e9) },
+    message: isErr
+      ? `SageMaker Pipeline ${pipeline}: step ${step} ${status} — ${rand(errMsgs)}`
+      : `SageMaker Pipeline ${pipeline}: step ${step} ${status}`,
+  };
+}
+
+// ─── SageMaker Model Monitor ──────────────────────────────────────────────
+function generateSageMakerModelMonitorLog(ts: string, er: number): EcsDocument {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const endpoints = ["fraud-detector-v2", "recommendation-engine", "churn-predictor", "pricing-model"];
+  const endpoint = rand(endpoints);
+  const monitorTypes = ["DataQuality", "ModelQuality", "ModelBias", "ModelExplainability"];
+  const monType = rand(monitorTypes);
+  const violations = ["feature_baseline_drift", "prediction_accuracy_below_threshold", "bias_metric_exceeded", "missing_feature_values"];
+  return {
+    "@timestamp": ts,
+    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "sagemaker-model-monitor" } },
+    aws: {
+      sagemaker_model_monitor: {
+        endpoint_name: endpoint,
+        monitoring_type: monType,
+        monitoring_schedule: `${endpoint}-${monType.toLowerCase()}-schedule`,
+        execution_status: isErr ? "CompletedWithViolations" : "Completed",
+        violation_count: isErr ? randInt(1, 15) : 0,
+        violation_types: isErr ? [rand(violations)] : [],
+        baseline_statistics_uri: `s3://sagemaker-${region}/baselines/${endpoint}/statistics.json`,
+        constraints_uri: `s3://sagemaker-${region}/baselines/${endpoint}/constraints.json`,
+        data_captured_count: randInt(100, 10000),
+        features_analyzed: randInt(10, 100),
+      },
+    },
+    event: { outcome: isErr ? "failure" : "success", duration: randInt(6e7, 9e8) },
+    message: isErr
+      ? `Model Monitor ${endpoint}: ${monType} completed with ${randInt(1, 15)} violations`
+      : `Model Monitor ${endpoint}: ${monType} passed (${randInt(100, 10000)} samples)`,
+  };
+}
+
+// ─── Lookout for Equipment ────────────────────────────────────────────────
+function generateLookoutEquipmentLog(ts: string, er: number): EcsDocument {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const models = ["turbine-vibration-model", "compressor-health", "pump-anomaly-detector", "hvac-efficiency"];
+  const model = rand(models);
+  const events = ["InferenceExecution", "CreateModel", "StartInferenceScheduler", "ImportDataset", "DescribeModel"];
+  const ev = rand(events);
+  const sensors = ["vibration_x", "vibration_y", "temperature", "pressure", "flow_rate", "rpm"];
+  return {
+    "@timestamp": ts,
+    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "lookoutequipment" } },
+    aws: {
+      lookoutequipment: {
+        model_name: model,
+        event_type: ev,
+        inference_scheduler: `${model}-scheduler`,
+        anomaly_detected: isErr,
+        anomalous_sensors: isErr ? [rand(sensors), rand(sensors)] : [],
+        diagnostics_score: randFloat(0, 1),
+        data_points_ingested: randInt(100, 50000),
+        inference_latency_ms: randInt(50, isErr ? 5000 : 500),
+        dataset_arn: `arn:aws:lookoutequipment:${region}:${acct.id}:dataset/${model}-data`,
+      },
+    },
+    event: { outcome: isErr ? "failure" : "success", duration: randInt(5e4, 5e6) },
+    message: isErr
+      ? `Lookout Equipment ${model}: anomaly detected in ${rand(sensors)}`
+      : `Lookout Equipment ${model}: ${ev} completed normally`,
+  };
+}
+
+// ─── Amazon Monitron ──────────────────────────────────────────────────────
+function generateMonitronLog(ts: string, er: number): EcsDocument {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const projects = ["factory-floor-A", "warehouse-hvac", "production-line-3", "motor-bank"];
+  const project = rand(projects);
+  const sensors = ["sensor-001", "sensor-002", "sensor-003", "sensor-004", "sensor-005"];
+  const sensor = rand(sensors);
+  const positions = ["bearing_1", "bearing_2", "gearbox", "motor_drive_end", "motor_non_drive_end"];
+  const conditions = isErr ? ["ALARM", "WARNING"] : ["HEALTHY", "HEALTHY", "WARNING"];
+  const condition = rand(conditions);
+  return {
+    "@timestamp": ts,
+    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "monitron" } },
+    aws: {
+      monitron: {
+        project_name: project,
+        sensor_id: sensor,
+        position: rand(positions),
+        machine_condition: condition,
+        vibration_iso_rms: randFloat(0.1, isErr ? 25 : 4),
+        temperature_celsius: randFloat(20, isErr ? 95 : 60),
+        vibration_x_peak: randFloat(0.01, isErr ? 30 : 5),
+        vibration_z_peak: randFloat(0.01, isErr ? 25 : 4),
+        gateway_id: `gw-${randId(6).toLowerCase()}`,
+        battery_level_pct: randInt(10, 100),
+      },
+    },
+    event: { outcome: isErr ? "failure" : "success", duration: randInt(1e4, 1e5) },
+    message: isErr
+      ? `Monitron ${project}/${sensor}: ${condition} — vibration/temperature anomaly`
+      : `Monitron ${project}/${sensor}: ${condition} (temp ${randFloat(20, 50).toFixed(1)}°C)`,
+  };
+}
+
 export {
   generateSageMakerLog,
   generateBedrockLog,
@@ -1784,4 +1954,9 @@ export {
   generateLookoutVisionLog,
   generateHealthOmicsLog,
   generateBedrockDataAutomationLog,
+  generateSageMakerFeatureStoreLog,
+  generateSageMakerPipelinesLog,
+  generateSageMakerModelMonitorLog,
+  generateLookoutEquipmentLog,
+  generateMonitronLog,
 };

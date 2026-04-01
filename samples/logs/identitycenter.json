@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "us-east-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "identitycenter"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "iam_identity_center": {
-      "event_type": "Authorize",
-      "user_name": "alice@corp.com",
-      "application_name": "Salesforce",
+      "event_type": "Authenticate",
+      "user_name": "bob@corp.com",
+      "application_name": "Slack",
       "permission_set": "PowerUserAccess",
-      "account_id": "814726593401",
-      "mfa_authenticated": true
+      "account_id": "738291046572",
+      "mfa_authenticated": false
     }
   },
   "user": {
-    "name": "alice@corp.com"
+    "name": "bob@corp.com"
   },
   "source": {
-    "ip": "184.247.208.15"
+    "ip": "2.239.169.124"
   },
   "event": {
-    "action": "Authorize",
+    "action": "Authenticate",
     "outcome": "success",
     "category": "authentication",
     "dataset": "aws.identitycenter",
     "provider": "sso.amazonaws.com"
   },
-  "message": "IAM Identity Center Authorize: alice@corp.com -> Salesforce",
+  "message": "IAM Identity Center Authenticate: bob@corp.com -> Slack",
   "log": {
     "level": "info"
   }

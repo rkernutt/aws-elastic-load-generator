@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "ap-south-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,35 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "AssessmentName": "CIS-AWS-Foundations",
+      "AssessmentName": "NIST-800-53",
       "ControlSetId": "Change Management"
     },
     "auditmanager": {
-      "assessment_name": "CIS-AWS-Foundations",
-      "assessment_id": "xht5phe4-iu06-fagj-soie-acl7lzldi5e",
+      "assessment_name": "NIST-800-53",
+      "assessment_id": "2y4pb70y-iudi-3p8k-z3j7-pwtgeca2iy",
       "control_set": "Change Management",
-      "control_id": "CTRL-5263",
-      "evidence_status": "INSUFFICIENT_EVIDENCE",
-      "data_source": "AWS_CONFIG",
-      "evidence_count": 15,
-      "compliance_check": "WARNING",
+      "control_id": "CTRL-8125",
+      "evidence_status": "COMPLIANT",
+      "data_source": "MANUAL",
+      "evidence_count": 32,
+      "compliance_check": "FAILED",
       "reviewer": "security-ops"
     }
   },
   "event": {
-    "action": "UpdateAssessmentControl",
-    "outcome": "failure",
-    "category": ["audit"],
+    "action": "ReviewEvidence",
+    "outcome": "success",
+    "category": [
+      "audit"
+    ],
     "dataset": "aws.auditmanager",
     "provider": "auditmanager.amazonaws.com"
   },
-  "message": "Audit Manager CIS-AWS-Foundations — CTRL-5263 INSUFFICIENT_EVIDENCE: insufficient evidence in Change Management",
+  "message": "Audit Manager NIST-800-53 — CTRL-8125 COMPLIANT",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "AccessDeniedException",
-    "message": "Audit Manager evidence collection failed",
-    "type": "audit"
+    "level": "info"
   }
 }

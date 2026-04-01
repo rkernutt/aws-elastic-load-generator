@@ -1,20 +1,20 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "c7d3baf696dffdf630253374c59dff90"
+    "id": "290e29731fdfc3799ce242cd42488fcb"
   },
   "transaction": {
-    "id": "056c3287d3a66396",
-    "name": "POST /inventory/bulk",
+    "id": "13df9b3d5bcb32b0",
+    "name": "POST /auth/refresh",
     "type": "request",
     "duration": {
-      "us": 811000
+      "us": 1245000
     },
-    "result": "HTTP 4xx",
+    "result": "HTTP 2xx",
     "sampled": true,
     "span_count": {
       "started": 2,
@@ -26,20 +26,20 @@
       "method": "POST"
     },
     "response": {
-      "status_code": 422
+      "status_code": 201
     }
   },
   "url": {
-    "path": "/inventory/bulk"
+    "path": "/auth/refresh"
   },
   "labels": {
-    "container_id": "f4f1bdc565a2",
-    "task_id": "arn:aws:ecs:af-south-1:234567890123:task/prod-backend-cluster/fa391183de39711bba66c07ee16064bc",
-    "cluster_name": "prod-backend-cluster",
-    "task_definition": "inventory-service:5"
+    "container_id": "1f1a10b8985d",
+    "task_id": "arn:aws:ecs:me-south-1:345678901234:task/prod-services-cluster/f46f94a04473b06bbdfdc1973ca2ed8f",
+    "cluster_name": "prod-services-cluster",
+    "task_definition": "auth-service:20"
   },
   "service": {
-    "name": "inventory-service",
+    "name": "auth-service",
     "environment": "dev",
     "version": "1.0.0",
     "language": {
@@ -70,17 +70,17 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "me-south-1",
     "account": {
-      "id": "234567890123",
-      "name": "staging-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "ecs"
     }
   },
   "event": {
-    "outcome": "failure"
+    "outcome": "success"
   },
   "data_stream": {
     "type": "traces",

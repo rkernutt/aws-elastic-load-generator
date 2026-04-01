@@ -1797,4 +1797,162 @@ export const PIPELINE_REGISTRY = [
     description: "Parse AWS End User Messaging SMS/MMS/voice delivery event JSON",
     processors: json("endusermessaging"),
   },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // v11.5 — New services
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // Databases
+  {
+    id: "logs-aws.rdsproxy-default",
+    dataset: "aws.rdsproxy",
+    group: "databases",
+    description: "Parse RDS Proxy connection pooling and auth event JSON",
+    processors: json("rdsproxy"),
+  },
+  {
+    id: "logs-aws.rdscustom-default",
+    dataset: "aws.rdscustom",
+    group: "databases",
+    description: "Parse RDS Custom for SQL Server/Oracle instance event JSON",
+    processors: json("rdscustom"),
+  },
+  {
+    id: "logs-aws.dmsserverless-default",
+    dataset: "aws.dmsserverless",
+    group: "databases",
+    description: "Parse DMS Serverless replication task event JSON",
+    processors: json("dmsserverless"),
+  },
+  {
+    id: "logs-aws.elasticacheglobal-default",
+    dataset: "aws.elasticacheglobal",
+    group: "databases",
+    description: "Parse ElastiCache Global Datastore replication event JSON",
+    processors: json("elasticacheglobal"),
+  },
+
+  // AI/ML
+  {
+    id: "logs-aws.sagemakerfeaturestore-default",
+    dataset: "aws.sagemakerfeaturestore",
+    group: "aiml",
+    description: "Parse SageMaker Feature Store ingestion and retrieval event JSON",
+    processors: json("sagemakerfeaturestore"),
+  },
+  {
+    id: "logs-aws.sagemakerpipelines-default",
+    dataset: "aws.sagemakerpipelines",
+    group: "aiml",
+    description: "Parse SageMaker Pipelines workflow execution event JSON",
+    processors: json("sagemakerpipelines"),
+  },
+  {
+    id: "logs-aws.sagemakermodelmonitor-default",
+    dataset: "aws.sagemakermodelmonitor",
+    group: "aiml",
+    description: "Parse SageMaker Model Monitor data quality and drift event JSON",
+    processors: json("sagemakermodelmonitor"),
+  },
+  {
+    id: "logs-aws.lookoutequipment-default",
+    dataset: "aws.lookoutequipment",
+    group: "aiml",
+    description: "Parse Lookout for Equipment anomaly detection event JSON",
+    processors: json("lookoutequipment"),
+  },
+  {
+    id: "logs-aws.monitron-default",
+    dataset: "aws.monitron",
+    group: "aiml",
+    description: "Parse Amazon Monitron vibration and temperature sensor event JSON",
+    processors: json("monitron"),
+  },
+
+  // Security
+  {
+    id: "logs-aws.networkaccessanalyzer-default",
+    dataset: "aws.networkaccessanalyzer",
+    group: "security",
+    description: "Parse Network Access Analyzer finding and path event JSON",
+    processors: json("networkaccessanalyzer"),
+  },
+  {
+    id: "logs-aws.incidentmanager-default",
+    dataset: "aws.incidentmanager",
+    group: "security",
+    description: "Parse Incident Manager response plan and timeline event JSON",
+    processors: json("incidentmanager"),
+  },
+
+  // Developer Tools
+  {
+    id: "logs-aws.cloudshell-default",
+    dataset: "aws.cloudshell",
+    group: "devtools",
+    description: "Parse CloudShell session and command execution event JSON",
+    processors: json("cloudshell"),
+  },
+  {
+    id: "logs-aws.cloud9-default",
+    dataset: "aws.cloud9",
+    group: "devtools",
+    description: "Parse Cloud9 IDE environment lifecycle event JSON",
+    processors: json("cloud9"),
+  },
+  {
+    id: "logs-aws.robomaker-default",
+    dataset: "aws.robomaker",
+    group: "devtools",
+    description: "Parse RoboMaker simulation and robot application event JSON",
+    processors: json("robomaker"),
+  },
+
+  // Storage
+  {
+    id: "logs-aws.s3_intelligent_tiering-default",
+    dataset: "aws.s3_intelligent_tiering",
+    group: "storage",
+    description: "Parse S3 Intelligent-Tiering archive and access tier event JSON",
+    processors: json("s3_intelligent_tiering"),
+  },
+  {
+    id: "logs-aws.s3_batch_operations-default",
+    dataset: "aws.s3_batch_operations",
+    group: "storage",
+    description: "Parse S3 Batch Operations job and task completion event JSON",
+    processors: json("s3_batch_operations"),
+  },
+
+  // IoT
+  {
+    id: "logs-aws.kinesisvideo-default",
+    dataset: "aws.kinesisvideo",
+    group: "iot",
+    description: "Parse Kinesis Video Streams ingestion and playback event JSON",
+    processors: json("kinesisvideo"),
+  },
+  {
+    id: "logs-aws.panorama-default",
+    dataset: "aws.panorama",
+    group: "iot",
+    description: "Parse Panorama edge appliance and vision model event JSON",
+    processors: json("panorama"),
+  },
+  {
+    id: "logs-aws.freertos-default",
+    dataset: "aws.freertos",
+    group: "iot",
+    description: "Parse FreeRTOS device connectivity and OTA update event JSON",
+    processors: json("freertos"),
+  },
+
+  // Management
+  {
+    id: "logs-aws.cloudwatch_rum-default",
+    dataset: "aws.cloudwatch_rum",
+    group: "management",
+    description: "Parse CloudWatch RUM real user monitoring session event JSON",
+    processors: json("cloudwatch_rum"),
+  },
 ];

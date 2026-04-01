@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "trustedadvisor"
@@ -13,28 +13,26 @@
   },
   "aws": {
     "trustedadvisor": {
-      "check_name": "EC2 On-Demand Instances",
-      "category": "service_limits",
-      "status": "error",
-      "affected_resource": "i-hxbys7upymt",
-      "flagged_resources": 13
+      "check_name": "High Utilization Amazon EC2 Instances",
+      "category": "performance",
+      "status": "ok",
+      "affected_resource": "sg-j21kfzw7",
+      "flagged_resources": 0
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "failure",
-    "category": ["configuration", "vulnerability"],
+    "outcome": "success",
+    "category": [
+      "configuration",
+      "vulnerability"
+    ],
     "dataset": "aws.trustedadvisor",
     "provider": "trustedadvisor.amazonaws.com",
-    "duration": 23000000000
+    "duration": 44000000000
   },
-  "message": "Trusted Advisor [ERROR]: EC2 On-Demand Instances - 17 resources affected",
-  "error": {
-    "code": "TrustedAdvisorFinding",
-    "message": "EC2 On-Demand Instances: error",
-    "type": "configuration"
-  },
+  "message": "Trusted Advisor OK: High Utilization Amazon EC2 Instances",
   "log": {
-    "level": "error"
+    "level": "info"
   }
 }

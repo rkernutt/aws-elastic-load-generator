@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "eu-north-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "budgets"
@@ -13,27 +13,30 @@
   },
   "aws": {
     "budgets": {
-      "budget_name": "monthly-total",
-      "budget_type": "RI_UTILIZATION",
+      "budget_name": "rds-cluster",
+      "budget_type": "RI_COVERAGE",
       "time_period": "MONTHLY",
       "currency": "USD",
-      "budget_limit": 1701.6,
-      "actual_spend": 689.15,
-      "forecasted_spend": 902.78,
+      "budget_limit": 4306.13,
+      "actual_spend": 1729.08,
+      "forecasted_spend": 1861.4,
       "threshold_exceeded": false,
       "threshold_percentage": 50,
-      "notification_type": "FORECASTED",
-      "subscribers": "finance@company.com"
+      "notification_type": "ACTUAL",
+      "subscribers": "ops@company.com"
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["configuration", "process"],
+    "category": [
+      "configuration",
+      "process"
+    ],
     "dataset": "aws.budgets",
     "provider": "budgets.amazonaws.com",
-    "duration": 12000000000
+    "duration": 1000000000
   },
-  "message": "Budget OK: monthly-total at 689/1702 (41%)",
+  "message": "Budget OK: rds-cluster at 1729/4306 (40%)",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "lightsail"
@@ -13,29 +13,32 @@
   },
   "aws": {
     "lightsail": {
-      "resource_name": "dev-server",
-      "resource_type": "ContainerService",
-      "bundle_id": "micro_2_0",
-      "blueprint": "wordpress",
-      "state": "stopped",
+      "resource_name": "game-server",
+      "resource_type": "Instance",
+      "bundle_id": "large_2_0",
+      "blueprint": "amazon_linux_2",
+      "state": "pending",
       "event_type": "SNAPSHOT_CREATED",
-      "public_ip": "204.218.70.251",
-      "snapshot_name": "dev-server-snap-36",
+      "public_ip": "229.7.82.48",
+      "snapshot_name": "game-server-snap-8",
       "monthly_transfer": {
-        "used_gb": 29,
-        "limit_gb": 6144
+        "used_gb": 892,
+        "limit_gb": 3072
       },
       "alert": {}
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["host", "network"],
+    "category": [
+      "host",
+      "network"
+    ],
     "dataset": "aws.lightsail",
     "provider": "lightsail.amazonaws.com",
-    "duration": 186000000
+    "duration": 1927000000
   },
-  "message": "Lightsail dev-server: SNAPSHOT_CREATED [stopped]",
+  "message": "Lightsail game-server: SNAPSHOT_CREATED [pending]",
   "log": {
     "level": "info"
   }

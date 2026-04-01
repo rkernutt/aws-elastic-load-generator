@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "batch"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "JobQueue": "data-export-queue"
+      "JobQueue": "ml-training-prep-queue"
     },
     "batch": {
       "job": {
-        "name": "data-export",
-        "id": "ku1fm499-1z92",
+        "name": "ml-training-prep",
+        "id": "oq7i15p1-s3cs",
         "status": "SUCCEEDED"
       },
-      "job_queue": "data-export-queue",
+      "job_queue": "ml-training-prep-queue",
       "compute_environment": "ce-ondemand",
-      "structured_logging": false,
+      "structured_logging": true,
       "metrics": {
         "PendingJobCount": {
-          "avg": 52
+          "avg": 100
         },
         "RunnableJobCount": {
-          "avg": 4
+          "avg": 39
         },
         "StartingJobCount": {
-          "avg": 1
+          "avg": 14
         },
         "RunningJobCount": {
-          "avg": 190
+          "avg": 148
         },
         "SucceededJobCount": {
           "sum": 1
@@ -44,31 +44,33 @@
           "sum": 0
         },
         "CPUReserved": {
-          "avg": "52.018"
+          "avg": 17.957726267118222
         },
         "GPUReserved": {
           "avg": 0
         },
         "MemoryReserved": {
-          "avg": "57.998"
+          "avg": 25.982986216412584
         }
       }
     }
   },
   "process": {
-    "pid": 9733,
-    "name": "java",
+    "pid": 65198,
+    "name": "python",
     "exit_code": 0
   },
   "log": {
     "level": "info"
   },
   "event": {
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "outcome": "success",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 3511000000000
+    "duration": 3078000000000
   },
-  "message": "Container started on ECS instance"
+  "message": "{\"jobId\":\"oq7i15p1-s3cs\",\"jobName\":\"ml-training-prep\",\"jobQueue\":\"ml-training-prep-queue\",\"level\":\"info\",\"message\":\"Job definition registered\",\"timestamp\":\"2026-04-01T05:27:12.782Z\",\"arrayIndex\":32}"
 }

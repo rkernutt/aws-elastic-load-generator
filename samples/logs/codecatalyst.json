@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "ap-northeast-3",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,30 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "SpaceName": "data-team",
-      "ProjectName": "infrastructure"
+      "SpaceName": "infra-team",
+      "ProjectName": "backend-service"
     },
     "codecatalyst": {
-      "space_name": "data-team",
-      "project_name": "infrastructure",
-      "workflow_name": "pr-checks",
-      "workflow_run_id": "run-tvpzyypoed",
-      "workflow_run_status": "IN_PROGRESS",
-      "dev_environment_id": "dev-5lnf0ekvhxt",
-      "dev_environment_status": "DELETING",
-      "ide": "IntelliJ IDEA",
+      "space_name": "infra-team",
+      "project_name": "backend-service",
+      "workflow_name": "security-scan",
+      "workflow_run_id": "run-sfc4vyzrcnn",
+      "workflow_run_status": "SUCCEEDED",
+      "dev_environment_id": "dev-iq9cabnckk8",
+      "dev_environment_status": "RUNNING",
+      "ide": "VSCode",
       "branch_name": "release/v2.0",
-      "event_type": "WORKFLOW_RUN"
+      "event_type": "SOURCE_REPOSITORY"
     }
   },
   "event": {
-    "action": "CreateSourceRepository",
+    "action": "StopWorkflowRun",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.codecatalyst",
     "provider": "codecatalyst.amazonaws.com"
   },
-  "message": "CodeCatalyst CreateSourceRepository: space=data-team, project=infrastructure, workflow=pr-checks IN_PROGRESS",
+  "message": "CodeCatalyst StopWorkflowRun: space=infra-team, project=backend-service, workflow=security-scan SUCCEEDED",
   "log": {
     "level": "info"
   }

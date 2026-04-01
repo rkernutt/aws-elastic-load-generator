@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "ca-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "workmail"
@@ -13,48 +13,44 @@
   },
   "aws": {
     "dimensions": {
-      "OrganizationId": "m-j2w97s"
+      "OrganizationId": "m-8mfrwk"
     },
     "workmail": {
-      "organization_id": "m-j2w97s",
-      "mailbox_id": "mailbox-fpts9h7tn7",
-      "action": "EmailBounced",
+      "organization_id": "m-8mfrwk",
+      "mailbox_id": "mailbox-qai0ypj6q2",
+      "action": "EmailDelivered",
       "metrics": {
-        "emails_delivered": 0,
-        "emails_bounced": 66,
-        "active_users": 380
-      },
-      "error_code": "MailboxQuotaExceeded"
+        "emails_delivered": 119,
+        "emails_bounced": 0,
+        "active_users": 439
+      }
     }
   },
   "email": {
     "from": {
-      "address": "frank@globex.example.com"
+      "address": "david@globex.example.com"
     },
     "to": {
-      "address": "frank@globex.example.com"
+      "address": "bob@globex.example.com"
     }
   },
   "event": {
-    "action": "EmailBounced",
-    "outcome": "failure",
-    "category": ["email"],
+    "action": "EmailDelivered",
+    "outcome": "success",
+    "category": [
+      "email"
+    ],
     "dataset": "aws.workmail",
     "provider": "workmail.amazonaws.com",
-    "duration": 28000000
+    "duration": 398000000
   },
   "data_stream": {
     "type": "logs",
     "dataset": "aws.workmail",
     "namespace": "default"
   },
-  "message": "WorkMail org m-j2w97s: MailboxQuotaExceeded for EmailBounced",
+  "message": "WorkMail org m-8mfrwk: EmailDelivered from david@globex.example.com to bob@globex.example.com",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "MailboxQuotaExceeded",
-    "message": "WorkMail email delivery failed in organization m-j2w97s",
-    "type": "email"
+    "level": "info"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "bedrock"
@@ -13,34 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "ModelId": "anthropic.claude-3-haiku-20240307-v1:0"
+      "ModelId": "meta.llama3-70b-instruct-v1:0"
     },
     "bedrock": {
-      "model_id": "anthropic.claude-3-haiku-20240307-v1:0",
-      "invocation_latency_ms": 10463,
-      "input_token_count": 3586,
-      "output_token_count": 104,
-      "total_token_count": 3690,
-      "stop_reason": "end_turn",
+      "model_id": "meta.llama3-70b-instruct-v1:0",
+      "invocation_latency_ms": 3578,
+      "input_token_count": 2171,
+      "output_token_count": 1365,
+      "total_token_count": 3536,
+      "stop_reason": "max_tokens",
       "use_case": "classification",
       "guardrail_action": "INTERVENED",
-      "streaming": true,
-      "time_to_first_token_ms": 528,
-      "input_tokens_per_sec": 342.7,
-      "model_family": "anthropic",
+      "streaming": false,
+      "model_family": "meta",
       "metrics": {
         "Invocations": {
-          "sum": 429
+          "sum": 132
         },
         "InvocationLatency": {
-          "avg": 10463,
-          "p99": 20926
+          "avg": 3578,
+          "p99": 7156
         },
         "InputTokenCount": {
-          "sum": 3586
+          "sum": 2171
         },
         "OutputTokenCount": {
-          "sum": 104
+          "sum": 1365
         },
         "Throttles": {
           "sum": 0
@@ -50,13 +48,15 @@
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.bedrock",
     "provider": "bedrock.amazonaws.com",
-    "duration": 10463000000
+    "duration": 3578304789.5579047
   },
-  "message": "Bedrock claude 3586->104 tokens 10.46s",
+  "message": "Bedrock llama3 2171->1365 tokens 3.58s",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

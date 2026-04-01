@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "databrew"
@@ -14,54 +14,50 @@
   "aws": {
     "dimensions": {
       "JobName": "remove-pii-job",
-      "DatasetName": "product-catalog"
+      "DatasetName": "event-logs"
     },
     "databrew": {
-      "project_name": "product-catalog-project",
+      "project_name": "event-logs-project",
       "recipe_name": "remove-pii",
       "job_name": "remove-pii-job",
-      "job_type": "RECIPE",
-      "dataset_name": "product-catalog",
-      "job_status": "FAILED",
-      "run_state": "FAILED",
-      "duration_seconds": 2213,
-      "rows_processed": 0,
+      "job_type": "PROFILE",
+      "dataset_name": "event-logs",
+      "job_status": "SUCCEEDED",
+      "run_state": "SUCCEEDED",
+      "duration_seconds": 241,
+      "rows_processed": 1820261,
       "transform_steps": 3,
-      "output_location": "s3://databrew-output/product-catalog/",
-      "error_message": "Input dataset not found",
+      "output_location": "s3://databrew-output/event-logs/",
       "metrics": {
         "RowsProcessed": {
-          "sum": 0
+          "sum": 1820261
         },
         "DurationSeconds": {
-          "avg": 2213
+          "avg": 241
         },
         "TransformSteps": {
           "avg": 3
         },
         "JobSuccessCount": {
-          "sum": 0
+          "sum": 1
         },
         "JobFailureCount": {
-          "sum": 1
+          "sum": 0
         }
       }
     }
   },
   "event": {
-    "duration": 2213000000000,
-    "outcome": "failure",
-    "category": ["process"],
+    "duration": 241000000000,
+    "outcome": "success",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.databrew",
     "provider": "databrew.amazonaws.com"
   },
-  "message": "DataBrew job remove-pii FAILED on product-catalog: Type mismatch",
+  "message": "DataBrew job remove-pii: 1,820,261 rows in 241s",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "JobFailed",
-    "message": "DataBrew job failed",
-    "type": "process"
+    "level": "info"
   }
 }

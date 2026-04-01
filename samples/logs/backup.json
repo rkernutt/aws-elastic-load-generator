@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "backup"
@@ -13,23 +13,25 @@
   },
   "aws": {
     "backup": {
-      "backup_job_id": "0ggvejvf-oo3g-c7dh",
-      "backup_plan_name": "compliance-backup",
-      "resource_type": "EC2",
-      "backup_vault_name": "Default",
+      "backup_job_id": "3u33zc73-j83q-ga7j",
+      "backup_plan_name": "daily-backup-plan",
+      "resource_type": "RDS",
+      "backup_vault_name": "compliance-vault",
       "status": "COMPLETED",
-      "backup_size_gb": 1620.407,
-      "lifecycle_delete_after_days": 30
+      "backup_size_gb": 1369.7542736730688,
+      "lifecycle_delete_after_days": 7
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.backup",
     "provider": "backup.amazonaws.com",
-    "duration": 2860000000000
+    "duration": 814000000000
   },
-  "message": "AWS Backup COMPLETED: ec2/i-prod -> prod-vault (1620.4GB)",
+  "message": "AWS Backup COMPLETED: fsx/fs-prod -> prod-vault (1369.8GB)",
   "log": {
     "level": "info"
   }

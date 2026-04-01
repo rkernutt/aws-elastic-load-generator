@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "me-south-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "s3"
@@ -13,42 +13,44 @@
   },
   "aws": {
     "dimensions": {
-      "StorageLensConfigurationId": "prod-buckets",
-      "StorageType": "GlacierIR"
+      "StorageLensConfigurationId": "cost-optimization",
+      "StorageType": "Glacier"
     },
     "s3storagelens": {
-      "config_id": "prod-buckets",
-      "bucket_count": 430,
-      "total_storage_bytes": 22259240913578,
-      "total_object_count": 9413342827,
-      "storage_type": "GlacierIR",
+      "config_id": "cost-optimization",
+      "bucket_count": 149,
+      "total_storage_bytes": 52095567455807,
+      "total_object_count": 158732443,
+      "storage_type": "Glacier",
       "metrics": {
         "BucketCount": {
-          "avg": 430
+          "avg": 149
         },
         "TotalStorageBytes": {
-          "sum": 22259240913578
+          "sum": 52095567455807
         },
         "TotalObjectCount": {
-          "sum": 9413342827
+          "sum": 158732443
         },
         "BytesUsed": {
-          "sum": 22259240913578
+          "sum": 52095567455807
         },
         "ObjectCount": {
-          "sum": 9413342827
+          "sum": 158732443
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["metric"],
+    "category": [
+      "metric"
+    ],
     "dataset": "aws.s3_storage_lens",
     "provider": "s3.amazonaws.com",
-    "duration": 268000000000
+    "duration": 191000000000
   },
-  "message": "S3 Storage Lens prod-buckets: 430 buckets, 22259.2 GB, 9413342827 objects",
+  "message": "S3 Storage Lens cost-optimization: 149 buckets, 52095.6 GB, 158732443 objects",
   "log": {
     "level": "info"
   }

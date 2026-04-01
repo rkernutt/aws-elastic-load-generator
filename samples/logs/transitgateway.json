@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "sa-east-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "TransitGateway": "tgw-7fvcbil6xwk",
-      "TransitGatewayAttachment": "tgw-attach-o93ieg4wetm"
+      "TransitGateway": "tgw-hpm22abxjv6",
+      "TransitGatewayAttachment": "tgw-attach-cm5d4ylyy5"
     },
     "transitgateway": {
-      "tgw_id": "tgw-7fvcbil6xwk",
-      "tgw_attachment_id": "tgw-attach-o93ieg4wetm",
-      "resource_type": "peering",
-      "src_vpc_id": "vpc-ib265s4e",
-      "dst_vpc_id": "vpc-1rp2dhzd",
+      "tgw_id": "tgw-hpm22abxjv6",
+      "tgw_attachment_id": "tgw-attach-cm5d4ylyy5",
+      "resource_type": "vpn",
+      "src_vpc_id": "vpc-hwglq342",
+      "dst_vpc_id": "vpc-rj2z2ntx",
       "action": "accept",
-      "bytes": 48125,
-      "packets": 36,
-      "protocol": "ICMP",
+      "bytes": 24025,
+      "packets": 46,
+      "protocol": "UDP",
       "metrics": {
         "BytesIn": {
-          "sum": 4562803185
+          "sum": 8908033863
         },
         "BytesOut": {
-          "sum": 1604078290
+          "sum": 1941471930
         },
         "PacketsIn": {
-          "sum": 4146614
+          "sum": 7195996
         },
         "PacketsOut": {
-          "sum": 7656049
+          "sum": 8721250
         },
         "PacketDropCountBlackhole": {
           "sum": 0
@@ -55,25 +55,27 @@
     }
   },
   "source": {
-    "ip": "179.101.74.85",
-    "port": 11960
+    "ip": "167.92.175.56",
+    "port": 45974
   },
   "destination": {
-    "ip": "159.124.88.93",
-    "port": 443
+    "ip": "52.136.254.6",
+    "port": 22
   },
   "network": {
-    "transport": "icmp",
-    "bytes": 26580
+    "transport": "udp",
+    "bytes": 60886
   },
   "event": {
     "action": "accept",
     "outcome": "success",
-    "category": ["network"],
+    "category": [
+      "network"
+    ],
     "dataset": "aws.transitgateway",
     "provider": "ec2.amazonaws.com"
   },
-  "message": "TGW tgw-7fvcbil6xwk ACCEPT ICMP flow",
+  "message": "TGW tgw-hpm22abxjv6 ACCEPT UDP flow",
   "log": {
     "level": "info"
   }

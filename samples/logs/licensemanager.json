@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "licensemanager"
@@ -13,27 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "LicenseConfigurationName": "SQL-Server-Enterprise"
+      "LicenseConfigurationName": "Windows-Server-2022"
     },
     "licensemanager": {
-      "license_configuration_name": "SQL-Server-Enterprise",
-      "license_configuration_arn": "arn:aws:license-manager:ap-southeast-1:814726593401:license-configuration:UH432L09K9L",
-      "resource_type": "ROLE",
-      "consumed_licenses": 258,
-      "licensed_count": 591,
-      "utilization_percentage": 44,
-      "rule_type": "vCPU",
+      "license_configuration_name": "Windows-Server-2022",
+      "license_configuration_arn": "arn:aws:license-manager:eu-west-2:501938274650:license-configuration:7D7KBM51AZ",
+      "resource_type": "EC2_INSTANCE",
+      "consumed_licenses": 443,
+      "licensed_count": 730,
+      "utilization_percentage": 61,
+      "rule_type": "Cores",
       "status": "Active"
     }
   },
   "event": {
-    "action": "ExtendLicense",
+    "action": "DisassociateResource",
     "outcome": "success",
-    "category": ["configuration"],
+    "category": [
+      "configuration"
+    ],
     "dataset": "aws.licensemanager",
     "provider": "license-manager.amazonaws.com"
   },
-  "message": "License Manager SQL-Server-Enterprise: 258/591 (44%) ROLE",
+  "message": "License Manager Windows-Server-2022: 443/730 (61%) EC2_INSTANCE",
   "log": {
     "level": "info"
   }

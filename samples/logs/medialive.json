@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "me-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "medialive"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "ChannelId": "84BW97A4BRM",
+      "ChannelId": "A8I8QJ94DHF",
       "Pipeline": "PIPELINE_1"
     },
     "medialive": {
-      "channel_id": "84BW97A4BRM",
+      "channel_id": "A8I8QJ94DHF",
       "channel_name": "concert-stream",
-      "channel_state": "IDLE",
+      "channel_state": "RUNNING",
       "pipeline": "PIPELINE_1",
-      "input_type": "RTMP_PUSH",
-      "output_type": "HLS",
-      "video_bitrate_kbps": 14497,
+      "input_type": "UDP_PUSH",
+      "output_type": "DASH",
+      "video_bitrate_kbps": 14254,
       "input_loss_frames": 0,
-      "encoder_fps": 29.97,
+      "encoder_fps": 30,
       "metrics": {
         "ActiveAlerts": {
           "sum": 0
@@ -34,7 +34,7 @@
           "sum": 0
         },
         "NetworkOut": {
-          "avg": 6734118
+          "avg": 38263102
         },
         "OutputLossSeconds": {
           "sum": 0
@@ -47,12 +47,14 @@
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.medialive",
     "provider": "medialive.amazonaws.com",
-    "duration": 8936000000
+    "duration": 6254000000
   },
-  "message": "Channel started successfully",
+  "message": "Pipeline A running, Pipeline B standby",
   "log": {
     "level": "info"
   }

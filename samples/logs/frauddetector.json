@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "frauddetector"
@@ -13,36 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "online-fraud-v2"
+      "DetectorId": "identity-fraud"
     },
     "frauddetector": {
-      "detector_id": "online-fraud-v2",
-      "detector_version_id": "3",
-      "event_id": "2215yvjvovo",
-      "event_type": "wire_transfer",
+      "detector_id": "identity-fraud",
+      "detector_version_id": "4",
+      "event_id": "k5wujsgcoar",
+      "event_type": "login",
       "entity_type": "customer",
-      "entity_id": "entity_gb7eiilu6t",
-      "outcomes": ["APPROVE"],
-      "risk_score": 355,
+      "entity_id": "entity_4wfdylx59r",
+      "outcomes": [
+        "REVIEW"
+      ],
+      "risk_score": 660,
       "model_scores": {
-        "online-fraud-v2": 355
+        "identity-fraud": 660
       },
-      "used_rules": ["review-medium"],
-      "ip_address": "167.134.229.182",
+      "used_rules": [
+        "review-medium"
+      ],
+      "ip_address": "106.115.231.203",
       "event_variables": {
-        "billing_postal": "15472",
+        "billing_postal": "83390",
         "phone_verified": "false"
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["intrusion_detection", "process"],
+    "category": [
+      "intrusion_detection",
+      "process"
+    ],
     "dataset": "aws.frauddetector",
     "provider": "frauddetector.amazonaws.com",
-    "duration": 218000000
+    "duration": 239000000
   },
-  "message": "Fraud Detector APPROVE [online-fraud-v2]: entity entity_gb7eiilu6t score 355/1000",
+  "message": "Fraud Detector REVIEW [identity-fraud]: entity entity_4wfdylx59r score 660/1000",
   "log": {
     "level": "info"
   }

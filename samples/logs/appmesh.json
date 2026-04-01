@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "appmesh"
@@ -14,31 +14,38 @@
   "aws": {
     "dimensions": {
       "MeshName": "prod-mesh",
-      "VirtualNodeName": "payment-vn"
+      "VirtualNodeName": "inventory-vn"
     },
     "appmesh": {
       "mesh_name": "prod-mesh",
-      "virtual_node": "payment-vn",
-      "virtual_service": "checkout.svc",
-      "listener_port": 8080,
-      "protocol": "http",
-      "response_code": 204,
-      "response_time_ms": 181,
-      "bytes_received": 3324,
-      "bytes_sent": 12863,
-      "envoy_response_code_details": "via_upstream"
+      "virtual_node": "inventory-vn",
+      "virtual_service": "inventory.svc",
+      "listener_port": 9090,
+      "protocol": "http2",
+      "response_code": 500,
+      "response_time_ms": 323,
+      "bytes_received": 7700,
+      "bytes_sent": 8783,
+      "envoy_response_code_details": "no_healthy_upstreams"
     }
   },
   "event": {
-    "action": "RetryAttempt",
-    "outcome": "success",
-    "category": ["network"],
+    "action": "CircuitBreakerOpen",
+    "outcome": "failure",
+    "category": [
+      "network"
+    ],
     "dataset": "aws.appmesh",
     "provider": "appmesh.amazonaws.com",
-    "duration": 181000000
+    "duration": 323000000
   },
-  "message": "App Mesh payment-vn: http 204 181ms",
+  "message": "App Mesh inventory-vn: 500 upstream_reset after 323ms",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "500",
+    "message": "no_healthy_upstreams",
+    "type": "network"
   }
 }

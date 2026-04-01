@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ap-south-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "codeguru"
@@ -13,32 +13,30 @@
   },
   "aws": {
     "codeguru": {
-      "product": "Reviewer",
-      "repository_name": "frontend-app",
-      "association_id": "8fnavpjbc4i",
-      "finding_id": "50o7ca8pyb",
-      "category": "Logging",
-      "severity": "Critical",
-      "finding_description": "CodeMaintainability:LongMethod",
-      "code_file": "server/routes.js",
-      "line_number": 153,
-      "pull_request_id": 113,
-      "error_code": "ThrottlingException"
+      "product": "Profiler",
+      "repository_name": "auth-service",
+      "association_id": "f0g1q4z373q",
+      "finding_id": "5rl1n7lt6i4",
+      "category": "Memory",
+      "severity": "High",
+      "finding_description": "Hot method: HashMap.get",
+      "code_file": "lambda_function.py",
+      "line_number": 30,
+      "profiling_group": "auth-service-profiling",
+      "frame_percent": 32.046656252857865
     }
   },
   "event": {
-    "outcome": "failure",
-    "category": ["vulnerability", "process"],
+    "outcome": "success",
+    "category": [
+      "vulnerability",
+      "process"
+    ],
     "dataset": "aws.codeguru",
     "provider": "codeguru.amazonaws.com"
   },
-  "message": "CodeGuru Reviewer FAILED [frontend-app]: Repository not found:",
+  "message": "CodeGuru Profiler [auth-service] High: Hot method",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ThrottlingException",
-    "message": "CodeGuru operation failed",
-    "type": "process"
+    "level": "warn"
   }
 }

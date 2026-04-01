@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "us-east-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "b2bi"
@@ -13,29 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "PartnerName": "Logistics-Partner",
-      "DocumentType": "X12_997"
+      "PartnerName": "RetailChain-Inc",
+      "DocumentType": "X12_214"
     },
     "b2bi": {
-      "partnership_id": "ps-RX6ASLSJ1TF",
-      "partner_name": "Logistics-Partner",
-      "transaction_id": "txn-7MDO9NNB4P",
-      "document_type": "X12_997",
-      "processing_status": "SUCCEEDED",
-      "transformer_id": "tr-ANICRVMO5GH",
-      "input_file_size_bytes": 473597,
-      "transaction_count": 75,
-      "interchange_control_number": 635836825
+      "partnership_id": "ps-6YU3YN0AXYP",
+      "partner_name": "RetailChain-Inc",
+      "transaction_id": "txn-N33R22XUO7D",
+      "document_type": "X12_214",
+      "processing_status": "DELIVERED",
+      "transformer_id": "tr-QKXLJTYK62B",
+      "input_file_size_bytes": 487533,
+      "transaction_count": 461,
+      "interchange_control_number": 680524655
     }
   },
   "event": {
-    "action": "DeliverEDI",
+    "action": "CompleteTransformation",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.b2bi",
     "provider": "b2bi.amazonaws.com"
   },
-  "message": "B2B Data Interchange X12_997 from Logistics-Partner: SUCCEEDED (75 transactions)",
+  "message": "B2B Data Interchange X12_214 from RetailChain-Inc: DELIVERED (461 transactions)",
   "log": {
     "level": "info"
   }

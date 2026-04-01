@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "ap-southeast-4",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,34 +13,32 @@
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "api-latency",
-      "alarm_state": "ALARM",
+      "alarm_name": "high-cpu-alarm",
+      "alarm_state": "OK",
       "previous_state": "ALARM",
       "namespace": "AWS/ECS",
-      "metric_name": "QueueDepth",
-      "threshold": 80,
-      "evaluation_periods": 1,
-      "metric_value": 93.738,
-      "statistic": "p99",
-      "period_seconds": 300,
+      "metric_name": "Duration",
+      "threshold": 85,
+      "evaluation_periods": 3,
+      "metric_value": 67.89932348542494,
+      "statistic": "Maximum",
+      "period_seconds": 3600,
       "treat_missing_data": "missing"
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "failure",
-    "category": ["configuration", "process"],
+    "outcome": "success",
+    "category": [
+      "configuration",
+      "process"
+    ],
     "dataset": "aws.cloudwatch",
     "provider": "monitoring.amazonaws.com",
-    "duration": 300000000000
+    "duration": 3600000000000
   },
-  "message": "CloudWatch alarm \"api-latency\": ALARM (AWS/ECS/QueueDepth=93.7)",
+  "message": "CloudWatch alarm \"high-cpu-alarm\": OK (AWS/ECS/Duration=67.9)",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "AlarmTriggered",
-    "message": "Alarm api-latency: ALARM",
-    "type": "monitoring"
+    "level": "info"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "me-central-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,27 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "arn:aws:scn:ap-east-1:738291046572:instance/zl2yabjwkap"
+      "InstanceId": "arn:aws:scn:me-central-1:738291046572:instance/tilnnqjxhfj"
     },
     "supplychain": {
-      "instance_id": "arn:aws:scn:ap-east-1:738291046572:instance/zl2yabjwkap",
-      "instance_name": "north-america-ops",
-      "namespace": "aws.supply_chain.collaboration",
-      "event_type": "scn.data.forecast",
-      "job_status": "QUEUED",
-      "record_count": 105893,
-      "forecast_horizon_days": 102,
+      "instance_id": "arn:aws:scn:me-central-1:738291046572:instance/tilnnqjxhfj",
+      "instance_name": "emea-distribution",
+      "namespace": "aws.supply_chain.plan",
+      "event_type": "scn.data.purchase_order",
+      "job_status": "SUCCESS",
+      "record_count": 858526,
+      "forecast_horizon_days": 53,
       "data_lake_dataset": "purchase_orders"
     }
   },
   "event": {
-    "action": "CreateInstance",
+    "action": "UpdateInstance",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.supplychain",
     "provider": "scn.amazonaws.com"
   },
-  "message": "Supply Chain CreateInstance: instance=north-america-ops event=scn.data.forecast status=QUEUED",
+  "message": "Supply Chain UpdateInstance: instance=emea-distribution event=scn.data.purchase_order status=SUCCESS",
   "log": {
     "level": "info"
   }

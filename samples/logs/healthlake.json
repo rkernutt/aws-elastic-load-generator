@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "ap-southeast-2",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "dimensions": {
-      "DatastoreId": "5wycmj6b-i1sc-oc13-z0gs-f9imoukilgv",
+      "DatastoreId": "no0iabu6-cgk8-lgph-n7bd-ig18zjh46t",
       "ResourceType": "DiagnosticReport"
     },
     "healthlake": {
-      "datastore_id": "5wycmj6b-i1sc-oc13-z0gs-f9imoukilgv",
-      "datastore_name": "pharmacy-db",
+      "datastore_id": "no0iabu6-cgk8-lgph-n7bd-ig18zjh46t",
+      "datastore_name": "clinical-trials",
       "resource_type": "DiagnosticReport",
-      "operation": "ReadResource",
-      "request_id": "PP6WJMEZ-GLLO-K6IS-FH4V-BVH0E2MEJI7",
+      "operation": "CreateResource",
+      "request_id": "8FQRC3AW-T1EW-2LHO-7N98-0EANIZA0P8ZH",
       "response_code": 200,
       "fhir_version": "R4"
     }
@@ -30,12 +30,15 @@
     "level": "info"
   },
   "event": {
-    "action": "ReadResource",
+    "action": "CreateResource",
     "outcome": "success",
-    "category": ["process", "database"],
+    "category": [
+      "process",
+      "database"
+    ],
     "dataset": "aws.healthlake",
     "provider": "healthlake.amazonaws.com",
-    "duration": 81000000
+    "duration": 312000000
   },
-  "message": "HealthLake ReadResource: datastore=pharmacy-db, resource=DiagnosticReport, 81ms"
+  "message": "HealthLake CreateResource: datastore=clinical-trials, resource=DiagnosticReport, 312ms"
 }

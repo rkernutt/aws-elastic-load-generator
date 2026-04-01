@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
     "region": "ap-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "alb"
@@ -13,58 +13,58 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "app/prod-alb-ap-east-1/pd4eyzwsuoc",
-      "TargetGroup": "targetgroup/tg-web/rvgqoouwois",
-      "AvailabilityZone": "ap-east-1b"
+      "LoadBalancer": "app/prod-alb-ap-east-1/jqz05pp8bjk",
+      "TargetGroup": "targetgroup/tg-web/niinlf7zz0i",
+      "AvailabilityZone": "ap-east-1a"
     },
     "elb": {
-      "name": "app/prod-alb-ap-east-1/pd4eyzwsuoc",
+      "name": "app/prod-alb-ap-east-1/jqz05pp8bjk",
       "type": "application",
-      "target_group.arn": "arn:aws:elasticloadbalancing:ap-east-1:501938274650:targetgroup/tg-web/rvgqoouwois",
-      "listener": "arn:aws:elasticloadbalancing:ap-east-1:501938274650:listener/app/prod-alb/0r6fmsz92l2k/2pfk0cm82v",
+      "target_group.arn": "arn:aws:elasticloadbalancing:ap-east-1:293847561023:targetgroup/tg-web/niinlf7zz0i",
+      "listener": "arn:aws:elasticloadbalancing:ap-east-1:293847561023:listener/app/prod-alb/4hfruhqyj7q/f1gt6c6qkqi",
       "protocol": "HTTPS",
-      "request_processing_time.sec": 0.178,
-      "backend_processing_time.sec": 1.126,
-      "response_processing_time.sec": 0.01,
-      "backend.ip": "11.72.203.96",
-      "backend.port": "4299",
-      "backend.http.response.status_code": 201,
+      "request_processing_time.sec": 0.09361182688191949,
+      "backend_processing_time.sec": 1.881514362787566,
+      "response_processing_time.sec": 0.09441835854134374,
+      "backend.ip": "64.59.62.50",
+      "backend.port": "8481",
+      "backend.http.response.status_code": 200,
       "ssl_protocol": "TLSv1.3",
       "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
       "tls_named_group": "x25519",
-      "chosen_cert.arn": "arn:aws:acm:ap-east-1:501938274650:certificate/4cj6nzba-ki84-deo0-1d3p-em4u3qjkwp4",
-      "trace_id": "Root=1-TKB2OJZ5-QJVN4TB791",
-      "matched_rule_priority": "10",
-      "action_executed": "authenticate-cognito",
-      "target_port": "11.72.203.96:4299",
-      "target_status_code": "201",
+      "chosen_cert.arn": "arn:aws:acm:ap-east-1:293847561023:certificate/h1ilx5vd-51iv-vy25-8zhh-9ib1hf4ts7h",
+      "trace_id": "Root=1-46UJ6IGZ-8VMN2ET53SA",
+      "matched_rule_priority": "3",
+      "action_executed": "forward",
+      "target_port": "64.59.62.50:8481",
+      "target_status_code": "200",
       "classification": "NORMAL"
     }
   },
   "http": {
     "request": {
-      "method": "PUT",
-      "bytes": 6406
+      "method": "POST",
+      "bytes": 1480
     },
     "response": {
-      "status_code": 201,
-      "bytes": 43232
+      "status_code": 200,
+      "bytes": 37104
     }
   },
   "url": {
-    "path": "/api/v1/search",
+    "path": "/health",
     "domain": "api.example.com"
   },
   "client": {
-    "ip": "211.237.17.226",
-    "port": 49002,
+    "ip": "153.66.86.57",
+    "port": 12065,
     "geo": {
-      "country_iso_code": "SE",
-      "country_name": "Sweden",
-      "city_name": "Stockholm",
+      "country_iso_code": "US",
+      "country_name": "United States",
+      "city_name": "Ashburn",
       "location": {
-        "lat": 59.3293,
-        "lon": 18.0686
+        "lat": 39.0438,
+        "lon": -77.4874
       }
     }
   },
@@ -72,14 +72,19 @@
     "original": "Go-http-client/1.1"
   },
   "event": {
-    "duration": 1313999999.9999998,
+    "duration": 2069544548.2108293,
     "outcome": "success",
-    "category": ["web", "network"],
-    "type": ["access"],
+    "category": [
+      "web",
+      "network"
+    ],
+    "type": [
+      "access"
+    ],
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com"
   },
-  "message": "PUT /api/v1/search 201 1314ms",
+  "message": "POST /health 200 2070ms",
   "log": {
     "level": "info"
   }

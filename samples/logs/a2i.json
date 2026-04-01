@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "sa-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,31 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "FlowDefinitionArn": "arn:aws:sagemaker:ap-northeast-1:164820739518:flow-definition/medical-review",
-      "Operation": "StopHumanLoop"
+      "FlowDefinitionArn": "arn:aws:sagemaker:sa-east-1:164820739518:flow-definition/id-verification",
+      "Operation": "HumanLoopCompleted"
     },
     "a2i": {
-      "flow_definition_arn": "arn:aws:sagemaker:ap-northeast-1:164820739518:flow-definition/medical-review",
-      "human_loop_name": "loop-981imh7pvzt",
-      "human_loop_status": "Stopped",
-      "input_content_type": "application/json",
+      "flow_definition_arn": "arn:aws:sagemaker:sa-east-1:164820739518:flow-definition/id-verification",
+      "human_loop_name": "loop-cwisdz0vxb8",
+      "human_loop_status": "Completed",
+      "input_content_type": "image/png",
       "condition_threshold": 0.85,
-      "human_review_required": true,
-      "reviewer_count": 4,
+      "human_review_required": false,
+      "reviewer_count": 5,
       "task_count": 2,
       "task_completed": 2,
-      "confidence_threshold_breach": true
+      "confidence_threshold_breach": false
     }
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "event": {
-    "action": "StopHumanLoop",
+    "action": "HumanLoopCompleted",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.a2i",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "A2I StopHumanLoop: loop=loop-981imh7pvzt, status=Stopped, confidence=0.77<0.85 REVIEW REQUIRED"
+  "message": "A2I HumanLoopCompleted: loop=loop-cwisdz0vxb8, status=Completed"
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "af-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "deadlinecloud"
@@ -13,36 +13,38 @@
   },
   "aws": {
     "dimensions": {
-      "FarmId": "farm-b4jivlduu1m",
-      "QueueId": "queue-z2ho1h81aql"
+      "FarmId": "farm-gyh7dwo6jg7",
+      "QueueId": "queue-63weqpkkl0p"
     },
     "deadlinecloud": {
-      "farm_id": "farm-b4jivlduu1m",
-      "farm_name": "post-production",
-      "queue_id": "queue-z2ho1h81aql",
-      "queue_name": "test",
-      "job_id": "job-6awjyocobsb",
-      "job_name": "shot_comp_0010",
-      "task_id": "task-myeohktp9fp",
-      "task_status": "SUCCEEDED",
+      "farm_id": "farm-gyh7dwo6jg7",
+      "farm_name": "ad-rendering",
+      "queue_id": "queue-63weqpkkl0p",
+      "queue_name": "compositing",
+      "job_id": "job-4fpjlvgv317",
+      "job_name": "fx_simulation_hero",
+      "task_id": "task-9mas0vafkva",
+      "task_status": "RUNNING",
       "job_status": "QUEUED",
-      "worker_hostname": "render-worker-cpu-02.ap-southeast-3.compute.internal",
-      "frame_start": 793,
-      "frame_end": 802,
-      "duration_seconds": 1766,
-      "renderer": "Arnold",
-      "priority": 36
+      "worker_hostname": "render-worker-gpu-01.af-south-1.compute.internal",
+      "frame_start": 134,
+      "frame_end": 183,
+      "duration_seconds": 3221,
+      "renderer": "RenderMan",
+      "priority": 56
     }
   },
   "event": {
-    "action": "CreateJob",
+    "action": "StartJob",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.deadlinecloud",
     "provider": "deadline.amazonaws.com",
-    "duration": 1766000000000
+    "duration": 3221000000000
   },
-  "message": "Deadline Cloud CreateJob: farm=post-production queue=test job=shot_comp_0010 frames 793-802 SUCCEEDED",
+  "message": "Deadline Cloud StartJob: farm=ad-rendering queue=compositing job=fx_simulation_hero frames 134-183 RUNNING",
   "log": {
     "level": "info"
   }

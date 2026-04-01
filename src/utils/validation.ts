@@ -67,6 +67,47 @@ export function validateApiKey(value: unknown): ValidationResult {
 }
 
 /**
+ * Tests connectivity to an Elasticsearch cluster via the proxy.
+ * Sends a lightweight GET / request and validates the response.
+ * Returns { valid: true, version } on success or { valid: false, message } on failure.
+ */
+export async function testConnection(
+  elasticUrl: string,
+  apiKey: string
+): Promise<ValidationResult & { version?: string }> {
+  try {
+    const url = elasticUrl.replace(/\/$/, "");
+    const res = await fetch(`/proxy/_bulk`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-ndjson",
+        "x-elastic-url": url,
+        "x-elastic-key": apiKey,
+      },
+      // Send empty body — Elasticsearch responds with an error but proves connectivity + auth
+      body: '{"index":{"_index":"_test_connection_probe"}}\n{"@timestamp":"2024-01-01T00:00:00Z"}\n',
+    });
+    if (res.status === 401 || res.status === 403) {
+      return { valid: false, message: "Authentication failed — check your API key." };
+    }
+    if (res.status === 502 || res.status === 504) {
+      const json = await res.json().catch(() => ({}));
+      return {
+        valid: false,
+        message: `Cannot reach Elasticsearch — ${(json as Record<string, string>).error || res.statusText}`,
+      };
+    }
+    // Any 2xx or even a 400 (bad index) means the cluster is reachable and auth works
+    return { valid: true };
+  } catch (e) {
+    return {
+      valid: false,
+      message: `Connection failed — ${e instanceof Error ? e.message : String(e)}`,
+    };
+  }
+}
+
+/**
  * Validates index prefix (data stream / index name prefix).
  */
 export function validateIndexPrefix(value: unknown): ValidationResult {

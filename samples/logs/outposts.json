@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "eu-central-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "outposts"
@@ -13,31 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "OutpostId": "op-tdu6gpehgu",
-      "InstanceType": "m5d.xlarge"
+      "OutpostId": "op-bsqipxtfnz8",
+      "InstanceType": "c5.xlarge"
     },
     "outposts": {
-      "outpost_id": "op-tdu6gpehgu",
-      "outpost_arn": "arn:aws:outposts:ap-southeast-4:164820739518:outpost/op-v6ui1vzzzg",
-      "site_id": "os-p09faafie5q",
-      "rack_id": "or-wb05wjzjay",
-      "instance_type": "m5d.xlarge",
-      "available_instance_count": 7,
-      "total_instance_count": 33,
+      "outpost_id": "op-bsqipxtfnz8",
+      "outpost_arn": "arn:aws:outposts:eu-central-2:501938274650:outpost/op-cdpwh6mqgw",
+      "site_id": "os-7cwb9ai9o8t",
+      "rack_id": "or-wtptnjddpfo",
+      "instance_type": "c5.xlarge",
+      "available_instance_count": 8,
+      "total_instance_count": 24,
       "capacity_status": "Active",
       "connectivity_status": "Connected",
       "asset_state": "ACTIVE"
     }
   },
   "event": {
-    "action": "CapacityReservation",
+    "action": "AssetStateChange",
     "outcome": "success",
-    "category": ["host", "infrastructure"],
+    "category": [
+      "host",
+      "infrastructure"
+    ],
     "dataset": "aws.outposts",
     "provider": "outposts.amazonaws.com",
-    "duration": 564000000
+    "duration": 3881000000
   },
-  "message": "Outpost op-tdu6gpehgu: CapacityReservation m5d.xlarge Active",
+  "message": "Outpost op-bsqipxtfnz8: AssetStateChange c5.xlarge Active",
   "log": {
     "level": "info"
   }

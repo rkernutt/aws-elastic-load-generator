@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "ap-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "lookoutvision"
@@ -14,29 +14,28 @@
   "aws": {
     "dimensions": {
       "ProjectName": "circuit-board-inspection",
-      "ModelVersion": "5.0"
+      "ModelVersion": "3.0"
     },
     "lookoutvision": {
       "project_name": "circuit-board-inspection",
-      "model_version": "5.0",
-      "model_arn": "arn:aws:lookoutvision:ap-northeast-3:293847561023:model/circuit-board-inspection/5.0",
-      "event_type": "StartModelTrainingJob",
-      "image_source": "local-file",
+      "model_version": "3.0",
+      "model_arn": "arn:aws:lookoutvision:ap-east-1:738291046572:model/circuit-board-inspection/3.0",
+      "event_type": "StartModel",
+      "image_source": "camera-stream",
       "is_anomalous": false,
-      "confidence": 0.998,
-      "training": {
-        "status": "TRAINING"
-      }
+      "confidence": 0.9934319597670791
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.lookoutvision",
     "provider": "lookoutvision.amazonaws.com",
-    "duration": 229000000
+    "duration": 214000000
   },
-  "message": "Lookout for Vision [circuit-board-inspection] OK confidence=0.998 229ms",
+  "message": "Lookout for Vision [circuit-board-inspection] OK confidence=0.993 214ms",
   "log": {
     "level": "info"
   }

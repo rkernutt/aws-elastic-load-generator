@@ -31,7 +31,12 @@ import { SERVICE_GROUPS, ALL_SERVICE_IDS } from "./data/serviceGroups";
 import { Card, CardHeader, QuickBtn, Field, SliderField, StatCard } from "./components/Card";
 import { StatusPill } from "./components/StatusPill";
 import { AwsLogo, PipelineRoute } from "./components/Logo";
-import { validateElasticUrl, validateApiKey, validateIndexPrefix } from "./utils/validation";
+import {
+  validateElasticUrl,
+  validateApiKey,
+  validateIndexPrefix,
+  testConnection,
+} from "./utils/validation";
 import { loadAndScrubSavedConfig, toPersistedStorageObject } from "./utils/persistedConfig";
 import styles from "./App.module.css";
 
@@ -45,6 +50,33 @@ type LooseDoc = Record<string, any>;
 
 function errMsg(e: unknown): string {
   return e instanceof Error ? e.message : String(e);
+}
+
+/** Simulated response for dry-run mode. */
+function dryRunResponse(): Response {
+  return new Response(JSON.stringify({ took: 0, errors: false, items: [] }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
+}
+
+/** Fetch with exponential-backoff retry for transient network errors and 5xx responses. */
+async function fetchWithRetry(url: string, options: RequestInit, maxRetries = 3): Promise<Response> {
+  let lastErr: unknown;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const res = await fetch(url, options);
+      // 4xx = real error, don't retry; 5xx = transient, retry
+      if (res.ok || (res.status >= 400 && res.status < 500)) return res;
+      lastErr = new Error(`HTTP ${res.status}`);
+    } catch (e) {
+      lastErr = e;
+    }
+    if (attempt < maxRetries) {
+      await new Promise((r) => setTimeout(r, 1000 * Math.pow(2, attempt)));
+    }
+  }
+  throw lastErr;
 }
 
 // ─── localStorage config persistence ─────────────────────────────────────────
@@ -82,6 +114,11 @@ export default function App() {
     apiKey: "",
     indexPrefix: "",
   });
+  const [connectionStatus, setConnectionStatus] = useState<
+    "idle" | "testing" | "ok" | "fail"
+  >("idle");
+  const [connectionMsg, setConnectionMsg] = useState("");
+  const [dryRun, setDryRun] = useState(false);
 
   const isTracesMode = eventType === "traces";
   const indexPrefix = eventType === "metrics" ? metricsIndexPrefix : logsIndexPrefix;
@@ -223,6 +260,84 @@ export default function App() {
     a.download = `load-generator-log-${new Date().toISOString().slice(0, 19).replace(/[T:]/g, "-")}.txt`;
     a.click();
     URL.revokeObjectURL(url);
+  };
+
+  const handleTestConnection = async () => {
+    if (!validateElasticUrl(elasticUrl).valid || !validateApiKey(apiKey).valid) {
+      runConnectionValidation();
+      return;
+    }
+    setConnectionStatus("testing");
+    setConnectionMsg("");
+    const result = await testConnection(elasticUrl, apiKey);
+    if (result.valid) {
+      setConnectionStatus("ok");
+      setConnectionMsg("Connected successfully");
+    } else {
+      setConnectionStatus("fail");
+      setConnectionMsg(result.message ?? "Connection failed");
+    }
+  };
+
+  const exportConfig = () => {
+    const config = {
+      selectedServices,
+      selectedTraceServices,
+      logsPerService,
+      tracesPerService,
+      errorRate,
+      batchSize,
+      batchDelayMs,
+      logsIndexPrefix,
+      metricsIndexPrefix,
+      eventType,
+      ingestionSource,
+      injectAnomalies,
+      scheduleEnabled,
+      scheduleTotalRuns,
+      scheduleIntervalMin,
+    };
+    const blob = new Blob([JSON.stringify(config, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `load-generator-config-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    addLog("Config exported", "ok");
+  };
+
+  const importConfig = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json";
+    input.onchange = async () => {
+      const file = input.files?.[0];
+      if (!file) return;
+      try {
+        const text = await file.text();
+        const config = JSON.parse(text);
+        if (config.selectedServices) setSelectedServices(config.selectedServices);
+        if (config.selectedTraceServices) setSelectedTraceServices(config.selectedTraceServices);
+        if (config.logsPerService != null) setLogsPerService(config.logsPerService);
+        if (config.tracesPerService != null) setTracesPerService(config.tracesPerService);
+        if (config.errorRate != null) setErrorRate(config.errorRate);
+        if (config.batchSize != null) setBatchSize(config.batchSize);
+        if (config.batchDelayMs != null) setBatchDelayMs(config.batchDelayMs);
+        if (config.logsIndexPrefix) setLogsIndexPrefix(config.logsIndexPrefix);
+        if (config.metricsIndexPrefix) setMetricsIndexPrefix(config.metricsIndexPrefix);
+        if (config.eventType) setEventType(config.eventType);
+        if (config.ingestionSource) setIngestionSource(config.ingestionSource);
+        if (config.injectAnomalies != null) setInjectAnomalies(config.injectAnomalies);
+        if (config.scheduleEnabled != null) setScheduleEnabled(config.scheduleEnabled);
+        if (config.scheduleTotalRuns != null) setScheduleTotalRuns(config.scheduleTotalRuns);
+        if (config.scheduleIntervalMin != null) setScheduleIntervalMin(config.scheduleIntervalMin);
+        addLog(`Config imported from ${file.name}`, "ok");
+      } catch {
+        addLog("Failed to import config — invalid JSON", "error");
+      }
+    };
+    input.click();
   };
 
   const toggleService = useCallback(
@@ -467,7 +582,7 @@ export default function App() {
       addLog("No services selected", "error");
       return;
     }
-    if (!runConnectionValidation()) {
+    if (!dryRun && !runConnectionValidation()) {
       addLog("Fix connection field errors before shipping.", "error");
       return;
     }
@@ -580,7 +695,7 @@ export default function App() {
             }
             let errDelta = 0;
             try {
-              const res = await fetch(`/proxy/_bulk`, { method: "POST", headers, body: ndjson });
+              const res = dryRun ? dryRunResponse() : await fetchWithRetry(`/proxy/_bulk`, { method: "POST", headers, body: ndjson });
               const json = await res.json();
               if (!res.ok) {
                 svcErrors += batch.length;
@@ -677,7 +792,7 @@ export default function App() {
                 let sentDelta = 0;
                 let errDelta = 0;
                 try {
-                  const res = await fetch(`/proxy/_bulk`, {
+                  const res = dryRun ? dryRunResponse() : await fetchWithRetry(`/proxy/_bulk`, {
                     method: "POST",
                     headers,
                     body: ndjsonInj,
@@ -787,7 +902,7 @@ export default function App() {
           let sentDelta = 0;
           let errDelta = 0;
           try {
-            const res = await fetch(`/proxy/_bulk`, { method: "POST", headers, body: ndjson });
+            const res = dryRun ? dryRunResponse() : await fetchWithRetry(`/proxy/_bulk`, { method: "POST", headers, body: ndjson });
             const json = await res.json();
             if (!res.ok) {
               svcErrors += batch.length;
@@ -922,7 +1037,7 @@ export default function App() {
               let sentDelta = 0;
               let errDelta = 0;
               try {
-                const res = await fetch(`/proxy/_bulk`, {
+                const res = dryRun ? dryRunResponse() : await fetchWithRetry(`/proxy/_bulk`, {
                   method: "POST",
                   headers,
                   body: ndjsonInj,
@@ -1003,6 +1118,7 @@ export default function App() {
     isTracesMode,
     runConnectionValidation,
     injectAnomalies,
+    dryRun,
   ]);
 
   // ─── Scheduled mode loop ─────────────────────────────────────────────────────
@@ -1056,6 +1172,10 @@ export default function App() {
     ? totalSelected * tracesPerService
     : totalSelected * logsPerService;
   const estimatedBatches = totalSelected > 0 ? Math.ceil(estimatedDocs / batchSize) : 0;
+  // Rough estimate: ~1.5 KB per log/metric doc, ~3 KB per trace doc
+  const estimatedMB = isTracesMode
+    ? ((estimatedDocs * 3) / 1024).toFixed(1)
+    : ((estimatedDocs * 1.5) / 1024).toFixed(1);
 
   return (
     <div className={styles.root} style={{ background: K.body, color: K.text }}>
@@ -1614,6 +1734,52 @@ export default function App() {
                     <div className={styles.validationError}>{validationErrors.apiKey}</div>
                   )}
                 </Field>
+                <button
+                  type="button"
+                  onClick={handleTestConnection}
+                  disabled={connectionStatus === "testing"}
+                  style={{
+                    padding: "8px 14px",
+                    borderRadius: K.radiusSm,
+                    fontSize: 12,
+                    fontWeight: 600,
+                    cursor: connectionStatus === "testing" ? "wait" : "pointer",
+                    border: `1px solid ${connectionStatus === "ok" ? K.success : connectionStatus === "fail" ? K.danger : K.border}`,
+                    background:
+                      connectionStatus === "ok"
+                        ? K.successBg
+                        : connectionStatus === "fail"
+                          ? "#fef2f2"
+                          : K.subdued,
+                    color:
+                      connectionStatus === "ok"
+                        ? K.success
+                        : connectionStatus === "fail"
+                          ? K.danger
+                          : K.text,
+                    transition: "all 0.15s",
+                    width: "100%",
+                  }}
+                >
+                  {connectionStatus === "testing"
+                    ? "Testing..."
+                    : connectionStatus === "ok"
+                      ? "Connected"
+                      : connectionStatus === "fail"
+                        ? "Retry connection"
+                        : "Test connection"}
+                </button>
+                {connectionMsg && (
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: connectionStatus === "ok" ? K.success : K.danger,
+                      marginTop: -6,
+                    }}
+                  >
+                    {connectionMsg}
+                  </div>
+                )}
                 {!isTracesMode && (
                   <Field label="Index prefix">
                     <input
@@ -1802,12 +1968,41 @@ export default function App() {
                     </div>
                   </Field>
                 )}
-                <button type="button" onClick={clearSavedConfig} className={styles.clearConfigBtn}>
-                  Clear saved config
-                </button>
+                <div style={{ display: "flex", gap: 6 }}>
+                  <button type="button" onClick={exportConfig} className={styles.clearConfigBtn} style={{ flex: 1 }}>
+                    Export config
+                  </button>
+                  <button type="button" onClick={importConfig} className={styles.clearConfigBtn} style={{ flex: 1 }}>
+                    Import config
+                  </button>
+                  <button type="button" onClick={clearSavedConfig} className={styles.clearConfigBtn} style={{ flex: 1 }}>
+                    Reset
+                  </button>
+                </div>
               </div>
             </Card>
 
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: -4 }}>
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  cursor: "pointer",
+                  fontSize: 12,
+                  fontWeight: 500,
+                  color: dryRun ? "#7c3aed" : K.textSubdued,
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={dryRun}
+                  onChange={(e) => setDryRun(e.target.checked)}
+                  style={{ accentColor: "#7c3aed", width: 13, height: 13 }}
+                />
+                Dry run (generate only, don't ship)
+              </label>
+            </div>
             <div className={styles.actionsRow}>
               <button
                 type="button"
@@ -1835,42 +2030,45 @@ export default function App() {
                   onClick={scheduleEnabled ? startSchedule : ship}
                   disabled={
                     !totalSelected ||
-                    !elasticUrl ||
-                    !apiKey ||
-                    !!(
-                      validationErrors.elasticUrl ||
-                      validationErrors.apiKey ||
-                      (!isTracesMode && validationErrors.indexPrefix)
-                    )
+                    (!dryRun &&
+                      (!elasticUrl ||
+                        !apiKey ||
+                        !!(
+                          validationErrors.elasticUrl ||
+                          validationErrors.apiKey ||
+                          (!isTracesMode && validationErrors.indexPrefix)
+                        )))
                   }
                   style={{
                     flex: 1,
                     opacity:
                       totalSelected &&
-                      elasticUrl &&
-                      apiKey &&
-                      !(
-                        validationErrors.elasticUrl ||
-                        validationErrors.apiKey ||
-                        (!isTracesMode && validationErrors.indexPrefix)
-                      )
+                      (dryRun ||
+                        (elasticUrl &&
+                          apiKey &&
+                          !(
+                            validationErrors.elasticUrl ||
+                            validationErrors.apiKey ||
+                            (!isTracesMode && validationErrors.indexPrefix)
+                          )))
                         ? 1
                         : 0.5,
                     cursor:
                       totalSelected &&
-                      elasticUrl &&
-                      apiKey &&
-                      !(
-                        validationErrors.elasticUrl ||
-                        validationErrors.apiKey ||
-                        (!isTracesMode && validationErrors.indexPrefix)
-                      )
+                      (dryRun ||
+                        (elasticUrl &&
+                          apiKey &&
+                          !(
+                            validationErrors.elasticUrl ||
+                            validationErrors.apiKey ||
+                            (!isTracesMode && validationErrors.indexPrefix)
+                          )))
                         ? "pointer"
                         : "not-allowed",
                   }}
                   className={styles.btnPrimary}
                 >
-                  ⚡ Ship{" "}
+                  {dryRun ? "▶ Dry run" : "⚡ Ship"}{" "}
                   {totalSelected > 0
                     ? isTracesMode
                       ? `${(totalSelected * tracesPerService).toLocaleString()} traces`
@@ -1889,7 +2087,7 @@ export default function App() {
                   ? `~${estimatedDocs.toLocaleString()} traces across ${totalSelected} service${totalSelected !== 1 ? "s" : ""} (each trace = transaction + spans)`
                   : eventType === "metrics"
                     ? `~${estimatedDocs.toLocaleString()} calls across ${totalSelected} service${totalSelected !== 1 ? "s" : ""} — actual doc count varies by service (dimensional metrics generate multiple docs per call)`
-                    : `~${estimatedDocs.toLocaleString()} documents across ${totalSelected} service${totalSelected !== 1 ? "s" : ""} (${estimatedBatches} batch${estimatedBatches !== 1 ? "es" : ""})`}
+                    : `~${estimatedDocs.toLocaleString()} documents across ${totalSelected} service${totalSelected !== 1 ? "s" : ""} (~${estimatedMB} MB, ${estimatedBatches} batch${estimatedBatches !== 1 ? "es" : ""})`}
               </div>
             )}
 

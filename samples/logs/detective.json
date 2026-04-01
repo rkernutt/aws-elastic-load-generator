@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "detective"
@@ -13,22 +13,27 @@
   },
   "aws": {
     "detective": {
-      "entity_type": "AwsAccount",
-      "entity_id": "arn:aws:iam::164820739518:user/suspicious",
-      "behavior_type": "Normal",
-      "severity_score": 28.673,
-      "finding_count": 0
+      "entity_type": "AwsIamRole",
+      "entity_id": "arn:aws:iam::293847561023:user/suspicious",
+      "behavior_type": "Credential Compromise",
+      "severity_score": 94.18618477036333,
+      "finding_count": 2
     }
   },
   "event": {
-    "kind": "event",
-    "outcome": "success",
+    "kind": "alert",
+    "outcome": "failure",
     "category": "intrusion_detection",
     "dataset": "aws.detective",
     "provider": "detective.amazonaws.com"
   },
-  "message": "Detective: entity behavior within normal baseline",
+  "message": "Detective [MEDIUM]: Credential Compromise detected - 12 related findings",
   "log": {
     "level": "info"
+  },
+  "error": {
+    "code": "AnomalousBehavior",
+    "message": "Credential Compromise detected",
+    "type": "security"
   }
 }

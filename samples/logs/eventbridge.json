@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "events"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "EventBusName": "default",
+      "EventBusName": "custom-events",
       "RuleName": "security-event-forwarder"
     },
     "eventbridge": {
-      "event_bus": "default",
+      "event_bus": "custom-events",
       "rule": "security-event-forwarder",
-      "source": "aws.health",
-      "detail_type": "Order Placed",
+      "source": "com.partner.events",
+      "detail_type": "Object Created",
       "targets_invoked": 4,
       "targets_failed": 0,
-      "event_id": "d822edh3-bs4r-tdpl-p3l6-4035wzt34um",
+      "event_id": "r7y5c700-hsx2-cnf9-s97z-hj8ch3upl7t",
       "structured_logging": true,
       "metrics": {
         "Invocations": {
@@ -36,7 +36,7 @@
           "sum": 1
         },
         "MatchedEvents": {
-          "sum": 34
+          "sum": 35
         },
         "ThrottledRules": {
           "sum": 0
@@ -49,13 +49,17 @@
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
-    "type": ["deletion"],
+    "category": [
+      "process"
+    ],
+    "type": [
+      "info"
+    ],
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 150000000
+    "duration": 103000000
   },
-  "message": "{\"id\":\"d822edh3-bs4r-tdpl-p3l6-4035wzt34um\",\"source\":\"aws.health\",\"detailType\":\"Object Created\",\"rule\":\"security-event-forwarder\",\"eventBus\":\"default\",\"message\":\"EventBridge event routed: aws.health -> security-event-forwarder\",\"timestamp\":\"2026-03-31T13:15:29.271Z\"}",
+  "message": "{\"id\":\"r7y5c700-hsx2-cnf9-s97z-hj8ch3upl7t\",\"source\":\"com.partner.events\",\"detailType\":\"Health Event\",\"rule\":\"security-event-forwarder\",\"eventBus\":\"custom-events\",\"message\":\"EventBridge event routed: com.partner.events -> security-event-forwarder\",\"timestamp\":\"2026-04-01T05:27:12.782Z\"}",
   "log": {
     "level": "info"
   }

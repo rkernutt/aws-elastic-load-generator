@@ -203,6 +203,27 @@ const GENERIC_SERVICE_IDS = [
   "wickr",
   "qdeveloper",
   "endusermessaging",
+  // v11.5 new services
+  "rdsproxy",
+  "rdscustom",
+  "dmsserverless",
+  "elasticacheglobal",
+  "sagemakerfeaturestore",
+  "sagemakerpipelines",
+  "sagemakermodelmonitor",
+  "lookoutequipment",
+  "monitron",
+  "networkaccessanalyzer",
+  "incidentmanager",
+  "cloudshell",
+  "cloud9",
+  "robomaker",
+  "s3intelligenttier",
+  "s3batchops",
+  "kinesisvideo",
+  "panorama",
+  "freertos",
+  "cloudwatchrum",
 ];
 
 const GENERIC_GENERATORS = Object.fromEntries(

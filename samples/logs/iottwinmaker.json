@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "eu-south-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "iottwinmaker"
@@ -17,24 +17,27 @@
     },
     "iottwinmaker": {
       "workspace_id": "oil-refinery-ws",
-      "entity_id": "entity-ywx29834",
-      "entity_name": "HVAC-Unit-07",
-      "component_type_id": "com.example.flow",
-      "property_name": "Temperature",
-      "property_value": 478.398,
-      "scene_id": "scene-8njqm6du",
+      "entity_id": "entity-8u9uhsls",
+      "entity_name": "ConveyorBelt-01",
+      "component_type_id": "com.example.temperature",
+      "property_name": "OperationalStatus",
+      "property_value": 872.2562925911097,
+      "scene_id": "scene-h3oarpxg",
       "sync_source": "CUSTOM",
-      "update_reason": "ASSET_CREATED"
+      "update_reason": "CONNECTIVITY_CHANGE"
     }
   },
   "event": {
-    "action": "UpdateEntity",
+    "action": "ExecuteQuery",
     "outcome": "success",
-    "category": ["iot", "process"],
+    "category": [
+      "iot",
+      "process"
+    ],
     "dataset": "aws.iottwinmaker",
     "provider": "iottwinmaker.amazonaws.com"
   },
-  "message": "IoT TwinMaker UpdateEntity: workspace=oil-refinery-ws, entity=HVAC-Unit-07, Temperature=478.398",
+  "message": "IoT TwinMaker ExecuteQuery: workspace=oil-refinery-ws, entity=ConveyorBelt-01, OperationalStatus=872.2562925911097",
   "log": {
     "level": "info"
   }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "me-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "athena"
@@ -13,51 +13,54 @@
   },
   "aws": {
     "athena": {
-      "query_id": "mr2gpi8q-b657-xefy-9lia",
-      "workgroup": "analytics",
-      "database": "analytics",
+      "query_id": "m5ojgx44-nol6-5bs2-2ypk",
+      "workgroup": "bi-users",
+      "database": "raw",
       "state": "SUCCEEDED",
-      "duration_seconds": 56.725,
-      "data_scanned_bytes": 821976443,
-      "data_scanned_mb": 784,
-      "engine_version": "Athena engine version 3",
-      "structured_logging": false,
+      "duration_seconds": 8.061614128611565,
+      "data_scanned_bytes": 9241881251,
+      "data_scanned_mb": 8814,
+      "engine_version": "DuckDB 0.9.1",
+      "structured_logging": true,
       "metrics": {
         "DataScannedInBytes": {
-          "sum": 821976443
+          "sum": 9241881251
         },
         "EngineExecutionTimeInMillis": {
-          "avg": 56725,
-          "max": 85088
+          "avg": 8062,
+          "max": 12092
         },
         "ProcessedBytes": {
-          "sum": 821976443
+          "sum": 9241881251
         },
         "QueryQueueTimeInMillis": {
-          "avg": 158
+          "avg": 195
         },
         "TotalExecutionTimeInMillis": {
-          "avg": 56725
+          "avg": 8062
         },
         "QueryPlanningTimeInMillis": {
-          "avg": 149
+          "avg": 24
         }
       }
     }
   },
   "db": {
-    "statement": "SELECT user_id, sum(revenue) FROM transactions WHERE dt >= '2024-01-01' GROUP BY 1",
+    "statement": "SELECT date_trunc('day', event_time), count(*) FROM events GROUP BY 1",
     "type": "sql"
   },
   "event": {
-    "duration": 56725000000,
+    "duration": 8061614128.611565,
     "outcome": "success",
-    "category": ["database", "process"],
+    "category": [
+      "database",
+      "process"
+    ],
     "dataset": "aws.athena",
     "provider": "athena.amazonaws.com"
   },
-  "message": "Query started",
+  "message": "{\"queryId\":\"m5ojgx44-nol6-5bs2-2ypk\",\"workgroup\":\"bi-users\",\"database\":\"raw\",\"state\":\"SUCCEEDED\",\"durationSeconds\":8.061614128611565,\"dataScannedBytes\":9241881251,\"timestamp\":\"2026-04-01T05:27:12.782Z\"}",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

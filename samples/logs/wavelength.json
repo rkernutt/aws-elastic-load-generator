@@ -1,57 +1,60 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "wavelength"
     },
-    "availability_zone": "ap-northeast-2-wl1-sel-wlz-1",
+    "availability_zone": "ap-northeast-1-wl1-nrt-wlz-1",
     "instance": {
-      "id": "i-d5tcgv9vc57"
+      "id": "i-5j9kk5blmjc"
     }
   },
   "aws": {
     "dimensions": {
-      "WavelengthZone": "ap-northeast-2-wl1-sel-wlz-1",
-      "InstanceId": "i-d5tcgv9vc57",
-      "CarrierGatewayId": "cagw-btwwarw2lul"
+      "WavelengthZone": "ap-northeast-1-wl1-nrt-wlz-1",
+      "InstanceId": "i-5j9kk5blmjc",
+      "CarrierGatewayId": "cagw-2e6oyhf7llg"
     },
     "wavelength": {
-      "zone": "ap-northeast-2-wl1-sel-wlz-1",
-      "carrier": "SKT",
-      "city": "Seoul",
-      "instance_id": "i-d5tcgv9vc57",
-      "instance_type": "r5.large",
-      "carrier_gateway_id": "cagw-btwwarw2lul",
-      "subnet_id": "subnet-6w7irrutj62",
-      "carrier_ip": "34.46.169.205",
-      "ue_ip": "43.220.27.125",
+      "zone": "ap-northeast-1-wl1-nrt-wlz-1",
+      "carrier": "KDDI",
+      "city": "Tokyo",
+      "instance_id": "i-5j9kk5blmjc",
+      "instance_type": "c5.2xlarge",
+      "carrier_gateway_id": "cagw-2e6oyhf7llg",
+      "subnet_id": "subnet-uj1gbkohnwr",
+      "carrier_ip": "203.64.136.57",
+      "ue_ip": "88.68.254.17",
       "bandwidth_allowance_gbps": 10,
       "network": {
-        "uplink_mbps": 466.483,
-        "downlink_mbps": 467.839,
-        "latency_ms": 2.864,
-        "packet_loss_pct": 0.02
+        "uplink_mbps": 58.45293412400901,
+        "downlink_mbps": 514.0849101214192,
+        "latency_ms": 7.582912481935153,
+        "packet_loss_pct": 0.06780277446041487
       }
     }
   },
   "source": {
-    "ip": "43.220.27.125"
+    "ip": "88.68.254.17"
   },
   "event": {
-    "action": "PacketLoss",
+    "action": "CarrierGatewayCreated",
     "outcome": "success",
-    "category": ["network", "host"],
+    "category": [
+      "network",
+      "host"
+    ],
     "dataset": "aws.wavelength",
     "provider": "ec2.amazonaws.com",
-    "duration": 185000000
+    "duration": 458000000
   },
-  "message": "Wavelength [Seoul/SKT] i-d5tcgv9vc57 (r5.large) UL=466Mbps DL=468Mbps lat=2.9ms",
+  "message": "Wavelength [Tokyo/KDDI] i-5j9kk5blmjc (c5.2xlarge) UL=58Mbps DL=514Mbps lat=7.6ms",
   "log": {
     "level": "info"
   }

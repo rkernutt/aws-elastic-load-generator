@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "devopsguru"
@@ -13,12 +13,14 @@
   },
   "aws": {
     "devopsguru": {
-      "insight_id": "6oznmtlrevb",
-      "insight_type": "PROACTIVE",
-      "severity": "HIGH",
+      "insight_id": "z1r5ro9j5c",
+      "insight_type": "REACTIVE",
+      "severity": "LOW",
       "resource_collection": {
         "cloud_formation": {
-          "stack_names": ["data-stack"]
+          "stack_names": [
+            "api-stack"
+          ]
         },
         "tags": [
           {
@@ -27,25 +29,31 @@
           }
         ]
       },
-      "anomaly_id": "j2kazm8glxq",
-      "anomaly_description": "ElastiCache eviction rate spike",
-      "anomaly_sources": ["dynamodb-sessions"],
-      "start_time": "2026-03-31T13:14:57.572Z",
-      "end_time": "2026-03-31T13:15:29.536Z",
+      "anomaly_id": "jwvf8kfklrs",
+      "anomaly_description": "Unusual increase in Lambda error rate",
+      "anomaly_sources": [
+        "rds-prod"
+      ],
+      "start_time": "2026-04-01T04:31:40.877Z",
+      "end_time": "2026-04-01T05:27:13.134Z",
       "status": "CLOSED",
-      "recommendation": "Review alarm thresholds",
+      "recommendation": "Scale up resource",
       "ssm_ops_items": []
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process", "configuration", "vulnerability"],
+    "category": [
+      "process",
+      "configuration",
+      "vulnerability"
+    ],
     "dataset": "aws.devopsguru",
     "provider": "devops-guru.amazonaws.com",
-    "duration": 402000000000
+    "duration": 200000000000
   },
-  "message": "DevOps Guru PROACTIVE insight [HIGH]: ElastiCache eviction rate spike",
+  "message": "DevOps Guru REACTIVE insight [LOW]: Unusual increase in Lambda error rate",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

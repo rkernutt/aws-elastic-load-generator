@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "mskconnect"
@@ -13,30 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "ConnectorName": "debezium-postgres-source"
+      "ConnectorName": "s3-sink-connector"
     },
     "mskconnect": {
-      "connector_name": "debezium-postgres-source",
-      "connector_arn": "arn:aws:kafkaconnect:ap-east-1:814726593401:connector/debezium-postgres-source/epielxls",
+      "connector_name": "s3-sink-connector",
+      "connector_arn": "arn:aws:kafkaconnect:ap-south-2:738291046572:connector/s3-sink-connector/4s9slamz",
       "connector_state": "RUNNING",
-      "worker_count": 3,
-      "capacity_type": "MCU_1X",
-      "kafka_cluster_bootstrap_servers": "b-1.prod-kafka-ap-east-1.amazonaws.com:9092,b-2.prod-kafka-ap-east-1.amazonaws.com:9092",
-      "connector_class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
+      "worker_count": 1,
+      "capacity_type": "MCU_4X",
+      "kafka_cluster_bootstrap_servers": "b-1.prod-kafka-ap-south-2.amazonaws.com:9092,b-2.prod-kafka-ap-south-2.amazonaws.com:9092",
+      "connector_class": "io.debezium.connector.postgresql.PostgresConnector",
       "tasks_status": "RUNNING",
-      "offset_lag": 390,
-      "record_count": 86072
+      "offset_lag": 104,
+      "record_count": 66547
     }
   },
   "event": {
-    "action": "ConnectorDeleted",
+    "action": "WorkerAutoScaled",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.mskconnect",
     "provider": "kafkaconnect.amazonaws.com",
-    "duration": 1334000000
+    "duration": 3006000000
   },
-  "message": "MSK Connect debezium-postgres-source: RUNNING, lag=223",
+  "message": "MSK Connect s3-sink-connector: RUNNING, lag=443",
   "log": {
     "level": "info"
   }

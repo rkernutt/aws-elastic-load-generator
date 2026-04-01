@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "il-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "autoscaling"
@@ -17,16 +17,16 @@
     },
     "autoscaling": {
       "group_name": "web-asg",
-      "activity_id": "b9yywthy-dpbg-70qo",
-      "action_type": "Launch",
-      "instance_id": "i-m7vnd88xlq9",
+      "activity_id": "69empfn9-3s3o-p6s4",
+      "action_type": "Terminate",
+      "instance_id": "i-s3573rjwo9h",
       "instance_type": "c5.2xlarge",
-      "desired_capacity": 20,
+      "desired_capacity": 3,
       "min_size": 2,
       "max_size": 50,
-      "current_capacity": 17,
-      "cause": "Unhealthy instance replaced",
-      "status_code": "Failed",
+      "current_capacity": 0,
+      "cause": "Spot interruption",
+      "status_code": "Successful",
       "launch_template": "web-lt:5",
       "metrics": {
         "GroupMinSize": {
@@ -36,37 +36,37 @@
           "avg": 50
         },
         "GroupDesiredCapacity": {
-          "avg": 20
+          "avg": 3
         },
         "GroupInServiceInstances": {
-          "avg": 17
+          "avg": 0
         },
         "GroupPendingInstances": {
-          "avg": 2
+          "avg": 0
         },
         "GroupStandbyInstances": {
           "avg": 1
         },
         "GroupTerminatingInstances": {
-          "avg": 0
+          "avg": 2
         },
         "GroupTotalInstances": {
-          "avg": 20
+          "avg": 3
         },
         "GroupInServiceCapacity": {
-          "avg": 17
+          "avg": 0
         },
         "GroupPendingCapacity": {
-          "avg": 2
+          "avg": 0
         },
         "GroupStandbyCapacity": {
           "avg": 1
         },
         "GroupTerminatingCapacity": {
-          "avg": 0
+          "avg": 2
         },
         "GroupTotalCapacity": {
-          "avg": 20
+          "avg": 3
         },
         "WarmPoolMinSize": {
           "avg": 0
@@ -90,19 +90,16 @@
     }
   },
   "event": {
-    "category": ["host"],
-    "outcome": "failure",
+    "category": [
+      "host"
+    ],
+    "outcome": "success",
     "dataset": "aws.autoscaling",
     "provider": "autoscaling.amazonaws.com",
-    "duration": 334000000000
+    "duration": 47000000000
   },
-  "message": "AutoScaling web-asg: Launch FAILED - VPC limit",
+  "message": "AutoScaling web-asg: Terminate instance",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "LaunchTemplateError",
-    "message": "AutoScaling web-asg: Launch FAILED - VPC limit",
-    "type": "host"
+    "level": "info"
   }
 }

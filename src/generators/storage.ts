@@ -829,6 +829,76 @@ function generateS3StorageLensLog(ts, er) {
   };
 }
 
+// ─── S3 Intelligent-Tiering ──────────────────────────────────────────────
+function generateS3IntelligentTieringLog(ts: string, er: number): EcsDocument {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const buckets = ["data-lake-raw", "analytics-archive", "ml-datasets", "application-logs"];
+  const bucket = rand(buckets);
+  const tiers = ["FREQUENT_ACCESS", "INFREQUENT_ACCESS", "ARCHIVE_INSTANT_ACCESS", "ARCHIVE_ACCESS", "DEEP_ARCHIVE_ACCESS"];
+  const fromTier = rand(tiers);
+  const toTier = rand(tiers.filter((t) => t !== fromTier));
+  const events = ["TierTransition", "ArchiveRestore", "ConfigurationUpdate", "MonitoringStatus"];
+  const ev = rand(events);
+  return {
+    "@timestamp": ts,
+    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "s3-intelligent-tiering" } },
+    aws: {
+      s3_intelligent_tiering: {
+        bucket_name: bucket,
+        event_type: ev,
+        from_tier: fromTier,
+        to_tier: toTier,
+        objects_transitioned: randInt(1, isErr ? 0 : 10000),
+        bytes_transitioned: randInt(1024, 1e10),
+        monitoring_enabled: true,
+        archive_access_days: 90,
+        deep_archive_days: 180,
+        cost_savings_pct: randFloat(10, 75),
+      },
+    },
+    event: { outcome: isErr ? "failure" : "success", duration: randInt(1e5, 3e7) },
+    message: isErr
+      ? `S3 Intelligent-Tiering ${bucket}: transition failed`
+      : `S3 Intelligent-Tiering ${bucket}: ${randInt(1, 10000)} objects ${fromTier} → ${toTier}`,
+  };
+}
+
+// ─── S3 Batch Operations ─────────────────────────────────────────────────
+function generateS3BatchOpsLog(ts: string, er: number): EcsDocument {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const ops = ["S3PutObjectCopy", "S3PutObjectTagging", "S3DeleteObjectTagging", "S3InitiateRestoreObject", "LambdaInvoke", "S3PutObjectLegalHold", "S3PutObjectRetention"];
+  const op = rand(ops);
+  const statuses = isErr ? ["Failed", "Cancelled"] : ["Complete", "Active"];
+  const status = rand(statuses);
+  const errMsgs = ["Manifest file not found", "Insufficient permissions on target bucket", "Lambda invocation failed", "Object key not found"];
+  return {
+    "@timestamp": ts,
+    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "s3-batch-operations" } },
+    aws: {
+      s3_batch_operations: {
+        job_id: randId(36).toLowerCase(),
+        operation: op,
+        status,
+        objects_total: randInt(100, 1e6),
+        objects_succeeded: isErr ? randInt(0, 100) : randInt(100, 1e6),
+        objects_failed: isErr ? randInt(10, 1000) : 0,
+        manifest_key: `manifests/batch-${randId(8).toLowerCase()}.csv`,
+        priority: randInt(1, 100),
+        report_bucket: `s3-batch-reports-${acct.id}`,
+        elapsed_seconds: randInt(10, 86400),
+      },
+    },
+    event: { outcome: isErr ? "failure" : "success", duration: randInt(1e7, 8.64e10) },
+    message: isErr
+      ? `S3 Batch Ops job ${status}: ${op} — ${rand(errMsgs)}`
+      : `S3 Batch Ops job ${status}: ${op} on ${randInt(100, 1e6).toLocaleString()} objects`,
+  };
+}
+
 export {
   generateS3Log,
   generateEbsLog,
@@ -838,4 +908,6 @@ export {
   generateBackupLog,
   generateStorageGatewayLog,
   generateS3StorageLensLog,
+  generateS3IntelligentTieringLog,
+  generateS3BatchOpsLog,
 };

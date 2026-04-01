@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "shield"
@@ -18,7 +18,7 @@
     "shield": {
       "mitigation_started": false,
       "subscription_type": "ADVANCED",
-      "protected_resource": "arn:aws:elasticloadbalancing:ap-east-1:164820739518:loadbalancer/app/prod/jeiei0pocb",
+      "protected_resource": "arn:aws:elasticloadbalancing:ap-southeast-2:814726593401:loadbalancer/app/prod/gsa0tx6adh7",
       "metrics": {
         "DDoSAttackBitsPerSecond": {
           "avg": 0
@@ -33,16 +33,19 @@
     }
   },
   "network": {
-    "bytes": 521780350,
-    "packets": 46947
+    "bytes": 650674965,
+    "packets": 406715
   },
   "event": {
     "action": "health_check",
     "outcome": "success",
-    "category": ["intrusion_detection", "network"],
+    "category": [
+      "intrusion_detection",
+      "network"
+    ],
     "dataset": "aws.shield",
     "provider": "shield.amazonaws.com",
-    "duration": 34000000000
+    "duration": 36000000000
   },
   "message": "DDoS mitigation active: 0 attacks detected in last 60s",
   "log": {

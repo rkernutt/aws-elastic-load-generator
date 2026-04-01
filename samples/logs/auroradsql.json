@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "ap-south-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "dsql"
@@ -13,44 +13,39 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterId": "dsql-mq7np58vmq",
-      "RegionMode": "primary"
+      "ClusterId": "dsql-xhwffea68x",
+      "RegionMode": "replica"
     },
     "auroradsql": {
-      "cluster_id": "dsql-mq7np58vmq",
+      "cluster_id": "dsql-xhwffea68x",
       "linked_cluster_arns": [
-        "arn:aws:dsql:us-east-1:501938274650:cluster/dsql-npo799p0",
-        "arn:aws:dsql:us-west-2:501938274650:cluster/dsql-xxx6wu4d"
+        "arn:aws:dsql:us-east-1:164820739518:cluster/dsql-0xwdg7nw"
       ],
-      "transaction_id": "txn-9uf9yqhnq9r",
-      "region_mode": "primary",
+      "transaction_id": "txn-xnvarzw2nig",
+      "region_mode": "replica",
       "metrics": {
-        "transactions_per_sec": 0,
-        "storage_used_gb": 293.287,
-        "replication_lag_ms": 0
-      },
-      "error_code": "ConflictError"
+        "transactions_per_sec": 1326.7921495479277,
+        "storage_used_gb": 480.60495954147456,
+        "replication_lag_ms": 67
+      }
     }
   },
   "event": {
-    "outcome": "failure",
-    "category": ["database"],
+    "outcome": "success",
+    "category": [
+      "database"
+    ],
     "dataset": "aws.auroradsql",
     "provider": "dsql.amazonaws.com",
-    "duration": 2102000000
+    "duration": 29000000
   },
   "data_stream": {
     "type": "logs",
     "dataset": "aws.auroradsql",
     "namespace": "default"
   },
-  "message": "Aurora DSQL cluster dsql-mq7np58vmq: ConflictError (primary)",
+  "message": "Aurora DSQL cluster dsql-xhwffea68x: 1327 TPS, storage=480.6GB, replication_lag=67ms",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ConflictError",
-    "message": "Aurora DSQL transaction failed on cluster dsql-mq7np58vmq",
-    "type": "database"
+    "level": "info"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "wafv2"
@@ -13,24 +13,24 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "admin-portal-waf",
-      "Rule": "GenericLFI_URIPATH",
-      "Region": "eu-north-1"
+      "WebACL": "cdn-waf",
+      "Rule": "CrossSiteScripting",
+      "Region": "ap-southeast-3"
     },
     "waf": {
-      "id": "3ue08rz1a26",
-      "arn": "arn:aws:wafv2:eu-north-1:814726593401:regional/webacl/admin-portal-waf/0czypqg8-u1io-uyn2-079u-ek3j196w9o",
+      "id": "8q9yfngh1ad",
+      "arn": "arn:aws:wafv2:ap-southeast-3:164820739518:regional/webacl/cdn-waf/y66j3yfq-g5e3-0io9-opcu-ite6zyvy35",
       "format_version": "1",
       "source": {
-        "name": "ALB",
-        "id": "814726593401-app/admin-portal-waf/782oznfihc"
+        "name": "CF",
+        "id": "164820739518-app/cdn-waf/93nfndss2jd"
       },
       "rule_group_list": [
         {
-          "ruleGroupId": "AWSManagedRulesKnownBadInputsRuleSet",
+          "ruleGroupId": "AWSManagedRulesWordPressRuleSet",
           "terminatingRule": {
             "action": "BLOCK",
-            "ruleId": "GenericLFI_URIPATH",
+            "ruleId": "CrossSiteScripting",
             "ruleMatchDetails": []
           },
           "nonTerminatingMatchingRules": []
@@ -52,7 +52,7 @@
       },
       "labels": [
         {
-          "name": "awswaf:managed:aws:sql-database:SQLi_Args"
+          "name": "awswaf:managed:aws:known-bad-inputs:NoUserAgent_HEADER"
         }
       ],
       "response_code_sent": 403,
@@ -82,25 +82,25 @@
     }
   },
   "source": {
-    "ip": "5.221.175.7",
+    "ip": "23.212.121.88",
     "geo": {
-      "country_iso_code": "BR",
-      "country_name": "Brazil",
-      "city_name": "São Paulo",
+      "country_iso_code": "RU",
+      "country_name": "Russia",
+      "city_name": "Moscow",
       "location": {
-        "lat": -23.5505,
-        "lon": -46.6333
+        "lat": 55.7558,
+        "lon": 37.6173
       }
     }
   },
   "http": {
     "request": {
-      "method": "PATCH",
-      "bytes": 6290
+      "method": "POST",
+      "bytes": 8402
     }
   },
   "url": {
-    "path": "/api/v2/events"
+    "path": "/api/v1/orders"
   },
   "user_agent": {
     "original": "curl/7.68.0"
@@ -108,11 +108,14 @@
   "event": {
     "action": "block",
     "outcome": "failure",
-    "category": ["intrusion_detection", "network"],
+    "category": [
+      "intrusion_detection",
+      "network"
+    ],
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com"
   },
-  "message": "WAFv2 BLOCK [admin-portal-waf] 5.221.175.7: AWSManagedRulesKnownBadInputsRuleSet/GenericLFI_URIPATH",
+  "message": "WAFv2 BLOCK [cdn-waf] 23.212.121.88: AWSManagedRulesWordPressRuleSet/CrossSiteScripting",
   "log": {
     "level": "warn"
   },

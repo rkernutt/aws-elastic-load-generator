@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "cloudformation"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "cloudformation": {
-      "stack_name": "api-gateway-stack",
-      "stack_id": "arn:aws:cloudformation:eu-west-2:164820739518:stack/api-gateway-stack/f0pabyer",
-      "action": "DETECT_DRIFT",
-      "stack_status": "DELETE_COMPLETE",
-      "resource_type": "AWS::Lambda::Function",
-      "logical_resource_id": "WebServerASG",
-      "drift_status": "IN_SYNC",
+      "stack_name": "prod-web-stack",
+      "stack_id": "arn:aws:cloudformation:eu-west-1:501938274650:stack/prod-web-stack/mcqqdbhu",
+      "action": "CREATE_STACK",
+      "stack_status": "UPDATE_COMPLETE",
+      "resource_type": "AWS::IAM::Role",
+      "logical_resource_id": "DatabaseCluster",
+      "drift_status": "NOT_CHECKED",
       "structured_logging": true,
       "metrics": {
         "TotalStack": {
-          "avg": 1
+          "avg": 98
         },
         "ErroredStack": {
           "avg": 0
@@ -32,22 +32,25 @@
           "avg": 0
         },
         "DeletedStack": {
-          "avg": 14
+          "avg": 25
         },
         "StackInstancesDeployed": {
-          "avg": 7001
+          "avg": 865
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["configuration", "process"],
+    "category": [
+      "configuration",
+      "process"
+    ],
     "dataset": "aws.cloudformation",
     "provider": "cloudformation.amazonaws.com",
-    "duration": 406000000000
+    "duration": 75000000000
   },
-  "message": "{\"stackName\":\"api-gateway-stack\",\"action\":\"DETECT_DRIFT\",\"stackStatus\":\"DELETE_COMPLETE\",\"resourceType\":\"AWS::Lambda::Function\",\"message\":\"CloudFormation api-gateway-stack: DETECT_DRIFT -> DELETE_COMPLETE\",\"timestamp\":\"2026-03-31T13:15:29.271Z\"}",
+  "message": "{\"stackName\":\"prod-web-stack\",\"action\":\"CREATE_STACK\",\"stackStatus\":\"UPDATE_COMPLETE\",\"resourceType\":\"AWS::IAM::Role\",\"message\":\"CloudFormation prod-web-stack: CREATE_STACK -> UPDATE_COMPLETE\",\"timestamp\":\"2026-04-01T05:27:12.782Z\"}",
   "log": {
     "level": "info"
   }

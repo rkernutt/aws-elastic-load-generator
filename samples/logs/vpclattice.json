@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
     "region": "ap-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "vpclattice"
@@ -13,33 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "checkout-svc",
-      "ServiceNetworkName": "staging-service-network"
+      "ServiceName": "payment-svc",
+      "ServiceNetworkName": "prod-service-network"
     },
     "vpclattice": {
-      "service_name": "checkout-svc",
-      "service_arn": "arn:aws:vpc-lattice:ap-east-1:164820739518:service/checkout-svc-2ybg6g4r",
-      "service_network_name": "staging-service-network",
-      "target_group_id": "tg-618ptg49xse",
-      "source_vpc_id": "vpc-6llmzhy3",
-      "destination_vpc_id": "vpc-acogtevy",
-      "request_method": "GET",
-      "response_code": 204,
-      "response_time_ms": 484,
-      "bytes_received": 25778,
-      "bytes_sent": 84458,
+      "service_name": "payment-svc",
+      "service_arn": "arn:aws:vpc-lattice:ap-east-1:814726593401:service/payment-svc-g6cndssr",
+      "service_network_name": "prod-service-network",
+      "target_group_id": "tg-9wbcu6727n9",
+      "source_vpc_id": "vpc-s3mr7zmm",
+      "destination_vpc_id": "vpc-kkhapth5",
+      "request_method": "POST",
+      "response_code": 201,
+      "response_time_ms": 334,
+      "bytes_received": 63273,
+      "bytes_sent": 102246,
       "tls_cipher_suite": "ECDHE-RSA-AES128-GCM-SHA256"
     }
   },
   "event": {
-    "action": "ServiceNetworkVpcAssociation",
+    "action": "FixedResponseRule",
     "outcome": "success",
-    "category": ["network"],
+    "category": [
+      "network"
+    ],
     "dataset": "aws.vpclattice",
     "provider": "vpc-lattice.amazonaws.com",
-    "duration": 484000000
+    "duration": 334000000
   },
-  "message": "VPC Lattice checkout-svc: GET 204 484ms",
+  "message": "VPC Lattice payment-svc: POST 201 334ms",
   "log": {
     "level": "info"
   }

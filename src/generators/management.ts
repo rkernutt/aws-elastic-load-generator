@@ -1549,6 +1549,52 @@ function generateChatbotLog(ts: string, er: number): EcsDocument {
   };
 }
 
+// ─── CloudWatch RUM ───────────────────────────────────────────────────────
+function generateCloudWatchRumLog(ts: string, er: number): EcsDocument {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const appMonitors = ["web-app-prod", "mobile-web", "checkout-flow", "dashboard-ui"];
+  const appMonitor = rand(appMonitors);
+  const eventTypes = ["com.amazon.rum.performance_navigation_event", "com.amazon.rum.js_error_event", "com.amazon.rum.http_event", "com.amazon.rum.session_start_event", "com.amazon.rum.page_view_event"];
+  const evType = isErr ? "com.amazon.rum.js_error_event" : rand(eventTypes);
+  const pages = ["/", "/products", "/cart", "/checkout", "/account", "/search"];
+  const browsers = ["Chrome 120", "Firefox 121", "Safari 17", "Edge 120"];
+  const webVitals = {
+    lcp_ms: randFloat(500, isErr ? 8000 : 2500),
+    fid_ms: randFloat(10, isErr ? 500 : 100),
+    cls: randFloat(0, isErr ? 0.5 : 0.1),
+    fcp_ms: randFloat(200, isErr ? 5000 : 1800),
+    ttfb_ms: randFloat(50, isErr ? 3000 : 800),
+    inp_ms: randFloat(10, isErr ? 1000 : 200),
+  };
+  const jsErrors = ["TypeError: Cannot read property 'length' of undefined", "ReferenceError: config is not defined", "SyntaxError: Unexpected token", "RangeError: Maximum call stack size exceeded"];
+  return {
+    "@timestamp": ts,
+    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "cloudwatch-rum" } },
+    aws: {
+      cloudwatch_rum: {
+        app_monitor_name: appMonitor,
+        app_monitor_id: randId(36).toLowerCase(),
+        event_type: evType,
+        page_url: `https://${appMonitor}.example.com${rand(pages)}`,
+        browser: rand(browsers),
+        os: rand(["Windows 11", "macOS 14", "iOS 17", "Android 14"]),
+        device_type: rand(["desktop", "mobile", "tablet"]),
+        country: rand(["US", "GB", "DE", "JP", "IN", "BR"]),
+        session_id: randId(32).toLowerCase(),
+        ...(evType.includes("navigation") ? { web_vitals: webVitals } : {}),
+        ...(evType.includes("js_error") ? { error_message: rand(jsErrors), error_type: "js_error" } : {}),
+        ...(evType.includes("http_event") ? { http_status: isErr ? rand([500, 502, 503]) : 200, http_method: rand(["GET", "POST"]) } : {}),
+      },
+    },
+    event: { outcome: isErr ? "failure" : "success", duration: randInt(1e3, 8e6) },
+    message: isErr
+      ? `RUM ${appMonitor}: ${evType.split(".").pop()} error on ${rand(pages)}`
+      : `RUM ${appMonitor}: ${evType.split(".").pop()} (LCP ${webVitals.lcp_ms.toFixed(0)}ms)`,
+  };
+}
+
 export {
   generateCloudFormationLog,
   generateSsmLog,
@@ -1571,4 +1617,5 @@ export {
   generateDrsLog,
   generateLicenseManagerLog,
   generateChatbotLog,
+  generateCloudWatchRumLog,
 };

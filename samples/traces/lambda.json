@@ -1,20 +1,20 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "56e95cabb3cb569346a05d2d839b66dc"
+    "id": "45eb900c104891064b02350a47f201c4"
   },
   "transaction": {
-    "id": "ac6c1e560746f002",
-    "name": "notification-sender",
+    "id": "574bc9ecf67ccf12",
+    "name": "fraud-scorer",
     "type": "lambda",
     "duration": {
-      "us": 1298000
+      "us": 755000
     },
-    "result": "failure",
+    "result": "success",
     "sampled": true,
     "span_count": {
       "started": 3,
@@ -22,32 +22,32 @@
     },
     "faas": {
       "coldstart": false,
-      "execution": "fb1e48a7-c9bd-e33e-0d41-af3cb10ee622",
+      "execution": "b386335d-b3c9-d505-2ced-6af7a12dde91",
       "trigger": {
-        "type": "timer"
+        "type": "pubsub"
       }
     }
   },
   "faas": {
-    "name": "notification-sender",
-    "id": "arn:aws:lambda:af-south-1:123456789012:function:notification-sender",
+    "name": "fraud-scorer",
+    "id": "arn:aws:lambda:ca-central-1:234567890123:function:fraud-scorer",
     "version": "$LATEST",
     "coldstart": false,
-    "execution": "fb1e48a7-c9bd-e33e-0d41-af3cb10ee622",
+    "execution": "b386335d-b3c9-d505-2ced-6af7a12dde91",
     "trigger": {
-      "type": "timer"
+      "type": "pubsub"
     }
   },
   "service": {
-    "name": "notification-sender",
-    "environment": "staging",
+    "name": "fraud-scorer",
+    "environment": "production",
     "version": "1.0.0",
     "language": {
       "name": "python"
     },
     "runtime": {
-      "name": "python3.12",
-      "version": "3.12.3"
+      "name": "python3.11",
+      "version": "3.11.9"
     },
     "framework": {
       "name": "AWS Lambda"
@@ -55,7 +55,7 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "1.0.4"
+    "version": "0.6.0"
   },
   "telemetry": {
     "sdk": {
@@ -64,27 +64,23 @@
       "version": "1.29.0"
     },
     "distro": {
-      "name": "aws-otel",
-      "version": "1.0.4"
+      "name": "elastic",
+      "version": "0.6.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "234567890123",
+      "name": "staging-aws"
     },
     "service": {
       "name": "lambda"
     }
   },
-  "labels": {
-    "aws.xray.trace_id": "1-f2b8bd07-aa6f5a26c1169042e2d6743c",
-    "aws.xray.segment_id": "205e080bf4f995df"
-  },
   "event": {
-    "outcome": "failure"
+    "outcome": "success"
   },
   "data_stream": {
     "type": "traces",

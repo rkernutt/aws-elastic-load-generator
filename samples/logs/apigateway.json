@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "eu-central-2",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -12,43 +12,42 @@
     }
   },
   "trace": {
-    "id": "1-16oq5bls-nf6xny229vr"
+    "id": "1-q164smfv-kx7pmvgitep"
   },
   "aws": {
     "dimensions": {
       "ApiName": "prod-api",
-      "Stage": "v2",
-      "Method": "POST",
-      "Resource": "/api/v1/search"
+      "Stage": "v1",
+      "Method": "PUT",
+      "Resource": "/api/v1/orders"
     },
     "apigateway": {
-      "request_id": "lx1dz421-v1iq",
-      "api_id": "2abkw5komq",
-      "domain_name": "2abkw5komq.execute-api.us-west-2.amazonaws.com",
-      "stage": "v2",
-      "http_method": "POST",
-      "resource_path": "/api/v1/search",
+      "request_id": "buicfywb-5p21",
+      "api_id": "wci228rrzw",
+      "domain_name": "wci228rrzw.execute-api.us-west-2.amazonaws.com",
+      "stage": "v1",
+      "http_method": "PUT",
+      "resource_path": "/api/v1/orders",
       "protocol": "HTTP/1.1",
-      "route_key": "POST /api/v1/search",
-      "status": 204,
-      "response_length": 5483,
-      "ip_address": "246.255.188.150",
-      "user": "api-user",
-      "connection_id": "PS2U0ZMBP4D",
-      "event_type": "MESSAGE",
-      "request_time": "2026-03-31T13:15:29.271Z",
-      "api_type": "HTTP",
-      "integration_latency": 362,
+      "route_key": "PUT /api/v1/orders",
+      "status": 200,
+      "response_length": 2928,
+      "ip_address": "74.138.34.119",
+      "caller": "arn:aws:iam::738291046572:user/api-user",
+      "event_type": "CONNECT",
+      "request_time": "2026-04-01T05:27:12.782Z",
+      "api_type": "REST",
+      "integration_latency": 124,
       "metrics": {
         "Count": {
           "sum": 1
         },
         "Latency": {
-          "avg": 613,
-          "p99": 1839
+          "avg": 156,
+          "p99": 468
         },
         "IntegrationLatency": {
-          "avg": 362
+          "avg": 124
         },
         "4XXError": {
           "sum": 0
@@ -61,40 +60,44 @@
   },
   "http": {
     "request": {
-      "method": "POST",
-      "id": "lx1dz421-v1iq",
-      "bytes": 661
+      "method": "PUT",
+      "id": "buicfywb-5p21",
+      "bytes": 2850
     },
     "response": {
-      "status_code": 204,
-      "bytes": 3520
+      "status_code": 200,
+      "bytes": 890
     }
   },
   "url": {
-    "path": "/api/v1/search",
-    "domain": "2abkw5komq.execute-api.ap-northeast-2.amazonaws.com"
+    "path": "/api/v1/orders",
+    "domain": "wci228rrzw.execute-api.eu-central-2.amazonaws.com"
   },
   "client": {
-    "ip": "76.226.147.12",
+    "ip": "86.133.121.50",
     "geo": {
-      "country_iso_code": "BR",
-      "country_name": "Brazil",
-      "region_name": "São Paulo",
-      "city_name": "São Paulo"
+      "country_iso_code": "GB",
+      "country_name": "United Kingdom",
+      "region_name": "London",
+      "city_name": "London"
     }
   },
   "user_agent": {
     "original": "Go-http-client/1.1"
   },
   "event": {
-    "duration": 613000000,
+    "duration": 156000000,
     "outcome": "success",
-    "category": ["web"],
-    "type": ["access"],
+    "category": [
+      "web"
+    ],
+    "type": [
+      "access"
+    ],
     "dataset": "aws.apigateway_logs",
     "provider": "apigateway.amazonaws.com"
   },
-  "message": "POST /api/v1/search 204 613ms",
+  "message": "PUT /api/v1/orders 200 156ms",
   "log": {
     "level": "info"
   }

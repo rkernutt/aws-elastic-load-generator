@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "sa-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "managedgrafana"
@@ -13,28 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "WorkspaceId": "g-hlwfv7m47k"
+      "WorkspaceId": "g-0p7eypwf76"
     },
     "managedgrafana": {
-      "workspace_id": "g-hlwfv7m47k",
-      "workspace_name": "prod-observability",
-      "workspace_status": "CREATING",
+      "workspace_id": "g-0p7eypwf76",
+      "workspace_name": "devops-metrics",
+      "workspace_status": "UPDATING",
       "grafana_version": "9.4",
-      "alert_state": "pending",
-      "dashboard_title": "RDS Metrics",
-      "datasource_type": "prometheus",
-      "authentication_providers": "SAML",
-      "notification_destinations": "PAGERDUTY"
+      "alert_state": "no_data",
+      "dashboard_title": "Lambda Performance",
+      "datasource_type": "cloudwatch",
+      "authentication_providers": "AWS_SSO",
+      "notification_destinations": "SLACK"
     }
   },
   "event": {
     "action": "DeleteApiKey",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.managedgrafana",
     "provider": "grafana.amazonaws.com"
   },
-  "message": "Managed Grafana DeleteApiKey: workspace=prod-observability alert=pending dashboard=\"RDS Metrics\"",
+  "message": "Managed Grafana DeleteApiKey: workspace=devops-metrics alert=no_data dashboard=\"Lambda Performance\"",
   "log": {
     "level": "info"
   }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "us-east-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,26 +13,28 @@
   },
   "aws": {
     "health": {
-      "event_arn": "arn:aws:health:ap-south-2::event/lambda/sa5jiosl/tvdwr3iod8",
-      "event_type_code": "AWS_LAMBDA_MAINTENANCE_SCHEDULED",
-      "event_type_category": "scheduledChange",
-      "service": "Lambda",
-      "region": "ap-south-2",
-      "status_code": "closed",
-      "event_scope": "ACCOUNT",
-      "affected_entities_count": 49,
-      "description": "Lambda Scheduled maintenance in ap-south-2"
+      "event_arn": "arn:aws:health:us-east-1::event/s3/p3hsczcg/iyqiudpy2ss",
+      "event_type_code": "AWS_S3_MAINTENANCE_SCHEDULED",
+      "event_type_category": "accountNotification",
+      "service": "S3",
+      "region": "us-east-1",
+      "status_code": "resolved",
+      "event_scope": "PUBLIC",
+      "affected_entities_count": 25,
+      "description": "S3 Scheduled maintenance in us-east-1"
     }
   },
   "event": {
     "kind": "alert",
     "outcome": "success",
-    "category": ["configuration"],
+    "category": [
+      "configuration"
+    ],
     "dataset": "aws.health",
     "provider": "health.amazonaws.com",
-    "duration": 363000000000
+    "duration": 333000000000
   },
-  "message": "AWS Health: Lambda event resolved in ap-south-2",
+  "message": "AWS Health: S3 event resolved in us-east-1",
   "log": {
     "level": "info"
   }

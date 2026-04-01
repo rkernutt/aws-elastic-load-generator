@@ -1,0 +1,33 @@
+{
+  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-south-2",
+    "account": {
+      "id": "738291046572",
+      "name": "globex-development"
+    },
+    "service": {
+      "name": "s3-intelligent-tiering"
+    }
+  },
+  "aws": {
+    "s3_intelligent_tiering": {
+      "bucket_name": "analytics-archive",
+      "event_type": "ArchiveRestore",
+      "from_tier": "INFREQUENT_ACCESS",
+      "to_tier": "FREQUENT_ACCESS",
+      "objects_transitioned": 1,
+      "bytes_transitioned": 5775103787,
+      "monitoring_enabled": true,
+      "archive_access_days": 90,
+      "deep_archive_days": 180,
+      "cost_savings_pct": 45.57838146109993
+    }
+  },
+  "event": {
+    "outcome": "failure",
+    "duration": 4060947
+  },
+  "message": "S3 Intelligent-Tiering analytics-archive: transition failed"
+}

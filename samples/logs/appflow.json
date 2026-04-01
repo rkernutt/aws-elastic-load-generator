@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "appflow"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "FlowName": "marketo-to-redshift"
+      "FlowName": "zendesk-export"
     },
     "appflow": {
-      "flow_name": "marketo-to-redshift",
-      "flow_arn": "arn:aws:appflow:ap-east-1:738291046572:flow/marketo-to-redshift",
+      "flow_name": "zendesk-export",
+      "flow_arn": "arn:aws:appflow:ap-south-2:814726593401:flow/zendesk-export",
       "source_connector_type": "HubSpot",
       "destination_connector_type": "Redshift",
       "trigger_type": "OnDemand",
       "execution_status": "ExecutionSuccessful",
-      "records_processed": 254605,
-      "duration_ms": 51461,
+      "records_processed": 163105,
+      "duration_ms": 53352,
       "metrics": {
         "RecordsProcessed": {
-          "sum": 254605
+          "sum": 163105
         },
         "DurationMs": {
-          "avg": 51461
+          "avg": 53352
         },
         "ExecutionSuccessCount": {
           "sum": 1
@@ -42,12 +42,14 @@
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.appflow",
     "provider": "appflow.amazonaws.com",
-    "duration": 51461000000
+    "duration": 53352000000
   },
-  "message": "Flow run succeeded",
+  "message": "AppFlow zendesk-export: 163,105 records HubSpot->Redshift",
   "log": {
     "level": "info"
   }

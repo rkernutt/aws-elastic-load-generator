@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
     "region": "us-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "devicefarm"
@@ -13,30 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "ProjectArn": "arn:aws:devicefarm:us-west-2:814726593401:project:0IA54V6X-PYFN-KAGQ-S0K9-A4B44ST6G8D"
+      "ProjectArn": "arn:aws:devicefarm:us-west-2:738291046572:project:KKZRE3EH-G9JZ-OD9B-GG11-701YM7DC4U9"
     },
     "devicefarm": {
-      "project_name": "Android-App-Tests",
-      "project_arn": "arn:aws:devicefarm:us-west-2:814726593401:project:0IA54V6X-PYFN-KAGQ-S0K9-A4B44ST6G8D",
-      "run_name": "Nightly-Full-Suite",
-      "run_status": "PENDING",
-      "device_platform": "IOS",
-      "device_model": "Samsung Galaxy A54",
-      "total_tests": 442,
-      "passed_tests": 409,
-      "failed_tests": 33,
-      "test_type": "APPIUM_NODE",
-      "billing_method": "METERED"
+      "project_name": "Web-App-Tests",
+      "project_arn": "arn:aws:devicefarm:us-west-2:738291046572:project:KKZRE3EH-G9JZ-OD9B-GG11-701YM7DC4U9",
+      "run_name": "Pre-Release-Smoke",
+      "run_status": "PASSED",
+      "device_platform": "ANDROID",
+      "device_model": "iPhone 14",
+      "total_tests": 78,
+      "passed_tests": 70,
+      "failed_tests": 8,
+      "test_type": "XCTEST",
+      "billing_method": "UNMETERED"
     }
   },
   "event": {
-    "action": "StopRun",
+    "action": "CreateUpload",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.devicefarm",
     "provider": "devicefarm.amazonaws.com"
   },
-  "message": "Device Farm StopRun: project=Android-App-Tests, run=Nightly-Full-Suite PENDING (409/442 passed)",
+  "message": "Device Farm CreateUpload: project=Web-App-Tests, run=Pre-Release-Smoke PASSED (70/78 passed)",
   "log": {
     "level": "warn"
   }

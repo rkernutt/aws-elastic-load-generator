@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "eu-central-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "DirectoryId": "d-wkp8p7z8hv",
-      "WorkspaceId": "ws-q0lybd7fze"
+      "DirectoryId": "d-8amk11vras",
+      "WorkspaceId": "ws-xxdv157lhz"
     },
     "workspaces": {
-      "workspace_id": "ws-q0lybd7fze",
-      "user_name": "eva",
-      "bundle_type": "Standard",
-      "workspace_state": "AVAILABLE",
-      "action": "StartWorkspace",
-      "compute_type": "VALUE",
-      "running_mode": "AUTO_STOP",
-      "client_ip": "39.218.202.147",
-      "client_os": "macOS 14",
+      "workspace_id": "ws-xxdv157lhz",
+      "user_name": "bob",
+      "bundle_type": "Performance",
+      "workspace_state": "CONNECTED",
+      "action": "StopWorkspace",
+      "compute_type": "PERFORMANCE",
+      "running_mode": "ALWAYS_ON",
+      "client_ip": "248.194.121.115",
+      "client_os": "Ubuntu 22.04",
       "metrics": {
         "Available": {
           "sum": 1
@@ -43,7 +43,7 @@
           "sum": 0
         },
         "UserConnected": {
-          "sum": 0
+          "sum": 1
         },
         "Stopped": {
           "sum": 0
@@ -55,20 +55,23 @@
     }
   },
   "user": {
-    "name": "eva"
+    "name": "bob"
   },
   "source": {
-    "ip": "21.92.197.195"
+    "ip": "49.11.57.121"
   },
   "event": {
-    "action": "StartWorkspace",
+    "action": "StopWorkspace",
     "outcome": "success",
-    "category": ["host", "session"],
+    "category": [
+      "host",
+      "session"
+    ],
     "dataset": "aws.workspaces",
     "provider": "workspaces.amazonaws.com",
-    "duration": 1180000000
+    "duration": 1430000000
   },
-  "message": "WorkSpaces StartWorkspace: eva on ws-q0lybd7fze [AVAILABLE]",
+  "message": "WorkSpaces StopWorkspace: bob on ws-xxdv157lhz [CONNECTED]",
   "log": {
     "level": "info"
   }

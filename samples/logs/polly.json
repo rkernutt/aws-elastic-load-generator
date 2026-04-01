@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "polly"
@@ -16,20 +16,20 @@
       "Operation": "StartSpeechSynthesisTask"
     },
     "polly": {
-      "voice_id": "Celine",
-      "engine": "long-form",
+      "voice_id": "Brian",
+      "engine": "standard",
       "operation": "StartSpeechSynthesisTask",
       "language_code": "en-GB",
-      "output_format": "mp3",
+      "output_format": "ogg_vorbis",
       "text_type": "text",
-      "characters_synthesized": 666,
+      "characters_synthesized": 3158,
       "sample_rate": "24000",
       "metrics": {
         "RequestCharacters": {
-          "sum": 1262
+          "sum": 2874
         },
         "ResponseLatency": {
-          "avg": 477.593
+          "avg": 194.67430632896804
         },
         "2XXCount": {
           "sum": 1
@@ -45,11 +45,13 @@
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.polly",
     "provider": "polly.amazonaws.com"
   },
-  "message": "Polly SynthesizeSpeech: Celine (long-form), 666 chars",
+  "message": "Polly SynthesizeSpeech: Brian (standard), 3158 chars",
   "log": {
     "level": "info"
   }

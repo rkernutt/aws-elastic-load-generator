@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ap-southeast-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,28 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "DatasetGroup": "web-traffic",
-      "Operation": "CreateForecast"
+      "DatasetGroup": "energy-consumption",
+      "Operation": "GetAccuracyMetrics"
     },
     "forecast": {
-      "dataset_group": "web-traffic",
-      "predictor_name": "web-traffic-predictor-v6",
-      "action": "CreateForecast",
+      "dataset_group": "energy-consumption",
+      "predictor_name": "energy-consumption-predictor-v6",
+      "action": "GetAccuracyMetrics",
       "algorithm": "Prophet",
-      "forecast_horizon": 7,
-      "weighted_quantile_loss": 0.074,
-      "duration_seconds": 3979,
+      "forecast_horizon": 14,
+      "weighted_quantile_loss": 0.2362165817764889,
+      "duration_seconds": 4842,
       "status": "ACTIVE"
     }
   },
   "event": {
-    "duration": 3979000000000,
+    "duration": 4842000000000,
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com"
   },
-  "message": "Forecast CreateForecast: web-traffic, WQL=0.074",
+  "message": "Forecast GetAccuracyMetrics: energy-consumption, WQL=0.236",
   "log": {
     "level": "info"
   }

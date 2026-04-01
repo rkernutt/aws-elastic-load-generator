@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "me-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "transcribe"
@@ -14,18 +14,17 @@
   "aws": {
     "dimensions": {
       "Operation": "TranscriptionJob",
-      "LanguageCode": "fr-FR"
+      "LanguageCode": "de-DE"
     },
     "transcribe": {
-      "transcription_job_name": "transcribe-t24ktzwz",
+      "transcription_job_name": "transcribe-d57590tg",
       "transcription_job_status": "COMPLETED",
-      "language_code": "fr-FR",
+      "language_code": "de-DE",
       "media_format": "flac",
-      "media_uri": "s3://audio-bucket/transcribe-t24ktzwz.mp3",
-      "audio_duration_minutes": 33.03,
-      "word_count": 4955,
-      "speaker_count": 2,
-      "content_redaction_enabled": false,
+      "media_uri": "s3://audio-bucket/transcribe-d57590tg.mp3",
+      "audio_duration_minutes": 109.92502015619807,
+      "word_count": 16489,
+      "content_redaction_enabled": true,
       "metrics": {
         "TranscriptionJobsCompleted": {
           "sum": 1
@@ -34,21 +33,23 @@
           "sum": 0
         },
         "TranscriptionJobsPending": {
-          "avg": 1
+          "avg": 10
         },
         "TranscriptionJobsRunning": {
-          "avg": 2
+          "avg": 4
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.transcribe",
     "provider": "transcribe.amazonaws.com"
   },
-  "message": "Transcribe job transcribe-t24ktzwz: 33.0 min audio (fr-FR)",
+  "message": "Transcribe job transcribe-d57590tg: 109.9 min audio (de-DE)",
   "log": {
     "level": "info"
   }

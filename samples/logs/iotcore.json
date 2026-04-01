@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "us-east-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "iotcore"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "Protocol": "MQTT"
+      "Protocol": "MQTT-SN"
     },
     "iotcore": {
-      "client_id": "gateway-prod-1",
-      "thing_name": "gateway-prod-1",
-      "thing_group": "fleet",
-      "action": "PUBLISH",
+      "client_id": "camera-entrance",
+      "thing_name": "camera-entrance",
+      "thing_group": "factory-sensors",
+      "action": "SUBSCRIBE",
       "topic": "telemetry/metrics",
-      "protocol": "MQTT",
+      "protocol": "MQTT-SN",
       "qos": 1,
-      "message_bytes": 31689,
-      "policy_name": "FleetPolicy",
-      "structured_logging": true,
-      "rules_evaluated": 2,
+      "message_bytes": 50619,
+      "policy_name": "IoTDevicePolicy",
+      "structured_logging": false,
+      "rules_evaluated": 1,
       "metrics": {
         "Connect.Success": {
-          "sum": 51
+          "sum": 424
         },
         "Connect.Failure": {
           "sum": 0
         },
         "PublishIn.Success": {
-          "sum": 744
+          "sum": 4556
         },
         "PublishIn.ClientError": {
           "sum": 0
@@ -44,59 +44,62 @@
           "sum": 0
         },
         "PublishOut.Success": {
-          "sum": 3527
+          "sum": 378
         },
         "Publish.Success": {
-          "sum": 4228
+          "sum": 9668
         },
         "Publish.Failure": {
           "sum": 0
         },
         "Subscribe.Success": {
-          "sum": 2131
+          "sum": 2005
         },
         "Subscribe.Failure": {
           "sum": 0
         },
         "Unsubscribe.Success": {
-          "sum": 966
+          "sum": 771
         },
         "Ping.Success": {
-          "sum": 9698
+          "sum": 9896
         },
         "Throttle.Success": {
-          "sum": 110
+          "sum": 199
         },
         "RulesMatched": {
-          "sum": 780
+          "sum": 903
         },
         "RulesFailed": {
           "sum": 0
         },
         "RulesNotMatched": {
-          "sum": 68
+          "sum": 98
         },
         "TopicMatch": {
-          "sum": 7572
+          "sum": 1787
         },
         "ClientConnections": {
-          "avg": 91998
+          "avg": 89649
         }
       }
     }
   },
   "source": {
-    "ip": "74.255.234.94"
+    "ip": "148.28.7.44"
   },
   "event": {
-    "action": "PUBLISH",
+    "action": "SUBSCRIBE",
     "outcome": "success",
-    "category": ["network", "process"],
+    "category": [
+      "network",
+      "process"
+    ],
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com",
-    "duration": 140000000
+    "duration": 180000000
   },
-  "message": "{\"clientId\":\"gateway-prod-1\",\"action\":\"PUBLISH\",\"topic\":\"telemetry/metrics\",\"message\":\"IoT Core PUBLISH: gateway-prod-1 on telemetry/metrics\",\"timestamp\":\"2026-03-31T13:15:29.271Z\"}",
+  "message": "IoT Core SUBSCRIBE: camera-entrance on telemetry/metrics",
   "log": {
     "level": "info"
   }

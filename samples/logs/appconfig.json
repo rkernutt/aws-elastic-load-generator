@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "me-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "appconfig"
@@ -13,28 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "Application": "DataPipeline",
-      "Environment": "prod"
+      "Application": "MobileAPI",
+      "Environment": "dev"
     },
     "appconfig": {
-      "application_name": "DataPipeline",
-      "environment_name": "prod",
-      "configuration_profile": "AppSettings",
-      "deployment_number": 325,
-      "deployment_strategy": "Canary10Percent20Minutes",
-      "growth_factor": 33,
+      "application_name": "MobileAPI",
+      "environment_name": "dev",
+      "configuration_profile": "RateLimits",
+      "deployment_number": 479,
+      "deployment_strategy": "Linear50PercentEvery30Seconds",
+      "growth_factor": 10,
       "percentage_complete": 100,
-      "state": "COMPLETE"
+      "state": "DEPLOYING"
     }
   },
   "event": {
-    "action": "ValidateConfiguration",
+    "action": "StopDeployment",
     "outcome": "success",
-    "category": ["configuration"],
+    "category": [
+      "configuration"
+    ],
     "dataset": "aws.appconfig",
     "provider": "appconfig.amazonaws.com"
   },
-  "message": "AppConfig DataPipeline/prod: AppSettings deployment #325 COMPLETE",
+  "message": "AppConfig MobileAPI/dev: RateLimits deployment #479 DEPLOYING",
   "log": {
     "level": "info"
   }

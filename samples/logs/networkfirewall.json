@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "us-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,73 +13,71 @@
   },
   "aws": {
     "dimensions": {
-      "FirewallName": "fw-il-central-1",
-      "AvailabilityZone": "il-central-1c",
-      "CustomAction": "CustomBlockAction"
+      "FirewallName": "fw-us-east-1",
+      "AvailabilityZone": "us-east-1c",
+      "CustomAction": "CustomPassAction"
     },
     "firewall_logs": {
-      "flow_id": 723271,
-      "event_timestamp": "2026-03-31T13:15:29.271Z",
-      "action": "DROP",
-      "src_ip": "49.133.151.246",
-      "dest_ip": "144.233.23.126",
-      "src_port": 42158,
-      "dest_port": 5432,
+      "flow_id": 657554,
+      "event_timestamp": "2026-04-01T05:27:12.782Z",
+      "action": "PASS",
+      "src_ip": "173.77.56.20",
+      "dest_ip": "102.74.103.34",
+      "src_port": 12546,
+      "dest_port": 443,
       "protocol": "TCP",
-      "firewall_name": "fw-il-central-1",
-      "availability_zone": "il-central-1c"
+      "firewall_name": "fw-us-east-1",
+      "availability_zone": "us-east-1c"
     },
     "network_firewall": {
-      "firewall_name": "fw-il-central-1",
-      "availability_zone": "il-central-1c",
+      "firewall_name": "fw-us-east-1",
+      "availability_zone": "us-east-1c",
       "policy_name": "prod-fw-policy",
       "metrics": {
         "DroppedPackets": {
-          "sum": 598
+          "sum": 0
         },
         "PassedPackets": {
-          "sum": 0
+          "sum": 15616
         },
         "RejectedPackets": {
           "sum": 0
         },
         "Packets": {
-          "sum": 27132
+          "sum": 47123
         },
         "DroppedBytes": {
-          "sum": 49430
+          "sum": 0
         }
       }
     }
   },
   "source": {
-    "ip": "49.133.151.246",
-    "port": 42158
+    "ip": "173.77.56.20",
+    "port": 12546
   },
   "destination": {
-    "ip": "144.233.23.126",
-    "port": 5432
+    "ip": "102.74.103.34",
+    "port": 443
   },
   "network": {
     "transport": "tcp",
-    "bytes": 57637,
-    "packets": 11
+    "bytes": 26580,
+    "packets": 22
   },
   "event": {
-    "action": "drop",
-    "outcome": "failure",
-    "category": ["intrusion_detection", "network"],
+    "action": "pass",
+    "outcome": "success",
+    "category": [
+      "intrusion_detection",
+      "network"
+    ],
     "dataset": "aws.firewall_logs",
     "provider": "network-firewall.amazonaws.com",
-    "duration": 177000000
+    "duration": 37000000
   },
-  "message": "DROP TCP flow",
+  "message": "PASS TCP flow",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "FlowDropped",
-    "message": "Packet dropped by firewall rule",
-    "type": "network"
+    "level": "info"
   }
 }

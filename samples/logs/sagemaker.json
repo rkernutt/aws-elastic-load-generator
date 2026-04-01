@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "sagemaker"
@@ -13,59 +13,59 @@
   },
   "aws": {
     "dimensions": {
-      "TrainingJobName": "resnet50-custom-endpoint-h84f1x",
-      "JobType": "Endpoint"
+      "TrainingJobName": "bert-finetuned-hyperparametertuning-q7wx1i",
+      "JobType": "HyperparameterTuning"
     },
     "sagemaker": {
-      "domain_id": "d-ryjwiqzp3x",
-      "domain_name": "ds-platform",
+      "domain_id": "d-xoszlpnmn8",
+      "domain_name": "ml-research",
       "user_profile": "bob-ml",
       "job": {
-        "name": "resnet50-custom-endpoint-h84f1x",
-        "type": "Endpoint",
-        "arn": "arn:aws:sagemaker:ap-southeast-4:501938274650:training-job/resnet50-custom-endpoint-h84f1x"
+        "name": "bert-finetuned-hyperparametertuning-q7wx1i",
+        "type": "HyperparameterTuning",
+        "arn": "arn:aws:sagemaker:ap-northeast-1:738291046572:training-job/bert-finetuned-hyperparametertuning-q7wx1i"
       },
       "model": {
-        "name": "resnet50-custom",
-        "version": 20
+        "name": "bert-finetuned",
+        "version": 15
       },
       "pipeline": {
-        "name": "model-training-pipeline",
-        "execution_id": "pipe-aw7x0gq5b5"
+        "name": "feature-engineering-pipeline",
+        "execution_id": "pipe-w2nk1d3hfi8"
       },
       "instance": {
-        "type": "ml.g4dn.xlarge",
-        "count": 2
+        "type": "ml.p3.2xlarge",
+        "count": 1
       },
       "metrics": {
-        "gpu_utilization_pct": 19,
-        "cpu_utilization_pct": 27
+        "training_loss": 0.3841,
+        "accuracy": 0.9468,
+        "epoch": 14,
+        "gpu_utilization_pct": 78,
+        "cpu_utilization_pct": 70
       },
       "studio": {
-        "space_name": "nlp-experiments",
-        "app_type": "JupyterServer",
-        "app_name": "instance-ijinh29v",
         "lifecycle_config": false,
-        "continuous_logging": true
+        "continuous_logging": false
       },
       "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 550
+          "sum": 2059
         },
         "ModelLatency": {
-          "avg": 16
+          "avg": 92
         },
         "GPUUtilization": {
-          "avg": 57
+          "avg": 43
         },
         "CPUUtilization": {
-          "avg": 52
+          "avg": 65
         },
         "DiskUtilization": {
-          "avg": 31
+          "avg": 23
         },
         "MemoryUtilization": {
-          "avg": 78
+          "avg": 76
         },
         "Invocations4XXError": {
           "sum": 0
@@ -83,12 +83,14 @@
     "name": "bob-ml"
   },
   "event": {
-    "action": "AppCreated",
-    "duration": 8349476000000.001,
+    "action": "EndpointInService",
+    "duration": 9544858107518.396,
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com"
   },
-  "message": "{\"domainId\":\"d-ryjwiqzp3x\",\"space\":\"nlp-experiments\",\"appType\":\"JupyterServer\",\"user\":\"bob-ml\",\"level\":\"INFO\",\"message\":\"Endpoint deployment started\",\"timestamp\":\"2026-03-31T13:15:29.271Z\",\"event\":\"AppCreated\"}"
+  "message": "Hyperparameter tuning job started"
 }

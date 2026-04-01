@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "us-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "bedrock-agent"
@@ -13,50 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "AgentId": "TEWMQ0G1XZO",
-      "Operation": "InvokeAgentWithResponseStream"
+      "AgentId": "TGP1OXT6PSBB",
+      "Operation": "Retrieve"
     },
     "bedrockagent": {
-      "agent_id": "TEWMQ0G1XZO",
-      "agent_alias_id": "LIVE",
-      "session_id": "g4msh0r0wx9",
-      "action": "InvokeAgentWithResponseStream",
-      "input_token_count": 954,
-      "output_token_count": 9,
-      "invocation_latency_ms": 3674,
-      "guardrail_action": "NONE",
-      "error_code": "ServiceQuotaExceededException",
+      "agent_id": "TGP1OXT6PSBB",
+      "agent_alias_id": "TSTALIASID",
+      "session_id": "k4ji17r9jv",
+      "action": "Retrieve",
+      "knowledge_base_id": "KBRW13KW6E5",
+      "input_token_count": 3966,
+      "output_token_count": 1467,
+      "invocation_latency_ms": 5694,
+      "orchestration_trace": {
+        "model_invocation": {
+          "model_arn": "arn:aws:bedrock:us-west-2::foundation-model/anthropic.claude-3-5-sonnet-v2"
+        }
+      },
+      "guardrail_action": "INTERVENED",
       "metrics": {
         "Invocations": {
-          "sum": 32
+          "sum": 3
         },
         "InvocationLatency": {
-          "avg": 3674,
-          "p99": 7348
+          "avg": 5694,
+          "p99": 11388
         },
         "InputTokenCount": {
-          "sum": 954
+          "sum": 3966
         },
         "OutputTokenCount": {
-          "sum": 9
+          "sum": 1467
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
-    "category": ["process"],
+    "outcome": "success",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.bedrockagent",
     "provider": "bedrock-agent-runtime.amazonaws.com",
-    "duration": 3674000000
+    "duration": 5694495348.020447
   },
-  "message": "Bedrock Agent TEWMQ0G1XZO InvokeAgentWithResponseStream FAILED",
+  "message": "Bedrock Agent TGP1OXT6PSBB: Retrieve 3966→1467 tokens 5.69s",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "BedrockAgentError",
-    "message": "Agent invocation failed",
-    "type": "ml"
+    "level": "info"
   }
 }

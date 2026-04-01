@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "ecr"
@@ -13,32 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "RepositoryName": "worker",
-      "RegistryId": "293847561023"
+      "RepositoryName": "nginx-custom",
+      "RegistryId": "738291046572"
     },
     "ecr": {
-      "repository_name": "worker",
-      "registry_id": "293847561023",
-      "image_tag": "main",
-      "image_digest": "sha256:p7mz0c0s93",
+      "repository_name": "nginx-custom",
+      "registry_id": "738291046572",
+      "image_tag": "latest",
+      "image_digest": "sha256:9mxq50j004m",
       "action": "pull",
-      "image_size_bytes": 1316185365,
+      "image_size_bytes": 231751429,
       "pushed_by": "ci-pipeline",
       "scan_status": "NOT_STARTED",
       "finding_count": 0,
       "vulnerability_scan_enabled": true,
       "metrics": {
         "ImageCount": {
-          "avg": 322
+          "avg": 781
         },
         "RepositorySizeInBytes": {
-          "avg": 1914828375
+          "avg": 21567695710
         },
         "LifecyclePolicyRuleEvaluationCount": {
           "sum": 0
         },
         "PullCount": {
-          "sum": 868
+          "sum": 140
         },
         "PushCount": {
           "sum": 0
@@ -53,22 +53,24 @@
           "sum": 0
         },
         "ScanFindingsSeverityLow": {
-          "sum": 75
+          "sum": 69
         },
         "ScanFindingsSeverityInformational": {
-          "sum": 176
+          "sum": 48
         }
       }
     }
   },
   "event": {
-    "category": ["package"],
+    "category": [
+      "package"
+    ],
     "outcome": "success",
     "dataset": "aws.ecr",
     "provider": "ecr.amazonaws.com",
-    "duration": 3630000000
+    "duration": 505000000
   },
-  "message": "ECR pull: worker:main",
+  "message": "ECR pull: nginx-custom:latest",
   "log": {
     "level": "info"
   }

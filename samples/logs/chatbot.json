@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-southeast-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -14,27 +14,29 @@
   "aws": {
     "dimensions": {
       "ChannelConfiguration": "security-alerts",
-      "ChannelType": "MicrosoftTeams"
+      "ChannelType": "Slack"
     },
     "chatbot": {
       "channel_configuration_name": "security-alerts",
-      "channel_type": "MicrosoftTeams",
-      "notification_type": "SNSNotification",
-      "workspace_id": "T33Z99SPG",
-      "channel_id": "C7ES4PSVL",
+      "channel_type": "Slack",
+      "notification_type": "CloudWatchAlarm",
+      "workspace_id": "TWEC6TJFO",
+      "channel_id": "CYQBKJ763",
       "delivery_status": "Delivered",
-      "message_id": "0e7bzjgs-7gbu-iy0m-5t50-nq0ac02kqdp",
-      "sns_topic_arn": "arn:aws:sns:af-south-1:501938274650:snsnotification-topic"
+      "message_id": "evkdch70-c8g0-hkox-v6aw-anihdiv3wa9",
+      "sns_topic_arn": "arn:aws:sns:ap-southeast-2:501938274650:cloudwatchalarm-topic"
     }
   },
   "event": {
-    "action": "BotInvitation",
+    "action": "AlertSuppression",
     "outcome": "success",
-    "category": ["configuration"],
+    "category": [
+      "configuration"
+    ],
     "dataset": "aws.chatbot",
     "provider": "chatbot.amazonaws.com"
   },
-  "message": "Chatbot security-alerts: SNSNotification delivered to MicrosoftTeams",
+  "message": "Chatbot security-alerts: CloudWatchAlarm delivered to Slack",
   "log": {
     "level": "info"
   }

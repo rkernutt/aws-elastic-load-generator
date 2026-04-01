@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "af-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "rekognition"
@@ -17,12 +17,12 @@
     },
     "rekognition": {
       "operation": "GetFaceDetection",
-      "input_source": "S3Object",
-      "image_bytes": 1693849,
-      "duration_ms": 435,
-      "labels_detected": 15,
-      "faces_detected": 10,
-      "max_confidence": 72.295,
+      "input_source": "Video",
+      "image_bytes": 8563170,
+      "duration_ms": 428,
+      "labels_detected": 38,
+      "faces_detected": 2,
+      "max_confidence": 76.07479579231503,
       "confidence_threshold": 70,
       "metrics": {
         "SuccessfulRequestCount": {
@@ -38,19 +38,21 @@
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 215.38
+          "avg": 702.3059361834921
         }
       }
     }
   },
   "event": {
-    "duration": 435360000,
+    "duration": 427863891.5982519,
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.rekognition",
     "provider": "rekognition.amazonaws.com"
   },
-  "message": "Rekognition GetFaceDetection: 31 results, 72.3% confidence",
+  "message": "Rekognition GetFaceDetection: 24 results, 76.1% confidence",
   "log": {
     "level": "info"
   }

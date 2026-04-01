@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "states"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "StateMachineArn": "arn:aws:states:il-central-1:501938274650:stateMachine:user-onboarding"
+      "StateMachineArn": "arn:aws:states:sa-east-1:814726593401:stateMachine:user-onboarding"
     },
     "stepfunctions": {
       "state_machine_name": "user-onboarding",
-      "state_machine_arn": "arn:aws:states:il-central-1:501938274650:stateMachine:user-onboarding",
-      "execution_arn": "arn:aws:states:il-central-1:501938274650:execution:user-onboarding:1nhed0ro",
+      "state_machine_arn": "arn:aws:states:sa-east-1:814726593401:stateMachine:user-onboarding",
+      "execution_arn": "arn:aws:states:sa-east-1:814726593401:execution:user-onboarding:134rogzi",
       "workflow_type": "STANDARD",
-      "execution_start_time": "2026-03-31T13:15:22.743Z",
-      "state_name": "ValidateInput",
-      "state_duration_seconds": 1.138,
+      "execution_start_time": "2026-04-01T05:27:02.849Z",
+      "state_name": "ProcessPayment",
+      "state_duration_seconds": 2.1542763680166988,
       "status": "SUCCEEDED",
-      "duration_seconds": 6.528,
+      "duration_seconds": 9.932779892233675,
       "structured_logging": true,
       "metrics": {
         "ExecutionsStarted": {
-          "sum": 999
+          "sum": 762
         },
         "ExecutionsSucceeded": {
-          "sum": 360
+          "sum": 259
         },
         "ExecutionsFailed": {
           "sum": 0
         },
         "ExecutionsAborted": {
-          "sum": 4
+          "sum": 5
         },
         "ExecutionsTimedOut": {
           "sum": 0
@@ -46,20 +46,20 @@
           "sum": 0
         },
         "ExecutionTime": {
-          "avg": 6528,
-          "max": 13056
+          "avg": 9932.779892233675,
+          "max": 19865.55978446735
         }
       }
     }
   },
   "event": {
-    "duration": 6528000000,
+    "duration": 9932779892.233675,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.stepfunctions",
     "provider": "states.amazonaws.com"
   },
-  "message": "{\"executionArn\":\"arn:aws:states:il-central-1:501938274650:execution:user-onboarding:1nhed0ro\",\"stateMachine\":\"user-onboarding\",\"workflowType\":\"STANDARD\",\"state\":\"ValidateInput\",\"status\":\"SUCCEEDED\",\"durationSeconds\":6.528,\"timestamp\":\"2026-03-31T13:15:29.271Z\"}",
+  "message": "{\"executionArn\":\"arn:aws:states:sa-east-1:814726593401:execution:user-onboarding:134rogzi\",\"stateMachine\":\"user-onboarding\",\"workflowType\":\"STANDARD\",\"state\":\"ProcessPayment\",\"status\":\"SUCCEEDED\",\"durationSeconds\":9.932779892233675,\"timestamp\":\"2026-04-01T05:27:12.782Z\"}",
   "log": {
     "level": "info"
   }

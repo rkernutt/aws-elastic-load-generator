@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "us-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "securitylake"
@@ -13,62 +13,68 @@
   },
   "aws": {
     "dimensions": {
-      "OcsfClass": "Authentication",
-      "SourceType": "LAMBDA:CloudTrail"
+      "OcsfClass": "Network Activity",
+      "SourceType": "LAMBDA:VpcFlow"
     },
     "securitylake": {
-      "source_type": "LAMBDA:CloudTrail",
-      "class_uid": 3002,
-      "class_name": "Authentication",
-      "category_uid": 3,
-      "category_name": "Identity & Access Management Activity",
-      "activity_id": 1,
-      "activity_name": "Read",
-      "severity_id": 3,
-      "severity": "Medium",
+      "source_type": "LAMBDA:VpcFlow",
+      "class_uid": 4001,
+      "class_name": "Network Activity",
+      "category_uid": 4,
+      "category_name": "Network Activity",
+      "activity_id": 5,
+      "activity_name": "Delete",
+      "severity_id": 1,
+      "severity": "Informational",
       "status_id": 1,
       "status": "Success",
-      "time": 1774962929271,
+      "time": 1775021232782,
       "metadata": {
         "version": "1.1.0",
         "product": {
-          "name": "CloudTrail",
+          "name": "VpcFlow",
           "vendor_name": "AWS"
         },
-        "uid": "oe0almf4-s62r-tjhm-fxfm-m1w33pkbnq"
+        "uid": "raix06ms-cox1-afpf-29v2-n14srgpk8jn"
       },
       "ocsf_cloud": {
         "provider": "AWS",
         "account": {
-          "uid": "164820739518"
+          "uid": "814726593401"
         },
-        "region": "us-east-2"
+        "region": "us-west-1"
       },
-      "actor": {
-        "user": {
-          "name": "bob",
-          "uid": "arn:aws:iam::164820739518:user/bob"
-        },
-        "session": {
-          "is_mfa": true,
-          "uid": "ASIAWMTL7U1KCEG"
-        }
-      },
-      "auth_protocol": "SAML",
       "src_endpoint": {
-        "ip": "129.51.203.130"
+        "ip": "178.185.24.145",
+        "port": 37670
       },
-      "is_mfa": true
+      "dst_endpoint": {
+        "ip": "190.192.210.253",
+        "port": 3306
+      },
+      "connection_info": {
+        "protocol_num": 17,
+        "protocol_name": "UDP",
+        "direction": "Inbound",
+        "direction_id": 1
+      },
+      "traffic": {
+        "bytes": 633988,
+        "packets": 48
+      }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["intrusion_detection", "network"],
+    "category": [
+      "intrusion_detection",
+      "network"
+    ],
     "dataset": "aws.securitylake",
     "provider": "securitylake.amazonaws.com"
   },
-  "message": "Security Lake [Authentication/Read] Medium: CloudTrail success",
+  "message": "Security Lake [Network Activity/Delete] Informational: VpcFlow success",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

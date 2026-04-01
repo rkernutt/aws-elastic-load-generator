@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "me-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "billing"
@@ -13,41 +13,39 @@
   },
   "aws": {
     "billing": {
-      "service": "AmazonRDS",
+      "service": "AmazonCloudWatch",
       "usage_type": "Requests-Tier1",
-      "estimated_charges": 752.493,
+      "estimated_charges": 119.03648308275366,
       "currency": "USD",
-      "period_start": "2026-03-01",
-      "linked_account_id": "814726593401",
+      "period_start": "2026-04-01",
+      "linked_account_id": "293847561023",
       "dimensions": {
-        "Service": "AmazonRDS",
-        "LinkedAccount": "814726593401",
+        "Service": "AmazonCloudWatch",
+        "LinkedAccount": "293847561023",
         "UsageType": "Requests-Tier1"
       },
       "metrics": {
         "EstimatedCharges": {
-          "sum": 752.493
+          "sum": 119.03648308275366
         },
         "NumberOfRequests": {
-          "sum": 123990
+          "sum": 402381
         }
       }
     }
   },
   "event": {
-    "outcome": "failure",
-    "category": ["configuration", "process"],
+    "outcome": "success",
+    "category": [
+      "configuration",
+      "process"
+    ],
     "dataset": "aws.billing",
     "provider": "ce.amazonaws.com",
-    "duration": 672000000
+    "duration": 4219000000
   },
-  "message": "Billing anomaly: AmazonRDS 752.49 USD",
+  "message": "Billing: AmazonCloudWatch 119.04 USD",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "BillingAnomaly",
-    "message": "Unusual cost detected",
-    "type": "billing"
+    "level": "info"
   }
 }

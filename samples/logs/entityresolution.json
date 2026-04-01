@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "eu-south-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "entityresolution"
@@ -13,28 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "WorkflowName": "product-matching"
+      "WorkflowName": "contact-merge"
     },
     "entityresolution": {
-      "matching_workflow_id": "u37q7zsg-zwrg-y681-8gaa-pek1bvoc0jf",
-      "matching_workflow_name": "product-matching",
-      "job_id": "ymo2sgdy-yicg-47fb-bzzn-3k60eqh9wco",
-      "job_status": "QUEUED",
-      "matched_record_count": 926077,
-      "input_record_count": 5559314,
-      "unique_record_count": 662289,
-      "schema_name": "contact-schema",
-      "matching_technique": "PROVIDER_SERVICE"
+      "matching_workflow_id": "7rhgz346-1y3e-jo6a-ym5t-lwlrwlxzutt",
+      "matching_workflow_name": "contact-merge",
+      "job_id": "bt1uk3ce-cosw-27t0-co2g-8ml7h892wx4",
+      "job_status": "RUNNING",
+      "matched_record_count": 2904614,
+      "input_record_count": 7184646,
+      "unique_record_count": 1637438,
+      "schema_name": "customer-schema",
+      "matching_technique": "ML_MATCHING"
     }
   },
   "event": {
-    "action": "CreateMatchingWorkflow",
+    "action": "ListMatchingJobs",
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.entityresolution",
     "provider": "entityresolution.amazonaws.com"
   },
-  "message": "Entity Resolution product-matching: matched 926077/5559314 records → 662289 unique",
+  "message": "Entity Resolution contact-merge: matched 2904614/7184646 records → 1637438 unique",
   "log": {
     "level": "info"
   }

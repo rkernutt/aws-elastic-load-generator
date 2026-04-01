@@ -709,6 +709,110 @@ function generateGroundStationLog(ts: string, er: number): EcsDocument {
   };
 }
 
+// ─── Kinesis Video Streams ────────────────────────────────────────────────
+function generateKinesisVideoLog(ts: string, er: number): EcsDocument {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const streams = ["lobby-cam-01", "warehouse-feed", "doorbell-pro", "drone-feed", "traffic-monitor"];
+  const stream = rand(streams);
+  const events = ["PutMedia", "GetMedia", "GetMediaForFragmentList", "GetClip", "GetDASHStreamingSessionURL", "GetHLSStreamingSessionURL"];
+  const ev = rand(events);
+  const errMsgs = ["ConnectionLimitExceededException", "NotAuthorizedException", "ResourceNotFoundException", "ClientLimitExceededException"];
+  return {
+    "@timestamp": ts,
+    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "kinesis-video" } },
+    aws: {
+      kinesis_video: {
+        stream_name: stream,
+        stream_arn: `arn:aws:kinesisvideo:${region}:${acct.id}:stream/${stream}`,
+        event_type: ev,
+        fragment_number: randId(20),
+        producer_timestamp_ms: Date.now(),
+        server_timestamp_ms: Date.now() + randInt(0, 500),
+        ingestion_rate_mbps: randFloat(0.5, 10),
+        fragment_duration_ms: randInt(2000, 6000),
+        resolution: rand(["1920x1080", "1280x720", "3840x2160", "640x480"]),
+        codec: rand(["H.264", "H.265"]),
+      },
+    },
+    event: { outcome: isErr ? "failure" : "success", duration: randInt(1e4, 6e6) },
+    message: isErr
+      ? `Kinesis Video ${stream}: ${ev} failed — ${rand(errMsgs)}`
+      : `Kinesis Video ${stream}: ${ev} (${randFloat(0.5, 10).toFixed(1)} Mbps)`,
+  };
+}
+
+// ─── AWS Panorama ─────────────────────────────────────────────────────────
+function generatePanoramaLog(ts: string, er: number): EcsDocument {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const devices = ["panorama-appliance-01", "factory-edge-01", "retail-cam-hub"];
+  const device = rand(devices);
+  const events = ["DeployApplication", "RemoveApplication", "DescribeDevice", "CreateNodeFromTemplateJob", "ListApplicationInstances"];
+  const ev = rand(events);
+  const models = ["people-counter", "defect-detector", "ppe-compliance", "vehicle-tracker"];
+  const statuses = isErr ? ["DEPLOYMENT_FAILED", "ERROR"] : ["DEPLOYMENT_SUCCEEDED", "RUNNING"];
+  const errMsgs = ["Model compilation failed", "Camera stream unreachable", "GPU memory exceeded", "Application container crash loop"];
+  return {
+    "@timestamp": ts,
+    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "panorama" } },
+    aws: {
+      panorama: {
+        device_id: `device-${randId(12).toLowerCase()}`,
+        device_name: device,
+        event_type: ev,
+        application_name: rand(models),
+        status: rand(statuses),
+        inference_fps: randFloat(1, isErr ? 0 : 30),
+        camera_streams: randInt(1, 8),
+        gpu_utilization_pct: randFloat(10, isErr ? 100 : 85),
+        uptime_hours: randFloat(0, 720),
+      },
+    },
+    event: { outcome: isErr ? "failure" : "success", duration: randInt(1e5, 6e8) },
+    message: isErr
+      ? `Panorama ${device}: ${ev} failed — ${rand(errMsgs)}`
+      : `Panorama ${device}: ${ev} (${rand(models)}, ${randFloat(10, 30).toFixed(1)} FPS)`,
+  };
+}
+
+// ─── FreeRTOS ─────────────────────────────────────────────────────────────
+function generateFreeRtosLog(ts: string, er: number): EcsDocument {
+  const region = rand(REGIONS);
+  const acct = randAccount();
+  const isErr = Math.random() < er;
+  const things = ["sensor-node-01", "actuator-03", "gateway-edge", "wearable-device", "industrial-plc"];
+  const thing = rand(things);
+  const events = ["OTA_UPDATE", "MQTT_CONNECT", "MQTT_DISCONNECT", "SHADOW_UPDATE", "DEFENDER_REPORT", "FLEET_PROVISIONING"];
+  const ev = rand(events);
+  const boards = ["ESP32", "STM32L4", "NXP-LPC55S69", "Infineon-PSoC6", "Renesas-RX65N"];
+  const errMsgs = ["OTA firmware validation failed", "TLS handshake timeout", "MQTT keepalive expired", "Flash write error", "Certificate rotation failed"];
+  return {
+    "@timestamp": ts,
+    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "freertos" } },
+    aws: {
+      freertos: {
+        thing_name: thing,
+        event_type: ev,
+        board: rand(boards),
+        firmware_version: `${randInt(1, 5)}.${randInt(0, 9)}.${randInt(0, 20)}`,
+        heap_free_bytes: randInt(1024, isErr ? 512 : 65536),
+        stack_high_water_mark: randInt(128, 4096),
+        uptime_seconds: randInt(0, 86400 * 30),
+        mqtt_messages_sent: randInt(0, 10000),
+        mqtt_messages_received: randInt(0, 5000),
+        ota_status: ev === "OTA_UPDATE" ? (isErr ? "FAILED" : "SUCCEEDED") : null,
+      },
+    },
+    event: { outcome: isErr ? "failure" : "success", duration: randInt(1e3, 3e6) },
+    message: isErr
+      ? `FreeRTOS ${thing}: ${ev} failed — ${rand(errMsgs)}`
+      : `FreeRTOS ${thing}: ${ev} OK (${rand(boards)})`,
+  };
+}
+
 export {
   generateIotCoreLog,
   generateIotGreengrassLog,
@@ -719,4 +823,7 @@ export {
   generateIotTwinMakerLog,
   generateIotFleetWiseLog,
   generateGroundStationLog,
+  generateKinesisVideoLog,
+  generatePanoramaLog,
+  generateFreeRtosLog,
 };

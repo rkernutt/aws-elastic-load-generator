@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "us-west-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,28 +13,31 @@
   },
   "aws": {
     "servicecatalog": {
-      "operation": "TerminateProvisionedProduct",
-      "product_name": "RDS PostgreSQL",
-      "product_id": "prod-2LOXAUY2GN2",
-      "portfolio_id": "port-F47YDCMTY1V",
-      "provisioned_product_name": "rds-postgresql-ubwb6z",
-      "record_id": "rec-D8SBB4DOW4N",
-      "status": "SUCCEEDED",
-      "requester_arn": "arn:aws:iam::164820739518:user/developer-alice"
+      "operation": "ProvisionProduct",
+      "product_name": "S3 Static Site",
+      "product_id": "prod-W85ZW43UTO",
+      "portfolio_id": "port-6GFBK0XDP3B",
+      "provisioned_product_name": "s3-static-site-mxm4pi",
+      "record_id": "rec-XA7YR13SN6I",
+      "status": "AVAILABLE",
+      "requester_arn": "arn:aws:iam::164820739518:user/contractor-dan"
     }
   },
   "user": {
-    "name": "developer-alice"
+    "name": "contractor-dan"
   },
   "event": {
-    "action": "TerminateProvisionedProduct",
+    "action": "ProvisionProduct",
     "outcome": "success",
-    "category": ["configuration", "process"],
+    "category": [
+      "configuration",
+      "process"
+    ],
     "dataset": "aws.servicecatalog",
     "provider": "servicecatalog.amazonaws.com",
-    "duration": 290000000000
+    "duration": 369000000000
   },
-  "message": "ServiceCatalog TerminateProvisionedProduct: developer-alice → RDS PostgreSQL [SUCCEEDED]",
+  "message": "ServiceCatalog ProvisionProduct: contractor-dan → S3 Static Site [AVAILABLE]",
   "log": {
     "level": "info"
   }

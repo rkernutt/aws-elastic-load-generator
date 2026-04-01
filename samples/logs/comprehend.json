@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "comprehend"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "StartEntitiesDetectionJob"
+      "Operation": "DetectPiiEntities"
     },
     "comprehend": {
-      "operation": "StartEntitiesDetectionJob",
-      "language_code": "ja",
-      "text_bytes": 83049,
+      "operation": "DetectPiiEntities",
+      "language_code": "es",
+      "text_bytes": 45825,
       "entities_detected": 0,
       "key_phrases_detected": 0,
-      "pii_entities_detected": 0,
+      "pii_entities_detected": 7,
       "metrics": {
         "NumberOfSuccessfulRequest": {
           "sum": 1
@@ -30,18 +30,20 @@
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 188.418
+          "avg": 204.3513584531345
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.comprehend",
     "provider": "comprehend.amazonaws.com"
   },
-  "message": "Comprehend StartEntitiesDetectionJob: lang=ja",
+  "message": "Comprehend DetectPiiEntities: lang=es",
   "log": {
     "level": "info"
   }

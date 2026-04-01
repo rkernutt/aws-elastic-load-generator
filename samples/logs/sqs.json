@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "ap-northeast-3",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,37 +13,39 @@
   },
   "aws": {
     "dimensions": {
-      "QueueName": "order-processing"
+      "QueueName": "webhook-events"
     },
     "sqs": {
       "queue": {
-        "name": "order-processing"
+        "name": "webhook-events"
       },
       "oldest_message_age": {
-        "sec": 272
+        "sec": 111
       },
       "messages": {
-        "delayed": 449,
-        "not_visible": 503,
-        "visible": 270,
-        "deleted": 144,
-        "received": 680,
-        "sent": 2979
+        "delayed": 361,
+        "not_visible": 582,
+        "visible": 706,
+        "deleted": 570,
+        "received": 3882,
+        "sent": 4337
       },
-      "empty_receives": 14,
+      "empty_receives": 55,
       "sent_message_size": {
-        "bytes": 43930
+        "bytes": 111629
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.sqs",
     "provider": "sqs.amazonaws.com",
-    "duration": 190000000
+    "duration": 433000000
   },
-  "message": "SQS order-processing: 2979 messages processed",
+  "message": "SQS webhook-events: 4337 sent, 3882 received",
   "log": {
     "level": "info"
   }

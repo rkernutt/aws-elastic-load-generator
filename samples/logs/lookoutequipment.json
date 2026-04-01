@@ -1,0 +1,35 @@
+{
+  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-north-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    },
+    "service": {
+      "name": "lookoutequipment"
+    }
+  },
+  "aws": {
+    "lookoutequipment": {
+      "model_name": "hvac-efficiency",
+      "event_type": "InferenceExecution",
+      "inference_scheduler": "hvac-efficiency-scheduler",
+      "anomaly_detected": true,
+      "anomalous_sensors": [
+        "rpm",
+        "flow_rate"
+      ],
+      "diagnostics_score": 0.4798637731895562,
+      "data_points_ingested": 4527,
+      "inference_latency_ms": 436,
+      "dataset_arn": "arn:aws:lookoutequipment:eu-north-1:164820739518:dataset/hvac-efficiency-data"
+    }
+  },
+  "event": {
+    "outcome": "failure",
+    "duration": 4142213
+  },
+  "message": "Lookout Equipment hvac-efficiency: anomaly detected in vibration_x"
+}

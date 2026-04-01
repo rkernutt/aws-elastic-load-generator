@@ -88,7 +88,8 @@ export const randUUID = () =>
  * Returns common per-document setup values used by every generator.
  */
 export function makeSetup(er: number) {
-  return { region: rand(REGIONS), acct: randAccount(), isErr: Math.random() < er };
+  const clampedEr = Math.min(1, Math.max(0, er));
+  return { region: rand(REGIONS), acct: randAccount(), isErr: Math.random() < clampedEr };
 }
 
 /** Recursively remove object keys whose value is null so output has no pointless null fields. */

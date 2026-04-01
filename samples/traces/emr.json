@@ -1,29 +1,29 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "580d4d0b1a654e157c8aec76d2916aba"
+    "id": "d38c46e1cba7d39a98e45911a0d9fc84"
   },
   "transaction": {
-    "id": "61d1e90a838ba91e",
-    "name": "report-pipeline-monthly [SPARK_SQL]",
+    "id": "76f175ac11088a47",
+    "name": "clickstream-aggregation [STREAMING_SQL]",
     "type": "spark_job",
     "duration": {
-      "us": 1380000000
+      "us": 5100000000
     },
     "result": "success",
     "sampled": true,
     "span_count": {
-      "started": 7,
+      "started": 4,
       "dropped": 0
     }
   },
   "service": {
-    "name": "report-pipeline-monthly",
-    "environment": "staging",
+    "name": "clickstream-aggregation",
+    "environment": "production",
     "version": "1.0.0",
     "language": {
       "name": "java"
@@ -34,7 +34,7 @@
     },
     "framework": {
       "name": "Spark",
-      "version": "3.5.1"
+      "version": "3.4.0"
     }
   },
   "agent": {
@@ -54,23 +54,23 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "ap-south-1",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "234567890123",
+      "name": "staging-aws"
     },
     "service": {
       "name": "emr"
     }
   },
   "labels": {
-    "emr_cluster_id": "j-C4B50C5FD1A09",
-    "emr_cluster_name": "prod-aws-emr-spark_sql",
-    "emr_step_id": "s-9F4850945AF87",
-    "spark_app_id": "application_1774962929571_1153",
-    "emr_version": "7.1.0",
-    "spark_version": "3.5.1",
-    "job_type": "spark_sql"
+    "emr_cluster_id": "j-914C0F164C3A7",
+    "emr_cluster_name": "staging-aws-emr-streaming_sql",
+    "emr_step_id": "s-20F74A5C0FBDA",
+    "spark_app_id": "application_1775021233175_3986",
+    "emr_version": "6.14.0",
+    "spark_version": "3.4.0",
+    "job_type": "streaming_sql"
   },
   "event": {
     "outcome": "success"

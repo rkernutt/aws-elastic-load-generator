@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "ca-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "connect"
@@ -13,22 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "xotmpnci-pqcy-d3cu-x1kz-x1hakio8lyi",
+      "InstanceId": "8k53ub6z-y3p5-e6tg-aley-w2zdmomoj2",
       "MetricGroup": "Queue"
     },
     "connect": {
-      "instance_id": "xotmpnci-pqcy-d3cu-x1kz-x1hakio8lyi",
-      "contact_id": "w0p16o68-fj5o-0yve",
+      "instance_id": "8k53ub6z-y3p5-e6tg-aley-w2zdmomoj2",
+      "contact_id": "lwiz30pu-h71v-0xp1",
       "channel": "TASK",
-      "initiation_method": "CHAT",
+      "initiation_method": "OUTBOUND_CALL",
       "queue_name": "TechSupport",
-      "duration_seconds": 883,
-      "hold_duration_seconds": 102,
-      "queue_wait_time_seconds": 188,
-      "disconnect_reason": "EXPIRED",
-      "sentiment_overall": "MIXED",
-      "contact_lens_enabled": false,
-      "lex_bot_interacted": false,
+      "agent_id": "agent-bob",
+      "duration_seconds": 751,
+      "hold_duration_seconds": 21,
+      "queue_wait_time_seconds": 225,
+      "disconnect_reason": "CUSTOMER_DISCONNECT",
+      "sentiment_overall": "NEGATIVE",
+      "contact_lens_enabled": true,
+      "lex_bot_interacted": true,
       "metrics": {
         "ContactsQueued": {
           "sum": 1
@@ -43,31 +44,34 @@
           "sum": 0
         },
         "AverageHandleTime": {
-          "avg": 883
+          "avg": 751
         },
         "AverageAfterContactWorkTime": {
-          "avg": 294
+          "avg": 96
         },
         "AverageQueueAnswerTime": {
-          "avg": 73
+          "avg": 28
         },
         "ServiceLevel": {
-          "avg": 96.262
+          "avg": 65.97863752427182
         },
         "OccupancyTime": {
-          "avg": 74.481
+          "avg": 74.15975333005854
         }
       }
     }
   },
   "event": {
-    "duration": 883000000000,
+    "duration": 751000000000,
     "outcome": "success",
-    "category": ["host", "session"],
+    "category": [
+      "host",
+      "session"
+    ],
     "dataset": "aws.connect",
     "provider": "connect.amazonaws.com"
   },
-  "message": "Connect CHAT: TechSupport, 883s, MIXED",
+  "message": "Connect OUTBOUND_CALL: TechSupport agent=agent-bob, 751s, NEGATIVE",
   "log": {
     "level": "warn"
   }

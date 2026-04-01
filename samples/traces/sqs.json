@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "7f84ede60143a43702e4213334486f28"
+    "id": "98de09fde6c1a771f8a8dd634ae668df"
   },
   "transaction": {
-    "id": "a93c3481e2879808",
-    "name": "audit-log-queue process",
+    "id": "577b1702f504846f",
+    "name": "analytics-ingest-queue process",
     "type": "messaging",
     "duration": {
-      "us": 3653000
+      "us": 3276000
     },
     "result": "success",
     "sampled": true,
@@ -22,22 +22,22 @@
     }
   },
   "labels": {
-    "queue_name": "audit-log-queue",
-    "queue_url": "https://sqs.us-west-1.amazonaws.com/234567890123/audit-log-queue",
-    "message_count": "2",
-    "approximate_first_receive_delay_seconds": "12",
-    "parent_trace_id": "2d1b714dc74b29b6acbbfa9b5dd0a7bd"
+    "queue_name": "analytics-ingest-queue",
+    "queue_url": "https://sqs.ap-south-1.amazonaws.com/345678901234/analytics-ingest-queue",
+    "message_count": "8",
+    "approximate_first_receive_delay_seconds": "108",
+    "parent_trace_id": "d715d81663b83d63865aeb44e228a1e5"
   },
   "service": {
-    "name": "audit-log-consumer",
-    "environment": "production",
+    "name": "analytics-ingest-consumer",
+    "environment": "staging",
     "version": "1.0.0",
     "language": {
-      "name": "java"
+      "name": "nodejs"
     },
     "runtime": {
-      "name": "java21",
-      "version": "21.0.3"
+      "name": "nodejs20.x",
+      "version": "18.0.3"
     },
     "framework": {
       "name": "AWS SQS"
@@ -45,25 +45,25 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "1.6.0"
+    "version": "1.4.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "java",
-      "version": "2.12.0"
+      "language": "nodejs",
+      "version": "1.30.1"
     },
     "distro": {
       "name": "elastic",
-      "version": "1.6.0"
+      "version": "1.4.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ap-south-1",
     "account": {
-      "id": "234567890123",
-      "name": "staging-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "sqs"

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "il-central-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,18 +13,18 @@
   },
   "aws": {
     "dimensions": {
-      "DeploymentGroupName": "prod",
+      "DeploymentGroupName": "staging",
       "ApplicationName": "api-service"
     },
     "codedeploy": {
       "application_name": "api-service",
-      "deployment_group": "prod",
-      "deployment_id": "d-4L71N6U5B",
-      "deployment_type": "BLUE_GREEN",
-      "lifecycle_event": "BeforeAllowTraffic",
+      "deployment_group": "staging",
+      "deployment_id": "d-RANXLENCF",
+      "deployment_type": "IN_PLACE",
+      "lifecycle_event": "ApplicationStart",
       "event_status": "Succeeded",
-      "duration_seconds": 305,
-      "instances_succeeded": 8,
+      "duration_seconds": 121,
+      "instances_succeeded": 1,
       "instances_failed": 0,
       "metrics": {
         "DeploymentAttempts": {
@@ -40,10 +40,10 @@
           "sum": 0
         },
         "DeploymentDuration": {
-          "avg": 305
+          "avg": 121
         },
         "InstanceSuccesses": {
-          "sum": 8
+          "sum": 10
         },
         "InstanceFailures": {
           "sum": 0
@@ -52,13 +52,16 @@
     }
   },
   "event": {
-    "duration": 305000000000,
+    "duration": 121000000000,
     "outcome": "success",
-    "category": ["process", "configuration"],
+    "category": [
+      "process",
+      "configuration"
+    ],
     "dataset": "aws.codedeploy",
     "provider": "codedeploy.amazonaws.com"
   },
-  "message": "Deployment succeeded",
+  "message": "CodeDeploy api-service deployment SUCCEEDED in 121s",
   "log": {
     "level": "info"
   }

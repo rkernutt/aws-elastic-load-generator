@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "eks"
@@ -13,74 +13,74 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "prod-cluster-ap-northeast-1",
-      "NodeName": "ip-62-179-127-91.ap-northeast-1.compute.internal",
-      "Namespace": "ingress-nginx",
-      "PodName": "cache-6c5tb-llgzw"
+      "ClusterName": "prod-cluster-eu-south-2",
+      "NodeName": "ip-62-40-15-199.eu-south-2.compute.internal",
+      "Namespace": "app-prod",
+      "PodName": "api-3w1i7-c7gm6"
     },
     "eks": {
       "structured_logging": false,
       "cluster": {
-        "name": "prod-cluster-ap-northeast-1"
+        "name": "prod-cluster-eu-south-2"
       },
       "node": {
-        "name": "ip-62-179-127-91.ap-northeast-1.compute.internal"
+        "name": "ip-62-40-15-199.eu-south-2.compute.internal"
       },
       "metrics": {
         "cluster_failed_node_count": {
           "avg": 0
         },
         "node_cpu_utilization": {
-          "avg": "20.491"
+          "avg": 61.42588041754023
         },
         "node_memory_utilization": {
-          "avg": "62.186"
+          "avg": 30.460145520876182
         },
         "node_network_total_bytes": {
-          "sum": 532060270
+          "sum": 932341106
         },
         "node_filesystem_utilization": {
-          "avg": "62.213"
+          "avg": 57.26966027075419
         },
         "pod_cpu_utilization": {
-          "avg": "39.879"
+          "avg": 21.128679157923052
         },
         "pod_memory_utilization": {
-          "avg": "41.598"
+          "avg": 64.6535278885425
         },
         "pod_network_rx_bytes": {
-          "sum": 62127082
+          "sum": 17874366
         },
         "pod_network_tx_bytes": {
-          "sum": 94878726
+          "sum": 61970918
         },
         "node_count": {
-          "avg": 33
+          "avg": 29
         },
         "pod_count": {
-          "avg": 300
+          "avg": 312
         }
       }
     }
   },
   "container": {
-    "id": "h9272m35itj",
-    "name": "cache",
+    "id": "wvt401y28o",
+    "name": "api",
     "image": {
-      "name": "k8s.gcr.io/cache:v1.24.5"
+      "name": "k8s.gcr.io/api:v1.27.3"
     },
     "runtime": "containerd"
   },
   "kubernetes": {
-    "namespace": "ingress-nginx",
+    "namespace": "app-prod",
     "pod": {
-      "name": "cache-6c5tb-llgzw"
+      "name": "api-3w1i7-c7gm6"
     },
     "container": {
-      "name": "cache"
+      "name": "api"
     },
     "labels": {
-      "app": "cache",
+      "app": "api",
       "env": "prod"
     }
   },
@@ -88,11 +88,14 @@
     "level": "info"
   },
   "event": {
-    "category": ["process", "container"],
+    "category": [
+      "process",
+      "container"
+    ],
     "outcome": "success",
     "dataset": "aws.eks",
     "provider": "eks.amazonaws.com",
-    "duration": 2025000000000
+    "duration": 2935000000000
   },
-  "message": "2026-03-31 13:15:29.271 I808 R6ORRU manager.go:405] Endpoint slice updated"
+  "message": "2026-04-01 05:27:12.782 W288 7L0V1B reconciler.go:128] Service endpoint added"
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "us-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "config"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "dimensions": {
-      "ConfigRuleName": "s3-bucket-ssl-requests-only",
-      "ResourceType": "AWS::EC2::SecurityGroup"
+      "ConfigRuleName": "iam-password-policy",
+      "ResourceType": "AWS::RDS::DBInstance"
     },
     "config": {
-      "rule_name": "s3-bucket-ssl-requests-only",
+      "rule_name": "iam-password-policy",
       "compliance_type": "INSUFFICIENT_DATA",
-      "resource_type": "AWS::EC2::SecurityGroup",
-      "resource_id": "sg-wdj96csk",
+      "resource_type": "AWS::RDS::DBInstance",
+      "resource_id": "s3-nljdkd50",
       "annotation": "Resource is compliant",
       "metrics": {
         "ComplianceByConfigRule": {
@@ -33,18 +33,21 @@
           "sum": 1
         },
         "ConfigurationItemsRecorded": {
-          "sum": 6
+          "sum": 61
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["configuration", "compliance"],
+    "category": [
+      "configuration",
+      "compliance"
+    ],
     "dataset": "aws.config",
     "provider": "config.amazonaws.com"
   },
-  "message": "Config rule PASSED: s3-bucket-ssl-requests-only",
+  "message": "Config rule PASSED: iam-password-policy",
   "log": {
     "level": "info"
   }

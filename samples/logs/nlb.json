@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "il-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "nlb"
@@ -13,47 +13,51 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "net/prod-nlb-eu-west-1/0ynf5o2hdqa",
-      "TargetGroup": "targetgroup/tg-api/0dlxpspbmdbd",
-      "AvailabilityZone": "eu-west-1c"
+      "LoadBalancer": "net/prod-nlb-il-central-1/xk1klwpp91o",
+      "TargetGroup": "targetgroup/tg-web/pszjn78k5ra",
+      "AvailabilityZone": "il-central-1c"
     },
     "elb": {
-      "name": "net/prod-nlb-eu-west-1/0ynf5o2hdqa",
+      "name": "net/prod-nlb-il-central-1/xk1klwpp91o",
       "type": "network",
-      "listener": "arn:aws:elasticloadbalancing:eu-west-1:738291046572:listener/net/prod-nlb/2b3q8uz69ag/2cfqdpyyw8p",
-      "protocol": "UDP",
-      "connection_time.ms": 3657,
-      "backend.ip": "145.224.238.147",
+      "listener": "arn:aws:elasticloadbalancing:il-central-1:164820739518:listener/net/prod-nlb/qntzyysm7yp/mmu71a5ibi",
+      "protocol": "TLS",
+      "connection_time.ms": 4965,
+      "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
+      "ssl_protocol": "TLSv1.3",
+      "backend.ip": "29.246.158.82",
       "backend.port": "3306",
-      "received_bytes": 88786,
-      "sent_bytes": 1025079
+      "received_bytes": 777157,
+      "sent_bytes": 448921
     }
   },
   "source": {
-    "ip": "176.147.66.56",
-    "port": 58775,
+    "ip": "93.84.221.113",
+    "port": 58433,
     "geo": {
-      "country_iso_code": "CN",
-      "country_name": "China",
-      "city_name": "Beijing",
+      "country_iso_code": "JP",
+      "country_name": "Japan",
+      "city_name": "Tokyo",
       "location": {
-        "lat": 39.9042,
-        "lon": 116.4074
+        "lat": 35.6762,
+        "lon": 139.6503
       }
     }
   },
   "network": {
-    "transport": "udp",
-    "bytes": 88786
+    "transport": "tls",
+    "bytes": 777157
   },
   "event": {
     "outcome": "success",
-    "category": ["network"],
+    "category": [
+      "network"
+    ],
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com",
-    "duration": 3657000000
+    "duration": 4965000000
   },
-  "message": "NLB UDP:3306 88786B in 3657ms",
+  "message": "NLB TLS:3306 777157B in 4965ms",
   "log": {
     "level": "info"
   }

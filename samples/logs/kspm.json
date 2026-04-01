@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,10 +7,10 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     }
   },
   "orchestrator": {
@@ -22,20 +22,22 @@
     "namespace": "default"
   },
   "resource": {
-    "id": "data-processing-eks/default/pod/cron-j9gj9",
-    "name": "pod/cron-j9gj9",
-    "sub_type": "Pod",
+    "id": "data-processing-eks/default/api-server/data-processing-eks",
+    "name": "api-server/data-processing-eks",
+    "sub_type": "api-server",
     "type": "k8s_object"
   },
   "rule": {
-    "id": "cis_eks_4_3",
-    "name": "Minimize containers wishing to share the host process ID namespace",
-    "section": "4.3",
-    "tags": ["Pod Security"],
+    "id": "cis_eks_5_4",
+    "name": "Restrict access to the control plane endpoint",
+    "section": "5.4",
+    "tags": [
+      "Managed Services"
+    ],
     "benchmark": {
       "id": "cis_eks",
       "version": "v1.4.0",
-      "rule_number": "4.3",
+      "rule_number": "5.4",
       "posture_type": "kspm"
     }
   },
@@ -45,13 +47,17 @@
   "severity": "none",
   "event": {
     "kind": "state",
-    "category": ["configuration"],
-    "type": ["info"],
+    "category": [
+      "configuration"
+    ],
+    "type": [
+      "info"
+    ],
     "outcome": "success",
     "dataset": "cloud_security_posture.findings",
     "provider": "elastic_kspm"
   },
-  "message": "KSPM [CIS EKS / 4.3] passed: Minimize containers wishing to share the host process ID namespace [data-processing-eks]",
+  "message": "KSPM [CIS EKS / 5.4] passed: Restrict access to the control plane endpoint [data-processing-eks]",
   "log": {
     "level": "info"
   }

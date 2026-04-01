@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "us-east-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "systemsmanager"
@@ -13,12 +13,13 @@
   },
   "aws": {
     "ssm": {
-      "command_id": "29a6tq5t-9tnk-ej1a",
-      "document_name": "AWS-RunPowerShellScript",
-      "instance_id": "i-g0yvwlhoug6",
-      "action": "SendCommand",
+      "command_id": "2hnayinr-gsot-rdys",
+      "document_name": "AWS-RunShellScript",
+      "instance_id": "i-1ip1vjfchs7",
+      "action": "PatchInstance",
       "execution_status": "Success",
       "response_code": 0,
+      "patch_compliance": "NotApplicable",
       "structured_logging": true,
       "metrics": {
         "CommandsSucceeded": {
@@ -37,22 +38,26 @@
           "sum": 1
         },
         "SessionDuration": {
-          "avg": 517
+          "avg": 253
         },
         "PatchComplianceCount": {
-          "avg": 236
+          "avg": 400
         }
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process", "configuration", "host"],
+    "category": [
+      "process",
+      "configuration",
+      "host"
+    ],
     "dataset": "aws.ssm",
     "provider": "ssm.amazonaws.com",
-    "duration": 3000000000
+    "duration": 29000000000
   },
-  "message": "{\"commandId\":\"29a6tq5t-9tnk-ej1a\",\"documentName\":\"AWS-RunPowerShellScript\",\"instanceId\":\"i-g0yvwlhoug6\",\"action\":\"SendCommand\",\"status\":\"Success\",\"timestamp\":\"2026-03-31T13:15:29.271Z\"}",
+  "message": "{\"commandId\":\"2hnayinr-gsot-rdys\",\"documentName\":\"AWS-RunShellScript\",\"instanceId\":\"i-1ip1vjfchs7\",\"action\":\"PatchInstance\",\"status\":\"Success\",\"timestamp\":\"2026-04-01T05:27:12.782Z\"}",
   "log": {
     "level": "info"
   }

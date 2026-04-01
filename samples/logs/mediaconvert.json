@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "eu-west-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "mediaconvert"
@@ -13,46 +13,54 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "DASH"
+      "Operation": "HLS"
     },
     "mediaconvert": {
-      "job_id": "7071325676-0uzhyw",
-      "queue_arn": "arn:aws:mediaconvert:ap-northeast-2:501938274650:queues/batch",
-      "job_status": "COMPLETE",
-      "output_group_type": "DASH",
-      "input_file": "s3://media-input/broadcast/live.mxf",
-      "input_duration_minutes": 15.718,
-      "video_codec": "AV1",
-      "audio_codec": "AC3",
-      "width": 3840,
-      "height": 2160,
+      "job_id": "4409968420-9k60w6",
+      "queue_arn": "arn:aws:mediaconvert:eu-west-3:164820739518:queues/Default",
+      "job_status": "ERROR",
+      "output_group_type": "HLS",
+      "input_file": "s3://uploads/user-video.mp4",
+      "input_duration_minutes": 102.63683971517086,
+      "video_codec": "MPEG2",
+      "audio_codec": "MP3",
+      "width": 1280,
+      "height": 720,
       "bitrate_kbps": 1500,
-      "duration_seconds": 1502,
+      "duration_seconds": 3550,
+      "error_message": "Unsupported codec",
       "metrics": {
         "JobsCompletedCount": {
-          "sum": 1
-        },
-        "JobsErroredCount": {
           "sum": 0
         },
+        "JobsErroredCount": {
+          "sum": 1
+        },
         "StandbyTime": {
-          "avg": 120
+          "avg": 296
         },
         "TranscodingTime": {
-          "avg": 1502
+          "avg": 3550
         }
       }
     }
   },
   "event": {
-    "duration": 1502000000000,
-    "outcome": "success",
-    "category": ["process"],
+    "duration": 3550000000000,
+    "outcome": "failure",
+    "category": [
+      "process"
+    ],
     "dataset": "aws.mediaconvert",
     "provider": "mediaconvert.amazonaws.com"
   },
-  "message": "MediaConvert job 7071325676-0uzhyw COMPLETE: 15.7 min -> DASH",
+  "message": "MediaConvert job 4409968420-9k60w6 ERROR: Codec unsupported",
+  "error": {
+    "code": "JobError",
+    "message": "MediaConvert job failed",
+    "type": "media"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   }
 }

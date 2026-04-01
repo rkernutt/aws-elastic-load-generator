@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "ap-southeast-4",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "prod-waf",
-      "Rule": "IPRateBasedRule",
-      "Region": "ap-southeast-2"
+      "WebACL": "api-waf",
+      "Rule": "AWSManagedRulesCommonRuleSet",
+      "Region": "ap-southeast-4"
     },
     "waf": {
-      "id": "2v897kdqosc",
-      "arn": "arn:aws:wafv2:ap-southeast-2:293847561023:regional/webacl/prod-waf/r7xn0l4p-fxmm-wf0r-yp2q-6396jcxz4h8",
+      "id": "x25l2dj7km",
+      "arn": "arn:aws:wafv2:ap-southeast-4:293847561023:regional/webacl/api-waf/kp309fv4-ah33-k5ij-qh7j-54uv128ncit",
       "format_version": "1",
       "source": {
         "name": "ALB",
-        "id": "293847561023-app/prod-waf/v0pd8r1wlpb"
+        "id": "293847561023-app/api-waf/ocz7cd9npo"
       },
       "rule_group_list": [
         {
-          "ruleGroupId": "IPRateBasedRule",
+          "ruleGroupId": "AWSManagedRulesCommonRuleSet",
           "nonTerminatingMatchingRules": []
         }
       ],
@@ -72,39 +72,39 @@
     }
   },
   "rule": {
-    "id": "BadBot",
-    "ruleset": "IPRateBasedRule"
+    "id": "GenericLFI_URIPATH",
+    "ruleset": "AWSManagedRulesCommonRuleSet"
   },
   "http": {
     "request": {
-      "method": "POST",
-      "bytes": 8549
+      "method": "PUT",
+      "bytes": 6945
     }
   },
   "url": {
     "path": "/api/v1/orders"
   },
   "source": {
-    "ip": "199.210.153.150",
+    "ip": "79.28.180.76",
     "geo": {
-      "country_iso_code": "FR",
-      "country_name": "France",
-      "city_name": "Paris",
+      "country_iso_code": "SG",
+      "country_name": "Singapore",
+      "city_name": "Singapore",
       "location": {
-        "lat": 48.8566,
-        "lon": 2.3522
+        "lat": 1.3521,
+        "lon": 103.8198
       }
     }
   },
   "client": {
-    "ip": "199.210.153.150",
+    "ip": "79.28.180.76",
     "geo": {
-      "country_iso_code": "FR",
-      "country_name": "France",
-      "city_name": "Paris",
+      "country_iso_code": "SG",
+      "country_name": "Singapore",
+      "city_name": "Singapore",
       "location": {
-        "lat": 48.8566,
-        "lon": 2.3522
+        "lat": 1.3521,
+        "lon": 103.8198
       }
     }
   },
@@ -114,12 +114,15 @@
   "event": {
     "action": "allow",
     "outcome": "success",
-    "category": ["intrusion_detection", "network"],
+    "category": [
+      "intrusion_detection",
+      "network"
+    ],
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com",
-    "duration": 10000000
+    "duration": 49000000
   },
-  "message": "WAF ALLOWED request - Rule: IPRateBasedRule",
+  "message": "WAF ALLOWED request - Rule: AWSManagedRulesCommonRuleSet",
   "log": {
     "level": "info"
   }

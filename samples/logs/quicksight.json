@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "quicksight"
@@ -13,39 +13,39 @@
   },
   "aws": {
     "dimensions": {
-      "DashboardId": "7z0x6udsaa3",
-      "DataSetId": "gre10oj4u9i"
+      "DashboardId": "wrbqqkcjiqa",
+      "DataSetId": "gp8bzsswvvj"
     },
     "quicksight": {
-      "dashboard_id": "7z0x6udsaa3",
+      "dashboard_id": "wrbqqkcjiqa",
       "dashboard_name": "sales-dashboard",
-      "dataset_id": "gre10oj4u9i",
-      "action": "CreateAnalysis",
+      "dataset_id": "gp8bzsswvvj",
+      "action": "ListDashboards",
       "user_name": "carol@corp.com",
-      "data_source_type": "ATHENA",
-      "query_duration_ms": 2247,
-      "rows_returned": 39569,
+      "data_source_type": "AURORA",
+      "query_duration_ms": 1837,
+      "rows_returned": 46312,
       "metrics": {
         "DashboardViewEvents": {
-          "sum": 213
+          "sum": 842
         },
         "SessionEvent": {
-          "sum": 472
+          "sum": 288
         },
         "SPICECapacityUsed": {
-          "avg": 41.963
+          "avg": 55.51932177511199
         },
         "SPICECapacityScheduled": {
-          "avg": 43.932
+          "avg": 59.26900984974235
         },
         "EmbedCallCount": {
-          "sum": 477
+          "sum": 149
         },
         "ClientError": {
           "sum": 0
         },
         "RowLevelSecurityEnabled": {
-          "avg": 1
+          "avg": 0
         }
       }
     }
@@ -54,13 +54,16 @@
     "name": "carol@corp.com"
   },
   "event": {
-    "duration": 2247000000,
+    "duration": 1837000000,
     "outcome": "success",
-    "category": ["web", "process"],
+    "category": [
+      "web",
+      "process"
+    ],
     "dataset": "aws.quicksight",
     "provider": "quicksight.amazonaws.com"
   },
-  "message": "QuickSight CreateAnalysis: sales-dashboard loaded in 2247ms for carol@corp.com",
+  "message": "QuickSight ListDashboards: sales-dashboard loaded in 1837ms for carol@corp.com",
   "log": {
     "level": "info"
   }

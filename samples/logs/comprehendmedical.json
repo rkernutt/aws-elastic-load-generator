@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
     "region": "me-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "comprehendmedical"
@@ -17,22 +17,24 @@
     },
     "comprehendmedical": {
       "operation": "InferSNOMEDCT",
-      "entities_detected": 20,
-      "phi_entities": 10,
-      "snomedct_concepts": 12,
-      "text_characters": 9438,
-      "data_access_role_arn": "arn:aws:iam::501938274650:role/ComprehendMedicalRole",
-      "s3_bucket": "medical-records"
+      "entities_detected": 28,
+      "phi_entities": 1,
+      "snomedct_concepts": 17,
+      "text_characters": 4345,
+      "data_access_role_arn": "arn:aws:iam::293847561023:role/ComprehendMedicalRole",
+      "s3_bucket": "clinical-notes"
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.comprehendmedical",
     "provider": "comprehendmedical.amazonaws.com"
   },
-  "message": "Comprehend Medical InferSNOMEDCT: 20 entities, 10 PHI",
+  "message": "Comprehend Medical InferSNOMEDCT: 28 entities, 1 PHI",
   "log": {
-    "level": "warn"
+    "level": "info"
   }
 }

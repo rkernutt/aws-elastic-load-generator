@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "ipam"
@@ -13,35 +13,37 @@
   },
   "aws": {
     "dimensions": {
-      "PoolId": "ipam-pool-h2360bg0",
-      "ScopeId": "ipam-scope-4of3x4b7"
+      "PoolId": "ipam-pool-jyr3iybz",
+      "ScopeId": "ipam-scope-aatwjw2e"
     },
     "vpcipam": {
-      "pool_id": "ipam-pool-h2360bg0",
-      "scope_id": "ipam-scope-4of3x4b7",
-      "allocation_id": "ipam-alloc-rvy0f20s",
-      "cidr": "10.0.0.0/16",
+      "pool_id": "ipam-pool-jyr3iybz",
+      "scope_id": "ipam-scope-aatwjw2e",
+      "allocation_id": "ipam-alloc-9po9tvsl",
+      "cidr": "10.1.0.0/16",
       "allocation_type": "resource",
       "metrics": {
-        "allocations_count": 169,
-        "free_count": 162,
-        "used_count": 169
+        "allocations_count": 63,
+        "free_count": 172,
+        "used_count": 63
       }
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["network"],
+    "category": [
+      "network"
+    ],
     "dataset": "aws.vpcipam",
     "provider": "ec2.amazonaws.com",
-    "duration": 187000000
+    "duration": 170000000
   },
   "data_stream": {
     "type": "logs",
     "dataset": "aws.vpcipam",
     "namespace": "default"
   },
-  "message": "VPC IPAM pool ipam-pool-h2360bg0: allocated 10.0.0.0/16 (resource), free=162",
+  "message": "VPC IPAM pool ipam-pool-jyr3iybz: allocated 10.1.0.0/16 (resource), free=172",
   "log": {
     "level": "info"
   }

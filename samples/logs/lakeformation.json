@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "lakeformation"
@@ -13,27 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "ResourceArn": "arn:aws:glue:ap-east-1:164820739518:table/curated/products",
-      "Principal": "arn:aws:iam::164820739518:role/analyst-role"
+      "ResourceArn": "arn:aws:glue:ca-central-1:738291046572:table/analytics/events",
+      "Principal": "arn:aws:iam::738291046572:role/analyst-role"
     },
     "lakeformation": {
-      "database": "curated",
-      "table": "products",
+      "database": "analytics",
+      "table": "events",
       "action": "BatchGrantPermissions",
-      "principal_arn": "arn:aws:iam::164820739518:role/analyst-role",
-      "resource_arn": "arn:aws:glue:ap-east-1:164820739518:table/curated/products",
-      "permissions": ["ALL"],
-      "lf_tag_key": "environment",
-      "lf_tag_values": ["dev", "staging"],
+      "principal_arn": "arn:aws:iam::738291046572:role/analyst-role",
+      "resource_arn": "arn:aws:glue:ca-central-1:738291046572:table/analytics/events",
+      "permissions": [
+        "SELECT",
+        "INSERT"
+      ],
+      "lf_tag_key": "pii",
+      "lf_tag_values": [
+        "prod"
+      ],
       "metrics": {
         "GrantCount": {
-          "sum": 18
+          "sum": 10
         },
         "DatabaseCount": {
-          "avg": 5
+          "avg": 17
         },
         "TableCount": {
-          "avg": 119
+          "avg": 27
         },
         "DataLakeSettings": {
           "avg": 1
@@ -43,13 +48,16 @@
   },
   "event": {
     "action": "BatchGrantPermissions",
-    "duration": 361000000,
+    "duration": 336000000,
     "outcome": "success",
-    "category": ["database", "iam"],
+    "category": [
+      "database",
+      "iam"
+    ],
     "dataset": "aws.lakeformation",
     "provider": "lakeformation.amazonaws.com"
   },
-  "message": "Lake Formation BatchGrantPermissions: ALL on curated.products",
+  "message": "Lake Formation BatchGrantPermissions: SELECT,INSERT on analytics.events",
   "log": {
     "level": "info"
   }

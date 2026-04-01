@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "fargate"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "api-backend",
+      "ServiceName": "worker",
       "ClusterName": "prod-cluster",
-      "TaskDefinitionFamily": "api-backend"
+      "TaskDefinitionFamily": "worker"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 26
+          "avg": 18
         },
         "CPUReservation": {
-          "avg": 11.819
+          "avg": 66.71543410890837
         },
         "MemoryUtilization": {
-          "avg": 21.051
+          "avg": 23.70870064584885
         },
         "MemoryReservation": {
-          "avg": 25.57
+          "avg": 34.93850200246439
         },
         "GPUReservation": {
           "avg": 0
@@ -38,27 +38,30 @@
     }
   },
   "container": {
-    "id": "g8veh3far9t",
-    "name": "api-backend",
+    "id": "hopgxwscwyv",
+    "name": "worker",
     "image": {
-      "name": "myrepo/api-backend:latest",
+      "name": "myrepo/worker:latest",
       "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 44749,
-    "name": "api-backend"
+    "pid": 28550,
+    "name": "worker"
   },
   "log": {
     "level": "info"
   },
   "event": {
     "outcome": "success",
-    "category": ["process", "container"],
+    "category": [
+      "process",
+      "container"
+    ],
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 1080000000000
+    "duration": 557000000000
   },
-  "message": "Task started successfully"
+  "message": "Task registered with load balancer"
 }

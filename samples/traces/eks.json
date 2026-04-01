@@ -1,53 +1,45 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "fe19ba804edb067a9589e3a479612010"
+    "id": "8a7f3ce1242e91f015dd1a6ceb6fe539"
   },
   "transaction": {
-    "id": "bdedd2203b49fa56",
-    "name": "GET /users/{id}/preferences",
-    "type": "request",
+    "id": "c5e824c2f2e7e02a",
+    "name": "user-events process",
+    "type": "messaging",
     "duration": {
-      "us": 54611
+      "us": 24653
     },
-    "result": "HTTP 200",
+    "result": "success",
     "sampled": true,
     "span_count": {
       "started": 2,
       "dropped": 0
     }
   },
-  "http": {
-    "request": {
-      "method": "GET"
-    },
-    "response": {
-      "status_code": 200
-    }
-  },
-  "url": {
-    "path": "/users/{id}/preferences"
-  },
   "labels": {
-    "k8s_namespace": "production",
-    "k8s_pod_name": "user-profile-service-b1ca2-dd951",
-    "k8s_deployment": "user-profile-service",
-    "k8s_node": "ip-195-16-232-125.ec2.internal"
+    "k8s_namespace": "staging",
+    "k8s_pod_name": "event-processor-80cc9-b77b4",
+    "k8s_deployment": "event-processor",
+    "k8s_node": "ip-85-223-65-227.ec2.internal",
+    "kafka_topic": "user-events",
+    "kafka_partition": "7",
+    "kafka_offset": "231712"
   },
   "service": {
-    "name": "user-profile-service",
-    "environment": "production",
+    "name": "event-processor",
+    "environment": "staging",
     "version": "1.0.0",
     "language": {
-      "name": "python"
+      "name": "java"
     },
     "runtime": {
-      "name": "python3.12",
-      "version": "3.12.3"
+      "name": "java21",
+      "version": "21.0.3"
     },
     "framework": {
       "name": "Kubernetes"
@@ -55,22 +47,22 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "0.6.0"
+    "version": "1.6.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "python",
-      "version": "1.29.0"
+      "language": "java",
+      "version": "2.12.0"
     },
     "distro": {
       "name": "elastic",
-      "version": "0.6.0"
+      "version": "1.6.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ca-central-1",
     "account": {
       "id": "123456789012",
       "name": "prod-aws"

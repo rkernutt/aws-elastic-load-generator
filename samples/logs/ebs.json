@@ -1,12 +1,12 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
-    "availability_zone": "me-south-1a",
+    "region": "ap-east-1",
+    "availability_zone": "ap-east-1c",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "ebs"
@@ -14,74 +14,64 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-kzsi9vyvc9q",
-      "VolumeType": "io1"
+      "VolumeId": "vol-9wm2nzk5ixv",
+      "VolumeType": "gp3"
     },
     "ebs": {
-      "volume_id": "vol-kzsi9vyvc9q",
-      "volume_type": "io1",
-      "size_gb": 1000,
-      "attached_instance": "i-yua7nx76gu",
-      "device": "/dev/sdg",
-      "iops_consumed": 3231,
-      "provisioned_iops": 4747,
-      "throughput_mbps": 216.2,
-      "queue_depth": 23,
-      "latency_ms": 5.26,
-      "read_ops": 3215,
-      "write_ops": 3902,
-      "read_bytes": 95949459,
-      "write_bytes": 291735768,
-      "event_type": "performance",
+      "volume_id": "vol-9wm2nzk5ixv",
+      "volume_type": "gp3",
+      "size_gb": 500,
+      "availability_zone": "ap-east-1c",
+      "previous_state": "available",
+      "current_state": "available",
+      "event_type": "state_change",
       "metrics": {
         "VolumeReadOps": {
-          "avg": 9824
+          "avg": 8842
         },
         "VolumeWriteOps": {
-          "avg": 9925
+          "avg": 9609
         },
         "VolumeReadBytes": {
-          "avg": 308786598
+          "avg": 406744182
         },
         "VolumeWriteBytes": {
-          "avg": 129074388
+          "avg": 417758717
         },
         "VolumeTotalReadTime": {
-          "sum": 9.569
+          "sum": 5.270561576720077
         },
         "VolumeTotalWriteTime": {
-          "sum": 3.194
+          "sum": 4.980701498560501
         },
         "VolumeIdleTime": {
-          "sum": 21.781
+          "sum": 59.72911140991692
         },
         "VolumeQueueLength": {
-          "avg": 35
+          "avg": 7
         },
         "VolumeThroughputPercentage": {
-          "avg": 79.926
+          "avg": 55.32735261741744
         },
         "VolumeConsumedReadWriteOps": {
-          "avg": 4521
+          "avg": 349
         },
         "BurstBalance": {}
       }
     }
   },
   "event": {
-    "outcome": "failure",
-    "category": ["host", "file"],
+    "outcome": "success",
+    "category": [
+      "host",
+      "file"
+    ],
     "dataset": "aws.ebs",
     "provider": "ec2.amazonaws.com",
-    "duration": 59772000000
+    "duration": 493000000
   },
-  "message": "EBS vol-kzsi9vyvc9q IOPS throttled: consumed 3231 vs provisioned 4747, queue depth 23",
+  "message": "EBS volume vol-9wm2nzk5ixv state change: available -> available",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "EbsError",
-    "message": "EBS vol-kzsi9vyvc9q IOPS throttled: consumed 3231 vs provisioned 4747, queue depth 23",
-    "type": "storage"
+    "level": "info"
   }
 }

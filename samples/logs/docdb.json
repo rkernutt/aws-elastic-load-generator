@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-central-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "docdb"
@@ -19,40 +19,40 @@
     "docdb": {
       "cluster_id": "docdb-eu-central-2-cluster",
       "database": "appdb",
-      "collection": "users",
+      "collection": "events",
       "operation": "delete",
-      "duration_ms": 121,
-      "documents_affected": 486,
+      "duration_ms": 122,
+      "documents_affected": 22,
       "metrics": {
         "CPUUtilization": {
-          "avg": 37.707
+          "avg": 28.683764212188287
         },
         "DatabaseConnections": {
-          "avg": 73
+          "avg": 54
         },
         "FreeLocalStorage": {
-          "avg": 34046519732
+          "avg": 92773229547
         },
         "FreeableMemory": {
-          "avg": 2644667190
+          "avg": 1497957239
         },
         "ReadIOPS": {
-          "avg": 3507
+          "avg": 1710
         },
         "WriteIOPS": {
-          "avg": 1101
+          "avg": 2631
         },
         "ReadLatency": {
-          "avg": 3.308
+          "avg": 1.7051965006466585
         },
         "WriteLatency": {
-          "avg": 4.213
+          "avg": 4.530915779835335
         },
         "DocumentsInserted": {
           "sum": 0
         },
         "DocumentsDeleted": {
-          "sum": 54
+          "sum": 89
         },
         "DocumentsUpdated": {
           "sum": 0
@@ -69,13 +69,15 @@
     "type": "document"
   },
   "event": {
-    "duration": 120543000,
+    "duration": 121809998.52762444,
     "outcome": "success",
-    "category": ["database"],
+    "category": [
+      "database"
+    ],
     "dataset": "aws.docdb",
     "provider": "docdb.amazonaws.com"
   },
-  "message": "DocumentDB delete on users: 120.5ms",
+  "message": "DocumentDB delete on events: 121.8ms",
   "log": {
     "level": "info"
   }

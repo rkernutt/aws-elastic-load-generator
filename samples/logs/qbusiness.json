@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "qbusiness"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "ApplicationId": "kqziq7i1-nh1y-ay7f-8suy-48uy4hsfk1a"
+      "ApplicationId": "6adav4ym-j14j-12z7-c8eh-ioqd4a40lq"
     },
     "qbusiness": {
-      "application_id": "kqziq7i1-nh1y-ay7f-8suy-48uy4hsfk1a",
-      "application_name": "hr-bot",
-      "conversation_id": "vcmwikf1-le1u-5mlp-84gp-thlfpq3a909",
-      "message_id": "44wexoa4-a0ln-nkll-mzhd-l5r1l5xi2j",
-      "user_id": "carol",
-      "event_type": "DOCUMENT_RETRIEVAL",
-      "response_latency_ms": 3818,
+      "application_id": "6adav4ym-j14j-12z7-c8eh-ioqd4a40lq",
+      "application_name": "support-assistant",
+      "conversation_id": "c28se2wb-irz3-zjdw-rvc0-13lixgfsavgf",
+      "message_id": "0a61hypl-jysy-ewej-6mt9-lomfmqm6lnh",
+      "user_id": "bob",
+      "event_type": "QUERY",
+      "response_latency_ms": 3785,
       "query": {
-        "input_token_count": 398,
-        "output_token_count": 0,
+        "input_token_count": 386,
+        "output_token_count": 147,
         "retrieved_documents": 4,
         "source_attributions": 4,
         "guardrail_action": "NONE"
@@ -38,10 +38,10 @@
           "sum": 1
         },
         "InputTokenCount": {
-          "sum": 398
+          "sum": 386
         },
         "OutputTokenCount": {
-          "sum": 0
+          "sum": 147
         },
         "FailedResponses": {
           "sum": 0
@@ -56,16 +56,18 @@
     }
   },
   "user": {
-    "name": "carol"
+    "name": "bob"
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.qbusiness",
     "provider": "qbusiness.amazonaws.com",
-    "duration": 3818000000
+    "duration": 3785000000
   },
-  "message": "Q Business hr-bot: carol document_retrieval (4 docs retrieved)",
+  "message": "Q Business support-assistant: bob query (4 docs retrieved)",
   "log": {
     "level": "info"
   }

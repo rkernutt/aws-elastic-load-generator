@@ -79,6 +79,8 @@ import {
   generateVerifiedPermissionsLog,
   generatePaymentCryptographyLog,
   generateArtifactLog,
+  generateNetworkAccessAnalyzerLog,
+  generateIncidentManagerLog,
 } from "./security.js";
 import {
   generateS3Log,
@@ -89,6 +91,8 @@ import {
   generateDataSyncLog,
   generateBackupLog,
   generateStorageGatewayLog,
+  generateS3IntelligentTieringLog,
+  generateS3BatchOpsLog,
 } from "./storage.js";
 import {
   generateDynamoDbLog,
@@ -106,6 +110,10 @@ import {
   generateDaxLog,
   generateNeptuneAnalyticsLog,
   generateAuroraDsqlLog,
+  generateRdsProxyLog,
+  generateRdsCustomLog,
+  generateDmsServerlessLog,
+  generateElastiCacheGlobalLog,
 } from "./databases.js";
 import {
   generateKinesisStreamsLog,
@@ -133,6 +141,9 @@ import {
   generateDeviceFarmLog,
   generateProtonLog,
   generateQDeveloperLog,
+  generateCloudShellLog,
+  generateCloud9Log,
+  generateRoboMakerLog,
 } from "./devtools.js";
 import {
   generateEmrLog,
@@ -173,6 +184,11 @@ import {
   generateLookoutVisionLog,
   generateHealthOmicsLog,
   generateBedrockDataAutomationLog,
+  generateSageMakerFeatureStoreLog,
+  generateSageMakerPipelinesLog,
+  generateSageMakerModelMonitorLog,
+  generateLookoutEquipmentLog,
+  generateMonitronLog,
 } from "./ml.js";
 import {
   generateIotCoreLog,
@@ -184,6 +200,9 @@ import {
   generateIotTwinMakerLog,
   generateIotFleetWiseLog,
   generateGroundStationLog,
+  generateKinesisVideoLog,
+  generatePanoramaLog,
+  generateFreeRtosLog,
 } from "./iot.js";
 import {
   generateCloudFormationLog,
@@ -207,6 +226,7 @@ import {
   generateDrsLog,
   generateLicenseManagerLog,
   generateChatbotLog,
+  generateCloudWatchRumLog,
 } from "./management.js";
 import {
   generateWorkSpacesLog,
@@ -303,6 +323,8 @@ const GENERATORS = {
   verifiedpermissions: generateVerifiedPermissionsLog,
   paymentcryptography: generatePaymentCryptographyLog,
   artifact: generateArtifactLog,
+  networkaccessanalyzer: generateNetworkAccessAnalyzerLog,
+  incidentmanager: generateIncidentManagerLog,
   // Group 5 — Storage
   s3: generateS3Log,
   storagelens: generateS3StorageLensLog,
@@ -312,6 +334,8 @@ const GENERATORS = {
   datasync: generateDataSyncLog,
   backup: generateBackupLog,
   storagegateway: generateStorageGatewayLog,
+  s3intelligenttier: generateS3IntelligentTieringLog,
+  s3batchops: generateS3BatchOpsLog,
   // Group 5 — Databases
   dynamodb: generateDynamoDbLog,
   elasticache: generateElastiCacheLog,
@@ -327,6 +351,10 @@ const GENERATORS = {
   memorydb: generateMemoryDbLog,
   neptuneanalytics: generateNeptuneAnalyticsLog,
   auroradsql: generateAuroraDsqlLog,
+  rdsproxy: generateRdsProxyLog,
+  rdscustom: generateRdsCustomLog,
+  dmsserverless: generateDmsServerlessLog,
+  elasticacheglobal: generateElastiCacheGlobalLog,
   // Group 6 — Streaming & Messaging
   kinesis: generateKinesisStreamsLog,
   firehose: generateFirehoseLog,
@@ -352,6 +380,9 @@ const GENERATORS = {
   codecatalyst: generateCodeCatalystLog,
   devicefarm: generateDeviceFarmLog,
   qdeveloper: generateQDeveloperLog,
+  cloudshell: generateCloudShellLog,
+  cloud9: generateCloud9Log,
+  robomaker: generateRoboMakerLog,
   // Group 8 — Analytics
   emr: generateEmrLog,
   glue: generateGlueLog,
@@ -388,6 +419,11 @@ const GENERATORS = {
   lookoutvision: generateLookoutVisionLog,
   healthomics: generateHealthOmicsLog,
   bedrockdataautomation: generateBedrockDataAutomationLog,
+  sagemakerfeaturestore: generateSageMakerFeatureStoreLog,
+  sagemakerpipelines: generateSageMakerPipelinesLog,
+  sagemakermodelmonitor: generateSageMakerModelMonitorLog,
+  lookoutequipment: generateLookoutEquipmentLog,
+  monitron: generateMonitronLog,
   // Group 10 — IoT
   iotcore: generateIotCoreLog,
   greengrass: generateIotGreengrassLog,
@@ -395,6 +431,9 @@ const GENERATORS = {
   iottwinmaker: generateIotTwinMakerLog,
   iotfleetwise: generateIotFleetWiseLog,
   groundstation: generateGroundStationLog,
+  kinesisvideo: generateKinesisVideoLog,
+  panorama: generatePanoramaLog,
+  freertos: generateFreeRtosLog,
   // Group 11 — Management & Governance
   cloudformation: generateCloudFormationLog,
   ssm: generateSsmLog,
@@ -420,6 +459,7 @@ const GENERATORS = {
   drs: generateDrsLog,
   licensemanager: generateLicenseManagerLog,
   chatbot: generateChatbotLog,
+  cloudwatchrum: generateCloudWatchRumLog,
   // Group 12 — Media & End User Computing
   mediaconvert: generateMediaConvertLog,
   medialive: generateMediaLiveLog,

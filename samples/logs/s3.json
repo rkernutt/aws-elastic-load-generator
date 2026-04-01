@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "af-south-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,84 +13,84 @@
   },
   "aws": {
     "dimensions": {
-      "BucketName": "logs-me-central-1",
-      "StorageType": "StandardStorage",
-      "FilterId": "prefix-filter",
+      "BucketName": "logs-af-south-1",
+      "StorageType": "GlacierStorage",
+      "FilterId": "EntireBucket",
       "aws_account_number": "164820739518",
-      "aws_region": "me-central-1",
-      "bucket_name": "logs-me-central-1",
-      "record_type": "BUCKET",
+      "aws_region": "af-south-1",
+      "bucket_name": "logs-af-south-1",
+      "record_type": "PREFIX",
       "storage_class": "DEEP_ARCHIVE"
     },
     "s3access": {
       "bucket_owner": "164820739518",
-      "bucket": "logs-me-central-1",
-      "remote_ip": "158.232.16.58",
-      "requester": "-",
-      "request_id": "L3FVN92Q7OO",
-      "operation": "REST.DELETE.OBJECT",
-      "key": "data/l0poabei.parquet",
-      "request_uri": "/logs-me-central-1/data/l0poabei.parquet",
-      "http_status": 200,
+      "bucket": "logs-af-south-1",
+      "remote_ip": "184.26.219.173",
+      "requester": "AIDA7UX9RX3YT3D",
+      "request_id": "35K29JPPWCK",
+      "operation": "REST.HEAD.OBJECT",
+      "key": "data/kpjq8bg9.gz",
+      "request_uri": "/logs-af-south-1/data/kpjq8bg9.gz",
+      "http_status": 206,
       "error_code": "-",
-      "bytes_sent": 526311657,
+      "bytes_sent": 681502093,
       "object_size": "-",
-      "total_time": 226,
-      "turn_around_time": 180,
+      "total_time": 264,
+      "turn_around_time": 211,
       "referrer": "-",
       "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-      "host_id": "BYE6K1ZS17P+9R5RQ8",
+      "host_id": "EZJVFLSBNCV+LRD5UH",
       "signature_version": "SigV4",
       "cipher_suite": "ECDHE-RSA-AES128-GCM-SHA256",
-      "authentication_type": "-",
-      "host_header": "logs-me-central-1.s3.me-central-1.amazonaws.com",
+      "authentication_type": "AuthHeader",
+      "host_header": "logs-af-south-1.s3.af-south-1.amazonaws.com",
       "tls_version": "TLSv1.2"
     },
     "s3": {
       "bucket": {
-        "name": "logs-me-central-1",
-        "arn": "arn:aws:s3:::logs-me-central-1"
+        "name": "logs-af-south-1",
+        "arn": "arn:aws:s3:::logs-af-south-1"
       },
       "object": {
-        "key": "data/l0poabei.parquet",
-        "size": 279705886,
-        "etag": "9ge0errzgh"
+        "key": "data/kpjq8bg9.gz",
+        "size": 766821192,
+        "etag": "fxajo6976e4"
       },
-      "operation": "REST.DELETE.OBJECT",
-      "request_id": "L3FVN92Q7OO",
+      "operation": "REST.HEAD.OBJECT",
+      "request_id": "35K29JPPWCK",
       "metrics": {
         "BucketSizeBytes": {
-          "avg": 46824936459
+          "avg": 607749778229
         },
         "NumberOfObjects": {
-          "avg": 956894
+          "avg": 364650
         },
         "AllRequests": {
-          "sum": 13609
+          "sum": 23855
         },
         "GetRequests": {
-          "sum": 10411
+          "sum": 27104
         },
         "PutRequests": {
-          "sum": 9760
+          "sum": 7865
         },
         "DeleteRequests": {
-          "sum": 293
+          "sum": 14
         },
         "HeadRequests": {
-          "sum": 4748
+          "sum": 4738
         },
         "PostRequests": {
-          "sum": 278
+          "sum": 766
         },
         "ListRequests": {
-          "sum": 3892
+          "sum": 1336
         },
         "BytesDownloaded": {
-          "sum": 4541796936
+          "sum": 3099865183
         },
         "BytesUploaded": {
-          "sum": 541121730
+          "sum": 6036922
         },
         "4xxErrors": {
           "sum": 0
@@ -99,36 +99,36 @@
           "sum": 0
         },
         "FirstByteLatency": {
-          "avg": 35.488,
-          "p99": 122.089
+          "avg": 59.70087849588333,
+          "p99": 441.44267059342826
         },
         "TotalRequestLatency": {
-          "avg": 61.078,
-          "p99": 1281.161
+          "avg": 203.7867536252957,
+          "p99": 1295.1665735770869
         }
       }
     },
     "s3_request": {
       "uploaded": {
-        "bytes": 732584361
+        "bytes": 520517141
       },
       "downloaded": {
-        "bytes": 4456716069
+        "bytes": 914262569
       },
       "requests": {
-        "total": 45341,
-        "get": 23689,
-        "put": 8464,
-        "delete": 88,
-        "head": 982,
-        "post": 119,
-        "select": 260,
-        "list": 2849,
+        "total": 76129,
+        "get": 27572,
+        "put": 4378,
+        "delete": 581,
+        "head": 1959,
+        "post": 928,
+        "select": 480,
+        "list": 1484,
         "select_scanned": {
-          "bytes": 815574380
+          "bytes": 554068828
         },
         "select_returned": {
-          "bytes": 92974338
+          "bytes": 34622712
         }
       },
       "errors": {
@@ -137,61 +137,64 @@
       },
       "latency": {
         "total_request": {
-          "ms": 34.611
+          "ms": 213.68814152869328
         },
         "first_byte": {
-          "ms": 15.526
+          "ms": 20.34032779982991
         }
       }
     },
     "s3_daily_storage": {
       "bucket": {
         "size": {
-          "bytes": 156772981308
+          "bytes": 249327504213
         }
       },
-      "number_of_objects": 471388
+      "number_of_objects": 486046
     },
     "s3_storage_lens": {
       "metrics": {
         "StorageBytes": {
-          "avg": 914769702432
+          "avg": 202264205366
         },
         "ObjectCount": {
-          "avg": 243913
+          "avg": 547659
         },
         "DeleteMarkerObjectCount": {
-          "avg": 674
+          "avg": 751
         },
         "CurrentVersionStorageBytes": {
-          "avg": 35814173578
+          "avg": 99521316294
         },
         "IncompleteMultipartUploadStorageBytes": {
-          "avg": 1549410
+          "avg": 33329206
         }
       }
     }
   },
   "http": {
     "response": {
-      "status_code": 200,
-      "bytes": 526311657
+      "status_code": 206,
+      "bytes": 681502093
     }
   },
   "client": {
-    "ip": "158.232.16.58"
+    "ip": "184.26.219.173"
   },
   "user_agent": {
     "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
     "outcome": "success",
-    "category": ["web", "file"],
+    "category": [
+      "web",
+      "file"
+    ],
     "dataset": "aws.s3",
     "provider": "s3.amazonaws.com",
-    "duration": 226000000
+    "duration": 264000000
   },
-  "message": "REST.DELETE.OBJECT s3://logs-me-central-1/data/l0poabei.parquet 200",
+  "message": "REST.HEAD.OBJECT s3://logs-af-south-1/data/kpjq8bg9.gz 206",
   "log": {
     "level": "info"
   }

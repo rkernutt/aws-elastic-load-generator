@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "us-east-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "computeoptimizer"
@@ -13,37 +13,40 @@
   },
   "aws": {
     "computeoptimizer": {
-      "resource_type": "ECS_SERVICE_FARGATE",
-      "resource_arn": "arn:aws:ec2:eu-south-1:293847561023:instance/i-1wxym70q7e9",
-      "finding": "OVERPROVISIONED",
+      "resource_type": "AUTO_SCALING_GROUP",
+      "resource_arn": "arn:aws:ec2:us-east-2:738291046572:instance/i-i3vrgwy7t",
+      "finding": "OPTIMIZED",
       "current_configuration": {
-        "instance_type": "r5.large",
-        "vcpu": 21,
-        "memory_gb": 21
+        "instance_type": "m5.xlarge",
+        "vcpu": 2,
+        "memory_gb": 121
       },
       "recommended_configuration": {
         "instance_type": "t3.small",
-        "vcpu": 2,
-        "memory_gb": 23
+        "vcpu": 3,
+        "memory_gb": 37
       },
-      "estimated_monthly_savings_usd": 34.392,
-      "estimated_monthly_savings_percent": 21.386,
-      "lookback_period_days": 14,
+      "estimated_monthly_savings_usd": 0,
+      "estimated_monthly_savings_percent": 0,
+      "lookback_period_days": 32,
       "utilization": {
-        "cpu_max": 83.613,
-        "memory_max": 38.279
+        "cpu_max": 94.92663810593669,
+        "memory_max": 44.989483054886755
       },
       "performance_risk": "High"
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["configuration", "process"],
+    "category": [
+      "configuration",
+      "process"
+    ],
     "dataset": "aws.computeoptimizer",
     "provider": "compute-optimizer.amazonaws.com",
-    "duration": 36000000000
+    "duration": 46000000000
   },
-  "message": "Compute Optimizer: ECS_SERVICE_FARGATE OVERPROVISIONED — downsize r5.large→t3.small, save 34/mo",
+  "message": "Compute Optimizer: AUTO_SCALING_GROUP OPTIMIZED (m5.xlarge)",
   "log": {
     "level": "info"
   }

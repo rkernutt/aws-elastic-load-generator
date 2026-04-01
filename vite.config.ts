@@ -9,7 +9,7 @@ export default defineConfig({
     // Forward /proxy/* to the local bulk proxy (run `node proxy.cjs` on port 3001).
     proxy: {
       "/proxy": {
-        target: "http://127.0.0.1:3001",
+        target: `http://${process.env.PROXY_HOST || "127.0.0.1"}:${process.env.PROXY_PORT || 3001}`,
         changeOrigin: true,
       },
     },

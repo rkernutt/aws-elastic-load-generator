@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "lookoutmetrics"
@@ -13,32 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "AnomalyDetector": "traffic-spike-detector",
-      "Metric": "conversion_rate"
+      "AnomalyDetector": "error-rate-monitor",
+      "Metric": "page_views"
     },
     "lookoutmetrics": {
-      "anomaly_detector_arn": "arn:aws:lookoutmetrics:ap-south-1:738291046572:AnomalyDetector:traffic-spike-detector",
-      "anomaly_group_id": "m4dn60f1mce",
-      "metric_name": "conversion_rate",
-      "severity": "LOW",
-      "anomaly_score": 38.633,
-      "relevant_dates": 3,
-      "impact_value": 105.427,
-      "expected_value": 7440.6,
-      "actual_value": 8777.215,
+      "anomaly_detector_arn": "arn:aws:lookoutmetrics:eu-south-2:293847561023:AnomalyDetector:error-rate-monitor",
+      "anomaly_group_id": "mzi32qu9vvk",
+      "metric_name": "page_views",
+      "severity": "MEDIUM",
+      "anomaly_score": 13.458990670991584,
+      "relevant_dates": 14,
+      "impact_value": 114.25587541188989,
+      "expected_value": 6098.470243941233,
+      "actual_value": 6095.213722504686,
       "dimension": {
-        "region": "us-east-1"
+        "environment": "prod"
       },
-      "sensitivity": "MEDIUM"
+      "sensitivity": "HIGH"
     }
   },
   "event": {
     "outcome": "success",
-    "category": ["process"],
+    "category": [
+      "process"
+    ],
     "dataset": "aws.lookoutmetrics",
     "provider": "lookoutmetrics.amazonaws.com"
   },
-  "message": "Lookout for Metrics [traffic-spike-detector]: conversion_rate anomaly_score=39",
+  "message": "Lookout for Metrics [error-rate-monitor]: page_views anomaly_score=13",
   "log": {
     "level": "info"
   }

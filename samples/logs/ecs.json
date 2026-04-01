@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-03-31T13:15:29.271Z",
+  "@timestamp": "2026-04-01T05:27:12.782Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "il-central-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "staging",
-      "ServiceName": "web-frontend"
+      "ClusterName": "workers",
+      "ServiceName": "auth-service"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 7.159
+          "avg": 9.978662560436918
         },
         "CPUReservation": {
-          "avg": 26.446
+          "avg": 13.207330862838944
         },
         "MemoryUtilization": {
-          "avg": 51.036
+          "avg": 22.251056262623067
         },
         "MemoryReservation": {
-          "avg": 69.567
+          "avg": 52.152311470655704
         },
         "GPUReservation": {
           "avg": 0
@@ -37,31 +37,34 @@
     }
   },
   "container": {
-    "id": "n4936lf1lzp",
-    "name": "web-frontend",
+    "id": "3sp6rho6p94",
+    "name": "auth-service",
     "image": {
-      "name": "java:latest",
+      "name": "node:latest",
       "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 50691,
-    "name": "web-frontend"
+    "pid": 57282,
+    "name": "auth-service"
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "event": {
-    "category": ["process", "container"],
+    "category": [
+      "process",
+      "container"
+    ],
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 442000000000
+    "duration": 2112000000000
   },
-  "message": "High memory: 85%",
+  "message": "Task started",
   "service": {
-    "name": "web-frontend",
+    "name": "auth-service",
     "type": "ecs"
   }
 }
