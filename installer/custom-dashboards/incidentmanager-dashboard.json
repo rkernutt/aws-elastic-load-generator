@@ -46,7 +46,9 @@
             "type": "esql",
             "query": "FROM logs-aws.incidentmanager* | STATS `Unique Response Plans` = COUNT_DISTINCT(`aws.incidentmanager.response_plan`)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Unique Response Plans" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Unique Response Plans" }
+          ]
         }
       }
     },

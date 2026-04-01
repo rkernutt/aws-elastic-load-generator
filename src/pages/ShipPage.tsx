@@ -97,12 +97,7 @@ export function ShipPage({
           </EuiButton>
         </EuiFlexItem>
         <EuiFlexItem grow={false}>
-          <EuiButton
-            color="danger"
-            iconType="stop"
-            onClick={onStop}
-            isDisabled={!isRunning}
-          >
+          <EuiButton color="danger" iconType="stop" onClick={onStop} isDisabled={!isRunning}>
             Stop
           </EuiButton>
         </EuiFlexItem>
@@ -123,16 +118,11 @@ export function ShipPage({
       <EuiSpacer size="m" />
 
       {/* Estimate callout */}
-      <EuiCallOut
-        title="Estimated output"
-        color="primary"
-        iconType="iInCircle"
-        size="s"
-      >
+      <EuiCallOut title="Estimated output" color="primary" iconType="iInCircle" size="s">
         <p>
           {totalSelected} services x {perService} {eventType}/service ={" "}
-          <strong>~{estimatedDocs.toLocaleString()} docs</strong> (~{estimatedMB.toFixed(1)} MB
-          in ~{estimatedBatches} batches)
+          <strong>~{estimatedDocs.toLocaleString()} docs</strong> (~{estimatedMB.toFixed(1)} MB in ~
+          {estimatedBatches} batches)
         </p>
       </EuiCallOut>
 
@@ -147,27 +137,17 @@ export function ShipPage({
             size="l"
             color={progress.errors > 0 ? "danger" : "primary"}
             label={
-              progress.phase === "injection"
-                ? "Injecting anomalies..."
-                : `Shipping ${eventType}...`
+              progress.phase === "injection" ? "Injecting anomalies..." : `Shipping ${eventType}...`
             }
             valueText={`${pct}%`}
           />
           <EuiSpacer size="m" />
           <EuiFlexGroup gutterSize="l">
             <EuiFlexItem>
-              <EuiStat
-                title={progress.sent.toLocaleString()}
-                description="Indexed"
-                titleSize="s"
-              />
+              <EuiStat title={progress.sent.toLocaleString()} description="Indexed" titleSize="s" />
             </EuiFlexItem>
             <EuiFlexItem>
-              <EuiStat
-                title={progress.total.toLocaleString()}
-                description="Total"
-                titleSize="s"
-              />
+              <EuiStat title={progress.total.toLocaleString()} description="Total" titleSize="s" />
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiStat
@@ -188,9 +168,8 @@ export function ShipPage({
           <EuiPanel color="subdued">
             <EuiText size="s">
               <p>
-                <strong>Schedule active:</strong> Run {scheduleCurrentRun} of{" "}
-                {scheduleTotalRuns}. Next run in{" "}
-                <strong>{formatCountdown(countdown)}</strong>
+                <strong>Schedule active:</strong> Run {scheduleCurrentRun} of {scheduleTotalRuns}.
+                Next run in <strong>{formatCountdown(countdown)}</strong>
               </p>
             </EuiText>
           </EuiPanel>
@@ -214,8 +193,8 @@ export function ShipPage({
           <EuiSpacer size="m" />
           <EuiCallOut title="Shipping aborted" color="danger" iconType="cross">
             <p>
-              {progress.sent.toLocaleString()} of {progress.total.toLocaleString()}{" "}
-              documents indexed before abort.
+              {progress.sent.toLocaleString()} of {progress.total.toLocaleString()} documents
+              indexed before abort.
             </p>
           </EuiCallOut>
         </>

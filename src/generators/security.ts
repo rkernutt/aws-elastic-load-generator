@@ -3357,12 +3357,28 @@ function generateNetworkAccessAnalyzerLog(ts: string, er: number): EcsDocument {
   const region = rand(REGIONS);
   const acct = randAccount();
   const isErr = Math.random() < er;
-  const scopes = ["internet-reachability", "cross-vpc-access", "vpc-peering-paths", "transit-gateway-routes"];
+  const scopes = [
+    "internet-reachability",
+    "cross-vpc-access",
+    "vpc-peering-paths",
+    "transit-gateway-routes",
+  ];
   const scope = rand(scopes);
-  const findings = ["InternetAccess", "CrossVpcAccess", "UnexpectedPeeringRoute", "OverlyPermissiveSecurityGroup", "UnreachableResource"];
+  const findings = [
+    "InternetAccess",
+    "CrossVpcAccess",
+    "UnexpectedPeeringRoute",
+    "OverlyPermissiveSecurityGroup",
+    "UnreachableResource",
+  ];
   return {
     "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "network-access-analyzer" } },
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "network-access-analyzer" },
+    },
     aws: {
       network_access_analyzer: {
         scope_id: `naa-scope-${randId(8).toLowerCase()}`,
@@ -3390,16 +3406,39 @@ function generateIncidentManagerLog(ts: string, er: number): EcsDocument {
   const region = rand(REGIONS);
   const acct = randAccount();
   const isErr = Math.random() < er;
-  const plans = ["high-severity-incident", "database-outage", "security-breach", "service-degradation"];
+  const plans = [
+    "high-severity-incident",
+    "database-outage",
+    "security-breach",
+    "service-degradation",
+  ];
   const plan = rand(plans);
-  const events = ["CreateIncident", "UpdateIncident", "ResolveIncident", "TriggerRunbook", "AddTimeline", "CreateContactChannel", "StartEngagement"];
+  const events = [
+    "CreateIncident",
+    "UpdateIncident",
+    "ResolveIncident",
+    "TriggerRunbook",
+    "AddTimeline",
+    "CreateContactChannel",
+    "StartEngagement",
+  ];
   const ev = rand(events);
   const impacts = [1, 2, 3, 4, 5];
   const statuses = isErr ? ["OPEN", "OPEN"] : ["OPEN", "RESOLVED"];
-  const errMsgs = ["Runbook execution failed", "Contact channel unreachable", "Engagement timed out", "SSM automation error"];
+  const errMsgs = [
+    "Runbook execution failed",
+    "Contact channel unreachable",
+    "Engagement timed out",
+    "SSM automation error",
+  ];
   return {
     "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "incident-manager" } },
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "incident-manager" },
+    },
     aws: {
       incident_manager: {
         response_plan: plan,

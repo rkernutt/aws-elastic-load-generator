@@ -31,11 +31,25 @@ const AGENT_VERSION = "8.18.0";
  * Services whose logs originate from compute hosts — these get `host.*` fields.
  */
 const COMPUTE_SERVICES = new Set([
-  "ec2", "ecs", "eks", "fargate", "lambda", "apprunner",
-  "batch", "elasticbeanstalk", "lightsail", "outposts",
-  "wavelength", "workspaces", "appstream", "gamelift",
-  "mainframemodernization", "parallelcomputing", "evs",
-  "simspaceweaver", "robomaker",
+  "ec2",
+  "ecs",
+  "eks",
+  "fargate",
+  "lambda",
+  "apprunner",
+  "batch",
+  "elasticbeanstalk",
+  "lightsail",
+  "outposts",
+  "wavelength",
+  "workspaces",
+  "appstream",
+  "gamelift",
+  "mainframemodernization",
+  "parallelcomputing",
+  "evs",
+  "simspaceweaver",
+  "robomaker",
 ]);
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -115,8 +129,7 @@ export function enrichDocument(doc: LooseDoc, opts: EnrichOptions): LooseDoc {
   const ecs = doc.ecs ?? { version: ECS_VERSION };
 
   // ── data_stream ────────────────────────────────────────────────────────────
-  const dsType =
-    eventType === "metrics" ? "metrics" : eventType === "traces" ? "traces" : "logs";
+  const dsType = eventType === "metrics" ? "metrics" : eventType === "traces" ? "traces" : "logs";
   const dataStream = doc.data_stream ?? {
     type: dsType,
     dataset,

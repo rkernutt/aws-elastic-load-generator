@@ -11,23 +11,17 @@ import { SERVICE_INGESTION_DEFAULTS } from "../data/ingestion.js";
 
 describe("Generator registry completeness", () => {
   it("every service in serviceGroups has a generator", () => {
-    const missing = ALL_SERVICE_IDS.filter(
-      (id: string) => !(id in GENERATORS)
-    );
+    const missing = ALL_SERVICE_IDS.filter((id: string) => !(id in GENERATORS));
     expect(missing).toEqual([]);
   });
 
   it("every generator has a service entry in serviceGroups", () => {
-    const orphaned = Object.keys(GENERATORS).filter(
-      (id) => !ALL_SERVICE_IDS.includes(id)
-    );
+    const orphaned = Object.keys(GENERATORS).filter((id) => !ALL_SERVICE_IDS.includes(id));
     expect(orphaned).toEqual([]);
   });
 
   it("every service has an Elastic dataset mapping", () => {
-    const missingDataset = ALL_SERVICE_IDS.filter(
-      (id: string) => !(id in ELASTIC_DATASET_MAP)
-    );
+    const missingDataset = ALL_SERVICE_IDS.filter((id: string) => !(id in ELASTIC_DATASET_MAP));
     // Some services use default dataset (aws.${svc}), so only flag if unexpected
     // For now just check no obvious gaps — this test will grow over time
     expect(missingDataset.length).toBeLessThan(ALL_SERVICE_IDS.length * 0.55);

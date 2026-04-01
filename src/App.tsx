@@ -1,10 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from "react";
-import {
-  rand,
-  randTs,
-  stripNulls,
-  enrichDocument,
-} from "./helpers";
+import { rand, randTs, stripNulls, enrichDocument } from "./helpers";
 import { GENERATORS } from "./generators";
 import { TRACE_SERVICES } from "./generators/traces/services";
 
@@ -57,7 +52,11 @@ function dryRunResponse(): Response {
 }
 
 /** Fetch with exponential-backoff retry for transient network errors and 5xx responses. */
-async function fetchWithRetry(url: string, options: RequestInit, maxRetries = 3): Promise<Response> {
+async function fetchWithRetry(
+  url: string,
+  options: RequestInit,
+  maxRetries = 3
+): Promise<Response> {
   let lastErr: unknown;
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
@@ -110,9 +109,9 @@ export default function App() {
     apiKey: "",
     indexPrefix: "",
   });
-  const [connectionStatus, setConnectionStatus] = useState<
-    "idle" | "testing" | "ok" | "fail"
-  >("idle");
+  const [connectionStatus, setConnectionStatus] = useState<"idle" | "testing" | "ok" | "fail">(
+    "idle"
+  );
   const [connectionMsg, setConnectionMsg] = useState("");
   const [dryRun, setDryRun] = useState(false);
 
@@ -343,7 +342,13 @@ export default function App() {
       const svc = rand(selectedTraceServices);
       const TRACE_GENERATORS = await loadTraceGenerators();
       const traceDocs = TRACE_GENERATORS[svc](new Date().toISOString(), errorRate);
-      setPreview(JSON.stringify(enrichDoc(stripNulls(traceDocs[0]) as LooseDoc, svc, "otel", "traces"), null, 2));
+      setPreview(
+        JSON.stringify(
+          enrichDoc(stripNulls(traceDocs[0]) as LooseDoc, svc, "otel", "traces"),
+          null,
+          2
+        )
+      );
     } else {
       if (!selectedServices.length) return;
       const svc = rand(selectedServices);
@@ -351,7 +356,13 @@ export default function App() {
         const METRICS_GENERATORS = await loadMetricsGenerators();
         if (METRICS_GENERATORS[svc]) {
           const docs = METRICS_GENERATORS[svc](new Date().toISOString(), errorRate);
-          setPreview(JSON.stringify(enrichDoc(stripNulls(docs[0]) as LooseDoc, svc, getEffectiveSource(svc), "metrics"), null, 2));
+          setPreview(
+            JSON.stringify(
+              enrichDoc(stripNulls(docs[0]) as LooseDoc, svc, getEffectiveSource(svc), "metrics"),
+              null,
+              2
+            )
+          );
           return;
         }
       }
@@ -505,7 +516,9 @@ export default function App() {
             }
             let errDelta = 0;
             try {
-              const res = dryRun ? dryRunResponse() : await fetchWithRetry(`/proxy/_bulk`, { method: "POST", headers, body: ndjson });
+              const res = dryRun
+                ? dryRunResponse()
+                : await fetchWithRetry(`/proxy/_bulk`, { method: "POST", headers, body: ndjson });
               const json = await res.json();
               if (!res.ok) {
                 svcErrors += batch.length;
@@ -602,11 +615,13 @@ export default function App() {
                 let sentDelta = 0;
                 let errDelta = 0;
                 try {
-                  const res = dryRun ? dryRunResponse() : await fetchWithRetry(`/proxy/_bulk`, {
-                    method: "POST",
-                    headers,
-                    body: ndjsonInj,
-                  });
+                  const res = dryRun
+                    ? dryRunResponse()
+                    : await fetchWithRetry(`/proxy/_bulk`, {
+                        method: "POST",
+                        headers,
+                        body: ndjsonInj,
+                      });
                   const json = await res.json();
                   if (!res.ok) {
                     injErrs += batch.length;
@@ -712,7 +727,9 @@ export default function App() {
           let sentDelta = 0;
           let errDelta = 0;
           try {
-            const res = dryRun ? dryRunResponse() : await fetchWithRetry(`/proxy/_bulk`, { method: "POST", headers, body: ndjson });
+            const res = dryRun
+              ? dryRunResponse()
+              : await fetchWithRetry(`/proxy/_bulk`, { method: "POST", headers, body: ndjson });
             const json = await res.json();
             if (!res.ok) {
               svcErrors += batch.length;
@@ -847,11 +864,13 @@ export default function App() {
               let sentDelta = 0;
               let errDelta = 0;
               try {
-                const res = dryRun ? dryRunResponse() : await fetchWithRetry(`/proxy/_bulk`, {
-                  method: "POST",
-                  headers,
-                  body: ndjsonInj,
-                });
+                const res = dryRun
+                  ? dryRunResponse()
+                  : await fetchWithRetry(`/proxy/_bulk`, {
+                      method: "POST",
+                      headers,
+                      body: ndjsonInj,
+                    });
                 const json = await res.json();
                 if (!res.ok) {
                   injRealErrs += batch.length;
@@ -986,7 +1005,11 @@ export default function App() {
     (dryRun ||
       (elasticUrl &&
         apiKey &&
-        !(validationErrors.elasticUrl || validationErrors.apiKey || (!isTracesMode && validationErrors.indexPrefix))))
+        !(
+          validationErrors.elasticUrl ||
+          validationErrors.apiKey ||
+          (!isTracesMode && validationErrors.indexPrefix)
+        )))
   );
 
   const estimatedMBNum = isTracesMode
@@ -1075,9 +1098,7 @@ export default function App() {
           onBlurApiKey={() =>
             setValidationErrors((prev) => ({
               ...prev,
-              apiKey: validateApiKey(apiKey).valid
-                ? ""
-                : (validateApiKey(apiKey).message ?? ""),
+              apiKey: validateApiKey(apiKey).valid ? "" : (validateApiKey(apiKey).message ?? ""),
             }))
           }
           onBlurIndexPrefix={() =>
@@ -1102,9 +1123,7 @@ export default function App() {
           totalSelected={totalSelected}
           totalServices={totalServices}
           collapsedGroups={collapsedGroups}
-          onToggleGroup={(gid) =>
-            setCollapsedGroups((prev) => ({ ...prev, [gid]: !prev[gid] }))
-          }
+          onToggleGroup={(gid) => setCollapsedGroups((prev) => ({ ...prev, [gid]: !prev[gid] }))}
           ingestionSource={ingestionSource}
           selectAll={() => {
             if (isTracesMode) {
@@ -1198,13 +1217,8 @@ export default function App() {
       )}
 
       {activePage === "activity" && (
-        <ActivityPage
-          log={log}
-          preview={preview}
-          onDownloadLog={downloadLog}
-        />
+        <ActivityPage log={log} preview={preview} onDownloadLog={downloadLog} />
       )}
     </AppLayout>
   );
 }
-

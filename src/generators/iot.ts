@@ -714,14 +714,37 @@ function generateKinesisVideoLog(ts: string, er: number): EcsDocument {
   const region = rand(REGIONS);
   const acct = randAccount();
   const isErr = Math.random() < er;
-  const streams = ["lobby-cam-01", "warehouse-feed", "doorbell-pro", "drone-feed", "traffic-monitor"];
+  const streams = [
+    "lobby-cam-01",
+    "warehouse-feed",
+    "doorbell-pro",
+    "drone-feed",
+    "traffic-monitor",
+  ];
   const stream = rand(streams);
-  const events = ["PutMedia", "GetMedia", "GetMediaForFragmentList", "GetClip", "GetDASHStreamingSessionURL", "GetHLSStreamingSessionURL"];
+  const events = [
+    "PutMedia",
+    "GetMedia",
+    "GetMediaForFragmentList",
+    "GetClip",
+    "GetDASHStreamingSessionURL",
+    "GetHLSStreamingSessionURL",
+  ];
   const ev = rand(events);
-  const errMsgs = ["ConnectionLimitExceededException", "NotAuthorizedException", "ResourceNotFoundException", "ClientLimitExceededException"];
+  const errMsgs = [
+    "ConnectionLimitExceededException",
+    "NotAuthorizedException",
+    "ResourceNotFoundException",
+    "ClientLimitExceededException",
+  ];
   return {
     "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "kinesis-video" } },
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "kinesis-video" },
+    },
     aws: {
       kinesis_video: {
         stream_name: stream,
@@ -750,14 +773,30 @@ function generatePanoramaLog(ts: string, er: number): EcsDocument {
   const isErr = Math.random() < er;
   const devices = ["panorama-appliance-01", "factory-edge-01", "retail-cam-hub"];
   const device = rand(devices);
-  const events = ["DeployApplication", "RemoveApplication", "DescribeDevice", "CreateNodeFromTemplateJob", "ListApplicationInstances"];
+  const events = [
+    "DeployApplication",
+    "RemoveApplication",
+    "DescribeDevice",
+    "CreateNodeFromTemplateJob",
+    "ListApplicationInstances",
+  ];
   const ev = rand(events);
   const models = ["people-counter", "defect-detector", "ppe-compliance", "vehicle-tracker"];
   const statuses = isErr ? ["DEPLOYMENT_FAILED", "ERROR"] : ["DEPLOYMENT_SUCCEEDED", "RUNNING"];
-  const errMsgs = ["Model compilation failed", "Camera stream unreachable", "GPU memory exceeded", "Application container crash loop"];
+  const errMsgs = [
+    "Model compilation failed",
+    "Camera stream unreachable",
+    "GPU memory exceeded",
+    "Application container crash loop",
+  ];
   return {
     "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "panorama" } },
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "panorama" },
+    },
     aws: {
       panorama: {
         device_id: `device-${randId(12).toLowerCase()}`,
@@ -783,15 +822,39 @@ function generateFreeRtosLog(ts: string, er: number): EcsDocument {
   const region = rand(REGIONS);
   const acct = randAccount();
   const isErr = Math.random() < er;
-  const things = ["sensor-node-01", "actuator-03", "gateway-edge", "wearable-device", "industrial-plc"];
+  const things = [
+    "sensor-node-01",
+    "actuator-03",
+    "gateway-edge",
+    "wearable-device",
+    "industrial-plc",
+  ];
   const thing = rand(things);
-  const events = ["OTA_UPDATE", "MQTT_CONNECT", "MQTT_DISCONNECT", "SHADOW_UPDATE", "DEFENDER_REPORT", "FLEET_PROVISIONING"];
+  const events = [
+    "OTA_UPDATE",
+    "MQTT_CONNECT",
+    "MQTT_DISCONNECT",
+    "SHADOW_UPDATE",
+    "DEFENDER_REPORT",
+    "FLEET_PROVISIONING",
+  ];
   const ev = rand(events);
   const boards = ["ESP32", "STM32L4", "NXP-LPC55S69", "Infineon-PSoC6", "Renesas-RX65N"];
-  const errMsgs = ["OTA firmware validation failed", "TLS handshake timeout", "MQTT keepalive expired", "Flash write error", "Certificate rotation failed"];
+  const errMsgs = [
+    "OTA firmware validation failed",
+    "TLS handshake timeout",
+    "MQTT keepalive expired",
+    "Flash write error",
+    "Certificate rotation failed",
+  ];
   return {
     "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "freertos" } },
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "freertos" },
+    },
     aws: {
       freertos: {
         thing_name: thing,

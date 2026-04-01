@@ -160,9 +160,9 @@ export function ConnectionPage({
         <EuiPanel color="subdued">
           <EuiText size="s">
             <p>
-              <strong>APM Indices:</strong> Traces are sent to the APM intake endpoint.
-              Data appears in <code>traces-apm*</code>, <code>logs-apm*</code>, and{" "}
-              <code>metrics-apm*</code> data streams.
+              <strong>APM Indices:</strong> Traces are sent to the APM intake endpoint. Data appears
+              in <code>traces-apm*</code>, <code>logs-apm*</code>, and <code>metrics-apm*</code>{" "}
+              data streams.
             </p>
           </EuiText>
         </EuiPanel>

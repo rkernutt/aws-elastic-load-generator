@@ -144,16 +144,11 @@ export function ConfigPage({
       {injectAnomalies && (
         <>
           <EuiSpacer size="m" />
-          <EuiCallOut
-            title="Anomaly injection enabled"
-            color="warning"
-            iconType="warning"
-            size="s"
-          >
+          <EuiCallOut title="Anomaly injection enabled" color="warning" iconType="warning" size="s">
             <p>
-              After shipping, a second pass will inject anomalous documents with elevated
-              error rates, unusual latencies, and out-of-pattern values. This is useful for
-              testing ML anomaly detection jobs and alerting rules in Elastic.
+              After shipping, a second pass will inject anomalous documents with elevated error
+              rates, unusual latencies, and out-of-pattern values. This is useful for testing ML
+              anomaly detection jobs and alerting rules in Elastic.
             </p>
           </EuiCallOut>
         </>

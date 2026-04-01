@@ -102,9 +102,7 @@ export function ServicesPage({
             </EuiButton>
           </EuiFlexItem>
           <EuiFlexItem grow={false}>
-            <EuiBadge color="hollow">
-              {selectedTraceServices.length} selected
-            </EuiBadge>
+            <EuiBadge color="hollow">{selectedTraceServices.length} selected</EuiBadge>
           </EuiFlexItem>
         </EuiFlexGroup>
 
@@ -127,11 +125,7 @@ export function ServicesPage({
                 {group.items.map((svc) => {
                   const checked = selectedTraceServices.includes(svc.id);
                   return (
-                    <EuiFlexItem
-                      key={svc.id}
-                      grow={false}
-                      style={{ minWidth: 220, maxWidth: 300 }}
-                    >
+                    <EuiFlexItem key={svc.id} grow={false} style={{ minWidth: 220, maxWidth: 300 }}>
                       <EuiCheckableCard
                         id={`trace-svc-${svc.id}`}
                         label={

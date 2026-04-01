@@ -45,7 +45,11 @@ for (const [id, fn] of Object.entries(GENERATORS)) {
   // Chain generators return arrays — write first doc; strip __dataset routing key
   const raw = Array.isArray(result) ? result[0] : result;
   const { __dataset: _omitDataset, ...cleaned } = stripNulls(raw);
-  const doc = enrichDocument(cleaned, { serviceId: id, ingestionSource: getSource(id), eventType: "logs" });
+  const doc = enrichDocument(cleaned, {
+    serviceId: id,
+    ingestionSource: getSource(id),
+    eventType: "logs",
+  });
   fs.writeFileSync(path.join(logsDir, `${id}.json`), JSON.stringify(doc, null, 2), "utf8");
   logCount++;
 }
@@ -55,7 +59,11 @@ let metricsCount = 0;
 for (const [id, fn] of Object.entries(METRICS_GENERATORS)) {
   const docs = fn(ts, errorRate);
   const raw = stripNulls(Array.isArray(docs) ? docs[0] : docs);
-  const doc = enrichDocument(raw, { serviceId: id, ingestionSource: getSource(id), eventType: "metrics" });
+  const doc = enrichDocument(raw, {
+    serviceId: id,
+    ingestionSource: getSource(id),
+    eventType: "metrics",
+  });
   fs.writeFileSync(path.join(metricsDir, `${id}.json`), JSON.stringify(doc, null, 2), "utf8");
   metricsCount++;
 }

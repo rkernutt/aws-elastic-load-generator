@@ -46,7 +46,9 @@
             "type": "esql",
             "query": "FROM logs-aws.sagemaker_featurestore* | STATS `Unique Feature Groups` = COUNT_DISTINCT(`aws.sagemaker_featurestore.feature_group_name`)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Unique Feature Groups" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Unique Feature Groups" }
+          ]
         }
       }
     },

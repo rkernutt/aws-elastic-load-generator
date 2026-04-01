@@ -37,16 +37,11 @@ export function SchedulePage({
       </EuiTitle>
       <EuiSpacer size="m" />
 
-      <EuiCallOut
-        title="Scheduled shipping mode"
-        color="primary"
-        iconType="clock"
-        size="s"
-      >
+      <EuiCallOut title="Scheduled shipping mode" color="primary" iconType="clock" size="s">
         <p>
           When enabled, clicking Ship will automatically repeat the shipping process at the
-          configured interval. This is useful for generating continuous data over time to
-          build realistic time-series patterns.
+          configured interval. This is useful for generating continuous data over time to build
+          realistic time-series patterns.
         </p>
       </EuiCallOut>
 
@@ -93,8 +88,8 @@ export function SchedulePage({
 
       <EuiText size="s" color="subdued">
         <p>
-          <strong>Estimated total time:</strong> {scheduleTotalRuns} runs x{" "}
-          {scheduleIntervalMin} min = <strong>{timeStr}</strong>
+          <strong>Estimated total time:</strong> {scheduleTotalRuns} runs x {scheduleIntervalMin}{" "}
+          min = <strong>{timeStr}</strong>
         </p>
       </EuiText>
     </>

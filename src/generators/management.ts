@@ -863,18 +863,51 @@ function generateBillingLog(ts: string, er: number): EcsDocument {
 function generateDmsLog(ts: string, er: number): EcsDocument {
   // ~15% chance of generating a DMS Serverless event
   if (Math.random() < 0.15) {
-    const r = rand(REGIONS); const a = randAccount(); const e = Math.random() < er;
-    const repl = rand(["oracle-to-aurora", "sqlserver-to-redshift", "mongo-to-dynamodb", "mysql-to-s3"]);
+    const r = rand(REGIONS);
+    const a = randAccount();
+    const e = Math.random() < er;
+    const repl = rand([
+      "oracle-to-aurora",
+      "sqlserver-to-redshift",
+      "mongo-to-dynamodb",
+      "mysql-to-s3",
+    ]);
     const phase = rand(["full-load", "cdc", "validation", "pre-migration-assessment"]);
-    const errMsgs = ["Source connection lost", "Target table not found", "LOB column too large", "CDC latency exceeded threshold"];
+    const errMsgs = [
+      "Source connection lost",
+      "Target table not found",
+      "LOB column too large",
+      "CDC latency exceeded threshold",
+    ];
     const dcu = randInt(1, 64);
     return {
       __dataset: "aws.dmsserverless",
       "@timestamp": ts,
-      cloud: { provider: "aws", region: r, account: { id: a.id, name: a.name }, service: { name: "dms-serverless" } },
-      aws: { dmsserverless: { replication_config: repl, replication_type: phase, provisioned_capacity: dcu, min_capacity: 1, max_capacity: 64, tables_loaded: randInt(0, 500), tables_loading: randInt(0, 20), tables_errored: e ? randInt(1, 10) : 0, cdc_latency_seconds: phase === "cdc" ? randFloat(0.1, e ? 300 : 5) : 0, rows_applied: randInt(0, 1e6), bytes_transferred: randInt(0, 1e9) } },
+      cloud: {
+        provider: "aws",
+        region: r,
+        account: { id: a.id, name: a.name },
+        service: { name: "dms-serverless" },
+      },
+      aws: {
+        dmsserverless: {
+          replication_config: repl,
+          replication_type: phase,
+          provisioned_capacity: dcu,
+          min_capacity: 1,
+          max_capacity: 64,
+          tables_loaded: randInt(0, 500),
+          tables_loading: randInt(0, 20),
+          tables_errored: e ? randInt(1, 10) : 0,
+          cdc_latency_seconds: phase === "cdc" ? randFloat(0.1, e ? 300 : 5) : 0,
+          rows_applied: randInt(0, 1e6),
+          bytes_transferred: randInt(0, 1e9),
+        },
+      },
       event: { outcome: e ? "failure" : "success", duration: randInt(1e6, 6e8) },
-      message: e ? `DMS Serverless ${repl}: ${phase} error — ${rand(errMsgs)}` : `DMS Serverless ${repl}: ${phase} active (${dcu} DCU, ${randInt(100, 10000)} rows/s)`,
+      message: e
+        ? `DMS Serverless ${repl}: ${phase} error — ${rand(errMsgs)}`
+        : `DMS Serverless ${repl}: ${phase} active (${dcu} DCU, ${randInt(100, 10000)} rows/s)`,
     };
   }
   const region = rand(REGIONS);
@@ -1572,7 +1605,13 @@ function generateCloudWatchRumLog(ts: string, er: number): EcsDocument {
   const isErr = Math.random() < er;
   const appMonitors = ["web-app-prod", "mobile-web", "checkout-flow", "dashboard-ui"];
   const appMonitor = rand(appMonitors);
-  const eventTypes = ["com.amazon.rum.performance_navigation_event", "com.amazon.rum.js_error_event", "com.amazon.rum.http_event", "com.amazon.rum.session_start_event", "com.amazon.rum.page_view_event"];
+  const eventTypes = [
+    "com.amazon.rum.performance_navigation_event",
+    "com.amazon.rum.js_error_event",
+    "com.amazon.rum.http_event",
+    "com.amazon.rum.session_start_event",
+    "com.amazon.rum.page_view_event",
+  ];
   const evType = isErr ? "com.amazon.rum.js_error_event" : rand(eventTypes);
   const pages = ["/", "/products", "/cart", "/checkout", "/account", "/search"];
   const browsers = ["Chrome 120", "Firefox 121", "Safari 17", "Edge 120"];
@@ -1584,10 +1623,20 @@ function generateCloudWatchRumLog(ts: string, er: number): EcsDocument {
     ttfb_ms: randFloat(50, isErr ? 3000 : 800),
     inp_ms: randFloat(10, isErr ? 1000 : 200),
   };
-  const jsErrors = ["TypeError: Cannot read property 'length' of undefined", "ReferenceError: config is not defined", "SyntaxError: Unexpected token", "RangeError: Maximum call stack size exceeded"];
+  const jsErrors = [
+    "TypeError: Cannot read property 'length' of undefined",
+    "ReferenceError: config is not defined",
+    "SyntaxError: Unexpected token",
+    "RangeError: Maximum call stack size exceeded",
+  ];
   return {
     "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "cloudwatch-rum" } },
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "cloudwatch-rum" },
+    },
     aws: {
       cloudwatch_rum: {
         app_monitor_name: appMonitor,
@@ -1600,8 +1649,12 @@ function generateCloudWatchRumLog(ts: string, er: number): EcsDocument {
         country: rand(["US", "GB", "DE", "JP", "IN", "BR"]),
         session_id: randId(32).toLowerCase(),
         ...(evType.includes("navigation") ? { web_vitals: webVitals } : {}),
-        ...(evType.includes("js_error") ? { error_message: rand(jsErrors), error_type: "js_error" } : {}),
-        ...(evType.includes("http_event") ? { http_status: isErr ? rand([500, 502, 503]) : 200, http_method: rand(["GET", "POST"]) } : {}),
+        ...(evType.includes("js_error")
+          ? { error_message: rand(jsErrors), error_type: "js_error" }
+          : {}),
+        ...(evType.includes("http_event")
+          ? { http_status: isErr ? rand([500, 502, 503]) : 200, http_method: rand(["GET", "POST"]) }
+          : {}),
       },
     },
     event: { outcome: isErr ? "failure" : "success", duration: randInt(1e3, 8e6) },

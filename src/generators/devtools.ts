@@ -1025,13 +1025,30 @@ function generateCloudShellLog(ts: string, er: number): EcsDocument {
   const region = rand(REGIONS);
   const acct = randAccount();
   const isErr = Math.random() < er;
-  const events = ["CreateEnvironment", "StartEnvironment", "StopEnvironment", "PutFileUpload", "GetFileDownload", "RunCommand"];
+  const events = [
+    "CreateEnvironment",
+    "StartEnvironment",
+    "StopEnvironment",
+    "PutFileUpload",
+    "GetFileDownload",
+    "RunCommand",
+  ];
   const ev = rand(events);
   const shells = ["bash", "zsh", "powershell"];
-  const errMsgs = ["Environment creation quota exceeded", "Session expired", "Network timeout", "Storage limit reached"];
+  const errMsgs = [
+    "Environment creation quota exceeded",
+    "Session expired",
+    "Network timeout",
+    "Storage limit reached",
+  ];
   return {
     "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "cloudshell" } },
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "cloudshell" },
+    },
     aws: {
       cloudshell: {
         environment_id: `env-${randId(8).toLowerCase()}`,
@@ -1055,13 +1072,30 @@ function generateCloud9Log(ts: string, er: number): EcsDocument {
   const isErr = Math.random() < er;
   const envs = ["dev-workspace", "pair-programming", "lambda-editor", "notebook-env"];
   const env = rand(envs);
-  const events = ["CreateEnvironment", "UpdateEnvironment", "DeleteEnvironment", "OpenIDE", "ShareEnvironment", "CreateSSHEnvironment"];
+  const events = [
+    "CreateEnvironment",
+    "UpdateEnvironment",
+    "DeleteEnvironment",
+    "OpenIDE",
+    "ShareEnvironment",
+    "CreateSSHEnvironment",
+  ];
   const ev = rand(events);
   const instanceTypes = ["t3.small", "t3.medium", "m5.large", "t3.micro"];
-  const errMsgs = ["EC2 instance failed to start", "EBS volume attachment timeout", "IAM permission denied", "VPC subnet exhausted"];
+  const errMsgs = [
+    "EC2 instance failed to start",
+    "EBS volume attachment timeout",
+    "IAM permission denied",
+    "VPC subnet exhausted",
+  ];
   return {
     "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "cloud9" } },
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "cloud9" },
+    },
     aws: {
       cloud9: {
         environment_id: `env-${randId(16).toLowerCase()}`,
@@ -1075,7 +1109,9 @@ function generateCloud9Log(ts: string, er: number): EcsDocument {
       },
     },
     event: { outcome: isErr ? "failure" : "success", duration: randInt(1e5, 3e7) },
-    message: isErr ? `Cloud9 ${env}: ${ev} failed — ${rand(errMsgs)}` : `Cloud9 ${env}: ${ev} completed`,
+    message: isErr
+      ? `Cloud9 ${env}: ${ev} failed — ${rand(errMsgs)}`
+      : `Cloud9 ${env}: ${ev} completed`,
   };
 }
 
@@ -1086,13 +1122,30 @@ function generateRoboMakerLog(ts: string, er: number): EcsDocument {
   const isErr = Math.random() < er;
   const apps = ["warehouse-nav", "delivery-robot", "inspection-drone", "pick-and-place"];
   const app = rand(apps);
-  const events = ["CreateSimulationJob", "StartSimulation", "DescribeSimulation", "CreateRobotApplication", "BatchDescribeSimulation", "CreateWorldTemplate"];
+  const events = [
+    "CreateSimulationJob",
+    "StartSimulation",
+    "DescribeSimulation",
+    "CreateRobotApplication",
+    "BatchDescribeSimulation",
+    "CreateWorldTemplate",
+  ];
   const ev = rand(events);
   const statuses = isErr ? ["Failed", "Canceled"] : ["Completed", "Running"];
-  const errMsgs = ["Simulation world generation failed", "Robot application build error", "GPU resource unavailable", "Gazebo process crashed"];
+  const errMsgs = [
+    "Simulation world generation failed",
+    "Robot application build error",
+    "GPU resource unavailable",
+    "Gazebo process crashed",
+  ];
   return {
     "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "robomaker" } },
+    cloud: {
+      provider: "aws",
+      region,
+      account: { id: acct.id, name: acct.name },
+      service: { name: "robomaker" },
+    },
     aws: {
       robomaker: {
         simulation_job_id: `sim-${randId(12).toLowerCase()}`,
@@ -1107,7 +1160,9 @@ function generateRoboMakerLog(ts: string, er: number): EcsDocument {
       },
     },
     event: { outcome: isErr ? "failure" : "success", duration: randInt(6e7, 3.6e10) },
-    message: isErr ? `RoboMaker ${app}: ${ev} ${rand(statuses)} — ${rand(errMsgs)}` : `RoboMaker ${app}: ${ev} completed`,
+    message: isErr
+      ? `RoboMaker ${app}: ${ev} ${rand(statuses)} — ${rand(errMsgs)}`
+      : `RoboMaker ${app}: ${ev} completed`,
   };
 }
 

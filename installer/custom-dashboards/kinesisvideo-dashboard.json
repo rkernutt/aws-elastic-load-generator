@@ -62,7 +62,9 @@
             "type": "esql",
             "query": "FROM logs-aws.kinesisvideo* | STATS `Avg Ingestion Rate (Mbps)` = AVG(`aws.kinesisvideo.ingestion_rate_mbps`)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Avg Ingestion Rate (Mbps)" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Avg Ingestion Rate (Mbps)" }
+          ]
         }
       }
     },

@@ -24,35 +24,103 @@ import type { EcsDocument } from "./types.js";
  */
 function generateS3Log(ts, er) {
   // ~10% chance of generating an Intelligent-Tiering event
-  if (Math.random() < 0.10) {
-    const r = rand(REGIONS); const a = randAccount(); const e = Math.random() < er;
+  if (Math.random() < 0.1) {
+    const r = rand(REGIONS);
+    const a = randAccount();
+    const e = Math.random() < er;
     const bucket = rand(["data-lake-raw", "analytics-archive", "ml-datasets", "application-logs"]);
-    const tiers = ["FREQUENT_ACCESS", "INFREQUENT_ACCESS", "ARCHIVE_INSTANT_ACCESS", "ARCHIVE_ACCESS", "DEEP_ARCHIVE_ACCESS"];
+    const tiers = [
+      "FREQUENT_ACCESS",
+      "INFREQUENT_ACCESS",
+      "ARCHIVE_INSTANT_ACCESS",
+      "ARCHIVE_ACCESS",
+      "DEEP_ARCHIVE_ACCESS",
+    ];
     const fromTier = rand(tiers);
     const toTier = rand(tiers.filter((t) => t !== fromTier));
-    const ev = rand(["TierTransition", "ArchiveRestore", "ConfigurationUpdate", "MonitoringStatus"]);
+    const ev = rand([
+      "TierTransition",
+      "ArchiveRestore",
+      "ConfigurationUpdate",
+      "MonitoringStatus",
+    ]);
     return {
       __dataset: "aws.s3_intelligent_tiering",
       "@timestamp": ts,
-      cloud: { provider: "aws", region: r, account: { id: a.id, name: a.name }, service: { name: "s3-intelligent-tiering" } },
-      aws: { s3_intelligent_tiering: { bucket_name: bucket, event_type: ev, from_tier: fromTier, to_tier: toTier, objects_transitioned: randInt(1, e ? 0 : 10000), bytes_transitioned: randInt(1024, 1e10), monitoring_enabled: true, archive_access_days: 90, deep_archive_days: 180, cost_savings_pct: randFloat(10, 75) } },
+      cloud: {
+        provider: "aws",
+        region: r,
+        account: { id: a.id, name: a.name },
+        service: { name: "s3-intelligent-tiering" },
+      },
+      aws: {
+        s3_intelligent_tiering: {
+          bucket_name: bucket,
+          event_type: ev,
+          from_tier: fromTier,
+          to_tier: toTier,
+          objects_transitioned: randInt(1, e ? 0 : 10000),
+          bytes_transitioned: randInt(1024, 1e10),
+          monitoring_enabled: true,
+          archive_access_days: 90,
+          deep_archive_days: 180,
+          cost_savings_pct: randFloat(10, 75),
+        },
+      },
       event: { outcome: e ? "failure" : "success", duration: randInt(1e5, 3e7) },
-      message: e ? `S3 Intelligent-Tiering ${bucket}: transition failed` : `S3 Intelligent-Tiering ${bucket}: ${randInt(1, 10000)} objects ${fromTier} → ${toTier}`,
+      message: e
+        ? `S3 Intelligent-Tiering ${bucket}: transition failed`
+        : `S3 Intelligent-Tiering ${bucket}: ${randInt(1, 10000)} objects ${fromTier} → ${toTier}`,
     };
   }
   // ~10% chance of generating a Batch Operations event
-  if (Math.random() < 0.10) {
-    const r = rand(REGIONS); const a = randAccount(); const e = Math.random() < er;
-    const op = rand(["S3PutObjectCopy", "S3PutObjectTagging", "S3DeleteObjectTagging", "S3InitiateRestoreObject", "LambdaInvoke", "S3PutObjectLegalHold", "S3PutObjectRetention"]);
+  if (Math.random() < 0.1) {
+    const r = rand(REGIONS);
+    const a = randAccount();
+    const e = Math.random() < er;
+    const op = rand([
+      "S3PutObjectCopy",
+      "S3PutObjectTagging",
+      "S3DeleteObjectTagging",
+      "S3InitiateRestoreObject",
+      "LambdaInvoke",
+      "S3PutObjectLegalHold",
+      "S3PutObjectRetention",
+    ]);
     const status = e ? rand(["Failed", "Cancelled"]) : rand(["Complete", "Active"]);
-    const errMsgs = ["Manifest file not found", "Insufficient permissions on target bucket", "Lambda invocation failed", "Object key not found"];
+    const errMsgs = [
+      "Manifest file not found",
+      "Insufficient permissions on target bucket",
+      "Lambda invocation failed",
+      "Object key not found",
+    ];
     return {
       __dataset: "aws.s3_batch_operations",
       "@timestamp": ts,
-      cloud: { provider: "aws", region: r, account: { id: a.id, name: a.name }, service: { name: "s3-batch-operations" } },
-      aws: { s3_batch_operations: { job_id: randId(36).toLowerCase(), operation: op, status, objects_total: randInt(100, 1e6), objects_succeeded: e ? randInt(0, 100) : randInt(100, 1e6), objects_failed: e ? randInt(10, 1000) : 0, manifest_key: `manifests/batch-${randId(8).toLowerCase()}.csv`, priority: randInt(1, 100), report_bucket: `s3-batch-reports-${a.id}`, elapsed_seconds: randInt(10, 86400) } },
+      cloud: {
+        provider: "aws",
+        region: r,
+        account: { id: a.id, name: a.name },
+        service: { name: "s3-batch-operations" },
+      },
+      aws: {
+        s3_batch_operations: {
+          job_id: randId(36).toLowerCase(),
+          operation: op,
+          status,
+          objects_total: randInt(100, 1e6),
+          objects_succeeded: e ? randInt(0, 100) : randInt(100, 1e6),
+          objects_failed: e ? randInt(10, 1000) : 0,
+          manifest_key: `manifests/batch-${randId(8).toLowerCase()}.csv`,
+          priority: randInt(1, 100),
+          report_bucket: `s3-batch-reports-${a.id}`,
+          elapsed_seconds: randInt(10, 86400),
+        },
+      },
       event: { outcome: e ? "failure" : "success", duration: randInt(1e7, 8.64e10) },
-      message: e ? `S3 Batch Ops job ${status}: ${op} — ${rand(errMsgs)}` : `S3 Batch Ops job ${status}: ${op} on ${randInt(100, 1e6).toLocaleString()} objects`,
+      message: e
+        ? `S3 Batch Ops job ${status}: ${op} — ${rand(errMsgs)}`
+        : `S3 Batch Ops job ${status}: ${op} on ${randInt(100, 1e6).toLocaleString()} objects`,
     };
   }
   const region = rand(REGIONS);

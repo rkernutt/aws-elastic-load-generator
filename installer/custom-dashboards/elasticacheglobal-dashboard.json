@@ -62,7 +62,9 @@
             "type": "esql",
             "query": "FROM logs-aws.elasticacheglobal* | STATS `Avg Replication Lag (ms)` = AVG(`aws.elasticacheglobal.replication_lag_ms`)"
           },
-          "metrics": [{ "type": "primary", "operation": "value", "column": "Avg Replication Lag (ms)" }]
+          "metrics": [
+            { "type": "primary", "operation": "value", "column": "Avg Replication Lag (ms)" }
+          ]
         }
       }
     },
