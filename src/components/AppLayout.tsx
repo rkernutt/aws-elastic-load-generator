@@ -8,8 +8,9 @@ import {
   EuiFlexItem,
   EuiText,
   EuiSpacer,
-  EuiTitle,
+  EuiStepsHorizontal,
 } from "@elastic/eui";
+import { PipelineLogo } from "./Logo";
 
 interface AppLayoutProps {
   activePage: string;
@@ -21,13 +22,22 @@ interface AppLayoutProps {
   scheduleActive: boolean;
   scheduleCurrentRun: number;
   scheduleTotalRuns: number;
+  isConnected: boolean;
+  hasServicesSelected: boolean;
 }
 
-const NAV_ITEMS = [
-  { id: "ship", label: "Ship & Monitor", icon: "play" },
-  { id: "connection", label: "Connection", icon: "link" },
-  { id: "services", label: "Services", icon: "apps" },
-  { id: "config", label: "Configuration", icon: "controlsHorizontal" },
+/** Wizard steps in logical order */
+const STEPS = [
+  { id: "connection", title: "Connect" },
+  { id: "services", title: "Select" },
+  { id: "config", title: "Configure" },
+  { id: "ship", title: "Ship" },
+] as const;
+
+const STEP_IDS = STEPS.map((s) => s.id);
+
+/** Secondary nav items below the wizard */
+const EXTRA_NAV = [
   { id: "schedule", label: "Scheduling", icon: "clock" },
   { id: "anomalies", label: "Anomalies", icon: "bug" },
   { id: "log", label: "Activity Log", icon: "list" },
@@ -43,12 +53,41 @@ export function AppLayout({
   scheduleActive,
   scheduleCurrentRun,
   scheduleTotalRuns,
+  isConnected,
+  hasServicesSelected,
 }: AppLayoutProps) {
+  /** Determine step status for the horizontal stepper */
+  const activeStepIdx = STEP_IDS.indexOf(activePage as (typeof STEP_IDS)[number]);
+
+  const stepStatuses = STEPS.map((step, idx) => {
+    // Determine completion
+    let isComplete = false;
+    if (step.id === "connection") isComplete = isConnected;
+    if (step.id === "services") isComplete = hasServicesSelected;
+    if (step.id === "config") isComplete = hasServicesSelected; // config has defaults, always "ready"
+    if (step.id === "ship") isComplete = status === "done";
+
+    let stepStatus: "complete" | "current" | "incomplete" | "disabled";
+    if (idx === activeStepIdx) {
+      stepStatus = "current";
+    } else if (isComplete) {
+      stepStatus = "complete";
+    } else {
+      stepStatus = "incomplete";
+    }
+
+    return {
+      title: step.title,
+      status: stepStatus,
+      onClick: () => onNavigate(step.id),
+    };
+  });
+
   const sideNavItems = [
     {
-      name: "Navigation",
-      id: "nav-root",
-      items: NAV_ITEMS.map((item) => ({
+      name: "More",
+      id: "nav-extra",
+      items: EXTRA_NAV.map((item) => ({
         id: item.id,
         name: item.label,
         icon: <EuiIcon type={item.icon} />,
@@ -67,51 +106,57 @@ export function AppLayout({
 
   return (
     <EuiPageTemplate restrictWidth={false} grow>
-      <EuiPageTemplate.Sidebar sticky={{ offset: 0 }} minWidth={200}>
+      <EuiPageTemplate.Sidebar sticky={{ offset: 0 }} minWidth={210}>
         <EuiSpacer size="m" />
-        <EuiTitle size="xs">
-          <h2>
-            <EuiFlexGroup gutterSize="s" alignItems="center" responsive={false}>
-              <EuiFlexItem grow={false}>
-                <EuiIcon type="logoAWS" size="l" />
-              </EuiFlexItem>
-              <EuiFlexItem grow={false}>
-                <EuiIcon type="sortRight" size="m" />
-              </EuiFlexItem>
-              <EuiFlexItem grow={false}>
-                <EuiIcon type="logoElastic" size="l" />
-              </EuiFlexItem>
-            </EuiFlexGroup>
-          </h2>
-        </EuiTitle>
-        <EuiSpacer size="s" />
-        <EuiText size="xs" color="subdued">
-          <p>Load Generator</p>
-        </EuiText>
+        <EuiFlexGroup gutterSize="s" alignItems="center" responsive={false}>
+          <EuiFlexItem grow={false}>
+            <PipelineLogo size={36} />
+          </EuiFlexItem>
+          <EuiFlexItem>
+            <EuiText size="s">
+              <strong>AWS → Elastic</strong>
+            </EuiText>
+            <EuiText size="xs" color="subdued">
+              Load Generator
+            </EuiText>
+          </EuiFlexItem>
+        </EuiFlexGroup>
+
         <EuiSpacer size="l" />
         <EuiSideNav items={sideNavItems} />
         <EuiSpacer size="l" />
         <div style={{ marginTop: "auto", paddingTop: 24 }}>
-          <EuiBadge color="hollow">v12.0.0</EuiBadge>
+          <EuiFlexGroup gutterSize="s" alignItems="center" responsive={false}>
+            <EuiFlexItem grow={false}>
+              <EuiBadge color="hollow">v12.0.0</EuiBadge>
+            </EuiFlexItem>
+            {statusBadge && <EuiFlexItem grow={false}>{statusBadge}</EuiFlexItem>}
+            {scheduleActive && (
+              <EuiFlexItem grow={false}>
+                <EuiBadge color="accent">
+                  Run {scheduleCurrentRun}/{scheduleTotalRuns}
+                </EuiBadge>
+              </EuiFlexItem>
+            )}
+          </EuiFlexGroup>
         </div>
       </EuiPageTemplate.Sidebar>
 
       <EuiPageTemplate.Section>
-        <EuiPageTemplate.Header
-          pageTitle=""
-          rightSideItems={[
-            statusBadge,
-            <EuiBadge key="svc-count" color="hollow">
+        {/* Wizard stepper at top of content area */}
+        <EuiStepsHorizontal steps={stepStatuses} />
+        <EuiSpacer size="m" />
+
+        {/* Top bar with service count */}
+        <EuiFlexGroup justifyContent="flexEnd" gutterSize="s" responsive={false}>
+          <EuiFlexItem grow={false}>
+            <EuiBadge color="hollow">
               {totalSelected} / {totalServices} services
-            </EuiBadge>,
-            scheduleActive ? (
-              <EuiBadge key="sched" color="accent">
-                Run {scheduleCurrentRun} / {scheduleTotalRuns}
-              </EuiBadge>
-            ) : null,
-          ].filter(Boolean)}
-          tabs={[]}
-        />
+            </EuiBadge>
+          </EuiFlexItem>
+        </EuiFlexGroup>
+        <EuiSpacer size="m" />
+
         {children}
       </EuiPageTemplate.Section>
     </EuiPageTemplate>

@@ -129,7 +129,7 @@ export default function App() {
   const [log, setLog] = useState<LogEntry[]>([]);
   const [preview, setPreview] = useState<string | null>(null);
   const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
-  const [activePage, setActivePage] = useState("ship");
+  const [activePage, setActivePage] = useState("connection");
   const abortRef = useRef(false);
   const scheduleLoopRef = useRef<AbortController | null>(null);
   const logSeqRef = useRef(0);
@@ -1026,6 +1026,8 @@ export default function App() {
       scheduleActive={scheduleActive}
       scheduleCurrentRun={scheduleCurrentRun}
       scheduleTotalRuns={scheduleTotalRuns}
+      isConnected={!!(elasticUrl && apiKey)}
+      hasServicesSelected={totalSelected > 0}
     >
       {activePage === "ship" && (
         <ShipPage
@@ -1216,7 +1218,7 @@ export default function App() {
         />
       )}
 
-      {activePage === "activity" && (
+      {activePage === "log" && (
         <ActivityPage log={log} preview={preview} onDownloadLog={downloadLog} />
       )}
     </AppLayout>
