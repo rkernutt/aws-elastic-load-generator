@@ -1,5 +1,4 @@
-import { useState, useCallback, useRef, useEffect, useMemo } from "react";
-import K from "./theme";
+import { useState, useCallback, useRef, useEffect } from "react";
 import {
   rand,
   randTs,
@@ -8,7 +7,6 @@ import {
 } from "./helpers";
 import { GENERATORS } from "./generators";
 import { TRACE_SERVICES } from "./generators/traces/services";
-import { ServiceGrid } from "./components/ServiceGrid";
 
 // Lazy-load heavy generator chunks — only downloaded on first use (logs mode = no download).
 // The browser module cache ensures each chunk is fetched at most once per session.
@@ -21,11 +19,7 @@ import {
   METRICS_SUPPORTED_SERVICE_IDS,
 } from "./data/elasticMaps";
 import { SERVICE_INGESTION_DEFAULTS, INGESTION_META } from "./data/ingestion";
-import { AWS_SERVICE_ICON_MAP, TRACE_SERVICE_ICON_MAP, iconSrc } from "./data/iconMap";
 import { SERVICE_GROUPS, ALL_SERVICE_IDS } from "./data/serviceGroups";
-import { Card, CardHeader, QuickBtn, Field, SliderField, StatCard } from "./components/Card";
-import { StatusPill } from "./components/StatusPill";
-import { AwsLogo, PipelineRoute } from "./components/Logo";
 import {
   validateElasticUrl,
   validateApiKey,
@@ -33,7 +27,14 @@ import {
   testConnection,
 } from "./utils/validation";
 import { loadAndScrubSavedConfig, toPersistedStorageObject } from "./utils/persistedConfig";
-import styles from "./App.module.css";
+import { AppLayout } from "./components/AppLayout";
+import { ShipPage } from "./pages/ShipPage";
+import { ConnectionPage } from "./pages/ConnectionPage";
+import { ServicesPage } from "./pages/ServicesPage";
+import { ConfigPage } from "./pages/ConfigPage";
+import { SchedulePage } from "./pages/SchedulePage";
+import { AnomaliesPage } from "./pages/AnomaliesPage";
+import { ActivityPage } from "./pages/ActivityPage";
 
 type LogEntry = { id: number; msg: string; type: string; ts: string };
 type ShipStatus = "running" | "done" | "aborted" | null;
@@ -129,25 +130,12 @@ export default function App() {
   const [log, setLog] = useState<LogEntry[]>([]);
   const [preview, setPreview] = useState<string | null>(null);
   const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
+  const [activePage, setActivePage] = useState("ship");
   const abortRef = useRef(false);
   const scheduleLoopRef = useRef<AbortController | null>(null);
   const logSeqRef = useRef(0);
 
-  const traceServiceGroups = useMemo(() => {
-    const order = ["Multi-Service Workflow", "Data Pipeline", "Single-Service"];
-    const m = new Map<string, (typeof TRACE_SERVICES)[number][]>();
-    for (const s of TRACE_SERVICES) {
-      const g = s.group;
-      const list = m.get(g) ?? [];
-      list.push(s);
-      m.set(g, list);
-    }
-    const tail = [...m.keys()].filter((g) => !order.includes(g));
-    return [...order.filter((g) => m.has(g)), ...tail].map((title) => ({
-      title,
-      items: m.get(title)!,
-    }));
-  }, []);
+  // traceServiceGroups moved to ServicesPage
 
   // ─── Persist config to localStorage (allowlisted keys only — no URL/API key) ─
   useEffect(() => {
@@ -225,13 +213,7 @@ export default function App() {
     return () => clearInterval(id);
   }, [nextRunAt]);
 
-  const toggleTraceService = (id) => {
-    setSelectedTraceServices((prev) =>
-      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
-    );
-  };
-  const selectAllTraces = () => setSelectedTraceServices(TRACE_SERVICES.map((s) => s.id));
-  const selectNoneTraces = () => setSelectedTraceServices([]);
+  // toggleTraceService, selectAllTraces, selectNoneTraces moved to ServicesPage inline handlers
 
   const addLog = (msg: string, type = "info") =>
     setLog((prev) => [
@@ -335,55 +317,7 @@ export default function App() {
     input.click();
   };
 
-  const toggleService = useCallback(
-    (id: string) => {
-      if (
-        eventType === "metrics" &&
-        !METRICS_SUPPORTED_SERVICE_IDS.has(id) &&
-        !selectedServices.includes(id)
-      )
-        return;
-      setSelectedServices((prev) =>
-        prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
-      );
-    },
-    [eventType, selectedServices]
-  );
-
-  const toggleGroup = useCallback(
-    (gid: string) => {
-      const grp = SERVICE_GROUPS.find((g) => g.id === gid);
-      if (!grp) return;
-      const groupIds = grp.services.map((s) => s.id);
-      const selectableIds =
-        eventType === "metrics"
-          ? groupIds.filter((id) => METRICS_SUPPORTED_SERVICE_IDS.has(id))
-          : groupIds;
-      const allSel =
-        selectableIds.length > 0 && selectableIds.every((id) => selectedServices.includes(id));
-      setSelectedServices((prev) =>
-        allSel
-          ? prev.filter((id) => !groupIds.includes(id))
-          : [...new Set([...prev, ...selectableIds])]
-      );
-    },
-    [eventType, selectedServices]
-  );
-
-  const selectAll = useCallback(
-    () =>
-      setSelectedServices(
-        eventType === "metrics"
-          ? ALL_SERVICE_IDS.filter((id) => METRICS_SUPPORTED_SERVICE_IDS.has(id))
-          : [...ALL_SERVICE_IDS]
-      ),
-    [eventType]
-  );
-  const selectNone = useCallback(() => setSelectedServices([]), []);
-  const toggleCollapse = useCallback(
-    (gid: string) => setCollapsedGroups((prev) => ({ ...prev, [gid]: !prev[gid] })),
-    []
-  );
+  // Service selection helpers — used by ServicesPage via inline props
 
   const getEffectiveSource = useCallback(
     (svcId) => {
@@ -1034,8 +968,6 @@ export default function App() {
   }, [ship, scheduleTotalRuns, scheduleIntervalMin]);
 
   const pct = progress.total > 0 ? Math.round((progress.sent / progress.total) * 100) : 0;
-  const progressBarColor =
-    pct === 100 ? K.success : progress.phase === "injection" ? "#7c3aed" : K.primary;
   const totalSelected = isTracesMode ? selectedTraceServices.length : selectedServices.length;
   const totalServices = isTracesMode
     ? TRACE_SERVICES.length
@@ -1048,1063 +980,231 @@ export default function App() {
     ? totalSelected * tracesPerService
     : totalSelected * logsPerService;
   const estimatedBatches = totalSelected > 0 ? Math.ceil(estimatedDocs / batchSize) : 0;
-  // Rough estimate: ~1.5 KB per log/metric doc, ~3 KB per trace doc
-  const estimatedMB = isTracesMode
-    ? ((estimatedDocs * 3) / 1024).toFixed(1)
-    : ((estimatedDocs * 1.5) / 1024).toFixed(1);
+
+  const canShip = !!(
+    totalSelected &&
+    (dryRun ||
+      (elasticUrl &&
+        apiKey &&
+        !(validationErrors.elasticUrl || validationErrors.apiKey || (!isTracesMode && validationErrors.indexPrefix))))
+  );
+
+  const estimatedMBNum = isTracesMode
+    ? parseFloat(((estimatedDocs * 3) / 1024).toFixed(1))
+    : parseFloat(((estimatedDocs * 1.5) / 1024).toFixed(1));
 
   return (
-    <div className={styles.root} style={{ background: K.body, color: K.text }}>
-      <header className={styles.header}>
-        <div className={styles.headerLeft}>
-          <AwsLogo height={26} />
-          <PipelineRoute height={22} />
-          <img src="/elastic-logo.svg" alt="Elastic" height={28} style={{ display: "block" }} />
-          <div className={styles.headerRule} />
-          <span className={styles.headerTitle}>Load Generator</span>
-        </div>
-        <div className={styles.headerRight}>
-          <span className={styles.headerSubdued}>
-            {totalSelected} / {totalServices} services
-          </span>
-          {status === "running" && (
-            <StatusPill color="#FACB3D" dot light>
-              Shipping
-            </StatusPill>
-          )}
-          {status === "done" && (
-            <StatusPill color="#24C292" light>
-              Complete
-            </StatusPill>
-          )}
-          {status === "aborted" && (
-            <StatusPill color="#EE4C48" light>
-              Aborted
-            </StatusPill>
-          )}
-          {scheduleActive && (
-            <StatusPill color={K.primary} dot light>
-              Run {scheduleCurrentRun}/{scheduleTotalRuns}
-            </StatusPill>
-          )}
-        </div>
-      </header>
+    <AppLayout
+      activePage={activePage}
+      onNavigate={setActivePage}
+      status={status}
+      totalSelected={totalSelected}
+      totalServices={totalServices}
+      scheduleActive={scheduleActive}
+      scheduleCurrentRun={scheduleCurrentRun}
+      scheduleTotalRuns={scheduleTotalRuns}
+    >
+      {activePage === "ship" && (
+        <ShipPage
+          status={status}
+          progress={progress}
+          pct={pct}
+          totalSelected={totalSelected}
+          estimatedDocs={estimatedDocs}
+          estimatedMB={estimatedMBNum}
+          estimatedBatches={estimatedBatches}
+          isTracesMode={isTracesMode}
+          eventType={eventType}
+          tracesPerService={tracesPerService}
+          logsPerService={logsPerService}
+          dryRun={dryRun}
+          scheduleEnabled={scheduleEnabled}
+          scheduleActive={scheduleActive}
+          scheduleCurrentRun={scheduleCurrentRun}
+          scheduleTotalRuns={scheduleTotalRuns}
+          nextRunAt={nextRunAt}
+          countdown={countdown}
+          canShip={canShip}
+          onShip={scheduleEnabled ? startSchedule : ship}
+          onStop={() => {
+            abortRef.current = true;
+            scheduleLoopRef.current?.abort();
+          }}
+          onPreview={generatePreview}
+          onDryRunChange={setDryRun}
+          preview={preview}
+        />
+      )}
 
-      <main className={styles.main}>
-        <div className={styles.pageTitleWrap}>
-          <h1 className={styles.pageTitle}>Generate and ship AWS logs &amp; metrics to Elastic</h1>
-          <p className={styles.pageDesc}>
-            {isTracesMode
-              ? `${totalServices} OTel-style APM scenarios (single-service + workflows) · EDOT / ADOT paths · Ships to traces-apm-default`
-              : eventType === "metrics"
-                ? `${totalServices} AWS services with Elastic metrics support`
-                : `${totalServices} AWS services across ${SERVICE_GROUPS.length} groups`}
-            {isTracesMode
-              ? ""
-              : " · ECS-compliant · Per-service ingestion (S3, CloudWatch, API, Firehose, OTel). Ships directly to Elasticsearch."}
-          </p>
-        </div>
+      {activePage === "connection" && (
+        <ConnectionPage
+          elasticUrl={elasticUrl}
+          apiKey={apiKey}
+          indexPrefix={indexPrefix}
+          isTracesMode={isTracesMode}
+          eventType={eventType}
+          connectionStatus={connectionStatus}
+          connectionMsg={connectionMsg}
+          validationErrors={validationErrors}
+          ingestionSource={ingestionSource}
+          onElasticUrlChange={(val) => {
+            setElasticUrl(val);
+            setValidationErrors((prev) => ({ ...prev, elasticUrl: "" }));
+          }}
+          onApiKeyChange={(val) => {
+            setApiKey(val);
+            setValidationErrors((prev) => ({ ...prev, apiKey: "" }));
+          }}
+          onIndexPrefixChange={(val) => {
+            setIndexPrefix(val);
+            setValidationErrors((prev) => ({ ...prev, indexPrefix: "" }));
+          }}
+          onTestConnection={handleTestConnection}
+          onIngestionSourceChange={setIngestionSource}
+          onExportConfig={exportConfig}
+          onImportConfig={importConfig}
+          onResetConfig={clearSavedConfig}
+          onBlurElasticUrl={() =>
+            setValidationErrors((prev) => ({
+              ...prev,
+              elasticUrl: validateElasticUrl(elasticUrl).valid
+                ? ""
+                : (validateElasticUrl(elasticUrl).message ?? ""),
+            }))
+          }
+          onBlurApiKey={() =>
+            setValidationErrors((prev) => ({
+              ...prev,
+              apiKey: validateApiKey(apiKey).valid
+                ? ""
+                : (validateApiKey(apiKey).message ?? ""),
+            }))
+          }
+          onBlurIndexPrefix={() =>
+            setValidationErrors((prev) => ({
+              ...prev,
+              indexPrefix: validateIndexPrefix(indexPrefix).valid
+                ? ""
+                : (validateIndexPrefix(indexPrefix).message ?? ""),
+            }))
+          }
+        />
+      )}
 
-        <div className={styles.grid}>
-          {/* LEFT — Service selection */}
-          <div>
-            {isTracesMode ? (
-              <Card>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    marginBottom: 12,
-                  }}
-                >
-                  <span style={{ fontSize: 13, fontWeight: 600, color: K.textHeading }}>
-                    Select Trace Services
-                  </span>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    <QuickBtn onClick={selectAllTraces}>All</QuickBtn>
-                    <QuickBtn onClick={selectNoneTraces}>None</QuickBtn>
-                    {totalSelected > 0 && (
-                      <span
-                        style={{
-                          fontSize: 11,
-                          fontWeight: 600,
-                          color: "#8b5cf6",
-                          background: "#8b5cf614",
-                          border: "1px solid #8b5cf644",
-                          borderRadius: 99,
-                          padding: "2px 10px",
-                        }}
-                      >
-                        {totalSelected} selected
-                      </span>
-                    )}
-                  </div>
-                </div>
-                <div
-                  style={{
-                    fontSize: 11,
-                    color: K.textSubdued,
-                    marginBottom: 12,
-                    padding: "8px 10px",
-                    background: "#8b5cf608",
-                    border: "1px solid #8b5cf622",
-                    borderRadius: K.radiusSm,
-                  }}
-                >
-                  Documents match Elastic APM shape (OTLP-style). Single-service and workflow traces
-                  use <span style={{ color: "#8b5cf6", fontWeight: 600 }}>EDOT</span> or{" "}
-                  <span style={{ color: "#8b5cf6", fontWeight: 600 }}>ADOT</span> conventions; ship
-                  to <span style={{ color: "#8b5cf6", fontWeight: 600 }}>traces-apm-default</span>.
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                  {traceServiceGroups.map(({ title, items }) => (
-                    <div key={title}>
-                      <div
-                        style={{
-                          fontSize: 10,
-                          fontWeight: 700,
-                          color: K.textSubdued,
-                          textTransform: "uppercase",
-                          letterSpacing: "0.04em",
-                          marginBottom: 8,
-                        }}
-                      >
-                        {title}
-                      </div>
+      {activePage === "services" && (
+        <ServicesPage
+          isTracesMode={isTracesMode}
+          eventType={eventType}
+          selectedServices={selectedServices}
+          selectedTraceServices={selectedTraceServices}
+          onSelectedServicesChange={setSelectedServices}
+          onSelectedTraceServicesChange={setSelectedTraceServices}
+          totalSelected={totalSelected}
+          totalServices={totalServices}
+          collapsedGroups={collapsedGroups}
+          onToggleGroup={(gid) =>
+            setCollapsedGroups((prev) => ({ ...prev, [gid]: !prev[gid] }))
+          }
+          ingestionSource={ingestionSource}
+          selectAll={() => {
+            if (isTracesMode) {
+              setSelectedTraceServices(TRACE_SERVICES.map((s) => s.id));
+            } else if (eventType === "metrics") {
+              setSelectedServices(
+                ALL_SERVICE_IDS.filter((id) => METRICS_SUPPORTED_SERVICE_IDS.has(id))
+              );
+            } else {
+              setSelectedServices([...ALL_SERVICE_IDS]);
+            }
+          }}
+          selectNone={() => {
+            if (isTracesMode) {
+              setSelectedTraceServices([]);
+            } else {
+              setSelectedServices([]);
+            }
+          }}
+          toggleService={(id) => {
+            if (isTracesMode) {
+              setSelectedTraceServices((prev) =>
+                prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
+              );
+            } else {
+              setSelectedServices((prev) =>
+                prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
+              );
+            }
+          }}
+          toggleGroupSelection={(gid) => {
+            // Find group services
+            const group = SERVICE_GROUPS.find((g) => g.id === gid);
+            if (!group) return;
+            const groupIds = group.services.map((s) => s.id);
+            const allSelected = groupIds.every((id) => selectedServices.includes(id));
+            if (allSelected) {
+              setSelectedServices((prev) => prev.filter((id) => !groupIds.includes(id)));
+            } else {
+              setSelectedServices((prev) => [...new Set([...prev, ...groupIds])]);
+            }
+          }}
+          getEffectiveSource={getEffectiveSource}
+        />
+      )}
 
-                      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                        {items.map((svc) => {
-                          const sel = selectedTraceServices.includes(svc.id);
-                          const iconFile =
-                            AWS_SERVICE_ICON_MAP[svc.id as keyof typeof AWS_SERVICE_ICON_MAP] ??
-                            TRACE_SERVICE_ICON_MAP[svc.id];
-                          return (
-                            <button
-                              key={svc.id}
-                              onClick={() => toggleTraceService(svc.id)}
-                              style={{
-                                border: `1.5px solid ${sel ? "#8b5cf6" : "#e2e8f0"}`,
-                                borderRadius: K.radius,
-                                padding: "12px 14px",
-                                background: sel ? "#8b5cf60e" : "#f8fafc",
-                                cursor: "pointer",
-                                textAlign: "left",
-                                transition: "all 0.15s",
-                                position: "relative",
-                                overflow: "hidden",
-                              }}
-                            >
-                              {sel && (
-                                <div
-                                  style={{
-                                    position: "absolute",
-                                    top: 0,
-                                    left: 0,
-                                    right: 0,
-                                    height: 2,
-                                    background: "#8b5cf6",
-                                    borderRadius: "8px 8px 0 0",
-                                  }}
-                                />
-                              )}
-                              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                                {iconFile ? (
-                                  <img
-                                    src={iconSrc(iconFile)}
-                                    alt=""
-                                    style={{ width: 32, height: 32, objectFit: "contain" }}
-                                  />
-                                ) : (
-                                  <div style={{ fontSize: 22, minWidth: 32, textAlign: "center" }}>
-                                    ⚡
-                                  </div>
-                                )}
-                                <div>
-                                  <div
-                                    style={{
-                                      fontSize: 13,
-                                      fontWeight: 700,
-                                      color: sel ? "#8b5cf6" : "#334155",
-                                      marginBottom: 2,
-                                    }}
-                                  >
-                                    {svc.label}
-                                  </div>
-                                  <div style={{ fontSize: 11, color: "#64748b", lineHeight: 1.4 }}>
-                                    {svc.desc}
-                                  </div>
-                                </div>
-                                {sel && (
-                                  <span
-                                    style={{
-                                      marginLeft: "auto",
-                                      color: "#8b5cf6",
-                                      fontSize: 14,
-                                      fontWeight: 700,
-                                    }}
-                                  >
-                                    ✓
-                                  </span>
-                                )}
-                              </div>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div
-                  style={{
-                    marginTop: 12,
-                    padding: "10px 12px",
-                    background: K.subdued,
-                    borderRadius: K.radiusSm,
-                    border: `1px solid ${K.border}`,
-                  }}
-                >
-                  <div
-                    style={{ fontSize: 11, fontWeight: 600, color: K.textHeading, marginBottom: 6 }}
-                  >
-                    OTel instrumentation paths
-                  </div>
-                  <div style={{ fontSize: 10, color: K.textSubdued, lineHeight: 1.6 }}>
-                    <div>
-                      <span style={{ color: "#8b5cf6", fontWeight: 600 }}>Lambda</span> — EDOT or
-                      ADOT layer, OTLP → APM / Elastic
-                    </div>
-                    <div>
-                      <span style={{ color: "#8b5cf6", fontWeight: 600 }}>Containers / Spark</span>{" "}
-                      — EDOT Java agent or sidecar; workflows add HTTP, messaging, and AWS SDK spans
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            ) : (
-              <ServiceGrid
-                eventType={eventType}
-                selectedServices={selectedServices}
-                totalServices={totalServices}
-                totalSelected={totalSelected}
-                collapsedGroups={collapsedGroups}
-                ingestionSource={ingestionSource}
-                selectAll={selectAll}
-                selectNone={selectNone}
-                toggleService={toggleService}
-                toggleGroup={toggleGroup}
-                toggleCollapse={toggleCollapse}
-                getEffectiveSource={getEffectiveSource}
-              />
-            )}
-          </div>
+      {activePage === "config" && (
+        <ConfigPage
+          eventType={eventType}
+          isTracesMode={isTracesMode}
+          logsPerService={logsPerService}
+          tracesPerService={tracesPerService}
+          errorRate={errorRate}
+          batchSize={batchSize}
+          batchDelayMs={batchDelayMs}
+          injectAnomalies={injectAnomalies}
+          onEventTypeChange={(val) => {
+            setEventType(val);
+            if (val === "metrics") {
+              setSelectedServices((prev) =>
+                prev.filter((id) => METRICS_SUPPORTED_SERVICE_IDS.has(id))
+              );
+            }
+          }}
+          onLogsPerServiceChange={setLogsPerService}
+          onTracesPerServiceChange={setTracesPerService}
+          onErrorRateChange={setErrorRate}
+          onBatchSizeChange={setBatchSize}
+          onBatchDelayMsChange={setBatchDelayMs}
+          onInjectAnomaliesChange={setInjectAnomalies}
+          metricsSupported={METRICS_SUPPORTED_SERVICE_IDS}
+        />
+      )}
 
-          <div className={styles.rightCol}>
-            <Card>
-              <CardHeader label="Volume & Settings" />
-              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                <div>
-                  <div
-                    style={{ fontSize: 12, fontWeight: 500, color: K.textSubdued, marginBottom: 6 }}
-                  >
-                    Event type
-                  </div>
-                  <div
-                    style={{
-                      display: "inline-flex",
-                      borderRadius: K.radiusSm,
-                      border: `1px solid ${K.border}`,
-                      overflow: "hidden",
-                      background: K.subdued,
-                    }}
-                  >
-                    <button
-                      onClick={() => {
-                        setEventType("logs");
-                      }}
-                      style={{
-                        padding: "6px 14px",
-                        fontSize: 12,
-                        fontWeight: 600,
-                        cursor: "pointer",
-                        border: "none",
-                        fontFamily: "inherit",
-                        background: eventType === "logs" ? K.plain : "transparent",
-                        color: eventType === "logs" ? K.textHeading : K.textSubdued,
-                        transition: "all 0.15s",
-                        boxShadow: eventType === "logs" ? K.shadow : "none",
-                      }}
-                    >
-                      Logs
-                    </button>
-                    <button
-                      onClick={() => {
-                        setEventType("metrics");
-                        setSelectedServices((prev) =>
-                          prev.filter((id) => METRICS_SUPPORTED_SERVICE_IDS.has(id))
-                        );
-                      }}
-                      style={{
-                        padding: "6px 14px",
-                        fontSize: 12,
-                        fontWeight: 600,
-                        cursor: "pointer",
-                        border: "none",
-                        fontFamily: "inherit",
-                        background: eventType === "metrics" ? K.plain : "transparent",
-                        color: eventType === "metrics" ? K.textHeading : K.textSubdued,
-                        transition: "all 0.15s",
-                        boxShadow: eventType === "metrics" ? K.shadow : "none",
-                      }}
-                    >
-                      Metrics
-                    </button>
-                    <button
-                      onClick={() => {
-                        setEventType("traces");
-                      }}
-                      style={{
-                        padding: "6px 14px",
-                        fontSize: 12,
-                        fontWeight: 600,
-                        cursor: "pointer",
-                        border: "none",
-                        fontFamily: "inherit",
-                        background: isTracesMode ? K.plain : "transparent",
-                        color: isTracesMode ? "#8b5cf6" : K.textSubdued,
-                        transition: "all 0.15s",
-                        boxShadow: isTracesMode ? K.shadow : "none",
-                      }}
-                    >
-                      Traces
-                    </button>
-                  </div>
-                  {eventType === "metrics" && (
-                    <div style={{ fontSize: 11, color: K.textSubdued, marginTop: 4 }}>
-                      Only services with metrics in the Elastic AWS integration. Index:
-                      metrics-aws.*
-                    </div>
-                  )}
-                  {isTracesMode && (
-                    <div style={{ fontSize: 11, color: "#8b5cf6", marginTop: 4 }}>
-                      OTel-style APM traces for the selected scenarios (services and multi-step
-                      workflows). Ships to <strong>traces-apm-default</strong>.
-                    </div>
-                  )}
-                </div>
-                {isTracesMode ? (
-                  <SliderField
-                    label="Traces per service"
-                    value={tracesPerService}
-                    min={10}
-                    max={500}
-                    step={10}
-                    onChange={setTracesPerService}
-                    display={`${tracesPerService.toLocaleString()} traces`}
-                    sublabel={`~${(totalSelected * tracesPerService).toLocaleString()} traces (each trace = transaction + spans)`}
-                  />
-                ) : (
-                  <SliderField
-                    label={eventType === "metrics" ? "Metrics per service" : "Logs per service"}
-                    value={logsPerService}
-                    min={50}
-                    max={5000}
-                    step={50}
-                    onChange={setLogsPerService}
-                    display={`${logsPerService.toLocaleString()} docs`}
-                    sublabel={`${(totalSelected * logsPerService).toLocaleString()} total docs across ${totalSelected} service(s)`}
-                  />
-                )}
-                <SliderField
-                  label="Error rate"
-                  value={errorRate}
-                  min={0}
-                  max={0.5}
-                  step={0.01}
-                  onChange={setErrorRate}
-                  display={`${(errorRate * 100).toFixed(0)}%`}
-                  sublabel="Percentage generated as errors or failures"
-                />
-                <SliderField
-                  label="Bulk batch size"
-                  value={batchSize}
-                  min={50}
-                  max={1000}
-                  step={50}
-                  onChange={setBatchSize}
-                  display={`${batchSize}/request`}
-                  sublabel="Documents per Elasticsearch _bulk request"
-                />
-                <SliderField
-                  label="Batch delay (ms)"
-                  value={batchDelayMs}
-                  min={0}
-                  max={2000}
-                  step={50}
-                  onChange={(v) => setBatchDelayMs(Number(v))}
-                  display={`${batchDelayMs} ms`}
-                  sublabel="Delay between bulk requests (0 = minimal)"
-                />
-                <label
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: 10,
-                    cursor: "pointer",
-                    padding: "10px 12px",
-                    background: injectAnomalies ? "#7c3aed11" : "transparent",
-                    border: `1px solid ${injectAnomalies ? "#7c3aed44" : K.border}`,
-                    borderRadius: K.radiusSm,
-                    transition: "all 0.15s",
-                  }}
-                >
-                  <input
-                    type="checkbox"
-                    checked={injectAnomalies}
-                    onChange={(e) => setInjectAnomalies(e.target.checked)}
-                    style={{
-                      marginTop: 2,
-                      accentColor: "#7c3aed",
-                      width: 14,
-                      height: 14,
-                      flexShrink: 0,
-                    }}
-                  />
-                  <div>
-                    <div
-                      style={{
-                        fontSize: 12,
-                        fontWeight: 600,
-                        color: injectAnomalies ? "#7c3aed" : K.text,
-                      }}
-                    >
-                      Inject anomalies
-                    </div>
-                    <div style={{ fontSize: 11, color: K.textSubdued, marginTop: 2 }}>
-                      After the main run, ship a second spike pass at current time — extreme values
-                      that ML anomaly detection jobs will score highly.
-                    </div>
-                  </div>
-                </label>
-              </div>
-            </Card>
+      {activePage === "schedule" && (
+        <SchedulePage
+          scheduleEnabled={scheduleEnabled}
+          scheduleTotalRuns={scheduleTotalRuns}
+          scheduleIntervalMin={scheduleIntervalMin}
+          onScheduleEnabledChange={setScheduleEnabled}
+          onScheduleTotalRunsChange={setScheduleTotalRuns}
+          onScheduleIntervalMinChange={setScheduleIntervalMin}
+        />
+      )}
 
-            <Card>
-              <CardHeader label="Scheduled Mode" />
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                <label
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: 10,
-                    cursor: "pointer",
-                    padding: "10px 12px",
-                    background: scheduleEnabled ? "#0B64DD11" : "transparent",
-                    border: `1px solid ${scheduleEnabled ? "#0B64DD44" : K.border}`,
-                    borderRadius: K.radiusSm,
-                    transition: "all 0.15s",
-                  }}
-                >
-                  <input
-                    type="checkbox"
-                    checked={scheduleEnabled}
-                    onChange={(e) => setScheduleEnabled(e.target.checked)}
-                    style={{
-                      marginTop: 2,
-                      accentColor: K.primary,
-                      width: 14,
-                      height: 14,
-                      flexShrink: 0,
-                    }}
-                  />
-                  <div>
-                    <div
-                      style={{
-                        fontSize: 12,
-                        fontWeight: 600,
-                        color: scheduleEnabled ? K.primary : K.text,
-                      }}
-                    >
-                      Enable scheduled mode
-                    </div>
-                    <div style={{ fontSize: 11, color: K.textSubdued, marginTop: 2 }}>
-                      Automatically repeat shipping runs to build an ML baseline (for example 12
-                      runs × 15 min ≈ 3 hours of spaced loads). If &quot;Inject anomalies&quot; is
-                      on, each run ships the main load and then the anomaly spike pass — not only
-                      after the last run.
-                    </div>
-                  </div>
-                </label>
-                {scheduleEnabled && (
-                  <>
-                    <SliderField
-                      label="Total runs"
-                      min={1}
-                      max={24}
-                      step={1}
-                      value={scheduleTotalRuns}
-                      onChange={(v) => setScheduleTotalRuns(v)}
-                      display={`${scheduleTotalRuns} run${scheduleTotalRuns !== 1 ? "s" : ""}`}
-                      sublabel={`~${((scheduleTotalRuns * scheduleIntervalMin) / 60).toFixed(1).replace(/\.0$/, "")} hours total`}
-                    />
-                    <SliderField
-                      label="Interval between runs"
-                      min={5}
-                      max={60}
-                      step={5}
-                      value={scheduleIntervalMin}
-                      onChange={(v) => setScheduleIntervalMin(v)}
-                      display={`${scheduleIntervalMin} min`}
-                      sublabel="Wait between shipping runs"
-                    />
-                  </>
-                )}
-              </div>
-            </Card>
+      {activePage === "anomalies" && (
+        <AnomaliesPage
+          injectAnomalies={injectAnomalies}
+          onInjectAnomaliesChange={setInjectAnomalies}
+        />
+      )}
 
-            <Card>
-              <CardHeader label="Elastic Cloud Connection" />
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                <Field label="Elasticsearch URL">
-                  <input
-                    value={elasticUrl}
-                    onChange={(e) => {
-                      setElasticUrl(e.target.value);
-                      setValidationErrors((prev) => ({ ...prev, elasticUrl: "" }));
-                    }}
-                    onBlur={() =>
-                      setValidationErrors((prev) => ({
-                        ...prev,
-                        elasticUrl: validateElasticUrl(elasticUrl).valid
-                          ? ""
-                          : (validateElasticUrl(elasticUrl).message ?? ""),
-                      }))
-                    }
-                    placeholder="https://my-deployment.es.us-east-1.aws.elastic.cloud"
-                    className={`${styles.input} ${validationErrors.elasticUrl ? styles.inputError : ""}`}
-                  />
-                  {validationErrors.elasticUrl && (
-                    <div className={styles.validationError}>{validationErrors.elasticUrl}</div>
-                  )}
-                </Field>
-                <Field label="API Key">
-                  <input
-                    type="password"
-                    value={apiKey}
-                    onChange={(e) => {
-                      setApiKey(e.target.value);
-                      setValidationErrors((prev) => ({ ...prev, apiKey: "" }));
-                    }}
-                    onBlur={() =>
-                      setValidationErrors((prev) => ({
-                        ...prev,
-                        apiKey: validateApiKey(apiKey).valid
-                          ? ""
-                          : (validateApiKey(apiKey).message ?? ""),
-                      }))
-                    }
-                    placeholder="base64-encoded-api-key"
-                    className={`${styles.input} ${validationErrors.apiKey ? styles.inputError : ""}`}
-                  />
-                  {validationErrors.apiKey && (
-                    <div className={styles.validationError}>{validationErrors.apiKey}</div>
-                  )}
-                </Field>
-                <button
-                  type="button"
-                  onClick={handleTestConnection}
-                  disabled={connectionStatus === "testing"}
-                  style={{
-                    padding: "8px 14px",
-                    borderRadius: K.radiusSm,
-                    fontSize: 12,
-                    fontWeight: 600,
-                    cursor: connectionStatus === "testing" ? "wait" : "pointer",
-                    border: `1px solid ${connectionStatus === "ok" ? K.success : connectionStatus === "fail" ? K.danger : K.border}`,
-                    background:
-                      connectionStatus === "ok"
-                        ? K.successBg
-                        : connectionStatus === "fail"
-                          ? "#fef2f2"
-                          : K.subdued,
-                    color:
-                      connectionStatus === "ok"
-                        ? K.success
-                        : connectionStatus === "fail"
-                          ? K.danger
-                          : K.text,
-                    transition: "all 0.15s",
-                    width: "100%",
-                  }}
-                >
-                  {connectionStatus === "testing"
-                    ? "Testing..."
-                    : connectionStatus === "ok"
-                      ? "Connected"
-                      : connectionStatus === "fail"
-                        ? "Retry connection"
-                        : "Test connection"}
-                </button>
-                {connectionMsg && (
-                  <div
-                    style={{
-                      fontSize: 11,
-                      color: connectionStatus === "ok" ? K.success : K.danger,
-                      marginTop: -6,
-                    }}
-                  >
-                    {connectionMsg}
-                  </div>
-                )}
-                {!isTracesMode && (
-                  <Field label="Index prefix">
-                    <input
-                      value={indexPrefix}
-                      onChange={(e) => {
-                        setIndexPrefix(e.target.value);
-                        setValidationErrors((prev) => ({ ...prev, indexPrefix: "" }));
-                      }}
-                      onBlur={() =>
-                        setValidationErrors((prev) => ({
-                          ...prev,
-                          indexPrefix: validateIndexPrefix(indexPrefix).valid
-                            ? ""
-                            : (validateIndexPrefix(indexPrefix).message ?? ""),
-                        }))
-                      }
-                      placeholder="logs-aws"
-                      className={`${styles.input} ${validationErrors.indexPrefix ? styles.inputError : ""}`}
-                    />
-                    {validationErrors.indexPrefix && (
-                      <div className={styles.validationError}>{validationErrors.indexPrefix}</div>
-                    )}
-                    <div style={{ fontSize: 11, color: K.textSubdued, marginTop: 5 }}>
-                      e.g.{" "}
-                      <span style={{ color: K.primaryText }}>{indexPrefix}.lambda-default</span>,{" "}
-                      <span style={{ color: K.primaryText }}>{indexPrefix}.vpcflow-default</span>…
-                    </div>
-                  </Field>
-                )}
-                {isTracesMode && (
-                  <Field label="APM index">
-                    <div
-                      style={{
-                        padding: "8px 12px",
-                        background: K.subdued,
-                        borderRadius: K.radiusSm,
-                        border: `1px solid #8b5cf633`,
-                        fontSize: 12,
-                        fontWeight: 600,
-                        color: "#8b5cf6",
-                      }}
-                    >
-                      traces-apm-default
-                    </div>
-                    <div style={{ fontSize: 11, color: K.textSubdued, marginTop: 5 }}>
-                      Fixed APM data stream — requires Elastic APM Server or Fleet integration.
-                    </div>
-                  </Field>
-                )}
-                {!isTracesMode && (
-                  <Field label="Ingestion source">
-                    <div
-                      style={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr",
-                        gap: 6,
-                        marginBottom: 8,
-                      }}
-                    >
-                      <button
-                        onClick={() => setIngestionSource("default")}
-                        style={{
-                          gridColumn: "1/-1",
-                          padding: "8px 12px",
-                          borderRadius: K.radiusSm,
-                          fontSize: 11,
-                          fontWeight: 600,
-                          cursor: "pointer",
-                          border: `1px solid ${ingestionSource === "default" ? K.success : K.border}`,
-                          background: ingestionSource === "default" ? K.successBg : K.subdued,
-                          color: ingestionSource === "default" ? K.success : K.textSubdued,
-                          transition: "all 0.15s",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 8,
-                          textAlign: "left",
-                        }}
-                      >
-                        <span style={{ fontSize: 14 }}>⚙</span>
-                        <div>
-                          <div>Default (per-service)</div>
-                          <div style={{ fontSize: 9, fontWeight: 400, opacity: 0.7, marginTop: 1 }}>
-                            S3 · CloudWatch · API · Firehose — each service uses its real-world
-                            default
-                          </div>
-                        </div>
-                        {ingestionSource === "default" && (
-                          <span style={{ marginLeft: "auto", fontSize: 11 }}>✓</span>
-                        )}
-                      </button>
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 11,
-                        color: K.textSubdued,
-                        marginBottom: 6,
-                        fontWeight: 500,
-                      }}
-                    >
-                      Override all services:
-                    </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6 }}>
-                      {[
-                        ["s3", "S3 Bucket", "#FF9900"],
-                        ["cloudwatch", "CloudWatch", "#1BA9F5"],
-                        ["firehose", "Firehose", "#F04E98"],
-                        ["api", "API", "#00BFB3"],
-                        ["otel", "OTel", "#93C90E"],
-                        ["agent", "Elastic Agent", "#a78bfa"],
-                      ].map(([val, lbl, col]) => (
-                        <button
-                          key={val}
-                          onClick={() => setIngestionSource(val)}
-                          style={{
-                            padding: "7px 6px",
-                            borderRadius: 6,
-                            fontSize: 11,
-                            fontWeight: 600,
-                            cursor: "pointer",
-                            border: `1.5px solid ${ingestionSource === val ? col : col + "33"}`,
-                            background: ingestionSource === val ? `${col}22` : "#f8fafc",
-                            color: ingestionSource === val ? col : col + "cc",
-                            transition: "all 0.15s",
-                          }}
-                        >
-                          {lbl}
-                        </button>
-                      ))}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 11,
-                        color: K.textSubdued,
-                        marginTop: 8,
-                        padding: "8px 10px",
-                        background: K.subdued,
-                        borderRadius: K.radiusSm,
-                        border: `1px solid ${K.border}`,
-                      }}
-                    >
-                      {ingestionSource === "default" ? (
-                        <span>
-                          Each service uses its correct real-world ingestion method. Badges on
-                          service cards show the source.
-                        </span>
-                      ) : (
-                        {
-                          s3: (
-                            <>
-                              <span style={{ color: "#FF9900" }}>aws-s3</span> · All services read
-                              from S3 bucket via SQS notifications
-                            </>
-                          ),
-                          cloudwatch: (
-                            <>
-                              <span style={{ color: "#1BA9F5" }}>aws-cloudwatch</span> · All
-                              services polled from CloudWatch log groups
-                            </>
-                          ),
-                          firehose: (
-                            <>
-                              <span style={{ color: "#F04E98" }}>aws-firehose</span> · All services
-                              pushed via Firehose delivery stream
-                            </>
-                          ),
-                          api: (
-                            <>
-                              <span style={{ color: "#00BFB3" }}>http_endpoint</span> · All services
-                              via direct REST API ingestion
-                            </>
-                          ),
-                          otel: (
-                            <>
-                              <span style={{ color: "#93C90E" }}>opentelemetry</span> · All services
-                              via OTLP collector (telemetry.sdk fields added)
-                            </>
-                          ),
-                          agent: (
-                            <>
-                              <span style={{ color: "#a78bfa" }}>logfile</span> · All services
-                              collected by Elastic Agent from log files
-                            </>
-                          ),
-                        }[ingestionSource]
-                      )}
-                    </div>
-                  </Field>
-                )}
-                <div style={{ display: "flex", gap: 6 }}>
-                  <button type="button" onClick={exportConfig} className={styles.clearConfigBtn} style={{ flex: 1 }}>
-                    Export config
-                  </button>
-                  <button type="button" onClick={importConfig} className={styles.clearConfigBtn} style={{ flex: 1 }}>
-                    Import config
-                  </button>
-                  <button type="button" onClick={clearSavedConfig} className={styles.clearConfigBtn} style={{ flex: 1 }}>
-                    Reset
-                  </button>
-                </div>
-              </div>
-            </Card>
-
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: -4 }}>
-              <label
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 6,
-                  cursor: "pointer",
-                  fontSize: 12,
-                  fontWeight: 500,
-                  color: dryRun ? "#7c3aed" : K.textSubdued,
-                }}
-              >
-                <input
-                  type="checkbox"
-                  checked={dryRun}
-                  onChange={(e) => setDryRun(e.target.checked)}
-                  style={{ accentColor: "#7c3aed", width: 13, height: 13 }}
-                />
-                Dry run (generate only, don't ship)
-              </label>
-            </div>
-            <div className={styles.actionsRow}>
-              <button
-                type="button"
-                onClick={generatePreview}
-                style={{ flex: "0 0 auto" }}
-                className={styles.btnSecondary}
-              >
-                Preview doc
-              </button>
-              {status === "running" ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    abortRef.current = true;
-                    scheduleLoopRef.current?.abort();
-                  }}
-                  style={{ flex: 1 }}
-                  className={styles.btnDanger}
-                >
-                  {scheduleActive ? "Stop schedule" : "Stop shipping"}
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={scheduleEnabled ? startSchedule : ship}
-                  disabled={
-                    !totalSelected ||
-                    (!dryRun &&
-                      (!elasticUrl ||
-                        !apiKey ||
-                        !!(
-                          validationErrors.elasticUrl ||
-                          validationErrors.apiKey ||
-                          (!isTracesMode && validationErrors.indexPrefix)
-                        )))
-                  }
-                  style={{
-                    flex: 1,
-                    opacity:
-                      totalSelected &&
-                      (dryRun ||
-                        (elasticUrl &&
-                          apiKey &&
-                          !(
-                            validationErrors.elasticUrl ||
-                            validationErrors.apiKey ||
-                            (!isTracesMode && validationErrors.indexPrefix)
-                          )))
-                        ? 1
-                        : 0.5,
-                    cursor:
-                      totalSelected &&
-                      (dryRun ||
-                        (elasticUrl &&
-                          apiKey &&
-                          !(
-                            validationErrors.elasticUrl ||
-                            validationErrors.apiKey ||
-                            (!isTracesMode && validationErrors.indexPrefix)
-                          )))
-                        ? "pointer"
-                        : "not-allowed",
-                  }}
-                  className={styles.btnPrimary}
-                >
-                  {dryRun ? "▶ Dry run" : "⚡ Ship"}{" "}
-                  {totalSelected > 0
-                    ? isTracesMode
-                      ? `${(totalSelected * tracesPerService).toLocaleString()} traces`
-                      : `${(totalSelected * logsPerService).toLocaleString()} ${eventType === "metrics" ? "metrics" : "logs"}`
-                    : isTracesMode
-                      ? "traces"
-                      : eventType === "metrics"
-                        ? "metrics"
-                        : "logs"}
-                </button>
-              )}
-            </div>
-            {totalSelected > 0 && (
-              <div className={styles.costEstimate}>
-                {isTracesMode
-                  ? `~${estimatedDocs.toLocaleString()} traces across ${totalSelected} service${totalSelected !== 1 ? "s" : ""} (each trace = transaction + spans)`
-                  : eventType === "metrics"
-                    ? `~${estimatedDocs.toLocaleString()} calls across ${totalSelected} service${totalSelected !== 1 ? "s" : ""} — actual doc count varies by service (dimensional metrics generate multiple docs per call)`
-                    : `~${estimatedDocs.toLocaleString()} documents across ${totalSelected} service${totalSelected !== 1 ? "s" : ""} (~${estimatedMB} MB, ${estimatedBatches} batch${estimatedBatches !== 1 ? "es" : ""})`}
-              </div>
-            )}
-
-            {status && (
-              <Card>
-                <CardHeader
-                  label="Progress"
-                  badge={`${pct}%`}
-                  badgeColor={
-                    progress.phase === "injection" ? "#a78bfa" : pct === 100 ? K.success : K.warning
-                  }
-                />
-                {progress.phase === "injection" && (
-                  <div
-                    style={{
-                      fontSize: 11,
-                      color: K.textSubdued,
-                      marginTop: -4,
-                      marginBottom: 10,
-                    }}
-                  >
-                    Phase 2 — anomaly injection (documents indexed toward total below)
-                  </div>
-                )}
-                <div
-                  style={{
-                    height: 6,
-                    background: K.border,
-                    borderRadius: 99,
-                    overflow: "hidden",
-                    marginBottom: 12,
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "100%",
-                      width: `${pct}%`,
-                      background: progressBarColor,
-                      borderRadius: 99,
-                      transition: "width 0.3s",
-                    }}
-                  />
-                </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
-                  <StatCard
-                    label={progress.phase === "injection" ? "Injected" : "Indexed"}
-                    value={progress.sent.toLocaleString()}
-                    color={K.success}
-                  />
-                  <StatCard
-                    label="Total"
-                    value={progress.total.toLocaleString()}
-                    color={K.textSubdued}
-                  />
-                  <StatCard
-                    label="Errors"
-                    value={progress.errors.toLocaleString()}
-                    color={progress.errors > 0 ? K.danger : K.textSubdued}
-                  />
-                </div>
-                {scheduleActive && (
-                  <div
-                    style={{
-                      marginTop: 10,
-                      padding: "6px 10px",
-                      background: K.highlight,
-                      borderRadius: K.radiusSm,
-                      fontSize: 11,
-                      color: K.primaryText,
-                      textAlign: "center",
-                    }}
-                  >
-                    {nextRunAt
-                      ? `Run ${scheduleCurrentRun} / ${scheduleTotalRuns} complete · next run in ${Math.floor(countdown / 60)}:${String(countdown % 60).padStart(2, "0")}`
-                      : `Run ${scheduleCurrentRun} / ${scheduleTotalRuns} · shipping…`}
-                  </div>
-                )}
-              </Card>
-            )}
-
-            {preview && (
-              <Card>
-                <CardHeader label="Sample Document" />
-                <pre className={styles.previewPre}>{preview}</pre>
-              </Card>
-            )}
-
-            <Card>
-              <CardHeader label="Activity Log">
-                {log.length > 0 && <QuickBtn onClick={downloadLog}>↓ Download</QuickBtn>}
-              </CardHeader>
-              <div className={styles.logBox}>
-                {log.length === 0 ? (
-                  <span style={{ color: K.textSubdued, fontStyle: "italic" }}>
-                    Waiting for activity…
-                  </span>
-                ) : (
-                  log.map((e) => (
-                    <div
-                      key={e.id}
-                      style={{
-                        color:
-                          { ok: K.success, error: K.danger, warn: K.warning, info: K.textSubdued }[
-                            e.type
-                          ] || K.textSubdued,
-                      }}
-                    >
-                      <span style={{ color: K.textSubdued }}>[{e.ts}] </span>
-                      {e.msg}
-                    </div>
-                  ))
-                )}
-              </div>
-            </Card>
-          </div>
-        </div>
-      </main>
-
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
-        * { box-sizing: border-box; }
-        html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-        body { font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1; }
-        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-        input::placeholder { color: #516381 !important; }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #F6F9FC; }
-        ::-webkit-scrollbar-thumb { background: #CAD3E2; border-radius: 99px; }
-        input:focus { outline: none !important; border-color: #0B64DD !important; box-shadow: 0 0 0 2px rgba(11,100,221,0.2) !important; }
-        button { transition: background 0.15s, border-color 0.15s; }
-        button:not(:disabled):hover { background-color: rgba(23,80,186,0.04); }
-        button:not(:disabled):active { opacity: 0.9; }
-        input[type=range] { -webkit-appearance:none; height:6px; border-radius:99px; background:#E3E8F2; outline:none; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:#0B64DD; cursor:pointer; border:2px solid #0B64DD; }
-      `,
-        }}
-      />
-    </div>
+      {activePage === "activity" && (
+        <ActivityPage
+          log={log}
+          preview={preview}
+          onDownloadLog={downloadLog}
+        />
+      )}
+    </AppLayout>
   );
 }
 
-// Inline styles still used where dynamic (e.g. group.color, K.*) — see App.module.css for shared classes

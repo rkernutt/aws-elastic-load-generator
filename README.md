@@ -8,6 +8,15 @@ Each service has its correct real-world ingestion source pre-configured — S3, 
 
 ---
 
+## What's New in v12.0
+
+- **Dashboard-style UI with Elastic EUI** — complete UI revamp using Elastic's official [EUI component library](https://eui.elastic.co/). Kibana-style sidebar navigation with 7 discrete pages (Ship & Monitor, Connection, Services, Configuration, Scheduling, Anomalies, Activity Log) replaces the previous monolithic 2-column layout.
+- **Realistic Elastic integration metadata** — all generated documents now include the same fields real Elastic Agent integrations produce: `ecs.version`, `agent.*` (filebeat/metricbeat/otlp), `input.type` (aws-s3/aws-cloudwatch/http_endpoint/opentelemetry), `data_stream`, and `host.*` for compute services. Generated data is pipeline-compatible with real AWS data flowing through the same Elastic integrations.
+- **Shared enrichment module** — new `src/helpers/enrich.ts` extracts document enrichment into a reusable function applied consistently across logs, metrics, traces, and sample exports.
+- **Component architecture** — `App.tsx` reduced from 2,110 to 1,210 lines. UI decomposed into 7 page components + layout shell, all using EUI's `EuiPanel`, `EuiRange`, `EuiStat`, `EuiButtonGroup`, `EuiCodeBlock`, `EuiProgress`, and other standard components.
+
+---
+
 ## What's New in v11.5
 
 - **211 service generators** — 11 new standalone AWS service generators: CloudWatch RUM, Lookout for Equipment, Monitron, Network Access Analyzer, Incident Manager, CloudShell, Cloud9, RoboMaker, Kinesis Video Streams, Panorama, FreeRTOS.
