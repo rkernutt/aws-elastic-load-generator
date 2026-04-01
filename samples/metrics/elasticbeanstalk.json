@@ -1,24 +1,33 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "me-south-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-me-south-1",
+    "ephemeral_id": "4jh59ywi56f"
   },
   "aws": {
     "elasticbeanstalk": {
       "metrics": {
         "ApplicationRequests2xx": {
-          "avg": 5898,
-          "sum": 5898,
+          "avg": 10491,
+          "sum": 10491,
           "count": 1
         },
         "ApplicationRequests4xx": {
-          "avg": 155,
-          "sum": 155,
+          "avg": 306,
+          "sum": 306,
           "count": 1
         },
         "ApplicationRequests5xx": {
@@ -27,23 +36,23 @@
           "count": 1
         },
         "ApplicationLatencyP50": {
-          "avg": 21.8,
-          "sum": 21.8,
+          "avg": 78.08,
+          "sum": 78.08,
           "count": 1
         },
         "ApplicationLatencyP99": {
-          "avg": 761.62,
-          "sum": 761.62,
+          "avg": 709.93,
+          "sum": 709.93,
           "count": 1
         },
         "CPUUtilization": {
-          "avg": 16.63,
-          "sum": 16.63,
+          "avg": 28.1,
+          "sum": 28.1,
           "count": 1
         },
         "InstancesOk": {
-          "avg": 6,
-          "sum": 6,
+          "avg": 5,
+          "sum": 5,
           "count": 1
         },
         "InstancesDegraded": {
@@ -53,7 +62,7 @@
         }
       },
       "dimensions": {
-        "EnvironmentName": "myapp-dev"
+        "EnvironmentName": "myapp-staging"
       }
     }
   },
@@ -65,6 +74,9 @@
     "type": "metrics",
     "dataset": "aws.elasticbeanstalk",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.elasticbeanstalk",

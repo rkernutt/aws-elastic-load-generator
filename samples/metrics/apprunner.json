@@ -1,42 +1,51 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-northeast-1",
+    "ephemeral_id": "50gmj1ia4u"
   },
   "aws": {
     "apprunner": {
       "metrics": {
         "Requests": {
-          "avg": 22933,
-          "sum": 22933,
+          "avg": 105,
+          "sum": 105,
           "count": 1
         },
         "Http2xxRequests": {
-          "avg": 22561,
-          "sum": 22561,
+          "avg": 96,
+          "sum": 96,
           "count": 1
         },
         "Http4xxRequests": {
-          "avg": 302,
-          "sum": 302,
+          "avg": 1,
+          "sum": 1,
           "count": 1
         },
         "Http5xxRequests": {
-          "avg": 0,
-          "sum": 0,
+          "avg": 8,
+          "sum": 8,
           "count": 1
         },
         "RequestLatency": {
-          "avg": 12.52,
-          "sum": 12.52,
+          "avg": 10.19,
+          "sum": 10.19,
           "count": 1,
-          "max": 713.33,
-          "min": 7
+          "max": 811.7,
+          "min": 2.15
         },
         "ActiveInstances": {
           "avg": 6,
@@ -57,6 +66,9 @@
     "type": "metrics",
     "dataset": "aws.apprunner",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.apprunner",

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "fis"
@@ -13,30 +13,66 @@
   },
   "aws": {
     "dimensions": {
-      "ExperimentTemplateId": "EXTVR40RK4K"
+      "ExperimentTemplateId": "EXTDEHUASJL"
     },
     "fis": {
-      "experiment_id": "EXPIN7D8L10",
-      "experiment_template_id": "EXTVR40RK4K",
-      "experiment_name": "database-failover",
+      "experiment_id": "EXP1HG79R0B",
+      "experiment_template_id": "EXTDEHUASJL",
+      "experiment_name": "az-failure-simulation",
       "experiment_state": "running",
       "target_resource_type": "EKS nodes",
-      "action_type": "aws:rds:failover-db-cluster",
+      "action_type": "aws:ec2:stop-instances",
       "stop_condition": "none",
-      "role_arn": "arn:aws:iam::814726593401:role/FISRole-database-failover"
+      "role_arn": "arn:aws:iam::501938274650:role/FISRole-az-failure-simulation"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-fis-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-fis-logs-501938274650"
+      },
+      "object": {
+        "key": "AWSLogs/501938274650/fis/ap-northeast-3/2026/04/01/fis_XADKM101BEI.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/fis/logs",
+      "log_stream": "ap-northeast-3/ciaicx3r",
+      "ingestion_time": "2026-04-01T12:55:20.528Z"
     }
   },
   "event": {
-    "action": "TagResource",
+    "action": "CreateExperimentTemplate",
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.fis",
-    "provider": "fis.amazonaws.com"
+    "provider": "fis.amazonaws.com",
+    "module": "aws"
   },
-  "message": "FIS TagResource: exp=EXPIN7D8L10 (database-failover) state=running, target=EKS nodes",
+  "message": "FIS CreateExperimentTemplate: exp=EXP1HG79R0B (az-failure-simulation) state=running, target=EKS nodes",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "fis",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.fis",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-northeast-3",
+    "ephemeral_id": "g0b4ou7qdkt"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

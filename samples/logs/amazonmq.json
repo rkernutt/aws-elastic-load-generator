@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "eu-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "amazonmq"
@@ -13,63 +13,77 @@
   },
   "aws": {
     "amazonmq": {
-      "broker_id": "b-a2h5iis2-5opy",
+      "broker_id": "b-sf1pukx6-bfre",
       "broker_name": "prod-broker",
-      "broker_engine": "ActiveMQ",
-      "engine_version": "5.17.6",
+      "broker_engine": "RabbitMQ",
+      "engine_version": "3.12.1",
       "deployment_mode": "SINGLE_INSTANCE",
-      "queue_name": "notification.exchange",
-      "messages_in": 8343,
-      "messages_out": 2319,
-      "queue_depth": 4610,
-      "broker_memory_percent": 30,
+      "queue_name": "dlq.orders",
+      "messages_in": 2214,
+      "messages_out": 5162,
+      "queue_depth": 4828,
+      "broker_memory_percent": 66,
       "metrics": {
         "ConsumerCount": {
-          "avg": 97
+          "avg": 20
         },
         "ProducerCount": {
-          "avg": 21
+          "avg": 23
         },
         "QueueSize": {
-          "avg": 3897
+          "avg": 3890
         },
         "EnqueueCount": {
-          "sum": 4283
+          "sum": 97
         },
         "DequeueCount": {
-          "sum": 3715
+          "sum": 2892
         },
         "InFlightCount": {
-          "avg": 31
+          "avg": 175
         },
         "DispatchCount": {
-          "sum": 7224
+          "sum": 5228
         },
         "ExpiredCount": {
-          "sum": 68
+          "sum": 18
         },
         "NetworkConnectorStarted": {
           "sum": 0
         },
         "HeapUsage": {
-          "avg": 26.43026841709655
+          "avg": 26.971938748195527
         },
         "StorePercentUsage": {
-          "avg": 52.86668528776423
+          "avg": 23.224351989123615
         },
         "TotalEnqueueCount": {
-          "sum": 477981
+          "sum": 328543
         },
         "TotalDequeueCount": {
-          "sum": 602555
+          "sum": 152612
         },
         "TotalConsumerCount": {
-          "avg": 40
+          "avg": 4
         },
         "TotalProducerCount": {
-          "avg": 29
+          "avg": 34
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-amazonmq-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-amazonmq-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/amazonmq/eu-central-1/2026/04/01/amazonmq_7388TRM31KF.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/amazonmq/logs",
+      "log_stream": "eu-central-1/e5pygpgt",
+      "ingestion_time": "2026-04-01T12:55:20.512Z"
     }
   },
   "event": {
@@ -80,10 +94,32 @@
     ],
     "dataset": "aws.amazonmq",
     "provider": "mq.amazonaws.com",
-    "duration": 333005440.27850115
+    "duration": 95898781.51012805,
+    "module": "aws"
   },
-  "message": "Slow consumer: 10 msg/s",
+  "message": "Producer connected",
   "log": {
-    "level": "warn"
+    "level": "info"
+  },
+  "service": {
+    "name": "amazonmq",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.amazonmq",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "n9n72ztcomd"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

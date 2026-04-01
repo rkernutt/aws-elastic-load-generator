@@ -1,39 +1,48 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-west-2",
+    "ephemeral_id": "6eo7afbco0w"
   },
   "aws": {
     "quicksight": {
       "metrics": {
         "DashboardsCreated": {
-          "avg": 20,
-          "sum": 20,
+          "avg": 10,
+          "sum": 10,
           "count": 1
         },
         "DashboardsPublished": {
-          "avg": 7,
-          "sum": 7,
+          "avg": 8,
+          "sum": 8,
           "count": 1
         },
         "DashboardsViewed": {
-          "avg": 2876,
-          "sum": 2876,
+          "avg": 4238,
+          "sum": 4238,
           "count": 1
         },
         "QueriesCount": {
-          "avg": 18773,
-          "sum": 18773,
+          "avg": 34447,
+          "sum": 34447,
           "count": 1
         },
         "QueryDuration": {
-          "avg": 463.2,
-          "sum": 463.2,
+          "avg": 665.65,
+          "sum": 665.65,
           "count": 1
         },
         "QueryErrors": {
@@ -48,7 +57,7 @@
         }
       },
       "dimensions": {
-        "AwsAccountId": "738291046572"
+        "AwsAccountId": "164820739518"
       }
     }
   },
@@ -60,6 +69,9 @@
     "type": "metrics",
     "dataset": "aws.quicksight",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.quicksight",

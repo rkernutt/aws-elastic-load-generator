@@ -1,46 +1,55 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "us-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-us-west-2",
+    "ephemeral_id": "uo6x18ew9u"
   },
   "aws": {
     "waf": {
       "metrics": {
         "AllowedRequests": {
-          "avg": 1730124,
-          "sum": 1730124,
+          "avg": 3810132,
+          "sum": 3810132,
           "count": 1
         },
         "BlockedRequests": {
-          "avg": 56256,
-          "sum": 56256,
+          "avg": 358216,
+          "sum": 358216,
           "count": 1
         },
         "CountedRequests": {
-          "avg": 19734,
-          "sum": 19734,
+          "avg": 88810,
+          "sum": 88810,
           "count": 1
         },
         "PassedRequests": {
-          "avg": 1730124,
-          "sum": 1730124,
+          "avg": 3810132,
+          "sum": 3810132,
           "count": 1
         },
         "RequestWithNoRuleActionMatched": {
-          "avg": 4368,
-          "sum": 4368,
+          "avg": 6943,
+          "sum": 6943,
           "count": 1
         }
       },
       "dimensions": {
-        "WebACL": "global-waf",
-        "Rule": "XSSRule",
-        "Region": "il-central-1"
+        "WebACL": "prod-waf",
+        "Rule": "SQLiRule",
+        "Region": "us-west-2"
       }
     }
   },
@@ -52,6 +61,9 @@
     "type": "metrics",
     "dataset": "aws.waf",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.waf",

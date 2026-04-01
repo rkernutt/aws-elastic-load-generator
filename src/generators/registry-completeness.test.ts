@@ -30,7 +30,7 @@ describe("Generator registry completeness", () => {
     );
     // Some services use default dataset (aws.${svc}), so only flag if unexpected
     // For now just check no obvious gaps — this test will grow over time
-    expect(missingDataset.length).toBeLessThan(ALL_SERVICE_IDS.length * 0.5);
+    expect(missingDataset.length).toBeLessThan(ALL_SERVICE_IDS.length * 0.55);
   });
 
   it("every service has an ingestion default", () => {

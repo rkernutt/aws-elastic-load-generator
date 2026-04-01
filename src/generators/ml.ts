@@ -2,6 +2,52 @@ import { rand, randInt, randFloat, randId, randUUID, randAccount, REGIONS } from
 import type { EcsDocument } from "./types.js";
 
 function generateSageMakerLog(ts: string, er: number): EcsDocument {
+  // ~12% chance of generating a Feature Store event
+  if (Math.random() < 0.12) {
+    const r = rand(REGIONS); const a = randAccount(); const e = Math.random() < er;
+    const fg = rand(["customer-features", "product-embeddings", "fraud-signals", "session-features", "recommendation-features"]);
+    const op = rand(["PutRecord", "GetRecord", "BatchGetRecord", "DeleteRecord", "CreateFeatureGroup", "DescribeFeatureGroup"]);
+    const errCodes = ["ResourceNotFound", "ValidationError", "AccessDeniedException", "InternalFailure", "ThrottlingException"];
+    return {
+      __dataset: "aws.sagemaker_featurestore",
+      "@timestamp": ts,
+      cloud: { provider: "aws", region: r, account: { id: a.id, name: a.name }, service: { name: "sagemaker-featurestore" } },
+      aws: { sagemaker_featurestore: { feature_group_name: fg, operation: op, record_identifier: randId(12).toLowerCase(), online_store_latency_ms: randFloat(1, e ? 500 : 20), offline_store_status: rand(["Active", "Creating", "Deleting"]), feature_count: randInt(5, 50), record_count: randInt(1, 100), ttl_duration_seconds: randInt(3600, 86400 * 30) } },
+      event: { outcome: e ? "failure" : "success", duration: randInt(1e4, e ? 5e6 : 2e5) },
+      message: e ? `SageMaker Feature Store ${fg}: ${op} failed — ${rand(errCodes)}` : `SageMaker Feature Store ${fg}: ${op} OK (${randInt(1, 100)} records)`,
+    };
+  }
+  // ~12% chance of generating a Pipelines event
+  if (Math.random() < 0.12) {
+    const r = rand(REGIONS); const a = randAccount(); const e = Math.random() < er;
+    const pipeline = rand(["training-pipeline", "etl-feature-pipeline", "batch-inference", "model-retraining", "data-quality-check"]);
+    const step = rand(["Processing", "Training", "Transform", "RegisterModel", "Condition", "Callback", "QualityCheck", "ClarifyCheck"]);
+    const status = e ? rand(["Failed", "Stopped"]) : rand(["Succeeded", "Executing"]);
+    const errMsgs = ["Step timed out after 3600s", "Training job failed: OOM", "Data quality check below threshold", "Model registry conflict"];
+    return {
+      __dataset: "aws.sagemaker_pipelines",
+      "@timestamp": ts,
+      cloud: { provider: "aws", region: r, account: { id: a.id, name: a.name }, service: { name: "sagemaker-pipelines" } },
+      aws: { sagemaker_pipelines: { pipeline_name: pipeline, pipeline_execution_id: `exec-${randId(12).toLowerCase()}`, step_name: `${step}-${randInt(1, 5)}`, step_type: step, status, execution_duration_seconds: randInt(10, e ? 3600 : 7200), parallelism: randInt(1, 10), retry_count: e ? randInt(1, 3) : 0, cache_hit: !e && Math.random() < 0.3 } },
+      event: { outcome: e ? "failure" : "success", duration: randInt(1e7, 7.2e9) },
+      message: e ? `SageMaker Pipeline ${pipeline}: step ${step} ${status} — ${rand(errMsgs)}` : `SageMaker Pipeline ${pipeline}: step ${step} ${status}`,
+    };
+  }
+  // ~10% chance of generating a Model Monitor event
+  if (Math.random() < 0.10) {
+    const r = rand(REGIONS); const a = randAccount(); const e = Math.random() < er;
+    const endpoint = rand(["fraud-detector-v2", "recommendation-engine", "churn-predictor", "pricing-model"]);
+    const monType = rand(["DataQuality", "ModelQuality", "ModelBias", "ModelExplainability"]);
+    const violations = ["feature_baseline_drift", "prediction_accuracy_below_threshold", "bias_metric_exceeded", "missing_feature_values"];
+    return {
+      __dataset: "aws.sagemaker_modelmonitor",
+      "@timestamp": ts,
+      cloud: { provider: "aws", region: r, account: { id: a.id, name: a.name }, service: { name: "sagemaker-model-monitor" } },
+      aws: { sagemaker_model_monitor: { endpoint_name: endpoint, monitoring_type: monType, monitoring_schedule: `${endpoint}-${monType.toLowerCase()}-schedule`, execution_status: e ? "CompletedWithViolations" : "Completed", violation_count: e ? randInt(1, 15) : 0, violation_types: e ? [rand(violations)] : [], baseline_statistics_uri: `s3://sagemaker-${r}/baselines/${endpoint}/statistics.json`, constraints_uri: `s3://sagemaker-${r}/baselines/${endpoint}/constraints.json`, data_captured_count: randInt(100, 10000), features_analyzed: randInt(10, 100) } },
+      event: { outcome: e ? "failure" : "success", duration: randInt(6e7, 9e8) },
+      message: e ? `Model Monitor ${endpoint}: ${monType} completed with ${randInt(1, 15)} violations` : `Model Monitor ${endpoint}: ${monType} passed (${randInt(100, 10000)} samples)`,
+    };
+  }
   const region = rand(REGIONS);
   const acct = randAccount();
   const level = Math.random() < er ? "error" : Math.random() < 0.12 ? "warn" : "info";
@@ -1761,106 +1807,6 @@ function generateBedrockDataAutomationLog(ts: string, er: number): EcsDocument {
   };
 }
 
-// ─── SageMaker Feature Store ──────────────────────────────────────────────
-function generateSageMakerFeatureStoreLog(ts: string, er: number): EcsDocument {
-  const region = rand(REGIONS);
-  const acct = randAccount();
-  const isErr = Math.random() < er;
-  const featureGroups = ["customer-features", "product-embeddings", "fraud-signals", "session-features", "recommendation-features"];
-  const fg = rand(featureGroups);
-  const ops = ["PutRecord", "GetRecord", "BatchGetRecord", "DeleteRecord", "CreateFeatureGroup", "DescribeFeatureGroup"];
-  const op = rand(ops);
-  const errCodes = ["ResourceNotFound", "ValidationError", "AccessDeniedException", "InternalFailure", "ThrottlingException"];
-  return {
-    "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "sagemaker-featurestore" } },
-    aws: {
-      sagemaker_featurestore: {
-        feature_group_name: fg,
-        operation: op,
-        record_identifier: randId(12).toLowerCase(),
-        online_store_latency_ms: randFloat(1, isErr ? 500 : 20),
-        offline_store_status: rand(["Active", "Creating", "Deleting"]),
-        feature_count: randInt(5, 50),
-        record_count: randInt(1, 100),
-        ttl_duration_seconds: randInt(3600, 86400 * 30),
-      },
-    },
-    event: { outcome: isErr ? "failure" : "success", duration: randInt(1e4, isErr ? 5e6 : 2e5) },
-    message: isErr
-      ? `SageMaker Feature Store ${fg}: ${op} failed — ${rand(errCodes)}`
-      : `SageMaker Feature Store ${fg}: ${op} OK (${randInt(1, 100)} records)`,
-  };
-}
-
-// ─── SageMaker Pipelines ──────────────────────────────────────────────────
-function generateSageMakerPipelinesLog(ts: string, er: number): EcsDocument {
-  const region = rand(REGIONS);
-  const acct = randAccount();
-  const isErr = Math.random() < er;
-  const pipelines = ["training-pipeline", "etl-feature-pipeline", "batch-inference", "model-retraining", "data-quality-check"];
-  const pipeline = rand(pipelines);
-  const steps = ["Processing", "Training", "Transform", "RegisterModel", "Condition", "Callback", "QualityCheck", "ClarifyCheck"];
-  const step = rand(steps);
-  const statuses = isErr ? ["Failed", "Stopped"] : ["Succeeded", "Executing"];
-  const status = rand(statuses);
-  const errMsgs = ["Step timed out after 3600s", "Training job failed: OOM", "Data quality check below threshold", "Model registry conflict"];
-  return {
-    "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "sagemaker-pipelines" } },
-    aws: {
-      sagemaker_pipelines: {
-        pipeline_name: pipeline,
-        pipeline_execution_id: `exec-${randId(12).toLowerCase()}`,
-        step_name: `${step}-${randInt(1, 5)}`,
-        step_type: step,
-        status,
-        execution_duration_seconds: randInt(10, isErr ? 3600 : 7200),
-        parallelism: randInt(1, 10),
-        retry_count: isErr ? randInt(1, 3) : 0,
-        cache_hit: !isErr && Math.random() < 0.3,
-      },
-    },
-    event: { outcome: isErr ? "failure" : "success", duration: randInt(1e7, 7.2e9) },
-    message: isErr
-      ? `SageMaker Pipeline ${pipeline}: step ${step} ${status} — ${rand(errMsgs)}`
-      : `SageMaker Pipeline ${pipeline}: step ${step} ${status}`,
-  };
-}
-
-// ─── SageMaker Model Monitor ──────────────────────────────────────────────
-function generateSageMakerModelMonitorLog(ts: string, er: number): EcsDocument {
-  const region = rand(REGIONS);
-  const acct = randAccount();
-  const isErr = Math.random() < er;
-  const endpoints = ["fraud-detector-v2", "recommendation-engine", "churn-predictor", "pricing-model"];
-  const endpoint = rand(endpoints);
-  const monitorTypes = ["DataQuality", "ModelQuality", "ModelBias", "ModelExplainability"];
-  const monType = rand(monitorTypes);
-  const violations = ["feature_baseline_drift", "prediction_accuracy_below_threshold", "bias_metric_exceeded", "missing_feature_values"];
-  return {
-    "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "sagemaker-model-monitor" } },
-    aws: {
-      sagemaker_model_monitor: {
-        endpoint_name: endpoint,
-        monitoring_type: monType,
-        monitoring_schedule: `${endpoint}-${monType.toLowerCase()}-schedule`,
-        execution_status: isErr ? "CompletedWithViolations" : "Completed",
-        violation_count: isErr ? randInt(1, 15) : 0,
-        violation_types: isErr ? [rand(violations)] : [],
-        baseline_statistics_uri: `s3://sagemaker-${region}/baselines/${endpoint}/statistics.json`,
-        constraints_uri: `s3://sagemaker-${region}/baselines/${endpoint}/constraints.json`,
-        data_captured_count: randInt(100, 10000),
-        features_analyzed: randInt(10, 100),
-      },
-    },
-    event: { outcome: isErr ? "failure" : "success", duration: randInt(6e7, 9e8) },
-    message: isErr
-      ? `Model Monitor ${endpoint}: ${monType} completed with ${randInt(1, 15)} violations`
-      : `Model Monitor ${endpoint}: ${monType} passed (${randInt(100, 10000)} samples)`,
-  };
-}
 
 // ─── Lookout for Equipment ────────────────────────────────────────────────
 function generateLookoutEquipmentLog(ts: string, er: number): EcsDocument {
@@ -1954,9 +1900,6 @@ export {
   generateLookoutVisionLog,
   generateHealthOmicsLog,
   generateBedrockDataAutomationLog,
-  generateSageMakerFeatureStoreLog,
-  generateSageMakerPipelinesLog,
-  generateSageMakerModelMonitorLog,
   generateLookoutEquipmentLog,
   generateMonitronLog,
 };

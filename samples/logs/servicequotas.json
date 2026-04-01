@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "ca-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "servicequotas"
@@ -13,14 +13,28 @@
   },
   "aws": {
     "servicequotas": {
-      "service_code": "lambda",
-      "quota_code": "L-I4K8GMAL",
-      "quota_name": "Running tasks",
-      "quota_value": 1000,
-      "current_utilization": 772,
-      "utilization_percent": 77,
-      "adjustable": true,
+      "service_code": "s3",
+      "quota_code": "L-CWO3KXML",
+      "quota_name": "Provisioned write capacity units",
+      "quota_value": 5,
+      "current_utilization": 3,
+      "utilization_percent": 60,
+      "adjustable": false,
       "applied_level": "RESOURCE"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-servicequotas-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-servicequotas-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/servicequotas/ca-central-1/2026/04/01/servicequotas_QBC9Y2Y9BF7.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/servicequotas/logs",
+      "log_stream": "ca-central-1/x45rzjp3",
+      "ingestion_time": "2026-04-01T12:55:20.527Z"
     }
   },
   "event": {
@@ -30,10 +44,32 @@
     ],
     "dataset": "aws.servicequotas",
     "provider": "servicequotas.amazonaws.com",
-    "duration": 455000000
+    "duration": 392000000,
+    "module": "aws"
   },
-  "message": "Service Quotas: lambda Running tasks at 772/1000 (77%)",
+  "message": "Service Quotas: s3 Provisioned write capacity units at 3/5 (60%)",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "servicequotas",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.servicequotas",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "jscptno3bg"
+  },
+  "input": {
+    "type": "http_endpoint"
   }
 }

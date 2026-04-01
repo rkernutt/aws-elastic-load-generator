@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "health"
@@ -13,15 +13,29 @@
   },
   "aws": {
     "health": {
-      "event_arn": "arn:aws:health:us-east-1::event/s3/p3hsczcg/iyqiudpy2ss",
-      "event_type_code": "AWS_S3_MAINTENANCE_SCHEDULED",
-      "event_type_category": "accountNotification",
-      "service": "S3",
-      "region": "us-east-1",
-      "status_code": "resolved",
+      "event_arn": "arn:aws:health:us-east-1::event/rds/046458iu/se1oc4f245n",
+      "event_type_code": "AWS_RDS_API_ISSUE",
+      "event_type_category": "scheduledChange",
+      "service": "RDS",
+      "region": "global",
+      "status_code": "closed",
       "event_scope": "PUBLIC",
-      "affected_entities_count": 25,
-      "description": "S3 Scheduled maintenance in us-east-1"
+      "affected_entities_count": 8,
+      "description": "RDS Increased error rates in us-east-1"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-health-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-health-logs-501938274650"
+      },
+      "object": {
+        "key": "AWSLogs/501938274650/health/us-east-1/2026/04/01/health_DYOE9VRTPD.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/health/logs",
+      "log_stream": "us-east-1/bdrb9cr4",
+      "ingestion_time": "2026-04-01T12:55:20.526Z"
     }
   },
   "event": {
@@ -32,10 +46,32 @@
     ],
     "dataset": "aws.health",
     "provider": "health.amazonaws.com",
-    "duration": 333000000000
+    "duration": 410000000000,
+    "module": "aws"
   },
-  "message": "AWS Health: S3 event resolved in us-east-1",
+  "message": "AWS Health: RDS event resolved in us-east-1",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "health",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.awshealth",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-us-east-1",
+    "ephemeral_id": "poxem1shpq"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

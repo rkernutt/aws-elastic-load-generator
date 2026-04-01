@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "eu-west-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "globalaccelerator"
@@ -13,15 +13,29 @@
   },
   "aws": {
     "globalaccelerator": {
-      "accelerator_arn": "arn:aws:globalaccelerator::293847561023:accelerator/fseazssn",
-      "listener_port": 443,
+      "accelerator_arn": "arn:aws:globalaccelerator::164820739518:accelerator/99idmkn4",
+      "listener_port": 80,
       "protocol": "UDP",
-      "endpoint_group_region": "eu-central-1",
-      "endpoint_id": "eu-west-2-alb",
+      "endpoint_group_region": "eu-south-1",
+      "endpoint_id": "us-east-1-alb",
       "endpoint_health": "HEALTHY",
-      "client_ip": "220.77.54.33",
-      "rtt_ms": 17,
+      "client_ip": "25.20.72.24",
+      "rtt_ms": 76,
       "processing_time_ms": 16
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-globalaccelerator-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-globalaccelerator-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/globalaccelerator/eu-west-3/2026/04/01/globalaccelerator_RPD172FG1B.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/globalaccelerator/logs",
+      "log_stream": "eu-west-3/jsy9i9op",
+      "ingestion_time": "2026-04-01T12:55:20.472Z"
     }
   },
   "event": {
@@ -29,10 +43,32 @@
     "category": "network",
     "dataset": "aws.globalaccelerator",
     "provider": "globalaccelerator.amazonaws.com",
-    "duration": 17000000
+    "duration": 76000000,
+    "module": "aws"
   },
-  "message": "Global Accelerator: eu-west-2-alb healthy, RTT 17ms",
+  "message": "Global Accelerator: us-east-1-alb healthy, RTT 76ms",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "globalaccelerator",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.globalaccelerator",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "loisyzhl8th"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

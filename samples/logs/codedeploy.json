@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codedeploy"
@@ -14,17 +14,17 @@
   "aws": {
     "dimensions": {
       "DeploymentGroupName": "staging",
-      "ApplicationName": "api-service"
+      "ApplicationName": "background-jobs"
     },
     "codedeploy": {
-      "application_name": "api-service",
+      "application_name": "background-jobs",
       "deployment_group": "staging",
-      "deployment_id": "d-RANXLENCF",
+      "deployment_id": "d-4YP20SK0S",
       "deployment_type": "IN_PLACE",
-      "lifecycle_event": "ApplicationStart",
+      "lifecycle_event": "BeforeAllowTraffic",
       "event_status": "Succeeded",
-      "duration_seconds": 121,
-      "instances_succeeded": 1,
+      "duration_seconds": 254,
+      "instances_succeeded": 5,
       "instances_failed": 0,
       "metrics": {
         "DeploymentAttempts": {
@@ -40,29 +40,65 @@
           "sum": 0
         },
         "DeploymentDuration": {
-          "avg": 121
+          "avg": 254
         },
         "InstanceSuccesses": {
-          "sum": 10
+          "sum": 6
         },
         "InstanceFailures": {
           "sum": 0
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-codedeploy-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-codedeploy-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/codedeploy/eu-south-2/2026/04/01/codedeploy_VBW3IDVN8C.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/codedeploy/logs",
+      "log_stream": "eu-south-2/q1zrl5n6",
+      "ingestion_time": "2026-04-01T12:55:20.514Z"
     }
   },
   "event": {
-    "duration": 121000000000,
+    "duration": 254000000000,
     "outcome": "success",
     "category": [
       "process",
       "configuration"
     ],
     "dataset": "aws.codedeploy",
-    "provider": "codedeploy.amazonaws.com"
+    "provider": "codedeploy.amazonaws.com",
+    "module": "aws"
   },
-  "message": "CodeDeploy api-service deployment SUCCEEDED in 121s",
+  "message": "CodeDeploy background-jobs deployment SUCCEEDED in 254s",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "codedeploy",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.codedeploy",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-south-2",
+    "ephemeral_id": "44c2pe7humy"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

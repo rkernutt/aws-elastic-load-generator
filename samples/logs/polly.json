@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "eu-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "polly"
@@ -17,19 +17,19 @@
     },
     "polly": {
       "voice_id": "Brian",
-      "engine": "standard",
+      "engine": "neural",
       "operation": "StartSpeechSynthesisTask",
-      "language_code": "en-GB",
+      "language_code": "de-DE",
       "output_format": "ogg_vorbis",
-      "text_type": "text",
-      "characters_synthesized": 3158,
+      "text_type": "ssml",
+      "characters_synthesized": 87235,
       "sample_rate": "24000",
       "metrics": {
         "RequestCharacters": {
-          "sum": 2874
+          "sum": 568
         },
         "ResponseLatency": {
-          "avg": 194.67430632896804
+          "avg": 291.5094804997752
         },
         "2XXCount": {
           "sum": 1
@@ -41,6 +41,20 @@
           "sum": 0
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-polly-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-polly-logs-501938274650"
+      },
+      "object": {
+        "key": "AWSLogs/501938274650/polly/eu-central-1/2026/04/01/polly_Q3PCLEL7CYC.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/polly/logs",
+      "log_stream": "eu-central-1/5i4mhfun",
+      "ingestion_time": "2026-04-01T12:55:20.521Z"
     }
   },
   "event": {
@@ -49,10 +63,32 @@
       "process"
     ],
     "dataset": "aws.polly",
-    "provider": "polly.amazonaws.com"
+    "provider": "polly.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Polly SynthesizeSpeech: Brian (standard), 3158 chars",
+  "message": "Polly SynthesizeSpeech: Brian (neural), 87235 chars",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "polly",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.polly",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "r9ukwttzppk"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

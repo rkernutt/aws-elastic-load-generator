@@ -1,116 +1,75 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
     "region": "ap-southeast-4",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
-      "name": "elasticache"
+      "name": "elasticache-global"
     }
   },
   "aws": {
-    "dimensions": {
-      "CacheClusterId": "prod-redis-3",
-      "CacheNodeId": "0003",
-      "ReplicationGroupId": "prod-cache"
+    "elasticacheglobal": {
+      "global_datastore_name": "global-leaderboard",
+      "event_type": "RebalanceSlotsInGlobalReplicationGroup",
+      "primary_region": "ap-southeast-4",
+      "secondary_regions": [
+        "eu-west-1",
+        "ap-northeast-1",
+        "us-west-2"
+      ],
+      "replication_lag_ms": 46.61583722522844,
+      "cross_region_bandwidth_mbps": 218.13684620264127,
+      "global_node_groups": 4,
+      "status": "available"
     },
-    "elasticache": {
-      "cluster_id": "prod-redis-3",
-      "node_id": "0003",
-      "engine": "redis",
-      "engine_version": "7.1.0",
-      "replication_group_id": "prod-cache",
-      "command": "DEL",
-      "latency_us": 6.208305929236944,
-      "cache_hit": true,
-      "connected_clients": 96,
-      "used_memory_mb": 3438,
-      "metrics": {
-        "BytesUsedForCache": {
-          "avg": 2931932091
-        },
-        "CacheHits": {
-          "sum": 393
-        },
-        "CacheMisses": {
-          "sum": 737
-        },
-        "CacheHitRate": {
-          "avg": 0.9179243642401624
-        },
-        "CurrConnections": {
-          "avg": 839
-        },
-        "NewConnections": {
-          "sum": 42
-        },
-        "Evictions": {
-          "sum": 0
-        },
-        "Reclaimed": {
-          "sum": 84
-        },
-        "ReplicationBytes": {
-          "avg": 92317
-        },
-        "ReplicationLag": {
-          "avg": 1
-        },
-        "SaveInProgress": {
-          "avg": 0
-        },
-        "CurrItems": {
-          "avg": 585933
-        },
-        "NewItems": {
-          "sum": 7894
-        },
-        "NetworkBytesIn": {
-          "avg": 37176701
-        },
-        "NetworkBytesOut": {
-          "avg": 49538651
-        },
-        "CPUUtilization": {
-          "avg": 19.690633644333293
-        },
-        "EngineCPUUtilization": {
-          "avg": 29.43405699053201
-        },
-        "FreeableMemory": {
-          "avg": 2333750311
-        },
-        "SwapUsage": {
-          "avg": 48812970
-        },
-        "DatabaseMemoryUsagePercentage": {
-          "avg": 18.436667242414803
-        },
-        "TrafficBasedCmdsLatency": {
-          "avg": 0.15519773703070247
-        }
+    "s3": {
+      "bucket": {
+        "name": "aws-elasticache-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-elasticache-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/elasticache/ap-southeast-4/2026/04/01/elasticache_I2TQQ732FAA.log.gz"
       }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/elasticache/logs",
+      "log_stream": "ap-southeast-4/it07g8qt",
+      "ingestion_time": "2026-04-01T12:55:20.507Z"
     }
   },
-  "db": {
-    "type": "keyvalue",
-    "operation": "DEL"
-  },
   "event": {
-    "duration": 6208.3059292369435,
     "outcome": "success",
-    "category": [
-      "database",
-      "network"
-    ],
-    "dataset": "aws.elasticache",
-    "provider": "elasticache.amazonaws.com"
+    "duration": 7277525,
+    "module": "aws",
+    "dataset": "aws.elasticache"
   },
-  "message": "Redis DEL 6.21us",
+  "message": "ElastiCache Global global-leaderboard: RebalanceSlotsInGlobalReplicationGroup completed",
+  "service": {
+    "name": "elasticache",
+    "type": "aws"
+  },
   "log": {
     "level": "info"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.elasticache",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-southeast-4",
+    "ephemeral_id": "9w7ygl6t9ja"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

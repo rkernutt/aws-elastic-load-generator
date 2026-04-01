@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "af-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "auditmanager"
@@ -13,32 +13,68 @@
   },
   "aws": {
     "dimensions": {
-      "AssessmentName": "NIST-800-53",
-      "ControlSetId": "Change Management"
+      "AssessmentName": "CIS-AWS-Foundations",
+      "ControlSetId": "Incident Response"
     },
     "auditmanager": {
-      "assessment_name": "NIST-800-53",
-      "assessment_id": "2y4pb70y-iudi-3p8k-z3j7-pwtgeca2iy",
-      "control_set": "Change Management",
-      "control_id": "CTRL-8125",
+      "assessment_name": "CIS-AWS-Foundations",
+      "assessment_id": "gz38mmlj-fawg-lqw7-o0lj-2yi0i4ztogd",
+      "control_set": "Incident Response",
+      "control_id": "CTRL-7320",
       "evidence_status": "COMPLIANT",
       "data_source": "MANUAL",
-      "evidence_count": 32,
-      "compliance_check": "FAILED",
-      "reviewer": "security-ops"
+      "evidence_count": 6,
+      "compliance_check": "WARNING",
+      "reviewer": "auto-assessment"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-auditmanager-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-auditmanager-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/auditmanager/af-south-1/2026/04/01/auditmanager_1A25ZQ5O33.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/auditmanager/logs",
+      "log_stream": "af-south-1/4pxiacb7",
+      "ingestion_time": "2026-04-01T12:55:20.480Z"
     }
   },
   "event": {
-    "action": "ReviewEvidence",
+    "action": "SubmitReviewRequest",
     "outcome": "success",
     "category": [
       "audit"
     ],
     "dataset": "aws.auditmanager",
-    "provider": "auditmanager.amazonaws.com"
+    "provider": "auditmanager.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Audit Manager NIST-800-53 — CTRL-8125 COMPLIANT",
+  "message": "Audit Manager CIS-AWS-Foundations — CTRL-7320 COMPLIANT",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "auditmanager",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.auditmanager",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-af-south-1",
+    "ephemeral_id": "bhfb1ej2tje"
+  },
+  "input": {
+    "type": "http_endpoint"
   }
 }

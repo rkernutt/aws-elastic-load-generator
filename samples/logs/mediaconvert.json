@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "mediaconvert"
@@ -16,51 +16,81 @@
       "Operation": "HLS"
     },
     "mediaconvert": {
-      "job_id": "4409968420-9k60w6",
-      "queue_arn": "arn:aws:mediaconvert:eu-west-3:164820739518:queues/Default",
-      "job_status": "ERROR",
+      "job_id": "3569747409-7qivhj",
+      "queue_arn": "arn:aws:mediaconvert:ap-southeast-1:293847561023:queues/premium",
+      "job_status": "COMPLETE",
       "output_group_type": "HLS",
-      "input_file": "s3://uploads/user-video.mp4",
-      "input_duration_minutes": 102.63683971517086,
-      "video_codec": "MPEG2",
-      "audio_codec": "MP3",
-      "width": 1280,
+      "input_file": "s3://media-input/broadcast/live.mxf",
+      "input_duration_minutes": 95.14055594473574,
+      "video_codec": "H_265",
+      "audio_codec": "AAC",
+      "width": 3840,
       "height": 720,
-      "bitrate_kbps": 1500,
-      "duration_seconds": 3550,
-      "error_message": "Unsupported codec",
+      "bitrate_kbps": 3000,
+      "duration_seconds": 87,
       "metrics": {
         "JobsCompletedCount": {
-          "sum": 0
-        },
-        "JobsErroredCount": {
           "sum": 1
         },
+        "JobsErroredCount": {
+          "sum": 0
+        },
         "StandbyTime": {
-          "avg": 296
+          "avg": 147
         },
         "TranscodingTime": {
-          "avg": 3550
+          "avg": 87
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-mediaconvert-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-mediaconvert-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/mediaconvert/ap-southeast-1/2026/04/01/mediaconvert_7JKEAHDNPGO.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/mediaconvert/logs",
+      "log_stream": "ap-southeast-1/3q3zzqxw",
+      "ingestion_time": "2026-04-01T12:55:20.529Z"
     }
   },
   "event": {
-    "duration": 3550000000000,
-    "outcome": "failure",
+    "duration": 87000000000,
+    "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.mediaconvert",
-    "provider": "mediaconvert.amazonaws.com"
+    "provider": "mediaconvert.amazonaws.com",
+    "module": "aws"
   },
-  "message": "MediaConvert job 4409968420-9k60w6 ERROR: Codec unsupported",
-  "error": {
-    "code": "JobError",
-    "message": "MediaConvert job failed",
-    "type": "media"
-  },
+  "message": "MediaConvert job 3569747409-7qivhj COMPLETE: 95.1 min -> HLS",
   "log": {
-    "level": "error"
+    "level": "info"
+  },
+  "service": {
+    "name": "mediaconvert",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.mediaconvert",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-southeast-1",
+    "ephemeral_id": "w43qozg3w5"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

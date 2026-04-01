@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "alb"
@@ -13,66 +13,81 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "app/prod-alb-ap-east-1/jqz05pp8bjk",
-      "TargetGroup": "targetgroup/tg-web/niinlf7zz0i",
-      "AvailabilityZone": "ap-east-1a"
+      "LoadBalancer": "app/prod-alb-eu-west-3/h1zx0wtvso",
+      "TargetGroup": "targetgroup/tg-admin/lkmb1z8b0rd",
+      "AvailabilityZone": "eu-west-3b"
     },
     "elb": {
-      "name": "app/prod-alb-ap-east-1/jqz05pp8bjk",
+      "name": "app/prod-alb-eu-west-3/h1zx0wtvso",
       "type": "application",
-      "target_group.arn": "arn:aws:elasticloadbalancing:ap-east-1:293847561023:targetgroup/tg-web/niinlf7zz0i",
-      "listener": "arn:aws:elasticloadbalancing:ap-east-1:293847561023:listener/app/prod-alb/4hfruhqyj7q/f1gt6c6qkqi",
+      "target_group.arn": "arn:aws:elasticloadbalancing:eu-west-3:501938274650:targetgroup/tg-admin/lkmb1z8b0rd",
+      "listener": "arn:aws:elasticloadbalancing:eu-west-3:501938274650:listener/app/prod-alb/at0o8a8cozc/ue175ql513c",
       "protocol": "HTTPS",
-      "request_processing_time.sec": 0.09361182688191949,
-      "backend_processing_time.sec": 1.881514362787566,
-      "response_processing_time.sec": 0.09441835854134374,
-      "backend.ip": "64.59.62.50",
-      "backend.port": "8481",
+      "request_processing_time.sec": 0.16987444973448348,
+      "backend_processing_time.sec": 1.6702066040905157,
+      "response_processing_time.sec": 0.007176064287379328,
+      "backend.ip": "184.20.149.49",
+      "backend.port": "3332",
       "backend.http.response.status_code": 200,
       "ssl_protocol": "TLSv1.3",
       "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
       "tls_named_group": "x25519",
-      "chosen_cert.arn": "arn:aws:acm:ap-east-1:293847561023:certificate/h1ilx5vd-51iv-vy25-8zhh-9ib1hf4ts7h",
-      "trace_id": "Root=1-46UJ6IGZ-8VMN2ET53SA",
-      "matched_rule_priority": "3",
-      "action_executed": "forward",
-      "target_port": "64.59.62.50:8481",
+      "chosen_cert.arn": "arn:aws:acm:eu-west-3:501938274650:certificate/4cq0wv0k-f12v-ucfv-0t66-syd4vnjxylo",
+      "trace_id": "Root=1-208DAZAN-CT3JIE8U8DJ",
+      "matched_rule_priority": "4",
+      "action_executed": "authenticate-cognito",
+      "target_port": "184.20.149.49:3332",
       "target_status_code": "200",
       "classification": "NORMAL"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-alb-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-alb-logs-501938274650"
+      },
+      "object": {
+        "key": "AWSLogs/501938274650/alb/eu-west-3/2026/04/01/alb_S0D2VDLTJBH.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/alb/logs",
+      "log_stream": "eu-west-3/gjwqwzk9",
+      "ingestion_time": "2026-04-01T12:55:20.471Z"
     }
   },
   "http": {
     "request": {
-      "method": "POST",
-      "bytes": 1480
+      "method": "PATCH",
+      "bytes": 3734,
+      "referrer": "https://app.example.com/"
     },
     "response": {
       "status_code": 200,
-      "bytes": 37104
+      "bytes": 7389
     }
   },
   "url": {
-    "path": "/health",
+    "path": "/api/v1/products",
     "domain": "api.example.com"
   },
   "client": {
-    "ip": "153.66.86.57",
-    "port": 12065,
+    "ip": "10.124.31.82",
+    "port": 26477,
     "geo": {
-      "country_iso_code": "US",
-      "country_name": "United States",
-      "city_name": "Ashburn",
+      "country_iso_code": "JP",
+      "country_name": "Japan",
+      "city_name": "Tokyo",
       "location": {
-        "lat": 39.0438,
-        "lon": -77.4874
+        "lat": 35.6762,
+        "lon": 139.6503
       }
     }
   },
   "user_agent": {
-    "original": "Go-http-client/1.1"
+    "original": "python-requests/2.27.1"
   },
   "event": {
-    "duration": 2069544548.2108293,
+    "duration": 1847257118.1123784,
     "outcome": "success",
     "category": [
       "web",
@@ -82,10 +97,32 @@
       "access"
     ],
     "dataset": "aws.elb_logs",
-    "provider": "elasticloadbalancing.amazonaws.com"
+    "provider": "elasticloadbalancing.amazonaws.com",
+    "module": "aws"
   },
-  "message": "POST /health 200 2070ms",
+  "message": "PATCH /api/v1/products 200 1847ms",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "alb",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.elb_logs",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "yvnrvjdrjxb"
+  },
+  "input": {
+    "type": "aws-s3"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "sa-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "qbusiness"
@@ -13,22 +13,20 @@
   },
   "aws": {
     "dimensions": {
-      "ApplicationId": "6adav4ym-j14j-12z7-c8eh-ioqd4a40lq"
+      "ApplicationId": "5bywena8-mt9k-7vcs-swtf-nxqv3nsavci"
     },
     "qbusiness": {
-      "application_id": "6adav4ym-j14j-12z7-c8eh-ioqd4a40lq",
+      "application_id": "5bywena8-mt9k-7vcs-swtf-nxqv3nsavci",
       "application_name": "support-assistant",
-      "conversation_id": "c28se2wb-irz3-zjdw-rvc0-13lixgfsavgf",
-      "message_id": "0a61hypl-jysy-ewej-6mt9-lomfmqm6lnh",
-      "user_id": "bob",
-      "event_type": "QUERY",
-      "response_latency_ms": 3785,
-      "query": {
-        "input_token_count": 386,
-        "output_token_count": 147,
-        "retrieved_documents": 4,
-        "source_attributions": 4,
-        "guardrail_action": "NONE"
+      "conversation_id": "hjidqjvo-xg8a-c10i-mepw-aj8mn8pqjlu",
+      "message_id": "t0vyj0uj-0dkf-p32u-i3j2-ijgeks3tl3s",
+      "user_id": "eve",
+      "event_type": "PLUGIN_INVOCATION",
+      "response_latency_ms": 4972,
+      "plugin": {
+        "name": "Jira",
+        "action": "CreateTicket",
+        "success": true
       },
       "metrics": {
         "ConversationCount": {
@@ -38,10 +36,10 @@
           "sum": 1
         },
         "InputTokenCount": {
-          "sum": 386
+          "sum": 82
         },
         "OutputTokenCount": {
-          "sum": 147
+          "sum": 0
         },
         "FailedResponses": {
           "sum": 0
@@ -50,13 +48,27 @@
           "sum": 0
         },
         "DocumentsRetrieved": {
-          "sum": 4
+          "sum": 0
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-qbusiness-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-qbusiness-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/qbusiness/sa-east-1/2026/04/01/qbusiness_CE74BH0ZO.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/qbusiness/logs",
+      "log_stream": "sa-east-1/khdcm5jb",
+      "ingestion_time": "2026-04-01T12:55:20.522Z"
     }
   },
   "user": {
-    "name": "bob"
+    "name": "eve"
   },
   "event": {
     "outcome": "success",
@@ -65,10 +77,32 @@
     ],
     "dataset": "aws.qbusiness",
     "provider": "qbusiness.amazonaws.com",
-    "duration": 3785000000
+    "duration": 4972000000,
+    "module": "aws"
   },
-  "message": "Q Business support-assistant: bob query (4 docs retrieved)",
+  "message": "Q Business support-assistant: eve plugin_invocation (0 docs retrieved)",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "qbusiness",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.qbusiness",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-sa-east-1",
+    "ephemeral_id": "67v6k6xnb1"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

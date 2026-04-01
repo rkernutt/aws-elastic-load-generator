@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codepipeline"
@@ -13,56 +13,87 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "api-deploy"
+      "PipelineName": "infra-pipeline"
     },
     "codepipeline": {
-      "pipeline_name": "api-deploy",
-      "pipeline_arn": "arn:aws:codepipeline:ap-south-1:501938274650:api-deploy",
-      "execution_id": "iggcmmju-yq33-n8e0-oyz0-vg84kcef6h",
-      "stage_name": "Test",
-      "action_name": "Manual",
-      "state": "Failed",
-      "revision_id": "stp7bv6k0vs",
+      "pipeline_name": "infra-pipeline",
+      "pipeline_arn": "arn:aws:codepipeline:ap-southeast-2:293847561023:infra-pipeline",
+      "execution_id": "xseks23e-aov6-l25d-lrzd-vpfvgnwhhe",
+      "stage_name": "Production",
+      "action_name": "Source",
+      "state": "Succeeded",
+      "revision_id": "5vf5o9s6mu",
       "structured_logging": true,
       "metrics": {
         "PipelineExecutionAttempts": {
           "sum": 1
         },
         "PipelineSuccessCount": {
-          "sum": 0
+          "sum": 1
         },
         "PipelineFailureCount": {
-          "sum": 1
+          "sum": 0
         },
         "ActionExecutionAttempts": {
           "sum": 1
         },
         "ActionSuccessCount": {
-          "sum": 0
+          "sum": 1
         },
         "ActionFailureCount": {
-          "sum": 1
+          "sum": 0
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-codepipeline-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-codepipeline-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/codepipeline/ap-southeast-2/2026/04/01/codepipeline_U5B2040V7B.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/codepipeline/logs",
+      "log_stream": "ap-southeast-2/9c7dcv4f",
+      "ingestion_time": "2026-04-01T12:55:20.513Z"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": [
       "process",
       "configuration"
     ],
     "dataset": "aws.codepipeline",
     "provider": "codepipeline.amazonaws.com",
-    "duration": 22000000000
+    "duration": 31000000000,
+    "module": "aws"
   },
-  "message": "{\"pipeline\":\"api-deploy\",\"executionId\":\"iggcmmju-yq33-n8e0-oyz0-vg84kcef6h\",\"stage\":\"Test\",\"state\":\"Failed\",\"timestamp\":\"2026-04-01T05:27:12.782Z\"}",
+  "message": "{\"pipeline\":\"infra-pipeline\",\"executionId\":\"xseks23e-aov6-l25d-lrzd-vpfvgnwhhe\",\"stage\":\"Production\",\"state\":\"Succeeded\",\"timestamp\":\"2026-04-01T12:55:20.199Z\"}",
   "log": {
-    "level": "error"
+    "level": "info"
   },
-  "error": {
-    "code": "StageFailed",
-    "message": "Pipeline stage Test failed",
-    "type": "pipeline"
+  "service": {
+    "name": "codepipeline",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.codepipeline",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-southeast-2",
+    "ephemeral_id": "0at2thvrwv5"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

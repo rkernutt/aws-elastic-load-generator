@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
     "region": "ca-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "cognito"
@@ -13,24 +13,25 @@
   },
   "aws": {
     "dimensions": {
-      "UserPool": "ca-west-1_NNCPF35KF",
-      "UserPoolClient": "us-users-web"
+      "UserPool": "ca-west-1_JIPB49UAT",
+      "UserPoolClient": "mobile-users-web"
     },
     "cognito": {
-      "user_pool_id": "ca-west-1_NNCPF35KF",
-      "user_pool_name": "us-users",
-      "event_type": "AdminResetPassword",
-      "username": "user-2srddaw4@example.com",
-      "source_ip": "189.28.42.67",
+      "user_pool_id": "ca-west-1_JIPB49UAT",
+      "user_pool_name": "mobile-users",
+      "event_type": "TokenGeneration_HostedUI",
+      "username": "user-hh6p4955@example.com",
+      "source_ip": "122.55.231.4",
+      "mfa_type": "SOFTWARE_TOKEN_MFA",
       "metrics": {
         "SignInSuccesses": {
-          "sum": 9102
+          "sum": 1937
         },
         "SignInAttempts": {
-          "sum": 9102
+          "sum": 1937
         },
         "TokenRefreshSuccesses": {
-          "sum": 8800
+          "sum": 6547
         },
         "SignUpSuccesses": {
           "sum": 0
@@ -39,7 +40,7 @@
           "sum": 0
         },
         "CallCount": {
-          "sum": 31201
+          "sum": 51706
         },
         "ThrottleCount": {
           "sum": 0
@@ -51,25 +52,61 @@
           "sum": 0
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-cognito-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-cognito-logs-501938274650"
+      },
+      "object": {
+        "key": "AWSLogs/501938274650/cognito/ca-west-1/2026/04/01/cognito_NRNK68SNAU.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/cognito/logs",
+      "log_stream": "ca-west-1/sy6cxdwt",
+      "ingestion_time": "2026-04-01T12:55:20.476Z"
     }
   },
   "user": {
-    "name": "user-2srddaw4@example.com"
+    "name": "user-hh6p4955@example.com"
   },
   "source": {
-    "ip": "176.160.37.158"
+    "ip": "154.3.69.66"
   },
   "event": {
-    "action": "AdminResetPassword",
+    "action": "TokenGeneration_HostedUI",
     "outcome": "success",
     "category": [
       "authentication"
     ],
     "dataset": "aws.cognito",
-    "provider": "cognito-idp.amazonaws.com"
+    "provider": "cognito-idp.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Cognito AdminResetPassword success [us-users]",
+  "message": "Cognito TokenGeneration_HostedUI success [mobile-users]",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "cognito",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.cognito",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ca-west-1",
+    "ephemeral_id": "ukqe590b68"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

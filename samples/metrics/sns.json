@@ -1,44 +1,53 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "us-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-us-east-1",
+    "ephemeral_id": "4ue7klxiqq7"
+  },
   "aws": {
     "sns": {
       "metrics": {
         "NumberOfMessagesPublished": {
-          "avg": 21264,
-          "sum": 21264,
+          "avg": 24433,
+          "sum": 24433,
           "count": 1
         },
         "NumberOfNotificationsDelivered": {
-          "avg": 20827,
-          "sum": 20827,
+          "avg": 22464,
+          "sum": 22464,
           "count": 1
         },
         "NumberOfNotificationsFailed": {
-          "avg": 35,
-          "sum": 35,
+          "avg": 12,
+          "sum": 12,
           "count": 1
         },
         "NumberOfNotificationsFilteredOut": {
-          "avg": 1006,
-          "sum": 1006,
+          "avg": 1861,
+          "sum": 1861,
           "count": 1
         },
         "PublishSize": {
-          "avg": 824.15,
-          "sum": 824.15,
+          "avg": 1265.18,
+          "sum": 1265.18,
           "count": 1
         }
       },
       "dimensions": {
-        "TopicName": "push-notifications"
+        "TopicName": "user-signups"
       }
     }
   },
@@ -50,6 +59,9 @@
     "type": "metrics",
     "dataset": "aws.sns",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.sns",

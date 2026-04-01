@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "eu-central-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "monitron"
@@ -14,20 +14,60 @@
   "aws": {
     "monitron": {
       "project_name": "production-line-3",
-      "sensor_id": "sensor-004",
-      "position": "motor_non_drive_end",
-      "machine_condition": "HEALTHY",
-      "vibration_iso_rms": 2.106989021889224,
-      "temperature_celsius": 52.76366048420459,
-      "vibration_x_peak": 0.20481501481876116,
-      "vibration_z_peak": 2.814038209795082,
-      "gateway_id": "gw-0mnfgh",
-      "battery_level_pct": 18
+      "sensor_id": "sensor-003",
+      "position": "gearbox",
+      "machine_condition": "WARNING",
+      "vibration_iso_rms": 1.7169897876540408,
+      "temperature_celsius": 45.60020797733938,
+      "vibration_x_peak": 3.9026942143847907,
+      "vibration_z_peak": 3.5573250006878214,
+      "gateway_id": "gw-lk93f2",
+      "battery_level_pct": 26
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-monitron-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-monitron-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/monitron/eu-central-2/2026/04/01/monitron_7IHA189OL.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/monitron/logs",
+      "log_stream": "eu-central-2/9qii8yff",
+      "ingestion_time": "2026-04-01T12:55:20.523Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 73040
+    "duration": 91672,
+    "module": "aws",
+    "dataset": "aws.monitron"
   },
-  "message": "Monitron production-line-3/sensor-004: HEALTHY (temp 47.5°C)"
+  "message": "Monitron production-line-3/sensor-003: WARNING (temp 32.1°C)",
+  "service": {
+    "name": "monitron",
+    "type": "aws"
+  },
+  "log": {
+    "level": "info"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.monitron",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-central-2",
+    "ephemeral_id": "0utzrz56skf"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
+  }
 }

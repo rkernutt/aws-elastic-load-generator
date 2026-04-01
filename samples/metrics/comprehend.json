@@ -1,24 +1,33 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-northeast-3",
+    "ephemeral_id": "uj6whzvnnnj"
   },
   "aws": {
     "comprehend": {
       "metrics": {
         "ResponseTime": {
-          "avg": 46.08,
-          "sum": 46.08,
+          "avg": 68.52,
+          "sum": 68.52,
           "count": 1
         },
         "SuccessfulRequestCount": {
-          "avg": 4645,
-          "sum": 4645,
+          "avg": 5654,
+          "sum": 5654,
           "count": 1
         },
         "ThrottledCount": {
@@ -27,13 +36,13 @@
           "count": 1
         },
         "NumberOfInputUnits": {
-          "avg": 177893,
-          "sum": 177893,
+          "avg": 607163,
+          "sum": 607163,
           "count": 1
         }
       },
       "dimensions": {
-        "Operation": "ClassifyDocument"
+        "Operation": "DetectLanguage"
       }
     }
   },
@@ -45,6 +54,9 @@
     "type": "metrics",
     "dataset": "aws.comprehend",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.comprehend",

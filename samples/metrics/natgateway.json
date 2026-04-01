@@ -1,49 +1,58 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "us-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-us-west-1",
+    "ephemeral_id": "6s174r1v7zx"
   },
   "aws": {
     "natgateway": {
       "metrics": {
         "ActiveConnectionCount": {
-          "avg": 9909,
-          "sum": 9909,
+          "avg": 6731,
+          "sum": 6731,
           "count": 1
         },
         "BytesInFromDestination": {
-          "avg": 4462751557,
-          "sum": 4462751557,
+          "avg": 6790336262,
+          "sum": 6790336262,
           "count": 1
         },
         "BytesInFromSource": {
-          "avg": 7646900070,
-          "sum": 7646900070,
+          "avg": 4726573091,
+          "sum": 4726573091,
           "count": 1
         },
         "BytesOutToDestination": {
-          "avg": 545408633,
-          "sum": 545408633,
+          "avg": 1280155785,
+          "sum": 1280155785,
           "count": 1
         },
         "BytesOutToSource": {
-          "avg": 3327774249,
-          "sum": 3327774249,
+          "avg": 6511992956,
+          "sum": 6511992956,
           "count": 1
         },
         "ConnectionAttemptCount": {
-          "avg": 18784,
-          "sum": 18784,
+          "avg": 45892,
+          "sum": 45892,
           "count": 1
         },
         "ConnectionEstablishedCount": {
-          "avg": 33920,
-          "sum": 33920,
+          "avg": 34585,
+          "sum": 34585,
           "count": 1
         },
         "ErrorPortAllocation": {
@@ -52,13 +61,13 @@
           "count": 1
         },
         "PacketsDropCount": {
-          "avg": 476,
-          "sum": 476,
+          "avg": 176,
+          "sum": 176,
           "count": 1
         }
       },
       "dimensions": {
-        "NatGatewayId": "nat-340440207"
+        "NatGatewayId": "nat-674287309"
       }
     }
   },
@@ -70,6 +79,9 @@
     "type": "metrics",
     "dataset": "aws.natgateway",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.natgateway",

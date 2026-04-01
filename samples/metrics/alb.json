@@ -1,66 +1,75 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "eu-south-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-south-1",
+    "ephemeral_id": "r9vb5lbjihk"
+  },
   "aws": {
     "elb": {
       "metrics": {
         "RequestCount": {
-          "avg": 145922,
-          "sum": 145922,
+          "avg": 224276,
+          "sum": 224276,
           "count": 1
         },
         "HTTPCode_Target_2XX_Count": {
-          "avg": 143124,
-          "sum": 143124,
+          "avg": 222138,
+          "sum": 222138,
           "count": 1
         },
         "HTTPCode_Target_4XX_Count": {
-          "avg": 2573,
-          "sum": 2573,
+          "avg": 1709,
+          "sum": 1709,
           "count": 1
         },
         "HTTPCode_Target_5XX_Count": {
-          "avg": 225,
-          "sum": 225,
+          "avg": 429,
+          "sum": 429,
           "count": 1
         },
         "HTTPCode_ELB_5XX_Count": {
-          "avg": 23,
-          "sum": 23,
+          "avg": 43,
+          "sum": 43,
           "count": 1
         },
         "ActiveConnectionCount": {
-          "avg": 16794,
-          "sum": 16794,
+          "avg": 3208,
+          "sum": 3208,
           "count": 1
         },
         "NewConnectionCount": {
-          "avg": 3021,
-          "sum": 3021,
+          "avg": 3705,
+          "sum": 3705,
           "count": 1
         },
         "ProcessedBytes": {
-          "avg": 3441581497,
-          "sum": 3441581497,
+          "avg": 1148643808,
+          "sum": 1148643808,
           "count": 1
         },
         "TargetResponseTime": {
-          "avg": 0.06,
-          "sum": 0.06,
+          "avg": 0.07,
+          "sum": 0.07,
           "count": 1,
-          "max": 1.19,
+          "max": 3.87,
           "min": 0.01
         },
         "HealthyHostCount": {
-          "avg": 8,
-          "sum": 8,
+          "avg": 2,
+          "sum": 2,
           "count": 1
         },
         "UnHealthyHostCount": {
@@ -75,7 +84,7 @@
         }
       },
       "dimensions": {
-        "LoadBalancer": "app/api-alb/abc123def456"
+        "LoadBalancer": "app/web-alb/abc123def456"
       }
     }
   },
@@ -87,6 +96,9 @@
     "type": "metrics",
     "dataset": "aws.elb",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.elb",

@@ -1,29 +1,38 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-west-3",
+    "ephemeral_id": "io85bndnu8q"
   },
   "aws": {
     "codeguru": {
       "metrics": {
         "RecordsProcessed": {
-          "avg": 3001085,
-          "sum": 3001085,
+          "avg": 8511209,
+          "sum": 8511209,
           "count": 1
         },
         "BytesProcessed": {
-          "avg": 40603546929,
-          "sum": 40603546929,
+          "avg": 15639111629,
+          "sum": 15639111629,
           "count": 1
         },
         "ExecutionTime": {
-          "avg": 52966.35,
-          "sum": 52966.35,
+          "avg": 28860.62,
+          "sum": 28860.62,
           "count": 1
         },
         "ErrorCount": {
@@ -45,6 +54,9 @@
     "type": "metrics",
     "dataset": "aws.codeguru",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.codeguru",

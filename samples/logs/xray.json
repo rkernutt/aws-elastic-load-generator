@@ -1,17 +1,17 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "trace": {
-    "id": "1-69ccacb0-isy74w3v7re"
+    "id": "1-69cd15b8-15dvatquoi2"
   },
   "span": {
-    "id": "uwoqyvren2s"
+    "id": "kxeg63xrat"
   },
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "eu-north-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "xray"
@@ -23,21 +23,20 @@
       "ServiceType": "remote"
     },
     "xray": {
-      "trace_id": "1-69ccacb0-isy74w3v7re",
-      "segment_id": "uwoqyvren2s",
-      "parent_id": "vd0t8jnfb6a",
+      "trace_id": "1-69cd15b8-15dvatquoi2",
+      "segment_id": "kxeg63xrat",
       "service": {
-        "name": "cache-layer",
+        "name": "user-service",
         "type": "remote"
       },
-      "duration": 0.9514254971702258,
+      "duration": 2.1993937371049537,
       "fault": false,
       "error": false,
       "throttle": false,
       "http": {
         "request": {
-          "method": "DELETE",
-          "url": "/api/v1/products"
+          "method": "PUT",
+          "url": "/health"
         },
         "response": {
           "status": 200
@@ -45,47 +44,52 @@
       },
       "annotations": {
         "env": "prod",
-        "version": "v2"
+        "version": "v7"
       },
-      "subsegments": [
-        {
-          "id": "40h0pq2r9o",
-          "name": "HTTP.GET",
-          "namespace": "aws",
-          "duration": 0.2757393237246187,
-          "fault": false
-        }
-      ],
       "metrics": {
         "ErrorRate": {
-          "avg": 0.2520167143545161
+          "avg": 0.25613127384032475
         },
         "FaultRate": {
-          "avg": 0.20360507038967285
+          "avg": 0.17165233304259897
         },
         "ThrottleRate": {
-          "avg": 0.30960057448205286
+          "avg": 0.2761087778900842
         },
         "TotalCount": {
-          "sum": 1692
+          "sum": 8401
         },
         "Latency": {
-          "avg": 951.4254971702259,
-          "p99": 2854.2764915106777
+          "avg": 2199.3937371049537,
+          "p99": 6598.181211314861
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-xray-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-xray-logs-501938274650"
+      },
+      "object": {
+        "key": "AWSLogs/501938274650/xray/eu-north-1/2026/04/01/xray_LXL6QPT4ZVJ.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/xray/logs",
+      "log_stream": "eu-north-1/zfe8mzza",
+      "ingestion_time": "2026-04-01T12:55:20.514Z"
     }
   },
   "http": {
     "request": {
-      "method": "DELETE"
+      "method": "PUT"
     },
     "response": {
       "status_code": 200
     }
   },
   "event": {
-    "duration": 951425497,
+    "duration": 2199393737,
     "outcome": "success",
     "category": [
       "network"
@@ -94,10 +98,32 @@
       "connection"
     ],
     "dataset": "aws.xray",
-    "provider": "xray.amazonaws.com"
+    "provider": "xray.amazonaws.com",
+    "module": "aws"
   },
-  "message": "X-Ray: cache-layer DELETE → 200 (0.951s)",
+  "message": "X-Ray: user-service PUT → 200 (2.199s)",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "xray",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.xray",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-north-1",
+    "ephemeral_id": "nrbsuh2j82f"
+  },
+  "input": {
+    "type": "http_endpoint"
   }
 }

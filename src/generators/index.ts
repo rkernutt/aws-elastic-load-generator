@@ -91,8 +91,6 @@ import {
   generateDataSyncLog,
   generateBackupLog,
   generateStorageGatewayLog,
-  generateS3IntelligentTieringLog,
-  generateS3BatchOpsLog,
 } from "./storage.js";
 import {
   generateDynamoDbLog,
@@ -110,10 +108,6 @@ import {
   generateDaxLog,
   generateNeptuneAnalyticsLog,
   generateAuroraDsqlLog,
-  generateRdsProxyLog,
-  generateRdsCustomLog,
-  generateDmsServerlessLog,
-  generateElastiCacheGlobalLog,
 } from "./databases.js";
 import {
   generateKinesisStreamsLog,
@@ -184,9 +178,6 @@ import {
   generateLookoutVisionLog,
   generateHealthOmicsLog,
   generateBedrockDataAutomationLog,
-  generateSageMakerFeatureStoreLog,
-  generateSageMakerPipelinesLog,
-  generateSageMakerModelMonitorLog,
   generateLookoutEquipmentLog,
   generateMonitronLog,
 } from "./ml.js";
@@ -334,8 +325,6 @@ const GENERATORS = {
   datasync: generateDataSyncLog,
   backup: generateBackupLog,
   storagegateway: generateStorageGatewayLog,
-  s3intelligenttier: generateS3IntelligentTieringLog,
-  s3batchops: generateS3BatchOpsLog,
   // Group 5 — Databases
   dynamodb: generateDynamoDbLog,
   elasticache: generateElastiCacheLog,
@@ -351,10 +340,6 @@ const GENERATORS = {
   memorydb: generateMemoryDbLog,
   neptuneanalytics: generateNeptuneAnalyticsLog,
   auroradsql: generateAuroraDsqlLog,
-  rdsproxy: generateRdsProxyLog,
-  rdscustom: generateRdsCustomLog,
-  dmsserverless: generateDmsServerlessLog,
-  elasticacheglobal: generateElastiCacheGlobalLog,
   // Group 6 — Streaming & Messaging
   kinesis: generateKinesisStreamsLog,
   firehose: generateFirehoseLog,
@@ -419,9 +404,6 @@ const GENERATORS = {
   lookoutvision: generateLookoutVisionLog,
   healthomics: generateHealthOmicsLog,
   bedrockdataautomation: generateBedrockDataAutomationLog,
-  sagemakerfeaturestore: generateSageMakerFeatureStoreLog,
-  sagemakerpipelines: generateSageMakerPipelinesLog,
-  sagemakermodelmonitor: generateSageMakerModelMonitorLog,
   lookoutequipment: generateLookoutEquipmentLog,
   monitron: generateMonitronLog,
   // Group 10 — IoT

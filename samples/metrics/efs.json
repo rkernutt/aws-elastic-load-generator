@@ -1,49 +1,58 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
     "region": "ap-southeast-4",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-southeast-4",
+    "ephemeral_id": "gnokduo4zs"
   },
   "aws": {
     "efs": {
       "metrics": {
         "BurstCreditBalance": {
-          "avg": 1138453093794.31,
-          "sum": 1138453093794.31,
+          "avg": 1696688511255.22,
+          "sum": 1696688511255.22,
           "count": 1
         },
         "ClientConnections": {
-          "avg": 322,
-          "sum": 322,
+          "avg": 50,
+          "sum": 50,
           "count": 1
         },
         "DataReadIOBytes": {
-          "avg": 501721.48,
-          "sum": 501721.48,
+          "avg": 1422988.4,
+          "sum": 1422988.4,
           "count": 1
         },
         "DataWriteIOBytes": {
-          "avg": 179466.01,
-          "sum": 179466.01,
+          "avg": 519342.55,
+          "sum": 519342.55,
           "count": 1
         },
         "MetaDataIOBytes": {
-          "avg": 136198.82,
-          "sum": 136198.82,
+          "avg": 124155.82,
+          "sum": 124155.82,
           "count": 1
         },
         "PercentIOLimit": {
-          "avg": 18.96,
-          "sum": 18.96,
+          "avg": 11.19,
+          "sum": 11.19,
           "count": 1
         }
       },
       "dimensions": {
-        "FileSystemId": "fs-820k4zmc"
+        "FileSystemId": "fs-97bhgn97"
       }
     }
   },
@@ -55,6 +64,9 @@
     "type": "metrics",
     "dataset": "aws.efs",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.efs",

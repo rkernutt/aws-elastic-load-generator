@@ -1,19 +1,28 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-central-2",
+    "ephemeral_id": "y4seo3lrw1"
   },
   "aws": {
     "cloudtrail": {
       "metrics": {
         "DeliveredLogFiles": {
-          "avg": 672,
-          "sum": 672,
+          "avg": 604,
+          "sum": 604,
           "count": 1
         },
         "LogFileDeliveryErrors": {
@@ -22,8 +31,8 @@
           "count": 1
         },
         "APICallCount": {
-          "avg": 2344829,
-          "sum": 2344829,
+          "avg": 7346853,
+          "sum": 7346853,
           "count": 1
         },
         "ErrorAPICallCount": {
@@ -33,7 +42,7 @@
         }
       },
       "dimensions": {
-        "TrailName": "management-events"
+        "TrailName": "data-events"
       }
     }
   },
@@ -45,6 +54,9 @@
     "type": "metrics",
     "dataset": "aws.cloudtrail",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.cloudtrail",

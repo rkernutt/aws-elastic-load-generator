@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "ca-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "transferfamily"
@@ -13,24 +13,38 @@
   },
   "aws": {
     "dimensions": {
-      "ServerId": "s-fta04o2jsbl",
-      "Protocol": "SFTP"
+      "ServerId": "s-tq0srnrhvde",
+      "Protocol": "FTPS"
     },
     "transferfamily": {
-      "server_id": "s-fta04o2jsbl",
-      "protocol": "SFTP",
+      "server_id": "s-tq0srnrhvde",
+      "protocol": "FTPS",
       "user_name": "data-ingest",
-      "session_id": "ivfkcndk9ai",
-      "file_path": "/inbound/orders.csv",
-      "operation": "GET",
-      "bytes_transferred": 2837480029,
-      "transfer_rate_mbps": 220.04950459342268,
-      "duration_seconds": 171.58757845894334,
+      "session_id": "j2ceixypobf",
+      "file_path": "/reports/daily-sales.xlsx",
+      "operation": "RENAME",
+      "bytes_transferred": 2185429724,
+      "transfer_rate_mbps": 38.23024411310938,
+      "duration_seconds": 60.27986100345989,
       "s3_bucket": "transfer-landing"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-transferfamily-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-transferfamily-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/transferfamily/ca-west-1/2026/04/01/transferfamily_LVDHRNL1SVG.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/transferfamily/logs",
+      "log_stream": "ca-west-1/sfwuzrmr",
+      "ingestion_time": "2026-04-01T12:55:20.532Z"
     }
   },
   "source": {
-    "ip": "216.159.147.196"
+    "ip": "223.0.120.159"
   },
   "event": {
     "outcome": "success",
@@ -40,10 +54,32 @@
     ],
     "dataset": "aws.transfer",
     "provider": "transfer.amazonaws.com",
-    "duration": 13744000000
+    "duration": 14023000000,
+    "module": "aws"
   },
-  "message": "Transfer Family SFTP [data-ingest] /inbound/orders.csv: 2706.0MB",
+  "message": "Transfer Family FTPS [data-ingest] /reports/daily-sales.xlsx: 2084.2MB",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "transferfamily",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.transferfamily",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ca-west-1",
+    "ephemeral_id": "vhx2aczd0jg"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "me-central-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,32 +13,68 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "staging-airflow"
+      "EnvironmentName": "data-platform"
     },
     "mwaa": {
-      "environment_name": "staging-airflow",
-      "dag_id": "data_quality_check",
-      "run_id": "scheduled__2026-04-01T05:15:45.782Z",
-      "task_id": "transform",
+      "environment_name": "data-platform",
+      "dag_id": "s3_to_redshift",
+      "run_id": "scheduled__2026-04-01T12:50:15.199Z",
+      "task_id": "load",
       "run_state": "running",
-      "duration_seconds": 409,
-      "worker_count": 4,
+      "duration_seconds": 185,
+      "worker_count": 8,
       "queue_name": "ml_queue",
-      "airflow_version": "2.9.3"
+      "airflow_version": "2.8.1"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-mwaa-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-mwaa-logs-501938274650"
+      },
+      "object": {
+        "key": "AWSLogs/501938274650/mwaa/me-central-1/2026/04/01/mwaa_ZRR29SZ5HIC.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/mwaa/logs",
+      "log_stream": "me-central-1/zs9rtkvw",
+      "ingestion_time": "2026-04-01T12:55:20.518Z"
     }
   },
   "event": {
-    "action": "WorkerScaleDown",
+    "action": "WorkerScaleUp",
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.mwaa",
     "provider": "airflow.amazonaws.com",
-    "duration": 409000000000
+    "duration": 185000000000,
+    "module": "aws"
   },
-  "message": "MWAA staging-airflow: DAG data_quality_check task transform running (409s)",
+  "message": "MWAA data-platform: DAG s3_to_redshift task load running (185s)",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "mwaa",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.mwaa",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-me-central-1",
+    "ephemeral_id": "lchea74z40r"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

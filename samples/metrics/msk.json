@@ -1,39 +1,48 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-south-2",
+    "ephemeral_id": "1eaomaguq08"
   },
   "aws": {
     "kafka": {
       "metrics": {
         "BytesInPerSec": {
-          "avg": 1210080.33,
-          "sum": 1210080.33,
+          "avg": 1665647.59,
+          "sum": 1665647.59,
           "count": 1
         },
         "BytesOutPerSec": {
-          "avg": 1012777.62,
-          "sum": 1012777.62,
+          "avg": 2743103.91,
+          "sum": 2743103.91,
           "count": 1
         },
         "MessagesInPerSec": {
-          "avg": 1515.18,
-          "sum": 1515.18,
+          "avg": 374.68,
+          "sum": 374.68,
           "count": 1
         },
         "FetchMessageConversionsPerSec": {
-          "avg": 35.81,
-          "sum": 35.81,
+          "avg": 147.27,
+          "sum": 147.27,
           "count": 1
         },
         "ProduceMessageConversionsPerSec": {
-          "avg": 11.66,
-          "sum": 11.66,
+          "avg": 22.91,
+          "sum": 22.91,
           "count": 1
         },
         "OfflinePartitionsCount": {
@@ -52,13 +61,13 @@
           "count": 1
         },
         "CPUUser": {
-          "avg": 8,
-          "sum": 8,
+          "avg": 61.78,
+          "sum": 61.78,
           "count": 1
         },
         "MemoryUsed": {
-          "avg": 3559936219.14,
-          "sum": 3559936219.14,
+          "avg": 3170142311.9,
+          "sum": 3170142311.9,
           "count": 1
         },
         "NetworkRxDropped": {
@@ -73,9 +82,9 @@
         }
       },
       "dimensions": {
-        "Cluster Name": "prod-kafka",
-        "Broker ID": "1",
-        "Topic": "clickstream"
+        "Cluster Name": "events-cluster",
+        "Broker ID": "3",
+        "Topic": "orders"
       }
     }
   },
@@ -87,6 +96,9 @@
     "type": "metrics",
     "dataset": "aws.kafka_metrics",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.kafka_metrics",

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "keyspaces"
@@ -13,25 +13,61 @@
   },
   "aws": {
     "keyspaces": {
-      "keyspace_name": "sensor_data",
-      "table_name": "time_series",
-      "operation": "SELECT",
-      "read_capacity_units": 1.1219839670714833,
-      "write_capacity_units": 11.519665358881223,
-      "rows_returned": 9415,
-      "duration_ms": 106,
+      "keyspace_name": "user_data",
+      "table_name": "inventory",
+      "operation": "INSERT",
+      "read_capacity_units": 49.53317904325038,
+      "write_capacity_units": 22.706912767891758,
+      "rows_returned": 0,
+      "duration_ms": 124,
       "cql_version": "3.11.2"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-keyspaces-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-keyspaces-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/keyspaces/ca-central-1/2026/04/01/keyspaces_BOSVJ3XAANK.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/keyspaces/logs",
+      "log_stream": "ca-central-1/5onln36m",
+      "ingestion_time": "2026-04-01T12:55:20.509Z"
     }
   },
   "event": {
-    "duration": 106310982.51519951,
+    "duration": 123682185.06575577,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.keyspaces",
-    "provider": "cassandra.amazonaws.com"
+    "provider": "cassandra.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Keyspaces SELECT on sensor_data.time_series: 106ms",
+  "message": "Keyspaces INSERT on user_data.inventory: 124ms",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "keyspaces",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.keyspaces",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "185fucq0a1l"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

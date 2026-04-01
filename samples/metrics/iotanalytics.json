@@ -1,29 +1,38 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "us-west-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-us-west-1",
+    "ephemeral_id": "gcht82wz8z9"
+  },
   "aws": {
     "iotanalytics": {
       "metrics": {
         "RecordsProcessed": {
-          "avg": 1020736,
-          "sum": 1020736,
+          "avg": 4852297,
+          "sum": 4852297,
           "count": 1
         },
         "BytesProcessed": {
-          "avg": 91852368521,
-          "sum": 91852368521,
+          "avg": 8469778448,
+          "sum": 8469778448,
           "count": 1
         },
         "ExecutionTime": {
-          "avg": 47291.84,
-          "sum": 47291.84,
+          "avg": 5674.45,
+          "sum": 5674.45,
           "count": 1
         },
         "ErrorCount": {
@@ -45,6 +54,9 @@
     "type": "metrics",
     "dataset": "aws.iotanalytics",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.iotanalytics",

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ap-northeast-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,29 +13,65 @@
   },
   "aws": {
     "iam_identity_center": {
-      "event_type": "Authenticate",
-      "user_name": "bob@corp.com",
+      "event_type": "RevokeAccess",
+      "user_name": "alice@corp.com",
       "application_name": "Slack",
       "permission_set": "PowerUserAccess",
       "account_id": "738291046572",
-      "mfa_authenticated": false
+      "mfa_authenticated": true
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-identitycenter-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-identitycenter-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/identitycenter/ap-northeast-1/2026/04/01/identitycenter_7RP26EHROO.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/identitycenter/logs",
+      "log_stream": "ap-northeast-1/tlk5gwms",
+      "ingestion_time": "2026-04-01T12:55:20.477Z"
     }
   },
   "user": {
-    "name": "bob@corp.com"
+    "name": "alice@corp.com"
   },
   "source": {
-    "ip": "2.239.169.124"
+    "ip": "20.161.26.238"
   },
   "event": {
-    "action": "Authenticate",
+    "action": "RevokeAccess",
     "outcome": "success",
     "category": "authentication",
     "dataset": "aws.identitycenter",
-    "provider": "sso.amazonaws.com"
+    "provider": "sso.amazonaws.com",
+    "module": "aws"
   },
-  "message": "IAM Identity Center Authenticate: bob@corp.com -> Slack",
+  "message": "IAM Identity Center RevokeAccess: alice@corp.com -> Slack",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "identitycenter",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.identitycenter",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-northeast-1",
+    "ephemeral_id": "equkha9jayo"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

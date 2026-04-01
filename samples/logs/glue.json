@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "us-east-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -14,150 +14,186 @@
   "aws": {
     "dimensions": {
       "JobName": "pii-masking",
-      "JobRunId": "jr_2l1vcd6sj7z",
-      "Type": "gluestreaming"
+      "JobRunId": "jr_k10y7e5jl08",
+      "Type": "glueetl"
     },
     "glue": {
       "job": {
         "name": "pii-masking",
-        "run_id": "jr_2l1vcd6sj7z",
-        "type": "gluestreaming",
+        "run_id": "jr_k10y7e5jl08",
+        "type": "glueetl",
         "run_state": "SUCCEEDED"
       },
-      "database": "analytics",
-      "table": "products",
-      "dpu_seconds": 35315,
+      "database": "staging",
+      "table": "users",
+      "dpu_seconds": 84500,
       "worker": {
-        "type": "G.2X",
-        "count": 5
+        "type": "G.4X",
+        "count": 20
       },
       "records": {
-        "read": 9113943,
-        "written": 9022803,
+        "read": 14043669,
+        "written": 13903232,
         "errors": 0
       },
       "glue_version": "4.0",
-      "crawler_name": "curated-crawler",
-      "continuous_logging": true,
+      "crawler_name": "analytics-crawler",
+      "continuous_logging": false,
       "metrics": {
         "driver": {
           "aggregate": {
-            "numRecords": 9113943,
+            "numRecords": 14043669,
             "numFailedRecords": 0,
-            "elapsedTime": 7063000,
-            "numCompletedTasks": 469,
+            "elapsedTime": 4225000,
+            "numCompletedTasks": 301,
             "numFailedTasks": 0,
             "numKilledTasks": 0,
-            "numCompletedStages": 3,
-            "bytesRead": 2032409289,
-            "shuffleBytesWritten": 699659009,
-            "shuffleLocalBytesRead": 533696670,
-            "gc_time_ms": 26502
+            "numCompletedStages": 5,
+            "bytesRead": 1488628914,
+            "shuffleBytesWritten": 5483160,
+            "shuffleLocalBytesRead": 613399635,
+            "gc_time_ms": 1126
           },
           "memory": {
             "heap": {
-              "available": 1131440053,
-              "used": 819318659,
-              "used_percentage": 42
+              "available": 8557526065,
+              "used": 3327926803,
+              "used_percentage": 28
             },
             "non-heap": {
-              "available": 238181941,
-              "used": 72594563,
-              "used_percentage": 28
+              "available": 238880383,
+              "used": 84554192,
+              "used_percentage": 38
             }
           },
           "jvm": {
             "heap": {
-              "usage": 0.42
+              "usage": 0.28
             }
           },
           "disk": {
-            "available_GB": 733,
-            "used_GB": 219,
-            "used_percentage": 23,
-            "diskSpaceUsed_MB": 441
+            "available_GB": 33,
+            "used_GB": 98,
+            "used_percentage": 75,
+            "diskSpaceUsed_MB": 1404
           },
           "BlockManager": {
             "disk": {
-              "diskSpaceUsed_MB": 1406
+              "diskSpaceUsed_MB": 1121
             }
           },
           "ExecutorAllocationManager": {
             "executors": {
-              "numberAllExecutors": 8,
-              "numberMaxNeededExecutors": 14
+              "numberAllExecutors": 24,
+              "numberMaxNeededExecutors": 52
             }
           },
           "s3": {
             "filesystem": {
-              "read_bytes": 1230590136,
-              "write_bytes": 2682238727
+              "read_bytes": 1372600894,
+              "write_bytes": 1295542897
             }
           },
           "system": {
-            "cpuSystemLoad": 0.27
+            "cpuSystemLoad": 0.79
           },
-          "workerUtilization": 0.74,
+          "workerUtilization": 0.63,
           "skewness": {
-            "stage": 0.698170055742364,
-            "job": 1.3988978191233454
+            "stage": 2.2727553250820662,
+            "job": 1.1900838497186281
           }
         },
         "executor": {
           "aggregate": {
-            "numCompletedTasks": 469,
+            "numCompletedTasks": 301,
             "numFailedTasks": 0,
-            "gc_time_ms": 49097
+            "gc_time_ms": 13575
           }
         },
         "ALL": {
           "memory": {
             "heap": {
-              "available": 14363360033,
-              "used": 5647800884,
-              "used_percentage": 88
+              "available": 13748515159,
+              "used": 9803682069,
+              "used_percentage": 73
             },
             "non-heap": {
-              "available": 289839092,
-              "used": 83259228,
-              "used_percentage": 41
+              "available": 234035472,
+              "used": 230705746,
+              "used_percentage": 47
             }
           },
           "jvm": {
             "heap": {
-              "usage": 0.62
+              "usage": 0.88
             }
           },
           "disk": {
-            "available_GB": 546,
-            "used_GB": 282,
-            "used_percentage": 65,
-            "diskSpaceUsed_MB": 3257
+            "available_GB": 451,
+            "used_GB": 286,
+            "used_percentage": 28,
+            "diskSpaceUsed_MB": 2570
           },
           "s3": {
             "filesystem": {
-              "read_bytes": 1865956634,
-              "write_bytes": 1730752471
+              "read_bytes": 1225152601,
+              "write_bytes": 4782067824
             }
           },
           "system": {
-            "cpuSystemLoad": 0.31
+            "cpuSystemLoad": 0.58
           }
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-glue-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-glue-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/glue/us-east-2/2026/04/01/glue_60HSAXZ7X1R.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/glue/logs",
+      "log_stream": "us-east-2/ml461hdz",
+      "ingestion_time": "2026-04-01T12:55:20.516Z"
     }
   },
   "log": {
     "level": "info"
   },
   "event": {
-    "duration": 7063000000000,
+    "duration": 4225000000000,
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.glue",
-    "provider": "glue.amazonaws.com"
+    "provider": "glue.amazonaws.com",
+    "module": "aws"
   },
-  "message": "{\"jobName\":\"pii-masking\",\"jobRunId\":\"jr_2l1vcd6sj7z\",\"level\":\"INFO\",\"message\":\"Bookmark updated: processed up to offset 9823741\",\"timestamp\":\"2026-04-01T05:27:12.782Z\",\"thread\":\"driver-8mk2xlob\",\"logger\":\"org.apache.spark\"}"
+  "message": "Writing Parquet to s3://data-lake/processed/",
+  "service": {
+    "name": "glue",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.glue",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-us-east-2",
+    "ephemeral_id": "w8sjb8x24zl"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
+  }
 }

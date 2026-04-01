@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "ca-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "workmail"
@@ -13,17 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "OrganizationId": "m-8mfrwk"
+      "OrganizationId": "m-157dvh"
     },
     "workmail": {
-      "organization_id": "m-8mfrwk",
-      "mailbox_id": "mailbox-qai0ypj6q2",
-      "action": "EmailDelivered",
+      "organization_id": "m-157dvh",
+      "mailbox_id": "mailbox-hm9rzgq5mi",
+      "action": "Login",
       "metrics": {
-        "emails_delivered": 119,
+        "emails_delivered": 508,
         "emails_bounced": 0,
-        "active_users": 439
+        "active_users": 426
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-workmail-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-workmail-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/workmail/ca-west-1/2026/04/01/workmail_IRAVUVZNCVG.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/workmail/logs",
+      "log_stream": "ca-west-1/3nvk68fo",
+      "ingestion_time": "2026-04-01T12:55:20.531Z"
     }
   },
   "email": {
@@ -31,26 +45,43 @@
       "address": "david@globex.example.com"
     },
     "to": {
-      "address": "bob@globex.example.com"
+      "address": "eva@globex.example.com"
     }
   },
   "event": {
-    "action": "EmailDelivered",
+    "action": "Login",
     "outcome": "success",
     "category": [
       "email"
     ],
     "dataset": "aws.workmail",
     "provider": "workmail.amazonaws.com",
-    "duration": 398000000
+    "duration": 324000000,
+    "module": "aws"
   },
   "data_stream": {
     "type": "logs",
     "dataset": "aws.workmail",
     "namespace": "default"
   },
-  "message": "WorkMail org m-8mfrwk: EmailDelivered from david@globex.example.com to bob@globex.example.com",
+  "message": "WorkMail org m-157dvh: Login from david@globex.example.com to eva@globex.example.com",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "workmail",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ca-west-1",
+    "ephemeral_id": "lm0f4qjs9qq"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

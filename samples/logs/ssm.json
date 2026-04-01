@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-north-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "systemsmanager"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "ssm": {
-      "command_id": "2hnayinr-gsot-rdys",
-      "document_name": "AWS-RunShellScript",
-      "instance_id": "i-1ip1vjfchs7",
-      "action": "PatchInstance",
+      "command_id": "17j4ammo-qd07-wjek",
+      "document_name": "AWS-ApplyPatchBaseline",
+      "instance_id": "i-46arrns4bi7",
+      "action": "PutParameter",
       "execution_status": "Success",
       "response_code": 0,
-      "patch_compliance": "NotApplicable",
-      "structured_logging": true,
+      "parameter_name": "/prod/db/password",
+      "structured_logging": false,
       "metrics": {
         "CommandsSucceeded": {
           "sum": 1
@@ -38,12 +38,26 @@
           "sum": 1
         },
         "SessionDuration": {
-          "avg": 253
+          "avg": 484
         },
         "PatchComplianceCount": {
-          "avg": 400
+          "avg": 111
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-ssm-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-ssm-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/ssm/eu-north-1/2026/04/01/ssm_KZHFFDN3OI.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/ssm/logs",
+      "log_stream": "eu-north-1/azha6b43",
+      "ingestion_time": "2026-04-01T12:55:20.525Z"
     }
   },
   "event": {
@@ -55,10 +69,32 @@
     ],
     "dataset": "aws.ssm",
     "provider": "ssm.amazonaws.com",
-    "duration": 29000000000
+    "duration": 20000000000,
+    "module": "aws"
   },
-  "message": "{\"commandId\":\"2hnayinr-gsot-rdys\",\"documentName\":\"AWS-RunShellScript\",\"instanceId\":\"i-1ip1vjfchs7\",\"action\":\"PatchInstance\",\"status\":\"Success\",\"timestamp\":\"2026-04-01T05:27:12.782Z\"}",
+  "message": "SSM PutParameter on i-46arrns4bi7: AWS-ApplyPatchBaseline",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "ssm",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.ssm",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-north-1",
+    "ephemeral_id": "om9hi79sooo"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

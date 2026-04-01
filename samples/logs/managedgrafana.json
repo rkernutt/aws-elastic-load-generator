@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "eu-north-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "managedgrafana"
@@ -13,31 +13,67 @@
   },
   "aws": {
     "dimensions": {
-      "WorkspaceId": "g-0p7eypwf76"
+      "WorkspaceId": "g-3pht99ec71"
     },
     "managedgrafana": {
-      "workspace_id": "g-0p7eypwf76",
-      "workspace_name": "devops-metrics",
-      "workspace_status": "UPDATING",
+      "workspace_id": "g-3pht99ec71",
+      "workspace_name": "prod-observability",
+      "workspace_status": "ACTIVE",
       "grafana_version": "9.4",
-      "alert_state": "no_data",
-      "dashboard_title": "Lambda Performance",
-      "datasource_type": "cloudwatch",
+      "alert_state": "alerting",
+      "dashboard_title": "EKS Cluster Health",
+      "datasource_type": "prometheus",
       "authentication_providers": "AWS_SSO",
-      "notification_destinations": "SLACK"
+      "notification_destinations": "PAGERDUTY"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-managedgrafana-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-managedgrafana-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/managedgrafana/eu-north-1/2026/04/01/managedgrafana_T06MBAMM8I8.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/managedgrafana/logs",
+      "log_stream": "eu-north-1/l5b5i8rv",
+      "ingestion_time": "2026-04-01T12:55:20.528Z"
     }
   },
   "event": {
-    "action": "DeleteApiKey",
+    "action": "DisassociateLicense",
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.managedgrafana",
-    "provider": "grafana.amazonaws.com"
+    "provider": "grafana.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Managed Grafana DeleteApiKey: workspace=devops-metrics alert=no_data dashboard=\"Lambda Performance\"",
+  "message": "Managed Grafana DisassociateLicense: workspace=prod-observability alert=alerting dashboard=\"EKS Cluster Health\"",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "service": {
+    "name": "managedgrafana",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.managedgrafana",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-north-1",
+    "ephemeral_id": "8jheffbly5p"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

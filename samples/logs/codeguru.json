@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codeguru"
@@ -13,17 +13,30 @@
   },
   "aws": {
     "codeguru": {
-      "product": "Profiler",
-      "repository_name": "auth-service",
-      "association_id": "f0g1q4z373q",
-      "finding_id": "5rl1n7lt6i4",
-      "category": "Memory",
+      "product": "Reviewer",
+      "repository_name": "frontend-app",
+      "association_id": "qswp2f61tx",
+      "finding_id": "nfxh15uju3d",
+      "category": "Logging",
       "severity": "High",
-      "finding_description": "Hot method: HashMap.get",
+      "finding_description": "AWSBestPractices:S3BucketMissingServerSideEncryption",
       "code_file": "lambda_function.py",
-      "line_number": 30,
-      "profiling_group": "auth-service-profiling",
-      "frame_percent": 32.046656252857865
+      "line_number": 29,
+      "pull_request_id": 191
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-codeguru-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-codeguru-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/codeguru/ap-southeast-2/2026/04/01/codeguru_ZUB9UYSPTE.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/codeguru/logs",
+      "log_stream": "ap-southeast-2/10nh0ag7",
+      "ingestion_time": "2026-04-01T12:55:20.514Z"
     }
   },
   "event": {
@@ -33,10 +46,32 @@
       "process"
     ],
     "dataset": "aws.codeguru",
-    "provider": "codeguru.amazonaws.com"
+    "provider": "codeguru.amazonaws.com",
+    "module": "aws"
   },
-  "message": "CodeGuru Profiler [auth-service] High: Hot method",
+  "message": "CodeGuru Reviewer [frontend-app] High: AWSBestPractices",
   "log": {
     "level": "warn"
+  },
+  "service": {
+    "name": "codeguru",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.codeguru",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-southeast-2",
+    "ephemeral_id": "t9t70r6715"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

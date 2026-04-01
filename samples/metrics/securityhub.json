@@ -1,19 +1,28 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "ap-southeast-4",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-southeast-4",
+    "ephemeral_id": "qmlkytdfadg"
+  },
   "aws": {
     "securityhub": {
       "metrics": {
         "Findings": {
-          "avg": 14,
-          "sum": 14,
+          "avg": 33,
+          "sum": 33,
           "count": 1
         },
         "FindingsBySeverityCritical": {
@@ -27,33 +36,33 @@
           "count": 1
         },
         "FindingsBySeverityMedium": {
-          "avg": 30,
-          "sum": 30,
+          "avg": 6,
+          "sum": 6,
           "count": 1
         },
         "FindingsBySeverityLow": {
-          "avg": 62,
-          "sum": 62,
+          "avg": 15,
+          "sum": 15,
           "count": 1
         },
         "SecurityScore": {
-          "avg": 91.47,
-          "sum": 91.47,
+          "avg": 81.8,
+          "sum": 81.8,
           "count": 1
         },
         "ControlsFailed": {
-          "avg": 3,
-          "sum": 3,
+          "avg": 4,
+          "sum": 4,
           "count": 1
         },
         "ControlsPassed": {
-          "avg": 29,
-          "sum": 29,
+          "avg": 120,
+          "sum": 120,
           "count": 1
         }
       },
       "dimensions": {
-        "ComplianceStandard": "nist-800-53"
+        "ComplianceStandard": "pci-dss"
       }
     }
   },
@@ -65,6 +74,9 @@
     "type": "metrics",
     "dataset": "aws.securityhub",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.securityhub",

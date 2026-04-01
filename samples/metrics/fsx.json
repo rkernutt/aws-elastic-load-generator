@@ -1,44 +1,53 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-west-1",
+    "ephemeral_id": "hzcopd30vll"
   },
   "aws": {
     "fsx": {
       "metrics": {
         "DataReadBytes": {
-          "avg": 4484401051,
-          "sum": 4484401051,
+          "avg": 2486810990,
+          "sum": 2486810990,
           "count": 1
         },
         "DataWriteBytes": {
-          "avg": 1358869831,
-          "sum": 1358869831,
+          "avg": 291093471,
+          "sum": 291093471,
           "count": 1
         },
         "DataReadOperations": {
-          "avg": 63873,
-          "sum": 63873,
+          "avg": 96846,
+          "sum": 96846,
           "count": 1
         },
         "DataWriteOperations": {
-          "avg": 10369,
-          "sum": 10369,
+          "avg": 11908,
+          "sum": 11908,
           "count": 1
         },
         "FreeStorageCapacity": {
-          "avg": 105508638571.77,
-          "sum": 105508638571.77,
+          "avg": 50920150117.53,
+          "sum": 50920150117.53,
           "count": 1
         }
       },
       "dimensions": {
-        "FileSystemId": "fs-ga9qeugs"
+        "FileSystemId": "fs-zx1t52rl"
       }
     }
   },
@@ -50,6 +59,9 @@
     "type": "metrics",
     "dataset": "aws.fsx",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.fsx",

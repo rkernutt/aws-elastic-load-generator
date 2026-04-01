@@ -104,7 +104,9 @@ export function otelBlocks(language, distro = "elastic") {
     aws: { python: "1.0.4", nodejs: "1.30.1", java: "1.32.2", go: "1.32.0" },
   };
   return {
+    ecs: { version: "8.11.0" },
     agent: { name: "otlp", version: distroVersions[distro]?.[language] ?? "1.0.0" },
+    input: { type: "opentelemetry" },
     telemetry: {
       sdk: { name: "opentelemetry", language, version: sdkVersions[language] ?? "1.0.0" },
       distro: {

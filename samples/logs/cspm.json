@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,33 +7,33 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     }
   },
   "resource": {
-    "id": "arn:aws:iam::164820739518:root",
-    "name": "arn:aws:iam::164820739518:root",
+    "id": "arn:aws:iam::814726593401:root",
+    "name": "arn:aws:iam::814726593401:root",
     "sub_type": "iam-root",
     "type": "cloud-identity-management"
   },
   "rule": {
-    "id": "cis_1_14",
-    "name": "Ensure hardware MFA is enabled for root account",
-    "section": "1.14",
+    "id": "cis_1_1",
+    "name": "Avoid use of the root account",
+    "section": "1.1",
     "tags": [
       "IAM"
     ],
     "benchmark": {
       "id": "cis_aws",
       "version": "v1.5.0",
-      "rule_number": "1.14",
+      "rule_number": "1.1",
       "posture_type": "cspm"
     },
-    "impact": "Non-compliance with CIS AWS 1.14 may expose account to unauthorized access.",
-    "remediation": "Remediate per CIS AWS Foundations Benchmark v1.5.0 section 1.14."
+    "impact": "Non-compliance with CIS AWS 1.1 may expose account to unauthorized access.",
+    "remediation": "Remediate per CIS AWS Foundations Benchmark v1.5.0 section 1.1."
   },
   "result": {
     "evaluation": "failed"
@@ -49,15 +49,48 @@
     ],
     "outcome": "failure",
     "dataset": "cloud_security_posture.findings",
-    "provider": "elastic_cspm"
+    "provider": "elastic_cspm",
+    "module": "aws"
   },
-  "message": "CSPM [CIS AWS 1.5 / 1.14] failed: Ensure hardware MFA is enabled for root account",
+  "message": "CSPM [CIS AWS 1.5 / 1.1] failed: Avoid use of the root account",
   "log": {
     "level": "error"
   },
   "error": {
-    "code": "CIS_CIS_1_14",
-    "message": "CSPM check failed: Ensure hardware MFA is enabled for root account",
+    "code": "CIS_CIS_1_1",
+    "message": "CSPM check failed: Avoid use of the root account",
     "type": "compliance"
+  },
+  "service": {
+    "name": "cspm",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "xngjsyjcftk"
+  },
+  "input": {
+    "type": "http_endpoint"
+  },
+  "aws": {
+    "s3": {
+      "bucket": {
+        "name": "aws-cspm-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-cspm-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/cspm/ca-central-1/2026/04/01/cspm_P7IR7SR5XJS.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/cspm/logs",
+      "log_stream": "ca-central-1/6xrkz4ks",
+      "ingestion_time": "2026-04-01T12:55:20.478Z"
+    }
   }
 }

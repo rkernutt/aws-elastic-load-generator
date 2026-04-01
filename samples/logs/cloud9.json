@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "cloud9"
@@ -13,19 +13,59 @@
   },
   "aws": {
     "cloud9": {
-      "environment_id": "env-t3m26lndddo",
-      "environment_name": "pair-programming",
-      "event_type": "CreateSSHEnvironment",
+      "environment_id": "env-8zcppa7q1zb",
+      "environment_name": "dev-workspace",
+      "event_type": "CreateEnvironment",
       "instance_type": "t3.medium",
-      "connection_type": "CONNECT_SSH",
+      "connection_type": "CONNECT_SSM",
       "auto_stop_minutes": 120,
-      "members": 1,
-      "platform": "amazonlinux-2"
+      "members": 4,
+      "platform": "amazonlinux-2023"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-cloud9-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-cloud9-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/cloud9/eu-central-1/2026/04/01/cloud9_BOQ5NHODC1U.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/cloud9/logs",
+      "log_stream": "eu-central-1/og8xph3s",
+      "ingestion_time": "2026-04-01T12:55:20.515Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 8014665
+    "duration": 5782741,
+    "module": "aws",
+    "dataset": "aws.cloud9"
   },
-  "message": "Cloud9 pair-programming: CreateSSHEnvironment completed"
+  "message": "Cloud9 dev-workspace: CreateEnvironment completed",
+  "service": {
+    "name": "cloud9",
+    "type": "aws"
+  },
+  "log": {
+    "level": "info"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.cloud9",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "j9a312q2q2"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
+  }
 }

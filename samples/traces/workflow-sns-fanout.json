@@ -1,20 +1,20 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.784Z",
+  "@timestamp": "2026-04-01T12:55:20.201Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "3736e5676f5e286ed322502d5cd5a9eb"
+    "id": "093ac6edcaf5d87f86205d16653189ef"
   },
   "transaction": {
-    "id": "6370ae56e57e36a0",
+    "id": "e994cb062b76f633",
     "name": "POST /events",
     "type": "request",
     "duration": {
-      "us": 247000
+      "us": 305000
     },
-    "result": "success",
+    "result": "failure",
     "sampled": true,
     "span_count": {
       "started": 1,
@@ -23,7 +23,7 @@
   },
   "service": {
     "name": "api-events",
-    "environment": "production",
+    "environment": "dev",
     "version": "1.0.0",
     "language": {
       "name": "nodejs"
@@ -53,21 +53,29 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "us-west-2",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "apigateway"
     }
   },
   "event": {
-    "outcome": "success"
+    "outcome": "failure",
+    "module": "aws",
+    "dataset": "aws.workflow-sns-fanout"
   },
   "data_stream": {
     "type": "traces",
     "dataset": "apm",
     "namespace": "default"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "input": {
+    "type": "opentelemetry"
   }
 }

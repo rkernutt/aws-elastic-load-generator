@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "6eebe29697f48a631820a934077cade2"
+    "id": "1faa3dc9eeffb22dc3a958bdb31df445"
   },
   "transaction": {
-    "id": "fb4abb7010f44d6e",
-    "name": "MLTrainingPipeline",
+    "id": "561fe0f685bf0884",
+    "name": "DataIngestionPipeline",
     "type": "workflow",
     "duration": {
-      "us": 387328000
+      "us": 147460000
     },
     "result": "SUCCEEDED",
     "sampled": true,
@@ -22,12 +22,12 @@
     }
   },
   "labels": {
-    "execution_arn": "arn:aws:states:il-central-1:123456789012:execution:MLTrainingPipeline:7e75ca69",
-    "state_machine_arn": "arn:aws:states:il-central-1:123456789012:stateMachine:MLTrainingPipeline",
+    "execution_arn": "arn:aws:states:us-west-1:123456789012:execution:DataIngestionPipeline:09089b5c",
+    "state_machine_arn": "arn:aws:states:us-west-1:123456789012:stateMachine:DataIngestionPipeline",
     "execution_status": "SUCCEEDED"
   },
   "service": {
-    "name": "m-l-training-pipeline",
+    "name": "data-ingestion-pipeline",
     "environment": "production",
     "version": "1.0.0",
     "language": {
@@ -55,7 +55,7 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "us-west-1",
     "account": {
       "id": "123456789012",
       "name": "prod-aws"
@@ -65,11 +65,19 @@
     }
   },
   "event": {
-    "outcome": "success"
+    "outcome": "success",
+    "module": "aws",
+    "dataset": "aws.stepfunctions"
   },
   "data_stream": {
     "type": "traces",
     "dataset": "apm",
     "namespace": "default"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "input": {
+    "type": "opentelemetry"
   }
 }

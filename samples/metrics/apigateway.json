@@ -1,57 +1,66 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ca-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ca-west-1",
+    "ephemeral_id": "6xoouuw6pd5"
   },
   "aws": {
     "apigateway": {
       "metrics": {
         "Count": {
-          "avg": 60126,
-          "sum": 60126,
+          "avg": 171067,
+          "sum": 171067,
           "count": 1
         },
         "4XXError": {
-          "avg": 2021,
-          "sum": 2021,
+          "avg": 5429,
+          "sum": 5429,
           "count": 1
         },
         "5XXError": {
-          "avg": 276,
-          "sum": 276,
+          "avg": 757,
+          "sum": 757,
           "count": 1
         },
         "Latency": {
-          "avg": 107.89,
-          "sum": 107.89,
+          "avg": 135.82,
+          "sum": 135.82,
           "count": 1,
-          "max": 2394.35,
-          "min": 11.12
+          "max": 600.37,
+          "min": 11.21
         },
         "IntegrationLatency": {
-          "avg": 86.96,
-          "sum": 86.96,
+          "avg": 33.86,
+          "sum": 33.86,
           "count": 1
         },
         "CacheHitCount": {
-          "avg": 8749,
-          "sum": 8749,
+          "avg": 29416,
+          "sum": 29416,
           "count": 1
         },
         "CacheMissCount": {
-          "avg": 8886,
-          "sum": 8886,
+          "avg": 93579,
+          "sum": 93579,
           "count": 1
         }
       },
       "dimensions": {
-        "ApiName": "products-api",
-        "Stage": "prod"
+        "ApiName": "notifications-api",
+        "Stage": "v2"
       }
     }
   },
@@ -63,6 +72,9 @@
     "type": "metrics",
     "dataset": "aws.apigateway_metrics",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.apigateway_metrics",

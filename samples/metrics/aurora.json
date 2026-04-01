@@ -1,34 +1,43 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "ap-southeast-4",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-southeast-4",
+    "ephemeral_id": "qa9dwirqk89"
+  },
   "aws": {
     "aurora": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 38.42,
-          "sum": 38.42,
+          "avg": 33.06,
+          "sum": 33.06,
           "count": 1
         },
         "DatabaseConnections": {
-          "avg": 84,
-          "sum": 84,
+          "avg": 191,
+          "sum": 191,
           "count": 1
         },
         "FreeStorageSpace": {
-          "avg": 126566145724.64,
-          "sum": 126566145724.64,
+          "avg": 83335763850.95,
+          "sum": 83335763850.95,
           "count": 1
         },
         "FreeableMemory": {
-          "avg": 3208150417.64,
-          "sum": 3208150417.64,
+          "avg": 2292125022.09,
+          "sum": 2292125022.09,
           "count": 1
         },
         "ReadLatency": {
@@ -42,48 +51,48 @@
           "count": 1
         },
         "ReadIOPS": {
-          "avg": 3999,
-          "sum": 3999,
+          "avg": 3231,
+          "sum": 3231,
           "count": 1
         },
         "WriteIOPS": {
-          "avg": 1459,
-          "sum": 1459,
+          "avg": 1152,
+          "sum": 1152,
           "count": 1
         },
         "ReadThroughput": {
-          "avg": 426663305,
-          "sum": 426663305,
+          "avg": 368322640,
+          "sum": 368322640,
           "count": 1
         },
         "WriteThroughput": {
-          "avg": 238094953,
-          "sum": 238094953,
+          "avg": 29851655,
+          "sum": 29851655,
           "count": 1
         },
         "NetworkReceiveThroughput": {
-          "avg": 73659045,
-          "sum": 73659045,
+          "avg": 1993623,
+          "sum": 1993623,
           "count": 1
         },
         "NetworkTransmitThroughput": {
-          "avg": 9990102,
-          "sum": 9990102,
+          "avg": 45009970,
+          "sum": 45009970,
           "count": 1
         },
         "DiskQueueDepth": {
-          "avg": 0.13,
-          "sum": 0.13,
+          "avg": 0.28,
+          "sum": 0.28,
           "count": 1
         },
         "ReplicaLag": {
-          "avg": 194.02,
-          "sum": 194.02,
+          "avg": 124.65,
+          "sum": 124.65,
           "count": 1
         },
         "BinLogDiskUsage": {
-          "avg": 9949799396,
-          "sum": 9949799396,
+          "avg": 1546328798,
+          "sum": 1546328798,
           "count": 1
         }
       },
@@ -101,6 +110,9 @@
     "type": "metrics",
     "dataset": "aws.rds",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.rds",

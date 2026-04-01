@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "comprehendmedical"
@@ -13,16 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "InferSNOMEDCT"
+      "Operation": "StartEntitiesDetectionV2Job"
     },
     "comprehendmedical": {
-      "operation": "InferSNOMEDCT",
-      "entities_detected": 28,
-      "phi_entities": 1,
-      "snomedct_concepts": 17,
-      "text_characters": 4345,
-      "data_access_role_arn": "arn:aws:iam::293847561023:role/ComprehendMedicalRole",
-      "s3_bucket": "clinical-notes"
+      "operation": "StartEntitiesDetectionV2Job",
+      "entities_detected": 9,
+      "phi_entities": 10,
+      "text_characters": 2357,
+      "job_id": "zc6g7uv4arn",
+      "data_access_role_arn": "arn:aws:iam::164820739518:role/ComprehendMedicalRole",
+      "s3_bucket": "medical-records"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-comprehendmedical-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-comprehendmedical-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/comprehendmedical/ap-northeast-2/2026/04/01/comprehendmedical_0X25NAPKGPIQ.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/comprehendmedical/logs",
+      "log_stream": "ap-northeast-2/53kxj8uv",
+      "ingestion_time": "2026-04-01T12:55:20.532Z"
     }
   },
   "event": {
@@ -31,10 +45,32 @@
       "process"
     ],
     "dataset": "aws.comprehendmedical",
-    "provider": "comprehendmedical.amazonaws.com"
+    "provider": "comprehendmedical.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Comprehend Medical InferSNOMEDCT: 28 entities, 1 PHI",
+  "message": "Comprehend Medical StartEntitiesDetectionV2Job: 9 entities, 10 PHI",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "service": {
+    "name": "comprehendmedical",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.comprehendmedical",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-northeast-2",
+    "ephemeral_id": "tstzgs6juk"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

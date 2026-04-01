@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "rekognition"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "GetFaceDetection"
+      "Operation": "DetectCustomLabels"
     },
     "rekognition": {
-      "operation": "GetFaceDetection",
-      "input_source": "Video",
-      "image_bytes": 8563170,
-      "duration_ms": 428,
-      "labels_detected": 38,
-      "faces_detected": 2,
-      "max_confidence": 76.07479579231503,
+      "operation": "DetectCustomLabels",
+      "input_source": "Base64Image",
+      "image_bytes": 5789425,
+      "duration_ms": 779,
+      "labels_detected": 46,
+      "faces_detected": 10,
+      "max_confidence": 85.28058391207428,
       "confidence_threshold": 70,
       "metrics": {
         "SuccessfulRequestCount": {
@@ -38,22 +38,58 @@
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 702.3059361834921
+          "avg": 158.53422572903793
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-rekognition-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-rekognition-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/rekognition/eu-west-3/2026/04/01/rekognition_G9L58DBDT94.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/rekognition/logs",
+      "log_stream": "eu-west-3/o6kvv87d",
+      "ingestion_time": "2026-04-01T12:55:20.520Z"
     }
   },
   "event": {
-    "duration": 427863891.5982519,
+    "duration": 779397688.9183573,
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.rekognition",
-    "provider": "rekognition.amazonaws.com"
+    "provider": "rekognition.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Rekognition GetFaceDetection: 24 results, 76.1% confidence",
+  "message": "Rekognition DetectCustomLabels: 22 results, 85.3% confidence",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "rekognition",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.rekognition",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "ar7g14n3ih"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

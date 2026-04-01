@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ca-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "managedblockchain"
@@ -13,16 +13,31 @@
   },
   "aws": {
     "managedblockchain": {
-      "network_id": "n-BKA1S9XHMG",
-      "network_name": "supply-chain-net",
-      "framework": "Ethereum",
-      "framework_version": "Ethereum",
-      "member_id": "m-4RELWX6EZP",
-      "member_name": "Bank-1",
-      "node_id": "nd-92YOH54F1SL",
-      "event_type": "ProposalCreated",
-      "proposal_id": "QIBQSL5JSJ",
+      "network_id": "n-9YLH20GWHC7",
+      "network_name": "logistics-network",
+      "framework": "Hyperledger Fabric",
+      "framework_version": "2.2",
+      "member_id": "m-Y8HM6T4NVGB",
+      "member_name": "Company-B",
+      "node_id": "nd-GRXHJU71UL4",
+      "event_type": "ChaincodeDefined",
+      "channel_name": "audit-channel",
+      "chaincode_id": "asset-transfer",
       "status": "SUCCEEDED"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-managedblockchain-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-managedblockchain-logs-501938274650"
+      },
+      "object": {
+        "key": "AWSLogs/501938274650/managedblockchain/ca-central-1/2026/04/01/managedblockchain_PYRDFSGBO7.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/managedblockchain/logs",
+      "log_stream": "ca-central-1/8vqnp8cn",
+      "ingestion_time": "2026-04-01T12:55:20.533Z"
     }
   },
   "event": {
@@ -33,10 +48,32 @@
     ],
     "dataset": "aws.blockchain",
     "provider": "managedblockchain.amazonaws.com",
-    "duration": 2385000000
+    "duration": 3887000000,
+    "module": "aws"
   },
-  "message": "ManagedBlockchain ProposalCreated [Ethereum]: tscxltd9cg...",
+  "message": "ManagedBlockchain ChaincodeDefined [Hyperledger Fabric]: pnrgx47dqk...",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "managedblockchain",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.managedblockchain",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "58jee496x2v"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

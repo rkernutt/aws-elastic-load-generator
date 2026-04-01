@@ -1,24 +1,33 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-southeast-3",
+    "ephemeral_id": "cd79ghwehas"
   },
   "aws": {
     "imagebuilder": {
       "metrics": {
         "ImageBuildsStarted": {
-          "avg": 1,
-          "sum": 1,
+          "avg": 10,
+          "sum": 10,
           "count": 1
         },
         "ImageBuildsSucceeded": {
-          "avg": 0,
-          "sum": 0,
+          "avg": 10,
+          "sum": 10,
           "count": 1
         },
         "ImageBuildsFailed": {
@@ -28,7 +37,7 @@
         }
       },
       "dimensions": {
-        "PipelineName": "ubuntu-pipeline"
+        "PipelineName": "amazon-linux-pipeline"
       }
     }
   },
@@ -40,6 +49,9 @@
     "type": "metrics",
     "dataset": "aws.imagebuilder",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.imagebuilder",

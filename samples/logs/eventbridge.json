@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "events"
@@ -14,17 +14,17 @@
   "aws": {
     "dimensions": {
       "EventBusName": "custom-events",
-      "RuleName": "security-event-forwarder"
+      "RuleName": "scheduled-cleanup"
     },
     "eventbridge": {
       "event_bus": "custom-events",
-      "rule": "security-event-forwarder",
-      "source": "com.partner.events",
-      "detail_type": "Object Created",
-      "targets_invoked": 4,
+      "rule": "scheduled-cleanup",
+      "source": "aws.health",
+      "detail_type": "Order Placed",
+      "targets_invoked": 5,
       "targets_failed": 0,
-      "event_id": "r7y5c700-hsx2-cnf9-s97z-hj8ch3upl7t",
-      "structured_logging": true,
+      "event_id": "offrlydz-fo8v-nzlu-8ntv-8wl453zo4he",
+      "structured_logging": false,
       "metrics": {
         "Invocations": {
           "sum": 1
@@ -36,7 +36,7 @@
           "sum": 1
         },
         "MatchedEvents": {
-          "sum": 35
+          "sum": 21
         },
         "ThrottledRules": {
           "sum": 0
@@ -45,6 +45,20 @@
           "sum": 0
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-eventbridge-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-eventbridge-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/eventbridge/eu-west-2/2026/04/01/eventbridge_FWFHZDH7NFK.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/eventbridge/logs",
+      "log_stream": "eu-west-2/dvizrn9g",
+      "ingestion_time": "2026-04-01T12:55:20.511Z"
     }
   },
   "event": {
@@ -57,10 +71,32 @@
     ],
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 103000000
+    "duration": 128000000,
+    "module": "aws"
   },
-  "message": "{\"id\":\"r7y5c700-hsx2-cnf9-s97z-hj8ch3upl7t\",\"source\":\"com.partner.events\",\"detailType\":\"Health Event\",\"rule\":\"security-event-forwarder\",\"eventBus\":\"custom-events\",\"message\":\"EventBridge event routed: com.partner.events -> security-event-forwarder\",\"timestamp\":\"2026-04-01T05:27:12.782Z\"}",
+  "message": "EventBridge event routed: aws.health -> scheduled-cleanup",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "eventbridge",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.eventbridge",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-west-2",
+    "ephemeral_id": "x23qoor09k"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

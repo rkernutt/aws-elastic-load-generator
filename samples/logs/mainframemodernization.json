@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "m2"
@@ -13,20 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "ApplicationId": "app-ylha5n",
-      "EnvironmentId": "env-0lj7vvtn"
+      "ApplicationId": "app-19pnxo",
+      "EnvironmentId": "env-ina6e439"
     },
     "m2": {
-      "application_id": "app-ylha5n",
-      "environment_id": "env-0lj7vvtn",
+      "application_id": "app-19pnxo",
+      "environment_id": "env-ina6e439",
       "engine_type": "microfocus",
-      "deployment_id": "deploy-8uamhxo1",
-      "batch_job_status": "Running",
+      "deployment_id": "deploy-k1wh2vb9",
+      "batch_job_status": "Succeeded",
       "metrics": {
-        "batch_jobs_running": 11,
-        "online_transactions_per_sec": 429.04542615532927,
-        "cpu_utilization": 66.55763980282202
+        "batch_jobs_running": 13,
+        "online_transactions_per_sec": 478.505455863784,
+        "cpu_utilization": 49.57715467719901
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-mainframemodernization-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-mainframemodernization-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/mainframemodernization/ap-southeast-2/2026/04/01/mainframemodernization_RAGFZYIAND.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/mainframemodernization/logs",
+      "log_stream": "ap-southeast-2/5kxsbv4x",
+      "ingestion_time": "2026-04-01T12:55:20.470Z"
     }
   },
   "event": {
@@ -36,15 +50,36 @@
     ],
     "dataset": "aws.m2",
     "provider": "m2.amazonaws.com",
-    "duration": 1610000000
+    "duration": 3649000000,
+    "module": "aws"
   },
   "data_stream": {
     "type": "logs",
     "dataset": "aws.m2",
     "namespace": "default"
   },
-  "message": "Mainframe Modernization app-ylha5n: batch_status=Running, tps=429, cpu=66.6%",
+  "message": "Mainframe Modernization app-19pnxo: batch_status=Succeeded, tps=479, cpu=49.6%",
   "log": {
     "level": "info"
+  },
+  "host": {
+    "name": "ip-159-193-253-87.ec2.internal",
+    "hostname": "mainframemodernization-i0a4fzys"
+  },
+  "service": {
+    "name": "mainframemodernization",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-southeast-2",
+    "ephemeral_id": "x0kgl332pdi"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

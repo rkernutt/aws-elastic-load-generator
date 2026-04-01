@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "45eb900c104891064b02350a47f201c4"
+    "id": "302312eee1e4d53ade43f2d79db14270"
   },
   "transaction": {
-    "id": "574bc9ecf67ccf12",
-    "name": "fraud-scorer",
+    "id": "8e42a0d06f88a6c0",
+    "name": "webhook-dispatcher",
     "type": "lambda",
     "duration": {
-      "us": 755000
+      "us": 324000
     },
     "result": "success",
     "sampled": true,
@@ -22,32 +22,32 @@
     },
     "faas": {
       "coldstart": false,
-      "execution": "b386335d-b3c9-d505-2ced-6af7a12dde91",
+      "execution": "238a4700-9674-027c-a15d-a5200e27f2f6",
       "trigger": {
-        "type": "pubsub"
+        "type": "other"
       }
     }
   },
   "faas": {
-    "name": "fraud-scorer",
-    "id": "arn:aws:lambda:ca-central-1:234567890123:function:fraud-scorer",
+    "name": "webhook-dispatcher",
+    "id": "arn:aws:lambda:us-west-2:123456789012:function:webhook-dispatcher",
     "version": "$LATEST",
     "coldstart": false,
-    "execution": "b386335d-b3c9-d505-2ced-6af7a12dde91",
+    "execution": "238a4700-9674-027c-a15d-a5200e27f2f6",
     "trigger": {
-      "type": "pubsub"
+      "type": "other"
     }
   },
   "service": {
-    "name": "fraud-scorer",
+    "name": "webhook-dispatcher",
     "environment": "production",
     "version": "1.0.0",
     "language": {
       "name": "python"
     },
     "runtime": {
-      "name": "python3.11",
-      "version": "3.11.9"
+      "name": "python3.12",
+      "version": "3.12.3"
     },
     "framework": {
       "name": "AWS Lambda"
@@ -55,7 +55,7 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "0.6.0"
+    "version": "1.0.4"
   },
   "telemetry": {
     "sdk": {
@@ -64,27 +64,39 @@
       "version": "1.29.0"
     },
     "distro": {
-      "name": "elastic",
-      "version": "0.6.0"
+      "name": "aws-otel",
+      "version": "1.0.4"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "us-west-2",
     "account": {
-      "id": "234567890123",
-      "name": "staging-aws"
+      "id": "123456789012",
+      "name": "prod-aws"
     },
     "service": {
       "name": "lambda"
     }
   },
+  "labels": {
+    "aws.xray.trace_id": "1-6923180c-7f5897442013077f5bad8e35",
+    "aws.xray.segment_id": "8d42e39c6a97c8ad"
+  },
   "event": {
-    "outcome": "success"
+    "outcome": "success",
+    "module": "aws",
+    "dataset": "aws.lambda_logs"
   },
   "data_stream": {
     "type": "traces",
     "dataset": "apm",
     "namespace": "default"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "input": {
+    "type": "opentelemetry"
   }
 }

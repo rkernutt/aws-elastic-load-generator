@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "pinpoint"
@@ -13,18 +13,32 @@
   },
   "aws": {
     "pinpoint": {
-      "application_id": "49lxdsaza05",
-      "event_type": "_sms.buffered",
-      "channel": "SMS",
-      "campaign_id": "8x9u348pns9",
-      "campaign_name": "re-engagement",
-      "journey_id": "6i8kejzp1l3",
-      "segment_id": "i0qxen431w",
-      "endpoint_id": "user_hns0eb0w6c",
-      "message_id": "o24i8sah6mh",
-      "delivery_status": "PENDING",
-      "destination": "+15558525020",
-      "iso_country_code": "AU"
+      "application_id": "s15zt5td2bs",
+      "event_type": "_sms.sent",
+      "channel": "EMAIL",
+      "campaign_id": "zwuhry6a1ds",
+      "campaign_name": "promo-black-friday",
+      "journey_id": "39osgrd42nq",
+      "segment_id": "if2fz11zko",
+      "endpoint_id": "user_tx2yzqp336",
+      "message_id": "isfot9fws4",
+      "delivery_status": "SUCCESSFUL",
+      "destination": "user_tx2yzqp336@example.com",
+      "iso_country_code": "FR"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-pinpoint-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-pinpoint-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/pinpoint/eu-central-1/2026/04/01/pinpoint_Y7JQXGF1XA.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/pinpoint/logs",
+      "log_stream": "eu-central-1/o4c5ynzm",
+      "ingestion_time": "2026-04-01T12:55:20.531Z"
     }
   },
   "event": {
@@ -34,10 +48,32 @@
     ],
     "dataset": "aws.pinpoint",
     "provider": "mobiletargeting.amazonaws.com",
-    "duration": 1710000000
+    "duration": 849000000,
+    "module": "aws"
   },
-  "message": "Pinpoint _sms.buffered [re-engagement]: user_hns0eb0w6c via SMS",
+  "message": "Pinpoint _sms.sent [promo-black-friday]: user_tx2yzqp336 via EMAIL",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "pinpoint",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.pinpoint",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "5t8fmqpfc3q"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

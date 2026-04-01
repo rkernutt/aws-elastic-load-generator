@@ -1,60 +1,69 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ca-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ca-central-1",
+    "ephemeral_id": "9hoj87vmzij"
   },
   "aws": {
     "cloudwatch": {
       "metrics": {
         "CallCount": {
-          "avg": 306900,
-          "sum": 306900,
+          "avg": 1509167,
+          "sum": 1509167,
           "count": 1
         },
         "ErrorCount": {
-          "avg": 1815,
-          "sum": 1815,
+          "avg": 0,
+          "sum": 0,
           "count": 1
         },
         "ThrottleCount": {
-          "avg": 1166,
-          "sum": 1166,
+          "avg": 0,
+          "sum": 0,
           "count": 1
         },
         "PutMetricData": {
-          "avg": 776801,
-          "sum": 776801,
+          "avg": 214713,
+          "sum": 214713,
           "count": 1
         },
         "GetMetricStatistics": {
-          "avg": 52538,
-          "sum": 52538,
+          "avg": 1802,
+          "sum": 1802,
           "count": 1
         },
         "ListMetrics": {
-          "avg": 41749,
-          "sum": 41749,
+          "avg": 38871,
+          "sum": 38871,
           "count": 1
         },
         "PutMetricAlarm": {
-          "avg": 197,
-          "sum": 197,
+          "avg": 571,
+          "sum": 571,
           "count": 1
         },
         "AlarmStateChange": {
-          "avg": 100,
-          "sum": 100,
+          "avg": 22,
+          "sum": 22,
           "count": 1
         }
       },
       "dimensions": {
-        "Namespace": "AWS/Lambda",
-        "Region": "ap-south-2"
+        "Namespace": "AWS/RDS",
+        "Region": "ca-central-1"
       }
     }
   },
@@ -66,6 +75,9 @@
     "type": "metrics",
     "dataset": "aws.cloudwatch_metrics",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.cloudwatch_metrics",

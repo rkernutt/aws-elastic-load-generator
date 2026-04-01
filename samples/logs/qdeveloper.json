@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "me-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "q-developer"
@@ -13,19 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "SubscriptionId": "sub-gs3eyqztyk",
-      "Ide": "AWS Cloud9"
+      "SubscriptionId": "sub-br4bfubsy8",
+      "Ide": "VSCode"
     },
     "qdeveloper": {
-      "subscription_id": "sub-gs3eyqztyk",
-      "ide": "AWS Cloud9",
+      "subscription_id": "sub-br4bfubsy8",
+      "ide": "VSCode",
       "language": "typescript",
-      "feature": "review",
+      "feature": "transform",
       "metrics": {
-        "suggestions_accepted": 51,
-        "suggestions_rejected": 36,
-        "active_users": 110
+        "suggestions_accepted": 118,
+        "suggestions_rejected": 26,
+        "active_users": 525
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-qdeveloper-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-qdeveloper-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/qdeveloper/me-central-1/2026/04/01/qdeveloper_S5VYRNXJU9H.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/qdeveloper/logs",
+      "log_stream": "me-central-1/3f9kttfn",
+      "ingestion_time": "2026-04-01T12:55:20.515Z"
     }
   },
   "event": {
@@ -35,15 +49,32 @@
     ],
     "dataset": "aws.qdeveloper",
     "provider": "q.amazonaws.com",
-    "duration": 836000000
+    "duration": 1139000000,
+    "module": "aws"
   },
   "data_stream": {
     "type": "logs",
     "dataset": "aws.qdeveloper",
     "namespace": "default"
   },
-  "message": "Q Developer review: 51 accepted, 36 rejected (typescript/AWS Cloud9)",
+  "message": "Q Developer transform: 118 accepted, 26 rejected (typescript/VSCode)",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "qdeveloper",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-me-central-1",
+    "ephemeral_id": "x5n8v3814wg"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

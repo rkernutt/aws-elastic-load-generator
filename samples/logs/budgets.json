@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "us-east-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "budgets"
@@ -13,17 +13,31 @@
   },
   "aws": {
     "budgets": {
-      "budget_name": "rds-cluster",
-      "budget_type": "RI_COVERAGE",
+      "budget_name": "monthly-total",
+      "budget_type": "USAGE",
       "time_period": "MONTHLY",
       "currency": "USD",
-      "budget_limit": 4306.13,
-      "actual_spend": 1729.08,
-      "forecasted_spend": 1861.4,
+      "budget_limit": 7087.6,
+      "actual_spend": 6704.14,
+      "forecasted_spend": 6813.5,
       "threshold_exceeded": false,
-      "threshold_percentage": 50,
+      "threshold_percentage": 70,
       "notification_type": "ACTUAL",
-      "subscribers": "ops@company.com"
+      "subscribers": "finance@company.com"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-budgets-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-budgets-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/budgets/us-east-2/2026/04/01/budgets_IOBCRUW5XEH.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/budgets/logs",
+      "log_stream": "us-east-2/harmbqh0",
+      "ingestion_time": "2026-04-01T12:55:20.527Z"
     }
   },
   "event": {
@@ -34,10 +48,32 @@
     ],
     "dataset": "aws.budgets",
     "provider": "budgets.amazonaws.com",
-    "duration": 1000000000
+    "duration": 10000000000,
+    "module": "aws"
   },
-  "message": "Budget OK: rds-cluster at 1729/4306 (40%)",
+  "message": "Budget OK: monthly-total at 6704/7088 (95%)",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "budgets",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.budgets",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-us-east-2",
+    "ephemeral_id": "zs7upmpbgto"
+  },
+  "input": {
+    "type": "http_endpoint"
   }
 }

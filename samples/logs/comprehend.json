@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "eu-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "comprehend"
@@ -13,15 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "DetectPiiEntities"
+      "Operation": "DetectSentiment"
     },
     "comprehend": {
-      "operation": "DetectPiiEntities",
-      "language_code": "es",
-      "text_bytes": 45825,
+      "operation": "DetectSentiment",
+      "language_code": "pt",
+      "text_bytes": 81630,
+      "sentiment": "NEGATIVE",
       "entities_detected": 0,
       "key_phrases_detected": 0,
-      "pii_entities_detected": 7,
+      "pii_entities_detected": 0,
       "metrics": {
         "NumberOfSuccessfulRequest": {
           "sum": 1
@@ -30,9 +31,23 @@
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 204.3513584531345
+          "avg": 274.6871880174249
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-comprehend-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-comprehend-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/comprehend/eu-south-1/2026/04/01/comprehend_O0EQN7ELRLE.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/comprehend/logs",
+      "log_stream": "eu-south-1/49hhbwiu",
+      "ingestion_time": "2026-04-01T12:55:20.520Z"
     }
   },
   "event": {
@@ -41,10 +56,32 @@
       "process"
     ],
     "dataset": "aws.comprehend",
-    "provider": "comprehend.amazonaws.com"
+    "provider": "comprehend.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Comprehend DetectPiiEntities: lang=es",
+  "message": "Comprehend DetectSentiment: lang=pt, sentiment=NEGATIVE",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "comprehend",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.comprehend",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-south-1",
+    "ephemeral_id": "bz1010sys3n"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

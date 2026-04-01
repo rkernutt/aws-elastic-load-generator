@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "pcs"
@@ -13,20 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterId": "pcs-qh4m1hkk",
-      "QueueName": "gpu"
+      "ClusterId": "pcs-1i4n7w6w",
+      "QueueName": "batch"
     },
     "pcs": {
-      "cluster_id": "pcs-qh4m1hkk",
+      "cluster_id": "pcs-1i4n7w6w",
       "scheduler": "slurm",
-      "queue_name": "gpu",
-      "job_id": "job-594021",
+      "queue_name": "batch",
+      "job_id": "job-450066",
       "job_state": "COMPLETED",
       "metrics": {
-        "running_jobs": 40,
-        "pending_jobs": 28,
-        "compute_nodes_active": 673
+        "running_jobs": 305,
+        "pending_jobs": 10,
+        "compute_nodes_active": 300
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-parallelcomputing-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-parallelcomputing-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/parallelcomputing/ap-southeast-3/2026/04/01/parallelcomputing_SRJ8MBOGJAK.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/parallelcomputing/logs",
+      "log_stream": "ap-southeast-3/xs6uak0o",
+      "ingestion_time": "2026-04-01T12:55:20.470Z"
     }
   },
   "event": {
@@ -36,15 +50,36 @@
     ],
     "dataset": "aws.pcs",
     "provider": "pcs.amazonaws.com",
-    "duration": 245000000
+    "duration": 3439000000,
+    "module": "aws"
   },
   "data_stream": {
     "type": "logs",
     "dataset": "aws.pcs",
     "namespace": "default"
   },
-  "message": "PCS cluster pcs-qh4m1hkk: 40 running, 28 pending, 673 nodes active",
+  "message": "PCS cluster pcs-1i4n7w6w: 305 running, 10 pending, 300 nodes active",
   "log": {
     "level": "info"
+  },
+  "host": {
+    "name": "ip-6-216-248-122.ec2.internal",
+    "hostname": "parallelcomputing-a3a8ks46"
+  },
+  "service": {
+    "name": "parallelcomputing",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "yvrz7h27ut"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

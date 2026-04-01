@@ -1,29 +1,38 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-us-east-1",
+    "ephemeral_id": "df64yh5fxr"
+  },
   "aws": {
     "frauddetector": {
       "metrics": {
         "RecordsProcessed": {
-          "avg": 7846995,
-          "sum": 7846995,
+          "avg": 9244231,
+          "sum": 9244231,
           "count": 1
         },
         "BytesProcessed": {
-          "avg": 20426537641,
-          "sum": 20426537641,
+          "avg": 78923118224,
+          "sum": 78923118224,
           "count": 1
         },
         "ExecutionTime": {
-          "avg": 25464.37,
-          "sum": 25464.37,
+          "avg": 10893.65,
+          "sum": 10893.65,
           "count": 1
         },
         "ErrorCount": {
@@ -45,6 +54,9 @@
     "type": "metrics",
     "dataset": "aws.frauddetector",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.frauddetector",

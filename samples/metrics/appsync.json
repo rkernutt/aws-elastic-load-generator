@@ -1,24 +1,33 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "us-east-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-us-east-2",
+    "ephemeral_id": "anxn5f18ux6"
   },
   "aws": {
     "appsync": {
       "metrics": {
         "Latency": {
-          "avg": 13.63,
-          "sum": 13.63,
+          "avg": 29.66,
+          "sum": 29.66,
           "count": 1
         },
         "4XXError": {
-          "avg": 1666,
-          "sum": 1666,
+          "avg": 1907,
+          "sum": 1907,
           "count": 1
         },
         "5XXError": {
@@ -27,18 +36,18 @@
           "count": 1
         },
         "ConnectSuccess": {
-          "avg": 3553,
-          "sum": 3553,
+          "avg": 8683,
+          "sum": 8683,
           "count": 1
         },
         "ConnectClientError": {
-          "avg": 191,
-          "sum": 191,
+          "avg": 0,
+          "sum": 0,
           "count": 1
         }
       },
       "dimensions": {
-        "GraphQLAPIId": "aaaabbbbccccdddd9558"
+        "GraphQLAPIId": "aaaabbbbccccdddd2064"
       }
     }
   },
@@ -50,6 +59,9 @@
     "type": "metrics",
     "dataset": "aws.appsync",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.appsync",

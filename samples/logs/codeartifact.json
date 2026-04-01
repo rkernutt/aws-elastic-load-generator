@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "eu-north-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,28 +13,65 @@
   },
   "aws": {
     "codeartifact": {
-      "domain_name": "internal",
+      "domain_name": "corp-packages",
       "repository_name": "nuget-store",
-      "package_format": "nuget",
+      "package_format": "npm",
       "package_name": "shared-components",
-      "package_version": "4.8.1",
-      "action": "GetPackageVersionAsset",
-      "download_size_bytes": 48527331,
+      "package_version": "1.17.3",
+      "action": "CopyPackageVersions",
+      "asset_name": "shared-components-1.17.3.tgz",
+      "download_size_bytes": 34842586,
       "upstream_repository": "pypi-upstream"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-codeartifact-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-codeartifact-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/codeartifact/eu-north-1/2026/04/01/codeartifact_M52NPMH4WPC.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/codeartifact/logs",
+      "log_stream": "eu-north-1/tx8iukfd",
+      "ingestion_time": "2026-04-01T12:55:20.514Z"
     }
   },
   "event": {
-    "action": "GetPackageVersionAsset",
+    "action": "CopyPackageVersions",
     "outcome": "success",
     "category": [
       "package",
       "process"
     ],
     "dataset": "aws.codeartifact",
-    "provider": "codeartifact.amazonaws.com"
+    "provider": "codeartifact.amazonaws.com",
+    "module": "aws"
   },
-  "message": "CodeArtifact GetPackageVersionAsset: shared-components@4.8.1 [nuget] in internal/nuget-store",
+  "message": "CodeArtifact CopyPackageVersions: shared-components@1.17.3 [npm] in corp-packages/nuget-store",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "codeartifact",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.codeartifact",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-north-1",
+    "ephemeral_id": "bk7jeymjxcm"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

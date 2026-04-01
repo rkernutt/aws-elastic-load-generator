@@ -1,3 +1,5 @@
+export { enrichDocument, type EnrichOptions } from "./enrich";
+
 // ─── Helpers ───────────────────────────────────────────────────────────────
 export const REGIONS = [
   // US

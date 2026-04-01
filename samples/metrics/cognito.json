@@ -1,19 +1,28 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "us-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-us-west-1",
+    "ephemeral_id": "mla0u2ekewn"
   },
   "aws": {
     "cognito": {
       "metrics": {
         "SignInSuccesses": {
-          "avg": 17937,
-          "sum": 17937,
+          "avg": 4727,
+          "sum": 4727,
           "count": 1
         },
         "SignInThrottles": {
@@ -22,18 +31,18 @@
           "count": 1
         },
         "SignInUserErrors": {
-          "avg": 229,
-          "sum": 229,
+          "avg": 146,
+          "sum": 146,
           "count": 1
         },
         "SignUpSuccesses": {
-          "avg": 3297,
-          "sum": 3297,
+          "avg": 1783,
+          "sum": 1783,
           "count": 1
         },
         "TokenRefreshSuccesses": {
-          "avg": 77669,
-          "sum": 77669,
+          "avg": 18440,
+          "sum": 18440,
           "count": 1
         },
         "TokenRefreshUserErrors": {
@@ -42,8 +51,8 @@
           "count": 1
         },
         "FederationSuccesses": {
-          "avg": 7571,
-          "sum": 7571,
+          "avg": 4023,
+          "sum": 4023,
           "count": 1
         },
         "AccountTakeoverRiskCount": {
@@ -53,7 +62,7 @@
         }
       },
       "dimensions": {
-        "UserPool": "b2b-pool"
+        "UserPool": "us-pool-prod"
       }
     }
   },
@@ -65,6 +74,9 @@
     "type": "metrics",
     "dataset": "aws.cognito",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.cognito",

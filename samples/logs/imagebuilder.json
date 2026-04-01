@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "us-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "imagebuilder"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "amazon-linux-cis",
-      "Phase": "BUILD"
+      "PipelineName": "container-base-pipeline",
+      "Phase": "DISTRIBUTE"
     },
     "imagebuilder": {
-      "pipeline_name": "amazon-linux-cis",
-      "image_version": "4.16.4/1",
-      "phase": "BUILD",
+      "pipeline_name": "container-base-pipeline",
+      "image_version": "1.14.3/1",
+      "phase": "DISTRIBUTE",
       "phase_status": "COMPLETED",
-      "duration_seconds": 942,
+      "duration_seconds": 563,
       "os": "Windows Server 2022",
-      "recipe_name": "hardened-base",
-      "ami_id": "ami-2hdspm3c",
+      "recipe_name": "web-server-recipe",
+      "ami_id": "ami-h01ehz7u",
       "metrics": {
         "BuildDuration": {
-          "avg": 942
+          "avg": 563
         },
         "ImageBuildSuccessCount": {
           "sum": 1
@@ -36,22 +36,58 @@
           "sum": 0
         },
         "ComponentBuildDuration": {
-          "avg": 364
+          "avg": 357
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-imagebuilder-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-imagebuilder-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/imagebuilder/us-east-1/2026/04/01/imagebuilder_C7SAOHNOYY.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/imagebuilder/logs",
+      "log_stream": "us-east-1/7afmbfi8",
+      "ingestion_time": "2026-04-01T12:55:20.470Z"
     }
   },
   "event": {
     "category": [
       "process"
     ],
-    "duration": 942000000000,
+    "duration": 563000000000,
     "outcome": "success",
     "dataset": "aws.imagebuilder",
-    "provider": "imagebuilder.amazonaws.com"
+    "provider": "imagebuilder.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Testing image: ami-2hdspm3c with test component aws:TestInfrastructureAssociation",
+  "message": "Running component: aws:ValidateInfrastructure",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "imagebuilder",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.imagebuilder",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-us-east-1",
+    "ephemeral_id": "womqsyv0gac"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

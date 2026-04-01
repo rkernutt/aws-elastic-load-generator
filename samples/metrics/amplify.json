@@ -1,29 +1,38 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "ca-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ca-west-1",
+    "ephemeral_id": "og3txmkmxl"
   },
   "aws": {
     "amplify": {
       "metrics": {
         "Requests": {
-          "avg": 558782,
-          "sum": 558782,
+          "avg": 428272,
+          "sum": 428272,
           "count": 1
         },
         "BytesServed": {
-          "avg": 82253994864,
-          "sum": 82253994864,
+          "avg": 61185698980,
+          "sum": 61185698980,
           "count": 1
         },
         "4xxErrors": {
-          "avg": 743,
-          "sum": 743,
+          "avg": 6871,
+          "sum": 6871,
           "count": 1
         },
         "5xxErrors": {
@@ -32,13 +41,13 @@
           "count": 1
         },
         "Latency": {
-          "avg": 82.39,
-          "sum": 82.39,
+          "avg": 12.54,
+          "sum": 12.54,
           "count": 1
         }
       },
       "dimensions": {
-        "App": "frontend"
+        "App": "dashboard"
       }
     }
   },
@@ -50,6 +59,9 @@
     "type": "metrics",
     "dataset": "aws.amplify",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.amplify",

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "eu-south-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "verifiedpermissions"
@@ -13,32 +13,73 @@
   },
   "aws": {
     "dimensions": {
-      "PolicyStoreId": "EFxHM6EGF2KRZ6"
+      "PolicyStoreId": "EFxHVRGM4S3S5G"
     },
     "verifiedpermissions": {
-      "policy_store_id": "EFxHM6EGF2KRZ6",
-      "principal_entity_type": "User",
-      "principal_entity_id": "user-XYV1CD5C",
-      "action_id": "InvokeAPI",
-      "resource_type": "Document",
-      "decision": "ALLOW",
-      "determining_policies": 4,
+      "policy_store_id": "EFxHVRGM4S3S5G",
+      "principal_entity_type": "ServiceAccount",
+      "principal_entity_id": "serviceaccount-VRH27RUI",
+      "action_id": "ListResources",
+      "resource_type": "Record",
+      "decision": "DENY",
+      "determining_policies": 5,
       "errors_count": 0,
-      "evaluation_time_ms": 4
+      "evaluation_time_ms": 45
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-verifiedpermissions-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-verifiedpermissions-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/verifiedpermissions/eu-south-2/2026/04/01/verifiedpermissions_PPE05NXPHQQ.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/verifiedpermissions/logs",
+      "log_stream": "eu-south-2/a2por8uu",
+      "ingestion_time": "2026-04-01T12:55:20.480Z"
     }
   },
   "event": {
-    "action": "BatchIsAuthorized",
+    "action": "IsAuthorized",
     "outcome": "success",
     "category": [
       "authentication",
       "iam"
     ],
     "dataset": "aws.verifiedpermissions",
-    "provider": "verifiedpermissions.amazonaws.com"
+    "provider": "verifiedpermissions.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Verified Permissions ALLOW: User/user-XYV1CD5C → InvokeAPI",
+  "message": "Verified Permissions DENY: ServiceAccount/serviceaccount-VRH27RUI → ListResources",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "AccessDenied",
+    "message": "Authorization denied for ServiceAccount/serviceaccount-VRH27RUI to perform ListResources",
+    "type": "authorization"
+  },
+  "service": {
+    "name": "verifiedpermissions",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.verifiedpermissions",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-south-2",
+    "ephemeral_id": "5e2v538fd7a"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

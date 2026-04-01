@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ca-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "servicecatalog"
@@ -15,16 +15,30 @@
     "servicecatalog": {
       "operation": "ProvisionProduct",
       "product_name": "S3 Static Site",
-      "product_id": "prod-W85ZW43UTO",
-      "portfolio_id": "port-6GFBK0XDP3B",
-      "provisioned_product_name": "s3-static-site-mxm4pi",
-      "record_id": "rec-XA7YR13SN6I",
-      "status": "AVAILABLE",
-      "requester_arn": "arn:aws:iam::164820739518:user/contractor-dan"
+      "product_id": "prod-IMLI63VMPT7",
+      "portfolio_id": "port-7VUDT9G489B",
+      "provisioned_product_name": "s3-static-site-pelj3m",
+      "record_id": "rec-GIV04BSTSNH",
+      "status": "SUCCEEDED",
+      "requester_arn": "arn:aws:iam::293847561023:user/sre-carol"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-servicecatalog-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-servicecatalog-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/servicecatalog/ca-west-1/2026/04/01/servicecatalog_G1IC5NW4BRH.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/servicecatalog/logs",
+      "log_stream": "ca-west-1/b2zyrrec",
+      "ingestion_time": "2026-04-01T12:55:20.527Z"
     }
   },
   "user": {
-    "name": "contractor-dan"
+    "name": "sre-carol"
   },
   "event": {
     "action": "ProvisionProduct",
@@ -35,10 +49,32 @@
     ],
     "dataset": "aws.servicecatalog",
     "provider": "servicecatalog.amazonaws.com",
-    "duration": 369000000000
+    "duration": 34000000000,
+    "module": "aws"
   },
-  "message": "ServiceCatalog ProvisionProduct: contractor-dan → S3 Static Site [AVAILABLE]",
+  "message": "ServiceCatalog ProvisionProduct: sre-carol → S3 Static Site [SUCCEEDED]",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "servicecatalog",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.servicecatalog",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ca-west-1",
+    "ephemeral_id": "jfhr0ojeyt"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

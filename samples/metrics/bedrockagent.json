@@ -1,55 +1,64 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-west-2",
+    "ephemeral_id": "2csb6gvure8"
   },
   "aws": {
     "bedrockagent": {
       "metrics": {
         "NumberOfInvocations": {
-          "avg": 135,
-          "sum": 135,
+          "avg": 252,
+          "sum": 252,
           "count": 1
         },
         "NumberOfSessions": {
-          "avg": 135,
-          "sum": 135,
+          "avg": 252,
+          "sum": 252,
           "count": 1
         },
         "SessionDuration": {
-          "avg": 54.94,
-          "sum": 54.94,
+          "avg": 67.3,
+          "sum": 67.3,
           "count": 1
         },
         "ClientErrors": {
-          "avg": 16,
-          "sum": 16,
+          "avg": 2,
+          "sum": 2,
           "count": 1
         },
         "Throttles": {
-          "avg": 45,
-          "sum": 45,
+          "avg": 0,
+          "sum": 0,
           "count": 1
         },
         "KnowledgeBaseRetrievals": {
-          "avg": 403,
-          "sum": 403,
+          "avg": 266,
+          "sum": 266,
           "count": 1
         },
         "ActionGroupInvocations": {
-          "avg": 663,
-          "sum": 663,
+          "avg": 277,
+          "sum": 277,
           "count": 1
         }
       },
       "dimensions": {
-        "AgentId": "AGT4F9KKVGWBW",
-        "AgentName": "research-assistant"
+        "AgentId": "AGT6OCY11TSHP",
+        "AgentName": "data-analyst"
       }
     }
   },
@@ -61,6 +70,9 @@
     "type": "metrics",
     "dataset": "aws.bedrockagent",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.bedrockagent",

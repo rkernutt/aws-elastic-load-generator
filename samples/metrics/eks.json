@@ -1,12 +1,21 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-west-2",
+    "ephemeral_id": "kdvj5r52hza"
   },
   "aws": {
     "kubernetes": {
@@ -17,34 +26,34 @@
           "count": 1
         },
         "node_cpu_utilization": {
-          "avg": 56.24,
-          "sum": 56.24,
+          "avg": 22.24,
+          "sum": 22.24,
           "count": 1
         },
         "node_memory_utilization": {
-          "avg": 42.78,
-          "sum": 42.78,
+          "avg": 52.53,
+          "sum": 52.53,
           "count": 1
         },
         "pod_count": {
-          "avg": 28,
-          "sum": 28,
+          "avg": 65,
+          "sum": 65,
           "count": 1
         },
         "pod_cpu_reserved": {
-          "avg": 22.12,
-          "sum": 22.12,
+          "avg": 15.69,
+          "sum": 15.69,
           "count": 1
         },
         "pod_memory_reserved": {
-          "avg": 32.17,
-          "sum": 32.17,
+          "avg": 43.31,
+          "sum": 43.31,
           "count": 1
         }
       },
       "dimensions": {
-        "ClusterName": "eks-platform",
-        "Namespace": "kube-system"
+        "ClusterName": "eks-prod-cluster",
+        "Namespace": "applications"
       }
     }
   },
@@ -56,6 +65,9 @@
     "type": "metrics",
     "dataset": "aws.kubernetes",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.kubernetes",

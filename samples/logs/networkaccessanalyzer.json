@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-southeast-3",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,22 +13,62 @@
   },
   "aws": {
     "network_access_analyzer": {
-      "scope_id": "naa-scope-2cvuszsv",
+      "scope_id": "naa-scope-nwrlx4vm",
       "scope_name": "vpc-peering-paths",
-      "analysis_id": "naa-analysis-pnak94uo7db",
+      "analysis_id": "naa-analysis-8divlgyu6mx",
       "finding_type": "UnreachableResource",
       "finding_count": 1,
-      "resources_analyzed": 314,
-      "paths_found": 4,
-      "source_vpc": "vpc-jp6a6xcf",
-      "destination_resource": "arn:aws:ec2:af-south-1:501938274650:instance/i-4xiou86d728",
-      "protocol": "udp",
-      "port_range": "214-35789"
+      "resources_analyzed": 403,
+      "paths_found": 3,
+      "source_vpc": "vpc-o2p1q8it",
+      "destination_resource": "arn:aws:ec2:ap-southeast-3:501938274650:instance/i-ftqwacqbnyt",
+      "protocol": "icmp",
+      "port_range": "246-1881"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-networkaccessanalyzer-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-networkaccessanalyzer-logs-501938274650"
+      },
+      "object": {
+        "key": "AWSLogs/501938274650/networkaccessanalyzer/ap-southeast-3/2026/04/01/networkaccessanalyzer_XRGYSP8Q4ZH.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/networkaccessanalyzer/logs",
+      "log_stream": "ap-southeast-3/7238t9i5",
+      "ingestion_time": "2026-04-01T12:55:20.480Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 123354222
+    "duration": 265441218,
+    "module": "aws",
+    "dataset": "aws.networkaccessanalyzer"
   },
-  "message": "Network Access Analyzer: vpc-peering-paths analysis complete (368 resources)"
+  "message": "Network Access Analyzer: vpc-peering-paths analysis complete (378 resources)",
+  "service": {
+    "name": "networkaccessanalyzer",
+    "type": "aws"
+  },
+  "log": {
+    "level": "info"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.networkaccessanalyzer",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "r35nj82buh"
+  },
+  "input": {
+    "type": "http_endpoint"
+  }
 }

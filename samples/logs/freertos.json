@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,21 +13,60 @@
   },
   "aws": {
     "freertos": {
-      "thing_name": "industrial-plc",
-      "event_type": "OTA_UPDATE",
+      "thing_name": "actuator-03",
+      "event_type": "MQTT_CONNECT",
       "board": "Infineon-PSoC6",
-      "firmware_version": "4.7.14",
-      "heap_free_bytes": 2533,
-      "stack_high_water_mark": 274,
-      "uptime_seconds": 214159,
-      "mqtt_messages_sent": 2135,
-      "mqtt_messages_received": 1919,
-      "ota_status": "SUCCEEDED"
+      "firmware_version": "2.3.6",
+      "heap_free_bytes": 24765,
+      "stack_high_water_mark": 3413,
+      "uptime_seconds": 838538,
+      "mqtt_messages_sent": 7967,
+      "mqtt_messages_received": 1606
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-freertos-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-freertos-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/freertos/eu-west-1/2026/04/01/freertos_G6CNEU8RD55.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/freertos/logs",
+      "log_stream": "eu-west-1/tjz0yvbg",
+      "ingestion_time": "2026-04-01T12:55:20.525Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 2171046
+    "duration": 2892325,
+    "module": "aws",
+    "dataset": "aws.freertos"
   },
-  "message": "FreeRTOS industrial-plc: OTA_UPDATE OK (STM32L4)"
+  "message": "FreeRTOS actuator-03: MQTT_CONNECT OK (Infineon-PSoC6)",
+  "service": {
+    "name": "freertos",
+    "type": "aws"
+  },
+  "log": {
+    "level": "info"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.freertos",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-west-1",
+    "ephemeral_id": "0m5w9m7zire"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
+  }
 }

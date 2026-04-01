@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "dataexchange"
@@ -13,19 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "DataSetId": "tsx4udqq-bhp7-5did-8b5j-b11xullg1p"
+      "DataSetId": "1mpiodpm-8b8n-lgzs-4uiv-la4n3w1opyq"
     },
     "dataexchange": {
-      "dataset_id": "tsx4udqq-bhp7-5did-8b5j-b11xullg1p",
+      "dataset_id": "1mpiodpm-8b8n-lgzs-4uiv-la4n3w1opyq",
       "dataset_name": "Traffic-Analytics",
-      "data_set_type": "API_GATEWAY",
-      "revision_id": "mmp1gnv0-654j-omcu-brxb-df28mt9vcgc",
-      "job_id": "dexis2bt-ixk0-t0mb-bp16-srm9uv0eh4",
-      "job_type": "EXPORT_ASSETS_TO_S3",
-      "job_status": "IN_PROGRESS",
-      "provider_account_id": "738291046572",
-      "subscriber_account_id": "293847561023",
-      "asset_count": 402
+      "data_set_type": "REDSHIFT",
+      "revision_id": "87lx7jgr-78ry-sc85-n0zw-3r8y6np7pgx",
+      "job_id": "6sxrqn2w-anyl-lbp9-wg7s-2xrb9pnrr4e",
+      "job_type": "IMPORT_ASSET_FROM_API_GATEWAY",
+      "job_status": "WAITING",
+      "provider_account_id": "501938274650",
+      "subscriber_account_id": "164820739518",
+      "asset_count": 14
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-dataexchange-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-dataexchange-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/dataexchange/us-east-1/2026/04/01/dataexchange_491ZT6FB2VE.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/dataexchange/logs",
+      "log_stream": "us-east-1/agdwyj51",
+      "ingestion_time": "2026-04-01T12:55:20.519Z"
     }
   },
   "event": {
@@ -35,10 +49,32 @@
       "process"
     ],
     "dataset": "aws.dataexchange",
-    "provider": "dataexchange.amazonaws.com"
+    "provider": "dataexchange.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Data Exchange Traffic-Analytics: EXPORT_ASSETS_TO_S3 IN_PROGRESS, 402 assets",
+  "message": "Data Exchange Traffic-Analytics: IMPORT_ASSET_FROM_API_GATEWAY WAITING, 14 assets",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "dataexchange",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.dataexchange",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-us-east-1",
+    "ephemeral_id": "f9354hbp6lo"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

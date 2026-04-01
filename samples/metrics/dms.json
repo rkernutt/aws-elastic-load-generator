@@ -1,54 +1,63 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "eu-central-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-central-2",
+    "ephemeral_id": "c8bko20hm1"
   },
   "aws": {
     "dms": {
       "metrics": {
         "CDCIncomingChanges": {
-          "avg": 1883,
-          "sum": 1883,
+          "avg": 32950,
+          "sum": 32950,
           "count": 1
         },
         "CDCChangesMemorySource": {
-          "avg": 46165,
-          "sum": 46165,
+          "avg": 23046,
+          "sum": 23046,
           "count": 1
         },
         "CDCThroughputBandwidthSource": {
-          "avg": 3378062.86,
-          "sum": 3378062.86,
+          "avg": 3455343.66,
+          "sum": 3455343.66,
           "count": 1
         },
         "CDCLatencySource": {
-          "avg": 2.19,
-          "sum": 2.19,
+          "avg": 5.92,
+          "sum": 5.92,
           "count": 1
         },
         "CDCLatencyTarget": {
-          "avg": 15.95,
-          "sum": 15.95,
+          "avg": 11.71,
+          "sum": 11.71,
           "count": 1
         },
         "FullLoadThroughputBandwidthSource": {
-          "avg": 16718523.09,
-          "sum": 16718523.09,
+          "avg": 11910637.57,
+          "sum": 11910637.57,
           "count": 1
         },
         "FullLoadThroughputRowsSource": {
-          "avg": 10199.33,
-          "sum": 10199.33,
+          "avg": 4218.93,
+          "sum": 4218.93,
           "count": 1
         },
         "MemoryUsage": {
-          "avg": 492.41,
-          "sum": 492.41,
+          "avg": 394.26,
+          "sum": 394.26,
           "count": 1
         }
       },
@@ -65,6 +74,9 @@
     "type": "metrics",
     "dataset": "aws.dms",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.dms",

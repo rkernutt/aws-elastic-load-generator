@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "eu-west-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,17 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "ProjectName": "circuit-board-inspection",
-      "ModelVersion": "3.0"
+      "ProjectName": "weld-quality-check",
+      "ModelVersion": "4.0"
     },
     "lookoutvision": {
-      "project_name": "circuit-board-inspection",
-      "model_version": "3.0",
-      "model_arn": "arn:aws:lookoutvision:ap-east-1:738291046572:model/circuit-board-inspection/3.0",
+      "project_name": "weld-quality-check",
+      "model_version": "4.0",
+      "model_arn": "arn:aws:lookoutvision:eu-west-1:738291046572:model/weld-quality-check/4.0",
       "event_type": "StartModel",
-      "image_source": "camera-stream",
-      "is_anomalous": false,
-      "confidence": 0.9934319597670791
+      "image_source": "s3",
+      "image_key": "inspections/weld-quality-check/f28reed7df.jpg",
+      "is_anomalous": true,
+      "confidence": 0.9454538819746423,
+      "anomaly_label": "scratch",
+      "anomaly_mask_uri": "s3://lookoutvision-masks-738291046572/weld-quality-check/mdrlsir7.png"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-lookoutvision-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-lookoutvision-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/lookoutvision/eu-west-1/2026/04/01/lookoutvision_OT23MP2M1XN.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/lookoutvision/logs",
+      "log_stream": "eu-west-1/vpw5wy34",
+      "ingestion_time": "2026-04-01T12:55:20.522Z"
     }
   },
   "event": {
@@ -33,10 +50,32 @@
     ],
     "dataset": "aws.lookoutvision",
     "provider": "lookoutvision.amazonaws.com",
-    "duration": 214000000
+    "duration": 185000000,
+    "module": "aws"
   },
-  "message": "Lookout for Vision [circuit-board-inspection] OK confidence=0.993 214ms",
+  "message": "Lookout for Vision [weld-quality-check] ANOMALY DETECTED: scratch confidence=0.945",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "service": {
+    "name": "lookoutvision",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.lookoutvision",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-west-1",
+    "ephemeral_id": "p7vdavx5aql"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

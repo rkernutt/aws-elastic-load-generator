@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
     "region": "us-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "devicefarm"
@@ -13,33 +13,69 @@
   },
   "aws": {
     "dimensions": {
-      "ProjectArn": "arn:aws:devicefarm:us-west-2:738291046572:project:KKZRE3EH-G9JZ-OD9B-GG11-701YM7DC4U9"
+      "ProjectArn": "arn:aws:devicefarm:us-west-2:814726593401:project:YGBXR9SD-SVR1-EDFA-ZTOA-MUIZCUYM3H"
     },
     "devicefarm": {
-      "project_name": "Web-App-Tests",
-      "project_arn": "arn:aws:devicefarm:us-west-2:738291046572:project:KKZRE3EH-G9JZ-OD9B-GG11-701YM7DC4U9",
-      "run_name": "Pre-Release-Smoke",
-      "run_status": "PASSED",
-      "device_platform": "ANDROID",
-      "device_model": "iPhone 14",
-      "total_tests": 78,
-      "passed_tests": 70,
-      "failed_tests": 8,
-      "test_type": "XCTEST",
+      "project_name": "Performance-Suite",
+      "project_arn": "arn:aws:devicefarm:us-west-2:814726593401:project:YGBXR9SD-SVR1-EDFA-ZTOA-MUIZCUYM3H",
+      "run_name": "Performance-Baseline",
+      "run_status": "RUNNING",
+      "device_platform": "IOS",
+      "device_model": "Google Pixel 7",
+      "total_tests": 116,
+      "passed_tests": 114,
+      "failed_tests": 2,
+      "test_type": "APPIUM_PYTHON",
       "billing_method": "UNMETERED"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-devicefarm-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-devicefarm-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/devicefarm/us-west-2/2026/04/01/devicefarm_3TAHQMKWC25.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/devicefarm/logs",
+      "log_stream": "us-west-2/6bek3v7t",
+      "ingestion_time": "2026-04-01T12:55:20.515Z"
     }
   },
   "event": {
-    "action": "CreateUpload",
+    "action": "ScheduleRun",
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.devicefarm",
-    "provider": "devicefarm.amazonaws.com"
+    "provider": "devicefarm.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Device Farm CreateUpload: project=Web-App-Tests, run=Pre-Release-Smoke PASSED (70/78 passed)",
+  "message": "Device Farm ScheduleRun: project=Performance-Suite, run=Performance-Baseline RUNNING (114/116 passed)",
   "log": {
     "level": "warn"
+  },
+  "service": {
+    "name": "devicefarm",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.devicefarm",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "p61ii3g78c"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

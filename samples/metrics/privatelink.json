@@ -1,29 +1,38 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-south-2",
+    "ephemeral_id": "fq9y2col0f5"
   },
   "aws": {
     "privatelink": {
       "metrics": {
         "ActiveConnections": {
-          "avg": 2061,
-          "sum": 2061,
+          "avg": 3853,
+          "sum": 3853,
           "count": 1
         },
         "NewConnections": {
-          "avg": 346,
-          "sum": 346,
+          "avg": 468,
+          "sum": 468,
           "count": 1
         },
         "BytesProcessed": {
-          "avg": 2630398121,
-          "sum": 2630398121,
+          "avg": 2591257046,
+          "sum": 2591257046,
           "count": 1
         },
         "PacketsDropped": {
@@ -38,7 +47,7 @@
         }
       },
       "dimensions": {
-        "ServiceName": "com.amazonaws.il-central-1.execute-api"
+        "ServiceName": "com.amazonaws.eu-south-2.execute-api"
       }
     }
   },
@@ -50,6 +59,9 @@
     "type": "metrics",
     "dataset": "aws.privatelink",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.privatelink",

@@ -1,59 +1,59 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "b6cb5a8cf89e84b0382edc18b4db42e7"
+    "id": "37acc01d8bd94e0e8351e01f708c201e"
   },
   "transaction": {
-    "id": "60e2a9a0f27d3549",
-    "name": "GetTopScores",
+    "id": "947df26b3fb09a4c",
+    "name": "RefreshSession",
     "type": "request",
     "duration": {
-      "us": 236000
+      "us": 456000
     },
     "result": "success",
     "sampled": true,
     "span_count": {
-      "started": 1,
+      "started": 3,
       "dropped": 0
     }
   },
   "service": {
-    "name": "leaderboard-service",
-    "environment": "dev",
+    "name": "session-store",
+    "environment": "production",
     "version": "1.0.0",
     "language": {
-      "name": "java"
+      "name": "nodejs"
     },
     "runtime": {
-      "name": "OpenJDK",
-      "version": "21.0.3"
+      "name": "node",
+      "version": "20.15.1"
     },
     "framework": {
-      "name": "Spring Boot"
+      "name": "Express"
     }
   },
   "agent": {
     "name": "otlp",
-    "version": "1.6.0"
+    "version": "1.4.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "java",
-      "version": "2.12.0"
+      "language": "nodejs",
+      "version": "1.30.1"
     },
     "distro": {
       "name": "elastic",
-      "version": "1.6.0"
+      "version": "1.4.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "ap-southeast-1",
     "account": {
       "id": "123456789012",
       "name": "prod-aws"
@@ -63,11 +63,19 @@
     }
   },
   "event": {
-    "outcome": "success"
+    "outcome": "success",
+    "module": "aws",
+    "dataset": "aws.dynamodb"
   },
   "data_stream": {
     "type": "traces",
     "dataset": "apm",
     "namespace": "default"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "input": {
+    "type": "opentelemetry"
   }
 }

@@ -1,24 +1,33 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-central-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-central-1",
+    "ephemeral_id": "84i5gbjsaql"
+  },
   "aws": {
     "databrew": {
       "metrics": {
         "ProfileJobsRun": {
-          "avg": 3,
-          "sum": 3,
+          "avg": 0,
+          "sum": 0,
           "count": 1
         },
         "ProfileJobsSucceeded": {
-          "avg": 18,
-          "sum": 18,
+          "avg": 8,
+          "sum": 8,
           "count": 1
         },
         "ProfileJobsFailed": {
@@ -27,13 +36,13 @@
           "count": 1
         },
         "RecipeJobsRun": {
-          "avg": 31,
-          "sum": 31,
+          "avg": 37,
+          "sum": 37,
           "count": 1
         },
         "RecipeJobsSucceeded": {
-          "avg": 41,
-          "sum": 41,
+          "avg": 43,
+          "sum": 43,
           "count": 1
         },
         "RecipeJobsFailed": {
@@ -55,6 +64,9 @@
     "type": "metrics",
     "dataset": "aws.databrew",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.databrew",

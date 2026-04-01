@@ -1,29 +1,38 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "eu-north-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-north-1",
+    "ephemeral_id": "7ltno5e9rl"
   },
   "aws": {
     "qbusiness": {
       "metrics": {
         "RecordsProcessed": {
-          "avg": 8615849,
-          "sum": 8615849,
+          "avg": 4868486,
+          "sum": 4868486,
           "count": 1
         },
         "BytesProcessed": {
-          "avg": 76330096043,
-          "sum": 76330096043,
+          "avg": 90773101453,
+          "sum": 90773101453,
           "count": 1
         },
         "ExecutionTime": {
-          "avg": 54115.16,
-          "sum": 54115.16,
+          "avg": 37800.39,
+          "sum": 37800.39,
           "count": 1
         },
         "ErrorCount": {
@@ -45,6 +54,9 @@
     "type": "metrics",
     "dataset": "aws.qbusiness",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.qbusiness",

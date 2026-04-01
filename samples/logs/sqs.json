@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "sqs"
@@ -13,27 +13,41 @@
   },
   "aws": {
     "dimensions": {
-      "QueueName": "webhook-events"
+      "QueueName": "job-queue"
     },
     "sqs": {
       "queue": {
-        "name": "webhook-events"
+        "name": "job-queue"
       },
       "oldest_message_age": {
-        "sec": 111
+        "sec": 216
       },
       "messages": {
-        "delayed": 361,
-        "not_visible": 582,
-        "visible": 706,
-        "deleted": 570,
-        "received": 3882,
-        "sent": 4337
+        "delayed": 102,
+        "not_visible": 13,
+        "visible": 19,
+        "deleted": 846,
+        "received": 5416,
+        "sent": 7027
       },
-      "empty_receives": 55,
+      "empty_receives": 87,
       "sent_message_size": {
-        "bytes": 111629
+        "bytes": 225257
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-sqs-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-sqs-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/sqs/ap-southeast-3/2026/04/01/sqs_5IYMQOVG5VU.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/sqs/logs",
+      "log_stream": "ap-southeast-3/o3hlzn1p",
+      "ingestion_time": "2026-04-01T12:55:20.511Z"
     }
   },
   "event": {
@@ -43,10 +57,32 @@
     ],
     "dataset": "aws.sqs",
     "provider": "sqs.amazonaws.com",
-    "duration": 433000000
+    "duration": 477000000,
+    "module": "aws"
   },
-  "message": "SQS webhook-events: 4337 sent, 3882 received",
+  "message": "SQS job-queue: 7027 sent, 5416 received",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "sqs",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.sqs",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "9l6jtvnfs2d"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

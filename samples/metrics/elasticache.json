@@ -1,84 +1,93 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "il-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-il-central-1",
+    "ephemeral_id": "q9u8wizxuke"
   },
   "aws": {
     "elasticache": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 23.6,
-          "sum": 23.6,
+          "avg": 17.73,
+          "sum": 17.73,
           "count": 1
         },
         "DatabaseMemoryUsagePercentage": {
-          "avg": 48.97,
-          "sum": 48.97,
+          "avg": 28.54,
+          "sum": 28.54,
           "count": 1
         },
         "FreeableMemory": {
-          "avg": 202669215.13,
-          "sum": 202669215.13,
+          "avg": 843302896.43,
+          "sum": 843302896.43,
           "count": 1
         },
         "CacheHits": {
-          "avg": 192280,
-          "sum": 192280,
+          "avg": 496069,
+          "sum": 496069,
           "count": 1
         },
         "CacheMisses": {
-          "avg": 15309,
-          "sum": 15309,
+          "avg": 2516,
+          "sum": 2516,
           "count": 1
         },
         "CacheHitRate": {
-          "avg": 92.63,
-          "sum": 92.63,
+          "avg": 99.5,
+          "sum": 99.5,
           "count": 1
         },
         "CurrConnections": {
-          "avg": 757,
-          "sum": 757,
+          "avg": 96,
+          "sum": 96,
           "count": 1
         },
         "Evictions": {
-          "avg": 0,
-          "sum": 0,
+          "avg": 150,
+          "sum": 150,
           "count": 1
         },
         "NetworkBytesIn": {
-          "avg": 3313796390,
-          "sum": 3313796390,
+          "avg": 3632700209,
+          "sum": 3632700209,
           "count": 1
         },
         "NetworkBytesOut": {
-          "avg": 1933314026,
-          "sum": 1933314026,
+          "avg": 399372997,
+          "sum": 399372997,
           "count": 1
         },
         "ReplicationLag": {
-          "avg": 0,
-          "sum": 0,
+          "avg": 0.37,
+          "sum": 0.37,
           "count": 1
         },
         "CurrItems": {
-          "avg": 4502780,
-          "sum": 4502780,
+          "avg": 7690741,
+          "sum": 7690741,
           "count": 1
         },
         "GetTypeCmds": {
-          "avg": 842479,
-          "sum": 842479,
+          "avg": 751660,
+          "sum": 751660,
           "count": 1
         },
         "SetTypeCmds": {
-          "avg": 36598,
-          "sum": 36598,
+          "avg": 81003,
+          "sum": 81003,
           "count": 1
         }
       },
@@ -96,6 +105,9 @@
     "type": "metrics",
     "dataset": "aws.elasticache",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.elasticache",

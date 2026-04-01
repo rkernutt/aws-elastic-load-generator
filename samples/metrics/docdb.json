@@ -1,29 +1,38 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-northeast-1",
+    "ephemeral_id": "3wvc8dpj0mw"
   },
   "aws": {
     "docdb": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 39.28,
-          "sum": 39.28,
+          "avg": 87.22,
+          "sum": 87.22,
           "count": 1
         },
         "DatabaseConnections": {
-          "avg": 126,
-          "sum": 126,
+          "avg": 20,
+          "sum": 20,
           "count": 1
         },
         "FreeableMemory": {
-          "avg": 2570683880.16,
-          "sum": 2570683880.16,
+          "avg": 1209613061.43,
+          "sum": 1209613061.43,
           "count": 1
         },
         "ReadLatency": {
@@ -37,43 +46,43 @@
           "count": 1
         },
         "ReadIOPS": {
-          "avg": 1346,
-          "sum": 1346,
+          "avg": 3820,
+          "sum": 3820,
           "count": 1
         },
         "WriteIOPS": {
-          "avg": 1299,
-          "sum": 1299,
+          "avg": 383,
+          "sum": 383,
           "count": 1
         },
         "NetworkReceiveThroughput": {
-          "avg": 42239364,
-          "sum": 42239364,
+          "avg": 5366270,
+          "sum": 5366270,
           "count": 1
         },
         "OpcountersQuery": {
-          "avg": 96725,
-          "sum": 96725,
+          "avg": 10980,
+          "sum": 10980,
           "count": 1
         },
         "OpcountersInsert": {
-          "avg": 2011,
-          "sum": 2011,
+          "avg": 4519,
+          "sum": 4519,
           "count": 1
         },
         "OpcountersUpdate": {
-          "avg": 24,
-          "sum": 24,
+          "avg": 3322,
+          "sum": 3322,
           "count": 1
         },
         "OpcountersDelete": {
-          "avg": 63,
-          "sum": 63,
+          "avg": 145,
+          "sum": 145,
           "count": 1
         }
       },
       "dimensions": {
-        "DBClusterIdentifier": "docdb-staging",
+        "DBClusterIdentifier": "docdb-analytics",
         "DBInstanceIdentifier": "docdb-instance-2"
       }
     }
@@ -86,6 +95,9 @@
     "type": "metrics",
     "dataset": "aws.docdb",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.docdb",

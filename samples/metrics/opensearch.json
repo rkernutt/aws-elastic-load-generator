@@ -1,49 +1,58 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "me-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-me-south-1",
+    "ephemeral_id": "hbx4l2p1s2b"
   },
   "aws": {
     "opensearch": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 45.93,
-          "sum": 45.93,
+          "avg": 54.99,
+          "sum": 54.99,
           "count": 1
         },
         "JVMMemoryPressure": {
-          "avg": 86.28,
-          "sum": 86.28,
+          "avg": 48.77,
+          "sum": 48.77,
           "count": 1
         },
         "FreeStorageSpace": {
-          "avg": 16322.48,
-          "sum": 16322.48,
+          "avg": 75981.05,
+          "sum": 75981.05,
           "count": 1
         },
         "IndexingRate": {
-          "avg": 1464.87,
-          "sum": 1464.87,
+          "avg": 1646.97,
+          "sum": 1646.97,
           "count": 1
         },
         "SearchRate": {
-          "avg": 826.31,
-          "sum": 826.31,
+          "avg": 836.52,
+          "sum": 836.52,
           "count": 1
         },
         "IndexingLatency": {
-          "avg": 4.55,
-          "sum": 4.55,
+          "avg": 7.12,
+          "sum": 7.12,
           "count": 1
         },
         "SearchLatency": {
-          "avg": 7.93,
-          "sum": 7.93,
+          "avg": 7.1,
+          "sum": 7.1,
           "count": 1
         },
         "ClusterStatus_green": {
@@ -62,8 +71,8 @@
           "count": 1
         },
         "Nodes": {
-          "avg": 17,
-          "sum": 17,
+          "avg": 9,
+          "sum": 9,
           "count": 1
         },
         "AutomatedSnapshotFailure": {
@@ -78,8 +87,8 @@
         }
       },
       "dimensions": {
-        "DomainName": "analytics-os",
-        "ClientId": "293847561023"
+        "DomainName": "observability-os",
+        "ClientId": "501938274650"
       }
     }
   },
@@ -91,6 +100,9 @@
     "type": "metrics",
     "dataset": "aws.opensearch",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.opensearch",

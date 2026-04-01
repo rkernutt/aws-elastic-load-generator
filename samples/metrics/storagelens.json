@@ -1,54 +1,63 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-southeast-1",
+    "ephemeral_id": "she3t37mebr"
   },
   "aws": {
     "s3_storage_lens": {
       "metrics": {
         "StorageBytes": {
-          "avg": 73041213929462,
-          "sum": 73041213929462,
+          "avg": 56827352046784,
+          "sum": 56827352046784,
           "count": 1
         },
         "ObjectCount": {
-          "avg": 476690012,
-          "sum": 476690012,
+          "avg": 546788695,
+          "sum": 546788695,
           "count": 1
         },
         "ActiveBucketCount": {
-          "avg": 9,
-          "sum": 9,
+          "avg": 32,
+          "sum": 32,
           "count": 1
         },
         "GetRequestCount": {
-          "avg": 8516385,
-          "sum": 8516385,
+          "avg": 42293665,
+          "sum": 42293665,
           "count": 1
         },
         "PutRequestCount": {
-          "avg": 2354927,
-          "sum": 2354927,
+          "avg": 6792638,
+          "sum": 6792638,
           "count": 1
         },
         "BytesDownloaded": {
-          "avg": 113279918254,
-          "sum": 113279918254,
+          "avg": 9591308240320,
+          "sum": 9591308240320,
           "count": 1
         },
         "BytesUploaded": {
-          "avg": 824413052592,
-          "sum": 824413052592,
+          "avg": 308295141210,
+          "sum": 308295141210,
           "count": 1
         },
         "4xxErrorRequestCount": {
-          "avg": 140,
-          "sum": 140,
+          "avg": 52570,
+          "sum": 52570,
           "count": 1
         },
         "5xxErrorRequestCount": {
@@ -71,6 +80,9 @@
     "type": "metrics",
     "dataset": "aws.s3_storage_lens",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.s3_storage_lens",

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "config"
@@ -13,42 +13,83 @@
   },
   "aws": {
     "dimensions": {
-      "ConfigRuleName": "iam-password-policy",
-      "ResourceType": "AWS::RDS::DBInstance"
+      "ConfigRuleName": "s3-bucket-public-read-prohibited",
+      "ResourceType": "AWS::EC2::Instance"
     },
     "config": {
-      "rule_name": "iam-password-policy",
-      "compliance_type": "INSUFFICIENT_DATA",
-      "resource_type": "AWS::RDS::DBInstance",
-      "resource_id": "s3-nljdkd50",
-      "annotation": "Resource is compliant",
+      "rule_name": "s3-bucket-public-read-prohibited",
+      "compliance_type": "NON_COMPLIANT",
+      "resource_type": "AWS::EC2::Instance",
+      "resource_id": "sg-q58eyr0o",
+      "annotation": "Public access enabled",
       "metrics": {
         "ComplianceByConfigRule": {
-          "avg": 1
+          "avg": 0
         },
         "NonCompliantRules": {
-          "sum": 0
-        },
-        "CompliantRules": {
           "sum": 1
         },
+        "CompliantRules": {
+          "sum": 0
+        },
         "ConfigurationItemsRecorded": {
-          "sum": 61
+          "sum": 10
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-config-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-config-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/config/eu-west-2/2026/04/01/config_UE1KWX69XV9.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/config/logs",
+      "log_stream": "eu-west-2/we0wai6r",
+      "ingestion_time": "2026-04-01T12:55:20.476Z"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "configuration",
       "compliance"
     ],
     "dataset": "aws.config",
-    "provider": "config.amazonaws.com"
+    "provider": "config.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Config rule PASSED: iam-password-policy",
+  "message": "Config rule FAILED: s3-bucket-public-read-prohibited",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "NonCompliant",
+    "message": "Config rule s3-bucket-public-read-prohibited failed",
+    "type": "compliance"
+  },
+  "service": {
+    "name": "config",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.config",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-west-2",
+    "ephemeral_id": "chhhr58fmd6"
+  },
+  "input": {
+    "type": "http_endpoint"
   }
 }

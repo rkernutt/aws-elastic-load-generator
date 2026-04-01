@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "eu-west-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,21 +13,61 @@
   },
   "aws": {
     "kinesis_video": {
-      "stream_name": "warehouse-feed",
-      "stream_arn": "arn:aws:kinesisvideo:eu-west-3:293847561023:stream/warehouse-feed",
-      "event_type": "GetHLSStreamingSessionURL",
-      "fragment_number": "M2QCX6VECEP",
-      "producer_timestamp_ms": 1775021233124,
-      "server_timestamp_ms": 1775021233485,
-      "ingestion_rate_mbps": 2.5412187757928133,
-      "fragment_duration_ms": 2182,
-      "resolution": "1280x720",
+      "stream_name": "traffic-monitor",
+      "stream_arn": "arn:aws:kinesisvideo:eu-west-1:293847561023:stream/traffic-monitor",
+      "event_type": "GetMedia",
+      "fragment_number": "FDC2LFQNWA",
+      "producer_timestamp_ms": 1775048120524,
+      "server_timestamp_ms": 1775048120713,
+      "ingestion_rate_mbps": 2.745307662894888,
+      "fragment_duration_ms": 2273,
+      "resolution": "640x480",
       "codec": "H.265"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-kinesisvideo-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-kinesisvideo-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/kinesisvideo/eu-west-1/2026/04/01/kinesisvideo_9ZVMFMUSGPF.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/kinesisvideo/logs",
+      "log_stream": "eu-west-1/9tvp4nvz",
+      "ingestion_time": "2026-04-01T12:55:20.524Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 1392764
+    "duration": 5860463,
+    "module": "aws",
+    "dataset": "aws.kinesisvideo"
   },
-  "message": "Kinesis Video warehouse-feed: GetHLSStreamingSessionURL (8.3 Mbps)"
+  "message": "Kinesis Video traffic-monitor: GetMedia (9.6 Mbps)",
+  "service": {
+    "name": "kinesisvideo",
+    "type": "aws"
+  },
+  "log": {
+    "level": "info"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.kinesisvideo",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-west-1",
+    "ephemeral_id": "99y97ir779g"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
+  }
 }

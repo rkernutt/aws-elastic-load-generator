@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "eu-south-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,22 +13,36 @@
   },
   "aws": {
     "dimensions": {
-      "Endpoint": "cvpn-endpoint-p4zody3nwhi"
+      "Endpoint": "cvpn-endpoint-9jqbs68w9i"
     },
     "clientvpn": {
-      "endpoint_id": "cvpn-endpoint-p4zody3nwhi",
-      "connection_id": "cvpn-connection-x5ohbxs2s1",
-      "username": "globex-development",
-      "source_ip": "67.99.202.23",
-      "assigned_ip": "10.212.214.60",
-      "egress_bytes": 10327547,
-      "ingress_bytes": 1440934,
-      "connection_duration_seconds": 24622,
+      "endpoint_id": "cvpn-endpoint-9jqbs68w9i",
+      "connection_id": "cvpn-connection-1itqfyrjguv",
+      "username": "globex-production",
+      "source_ip": "244.61.166.251",
+      "assigned_ip": "10.67.146.247",
+      "egress_bytes": 10322303,
+      "ingress_bytes": 4476762,
+      "connection_duration_seconds": 23593,
       "termination_reason": "User disconnected"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-clientvpn-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-clientvpn-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/clientvpn/eu-south-1/2026/04/01/clientvpn_ZD0WN5FM4N.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/clientvpn/logs",
+      "log_stream": "eu-south-1/kuov8t0z",
+      "ingestion_time": "2026-04-01T12:55:20.474Z"
     }
   },
   "event": {
-    "action": "connection-attempt",
+    "action": "connected",
     "outcome": "success",
     "category": [
       "network",
@@ -36,16 +50,38 @@
     ],
     "dataset": "aws.clientvpn",
     "provider": "clientvpn.amazonaws.com",
-    "duration": 24622000000000
+    "duration": 23593000000000,
+    "module": "aws"
   },
   "source": {
-    "ip": "67.99.202.23"
+    "ip": "244.61.166.251"
   },
   "user": {
-    "name": "globex-development"
+    "name": "globex-production"
   },
-  "message": "Client VPN globex-development connection-attempt from 67.99.202.23",
+  "message": "Client VPN globex-production connected from 244.61.166.251",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "clientvpn",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.clientvpn",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-south-1",
+    "ephemeral_id": "v9n1pdztq08"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

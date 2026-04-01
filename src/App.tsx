@@ -2,14 +2,9 @@ import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import K from "./theme";
 import {
   rand,
-  randIp,
-  randId,
-  randAccount,
   randTs,
-  REGIONS,
-  USER_AGENTS,
-  HTTP_PATHS,
   stripNulls,
+  enrichDocument,
 } from "./helpers";
 import { GENERATORS } from "./generators";
 import { TRACE_SERVICES } from "./generators/traces/services";
@@ -399,133 +394,12 @@ export default function App() {
   );
 
   const enrichDoc = useCallback(
-    (doc: LooseDoc, svc: string, source: string, evType: string): LooseDoc => {
-      const region = doc.cloud?.region || rand(REGIONS);
-      const accountId = doc.cloud?.account?.id || randAccount().id;
-      const dataset =
-        evType === "metrics"
-          ? (ELASTIC_METRICS_DATASET_MAP[svc] ?? ELASTIC_DATASET_MAP[svc] ?? `aws.${svc}`)
-          : ELASTIC_DATASET_MAP[svc] || `aws.${svc}`;
-      const bucket = `aws-${svc}-logs-${accountId}`;
-      const key = `AWSLogs/${accountId}/${svc}/${region}/${new Date().toISOString().slice(0, 10).replace(/-/g, "/")}/${svc}_${randId(20)}.log.gz`;
-      const logGroup = `/aws/${svc}/logs`;
-      const logStream = `${region}/${randId(8).toLowerCase()}`;
-
-      const inputTypeMap = {
-        s3: "aws-s3",
-        cloudwatch: "aws-cloudwatch",
-        firehose: "aws-firehose",
-        api: "http_endpoint",
-        otel: "opentelemetry",
-        agent: "logfile",
-      };
-
-      const agentMeta =
-        source === "agent"
-          ? {
-              type: "elastic-agent",
-              version: "8.17.0",
-              name: `elastic-agent-${region}`,
-              id: randId(36).toLowerCase(),
-            }
-          : source === "otel"
-            ? { type: "otel", version: "0.115.0", name: `otel-collector-${region}` }
-            : { type: "filebeat", version: "8.17.0", name: `filebeat-aws-${region}` };
-
-      const otelFields =
-        source === "otel"
-          ? {
-              telemetry: {
-                sdk: { name: "opentelemetry", language: "go", version: "1.31.0" },
-                distro: { name: "elastic", version: "8.17.0" },
-              },
-            }
-          : {};
-
-      const firehoseFields =
-        source === "firehose"
-          ? {
-              aws: {
-                ...doc.aws,
-                s3: { bucket: { name: bucket, arn: `arn:aws:s3:::${bucket}` }, object: { key } },
-                cloudwatch: {
-                  log_group: logGroup,
-                  log_stream: logStream,
-                  ingestion_time: new Date().toISOString(),
-                },
-                firehose: {
-                  arn: `arn:aws:firehose:${region}:${accountId}:deliverystream/aws-${svc}-stream`,
-                  request_id: randId(36).toLowerCase(),
-                },
-              },
-            }
-          : {
-              aws: {
-                ...doc.aws,
-                s3: { bucket: { name: bucket, arn: `arn:aws:s3:::${bucket}` }, object: { key } },
-                cloudwatch: {
-                  log_group: logGroup,
-                  log_stream: logStream,
-                  ingestion_time: new Date().toISOString(),
-                },
-              },
-            };
-
-      const ecsBaseline: LooseDoc = {};
-      if (!doc.network?.transport && !doc.network?.bytes)
-        ecsBaseline.network = {
-          ...doc.network,
-          transport: "tcp",
-          direction: rand(["inbound", "outbound"]),
-        };
-      if (!doc.host?.name)
-        ecsBaseline.host = {
-          ...doc.host,
-          name: `ip-${randIp().replace(/\./g, "-")}.ec2.internal`,
-          hostname: `${svc}-${randId(8).toLowerCase()}`,
-        };
-      if (!doc.process?.name) ecsBaseline.process = { ...doc.process, name: svc };
-      if (!doc.user_agent?.original)
-        ecsBaseline.user_agent = { ...doc.user_agent, original: rand(USER_AGENTS) };
-      if (!doc.url?.path && !doc.url?.domain)
-        ecsBaseline.url = {
-          ...doc.url,
-          path: rand(HTTP_PATHS),
-          domain: `${svc}.${region}.amazonaws.com`,
-        };
-      if (doc.event?.outcome === "failure" && !doc.error?.message)
-        ecsBaseline.error = {
-          ...doc.error,
-          message: (typeof doc.message === "string" ? doc.message : null) || "Operation failed",
-          type: "service",
-        };
-      if (!doc.user?.name && !doc.user?.id) ecsBaseline.user = { ...doc.user, name: "system" };
-      if (!doc.service?.name)
-        ecsBaseline.service = { ...doc.service, name: svc, type: doc.service?.type ?? "aws" };
-      if (!doc.file?.path && !doc.file?.name && (doc.event?.category === "file" || doc.db))
-        ecsBaseline.file = { ...doc.file, path: `/var/log/aws/${svc}.log`, name: `${svc}.log` };
-
-      const eventCategory = doc.event?.category || "event";
-      const isMetrics = evType === "metrics";
-      const base: LooseDoc = {
-        ...doc,
-        ...ecsBaseline,
-        ...firehoseFields,
-        ...otelFields,
-        data_stream: {
-          type: isMetrics ? "metrics" : svc === "xray" ? "traces" : "logs",
-          dataset,
-          namespace: "default",
-        },
-        agent: agentMeta,
-        event: { ...doc.event, module: "aws", dataset, category: eventCategory },
-        input: { type: inputTypeMap[source] },
-        log: doc.log ? { ...doc.log, level: doc.log.level || "info" } : { level: "info" },
-      };
-      if (isMetrics) base.metricset = { name: "cloudwatch", period: 300000 };
-      if (base.message == null) base.message = `AWS ${svc} event`;
-      return base;
-    },
+    (doc: LooseDoc, svc: string, source: string, evType: string): LooseDoc =>
+      enrichDocument(doc, {
+        serviceId: svc,
+        ingestionSource: source,
+        eventType: evType as "logs" | "metrics" | "traces",
+      }),
     []
   );
 
@@ -535,7 +409,7 @@ export default function App() {
       const svc = rand(selectedTraceServices);
       const TRACE_GENERATORS = await loadTraceGenerators();
       const traceDocs = TRACE_GENERATORS[svc](new Date().toISOString(), errorRate);
-      setPreview(JSON.stringify(stripNulls(traceDocs[0]), null, 2));
+      setPreview(JSON.stringify(enrichDoc(stripNulls(traceDocs[0]) as LooseDoc, svc, "otel", "traces"), null, 2));
     } else {
       if (!selectedServices.length) return;
       const svc = rand(selectedServices);
@@ -543,7 +417,7 @@ export default function App() {
         const METRICS_GENERATORS = await loadMetricsGenerators();
         if (METRICS_GENERATORS[svc]) {
           const docs = METRICS_GENERATORS[svc](new Date().toISOString(), errorRate);
-          setPreview(JSON.stringify(stripNulls(docs[0]), null, 2));
+          setPreview(JSON.stringify(enrichDoc(stripNulls(docs[0]) as LooseDoc, svc, getEffectiveSource(svc), "metrics"), null, 2));
           return;
         }
       }
@@ -670,7 +544,9 @@ export default function App() {
         const shipTraceService = async (svc: string, _svcIndex: number) => {
           addLog(`▶ ${svc} → ${APM_INDEX} [OTel / OTLP]`, "info");
           const traceChunks = Array.from({ length: tracesPerService }, () =>
-            TRACE_GENERATORS[svc](randTs(startDate, endDate), errorRate).map((d) => stripNulls(d))
+            TRACE_GENERATORS[svc](randTs(startDate, endDate), errorRate).map((d) =>
+              enrichDoc(stripNulls(d) as LooseDoc, svc, "otel", "traces")
+            )
           );
           const prefixEnd: number[] = [];
           let acc = 0;
@@ -760,7 +636,7 @@ export default function App() {
             if (!TRACE_GENERATORS[svc]) continue;
             const docs = Array.from({ length: injCount }, () =>
               TRACE_GENERATORS[svc](randTs(injStart, injEnd), 1.0).map((d) => {
-                const out = stripNulls(d) as LooseDoc;
+                const out = enrichDoc(stripNulls(d) as LooseDoc, svc, "otel", "traces");
                 if (out["transaction.duration.us"]) out["transaction.duration.us"] *= 15;
                 if (out["span.duration.us"]) out["span.duration.us"] *= 15;
                 return out;

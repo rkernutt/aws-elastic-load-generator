@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "me-south-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "inspector2"
@@ -13,38 +13,36 @@
   },
   "aws": {
     "dimensions": {
-      "Severity": "LOW"
+      "Severity": "INFORMATIONAL"
     },
     "inspector2": {
-      "finding_id": "arn:aws:inspector2:eu-west-2:164820739518:finding/2ykg9qwe-cbv7-htt7-j3ry-wdha1f7pqzj",
+      "finding_id": "arn:aws:inspector2:me-south-1:293847561023:finding/efvgw6co-0fo1-59zc-1jxt-u7b7cil9jbm",
       "finding_type": "PACKAGE_VULNERABILITY",
-      "finding_status": "SUPPRESSED",
-      "severity": "LOW",
-      "severity_score": 2,
-      "exploitability": "NOT_DEFINED",
+      "finding_status": "ACTIVE",
+      "severity": "INFORMATIONAL",
+      "severity_score": 3.5,
+      "exploitability": "FUNCTIONAL",
       "resource_type": "AWS_ECR_CONTAINER_IMAGE",
-      "resource_id": "164820739518.dkr.ecr.eu-west-2.amazonaws.com/my-repo:latest",
-      "first_observed_at": "2026-03-22T05:27:12.782Z",
-      "last_observed_at": "2026-04-01T05:27:12.782Z",
+      "resource_id": "293847561023.dkr.ecr.me-south-1.amazonaws.com/my-repo:latest",
+      "first_observed_at": "2026-03-05T12:55:20.199Z",
+      "last_observed_at": "2026-04-01T12:55:20.199Z",
       "package_vulnerability": {
-        "cve_id": "CVE-2021-37981",
-        "source": "NVD",
-        "cvss3_score": 2.0479652674335007,
+        "cve_id": "CVE-2022-93315",
+        "source": "GHSA",
+        "cvss3_score": 3.5108227633686258,
         "vulnerable_packages": [
           {
             "name": "jackson-databind",
-            "version": "2.10.7",
-            "fixed_in_version": "2.16.19",
-            "package_manager": "NPM"
+            "version": "1.14.9",
+            "fixed_in_version": "3.14.20",
+            "package_manager": "PYTHON"
           }
         ],
-        "related_vulnerabilities": [
-          "CVE-2022-94155"
-        ]
+        "related_vulnerabilities": []
       },
       "metrics": {
         "TotalFindings": {
-          "sum": 295
+          "sum": 100
         },
         "CriticalFindings": {
           "sum": 0
@@ -56,24 +54,38 @@
           "sum": 0
         },
         "LowFindings": {
-          "sum": 226
+          "sum": 16
         },
         "CoveredResources": {
-          "avg": 290
+          "avg": 417
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-inspector-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-inspector-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/inspector/me-south-1/2026/04/01/inspector_B5B9VGL5PT9.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/inspector/logs",
+      "log_stream": "me-south-1/9d00ep1a",
+      "ingestion_time": "2026-04-01T12:55:20.476Z"
     }
   },
   "vulnerability": {
-    "severity": "LOW",
-    "id": "CVE-2021-37981",
+    "severity": "INFORMATIONAL",
+    "id": "CVE-2022-93315",
     "score": {
-      "base": 2.0479652674335007
+      "base": 3.5108227633686258
     }
   },
   "package": {
     "name": "jackson-databind",
-    "version": "2.10.7"
+    "version": "1.14.9"
   },
   "event": {
     "outcome": "success",
@@ -84,10 +96,32 @@
       "info"
     ],
     "dataset": "aws.inspector2",
-    "provider": "inspector2.amazonaws.com"
+    "provider": "inspector2.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Inspector2 [LOW]: CVE-2021-37981 in jackson-databind 2.10.7 on AWS_ECR_CONTAINER_IMAGE (fix: 2.16.19)",
+  "message": "Inspector2 [INFORMATIONAL]: CVE-2022-93315 in jackson-databind 1.14.9 on AWS_ECR_CONTAINER_IMAGE (fix: 3.14.20)",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "inspector",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.inspector",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-me-south-1",
+    "ephemeral_id": "1k441do8s07"
+  },
+  "input": {
+    "type": "http_endpoint"
   }
 }

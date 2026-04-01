@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ca-central-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,13 +13,13 @@
   },
   "aws": {
     "devopsguru": {
-      "insight_id": "z1r5ro9j5c",
-      "insight_type": "REACTIVE",
+      "insight_id": "9x3tr9qnxfw",
+      "insight_type": "PROACTIVE",
       "severity": "LOW",
       "resource_collection": {
         "cloud_formation": {
           "stack_names": [
-            "api-stack"
+            "prod-stack"
           ]
         },
         "tags": [
@@ -29,16 +29,30 @@
           }
         ]
       },
-      "anomaly_id": "jwvf8kfklrs",
-      "anomaly_description": "Unusual increase in Lambda error rate",
+      "anomaly_id": "w75qwu08yjp",
+      "anomaly_description": "Memory utilization anomaly on ECS tasks",
       "anomaly_sources": [
-        "rds-prod"
+        "lambda-api"
       ],
-      "start_time": "2026-04-01T04:31:40.877Z",
-      "end_time": "2026-04-01T05:27:13.134Z",
+      "start_time": "2026-04-01T12:10:15.666Z",
+      "end_time": "2026-04-01T12:55:20.533Z",
       "status": "CLOSED",
-      "recommendation": "Scale up resource",
+      "recommendation": "Enable enhanced monitoring",
       "ssm_ops_items": []
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-devopsguru-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-devopsguru-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/devopsguru/ca-central-1/2026/04/01/devopsguru_VFTVSDS4VF.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/devopsguru/logs",
+      "log_stream": "ca-central-1/hz029mz8",
+      "ingestion_time": "2026-04-01T12:55:20.533Z"
     }
   },
   "event": {
@@ -50,10 +64,32 @@
     ],
     "dataset": "aws.devopsguru",
     "provider": "devops-guru.amazonaws.com",
-    "duration": 200000000000
+    "duration": 114000000000,
+    "module": "aws"
   },
-  "message": "DevOps Guru REACTIVE insight [LOW]: Unusual increase in Lambda error rate",
+  "message": "DevOps Guru PROACTIVE insight [LOW]: Memory utilization anomaly on ECS tasks",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "devopsguru",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.devopsguru",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "0b34ylr932zf"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

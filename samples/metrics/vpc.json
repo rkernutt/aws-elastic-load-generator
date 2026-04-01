@@ -1,44 +1,53 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "af-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-af-south-1",
+    "ephemeral_id": "b9sc0rok9la"
   },
   "aws": {
     "vpcflow": {
       "metrics": {
         "BytesIn": {
-          "avg": 61065446287,
-          "sum": 61065446287,
+          "avg": 76603152021,
+          "sum": 76603152021,
           "count": 1
         },
         "BytesOut": {
-          "avg": 93841374068,
-          "sum": 93841374068,
+          "avg": 74538190250,
+          "sum": 74538190250,
           "count": 1
         },
         "PacketsIn": {
-          "avg": 753736410,
-          "sum": 753736410,
+          "avg": 192514983,
+          "sum": 192514983,
           "count": 1
         },
         "PacketsOut": {
-          "avg": 733223362,
-          "sum": 733223362,
+          "avg": 145855933,
+          "sum": 145855933,
           "count": 1
         },
         "RejectedFlows": {
-          "avg": 61,
-          "sum": 61,
+          "avg": 446,
+          "sum": 446,
           "count": 1
         }
       },
       "dimensions": {
-        "Region": "ap-northeast-1"
+        "Region": "af-south-1"
       }
     }
   },
@@ -50,6 +59,9 @@
     "type": "metrics",
     "dataset": "aws.vpcflow",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.vpcflow",

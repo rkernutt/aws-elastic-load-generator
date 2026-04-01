@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "80e2127e9c1dbdd00b397b3a7342fecf"
+    "id": "070f7c0bc27f642bc6659dae4aba1d58"
   },
   "transaction": {
-    "id": "11e9a26cdab7181c",
+    "id": "1201d3eb820cdbdc",
     "name": "POST /inference",
     "type": "request",
     "duration": {
-      "us": 6436000
+      "us": 15147000
     },
     "result": "success",
     "sampled": true,
@@ -23,7 +23,7 @@
   },
   "service": {
     "name": "api-ml",
-    "environment": "staging",
+    "environment": "production",
     "version": "1.0.0",
     "language": {
       "name": "nodejs"
@@ -53,7 +53,7 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "ap-northeast-2",
     "account": {
       "id": "234567890123",
       "name": "staging-aws"
@@ -63,11 +63,19 @@
     }
   },
   "event": {
-    "outcome": "success"
+    "outcome": "success",
+    "module": "aws",
+    "dataset": "aws.workflow-ml"
   },
   "data_stream": {
     "type": "traces",
     "dataset": "apm",
     "namespace": "default"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "input": {
+    "type": "opentelemetry"
   }
 }

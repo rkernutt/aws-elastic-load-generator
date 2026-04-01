@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "4ae86eca3778d7efb084de2f2366e588"
+    "id": "3e0d3f9674262736c9a054bbea3d103e"
   },
   "transaction": {
-    "id": "f63e23e60d69bf35",
-    "name": "CustomerCohortAnalysis",
+    "id": "85b98aa1fc65caa1",
+    "name": "GenerateMonthlyReport",
     "type": "request",
     "duration": {
-      "us": 41955000
+      "us": 30860000
     },
     "result": "success",
     "sampled": true,
@@ -22,7 +22,7 @@
     }
   },
   "service": {
-    "name": "analytics-service",
+    "name": "reporting-service",
     "environment": "staging",
     "version": "1.0.0",
     "language": {
@@ -30,10 +30,10 @@
     },
     "runtime": {
       "name": "CPython",
-      "version": "3.12.3"
+      "version": "3.11.9"
     },
     "framework": {
-      "name": "Django"
+      "name": "FastAPI"
     }
   },
   "agent": {
@@ -53,21 +53,29 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "il-central-1",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "rds"
     }
   },
   "event": {
-    "outcome": "success"
+    "outcome": "success",
+    "module": "aws",
+    "dataset": "aws.rds"
   },
   "data_stream": {
     "type": "traces",
     "dataset": "apm",
     "namespace": "default"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "input": {
+    "type": "opentelemetry"
   }
 }

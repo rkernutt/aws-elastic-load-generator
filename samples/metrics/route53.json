@@ -1,24 +1,33 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-south-2",
+    "ephemeral_id": "fgqpuehlm0t"
   },
   "aws": {
     "route53": {
       "metrics": {
         "DNSQueries": {
-          "avg": 23744914,
-          "sum": 23744914,
+          "avg": 2118539,
+          "sum": 2118539,
           "count": 1
         },
         "ChildHealthCheckHealthyCount": {
-          "avg": 2,
-          "sum": 2,
+          "avg": 5,
+          "sum": 5,
           "count": 1
         },
         "HealthCheckPercentageHealthy": {
@@ -33,7 +42,7 @@
         }
       },
       "dimensions": {
-        "HostedZoneId": "Z36546237",
+        "HostedZoneId": "Z57777142",
         "Region": "Global"
       }
     }
@@ -46,6 +55,9 @@
     "type": "metrics",
     "dataset": "aws.route53",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.route53",

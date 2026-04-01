@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "docdb"
@@ -13,46 +13,46 @@
   },
   "aws": {
     "dimensions": {
-      "DBClusterIdentifier": "docdb-eu-central-2-cluster",
-      "Role": "WRITER"
+      "DBClusterIdentifier": "docdb-ap-southeast-1-cluster",
+      "Role": "READER"
     },
     "docdb": {
-      "cluster_id": "docdb-eu-central-2-cluster",
+      "cluster_id": "docdb-ap-southeast-1-cluster",
       "database": "appdb",
-      "collection": "events",
-      "operation": "delete",
-      "duration_ms": 122,
-      "documents_affected": 22,
+      "collection": "users",
+      "operation": "insert",
+      "duration_ms": 83,
+      "documents_affected": 454,
       "metrics": {
         "CPUUtilization": {
-          "avg": 28.683764212188287
+          "avg": 40.621294472346555
         },
         "DatabaseConnections": {
-          "avg": 54
+          "avg": 57
         },
         "FreeLocalStorage": {
-          "avg": 92773229547
+          "avg": 46912257191
         },
         "FreeableMemory": {
-          "avg": 1497957239
+          "avg": 2186047198
         },
         "ReadIOPS": {
-          "avg": 1710
+          "avg": 4777
         },
         "WriteIOPS": {
-          "avg": 2631
+          "avg": 1306
         },
         "ReadLatency": {
-          "avg": 1.7051965006466585
+          "avg": 2.0086662520770977
         },
         "WriteLatency": {
-          "avg": 4.530915779835335
+          "avg": 1.0605845299574583
         },
         "DocumentsInserted": {
-          "sum": 0
+          "sum": 287
         },
         "DocumentsDeleted": {
-          "sum": 89
+          "sum": 0
         },
         "DocumentsUpdated": {
           "sum": 0
@@ -61,24 +61,60 @@
           "sum": 0
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-docdb-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-docdb-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/docdb/ap-southeast-1/2026/04/01/docdb_M3IV1XYHH5P.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/docdb/logs",
+      "log_stream": "ap-southeast-1/5f4ix3gf",
+      "ingestion_time": "2026-04-01T12:55:20.508Z"
     }
   },
   "db": {
     "name": "appdb",
-    "operation": "delete",
+    "operation": "insert",
     "type": "document"
   },
   "event": {
-    "duration": 121809998.52762444,
+    "duration": 82549053.21162847,
     "outcome": "success",
     "category": [
       "database"
     ],
     "dataset": "aws.docdb",
-    "provider": "docdb.amazonaws.com"
+    "provider": "docdb.amazonaws.com",
+    "module": "aws"
   },
-  "message": "DocumentDB delete on events: 121.8ms",
+  "message": "DocumentDB insert on users: 82.5ms",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "docdb",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.docdb",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-southeast-1",
+    "ephemeral_id": "rs1ucorj3q"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

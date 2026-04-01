@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "iotfleetwise"
@@ -13,37 +13,69 @@
   },
   "aws": {
     "dimensions": {
-      "FleetId": "executive-fleet",
+      "FleetId": "field-service",
       "CampaignName": "engine-diagnostics"
     },
     "iotfleetwise": {
-      "fleet_id": "executive-fleet",
-      "vehicle_id": "VIN-ZIDWIQH50O8",
+      "fleet_id": "field-service",
+      "vehicle_id": "VIN-NMLR70G3B8R",
       "campaign_name": "engine-diagnostics",
-      "campaign_status": "SUSPENDED",
-      "signal_name": "Vehicle.Speed",
-      "collection_scheme": "TIME_BASED",
+      "campaign_status": "WAITING_FOR_APPROVAL",
+      "signal_name": "Vehicle.Powertrain.TractionBattery.StateOfCharge",
+      "signal_value": 57.671217045435355,
+      "collection_scheme": "EVENT_BASED",
       "compression": "OFF",
-      "data_destination": "TIMESTREAM"
+      "data_destination": "S3"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-iotfleetwise-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-iotfleetwise-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/iotfleetwise/ap-southeast-3/2026/04/01/iotfleetwise_GASBYLYS8RS.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/iotfleetwise/logs",
+      "log_stream": "ap-southeast-3/axlc7nih",
+      "ingestion_time": "2026-04-01T12:55:20.524Z"
     }
   },
   "event": {
-    "action": "CreateVehicle",
-    "outcome": "failure",
+    "action": "CreateSignalCatalog",
+    "outcome": "success",
     "category": [
       "iot",
       "process"
     ],
     "dataset": "aws.iotfleetwise",
-    "provider": "iotfleetwise.amazonaws.com"
+    "provider": "iotfleetwise.amazonaws.com",
+    "module": "aws"
   },
-  "message": "IoT FleetWise CreateVehicle FAILED [executive-fleet/VIN-ZIDWIQH50O8]: Data collection paused",
+  "message": "IoT FleetWise CreateSignalCatalog: fleet=field-service, vehicle=VIN-NMLR70G3B8R, campaign=engine-diagnostics WAITING_FOR_APPROVAL",
   "log": {
-    "level": "error"
+    "level": "info"
   },
-  "error": {
-    "code": "ResourceNotFoundException",
-    "message": "IoT FleetWise operation failed",
-    "type": "iot"
+  "service": {
+    "name": "iotfleetwise",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.iotfleetwise",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "bg0tgs01b7s"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

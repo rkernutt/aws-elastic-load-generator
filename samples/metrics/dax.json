@@ -1,19 +1,28 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-southeast-3",
+    "ephemeral_id": "te8g4grxome"
   },
   "aws": {
     "dax": {
       "metrics": {
         "RequestCount": {
-          "avg": 52574,
-          "sum": 52574,
+          "avg": 12262,
+          "sum": 12262,
           "count": 1
         },
         "ErrorCount": {
@@ -22,8 +31,8 @@
           "count": 1
         },
         "Latency": {
-          "avg": 131.02,
-          "sum": 131.02,
+          "avg": 120.27,
+          "sum": 120.27,
           "count": 1
         },
         "ThrottleCount": {
@@ -45,6 +54,9 @@
     "type": "metrics",
     "dataset": "aws.dax",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.dax",

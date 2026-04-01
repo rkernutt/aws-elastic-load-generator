@@ -1,19 +1,28 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "me-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-me-south-1",
+    "ephemeral_id": "oc5kay6p06"
   },
   "aws": {
     "iot": {
       "metrics": {
         "Connect_Success": {
-          "avg": 4617,
-          "sum": 4617,
+          "avg": 15391,
+          "sum": 15391,
           "count": 1
         },
         "Connect_Failure": {
@@ -22,18 +31,18 @@
           "count": 1
         },
         "Subscribe_Success": {
-          "avg": 5426,
-          "sum": 5426,
+          "avg": 80287,
+          "sum": 80287,
           "count": 1
         },
         "Publish_In_Success": {
-          "avg": 900057,
-          "sum": 900057,
+          "avg": 44531,
+          "sum": 44531,
           "count": 1
         },
         "Publish_Out_Success": {
-          "avg": 687413,
-          "sum": 687413,
+          "avg": 32074,
+          "sum": 32074,
           "count": 1
         },
         "PublishIn_Throttle": {
@@ -42,23 +51,23 @@
           "count": 1
         },
         "RulesExecuted": {
-          "avg": 287836,
-          "sum": 287836,
+          "avg": 424394,
+          "sum": 424394,
           "count": 1
         },
         "RuleMessageThrottled": {
-          "avg": 636,
-          "sum": 636,
+          "avg": 0,
+          "sum": 0,
           "count": 1
         },
         "Disconnect": {
-          "avg": 48031,
-          "sum": 48031,
+          "avg": 43745,
+          "sum": 43745,
           "count": 1
         }
       },
       "dimensions": {
-        "Protocol": "WSS"
+        "Protocol": "HTTPS"
       }
     }
   },
@@ -70,6 +79,9 @@
     "type": "metrics",
     "dataset": "aws.iot",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.iot",

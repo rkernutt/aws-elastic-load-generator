@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "gamelift"
@@ -13,36 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "FleetId": "fleet-rjrfycsw",
-      "Location": "ap-northeast-1",
+      "FleetId": "fleet-mlaxbbjl",
+      "Location": "us-east-1",
       "MetricGroups": "All",
-      "OperatingSystem": "WINDOWS_2012"
+      "OperatingSystem": "AMAZON_LINUX_2"
     },
     "gamelift": {
-      "fleet_id": "fleet-rjrfycsw",
-      "fleet_name": "eu-west-battle",
-      "event_type": "PlayerSessionCreated",
-      "game_session_id": "arn:aws:gamelift:us-east-2::gamesession/eu-west-battle/a19znnf3h2s",
-      "player_session_id": "psess-scopddsc0h",
-      "current_player_sessions": 89,
-      "maximum_player_sessions": 200,
+      "fleet_id": "fleet-mlaxbbjl",
+      "fleet_name": "us-east-realtime",
+      "event_type": "GameSessionCreated",
+      "game_session_id": "arn:aws:gamelift:eu-south-2::gamesession/us-east-realtime/fyor3xmxm6h",
+      "current_player_sessions": 7,
+      "maximum_player_sessions": 50,
       "instance_type": "c5.xlarge",
-      "instance_count": 19,
-      "desired_instances": 10,
-      "idle_instances": 1,
-      "matchmaking_configuration": "FastMatch",
+      "instance_count": 42,
+      "desired_instances": 33,
+      "idle_instances": 3,
+      "matchmaking_configuration": "BalancedMatch",
       "metrics": {
         "ActiveInstances": {
-          "avg": 92
+          "avg": 1
         },
         "IdleInstances": {
-          "avg": 9
+          "avg": 4
         },
         "PercentIdleInstances": {
-          "avg": 0.5666027271265028
+          "avg": 0.748873529314743
         },
         "DesiredInstances": {
-          "avg": 52
+          "avg": 7
         },
         "MinInstances": {
           "avg": 2
@@ -54,24 +53,38 @@
           "sum": 0
         },
         "ActiveGameSessions": {
-          "avg": 739
+          "avg": 815
         },
         "ActivatingGameSessions": {
-          "avg": 7
+          "avg": 0
         },
         "AvailableGameSessions": {
-          "avg": 294
+          "avg": 117
         },
         "ActivePlayerSessions": {
-          "avg": 6140
+          "avg": 1534
         },
         "CurrentPlayerSessions": {
-          "avg": 868
+          "avg": 4841
         },
         "PlayerSessionActivations": {
-          "sum": 26
+          "sum": 64
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-gamelift-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-gamelift-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/gamelift/eu-south-2/2026/04/01/gamelift_4WZIMBL99GA.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/gamelift/logs",
+      "log_stream": "eu-south-2/b828btcd",
+      "ingestion_time": "2026-04-01T12:55:20.532Z"
     }
   },
   "event": {
@@ -82,10 +95,36 @@
     ],
     "dataset": "aws.gamelift",
     "provider": "gamelift.amazonaws.com",
-    "duration": 1578163000000
+    "duration": 2794616000000,
+    "module": "aws"
   },
-  "message": "GameLift eu-west-battle: PlayerSessionCreated",
+  "message": "GameLift us-east-realtime: GameSessionCreated",
   "log": {
     "level": "info"
+  },
+  "host": {
+    "name": "ip-164-21-166-27.ec2.internal",
+    "hostname": "gamelift-xv6o6evx"
+  },
+  "service": {
+    "name": "gamelift",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.gamelift",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-south-2",
+    "ephemeral_id": "2j9xvhiud7h"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

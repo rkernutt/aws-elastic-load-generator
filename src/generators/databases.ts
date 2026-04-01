@@ -116,6 +116,22 @@ function generateDynamoDbLog(ts: string, er: number): EcsDocument {
 }
 
 function generateElastiCacheLog(ts: string, er: number): EcsDocument {
+  // ~12% chance of generating a Global Datastore event
+  if (Math.random() < 0.12) {
+    const r = rand(REGIONS); const a = randAccount(); const e = Math.random() < er;
+    const globalDs = rand(["global-session-store", "global-leaderboard", "global-feature-flags"]);
+    const ev = rand(["CreateGlobalReplicationGroup", "IncreaseNodeGroupCount", "Failover", "RebalanceSlotsInGlobalReplicationGroup", "DisassociateGlobalReplicationGroup"]);
+    const errMsgs = ["Cross-region replication lag exceeded 10s", "Failover target unavailable", "Slot migration in progress", "Maximum regions reached"];
+    const secondaryRegions = ["eu-west-1", "ap-northeast-1", "us-west-2"];
+    return {
+      __dataset: "aws.elasticacheglobal",
+      "@timestamp": ts,
+      cloud: { provider: "aws", region: r, account: { id: a.id, name: a.name }, service: { name: "elasticache-global" } },
+      aws: { elasticacheglobal: { global_datastore_name: globalDs, event_type: ev, primary_region: r, secondary_regions: secondaryRegions.filter((reg) => reg !== r), replication_lag_ms: randFloat(0.5, e ? 15000 : 50), cross_region_bandwidth_mbps: randFloat(1, 500), global_node_groups: randInt(1, 5), status: e ? "modifying" : "available" } },
+      event: { outcome: e ? "failure" : "success", duration: randInt(1e5, 3e7) },
+      message: e ? `ElastiCache Global ${globalDs}: ${ev} failed — ${rand(errMsgs)}` : `ElastiCache Global ${globalDs}: ${ev} completed`,
+    };
+  }
   const region = rand(REGIONS);
   const acct = randAccount();
   const isErr = Math.random() < er;
@@ -868,6 +884,40 @@ function generateMemoryDbLog(ts: string, er: number): EcsDocument {
 }
 
 function generateRdsLog(ts: string, er: number): EcsDocument {
+  // ~15% chance of generating an RDS Proxy event
+  if (Math.random() < 0.15) {
+    const r = rand(REGIONS); const a = randAccount(); const e = Math.random() < er;
+    const proxies = ["my-app-proxy", "api-proxy", "read-proxy", "writer-proxy"];
+    const proxy = rand(proxies);
+    const tg = rand(["default", "read-only", "writer"]);
+    const connId = randInt(1000, 99999);
+    const action = rand(["Connect", "Disconnect", "Query", "BorrowConnection", "ReturnConnection", "FailoverTarget"]);
+    const errCodes = ["ConnectionBorrowTimeout", "TargetNotFound", "InternalServiceError", "InvalidCredentials", "TooManyConnections"];
+    return {
+      __dataset: "aws.rdsproxy",
+      "@timestamp": ts,
+      cloud: { provider: "aws", region: r, account: { id: a.id, name: a.name }, service: { name: "rds-proxy" } },
+      aws: { rdsproxy: { proxy_name: proxy, target_group: tg, db_user: rand(["app_user", "admin", "readonly_user", "migration_user"]), connection_id: connId, action, active_connections: randInt(1, e ? 500 : 100), max_connections: 200, borrow_timeout_ms: randInt(50, e ? 30000 : 500), client_connections: randInt(10, 300), error_code: e ? rand(errCodes) : null } },
+      event: { outcome: e ? "failure" : "success", duration: randInt(1e5, e ? 3e7 : 5e6) },
+      message: e ? `RDS Proxy ${proxy}: ${action} failed — ${rand(errCodes)}` : `RDS Proxy ${proxy}: ${action} on ${tg} (conn ${connId})`,
+    };
+  }
+  // ~10% chance of generating an RDS Custom event
+  if (Math.random() < 0.10) {
+    const r = rand(REGIONS); const a = randAccount(); const e = Math.random() < er;
+    const engine = rand(["custom-oracle-ee", "custom-sqlserver-ee", "custom-oracle-se2"]);
+    const instance = rand(["orcl-prod-01", "sqlsrv-analytics", "orcl-migration", "sqlsrv-legacy"]);
+    const ev = rand(["ApplyCustomPatch", "CreateCEV", "ModifyInstance", "CreateSnapshot", "RestoreFromSnapshot", "AutomationExecution"]);
+    const errMsgs = ["Patch incompatible with CEV version", "Insufficient storage for snapshot", "SSM automation failed", "OS patch conflict detected"];
+    return {
+      __dataset: "aws.rdscustom",
+      "@timestamp": ts,
+      cloud: { provider: "aws", region: r, account: { id: a.id, name: a.name }, service: { name: "rds-custom" } },
+      aws: { rdscustom: { instance_id: instance, engine, cev_id: `cev-${randId(8).toLowerCase()}`, event_type: ev, automation_id: `exec-${randId(17).toLowerCase()}`, pause_automation: Math.random() < 0.1, os_patch_level: `${randInt(2023, 2025)}.${randInt(1, 12)}.${randInt(1, 30)}` } },
+      event: { outcome: e ? "failure" : "success", duration: randInt(5e5, e ? 6e8 : 3e8) },
+      message: e ? `RDS Custom ${instance}: ${ev} failed — ${rand(errMsgs)}` : `RDS Custom ${instance}: ${ev} completed (${engine})`,
+    };
+  }
   const region = rand(REGIONS);
   const acct = randAccount();
   const isErr = Math.random() < er;
@@ -1231,138 +1281,6 @@ function generateAuroraDsqlLog(ts: string, er: number): EcsDocument {
   };
 }
 
-// ─── RDS Proxy ────────────────────────────────────────────────────────────
-function generateRdsProxyLog(ts: string, er: number): EcsDocument {
-  const region = rand(REGIONS);
-  const acct = randAccount();
-  const isErr = Math.random() < er;
-  const proxies = ["my-app-proxy", "api-proxy", "read-proxy", "writer-proxy"];
-  const proxy = rand(proxies);
-  const targetGroups = ["default", "read-only", "writer"];
-  const tg = rand(targetGroups);
-  const dbUsers = ["app_user", "admin", "readonly_user", "migration_user"];
-  const connId = randInt(1000, 99999);
-  const actions = ["Connect", "Disconnect", "Query", "BorrowConnection", "ReturnConnection", "FailoverTarget"];
-  const action = rand(actions);
-  const errCodes = ["ConnectionBorrowTimeout", "TargetNotFound", "InternalServiceError", "InvalidCredentials", "TooManyConnections"];
-  return {
-    "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "rds-proxy" } },
-    aws: {
-      rdsproxy: {
-        proxy_name: proxy,
-        target_group: tg,
-        db_user: rand(dbUsers),
-        connection_id: connId,
-        action,
-        active_connections: randInt(1, isErr ? 500 : 100),
-        max_connections: 200,
-        borrow_timeout_ms: randInt(50, isErr ? 30000 : 500),
-        client_connections: randInt(10, 300),
-        error_code: isErr ? rand(errCodes) : null,
-      },
-    },
-    event: { outcome: isErr ? "failure" : "success", duration: randInt(1e5, isErr ? 3e7 : 5e6) },
-    message: isErr ? `RDS Proxy ${proxy}: ${action} failed — ${rand(errCodes)}` : `RDS Proxy ${proxy}: ${action} on ${tg} (conn ${connId})`,
-  };
-}
-
-// ─── RDS Custom ───────────────────────────────────────────────────────────
-function generateRdsCustomLog(ts: string, er: number): EcsDocument {
-  const region = rand(REGIONS);
-  const acct = randAccount();
-  const isErr = Math.random() < er;
-  const engines = ["custom-oracle-ee", "custom-sqlserver-ee", "custom-oracle-se2"];
-  const engine = rand(engines);
-  const instances = ["orcl-prod-01", "sqlsrv-analytics", "orcl-migration", "sqlsrv-legacy"];
-  const instance = rand(instances);
-  const events = ["ApplyCustomPatch", "CreateCEV", "ModifyInstance", "CreateSnapshot", "RestoreFromSnapshot", "AutomationExecution"];
-  const ev = rand(events);
-  const errMsgs = ["Patch incompatible with CEV version", "Insufficient storage for snapshot", "SSM automation failed", "OS patch conflict detected"];
-  return {
-    "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "rds-custom" } },
-    aws: {
-      rdscustom: {
-        instance_id: instance,
-        engine,
-        cev_id: `cev-${randId(8).toLowerCase()}`,
-        event_type: ev,
-        automation_id: `exec-${randId(17).toLowerCase()}`,
-        pause_automation: Math.random() < 0.1,
-        os_patch_level: `${randInt(2023, 2025)}.${randInt(1, 12)}.${randInt(1, 30)}`,
-      },
-    },
-    event: { outcome: isErr ? "failure" : "success", duration: randInt(5e5, isErr ? 6e8 : 3e8) },
-    message: isErr ? `RDS Custom ${instance}: ${ev} failed — ${rand(errMsgs)}` : `RDS Custom ${instance}: ${ev} completed (${engine})`,
-  };
-}
-
-// ─── DMS Serverless ───────────────────────────────────────────────────────
-function generateDmsServerlessLog(ts: string, er: number): EcsDocument {
-  const region = rand(REGIONS);
-  const acct = randAccount();
-  const isErr = Math.random() < er;
-  const replications = ["oracle-to-aurora", "sqlserver-to-redshift", "mongo-to-dynamodb", "mysql-to-s3"];
-  const repl = rand(replications);
-  const phases = ["full-load", "cdc", "validation", "pre-migration-assessment"];
-  const phase = rand(phases);
-  const errMsgs = ["Source connection lost", "Target table not found", "LOB column too large", "CDC latency exceeded threshold"];
-  const dcu = randInt(1, 64);
-  return {
-    "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "dms-serverless" } },
-    aws: {
-      dmsserverless: {
-        replication_config: repl,
-        replication_type: phase,
-        provisioned_capacity: dcu,
-        min_capacity: 1,
-        max_capacity: 64,
-        tables_loaded: randInt(0, 500),
-        tables_loading: randInt(0, 20),
-        tables_errored: isErr ? randInt(1, 10) : 0,
-        cdc_latency_seconds: phase === "cdc" ? randFloat(0.1, isErr ? 300 : 5) : 0,
-        rows_applied: randInt(0, 1e6),
-        bytes_transferred: randInt(0, 1e9),
-      },
-    },
-    event: { outcome: isErr ? "failure" : "success", duration: randInt(1e6, 6e8) },
-    message: isErr ? `DMS Serverless ${repl}: ${phase} error — ${rand(errMsgs)}` : `DMS Serverless ${repl}: ${phase} active (${dcu} DCU, ${randInt(100, 10000)} rows/s)`,
-  };
-}
-
-// ─── ElastiCache Global Datastore ─────────────────────────────────────────
-function generateElastiCacheGlobalLog(ts: string, er: number): EcsDocument {
-  const region = rand(REGIONS);
-  const acct = randAccount();
-  const isErr = Math.random() < er;
-  const globals = ["global-session-store", "global-leaderboard", "global-feature-flags"];
-  const globalDs = rand(globals);
-  const events = ["CreateGlobalReplicationGroup", "IncreaseNodeGroupCount", "Failover", "RebalanceSlotsInGlobalReplicationGroup", "DisassociateGlobalReplicationGroup"];
-  const ev = rand(events);
-  const errMsgs = ["Cross-region replication lag exceeded 10s", "Failover target unavailable", "Slot migration in progress", "Maximum regions reached"];
-  const secondaryRegions = ["eu-west-1", "ap-northeast-1", "us-west-2"];
-  return {
-    "@timestamp": ts,
-    cloud: { provider: "aws", region, account: { id: acct.id, name: acct.name }, service: { name: "elasticache-global" } },
-    aws: {
-      elasticacheglobal: {
-        global_datastore_name: globalDs,
-        event_type: ev,
-        primary_region: region,
-        secondary_regions: secondaryRegions.filter((r) => r !== region),
-        replication_lag_ms: randFloat(0.5, isErr ? 15000 : 50),
-        cross_region_bandwidth_mbps: randFloat(1, 500),
-        global_node_groups: randInt(1, 5),
-        status: isErr ? "modifying" : "available",
-      },
-    },
-    event: { outcome: isErr ? "failure" : "success", duration: randInt(1e5, 3e7) },
-    message: isErr ? `ElastiCache Global ${globalDs}: ${ev} failed — ${rand(errMsgs)}` : `ElastiCache Global ${globalDs}: ${ev} completed`,
-  };
-}
-
 export {
   generateDynamoDbLog,
   generateElastiCacheLog,
@@ -1379,8 +1297,4 @@ export {
   generateDaxLog,
   generateNeptuneAnalyticsLog,
   generateAuroraDsqlLog,
-  generateRdsProxyLog,
-  generateRdsCustomLog,
-  generateDmsServerlessLog,
-  generateElastiCacheGlobalLog,
 };

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "il-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "cloudtrail"
@@ -20,48 +20,62 @@
       "event_version": "1.09",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "0auf82km-dixk-lycd-ecul-j755ybrcunq",
+      "request_id": "jxpipv85-bll5-9yor-ocbn-cz1cfazl7ig",
       "api_version": "2012-10-17",
       "management_event": true,
       "read_only": false,
-      "recipient_account_id": "501938274650",
-      "aws_region": "ap-south-2",
+      "recipient_account_id": "738291046572",
+      "aws_region": "il-central-1",
       "user_identity": {
-        "type": "AssumedRole",
-        "principal_id": "AROAZTYD20BZT3:bob-session",
-        "arn": "arn:aws:iam::501938274650:user/bob",
-        "account_id": "501938274650",
-        "access_key_id": "AKIAU6I07MMHTP",
+        "type": "IAMUser",
+        "principal_id": "738291046572:carol",
+        "arn": "arn:aws:iam::738291046572:user/carol",
+        "account_id": "738291046572",
+        "access_key_id": "AKIAJRO966WNZ1H",
         "session_context": {
           "session_issuer": {
             "type": "Role",
-            "principal_id": "AROAZTYD20BZT3",
-            "arn": "arn:aws:iam::501938274650:role/service-role/execution-role",
-            "account_id": "501938274650",
+            "principal_id": "AROAXODC0S2FQWO",
+            "arn": "arn:aws:iam::738291046572:role/service-role/execution-role",
+            "account_id": "738291046572",
             "user_name": "execution-role"
           },
           "web_id_federation_data": {},
           "attributes": {
-            "creation_date": "2026-04-01T04:48:51.782Z",
+            "creation_date": "2026-04-01T12:22:32.199Z",
             "mfa_authenticated": "false"
           }
         }
       },
       "response_elements": "null"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-cloudtrail-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-cloudtrail-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/cloudtrail/il-central-1/2026/04/01/cloudtrail_9YPV901YYT9.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/cloudtrail/logs",
+      "log_stream": "il-central-1/q5266j9w",
+      "ingestion_time": "2026-04-01T12:55:20.466Z"
     }
   },
   "user": {
-    "name": "bob"
+    "name": "carol"
   },
   "source": {
-    "ip": "129.222.109.64",
+    "ip": "13.64.242.206",
     "geo": {
-      "country_iso_code": "FR",
+      "country_iso_code": "US",
       "city_name": "London"
     }
   },
   "user_agent": {
-    "original": "python-requests/2.27.1"
+    "original": "Go-http-client/1.1"
   },
   "event": {
     "action": "TerminateInstances",
@@ -73,10 +87,32 @@
       "deletion"
     ],
     "dataset": "aws.cloudtrail",
-    "provider": "cloudtrail.amazonaws.com"
+    "provider": "cloudtrail.amazonaws.com",
+    "module": "aws"
   },
-  "message": "CloudTrail: TerminateInstances by bob from 129.222.109.64 - Success",
+  "message": "CloudTrail: TerminateInstances by carol from 13.64.242.206 - Success",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "cloudtrail",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.cloudtrail",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-il-central-1",
+    "ephemeral_id": "yurfw10dva"
+  },
+  "input": {
+    "type": "aws-s3"
   }
 }

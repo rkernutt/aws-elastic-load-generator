@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "emr"
@@ -13,93 +13,93 @@
   },
   "aws": {
     "dimensions": {
-      "JobFlowId": "j-7FVJNVM957L"
+      "JobFlowId": "j-0PGXTN1O29ED"
     },
     "emr": {
-      "cluster_id": "j-7FVJNVM957L",
-      "cluster_name": "etl-daily-aggregation-cluster",
-      "application": "spark",
-      "release": "emr-6.8.0",
-      "instance_group": "CORE",
-      "executor_count": 40,
+      "cluster_id": "j-0PGXTN1O29ED",
+      "cluster_name": "revenue-attribution-cluster",
+      "application": "hive",
+      "release": "emr-6.9.0",
+      "instance_group": "MASTER",
+      "executor_count": 4,
       "job": {
-        "name": "etl-daily-aggregation",
-        "id": "application_1775021233112_7536",
+        "name": "revenue-attribution",
+        "id": "application_1775048120516_1544",
         "run_state": "SUCCEEDED"
       },
-      "structured_logging": true,
+      "structured_logging": false,
       "metrics": {
-        "executor_count": 40,
-        "running_step_count": 2,
+        "executor_count": 4,
+        "running_step_count": 3,
         "failed_step_count": 0,
-        "hdfs_utilization_pct": 71,
-        "yarn_memory_used_mb": 29678,
-        "elapsedTime": 1210000,
-        "numCompletedTasks": 212,
+        "hdfs_utilization_pct": 59,
+        "yarn_memory_used_mb": 29835,
+        "elapsedTime": 3301000,
+        "numCompletedTasks": 251,
         "numFailedTasks": 0,
-        "jvm_heap_usage": 0.49,
-        "gc_time_ms": 27456,
-        "numberAllExecutors": 69
+        "jvm_heap_usage": 0.92,
+        "gc_time_ms": 26573,
+        "numberAllExecutors": 6
       }
     },
     "elasticmapreduce": {
       "metrics": {
         "S3BytesWritten": {
-          "sum": 302115091232
+          "sum": 134849733859
         },
         "S3BytesRead": {
-          "sum": 265614580852
+          "sum": 761075462000
         },
         "HDFSUtilization": {
-          "avg": 71
+          "avg": 59
         },
         "HDFSBytesRead": {
-          "sum": 82000922811
+          "sum": 26822936897
         },
         "HDFSBytesWritten": {
-          "sum": 55846180345
+          "sum": 87143923448
         },
         "TotalNodesRunning": {
-          "avg": 41
+          "avg": 5
         },
         "YARNMemoryAvailablePercentage": {
-          "avg": 38.846287497236695
+          "avg": 53.157509411479765
         },
         "CoreNodesRunning": {
-          "avg": 19
+          "avg": 2
         },
         "CoreNodesPending": {
           "avg": 0
         },
         "TaskNodesRunning": {
-          "avg": 10
+          "avg": 2
         },
         "LiveDataNodes": {
-          "avg": 7
+          "avg": 4
         },
         "CapacityRemainingGB": {
-          "avg": 1905.6280173826067
+          "avg": 2755.024550799628
         },
         "MemoryAvailableMB": {
-          "sum": 29678
+          "sum": 29835
         },
         "MemoryReservedMB": {
-          "avg": 10526
+          "avg": 1354
         },
         "MemoryTotalMB": {
-          "sum": 10829
+          "sum": 95536
         },
         "ContainersPending": {
           "avg": 0
         },
         "ContainerPendingRatio": {
-          "avg": 0.3611227092758778
+          "avg": 0.08832023257770183
         },
         "ContainersAllocated": {
-          "avg": 6
+          "avg": 8
         },
         "AppsCompleted": {
-          "sum": 8
+          "sum": 27
         },
         "AppsFailed": {
           "sum": 0
@@ -108,16 +108,30 @@
           "sum": 0
         },
         "AppsPending": {
-          "avg": 4
+          "avg": 2
         },
         "AppsRunning": {
-          "avg": 5
+          "avg": 1
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-emr-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-emr-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/emr/eu-west-1/2026/04/01/emr_9E1IBZMOINP.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/emr/logs",
+      "log_stream": "eu-west-1/wpvsdyeb",
+      "ingestion_time": "2026-04-01T12:55:20.516Z"
     }
   },
   "process": {
-    "name": "HiveMetastore"
+    "name": "FlinkTaskManager"
   },
   "log": {
     "level": "info"
@@ -129,7 +143,29 @@
     ],
     "dataset": "aws.emr",
     "provider": "elasticmapreduce.amazonaws.com",
-    "duration": 1210000000000
+    "duration": 3301000000000,
+    "module": "aws"
   },
-  "message": "{\"clusterId\":\"j-7FVJNVM957L\",\"applicationId\":\"application_1775021233112_7536\",\"containerId\":\"container_1775021233112_7610_01_928358\",\"logLevel\":\"INFO\",\"message\":\"Stage 4 (runJob) finished in 34.31615576791848 s\",\"timestamp\":\"2026-04-01T05:27:12.782Z\",\"component\":\"driver\"}"
+  "message": "Job submitted to YARN ResourceManager",
+  "service": {
+    "name": "emr",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.emr_logs",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-west-1",
+    "ephemeral_id": "m2a7xrvzycj"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
+  }
 }

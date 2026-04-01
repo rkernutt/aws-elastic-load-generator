@@ -861,6 +861,22 @@ function generateBillingLog(ts: string, er: number): EcsDocument {
 }
 
 function generateDmsLog(ts: string, er: number): EcsDocument {
+  // ~15% chance of generating a DMS Serverless event
+  if (Math.random() < 0.15) {
+    const r = rand(REGIONS); const a = randAccount(); const e = Math.random() < er;
+    const repl = rand(["oracle-to-aurora", "sqlserver-to-redshift", "mongo-to-dynamodb", "mysql-to-s3"]);
+    const phase = rand(["full-load", "cdc", "validation", "pre-migration-assessment"]);
+    const errMsgs = ["Source connection lost", "Target table not found", "LOB column too large", "CDC latency exceeded threshold"];
+    const dcu = randInt(1, 64);
+    return {
+      __dataset: "aws.dmsserverless",
+      "@timestamp": ts,
+      cloud: { provider: "aws", region: r, account: { id: a.id, name: a.name }, service: { name: "dms-serverless" } },
+      aws: { dmsserverless: { replication_config: repl, replication_type: phase, provisioned_capacity: dcu, min_capacity: 1, max_capacity: 64, tables_loaded: randInt(0, 500), tables_loading: randInt(0, 20), tables_errored: e ? randInt(1, 10) : 0, cdc_latency_seconds: phase === "cdc" ? randFloat(0.1, e ? 300 : 5) : 0, rows_applied: randInt(0, 1e6), bytes_transferred: randInt(0, 1e9) } },
+      event: { outcome: e ? "failure" : "success", duration: randInt(1e6, 6e8) },
+      message: e ? `DMS Serverless ${repl}: ${phase} error — ${rand(errMsgs)}` : `DMS Serverless ${repl}: ${phase} active (${dcu} DCU, ${randInt(100, 10000)} rows/s)`,
+    };
+  }
   const region = rand(REGIONS);
   const acct = randAccount();
   const isErr = Math.random() < er;

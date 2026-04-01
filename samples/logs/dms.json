@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "eu-north-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,71 +13,64 @@
   },
   "aws": {
     "dimensions": {
-      "ReplicationInstanceIdentifier": "dms-staging-7k2t5azn"
+      "ReplicationInstanceIdentifier": "dms-prod-q0xpcqnb"
     },
     "dms": {
-      "replication_task_id": "prod-mysql-to-aurora",
-      "migration_type": "cdc",
-      "replication_instance_identifier": "dms-staging-7k2t5azn",
-      "source_engine": "mysql",
+      "replication_task_id": "mongodb-to-documentdb",
+      "migration_type": "full-load",
+      "replication_instance_identifier": "dms-prod-q0xpcqnb",
+      "source_engine": "oracle",
       "target_engine": "dynamodb",
-      "replication_instance_class": "dms.r5.large",
+      "replication_instance_class": "dms.t3.medium",
       "task_status": "Load complete",
-      "full_load_rows_transferred": 6412509,
-      "cdc_incoming_changes": 90941,
-      "latency_ms": 1507,
-      "tables_loaded": 353,
+      "full_load_rows_transferred": 3373016,
+      "cdc_incoming_changes": 0,
+      "latency_ms": 0,
+      "tables_loaded": 249,
       "tables_errored": 0,
       "metrics": {
         "FullLoadThroughputRowsSource": {
-          "avg": 64104
+          "avg": 15809
         },
         "FullLoadThroughputRowsTarget": {
-          "avg": 58487
-        },
-        "CDCIncomingChanges": {
-          "avg": 5199
-        },
-        "CDCChangesMemorySource": {
-          "avg": 504
-        },
-        "CDCChangesMemoryTarget": {
-          "avg": 615
-        },
-        "CDCChangesDiskSource": {
-          "avg": 17
-        },
-        "CDCChangesDiskTarget": {
-          "avg": 6
-        },
-        "CDCLatencySource": {
-          "avg": 3
-        },
-        "CDCLatencyTarget": {
-          "avg": 0
+          "avg": 68974
         },
         "CPUUtilization": {
-          "avg": 7.7666324695774955
+          "avg": 13.470902388289575
         },
         "FreeableMemory": {
-          "avg": 4361352629
+          "avg": 4235901200
         },
         "FreeStorageSpace": {
-          "avg": 48109490709
+          "avg": 97096343908
         },
         "NetworkReceiveThroughput": {
-          "avg": 10963685
+          "avg": 50310405
         },
         "NetworkTransmitThroughput": {
-          "avg": 90404029
+          "avg": 46711585
         },
         "ReadIOPS": {
-          "avg": 2104
+          "avg": 2037
         },
         "WriteIOPS": {
-          "avg": 1205
+          "avg": 1821
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-dms-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-dms-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/dms/eu-north-1/2026/04/01/dms_ALDSD62RNPV.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/dms/logs",
+      "log_stream": "eu-north-1/1rk4k7a0",
+      "ingestion_time": "2026-04-01T12:55:20.526Z"
     }
   },
   "event": {
@@ -88,10 +81,32 @@
     ],
     "dataset": "aws.dms",
     "provider": "dms.amazonaws.com",
-    "duration": 4287000000000
+    "duration": 4227000000000,
+    "module": "aws"
   },
-  "message": "DMS prod-mysql-to-aurora: 6,412,509 rows (mysql->dynamodb cdc)",
+  "message": "DMS mongodb-to-documentdb: 3,373,016 rows (oracle->dynamodb full-load)",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "dms",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.dms",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-north-1",
+    "ephemeral_id": "08dnsqqf6vtq"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

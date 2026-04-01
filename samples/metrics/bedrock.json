@@ -1,30 +1,39 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "ap-south-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-south-1",
+    "ephemeral_id": "jpbvli1qnua"
+  },
   "aws": {
     "bedrock": {
       "metrics": {
         "Invocations": {
-          "avg": 9694,
-          "sum": 9694,
+          "avg": 2299,
+          "sum": 2299,
           "count": 1
         },
         "InvocationLatency": {
-          "avg": 2144.89,
-          "sum": 2144.89,
+          "avg": 889.12,
+          "sum": 889.12,
           "count": 1,
-          "max": 21086.9
+          "max": 9131.52
         },
         "InvocationClientErrors": {
-          "avg": 15,
-          "sum": 15,
+          "avg": 46,
+          "sum": 46,
           "count": 1
         },
         "InvocationServerErrors": {
@@ -38,13 +47,13 @@
           "count": 1
         },
         "InputTokenCount": {
-          "avg": 6670853,
-          "sum": 6670853,
+          "avg": 1252263,
+          "sum": 1252263,
           "count": 1
         },
         "OutputTokenCount": {
-          "avg": 1784972,
-          "sum": 1784972,
+          "avg": 442140,
+          "sum": 442140,
           "count": 1
         },
         "LegacyModelInvocations": {
@@ -66,6 +75,9 @@
     "type": "metrics",
     "dataset": "aws.bedrock",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.bedrock",

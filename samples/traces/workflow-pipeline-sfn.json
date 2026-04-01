@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "de83b323aa32b3fef6455aad49925ffc"
+    "id": "cb78d554382f8056078857ff491e6803"
   },
   "transaction": {
-    "id": "272b8cdc31410d13",
+    "id": "fb243b33276c34cd",
     "name": "scheduled pipeline.tick",
     "type": "messaging",
     "duration": {
-      "us": 560618000
+      "us": 648066000
     },
     "result": "success",
     "sampled": true,
@@ -50,25 +50,33 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "us-west-2",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "234567890123",
+      "name": "staging-aws"
     },
     "service": {
       "name": "events"
     }
   },
   "labels": {
-    "rule_name": "pipeline-daily-eu-central-2",
+    "rule_name": "pipeline-daily-us-west-2",
     "bus": "default"
   },
   "event": {
-    "outcome": "success"
+    "outcome": "success",
+    "module": "aws",
+    "dataset": "aws.workflow-pipeline-sfn"
   },
   "data_stream": {
     "type": "traces",
     "dataset": "apm",
     "namespace": "default"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "input": {
+    "type": "opentelemetry"
   }
 }

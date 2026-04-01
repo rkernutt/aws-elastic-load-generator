@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-south-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,40 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "LoadBalancer": "net/prod-nlb-il-central-1/xk1klwpp91o",
-      "TargetGroup": "targetgroup/tg-web/pszjn78k5ra",
-      "AvailabilityZone": "il-central-1c"
+      "LoadBalancer": "net/prod-nlb-ap-south-1/8jqvnlf60qb",
+      "TargetGroup": "targetgroup/tg-api/62s37kcer4e",
+      "AvailabilityZone": "ap-south-1b"
     },
     "elb": {
-      "name": "net/prod-nlb-il-central-1/xk1klwpp91o",
+      "name": "net/prod-nlb-ap-south-1/8jqvnlf60qb",
       "type": "network",
-      "listener": "arn:aws:elasticloadbalancing:il-central-1:164820739518:listener/net/prod-nlb/qntzyysm7yp/mmu71a5ibi",
-      "protocol": "TLS",
-      "connection_time.ms": 4965,
-      "ssl_cipher": "ECDHE-RSA-AES128-GCM-SHA256",
-      "ssl_protocol": "TLSv1.3",
-      "backend.ip": "29.246.158.82",
+      "listener": "arn:aws:elasticloadbalancing:ap-south-1:164820739518:listener/net/prod-nlb/o3uaipxvh1/syq78dkrv2",
+      "protocol": "UDP",
+      "connection_time.ms": 3335,
+      "backend.ip": "233.48.95.6",
       "backend.port": "3306",
-      "received_bytes": 777157,
-      "sent_bytes": 448921
+      "received_bytes": 86313,
+      "sent_bytes": 425352
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-nlb-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-nlb-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/nlb/ap-south-1/2026/04/01/nlb_D10TBPHD6YE.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/nlb/logs",
+      "log_stream": "ap-south-1/70zdnafx",
+      "ingestion_time": "2026-04-01T12:55:20.472Z"
     }
   },
   "source": {
-    "ip": "93.84.221.113",
-    "port": 58433,
+    "ip": "180.241.37.110",
+    "port": 50135,
     "geo": {
-      "country_iso_code": "JP",
-      "country_name": "Japan",
-      "city_name": "Tokyo",
+      "country_iso_code": "CN",
+      "country_name": "China",
+      "city_name": "Beijing",
       "location": {
-        "lat": 35.6762,
-        "lon": 139.6503
+        "lat": 39.9042,
+        "lon": 116.4074
       }
     }
   },
   "network": {
-    "transport": "tls",
-    "bytes": 777157
+    "transport": "udp",
+    "bytes": 86313
   },
   "event": {
     "outcome": "success",
@@ -55,10 +67,32 @@
     ],
     "dataset": "aws.elb_logs",
     "provider": "elasticloadbalancing.amazonaws.com",
-    "duration": 4965000000
+    "duration": 3335000000,
+    "module": "aws"
   },
-  "message": "NLB TLS:3306 777157B in 4965ms",
+  "message": "NLB UDP:3306 86313B in 3335ms",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "nlb",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.elb_logs",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-south-1",
+    "ephemeral_id": "63ljp5vtgo2"
+  },
+  "input": {
+    "type": "aws-s3"
   }
 }

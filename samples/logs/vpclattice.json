@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "vpclattice"
@@ -13,36 +13,72 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "payment-svc",
-      "ServiceNetworkName": "prod-service-network"
+      "ServiceName": "checkout-svc",
+      "ServiceNetworkName": "shared-services-network"
     },
     "vpclattice": {
-      "service_name": "payment-svc",
-      "service_arn": "arn:aws:vpc-lattice:ap-east-1:814726593401:service/payment-svc-g6cndssr",
-      "service_network_name": "prod-service-network",
-      "target_group_id": "tg-9wbcu6727n9",
-      "source_vpc_id": "vpc-s3mr7zmm",
-      "destination_vpc_id": "vpc-kkhapth5",
-      "request_method": "POST",
+      "service_name": "checkout-svc",
+      "service_arn": "arn:aws:vpc-lattice:eu-west-3:293847561023:service/checkout-svc-wyyhztyt",
+      "service_network_name": "shared-services-network",
+      "target_group_id": "tg-ifcdxk869n",
+      "source_vpc_id": "vpc-iasfr87r",
+      "destination_vpc_id": "vpc-zwv6tgbc",
+      "request_method": "PATCH",
       "response_code": 201,
-      "response_time_ms": 334,
-      "bytes_received": 63273,
-      "bytes_sent": 102246,
-      "tls_cipher_suite": "ECDHE-RSA-AES128-GCM-SHA256"
+      "response_time_ms": 317,
+      "bytes_received": 63490,
+      "bytes_sent": 39202,
+      "tls_cipher_suite": "ECDHE-RSA-AES256-GCM-SHA384"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-vpclattice-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-vpclattice-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/vpclattice/eu-west-3/2026/04/01/vpclattice_M5PJOESIMP.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/vpclattice/logs",
+      "log_stream": "eu-west-3/mfrxcs8z",
+      "ingestion_time": "2026-04-01T12:55:20.473Z"
     }
   },
   "event": {
-    "action": "FixedResponseRule",
+    "action": "RequestAccepted",
     "outcome": "success",
     "category": [
       "network"
     ],
     "dataset": "aws.vpclattice",
     "provider": "vpc-lattice.amazonaws.com",
-    "duration": 334000000
+    "duration": 317000000,
+    "module": "aws"
   },
-  "message": "VPC Lattice payment-svc: POST 201 334ms",
+  "message": "VPC Lattice checkout-svc: PATCH 201 317ms",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "vpclattice",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.vpclattice",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "1fiy6969em8i"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

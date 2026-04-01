@@ -1,39 +1,48 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "ap-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-east-1",
+    "ephemeral_id": "nr767j171hm"
   },
   "aws": {
     "autoscaling": {
       "metrics": {
         "GroupDesiredCapacity": {
-          "avg": 28,
-          "sum": 28,
+          "avg": 4,
+          "sum": 4,
           "count": 1
         },
         "GroupInServiceCapacity": {
-          "avg": 28,
-          "sum": 28,
+          "avg": 1,
+          "sum": 1,
           "count": 1
         },
         "GroupPendingCapacity": {
-          "avg": 0,
-          "sum": 0,
+          "avg": 3,
+          "sum": 3,
           "count": 1
         },
         "GroupTerminatingCapacity": {
-          "avg": 0,
-          "sum": 0,
+          "avg": 1,
+          "sum": 1,
           "count": 1
         },
         "GroupTotalCapacity": {
-          "avg": 28,
-          "sum": 28,
+          "avg": 1,
+          "sum": 1,
           "count": 1
         },
         "WarmPoolMinSize": {
@@ -47,13 +56,13 @@
           "count": 1
         },
         "GroupAndWarmPoolDesiredCapacity": {
-          "avg": 28,
-          "sum": 28,
+          "avg": 4,
+          "sum": 4,
           "count": 1
         },
         "GroupAndWarmPoolTotalCapacity": {
-          "avg": 28,
-          "sum": 28,
+          "avg": 1,
+          "sum": 1,
           "count": 1
         }
       },
@@ -70,6 +79,9 @@
     "type": "metrics",
     "dataset": "aws.autoscaling",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.autoscaling",

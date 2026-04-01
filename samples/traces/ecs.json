@@ -1,23 +1,23 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "290e29731fdfc3799ce242cd42488fcb"
+    "id": "ddc493e22a00323df0e2f77af1b2d535"
   },
   "transaction": {
-    "id": "13df9b3d5bcb32b0",
-    "name": "POST /auth/refresh",
+    "id": "06a5811565c45efa",
+    "name": "POST /reports",
     "type": "request",
     "duration": {
-      "us": 1245000
+      "us": 907000
     },
-    "result": "HTTP 2xx",
+    "result": "HTTP 4xx",
     "sampled": true,
     "span_count": {
-      "started": 2,
+      "started": 3,
       "dropped": 0
     }
   },
@@ -26,28 +26,28 @@
       "method": "POST"
     },
     "response": {
-      "status_code": 201
+      "status_code": 400
     }
   },
   "url": {
-    "path": "/auth/refresh"
+    "path": "/reports"
   },
   "labels": {
-    "container_id": "1f1a10b8985d",
-    "task_id": "arn:aws:ecs:me-south-1:345678901234:task/prod-services-cluster/f46f94a04473b06bbdfdc1973ca2ed8f",
-    "cluster_name": "prod-services-cluster",
-    "task_definition": "auth-service:20"
+    "container_id": "2d64707e670b",
+    "task_id": "arn:aws:ecs:ap-southeast-3:345678901234:task/staging-services-cluster/490de7a87a87655c1edf600ff28803b1",
+    "cluster_name": "staging-services-cluster",
+    "task_definition": "report-service:3"
   },
   "service": {
-    "name": "auth-service",
-    "environment": "dev",
+    "name": "report-service",
+    "environment": "staging",
     "version": "1.0.0",
     "language": {
-      "name": "java"
+      "name": "python"
     },
     "runtime": {
-      "name": "java21",
-      "version": "21.0.3"
+      "name": "python3.11",
+      "version": "3.11.9"
     },
     "framework": {
       "name": "ECS"
@@ -55,22 +55,22 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "1.6.0"
+    "version": "0.6.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "java",
-      "version": "2.12.0"
+      "language": "python",
+      "version": "1.29.0"
     },
     "distro": {
       "name": "elastic",
-      "version": "1.6.0"
+      "version": "0.6.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "ap-southeast-3",
     "account": {
       "id": "345678901234",
       "name": "dev-aws"
@@ -80,11 +80,19 @@
     }
   },
   "event": {
-    "outcome": "success"
+    "outcome": "failure",
+    "module": "aws",
+    "dataset": "aws.ecs_metrics"
   },
   "data_stream": {
     "type": "traces",
     "dataset": "apm",
     "namespace": "default"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "input": {
+    "type": "opentelemetry"
   }
 }

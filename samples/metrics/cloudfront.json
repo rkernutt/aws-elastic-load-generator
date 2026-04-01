@@ -1,59 +1,68 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "us-west-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-us-west-1",
+    "ephemeral_id": "dk366tblycj"
+  },
   "aws": {
     "cloudfront": {
       "metrics": {
         "Requests": {
-          "avg": 3276044,
-          "sum": 3276044,
+          "avg": 8656203,
+          "sum": 8656203,
           "count": 1
         },
         "BytesDownloaded": {
-          "avg": 48094386238,
-          "sum": 48094386238,
+          "avg": 20892527445,
+          "sum": 20892527445,
           "count": 1
         },
         "BytesUploaded": {
-          "avg": 3340605,
-          "sum": 3340605,
+          "avg": 194215751,
+          "sum": 194215751,
           "count": 1
         },
         "TotalErrorRate": {
-          "avg": 0.47,
-          "sum": 0.47,
+          "avg": 0.55,
+          "sum": 0.55,
           "count": 1
         },
         "4xxErrorRate": {
-          "avg": 0.34,
-          "sum": 0.34,
+          "avg": 0.21,
+          "sum": 0.21,
           "count": 1
         },
         "5xxErrorRate": {
-          "avg": 0,
-          "sum": 0,
+          "avg": 2.43,
+          "sum": 2.43,
           "count": 1
         },
         "CacheHitRate": {
-          "avg": 76.94,
-          "sum": 76.94,
+          "avg": 75.13,
+          "sum": 75.13,
           "count": 1
         },
         "OriginLatency": {
-          "avg": 37.66,
-          "sum": 37.66,
+          "avg": 53.73,
+          "sum": 53.73,
           "count": 1
         }
       },
       "dimensions": {
-        "DistributionId": "E4DEFGHI456789",
+        "DistributionId": "E2BCDEFG234567",
         "Region": "Global"
       }
     }
@@ -66,6 +75,9 @@
     "type": "metrics",
     "dataset": "aws.cloudfront",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.cloudfront",

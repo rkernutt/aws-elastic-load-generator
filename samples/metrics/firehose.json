@@ -1,49 +1,58 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-northeast-1",
+    "ephemeral_id": "hhik509i0fp"
   },
   "aws": {
     "firehose": {
       "metrics": {
         "IncomingBytes": {
-          "avg": 23999312274,
-          "sum": 23999312274,
+          "avg": 466204823,
+          "sum": 466204823,
           "count": 1
         },
         "IncomingRecords": {
-          "avg": 5267750,
-          "sum": 5267750,
+          "avg": 2624661,
+          "sum": 2624661,
           "count": 1
         },
         "DeliveryToS3_Bytes": {
-          "avg": 23519326029,
-          "sum": 23519326029,
+          "avg": 456880727,
+          "sum": 456880727,
           "count": 1
         },
         "DeliveryToS3_Records": {
-          "avg": 3576308,
-          "sum": 3576308,
+          "avg": 7134640,
+          "sum": 7134640,
           "count": 1
         },
         "DeliveryToS3_Success": {
-          "avg": 99.94,
-          "sum": 99.94,
+          "avg": 75.33,
+          "sum": 75.33,
           "count": 1
         },
         "DeliveryToS3_DataFreshness": {
-          "avg": 90.35,
-          "sum": 90.35,
+          "avg": 66.06,
+          "sum": 66.06,
           "count": 1
         },
         "KinesisMillisBehindLatest": {
-          "avg": 1503.44,
-          "sum": 1503.44,
+          "avg": 1146.97,
+          "sum": 1146.97,
           "count": 1
         },
         "ThrottledGetShardIterator": {
@@ -53,7 +62,7 @@
         }
       },
       "dimensions": {
-        "DeliveryStreamName": "metrics-to-s3"
+        "DeliveryStreamName": "clickstream-to-s3"
       }
     }
   },
@@ -65,6 +74,9 @@
     "type": "metrics",
     "dataset": "aws.firehose",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.firehose",

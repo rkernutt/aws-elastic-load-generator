@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "sagemaker"
@@ -13,84 +13,125 @@
   },
   "aws": {
     "dimensions": {
-      "TrainingJobName": "bert-finetuned-hyperparametertuning-q7wx1i",
-      "JobType": "HyperparameterTuning"
+      "TrainingJobName": "resnet50-custom-pipeline-qknl6o",
+      "JobType": "Pipeline"
     },
     "sagemaker": {
-      "domain_id": "d-xoszlpnmn8",
-      "domain_name": "ml-research",
-      "user_profile": "bob-ml",
+      "domain_id": "d-x40i48d36j",
+      "domain_name": "cv-team",
+      "user_profile": "dan-platform",
       "job": {
-        "name": "bert-finetuned-hyperparametertuning-q7wx1i",
-        "type": "HyperparameterTuning",
-        "arn": "arn:aws:sagemaker:ap-northeast-1:738291046572:training-job/bert-finetuned-hyperparametertuning-q7wx1i"
+        "name": "resnet50-custom-pipeline-qknl6o",
+        "type": "Pipeline",
+        "arn": "arn:aws:sagemaker:eu-west-1:814726593401:training-job/resnet50-custom-pipeline-qknl6o"
       },
       "model": {
-        "name": "bert-finetuned",
-        "version": 15
+        "name": "resnet50-custom",
+        "version": 22
       },
       "pipeline": {
         "name": "feature-engineering-pipeline",
-        "execution_id": "pipe-w2nk1d3hfi8"
+        "execution_id": "pipe-ch6sdhayq8j"
       },
       "instance": {
-        "type": "ml.p3.2xlarge",
-        "count": 1
+        "type": "ml.g4dn.xlarge",
+        "count": 4
       },
       "metrics": {
-        "training_loss": 0.3841,
-        "accuracy": 0.9468,
-        "epoch": 14,
-        "gpu_utilization_pct": 78,
-        "cpu_utilization_pct": 70
+        "gpu_utilization_pct": 55,
+        "cpu_utilization_pct": 37
       },
       "studio": {
+        "space_name": "ml-research",
+        "app_type": "RStudio",
+        "app_name": "instance-82002zy2",
         "lifecycle_config": false,
         "continuous_logging": false
       },
       "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 2059
+          "sum": 2095
         },
         "ModelLatency": {
-          "avg": 92
+          "avg": 2267
         },
         "GPUUtilization": {
-          "avg": 43
+          "avg": 64
         },
         "CPUUtilization": {
-          "avg": 65
+          "avg": 67
         },
         "DiskUtilization": {
-          "avg": 23
+          "avg": 10
         },
         "MemoryUtilization": {
-          "avg": 76
+          "avg": 90
         },
         "Invocations4XXError": {
           "sum": 0
         },
         "Invocations5XXError": {
-          "sum": 0
+          "sum": 83
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-sagemaker-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-sagemaker-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/sagemaker/eu-west-1/2026/04/01/sagemaker_0PO84LUY1BG.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/sagemaker/logs",
+      "log_stream": "eu-west-1/dsm1gmwf",
+      "ingestion_time": "2026-04-01T12:55:20.519Z"
     }
   },
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "user": {
-    "name": "bob-ml"
+    "name": "dan-platform"
   },
   "event": {
-    "action": "EndpointInService",
-    "duration": 9544858107518.396,
-    "outcome": "success",
+    "action": "AppReady",
+    "duration": 138165233253.95602,
+    "outcome": "failure",
     "category": [
       "process"
     ],
     "dataset": "aws.sagemaker",
-    "provider": "sagemaker.amazonaws.com"
+    "provider": "sagemaker.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Hyperparameter tuning job started"
+  "message": "Model deployment failed: health check timeout",
+  "error": {
+    "code": "ResourceNotFound",
+    "message": "Model deployment failed: health check timeout",
+    "type": "service"
+  },
+  "service": {
+    "name": "sagemaker",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.sagemaker",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-west-1",
+    "ephemeral_id": "ui5190lmy5r"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
+  }
 }

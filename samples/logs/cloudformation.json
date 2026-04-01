@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "cloudformation"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "cloudformation": {
-      "stack_name": "prod-web-stack",
-      "stack_id": "arn:aws:cloudformation:eu-west-1:501938274650:stack/prod-web-stack/mcqqdbhu",
-      "action": "CREATE_STACK",
-      "stack_status": "UPDATE_COMPLETE",
-      "resource_type": "AWS::IAM::Role",
-      "logical_resource_id": "DatabaseCluster",
+      "stack_name": "rds-cluster",
+      "stack_id": "arn:aws:cloudformation:ap-southeast-2:293847561023:stack/rds-cluster/9mi95zb2",
+      "action": "UPDATE_STACK",
+      "stack_status": "CREATE_IN_PROGRESS",
+      "resource_type": "AWS::RDS::DBInstance",
+      "logical_resource_id": "VPC",
       "drift_status": "NOT_CHECKED",
-      "structured_logging": true,
+      "structured_logging": false,
       "metrics": {
         "TotalStack": {
-          "avg": 98
+          "avg": 332
         },
         "ErroredStack": {
           "avg": 0
@@ -32,12 +32,26 @@
           "avg": 0
         },
         "DeletedStack": {
-          "avg": 25
+          "avg": 40
         },
         "StackInstancesDeployed": {
-          "avg": 865
+          "avg": 5842
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-cloudformation-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-cloudformation-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/cloudformation/ap-southeast-2/2026/04/01/cloudformation_57N2F6TEQO.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/cloudformation/logs",
+      "log_stream": "ap-southeast-2/4v9y2thi",
+      "ingestion_time": "2026-04-01T12:55:20.525Z"
     }
   },
   "event": {
@@ -48,10 +62,32 @@
     ],
     "dataset": "aws.cloudformation",
     "provider": "cloudformation.amazonaws.com",
-    "duration": 75000000000
+    "duration": 483000000000,
+    "module": "aws"
   },
-  "message": "{\"stackName\":\"prod-web-stack\",\"action\":\"CREATE_STACK\",\"stackStatus\":\"UPDATE_COMPLETE\",\"resourceType\":\"AWS::IAM::Role\",\"message\":\"CloudFormation prod-web-stack: CREATE_STACK -> UPDATE_COMPLETE\",\"timestamp\":\"2026-04-01T05:27:12.782Z\"}",
+  "message": "CloudFormation rds-cluster: UPDATE_STACK -> CREATE_IN_PROGRESS",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "cloudformation",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.cloudformation",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-southeast-2",
+    "ephemeral_id": "cvjtl7t81u"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

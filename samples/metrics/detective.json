@@ -1,19 +1,28 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "sa-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-sa-east-1",
+    "ephemeral_id": "2tj38g4uqn2"
   },
   "aws": {
     "detective": {
       "metrics": {
         "RequestCount": {
-          "avg": 140977,
-          "sum": 140977,
+          "avg": 267179,
+          "sum": 267179,
           "count": 1
         },
         "ErrorCount": {
@@ -22,8 +31,8 @@
           "count": 1
         },
         "SuccessCount": {
-          "avg": 136431,
-          "sum": 136431,
+          "avg": 298190,
+          "sum": 298190,
           "count": 1
         }
       },
@@ -40,6 +49,9 @@
     "type": "metrics",
     "dataset": "aws.detective",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.detective",

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "translate"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "dimensions": {
-      "SourceLanguage": "it",
-      "TargetLanguage": "ru"
+      "SourceLanguage": "hi",
+      "TargetLanguage": "fr"
     },
     "translate": {
-      "source_language_code": "it",
-      "target_language_code": "ru",
-      "characters_translated": 478451,
+      "source_language_code": "hi",
+      "target_language_code": "fr",
+      "characters_translated": 390010,
       "formality": "INFORMAL",
-      "duration_ms": 968,
+      "duration_ms": 568,
       "metrics": {
         "SuccessfulRequestCount": {
           "sum": 1
@@ -36,25 +36,61 @@
           "sum": 0
         },
         "CharacterCount": {
-          "sum": 4443
+          "sum": 353
         },
         "ResponseTime": {
-          "avg": 246.61151252296733
+          "avg": 294.0688888355455
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-translate-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-translate-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/translate/ap-northeast-1/2026/04/01/translate_MKED0XR504O.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/translate/logs",
+      "log_stream": "ap-northeast-1/ktp0fvuz",
+      "ingestion_time": "2026-04-01T12:55:20.521Z"
     }
   },
   "event": {
-    "duration": 967750117.8136151,
+    "duration": 567908447.025627,
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.translate",
-    "provider": "translate.amazonaws.com"
+    "provider": "translate.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Translate it->ru: 478,451 chars in 968ms",
+  "message": "Translate hi->fr: 390,010 chars in 568ms",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "translate",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.translate",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-northeast-1",
+    "ephemeral_id": "r4ujx59jmap"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

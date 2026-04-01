@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "us-east-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "appfabric"
@@ -13,37 +13,73 @@
   },
   "aws": {
     "dimensions": {
-      "AppBundle": "saas-audit-bundle",
-      "Application": "Slack"
+      "AppBundle": "security-bundle",
+      "Application": "Microsoft365"
     },
     "appfabric": {
-      "app_bundle_arn": "arn:aws:appfabric:ap-southeast-4:501938274650:appbundle/saas-audit-bundle",
-      "application": "Slack",
-      "event_type": "userSignIn",
-      "normalized_user": "user-UZGIEBEW@example.com",
-      "source_ip": "16.195.44.179",
+      "app_bundle_arn": "arn:aws:appfabric:us-east-2:164820739518:appbundle/security-bundle",
+      "application": "Microsoft365",
+      "event_type": "dataExport",
+      "normalized_user": "user-W8XDRPHA@example.com",
+      "source_ip": "209.191.21.168",
       "ingestion_status": "ACTIVE",
-      "tenant_id": "tenant-LKS022SS",
-      "ocsf_class": "API_ACTIVITY"
+      "tenant_id": "tenant-T6HLQ5B2",
+      "ocsf_class": "NETWORK_ACTIVITY"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-appfabric-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-appfabric-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/appfabric/us-east-2/2026/04/01/appfabric_ADTCWCABSUG.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/appfabric/logs",
+      "log_stream": "us-east-2/couf6jeq",
+      "ingestion_time": "2026-04-01T12:55:20.519Z"
     }
   },
   "event": {
-    "action": "DeliverToFIREHOSE",
+    "action": "DeliverToS3",
     "outcome": "success",
     "category": [
       "audit"
     ],
     "dataset": "aws.appfabric",
-    "provider": "appfabric.amazonaws.com"
+    "provider": "appfabric.amazonaws.com",
+    "module": "aws"
   },
-  "message": "AppFabric Slack: userSignIn by user-UZGIEBEW@example.com normalized as OCSF API_ACTIVITY",
+  "message": "AppFabric Microsoft365: dataExport by user-W8XDRPHA@example.com normalized as OCSF NETWORK_ACTIVITY",
   "log": {
     "level": "info"
   },
   "user": {
-    "email": "user-UZGIEBEW@example.com"
+    "email": "user-W8XDRPHA@example.com"
   },
   "source": {
-    "ip": "16.195.44.179"
+    "ip": "209.191.21.168"
+  },
+  "service": {
+    "name": "appfabric",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.appfabric",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-us-east-2",
+    "ephemeral_id": "xhrw7umwmd8"
+  },
+  "input": {
+    "type": "http_endpoint"
   }
 }

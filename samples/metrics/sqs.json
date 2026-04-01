@@ -1,59 +1,68 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "me-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-me-central-1",
+    "ephemeral_id": "caivls255lv"
   },
   "aws": {
     "sqs": {
       "metrics": {
         "NumberOfMessagesSent": {
-          "avg": 56012,
-          "sum": 56012,
+          "avg": 90450,
+          "sum": 90450,
           "count": 1
         },
         "NumberOfMessagesReceived": {
-          "avg": 51658,
-          "sum": 51658,
+          "avg": 89461,
+          "sum": 89461,
           "count": 1
         },
         "NumberOfMessagesDeleted": {
-          "avg": 46810,
-          "sum": 46810,
+          "avg": 80307,
+          "sum": 80307,
           "count": 1
         },
         "ApproximateNumberOfMessagesVisible": {
-          "avg": 1273,
-          "sum": 1273,
+          "avg": 1697,
+          "sum": 1697,
           "count": 1
         },
         "ApproximateNumberOfMessagesNotVisible": {
-          "avg": 673,
-          "sum": 673,
+          "avg": 48,
+          "sum": 48,
           "count": 1
         },
         "ApproximateAgeOfOldestMessage": {
-          "avg": 36.45,
-          "sum": 36.45,
+          "avg": 39.98,
+          "sum": 39.98,
           "count": 1
         },
         "NumberOfEmptyReceives": {
-          "avg": 5839,
-          "sum": 5839,
+          "avg": 2789,
+          "sum": 2789,
           "count": 1
         },
         "SentMessageSize": {
-          "avg": 1640.17,
-          "sum": 1640.17,
+          "avg": 3053.13,
+          "sum": 3053.13,
           "count": 1
         }
       },
       "dimensions": {
-        "QueueName": "batch-jobs"
+        "QueueName": "payment-events"
       }
     }
   },
@@ -65,6 +74,9 @@
     "type": "metrics",
     "dataset": "aws.sqs",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.sqs",

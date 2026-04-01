@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "ap-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "dynamodb"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "TableName": "users",
-      "Operation": "Query"
+      "TableName": "orders",
+      "Operation": "GetItem"
     },
     "dynamodb": {
-      "table_name": "users",
-      "operation": "Query",
-      "consumed_read_capacity_units": 26.96029187915467,
-      "consumed_write_capacity_units": 27.361848158031737,
-      "items_count": 872,
+      "table_name": "orders",
+      "operation": "GetItem",
+      "consumed_read_capacity_units": 29.58099560632516,
+      "consumed_write_capacity_units": 30.07592401731588,
+      "items_count": 643,
       "structured_logging": false,
       "metrics": {
         "AccountMaxReads": {
-          "max": 821948
+          "max": 600304
         },
         "AccountMaxWrites": {
-          "max": 389214
+          "max": 860244
         },
         "AccountMaxTableLevelReads": {
-          "max": 83029
+          "max": 73322
         },
         "AccountMaxTableLevelWrites": {
-          "max": 70044
+          "max": 55598
         },
         "AccountProvisionedReadCapacityUtilization": {
-          "avg": 45.575661913608116
+          "avg": 42.02122486064196
         },
         "ConsumedReadCapacityUnits": {
-          "sum": 832
+          "sum": 379
         },
         "ConsumedWriteCapacityUnits": {
-          "sum": 403
+          "sum": 31
         },
         "ProvisionedReadCapacityUnits": {
-          "avg": 7954
+          "avg": 6646
         },
         "ProvisionedWriteCapacityUnits": {
-          "avg": 1997
+          "avg": 4362
         },
         "ReadThrottleEvents": {
           "sum": 0
@@ -64,8 +64,8 @@
           "sum": 0
         },
         "SuccessfulRequestLatency": {
-          "avg": 2.9486406799868097,
-          "max": 2.0457056483289113
+          "avg": 1.3464801669579642,
+          "max": 18.12238084943855
         },
         "ThrottledRequests": {
           "sum": 0
@@ -74,17 +74,31 @@
           "sum": 0
         },
         "ReturnedItemCount": {
-          "avg": 827
+          "avg": 169
         },
         "ReturnedBytes": {
-          "avg": 544392
+          "avg": 293271
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-dynamodb-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-dynamodb-logs-501938274650"
+      },
+      "object": {
+        "key": "AWSLogs/501938274650/dynamodb/ap-east-1/2026/04/01/dynamodb_RKWYT419G08.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/dynamodb/logs",
+      "log_stream": "ap-east-1/2ksawv78",
+      "ingestion_time": "2026-04-01T12:55:20.507Z"
     }
   },
   "db": {
-    "name": "users",
-    "operation": "Query",
+    "name": "orders",
+    "operation": "GetItem",
     "type": "nosql"
   },
   "event": {
@@ -97,16 +111,32 @@
     ],
     "dataset": "aws.dynamodb",
     "provider": "dynamodb.amazonaws.com",
-    "duration": 41000000
+    "duration": 17000000,
+    "module": "aws"
   },
-  "message": "DynamoDB Query users: consumed 26.96029187915467 RCU, 27.361848158031737 WCU",
+  "message": "DynamoDB GetItem orders: consumed 29.58099560632516 RCU, 30.07592401731588 WCU",
   "log": {
     "level": "info"
   },
-  "trace": {
-    "id": "1K5XM8DW876"
+  "service": {
+    "name": "dynamodb",
+    "type": "aws"
   },
-  "transaction": {
-    "id": "X4OKWX3O86"
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.dynamodb",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-east-1",
+    "ephemeral_id": "q5vsi5boyxm"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

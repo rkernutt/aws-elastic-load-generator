@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "us-east-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "drs"
@@ -13,30 +13,66 @@
   },
   "aws": {
     "dimensions": {
-      "SourceServerId": "s-sw8y735sha"
+      "SourceServerId": "s-geanzsuuwt"
     },
     "drs": {
-      "source_server_id": "s-sw8y735sha",
-      "source_hostname": "app-server-03",
+      "source_server_id": "s-geanzsuuwt",
+      "source_hostname": "db-primary",
       "replication_status": "Continuous",
-      "lag_duration_seconds": 3,
-      "data_replication_state": "Continuous",
-      "ebs_volume_count": 5,
-      "staging_area": "eu-west-1",
-      "recovery_point_objective_seconds": 46
+      "lag_duration_seconds": 18,
+      "data_replication_state": "InProgress",
+      "ebs_volume_count": 6,
+      "staging_area": "us-west-2",
+      "recovery_point_objective_seconds": 72
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-drs-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-drs-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/drs/us-east-2/2026/04/01/drs_0A38DSQQC09Y.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/drs/logs",
+      "log_stream": "us-east-2/ek2smh01",
+      "ingestion_time": "2026-04-01T12:55:20.529Z"
     }
   },
   "event": {
-    "action": "DrillLaunch",
+    "action": "ReplicationStateChange",
     "outcome": "success",
     "category": [
       "host"
     ],
     "dataset": "aws.drs",
-    "provider": "drs.amazonaws.com"
+    "provider": "drs.amazonaws.com",
+    "module": "aws"
   },
-  "message": "DRS app-server-03: replication Continuous, RPO 46s",
+  "message": "DRS db-primary: replication Continuous, RPO 72s",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "drs",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.drs",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-us-east-2",
+    "ephemeral_id": "phj6343zgh"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

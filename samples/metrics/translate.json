@@ -1,29 +1,38 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "af-south-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-af-south-1",
+    "ephemeral_id": "awwncrtcwev"
+  },
   "aws": {
     "translate": {
       "metrics": {
         "CharacterCount": {
-          "avg": 4232473,
-          "sum": 4232473,
+          "avg": 1273824,
+          "sum": 1273824,
           "count": 1
         },
         "SuccessfulRequestCount": {
-          "avg": 5254,
-          "sum": 5254,
+          "avg": 5703,
+          "sum": 5703,
           "count": 1
         },
         "ThrottledCount": {
-          "avg": 0,
-          "sum": 0,
+          "avg": 72,
+          "sum": 72,
           "count": 1
         },
         "SystemErrorCount": {
@@ -32,15 +41,15 @@
           "count": 1
         },
         "ResponseTime": {
-          "avg": 314.35,
-          "sum": 314.35,
+          "avg": 68.91,
+          "sum": 68.91,
           "count": 1
         }
       },
       "dimensions": {
         "Operation": "TranslateText",
         "SourceLanguageCode": "fr",
-        "TargetLanguageCode": "ar"
+        "TargetLanguageCode": "ja"
       }
     }
   },
@@ -52,6 +61,9 @@
     "type": "metrics",
     "dataset": "aws.translate",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.translate",

@@ -1,64 +1,73 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ap-east-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-east-1",
+    "ephemeral_id": "brqwu9y2l9g"
+  },
   "aws": {
     "s3": {
       "metrics": {
         "BucketSizeBytes": {
-          "avg": 22782654021632,
-          "sum": 22782654021632,
+          "avg": 11155103809536,
+          "sum": 11155103809536,
           "count": 1
         },
         "NumberOfObjects": {
-          "avg": 36974014,
-          "sum": 36974014,
+          "avg": 82927580,
+          "sum": 82927580,
           "count": 1
         },
         "AllRequests": {
-          "avg": 5131970,
-          "sum": 5131970,
+          "avg": 1113587,
+          "sum": 1113587,
           "count": 1
         },
         "GetRequests": {
-          "avg": 3753646,
-          "sum": 3753646,
+          "avg": 1480465,
+          "sum": 1480465,
           "count": 1
         },
         "PutRequests": {
-          "avg": 817240,
-          "sum": 817240,
+          "avg": 525017,
+          "sum": 525017,
           "count": 1
         },
         "DeleteRequests": {
-          "avg": 11691,
-          "sum": 11691,
+          "avg": 223508,
+          "sum": 223508,
           "count": 1
         },
         "HeadRequests": {
-          "avg": 441594,
-          "sum": 441594,
+          "avg": 984549,
+          "sum": 984549,
           "count": 1
         },
         "BytesDownloaded": {
-          "avg": 434994710456,
-          "sum": 434994710456,
+          "avg": 486579054480,
+          "sum": 486579054480,
           "count": 1
         },
         "BytesUploaded": {
-          "avg": 288730177450,
-          "sum": 288730177450,
+          "avg": 216941889267,
+          "sum": 216941889267,
           "count": 1
         },
         "4xxErrors": {
-          "avg": 2834,
-          "sum": 2834,
+          "avg": 3446,
+          "sum": 3446,
           "count": 1
         },
         "5xxErrors": {
@@ -68,7 +77,7 @@
         }
       },
       "dimensions": {
-        "BucketName": "ml-datasets",
+        "BucketName": "prod-assets",
         "StorageType": "GlacierStorage"
       }
     }
@@ -81,6 +90,9 @@
     "type": "metrics",
     "dataset": "aws.s3_daily_storage",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.s3_daily_storage",

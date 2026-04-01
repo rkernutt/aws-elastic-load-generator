@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "ecr"
@@ -13,32 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "RepositoryName": "nginx-custom",
-      "RegistryId": "738291046572"
+      "RepositoryName": "base-image",
+      "RegistryId": "293847561023"
     },
     "ecr": {
-      "repository_name": "nginx-custom",
-      "registry_id": "738291046572",
-      "image_tag": "latest",
-      "image_digest": "sha256:9mxq50j004m",
+      "repository_name": "base-image",
+      "registry_id": "293847561023",
+      "image_tag": "sha-a3f1bc",
+      "image_digest": "sha256:j7blxc1mfqc",
       "action": "pull",
-      "image_size_bytes": 231751429,
-      "pushed_by": "ci-pipeline",
+      "image_size_bytes": 1839109504,
+      "pushed_by": "github-actions",
       "scan_status": "NOT_STARTED",
       "finding_count": 0,
       "vulnerability_scan_enabled": true,
       "metrics": {
         "ImageCount": {
-          "avg": 781
+          "avg": 447
         },
         "RepositorySizeInBytes": {
-          "avg": 21567695710
+          "avg": 9005294309
         },
         "LifecyclePolicyRuleEvaluationCount": {
           "sum": 0
         },
         "PullCount": {
-          "sum": 140
+          "sum": 646
         },
         "PushCount": {
           "sum": 0
@@ -53,12 +53,26 @@
           "sum": 0
         },
         "ScanFindingsSeverityLow": {
-          "sum": 69
+          "sum": 52
         },
         "ScanFindingsSeverityInformational": {
-          "sum": 48
+          "sum": 129
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-ecr-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-ecr-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/ecr/us-east-2/2026/04/01/ecr_DPKNF4YNMM.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/ecr/logs",
+      "log_stream": "us-east-2/33hhaz24",
+      "ingestion_time": "2026-04-01T12:55:20.469Z"
     }
   },
   "event": {
@@ -68,10 +82,32 @@
     "outcome": "success",
     "dataset": "aws.ecr",
     "provider": "ecr.amazonaws.com",
-    "duration": 505000000
+    "duration": 687000000,
+    "module": "aws"
   },
-  "message": "ECR pull: nginx-custom:latest",
+  "message": "ECR pull: base-image:sha-a3f1bc",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "ecr",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.ecr",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-us-east-2",
+    "ephemeral_id": "r0ylwgs71bl"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

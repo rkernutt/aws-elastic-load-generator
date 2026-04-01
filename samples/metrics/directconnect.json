@@ -1,12 +1,21 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-west-1",
+    "ephemeral_id": "xof3te3pzj"
   },
   "aws": {
     "directconnect": {
@@ -17,23 +26,23 @@
           "count": 1
         },
         "ConnectionBpsIngress": {
-          "avg": 9579516314,
-          "sum": 9579516314,
+          "avg": 7641201207,
+          "sum": 7641201207,
           "count": 1
         },
         "ConnectionBpsEgress": {
-          "avg": 2433844579,
-          "sum": 2433844579,
+          "avg": 2830274004,
+          "sum": 2830274004,
           "count": 1
         },
         "ConnectionPpsIngress": {
-          "avg": 8632111,
-          "sum": 8632111,
+          "avg": 6892908,
+          "sum": 6892908,
           "count": 1
         },
         "ConnectionPpsEgress": {
-          "avg": 395868,
-          "sum": 395868,
+          "avg": 6317891,
+          "sum": 6317891,
           "count": 1
         },
         "ConnectionErrorCount": {
@@ -43,7 +52,7 @@
         }
       },
       "dimensions": {
-        "ConnectionId": "dxcon-33209347"
+        "ConnectionId": "dxcon-46024545"
       }
     }
   },
@@ -55,6 +64,9 @@
     "type": "metrics",
     "dataset": "aws.directconnect",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.directconnect",

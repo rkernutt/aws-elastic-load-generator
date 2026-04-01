@@ -1,19 +1,28 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-southeast-3",
+    "ephemeral_id": "8jpzavf1im3"
   },
   "aws": {
     "emr": {
       "metrics": {
         "CoreNodesRunning": {
-          "avg": 17,
-          "sum": 17,
+          "avg": 35,
+          "sum": 35,
           "count": 1
         },
         "CoreNodesPending": {
@@ -22,59 +31,59 @@
           "count": 1
         },
         "TaskNodesRunning": {
-          "avg": 11,
-          "sum": 11,
+          "avg": 4,
+          "sum": 4,
           "count": 1
         },
         "TaskNodesPending": {
-          "avg": 0,
-          "sum": 0,
+          "avg": 1,
+          "sum": 1,
           "count": 1
         },
         "HDFSUtilization": {
-          "avg": 54.39,
-          "sum": 54.39,
+          "avg": 47.07,
+          "sum": 47.07,
           "count": 1
         },
         "HDFSBytesRead": {
-          "avg": 6813079266,
-          "sum": 6813079266,
+          "avg": 5736260289,
+          "sum": 5736260289,
           "count": 1
         },
         "HDFSBytesWritten": {
-          "avg": 39606952337,
-          "sum": 39606952337,
+          "avg": 14879505326,
+          "sum": 14879505326,
           "count": 1
         },
         "ContainerAllocated": {
-          "avg": 118,
-          "sum": 118,
+          "avg": 188,
+          "sum": 188,
           "count": 1
         },
         "ContainerReserved": {
-          "avg": 16,
-          "sum": 16,
+          "avg": 24,
+          "sum": 24,
           "count": 1
         },
         "ContainerPending": {
-          "avg": 0,
-          "sum": 0,
+          "avg": 93,
+          "sum": 93,
           "count": 1
         },
         "MRActiveNodes": {
-          "avg": 28,
-          "sum": 28,
+          "avg": 39,
+          "sum": 39,
           "count": 1
         },
         "YARNMemoryAvailablePercentage": {
-          "avg": 7.35,
-          "sum": 7.35,
+          "avg": 65.15,
+          "sum": 65.15,
           "count": 1
         }
       },
       "dimensions": {
-        "JobFlowId": "j-CDEF12345678",
-        "JobFlowName": "presto-cluster"
+        "JobFlowId": "j-BCDEF1234567",
+        "JobFlowName": "hive-analytics"
       }
     }
   },
@@ -86,6 +95,9 @@
     "type": "metrics",
     "dataset": "aws.emr_metrics",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.emr_metrics",

@@ -1,5 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
     "region": "ca-central-1",
@@ -8,12 +11,18 @@
       "name": "globex-development"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ca-central-1",
+    "ephemeral_id": "jdt8bvfw7x"
+  },
   "aws": {
     "workspaces": {
       "metrics": {
         "Available": {
-          "avg": 355,
-          "sum": 355,
+          "avg": 373,
+          "sum": 373,
           "count": 1
         },
         "Unhealthy": {
@@ -22,13 +31,13 @@
           "count": 1
         },
         "ConnectionAttempt": {
-          "avg": 6051,
-          "sum": 6051,
+          "avg": 1673,
+          "sum": 1673,
           "count": 1
         },
         "ConnectionSuccess": {
-          "avg": 607,
-          "sum": 607,
+          "avg": 343,
+          "sum": 343,
           "count": 1
         },
         "ConnectionFailure": {
@@ -37,23 +46,23 @@
           "count": 1
         },
         "SessionDisconnect": {
-          "avg": 612,
-          "sum": 612,
+          "avg": 525,
+          "sum": 525,
           "count": 1
         },
         "SessionLaunchTime": {
-          "avg": 12.67,
-          "sum": 12.67,
+          "avg": 13.61,
+          "sum": 13.61,
           "count": 1
         },
         "InSessionLatency": {
-          "avg": 13.34,
-          "sum": 13.34,
+          "avg": 20.64,
+          "sum": 20.64,
           "count": 1
         }
       },
       "dimensions": {
-        "DirectoryId": "d-5675177044"
+        "DirectoryId": "d-1229374271"
       }
     }
   },
@@ -65,6 +74,9 @@
     "type": "metrics",
     "dataset": "aws.workspaces",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.workspaces",

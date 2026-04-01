@@ -1,34 +1,34 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "0127d2e5062dc164c8a0198c0fd006e2"
+    "id": "2c62b708ebbbd67ef2a2fd4ad6669cbe"
   },
   "transaction": {
-    "id": "364142c0c6168b17",
-    "name": "product-catalogue-sync [ETL]",
+    "id": "d96f28471a7f2246",
+    "name": "customer-data-etl [PYTHON_SHELL]",
     "type": "glue_job",
     "duration": {
-      "us": 85696000
+      "us": 101454000
     },
     "result": "success",
     "sampled": true,
     "span_count": {
-      "started": 5,
+      "started": 4,
       "dropped": 0
     }
   },
   "labels": {
-    "glue_job_name": "product-catalogue-sync",
-    "glue_job_run_id": "jr_9d5fcbb9a3ac183123d81078208d948e",
-    "glue_job_type": "ETL",
-    "glue_dpu_hours": "9.18"
+    "glue_job_name": "customer-data-etl",
+    "glue_job_run_id": "jr_c3d452e6d0858e65d0faaa86303788c4",
+    "glue_job_type": "PYTHON_SHELL",
+    "glue_dpu_hours": "4.85"
   },
   "service": {
-    "name": "product-catalogue-sync",
+    "name": "customer-data-etl",
     "environment": "production",
     "version": "1.0.0",
     "language": {
@@ -36,7 +36,7 @@
     },
     "runtime": {
       "name": "CPython",
-      "version": "3.10.14"
+      "version": "3.9.18"
     }
   },
   "agent": {
@@ -56,7 +56,7 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "eu-central-1",
     "account": {
       "id": "345678901234",
       "name": "dev-aws"
@@ -66,11 +66,19 @@
     }
   },
   "event": {
-    "outcome": "success"
+    "outcome": "success",
+    "module": "aws",
+    "dataset": "aws.glue"
   },
   "data_stream": {
     "type": "traces",
     "dataset": "apm",
     "namespace": "default"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "input": {
+    "type": "opentelemetry"
   }
 }

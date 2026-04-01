@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "il-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "cloudwatchalarms"
@@ -13,32 +13,68 @@
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "high-cpu-alarm",
-      "alarm_state": "OK",
+      "alarm_name": "ecs-memory",
+      "alarm_state": "ALARM",
       "previous_state": "ALARM",
-      "namespace": "AWS/ECS",
-      "metric_name": "Duration",
-      "threshold": 85,
-      "evaluation_periods": 3,
-      "metric_value": 67.89932348542494,
+      "namespace": "AWS/RDS",
+      "metric_name": "MemoryUtilization",
+      "threshold": 80,
+      "evaluation_periods": 2,
+      "metric_value": 97.84934546323241,
       "statistic": "Maximum",
       "period_seconds": 3600,
-      "treat_missing_data": "missing"
+      "treat_missing_data": "breaching"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-cloudwatch-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-cloudwatch-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/cloudwatch/il-central-1/2026/04/01/cloudwatch_ARH9K5PJA6R.log.gz"
+      }
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "configuration",
       "process"
     ],
     "dataset": "aws.cloudwatch",
     "provider": "monitoring.amazonaws.com",
-    "duration": 3600000000000
+    "duration": 60000000000,
+    "module": "aws"
   },
-  "message": "CloudWatch alarm \"high-cpu-alarm\": OK (AWS/ECS/Duration=67.9)",
+  "message": "CloudWatch alarm \"ecs-memory\": ALARM (AWS/RDS/MemoryUtilization=97.8)",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "AlarmTriggered",
+    "message": "Alarm ecs-memory: ALARM",
+    "type": "monitoring"
+  },
+  "service": {
+    "name": "cloudwatch",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.cloudwatch",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-il-central-1",
+    "ephemeral_id": "irnra53rael"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

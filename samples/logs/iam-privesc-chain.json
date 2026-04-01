@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "us-east-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -20,33 +20,47 @@
       "event_version": "1.09",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "072v445w-r7hs-us0d-nfhw-nm9gtpfz21",
+      "request_id": "j0ykvoi4-jpfo-s375-67mg-rlvwtutqh1",
       "management_event": true,
       "read_only": true,
       "recipient_account_id": "293847561023",
-      "aws_region": "ap-northeast-2",
+      "aws_region": "us-east-1",
       "user_identity": {
         "type": "IAMUser",
-        "principal_id": "AIDA8FR8AM23ADW",
+        "principal_id": "AIDARI02961PQNI",
         "arn": "arn:aws:iam::293847561023:user/ci-pipeline",
         "account_id": "293847561023",
-        "access_key_id": "AKIAV9ACLRJL478",
+        "access_key_id": "AKIA8Y9D67219PS",
         "session_context": {
           "attributes": {
-            "creation_date": "2026-04-01T05:27:12.782Z",
+            "creation_date": "2026-04-01T12:55:20.199Z",
             "mfa_authenticated": false
           }
         }
       },
       "request_parameters": "{\"maxItems\":100}",
-      "response_elements": "{\"users\":[{\"arn\":\"arn:aws:iam::293847561023:user/alice\",\"userId\":\"AIDAYOQCAT078W8\",\"userName\":\"alice\",\"path\":\"/\",\"createDate\":\"2026-04-01T05:27:12.782Z\"}]}"
+      "response_elements": "{\"users\":[{\"arn\":\"arn:aws:iam::293847561023:user/bob\",\"userId\":\"AIDAP9EC5XWJB4\",\"userName\":\"bob\",\"path\":\"/\",\"createDate\":\"2026-04-01T12:55:20.199Z\"}]}"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-iam-privesc-chain-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-iam-privesc-chain-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/iam-privesc-chain/us-east-1/2026/04/01/iam-privesc-chain_V7HVGW8FBCJ.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/iam-privesc-chain/logs",
+      "log_stream": "us-east-1/xfzurs9v",
+      "ingestion_time": "2026-04-01T12:55:20.479Z"
     }
   },
   "user": {
     "name": "ci-pipeline"
   },
   "source": {
-    "ip": "72.232.75.39"
+    "ip": "204.135.9.165"
   },
   "user_agent": {
     "original": "aws-sdk-python/1.26.0 Python/3.11 Linux/5.15 exec-env/EC2"
@@ -62,7 +76,8 @@
       "change"
     ],
     "dataset": "aws.cloudtrail",
-    "provider": "cloudtrail.amazonaws.com"
+    "provider": "cloudtrail.amazonaws.com",
+    "module": "aws"
   },
   "log": {
     "level": "warn"
@@ -77,5 +92,26 @@
       "id": "T1580"
     }
   },
-  "message": "CloudTrail [PrivEsc Step 1/4]: ListUsers by ci-pipeline from 72.232.75.39 — enumeration"
+  "message": "CloudTrail [PrivEsc Step 1/4]: ListUsers by ci-pipeline from 204.135.9.165 — enumeration",
+  "service": {
+    "name": "iam-privesc-chain",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.iam-privesc-chain",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-us-east-1",
+    "ephemeral_id": "gyrduncq37g"
+  },
+  "input": {
+    "type": "http_endpoint"
+  }
 }

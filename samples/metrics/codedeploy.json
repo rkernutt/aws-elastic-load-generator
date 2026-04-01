@@ -1,24 +1,33 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-west-3",
+    "ephemeral_id": "muwldxiz7jo"
   },
   "aws": {
     "codedeploy": {
       "metrics": {
         "DeploymentAttempts": {
-          "avg": 12,
-          "sum": 12,
+          "avg": 4,
+          "sum": 4,
           "count": 1
         },
         "DeploymentSucceeded": {
-          "avg": 11,
-          "sum": 11,
+          "avg": 3,
+          "sum": 3,
           "count": 1
         },
         "DeploymentFailed": {
@@ -27,14 +36,14 @@
           "count": 1
         },
         "DeploymentDuration": {
-          "avg": 69.56,
-          "sum": 69.56,
+          "avg": 356.23,
+          "sum": 356.23,
           "count": 1
         }
       },
       "dimensions": {
         "ApplicationName": "worker-service",
-        "DeploymentGroupName": "prod"
+        "DeploymentGroupName": "staging"
       }
     }
   },
@@ -46,6 +55,9 @@
     "type": "metrics",
     "dataset": "aws.codedeploy",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.codedeploy",

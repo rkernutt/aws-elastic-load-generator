@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "af-south-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "textract"
@@ -13,17 +13,18 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "DetectDocumentText"
+      "Operation": "StartExpenseAnalysis"
     },
     "textract": {
-      "operation": "DetectDocumentText",
-      "document_type": "invoice",
-      "pages_processed": 44,
-      "blocks_detected": 7612,
-      "words_detected": 17468,
+      "operation": "StartExpenseAnalysis",
+      "document_type": "id-card",
+      "job_id": "95zpirk7tuu",
+      "pages_processed": 50,
+      "blocks_detected": 500,
+      "words_detected": 15300,
       "form_key_value_pairs": 0,
       "tables_detected": 0,
-      "confidence_mean": 98.35680589907047,
+      "confidence_mean": 91.90857256477926,
       "metrics": {
         "DocumentsProcessed": {
           "sum": 1
@@ -32,7 +33,7 @@
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 3441.0296248174795
+          "avg": 3330.4371692983946
         },
         "SuccessfulRequests": {
           "sum": 1
@@ -44,6 +45,20 @@
           "sum": 0
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-textract-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-textract-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/textract/af-south-1/2026/04/01/textract_90VDKCWBVOJ.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/textract/logs",
+      "log_stream": "af-south-1/v4hrkqyv",
+      "ingestion_time": "2026-04-01T12:55:20.520Z"
     }
   },
   "event": {
@@ -53,10 +68,32 @@
       "file"
     ],
     "dataset": "aws.textract",
-    "provider": "textract.amazonaws.com"
+    "provider": "textract.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Textract DetectDocumentText: invoice, 44 pages, 3212 words",
+  "message": "Textract StartExpenseAnalysis: id-card, 50 pages, 6800 words",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "textract",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.textract",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-af-south-1",
+    "ephemeral_id": "0txuohu6lqm"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

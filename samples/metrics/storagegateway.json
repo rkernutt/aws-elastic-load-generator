@@ -1,45 +1,54 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "af-south-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-af-south-1",
+    "ephemeral_id": "qc7jk8yz8f"
+  },
   "aws": {
     "storagegateway": {
       "metrics": {
         "CacheHitPercent": {
-          "avg": 38.38,
-          "sum": 38.38,
+          "avg": 83.91,
+          "sum": 83.91,
           "count": 1
         },
         "CacheFree": {
-          "avg": 25193997134.72,
-          "sum": 25193997134.72,
+          "avg": 61518599125.52,
+          "sum": 61518599125.52,
           "count": 1
         },
         "CacheUsed": {
-          "avg": 20354662723.11,
-          "sum": 20354662723.11,
+          "avg": 15840178981.42,
+          "sum": 15840178981.42,
           "count": 1
         },
         "ReadBytes": {
-          "avg": 1543918488,
-          "sum": 1543918488,
+          "avg": 3987531635,
+          "sum": 3987531635,
           "count": 1
         },
         "WriteBytes": {
-          "avg": 3246508843,
-          "sum": 3246508843,
+          "avg": 2137431707,
+          "sum": 2137431707,
           "count": 1
         }
       },
       "dimensions": {
-        "GatewayId": "sgw-D8CRR9F0",
-        "GatewayName": "prod-gateway"
+        "GatewayId": "sgw-ABB32YFP",
+        "GatewayName": "file-gw"
       }
     }
   },
@@ -51,6 +60,9 @@
     "type": "metrics",
     "dataset": "aws.storagegateway",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.storagegateway",

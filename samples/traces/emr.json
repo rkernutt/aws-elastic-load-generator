@@ -1,28 +1,28 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "d38c46e1cba7d39a98e45911a0d9fc84"
+    "id": "b93d740b9e1942bda5911f0b3f5e8080"
   },
   "transaction": {
-    "id": "76f175ac11088a47",
-    "name": "clickstream-aggregation [STREAMING_SQL]",
+    "id": "85348d53a8312d71",
+    "name": "ml-feature-engineering [SPARK_SQL]",
     "type": "spark_job",
     "duration": {
-      "us": 5100000000
+      "us": 540000000
     },
     "result": "success",
     "sampled": true,
     "span_count": {
-      "started": 4,
+      "started": 7,
       "dropped": 0
     }
   },
   "service": {
-    "name": "clickstream-aggregation",
+    "name": "ml-feature-engineering",
     "environment": "production",
     "version": "1.0.0",
     "language": {
@@ -34,7 +34,7 @@
     },
     "framework": {
       "name": "Spark",
-      "version": "3.4.0"
+      "version": "3.5.0"
     }
   },
   "agent": {
@@ -54,30 +54,38 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "234567890123",
-      "name": "staging-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "emr"
     }
   },
   "labels": {
-    "emr_cluster_id": "j-914C0F164C3A7",
-    "emr_cluster_name": "staging-aws-emr-streaming_sql",
-    "emr_step_id": "s-20F74A5C0FBDA",
-    "spark_app_id": "application_1775021233175_3986",
-    "emr_version": "6.14.0",
-    "spark_version": "3.4.0",
-    "job_type": "streaming_sql"
+    "emr_cluster_id": "j-8D8C38BC96EAF",
+    "emr_cluster_name": "dev-aws-emr-spark_sql",
+    "emr_step_id": "s-9D399D4550F10",
+    "spark_app_id": "application_1775048120564_2032",
+    "emr_version": "7.0.0",
+    "spark_version": "3.5.0",
+    "job_type": "spark_sql"
   },
   "event": {
-    "outcome": "success"
+    "outcome": "success",
+    "module": "aws",
+    "dataset": "aws.emr_logs"
   },
   "data_stream": {
     "type": "traces",
     "dataset": "apm",
     "namespace": "default"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "input": {
+    "type": "opentelemetry"
   }
 }

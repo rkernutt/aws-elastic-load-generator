@@ -1,21 +1,27 @@
 # ⚡ AWS → Elastic Load Generator
 
-A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic deployment via the Elasticsearch Bulk API. Covers **220 AWS services** across **15 service groups**, all using **ECS (Elastic Common Schema)** field naming.
+A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic deployment via the Elasticsearch Bulk API. Covers **211 AWS services** across **15 service groups**, all using **ECS (Elastic Common Schema)** field naming. An additional 10 sub-services (e.g. RDS Proxy, S3 Intelligent-Tiering, SageMaker Pipelines) are included as random event variants within their parent generators and covered by dedicated ingest pipelines, dashboards, and ML jobs.
 
-Each service has its correct real-world ingestion source pre-configured — S3, CloudWatch, direct API, Firehose, OTel, or Elastic Agent — matching how each service actually delivers data to Elastic in production. Switch between **Logs**, **Metrics**, and **Traces** mode; **185 services** support Metrics mode.
+Each service has its correct real-world ingestion source pre-configured — S3, CloudWatch, direct API, Firehose, OTel, or Elastic Agent — matching how each service actually delivers data to Elastic in production. Switch between **Logs**, **Metrics**, and **Traces** mode; **176 services** support Metrics mode.
 
 **Documentation index** (canonical reference material, version history, pipeline reference): [docs/README.md](docs/README.md). Shorter-path copies of two CloudWatch guides also live under [aws-elastic-setup/](aws-elastic-setup/).
 
 ---
 
-## What's New in v11.4
+## What's New in v11.5
 
-- **200-service milestone** — 15 new AWS service generators: Amazon VPC IPAM, AWS Private 5G, Amazon Neptune Analytics, Amazon Aurora DSQL, AWS Mainframe Modernization, AWS Parallel Computing Service, Amazon Elastic VMware Service (EVS), AWS SimSpace Weaver, Amazon HealthOmics, Amazon Bedrock Data Automation, AWS Ground Station, Amazon WorkMail, AWS Wickr, Amazon Q Developer, AWS End User Messaging.
-- **165 metrics generators** — all 15 new services included in Metrics mode via the generic CloudWatch generator.
-- **167 ingest pipelines** — 15 new pipelines added to the custom pipeline installer across 8 groups (networking, databases, compute, aiml, iot, enduser, devtools, streaming).
-- **158 ML anomaly detection jobs across 24 groups** — `v114-services-jobs.json` adds one targeted detector per new service, partitioned by the most operationally meaningful dimension (pool ID, site ID, cluster ID, graph ID, queue, channel, etc.).
-- **Proper AWS icons** — 9 new SVG icons added to `public/aws-icons/` from the official AWS Architecture Icon library (`AWSPrivate5G`, `AWSMainframeModernization`, `AWSParallelComputingService`, `AmazonElasticVMwareService`, `AWSSimSpaceWeaver`, `AmazonHealthOmics`, `AWSGroundStation`, `AmazonWorkMail`, `AWSWickr`).
-- **UI fully updated** — all 15 new services appear in the service picker with correct group, icon, and description.
+- **211 service generators** — 11 new standalone AWS service generators: CloudWatch RUM, Lookout for Equipment, Monitron, Network Access Analyzer, Incident Manager, CloudShell, Cloud9, RoboMaker, Kinesis Video Streams, Panorama, FreeRTOS.
+- **Sub-service folding** — 10 sub-services (RDS Proxy, RDS Custom, DMS Serverless, ElastiCache Global, SageMaker Feature Store / Pipelines / Model Monitor, S3 Intelligent-Tiering / Batch Operations) now generate as random event types within their parent generators using `__dataset` tags for correct pipeline routing.
+- **176 metrics generators** — all new services support Metrics mode via the generic CloudWatch generator.
+- **187 ingest pipelines** — 20 new pipelines for all new and sub-service datasets.
+- **178 ML anomaly detection jobs** — `v115-services-jobs.json` adds 20 detectors for all new services.
+- **76 Kibana dashboards** — 20 new dashboards with ES|QL queries for all new services.
+- **15 new AWS icons** — dedicated SVGs for CloudShell, Cloud9, RoboMaker, Lookout for Equipment, Monitron, Kinesis Video Streams, Panorama, FreeRTOS, CloudWatch RUM, RDS Proxy, S3 Batch Operations, S3 Intelligent-Tiering, Network Access Analyzer, Incident Manager.
+- **Proxy improvements** — request ID correlation (`X-Request-Id` header) and backoff jitter to prevent thundering-herd retries.
+- **Fetch retry** — browser shipping loop now retries transient network failures and 5xx responses with exponential backoff.
+- **Error rate clamp** — `makeSetup` clamps error rate to [0,1] to prevent undefined behaviour.
+- **Test connection** — new `testConnection()` validation function probes the Elasticsearch cluster before shipping.
+- **Env-based proxy config** — Vite dev server reads `PROXY_HOST`/`PROXY_PORT` from environment.
 
 For earlier releases see [docs/VERSION-HISTORY.md](docs/VERSION-HISTORY.md).
 
@@ -246,8 +252,8 @@ After installation, the installer offers to open jobs and start datafeeds immedi
 
 ## Usage
 
-1. **Select services** — toggle individual services, entire groups, or all 200 at once
-2. **Choose mode** — **Logs** generates log documents for all 200 services; **Metrics** generates metrics documents for the 165 metrics-supported services; **Traces** generates APM trace documents for 23 services
+1. **Select services** — toggle individual services, entire groups, or all 211 at once
+2. **Choose mode** — **Logs** generates log documents for all 211 services; **Metrics** generates metrics documents for the 176 metrics-supported services; **Traces** generates APM trace documents for 23 services
 3. **Configure volume** — set logs per service (50–5,000), error rate (0–50%), and batch size
 4. **Set ingestion source** — leave on **Default (per-service)** or override all services to a single source for pipeline testing
 5. **Scheduled mode** _(optional)_ — enable to automatically repeat shipping on a timer. Set **Total runs** and **Interval** to build a consistent ML baseline without manual re-runs. See [ML anomaly detection workflow](#ml-anomaly-detection-workflow) for a recommended baseline-then-spike flow.
@@ -424,9 +430,9 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 ---
 
-## Supported services (200 total)
+## Supported services (211 total)
 
-200 services across 15 groups are supported. Each entry includes the default ingestion source (S3, CloudWatch, API, Firehose) and the ECS dataset field used. For the full per-service breakdown, browse [src/generators/logs/](src/generators/logs/) or [src/generators/metrics/](src/generators/metrics/), or use the service picker in the UI.
+211 services across 15 groups are supported, plus 10 sub-services that appear as random event variants within their parent generators (each sub-service has its own `__dataset` tag, ingest pipeline, Kibana dashboard, and ML anomaly detection job). Each entry includes the default ingestion source (S3, CloudWatch, API, Firehose) and the ECS dataset field used. For the full per-service breakdown, browse [src/generators/](src/generators/) or use the service picker in the UI.
 
 | Group                      | Services (examples)                                                                                                                       |
 | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
@@ -445,13 +451,15 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 | Messaging & Communications | SES, Pinpoint                                                                                                                             |
 | Additional Services        | Transfer Family, Lightsail, Fraud Detector, Location Service, Managed Blockchain                                                          |
 
+> **Sub-services (folded into parent generators):** RDS Proxy · RDS Custom · DMS Serverless · ElastiCache Global · SageMaker Feature Store · SageMaker Pipelines · SageMaker Model Monitor · S3 Intelligent-Tiering · S3 Batch Operations · (IoT Defender). Each sub-service emits its own `__dataset` value so dedicated ingest pipelines, dashboards, and ML jobs apply automatically — they just don't appear as separate entries in the UI service picker.
+
 ---
 
 ## Configuration reference
 
 | Setting                  | Default                    | Range                   | Description                                                                                                          |
 | ------------------------ | -------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Event type               | Logs                       | Logs / Metrics / Traces | **Logs** — all 200 services. **Metrics** — 165 metrics-supported services. **Traces** — 23 trace-supported services. |
+| Event type               | Logs                       | Logs / Metrics / Traces | **Logs** — all 211 services. **Metrics** — 176 metrics-supported services. **Traces** — 23 trace-supported services. |
 | Logs/metrics per service | 500                        | 50–5,000                | Documents generated per selected service                                                                             |
 | Error rate               | 5%                         | 0–50%                   | Fraction of documents representing errors/failures                                                                   |
 | Batch size               | 250                        | 50–1,000                | Documents per `_bulk` API request                                                                                    |
@@ -465,8 +473,8 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 The **samples/** directory contains one sample document per service generated by the same logic as the app:
 
-- **samples/logs/** — 200 JSON log documents, one per service
-- **samples/metrics/** — 165 JSON metrics documents, one per metrics-supported service
+- **samples/logs/** — 211 JSON log documents, one per service
+- **samples/metrics/** — 176 JSON metrics documents, one per metrics-supported service
 - **samples/traces/** — 23 JSON APM trace documents, one per trace-supported service
 
 Regenerate with: `npm run samples` · Verify full coverage: `npm run samples:verify`

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "il-central-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -11,23 +11,24 @@
       "name": "ec2"
     },
     "instance": {
-      "id": "i-i3ccxi7nmc"
+      "id": "i-utsmkt26qw"
     }
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "i-i3ccxi7nmc",
+      "InstanceId": "i-utsmkt26qw",
       "InstanceType": "m5.xlarge",
-      "ImageId": "ami-i9wbgqat"
+      "ImageId": "ami-5xjf3ifx",
+      "AutoScalingGroupName": "worker-asg"
     },
     "ec2": {
       "instance": {
         "image": {
-          "id": "ami-c0z6wdhw"
+          "id": "ami-7ty11fw5"
         },
         "state": {
-          "name": "running",
-          "code": 16
+          "name": "stopping",
+          "code": 64
         },
         "monitoring": {
           "state": "enabled"
@@ -38,89 +39,104 @@
         "type": "m5.xlarge",
         "threads_per_core": 2,
         "private": {
-          "ip": "147.79.242.247",
-          "dns_name": "ip-26-46-131-155.ap-east-1.compute.internal"
+          "ip": "211.20.247.21",
+          "dns_name": "ip-251-83-84-114.sa-east-1.compute.internal"
         },
         "public": {
-          "ip": "141.21.244.67",
-          "dns_name": "ec2-133-234-32-86.compute-1.amazonaws.com"
+          "ip": "116.26.143.88",
+          "dns_name": "ec2-47-181-173-178.compute-1.amazonaws.com"
         }
       },
       "cpu": {
         "total": {
-          "pct": 0.1886
+          "pct": 0.9477
         },
-        "credit_usage": 4.390789620002447,
-        "credit_balance": 131.69979030794227,
+        "credit_usage": 0.16898518217213943,
+        "credit_balance": 329.25818977662135,
         "surplus_credit_balance": 0,
         "surplus_credits_charged": 0
       },
       "network": {
         "in": {
-          "bytes": 852067502,
-          "bytes_per_sec": 156805.73022466182,
-          "packets": 764799,
-          "packets_per_sec": 5165.736003882051
+          "bytes": 555256827,
+          "bytes_per_sec": 525032.601563193,
+          "packets": 312709,
+          "packets_per_sec": 7245.622198629326
         },
         "out": {
-          "bytes": 591197043,
-          "bytes_per_sec": 887889.0202217564,
-          "packets": 801713,
-          "packets_per_sec": 2883.1379475371455
+          "bytes": 500191522,
+          "bytes_per_sec": 748063.5079289726,
+          "packets": 291032,
+          "packets_per_sec": 1239.6298826397513
         }
       },
       "diskio": {
         "read": {
-          "bytes": 71026872,
-          "bytes_per_sec": 360099.3192802242,
-          "count": 952,
-          "count_per_sec": 105.3742611294427
+          "bytes": 187985706,
+          "bytes_per_sec": 747143.9321072486,
+          "count": 9425,
+          "count_per_sec": 865.8416958787694
         },
         "write": {
-          "bytes": 130252735,
-          "bytes_per_sec": 588989.6961924313,
-          "count": 714,
-          "count_per_sec": 989.2826647267486
+          "bytes": 170917156,
+          "bytes_per_sec": 390387.9623812487,
+          "count": 3440,
+          "count_per_sec": 597.6146026971326
         }
       },
       "status": {
-        "check_failed": 0,
+        "check_failed": 1,
         "check_failed_system": 0,
-        "check_failed_instance": 0
+        "check_failed_instance": 1
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-ec2-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-ec2-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/ec2/il-central-1/2026/04/01/ec2_F55MIBVOCCN.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/ec2/logs",
+      "log_stream": "il-central-1/4v3a4a86",
+      "ingestion_time": "2026-04-01T12:55:20.467Z"
     }
   },
   "host": {
-    "hostname": "ip-3-39-226-93",
+    "hostname": "ec2-e9v8myge",
     "os": {
       "type": "linux",
-      "kernel": "5.10.114-194.amzn2.x86_64",
+      "kernel": "5.10.126-190.amzn2.x86_64",
       "version": "2023"
     },
-    "architecture": "x86_64",
+    "architecture": "arm64",
     "cpu": {
       "count": 8,
-      "usage": 0.1886080184113694
+      "usage": 0.9476667226238602
     },
     "disk": {
       "read": {
-        "bytes": 406382280
+        "bytes": 748257848
       },
       "write": {
-        "bytes": 288311059
+        "bytes": 875363104
       }
     },
     "network": {
       "ingress": {
-        "bytes": 848940997
+        "bytes": 585124406
       },
       "egress": {
-        "bytes": 373109825
+        "bytes": 535906420
       }
-    }
+    },
+    "name": "ip-149-208-229-61.ec2.internal"
   },
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "event": {
     "category": [
@@ -128,12 +144,39 @@
       "process"
     ],
     "type": [
-      "info"
+      "error"
     ],
-    "outcome": "success",
+    "outcome": "failure",
     "dataset": "aws.ec2",
     "provider": "ec2.amazonaws.com",
-    "duration": 77000000000
+    "duration": 301000000000,
+    "module": "aws"
   },
-  "message": "{\"instanceId\":\"i-i3ccxi7nmc\",\"instanceType\":\"m5.xlarge\",\"level\":\"info\",\"message\":\"cloud-init: modules done\",\"timestamp\":\"2026-04-01T05:27:12.782Z\",\"component\":\"cloud-init\"}"
+  "message": "systemd: Failed to start Amazon SSM Agent.",
+  "error": {
+    "code": "InvalidAMIID.NotFound",
+    "message": "disk I/O error on /dev/xvda1",
+    "type": "host"
+  },
+  "service": {
+    "name": "ec2",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.ec2_logs",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-il-central-1",
+    "ephemeral_id": "n071qoifaoc"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
+  }
 }

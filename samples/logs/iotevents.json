@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "ap-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "iotevents"
@@ -13,19 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorModelName": "temperature-alert-model",
-      "KeyValue": "machine-prod-1"
+      "DetectorModelName": "door-sensor-model",
+      "KeyValue": "zone-B"
     },
     "iotevents": {
-      "detector_model_name": "temperature-alert-model",
-      "detector_id": "machine-prod-1",
-      "key_value": "machine-prod-1",
+      "detector_model_name": "door-sensor-model",
+      "detector_id": "zone-B",
+      "key_value": "zone-B",
       "event_name": "AlarmActivated",
-      "from_state": "Acknowledged",
+      "from_state": "Alarm",
       "to_state": "Warning",
-      "input_name": "CommandInput",
+      "input_name": "SensorInput",
       "action_type": "SQS",
-      "condition_expression": "$input.data.value < threshold"
+      "timer_name": "idleTimer"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-iotevents-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-iotevents-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/iotevents/ap-east-1/2026/04/01/iotevents_NIBXP60N0O.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/iotevents/logs",
+      "log_stream": "ap-east-1/hy99lzm4",
+      "ingestion_time": "2026-04-01T12:55:20.534Z"
     }
   },
   "event": {
@@ -35,10 +49,32 @@
     ],
     "dataset": "aws.iotevents",
     "provider": "iotevents.amazonaws.com",
-    "duration": 335000000
+    "duration": 132000000,
+    "module": "aws"
   },
-  "message": "IoT Events temperature-alert-model/machine-prod-1: Acknowledged → Warning [AlarmActivated]",
+  "message": "IoT Events door-sensor-model/zone-B: Alarm → Warning [AlarmActivated]",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "iotevents",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.iotevents",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-east-1",
+    "ephemeral_id": "2mr5ym8gp3o"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

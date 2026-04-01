@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "eu-north-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "ram"
@@ -13,13 +13,27 @@
   },
   "aws": {
     "ram": {
-      "resource_share_arn": "arn:aws:ram:ap-east-1:814726593401:resource-share/j8rdwgsx1pc",
-      "resource_share_name": "transit-gateway-share",
-      "resource_type": "networkmanager:CoreNetwork",
+      "resource_share_arn": "arn:aws:ram:eu-north-1:738291046572:resource-share/hoaa3ew25hb",
+      "resource_share_name": "resolver-rules-share",
+      "resource_type": "ram:ResourceShare",
       "action": "CreateResourceShare",
-      "principal": "814726593401",
+      "principal": "738291046572",
       "allow_external_principals": true,
-      "status": "PENDING"
+      "status": "ACTIVE"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-ram-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-ram-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/ram/eu-north-1/2026/04/01/ram_GKBAGEKQ8BV.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/ram/logs",
+      "log_stream": "eu-north-1/ispmj1s5",
+      "ingestion_time": "2026-04-01T12:55:20.527Z"
     }
   },
   "event": {
@@ -31,10 +45,32 @@
     ],
     "dataset": "aws.ram",
     "provider": "ram.amazonaws.com",
-    "duration": 381000000
+    "duration": 165000000,
+    "module": "aws"
   },
-  "message": "RAM CreateResourceShare: networkmanager:CoreNetwork shared with account 814726593401",
+  "message": "RAM CreateResourceShare: ram:ResourceShare shared with account 738291046572",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "ram",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.ram",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-north-1",
+    "ephemeral_id": "8m3gxtd8toj"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

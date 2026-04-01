@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "codebuild"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "ProjectName": "infra-terraform",
-      "BuildId": "infra-terraform:1yvfzt2u-6dw6"
+      "ProjectName": "release-build",
+      "BuildId": "release-build:lmkn5d5r-hb3b"
     },
     "codebuild": {
-      "project_name": "infra-terraform",
-      "build_id": "infra-terraform:1yvfzt2u-6dw6",
+      "project_name": "release-build",
+      "build_id": "release-build:lmkn5d5r-hb3b",
       "build_status": "SUCCEEDED",
-      "current_phase": "COMPLETED",
-      "duration_seconds": 88,
-      "queued_duration_seconds": 6,
-      "build_number": 4802,
-      "initiator": "github-webhook",
-      "source_version": "duv6zo3incp",
+      "current_phase": "PRE_BUILD",
+      "duration_seconds": 564,
+      "queued_duration_seconds": 59,
+      "build_number": 3221,
+      "initiator": "codepipeline",
+      "source_version": "okeo0839qpk",
       "structured_logging": true,
       "metrics": {
         "Builds": {
@@ -38,28 +38,64 @@
           "sum": 0
         },
         "Duration": {
-          "avg": 88
+          "avg": 564
         },
         "QueuedDuration": {
-          "avg": 56
+          "avg": 26
         },
         "BuildDuration": {
-          "avg": 88
+          "avg": 564
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-codebuild-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-codebuild-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/codebuild/eu-central-2/2026/04/01/codebuild_XSB7U64752A.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/codebuild/logs",
+      "log_stream": "eu-central-2/nmca8ip2",
+      "ingestion_time": "2026-04-01T12:55:20.513Z"
     }
   },
   "event": {
-    "duration": 88000000000,
+    "duration": 564000000000,
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.codebuild",
-    "provider": "codebuild.amazonaws.com"
+    "provider": "codebuild.amazonaws.com",
+    "module": "aws"
   },
-  "message": "{\"buildId\":\"infra-terraform:1yvfzt2u-6dw6\",\"project\":\"infra-terraform\",\"phase\":\"COMPLETED\",\"status\":\"SUCCEEDED\",\"durationSeconds\":88,\"timestamp\":\"2026-04-01T05:27:12.782Z\"}",
+  "message": "{\"buildId\":\"release-build:lmkn5d5r-hb3b\",\"project\":\"release-build\",\"phase\":\"PRE_BUILD\",\"status\":\"SUCCEEDED\",\"durationSeconds\":564,\"timestamp\":\"2026-04-01T12:55:20.199Z\"}",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "codebuild",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.codebuild",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-central-2",
+    "ephemeral_id": "01b8vdu5s8mu"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

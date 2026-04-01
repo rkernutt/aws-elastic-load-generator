@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "ap-northeast-2",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,30 +13,44 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "identity-fraud"
+      "DetectorId": "account-takeover"
     },
     "frauddetector": {
-      "detector_id": "identity-fraud",
-      "detector_version_id": "4",
-      "event_id": "k5wujsgcoar",
-      "event_type": "login",
+      "detector_id": "account-takeover",
+      "detector_version_id": "2",
+      "event_id": "6glflzhgg9a",
+      "event_type": "wire_transfer",
       "entity_type": "customer",
-      "entity_id": "entity_4wfdylx59r",
+      "entity_id": "entity_2lg62vuitm",
       "outcomes": [
-        "REVIEW"
+        "APPROVE"
       ],
-      "risk_score": 660,
+      "risk_score": 53,
       "model_scores": {
-        "identity-fraud": 660
+        "account-takeover": 53
       },
       "used_rules": [
-        "review-medium"
+        "approve-low"
       ],
-      "ip_address": "106.115.231.203",
+      "ip_address": "231.248.58.201",
       "event_variables": {
-        "billing_postal": "83390",
-        "phone_verified": "false"
+        "billing_postal": "61304",
+        "phone_verified": "true"
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-frauddetector-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-frauddetector-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/frauddetector/ap-northeast-2/2026/04/01/frauddetector_9WGI6KBQD0R.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/frauddetector/logs",
+      "log_stream": "ap-northeast-2/57hzd9ja",
+      "ingestion_time": "2026-04-01T12:55:20.532Z"
     }
   },
   "event": {
@@ -47,10 +61,32 @@
     ],
     "dataset": "aws.frauddetector",
     "provider": "frauddetector.amazonaws.com",
-    "duration": 239000000
+    "duration": 479000000,
+    "module": "aws"
   },
-  "message": "Fraud Detector REVIEW [identity-fraud]: entity entity_4wfdylx59r score 660/1000",
+  "message": "Fraud Detector APPROVE [account-takeover]: entity entity_2lg62vuitm score 53/1000",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "frauddetector",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.frauddetector",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-northeast-2",
+    "ephemeral_id": "3rzp5jo23zt"
+  },
+  "input": {
+    "type": "http_endpoint"
   }
 }

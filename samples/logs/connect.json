@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "connect"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "8k53ub6z-y3p5-e6tg-aley-w2zdmomoj2",
+      "InstanceId": "gw8ld577-fstu-o3a4-xun6-4dki6efxeck",
       "MetricGroup": "Queue"
     },
     "connect": {
-      "instance_id": "8k53ub6z-y3p5-e6tg-aley-w2zdmomoj2",
-      "contact_id": "lwiz30pu-h71v-0xp1",
-      "channel": "TASK",
-      "initiation_method": "OUTBOUND_CALL",
-      "queue_name": "TechSupport",
-      "agent_id": "agent-bob",
-      "duration_seconds": 751,
-      "hold_duration_seconds": 21,
-      "queue_wait_time_seconds": 225,
-      "disconnect_reason": "CUSTOMER_DISCONNECT",
+      "instance_id": "gw8ld577-fstu-o3a4-xun6-4dki6efxeck",
+      "contact_id": "2iqvat9o-j133-mtrn",
+      "channel": "CHAT",
+      "initiation_method": "TRANSFER",
+      "queue_name": "Sales",
+      "agent_id": "agent-carol",
+      "duration_seconds": 1770,
+      "hold_duration_seconds": 61,
+      "queue_wait_time_seconds": 278,
+      "disconnect_reason": "EXPIRED",
       "sentiment_overall": "NEGATIVE",
-      "contact_lens_enabled": true,
-      "lex_bot_interacted": true,
+      "contact_lens_enabled": false,
+      "lex_bot_interacted": false,
       "metrics": {
         "ContactsQueued": {
           "sum": 1
@@ -44,35 +44,71 @@
           "sum": 0
         },
         "AverageHandleTime": {
-          "avg": 751
+          "avg": 1770
         },
         "AverageAfterContactWorkTime": {
-          "avg": 96
+          "avg": 141
         },
         "AverageQueueAnswerTime": {
-          "avg": 28
+          "avg": 108
         },
         "ServiceLevel": {
-          "avg": 65.97863752427182
+          "avg": 67.59225719491059
         },
         "OccupancyTime": {
-          "avg": 74.15975333005854
+          "avg": 81.96509300271701
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-connect-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-connect-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/connect/eu-west-3/2026/04/01/connect_BSQTSYSS4I6.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/connect/logs",
+      "log_stream": "eu-west-3/qkmcjjnj",
+      "ingestion_time": "2026-04-01T12:55:20.530Z"
     }
   },
   "event": {
-    "duration": 751000000000,
+    "duration": 1770000000000,
     "outcome": "success",
     "category": [
       "host",
       "session"
     ],
     "dataset": "aws.connect",
-    "provider": "connect.amazonaws.com"
+    "provider": "connect.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Connect OUTBOUND_CALL: TechSupport agent=agent-bob, 751s, NEGATIVE",
+  "message": "Connect TRANSFER: Sales agent=agent-carol, 1770s, NEGATIVE",
   "log": {
     "level": "warn"
+  },
+  "service": {
+    "name": "connect",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.connect",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "y4sgz9h9ua"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

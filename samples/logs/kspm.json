@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,37 +7,37 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
   },
   "orchestrator": {
     "cluster": {
-      "id": "data-processing-eks",
-      "name": "data-processing-eks"
+      "id": "prod-eks-cluster",
+      "name": "prod-eks-cluster"
     },
     "type": "kubernetes",
-    "namespace": "default"
+    "namespace": "production"
   },
   "resource": {
-    "id": "data-processing-eks/default/api-server/data-processing-eks",
-    "name": "api-server/data-processing-eks",
+    "id": "prod-eks-cluster/production/api-server/prod-eks-cluster",
+    "name": "api-server/prod-eks-cluster",
     "sub_type": "api-server",
     "type": "k8s_object"
   },
   "rule": {
-    "id": "cis_eks_5_4",
-    "name": "Restrict access to the control plane endpoint",
-    "section": "5.4",
+    "id": "cis_eks_1_1",
+    "name": "Restrict anonymous access to the API server",
+    "section": "1.1",
     "tags": [
-      "Managed Services"
+      "API Server"
     ],
     "benchmark": {
       "id": "cis_eks",
       "version": "v1.4.0",
-      "rule_number": "5.4",
+      "rule_number": "1.1",
       "posture_type": "kspm"
     }
   },
@@ -55,10 +55,43 @@
     ],
     "outcome": "success",
     "dataset": "cloud_security_posture.findings",
-    "provider": "elastic_kspm"
+    "provider": "elastic_kspm",
+    "module": "aws"
   },
-  "message": "KSPM [CIS EKS / 5.4] passed: Restrict access to the control plane endpoint [data-processing-eks]",
+  "message": "KSPM [CIS EKS / 1.1] passed: Restrict anonymous access to the API server [prod-eks-cluster]",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "kspm",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-west-2",
+    "ephemeral_id": "nv3iap0bhuk"
+  },
+  "input": {
+    "type": "http_endpoint"
+  },
+  "aws": {
+    "s3": {
+      "bucket": {
+        "name": "aws-kspm-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-kspm-logs-501938274650"
+      },
+      "object": {
+        "key": "AWSLogs/501938274650/kspm/eu-west-2/2026/04/01/kspm_QGZAAMCA5LD.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/kspm/logs",
+      "log_stream": "eu-west-2/o0ej2m6l",
+      "ingestion_time": "2026-04-01T12:55:20.479Z"
+    }
   }
 }

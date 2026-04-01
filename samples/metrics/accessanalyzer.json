@@ -1,29 +1,38 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "ca-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ca-central-1",
+    "ephemeral_id": "eb3l8z0qm4s"
   },
   "aws": {
     "accessanalyzer": {
       "metrics": {
         "ActiveFindingsCount": {
-          "avg": 15,
-          "sum": 15,
+          "avg": 5,
+          "sum": 5,
           "count": 1
         },
         "ArchivedFindingsCount": {
-          "avg": 56,
-          "sum": 56,
+          "avg": 60,
+          "sum": 60,
           "count": 1
         },
         "ResolvedFindingsCount": {
-          "avg": 105,
-          "sum": 105,
+          "avg": 216,
+          "sum": 216,
           "count": 1
         }
       },
@@ -40,6 +49,9 @@
     "type": "metrics",
     "dataset": "aws.accessanalyzer",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.accessanalyzer",

@@ -1,24 +1,33 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "me-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-me-central-1",
+    "ephemeral_id": "xuzbfxwbdp"
   },
   "aws": {
     "appflow": {
       "metrics": {
         "RecordsProcessed": {
-          "avg": 183022,
-          "sum": 183022,
+          "avg": 539982,
+          "sum": 539982,
           "count": 1
         },
         "FlowExecutionsStarted": {
-          "avg": 74,
-          "sum": 74,
+          "avg": 39,
+          "sum": 39,
           "count": 1
         },
         "FlowExecutionsFailed": {
@@ -32,13 +41,13 @@
           "count": 1
         },
         "FlowExecutionTime": {
-          "avg": 31754.61,
-          "sum": 31754.61,
+          "avg": 36727.43,
+          "sum": 36727.43,
           "count": 1
         }
       },
       "dimensions": {
-        "FlowName": "zendesk-sync"
+        "FlowName": "marketo-etl"
       }
     }
   },
@@ -50,6 +59,9 @@
     "type": "metrics",
     "dataset": "aws.appflow",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.appflow",

@@ -1,59 +1,68 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "sa-east-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-sa-east-1",
+    "ephemeral_id": "inqmi7wmufr"
+  },
   "aws": {
     "neptune": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 22.16,
-          "sum": 22.16,
+          "avg": 46.39,
+          "sum": 46.39,
           "count": 1
         },
         "DatabaseConnections": {
-          "avg": 14,
-          "sum": 14,
+          "avg": 83,
+          "sum": 83,
           "count": 1
         },
         "FreeableMemory": {
-          "avg": 4651271713.96,
-          "sum": 4651271713.96,
+          "avg": 3469652842.07,
+          "sum": 3469652842.07,
           "count": 1
         },
         "GremlinRequestsPerSec": {
-          "avg": 171.05,
-          "sum": 171.05,
+          "avg": 112.01,
+          "sum": 112.01,
           "count": 1
         },
         "SPARQLRequestsPerSec": {
-          "avg": 75.18,
-          "sum": 75.18,
+          "avg": 86.78,
+          "sum": 86.78,
           "count": 1
         },
         "LoaderRequestsPerSec": {
-          "avg": 6.19,
-          "sum": 6.19,
+          "avg": 4.06,
+          "sum": 4.06,
           "count": 1
         },
         "NetworkReceiveThroughput": {
-          "avg": 352584690,
-          "sum": 352584690,
+          "avg": 239745520,
+          "sum": 239745520,
           "count": 1
         },
         "NetworkTransmitThroughput": {
-          "avg": 156253875,
-          "sum": 156253875,
+          "avg": 485766868,
+          "sum": 485766868,
           "count": 1
         }
       },
       "dimensions": {
-        "DBClusterIdentifier": "knowledge-graph",
+        "DBClusterIdentifier": "recommendation-graph",
         "DBInstanceIdentifier": "neptune-instance-1"
       }
     }
@@ -66,6 +75,9 @@
     "type": "metrics",
     "dataset": "aws.neptune",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.neptune",

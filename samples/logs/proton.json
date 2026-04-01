@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "ca-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "proton"
@@ -13,31 +13,67 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "staging-env",
-      "ServiceName": "data-pipeline"
+      "EnvironmentName": "dev-env",
+      "ServiceName": "frontend-service"
     },
     "proton": {
-      "environment_name": "staging-env",
-      "service_name": "data-pipeline",
-      "service_instance_name": "prod-instance",
+      "environment_name": "dev-env",
+      "service_name": "frontend-service",
+      "service_instance_name": "v2-instance",
       "template_name": "ecs-service-template",
-      "template_major_version": "1",
-      "deployment_status": "IN_PROGRESS",
-      "component": "environment"
+      "template_major_version": "3",
+      "deployment_status": "SUCCEEDED",
+      "component": "service_instance"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-proton-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-proton-logs-501938274650"
+      },
+      "object": {
+        "key": "AWSLogs/501938274650/proton/ca-west-1/2026/04/01/proton_IEN5DOPTHKG.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/proton/logs",
+      "log_stream": "ca-west-1/poo6fjoi",
+      "ingestion_time": "2026-04-01T12:55:20.533Z"
     }
   },
   "event": {
-    "action": "CreateEnvironment",
+    "action": "CreateService",
     "outcome": "success",
     "category": [
       "configuration"
     ],
     "dataset": "aws.proton",
     "provider": "proton.amazonaws.com",
-    "duration": 113000000000
+    "duration": 40000000000,
+    "module": "aws"
   },
-  "message": "Proton environment data-pipeline CreateEnvironment IN_PROGRESS",
+  "message": "Proton service_instance frontend-service CreateService SUCCEEDED",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "proton",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.proton",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ca-west-1",
+    "ephemeral_id": "579z65zpsae"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

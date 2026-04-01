@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "detective"
@@ -13,27 +13,58 @@
   },
   "aws": {
     "detective": {
-      "entity_type": "AwsIamRole",
-      "entity_id": "arn:aws:iam::293847561023:user/suspicious",
-      "behavior_type": "Credential Compromise",
-      "severity_score": 94.18618477036333,
-      "finding_count": 2
+      "entity_type": "Ec2Instance",
+      "entity_id": "i-uau5ihnin4",
+      "behavior_type": "Normal",
+      "severity_score": 29.210714671091864,
+      "finding_count": 0
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-detective-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-detective-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/detective/eu-west-1/2026/04/01/detective_OE7JG9Z2X5.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/detective/logs",
+      "log_stream": "eu-west-1/hwqrom8w",
+      "ingestion_time": "2026-04-01T12:55:20.477Z"
     }
   },
   "event": {
-    "kind": "alert",
-    "outcome": "failure",
+    "kind": "event",
+    "outcome": "success",
     "category": "intrusion_detection",
     "dataset": "aws.detective",
-    "provider": "detective.amazonaws.com"
+    "provider": "detective.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Detective [MEDIUM]: Credential Compromise detected - 12 related findings",
+  "message": "Detective: entity behavior within normal baseline",
   "log": {
     "level": "info"
   },
-  "error": {
-    "code": "AnomalousBehavior",
-    "message": "Credential Compromise detected",
-    "type": "security"
+  "service": {
+    "name": "detective",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.detective",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-west-1",
+    "ephemeral_id": "wxqntej6lp"
+  },
+  "input": {
+    "type": "http_endpoint"
   }
 }

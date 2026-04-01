@@ -1,75 +1,84 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "ca-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ca-central-1",
+    "ephemeral_id": "wwqbs3ytmyi"
   },
   "aws": {
     "kinesis": {
       "metrics": {
         "GetRecords.Bytes": {
-          "avg": 198393615,
-          "sum": 198393615,
+          "avg": 14410825,
+          "sum": 14410825,
           "count": 1
         },
         "GetRecords.IteratorAgeMilliseconds": {
-          "avg": 6343.05,
-          "sum": 6343.05,
+          "avg": 2016498.17,
+          "sum": 2016498.17,
           "count": 1,
-          "max": 21275.69
+          "max": 7146465.71
         },
         "GetRecords.Records": {
-          "avg": 235887,
-          "sum": 235887,
+          "avg": 17167,
+          "sum": 17167,
           "count": 1
         },
         "GetRecords.Success": {
-          "avg": 4984,
-          "sum": 4984,
+          "avg": 8119,
+          "sum": 8119,
           "count": 1
         },
         "IncomingBytes": {
-          "avg": 220437350,
-          "sum": 220437350,
+          "avg": 16012028,
+          "sum": 16012028,
           "count": 1
         },
         "IncomingRecords": {
-          "avg": 262097,
-          "sum": 262097,
+          "avg": 19074,
+          "sum": 19074,
           "count": 1
         },
         "PutRecord.Bytes": {
-          "avg": 110218675,
-          "sum": 110218675,
+          "avg": 8006014,
+          "sum": 8006014,
           "count": 1
         },
         "PutRecord.Success": {
-          "avg": 363,
-          "sum": 363,
+          "avg": 815,
+          "sum": 815,
           "count": 1
         },
         "PutRecords.Bytes": {
-          "avg": 110218675,
-          "sum": 110218675,
+          "avg": 8006014,
+          "sum": 8006014,
           "count": 1
         },
         "PutRecords.Records": {
-          "avg": 131049,
-          "sum": 131049,
+          "avg": 9537,
+          "sum": 9537,
           "count": 1
         },
         "PutRecords.Success": {
-          "avg": 4442,
-          "sum": 4442,
+          "avg": 4752,
+          "sum": 4752,
           "count": 1
         },
         "WriteProvisionedThroughputExceeded": {
-          "avg": 340,
-          "sum": 340,
+          "avg": 0,
+          "sum": 0,
           "count": 1
         },
         "ReadProvisionedThroughputExceeded": {
@@ -79,8 +88,8 @@
         }
       },
       "dimensions": {
-        "StreamName": "clickstream",
-        "ShardId": "shardId-000000000001"
+        "StreamName": "payment-stream",
+        "ShardId": "shardId-000000000003"
       }
     }
   },
@@ -92,6 +101,9 @@
     "type": "metrics",
     "dataset": "aws.kinesis",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.kinesis",

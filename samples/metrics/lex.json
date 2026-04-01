@@ -1,24 +1,33 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "il-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-il-central-1",
+    "ephemeral_id": "oedp84zhaq"
   },
   "aws": {
     "lex": {
       "metrics": {
         "RuntimeRequestCount": {
-          "avg": 3825,
-          "sum": 3825,
+          "avg": 17544,
+          "sum": 17544,
           "count": 1
         },
         "RuntimeSuccessfulRequestLatency": {
-          "avg": 131.75,
-          "sum": 131.75,
+          "avg": 479.38,
+          "sum": 479.38,
           "count": 1
         },
         "RuntimeThrottledRequests": {
@@ -32,8 +41,8 @@
           "count": 1
         },
         "MissedUtteranceCount": {
-          "avg": 193,
-          "sum": 193,
+          "avg": 529,
+          "sum": 529,
           "count": 1
         },
         "RuntimeInvalidLambdaResponses": {
@@ -43,7 +52,7 @@
         }
       },
       "dimensions": {
-        "BotName": "SupportBot",
+        "BotName": "BookHotelBot",
         "BotVersion": "$LATEST",
         "Operation": "PostContent"
       }
@@ -57,6 +66,9 @@
     "type": "metrics",
     "dataset": "aws.lex",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.lex",

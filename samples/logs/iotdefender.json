@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "ap-southeast-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,20 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "CheckName": "UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE"
+      "CheckName": "DEVICE_CERTIFICATE_EXPIRING"
     },
     "iotdefender": {
       "thing_name": "camera-lobby",
-      "audit_check_name": "UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE",
-      "finding_id": "eeb8dhk1wl",
-      "severity": "CRITICAL",
-      "violation_id": "03f6ic7dcvr",
-      "violation_type": "cell-data-transfer",
-      "security_profile_name": "baseline-security-profile",
+      "audit_check_name": "DEVICE_CERTIFICATE_EXPIRING",
+      "finding_id": "40dcagvkkyp",
+      "severity": "LOW",
+      "violation_id": "h91bs3owscb",
+      "violation_type": "authorization-failure",
+      "security_profile_name": "factory-floor-profile",
       "behavior_name": "msg-size",
-      "current_value": 315,
-      "threshold_value": 24,
-      "consecutive_datapoints_to_alarm": 4
+      "current_value": 737,
+      "threshold_value": 11,
+      "consecutive_datapoints_to_alarm": 5
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-iotdefender-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-iotdefender-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/iotdefender/ap-southeast-1/2026/04/01/iotdefender_YPN5VYUPOTC.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/iotdefender/logs",
+      "log_stream": "ap-southeast-1/bkad3has",
+      "ingestion_time": "2026-04-01T12:55:20.534Z"
     }
   },
   "event": {
@@ -38,10 +52,32 @@
     ],
     "dataset": "aws.iotdefender",
     "provider": "iot.amazonaws.com",
-    "duration": 215000000000
+    "duration": 226000000000,
+    "module": "aws"
   },
-  "message": "IoT Defender CRITICAL [camera-lobby]: UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE",
+  "message": "IoT Defender LOW [camera-lobby]: DEVICE_CERTIFICATE_EXPIRING",
   "log": {
-    "level": "warn"
+    "level": "info"
+  },
+  "service": {
+    "name": "iotdefender",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.iotdefender",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-southeast-1",
+    "ephemeral_id": "dddvbyrw7kt"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

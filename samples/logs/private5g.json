@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "us-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "private5g"
@@ -13,19 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "NetworkSiteId": "site-1l5t681k"
+      "NetworkSiteId": "site-mtgdd79i"
     },
     "private5g": {
-      "network_arn": "arn:aws:private5g:ca-west-1:738291046572:network/net-geu04h83",
-      "network_site_id": "site-1l5t681k",
-      "device_identifier": "device-pgjzww7h0e",
-      "order_id": "order-veiz76jz",
-      "radio_unit_status": "ACTIVE",
+      "network_arn": "arn:aws:private5g:us-west-2:293847561023:network/net-ike6snut",
+      "network_site_id": "site-mtgdd79i",
+      "device_identifier": "device-0s5t6x9d5h",
+      "order_id": "order-wz9ab4km",
+      "radio_unit_status": "PROVISIONED",
       "metrics": {
-        "activated_device_identifiers": 21,
-        "radio_units_online": 8,
-        "throughput_mbps": 468.969545069988
+        "activated_device_identifiers": 33,
+        "radio_units_online": 3,
+        "throughput_mbps": 32.46440790801187
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-private5g-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-private5g-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/private5g/us-west-2/2026/04/01/private5g_0BUT5FIAPL0L.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/private5g/logs",
+      "log_stream": "us-west-2/70qrq0f1",
+      "ingestion_time": "2026-04-01T12:55:20.474Z"
     }
   },
   "event": {
@@ -35,15 +49,32 @@
     ],
     "dataset": "aws.private5g",
     "provider": "private5g.amazonaws.com",
-    "duration": 476000000
+    "duration": 158000000,
+    "module": "aws"
   },
   "data_stream": {
     "type": "logs",
     "dataset": "aws.private5g",
     "namespace": "default"
   },
-  "message": "Private 5G site site-1l5t681k: 8 radio units online, 469.0Mbps",
+  "message": "Private 5G site site-mtgdd79i: 3 radio units online, 32.5Mbps",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "private5g",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "c2imzylq7pk"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "eu-central-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "fsx"
@@ -13,44 +13,58 @@
   },
   "aws": {
     "dimensions": {
-      "FileSystemId": "fs-jntn8w40ad"
+      "FileSystemId": "fs-fxwbkkqmrxu"
     },
     "fsx": {
-      "file_system_id": "fs-jntn8w40ad",
-      "file_system_type": "WINDOWS",
-      "deployment_type": "SINGLE_AZ_2",
-      "storage_capacity_gb": 2400,
-      "throughput_capacity_mbps": 128,
-      "storage_used_percent": 50,
+      "file_system_id": "fs-fxwbkkqmrxu",
+      "file_system_type": "OPENZFS",
+      "deployment_type": "MULTI_AZ_1",
+      "storage_capacity_gb": 1200,
+      "throughput_capacity_mbps": 512,
+      "storage_used_percent": 64,
       "metrics": {
         "DataReadBytes": {
-          "sum": 499747171
+          "sum": 29040396
         },
         "DataWriteBytes": {
-          "sum": 629064968
+          "sum": 316708362
         },
         "DataReadOperations": {
-          "sum": 9389
+          "sum": 7167
         },
         "DataWriteOperations": {
-          "sum": 6561
+          "sum": 8033
         },
         "MetadataOperations": {
-          "sum": 2578
+          "sum": 226
         },
         "FreeStorageCapacity": {
-          "avg": 80902621476
+          "avg": 38896781195
         },
         "StorageCapacity": {
-          "avg": 581917338448
+          "avg": 140806047032
         },
         "CPUUtilization": {
-          "avg": 39.99272583074601
+          "avg": 50.16323613736012
         },
         "NetworkThroughputUtilization": {
-          "avg": 39.41158330194775
+          "avg": 65.56373856079887
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-fsx-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-fsx-logs-501938274650"
+      },
+      "object": {
+        "key": "AWSLogs/501938274650/fsx/eu-central-2/2026/04/01/fsx_WX6XK2K75OF.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/fsx/logs",
+      "log_stream": "eu-central-2/q80o3ob7",
+      "ingestion_time": "2026-04-01T12:55:20.482Z"
     }
   },
   "event": {
@@ -61,10 +75,32 @@
     ],
     "dataset": "aws.fsx",
     "provider": "fsx.amazonaws.com",
-    "duration": 1554000000
+    "duration": 4226000000,
+    "module": "aws"
   },
-  "message": "File system available",
+  "message": "Backup completed successfully",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "fsx",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.fsx",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-central-2",
+    "ephemeral_id": "bv58ozxorzp"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

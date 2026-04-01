@@ -1,29 +1,38 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-west-1",
+    "ephemeral_id": "qcywfmroem"
   },
   "aws": {
     "incidentmanager": {
       "metrics": {
         "RequestCount": {
-          "avg": 75587,
-          "sum": 75587,
+          "avg": 31801,
+          "sum": 31801,
           "count": 1
         },
         "ErrorCount": {
-          "avg": 183,
-          "sum": 183,
+          "avg": 0,
+          "sum": 0,
           "count": 1
         },
         "Latency": {
-          "avg": 105.24,
-          "sum": 105.24,
+          "avg": 153.34,
+          "sum": 153.34,
           "count": 1
         },
         "ThrottleCount": {
@@ -45,6 +54,9 @@
     "type": "metrics",
     "dataset": "aws.incidentmanager",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.incidentmanager",

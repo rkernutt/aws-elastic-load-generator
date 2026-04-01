@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "eu-central-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,29 +13,65 @@
   },
   "aws": {
     "amplify": {
-      "app_id": "U2DVUN0DEJ",
-      "app_name": "web-portal",
-      "branch_name": "develop",
-      "job_id": "783",
-      "job_type": "WEB_HOOK",
-      "build_status": "RUNNING",
-      "duration_seconds": 283,
-      "commit_id": "kn44ynnlmi",
-      "commit_message": "fix: payment bug",
-      "framework": "Next.js"
+      "app_id": "3I7FX0X378",
+      "app_name": "partner-dashboard",
+      "branch_name": "feature-auth",
+      "job_id": "642",
+      "job_type": "RELEASE",
+      "build_status": "SUCCEED",
+      "duration_seconds": 376,
+      "commit_id": "qoamj8kzf1s",
+      "commit_message": "chore: update deps",
+      "framework": "Angular"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-amplify-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-amplify-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/amplify/eu-central-1/2026/04/01/amplify_KE5E6R3C6DO.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/amplify/logs",
+      "log_stream": "eu-central-1/d3kmho2y",
+      "ingestion_time": "2026-04-01T12:55:20.514Z"
     }
   },
   "event": {
-    "duration": 283000000000,
+    "duration": 376000000000,
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.amplify",
-    "provider": "amplify.amazonaws.com"
+    "provider": "amplify.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Amplify build RUNNING: web-portal/develop in 283s",
+  "message": "Amplify build SUCCEED: partner-dashboard/feature-auth in 376s",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "amplify",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.amplify",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "5tdr3pjnv7g"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

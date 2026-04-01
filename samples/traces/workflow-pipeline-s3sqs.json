@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.785Z",
+  "@timestamp": "2026-04-01T12:55:20.202Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "fdf5a4ced6a8aca286691a2a7626f65f"
+    "id": "89759821697d29cb3b829627756dc2e1"
   },
   "transaction": {
-    "id": "aaa17cf73875b508",
+    "id": "08feb559677119c1",
     "name": "pipeline-sqs-handler",
     "type": "messaging",
     "duration": {
-      "us": 1020000
+      "us": 927000
     },
     "result": "success",
     "sampled": true,
@@ -22,10 +22,10 @@
     },
     "faas": {
       "name": "pipeline-sqs-handler",
-      "id": "arn:aws:lambda:us-west-1:234567890123:function:pipeline-sqs-handler",
+      "id": "arn:aws:lambda:ap-northeast-1:123456789012:function:pipeline-sqs-handler",
       "version": "$LATEST",
       "coldstart": false,
-      "execution": "a572628e-456a-e9f1-d5d3-af24989bdc0b",
+      "execution": "29d65eda-d44d-4961-90e4-4e0d33f74553",
       "trigger": {
         "type": "pubsub"
       }
@@ -33,10 +33,10 @@
   },
   "faas": {
     "name": "pipeline-sqs-handler",
-    "id": "arn:aws:lambda:us-west-1:234567890123:function:pipeline-sqs-handler",
+    "id": "arn:aws:lambda:ap-northeast-1:123456789012:function:pipeline-sqs-handler",
     "version": "$LATEST",
     "coldstart": false,
-    "execution": "a572628e-456a-e9f1-d5d3-af24989bdc0b",
+    "execution": "29d65eda-d44d-4961-90e4-4e0d33f74553",
     "trigger": {
       "type": "pubsub"
     }
@@ -58,7 +58,7 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "0.6.0"
+    "version": "1.0.4"
   },
   "telemetry": {
     "sdk": {
@@ -67,16 +67,16 @@
       "version": "1.29.0"
     },
     "distro": {
-      "name": "elastic",
-      "version": "0.6.0"
+      "name": "aws-otel",
+      "version": "1.0.4"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "234567890123",
-      "name": "staging-aws"
+      "id": "123456789012",
+      "name": "prod-aws"
     },
     "service": {
       "name": "lambda"
@@ -84,16 +84,26 @@
   },
   "labels": {
     "s3_notification_prefix": "raw/",
-    "sqs_queue": "s3-lake-notifications-prod",
-    "landing_bucket": "staging-aws-landing-raw",
-    "sqs_message_id": "d48ce3c8-b774-25e8-1d37-80641ee2a390"
+    "sqs_queue": "s3-lake-notifications-staging",
+    "landing_bucket": "prod-aws-landing-raw",
+    "sqs_message_id": "80735af1-0816-7545-af31-2fd0acbbc0c8",
+    "aws.xray.trace_id": "1-a713d003-898e2600a13ed55cf1f4c10c",
+    "aws.xray.segment_id": "c76a90c1c0242adb"
   },
   "event": {
-    "outcome": "success"
+    "outcome": "success",
+    "module": "aws",
+    "dataset": "aws.workflow-pipeline-s3sqs"
   },
   "data_stream": {
     "type": "traces",
     "dataset": "apm",
     "namespace": "default"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "input": {
+    "type": "opentelemetry"
   }
 }

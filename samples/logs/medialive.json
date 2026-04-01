@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "medialive"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "ChannelId": "A8I8QJ94DHF",
+      "ChannelId": "OFCGJG96UIE",
       "Pipeline": "PIPELINE_1"
     },
     "medialive": {
-      "channel_id": "A8I8QJ94DHF",
-      "channel_name": "concert-stream",
-      "channel_state": "RUNNING",
+      "channel_id": "OFCGJG96UIE",
+      "channel_name": "corporate-broadcast",
+      "channel_state": "IDLE",
       "pipeline": "PIPELINE_1",
       "input_type": "UDP_PUSH",
       "output_type": "DASH",
-      "video_bitrate_kbps": 14254,
+      "video_bitrate_kbps": 12195,
       "input_loss_frames": 0,
-      "encoder_fps": 30,
+      "encoder_fps": 24,
       "metrics": {
         "ActiveAlerts": {
           "sum": 0
@@ -34,7 +34,7 @@
           "sum": 0
         },
         "NetworkOut": {
-          "avg": 38263102
+          "avg": 30407971
         },
         "OutputLossSeconds": {
           "sum": 0
@@ -43,6 +43,20 @@
           "sum": 0
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-medialive-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-medialive-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/medialive/ap-south-2/2026/04/01/medialive_IG0RMBBXBJA.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/medialive/logs",
+      "log_stream": "ap-south-2/m5eezo8m",
+      "ingestion_time": "2026-04-01T12:55:20.530Z"
     }
   },
   "event": {
@@ -52,10 +66,32 @@
     ],
     "dataset": "aws.medialive",
     "provider": "medialive.amazonaws.com",
-    "duration": 6254000000
+    "duration": 6198000000,
+    "module": "aws"
   },
-  "message": "Pipeline A running, Pipeline B standby",
+  "message": "Input switch to backup completed",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "medialive",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.medialive",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-south-2",
+    "ephemeral_id": "2xpqqnoy6c5"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

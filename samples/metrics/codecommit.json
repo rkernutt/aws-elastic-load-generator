@@ -1,39 +1,48 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "me-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-me-south-1",
+    "ephemeral_id": "z5m2yzmojtc"
   },
   "aws": {
     "codecommit": {
       "metrics": {
         "RepositoryPushCount": {
-          "avg": 90,
-          "sum": 90,
+          "avg": 39,
+          "sum": 39,
           "count": 1
         },
         "RepositoryPullCount": {
-          "avg": 313,
-          "sum": 313,
+          "avg": 302,
+          "sum": 302,
           "count": 1
         },
         "GetBlobCount": {
-          "avg": 1609,
-          "sum": 1609,
+          "avg": 1212,
+          "sum": 1212,
           "count": 1
         },
         "GetDifferencesCount": {
-          "avg": 49,
-          "sum": 49,
+          "avg": 311,
+          "sum": 311,
           "count": 1
         },
         "NumberOfRepositories": {
-          "avg": 15,
-          "sum": 15,
+          "avg": 14,
+          "sum": 14,
           "count": 1
         }
       },
@@ -50,6 +59,9 @@
     "type": "metrics",
     "dataset": "aws.codecommit",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.codecommit",

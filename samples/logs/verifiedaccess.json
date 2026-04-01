@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ca-central-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,24 +13,38 @@
   },
   "aws": {
     "dimensions": {
-      "ApplicationId": "va-app-udxj7xbm"
+      "ApplicationId": "va-app-xcrmiwge"
     },
     "verifiedaccess": {
-      "endpoint_id": "vae-6w5qnogadqy",
-      "group_id": "vag-8v1kx7yklq",
-      "instance_id": "vai-dwuplgrwjwm",
-      "policy_name": "require-mfa-and-device",
-      "trust_provider_type": "oidc-okta",
+      "endpoint_id": "vae-rmr8mako38i",
+      "group_id": "vag-cftvoztiot",
+      "instance_id": "vai-se44pysi27",
+      "policy_name": "require-mfa",
+      "trust_provider_type": "oidc-azure-ad",
       "device_posture": "COMPLIANT",
       "verdict": "allow",
-      "http_method": "GET",
-      "http_path": "/api/v1/orders",
-      "http_status": 200,
-      "request_id": "8wkiz9ci-mmnd-dd0z-cwmi-2yokjz0o8c4",
-      "connection_id": "B1AQQQSZKL",
-      "session_id": "PYQ2HO2532S",
-      "sni_hostname": "dev-tools.internal.example.com",
-      "application_name": "dev-tools"
+      "http_method": "PUT",
+      "http_path": "/api/v1/search",
+      "http_status": 204,
+      "request_id": "xkczjdmn-cnr2-i6hs-km61-m6yhrqwnm4o",
+      "connection_id": "NPF2ZX9T899",
+      "session_id": "A4QFU9DY4ZS",
+      "sni_hostname": "git-server.internal.example.com",
+      "application_name": "git-server"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-verifiedaccess-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-verifiedaccess-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/verifiedaccess/ca-central-1/2026/04/01/verifiedaccess_9XQJ07VZCPS.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/verifiedaccess/logs",
+      "log_stream": "ca-central-1/00r9sqy6",
+      "ingestion_time": "2026-04-01T12:55:20.478Z"
     }
   },
   "user": {
@@ -38,7 +52,7 @@
     "name": "bob"
   },
   "source": {
-    "ip": "136.184.155.95"
+    "ip": "109.229.182.169"
   },
   "event": {
     "outcome": "success",
@@ -51,10 +65,32 @@
     ],
     "dataset": "aws.verifiedaccess",
     "provider": "verified-access.amazonaws.com",
-    "duration": 197000000
+    "duration": 2000000,
+    "module": "aws"
   },
-  "message": "Verified Access allowed: bob@example.com -> dev-tools (COMPLIANT)",
+  "message": "Verified Access allowed: bob@example.com -> git-server (COMPLIANT)",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "verifiedaccess",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.verifiedaccess",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "72jw09jbe5n"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

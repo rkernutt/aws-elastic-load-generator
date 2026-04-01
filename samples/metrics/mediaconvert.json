@@ -1,34 +1,43 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-south-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-south-1",
+    "ephemeral_id": "223vro25twth"
+  },
   "aws": {
     "mediaconvert": {
       "metrics": {
         "RecordsProcessed": {
-          "avg": 7443582,
-          "sum": 7443582,
+          "avg": 4990960,
+          "sum": 4990960,
           "count": 1
         },
         "BytesProcessed": {
-          "avg": 66910527988,
-          "sum": 66910527988,
+          "avg": 49345115496,
+          "sum": 49345115496,
           "count": 1
         },
         "ExecutionTime": {
-          "avg": 47240.71,
-          "sum": 47240.71,
+          "avg": 11150.18,
+          "sum": 11150.18,
           "count": 1
         },
         "ErrorCount": {
-          "avg": 92,
-          "sum": 92,
+          "avg": 0,
+          "sum": 0,
           "count": 1
         }
       },
@@ -45,6 +54,9 @@
     "type": "metrics",
     "dataset": "aws.mediaconvert",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.mediaconvert",

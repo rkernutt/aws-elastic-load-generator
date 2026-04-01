@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ap-northeast-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,31 +13,67 @@
   },
   "aws": {
     "dimensions": {
-      "WorkflowName": "contact-merge"
+      "WorkflowName": "product-matching"
     },
     "entityresolution": {
-      "matching_workflow_id": "7rhgz346-1y3e-jo6a-ym5t-lwlrwlxzutt",
-      "matching_workflow_name": "contact-merge",
-      "job_id": "bt1uk3ce-cosw-27t0-co2g-8ml7h892wx4",
-      "job_status": "RUNNING",
-      "matched_record_count": 2904614,
-      "input_record_count": 7184646,
-      "unique_record_count": 1637438,
-      "schema_name": "customer-schema",
-      "matching_technique": "ML_MATCHING"
+      "matching_workflow_id": "1qwex637-6dup-s0x3-gu3c-xirwg8seta",
+      "matching_workflow_name": "product-matching",
+      "job_id": "mwu4qf52-e4ed-o5pi-4b3o-bxrk6d271cq",
+      "job_status": "SUCCEEDED",
+      "matched_record_count": 386898,
+      "input_record_count": 511401,
+      "unique_record_count": 290262,
+      "schema_name": "product-schema",
+      "matching_technique": "PROVIDER_SERVICE"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-entityresolution-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-entityresolution-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/entityresolution/ap-northeast-1/2026/04/01/entityresolution_S1J005P7MI.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/entityresolution/logs",
+      "log_stream": "ap-northeast-1/sins6ju1",
+      "ingestion_time": "2026-04-01T12:55:20.518Z"
     }
   },
   "event": {
-    "action": "ListMatchingJobs",
+    "action": "CreateMatchingWorkflow",
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.entityresolution",
-    "provider": "entityresolution.amazonaws.com"
+    "provider": "entityresolution.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Entity Resolution contact-merge: matched 2904614/7184646 records → 1637438 unique",
+  "message": "Entity Resolution product-matching: matched 386898/511401 records → 290262 unique",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "entityresolution",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.entityresolution",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-northeast-1",
+    "ephemeral_id": "ekex9h9umrg"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

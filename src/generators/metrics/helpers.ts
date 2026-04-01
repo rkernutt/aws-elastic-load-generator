@@ -4,7 +4,7 @@
  */
 
 export { REGIONS, ACCOUNTS, rand, randInt, randFloat, randId } from "../../helpers";
-import { rand } from "../../helpers";
+import { rand, randId } from "../../helpers";
 
 /**
  * Build a single CloudWatch metric document.
@@ -30,10 +30,17 @@ export function metricDoc(
 ): Record<string, unknown> {
   return {
     "@timestamp": ts,
+    ecs: { version: "8.11.0" },
     cloud: {
       provider: "aws",
       region: region,
       account: { id: account.id, name: account.name },
+    },
+    agent: {
+      type: "metricbeat",
+      version: "8.18.0",
+      name: `metricbeat-aws-${region}`,
+      ephemeral_id: randId(36).toLowerCase(),
     },
     aws: {
       [service]: {
@@ -43,6 +50,7 @@ export function metricDoc(
     },
     metricset: { name: service, period: period },
     data_stream: { type: "metrics", dataset: dataset, namespace: "default" },
+    input: { type: "aws-cloudwatch" },
     event: { dataset: dataset, module: "aws" },
   };
 }

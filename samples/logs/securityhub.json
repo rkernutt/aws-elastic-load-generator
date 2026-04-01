@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "securityhub"
@@ -13,67 +13,98 @@
   },
   "aws": {
     "dimensions": {
-      "ComplianceStandard": "cis-aws-foundations-benchmark",
-      "ControlId": "S3.3"
+      "ComplianceStandard": "aws-foundational-security-best-practices",
+      "ControlId": "IAM.1"
     },
     "securityhub_findings": {
-      "id": "HD96L8D6-UGNQ-L45H-X93V-NHPZL6WTFA",
-      "aws_account_id": "738291046572",
-      "region": "eu-south-2",
-      "description": "Security check failed: S3.3 - S3 bucket is publicly accessible",
-      "created_at": "2026-04-01T03:07:23.792Z",
-      "first_observed_at": "2026-04-01T03:07:23.792Z",
-      "last_observed_at": "2026-04-01T05:27:12.782Z",
+      "id": "2LQCB4OY-GBCB-O8JP-YGDC-WGANVQCELG",
+      "aws_account_id": "814726593401",
+      "region": "ap-southeast-4",
+      "description": "Control passed.",
+      "created_at": "2026-04-01T10:25:47.627Z",
+      "first_observed_at": "2026-04-01T10:25:47.627Z",
+      "last_observed_at": "2026-04-01T12:55:20.199Z",
       "generator": {
-        "id": "S3.3"
+        "id": "IAM.1"
       },
       "types": [
-        "Threat Detections/Tactics/Impact"
+        "Effects/Data Exposure"
       ],
       "compliance": {
-        "security_control_id": "S3.3",
-        "status": "FAILED"
+        "security_control_id": "IAM.1",
+        "status": "PASSED"
       },
       "severity": {
-        "label": "HIGH",
-        "normalized": 70
+        "label": "INFORMATIONAL",
+        "normalized": 0
       },
       "workflow": {
-        "status": "RESOLVED"
+        "status": "NOTIFIED"
       },
-      "record_state": "ACTIVE",
+      "record_state": "ARCHIVED",
       "product": {
-        "arn": "arn:aws:securityhub:eu-south-2::product/aws/securityhub",
+        "arn": "arn:aws:securityhub:ap-southeast-4::product/aws/securityhub",
         "name": "Security Hub"
       },
-      "criticality": 7,
-      "confidence": 86
+      "criticality": 4,
+      "confidence": 73
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-securityhub-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-securityhub-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/securityhub/ap-southeast-4/2026/04/01/securityhub_TVL5QW7EEQ.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/securityhub/logs",
+      "log_stream": "ap-southeast-4/73sh35x6",
+      "ingestion_time": "2026-04-01T12:55:20.475Z"
     }
   },
   "rule": {
-    "id": "S3.3",
-    "name": "S3.3 — CloudTrail not enabled"
+    "id": "IAM.1",
+    "name": "IAM.1 — S3 bucket publicly accessible"
   },
   "event": {
     "kind": "alert",
-    "severity": 7,
-    "outcome": "failure",
+    "severity": 4,
+    "outcome": "success",
     "category": [
       "vulnerability"
     ],
     "type": [
-      "indicator"
+      "info"
     ],
     "dataset": "aws.securityhub_findings",
-    "provider": "securityhub.amazonaws.com"
+    "provider": "securityhub.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Security Hub [HIGH]: Compliance check failed",
+  "message": "Security Hub: control passed",
   "log": {
-    "level": "warn"
+    "level": "info"
   },
-  "error": {
-    "code": "ComplianceFailed",
-    "message": "Control S3.3 failed",
-    "type": "compliance"
+  "service": {
+    "name": "securityhub",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.securityhub_findings",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-southeast-4",
+    "ephemeral_id": "2lt6sh3zj63"
+  },
+  "input": {
+    "type": "http_endpoint"
   }
 }

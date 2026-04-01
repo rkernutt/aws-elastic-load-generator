@@ -1,29 +1,38 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "us-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-us-west-2",
+    "ephemeral_id": "gkk21bumf0u"
   },
   "aws": {
     "states": {
       "metrics": {
         "ExecutionsStarted": {
-          "avg": 6687,
-          "sum": 6687,
+          "avg": 8852,
+          "sum": 8852,
           "count": 1
         },
         "ExecutionsSucceeded": {
-          "avg": 6672,
-          "sum": 6672,
+          "avg": 8792,
+          "sum": 8792,
           "count": 1
         },
         "ExecutionsFailed": {
-          "avg": 15,
-          "sum": 15,
+          "avg": 60,
+          "sum": 60,
           "count": 1
         },
         "ExecutionsAborted": {
@@ -32,13 +41,13 @@
           "count": 1
         },
         "ExecutionsTimedOut": {
-          "avg": 3,
-          "sum": 3,
+          "avg": 12,
+          "sum": 12,
           "count": 1
         },
         "ExecutionTime": {
-          "avg": 6934.36,
-          "sum": 6934.36,
+          "avg": 2076.21,
+          "sum": 2076.21,
           "count": 1
         },
         "ExecutionThrottled": {
@@ -48,7 +57,7 @@
         }
       },
       "dimensions": {
-        "StateMachineArn": "arn:aws:states:ap-southeast-1:501938274650:stateMachine:payment-processing"
+        "StateMachineArn": "arn:aws:states:us-west-2:814726593401:stateMachine:order-fulfillment"
       }
     }
   },
@@ -60,6 +69,9 @@
     "type": "metrics",
     "dataset": "aws.states",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.states",

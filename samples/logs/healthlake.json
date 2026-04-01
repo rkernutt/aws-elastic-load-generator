@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "af-south-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,24 +13,39 @@
   },
   "aws": {
     "dimensions": {
-      "DatastoreId": "no0iabu6-cgk8-lgph-n7bd-ig18zjh46t",
-      "ResourceType": "DiagnosticReport"
+      "DatastoreId": "oebbw7id-iztu-j4v2-jwkm-z0630tkwchc",
+      "ResourceType": "Observation"
     },
     "healthlake": {
-      "datastore_id": "no0iabu6-cgk8-lgph-n7bd-ig18zjh46t",
-      "datastore_name": "clinical-trials",
-      "resource_type": "DiagnosticReport",
-      "operation": "CreateResource",
-      "request_id": "8FQRC3AW-T1EW-2LHO-7N98-0EANIZA0P8ZH",
+      "datastore_id": "oebbw7id-iztu-j4v2-jwkm-z0630tkwchc",
+      "datastore_name": "ehr-primary",
+      "resource_type": "Observation",
+      "operation": "StartFHIRImportJob",
+      "request_id": "RVWDDYBF-P2QQ-PJXR-5UR7-6LNSRA2O7J4",
       "response_code": 200,
+      "import_job_id": "import-vsrlmy7nxo9",
       "fhir_version": "R4"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-healthlake-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-healthlake-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/healthlake/af-south-1/2026/04/01/healthlake_NGE066TD6G.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/healthlake/logs",
+      "log_stream": "af-south-1/ab2dfmj9",
+      "ingestion_time": "2026-04-01T12:55:20.522Z"
     }
   },
   "log": {
     "level": "info"
   },
   "event": {
-    "action": "CreateResource",
+    "action": "StartFHIRImportJob",
     "outcome": "success",
     "category": [
       "process",
@@ -38,7 +53,29 @@
     ],
     "dataset": "aws.healthlake",
     "provider": "healthlake.amazonaws.com",
-    "duration": 312000000
+    "duration": 270000000,
+    "module": "aws"
   },
-  "message": "HealthLake CreateResource: datastore=clinical-trials, resource=DiagnosticReport, 312ms"
+  "message": "HealthLake StartFHIRImportJob: datastore=ehr-primary, resource=Observation, 270ms",
+  "service": {
+    "name": "healthlake",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.healthlake",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-af-south-1",
+    "ephemeral_id": "r5ykx942slp"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
+  }
 }

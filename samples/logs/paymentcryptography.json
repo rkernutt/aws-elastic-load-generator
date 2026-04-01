@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "paymentcryptography"
@@ -13,18 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "KeyAlgorithm": "AES_256",
-      "Operation": "EncryptData"
+      "KeyAlgorithm": "AES_128",
+      "Operation": "DecryptData"
     },
     "paymentcryptography": {
-      "key_arn": "arn:aws:payment-cryptography:us-east-2:501938274650:key/E1ERXQHVIQ",
-      "key_alias": "alias/payment-cvv-key",
-      "key_algorithm": "AES_256",
+      "key_arn": "arn:aws:payment-cryptography:ap-northeast-1:164820739518:key/84RLU4TZGZO",
+      "key_alias": "alias/payment-dek-key",
+      "key_algorithm": "AES_128",
       "key_usage": "TR31_B0_BASE_DERIVATION_KEY",
-      "operation": "EncryptData",
+      "operation": "DecryptData",
       "key_state": "CREATE_COMPLETE",
       "exportable": false,
-      "key_check_value": "L0QO7O"
+      "key_check_value": "R1V9KQ"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-paymentcryptography-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-paymentcryptography-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/paymentcryptography/ap-northeast-1/2026/04/01/paymentcryptography_AQSX46TEJ1.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/paymentcryptography/logs",
+      "log_stream": "ap-northeast-1/rgkabnzc",
+      "ingestion_time": "2026-04-01T12:55:20.480Z"
     }
   },
   "event": {
@@ -34,10 +48,32 @@
       "authentication"
     ],
     "dataset": "aws.paymentcryptography",
-    "provider": "payment-cryptography.amazonaws.com"
+    "provider": "payment-cryptography.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Payment Cryptography EncryptData using AES_256 (B0)",
+  "message": "Payment Cryptography DecryptData using AES_128 (B0)",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "paymentcryptography",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.paymentcryptography",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-northeast-1",
+    "ephemeral_id": "4dhrtr21kvt"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

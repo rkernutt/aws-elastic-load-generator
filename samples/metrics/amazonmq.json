@@ -1,29 +1,38 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "us-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-us-west-1",
+    "ephemeral_id": "muoqvt2j8y9"
   },
   "aws": {
     "amazonmq": {
       "metrics": {
         "EnqueueCount": {
-          "avg": 59401,
-          "sum": 59401,
+          "avg": 19938,
+          "sum": 19938,
           "count": 1
         },
         "DequeueCount": {
-          "avg": 29262,
-          "sum": 29262,
+          "avg": 3123,
+          "sum": 3123,
           "count": 1
         },
         "QueueSize": {
-          "avg": 2189,
-          "sum": 2189,
+          "avg": 7198,
+          "sum": 7198,
           "count": 1
         },
         "ExpiredCount": {
@@ -32,53 +41,53 @@
           "count": 1
         },
         "DispatchCount": {
-          "avg": 49961,
-          "sum": 49961,
+          "avg": 88213,
+          "sum": 88213,
           "count": 1
         },
         "ConsumerCount": {
-          "avg": 49,
-          "sum": 49,
+          "avg": 31,
+          "sum": 31,
           "count": 1
         },
         "ProducerCount": {
-          "avg": 23,
-          "sum": 23,
+          "avg": 35,
+          "sum": 35,
           "count": 1
         },
         "TotalConsumerCount": {
-          "avg": 25,
-          "sum": 25,
+          "avg": 184,
+          "sum": 184,
           "count": 1
         },
         "TotalProducerCount": {
-          "avg": 51,
-          "sum": 51,
+          "avg": 65,
+          "sum": 65,
           "count": 1
         },
         "HeapUsage": {
-          "avg": 44.35,
-          "sum": 44.35,
+          "avg": 34.35,
+          "sum": 34.35,
           "count": 1
         },
         "CPUCreditBalance": {
-          "avg": 119.32,
-          "sum": 119.32,
+          "avg": 253.59,
+          "sum": 253.59,
           "count": 1
         },
         "NetworkIn": {
-          "avg": 2187724086,
-          "sum": 2187724086,
+          "avg": 841325739,
+          "sum": 841325739,
           "count": 1
         },
         "NetworkOut": {
-          "avg": 3077042868,
-          "sum": 3077042868,
+          "avg": 1117178176,
+          "sum": 1117178176,
           "count": 1
         }
       },
       "dimensions": {
-        "Broker": "b-9c0d1e2f-2",
+        "Broker": "b-1a2b3c4d-3",
         "Queue": "notifications"
       }
     }
@@ -91,6 +100,9 @@
     "type": "metrics",
     "dataset": "aws.amazonmq",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.amazonmq",

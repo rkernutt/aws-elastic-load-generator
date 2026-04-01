@@ -1,29 +1,38 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ap-northeast-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
     }
   },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-northeast-2",
+    "ephemeral_id": "u1ocldp0bj"
+  },
   "aws": {
     "elb": {
       "metrics": {
         "ActiveFlowCount": {
-          "avg": 91698,
-          "sum": 91698,
+          "avg": 32560,
+          "sum": 32560,
           "count": 1
         },
         "NewFlowCount": {
-          "avg": 6656,
-          "sum": 6656,
+          "avg": 9252,
+          "sum": 9252,
           "count": 1
         },
         "ProcessedBytes": {
-          "avg": 46225871667,
-          "sum": 46225871667,
+          "avg": 36036156923,
+          "sum": 36036156923,
           "count": 1
         },
         "TCP_Client_Reset_Count": {
@@ -37,23 +46,23 @@
           "count": 1
         },
         "HealthyHostCount": {
-          "avg": 5,
-          "sum": 5,
+          "avg": 3,
+          "sum": 3,
           "count": 1
         },
         "UnHealthyHostCount": {
-          "avg": 0,
-          "sum": 0,
+          "avg": 2,
+          "sum": 2,
           "count": 1
         },
         "ConsumedLCUs": {
-          "avg": 1.43,
-          "sum": 1.43,
+          "avg": 1.5,
+          "sum": 1.5,
           "count": 1
         }
       },
       "dimensions": {
-        "LoadBalancer": "net/internal-nlb/xyz789uvw012"
+        "LoadBalancer": "net/prod-nlb/xyz789uvw012"
       }
     }
   },
@@ -65,6 +74,9 @@
     "type": "metrics",
     "dataset": "aws.elb",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.elb",

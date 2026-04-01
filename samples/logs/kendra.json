@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "kendra"
@@ -13,31 +13,67 @@
   },
   "aws": {
     "dimensions": {
-      "IndexId": "hzxmx042-9bhv-c6f5-va46-ygzcrwcvwro",
-      "Operation": "StartDataSourceSyncJob"
+      "IndexId": "i04y22up-p6m9-on5q-m30a-awafpy2ve85",
+      "Operation": "BatchPutDocument"
     },
     "kendra": {
-      "index_id": "hzxmx042-9bhv-c6f5-va46-ygzcrwcvwro",
-      "index_name": "company-wiki",
-      "result_count": 12,
-      "response_time_ms": 62,
-      "document_count": 313091,
-      "data_source_id": "ds-7ml1fyyjg3",
-      "data_source_type": "ServiceNow"
+      "index_id": "i04y22up-p6m9-on5q-m30a-awafpy2ve85",
+      "index_name": "hr-docs",
+      "result_count": 1,
+      "response_time_ms": 130,
+      "document_count": 436433,
+      "data_source_id": "ds-hjyzgam36i",
+      "data_source_type": "Salesforce"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-kendra-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-kendra-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/kendra/ap-southeast-3/2026/04/01/kendra_WEDX7RMP96M.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/kendra/logs",
+      "log_stream": "ap-southeast-3/78vldake",
+      "ingestion_time": "2026-04-01T12:55:20.522Z"
     }
   },
   "log": {
     "level": "info"
   },
   "event": {
-    "action": "StartDataSourceSyncJob",
+    "action": "BatchPutDocument",
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.kendra",
     "provider": "kendra.amazonaws.com",
-    "duration": 62000000
+    "duration": 130000000,
+    "module": "aws"
   },
-  "message": "Kendra StartDataSourceSyncJob: index=company-wiki"
+  "message": "Kendra BatchPutDocument: index=hr-docs",
+  "service": {
+    "name": "kendra",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.kendra",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "z8ryh5j1yv"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
+  }
 }

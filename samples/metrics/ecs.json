@@ -1,55 +1,64 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-central-2",
+    "ephemeral_id": "0vzhm3k40es"
   },
   "aws": {
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 50.72,
-          "sum": 50.72,
+          "avg": 17.21,
+          "sum": 17.21,
           "count": 1
         },
         "MemoryUtilization": {
-          "avg": 60.69,
-          "sum": 60.69,
+          "avg": 72.61,
+          "sum": 72.61,
           "count": 1
         },
         "RunningTaskCount": {
-          "avg": 16,
-          "sum": 16,
+          "avg": 11,
+          "sum": 11,
           "count": 1
         },
         "PendingTaskCount": {
-          "avg": 2,
-          "sum": 2,
+          "avg": 0,
+          "sum": 0,
           "count": 1
         },
         "DesiredTaskCount": {
-          "avg": 15,
-          "sum": 15,
+          "avg": 3,
+          "sum": 3,
           "count": 1
         },
         "ActiveConnectionCount": {
-          "avg": 1292,
-          "sum": 1292,
+          "avg": 4197,
+          "sum": 4197,
           "count": 1
         },
         "NewConnectionCount": {
-          "avg": 120,
-          "sum": 120,
+          "avg": 304,
+          "sum": 304,
           "count": 1
         }
       },
       "dimensions": {
         "ClusterName": "production",
-        "ServiceName": "auth-service"
+        "ServiceName": "inventory-service"
       }
     }
   },
@@ -61,6 +70,9 @@
     "type": "metrics",
     "dataset": "aws.ecs_metrics",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.ecs_metrics",

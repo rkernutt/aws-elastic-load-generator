@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "deadlinecloud"
@@ -13,39 +13,75 @@
   },
   "aws": {
     "dimensions": {
-      "FarmId": "farm-gyh7dwo6jg7",
-      "QueueId": "queue-63weqpkkl0p"
+      "FarmId": "farm-bs6pctgi2zq",
+      "QueueId": "queue-2lt4126xxk8"
     },
     "deadlinecloud": {
-      "farm_id": "farm-gyh7dwo6jg7",
-      "farm_name": "ad-rendering",
-      "queue_id": "queue-63weqpkkl0p",
-      "queue_name": "compositing",
-      "job_id": "job-4fpjlvgv317",
-      "job_name": "fx_simulation_hero",
-      "task_id": "task-9mas0vafkva",
-      "task_status": "RUNNING",
-      "job_status": "QUEUED",
-      "worker_hostname": "render-worker-gpu-01.af-south-1.compute.internal",
-      "frame_start": 134,
-      "frame_end": 183,
-      "duration_seconds": 3221,
+      "farm_id": "farm-bs6pctgi2zq",
+      "farm_name": "post-production",
+      "queue_id": "queue-2lt4126xxk8",
+      "queue_name": "test",
+      "job_id": "job-bkrt468f1in",
+      "job_name": "shot_comp_0010",
+      "task_id": "task-u6u3kzxw0sh",
+      "task_status": "SUCCEEDED",
+      "job_status": "ARCHIVED",
+      "worker_hostname": "render-worker-cpu-01.ap-southeast-1.compute.internal",
+      "frame_start": 87,
+      "frame_end": 170,
+      "duration_seconds": 2602,
       "renderer": "RenderMan",
-      "priority": 56
+      "priority": 29
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-deadlinecloud-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-deadlinecloud-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/deadlinecloud/ap-southeast-1/2026/04/01/deadlinecloud_JMN8U1YTL8.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/deadlinecloud/logs",
+      "log_stream": "ap-southeast-1/nrrhxnea",
+      "ingestion_time": "2026-04-01T12:55:20.530Z"
     }
   },
   "event": {
-    "action": "StartJob",
+    "action": "CreateJob",
     "outcome": "success",
     "category": [
       "process"
     ],
     "dataset": "aws.deadlinecloud",
     "provider": "deadline.amazonaws.com",
-    "duration": 3221000000000
+    "duration": 2602000000000,
+    "module": "aws"
   },
-  "message": "Deadline Cloud StartJob: farm=ad-rendering queue=compositing job=fx_simulation_hero frames 134-183 RUNNING",
+  "message": "Deadline Cloud CreateJob: farm=post-production queue=test job=shot_comp_0010 frames 87-170 SUCCEEDED",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "deadlinecloud",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.deadlinecloud",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-southeast-1",
+    "ephemeral_id": "2eruk1cof6q"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

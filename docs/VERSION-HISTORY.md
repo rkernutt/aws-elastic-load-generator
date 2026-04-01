@@ -4,6 +4,26 @@
 
 ---
 
+## What's New in v11.5
+
+- **211 service generators** — 11 new standalone AWS service generators: CloudWatch RUM, Lookout for Equipment, Monitron, Network Access Analyzer, Incident Manager, CloudShell, Cloud9, RoboMaker, Kinesis Video Streams, Panorama, FreeRTOS.
+- **Sub-service folding architecture** — 10 sub-services (RDS Proxy, RDS Custom, DMS Serverless, ElastiCache Global, SageMaker Feature Store / Pipelines / Model Monitor, S3 Intelligent-Tiering / Batch Ops) now generate as random event types within their parent generators, tagged with `__dataset` for correct index routing. Pipelines, dashboards, and ML jobs still target each sub-service individually via dataset queries.
+- **176 metrics generators** — all new services added via generic CloudWatch generator.
+- **187 ingest pipelines** — 20 new pipelines added to `installer/custom-pipelines/pipelines/registry.mjs`.
+- **178 ML anomaly detection jobs across 25 groups** — `v115-services-jobs.json` adds 20 detectors.
+- **76 Kibana dashboards** — 20 new dashboards with ES|QL queries.
+- **15 new AWS service icons** — CloudShell, Cloud9, RoboMaker, Lookout for Equipment, Monitron, Kinesis Video Streams, Panorama, FreeRTOS, CloudWatch RUM, RDS Proxy, S3 Batch Ops, S3 Intelligent-Tiering, Network Access Analyzer, Incident Manager, plus parent-icon fallbacks for 5 remaining sub-services.
+- **Proxy request ID correlation** — every proxy request gets a unique 8-char ID in logs and `X-Request-Id` response header.
+- **Proxy backoff jitter** — exponential backoff includes random jitter to prevent thundering-herd retries.
+- **Browser fetch retry** — `fetchWithRetry()` retries transient failures with exponential backoff on all 4 shipping call sites.
+- **Error rate clamp** — `makeSetup()` clamps `er` to [0,1].
+- **Test connection** — `testConnection(url, apiKey)` probes the cluster before shipping.
+- **Env-based proxy config** — Vite dev server reads `PROXY_HOST`/`PROXY_PORT` from environment.
+- **Registry completeness test** — verifies every serviceGroup has a generator, dataset mapping, and ingestion default.
+- **211 log samples, 176 metric samples, 23 trace samples** — `samples/` regenerated; `samples:verify` passes.
+
+---
+
 ## What's New in v11.4
 
 - **200-service milestone** — 15 new AWS service generators added: Amazon VPC IPAM, AWS Private 5G, Amazon Neptune Analytics, Amazon Aurora DSQL, AWS Mainframe Modernization, AWS Parallel Computing Service, Amazon Elastic VMware Service (EVS), AWS SimSpace Weaver, Amazon HealthOmics, Amazon Bedrock Data Automation, AWS Ground Station, Amazon WorkMail, AWS Wickr, Amazon Q Developer, AWS End User Messaging.

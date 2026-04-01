@@ -1,29 +1,38 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-west-1",
+    "ephemeral_id": "5a8rkft9yj"
   },
   "aws": {
     "events": {
       "metrics": {
         "Invocations": {
-          "avg": 695005,
-          "sum": 695005,
+          "avg": 817696,
+          "sum": 817696,
           "count": 1
         },
         "MatchedEvents": {
-          "avg": 589703,
-          "sum": 589703,
+          "avg": 491477,
+          "sum": 491477,
           "count": 1
         },
         "FailedInvocations": {
-          "avg": 0,
-          "sum": 0,
+          "avg": 25453,
+          "sum": 25453,
           "count": 1
         },
         "ThrottledRules": {
@@ -32,8 +41,8 @@
           "count": 1
         },
         "TriggeredRules": {
-          "avg": 61841,
-          "sum": 61841,
+          "avg": 561820,
+          "sum": 561820,
           "count": 1
         },
         "DeadLetterInvocations": {
@@ -42,13 +51,13 @@
           "count": 1
         },
         "EventBusLatency": {
-          "avg": 21.08,
-          "sum": 21.08,
+          "avg": 31,
+          "sum": 31,
           "count": 1
         }
       },
       "dimensions": {
-        "EventBusName": "default"
+        "EventBusName": "notifications-bus"
       }
     }
   },
@@ -60,6 +69,9 @@
     "type": "metrics",
     "dataset": "aws.eventbridge",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.eventbridge",

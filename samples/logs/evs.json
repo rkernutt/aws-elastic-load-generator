@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "evs"
@@ -13,19 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentId": "evs-5dfscdh7"
+      "EnvironmentId": "evs-yotw271l"
     },
     "evs": {
-      "environment_id": "evs-5dfscdh7",
-      "vcenter_hostname": "vcenter-go0sst.internal",
+      "environment_id": "evs-yotw271l",
+      "vcenter_hostname": "vcenter-7ljfbn.internal",
       "esxi_version": "8.0.3",
-      "host_count": 8,
-      "vsan_datastore_id": "datastore-910",
+      "host_count": 4,
+      "vsan_datastore_id": "datastore-493",
       "metrics": {
-        "hosts_online": 8,
-        "vsan_capacity_used_tb": 60.046189412465424,
-        "vcpu_allocation_ratio": 1.7927613249540517
+        "hosts_online": 4,
+        "vsan_capacity_used_tb": 13.474668803601276,
+        "vcpu_allocation_ratio": 6.676017402530728
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-evs-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-evs-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/evs/sa-east-1/2026/04/01/evs_95CAQ4SEWP.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/evs/logs",
+      "log_stream": "sa-east-1/nee0cx39",
+      "ingestion_time": "2026-04-01T12:55:20.470Z"
     }
   },
   "event": {
@@ -35,15 +49,36 @@
     ],
     "dataset": "aws.evs",
     "provider": "evs.amazonaws.com",
-    "duration": 1667000000
+    "duration": 311000000,
+    "module": "aws"
   },
   "data_stream": {
     "type": "logs",
     "dataset": "aws.evs",
     "namespace": "default"
   },
-  "message": "EVS environment evs-5dfscdh7: 8/8 hosts, vSAN=60.0TB, vCPU ratio=1.8",
+  "message": "EVS environment evs-yotw271l: 4/4 hosts, vSAN=13.5TB, vCPU ratio=6.7",
   "log": {
     "level": "info"
+  },
+  "host": {
+    "name": "ip-164-2-230-195.ec2.internal",
+    "hostname": "evs-2nvustye"
+  },
+  "service": {
+    "name": "evs",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-sa-east-1",
+    "ephemeral_id": "yk00nxaegdq"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

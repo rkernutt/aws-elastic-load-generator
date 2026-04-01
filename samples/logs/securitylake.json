@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "us-east-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "securitylake"
@@ -13,55 +13,68 @@
   },
   "aws": {
     "dimensions": {
-      "OcsfClass": "Network Activity",
-      "SourceType": "LAMBDA:VpcFlow"
+      "OcsfClass": "HTTP Activity",
+      "SourceType": "LAMBDA:ALB"
     },
     "securitylake": {
-      "source_type": "LAMBDA:VpcFlow",
-      "class_uid": 4001,
-      "class_name": "Network Activity",
+      "source_type": "LAMBDA:ALB",
+      "class_uid": 4002,
+      "class_name": "HTTP Activity",
       "category_uid": 4,
       "category_name": "Network Activity",
-      "activity_id": 5,
-      "activity_name": "Delete",
+      "activity_id": 1,
+      "activity_name": "Create",
       "severity_id": 1,
       "severity": "Informational",
       "status_id": 1,
       "status": "Success",
-      "time": 1775021232782,
+      "time": 1775048120199,
       "metadata": {
         "version": "1.1.0",
         "product": {
-          "name": "VpcFlow",
+          "name": "ALB",
           "vendor_name": "AWS"
         },
-        "uid": "raix06ms-cox1-afpf-29v2-n14srgpk8jn"
+        "uid": "rog5xia2-j22g-30la-xcxm-sdzqiitq8ed"
       },
       "ocsf_cloud": {
         "provider": "AWS",
         "account": {
-          "uid": "814726593401"
+          "uid": "501938274650"
         },
-        "region": "us-west-1"
+        "region": "us-east-2"
+      },
+      "http_request": {
+        "method": "PATCH",
+        "url": {
+          "path": "/api/v1/products",
+          "hostname": "api.example.com"
+        },
+        "user_agent": "Go-http-client/1.1"
+      },
+      "http_response": {
+        "code": 201
       },
       "src_endpoint": {
-        "ip": "178.185.24.145",
-        "port": 37670
+        "ip": "168.252.136.54"
       },
       "dst_endpoint": {
-        "ip": "190.192.210.253",
-        "port": 3306
-      },
-      "connection_info": {
-        "protocol_num": 17,
-        "protocol_name": "UDP",
-        "direction": "Inbound",
-        "direction_id": 1
-      },
-      "traffic": {
-        "bytes": 633988,
-        "packets": 48
+        "ip": "213.110.191.67"
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-securitylake-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-securitylake-logs-501938274650"
+      },
+      "object": {
+        "key": "AWSLogs/501938274650/securitylake/us-east-2/2026/04/01/securitylake_YPIUX6B8SL.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/securitylake/logs",
+      "log_stream": "us-east-2/uj5xr15w",
+      "ingestion_time": "2026-04-01T12:55:20.478Z"
     }
   },
   "event": {
@@ -71,10 +84,32 @@
       "network"
     ],
     "dataset": "aws.securitylake",
-    "provider": "securitylake.amazonaws.com"
+    "provider": "securitylake.amazonaws.com",
+    "module": "aws"
   },
-  "message": "Security Lake [Network Activity/Delete] Informational: VpcFlow success",
+  "message": "Security Lake [HTTP Activity/Create] Informational: ALB success",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "securitylake",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.securitylake",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-us-east-2",
+    "ephemeral_id": "gmcup7hldkm"
+  },
+  "input": {
+    "type": "http_endpoint"
   }
 }

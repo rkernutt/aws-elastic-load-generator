@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "eu-west-3",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,26 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "cdn-waf",
-      "Rule": "CrossSiteScripting",
-      "Region": "ap-southeast-3"
+      "WebACL": "prod-api-acl",
+      "Rule": "GeoBlockRule",
+      "Region": "eu-west-3"
     },
     "waf": {
-      "id": "8q9yfngh1ad",
-      "arn": "arn:aws:wafv2:ap-southeast-3:164820739518:regional/webacl/cdn-waf/y66j3yfq-g5e3-0io9-opcu-ite6zyvy35",
+      "id": "dgcm0oih5uv",
+      "arn": "arn:aws:wafv2:eu-west-3:164820739518:regional/webacl/prod-api-acl/9zv1x3ju-66gh-ezq2-3enf-w126kp9of7a",
       "format_version": "1",
       "source": {
-        "name": "CF",
-        "id": "164820739518-app/cdn-waf/93nfndss2jd"
+        "name": "APIGW",
+        "id": "164820739518-app/prod-api-acl/dw4h6wsvlkl"
       },
       "rule_group_list": [
         {
-          "ruleGroupId": "AWSManagedRulesWordPressRuleSet",
-          "terminatingRule": {
-            "action": "BLOCK",
-            "ruleId": "CrossSiteScripting",
-            "ruleMatchDetails": []
-          },
+          "ruleGroupId": "AWSManagedRulesSQLiRuleSet",
           "nonTerminatingMatchingRules": []
         }
       ],
@@ -42,7 +37,7 @@
         "headers": [
           {
             "name": "User-Agent",
-            "value": "curl/7.68.0"
+            "value": "python-requests/2.27.1"
           },
           {
             "name": "Host",
@@ -50,24 +45,19 @@
           }
         ]
       },
-      "labels": [
-        {
-          "name": "awswaf:managed:aws:known-bad-inputs:NoUserAgent_HEADER"
-        }
-      ],
-      "response_code_sent": 403,
+      "labels": [],
       "metrics": {
         "AllowedRequests": {
-          "sum": 0
+          "sum": 1
         },
         "BlockedRequests": {
-          "sum": 1
+          "sum": 0
         },
         "CountedRequests": {
           "sum": 0
         },
         "PassedRequests": {
-          "sum": 0
+          "sum": 1
         },
         "RequestsWithValidCaptchaToken": {
           "sum": 0
@@ -79,10 +69,24 @@
           "sum": 0
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-wafv2-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-wafv2-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/wafv2/eu-west-3/2026/04/01/wafv2_XNMMMKMKWXO.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/wafv2/logs",
+      "log_stream": "eu-west-3/pp31vc87",
+      "ingestion_time": "2026-04-01T12:55:20.534Z"
     }
   },
   "source": {
-    "ip": "23.212.121.88",
+    "ip": "211.255.44.66",
     "geo": {
       "country_iso_code": "RU",
       "country_name": "Russia",
@@ -96,32 +100,49 @@
   "http": {
     "request": {
       "method": "POST",
-      "bytes": 8402
+      "bytes": 3094
     }
   },
   "url": {
-    "path": "/api/v1/orders"
+    "path": "/api/v1/auth/login"
   },
   "user_agent": {
-    "original": "curl/7.68.0"
+    "original": "python-requests/2.27.1"
   },
   "event": {
-    "action": "block",
+    "action": "count",
     "outcome": "failure",
     "category": [
       "intrusion_detection",
       "network"
     ],
     "dataset": "aws.waf",
-    "provider": "wafv2.amazonaws.com"
+    "provider": "wafv2.amazonaws.com",
+    "module": "aws"
   },
-  "message": "WAFv2 BLOCK [cdn-waf] 23.212.121.88: AWSManagedRulesWordPressRuleSet/CrossSiteScripting",
+  "message": "WAFv2 COUNT [prod-api-acl] 211.255.44.66 POST /api/v1/auth/login",
   "log": {
-    "level": "warn"
+    "level": "info"
   },
-  "error": {
-    "code": "WAFBlock",
-    "message": "WAFv2 request blocked",
-    "type": "security"
+  "service": {
+    "name": "wafv2",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.waf",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "e5nwnd7u7fl"
+  },
+  "input": {
+    "type": "aws-s3"
   }
 }

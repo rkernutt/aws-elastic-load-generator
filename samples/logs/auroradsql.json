@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "il-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "dsql"
@@ -13,21 +13,36 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterId": "dsql-xhwffea68x",
-      "RegionMode": "replica"
+      "ClusterId": "dsql-hztqkthqn4",
+      "RegionMode": "primary"
     },
     "auroradsql": {
-      "cluster_id": "dsql-xhwffea68x",
+      "cluster_id": "dsql-hztqkthqn4",
       "linked_cluster_arns": [
-        "arn:aws:dsql:us-east-1:164820739518:cluster/dsql-0xwdg7nw"
+        "arn:aws:dsql:us-east-1:501938274650:cluster/dsql-dvjpkcls",
+        "arn:aws:dsql:us-west-2:501938274650:cluster/dsql-y6gkl261"
       ],
-      "transaction_id": "txn-xnvarzw2nig",
-      "region_mode": "replica",
+      "transaction_id": "txn-p02uml9ig",
+      "region_mode": "primary",
       "metrics": {
-        "transactions_per_sec": 1326.7921495479277,
-        "storage_used_gb": 480.60495954147456,
-        "replication_lag_ms": 67
+        "transactions_per_sec": 8811.97049956765,
+        "storage_used_gb": 433.51380645270115,
+        "replication_lag_ms": 0
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-auroradsql-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-auroradsql-logs-501938274650"
+      },
+      "object": {
+        "key": "AWSLogs/501938274650/auroradsql/il-central-1/2026/04/01/auroradsql_JW07I16G9E.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/auroradsql/logs",
+      "log_stream": "il-central-1/2njlwkxt",
+      "ingestion_time": "2026-04-01T12:55:20.510Z"
     }
   },
   "event": {
@@ -37,15 +52,32 @@
     ],
     "dataset": "aws.auroradsql",
     "provider": "dsql.amazonaws.com",
-    "duration": 29000000
+    "duration": 65000000,
+    "module": "aws"
   },
   "data_stream": {
     "type": "logs",
     "dataset": "aws.auroradsql",
     "namespace": "default"
   },
-  "message": "Aurora DSQL cluster dsql-xhwffea68x: 1327 TPS, storage=480.6GB, replication_lag=67ms",
+  "message": "Aurora DSQL cluster dsql-hztqkthqn4: 8812 TPS, storage=433.5GB, replication_lag=0ms",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "auroradsql",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-il-central-1",
+    "ephemeral_id": "nfiyjhvj0ij"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

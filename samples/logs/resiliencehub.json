@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "il-central-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,32 +13,74 @@
   },
   "aws": {
     "resiliencehub": {
-      "app_arn": "arn:aws:resiliencehub:us-west-2:293847561023:app/9xzyk4tbeu",
+      "app_arn": "arn:aws:resiliencehub:il-central-1:293847561023:app/mqozv4jhbob",
       "app_name": "customer-portal",
-      "operation": "PublishRecommendations",
-      "resiliency_score": 76,
-      "compliance_status": "POLICY_MET",
-      "current_rto_seconds": 2434,
-      "target_rto_seconds": 4868,
-      "current_rpo_seconds": 2429,
-      "target_rpo_seconds": 4858,
-      "tier": "Core",
-      "disruption_type": "Hardware",
-      "recommendation_count": 14
+      "operation": "DeleteResiliencyPolicy",
+      "resiliency_score": 48,
+      "compliance_status": "POLICY_BREACHED",
+      "current_rto_seconds": 579,
+      "target_rto_seconds": 289,
+      "current_rpo_seconds": 2790,
+      "target_rpo_seconds": 1395,
+      "tier": "Non-Critical",
+      "disruption_type": "AZ",
+      "recommendation_count": 11,
+      "error_code": "ResourceNotFoundException"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-resiliencehub-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-resiliencehub-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/resiliencehub/il-central-1/2026/04/01/resiliencehub_U3X35QYHH5K.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/resiliencehub/logs",
+      "log_stream": "il-central-1/jb2pxdxs",
+      "ingestion_time": "2026-04-01T12:55:20.527Z"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": [
       "process",
       "configuration"
     ],
     "dataset": "aws.resiliencehub",
     "provider": "resiliencehub.amazonaws.com",
-    "duration": 91000000000
+    "duration": 163000000000,
+    "module": "aws"
   },
-  "message": "Resilience Hub customer-portal [Core]: score=76, RTO=2434s, RPO=2429s",
+  "message": "Resilience Hub customer-portal POLICY BREACHED [Non-Critical]: score=48, RTO 579s exceeds target",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "ThrottlingException",
+    "message": "Resilience Hub policy breached",
+    "type": "resilience"
+  },
+  "service": {
+    "name": "resiliencehub",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.resiliencehub",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-il-central-1",
+    "ephemeral_id": "slz2zqkdp6p"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

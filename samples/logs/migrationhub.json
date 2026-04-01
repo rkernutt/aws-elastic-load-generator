@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "eu-central-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "migrationhub"
@@ -13,19 +13,33 @@
   },
   "aws": {
     "migrationhub": {
-      "application_id": "app-4ozt1tmrk7w",
-      "application_name": "database-rehost",
-      "server_id": "d-server-INUN0Q3U6W8",
-      "server_name": "server-fdsslz3e",
+      "application_id": "app-00kjfe5qg5nh",
+      "application_name": "legacy-erp",
+      "server_id": "d-server-WK3ZRICIBQQ",
+      "server_name": "server-cf0mbogx",
       "migration_status": "MIGRATION_IN_PROGRESS",
-      "migration_tool": "CloudEndure",
-      "progress_update_stream": "MGN-stream",
+      "migration_tool": "Carbonite",
+      "progress_update_stream": "DMS-stream",
       "task": {
         "status": "IN_PROGRESS",
-        "progress_percent": 57,
-        "total_objects": 901,
-        "replicated_objects": 91
+        "progress_percent": 91,
+        "total_objects": 415,
+        "replicated_objects": 726
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-migrationhub-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-migrationhub-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/migrationhub/eu-central-2/2026/04/01/migrationhub_SLQ6WTTAEI.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/migrationhub/logs",
+      "log_stream": "eu-central-2/laf1808n",
+      "ingestion_time": "2026-04-01T12:55:20.527Z"
     }
   },
   "event": {
@@ -36,10 +50,32 @@
     ],
     "dataset": "aws.migrationhub",
     "provider": "mgh.amazonaws.com",
-    "duration": 8512000000000
+    "duration": 51138000000000,
+    "module": "aws"
   },
-  "message": "Migration Hub database-rehost [CloudEndure]: MIGRATION_IN_PROGRESS — server-fdsslz3e",
+  "message": "Migration Hub legacy-erp [Carbonite]: MIGRATION_IN_PROGRESS — server-cf0mbogx",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "migrationhub",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.migrationhub",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-central-2",
+    "ephemeral_id": "zzajj6bj2c"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

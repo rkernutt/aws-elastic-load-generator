@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "appsync"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "appsync": {
-      "api_id": "JNHGVGZT3J",
-      "api_name": "partner-api",
-      "operation_type": "query",
-      "operation_name": "getUserById",
+      "api_id": "UQ561SKZ1Z",
+      "api_name": "mobile-api",
+      "operation_type": "subscription",
+      "operation_name": "updateInventory",
       "data_source_type": "AWS_LAMBDA",
-      "duration_ms": 268,
+      "duration_ms": 259,
       "status_code": 200,
       "metrics": {
         "RequestCount": {
-          "sum": 3120
+          "sum": 2685
         },
         "4XXError": {
           "sum": 0
@@ -31,10 +31,24 @@
           "sum": 0
         },
         "Latency": {
-          "avg": 268.1703758015781,
-          "p99": 569.5
+          "avg": 259.2829356658333,
+          "p99": 464.2
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-appsync-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-appsync-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/appsync/eu-central-1/2026/04/01/appsync_3Q2UUGX8JX1.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/appsync/logs",
+      "log_stream": "eu-central-1/sprdzxxg",
+      "ingestion_time": "2026-04-01T12:55:20.513Z"
     }
   },
   "http": {
@@ -43,14 +57,36 @@
     }
   },
   "event": {
-    "duration": 268170375.80157807,
+    "duration": 259282935.6658333,
     "outcome": "success",
     "category": "api",
     "dataset": "aws.appsync",
-    "provider": "appsync.amazonaws.com"
+    "provider": "appsync.amazonaws.com",
+    "module": "aws"
   },
-  "message": "AppSync query.getUserById: 268ms [partner-api]",
+  "message": "AppSync subscription.updateInventory: 259ms [mobile-api]",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "appsync",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.appsync",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "atl2wmpuofw"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

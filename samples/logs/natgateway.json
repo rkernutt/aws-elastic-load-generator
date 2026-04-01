@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "natgateway"
@@ -13,81 +13,95 @@
   },
   "aws": {
     "dimensions": {
-      "NatGatewayId": "nat-0q1zhtjfjq7"
+      "NatGatewayId": "nat-lqty7uo4x9a"
     },
     "natgateway": {
-      "id": "nat-0q1zhtjfjq7",
-      "private_ip": "10.30.203.1",
-      "public_ip": "241.228.72.102",
-      "bytes_in_from_source": 185339,
-      "bytes_out_to_destination": 185339,
-      "bytes_in_from_destination": 248863,
-      "bytes_out_to_source": 200410,
-      "packets_in_from_source": 581,
-      "packets_out_to_destination": 581,
-      "packets_in_from_destination": 846,
-      "packets_out_to_source": 685,
+      "id": "nat-lqty7uo4x9a",
+      "private_ip": "10.107.57.128",
+      "public_ip": "120.203.28.128",
+      "bytes_in_from_source": 274834,
+      "bytes_out_to_destination": 274834,
+      "bytes_in_from_destination": 294072,
+      "bytes_out_to_source": 256823,
+      "packets_in_from_source": 293,
+      "packets_out_to_destination": 293,
+      "packets_in_from_destination": 324,
+      "packets_out_to_source": 305,
       "connection_attempt_count": 0,
-      "connection_established_count": 36,
+      "connection_established_count": 12,
       "error_port_allocation": 0,
       "metrics": {
         "ActiveConnectionCount": {
-          "avg": 20
+          "avg": 6818
         },
         "BytesInFromDestination": {
-          "sum": 99840798
+          "sum": 686616625
         },
         "BytesInFromSource": {
-          "sum": 681390058
+          "sum": 567519558
         },
         "BytesOutToDestination": {
-          "sum": 670472045
+          "sum": 92842289
         },
         "BytesOutToSource": {
-          "sum": 726720508
+          "sum": 911796699
         },
         "ConnectionAttemptCount": {
-          "sum": 808
+          "sum": 920
         },
         "ConnectionEstablishedCount": {
-          "sum": 692
+          "sum": 665
         },
         "ErrorPortAllocation": {
           "sum": 0
         },
         "IdleTimeoutCount": {
-          "sum": 51
+          "sum": 21
         },
         "PacketsDropCount": {
           "sum": 0
         },
         "PacketsInFromDestination": {
-          "sum": 101146
+          "sum": 292155
         },
         "PacketsInFromSource": {
-          "sum": 671296
+          "sum": 732728
         },
         "PacketsOutToDestination": {
-          "sum": 345971
+          "sum": 863286
         },
         "PacketsOutToSource": {
-          "sum": 965309
+          "sum": 559822
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-natgateway-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-natgateway-logs-293847561023"
+      },
+      "object": {
+        "key": "AWSLogs/293847561023/natgateway/eu-central-1/2026/04/01/natgateway_Q5XFNBK0W1.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/natgateway/logs",
+      "log_stream": "eu-central-1/m3ww5c72",
+      "ingestion_time": "2026-04-01T12:55:20.473Z"
     }
   },
   "source": {
-    "ip": "10.30.203.1",
-    "port": 56349
+    "ip": "10.107.57.128",
+    "port": 32739
   },
   "destination": {
-    "ip": "213.70.193.15",
-    "port": 80
+    "ip": "139.111.7.78",
+    "port": 27017
   },
   "network": {
-    "protocol": "udp",
-    "bytes": 185339,
-    "packets": 581,
+    "protocol": "tcp",
+    "bytes": 274834,
+    "packets": 293,
     "direction": "egress"
   },
   "event": {
@@ -97,10 +111,32 @@
     ],
     "dataset": "aws.natgateway",
     "provider": "natgateway.amazonaws.com",
-    "duration": 1194000000
+    "duration": 3154000000,
+    "module": "aws"
   },
-  "message": "NAT Gateway nat-0q1zhtjfjq7: ACCEPT UDP 10.30.203.1:33173 → 213.70.193.15:80 185339B",
+  "message": "NAT Gateway nat-lqty7uo4x9a: ACCEPT TCP 10.107.57.128:11274 → 139.111.7.78:27017 274834B",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "natgateway",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.natgateway",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "l4o7bk0hleg"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

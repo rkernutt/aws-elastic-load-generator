@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-south-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "ipam"
@@ -13,20 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "PoolId": "ipam-pool-jyr3iybz",
-      "ScopeId": "ipam-scope-aatwjw2e"
+      "PoolId": "ipam-pool-yub7wfqo",
+      "ScopeId": "ipam-scope-zc7ivihj"
     },
     "vpcipam": {
-      "pool_id": "ipam-pool-jyr3iybz",
-      "scope_id": "ipam-scope-aatwjw2e",
-      "allocation_id": "ipam-alloc-9po9tvsl",
-      "cidr": "10.1.0.0/16",
-      "allocation_type": "resource",
+      "pool_id": "ipam-pool-yub7wfqo",
+      "scope_id": "ipam-scope-zc7ivihj",
+      "allocation_id": "ipam-alloc-a3hakgmo",
+      "cidr": "172.16.0.0/12",
+      "allocation_type": "vpc",
       "metrics": {
-        "allocations_count": 63,
-        "free_count": 172,
-        "used_count": 63
+        "allocations_count": 161,
+        "free_count": 181,
+        "used_count": 161
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-vpcipam-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-vpcipam-logs-738291046572"
+      },
+      "object": {
+        "key": "AWSLogs/738291046572/vpcipam/eu-south-2/2026/04/01/vpcipam_1VSBQJ6CQCO.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/vpcipam/logs",
+      "log_stream": "eu-south-2/nz6v2hzd",
+      "ingestion_time": "2026-04-01T12:55:20.474Z"
     }
   },
   "event": {
@@ -36,15 +50,32 @@
     ],
     "dataset": "aws.vpcipam",
     "provider": "ec2.amazonaws.com",
-    "duration": 170000000
+    "duration": 91000000,
+    "module": "aws"
   },
   "data_stream": {
     "type": "logs",
     "dataset": "aws.vpcipam",
     "namespace": "default"
   },
-  "message": "VPC IPAM pool ipam-pool-jyr3iybz: allocated 10.1.0.0/16 (resource), free=172",
+  "message": "VPC IPAM pool ipam-pool-yub7wfqo: allocated 172.16.0.0/12 (vpc), free=181",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "vpcipam",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-south-2",
+    "ephemeral_id": "8wxysg666qj"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

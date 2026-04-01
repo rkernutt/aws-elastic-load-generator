@@ -1,53 +1,53 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "eu-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "apigateway"
     }
   },
   "trace": {
-    "id": "1-q164smfv-kx7pmvgitep"
+    "id": "1-zahq56od-2mnxvvh109s"
   },
   "aws": {
     "dimensions": {
       "ApiName": "prod-api",
-      "Stage": "v1",
-      "Method": "PUT",
+      "Stage": "prod",
+      "Method": "POST",
       "Resource": "/api/v1/orders"
     },
     "apigateway": {
-      "request_id": "buicfywb-5p21",
-      "api_id": "wci228rrzw",
-      "domain_name": "wci228rrzw.execute-api.us-west-2.amazonaws.com",
-      "stage": "v1",
-      "http_method": "PUT",
+      "request_id": "ocb98cct-q5o1",
+      "api_id": "09yogtxcn6",
+      "domain_name": "09yogtxcn6.execute-api.us-west-2.amazonaws.com",
+      "stage": "prod",
+      "http_method": "POST",
       "resource_path": "/api/v1/orders",
       "protocol": "HTTP/1.1",
-      "route_key": "PUT /api/v1/orders",
-      "status": 200,
-      "response_length": 2928,
-      "ip_address": "74.138.34.119",
-      "caller": "arn:aws:iam::738291046572:user/api-user",
-      "event_type": "CONNECT",
-      "request_time": "2026-04-01T05:27:12.782Z",
+      "route_key": "POST /api/v1/orders",
+      "status": 201,
+      "response_length": 3977,
+      "ip_address": "49.235.253.22",
+      "connection_id": "KND84HINXSL",
+      "event_type": "DISCONNECT",
+      "request_time": "2026-04-01T12:55:20.199Z",
       "api_type": "REST",
-      "integration_latency": 124,
+      "integration_latency": 180,
       "metrics": {
         "Count": {
           "sum": 1
         },
         "Latency": {
-          "avg": 156,
-          "p99": 468
+          "avg": 222,
+          "p99": 666
         },
         "IntegrationLatency": {
-          "avg": 124
+          "avg": 180
         },
         "4XXError": {
           "sum": 0
@@ -56,37 +56,51 @@
           "sum": 0
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-apigateway-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-apigateway-logs-164820739518"
+      },
+      "object": {
+        "key": "AWSLogs/164820739518/apigateway/eu-south-2/2026/04/01/apigateway_42KYQ9ZB9NS.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/apigateway/logs",
+      "log_stream": "eu-south-2/npuhadth",
+      "ingestion_time": "2026-04-01T12:55:20.466Z"
     }
   },
   "http": {
     "request": {
-      "method": "PUT",
-      "id": "buicfywb-5p21",
-      "bytes": 2850
+      "method": "POST",
+      "id": "ocb98cct-q5o1",
+      "bytes": 1148
     },
     "response": {
-      "status_code": 200,
-      "bytes": 890
+      "status_code": 201,
+      "bytes": 3747
     }
   },
   "url": {
     "path": "/api/v1/orders",
-    "domain": "wci228rrzw.execute-api.eu-central-2.amazonaws.com"
+    "domain": "09yogtxcn6.execute-api.eu-south-2.amazonaws.com"
   },
   "client": {
-    "ip": "86.133.121.50",
+    "ip": "53.103.247.246",
     "geo": {
-      "country_iso_code": "GB",
-      "country_name": "United Kingdom",
-      "region_name": "London",
-      "city_name": "London"
+      "country_iso_code": "JP",
+      "country_name": "Japan",
+      "region_name": "Tokyo",
+      "city_name": "Tokyo"
     }
   },
   "user_agent": {
-    "original": "Go-http-client/1.1"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
-    "duration": 156000000,
+    "duration": 222000000,
     "outcome": "success",
     "category": [
       "web"
@@ -95,10 +109,32 @@
       "access"
     ],
     "dataset": "aws.apigateway_logs",
-    "provider": "apigateway.amazonaws.com"
+    "provider": "apigateway.amazonaws.com",
+    "module": "aws"
   },
-  "message": "PUT /api/v1/orders 200 156ms",
+  "message": "POST /api/v1/orders 201 222ms",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "apigateway",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.apigateway_logs",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-eu-south-2",
+    "ephemeral_id": "b84tomj4kee"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

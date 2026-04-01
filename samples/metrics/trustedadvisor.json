@@ -1,12 +1,21 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-central-1",
+    "ephemeral_id": "hemm89l9yca"
   },
   "aws": {
     "trustedadvisor": {
@@ -17,23 +26,23 @@
           "count": 1
         },
         "WarningCount": {
-          "avg": 78,
-          "sum": 78,
+          "avg": 14,
+          "sum": 14,
           "count": 1
         },
         "OkCount": {
-          "avg": 167,
-          "sum": 167,
+          "avg": 163,
+          "sum": 163,
           "count": 1
         },
         "NotAvailableCount": {
-          "avg": 9,
-          "sum": 9,
+          "avg": 8,
+          "sum": 8,
           "count": 1
         }
       },
       "dimensions": {
-        "AwsAccountId": "164820739518"
+        "AwsAccountId": "501938274650"
       }
     }
   },
@@ -45,6 +54,9 @@
     "type": "metrics",
     "dataset": "aws.trustedadvisor",
     "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   },
   "event": {
     "dataset": "aws.trustedadvisor",

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "iottwinmaker"
@@ -13,32 +13,68 @@
   },
   "aws": {
     "dimensions": {
-      "WorkspaceId": "oil-refinery-ws"
+      "WorkspaceId": "smart-building-ws"
     },
     "iottwinmaker": {
-      "workspace_id": "oil-refinery-ws",
-      "entity_id": "entity-8u9uhsls",
+      "workspace_id": "smart-building-ws",
+      "entity_id": "entity-pp9nnflc",
       "entity_name": "ConveyorBelt-01",
-      "component_type_id": "com.example.temperature",
-      "property_name": "OperationalStatus",
-      "property_value": 872.2562925911097,
-      "scene_id": "scene-h3oarpxg",
-      "sync_source": "CUSTOM",
+      "component_type_id": "com.example.pressure",
+      "property_name": "Pressure",
+      "property_value": 201.26941455348646,
+      "scene_id": "scene-c03pc71e",
+      "sync_source": "IOT_DEVICE_DATA",
       "update_reason": "CONNECTIVITY_CHANGE"
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-iottwinmaker-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-iottwinmaker-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/iottwinmaker/ap-northeast-2/2026/04/01/iottwinmaker_YYOPXOAIEIM.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/iottwinmaker/logs",
+      "log_stream": "ap-northeast-2/e3v14vss",
+      "ingestion_time": "2026-04-01T12:55:20.524Z"
     }
   },
   "event": {
-    "action": "ExecuteQuery",
+    "action": "CreateScene",
     "outcome": "success",
     "category": [
       "iot",
       "process"
     ],
     "dataset": "aws.iottwinmaker",
-    "provider": "iottwinmaker.amazonaws.com"
+    "provider": "iottwinmaker.amazonaws.com",
+    "module": "aws"
   },
-  "message": "IoT TwinMaker ExecuteQuery: workspace=oil-refinery-ws, entity=ConveyorBelt-01, OperationalStatus=872.2562925911097",
+  "message": "IoT TwinMaker CreateScene: workspace=smart-building-ws, entity=ConveyorBelt-01, Pressure=201.26941455348646",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "iottwinmaker",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.iottwinmaker",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-ap-northeast-2",
+    "ephemeral_id": "h2jo3t1l2if"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }

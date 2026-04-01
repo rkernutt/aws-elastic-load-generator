@@ -272,7 +272,7 @@ describe("Database generators", () => {
     let emDoc: any = null;
     for (let i = 0; i < 20; i++) {
       const d: any = generateRdsLog(TS, 0);
-      if (d.aws.rds.enhanced_monitoring) {
+      if (d.aws?.rds?.enhanced_monitoring) {
         emDoc = d;
         break;
       }

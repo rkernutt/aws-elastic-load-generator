@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T05:27:12.782Z",
+  "@timestamp": "2026-04-01T12:55:20.199Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "af-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "iotcore"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "Protocol": "MQTT-SN"
+      "Protocol": "WSS"
     },
     "iotcore": {
-      "client_id": "camera-entrance",
-      "thing_name": "camera-entrance",
-      "thing_group": "factory-sensors",
-      "action": "SUBSCRIBE",
+      "client_id": "gateway-prod-1",
+      "thing_name": "gateway-prod-1",
+      "thing_group": "fleet",
+      "action": "PUBLISH",
       "topic": "telemetry/metrics",
-      "protocol": "MQTT-SN",
+      "protocol": "WSS",
       "qos": 1,
-      "message_bytes": 50619,
-      "policy_name": "IoTDevicePolicy",
-      "structured_logging": false,
-      "rules_evaluated": 1,
+      "message_bytes": 10559,
+      "policy_name": "FleetPolicy",
+      "structured_logging": true,
+      "rules_evaluated": 5,
       "metrics": {
         "Connect.Success": {
-          "sum": 424
+          "sum": 374
         },
         "Connect.Failure": {
           "sum": 0
         },
         "PublishIn.Success": {
-          "sum": 4556
+          "sum": 1645
         },
         "PublishIn.ClientError": {
           "sum": 0
@@ -44,52 +44,66 @@
           "sum": 0
         },
         "PublishOut.Success": {
-          "sum": 378
+          "sum": 9807
         },
         "Publish.Success": {
-          "sum": 9668
+          "sum": 1945
         },
         "Publish.Failure": {
           "sum": 0
         },
         "Subscribe.Success": {
-          "sum": 2005
+          "sum": 3223
         },
         "Subscribe.Failure": {
           "sum": 0
         },
         "Unsubscribe.Success": {
-          "sum": 771
+          "sum": 412
         },
         "Ping.Success": {
-          "sum": 9896
+          "sum": 8460
         },
         "Throttle.Success": {
-          "sum": 199
+          "sum": 165
         },
         "RulesMatched": {
-          "sum": 903
+          "sum": 991
         },
         "RulesFailed": {
           "sum": 0
         },
         "RulesNotMatched": {
-          "sum": 98
+          "sum": 4
         },
         "TopicMatch": {
-          "sum": 1787
+          "sum": 8838
         },
         "ClientConnections": {
-          "avg": 89649
+          "avg": 38490
         }
       }
+    },
+    "s3": {
+      "bucket": {
+        "name": "aws-iotcore-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-iotcore-logs-814726593401"
+      },
+      "object": {
+        "key": "AWSLogs/814726593401/iotcore/af-south-1/2026/04/01/iotcore_BUNQ9WUOZBL.log.gz"
+      }
+    },
+    "cloudwatch": {
+      "log_group": "/aws/iotcore/logs",
+      "log_stream": "af-south-1/rgd60qg1",
+      "ingestion_time": "2026-04-01T12:55:20.523Z"
     }
   },
   "source": {
-    "ip": "148.28.7.44"
+    "ip": "82.179.55.216"
   },
   "event": {
-    "action": "SUBSCRIBE",
+    "action": "PUBLISH",
     "outcome": "success",
     "category": [
       "network",
@@ -97,10 +111,32 @@
     ],
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com",
-    "duration": 180000000
+    "duration": 136000000,
+    "module": "aws"
   },
-  "message": "IoT Core SUBSCRIBE: camera-entrance on telemetry/metrics",
+  "message": "{\"clientId\":\"gateway-prod-1\",\"action\":\"PUBLISH\",\"topic\":\"telemetry/metrics\",\"message\":\"IoT Core PUBLISH: gateway-prod-1 on telemetry/metrics\",\"timestamp\":\"2026-04-01T12:55:20.199Z\"}",
   "log": {
     "level": "info"
+  },
+  "service": {
+    "name": "iotcore",
+    "type": "aws"
+  },
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "data_stream": {
+    "type": "logs",
+    "dataset": "aws.iotcore",
+    "namespace": "default"
+  },
+  "agent": {
+    "type": "filebeat",
+    "version": "8.18.0",
+    "name": "filebeat-aws-af-south-1",
+    "ephemeral_id": "x19jb15qn9h"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
   }
 }
