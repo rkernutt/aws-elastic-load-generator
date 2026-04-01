@@ -9,6 +9,10 @@ import {
   EuiText,
   EuiSpacer,
   EuiStepsHorizontal,
+  EuiHeader,
+  EuiHeaderSection,
+  EuiHeaderSectionItem,
+  EuiTitle,
 } from "@elastic/eui";
 import { PipelineLogo } from "./Logo";
 
@@ -105,60 +109,84 @@ export function AppLayout({
   })();
 
   return (
-    <EuiPageTemplate restrictWidth={false} grow>
-      <EuiPageTemplate.Sidebar sticky={{ offset: 0 }} minWidth={210}>
-        <EuiSpacer size="m" />
-        <EuiFlexGroup gutterSize="s" alignItems="center" responsive={false}>
-          <EuiFlexItem grow={false}>
-            <PipelineLogo size={36} />
-          </EuiFlexItem>
-          <EuiFlexItem>
-            <EuiText size="s">
-              <strong>AWS → Elastic</strong>
-            </EuiText>
-            <EuiText size="xs" color="subdued">
-              Load Generator
-            </EuiText>
-          </EuiFlexItem>
-        </EuiFlexGroup>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      {/* ── Dark header bar ─────────────────────────────────────────── */}
+      <EuiHeader
+        theme="dark"
+        position="fixed"
+        sections={[
+          {
+            items: [
+              <EuiHeaderSectionItem key="brand">
+                <EuiFlexGroup gutterSize="m" alignItems="center" responsive={false}>
+                  <EuiFlexItem grow={false}>
+                    <EuiIcon type="logoAWS" size="xl" />
+                  </EuiFlexItem>
+                  <EuiFlexItem grow={false}>
+                    <PipelineLogo size={32} />
+                  </EuiFlexItem>
+                  <EuiFlexItem grow={false}>
+                    <EuiIcon type="logoElastic" size="xl" />
+                  </EuiFlexItem>
+                  <EuiFlexItem grow={false}>
+                    <EuiTitle size="s">
+                      <h1
+                        style={{
+                          color: "#fff",
+                          fontWeight: 700,
+                          letterSpacing: "-0.02em",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Load Generator
+                      </h1>
+                    </EuiTitle>
+                  </EuiFlexItem>
+                </EuiFlexGroup>
+              </EuiHeaderSectionItem>,
+            ],
+          },
+          {
+            items: [
+              <EuiHeaderSectionItem key="badges">
+                <EuiFlexGroup gutterSize="s" alignItems="center" responsive={false}>
+                  <EuiFlexItem grow={false}>
+                    <EuiBadge color="hollow">
+                      {totalSelected}/{totalServices} services
+                    </EuiBadge>
+                  </EuiFlexItem>
+                  {statusBadge && <EuiFlexItem grow={false}>{statusBadge}</EuiFlexItem>}
+                  {scheduleActive && (
+                    <EuiFlexItem grow={false}>
+                      <EuiBadge color="accent">
+                        Run {scheduleCurrentRun}/{scheduleTotalRuns}
+                      </EuiBadge>
+                    </EuiFlexItem>
+                  )}
+                  <EuiFlexItem grow={false}>
+                    <EuiBadge color="hollow">v12.0.0</EuiBadge>
+                  </EuiFlexItem>
+                </EuiFlexGroup>
+              </EuiHeaderSectionItem>,
+            ],
+          },
+        ]}
+      />
 
-        <EuiSpacer size="l" />
-        <EuiSideNav items={sideNavItems} />
-        <EuiSpacer size="l" />
-        <div style={{ marginTop: "auto", paddingTop: 24 }}>
-          <EuiFlexGroup gutterSize="s" alignItems="center" responsive={false}>
-            <EuiFlexItem grow={false}>
-              <EuiBadge color="hollow">v12.0.0</EuiBadge>
-            </EuiFlexItem>
-            {statusBadge && <EuiFlexItem grow={false}>{statusBadge}</EuiFlexItem>}
-            {scheduleActive && (
-              <EuiFlexItem grow={false}>
-                <EuiBadge color="accent">
-                  Run {scheduleCurrentRun}/{scheduleTotalRuns}
-                </EuiBadge>
-              </EuiFlexItem>
-            )}
-          </EuiFlexGroup>
-        </div>
-      </EuiPageTemplate.Sidebar>
+      {/* ── Main content area with sidebar ──────────────────────────── */}
+      <EuiPageTemplate restrictWidth={false} grow style={{ paddingTop: 48 }}>
+        <EuiPageTemplate.Sidebar sticky={{ offset: 48 }} minWidth={200}>
+          <EuiSpacer size="m" />
+          <EuiSideNav items={sideNavItems} />
+        </EuiPageTemplate.Sidebar>
 
-      <EuiPageTemplate.Section>
-        {/* Wizard stepper at top of content area */}
-        <EuiStepsHorizontal steps={stepStatuses} />
-        <EuiSpacer size="m" />
-
-        {/* Top bar with service count */}
-        <EuiFlexGroup justifyContent="flexEnd" gutterSize="s" responsive={false}>
-          <EuiFlexItem grow={false}>
-            <EuiBadge color="hollow">
-              {totalSelected} / {totalServices} services
-            </EuiBadge>
-          </EuiFlexItem>
-        </EuiFlexGroup>
-        <EuiSpacer size="m" />
-
-        {children}
-      </EuiPageTemplate.Section>
-    </EuiPageTemplate>
+        <EuiPageTemplate.Section>
+          {/* Wizard stepper */}
+          <EuiStepsHorizontal steps={stepStatuses} />
+          <EuiSpacer size="m" />
+          {children}
+        </EuiPageTemplate.Section>
+      </EuiPageTemplate>
+    </div>
   );
 }

@@ -196,13 +196,18 @@ export function ConnectionPage({
 
       <EuiSpacer size="l" />
 
-      {/* Ingestion source selector */}
-      <EuiFormRow label="Ingestion Source" helpText="Override default per-service ingestion path">
+      {/* Ingestion source selector — full-width so labels aren't clipped */}
+      <EuiFormRow
+        label="Ingestion Source"
+        helpText="Override default per-service ingestion path"
+        fullWidth
+      >
         <EuiButtonGroup
           legend="Ingestion source selection"
           options={INGESTION_OPTIONS}
           idSelected={ingestionSource}
           onChange={(id) => onIngestionSourceChange(id)}
+          isFullWidth
         />
       </EuiFormRow>
 
