@@ -119,7 +119,7 @@ Done.
 
 ### What it installs
 
-Custom Elasticsearch ingest pipelines for the ~167 AWS services not covered by the official integration. These pipelines parse the structured JSON `message` field emitted by the load generator into named fields (e.g. `glue.parsed`, `sagemaker.parsed`) — making logs fully searchable and aggregatable in Kibana.
+Custom Elasticsearch ingest pipelines for the ~187 AWS services not covered by the official integration. These pipelines parse the structured JSON `message` field emitted by the load generator into named fields (e.g. `glue.parsed`, `sagemaker.parsed`) — making logs fully searchable and aggregatable in Kibana.
 
 ### How to run
 
@@ -182,7 +182,7 @@ Available pipeline groups:
 Enter number(s) comma-separated, or "all":
 > all
 
-Installing 167 pipeline(s)...
+Installing 187 pipeline(s)...
 
   ✓ logs-aws.glue-default — installed
   ✓ logs-aws.emr_logs-default — installed

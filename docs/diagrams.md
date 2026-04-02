@@ -11,17 +11,17 @@ flowchart LR
     end
 
     subgraph Engine["Load Generator Engine"]
-        SEL["Service Selector\n200 services / 15 groups"]
+        SEL["Service Selector\n211 services / 15 groups"]
         MODE["Mode Switch\nLogs · Metrics · Traces"]
         GEN["Generator Functions\nECS-shaped documents"]
         BUF["Batch Buffer\n50–1,000 docs / request"]
     end
 
     subgraph Elastic["Elastic Stack"]
-        PIPE["Ingest Pipelines\n167 custom pipelines"]
+        PIPE["Ingest Pipelines\n187 custom pipelines"]
         DS[("Data Streams\nlogs-aws.*\nmetrics-aws.*\ntraces-apm.*")]
-        KB["Kibana\n56 custom dashboards"]
-        ML["ML Anomaly Detection\n158 jobs / 24 groups"]
+        KB["Kibana\n77 custom dashboards"]
+        ML["ML Anomaly Detection\n180 jobs / 25 groups"]
     end
 
     UI -->|"select services\nset volume + error rate"| SEL
@@ -84,7 +84,7 @@ flowchart TD
 
 ---
 
-## 3 · Service Groups (200 services)
+## 3 · Service Groups (211 services)
 
 ```mermaid
 mindmap
@@ -318,19 +318,19 @@ flowchart TD
     subgraph I2["setup:pipelines"]
         direction TB
         B1["Elasticsearch Ingest API"]
-        B2["152 custom pipelines\n15 groups\nlogs-aws.service-default"]
+        B2["187 custom pipelines\n15 groups\nlogs-aws.service-default"]
     end
 
     subgraph I3["setup:dashboards"]
         direction TB
         C1["Kibana Saved Objects API\nor legacy NDJSON import"]
-        C2["56 Kibana dashboards\nLens + ES|QL panels\nper-service visualisations"]
+        C2["77 Kibana dashboards\nLens + ES|QL panels\nper-service visualisations"]
     end
 
     subgraph I4["setup:ml-jobs"]
         direction TB
         D1["Elasticsearch ML API"]
-        D2["158 anomaly detection jobs\n24 groups\ndatafeeds auto-started"]
+        D2["180 anomaly detection jobs\n25 groups\ndatafeeds auto-started"]
     end
 
     I1 --> DONE
