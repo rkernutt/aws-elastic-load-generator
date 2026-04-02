@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "kinesis-video"
@@ -13,39 +13,39 @@
   },
   "aws": {
     "kinesis_video": {
-      "stream_name": "traffic-monitor",
-      "stream_arn": "arn:aws:kinesisvideo:eu-west-1:293847561023:stream/traffic-monitor",
-      "event_type": "GetMedia",
-      "fragment_number": "FDC2LFQNWA",
-      "producer_timestamp_ms": 1775048120524,
-      "server_timestamp_ms": 1775048120713,
-      "ingestion_rate_mbps": 2.745307662894888,
-      "fragment_duration_ms": 2273,
-      "resolution": "640x480",
+      "stream_name": "warehouse-feed",
+      "stream_arn": "arn:aws:kinesisvideo:eu-central-2:814726593401:stream/warehouse-feed",
+      "event_type": "GetClip",
+      "fragment_number": "16220521M5A",
+      "producer_timestamp_ms": 1775163022428,
+      "server_timestamp_ms": 1775163022594,
+      "ingestion_rate_mbps": 5.768045218670805,
+      "fragment_duration_ms": 2148,
+      "resolution": "1280x720",
       "codec": "H.265"
     },
     "s3": {
       "bucket": {
-        "name": "aws-kinesisvideo-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-kinesisvideo-logs-293847561023"
+        "name": "aws-kinesisvideo-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-kinesisvideo-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/kinesisvideo/eu-west-1/2026/04/01/kinesisvideo_9ZVMFMUSGPF.log.gz"
+        "key": "AWSLogs/814726593401/kinesisvideo/eu-central-2/2026/04/02/kinesisvideo_AL0N7VVOR2.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/kinesisvideo/logs",
-      "log_stream": "eu-west-1/9tvp4nvz",
-      "ingestion_time": "2026-04-01T12:55:20.524Z"
+      "log_stream": "eu-central-2/6jy92kkb",
+      "ingestion_time": "2026-04-02T20:50:22.428Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 5860463,
+    "duration": 2744299,
     "module": "aws",
     "dataset": "aws.kinesisvideo"
   },
-  "message": "Kinesis Video traffic-monitor: GetMedia (9.6 Mbps)",
+  "message": "Kinesis Video warehouse-feed: GetClip (7.0 Mbps)",
   "service": {
     "name": "kinesisvideo",
     "type": "aws"
@@ -64,8 +64,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-1",
-    "ephemeral_id": "99y97ir779g"
+    "name": "filebeat-aws-eu-central-2",
+    "ephemeral_id": "q88fw1cucu"
   },
   "input": {
     "type": "aws-cloudwatch"

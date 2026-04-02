@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "robomaker"
@@ -13,41 +13,41 @@
   },
   "aws": {
     "robomaker": {
-      "simulation_job_id": "sim-bzzg8fw2go",
-      "robot_application": "delivery-robot",
-      "event_type": "CreateWorldTemplate",
-      "status": "Running",
-      "simulation_time_seconds": 6069,
-      "world_count": 3,
-      "compute_type": "CPU",
+      "simulation_job_id": "sim-qkxkasoothk",
+      "robot_application": "warehouse-nav",
+      "event_type": "CreateSimulationJob",
+      "status": "Completed",
+      "simulation_time_seconds": 27843,
+      "world_count": 2,
+      "compute_type": "GPU_AND_CPU",
       "max_job_duration_seconds": 86400,
       "failure_behavior": "Fail"
     },
     "s3": {
       "bucket": {
-        "name": "aws-robomaker-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-robomaker-logs-293847561023"
+        "name": "aws-robomaker-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-robomaker-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/293847561023/robomaker/ap-south-1/2026/04/01/robomaker_TJ8AXCPK0T.log.gz"
+        "key": "AWSLogs/738291046572/robomaker/eu-west-2/2026/04/02/robomaker_Y0EPU7S114O.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/robomaker/logs",
-      "log_stream": "ap-south-1/2mpkz57r",
-      "ingestion_time": "2026-04-01T12:55:20.515Z"
+      "log_stream": "eu-west-2/prk1ague",
+      "ingestion_time": "2026-04-02T20:50:22.419Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 13865830870,
+    "duration": 22386378688,
     "module": "aws",
     "dataset": "aws.robomaker"
   },
-  "message": "RoboMaker delivery-robot: CreateWorldTemplate completed",
+  "message": "RoboMaker warehouse-nav: CreateSimulationJob completed",
   "host": {
-    "name": "ip-211-231-214-1.ec2.internal",
-    "hostname": "robomaker-xh5v9jib"
+    "name": "ip-188-212-247-37.ec2.internal",
+    "hostname": "robomaker-tz98zh9m"
   },
   "service": {
     "name": "robomaker",
@@ -67,8 +67,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-south-1",
-    "ephemeral_id": "f8s7zkfwaf"
+    "name": "filebeat-aws-eu-west-2",
+    "ephemeral_id": "02sy9w396bxt"
   },
   "input": {
     "type": "aws-cloudwatch"

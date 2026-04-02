@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codecatalyst"
@@ -13,45 +13,45 @@
   },
   "aws": {
     "dimensions": {
-      "SpaceName": "engineering",
-      "ProjectName": "infrastructure"
+      "SpaceName": "platform-team",
+      "ProjectName": "mobile-app"
     },
     "codecatalyst": {
-      "space_name": "engineering",
-      "project_name": "infrastructure",
-      "workflow_name": "cd-pipeline",
-      "workflow_run_id": "run-2w7eijen7n9",
+      "space_name": "platform-team",
+      "project_name": "mobile-app",
+      "workflow_name": "security-scan",
+      "workflow_run_id": "run-nc9sxh6972",
       "workflow_run_status": "IN_PROGRESS",
-      "dev_environment_id": "dev-0d9keiku5zun",
-      "dev_environment_status": "STOPPED",
-      "ide": "VSCode",
+      "dev_environment_id": "dev-ref24svsu2",
+      "dev_environment_status": "RUNNING",
+      "ide": "AWS Cloud9",
       "branch_name": "develop",
-      "event_type": "DEV_ENVIRONMENT"
+      "event_type": "SOURCE_REPOSITORY"
     },
     "s3": {
       "bucket": {
-        "name": "aws-codecatalyst-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-codecatalyst-logs-738291046572"
+        "name": "aws-codecatalyst-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-codecatalyst-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/738291046572/codecatalyst/ap-southeast-2/2026/04/01/codecatalyst_BFW7Q0HBRBC.log.gz"
+        "key": "AWSLogs/293847561023/codecatalyst/ap-northeast-1/2026/04/02/codecatalyst_PHB17G1860M.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/codecatalyst/logs",
-      "log_stream": "ap-southeast-2/pnwrvrnp",
-      "ingestion_time": "2026-04-01T12:55:20.515Z"
+      "log_stream": "ap-northeast-1/sjpocfkn",
+      "ingestion_time": "2026-04-02T20:50:22.418Z"
     }
   },
   "event": {
-    "action": "CreateDevEnvironment",
+    "action": "CreateSourceRepository",
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.codecatalyst",
     "provider": "codecatalyst.amazonaws.com",
     "module": "aws"
   },
-  "message": "CodeCatalyst CreateDevEnvironment: space=engineering, project=infrastructure, workflow=cd-pipeline IN_PROGRESS",
+  "message": "CodeCatalyst CreateSourceRepository: space=platform-team, project=mobile-app, workflow=security-scan IN_PROGRESS",
   "log": {
     "level": "info"
   },
@@ -70,8 +70,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-2",
-    "ephemeral_id": "jkqjnnvha4"
+    "name": "filebeat-aws-ap-northeast-1",
+    "ephemeral_id": "yurw74x4kz"
   },
   "input": {
     "type": "aws-cloudwatch"

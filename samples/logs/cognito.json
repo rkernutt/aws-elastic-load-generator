@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "me-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "cognito"
@@ -13,25 +13,24 @@
   },
   "aws": {
     "dimensions": {
-      "UserPool": "ca-west-1_JIPB49UAT",
+      "UserPool": "me-central-1_ELABNBVJ4",
       "UserPoolClient": "mobile-users-web"
     },
     "cognito": {
-      "user_pool_id": "ca-west-1_JIPB49UAT",
+      "user_pool_id": "me-central-1_ELABNBVJ4",
       "user_pool_name": "mobile-users",
-      "event_type": "TokenGeneration_HostedUI",
-      "username": "user-hh6p4955@example.com",
-      "source_ip": "122.55.231.4",
-      "mfa_type": "SOFTWARE_TOKEN_MFA",
+      "event_type": "ForgotPassword",
+      "username": "user-ww4a0d7o@example.com",
+      "source_ip": "60.71.231.247",
       "metrics": {
         "SignInSuccesses": {
-          "sum": 1937
+          "sum": 1826
         },
         "SignInAttempts": {
-          "sum": 1937
+          "sum": 1826
         },
         "TokenRefreshSuccesses": {
-          "sum": 6547
+          "sum": 37961
         },
         "SignUpSuccesses": {
           "sum": 0
@@ -40,7 +39,7 @@
           "sum": 0
         },
         "CallCount": {
-          "sum": 51706
+          "sum": 7181
         },
         "ThrottleCount": {
           "sum": 0
@@ -55,34 +54,34 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-cognito-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-cognito-logs-501938274650"
+        "name": "aws-cognito-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-cognito-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/501938274650/cognito/ca-west-1/2026/04/01/cognito_NRNK68SNAU.log.gz"
+        "key": "AWSLogs/814726593401/cognito/me-central-1/2026/04/02/cognito_JZZOLVRKQBM.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/cognito/logs",
-      "log_stream": "ca-west-1/sy6cxdwt",
-      "ingestion_time": "2026-04-01T12:55:20.476Z"
+      "log_stream": "me-central-1/glvcw2d4",
+      "ingestion_time": "2026-04-02T20:50:22.381Z"
     }
   },
   "user": {
-    "name": "user-hh6p4955@example.com"
+    "name": "user-ww4a0d7o@example.com"
   },
   "source": {
-    "ip": "154.3.69.66"
+    "ip": "102.128.231.68"
   },
   "event": {
-    "action": "TokenGeneration_HostedUI",
+    "action": "ForgotPassword",
     "outcome": "success",
     "category": ["authentication"],
     "dataset": "aws.cognito",
     "provider": "cognito-idp.amazonaws.com",
     "module": "aws"
   },
-  "message": "Cognito TokenGeneration_HostedUI success [mobile-users]",
+  "message": "Cognito ForgotPassword success [mobile-users]",
   "log": {
     "level": "info"
   },
@@ -101,8 +100,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ca-west-1",
-    "ephemeral_id": "ukqe590b68"
+    "name": "filebeat-aws-me-central-1",
+    "ephemeral_id": "660d83y8hna"
   },
   "input": {
     "type": "aws-cloudwatch"

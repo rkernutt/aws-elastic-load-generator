@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "sa-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "iotsitewise"
@@ -13,55 +13,61 @@
   },
   "aws": {
     "dimensions": {
-      "AssetId": "k9y35ki526",
-      "PropertyId": "xktk870hxo"
+      "AssetId": "gvti720w8qo",
+      "PropertyId": "dnzofavpi4t"
     },
     "iotsitewise": {
-      "asset_id": "k9y35ki526",
+      "asset_id": "gvti720w8qo",
       "asset_name": "hvac-unit-prod",
-      "asset_model_id": "o438zbjzaj",
-      "property_alias": "/company/plant/hvac-unit-prod/poweroutput",
-      "property_name": "PowerOutput",
+      "asset_model_id": "u1vq84oqc4b",
+      "property_alias": "/company/plant/hvac-unit-prod/oee",
+      "property_name": "OEE",
       "data_type": "DOUBLE",
-      "value": 58.590940953929305,
-      "quality": "GOOD",
-      "timestamp_offset_ms": 759,
-      "portal_id": "djyo2vv0asa",
+      "value": 7214.186492461235,
+      "quality": "UNCERTAIN",
+      "timestamp_offset_ms": 496,
+      "portal_id": "vwyl12toaun",
+      "error": "Quota exceeded",
       "metrics": {
         "GatewayDataStreamPartitionCount": {
-          "avg": 35.51529026280469
+          "avg": 18.84167890371946
         },
         "AssetPropertyValueCount": {
-          "sum": 3071
+          "sum": 25232
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-iotsitewise-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-iotsitewise-logs-814726593401"
+        "name": "aws-iotsitewise-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-iotsitewise-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/814726593401/iotsitewise/ap-south-2/2026/04/01/iotsitewise_LB4HVM01KYF.log.gz"
+        "key": "AWSLogs/164820739518/iotsitewise/sa-east-1/2026/04/02/iotsitewise_L7BNGT0HIU.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/iotsitewise/logs",
-      "log_stream": "ap-south-2/bgzvlgs1",
-      "ingestion_time": "2026-04-01T12:55:20.534Z"
+      "log_stream": "sa-east-1/tcba92k6",
+      "ingestion_time": "2026-04-02T20:50:22.437Z"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": ["process", "host"],
     "dataset": "aws.iotsitewise",
     "provider": "iotsitewise.amazonaws.com",
-    "duration": 81000000,
+    "duration": 1616000000,
     "module": "aws"
   },
-  "message": "IoT SiteWise hvac-unit-prod/PowerOutput: 58.590940953929305 [GOOD]",
+  "message": "IoT SiteWise hvac-unit-prod/OEE BAD quality: Out of range",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "SiteWiseError",
+    "message": "IoT SiteWise quality/error",
+    "type": "iot"
   },
   "service": {
     "name": "iotsitewise",
@@ -78,8 +84,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-south-2",
-    "ephemeral_id": "b632djwthp"
+    "name": "filebeat-aws-sa-east-1",
+    "ephemeral_id": "arvt7fxfrjm"
   },
   "input": {
     "type": "aws-cloudwatch"

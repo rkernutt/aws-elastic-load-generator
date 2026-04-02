@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "eks"
@@ -13,82 +13,82 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "prod-cluster-ca-west-1",
-      "NodeName": "ip-95-1-104-72.ca-west-1.compute.internal",
-      "Namespace": "ingress-nginx",
-      "PodName": "worker-8ixew-0stxu"
+      "ClusterName": "prod-cluster-ap-northeast-3",
+      "NodeName": "ip-89-117-254-140.ap-northeast-3.compute.internal",
+      "Namespace": "monitoring",
+      "PodName": "worker-n4y3f-n60mf"
     },
     "eks": {
       "structured_logging": true,
       "cluster": {
-        "name": "prod-cluster-ca-west-1"
+        "name": "prod-cluster-ap-northeast-3"
       },
       "node": {
-        "name": "ip-95-1-104-72.ca-west-1.compute.internal"
+        "name": "ip-89-117-254-140.ap-northeast-3.compute.internal"
       },
       "metrics": {
         "cluster_failed_node_count": {
           "avg": 0
         },
         "node_cpu_utilization": {
-          "avg": 45.36894770149243
+          "avg": 49.79282404507227
         },
         "node_memory_utilization": {
-          "avg": 31.52885652333319
+          "avg": 45.903311614564714
         },
         "node_network_total_bytes": {
-          "sum": 480879086
+          "sum": 728155321
         },
         "node_filesystem_utilization": {
-          "avg": 31.060453887500785
+          "avg": 29.096044267608047
         },
         "pod_cpu_utilization": {
-          "avg": 50.70692653814745
+          "avg": 55.74951414191403
         },
         "pod_memory_utilization": {
-          "avg": 66.1452839095169
+          "avg": 67.85479784309172
         },
         "pod_network_rx_bytes": {
-          "sum": 77833466
+          "sum": 2528669
         },
         "pod_network_tx_bytes": {
-          "sum": 88844208
+          "sum": 67063953
         },
         "node_count": {
-          "avg": 44
+          "avg": 38
         },
         "pod_count": {
-          "avg": 16
+          "avg": 385
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-eks-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-eks-logs-293847561023"
+        "name": "aws-eks-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-eks-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/293847561023/eks/ca-west-1/2026/04/01/eks_2D1M04R18P7.log.gz"
+        "key": "AWSLogs/164820739518/eks/ap-northeast-3/2026/04/02/eks_5VNO9500QAD.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/eks/logs",
-      "log_stream": "ca-west-1/4gp7t8ra",
-      "ingestion_time": "2026-04-01T12:55:20.468Z"
+      "log_stream": "ap-northeast-3/qp77gfdg",
+      "ingestion_time": "2026-04-02T20:50:22.372Z"
     }
   },
   "container": {
-    "id": "2uxif395md",
+    "id": "ftd32adr8at",
     "name": "worker",
     "image": {
-      "name": "k8s.gcr.io/worker:v1.24.5"
+      "name": "k8s.gcr.io/worker:v1.27.5"
     },
     "runtime": "containerd"
   },
   "kubernetes": {
-    "namespace": "ingress-nginx",
+    "namespace": "monitoring",
     "pod": {
-      "name": "worker-8ixew-0stxu"
+      "name": "worker-n4y3f-n60mf"
     },
     "container": {
       "name": "worker"
@@ -99,20 +99,20 @@
     }
   },
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "event": {
     "category": ["process", "container"],
     "outcome": "success",
     "dataset": "aws.eks",
     "provider": "eks.amazonaws.com",
-    "duration": 1825000000000,
+    "duration": 597000000000,
     "module": "aws"
   },
-  "message": "{\"cluster\":\"prod-cluster-ca-west-1\",\"namespace\":\"ingress-nginx\",\"pod\":\"worker-8ixew-0stxu\",\"level\":\"info\",\"message\":\"Endpoint slice updated\",\"timestamp\":\"2026-04-01T12:55:20.199Z\",\"stream\":\"stderr\"}",
+  "message": "{\"cluster\":\"prod-cluster-ap-northeast-3\",\"namespace\":\"monitoring\",\"pod\":\"worker-n4y3f-n60mf\",\"level\":\"warn\",\"message\":\"Evicted pod due to disk pressure\",\"timestamp\":\"2026-04-02T20:50:22.062Z\",\"stream\":\"stderr\"}",
   "host": {
-    "name": "ip-204-75-79-208.ec2.internal",
-    "hostname": "eks-v7b7fg3f"
+    "name": "ip-109-69-234-158.ec2.internal",
+    "hostname": "eks-0ov2ty0l"
   },
   "service": {
     "name": "eks",
@@ -129,8 +129,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ca-west-1",
-    "ephemeral_id": "i1bqmm9nmil"
+    "name": "filebeat-aws-ap-northeast-3",
+    "ephemeral_id": "mvm3uem89ve"
   },
   "input": {
     "type": "aws-cloudwatch"

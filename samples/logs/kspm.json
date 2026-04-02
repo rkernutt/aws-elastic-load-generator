@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,10 +7,10 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
   },
   "orchestrator": {
@@ -22,20 +22,20 @@
     "namespace": "production"
   },
   "resource": {
-    "id": "prod-eks-cluster/production/api-server/prod-eks-cluster",
-    "name": "api-server/prod-eks-cluster",
-    "sub_type": "api-server",
+    "id": "prod-eks-cluster/production/pod/cron-21afl",
+    "name": "pod/cron-21afl",
+    "sub_type": "Pod",
     "type": "k8s_object"
   },
   "rule": {
-    "id": "cis_eks_1_1",
-    "name": "Restrict anonymous access to the API server",
-    "section": "1.1",
-    "tags": ["API Server"],
+    "id": "cis_eks_4_4",
+    "name": "Minimize containers wishing to share the host IPC namespace",
+    "section": "4.4",
+    "tags": ["Pod Security"],
     "benchmark": {
       "id": "cis_eks",
       "version": "v1.4.0",
-      "rule_number": "1.1",
+      "rule_number": "4.4",
       "posture_type": "kspm"
     }
   },
@@ -52,7 +52,7 @@
     "provider": "elastic_kspm",
     "module": "aws"
   },
-  "message": "KSPM [CIS EKS / 1.1] passed: Restrict anonymous access to the API server [prod-eks-cluster]",
+  "message": "KSPM [CIS EKS / 4.4] passed: Minimize containers wishing to share the host IPC namespace [prod-eks-cluster]",
   "log": {
     "level": "info"
   },
@@ -66,8 +66,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-2",
-    "ephemeral_id": "nv3iap0bhuk"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "vkcvnrenfgr"
   },
   "input": {
     "type": "http_endpoint"
@@ -75,17 +75,17 @@
   "aws": {
     "s3": {
       "bucket": {
-        "name": "aws-kspm-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-kspm-logs-501938274650"
+        "name": "aws-kspm-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-kspm-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/501938274650/kspm/eu-west-2/2026/04/01/kspm_QGZAAMCA5LD.log.gz"
+        "key": "AWSLogs/293847561023/kspm/us-west-2/2026/04/02/kspm_00CNP7747AUSO.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/kspm/logs",
-      "log_stream": "eu-west-2/o0ej2m6l",
-      "ingestion_time": "2026-04-01T12:55:20.479Z"
+      "log_stream": "us-west-2/t038t8vx",
+      "ingestion_time": "2026-04-02T20:50:22.383Z"
     }
   }
 }

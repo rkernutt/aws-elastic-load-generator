@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "us-west-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,13 +13,12 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "DetectSentiment"
+      "Operation": "StartEntitiesDetectionJob"
     },
     "comprehend": {
-      "operation": "DetectSentiment",
-      "language_code": "pt",
-      "text_bytes": 81630,
-      "sentiment": "NEGATIVE",
+      "operation": "StartEntitiesDetectionJob",
+      "language_code": "ja",
+      "text_bytes": 88923,
       "entities_detected": 0,
       "key_phrases_detected": 0,
       "pii_entities_detected": 0,
@@ -31,7 +30,7 @@
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 274.6871880174249
+          "avg": 162.7332765772831
         }
       }
     },
@@ -41,13 +40,13 @@
         "arn": "arn:aws:s3:::aws-comprehend-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/293847561023/comprehend/eu-south-1/2026/04/01/comprehend_O0EQN7ELRLE.log.gz"
+        "key": "AWSLogs/293847561023/comprehend/us-west-2/2026/04/02/comprehend_MKYY6KE2AFQ.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/comprehend/logs",
-      "log_stream": "eu-south-1/49hhbwiu",
-      "ingestion_time": "2026-04-01T12:55:20.520Z"
+      "log_stream": "us-west-2/w6wbzses",
+      "ingestion_time": "2026-04-02T20:50:22.423Z"
     }
   },
   "event": {
@@ -57,7 +56,7 @@
     "provider": "comprehend.amazonaws.com",
     "module": "aws"
   },
-  "message": "Comprehend DetectSentiment: lang=pt, sentiment=NEGATIVE",
+  "message": "Comprehend StartEntitiesDetectionJob: lang=ja",
   "log": {
     "level": "info"
   },
@@ -76,8 +75,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-1",
-    "ephemeral_id": "bz1010sys3n"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "qec1th507t9"
   },
   "input": {
     "type": "aws-cloudwatch"

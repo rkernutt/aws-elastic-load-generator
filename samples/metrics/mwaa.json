@@ -1,0 +1,65 @@
+{
+  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "cloud": {
+    "provider": "aws",
+    "region": "ap-northeast-2",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-northeast-2",
+    "ephemeral_id": "k1e0isafo8"
+  },
+  "aws": {
+    "mwaa": {
+      "metrics": {
+        "RecordsProcessed": {
+          "avg": 1561062,
+          "sum": 1561062,
+          "count": 1
+        },
+        "BytesProcessed": {
+          "avg": 86640146234,
+          "sum": 86640146234,
+          "count": 1
+        },
+        "ExecutionTime": {
+          "avg": 51700.12,
+          "sum": 51700.12,
+          "count": 1
+        },
+        "ErrorCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "JobName": "etl-job"
+      }
+    }
+  },
+  "metricset": {
+    "name": "mwaa",
+    "period": 60000
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.mwaa",
+    "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
+  },
+  "event": {
+    "dataset": "aws.mwaa",
+    "module": "aws"
+  }
+}

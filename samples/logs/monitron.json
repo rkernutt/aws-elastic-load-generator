@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "ap-southeast-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "monitron": {
-      "project_name": "production-line-3",
-      "sensor_id": "sensor-003",
-      "position": "gearbox",
+      "project_name": "warehouse-hvac",
+      "sensor_id": "sensor-005",
+      "position": "motor_non_drive_end",
       "machine_condition": "WARNING",
-      "vibration_iso_rms": 1.7169897876540408,
-      "temperature_celsius": 45.60020797733938,
-      "vibration_x_peak": 3.9026942143847907,
-      "vibration_z_peak": 3.5573250006878214,
-      "gateway_id": "gw-lk93f2",
-      "battery_level_pct": 26
+      "vibration_iso_rms": 3.774584339216914,
+      "temperature_celsius": 35.80040656177754,
+      "vibration_x_peak": 3.642277165105817,
+      "vibration_z_peak": 2.4503989216348656,
+      "gateway_id": "gw-upkbtz",
+      "battery_level_pct": 90
     },
     "s3": {
       "bucket": {
@@ -30,22 +30,22 @@
         "arn": "arn:aws:s3:::aws-monitron-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/293847561023/monitron/eu-central-2/2026/04/01/monitron_7IHA189OL.log.gz"
+        "key": "AWSLogs/293847561023/monitron/ap-southeast-2/2026/04/02/monitron_DQJH3CRREWF.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/monitron/logs",
-      "log_stream": "eu-central-2/9qii8yff",
-      "ingestion_time": "2026-04-01T12:55:20.523Z"
+      "log_stream": "ap-southeast-2/0bu6bwyr",
+      "ingestion_time": "2026-04-02T20:50:22.427Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 91672,
+    "duration": 20563,
     "module": "aws",
     "dataset": "aws.monitron"
   },
-  "message": "Monitron production-line-3/sensor-003: WARNING (temp 32.1°C)",
+  "message": "Monitron warehouse-hvac/sensor-005: WARNING (temp 25.1°C)",
   "service": {
     "name": "monitron",
     "type": "aws"
@@ -64,8 +64,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-2",
-    "ephemeral_id": "0utzrz56skf"
+    "name": "filebeat-aws-ap-southeast-2",
+    "ephemeral_id": "995191fzxww"
   },
   "input": {
     "type": "aws-cloudwatch"

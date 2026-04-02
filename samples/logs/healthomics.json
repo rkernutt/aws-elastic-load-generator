@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ca-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "omics"
@@ -13,34 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "WorkflowId": "wfl-yi9x2fucds",
-      "RunId": "run-t7lvkfbgda"
+      "WorkflowId": "wfl-a37dl6jca9",
+      "RunId": "run-cfvhqqh9cg"
     },
     "healthomics": {
-      "workflow_id": "wfl-yi9x2fucds",
-      "run_id": "run-t7lvkfbgda",
+      "workflow_id": "wfl-a37dl6jca9",
+      "run_id": "run-cfvhqqh9cg",
       "workflow_type": "PRIVATE",
-      "engine": "NEXTFLOW",
-      "run_status": "COMPLETED",
+      "engine": "CWL",
+      "run_status": "RUNNING",
       "metrics": {
-        "tasks_completed": 150,
+        "tasks_completed": 148,
         "tasks_failed": 0,
-        "storage_gb_used": 1670.0694270760562
+        "storage_gb_used": 2666.104435506761
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-healthomics-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-healthomics-logs-814726593401"
+        "name": "aws-healthomics-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-healthomics-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/814726593401/healthomics/ap-south-2/2026/04/01/healthomics_TQ5MXH9Y8IF.log.gz"
+        "key": "AWSLogs/738291046572/healthomics/ca-west-1/2026/04/02/healthomics_UAA09BAWR2L.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/healthomics/logs",
-      "log_stream": "ap-south-2/wf15kah7",
-      "ingestion_time": "2026-04-01T12:55:20.523Z"
+      "log_stream": "ca-west-1/xtrk1u6q",
+      "ingestion_time": "2026-04-02T20:50:22.426Z"
     }
   },
   "event": {
@@ -48,7 +48,7 @@
     "category": ["process"],
     "dataset": "aws.healthomics",
     "provider": "omics.amazonaws.com",
-    "duration": 65725000000000,
+    "duration": 14967000000000,
     "module": "aws"
   },
   "data_stream": {
@@ -56,7 +56,7 @@
     "dataset": "aws.healthomics",
     "namespace": "default"
   },
-  "message": "HealthOmics workflow wfl-yi9x2fucds: status=COMPLETED, tasks=150, storage=1670.1GB",
+  "message": "HealthOmics workflow wfl-a37dl6jca9: status=RUNNING, tasks=148, storage=2666.1GB",
   "log": {
     "level": "info"
   },
@@ -70,8 +70,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-south-2",
-    "ephemeral_id": "bst4z5p3xks"
+    "name": "filebeat-aws-ca-west-1",
+    "ephemeral_id": "6bllblvb9ac"
   },
   "input": {
     "type": "aws-cloudwatch"

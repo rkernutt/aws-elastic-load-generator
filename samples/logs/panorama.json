@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "me-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "panorama"
@@ -13,38 +13,38 @@
   },
   "aws": {
     "panorama": {
-      "device_id": "device-4emj26fws6c",
-      "device_name": "retail-cam-hub",
-      "event_type": "DeployApplication",
-      "application_name": "ppe-compliance",
-      "status": "RUNNING",
-      "inference_fps": 10.351276114516946,
-      "camera_streams": 3,
-      "gpu_utilization_pct": 59.2351708432244,
-      "uptime_hours": 164.85000772713175
+      "device_id": "device-xatmr44sonh",
+      "device_name": "factory-edge-01",
+      "event_type": "DescribeDevice",
+      "application_name": "people-counter",
+      "status": "DEPLOYMENT_FAILED",
+      "inference_fps": 0.2716416643133729,
+      "camera_streams": 2,
+      "gpu_utilization_pct": 64.46305939289508,
+      "uptime_hours": 332.7769827786056
     },
     "s3": {
       "bucket": {
-        "name": "aws-panorama-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-panorama-logs-814726593401"
+        "name": "aws-panorama-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-panorama-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/814726593401/panorama/af-south-1/2026/04/01/panorama_L72NS4Q2J2.log.gz"
+        "key": "AWSLogs/501938274650/panorama/me-central-1/2026/04/02/panorama_1JT5WCK7H1L.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/panorama/logs",
-      "log_stream": "af-south-1/n6c7cwsx",
-      "ingestion_time": "2026-04-01T12:55:20.525Z"
+      "log_stream": "me-central-1/4khe71fl",
+      "ingestion_time": "2026-04-02T20:50:22.428Z"
     }
   },
   "event": {
-    "outcome": "success",
-    "duration": 588017202,
+    "outcome": "failure",
+    "duration": 477917910,
     "module": "aws",
     "dataset": "aws.panorama"
   },
-  "message": "Panorama retail-cam-hub: DeployApplication (vehicle-tracker, 21.5 FPS)",
+  "message": "Panorama factory-edge-01: DescribeDevice failed — Camera stream unreachable",
   "service": {
     "name": "panorama",
     "type": "aws"
@@ -63,8 +63,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-af-south-1",
-    "ephemeral_id": "unvbi1937a"
+    "name": "filebeat-aws-me-central-1",
+    "ephemeral_id": "zw436rm4odk"
   },
   "input": {
     "type": "aws-cloudwatch"

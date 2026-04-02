@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "me-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "managedblockchain"
@@ -13,31 +13,30 @@
   },
   "aws": {
     "managedblockchain": {
-      "network_id": "n-9YLH20GWHC7",
-      "network_name": "logistics-network",
-      "framework": "Hyperledger Fabric",
-      "framework_version": "2.2",
-      "member_id": "m-Y8HM6T4NVGB",
-      "member_name": "Company-B",
-      "node_id": "nd-GRXHJU71UL4",
-      "event_type": "ChaincodeDefined",
-      "channel_name": "audit-channel",
-      "chaincode_id": "asset-transfer",
+      "network_id": "n-0FJN0EHLMYEN",
+      "network_name": "financial-consortium",
+      "framework": "Ethereum",
+      "framework_version": "Ethereum",
+      "member_id": "m-NYGYBPPEC6",
+      "member_name": "Auditor",
+      "node_id": "nd-YYVCHNTRN9",
+      "event_type": "VoteCompleted",
+      "proposal_id": "F0P8Z0B5L4N",
       "status": "SUCCEEDED"
     },
     "s3": {
       "bucket": {
-        "name": "aws-managedblockchain-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-managedblockchain-logs-501938274650"
+        "name": "aws-managedblockchain-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-managedblockchain-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/501938274650/managedblockchain/ca-central-1/2026/04/01/managedblockchain_PYRDFSGBO7.log.gz"
+        "key": "AWSLogs/164820739518/managedblockchain/me-central-1/2026/04/02/managedblockchain_56FQHN76CDN.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/managedblockchain/logs",
-      "log_stream": "ca-central-1/8vqnp8cn",
-      "ingestion_time": "2026-04-01T12:55:20.533Z"
+      "log_stream": "me-central-1/479x1dl1",
+      "ingestion_time": "2026-04-02T20:50:22.436Z"
     }
   },
   "event": {
@@ -45,10 +44,10 @@
     "category": ["process", "database"],
     "dataset": "aws.blockchain",
     "provider": "managedblockchain.amazonaws.com",
-    "duration": 3887000000,
+    "duration": 2019000000,
     "module": "aws"
   },
-  "message": "ManagedBlockchain ChaincodeDefined [Hyperledger Fabric]: pnrgx47dqk...",
+  "message": "ManagedBlockchain VoteCompleted [Ethereum]: 1yr9gv1srpl...",
   "log": {
     "level": "info"
   },
@@ -67,8 +66,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ca-central-1",
-    "ephemeral_id": "58jee496x2v"
+    "name": "filebeat-aws-me-central-1",
+    "ephemeral_id": "o4qysk2uc2d"
   },
   "input": {
     "type": "aws-cloudwatch"

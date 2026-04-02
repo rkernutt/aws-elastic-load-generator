@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-east-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -10,22 +10,22 @@
     "service": {
       "name": "cloudhsm"
     },
-    "availability_zone": "il-central-1a"
+    "availability_zone": "ap-east-1b"
   },
   "aws": {
     "dimensions": {
-      "ClusterId": "cluster-y0chk4qcmq"
+      "ClusterId": "cluster-qy3t56ix2e"
     },
     "cloudhsm": {
-      "cluster_id": "cluster-y0chk4qcmq",
-      "hsm_id": "hsm-x13o7klayj",
+      "cluster_id": "cluster-qy3t56ix2e",
+      "hsm_id": "hsm-0n90ey079r",
       "hsm_state": "CREATE_IN_PROGRESS",
-      "availability_zone": "il-central-1a",
-      "subnet_id": "subnet-ofh60to1",
-      "eni_ip": "10.88.205.30",
-      "key_type": "EC_P384",
-      "operation_type": "restore",
-      "backup_id": "backup-rgclb4rmal"
+      "availability_zone": "ap-east-1b",
+      "subnet_id": "subnet-ly2qj4dq",
+      "eni_ip": "10.137.162.160",
+      "key_type": "EC_P256",
+      "operation_type": "cluster_management",
+      "backup_id": "backup-n8exsi406j"
     },
     "s3": {
       "bucket": {
@@ -33,24 +33,24 @@
         "arn": "arn:aws:s3:::aws-cloudhsm-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/501938274650/cloudhsm/il-central-1/2026/04/01/cloudhsm_XPCS8KYGMO8.log.gz"
+        "key": "AWSLogs/501938274650/cloudhsm/ap-east-1/2026/04/02/cloudhsm_04KBI26DU42O.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/cloudhsm/logs",
-      "log_stream": "il-central-1/mxth6uvo",
-      "ingestion_time": "2026-04-01T12:55:20.480Z"
+      "log_stream": "ap-east-1/egy49hpu",
+      "ingestion_time": "2026-04-02T20:50:22.384Z"
     }
   },
   "event": {
-    "action": "CreateBackup",
+    "action": "DescribeBackups",
     "outcome": "success",
     "category": ["process", "authentication"],
     "dataset": "aws.cloudhsm",
     "provider": "cloudhsm.amazonaws.com",
     "module": "aws"
   },
-  "message": "CloudHSM CreateBackup: cluster=cluster-y0chk4qcmq, hsm=hsm-x13o7klayj, state=CREATE_IN_PROGRESS",
+  "message": "CloudHSM DescribeBackups: cluster=cluster-qy3t56ix2e, hsm=hsm-0n90ey079r, state=CREATE_IN_PROGRESS",
   "log": {
     "level": "info"
   },
@@ -69,8 +69,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-il-central-1",
-    "ephemeral_id": "3oibarg7cew"
+    "name": "filebeat-aws-ap-east-1",
+    "ephemeral_id": "ijin315u7cc"
   },
   "input": {
     "type": "aws-cloudwatch"

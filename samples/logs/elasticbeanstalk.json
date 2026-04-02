@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "eu-south-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "admin-portal-staging",
-      "InstanceId": "i-471kgy4348f"
+      "EnvironmentName": "api-service-production",
+      "InstanceId": "i-wjyu319qwtc"
     },
     "elasticbeanstalk": {
-      "application": "admin-portal",
-      "environment": "admin-portal-staging",
-      "structured_logging": false,
+      "application": "api-service",
+      "environment": "api-service-production",
+      "structured_logging": true,
       "platform": "Docker",
-      "version_label": "v181",
+      "version_label": "v38",
       "metrics": {
         "ApplicationRequests2xx": {
-          "sum": 0
+          "sum": 1
         },
         "ApplicationRequests3xx": {
-          "sum": 1
+          "sum": 0
         },
         "ApplicationRequests4xx": {
           "sum": 0
@@ -36,28 +36,28 @@
           "sum": 0
         },
         "ApplicationLatencyP10": {
-          "avg": 19.364335524192924
+          "avg": 6.246266305706153
         },
         "ApplicationLatencyP50": {
-          "avg": 75.98045548928891
+          "avg": 13.684209940990556
         },
         "ApplicationLatencyP75": {
-          "avg": 134.1848346288765
+          "avg": 24.635540174855997
         },
         "ApplicationLatencyP85": {
-          "avg": 190.95692267338976
+          "avg": 28.378663236800524
         },
         "ApplicationLatencyP90": {
-          "avg": 253.86950832528137
+          "avg": 35.73749685572036
         },
         "ApplicationLatencyP95": {
-          "avg": 442.44524277184235
+          "avg": 68.8982180227535
         },
         "ApplicationLatencyP99": {
-          "avg": 1050.581656646609
+          "avg": 90.3124812637049
         },
         "ApplicationLatencyP99.9": {
-          "avg": 1519.114667447509
+          "avg": 166.68487349693606
         },
         "ApplicationRequests": {
           "sum": 1
@@ -72,7 +72,7 @@
           "avg": 0
         },
         "InstancesOk": {
-          "avg": 2
+          "avg": 9
         },
         "EnvironmentHealth": {
           "avg": 20
@@ -85,18 +85,18 @@
         "arn": "arn:aws:s3:::aws-elasticbeanstalk-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/738291046572/elasticbeanstalk/eu-central-1/2026/04/01/elasticbeanstalk_E492DJUKE4P.log.gz"
+        "key": "AWSLogs/738291046572/elasticbeanstalk/eu-south-1/2026/04/02/elasticbeanstalk_GB4NNNU3BTB.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/elasticbeanstalk/logs",
-      "log_stream": "eu-central-1/nvauf6zb",
-      "ingestion_time": "2026-04-01T12:55:20.469Z"
+      "log_stream": "eu-south-1/0zm3f153",
+      "ingestion_time": "2026-04-02T20:50:22.373Z"
     }
   },
   "http": {
     "response": {
-      "status_code": 301
+      "status_code": 200
     }
   },
   "log": {
@@ -107,13 +107,13 @@
     "outcome": "success",
     "dataset": "aws.elasticbeanstalk",
     "provider": "elasticbeanstalk.amazonaws.com",
-    "duration": 62000000000,
+    "duration": 64000000000,
     "module": "aws"
   },
-  "message": "Environment health: OK",
+  "message": "{\"application\":\"api-service\",\"environment\":\"api-service-production\",\"status\":200,\"message\":\"Auto Scaling event: +2 instances\",\"timestamp\":\"2026-04-02T20:50:22.062Z\"}",
   "host": {
-    "name": "ip-174-176-245-13.ec2.internal",
-    "hostname": "elasticbeanstalk-0wfi7da8"
+    "name": "ip-212-100-160-85.ec2.internal",
+    "hostname": "elasticbeanstalk-b65x01xt"
   },
   "service": {
     "name": "elasticbeanstalk",
@@ -130,8 +130,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-1",
-    "ephemeral_id": "0pzpcfqopi6n"
+    "name": "filebeat-aws-eu-south-1",
+    "ephemeral_id": "pwu5nchh9d"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "efs"
@@ -13,72 +13,72 @@
   },
   "aws": {
     "dimensions": {
-      "FileSystemId": "fs-nlc2wq73",
+      "FileSystemId": "fs-0pn5r7qq",
       "StorageClass": "InfrequentAccess"
     },
     "efs": {
-      "file_system_id": "fs-nlc2wq73",
+      "file_system_id": "fs-0pn5r7qq",
       "file_system_name": "jenkins-home",
-      "mount_target_id": "fsmt-an3qu6ns",
-      "availability_zone": "il-central-1b",
+      "mount_target_id": "fsmt-ok99fn92",
+      "availability_zone": "ap-southeast-4a",
       "throughput_mode": "bursting",
       "performance_mode": "maxIO",
-      "throughput_mbps": 28.749692373089704,
-      "iops": 2462,
-      "client_connections": 428,
-      "percent_io_limit": 66,
+      "throughput_mbps": 104.89239182434285,
+      "iops": 4885,
+      "client_connections": 176,
+      "percent_io_limit": 73,
       "metrics": {
         "BurstCreditBalance": {
-          "avg": 1103425886353
+          "avg": 343752283501
         },
         "ClientConnections": {
-          "avg": 62
+          "avg": 471
         },
         "DataReadIOBytes": {
-          "sum": 405997269
+          "sum": 423855248
         },
         "DataWriteIOBytes": {
-          "sum": 686371622
+          "sum": 343479312
         },
         "MetadataIOBytes": {
-          "sum": 1684145
+          "sum": 2455062
         },
         "TotalIOBytes": {
-          "sum": 358683616
+          "sum": 114640698
         },
         "PermittedThroughput": {
-          "avg": 318.98372521870556
+          "avg": 2967.506348991971
         },
         "MeteredIOBytes": {
-          "sum": 583235542
+          "sum": 496937375
         },
         "StorageBytes": {
-          "avg": 292560661107
+          "avg": 306431724650
         },
         "PercentIOLimit": {
-          "avg": 19.53317717274957
+          "avg": 33.95009583278442
         },
         "DataReadIOBytesWithQuota": {
-          "sum": 88573788
+          "sum": 238149530
         },
         "DataWriteIOBytesWithQuota": {
-          "sum": 456047853
+          "sum": 615945422
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-efs-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-efs-logs-738291046572"
+        "name": "aws-efs-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-efs-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/738291046572/efs/il-central-1/2026/04/01/efs_549RYJ4VBE2.log.gz"
+        "key": "AWSLogs/164820739518/efs/ap-southeast-4/2026/04/02/efs_CP1VEVS1SLO.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/efs/logs",
-      "log_stream": "il-central-1/ba8cq69p",
-      "ingestion_time": "2026-04-01T12:55:20.482Z"
+      "log_stream": "ap-southeast-4/xofsvvyq",
+      "ingestion_time": "2026-04-02T20:50:22.387Z"
     }
   },
   "event": {
@@ -86,10 +86,10 @@
     "category": ["host", "file"],
     "dataset": "aws.efs",
     "provider": "elasticfilesystem.amazonaws.com",
-    "duration": 68000000,
+    "duration": 116000000,
     "module": "aws"
   },
-  "message": "EFS fs-nlc2wq73: 28.7 MB/s, 477 connections",
+  "message": "EFS fs-0pn5r7qq: 104.9 MB/s, 221 connections",
   "log": {
     "level": "info"
   },
@@ -108,8 +108,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-il-central-1",
-    "ephemeral_id": "tyy9ttisg2d"
+    "name": "filebeat-aws-ap-southeast-4",
+    "ephemeral_id": "kcsjl3um4ze"
   },
   "input": {
     "type": "aws-cloudwatch"

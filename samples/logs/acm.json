@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "me-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "acm"
@@ -13,40 +13,45 @@
   },
   "aws": {
     "acm": {
-      "certificate_arn": "arn:aws:acm:ap-south-1:164820739518:certificate/fpff7fso-8ljv",
-      "domain_name": "*.internal.corp",
-      "status": "ISSUED",
+      "certificate_arn": "arn:aws:acm:me-central-1:293847561023:certificate/emk6n9hy-a17c",
+      "domain_name": "www.example.com",
+      "status": "REVOKED",
       "type": "AMAZON_ISSUED",
-      "days_to_expiry": 345,
-      "key_algorithm": "EC_prime256v1",
-      "validation_method": "DNS",
-      "renewal_status": "SUCCESS"
+      "days_to_expiry": 16,
+      "key_algorithm": "RSA_2048",
+      "validation_method": "EMAIL",
+      "renewal_status": "FAILED"
     },
     "s3": {
       "bucket": {
-        "name": "aws-acm-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-acm-logs-164820739518"
+        "name": "aws-acm-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-acm-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/164820739518/acm/ap-south-1/2026/04/01/acm_E81LUY3585S.log.gz"
+        "key": "AWSLogs/293847561023/acm/me-central-1/2026/04/02/acm_DY0T0H6TYLI.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/acm/logs",
-      "log_stream": "ap-south-1/xu5zie9w",
-      "ingestion_time": "2026-04-01T12:55:20.477Z"
+      "log_stream": "me-central-1/r33hh5z3",
+      "ingestion_time": "2026-04-02T20:50:22.382Z"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": "network",
     "dataset": "aws.acm",
     "provider": "acm.amazonaws.com",
     "module": "aws"
   },
-  "message": "ACM certificate for *.internal.corp: ISSUED, 345d remaining",
+  "message": "ACM certificate for www.example.com: REVOKED",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "REVOKED",
+    "message": "Certificate www.example.com: REVOKED",
+    "type": "certificate"
   },
   "service": {
     "name": "acm",
@@ -63,8 +68,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-south-1",
-    "ephemeral_id": "zhvqjtbppl"
+    "name": "filebeat-aws-me-central-1",
+    "ephemeral_id": "e0bg320wrp5"
   },
   "input": {
     "type": "aws-cloudwatch"

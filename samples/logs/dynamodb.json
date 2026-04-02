@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "dynamodb"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "TableName": "orders",
-      "Operation": "GetItem"
+      "TableName": "sessions",
+      "Operation": "BatchGetItem"
     },
     "dynamodb": {
-      "table_name": "orders",
-      "operation": "GetItem",
-      "consumed_read_capacity_units": 29.58099560632516,
-      "consumed_write_capacity_units": 30.07592401731588,
-      "items_count": 643,
+      "table_name": "sessions",
+      "operation": "BatchGetItem",
+      "consumed_read_capacity_units": 15.639298124818927,
+      "consumed_write_capacity_units": 45.26427096142804,
+      "items_count": 789,
       "structured_logging": false,
       "metrics": {
         "AccountMaxReads": {
-          "max": 600304
+          "max": 367910
         },
         "AccountMaxWrites": {
-          "max": 860244
+          "max": 631440
         },
         "AccountMaxTableLevelReads": {
-          "max": 73322
+          "max": 16486
         },
         "AccountMaxTableLevelWrites": {
-          "max": 55598
+          "max": 96111
         },
         "AccountProvisionedReadCapacityUtilization": {
-          "avg": 42.02122486064196
+          "avg": 45.03658257085853
         },
         "ConsumedReadCapacityUnits": {
-          "sum": 379
+          "sum": 832
         },
         "ConsumedWriteCapacityUnits": {
-          "sum": 31
+          "sum": 360
         },
         "ProvisionedReadCapacityUnits": {
-          "avg": 6646
+          "avg": 2460
         },
         "ProvisionedWriteCapacityUnits": {
-          "avg": 4362
+          "avg": 943
         },
         "ReadThrottleEvents": {
           "sum": 0
@@ -64,8 +64,8 @@
           "sum": 0
         },
         "SuccessfulRequestLatency": {
-          "avg": 1.3464801669579642,
-          "max": 18.12238084943855
+          "avg": 3.121916462804747,
+          "max": 2.1163019057152215
         },
         "ThrottledRequests": {
           "sum": 0
@@ -74,31 +74,31 @@
           "sum": 0
         },
         "ReturnedItemCount": {
-          "avg": 169
+          "avg": 230
         },
         "ReturnedBytes": {
-          "avg": 293271
+          "avg": 471324
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-dynamodb-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-dynamodb-logs-501938274650"
+        "name": "aws-dynamodb-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-dynamodb-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/501938274650/dynamodb/ap-east-1/2026/04/01/dynamodb_RKWYT419G08.log.gz"
+        "key": "AWSLogs/814726593401/dynamodb/eu-central-1/2026/04/02/dynamodb_63TFQYWR1K4.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/dynamodb/logs",
-      "log_stream": "ap-east-1/2ksawv78",
-      "ingestion_time": "2026-04-01T12:55:20.507Z"
+      "log_stream": "eu-central-1/ys5au0y9",
+      "ingestion_time": "2026-04-02T20:50:22.411Z"
     }
   },
   "db": {
-    "name": "orders",
-    "operation": "GetItem",
+    "name": "sessions",
+    "operation": "BatchGetItem",
     "type": "nosql"
   },
   "event": {
@@ -107,12 +107,18 @@
     "type": ["access"],
     "dataset": "aws.dynamodb",
     "provider": "dynamodb.amazonaws.com",
-    "duration": 17000000,
+    "duration": 39000000,
     "module": "aws"
   },
-  "message": "DynamoDB GetItem orders: consumed 29.58099560632516 RCU, 30.07592401731588 WCU",
+  "message": "DynamoDB BatchGetItem sessions: consumed 15.639298124818927 RCU, 45.26427096142804 WCU",
   "log": {
     "level": "info"
+  },
+  "trace": {
+    "id": "CF7YDJ4R5KF"
+  },
+  "transaction": {
+    "id": "GOXVRS3Z36O"
   },
   "service": {
     "name": "dynamodb",
@@ -129,8 +135,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-east-1",
-    "ephemeral_id": "q5vsi5boyxm"
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "fu0p5zdju26"
   },
   "input": {
     "type": "aws-cloudwatch"

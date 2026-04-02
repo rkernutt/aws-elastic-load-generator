@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "us-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "bedrock-data-automation"
@@ -13,34 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "ProjectId": "proj-dimu4brd",
-      "InvocationId": "inv-ag80n7hc3o"
+      "ProjectId": "proj-oxxnscbb",
+      "InvocationId": "inv-p9wfx3dtkc"
     },
     "bedrockdataautomation": {
-      "project_id": "proj-dimu4brd",
-      "invocation_id": "inv-ag80n7hc3o",
-      "input_type": "pdf",
-      "blueprint_id": "bp-pxhc1rlr",
-      "status": "PartialSuccess",
+      "project_id": "proj-oxxnscbb",
+      "invocation_id": "inv-p9wfx3dtkc",
+      "input_type": "image",
+      "blueprint_id": "bp-52cyc2og",
+      "status": "Success",
       "metrics": {
-        "pages_processed": 435,
-        "tokens_used": 4490,
-        "confidence_score": 0.9110496217819526
+        "pages_processed": 154,
+        "tokens_used": 33029,
+        "confidence_score": 0.876036158376842
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-bedrockdataautomation-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-bedrockdataautomation-logs-293847561023"
+        "name": "aws-bedrockdataautomation-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-bedrockdataautomation-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/293847561023/bedrockdataautomation/ap-southeast-1/2026/04/01/bedrockdataautomation_FHW7REUKTKT.log.gz"
+        "key": "AWSLogs/738291046572/bedrockdataautomation/us-west-1/2026/04/02/bedrockdataautomation_51HZ9QZRG9S.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/bedrockdataautomation/logs",
-      "log_stream": "ap-southeast-1/imatqke1",
-      "ingestion_time": "2026-04-01T12:55:20.523Z"
+      "log_stream": "us-west-1/jr5jivm0",
+      "ingestion_time": "2026-04-02T20:50:22.427Z"
     }
   },
   "event": {
@@ -48,7 +48,7 @@
     "category": ["process"],
     "dataset": "aws.bedrockdataautomation",
     "provider": "bedrock-data-automation.amazonaws.com",
-    "duration": 2200000000,
+    "duration": 1782000000,
     "module": "aws"
   },
   "data_stream": {
@@ -56,7 +56,7 @@
     "dataset": "aws.bedrockdataautomation",
     "namespace": "default"
   },
-  "message": "Bedrock Data Automation project proj-dimu4brd: PartialSuccess, pages=435, tokens=4490, confidence=0.911",
+  "message": "Bedrock Data Automation project proj-oxxnscbb: Success, pages=154, tokens=33029, confidence=0.876",
   "log": {
     "level": "info"
   },
@@ -70,8 +70,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-1",
-    "ephemeral_id": "cndle7hxmzn"
+    "name": "filebeat-aws-us-west-1",
+    "ephemeral_id": "mw2h2xw0fb"
   },
   "input": {
     "type": "aws-cloudwatch"

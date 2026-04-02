@@ -1,17 +1,17 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "trace": {
-    "id": "1-69cd15b8-15dvatquoi2"
+    "id": "1-69ced68e-imumcd50qoh"
   },
   "span": {
-    "id": "kxeg63xrat"
+    "id": "c1xdwz3pkb9"
   },
   "cloud": {
     "provider": "aws",
     "region": "eu-north-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "xray"
@@ -20,23 +20,23 @@
   "aws": {
     "dimensions": {
       "GroupName": "Default",
-      "ServiceType": "remote"
+      "ServiceType": "AWS::RDS::DBInstance"
     },
     "xray": {
-      "trace_id": "1-69cd15b8-15dvatquoi2",
-      "segment_id": "kxeg63xrat",
+      "trace_id": "1-69ced68e-imumcd50qoh",
+      "segment_id": "c1xdwz3pkb9",
       "service": {
-        "name": "user-service",
-        "type": "remote"
+        "name": "rds-proxy",
+        "type": "AWS::RDS::DBInstance"
       },
-      "duration": 2.1993937371049537,
+      "duration": 1.6729765253538824,
       "fault": false,
       "error": false,
       "throttle": false,
       "http": {
         "request": {
           "method": "PUT",
-          "url": "/health"
+          "url": "/api/v2/events"
         },
         "response": {
           "status": 200
@@ -44,40 +44,40 @@
       },
       "annotations": {
         "env": "prod",
-        "version": "v7"
+        "version": "v5"
       },
       "metrics": {
         "ErrorRate": {
-          "avg": 0.25613127384032475
+          "avg": 0.2513586961742502
         },
         "FaultRate": {
-          "avg": 0.17165233304259897
+          "avg": 0.46895942367815485
         },
         "ThrottleRate": {
-          "avg": 0.2761087778900842
+          "avg": 0.46794792260788604
         },
         "TotalCount": {
-          "sum": 8401
+          "sum": 5892
         },
         "Latency": {
-          "avg": 2199.3937371049537,
-          "p99": 6598.181211314861
+          "avg": 1672.9765253538824,
+          "p99": 5018.929576061647
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-xray-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-xray-logs-501938274650"
+        "name": "aws-xray-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-xray-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/501938274650/xray/eu-north-1/2026/04/01/xray_LXL6QPT4ZVJ.log.gz"
+        "key": "AWSLogs/814726593401/xray/eu-north-1/2026/04/02/xray_VHLH6NEENJO.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/xray/logs",
-      "log_stream": "eu-north-1/zfe8mzza",
-      "ingestion_time": "2026-04-01T12:55:20.514Z"
+      "log_stream": "eu-north-1/wv812qgs",
+      "ingestion_time": "2026-04-02T20:50:22.417Z"
     }
   },
   "http": {
@@ -89,7 +89,7 @@
     }
   },
   "event": {
-    "duration": 2199393737,
+    "duration": 1672976525,
     "outcome": "success",
     "category": ["network"],
     "type": ["connection"],
@@ -97,7 +97,7 @@
     "provider": "xray.amazonaws.com",
     "module": "aws"
   },
-  "message": "X-Ray: user-service PUT → 200 (2.199s)",
+  "message": "X-Ray: rds-proxy PUT → 200 (1.673s)",
   "log": {
     "level": "info"
   },
@@ -117,7 +117,7 @@
     "type": "filebeat",
     "version": "8.18.0",
     "name": "filebeat-aws-eu-north-1",
-    "ephemeral_id": "nrbsuh2j82f"
+    "ephemeral_id": "l3yc8e3e8f"
   },
   "input": {
     "type": "http_endpoint"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "lookoutvision"
@@ -13,34 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "ProjectName": "weld-quality-check",
+      "ProjectName": "turbine-blade-check",
       "ModelVersion": "4.0"
     },
     "lookoutvision": {
-      "project_name": "weld-quality-check",
+      "project_name": "turbine-blade-check",
       "model_version": "4.0",
-      "model_arn": "arn:aws:lookoutvision:eu-west-1:738291046572:model/weld-quality-check/4.0",
-      "event_type": "StartModel",
-      "image_source": "s3",
-      "image_key": "inspections/weld-quality-check/f28reed7df.jpg",
-      "is_anomalous": true,
-      "confidence": 0.9454538819746423,
-      "anomaly_label": "scratch",
-      "anomaly_mask_uri": "s3://lookoutvision-masks-738291046572/weld-quality-check/mdrlsir7.png"
+      "model_arn": "arn:aws:lookoutvision:ap-south-2:164820739518:model/turbine-blade-check/4.0",
+      "event_type": "StopModel",
+      "image_source": "camera-stream",
+      "is_anomalous": false,
+      "confidence": 0.915042595451598
     },
     "s3": {
       "bucket": {
-        "name": "aws-lookoutvision-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-lookoutvision-logs-738291046572"
+        "name": "aws-lookoutvision-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-lookoutvision-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/738291046572/lookoutvision/eu-west-1/2026/04/01/lookoutvision_OT23MP2M1XN.log.gz"
+        "key": "AWSLogs/164820739518/lookoutvision/ap-south-2/2026/04/02/lookoutvision_PVIC2CQC6WG.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/lookoutvision/logs",
-      "log_stream": "eu-west-1/vpw5wy34",
-      "ingestion_time": "2026-04-01T12:55:20.522Z"
+      "log_stream": "ap-south-2/c6edh1by",
+      "ingestion_time": "2026-04-02T20:50:22.426Z"
     }
   },
   "event": {
@@ -48,12 +45,12 @@
     "category": ["process"],
     "dataset": "aws.lookoutvision",
     "provider": "lookoutvision.amazonaws.com",
-    "duration": 185000000,
+    "duration": 233000000,
     "module": "aws"
   },
-  "message": "Lookout for Vision [weld-quality-check] ANOMALY DETECTED: scratch confidence=0.945",
+  "message": "Lookout for Vision [turbine-blade-check] OK confidence=0.915 233ms",
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "service": {
     "name": "lookoutvision",
@@ -70,8 +67,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-1",
-    "ephemeral_id": "p7vdavx5aql"
+    "name": "filebeat-aws-ap-south-2",
+    "ephemeral_id": "si8vvwvg3is"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "ap-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "forecast"
@@ -14,42 +14,42 @@
   "aws": {
     "dimensions": {
       "DatasetGroup": "energy-consumption",
-      "Operation": "CreateDatasetImportJob"
+      "Operation": "GetAccuracyMetrics"
     },
     "forecast": {
       "dataset_group": "energy-consumption",
-      "predictor_name": "energy-consumption-predictor-v18",
-      "action": "CreateDatasetImportJob",
-      "algorithm": "AutoML",
-      "forecast_horizon": 90,
-      "weighted_quantile_loss": 0.09050629917514197,
-      "duration_seconds": 6441,
+      "predictor_name": "energy-consumption-predictor-v14",
+      "action": "GetAccuracyMetrics",
+      "algorithm": "CNN-QR",
+      "forecast_horizon": 7,
+      "weighted_quantile_loss": 0.15635397311423585,
+      "duration_seconds": 4986,
       "status": "ACTIVE"
     },
     "s3": {
       "bucket": {
-        "name": "aws-forecast-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-forecast-logs-738291046572"
+        "name": "aws-forecast-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-forecast-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/738291046572/forecast/me-south-1/2026/04/01/forecast_7ENPBRGOPK5.log.gz"
+        "key": "AWSLogs/814726593401/forecast/ap-south-1/2026/04/02/forecast_2T5ZXKK1B6W.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/forecast/logs",
-      "log_stream": "me-south-1/qeeaefua",
-      "ingestion_time": "2026-04-01T12:55:20.521Z"
+      "log_stream": "ap-south-1/5ibsson5",
+      "ingestion_time": "2026-04-02T20:50:22.424Z"
     }
   },
   "event": {
-    "duration": 6441000000000,
+    "duration": 4986000000000,
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.forecast",
     "provider": "forecast.amazonaws.com",
     "module": "aws"
   },
-  "message": "Forecast CreateDatasetImportJob: energy-consumption, WQL=0.091",
+  "message": "Forecast GetAccuracyMetrics: energy-consumption, WQL=0.156",
   "log": {
     "level": "info"
   },
@@ -68,8 +68,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-south-1",
-    "ephemeral_id": "ewrxxxpffmu"
+    "name": "filebeat-aws-ap-south-1",
+    "ephemeral_id": "b3ugcoxlbte"
   },
   "input": {
     "type": "aws-cloudwatch"

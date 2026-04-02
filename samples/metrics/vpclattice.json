@@ -1,0 +1,65 @@
+{
+  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "cloud": {
+    "provider": "aws",
+    "region": "eu-west-1",
+    "account": {
+      "id": "164820739518",
+      "name": "globex-shared-services"
+    }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-eu-west-1",
+    "ephemeral_id": "ytr0prx5cxd"
+  },
+  "aws": {
+    "vpclattice": {
+      "metrics": {
+        "RequestCount": {
+          "avg": 80366,
+          "sum": 80366,
+          "count": 1
+        },
+        "ErrorCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        },
+        "Latency": {
+          "avg": 83.49,
+          "sum": 83.49,
+          "count": 1
+        },
+        "ThrottleCount": {
+          "avg": 0,
+          "sum": 0,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "Resource": "resource-1"
+      }
+    }
+  },
+  "metricset": {
+    "name": "vpclattice",
+    "period": 60000
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.vpclattice",
+    "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
+  },
+  "event": {
+    "dataset": "aws.vpclattice",
+    "module": "aws"
+  }
+}

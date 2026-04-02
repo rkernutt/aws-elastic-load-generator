@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "servicecatalog"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "servicecatalog": {
-      "operation": "ProvisionProduct",
-      "product_name": "S3 Static Site",
-      "product_id": "prod-IMLI63VMPT7",
-      "portfolio_id": "port-7VUDT9G489B",
-      "provisioned_product_name": "s3-static-site-pelj3m",
-      "record_id": "rec-GIV04BSTSNH",
+      "operation": "UpdateProvisionedProduct",
+      "product_name": "EKS Cluster",
+      "product_id": "prod-BYY9KRCUYFF",
+      "portfolio_id": "port-LZJK0DTXPZL",
+      "provisioned_product_name": "eks-cluster-oavaat",
+      "record_id": "rec-RLURC457Q9F",
       "status": "SUCCEEDED",
-      "requester_arn": "arn:aws:iam::293847561023:user/sre-carol"
+      "requester_arn": "arn:aws:iam::501938274650:user/developer-alice"
     },
     "s3": {
       "bucket": {
-        "name": "aws-servicecatalog-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-servicecatalog-logs-293847561023"
+        "name": "aws-servicecatalog-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-servicecatalog-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/293847561023/servicecatalog/ca-west-1/2026/04/01/servicecatalog_G1IC5NW4BRH.log.gz"
+        "key": "AWSLogs/501938274650/servicecatalog/eu-west-2/2026/04/02/servicecatalog_R0MPNTSA7F.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/servicecatalog/logs",
-      "log_stream": "ca-west-1/b2zyrrec",
-      "ingestion_time": "2026-04-01T12:55:20.527Z"
+      "log_stream": "eu-west-2/4wqnkmrw",
+      "ingestion_time": "2026-04-02T20:50:22.431Z"
     }
   },
   "user": {
-    "name": "sre-carol"
+    "name": "developer-alice"
   },
   "event": {
-    "action": "ProvisionProduct",
+    "action": "UpdateProvisionedProduct",
     "outcome": "success",
     "category": ["configuration", "process"],
     "dataset": "aws.servicecatalog",
     "provider": "servicecatalog.amazonaws.com",
-    "duration": 34000000000,
+    "duration": 427000000000,
     "module": "aws"
   },
-  "message": "ServiceCatalog ProvisionProduct: sre-carol → S3 Static Site [SUCCEEDED]",
+  "message": "ServiceCatalog UpdateProvisionedProduct: developer-alice → EKS Cluster [SUCCEEDED]",
   "log": {
     "level": "info"
   },
@@ -68,8 +68,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ca-west-1",
-    "ephemeral_id": "jfhr0ojeyt"
+    "name": "filebeat-aws-eu-west-2",
+    "ephemeral_id": "r4mw2ock1k"
   },
   "input": {
     "type": "aws-cloudwatch"

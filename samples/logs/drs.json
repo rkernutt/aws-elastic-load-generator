@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-north-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "SourceServerId": "s-geanzsuuwt"
+      "SourceServerId": "s-cxj5x3gn1zu"
     },
     "drs": {
-      "source_server_id": "s-geanzsuuwt",
-      "source_hostname": "db-primary",
-      "replication_status": "Continuous",
-      "lag_duration_seconds": 18,
+      "source_server_id": "s-cxj5x3gn1zu",
+      "source_hostname": "app-server-03",
+      "replication_status": "InProgress",
+      "lag_duration_seconds": 22,
       "data_replication_state": "InProgress",
-      "ebs_volume_count": 6,
-      "staging_area": "us-west-2",
-      "recovery_point_objective_seconds": 72
+      "ebs_volume_count": 3,
+      "staging_area": "us-east-1",
+      "recovery_point_objective_seconds": 47
     },
     "s3": {
       "bucket": {
@@ -31,24 +31,24 @@
         "arn": "arn:aws:s3:::aws-drs-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/738291046572/drs/us-east-2/2026/04/01/drs_0A38DSQQC09Y.log.gz"
+        "key": "AWSLogs/738291046572/drs/eu-north-1/2026/04/02/drs_8Q7DGWUTD3O.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/drs/logs",
-      "log_stream": "us-east-2/ek2smh01",
-      "ingestion_time": "2026-04-01T12:55:20.529Z"
+      "log_stream": "eu-north-1/ymv6em1y",
+      "ingestion_time": "2026-04-02T20:50:22.432Z"
     }
   },
   "event": {
-    "action": "ReplicationStateChange",
+    "action": "SourceServerDisconnected",
     "outcome": "success",
     "category": ["host"],
     "dataset": "aws.drs",
     "provider": "drs.amazonaws.com",
     "module": "aws"
   },
-  "message": "DRS db-primary: replication Continuous, RPO 72s",
+  "message": "DRS app-server-03: replication InProgress, RPO 47s",
   "log": {
     "level": "info"
   },
@@ -67,8 +67,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-2",
-    "ephemeral_id": "phj6343zgh"
+    "name": "filebeat-aws-eu-north-1",
+    "ephemeral_id": "wunffpd8rmm"
   },
   "input": {
     "type": "aws-cloudwatch"

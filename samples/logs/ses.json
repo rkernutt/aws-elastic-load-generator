@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "us-east-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,24 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "ses:configuration-set": "alerts",
+      "ses:configuration-set": "default",
       "ses:from-domain": "company.com",
-      "ses:to-country": "DE",
+      "ses:to-country": "AU",
       "ses:to-isp": "AOL"
     },
     "ses": {
-      "message_id": "cos03qvvolh.m8tondvb6z@eu-south-1.amazonses.com",
-      "event_type": "RenderingFailure",
+      "message_id": "ke1sxk5ofs9.5rq7b81h0u@us-east-2.amazonses.com",
+      "event_type": "Click",
       "from_address": "alerts@company.com",
-      "destination": "user_ulnx9b@gmail.com",
-      "configuration_set": "alerts",
+      "destination": "user_b6kmxl@outlook.com",
       "bounce": {},
       "complaint": {},
       "sending_account_id": "501938274650",
       "delivery": {
-        "recipients": ["user_ulnx9b@gmail.com"],
-        "timestamp": "2026-04-01T12:55:20.199Z",
-        "processing_time_ms": 1081,
+        "recipients": ["user_b6kmxl@outlook.com"],
+        "timestamp": "2026-04-02T20:50:22.062Z",
+        "processing_time_ms": 1400,
         "smtp_response": "250 2.0.0 OK"
       },
       "metrics": {
@@ -50,10 +49,10 @@
           "sum": 0
         },
         "Open": {
-          "sum": 1
+          "sum": 0
         },
         "Click": {
-          "sum": 0
+          "sum": 1
         },
         "RenderingFailure": {
           "sum": 0
@@ -69,13 +68,13 @@
         "arn": "arn:aws:s3:::aws-ses-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/501938274650/ses/eu-south-1/2026/04/01/ses_IB5TATJF73.log.gz"
+        "key": "AWSLogs/501938274650/ses/us-east-2/2026/04/02/ses_9XADYK19INP.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/ses/logs",
-      "log_stream": "eu-south-1/n2iy0ccp",
-      "ingestion_time": "2026-04-01T12:55:20.531Z"
+      "log_stream": "us-east-2/5y0jve7g",
+      "ingestion_time": "2026-04-02T20:50:22.435Z"
     }
   },
   "event": {
@@ -83,10 +82,10 @@
     "category": ["email", "process"],
     "dataset": "aws.ses",
     "provider": "email.amazonaws.com",
-    "duration": 951000000,
+    "duration": 1822000000,
     "module": "aws"
   },
-  "message": "SES RenderingFailure: alerts@company.com -> user_ulnx9b@gmail.com",
+  "message": "SES Click: alerts@company.com -> user_b6kmxl@outlook.com",
   "log": {
     "level": "info"
   },
@@ -105,8 +104,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-1",
-    "ephemeral_id": "4oz92utztg5"
+    "name": "filebeat-aws-us-east-2",
+    "ephemeral_id": "d90ei8s3ran"
   },
   "input": {
     "type": "aws-cloudwatch"

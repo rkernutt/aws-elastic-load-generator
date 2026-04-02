@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ap-southeast-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,19 +13,20 @@
   },
   "aws": {
     "dimensions": {
-      "SubscriptionId": "sub-br4bfubsy8",
-      "Ide": "VSCode"
+      "SubscriptionId": "sub-nzfk2wi2yi",
+      "Ide": "AWS Cloud9"
     },
     "qdeveloper": {
-      "subscription_id": "sub-br4bfubsy8",
-      "ide": "VSCode",
-      "language": "typescript",
-      "feature": "transform",
+      "subscription_id": "sub-nzfk2wi2yi",
+      "ide": "AWS Cloud9",
+      "language": "python",
+      "feature": "chat",
       "metrics": {
-        "suggestions_accepted": 118,
-        "suggestions_rejected": 26,
-        "active_users": 525
-      }
+        "suggestions_accepted": 0,
+        "suggestions_rejected": 185,
+        "active_users": 83
+      },
+      "error_code": "CompletionTimeout"
     },
     "s3": {
       "bucket": {
@@ -33,21 +34,21 @@
         "arn": "arn:aws:s3:::aws-qdeveloper-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/293847561023/qdeveloper/me-central-1/2026/04/01/qdeveloper_S5VYRNXJU9H.log.gz"
+        "key": "AWSLogs/293847561023/qdeveloper/ap-southeast-2/2026/04/02/qdeveloper_WQHFXYDHD2.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/qdeveloper/logs",
-      "log_stream": "me-central-1/3f9kttfn",
-      "ingestion_time": "2026-04-01T12:55:20.515Z"
+      "log_stream": "ap-southeast-2/9fs7ave5",
+      "ingestion_time": "2026-04-02T20:50:22.418Z"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": ["process"],
     "dataset": "aws.qdeveloper",
     "provider": "q.amazonaws.com",
-    "duration": 1139000000,
+    "duration": 8868000000,
     "module": "aws"
   },
   "data_stream": {
@@ -55,9 +56,14 @@
     "dataset": "aws.qdeveloper",
     "namespace": "default"
   },
-  "message": "Q Developer transform: 118 accepted, 26 rejected (typescript/VSCode)",
+  "message": "Q Developer chat CompletionTimeout for python in AWS Cloud9",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "CompletionTimeout",
+    "message": "Q Developer chat failed for python",
+    "type": "process"
   },
   "service": {
     "name": "qdeveloper",
@@ -69,8 +75,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-central-1",
-    "ephemeral_id": "x5n8v3814wg"
+    "name": "filebeat-aws-ap-southeast-2",
+    "ephemeral_id": "8cqptn9eewu"
   },
   "input": {
     "type": "aws-cloudwatch"

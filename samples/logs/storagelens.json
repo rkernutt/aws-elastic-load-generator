@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "me-central-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "StorageLensConfigurationId": "default",
-      "StorageType": "DeepArchive"
+      "StorageLensConfigurationId": "cost-optimization",
+      "StorageType": "Standard"
     },
     "s3storagelens": {
-      "config_id": "default",
-      "bucket_count": 142,
-      "total_storage_bytes": 7805523138842,
-      "total_object_count": 5884386352,
-      "storage_type": "DeepArchive",
+      "config_id": "cost-optimization",
+      "bucket_count": 89,
+      "total_storage_bytes": 31742063505256,
+      "total_object_count": 3349737053,
+      "storage_type": "Standard",
       "metrics": {
         "BucketCount": {
-          "avg": 142
+          "avg": 89
         },
         "TotalStorageBytes": {
-          "sum": 7805523138842
+          "sum": 31742063505256
         },
         "TotalObjectCount": {
-          "sum": 5884386352
+          "sum": 3349737053
         },
         "BytesUsed": {
-          "sum": 7805523138842
+          "sum": 31742063505256
         },
         "ObjectCount": {
-          "sum": 5884386352
+          "sum": 3349737053
         }
       }
     },
@@ -46,13 +46,13 @@
         "arn": "arn:aws:s3:::aws-storagelens-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/501938274650/storagelens/eu-south-1/2026/04/01/storagelens_ZKDZ45L4DGK.log.gz"
+        "key": "AWSLogs/501938274650/storagelens/me-central-1/2026/04/02/storagelens_YGYZ5Y2JMEG.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/storagelens/logs",
-      "log_stream": "eu-south-1/se4869xn",
-      "ingestion_time": "2026-04-01T12:55:20.481Z"
+      "log_stream": "me-central-1/cfyrer9n",
+      "ingestion_time": "2026-04-02T20:50:22.386Z"
     }
   },
   "event": {
@@ -60,10 +60,10 @@
     "category": ["metric"],
     "dataset": "aws.s3_storage_lens",
     "provider": "s3.amazonaws.com",
-    "duration": 286000000000,
+    "duration": 148000000000,
     "module": "aws"
   },
-  "message": "S3 Storage Lens default: 142 buckets, 7805.5 GB, 5884386352 objects",
+  "message": "S3 Storage Lens cost-optimization: 89 buckets, 31742.1 GB, 3349737053 objects",
   "log": {
     "level": "info"
   },
@@ -82,8 +82,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-1",
-    "ephemeral_id": "mre2fptwmhe"
+    "name": "filebeat-aws-me-central-1",
+    "ephemeral_id": "o0r27cef7z"
   },
   "input": {
     "type": "aws-s3"

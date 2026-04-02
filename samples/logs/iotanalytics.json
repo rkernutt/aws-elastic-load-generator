@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "iotanalytics"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "ChannelName": "metrics-channel",
-      "PipelineName": "enrichment-pipeline"
+      "ChannelName": "temperature-channel",
+      "PipelineName": "filter-pipeline"
     },
     "iotanalytics": {
-      "channel_name": "metrics-channel",
-      "pipeline_name": "enrichment-pipeline",
-      "dataset_name": "daily-aggregates",
-      "messages_processed": 412,
-      "bytes_processed": 200644,
-      "activity_name": "math",
+      "channel_name": "temperature-channel",
+      "pipeline_name": "filter-pipeline",
+      "dataset_name": "fleet-summary",
+      "messages_processed": 60046,
+      "bytes_processed": 3242484,
+      "activity_name": "selectAttributes",
       "pipeline_status": "SUCCEEDED"
     },
     "s3": {
       "bucket": {
-        "name": "aws-iotanalytics-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-iotanalytics-logs-501938274650"
+        "name": "aws-iotanalytics-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-iotanalytics-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/501938274650/iotanalytics/me-south-1/2026/04/01/iotanalytics_FHDWJMKQ8OW.log.gz"
+        "key": "AWSLogs/293847561023/iotanalytics/ap-southeast-3/2026/04/02/iotanalytics_OFYJ2O3BEU.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/iotanalytics/logs",
-      "log_stream": "me-south-1/3orvx9ii",
-      "ingestion_time": "2026-04-01T12:55:20.524Z"
+      "log_stream": "ap-southeast-3/2mb4iues",
+      "ingestion_time": "2026-04-02T20:50:22.427Z"
     }
   },
   "event": {
@@ -45,10 +45,10 @@
     "category": ["process"],
     "dataset": "aws.iotanalytics",
     "provider": "iotanalytics.amazonaws.com",
-    "duration": 24543000000,
+    "duration": 27490000000,
     "module": "aws"
   },
-  "message": "IoT Analytics: 412 messages via enrichment-pipeline",
+  "message": "IoT Analytics: 60,046 messages via filter-pipeline",
   "log": {
     "level": "info"
   },
@@ -67,8 +67,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-south-1",
-    "ephemeral_id": "9jols2aqqx"
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "cbehekgqawa"
   },
   "input": {
     "type": "aws-cloudwatch"

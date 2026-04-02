@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "af-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "greengrass"
@@ -13,50 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "CoreDeviceName": "home-hub"
+      "CoreDeviceName": "factory-edge"
     },
     "greengrass": {
-      "core_device_name": "home-hub",
-      "component_name": "com.aws.greengrass.Nucleus",
-      "component_version": "3.8.2",
+      "core_device_name": "factory-edge",
+      "component_name": "com.aws.greengrass.StreamManager",
+      "component_version": "3.2.5",
       "nucleus_version": "2.12.0",
       "platform": "linux/arm64",
-      "deployment_id": "77b8txpenoh",
+      "deployment_id": "k90qij1tyna",
       "status": "COMPLETED",
       "metrics": {
         "ComponentDeployedCount": {
-          "sum": 50
+          "sum": 44
         },
         "ComponentBrokenCount": {
           "sum": 0
         },
         "StreamManagerMemoryUsage": {
-          "avg": 267.5856276978379
+          "avg": 270.70814796093356
         },
         "StreamManagerBytesAppended": {
-          "sum": 3746445
+          "sum": 4324929
         },
         "NucleusRestartCount": {
           "sum": 0
         },
         "DeploymentQueueSize": {
-          "avg": 18.446894178129686
+          "avg": 14.479635545977194
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-greengrass-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-greengrass-logs-814726593401"
+        "name": "aws-greengrass-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-greengrass-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/814726593401/greengrass/eu-west-3/2026/04/01/greengrass_V4UBFPKDVCI.log.gz"
+        "key": "AWSLogs/501938274650/greengrass/af-south-1/2026/04/02/greengrass_91XRAAPDT85.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/greengrass/logs",
-      "log_stream": "eu-west-3/te6200ty",
-      "ingestion_time": "2026-04-01T12:55:20.524Z"
+      "log_stream": "af-south-1/dwdlrec6",
+      "ingestion_time": "2026-04-02T20:50:22.427Z"
     }
   },
   "event": {
@@ -64,7 +64,7 @@
     "category": ["process", "host"],
     "dataset": "aws.greengrass",
     "provider": "greengrass.amazonaws.com",
-    "duration": 88000000000,
+    "duration": 9000000000,
     "module": "aws"
   },
   "message": "Health check passed",
@@ -86,8 +86,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-3",
-    "ephemeral_id": "7sjujcegcqu"
+    "name": "filebeat-aws-af-south-1",
+    "ephemeral_id": "lpfl95dfpkh"
   },
   "input": {
     "type": "aws-cloudwatch"

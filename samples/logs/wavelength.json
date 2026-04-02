@@ -1,78 +1,78 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "wavelength"
     },
-    "availability_zone": "us-east-1-wl1-nyc-wlz-1",
+    "availability_zone": "ap-northeast-2-wl1-sel-wlz-1",
     "instance": {
-      "id": "i-jzn5dk1cxj"
+      "id": "i-sfc43q5v7b"
     }
   },
   "aws": {
     "dimensions": {
-      "WavelengthZone": "us-east-1-wl1-nyc-wlz-1",
-      "InstanceId": "i-jzn5dk1cxj",
-      "CarrierGatewayId": "cagw-mtscfpuwoo"
+      "WavelengthZone": "ap-northeast-2-wl1-sel-wlz-1",
+      "InstanceId": "i-sfc43q5v7b",
+      "CarrierGatewayId": "cagw-vr9a437oh7k"
     },
     "wavelength": {
-      "zone": "us-east-1-wl1-nyc-wlz-1",
-      "carrier": "Verizon",
-      "city": "New York",
-      "instance_id": "i-jzn5dk1cxj",
-      "instance_type": "t3.medium",
-      "carrier_gateway_id": "cagw-mtscfpuwoo",
-      "subnet_id": "subnet-mad1gdrpm8e",
-      "carrier_ip": "126.188.68.68",
-      "ue_ip": "144.152.90.142",
-      "bandwidth_allowance_gbps": 22,
+      "zone": "ap-northeast-2-wl1-sel-wlz-1",
+      "carrier": "SKT",
+      "city": "Seoul",
+      "instance_id": "i-sfc43q5v7b",
+      "instance_type": "r5.large",
+      "carrier_gateway_id": "cagw-vr9a437oh7k",
+      "subnet_id": "subnet-9xk4c5yaeet",
+      "carrier_ip": "115.35.109.147",
+      "ue_ip": "134.166.141.45",
+      "bandwidth_allowance_gbps": 1,
       "network": {
-        "uplink_mbps": 231.43085108477786,
-        "downlink_mbps": 429.0299441478299,
-        "latency_ms": 2.447126004954205,
-        "packet_loss_pct": 0.0837700909137455
+        "uplink_mbps": 462.49879339961024,
+        "downlink_mbps": 911.9095631960313,
+        "latency_ms": 3.8185600049947435,
+        "packet_loss_pct": 0.09687316396245244
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-wavelength-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-wavelength-logs-164820739518"
+        "name": "aws-wavelength-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-wavelength-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/164820739518/wavelength/us-east-1/2026/04/01/wavelength_MVZ2TKNUQJN.log.gz"
+        "key": "AWSLogs/738291046572/wavelength/ap-northeast-2/2026/04/02/wavelength_DWRUERIU8IF.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/wavelength/logs",
-      "log_stream": "us-east-1/eeg4t3gk",
-      "ingestion_time": "2026-04-01T12:55:20.468Z"
+      "log_stream": "ap-northeast-2/i042us6k",
+      "ingestion_time": "2026-04-02T20:50:22.372Z"
     }
   },
   "source": {
-    "ip": "144.152.90.142"
+    "ip": "134.166.141.45"
   },
   "event": {
-    "action": "AllocateAddress",
+    "action": "BandwidthThrottled",
     "outcome": "success",
     "category": ["network", "host"],
     "dataset": "aws.wavelength",
     "provider": "ec2.amazonaws.com",
-    "duration": 249000000,
+    "duration": 443000000,
     "module": "aws"
   },
-  "message": "Wavelength [New York/Verizon] i-jzn5dk1cxj (t3.medium) UL=231Mbps DL=429Mbps lat=2.4ms",
+  "message": "Wavelength [Seoul/SKT] i-sfc43q5v7b (r5.large) UL=462Mbps DL=912Mbps lat=3.8ms",
   "log": {
     "level": "info"
   },
   "host": {
-    "name": "ip-79-250-123-107.ec2.internal",
-    "hostname": "wavelength-ekhok1rn"
+    "name": "ip-185-87-18-58.ec2.internal",
+    "hostname": "wavelength-m9fufi6r"
   },
   "service": {
     "name": "wavelength",
@@ -89,8 +89,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-1",
-    "ephemeral_id": "5ho18w35zv"
+    "name": "filebeat-aws-ap-northeast-2",
+    "ephemeral_id": "kbxarvlmbmj"
   },
   "input": {
     "type": "aws-cloudwatch"

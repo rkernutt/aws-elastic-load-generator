@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "ecr"
@@ -13,79 +13,85 @@
   },
   "aws": {
     "dimensions": {
-      "RepositoryName": "base-image",
-      "RegistryId": "293847561023"
+      "RepositoryName": "ml-inference",
+      "RegistryId": "164820739518"
     },
     "ecr": {
-      "repository_name": "base-image",
-      "registry_id": "293847561023",
-      "image_tag": "sha-a3f1bc",
-      "image_digest": "sha256:j7blxc1mfqc",
+      "repository_name": "ml-inference",
+      "registry_id": "164820739518",
+      "image_tag": "release-42",
+      "image_digest": "sha256:x5moapt7hsa",
       "action": "pull",
-      "image_size_bytes": 1839109504,
-      "pushed_by": "github-actions",
-      "scan_status": "NOT_STARTED",
-      "finding_count": 0,
+      "image_size_bytes": 276360981,
+      "pushed_by": "developer",
+      "scan_status": "COMPLETE_WITH_FINDINGS",
+      "finding_severity": "MEDIUM",
+      "finding_count": 29,
       "vulnerability_scan_enabled": true,
       "metrics": {
         "ImageCount": {
-          "avg": 447
+          "avg": 969
         },
         "RepositorySizeInBytes": {
-          "avg": 9005294309
+          "avg": 30684622823
         },
         "LifecyclePolicyRuleEvaluationCount": {
-          "sum": 0
+          "sum": 84
         },
         "PullCount": {
-          "sum": 646
+          "sum": 192
         },
         "PushCount": {
           "sum": 0
         },
         "ScanFindingsSeverityCritical": {
-          "sum": 0
+          "sum": 1
         },
         "ScanFindingsSeverityHigh": {
-          "sum": 0
+          "sum": 6
         },
         "ScanFindingsSeverityMedium": {
-          "sum": 0
+          "sum": 22
         },
         "ScanFindingsSeverityLow": {
-          "sum": 52
+          "sum": 19
         },
         "ScanFindingsSeverityInformational": {
-          "sum": 129
+          "sum": 120
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-ecr-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-ecr-logs-293847561023"
+        "name": "aws-ecr-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-ecr-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/293847561023/ecr/us-east-2/2026/04/01/ecr_DPKNF4YNMM.log.gz"
+        "key": "AWSLogs/164820739518/ecr/ap-southeast-3/2026/04/02/ecr_K5PEPYKXSZ9.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/ecr/logs",
-      "log_stream": "us-east-2/33hhaz24",
-      "ingestion_time": "2026-04-01T12:55:20.469Z"
+      "log_stream": "ap-southeast-3/sa0b98b8",
+      "ingestion_time": "2026-04-02T20:50:22.373Z"
     }
   },
   "event": {
     "category": ["package"],
-    "outcome": "success",
+    "outcome": "failure",
     "dataset": "aws.ecr",
     "provider": "ecr.amazonaws.com",
-    "duration": 687000000,
+    "duration": 8588000000,
     "module": "aws"
   },
-  "message": "ECR pull: base-image:sha-a3f1bc",
+  "message": "ECR scan: ml-inference:release-42 found 29 vulnerabilities [MEDIUM]",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "ImageNotFound",
+    "message": "ECR scan: ml-inference:release-42 found 29 vulnerabilities [MEDIUM]",
+    "type": "package"
   },
   "service": {
     "name": "ecr",
@@ -102,8 +108,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-2",
-    "ephemeral_id": "r0ylwgs71bl"
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "9g2cyrrhfd"
   },
   "input": {
     "type": "aws-cloudwatch"

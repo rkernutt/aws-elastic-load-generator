@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "eu-central-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,35 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "Cluster Name": "prod-kafka-eu-west-1",
-      "Broker ID": "2",
+      "Cluster Name": "prod-kafka-eu-central-2",
+      "Broker ID": "1",
       "Topic": "inventory-changes"
     },
     "msk": {
-      "cluster_name": "prod-kafka-eu-west-1",
-      "broker_id": 2,
+      "cluster_name": "prod-kafka-eu-central-2",
+      "broker_id": 1,
       "kafka_version": "3.5.1",
       "topic": "inventory-changes",
-      "partition": 23,
-      "offset": 31825614,
-      "consumer_group": "alerting-service",
-      "lag": 5,
+      "partition": 5,
+      "offset": 92463670,
+      "consumer_group": "analytics-consumer",
+      "lag": 0,
       "under_replicated_partitions": 0,
       "metrics": {
         "BytesInPerSec": {
-          "avg": 5495140
+          "avg": 2516040
         },
         "BytesOutPerSec": {
-          "avg": 7593558
+          "avg": 789104
         },
         "MessagesInPerSec": {
-          "avg": 4947
+          "avg": 7838
         },
         "FetchConsumerTotalTimeMsMean": {
-          "avg": 94
+          "avg": 51
         },
         "ProduceTotalTimeMsMean": {
-          "avg": 36
+          "avg": 31
         },
         "UnderReplicatedPartitions": {
           "avg": 0
@@ -56,19 +56,19 @@
           "avg": 1
         },
         "GlobalPartitionCount": {
-          "avg": 292
+          "avg": 599
         },
         "GlobalTopicCount": {
-          "avg": 68
+          "avg": 60
         },
         "KafkaDataLogsDiskUsed": {
-          "avg": 22.12835080207734
+          "avg": 30.3151631788299
         },
         "CPUUser": {
-          "avg": 28.950928080232035
+          "avg": 57.31598082962197
         },
         "CPUSystem": {
-          "avg": 9.667797879810486
+          "avg": 3.881824321813724
         },
         "NetworkRxDropped": {
           "sum": 0
@@ -84,28 +84,28 @@
         "arn": "arn:aws:s3:::aws-msk-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/501938274650/msk/eu-west-1/2026/04/01/msk_CTZTEO9DJWP.log.gz"
+        "key": "AWSLogs/501938274650/msk/eu-central-2/2026/04/02/msk_U0BN53AX0X.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/msk/logs",
-      "log_stream": "eu-west-1/4wpg712x",
-      "ingestion_time": "2026-04-01T12:55:20.510Z"
+      "log_stream": "eu-central-2/i0k6bfxg",
+      "ingestion_time": "2026-04-02T20:50:22.414Z"
     }
   },
   "kafka": {
     "topic": "inventory-changes",
-    "partition": 23
+    "partition": 5
   },
   "event": {
     "outcome": "success",
     "category": ["process", "network"],
     "dataset": "aws.msk",
     "provider": "kafka.amazonaws.com",
-    "duration": 90000000,
+    "duration": 33000000,
     "module": "aws"
   },
-  "message": "MSK inventory-changes[23] offset=8140474",
+  "message": "MSK inventory-changes[5] offset=98731584",
   "log": {
     "level": "info"
   },
@@ -124,8 +124,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-1",
-    "ephemeral_id": "7br8akv1twc"
+    "name": "filebeat-aws-eu-central-2",
+    "ephemeral_id": "62w4gqod009"
   },
   "input": {
     "type": "aws-cloudwatch"

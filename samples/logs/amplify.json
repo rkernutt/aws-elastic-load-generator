@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "ap-south-2",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,16 +13,17 @@
   },
   "aws": {
     "amplify": {
-      "app_id": "3I7FX0X378",
-      "app_name": "partner-dashboard",
-      "branch_name": "feature-auth",
-      "job_id": "642",
-      "job_type": "RELEASE",
-      "build_status": "SUCCEED",
-      "duration_seconds": 376,
-      "commit_id": "qoamj8kzf1s",
-      "commit_message": "chore: update deps",
-      "framework": "Angular"
+      "app_id": "UQTATZGFMT",
+      "app_name": "docs-site",
+      "branch_name": "production",
+      "job_id": "2",
+      "job_type": "RETRY",
+      "build_status": "TIMED_OUT",
+      "duration_seconds": 1561,
+      "commit_id": "vqw0j65zhs",
+      "commit_message": "feat: add auth",
+      "framework": "Next.js",
+      "error_message": "Build script failed"
     },
     "s3": {
       "bucket": {
@@ -30,26 +31,31 @@
         "arn": "arn:aws:s3:::aws-amplify-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/738291046572/amplify/eu-central-1/2026/04/01/amplify_KE5E6R3C6DO.log.gz"
+        "key": "AWSLogs/738291046572/amplify/ap-south-2/2026/04/02/amplify_8W6UREVLLZI.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/amplify/logs",
-      "log_stream": "eu-central-1/d3kmho2y",
-      "ingestion_time": "2026-04-01T12:55:20.514Z"
+      "log_stream": "ap-south-2/cw6ehlgb",
+      "ingestion_time": "2026-04-02T20:50:22.418Z"
     }
   },
   "event": {
-    "duration": 376000000000,
-    "outcome": "success",
+    "duration": 1561000000000,
+    "outcome": "failure",
     "category": ["process"],
     "dataset": "aws.amplify",
     "provider": "amplify.amazonaws.com",
     "module": "aws"
   },
-  "message": "Amplify build SUCCEED: partner-dashboard/feature-auth in 376s",
+  "message": "Amplify build FAILED: docs-site/production - Build script failed",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "BuildFailed",
+    "message": "Amplify build failed",
+    "type": "build"
   },
   "service": {
     "name": "amplify",
@@ -66,8 +72,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-1",
-    "ephemeral_id": "5tdr3pjnv7g"
+    "name": "filebeat-aws-ap-south-2",
+    "ephemeral_id": "jn1h1geatgm"
   },
   "input": {
     "type": "aws-cloudwatch"

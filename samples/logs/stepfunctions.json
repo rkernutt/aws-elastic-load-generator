@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "eu-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "states"
@@ -13,65 +13,68 @@
   },
   "aws": {
     "dimensions": {
-      "StateMachineArn": "arn:aws:states:me-south-1:293847561023:stateMachine:data-pipeline"
+      "StateMachineArn": "arn:aws:states:eu-south-1:738291046572:stateMachine:batch-processor"
     },
     "stepfunctions": {
-      "state_machine_name": "data-pipeline",
-      "state_machine_arn": "arn:aws:states:me-south-1:293847561023:stateMachine:data-pipeline",
-      "execution_arn": "arn:aws:states:me-south-1:293847561023:execution:data-pipeline:hdx8wuoi",
-      "workflow_type": "EXPRESS",
-      "execution_start_time": "2026-04-01T12:54:50.204Z",
+      "state_machine_name": "batch-processor",
+      "state_machine_arn": "arn:aws:states:eu-south-1:738291046572:stateMachine:batch-processor",
+      "execution_arn": "arn:aws:states:eu-south-1:738291046572:execution:batch-processor:xho6ya18",
+      "workflow_type": "STANDARD",
+      "execution_start_time": "2026-04-02T20:50:00.038Z",
       "state_name": "UpdateDatabase",
-      "state_duration_seconds": 12.802044334642003,
+      "state_duration_seconds": 16.012081953649353,
       "status": "SUCCEEDED",
-      "duration_seconds": 29.994512699926013,
-      "structured_logging": false,
+      "duration_seconds": 22.023859260733474,
+      "structured_logging": true,
       "metrics": {
         "ExecutionsStarted": {
-          "sum": 65765
+          "sum": 223
         },
         "ExecutionsSucceeded": {
-          "sum": 50672
+          "sum": 576
         },
         "ExecutionsFailed": {
+          "sum": 0
+        },
+        "ExecutionsAborted": {
+          "sum": 2
+        },
+        "ExecutionsTimedOut": {
           "sum": 0
         },
         "ExecutionThrottled": {
           "sum": 0
         },
         "ExecutionTime": {
-          "avg": 29994.512699926014,
-          "p99": 89983.53809977804
-        },
-        "ExecutionsTimedOut": {
-          "sum": 0
+          "avg": 22023.859260733472,
+          "max": 44047.718521466944
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-stepfunctions-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-stepfunctions-logs-293847561023"
+        "name": "aws-stepfunctions-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-stepfunctions-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/293847561023/stepfunctions/me-south-1/2026/04/01/stepfunctions_JYV0DWU2TV.log.gz"
+        "key": "AWSLogs/738291046572/stepfunctions/eu-south-1/2026/04/02/stepfunctions_84778DB2YCJ.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/stepfunctions/logs",
-      "log_stream": "me-south-1/mitufzwt",
-      "ingestion_time": "2026-04-01T12:55:20.511Z"
+      "log_stream": "eu-south-1/skdd8r42",
+      "ingestion_time": "2026-04-02T20:50:22.415Z"
     }
   },
   "event": {
-    "duration": 29994512699.926014,
+    "duration": 22023859260.733475,
     "outcome": "success",
     "category": "process",
     "dataset": "aws.stepfunctions",
     "provider": "states.amazonaws.com",
     "module": "aws"
   },
-  "message": "Step Functions data-pipeline SUCCEEDED in 30.0s",
+  "message": "{\"executionArn\":\"arn:aws:states:eu-south-1:738291046572:execution:batch-processor:xho6ya18\",\"stateMachine\":\"batch-processor\",\"workflowType\":\"STANDARD\",\"state\":\"UpdateDatabase\",\"status\":\"SUCCEEDED\",\"durationSeconds\":22.023859260733474,\"timestamp\":\"2026-04-02T20:50:22.062Z\"}",
   "log": {
     "level": "info"
   },
@@ -90,8 +93,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-south-1",
-    "ephemeral_id": "0mjhzh5yhhop"
+    "name": "filebeat-aws-eu-south-1",
+    "ephemeral_id": "rqxkeuz84q"
   },
   "input": {
     "type": "aws-cloudwatch"

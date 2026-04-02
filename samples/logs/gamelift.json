@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "us-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "gamelift"
@@ -13,35 +13,36 @@
   },
   "aws": {
     "dimensions": {
-      "FleetId": "fleet-mlaxbbjl",
-      "Location": "us-east-1",
+      "FleetId": "fleet-7wbm2ugo",
+      "Location": "ap-northeast-1",
       "MetricGroups": "All",
       "OperatingSystem": "AMAZON_LINUX_2"
     },
     "gamelift": {
-      "fleet_id": "fleet-mlaxbbjl",
+      "fleet_id": "fleet-7wbm2ugo",
       "fleet_name": "us-east-realtime",
-      "event_type": "GameSessionCreated",
-      "game_session_id": "arn:aws:gamelift:eu-south-2::gamesession/us-east-realtime/fyor3xmxm6h",
-      "current_player_sessions": 7,
-      "maximum_player_sessions": 50,
-      "instance_type": "c5.xlarge",
-      "instance_count": 42,
-      "desired_instances": 33,
-      "idle_instances": 3,
+      "event_type": "PlayerSessionTerminated",
+      "game_session_id": "arn:aws:gamelift:us-west-2::gamesession/us-east-realtime/hb98kzhslnu",
+      "player_session_id": "psess-gr2v03ie9ci",
+      "current_player_sessions": 40,
+      "maximum_player_sessions": 200,
+      "instance_type": "c5.2xlarge",
+      "instance_count": 20,
+      "desired_instances": 49,
+      "idle_instances": 2,
       "matchmaking_configuration": "BalancedMatch",
       "metrics": {
         "ActiveInstances": {
-          "avg": 1
+          "avg": 90
         },
         "IdleInstances": {
-          "avg": 4
+          "avg": 10
         },
         "PercentIdleInstances": {
-          "avg": 0.748873529314743
+          "avg": 1.526993831807395
         },
         "DesiredInstances": {
-          "avg": 7
+          "avg": 73
         },
         "MinInstances": {
           "avg": 2
@@ -53,38 +54,38 @@
           "sum": 0
         },
         "ActiveGameSessions": {
-          "avg": 815
+          "avg": 250
         },
         "ActivatingGameSessions": {
-          "avg": 0
+          "avg": 30
         },
         "AvailableGameSessions": {
-          "avg": 117
+          "avg": 18
         },
         "ActivePlayerSessions": {
-          "avg": 1534
+          "avg": 5338
         },
         "CurrentPlayerSessions": {
-          "avg": 4841
+          "avg": 4725
         },
         "PlayerSessionActivations": {
-          "sum": 64
+          "sum": 57
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-gamelift-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-gamelift-logs-814726593401"
+        "name": "aws-gamelift-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-gamelift-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/814726593401/gamelift/eu-south-2/2026/04/01/gamelift_4WZIMBL99GA.log.gz"
+        "key": "AWSLogs/164820739518/gamelift/us-west-2/2026/04/02/gamelift_SOZAVB4EP7.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/gamelift/logs",
-      "log_stream": "eu-south-2/b828btcd",
-      "ingestion_time": "2026-04-01T12:55:20.532Z"
+      "log_stream": "us-west-2/9dafx7h3",
+      "ingestion_time": "2026-04-02T20:50:22.436Z"
     }
   },
   "event": {
@@ -92,16 +93,16 @@
     "category": ["process", "network"],
     "dataset": "aws.gamelift",
     "provider": "gamelift.amazonaws.com",
-    "duration": 2794616000000,
+    "duration": 723372000000,
     "module": "aws"
   },
-  "message": "GameLift us-east-realtime: GameSessionCreated",
+  "message": "GameLift us-east-realtime: PlayerSessionTerminated",
   "log": {
     "level": "info"
   },
   "host": {
-    "name": "ip-164-21-166-27.ec2.internal",
-    "hostname": "gamelift-xv6o6evx"
+    "name": "ip-164-177-26-46.ec2.internal",
+    "hostname": "gamelift-1eqeembz"
   },
   "service": {
     "name": "gamelift",
@@ -118,8 +119,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-2",
-    "ephemeral_id": "2j9xvhiud7h"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "ydpiwrscsfq"
   },
   "input": {
     "type": "aws-cloudwatch"

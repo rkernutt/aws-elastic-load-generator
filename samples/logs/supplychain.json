@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ca-central-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "arn:aws:scn:eu-west-2:814726593401:instance/wnsc9f4uy7"
+      "InstanceId": "arn:aws:scn:ca-central-1:814726593401:instance/7bzlzuom3h3"
     },
     "supplychain": {
-      "instance_id": "arn:aws:scn:eu-west-2:814726593401:instance/wnsc9f4uy7",
-      "instance_name": "north-america-ops",
-      "namespace": "aws.supply_chain.insight",
-      "event_type": "scn.data.inventory",
+      "instance_id": "arn:aws:scn:ca-central-1:814726593401:instance/7bzlzuom3h3",
+      "instance_name": "emea-distribution",
+      "namespace": "aws.supply_chain.collaboration",
+      "event_type": "scn.data.forecast",
       "job_status": "IN_PROGRESS",
-      "record_count": 983414,
-      "forecast_horizon_days": 61,
-      "data_lake_dataset": "shipments"
+      "record_count": 196207,
+      "forecast_horizon_days": 52,
+      "data_lake_dataset": "supplier_lead_times"
     },
     "s3": {
       "bucket": {
@@ -31,24 +31,24 @@
         "arn": "arn:aws:s3:::aws-supplychain-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/814726593401/supplychain/eu-west-2/2026/04/01/supplychain_Q16NTPVYLFB.log.gz"
+        "key": "AWSLogs/814726593401/supplychain/ca-central-1/2026/04/02/supplychain_E03LVQSO4WD.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/supplychain/logs",
-      "log_stream": "eu-west-2/lm5imdnl",
-      "ingestion_time": "2026-04-01T12:55:20.528Z"
+      "log_stream": "ca-central-1/decfmf39",
+      "ingestion_time": "2026-04-02T20:50:22.432Z"
     }
   },
   "event": {
-    "action": "UpdateInstance",
+    "action": "SendDataIntegrationEvent",
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.supplychain",
     "provider": "scn.amazonaws.com",
     "module": "aws"
   },
-  "message": "Supply Chain UpdateInstance: instance=north-america-ops event=scn.data.inventory status=IN_PROGRESS",
+  "message": "Supply Chain SendDataIntegrationEvent: instance=emea-distribution event=scn.data.forecast status=IN_PROGRESS",
   "log": {
     "level": "info"
   },
@@ -67,8 +67,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-2",
-    "ephemeral_id": "zpl2vfbtgo"
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "xhngzgwe08o"
   },
   "input": {
     "type": "aws-cloudwatch"

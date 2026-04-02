@@ -1,106 +1,111 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "eu-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "apigateway"
     }
   },
-  "trace": {
-    "id": "1-zahq56od-2mnxvvh109s"
-  },
   "aws": {
     "dimensions": {
-      "ApiName": "prod-api",
-      "Stage": "prod",
-      "Method": "POST",
-      "Resource": "/api/v1/orders"
+      "ApiName": "internal-api",
+      "Stage": "v1",
+      "Method": "GET",
+      "Resource": "/api/v1/search"
     },
     "apigateway": {
-      "request_id": "ocb98cct-q5o1",
-      "api_id": "09yogtxcn6",
-      "domain_name": "09yogtxcn6.execute-api.us-west-2.amazonaws.com",
-      "stage": "prod",
-      "http_method": "POST",
-      "resource_path": "/api/v1/orders",
+      "request_id": "ncrcwi98-qgln",
+      "api_id": "c4so8405cw",
+      "domain_name": "c4so8405cw.execute-api.us-west-2.amazonaws.com",
+      "stage": "v1",
+      "http_method": "GET",
+      "resource_path": "/api/v1/search",
       "protocol": "HTTP/1.1",
-      "route_key": "POST /api/v1/orders",
+      "route_key": "GET /api/v1/search",
       "status": 201,
-      "response_length": 3977,
-      "ip_address": "49.235.253.22",
-      "connection_id": "KND84HINXSL",
-      "event_type": "DISCONNECT",
-      "request_time": "2026-04-01T12:55:20.199Z",
+      "response_length": 7386,
+      "ip_address": "200.46.102.30",
+      "user": "api-user",
+      "event_type": "CONNECT",
+      "request_time": "2026-04-02T20:50:22.062Z",
       "api_type": "REST",
-      "integration_latency": 180,
+      "integration_latency": 570,
+      "cache_hit": true,
+      "cache_miss": false,
       "metrics": {
         "Count": {
           "sum": 1
         },
         "Latency": {
-          "avg": 222,
-          "p99": 666
+          "avg": 658,
+          "p99": 1974
         },
         "IntegrationLatency": {
-          "avg": 180
+          "avg": 570
         },
         "4XXError": {
           "sum": 0
         },
         "5XXError": {
           "sum": 0
+        },
+        "CacheHitCount": {
+          "sum": 1
+        },
+        "CacheMissCount": {
+          "sum": 0
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-apigateway-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-apigateway-logs-164820739518"
+        "name": "aws-apigateway-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-apigateway-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/164820739518/apigateway/eu-south-2/2026/04/01/apigateway_42KYQ9ZB9NS.log.gz"
+        "key": "AWSLogs/501938274650/apigateway/eu-central-1/2026/04/02/apigateway_VDR5Q5IG37.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/apigateway/logs",
-      "log_stream": "eu-south-2/npuhadth",
-      "ingestion_time": "2026-04-01T12:55:20.466Z"
+      "log_stream": "eu-central-1/pief2a9e",
+      "ingestion_time": "2026-04-02T20:50:22.368Z"
     }
   },
   "http": {
     "request": {
-      "method": "POST",
-      "id": "ocb98cct-q5o1",
-      "bytes": 1148
+      "method": "GET",
+      "id": "ncrcwi98-qgln",
+      "bytes": 2842
     },
     "response": {
       "status_code": 201,
-      "bytes": 3747
+      "bytes": 8733
     }
   },
   "url": {
-    "path": "/api/v1/orders",
-    "domain": "09yogtxcn6.execute-api.eu-south-2.amazonaws.com"
+    "path": "/api/v1/search",
+    "domain": "c4so8405cw.execute-api.eu-central-1.amazonaws.com"
   },
   "client": {
-    "ip": "53.103.247.246",
+    "ip": "137.198.244.79",
     "geo": {
-      "country_iso_code": "JP",
-      "country_name": "Japan",
-      "region_name": "Tokyo",
-      "city_name": "Tokyo"
+      "country_iso_code": "AU",
+      "country_name": "Australia",
+      "region_name": "Sydney",
+      "city_name": "Sydney"
     }
   },
   "user_agent": {
     "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
-    "duration": 222000000,
+    "duration": 658000000,
     "outcome": "success",
     "category": ["web"],
     "type": ["access"],
@@ -108,7 +113,7 @@
     "provider": "apigateway.amazonaws.com",
     "module": "aws"
   },
-  "message": "POST /api/v1/orders 201 222ms",
+  "message": "GET /api/v1/search 201 658ms",
   "log": {
     "level": "info"
   },
@@ -127,8 +132,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-2",
-    "ephemeral_id": "b84tomj4kee"
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "e6acqvanrzi"
   },
   "input": {
     "type": "aws-cloudwatch"

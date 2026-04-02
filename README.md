@@ -2,18 +2,19 @@
 
 A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic deployment via the Elasticsearch Bulk API. Covers **211 AWS services** across **15 service groups**, all using **ECS (Elastic Common Schema)** field naming. An additional 10 sub-services (e.g. RDS Proxy, S3 Intelligent-Tiering, SageMaker Pipelines) are included as random event variants within their parent generators and covered by dedicated ingest pipelines, dashboards, and ML jobs.
 
-Each service has its correct real-world ingestion source pre-configured — S3, CloudWatch, direct API, Firehose, OTel, or Elastic Agent — matching how each service actually delivers data to Elastic in production. Switch between **Logs**, **Metrics**, and **Traces** mode; **176 services** support Metrics mode.
+Each service has its correct real-world ingestion source pre-configured — S3, CloudWatch, direct API, Firehose, OTel, or Elastic Agent — matching how each service actually delivers data to Elastic in production. Switch between **Logs**, **Metrics**, and **Traces** mode; **189 services** support Metrics mode.
 
 **Documentation index** (canonical reference material, version history, pipeline reference): [docs/README.md](docs/README.md). Shorter-path copies of two CloudWatch guides also live under [aws-elastic-setup/](aws-elastic-setup/).
 
 ---
 
-## What's New in v12.0
+## What's New in v12.1
 
-- **Dashboard-style UI with Elastic EUI** — complete UI revamp using Elastic's official [EUI component library](https://eui.elastic.co/). Kibana-style sidebar navigation with 7 discrete pages (Ship & Monitor, Connection, Services, Configuration, Scheduling, Anomalies, Activity Log) replaces the previous monolithic 2-column layout.
-- **Realistic Elastic integration metadata** — all generated documents now include the same fields real Elastic Agent integrations produce: `ecs.version`, `agent.*` (filebeat/metricbeat/otlp), `input.type` (aws-s3/aws-cloudwatch/http_endpoint/opentelemetry), `data_stream`, and `host.*` for compute services. Generated data is pipeline-compatible with real AWS data flowing through the same Elastic integrations.
-- **Shared enrichment module** — new `src/helpers/enrich.ts` extracts document enrichment into a reusable function applied consistently across logs, metrics, traces, and sample exports.
-- **Component architecture** — `App.tsx` reduced from 2,110 to 1,210 lines. UI decomposed into 7 page components + layout shell, all using EUI's `EuiPanel`, `EuiRange`, `EuiStat`, `EuiButtonGroup`, `EuiCodeBlock`, `EuiProgress`, and other standard components.
+- **189 metrics generators** — 13 additional confirmed CloudWatch-emitting services added to Metrics mode: VPC Lattice, MSK Connect, MWAA, Kendra, IoT TwinMaker, IoT FleetWise, FIS, Managed Grafana, AppConfig, Clean Rooms, HealthLake, Deadline Cloud, License Manager. Metrics count increases from 176 → 189.
+- **Kinesis Analytics dashboard** — new `kinesisanalytics-dashboard.json` with KPI panels (total events, failures, avg records/sec, avg KPU utilization), donut breakdowns (by application, runtime, outcome), records/sec + watermark lag time-series, checkpoint duration and KPU utilization trends, per-application bar chart, failures histogram, and full event datatable.
+- **Kinesis Analytics ML jobs** — two new anomaly detection jobs in the streaming group: `aws-kinesisanalytics-kpu-spike` (high KPU utilization by application) and `aws-kinesisanalytics-checkpoint-anomaly` (elevated checkpoint duration by application).
+- **Observability signal completeness** — Step Functions trace transactions now carry a `message` field ("Execution succeeded/failed"). CloudTrail `request_parameters` is always present (falls back to `"null"` string), matching `response_elements` for consistent record shape. Kinesis Analytics message pool aligned to spec ("Application started/failed", "Checkpoint completed/failed").
+- **189 metrics sample files** — `samples/metrics/` regenerated and Prettier-formatted; `samples:verify` passes at logs: 211, metrics: 189, traces: 23.
 
 For earlier releases see [docs/VERSION-HISTORY.md](docs/VERSION-HISTORY.md).
 
@@ -209,7 +210,7 @@ e.g. `logs-aws.glue-default`, `logs-aws.sagemaker-default`, `logs-aws.lambda_log
 npm run setup:ml-jobs
 ```
 
-**What it does:** Installs 158 Elasticsearch ML anomaly detection jobs across 24 groups — covering services that the official Elastic AWS integration does not include. Jobs are created directly via the Elasticsearch ML API.
+**What it does:** Installs 180 Elasticsearch ML anomaly detection jobs across 25 groups — covering services that the official Elastic AWS integration does not include. Jobs are created directly via the Elasticsearch ML API.
 
 | Prompt            | Where to find it                                                                            |
 | ----------------- | ------------------------------------------------------------------------------------------- |
@@ -245,7 +246,7 @@ After installation, the installer offers to open jobs and start datafeeds immedi
 ## Usage
 
 1. **Select services** — toggle individual services, entire groups, or all 211 at once
-2. **Choose mode** — **Logs** generates log documents for all 211 services; **Metrics** generates metrics documents for the 176 metrics-supported services; **Traces** generates APM trace documents for 23 services
+2. **Choose mode** — **Logs** generates log documents for all 211 services; **Metrics** generates metrics documents for the 189 metrics-supported services; **Traces** generates APM trace documents for 23 services
 3. **Configure volume** — set logs per service (50–5,000), error rate (0–50%), and batch size
 4. **Set ingestion source** — leave on **Default (per-service)** or override all services to a single source for pipeline testing
 5. **Scheduled mode** _(optional)_ — enable to automatically repeat shipping on a timer. Set **Total runs** and **Interval** to build a consistent ML baseline without manual re-runs. See [ML anomaly detection workflow](#ml-anomaly-detection-workflow) for a recommended baseline-then-spike flow.
@@ -451,7 +452,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 
 | Setting                  | Default                    | Range                   | Description                                                                                                          |
 | ------------------------ | -------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Event type               | Logs                       | Logs / Metrics / Traces | **Logs** — all 211 services. **Metrics** — 176 metrics-supported services. **Traces** — 23 trace-supported services. |
+| Event type               | Logs                       | Logs / Metrics / Traces | **Logs** — all 211 services. **Metrics** — 189 metrics-supported services. **Traces** — 23 trace-supported services. |
 | Logs/metrics per service | 500                        | 50–5,000                | Documents generated per selected service                                                                             |
 | Error rate               | 5%                         | 0–50%                   | Fraction of documents representing errors/failures                                                                   |
 | Batch size               | 250                        | 50–1,000                | Documents per `_bulk` API request                                                                                    |
@@ -466,7 +467,7 @@ Regions rotate between `eu-west-2` (London) and `us-east-1` (N. Virginia).
 The **samples/** directory contains one sample document per service generated by the same logic as the app:
 
 - **samples/logs/** — 211 JSON log documents, one per service
-- **samples/metrics/** — 176 JSON metrics documents, one per metrics-supported service
+- **samples/metrics/** — 189 JSON metrics documents, one per metrics-supported service
 - **samples/traces/** — 23 JSON APM trace documents, one per trace-supported service
 
 Regenerate with: `npm run samples` · Verify full coverage: `npm run samples:verify`

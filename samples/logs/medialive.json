@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "medialive"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "ChannelId": "OFCGJG96UIE",
-      "Pipeline": "PIPELINE_1"
+      "ChannelId": "PZ9K9R1WG7I",
+      "Pipeline": "PIPELINE_0"
     },
     "medialive": {
-      "channel_id": "OFCGJG96UIE",
-      "channel_name": "corporate-broadcast",
-      "channel_state": "IDLE",
-      "pipeline": "PIPELINE_1",
+      "channel_id": "PZ9K9R1WG7I",
+      "channel_name": "concert-stream",
+      "channel_state": "RUNNING",
+      "pipeline": "PIPELINE_0",
       "input_type": "UDP_PUSH",
-      "output_type": "DASH",
-      "video_bitrate_kbps": 12195,
+      "output_type": "RTMP",
+      "video_bitrate_kbps": 8123,
       "input_loss_frames": 0,
       "encoder_fps": 24,
       "metrics": {
@@ -34,7 +34,7 @@
           "sum": 0
         },
         "NetworkOut": {
-          "avg": 30407971
+          "avg": 25167908
         },
         "OutputLossSeconds": {
           "sum": 0
@@ -46,17 +46,17 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-medialive-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-medialive-logs-738291046572"
+        "name": "aws-medialive-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-medialive-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/738291046572/medialive/ap-south-2/2026/04/01/medialive_IG0RMBBXBJA.log.gz"
+        "key": "AWSLogs/293847561023/medialive/ap-southeast-4/2026/04/02/medialive_WELRHCYQUD.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/medialive/logs",
-      "log_stream": "ap-south-2/m5eezo8m",
-      "ingestion_time": "2026-04-01T12:55:20.530Z"
+      "log_stream": "ap-southeast-4/sigt9pkb",
+      "ingestion_time": "2026-04-02T20:50:22.433Z"
     }
   },
   "event": {
@@ -64,7 +64,7 @@
     "category": ["process"],
     "dataset": "aws.medialive",
     "provider": "medialive.amazonaws.com",
-    "duration": 6198000000,
+    "duration": 6251000000,
     "module": "aws"
   },
   "message": "Input switch to backup completed",
@@ -86,8 +86,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-south-2",
-    "ephemeral_id": "2xpqqnoy6c5"
+    "name": "filebeat-aws-ap-southeast-4",
+    "ephemeral_id": "eoqrkdkl5y9"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "af-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "timestream"
@@ -13,37 +13,37 @@
   },
   "aws": {
     "timestream": {
-      "database_name": "financial-ticks",
-      "table_name": "device_telemetry",
+      "database_name": "application-telemetry",
+      "table_name": "sensor_readings",
       "operation": "Query",
       "records_ingested": 0,
-      "rows_returned": 1171,
-      "duration_ms": 534
+      "rows_returned": 1286,
+      "duration_ms": 648
     },
     "s3": {
       "bucket": {
-        "name": "aws-timestream-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-timestream-logs-738291046572"
+        "name": "aws-timestream-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-timestream-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/738291046572/timestream/il-central-1/2026/04/01/timestream_MCDK7W32R2R.log.gz"
+        "key": "AWSLogs/164820739518/timestream/af-south-1/2026/04/02/timestream_0R6U3EK4O7CI.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/timestream/logs",
-      "log_stream": "il-central-1/9o7fgqr8",
-      "ingestion_time": "2026-04-01T12:55:20.508Z"
+      "log_stream": "af-south-1/0td7uoff",
+      "ingestion_time": "2026-04-02T20:50:22.413Z"
     }
   },
   "event": {
-    "duration": 533627198.1552493,
+    "duration": 647816682.10843,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.timestream",
     "provider": "timestream.amazonaws.com",
     "module": "aws"
   },
-  "message": "Timestream Query on financial-ticks.device_telemetry: 534ms",
+  "message": "Timestream Query on application-telemetry.sensor_readings: 648ms",
   "log": {
     "level": "info"
   },
@@ -62,8 +62,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-il-central-1",
-    "ephemeral_id": "p54awzwdp0o"
+    "name": "filebeat-aws-af-south-1",
+    "ephemeral_id": "iybrrar3vmj"
   },
   "input": {
     "type": "aws-cloudwatch"

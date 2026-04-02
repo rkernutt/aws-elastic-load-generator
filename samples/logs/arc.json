@@ -1,59 +1,59 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "arc"
     },
-    "availability_zone": "me-central-1a"
+    "availability_zone": "eu-south-2c"
   },
   "aws": {
     "dimensions": {
-      "ResourceArn": "arn:aws:elasticloadbalancing:me-central-1:738291046572:loadbalancer/app/prod-alb/qp25tmvcf4",
-      "AwsAccountId": "738291046572"
+      "ResourceArn": "arn:aws:elasticloadbalancing:eu-south-2:293847561023:loadbalancer/app/prod-alb/qax33k81gil",
+      "AwsAccountId": "293847561023"
     },
     "arc": {
-      "shift_id": "nq0rb6ij-ow52-6bud-rvda-zkbnaxu5xqh",
-      "resource_arn": "arn:aws:elasticloadbalancing:me-central-1:738291046572:loadbalancer/app/prod-alb/qp25tmvcf4",
-      "away_from": "me-central-1a",
-      "zonal_shift_status": "CANCELLED",
-      "az_status": "PARTIAL",
-      "comment": "Planned maintenance",
-      "expiry_time": "2026-04-01T15:59:07.199Z",
-      "routing_control_arn": "arn:aws:route53-recovery-control::738291046572:controlpanel/p02jyys2dkq/routingcontrol/kf6y3enz6v",
+      "shift_id": "o0t9chwo-5pzy-3skh-vbhh-9ydwd55ir9",
+      "resource_arn": "arn:aws:elasticloadbalancing:eu-south-2:293847561023:loadbalancer/app/prod-alb/qax33k81gil",
+      "away_from": "eu-south-2c",
+      "zonal_shift_status": "ACTIVE",
+      "az_status": "AVAILABLE",
+      "comment": "Proactive shift",
+      "expiry_time": "2026-04-03T08:31:38.062Z",
+      "routing_control_arn": "arn:aws:route53-recovery-control::293847561023:controlpanel/nxhtx91wia/routingcontrol/ywz5sc2jti",
       "routing_control_state": "On"
     },
     "s3": {
       "bucket": {
-        "name": "aws-arc-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-arc-logs-738291046572"
+        "name": "aws-arc-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-arc-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/738291046572/arc/me-central-1/2026/04/01/arc_QVDSINWQKHA.log.gz"
+        "key": "AWSLogs/293847561023/arc/eu-south-2/2026/04/02/arc_2H3PBNSM6FV.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/arc/logs",
-      "log_stream": "me-central-1/2l1fg920",
-      "ingestion_time": "2026-04-01T12:55:20.528Z"
+      "log_stream": "eu-south-2/ax2hrgau",
+      "ingestion_time": "2026-04-02T20:50:22.432Z"
     }
   },
   "event": {
-    "action": "UpdateZonalShift",
+    "action": "UpdateRoutingControlState",
     "outcome": "success",
     "category": ["network", "process"],
     "dataset": "aws.arc",
     "provider": "arc-zonal-shift.amazonaws.com",
     "module": "aws"
   },
-  "message": "ARC UpdateZonalShift: shift=nq0rb6ij-ow52-6bud-rvda-zkbnaxu5xqh, az=me-central-1a status=CANCELLED, Planned maintenance",
+  "message": "ARC UpdateRoutingControlState: shift=o0t9chwo-5pzy-3skh-vbhh-9ydwd55ir9, az=eu-south-2c status=ACTIVE, Proactive shift",
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "service": {
     "name": "arc",
@@ -70,8 +70,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-central-1",
-    "ephemeral_id": "xh857khv0ac"
+    "name": "filebeat-aws-eu-south-2",
+    "ephemeral_id": "dau51ivzyfw"
   },
   "input": {
     "type": "aws-cloudwatch"

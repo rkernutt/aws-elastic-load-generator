@@ -1,111 +1,57 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ap-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
-      "name": "rds"
+      "name": "rds-proxy"
     }
   },
   "aws": {
-    "dimensions": {
-      "DBInstanceIdentifier": "prod-db-primary",
-      "DatabaseClass": "db.t3.medium",
-      "EngineName": "aurora-mysql",
-      "SourceRegion": "me-central-1"
-    },
-    "rds": {
-      "db_instance": {
-        "identifier": "prod-db-primary",
-        "class": "db.r5.large",
-        "engine_name": "aurora-mysql",
-        "arn": "arn:aws:rds:me-central-1:738291046572:db:prod-db-primary",
-        "status": "available",
-        "role": "instance"
-      },
-      "cpu": {
-        "total": {
-          "pct": 0.4758
-        }
-      },
-      "freeable_memory": {
-        "bytes": 3490286352
-      },
-      "free_storage": {
-        "bytes": 431588346381
-      },
-      "database_connections": 426,
-      "read_io": {
-        "ops_per_sec": 1608.473735582456
-      },
-      "write_io": {
-        "ops_per_sec": 2127.0743232280383
-      },
-      "latency": {
-        "read": 0.013362005287642316,
-        "write": 0.006510324365107015
-      },
-      "throughput": {
-        "read": 73282098,
-        "write": 37731797,
-        "network_receive": 14524766,
-        "network_transmit": 9710146
-      },
-      "replica_lag": {
-        "sec": 7.708015214114916
-      },
-      "swap_usage": {
-        "bytes": 89295303
-      },
-      "disk_usage": {
-        "bin_log": {
-          "bytes": 208330006
-        }
-      }
+    "rdsproxy": {
+      "proxy_name": "writer-proxy",
+      "target_group": "writer",
+      "db_user": "app_user",
+      "connection_id": 35044,
+      "action": "Disconnect",
+      "active_connections": 44,
+      "max_connections": 200,
+      "borrow_timeout_ms": 25876,
+      "client_connections": 109,
+      "error_code": "TooManyConnections"
     },
     "s3": {
       "bucket": {
-        "name": "aws-rds-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-rds-logs-738291046572"
+        "name": "aws-rds-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-rds-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/738291046572/rds/me-central-1/2026/04/01/rds_PCLPKA2V5IN.log.gz"
+        "key": "AWSLogs/501938274650/rds/ap-south-1/2026/04/02/rds_GOJKPVDECBF.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/rds/logs",
-      "log_stream": "me-central-1/w7okg797",
-      "ingestion_time": "2026-04-01T12:55:20.467Z"
+      "log_stream": "ap-south-1/5xdsat0t",
+      "ingestion_time": "2026-04-02T20:50:22.370Z"
     }
   },
-  "db": {
-    "user": {
-      "name": "readonly"
-    },
-    "name": "events",
-    "statement": "INSERT INTO orders VALUES IHWKSM",
-    "type": "sql"
-  },
   "event": {
-    "duration": 1826371811.948812,
-    "outcome": "success",
-    "category": ["database"],
-    "type": ["info", "access"],
-    "dataset": "aws.rds",
-    "provider": "rds.amazonaws.com",
-    "module": "aws"
+    "outcome": "failure",
+    "duration": 14282554,
+    "module": "aws",
+    "dataset": "aws.rds"
   },
-  "message": "{\"instanceId\":\"prod-db-primary\",\"engine\":\"aurora-mysql\",\"userId\":\"readonly\",\"queryTime\":1.826371811948812,\"error\":null,\"timestamp\":\"2026-04-01T12:55:20.199Z\",\"osMetrics\":{\"cpuUtilization\":{\"guest\":0.7543012457789189,\"irq\":0.8099890533604232,\"system\":5.274597854908006,\"wait\":0.4430588180334094,\"idle\":53.2,\"user\":39.53488115002233,\"total\":46.8},\"memory\":{\"total\":42993434646,\"free\":3465036394,\"cached\":5487964037,\"active\":6531188273,\"inactive\":2023439660,\"buffers\":210667293},\"disk\":{\"readIOsPS\":1336.9847323514282,\"writeIOsPS\":1488.3518234507912,\"readKbPS\":509054.37936037674,\"writeKbPS\":244558.2875612099,\"avgQueueLen\":5.976610405394586,\"await\":12.974709309203469},\"network\":{\"rx\":52022143,\"tx\":11620452},\"numVCPUs\":32,\"uptime\":\"95 days, 2:36:32\"}}",
-  "log": {
-    "level": "info"
-  },
+  "message": "RDS Proxy writer-proxy: Disconnect failed — InvalidCredentials",
   "service": {
     "name": "rds",
     "type": "aws"
+  },
+  "log": {
+    "level": "info"
   },
   "ecs": {
     "version": "8.11.0"
@@ -118,8 +64,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-central-1",
-    "ephemeral_id": "ur94ilb4mns"
+    "name": "filebeat-aws-ap-south-1",
+    "ephemeral_id": "nzhvh127m38"
   },
   "input": {
     "type": "aws-cloudwatch"

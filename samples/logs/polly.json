@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "polly"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "StartSpeechSynthesisTask"
+      "Operation": "ListSpeechSynthesisTasks"
     },
     "polly": {
       "voice_id": "Brian",
       "engine": "neural",
-      "operation": "StartSpeechSynthesisTask",
-      "language_code": "de-DE",
+      "operation": "ListSpeechSynthesisTasks",
+      "language_code": "en-GB",
       "output_format": "ogg_vorbis",
       "text_type": "ssml",
-      "characters_synthesized": 87235,
+      "characters_synthesized": 6673,
       "sample_rate": "24000",
       "metrics": {
         "RequestCharacters": {
-          "sum": 568
+          "sum": 881
         },
         "ResponseLatency": {
-          "avg": 291.5094804997752
+          "avg": 437.0705740944011
         },
         "2XXCount": {
           "sum": 1
@@ -44,17 +44,17 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-polly-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-polly-logs-501938274650"
+        "name": "aws-polly-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-polly-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/501938274650/polly/eu-central-1/2026/04/01/polly_Q3PCLEL7CYC.log.gz"
+        "key": "AWSLogs/293847561023/polly/ap-south-2/2026/04/02/polly_L92OTIIQO18.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/polly/logs",
-      "log_stream": "eu-central-1/5i4mhfun",
-      "ingestion_time": "2026-04-01T12:55:20.521Z"
+      "log_stream": "ap-south-2/d0afb2m6",
+      "ingestion_time": "2026-04-02T20:50:22.424Z"
     }
   },
   "event": {
@@ -64,7 +64,7 @@
     "provider": "polly.amazonaws.com",
     "module": "aws"
   },
-  "message": "Polly SynthesizeSpeech: Brian (neural), 87235 chars",
+  "message": "Polly SynthesizeSpeech: Brian (neural), 6673 chars",
   "log": {
     "level": "info"
   },
@@ -83,8 +83,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-1",
-    "ephemeral_id": "r9ukwttzppk"
+    "name": "filebeat-aws-ap-south-2",
+    "ephemeral_id": "6zoyfxe7ypd"
   },
   "input": {
     "type": "aws-cloudwatch"

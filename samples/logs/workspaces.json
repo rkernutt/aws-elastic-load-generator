@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "workspaces"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "DirectoryId": "d-q9e2dln63s",
-      "WorkspaceId": "ws-9oppz94syj"
+      "DirectoryId": "d-gvvfvwbxky",
+      "WorkspaceId": "ws-biqeogikez"
     },
     "workspaces": {
-      "workspace_id": "ws-9oppz94syj",
+      "workspace_id": "ws-biqeogikez",
       "user_name": "david",
-      "bundle_type": "Power",
+      "bundle_type": "Standard",
       "workspace_state": "AVAILABLE",
-      "action": "RebuildWorkspace",
+      "action": "Connect",
       "compute_type": "PERFORMANCE",
-      "running_mode": "ALWAYS_ON",
-      "client_ip": "115.10.108.183",
-      "client_os": "Windows 11",
+      "running_mode": "AUTO_STOP",
+      "client_ip": "202.188.97.215",
+      "client_os": "Ubuntu 22.04",
       "metrics": {
         "Available": {
           "sum": 1
@@ -34,13 +34,13 @@
           "sum": 0
         },
         "ConnectionSuccess": {
-          "sum": 0
+          "sum": 1
         },
         "ConnectionFailure": {
           "sum": 0
         },
         "ConnectionAttempt": {
-          "sum": 0
+          "sum": 1
         },
         "UserConnected": {
           "sum": 0
@@ -55,41 +55,41 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-workspaces-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-workspaces-logs-814726593401"
+        "name": "aws-workspaces-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-workspaces-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/814726593401/workspaces/us-east-1/2026/04/01/workspaces_33V3CJOJKN4.log.gz"
+        "key": "AWSLogs/738291046572/workspaces/ap-south-1/2026/04/02/workspaces_R4YVF8ZGBKD.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/workspaces/logs",
-      "log_stream": "us-east-1/p9bl193d",
-      "ingestion_time": "2026-04-01T12:55:20.530Z"
+      "log_stream": "ap-south-1/uum4srmh",
+      "ingestion_time": "2026-04-02T20:50:22.433Z"
     }
   },
   "user": {
     "name": "david"
   },
   "source": {
-    "ip": "143.183.2.172"
+    "ip": "188.249.251.224"
   },
   "event": {
-    "action": "RebuildWorkspace",
+    "action": "Connect",
     "outcome": "success",
     "category": ["host", "session"],
     "dataset": "aws.workspaces",
     "provider": "workspaces.amazonaws.com",
-    "duration": 4319000000,
+    "duration": 4964000000,
     "module": "aws"
   },
-  "message": "WorkSpaces RebuildWorkspace: david on ws-9oppz94syj [AVAILABLE]",
+  "message": "WorkSpaces Connect: david on ws-biqeogikez [AVAILABLE]",
   "log": {
     "level": "info"
   },
   "host": {
-    "name": "ip-232-5-205-161.ec2.internal",
-    "hostname": "workspaces-oqepw02t"
+    "name": "ip-11-227-8-181.ec2.internal",
+    "hostname": "workspaces-k7y63p5h"
   },
   "service": {
     "name": "workspaces",
@@ -106,8 +106,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-1",
-    "ephemeral_id": "vqpzv2ipawh"
+    "name": "filebeat-aws-ap-south-1",
+    "ephemeral_id": "y7vhumseo0h"
   },
   "input": {
     "type": "aws-cloudwatch"

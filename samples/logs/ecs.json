@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "sa-east-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "staging",
+      "ClusterName": "prod-cluster",
       "ServiceName": "api-backend"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 28.835445238994197
+          "avg": 39.29865131210983
         },
         "CPUReservation": {
-          "avg": 30.723430644715233
+          "avg": 52.259735714468384
         },
         "MemoryUtilization": {
-          "avg": 60.0288978380232
+          "avg": 18.89538570380161
         },
         "MemoryReservation": {
-          "avg": 63.942552678068516
+          "avg": 24.232578487564364
         },
         "GPUReservation": {
           "avg": 0
@@ -41,26 +41,26 @@
         "arn": "arn:aws:s3:::aws-ecs-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/501938274650/ecs/il-central-1/2026/04/01/ecs_574KL0MSVIB.log.gz"
+        "key": "AWSLogs/501938274650/ecs/sa-east-1/2026/04/02/ecs_N3M9O6IEMG.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/ecs/logs",
-      "log_stream": "il-central-1/vmx3mgx2",
-      "ingestion_time": "2026-04-01T12:55:20.467Z"
+      "log_stream": "sa-east-1/hy83dlgl",
+      "ingestion_time": "2026-04-02T20:50:22.370Z"
     }
   },
   "container": {
-    "id": "eh1sl1je1ho",
+    "id": "rfboqiu8mgk",
     "name": "api-backend",
     "image": {
-      "name": "golang:latest",
+      "name": "golang:1.24",
       "tag": "1.24"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 35863,
+    "pid": 63562,
     "name": "api-backend"
   },
   "log": {
@@ -71,17 +71,17 @@
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 755000000000,
+    "duration": 2153000000000,
     "module": "aws"
   },
-  "message": "Request processed",
+  "message": "Health check passed",
   "service": {
     "name": "api-backend",
     "type": "ecs"
   },
   "host": {
-    "name": "ip-92-156-3-25.ec2.internal",
-    "hostname": "ecs-gqrskn5k"
+    "name": "ip-156-161-218-209.ec2.internal",
+    "hostname": "ecs-fr7hsqjr"
   },
   "ecs": {
     "version": "8.11.0"
@@ -94,8 +94,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-il-central-1",
-    "ephemeral_id": "xjenmp0toh"
+    "name": "filebeat-aws-sa-east-1",
+    "ephemeral_id": "109xnezh1lkl"
   },
   "input": {
     "type": "aws-cloudwatch"

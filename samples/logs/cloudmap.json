@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "cloudmap"
@@ -13,32 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "Namespace": "staging-namespace",
-      "ServiceName": "notification"
+      "Namespace": "internal-services",
+      "ServiceName": "checkout"
     },
     "cloudmap": {
-      "namespace": "staging-namespace",
-      "service_name": "notification",
-      "instance_id": "i-2z2oyz4n76q",
-      "operation": "DiscoverInstances",
-      "health_status": "HEALTHY",
+      "namespace": "internal-services",
+      "service_name": "checkout",
+      "instance_id": "i-5bgptnr96eo",
+      "operation": "RegisterInstance",
+      "health_status": "ALL",
       "instances_returned": 2,
-      "query_type": "API",
-      "ttl": 300
+      "query_type": "DNS",
+      "ttl": 15
     },
     "s3": {
       "bucket": {
-        "name": "aws-cloudmap-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-cloudmap-logs-501938274650"
+        "name": "aws-cloudmap-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-cloudmap-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/501938274650/cloudmap/sa-east-1/2026/04/01/cloudmap_OPIO0R8GGZN.log.gz"
+        "key": "AWSLogs/738291046572/cloudmap/eu-central-2/2026/04/02/cloudmap_EVL70LCUZLJ.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/cloudmap/logs",
-      "log_stream": "sa-east-1/cpjcqmxx",
-      "ingestion_time": "2026-04-01T12:55:20.474Z"
+      "log_stream": "eu-central-2/zv47329v",
+      "ingestion_time": "2026-04-02T20:50:22.379Z"
     }
   },
   "event": {
@@ -47,10 +47,10 @@
     "category": ["network"],
     "dataset": "aws.cloudmap",
     "provider": "cloudmap.amazonaws.com",
-    "duration": 25000000,
+    "duration": 136000000,
     "module": "aws"
   },
-  "message": "Cloud Map notification: DiscoverInstances returned 2 instances",
+  "message": "Cloud Map checkout: RegisterInstance returned 2 instances",
   "log": {
     "level": "info"
   },
@@ -69,8 +69,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-sa-east-1",
-    "ephemeral_id": "av4y48xi787"
+    "name": "filebeat-aws-eu-central-2",
+    "ephemeral_id": "jk73n1iw9rg"
   },
   "input": {
     "type": "aws-cloudwatch"

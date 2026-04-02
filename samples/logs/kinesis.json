@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "kinesis"
@@ -13,52 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "StreamName": "user-events"
+      "StreamName": "iot-telemetry"
     },
     "kinesis": {
       "metrics": {
         "GetRecords_Bytes": {
-          "avg": 988711
+          "avg": 475877
         },
         "GetRecords_IteratorAgeMilliseconds": {
-          "avg": 133
+          "avg": 254
         },
         "GetRecords_Latency": {
-          "avg": 23
+          "avg": 42
         },
         "GetRecords_Records": {
-          "avg": 157,
-          "sum": 113
+          "avg": 696,
+          "sum": 975
         },
         "GetRecords_Success": {
           "sum": 1
         },
         "IncomingBytes": {
-          "avg": 3425205
+          "avg": 9156657
         },
         "IncomingRecords": {
-          "avg": 3907
+          "avg": 8026
         },
         "PutRecord_Bytes": {
-          "avg": 367236
+          "avg": 10179
         },
         "PutRecord_Latency": {
-          "avg": 46
+          "avg": 21
         },
         "PutRecords_Latency": {
-          "avg": 108
+          "avg": 12
         },
         "PutRecord_Success": {
           "avg": 1
         },
         "PutRecords_Bytes": {
-          "avg": 3318716
+          "avg": 8112084
         },
         "PutRecords_FailedRecords": {
           "sum": 0
         },
         "PutRecords_SuccessfulRecords": {
-          "sum": 22
+          "sum": 696
         },
         "PutRecords_ThrottledRecords": {
           "sum": 0
@@ -73,17 +73,17 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-kinesis-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-kinesis-logs-738291046572"
+        "name": "aws-kinesis-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-kinesis-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/738291046572/kinesis/eu-central-1/2026/04/01/kinesis_A8R5F9FBQB.log.gz"
+        "key": "AWSLogs/293847561023/kinesis/ap-northeast-3/2026/04/02/kinesis_EBSR5SQX9TK.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/kinesis/logs",
-      "log_stream": "eu-central-1/86oywr7l",
-      "ingestion_time": "2026-04-01T12:55:20.510Z"
+      "log_stream": "ap-northeast-3/44bqpi4e",
+      "ingestion_time": "2026-04-02T20:50:22.414Z"
     }
   },
   "event": {
@@ -91,10 +91,10 @@
     "category": ["network"],
     "dataset": "aws.kinesis",
     "provider": "kinesis.amazonaws.com",
-    "duration": 4961000000,
+    "duration": 563000000,
     "module": "aws"
   },
-  "message": "Kinesis user-events: 5020 records ingested",
+  "message": "Kinesis iot-telemetry: 3893 records ingested",
   "log": {
     "level": "info"
   },
@@ -113,8 +113,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-1",
-    "ephemeral_id": "t7a813ykgvn"
+    "name": "filebeat-aws-ap-northeast-3",
+    "ephemeral_id": "0anc9gtwr4ql"
   },
   "input": {
     "type": "aws-cloudwatch"

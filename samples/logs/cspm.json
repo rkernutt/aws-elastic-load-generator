@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,36 +7,36 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "eu-north-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
     }
   },
   "resource": {
-    "id": "arn:aws:iam::814726593401:root",
-    "name": "arn:aws:iam::814726593401:root",
-    "sub_type": "iam-root",
+    "id": "arn:aws:iam::814726593401:user/carol",
+    "name": "carol",
+    "sub_type": "iam-user",
     "type": "cloud-identity-management"
   },
   "rule": {
-    "id": "cis_1_1",
-    "name": "Avoid use of the root account",
-    "section": "1.1",
+    "id": "cis_1_2",
+    "name": "Ensure MFA enabled for all IAM users with console access",
+    "section": "1.2",
     "tags": ["IAM"],
     "benchmark": {
       "id": "cis_aws",
       "version": "v1.5.0",
-      "rule_number": "1.1",
+      "rule_number": "1.2",
       "posture_type": "cspm"
     },
-    "impact": "Non-compliance with CIS AWS 1.1 may expose account to unauthorized access.",
-    "remediation": "Remediate per CIS AWS Foundations Benchmark v1.5.0 section 1.1."
+    "impact": "Non-compliance with CIS AWS 1.2 may expose account to unauthorized access.",
+    "remediation": "Remediate per CIS AWS Foundations Benchmark v1.5.0 section 1.2."
   },
   "result": {
     "evaluation": "failed"
   },
-  "severity": "critical",
+  "severity": "high",
   "event": {
     "kind": "state",
     "category": ["configuration"],
@@ -46,13 +46,13 @@
     "provider": "elastic_cspm",
     "module": "aws"
   },
-  "message": "CSPM [CIS AWS 1.5 / 1.1] failed: Avoid use of the root account",
+  "message": "CSPM [CIS AWS 1.5 / 1.2] failed: Ensure MFA enabled for all IAM users with console access",
   "log": {
-    "level": "error"
+    "level": "warn"
   },
   "error": {
-    "code": "CIS_CIS_1_1",
-    "message": "CSPM check failed: Avoid use of the root account",
+    "code": "CIS_CIS_1_2",
+    "message": "CSPM check failed: Ensure MFA enabled for all IAM users with console access",
     "type": "compliance"
   },
   "service": {
@@ -65,8 +65,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ca-central-1",
-    "ephemeral_id": "xngjsyjcftk"
+    "name": "filebeat-aws-eu-north-1",
+    "ephemeral_id": "zsw5vykk1q"
   },
   "input": {
     "type": "http_endpoint"
@@ -78,13 +78,13 @@
         "arn": "arn:aws:s3:::aws-cspm-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/814726593401/cspm/ca-central-1/2026/04/01/cspm_P7IR7SR5XJS.log.gz"
+        "key": "AWSLogs/814726593401/cspm/eu-north-1/2026/04/02/cspm_93D7J7P752.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/cspm/logs",
-      "log_stream": "ca-central-1/6xrkz4ks",
-      "ingestion_time": "2026-04-01T12:55:20.478Z"
+      "log_stream": "eu-north-1/rxqj7icy",
+      "ingestion_time": "2026-04-02T20:50:22.383Z"
     }
   }
 }

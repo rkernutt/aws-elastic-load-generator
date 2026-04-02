@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "datazone"
@@ -13,42 +13,42 @@
   },
   "aws": {
     "dimensions": {
-      "DomainId": "dzd_cbl512qlre"
+      "DomainId": "dzd_ed6jqwic2mm"
     },
     "datazone": {
-      "domain_id": "dzd_cbl512qlre",
-      "domain_name": "analytics-domain",
-      "project_name": "finance-reporting",
+      "domain_id": "dzd_ed6jqwic2mm",
+      "domain_name": "enterprise-catalog",
+      "project_name": "risk-modeling",
       "asset_name": "ad_spend",
-      "asset_type": "AthenaTableViewType",
+      "asset_type": "RedshiftTableViewType",
       "subscription_status": "ACTIVE",
-      "glossary_term": "Sensitive",
-      "environment_id": "env-522ka7piva4"
+      "glossary_term": "Confidential",
+      "environment_id": "env-uf65t7ozcb7"
     },
     "s3": {
       "bucket": {
-        "name": "aws-datazone-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-datazone-logs-501938274650"
+        "name": "aws-datazone-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-datazone-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/501938274650/datazone/ap-southeast-4/2026/04/01/datazone_A06A3QV9LKB.log.gz"
+        "key": "AWSLogs/738291046572/datazone/ap-southeast-3/2026/04/02/datazone_BGFWNC6NJRR.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/datazone/logs",
-      "log_stream": "ap-southeast-4/lq0hta8b",
-      "ingestion_time": "2026-04-01T12:55:20.518Z"
+      "log_stream": "ap-southeast-3/1t3irln5",
+      "ingestion_time": "2026-04-02T20:50:22.421Z"
     }
   },
   "event": {
-    "action": "PublishAsset",
+    "action": "ApproveSubscription",
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.datazone",
     "provider": "datazone.amazonaws.com",
     "module": "aws"
   },
-  "message": "DataZone PublishAsset: domain=analytics-domain, project=finance-reporting, asset=ad_spend",
+  "message": "DataZone ApproveSubscription: domain=enterprise-catalog, project=risk-modeling, asset=ad_spend",
   "log": {
     "level": "info"
   },
@@ -67,8 +67,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-4",
-    "ephemeral_id": "9x0np8y2c7i"
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "bp2e5fg104q"
   },
   "input": {
     "type": "aws-cloudwatch"

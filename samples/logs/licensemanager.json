@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "licensemanager"
@@ -13,42 +13,42 @@
   },
   "aws": {
     "dimensions": {
-      "LicenseConfigurationName": "RHEL-8-Sockets"
+      "LicenseConfigurationName": "Oracle-SE2-vCPU"
     },
     "licensemanager": {
-      "license_configuration_name": "RHEL-8-Sockets",
-      "license_configuration_arn": "arn:aws:license-manager:af-south-1:293847561023:license-configuration:2HLZSNIJEMN",
-      "resource_type": "ROLE",
-      "consumed_licenses": 491,
-      "licensed_count": 781,
-      "utilization_percentage": 63,
-      "rule_type": "Instances",
+      "license_configuration_name": "Oracle-SE2-vCPU",
+      "license_configuration_arn": "arn:aws:license-manager:eu-south-2:164820739518:license-configuration:8E3UDD6JOK9",
+      "resource_type": "EC2_INSTANCE",
+      "consumed_licenses": 281,
+      "licensed_count": 950,
+      "utilization_percentage": 30,
+      "rule_type": "vCPU",
       "status": "Active"
     },
     "s3": {
       "bucket": {
-        "name": "aws-licensemanager-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-licensemanager-logs-293847561023"
+        "name": "aws-licensemanager-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-licensemanager-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/293847561023/licensemanager/af-south-1/2026/04/01/licensemanager_J3KC8MDHPG.log.gz"
+        "key": "AWSLogs/164820739518/licensemanager/eu-south-2/2026/04/02/licensemanager_MEA8JCWIRZ.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/licensemanager/logs",
-      "log_stream": "af-south-1/l4hq3mru",
-      "ingestion_time": "2026-04-01T12:55:20.529Z"
+      "log_stream": "eu-south-2/jv2i413x",
+      "ingestion_time": "2026-04-02T20:50:22.432Z"
     }
   },
   "event": {
-    "action": "CreateLicenseConfiguration",
+    "action": "CheckOutLicense",
     "outcome": "success",
     "category": ["configuration"],
     "dataset": "aws.licensemanager",
     "provider": "license-manager.amazonaws.com",
     "module": "aws"
   },
-  "message": "License Manager RHEL-8-Sockets: 491/781 (63%) ROLE",
+  "message": "License Manager Oracle-SE2-vCPU: 281/950 (30%) EC2_INSTANCE",
   "log": {
     "level": "info"
   },
@@ -67,8 +67,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-af-south-1",
-    "ephemeral_id": "a1hrpw39w2m"
+    "name": "filebeat-aws-eu-south-2",
+    "ephemeral_id": "auerdcisi5c"
   },
   "input": {
     "type": "aws-cloudwatch"

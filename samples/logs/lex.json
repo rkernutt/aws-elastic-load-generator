@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "me-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "lex"
@@ -13,34 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "BotName": "faq-bot",
-      "Operation": "OrderProduct"
+      "BotName": "customer-service-bot",
+      "Operation": "GetHelp"
     },
     "lex": {
-      "bot_id": "F4K0WUK0HO",
-      "bot_name": "faq-bot",
-      "bot_version": "1",
-      "locale_id": "fr_FR",
-      "session_id": "k0j915y31uh",
+      "bot_id": "H14UPI387G",
+      "bot_name": "customer-service-bot",
+      "bot_version": "DRAFT",
+      "locale_id": "en_US",
+      "session_id": "9pslzccc07",
       "input_transcript": "I want to order a product",
-      "intent_name": "OrderProduct",
-      "intent_nlu_confidence_score": 0.9830171139066439,
+      "intent_name": "GetHelp",
+      "intent_nlu_confidence_score": 0.9539910572427244,
       "dialog_state": "Fulfilled",
-      "sentiment": "NEGATIVE"
+      "sentiment": "NEUTRAL"
     },
     "s3": {
       "bucket": {
-        "name": "aws-lex-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-lex-logs-814726593401"
+        "name": "aws-lex-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-lex-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/814726593401/lex/us-west-1/2026/04/01/lex_N583INX5WG.log.gz"
+        "key": "AWSLogs/164820739518/lex/me-south-1/2026/04/02/lex_712E6RX6SQR.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/lex/logs",
-      "log_stream": "us-west-1/rcbxsla0",
-      "ingestion_time": "2026-04-01T12:55:20.521Z"
+      "log_stream": "me-south-1/gi10uawt",
+      "ingestion_time": "2026-04-02T20:50:22.425Z"
     }
   },
   "event": {
@@ -50,7 +50,7 @@
     "provider": "lex.amazonaws.com",
     "module": "aws"
   },
-  "message": "Lex faq-bot: intent=OrderProduct (98%)",
+  "message": "Lex customer-service-bot: intent=GetHelp (95%)",
   "log": {
     "level": "info"
   },
@@ -69,8 +69,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-west-1",
-    "ephemeral_id": "owi2xng4uba"
+    "name": "filebeat-aws-me-south-1",
+    "ephemeral_id": "xiafq3sw0rb"
   },
   "input": {
     "type": "aws-cloudwatch"

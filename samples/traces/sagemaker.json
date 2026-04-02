@@ -1,20 +1,20 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "3fd250689f15ddfc13129e39f7bbce99"
+    "id": "3314047a2d7c63dd64131953e4278bbf"
   },
   "transaction": {
-    "id": "a52c8c728c93ed64",
-    "name": "anomaly-detector inference request",
+    "id": "9115d868d700989e",
+    "name": "fraud-detection-xgb inference request",
     "type": "gen_ai",
     "duration": {
-      "us": 1001000
+      "us": 1094000
     },
-    "result": "failure",
+    "result": "success",
     "sampled": true,
     "span_count": {
       "started": 2,
@@ -22,7 +22,7 @@
     }
   },
   "service": {
-    "name": "anomaly-detector",
+    "name": "fraud-detection-xgb",
     "environment": "production",
     "version": "1.0.0",
     "language": {
@@ -53,17 +53,17 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "us-west-2",
     "account": {
-      "id": "345678901234",
-      "name": "dev-aws"
+      "id": "234567890123",
+      "name": "staging-aws"
     },
     "service": {
       "name": "sagemaker"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "module": "aws",
     "dataset": "aws.sagemaker"
   },

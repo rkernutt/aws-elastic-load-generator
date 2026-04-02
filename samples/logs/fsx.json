@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "eu-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "fsx"
@@ -13,58 +13,58 @@
   },
   "aws": {
     "dimensions": {
-      "FileSystemId": "fs-fxwbkkqmrxu"
+      "FileSystemId": "fs-tryjyiasdwb"
     },
     "fsx": {
-      "file_system_id": "fs-fxwbkkqmrxu",
-      "file_system_type": "OPENZFS",
+      "file_system_id": "fs-tryjyiasdwb",
+      "file_system_type": "NETAPP_ONTAP",
       "deployment_type": "MULTI_AZ_1",
-      "storage_capacity_gb": 1200,
+      "storage_capacity_gb": 2400,
       "throughput_capacity_mbps": 512,
-      "storage_used_percent": 64,
+      "storage_used_percent": 35,
       "metrics": {
         "DataReadBytes": {
-          "sum": 29040396
+          "sum": 82184498
         },
         "DataWriteBytes": {
-          "sum": 316708362
+          "sum": 932501221
         },
         "DataReadOperations": {
-          "sum": 7167
+          "sum": 5246
         },
         "DataWriteOperations": {
-          "sum": 8033
+          "sum": 8077
         },
         "MetadataOperations": {
-          "sum": 226
+          "sum": 3527
         },
         "FreeStorageCapacity": {
-          "avg": 38896781195
+          "avg": 88664360879
         },
         "StorageCapacity": {
-          "avg": 140806047032
+          "avg": 920398314251
         },
         "CPUUtilization": {
-          "avg": 50.16323613736012
+          "avg": 51.89820771821629
         },
         "NetworkThroughputUtilization": {
-          "avg": 65.56373856079887
+          "avg": 68.39184025036573
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-fsx-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-fsx-logs-501938274650"
+        "name": "aws-fsx-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-fsx-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/501938274650/fsx/eu-central-2/2026/04/01/fsx_WX6XK2K75OF.log.gz"
+        "key": "AWSLogs/738291046572/fsx/eu-central-1/2026/04/02/fsx_4X6CC7RSC7.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/fsx/logs",
-      "log_stream": "eu-central-2/q80o3ob7",
-      "ingestion_time": "2026-04-01T12:55:20.482Z"
+      "log_stream": "eu-central-1/hqcz4laf",
+      "ingestion_time": "2026-04-02T20:50:22.387Z"
     }
   },
   "event": {
@@ -72,12 +72,12 @@
     "category": ["host", "file"],
     "dataset": "aws.fsx",
     "provider": "fsx.amazonaws.com",
-    "duration": 4226000000,
+    "duration": 3813000000,
     "module": "aws"
   },
-  "message": "Backup completed successfully",
+  "message": "Backup RPO threshold approaching",
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "service": {
     "name": "fsx",
@@ -94,8 +94,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-2",
-    "ephemeral_id": "bv58ozxorzp"
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "af5p0aa0idl"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "bedrock"
@@ -13,34 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "ModelId": "amazon.titan-text-express-v1"
+      "ModelId": "anthropic.claude-3-haiku-20240307-v1:0"
     },
     "bedrock": {
-      "model_id": "amazon.titan-text-express-v1",
-      "invocation_latency_ms": 9163,
-      "input_token_count": 2522,
-      "output_token_count": 1405,
-      "total_token_count": 3927,
+      "model_id": "anthropic.claude-3-haiku-20240307-v1:0",
+      "invocation_latency_ms": 12193,
+      "input_token_count": 1202,
+      "output_token_count": 391,
+      "total_token_count": 1593,
       "stop_reason": "stop_sequence",
       "use_case": "qa",
       "guardrail_action": "NONE",
-      "streaming": true,
-      "time_to_first_token_ms": 139,
-      "input_tokens_per_sec": 275.2,
-      "model_family": "amazon",
+      "streaming": false,
+      "model_family": "anthropic",
       "metrics": {
         "Invocations": {
-          "sum": 418
+          "sum": 19
         },
         "InvocationLatency": {
-          "avg": 9163,
-          "p99": 18326
+          "avg": 12193,
+          "p99": 24386
         },
         "InputTokenCount": {
-          "sum": 2522
+          "sum": 1202
         },
         "OutputTokenCount": {
-          "sum": 1405
+          "sum": 391
         },
         "Throttles": {
           "sum": 0
@@ -49,17 +47,17 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-bedrock-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-bedrock-logs-738291046572"
+        "name": "aws-bedrock-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-bedrock-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/738291046572/bedrock/il-central-1/2026/04/01/bedrock_Q3SX2K971B.log.gz"
+        "key": "AWSLogs/814726593401/bedrock/ap-southeast-2/2026/04/02/bedrock_1LJ513S0ODP.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/bedrock/logs",
-      "log_stream": "il-central-1/wp4vfvkz",
-      "ingestion_time": "2026-04-01T12:55:20.519Z"
+      "log_stream": "ap-southeast-2/zxv5jkw9",
+      "ingestion_time": "2026-04-02T20:50:22.423Z"
     }
   },
   "event": {
@@ -67,12 +65,12 @@
     "category": ["process"],
     "dataset": "aws.bedrock",
     "provider": "bedrock.amazonaws.com",
-    "duration": 9162637826.386875,
+    "duration": 12192594265.909445,
     "module": "aws"
   },
-  "message": "Bedrock titan 2522->1405 tokens 9.16s",
+  "message": "Bedrock claude 1202->391 tokens 12.19s",
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "service": {
     "name": "bedrock",
@@ -89,8 +87,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-il-central-1",
-    "ephemeral_id": "mkupqtj3ie"
+    "name": "filebeat-aws-ap-southeast-2",
+    "ephemeral_id": "ngpa7uiafs"
   },
   "input": {
     "type": "aws-cloudwatch"

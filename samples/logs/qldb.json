@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "me-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "qldb"
@@ -14,37 +14,37 @@
   "aws": {
     "qldb": {
       "ledger_name": "financial-records",
-      "table_name": "Orders",
-      "operation": "SELECT",
-      "transaction_id": "1e1geo0gi9d",
-      "document_id": "2h5fy71quw2",
-      "revision_hash": "q3f0p6b5e18",
-      "duration_ms": 104
+      "table_name": "Transactions",
+      "operation": "HISTORY",
+      "transaction_id": "45hzpgozbqk",
+      "document_id": "68bk55ywj2w",
+      "revision_hash": "w6tmg8b98oj",
+      "duration_ms": 28
     },
     "s3": {
       "bucket": {
-        "name": "aws-qldb-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-qldb-logs-293847561023"
+        "name": "aws-qldb-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-qldb-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/qldb/ap-northeast-1/2026/04/01/qldb_TZTK2Z4AZKO.log.gz"
+        "key": "AWSLogs/814726593401/qldb/me-south-1/2026/04/02/qldb_NRVG61SF78E.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/qldb/logs",
-      "log_stream": "ap-northeast-1/193v3k79",
-      "ingestion_time": "2026-04-01T12:55:20.509Z"
+      "log_stream": "me-south-1/3l9kmwpc",
+      "ingestion_time": "2026-04-02T20:50:22.413Z"
     }
   },
   "event": {
-    "duration": 103599654.73812485,
+    "duration": 28118000.50421777,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.qldb",
     "provider": "qldb.amazonaws.com",
     "module": "aws"
   },
-  "message": "QLDB SELECT on financial-records.Orders: 104ms",
+  "message": "QLDB HISTORY on financial-records.Transactions: 28ms",
   "log": {
     "level": "info"
   },
@@ -63,8 +63,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-1",
-    "ephemeral_id": "2705m3homvx"
+    "name": "filebeat-aws-me-south-1",
+    "ephemeral_id": "v2a81k4vqfn"
   },
   "input": {
     "type": "aws-cloudwatch"

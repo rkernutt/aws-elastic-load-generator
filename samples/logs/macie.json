@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "macie"
@@ -13,27 +13,27 @@
   },
   "aws": {
     "dimensions": {
-      "BucketName": "backup-bucket-us-east-1"
+      "BucketName": "raw-uploads-ap-southeast-3"
     },
     "macie": {
-      "finding_id": "p7i56ixd-ttfz-u2xf",
+      "finding_id": "ctxdqw8g-sgpr-636y",
       "finding_type": "none",
       "severity": "INFORMATIONAL",
       "s3_bucket": {
-        "name": "backup-bucket-us-east-1",
-        "arn": "arn:aws:s3:::backup-bucket-us-east-1"
+        "name": "raw-uploads-ap-southeast-3",
+        "arn": "arn:aws:s3:::raw-uploads-ap-southeast-3"
       },
       "s3_bucket_full": {
-        "name": "backup-bucket-us-east-1",
-        "arn": "arn:aws:s3:::backup-bucket-us-east-1",
-        "owner_id": "tumuns5isfq",
+        "name": "raw-uploads-ap-southeast-3",
+        "arn": "arn:aws:s3:::raw-uploads-ap-southeast-3",
+        "owner_id": "h0t2w9bn4ir",
         "default_server_side_encryption": {
-          "encryption_type": "AES256"
+          "encryption_type": "aws:kms"
         },
         "tags": [
           {
             "key": "Environment",
-            "value": "staging"
+            "value": "dev"
           }
         ],
         "public_access": {
@@ -50,17 +50,17 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-macie-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-macie-logs-814726593401"
+        "name": "aws-macie-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-macie-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/814726593401/macie/us-east-1/2026/04/01/macie_0HDT584LKX1M.log.gz"
+        "key": "AWSLogs/738291046572/macie/ap-southeast-3/2026/04/02/macie_G22ZEPFRBFE.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/macie/logs",
-      "log_stream": "us-east-1/7fh7r8t6",
-      "ingestion_time": "2026-04-01T12:55:20.475Z"
+      "log_stream": "ap-southeast-3/6jt9uwjn",
+      "ingestion_time": "2026-04-02T20:50:22.380Z"
     }
   },
   "event": {
@@ -90,8 +90,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-1",
-    "ephemeral_id": "u3tafvorieb"
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "jy70l215cj"
   },
   "input": {
     "type": "http_endpoint"

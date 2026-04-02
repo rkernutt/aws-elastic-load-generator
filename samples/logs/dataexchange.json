@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "dataexchange"
@@ -13,46 +13,51 @@
   },
   "aws": {
     "dimensions": {
-      "DataSetId": "1mpiodpm-8b8n-lgzs-4uiv-la4n3w1opyq"
+      "DataSetId": "zxeozzyj-11kh-1ttc-sp3q-qz602x050x"
     },
     "dataexchange": {
-      "dataset_id": "1mpiodpm-8b8n-lgzs-4uiv-la4n3w1opyq",
-      "dataset_name": "Traffic-Analytics",
-      "data_set_type": "REDSHIFT",
-      "revision_id": "87lx7jgr-78ry-sc85-n0zw-3r8y6np7pgx",
-      "job_id": "6sxrqn2w-anyl-lbp9-wg7s-2xrb9pnrr4e",
-      "job_type": "IMPORT_ASSET_FROM_API_GATEWAY",
-      "job_status": "WAITING",
+      "dataset_id": "zxeozzyj-11kh-1ttc-sp3q-qz602x050x",
+      "dataset_name": "Financial-Market-Feed",
+      "data_set_type": "S3",
+      "revision_id": "g2vey2gu-rb38-jn48-lyf0-2u9eoiutw1g",
+      "job_id": "l5p7803g-9z6y-eswv-4300-1kx83smiga1",
+      "job_type": "EXPORT_ASSETS_TO_S3",
+      "job_status": "CANCELLED",
       "provider_account_id": "501938274650",
-      "subscriber_account_id": "164820739518",
-      "asset_count": 14
+      "subscriber_account_id": "814726593401",
+      "asset_count": 96
     },
     "s3": {
       "bucket": {
-        "name": "aws-dataexchange-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-dataexchange-logs-164820739518"
+        "name": "aws-dataexchange-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-dataexchange-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/164820739518/dataexchange/us-east-1/2026/04/01/dataexchange_491ZT6FB2VE.log.gz"
+        "key": "AWSLogs/814726593401/dataexchange/ap-northeast-1/2026/04/02/dataexchange_UWMZNHBI2S.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/dataexchange/logs",
-      "log_stream": "us-east-1/agdwyj51",
-      "ingestion_time": "2026-04-01T12:55:20.519Z"
+      "log_stream": "ap-northeast-1/yytpzw9b",
+      "ingestion_time": "2026-04-02T20:50:22.422Z"
     }
   },
   "event": {
-    "action": "SubscribeToDataSet",
-    "outcome": "success",
+    "action": "StartJob",
+    "outcome": "failure",
     "category": ["process"],
     "dataset": "aws.dataexchange",
     "provider": "dataexchange.amazonaws.com",
     "module": "aws"
   },
-  "message": "Data Exchange Traffic-Analytics: IMPORT_ASSET_FROM_API_GATEWAY WAITING, 14 assets",
+  "message": "Data Exchange Financial-Market-Feed: job CANCELLED",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ResourceNotFoundException",
+    "message": "Data Exchange job failed",
+    "type": "process"
   },
   "service": {
     "name": "dataexchange",
@@ -69,8 +74,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-1",
-    "ephemeral_id": "f9354hbp6lo"
+    "name": "filebeat-aws-ap-northeast-1",
+    "ephemeral_id": "jvtyc8nmd5"
   },
   "input": {
     "type": "aws-cloudwatch"

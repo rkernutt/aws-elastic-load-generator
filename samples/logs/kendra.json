@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "us-east-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "kendra"
@@ -13,46 +13,46 @@
   },
   "aws": {
     "dimensions": {
-      "IndexId": "i04y22up-p6m9-on5q-m30a-awafpy2ve85",
-      "Operation": "BatchPutDocument"
+      "IndexId": "g2hqrj98-g0b0-lw4j-7b8y-gwmx82vm0we",
+      "Operation": "CreateDataSource"
     },
     "kendra": {
-      "index_id": "i04y22up-p6m9-on5q-m30a-awafpy2ve85",
-      "index_name": "hr-docs",
-      "result_count": 1,
-      "response_time_ms": 130,
-      "document_count": 436433,
-      "data_source_id": "ds-hjyzgam36i",
-      "data_source_type": "Salesforce"
+      "index_id": "g2hqrj98-g0b0-lw4j-7b8y-gwmx82vm0we",
+      "index_name": "company-wiki",
+      "result_count": 5,
+      "response_time_ms": 1009,
+      "document_count": 322837,
+      "data_source_id": "ds-e3174q0x23",
+      "data_source_type": "S3"
     },
     "s3": {
       "bucket": {
-        "name": "aws-kendra-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-kendra-logs-164820739518"
+        "name": "aws-kendra-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-kendra-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/164820739518/kendra/ap-southeast-3/2026/04/01/kendra_WEDX7RMP96M.log.gz"
+        "key": "AWSLogs/738291046572/kendra/us-east-2/2026/04/02/kendra_8ZB9VEHRFNY.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/kendra/logs",
-      "log_stream": "ap-southeast-3/78vldake",
-      "ingestion_time": "2026-04-01T12:55:20.522Z"
+      "log_stream": "us-east-2/hxupr9mg",
+      "ingestion_time": "2026-04-02T20:50:22.425Z"
     }
   },
   "log": {
     "level": "info"
   },
   "event": {
-    "action": "BatchPutDocument",
+    "action": "CreateDataSource",
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.kendra",
     "provider": "kendra.amazonaws.com",
-    "duration": 130000000,
+    "duration": 1009000000,
     "module": "aws"
   },
-  "message": "Kendra BatchPutDocument: index=hr-docs",
+  "message": "Kendra CreateDataSource: index=company-wiki",
   "service": {
     "name": "kendra",
     "type": "aws"
@@ -68,8 +68,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-3",
-    "ephemeral_id": "z8ryh5j1yv"
+    "name": "filebeat-aws-us-east-2",
+    "ephemeral_id": "87llhdtbopp"
   },
   "input": {
     "type": "aws-cloudwatch"

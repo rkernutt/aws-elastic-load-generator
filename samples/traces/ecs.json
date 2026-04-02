@@ -1,20 +1,20 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "ddc493e22a00323df0e2f77af1b2d535"
+    "id": "f843e2c0a1d219d9f28908220289e034"
   },
   "transaction": {
-    "id": "06a5811565c45efa",
-    "name": "POST /reports",
+    "id": "f5a475dfbc633d77",
+    "name": "POST /orders",
     "type": "request",
     "duration": {
-      "us": 907000
+      "us": 1008000
     },
-    "result": "HTTP 4xx",
+    "result": "HTTP 2xx",
     "sampled": true,
     "span_count": {
       "started": 3,
@@ -26,28 +26,28 @@
       "method": "POST"
     },
     "response": {
-      "status_code": 400
+      "status_code": 200
     }
   },
   "url": {
-    "path": "/reports"
+    "path": "/orders"
   },
   "labels": {
-    "container_id": "2d64707e670b",
-    "task_id": "arn:aws:ecs:ap-southeast-3:345678901234:task/staging-services-cluster/490de7a87a87655c1edf600ff28803b1",
-    "cluster_name": "staging-services-cluster",
-    "task_definition": "report-service:3"
+    "container_id": "52d9cfa1f362",
+    "task_id": "arn:aws:ecs:us-west-2:123456789012:task/prod-services-cluster/ee90976d75aabcc4a7fa54344cd4287c",
+    "cluster_name": "prod-services-cluster",
+    "task_definition": "order-service:33"
   },
   "service": {
-    "name": "report-service",
+    "name": "order-service",
     "environment": "staging",
     "version": "1.0.0",
     "language": {
-      "name": "python"
+      "name": "nodejs"
     },
     "runtime": {
-      "name": "python3.11",
-      "version": "3.11.9"
+      "name": "nodejs20.x",
+      "version": "20.15.1"
     },
     "framework": {
       "name": "ECS"
@@ -55,32 +55,32 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "0.6.0"
+    "version": "1.4.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "python",
-      "version": "1.29.0"
+      "language": "nodejs",
+      "version": "1.30.1"
     },
     "distro": {
       "name": "elastic",
-      "version": "0.6.0"
+      "version": "1.4.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "us-west-2",
     "account": {
-      "id": "345678901234",
-      "name": "dev-aws"
+      "id": "123456789012",
+      "name": "prod-aws"
     },
     "service": {
       "name": "ecs"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "module": "aws",
     "dataset": "aws.ecs_metrics"
   },

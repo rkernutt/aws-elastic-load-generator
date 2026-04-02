@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "me-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "directconnect"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "directconnect": {
-      "connection_id": "dxcon-h8rog1eo",
-      "connection_name": "dx-backup",
-      "bandwidth": "10Gbps",
+      "connection_id": "dxcon-vgwj5tuu",
+      "connection_name": "dx-secondary",
+      "bandwidth": "1Gbps",
       "connection_state": "available",
-      "vlan": 3160,
-      "asn": 64842,
+      "vlan": 3247,
+      "asn": 64902,
       "bgp_status": "up",
-      "bgp_peer_ip": "214.194.172.54",
-      "bytes_in": 142780153,
-      "bytes_out": 407107410,
-      "location": "DFW2"
+      "bgp_peer_ip": "63.118.0.148",
+      "bytes_in": 223937830,
+      "bytes_out": 282231795,
+      "location": "LAX"
     },
     "s3": {
       "bucket": {
-        "name": "aws-directconnect-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-directconnect-logs-293847561023"
+        "name": "aws-directconnect-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-directconnect-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/293847561023/directconnect/ap-south-2/2026/04/01/directconnect_FXRHSI644CA.log.gz"
+        "key": "AWSLogs/738291046572/directconnect/me-central-1/2026/04/02/directconnect_8D9DZ7UCLVS.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/directconnect/logs",
-      "log_stream": "ap-south-2/akjdz5m5",
-      "ingestion_time": "2026-04-01T12:55:20.472Z"
+      "log_stream": "me-central-1/9qz8ytd6",
+      "ingestion_time": "2026-04-02T20:50:22.377Z"
     }
   },
   "event": {
@@ -47,7 +47,7 @@
     "provider": "directconnect.amazonaws.com",
     "module": "aws"
   },
-  "message": "Direct Connect dxcon-h8rog1eo (10Gbps): BGP up, 45.2 Mbps",
+  "message": "Direct Connect dxcon-vgwj5tuu (1Gbps): BGP up, 123.8 Mbps",
   "log": {
     "level": "info"
   },
@@ -66,8 +66,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-south-2",
-    "ephemeral_id": "kshy1alse3"
+    "name": "filebeat-aws-me-central-1",
+    "ephemeral_id": "ujtvs0s0x4"
   },
   "input": {
     "type": "aws-cloudwatch"

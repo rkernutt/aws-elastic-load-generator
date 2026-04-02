@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "lookoutequipment"
@@ -14,37 +14,37 @@
   "aws": {
     "lookoutequipment": {
       "model_name": "pump-anomaly-detector",
-      "event_type": "CreateModel",
+      "event_type": "ImportDataset",
       "inference_scheduler": "pump-anomaly-detector-scheduler",
       "anomaly_detected": false,
       "anomalous_sensors": [],
-      "diagnostics_score": 0.8184467705862267,
-      "data_points_ingested": 28324,
-      "inference_latency_ms": 254,
-      "dataset_arn": "arn:aws:lookoutequipment:ap-south-1:738291046572:dataset/pump-anomaly-detector-data"
+      "diagnostics_score": 0.1489783680275022,
+      "data_points_ingested": 14013,
+      "inference_latency_ms": 432,
+      "dataset_arn": "arn:aws:lookoutequipment:ap-southeast-2:293847561023:dataset/pump-anomaly-detector-data"
     },
     "s3": {
       "bucket": {
-        "name": "aws-lookoutequipment-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-lookoutequipment-logs-738291046572"
+        "name": "aws-lookoutequipment-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-lookoutequipment-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/738291046572/lookoutequipment/ap-south-1/2026/04/01/lookoutequipment_32Q8JOG47KG.log.gz"
+        "key": "AWSLogs/293847561023/lookoutequipment/ap-southeast-2/2026/04/02/lookoutequipment_96VGIE9TIL9.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/lookoutequipment/logs",
-      "log_stream": "ap-south-1/n5r89ipg",
-      "ingestion_time": "2026-04-01T12:55:20.523Z"
+      "log_stream": "ap-southeast-2/5e6w5rwc",
+      "ingestion_time": "2026-04-02T20:50:22.427Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 1945386,
+    "duration": 4729204,
     "module": "aws",
     "dataset": "aws.lookoutequipment"
   },
-  "message": "Lookout Equipment pump-anomaly-detector: CreateModel completed normally",
+  "message": "Lookout Equipment pump-anomaly-detector: ImportDataset completed normally",
   "service": {
     "name": "lookoutequipment",
     "type": "aws"
@@ -63,8 +63,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-south-1",
-    "ephemeral_id": "0hdh0gussj5g"
+    "name": "filebeat-aws-ap-southeast-2",
+    "ephemeral_id": "vqgsbyyvxm"
   },
   "input": {
     "type": "aws-cloudwatch"

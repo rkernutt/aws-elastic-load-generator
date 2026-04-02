@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "eu-central-2",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "globalaccelerator": {
-      "accelerator_arn": "arn:aws:globalaccelerator::164820739518:accelerator/99idmkn4",
-      "listener_port": 80,
-      "protocol": "UDP",
-      "endpoint_group_region": "eu-south-1",
-      "endpoint_id": "us-east-1-alb",
+      "accelerator_arn": "arn:aws:globalaccelerator::164820739518:accelerator/zmwvczf0",
+      "listener_port": 443,
+      "protocol": "TCP",
+      "endpoint_group_region": "ap-south-2",
+      "endpoint_id": "eu-west-2-alb",
       "endpoint_health": "HEALTHY",
-      "client_ip": "25.20.72.24",
-      "rtt_ms": 76,
-      "processing_time_ms": 16
+      "client_ip": "143.222.43.104",
+      "rtt_ms": 74,
+      "processing_time_ms": 11
     },
     "s3": {
       "bucket": {
@@ -29,13 +29,13 @@
         "arn": "arn:aws:s3:::aws-globalaccelerator-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/164820739518/globalaccelerator/eu-west-3/2026/04/01/globalaccelerator_RPD172FG1B.log.gz"
+        "key": "AWSLogs/164820739518/globalaccelerator/eu-central-2/2026/04/02/globalaccelerator_TGPBX18CM9P.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/globalaccelerator/logs",
-      "log_stream": "eu-west-3/jsy9i9op",
-      "ingestion_time": "2026-04-01T12:55:20.472Z"
+      "log_stream": "eu-central-2/mwh81hty",
+      "ingestion_time": "2026-04-02T20:50:22.377Z"
     }
   },
   "event": {
@@ -43,10 +43,10 @@
     "category": "network",
     "dataset": "aws.globalaccelerator",
     "provider": "globalaccelerator.amazonaws.com",
-    "duration": 76000000,
+    "duration": 74000000,
     "module": "aws"
   },
-  "message": "Global Accelerator: us-east-1-alb healthy, RTT 76ms",
+  "message": "Global Accelerator: eu-west-2-alb healthy, RTT 74ms",
   "log": {
     "level": "info"
   },
@@ -65,8 +65,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-3",
-    "ephemeral_id": "loisyzhl8th"
+    "name": "filebeat-aws-eu-central-2",
+    "ephemeral_id": "2blulkj8zq6"
   },
   "input": {
     "type": "aws-cloudwatch"

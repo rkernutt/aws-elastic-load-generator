@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "eu-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "transferfamily"
@@ -13,48 +13,48 @@
   },
   "aws": {
     "dimensions": {
-      "ServerId": "s-tq0srnrhvde",
-      "Protocol": "FTPS"
+      "ServerId": "s-9rxucs2c93",
+      "Protocol": "SFTP"
     },
     "transferfamily": {
-      "server_id": "s-tq0srnrhvde",
-      "protocol": "FTPS",
+      "server_id": "s-9rxucs2c93",
+      "protocol": "SFTP",
       "user_name": "data-ingest",
-      "session_id": "j2ceixypobf",
+      "session_id": "viuxl0tl31n",
       "file_path": "/reports/daily-sales.xlsx",
-      "operation": "RENAME",
-      "bytes_transferred": 2185429724,
-      "transfer_rate_mbps": 38.23024411310938,
-      "duration_seconds": 60.27986100345989,
-      "s3_bucket": "transfer-landing"
+      "operation": "DELETE",
+      "bytes_transferred": 923775766,
+      "transfer_rate_mbps": 14.871450663393754,
+      "duration_seconds": 104.5231979816189,
+      "s3_bucket": "sftp-inbound"
     },
     "s3": {
       "bucket": {
-        "name": "aws-transferfamily-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-transferfamily-logs-738291046572"
+        "name": "aws-transferfamily-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-transferfamily-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/738291046572/transferfamily/ca-west-1/2026/04/01/transferfamily_LVDHRNL1SVG.log.gz"
+        "key": "AWSLogs/293847561023/transferfamily/eu-south-1/2026/04/02/transferfamily_YQ7A9D497M.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/transferfamily/logs",
-      "log_stream": "ca-west-1/sfwuzrmr",
-      "ingestion_time": "2026-04-01T12:55:20.532Z"
+      "log_stream": "eu-south-1/t0pmy1jm",
+      "ingestion_time": "2026-04-02T20:50:22.435Z"
     }
   },
   "source": {
-    "ip": "223.0.120.159"
+    "ip": "147.98.107.126"
   },
   "event": {
     "outcome": "success",
     "category": ["file", "network"],
     "dataset": "aws.transfer",
     "provider": "transfer.amazonaws.com",
-    "duration": 14023000000,
+    "duration": 15947000000,
     "module": "aws"
   },
-  "message": "Transfer Family FTPS [data-ingest] /reports/daily-sales.xlsx: 2084.2MB",
+  "message": "Transfer Family SFTP [data-ingest] /reports/daily-sales.xlsx: 881.0MB",
   "log": {
     "level": "info"
   },
@@ -73,8 +73,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ca-west-1",
-    "ephemeral_id": "vhx2aczd0jg"
+    "name": "filebeat-aws-eu-south-1",
+    "ephemeral_id": "gk1zkwnkqq"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "databrew"
@@ -13,30 +13,30 @@
   },
   "aws": {
     "dimensions": {
-      "JobName": "clean-customer-data-job",
-      "DatasetName": "customer-data"
+      "JobName": "normalize-dates-job",
+      "DatasetName": "product-catalog"
     },
     "databrew": {
-      "project_name": "customer-data-project",
-      "recipe_name": "clean-customer-data",
-      "job_name": "clean-customer-data-job",
-      "job_type": "PROFILE",
-      "dataset_name": "customer-data",
+      "project_name": "product-catalog-project",
+      "recipe_name": "normalize-dates",
+      "job_name": "normalize-dates-job",
+      "job_type": "RECIPE",
+      "dataset_name": "product-catalog",
       "job_status": "SUCCEEDED",
       "run_state": "SUCCEEDED",
-      "duration_seconds": 205,
-      "rows_processed": 4289966,
-      "transform_steps": 4,
-      "output_location": "s3://databrew-output/customer-data/",
+      "duration_seconds": 376,
+      "rows_processed": 704801,
+      "transform_steps": 12,
+      "output_location": "s3://databrew-output/product-catalog/",
       "metrics": {
         "RowsProcessed": {
-          "sum": 4289966
+          "sum": 704801
         },
         "DurationSeconds": {
-          "avg": 205
+          "avg": 376
         },
         "TransformSteps": {
-          "avg": 4
+          "avg": 12
         },
         "JobSuccessCount": {
           "sum": 1
@@ -48,28 +48,28 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-databrew-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-databrew-logs-293847561023"
+        "name": "aws-databrew-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-databrew-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/databrew/ap-south-1/2026/04/01/databrew_UYJDOSTLM.log.gz"
+        "key": "AWSLogs/814726593401/databrew/eu-central-1/2026/04/02/databrew_OO7R2E2B2F.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/databrew/logs",
-      "log_stream": "ap-south-1/odwlrwzv",
-      "ingestion_time": "2026-04-01T12:55:20.517Z"
+      "log_stream": "eu-central-1/th3oqo9l",
+      "ingestion_time": "2026-04-02T20:50:22.421Z"
     }
   },
   "event": {
-    "duration": 205000000000,
+    "duration": 376000000000,
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.databrew",
     "provider": "databrew.amazonaws.com",
     "module": "aws"
   },
-  "message": "DataBrew job clean-customer-data: 4,289,966 rows in 205s",
+  "message": "Job run succeeded",
   "log": {
     "level": "info"
   },
@@ -88,8 +88,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-south-1",
-    "ephemeral_id": "w9svrbkm5jq"
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "0bjey9n5c22l"
   },
   "input": {
     "type": "aws-cloudwatch"

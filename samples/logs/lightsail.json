@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "lightsail"
@@ -13,54 +13,52 @@
   },
   "aws": {
     "lightsail": {
-      "resource_name": "dev-server",
-      "resource_type": "Database",
-      "bundle_id": "large_2_0",
-      "blueprint": "lamp",
-      "state": "ERROR",
-      "event_type": "SSL_RENEWED",
-      "public_ip": "46.85.218.58",
+      "resource_name": "wordpress-prod",
+      "resource_type": "Instance",
+      "bundle_id": "small_2_0",
+      "blueprint": "wordpress",
+      "state": "stopped",
+      "event_type": "ALERT_TRIGGERED",
+      "public_ip": "186.195.19.242",
       "monthly_transfer": {
-        "used_gb": 1397,
-        "limit_gb": 12288
+        "used_gb": 753,
+        "limit_gb": 6144
       },
-      "alert": {}
+      "alert": {
+        "name": "CPUUtilization",
+        "threshold": 85
+      }
     },
     "s3": {
       "bucket": {
-        "name": "aws-lightsail-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-lightsail-logs-501938274650"
+        "name": "aws-lightsail-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-lightsail-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/501938274650/lightsail/us-west-1/2026/04/01/lightsail_K99F3QP1YD.log.gz"
+        "key": "AWSLogs/738291046572/lightsail/ap-southeast-3/2026/04/02/lightsail_FAFGX267PFO.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/lightsail/logs",
-      "log_stream": "us-west-1/or5hxyym",
-      "ingestion_time": "2026-04-01T12:55:20.532Z"
+      "log_stream": "ap-southeast-3/pt0d0biz",
+      "ingestion_time": "2026-04-02T20:50:22.435Z"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": ["host", "network"],
     "dataset": "aws.lightsail",
     "provider": "lightsail.amazonaws.com",
-    "duration": 4818000000,
+    "duration": 538000000,
     "module": "aws"
   },
-  "message": "Lightsail dev-server ERROR: SSL renewal error:",
+  "message": "Lightsail wordpress-prod: ALERT_TRIGGERED [stopped]",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "LightsailError",
-    "message": "Lightsail instance error",
-    "type": "host"
+    "level": "info"
   },
   "host": {
-    "name": "ip-38-119-131-199.ec2.internal",
-    "hostname": "lightsail-z0hsg3gt"
+    "name": "ip-22-138-192-248.ec2.internal",
+    "hostname": "lightsail-l33hxf5h"
   },
   "service": {
     "name": "lightsail",
@@ -77,8 +75,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-west-1",
-    "ephemeral_id": "q5zy8gan9j"
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "w7uccpu5e2"
   },
   "input": {
     "type": "aws-cloudwatch"

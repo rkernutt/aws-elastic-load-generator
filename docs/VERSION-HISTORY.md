@@ -4,6 +4,17 @@
 
 ---
 
+## What's New in v12.1
+
+- **189 metrics generators** — 13 additional confirmed CloudWatch-emitting services added to Metrics mode: VPC Lattice, MSK Connect, MWAA, Kendra, IoT TwinMaker, IoT FleetWise, FIS, Managed Grafana, AppConfig, Clean Rooms, HealthLake, Deadline Cloud, License Manager. Metrics count increases from 176 → 189; each service is routed to the most appropriate generic metric template (iot, analytics, management, or default).
+- **Kinesis Analytics dashboard** — new `installer/custom-dashboards/kinesisanalytics-dashboard.json` with 4 KPI panels (total events, failure count, avg records/sec, avg KPU utilization), 3 donut breakdowns (by application name, by runtime, by outcome), records/sec + watermark lag time-series, checkpoint duration and KPU utilization trend charts, avg records/sec per application bar chart, failures-over-time histogram, and a full event datatable (application, runtime, records/sec, watermark lag, checkpoint duration, KPU count, outcome, error).
+- **Kinesis Analytics ML jobs** — two new anomaly detection jobs added to the streaming group in `installer/custom-ml-jobs/jobs/streaming-jobs.json`: `aws-kinesisanalytics-kpu-spike` (high_mean KPU utilization by application) and `aws-kinesisanalytics-checkpoint-anomaly` (high_mean checkpoint duration by application). Both use a `event.dataset: "aws.kinesisanalytics"` datafeed filter. ML job count 178 → 180.
+- **Observability signal completeness** — Step Functions trace transactions now carry a `message` field ("Execution succeeded" / "Execution failed") for consistency with all other trace generators. CloudTrail `request_parameters` is always present (falls back to `"null"` string when no parameters apply), matching `response_elements` behaviour and ensuring a consistent record shape. Kinesis Analytics message pool aligned to spec: "Application started" / "Application failed" / "Checkpoint completed" / "Checkpoint failed".
+- **189 metrics sample files** — `samples/metrics/` regenerated and Prettier-formatted to include the 13 new services; `samples:verify` passes at logs: 211, metrics: 189, traces: 23.
+- **All enhancement candidates resolved** — every item tracked in `docs/ENHANCEMENT-CANDIDATES.md` has been delivered. See that document for the full history.
+
+---
+
 ## What's New in v12.0
 
 - **Dashboard-style UI with Elastic EUI** — complete UI revamp using Elastic's official [EUI component library](https://eui.elastic.co/). Kibana-style sidebar navigation with 7 discrete pages (Ship & Monitor, Connection, Services, Configuration, Scheduling, Anomalies, Activity Log) replaces the previous monolithic 2-column layout.
@@ -12,6 +23,7 @@
 - **Component architecture** — `App.tsx` reduced from 2,110 to 1,210 lines. UI split into 7 page components (`src/pages/`) + `AppLayout.tsx` shell using EUI's `EuiPageTemplate`, `EuiSideNav`, `EuiPanel`, `EuiRange`, `EuiStat`, `EuiButtonGroup`, `EuiCodeBlock`, `EuiProgress`, etc.
 - **Removed** — `App.module.css`, `StatusPill.tsx` (replaced by EUI components).
 - **Dependencies added** — `@elastic/eui`, `@emotion/react`, `@emotion/css`, `moment`, `@elastic/datemath`.
+- **Glue-style enhancements** — EMR (`run_state`, dynamic Spark-stage messages, richer metrics: `elapsedTime`, `numCompletedTasks`, `numFailedTasks`, `gc_time_ms`, JVM heap/GC); Batch ("Job run started/succeeded/failed" message pool, `elapsedTime`/`Duration` in metrics); DataBrew (`run_state`, lifecycle messages, `RowsProcessed`/`DurationSeconds`/`TransformSteps` metrics); AppFlow ("Flow run started/succeeded/failed", `RecordsProcessed`/`DurationMs` metrics); CodeBuild ("Build started/succeeded/failed" + phase-level messages); Athena ("Query started/succeeded/failed"); SageMaker/Step Functions/CodePipeline/CodeDeploy/Kinesis Analytics — lifecycle message pool additions. Kinesis Analytics message pool aligned to spec ("Application started/failed", "Checkpoint completed/failed").
 
 ---
 

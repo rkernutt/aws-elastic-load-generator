@@ -1,35 +1,39 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "eu-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "lambda"
     }
   },
+  "trace": {
+    "id": "1-efbapwm2-5uafdzi0tr6"
+  },
   "aws": {
     "dimensions": {
-      "FunctionName": "image-resizer",
-      "Resource": "image-resizer:$LATEST",
-      "ExecutedVersion": "$LATEST"
+      "FunctionName": "payment-processor",
+      "Resource": "payment-processor:$LATEST",
+      "ExecutedVersion": "$LATEST",
+      "EventSourceMappingUUID": "04n3awjc-kf8h-jp6r-63kp-j2l68bf7ia8"
     },
     "cloudwatch": {
-      "log_group": "/aws/lambda/image-resizer",
-      "log_stream": "2026-04-01/[$LATEST]0noln2u6kbf"
+      "log_group": "/aws/lambda/payment-processor",
+      "log_stream": "2026-04-02/[$LATEST]7kddy85r1nj"
     },
     "lambda": {
       "function": {
-        "name": "image-resizer",
+        "name": "payment-processor",
         "version": "$LATEST",
-        "arn": "arn:aws:lambda:il-central-1:293847561023:function:image-resizer"
+        "arn": "arn:aws:lambda:eu-south-1:501938274650:function:payment-processor"
       },
-      "request_id": "1vzzhkfh-h8fz-a1yq-nxjr-enrh5fdcijt",
-      "event_type": "report",
-      "cold_start": false,
+      "request_id": "i1ybw24g-i4xv-90p0-et3g-e6889y3mhq5",
+      "trace_id": "1-efbapwm2-5uafdzi0tr6",
+      "event_type": "app",
       "metrics": {
         "Invocations": {
           "sum": 1,
@@ -44,14 +48,14 @@
           "avg": 0
         },
         "Duration": {
-          "avg": 2608.985311452744,
-          "max": 3130.7823737432927
+          "avg": 2412.794083220937,
+          "max": 2895.352899865124
         },
         "ConcurrentExecutions": {
-          "avg": 306
+          "avg": 458
         },
         "UnreservedConcurrentExecutions": {
-          "avg": 337
+          "avg": 808
         },
         "DeadLetterErrors": {
           "sum": 0,
@@ -61,34 +65,50 @@
           "avg": 0
         },
         "AsyncEventsReceived": {
-          "sum": 6
+          "sum": 93
         },
         "AsyncEventAge": {
-          "avg": 861
+          "avg": 4086
         },
-        "duration_ms": 2608.985311452744,
-        "billed_duration_ms": 2700,
-        "memory_size_mb": 128,
-        "max_memory_used_mb": 35,
-        "instance_max_memory": 128
+        "memory_size_mb": 512,
+        "max_memory_used_mb": 188,
+        "instance_max_memory": 512,
+        "PolledEventCount": {
+          "sum": 785
+        },
+        "InvokedEventCount": {
+          "sum": 547
+        },
+        "FilteredOutEventCount": {
+          "sum": 44
+        },
+        "FailedInvokeEventCount": {
+          "sum": 0
+        },
+        "DeletedEventCount": {
+          "sum": 4
+        },
+        "OnFailureDestinationDeliveredEventCount": {
+          "sum": 0
+        }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-lambda-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-lambda-logs-293847561023"
+        "name": "aws-lambda-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-lambda-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/293847561023/lambda/il-central-1/2026/04/01/lambda_HE81TPQINO6.log.gz"
+        "key": "AWSLogs/501938274650/lambda/eu-south-1/2026/04/02/lambda_3U8M12KHTUM.log.gz"
       }
     }
   },
   "log": {
-    "level": "info"
+    "level": "warn"
   },
-  "message": "REPORT RequestId: 1vzzhkfh-h8fz-a1yq-nxjr-enrh5fdcijt\tDuration: 2608.99 ms\tBilled Duration: 2700 ms\tMemory Size: 128 MB\tMax Memory Used: 35 MB",
+  "message": "{\"requestId\":\"i1ybw24g-i4xv-90p0-et3g-e6889y3mhq5\",\"level\":\"WARN\",\"message\":\"Slow query detected\",\"timestamp\":\"2026-04-02T20:50:22.062Z\",\"duration_ms\":2413,\"memory_used_mb\":188,\"traceId\":\"1-efbapwm2-5uafdzi0tr6\"}",
   "event": {
-    "duration": 2608985311.452744,
+    "duration": 2412794083.220937,
     "outcome": "success",
     "category": ["process"],
     "type": ["info"],
@@ -97,12 +117,12 @@
     "module": "aws"
   },
   "service": {
-    "name": "image-resizer",
+    "name": "payment-processor",
     "type": "lambda"
   },
   "host": {
-    "name": "ip-57-215-239-34.ec2.internal",
-    "hostname": "lambda-mlvgy52k"
+    "name": "ip-60-100-38-123.ec2.internal",
+    "hostname": "lambda-9ayc1akm"
   },
   "ecs": {
     "version": "8.11.0"
@@ -115,8 +135,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-il-central-1",
-    "ephemeral_id": "4gsxvmyjrq1"
+    "name": "filebeat-aws-eu-south-1",
+    "ephemeral_id": "pk9z7c4hr1"
   },
   "input": {
     "type": "aws-cloudwatch"

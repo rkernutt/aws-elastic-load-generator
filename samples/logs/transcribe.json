@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "transcribe"
@@ -14,18 +14,18 @@
   "aws": {
     "dimensions": {
       "Operation": "TranscriptionJob",
-      "LanguageCode": "de-DE"
+      "LanguageCode": "en-GB"
     },
     "transcribe": {
-      "transcription_job_name": "transcribe-bie37y7b",
+      "transcription_job_name": "transcribe-nfig72il",
       "transcription_job_status": "COMPLETED",
-      "language_code": "de-DE",
-      "media_format": "wav",
-      "media_uri": "s3://audio-bucket/transcribe-bie37y7b.mp3",
-      "audio_duration_minutes": 27.39247219002097,
-      "word_count": 4109,
-      "vocabulary_name": "custom-medical-terms",
-      "speaker_count": 3,
+      "language_code": "en-GB",
+      "media_format": "mp3",
+      "media_uri": "s3://audio-bucket/transcribe-nfig72il.mp3",
+      "audio_duration_minutes": 8.758719843208834,
+      "word_count": 1314,
+      "vocabulary_name": "legal-terminology",
+      "speaker_count": 2,
       "content_redaction_enabled": true,
       "metrics": {
         "TranscriptionJobsCompleted": {
@@ -35,26 +35,26 @@
           "sum": 0
         },
         "TranscriptionJobsPending": {
-          "avg": 1
+          "avg": 2
         },
         "TranscriptionJobsRunning": {
-          "avg": 1
+          "avg": 4
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-transcribe-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-transcribe-logs-164820739518"
+        "name": "aws-transcribe-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-transcribe-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/164820739518/transcribe/us-west-1/2026/04/01/transcribe_B0DPS4UT31B.log.gz"
+        "key": "AWSLogs/814726593401/transcribe/eu-west-2/2026/04/02/transcribe_Y7T3Z33RESG.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/transcribe/logs",
-      "log_stream": "us-west-1/8v95kwxd",
-      "ingestion_time": "2026-04-01T12:55:20.521Z"
+      "log_stream": "eu-west-2/ws4lnoeb",
+      "ingestion_time": "2026-04-02T20:50:22.424Z"
     }
   },
   "event": {
@@ -64,7 +64,7 @@
     "provider": "transcribe.amazonaws.com",
     "module": "aws"
   },
-  "message": "Transcribe job transcribe-bie37y7b: 27.4 min audio (de-DE)",
+  "message": "Transcribe job transcribe-nfig72il: 8.8 min audio (en-GB)",
   "log": {
     "level": "info"
   },
@@ -83,8 +83,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-west-1",
-    "ephemeral_id": "wl7a7o2xann"
+    "name": "filebeat-aws-eu-west-2",
+    "ephemeral_id": "738tmy1235q"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "ap-northeast-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "dimensions": {
-      "ReportName": "ISO-27001",
+      "ReportName": "GDPR-DPA",
       "ReportCategory": "Agreement"
     },
     "artifact": {
-      "report_name": "ISO-27001",
-      "report_arn": "arn:aws:artifact:::report/iso-27001",
+      "report_name": "GDPR-DPA",
+      "report_arn": "arn:aws:artifact:::report/gdpr-dpa",
       "report_category": "Agreement",
-      "report_period": "2024",
+      "report_period": "2025-H1",
       "agreement_name": "Business-Associate-Agreement",
       "agreement_type": "CUSTOM",
       "accessed_by": "globex-shared-services",
@@ -32,24 +32,24 @@
         "arn": "arn:aws:s3:::aws-artifact-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/164820739518/artifact/eu-central-1/2026/04/01/artifact_N2C08TPA9A.log.gz"
+        "key": "AWSLogs/164820739518/artifact/ap-northeast-1/2026/04/02/artifact_QGV2M15U87.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/artifact/logs",
-      "log_stream": "eu-central-1/tsjlgc2o",
-      "ingestion_time": "2026-04-01T12:55:20.480Z"
+      "log_stream": "ap-northeast-1/yuhcdb69",
+      "ingestion_time": "2026-04-02T20:50:22.385Z"
     }
   },
   "event": {
-    "action": "GetReport",
+    "action": "GetTermsForReport",
     "outcome": "success",
     "category": ["audit"],
     "dataset": "aws.artifact",
     "provider": "artifact.amazonaws.com",
     "module": "aws"
   },
-  "message": "Artifact: GetReport — ISO-27001 (Agreement)",
+  "message": "Artifact: GetTermsForReport — GDPR-DPA (Agreement)",
   "log": {
     "level": "info"
   },
@@ -71,8 +71,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-1",
-    "ephemeral_id": "3sjof0zzf37"
+    "name": "filebeat-aws-ap-northeast-1",
+    "ephemeral_id": "081657k7nwo3"
   },
   "input": {
     "type": "http_endpoint"

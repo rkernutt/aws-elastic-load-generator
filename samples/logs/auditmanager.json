@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ca-central-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "AssessmentName": "CIS-AWS-Foundations",
-      "ControlSetId": "Incident Response"
+      "AssessmentName": "PCI-DSS-v4",
+      "ControlSetId": "Data Protection"
     },
     "auditmanager": {
-      "assessment_name": "CIS-AWS-Foundations",
-      "assessment_id": "gz38mmlj-fawg-lqw7-o0lj-2yi0i4ztogd",
-      "control_set": "Incident Response",
-      "control_id": "CTRL-7320",
-      "evidence_status": "COMPLIANT",
-      "data_source": "MANUAL",
-      "evidence_count": 6,
+      "assessment_name": "PCI-DSS-v4",
+      "assessment_id": "umn8btrn-3ttf-cq68-zci6-806tz3h4hge",
+      "control_set": "Data Protection",
+      "control_id": "CTRL-1520",
+      "evidence_status": "MANUAL_EVIDENCE_NEEDED",
+      "data_source": "AWS_SECURITY_HUB",
+      "evidence_count": 1,
       "compliance_check": "WARNING",
-      "reviewer": "auto-assessment"
+      "reviewer": "compliance-team"
     },
     "s3": {
       "bucket": {
@@ -33,24 +33,24 @@
         "arn": "arn:aws:s3:::aws-auditmanager-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/738291046572/auditmanager/af-south-1/2026/04/01/auditmanager_1A25ZQ5O33.log.gz"
+        "key": "AWSLogs/738291046572/auditmanager/ca-central-1/2026/04/02/auditmanager_2B5LDZ6RGEQ.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/auditmanager/logs",
-      "log_stream": "af-south-1/4pxiacb7",
-      "ingestion_time": "2026-04-01T12:55:20.480Z"
+      "log_stream": "ca-central-1/24uxa1ui",
+      "ingestion_time": "2026-04-02T20:50:22.385Z"
     }
   },
   "event": {
-    "action": "SubmitReviewRequest",
+    "action": "UpdateAssessmentControl",
     "outcome": "success",
     "category": ["audit"],
     "dataset": "aws.auditmanager",
     "provider": "auditmanager.amazonaws.com",
     "module": "aws"
   },
-  "message": "Audit Manager CIS-AWS-Foundations — CTRL-7320 COMPLIANT",
+  "message": "Audit Manager PCI-DSS-v4 — CTRL-1520 MANUAL_EVIDENCE_NEEDED",
   "log": {
     "level": "info"
   },
@@ -69,8 +69,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-af-south-1",
-    "ephemeral_id": "bhfb1ej2tje"
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "pnsmbysjeec"
   },
   "input": {
     "type": "http_endpoint"

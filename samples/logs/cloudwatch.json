@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "eu-south-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "cloudwatch": {
-      "alarm_name": "ecs-memory",
+      "alarm_name": "api-latency",
       "alarm_state": "ALARM",
-      "previous_state": "ALARM",
+      "previous_state": "INSUFFICIENT_DATA",
       "namespace": "AWS/RDS",
-      "metric_name": "MemoryUtilization",
+      "metric_name": "Duration",
       "threshold": 80,
       "evaluation_periods": 2,
-      "metric_value": 97.84934546323241,
+      "metric_value": 95.0149498016389,
       "statistic": "Maximum",
-      "period_seconds": 3600,
-      "treat_missing_data": "breaching"
+      "period_seconds": 60,
+      "treat_missing_data": "missing"
     },
     "s3": {
       "bucket": {
@@ -31,7 +31,7 @@
         "arn": "arn:aws:s3:::aws-cloudwatch-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/814726593401/cloudwatch/il-central-1/2026/04/01/cloudwatch_ARH9K5PJA6R.log.gz"
+        "key": "AWSLogs/814726593401/cloudwatch/eu-south-2/2026/04/02/cloudwatch_80N584DWQ6H.log.gz"
       }
     }
   },
@@ -41,16 +41,16 @@
     "category": ["configuration", "process"],
     "dataset": "aws.cloudwatch",
     "provider": "monitoring.amazonaws.com",
-    "duration": 60000000000,
+    "duration": 3600000000000,
     "module": "aws"
   },
-  "message": "CloudWatch alarm \"ecs-memory\": ALARM (AWS/RDS/MemoryUtilization=97.8)",
+  "message": "CloudWatch alarm \"api-latency\": ALARM (AWS/RDS/Duration=95.0)",
   "log": {
     "level": "warn"
   },
   "error": {
     "code": "AlarmTriggered",
-    "message": "Alarm ecs-memory: ALARM",
+    "message": "Alarm api-latency: ALARM",
     "type": "monitoring"
   },
   "service": {
@@ -68,8 +68,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-il-central-1",
-    "ephemeral_id": "irnra53rael"
+    "name": "filebeat-aws-eu-south-2",
+    "ephemeral_id": "g80ptsyr9vm"
   },
   "input": {
     "type": "aws-cloudwatch"

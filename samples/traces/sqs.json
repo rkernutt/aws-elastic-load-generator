@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "54d6b367b95368b6006fdd324be552a2"
+    "id": "d7b8205f7de0ccfe326b9c5ad66d15bd"
   },
   "transaction": {
-    "id": "a246cb53dc02fac4",
-    "name": "order-queue.fifo process",
+    "id": "51e3c67dcfe0a605",
+    "name": "order-queue-dlq.fifo process",
     "type": "messaging",
     "duration": {
-      "us": 513000
+      "us": 2543000
     },
     "result": "success",
     "sampled": true,
@@ -22,22 +22,22 @@
     }
   },
   "labels": {
-    "queue_name": "order-queue.fifo",
-    "queue_url": "https://sqs.eu-central-2.amazonaws.com/123456789012/order-queue.fifo",
-    "message_count": "9",
-    "approximate_first_receive_delay_seconds": "87",
-    "parent_trace_id": "345c3d3cd108890506287186072b0cf8"
+    "queue_name": "order-queue-dlq.fifo",
+    "queue_url": "https://sqs.af-south-1.amazonaws.com/123456789012/order-queue-dlq.fifo",
+    "message_count": "3",
+    "approximate_first_receive_delay_seconds": "76",
+    "parent_trace_id": "f7bf326a9b12274b653e1a02a96c5462"
   },
   "service": {
-    "name": "order-queue-consumer",
-    "environment": "staging",
+    "name": "dead-letter-processor",
+    "environment": "dev",
     "version": "1.0.0",
     "language": {
       "name": "python"
     },
     "runtime": {
       "name": "python3.11",
-      "version": "3.12.8"
+      "version": "3.12.0"
     },
     "framework": {
       "name": "AWS SQS"
@@ -60,7 +60,7 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "af-south-1",
     "account": {
       "id": "123456789012",
       "name": "prod-aws"

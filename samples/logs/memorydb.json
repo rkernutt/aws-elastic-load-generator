@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "eu-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "memorydb"
@@ -13,48 +13,42 @@
   },
   "aws": {
     "memorydb": {
-      "cluster_name": "rate-limiter",
-      "node_name": "rate-limiter-0001-001",
+      "cluster_name": "session-store",
+      "node_name": "session-store-0001-001",
       "engine_version": "7.1",
-      "command": "INCR",
-      "latency_us": 883.9454194921893,
-      "cache_hit_rate": 0,
-      "connected_clients": 173,
-      "used_memory_mb": 18473,
-      "replication_lag_ms": 952,
-      "error_code": "WRONGTYPE"
+      "command": "SET",
+      "latency_us": 11.611186039567764,
+      "cache_hit_rate": 85.73378420601462,
+      "connected_clients": 194,
+      "used_memory_mb": 8861,
+      "replication_lag_ms": 20
     },
     "s3": {
       "bucket": {
-        "name": "aws-memorydb-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-memorydb-logs-814726593401"
+        "name": "aws-memorydb-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-memorydb-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/814726593401/memorydb/us-west-2/2026/04/01/memorydb_QSGDAHXXHUG.log.gz"
+        "key": "AWSLogs/293847561023/memorydb/eu-west-2/2026/04/02/memorydb_16GH9TCZDP7.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/memorydb/logs",
-      "log_stream": "us-west-2/u4is37eo",
-      "ingestion_time": "2026-04-01T12:55:20.509Z"
+      "log_stream": "eu-west-2/90xsgt3c",
+      "ingestion_time": "2026-04-02T20:50:22.413Z"
     }
   },
   "event": {
-    "duration": 883945.4194921893,
-    "outcome": "failure",
+    "duration": 11611.186039567765,
+    "outcome": "success",
     "category": "database",
     "dataset": "aws.memorydb",
     "provider": "memory-db.amazonaws.com",
     "module": "aws"
   },
-  "message": "MemoryDB rate-limiter INCR FAILED: WRONGTYPE",
+  "message": "MemoryDB session-store SET: 11.61us",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "OOM",
-    "message": "MemoryDB command failed",
-    "type": "db"
+    "level": "info"
   },
   "service": {
     "name": "memorydb",
@@ -71,8 +65,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-west-2",
-    "ephemeral_id": "gwh00dh0y44"
+    "name": "filebeat-aws-eu-west-2",
+    "ephemeral_id": "6wqltf2rfra"
   },
   "input": {
     "type": "aws-cloudwatch"

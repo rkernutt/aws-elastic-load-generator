@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
     "region": "us-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "devicefarm"
@@ -13,45 +13,45 @@
   },
   "aws": {
     "dimensions": {
-      "ProjectArn": "arn:aws:devicefarm:us-west-2:814726593401:project:YGBXR9SD-SVR1-EDFA-ZTOA-MUIZCUYM3H"
+      "ProjectArn": "arn:aws:devicefarm:us-west-2:293847561023:project:5K0MGC9T-83CV-HKFR-5I3P-IJT9XHT3CIP"
     },
     "devicefarm": {
-      "project_name": "Performance-Suite",
-      "project_arn": "arn:aws:devicefarm:us-west-2:814726593401:project:YGBXR9SD-SVR1-EDFA-ZTOA-MUIZCUYM3H",
-      "run_name": "Performance-Baseline",
-      "run_status": "RUNNING",
+      "project_name": "Mobile-Regression",
+      "project_arn": "arn:aws:devicefarm:us-west-2:293847561023:project:5K0MGC9T-83CV-HKFR-5I3P-IJT9XHT3CIP",
+      "run_name": "Nightly-Full-Suite",
+      "run_status": "SCHEDULED",
       "device_platform": "IOS",
-      "device_model": "Google Pixel 7",
-      "total_tests": 116,
-      "passed_tests": 114,
-      "failed_tests": 2,
+      "device_model": "iPhone 14",
+      "total_tests": 292,
+      "passed_tests": 234,
+      "failed_tests": 58,
       "test_type": "APPIUM_PYTHON",
       "billing_method": "UNMETERED"
     },
     "s3": {
       "bucket": {
-        "name": "aws-devicefarm-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-devicefarm-logs-814726593401"
+        "name": "aws-devicefarm-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-devicefarm-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/814726593401/devicefarm/us-west-2/2026/04/01/devicefarm_3TAHQMKWC25.log.gz"
+        "key": "AWSLogs/293847561023/devicefarm/us-west-2/2026/04/02/devicefarm_EDMUUZ169CK.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/devicefarm/logs",
-      "log_stream": "us-west-2/6bek3v7t",
-      "ingestion_time": "2026-04-01T12:55:20.515Z"
+      "log_stream": "us-west-2/37mqy26u",
+      "ingestion_time": "2026-04-02T20:50:22.418Z"
     }
   },
   "event": {
-    "action": "ScheduleRun",
+    "action": "CreateDevicePool",
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.devicefarm",
     "provider": "devicefarm.amazonaws.com",
     "module": "aws"
   },
-  "message": "Device Farm ScheduleRun: project=Performance-Suite, run=Performance-Baseline RUNNING (114/116 passed)",
+  "message": "Device Farm CreateDevicePool: project=Mobile-Regression, run=Nightly-Full-Suite SCHEDULED (234/292 passed)",
   "log": {
     "level": "warn"
   },
@@ -71,7 +71,7 @@
     "type": "filebeat",
     "version": "8.18.0",
     "name": "filebeat-aws-us-west-2",
-    "ephemeral_id": "p61ii3g78c"
+    "ephemeral_id": "xkm81e9sp4l"
   },
   "input": {
     "type": "aws-cloudwatch"

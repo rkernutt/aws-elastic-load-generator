@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "302312eee1e4d53ade43f2d79db14270"
+    "id": "f90f8a4b6db3fbee2cd0c62e3146de10"
   },
   "transaction": {
-    "id": "8e42a0d06f88a6c0",
-    "name": "webhook-dispatcher",
+    "id": "021308ede32a9031",
+    "name": "stream-processor",
     "type": "lambda",
     "duration": {
-      "us": 324000
+      "us": 1574000
     },
     "result": "success",
     "sampled": true,
@@ -22,32 +22,32 @@
     },
     "faas": {
       "coldstart": false,
-      "execution": "238a4700-9674-027c-a15d-a5200e27f2f6",
+      "execution": "6cb5752a-28bc-987d-0f21-f2006fa1b78d",
       "trigger": {
-        "type": "other"
+        "type": "pubsub"
       }
     }
   },
   "faas": {
-    "name": "webhook-dispatcher",
-    "id": "arn:aws:lambda:us-west-2:123456789012:function:webhook-dispatcher",
+    "name": "stream-processor",
+    "id": "arn:aws:lambda:ap-northeast-1:123456789012:function:stream-processor",
     "version": "$LATEST",
     "coldstart": false,
-    "execution": "238a4700-9674-027c-a15d-a5200e27f2f6",
+    "execution": "6cb5752a-28bc-987d-0f21-f2006fa1b78d",
     "trigger": {
-      "type": "other"
+      "type": "pubsub"
     }
   },
   "service": {
-    "name": "webhook-dispatcher",
+    "name": "stream-processor",
     "environment": "production",
     "version": "1.0.0",
     "language": {
-      "name": "python"
+      "name": "nodejs"
     },
     "runtime": {
-      "name": "python3.12",
-      "version": "3.12.3"
+      "name": "nodejs20.x",
+      "version": "20.15.1"
     },
     "framework": {
       "name": "AWS Lambda"
@@ -55,22 +55,22 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "1.0.4"
+    "version": "1.4.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "python",
-      "version": "1.29.0"
+      "language": "nodejs",
+      "version": "1.30.1"
     },
     "distro": {
-      "name": "aws-otel",
-      "version": "1.0.4"
+      "name": "elastic",
+      "version": "1.4.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "ap-northeast-1",
     "account": {
       "id": "123456789012",
       "name": "prod-aws"
@@ -78,10 +78,6 @@
     "service": {
       "name": "lambda"
     }
-  },
-  "labels": {
-    "aws.xray.trace_id": "1-6923180c-7f5897442013077f5bad8e35",
-    "aws.xray.segment_id": "8d42e39c6a97c8ad"
   },
   "event": {
     "outcome": "success",

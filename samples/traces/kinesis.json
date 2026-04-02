@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "dacb48d4b2a7ea7b026a0b1daddbb463"
+    "id": "7074e4cee542568ddd40ddd81982036d"
   },
   "transaction": {
-    "id": "b4d20d6f6bdddf64",
-    "name": "iot-telemetry-stream process",
+    "id": "a2f958a8a9d1a006",
+    "name": "financial-transactions-stream process",
     "type": "messaging",
     "duration": {
-      "us": 4597000
+      "us": 6313000
     },
     "result": "success",
     "sampled": true,
@@ -22,15 +22,15 @@
     }
   },
   "labels": {
-    "stream_name": "iot-telemetry-stream",
-    "stream_arn": "arn:aws:kinesis:us-west-2:123456789012:stream/iot-telemetry-stream",
-    "shard_id": "shardId-000000000006",
-    "sequence_number_range": "49698...49982",
-    "record_count": "101",
-    "iterator_age_ms": "14397"
+    "stream_name": "financial-transactions-stream",
+    "stream_arn": "arn:aws:kinesis:af-south-1:234567890123:stream/financial-transactions-stream",
+    "shard_id": "shardId-000000000003",
+    "sequence_number_range": "49499...49463",
+    "record_count": "329",
+    "iterator_age_ms": "21270"
   },
   "service": {
-    "name": "iot-sensor-processor",
+    "name": "financial-events-processor",
     "environment": "production",
     "version": "1.0.0",
     "language": {
@@ -61,10 +61,10 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "af-south-1",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "234567890123",
+      "name": "staging-aws"
     },
     "service": {
       "name": "kinesis"

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-south-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "OriginationIdentity": "orig-1m68kzmp23",
-      "Channel": "VOICE"
+      "OriginationIdentity": "orig-q9mnte9c1u",
+      "Channel": "MMS"
     },
     "endusermessaging": {
-      "origination_identity": "orig-1m68kzmp23",
-      "message_id": "msg-wm60xqc8bnr",
-      "channel": "VOICE",
-      "destination_country": "AU",
-      "message_status": "DELIVERED",
+      "origination_identity": "orig-q9mnte9c1u",
+      "message_id": "msg-g9pbgdeac9v",
+      "channel": "MMS",
+      "destination_country": "FR",
+      "message_status": "PENDING",
       "metrics": {
-        "messages_sent": 76600,
-        "delivery_rate": 0.9108046463857596,
-        "opt_out_rate": 0.017167243995269834
+        "messages_sent": 61237,
+        "delivery_rate": 0.9348868205517342,
+        "opt_out_rate": 0.016104643453692228
       }
     },
     "s3": {
@@ -34,13 +34,13 @@
         "arn": "arn:aws:s3:::aws-endusermessaging-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/293847561023/endusermessaging/us-east-2/2026/04/01/endusermessaging_APDBH8FCNL4.log.gz"
+        "key": "AWSLogs/293847561023/endusermessaging/eu-south-2/2026/04/02/endusermessaging_ZXPKNMHG0Z.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/endusermessaging/logs",
-      "log_stream": "us-east-2/pwyooo5l",
-      "ingestion_time": "2026-04-01T12:55:20.513Z"
+      "log_stream": "eu-south-2/r4jkyr4s",
+      "ingestion_time": "2026-04-02T20:50:22.416Z"
     }
   },
   "event": {
@@ -48,7 +48,7 @@
     "category": ["network"],
     "dataset": "aws.endusermessaging",
     "provider": "sms-voice.amazonaws.com",
-    "duration": 871000000,
+    "duration": 326000000,
     "module": "aws"
   },
   "data_stream": {
@@ -56,7 +56,7 @@
     "dataset": "aws.endusermessaging",
     "namespace": "default"
   },
-  "message": "End User Messaging VOICE: 76600 sent to AU, delivery_rate=91.1%",
+  "message": "End User Messaging MMS: 61237 sent to FR, delivery_rate=93.5%",
   "log": {
     "level": "info"
   },
@@ -70,8 +70,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-2",
-    "ephemeral_id": "b2crjlzg0mv"
+    "name": "filebeat-aws-eu-south-2",
+    "ephemeral_id": "og7g4pi5v3"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "il-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "backup"
@@ -13,27 +13,27 @@
   },
   "aws": {
     "backup": {
-      "backup_job_id": "onf3hbi7-5g4x-igj6",
-      "backup_plan_name": "critical-data-plan",
+      "backup_job_id": "6jd7273u-q7e0-5j5z",
+      "backup_plan_name": "compliance-backup",
       "resource_type": "FSx",
-      "backup_vault_name": "prod-vault",
-      "status": "RUNNING",
-      "backup_size_gb": 399.96316214914384,
-      "lifecycle_delete_after_days": 7
+      "backup_vault_name": "Default",
+      "status": "COMPLETED",
+      "backup_size_gb": 1314.8527473243346,
+      "lifecycle_delete_after_days": 90
     },
     "s3": {
       "bucket": {
-        "name": "aws-backup-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-backup-logs-501938274650"
+        "name": "aws-backup-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-backup-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/501938274650/backup/eu-north-1/2026/04/01/backup_EXK4LPAAOR.log.gz"
+        "key": "AWSLogs/164820739518/backup/il-central-1/2026/04/02/backup_4FV8291NWRS.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/backup/logs",
-      "log_stream": "eu-north-1/p9mtd8p9",
-      "ingestion_time": "2026-04-01T12:55:20.506Z"
+      "log_stream": "il-central-1/9mh4f1e9",
+      "ingestion_time": "2026-04-02T20:50:22.411Z"
     }
   },
   "event": {
@@ -41,10 +41,10 @@
     "category": ["process"],
     "dataset": "aws.backup",
     "provider": "backup.amazonaws.com",
-    "duration": 488000000000,
+    "duration": 4476000000000,
     "module": "aws"
   },
-  "message": "AWS Backup RUNNING: rds/prod-db -> Default (400.0GB)",
+  "message": "AWS Backup COMPLETED: fsx/fs-prod -> Default (1314.9GB)",
   "log": {
     "level": "info"
   },
@@ -63,8 +63,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-north-1",
-    "ephemeral_id": "hwh3i4p1nv"
+    "name": "filebeat-aws-il-central-1",
+    "ephemeral_id": "jbj54t5x13n"
   },
   "input": {
     "type": "aws-cloudwatch"

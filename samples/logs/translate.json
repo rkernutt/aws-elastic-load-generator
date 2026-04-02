@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "us-east-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,15 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "SourceLanguage": "hi",
+      "SourceLanguage": "es",
       "TargetLanguage": "fr"
     },
     "translate": {
-      "source_language_code": "hi",
+      "source_language_code": "es",
       "target_language_code": "fr",
-      "characters_translated": 390010,
-      "formality": "INFORMAL",
-      "duration_ms": 568,
+      "characters_translated": 208724,
+      "applied_terminology": "tech-glossary",
+      "formality": "FORMAL",
+      "duration_ms": 901,
       "metrics": {
         "SuccessfulRequestCount": {
           "sum": 1
@@ -36,10 +37,10 @@
           "sum": 0
         },
         "CharacterCount": {
-          "sum": 353
+          "sum": 2506
         },
         "ResponseTime": {
-          "avg": 294.0688888355455
+          "avg": 224.53168082374367
         }
       }
     },
@@ -49,24 +50,24 @@
         "arn": "arn:aws:s3:::aws-translate-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/814726593401/translate/ap-northeast-1/2026/04/01/translate_MKED0XR504O.log.gz"
+        "key": "AWSLogs/814726593401/translate/us-east-2/2026/04/02/translate_8O9DAJXXE1B.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/translate/logs",
-      "log_stream": "ap-northeast-1/ktp0fvuz",
-      "ingestion_time": "2026-04-01T12:55:20.521Z"
+      "log_stream": "us-east-2/tl2fyckb",
+      "ingestion_time": "2026-04-02T20:50:22.424Z"
     }
   },
   "event": {
-    "duration": 567908447.025627,
+    "duration": 900534641.4476911,
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.translate",
     "provider": "translate.amazonaws.com",
     "module": "aws"
   },
-  "message": "Translate hi->fr: 390,010 chars in 568ms",
+  "message": "Translate es->fr: 208,724 chars in 901ms",
   "log": {
     "level": "info"
   },
@@ -85,8 +86,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-1",
-    "ephemeral_id": "r4ujx59jmap"
+    "name": "filebeat-aws-us-east-2",
+    "ephemeral_id": "wg3j8jhbf2n"
   },
   "input": {
     "type": "aws-cloudwatch"

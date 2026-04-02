@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "eu-central-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "servicequotas": {
-      "service_code": "s3",
-      "quota_code": "L-CWO3KXML",
-      "quota_name": "Provisioned write capacity units",
-      "quota_value": 5,
-      "current_utilization": 3,
-      "utilization_percent": 60,
+      "service_code": "vpc",
+      "quota_code": "L-6YV7KARL",
+      "quota_name": "Roles per account",
+      "quota_value": 10000,
+      "current_utilization": 7205,
+      "utilization_percent": 72,
       "adjustable": false,
-      "applied_level": "RESOURCE"
+      "applied_level": "ACCOUNT"
     },
     "s3": {
       "bucket": {
@@ -28,13 +28,13 @@
         "arn": "arn:aws:s3:::aws-servicequotas-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/293847561023/servicequotas/ca-central-1/2026/04/01/servicequotas_QBC9Y2Y9BF7.log.gz"
+        "key": "AWSLogs/293847561023/servicequotas/eu-central-1/2026/04/02/servicequotas_I0V59H4BA6P.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/servicequotas/logs",
-      "log_stream": "ca-central-1/x45rzjp3",
-      "ingestion_time": "2026-04-01T12:55:20.527Z"
+      "log_stream": "eu-central-1/yi1zggeb",
+      "ingestion_time": "2026-04-02T20:50:22.430Z"
     }
   },
   "event": {
@@ -42,10 +42,10 @@
     "category": ["configuration"],
     "dataset": "aws.servicequotas",
     "provider": "servicequotas.amazonaws.com",
-    "duration": 392000000,
+    "duration": 128000000,
     "module": "aws"
   },
-  "message": "Service Quotas: s3 Provisioned write capacity units at 3/5 (60%)",
+  "message": "Service Quotas: vpc Roles per account at 7205/10000 (72%)",
   "log": {
     "level": "info"
   },
@@ -64,8 +64,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ca-central-1",
-    "ephemeral_id": "jscptno3bg"
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "rj6bdnabmm"
   },
   "input": {
     "type": "http_endpoint"

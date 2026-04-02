@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "outposts"
@@ -13,52 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "OutpostId": "op-s5f120y65w9",
-      "InstanceType": "m5d.xlarge"
+      "OutpostId": "op-4h5pry4xej7",
+      "InstanceType": "m5.2xlarge"
     },
     "outposts": {
-      "outpost_id": "op-s5f120y65w9",
-      "outpost_arn": "arn:aws:outposts:eu-south-2:814726593401:outpost/op-zsdzd4lbs8",
-      "site_id": "os-7wgl0k1br",
-      "rack_id": "or-2l24lce21xx",
-      "instance_type": "m5d.xlarge",
-      "available_instance_count": 0,
-      "total_instance_count": 39,
+      "outpost_id": "op-4h5pry4xej7",
+      "outpost_arn": "arn:aws:outposts:us-east-1:501938274650:outpost/op-syaq7wsqkwi",
+      "site_id": "os-k5uwhb1u4zr",
+      "rack_id": "or-enmb9q894ku",
+      "instance_type": "m5.2xlarge",
+      "available_instance_count": 10,
+      "total_instance_count": 36,
       "capacity_status": "Active",
       "connectivity_status": "Connected",
-      "asset_state": "ACTIVE"
+      "asset_state": "RETIRING"
     },
     "s3": {
       "bucket": {
-        "name": "aws-outposts-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-outposts-logs-814726593401"
+        "name": "aws-outposts-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-outposts-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/814726593401/outposts/eu-south-2/2026/04/01/outposts_E10B84NRLEB.log.gz"
+        "key": "AWSLogs/501938274650/outposts/us-east-1/2026/04/02/outposts_DSFGYMHVAX.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/outposts/logs",
-      "log_stream": "eu-south-2/zcbde796",
-      "ingestion_time": "2026-04-01T12:55:20.468Z"
+      "log_stream": "us-east-1/iuvges45",
+      "ingestion_time": "2026-04-02T20:50:22.371Z"
     }
   },
   "event": {
-    "action": "CapacityReservation",
+    "action": "ConnectivityStatusChange",
     "outcome": "success",
     "category": ["host", "infrastructure"],
     "dataset": "aws.outposts",
     "provider": "outposts.amazonaws.com",
-    "duration": 4292000000,
+    "duration": 2447000000,
     "module": "aws"
   },
-  "message": "Outpost op-s5f120y65w9: CapacityReservation m5d.xlarge Active",
+  "message": "Outpost op-4h5pry4xej7: ConnectivityStatusChange m5.2xlarge Active",
   "log": {
     "level": "info"
   },
   "host": {
-    "name": "ip-21-102-1-26.ec2.internal",
-    "hostname": "outposts-13sil8p4"
+    "name": "ip-205-58-136-107.ec2.internal",
+    "hostname": "outposts-jajsbq6a"
   },
   "service": {
     "name": "outposts",
@@ -75,8 +75,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-2",
-    "ephemeral_id": "jhxhw8mmw5s"
+    "name": "filebeat-aws-us-east-1",
+    "ephemeral_id": "jq3881ydx1"
   },
   "input": {
     "type": "aws-cloudwatch"

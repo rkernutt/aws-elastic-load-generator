@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "elasticache-global"
@@ -14,36 +14,36 @@
   "aws": {
     "elasticacheglobal": {
       "global_datastore_name": "global-leaderboard",
-      "event_type": "RebalanceSlotsInGlobalReplicationGroup",
-      "primary_region": "ap-southeast-4",
+      "event_type": "IncreaseNodeGroupCount",
+      "primary_region": "ap-southeast-2",
       "secondary_regions": ["eu-west-1", "ap-northeast-1", "us-west-2"],
-      "replication_lag_ms": 46.61583722522844,
-      "cross_region_bandwidth_mbps": 218.13684620264127,
-      "global_node_groups": 4,
+      "replication_lag_ms": 16.709474951769675,
+      "cross_region_bandwidth_mbps": 239.85385506798087,
+      "global_node_groups": 1,
       "status": "available"
     },
     "s3": {
       "bucket": {
-        "name": "aws-elasticache-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-elasticache-logs-293847561023"
+        "name": "aws-elasticache-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-elasticache-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/elasticache/ap-southeast-4/2026/04/01/elasticache_I2TQQ732FAA.log.gz"
+        "key": "AWSLogs/814726593401/elasticache/ap-southeast-2/2026/04/02/elasticache_SRQ36YZXPB.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/elasticache/logs",
-      "log_stream": "ap-southeast-4/it07g8qt",
-      "ingestion_time": "2026-04-01T12:55:20.507Z"
+      "log_stream": "ap-southeast-2/evgt1op8",
+      "ingestion_time": "2026-04-02T20:50:22.411Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 7277525,
+    "duration": 26396579,
     "module": "aws",
     "dataset": "aws.elasticache"
   },
-  "message": "ElastiCache Global global-leaderboard: RebalanceSlotsInGlobalReplicationGroup completed",
+  "message": "ElastiCache Global global-leaderboard: IncreaseNodeGroupCount completed",
   "service": {
     "name": "elasticache",
     "type": "aws"
@@ -62,8 +62,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-4",
-    "ephemeral_id": "9w7ygl6t9ja"
+    "name": "filebeat-aws-ap-southeast-2",
+    "ephemeral_id": "3b6f79feuqb"
   },
   "input": {
     "type": "aws-cloudwatch"

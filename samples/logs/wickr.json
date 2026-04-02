@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "me-central-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,19 +13,20 @@
   },
   "aws": {
     "dimensions": {
-      "NetworkId": "wickr-0k1mskfv",
-      "RoomId": "room-af1xkqp2"
+      "NetworkId": "wickr-h691idck",
+      "RoomId": "room-c6mf9t7p"
     },
     "wickr": {
-      "network_id": "wickr-0k1mskfv",
-      "room_id": "room-af1xkqp2",
-      "message_type": "call",
-      "retention_policy": "365d",
+      "network_id": "wickr-h691idck",
+      "room_id": "room-c6mf9t7p",
+      "message_type": "file",
+      "retention_policy": "30d",
       "metrics": {
-        "messages_sent": 3959,
-        "active_users": 441,
-        "files_shared": 98
-      }
+        "messages_sent": 0,
+        "active_users": 496,
+        "files_shared": 0
+      },
+      "error_code": "ComplianceExportFailed"
     },
     "s3": {
       "bucket": {
@@ -33,24 +34,24 @@
         "arn": "arn:aws:s3:::aws-wickr-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/738291046572/wickr/ap-southeast-4/2026/04/01/wickr_SJJZ8KNMB7.log.gz"
+        "key": "AWSLogs/738291046572/wickr/me-central-1/2026/04/02/wickr_S11C2DHZP9.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/wickr/logs",
-      "log_stream": "ap-southeast-4/tvfm07mw",
-      "ingestion_time": "2026-04-01T12:55:20.531Z"
+      "log_stream": "me-central-1/v51njqjf",
+      "ingestion_time": "2026-04-02T20:50:22.435Z"
     }
   },
   "user": {
-    "name": "bob.jones"
+    "name": "david.brown"
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": ["authentication"],
     "dataset": "aws.wickr",
     "provider": "wickr.amazonaws.com",
-    "duration": 186000000,
+    "duration": 16000000,
     "module": "aws"
   },
   "data_stream": {
@@ -58,9 +59,14 @@
     "dataset": "aws.wickr",
     "namespace": "default"
   },
-  "message": "Wickr network wickr-0k1mskfv: 3959 messages sent, 441 active users",
+  "message": "Wickr network wickr-h691idck: ComplianceExportFailed for user david.brown",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ComplianceExportFailed",
+    "message": "Wickr compliance event in network wickr-h691idck",
+    "type": "authentication"
   },
   "service": {
     "name": "wickr",
@@ -72,8 +78,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-4",
-    "ephemeral_id": "26g2li0vm8e"
+    "name": "filebeat-aws-me-central-1",
+    "ephemeral_id": "fv8ackbg50e"
   },
   "input": {
     "type": "aws-cloudwatch"

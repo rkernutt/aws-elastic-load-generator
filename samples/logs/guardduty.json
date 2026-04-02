@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "me-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "guardduty"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "7r9m19j13hp"
+      "DetectorId": "fu54oxgo9sm"
     },
     "guardduty": {
       "schema_version": "2.0",
-      "account_id": "814726593401",
-      "region": "eu-central-2",
+      "account_id": "293847561023",
+      "region": "me-south-1",
       "partition": "aws",
-      "id": "s2zj4yu8b6",
-      "arn": "arn:aws:guardduty:eu-central-2:814726593401:detector/7r9m19j13hp/finding/s2zj4yu8b6",
-      "type": "Persistence:IAMUser/AnomalousBehavior",
-      "title": "IAMUser AnomalousBehavior",
+      "id": "rcuhhhacmh",
+      "arn": "arn:aws:guardduty:me-south-1:293847561023:detector/fu54oxgo9sm/finding/rcuhhhacmh",
+      "type": "UnauthorizedAccess:IAMUser/InstanceCredentialExfiltration.OutsideAWS",
+      "title": "IAMUser InstanceCredentialExfiltration OutsideAWS",
       "description": "Routine check completed.",
-      "created_at": "2026-04-01T12:55:20.199Z",
-      "updated_at": "2026-04-01T12:55:20.199Z",
+      "created_at": "2026-04-02T20:50:22.062Z",
+      "updated_at": "2026-04-02T20:50:22.062Z",
       "severity": {
         "code": 0,
         "value": "Informational"
       },
-      "confidence": 78.19787489078298,
+      "confidence": 79.25586300408939,
       "resource": {
         "type": "EKSCluster"
       },
       "service": {
-        "detector_id": "7r9m19j13hp",
-        "count": 47,
+        "detector_id": "fu54oxgo9sm",
+        "count": 237,
         "archived": false
       },
       "metrics": {
@@ -57,27 +57,27 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-guardduty-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-guardduty-logs-814726593401"
+        "name": "aws-guardduty-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-guardduty-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/814726593401/guardduty/eu-central-2/2026/04/01/guardduty_QBF9BV0NKX.log.gz"
+        "key": "AWSLogs/293847561023/guardduty/me-south-1/2026/04/02/guardduty_N2U4UERI1F9.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/guardduty/logs",
-      "log_stream": "eu-central-2/wc7u49lt",
-      "ingestion_time": "2026-04-01T12:55:20.475Z"
+      "log_stream": "me-south-1/4yd1npl1",
+      "ingestion_time": "2026-04-02T20:50:22.380Z"
     }
   },
   "rule": {
-    "category": "intrusion_detection"
+    "category": "threat"
   },
   "threat": {
     "indicator": [
       {
         "type": "ip",
-        "value": "48.45.160.60"
+        "value": "202.241.43.40"
       }
     ]
   },
@@ -85,7 +85,7 @@
     "kind": "alert",
     "severity": 0,
     "outcome": "success",
-    "category": ["intrusion_detection"],
+    "category": ["threat"],
     "type": ["indicator"],
     "dataset": "aws.guardduty",
     "provider": "guardduty.amazonaws.com",
@@ -110,8 +110,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-2",
-    "ephemeral_id": "vm5ephgwqjj"
+    "name": "filebeat-aws-me-south-1",
+    "ephemeral_id": "7asr285gugy"
   },
   "input": {
     "type": "http_endpoint"

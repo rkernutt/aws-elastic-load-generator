@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "cloudtrail"
@@ -13,80 +13,81 @@
   },
   "aws": {
     "dimensions": {
-      "EventName": "TerminateInstances",
+      "EventName": "ModifyInstanceAttribute",
       "EventSource": "ec2.amazonaws.com"
     },
     "cloudtrail": {
       "event_version": "1.09",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "jxpipv85-bll5-9yor-ocbn-cz1cfazl7ig",
+      "request_id": "3v8mqnp0-y042-p88o-soyi-hk31xt9cstn",
       "api_version": "2012-10-17",
       "management_event": true,
       "read_only": false,
-      "recipient_account_id": "738291046572",
-      "aws_region": "il-central-1",
+      "recipient_account_id": "293847561023",
+      "aws_region": "ap-southeast-3",
       "user_identity": {
-        "type": "IAMUser",
-        "principal_id": "738291046572:carol",
-        "arn": "arn:aws:iam::738291046572:user/carol",
-        "account_id": "738291046572",
-        "access_key_id": "AKIAJRO966WNZ1H",
+        "type": "AWSService",
+        "principal_id": "293847561023:carol",
+        "arn": "arn:aws:iam::293847561023:user/carol",
+        "account_id": "293847561023",
+        "access_key_id": "AKIAONOHKLCN73",
         "session_context": {
           "session_issuer": {
             "type": "Role",
-            "principal_id": "AROAXODC0S2FQWO",
-            "arn": "arn:aws:iam::738291046572:role/service-role/execution-role",
-            "account_id": "738291046572",
+            "principal_id": "AROA5X1DUSMKY59",
+            "arn": "arn:aws:iam::293847561023:role/service-role/execution-role",
+            "account_id": "293847561023",
             "user_name": "execution-role"
           },
           "web_id_federation_data": {},
           "attributes": {
-            "creation_date": "2026-04-01T12:22:32.199Z",
-            "mfa_authenticated": "false"
+            "creation_date": "2026-04-02T19:53:31.062Z",
+            "mfa_authenticated": "true"
           }
         }
       },
+      "request_parameters": "null",
       "response_elements": "null"
     },
     "s3": {
       "bucket": {
-        "name": "aws-cloudtrail-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-cloudtrail-logs-738291046572"
+        "name": "aws-cloudtrail-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-cloudtrail-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/738291046572/cloudtrail/il-central-1/2026/04/01/cloudtrail_9YPV901YYT9.log.gz"
+        "key": "AWSLogs/293847561023/cloudtrail/ap-southeast-3/2026/04/02/cloudtrail_311DU85AH48.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/cloudtrail/logs",
-      "log_stream": "il-central-1/q5266j9w",
-      "ingestion_time": "2026-04-01T12:55:20.466Z"
+      "log_stream": "ap-southeast-3/hyhn6os1",
+      "ingestion_time": "2026-04-02T20:50:22.370Z"
     }
   },
   "user": {
     "name": "carol"
   },
   "source": {
-    "ip": "13.64.242.206",
+    "ip": "116.77.217.211",
     "geo": {
-      "country_iso_code": "US",
-      "city_name": "London"
+      "country_iso_code": "IN",
+      "city_name": "Sydney"
     }
   },
   "user_agent": {
     "original": "Go-http-client/1.1"
   },
   "event": {
-    "action": "TerminateInstances",
+    "action": "ModifyInstanceAttribute",
     "outcome": "success",
     "category": ["configuration"],
-    "type": ["deletion"],
+    "type": ["change"],
     "dataset": "aws.cloudtrail",
     "provider": "cloudtrail.amazonaws.com",
     "module": "aws"
   },
-  "message": "CloudTrail: TerminateInstances by carol from 13.64.242.206 - Success",
+  "message": "CloudTrail: ModifyInstanceAttribute by carol from 116.77.217.211 - Success",
   "log": {
     "level": "info"
   },
@@ -105,8 +106,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-il-central-1",
-    "ephemeral_id": "yurfw10dva"
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "m2d09t8u1fr"
   },
   "input": {
     "type": "aws-s3"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "kms"
@@ -13,10 +13,10 @@
   },
   "aws": {
     "kms": {
-      "key_id": "sfgo7wfv-0el1-l84y-huif-tv4me51gj6o",
-      "key_alias": "alias/secrets-key",
-      "operation": "Encrypt",
-      "principal_arn": "arn:aws:iam::501938274650:user/alice",
+      "key_id": "f6a34sl2-ttxx-wig4-ygod-67z9g1omd7c",
+      "key_alias": "alias/rds-encryption",
+      "operation": "Sign",
+      "principal_arn": "arn:aws:iam::164820739518:role/ecs-task-role",
       "key_state": "Enabled",
       "encryption_algorithm": "RSAES_OAEP_SHA_256",
       "metrics": {
@@ -24,40 +24,40 @@
           "sum": 0
         },
         "KeysCount": {
-          "avg": 341
+          "avg": 544
         },
         "KeysPendingDeletion": {
-          "avg": 9
+          "avg": 7
         },
         "KeysDisabled": {
-          "avg": 0
+          "avg": 3
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-kms-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-kms-logs-501938274650"
+        "name": "aws-kms-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-kms-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/501938274650/kms/eu-central-1/2026/04/01/kms_VSLQVA5HMP.log.gz"
+        "key": "AWSLogs/164820739518/kms/ap-southeast-3/2026/04/02/kms_PQFATTHTDJS.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/kms/logs",
-      "log_stream": "eu-central-1/23xprph8",
-      "ingestion_time": "2026-04-01T12:55:20.477Z"
+      "log_stream": "ap-southeast-3/46dmxu92",
+      "ingestion_time": "2026-04-02T20:50:22.381Z"
     }
   },
   "event": {
-    "action": "Encrypt",
+    "action": "Sign",
     "outcome": "success",
     "category": ["authentication", "configuration"],
     "dataset": "aws.kms",
     "provider": "kms.amazonaws.com",
     "module": "aws"
   },
-  "message": "KMS Encrypt: alias/secrets-key",
+  "message": "KMS Sign: alias/rds-encryption",
   "log": {
     "level": "info"
   },
@@ -76,8 +76,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-1",
-    "ephemeral_id": "7lu796do9m7"
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "1dq2bp2nm7n"
   },
   "input": {
     "type": "aws-cloudwatch"

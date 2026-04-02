@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "mskconnect"
@@ -13,47 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "ConnectorName": "jdbc-source-connector"
+      "ConnectorName": "opensearch-sink"
     },
     "mskconnect": {
-      "connector_name": "jdbc-source-connector",
-      "connector_arn": "arn:aws:kafkaconnect:us-west-1:738291046572:connector/jdbc-source-connector/7gkch1xc",
-      "connector_state": "RUNNING",
+      "connector_name": "opensearch-sink",
+      "connector_arn": "arn:aws:kafkaconnect:eu-south-2:814726593401:connector/opensearch-sink/lx3ggrsv",
+      "connector_state": "FAILED",
       "worker_count": 1,
       "capacity_type": "MCU_2X",
-      "kafka_cluster_bootstrap_servers": "b-1.prod-kafka-us-west-1.amazonaws.com:9092,b-2.prod-kafka-us-west-1.amazonaws.com:9092",
-      "connector_class": "io.debezium.connector.postgresql.PostgresConnector",
-      "tasks_status": "RUNNING",
-      "offset_lag": 121,
-      "record_count": 16947
+      "kafka_cluster_bootstrap_servers": "b-1.prod-kafka-eu-south-2.amazonaws.com:9092,b-2.prod-kafka-eu-south-2.amazonaws.com:9092",
+      "connector_class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
+      "tasks_status": "PAUSED",
+      "offset_lag": 2049474,
+      "record_count": 535
     },
     "s3": {
       "bucket": {
-        "name": "aws-mskconnect-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-mskconnect-logs-738291046572"
+        "name": "aws-mskconnect-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-mskconnect-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/738291046572/mskconnect/us-west-1/2026/04/01/mskconnect_UQO6E2I582E.log.gz"
+        "key": "AWSLogs/814726593401/mskconnect/eu-south-2/2026/04/02/mskconnect_E4KNK792E1T.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/mskconnect/logs",
-      "log_stream": "us-west-1/d71e3jbo",
-      "ingestion_time": "2026-04-01T12:55:20.513Z"
+      "log_stream": "eu-south-2/fu2tu3b7",
+      "ingestion_time": "2026-04-02T20:50:22.416Z"
     }
   },
   "event": {
-    "action": "ConnectorFailed",
-    "outcome": "success",
+    "action": "ConnectorCreated",
+    "outcome": "failure",
     "category": ["process"],
     "dataset": "aws.mskconnect",
     "provider": "kafkaconnect.amazonaws.com",
-    "duration": 1460000000,
+    "duration": 59831000000,
     "module": "aws"
   },
-  "message": "MSK Connect jdbc-source-connector: RUNNING, lag=233",
+  "message": "MSK Connect opensearch-sink: FAILED - Task failed",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "FAILED",
+    "message": "MSK Connect connector failed",
+    "type": "stream"
   },
   "service": {
     "name": "mskconnect",
@@ -70,8 +75,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-west-1",
-    "ephemeral_id": "46m3kxuzzc6"
+    "name": "filebeat-aws-eu-south-2",
+    "ephemeral_id": "q0vl48t1ydq"
   },
   "input": {
     "type": "aws-cloudwatch"

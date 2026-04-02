@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "me-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "migrationhub"
@@ -13,33 +13,33 @@
   },
   "aws": {
     "migrationhub": {
-      "application_id": "app-00kjfe5qg5nh",
-      "application_name": "legacy-erp",
-      "server_id": "d-server-WK3ZRICIBQQ",
-      "server_name": "server-cf0mbogx",
+      "application_id": "app-ejx2dsd2v3c",
+      "application_name": "web-tier-migration",
+      "server_id": "d-server-416NCNMVHLR",
+      "server_name": "server-g7g6r3a6",
       "migration_status": "MIGRATION_IN_PROGRESS",
-      "migration_tool": "Carbonite",
-      "progress_update_stream": "DMS-stream",
+      "migration_tool": "ATADATA",
+      "progress_update_stream": "SMS-stream",
       "task": {
         "status": "IN_PROGRESS",
-        "progress_percent": 91,
-        "total_objects": 415,
-        "replicated_objects": 726
+        "progress_percent": 85,
+        "total_objects": 654,
+        "replicated_objects": 22
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-migrationhub-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-migrationhub-logs-293847561023"
+        "name": "aws-migrationhub-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-migrationhub-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/migrationhub/eu-central-2/2026/04/01/migrationhub_SLQ6WTTAEI.log.gz"
+        "key": "AWSLogs/814726593401/migrationhub/me-south-1/2026/04/02/migrationhub_SYMA9CQ069.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/migrationhub/logs",
-      "log_stream": "eu-central-2/laf1808n",
-      "ingestion_time": "2026-04-01T12:55:20.527Z"
+      "log_stream": "me-south-1/jf3gyhtc",
+      "ingestion_time": "2026-04-02T20:50:22.431Z"
     }
   },
   "event": {
@@ -47,10 +47,10 @@
     "category": ["process", "configuration"],
     "dataset": "aws.migrationhub",
     "provider": "mgh.amazonaws.com",
-    "duration": 51138000000000,
+    "duration": 84174000000000,
     "module": "aws"
   },
-  "message": "Migration Hub legacy-erp [Carbonite]: MIGRATION_IN_PROGRESS — server-cf0mbogx",
+  "message": "Migration Hub web-tier-migration [ATADATA]: MIGRATION_IN_PROGRESS — server-g7g6r3a6",
   "log": {
     "level": "info"
   },
@@ -69,8 +69,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-2",
-    "ephemeral_id": "zzajj6bj2c"
+    "name": "filebeat-aws-me-south-1",
+    "ephemeral_id": "4fsxd7lvtk1"
   },
   "input": {
     "type": "aws-cloudwatch"

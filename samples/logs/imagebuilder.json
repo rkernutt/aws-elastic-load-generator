@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "af-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "imagebuilder"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "container-base-pipeline",
+      "PipelineName": "golden-ami-pipeline",
       "Phase": "DISTRIBUTE"
     },
     "imagebuilder": {
-      "pipeline_name": "container-base-pipeline",
-      "image_version": "1.14.3/1",
+      "pipeline_name": "golden-ami-pipeline",
+      "image_version": "5.4.4/1",
       "phase": "DISTRIBUTE",
       "phase_status": "COMPLETED",
-      "duration_seconds": 563,
-      "os": "Windows Server 2022",
+      "duration_seconds": 743,
+      "os": "Amazon Linux 2023",
       "recipe_name": "web-server-recipe",
-      "ami_id": "ami-h01ehz7u",
+      "ami_id": "ami-i8ibwp61",
       "metrics": {
         "BuildDuration": {
-          "avg": 563
+          "avg": 743
         },
         "ImageBuildSuccessCount": {
           "sum": 1
@@ -36,34 +36,34 @@
           "sum": 0
         },
         "ComponentBuildDuration": {
-          "avg": 357
+          "avg": 152
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-imagebuilder-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-imagebuilder-logs-814726593401"
+        "name": "aws-imagebuilder-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-imagebuilder-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/814726593401/imagebuilder/us-east-1/2026/04/01/imagebuilder_C7SAOHNOYY.log.gz"
+        "key": "AWSLogs/738291046572/imagebuilder/af-south-1/2026/04/02/imagebuilder_O725GAVEK2O.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/imagebuilder/logs",
-      "log_stream": "us-east-1/7afmbfi8",
-      "ingestion_time": "2026-04-01T12:55:20.470Z"
+      "log_stream": "af-south-1/ylrcbtjj",
+      "ingestion_time": "2026-04-02T20:50:22.374Z"
     }
   },
   "event": {
     "category": ["process"],
-    "duration": 563000000000,
+    "duration": 743000000000,
     "outcome": "success",
     "dataset": "aws.imagebuilder",
     "provider": "imagebuilder.amazonaws.com",
     "module": "aws"
   },
-  "message": "Running component: aws:ValidateInfrastructure",
+  "message": "Image Builder golden-ami-pipeline DISTRIBUTE COMPLETED in 743s",
   "log": {
     "level": "info"
   },
@@ -82,8 +82,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-1",
-    "ephemeral_id": "womqsyv0gac"
+    "name": "filebeat-aws-af-south-1",
+    "ephemeral_id": "k2ooo5fx9c"
   },
   "input": {
     "type": "aws-cloudwatch"

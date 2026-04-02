@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "us-west-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,26 +13,26 @@
   },
   "aws": {
     "dimensions": {
-      "QueueName": "job-queue"
+      "QueueName": "webhook-events"
     },
     "sqs": {
       "queue": {
-        "name": "job-queue"
+        "name": "webhook-events"
       },
       "oldest_message_age": {
-        "sec": 216
+        "sec": 245
       },
       "messages": {
-        "delayed": 102,
-        "not_visible": 13,
-        "visible": 19,
-        "deleted": 846,
-        "received": 5416,
-        "sent": 7027
+        "delayed": 417,
+        "not_visible": 649,
+        "visible": 973,
+        "deleted": 77,
+        "received": 338,
+        "sent": 1903
       },
-      "empty_receives": 87,
+      "empty_receives": 27,
       "sent_message_size": {
-        "bytes": 225257
+        "bytes": 30959
       }
     },
     "s3": {
@@ -41,13 +41,13 @@
         "arn": "arn:aws:s3:::aws-sqs-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/814726593401/sqs/ap-southeast-3/2026/04/01/sqs_5IYMQOVG5VU.log.gz"
+        "key": "AWSLogs/814726593401/sqs/us-west-2/2026/04/02/sqs_ASKRUCTQMLQ.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/sqs/logs",
-      "log_stream": "ap-southeast-3/o3hlzn1p",
-      "ingestion_time": "2026-04-01T12:55:20.511Z"
+      "log_stream": "us-west-2/moz9wfgv",
+      "ingestion_time": "2026-04-02T20:50:22.414Z"
     }
   },
   "event": {
@@ -55,12 +55,18 @@
     "category": ["process"],
     "dataset": "aws.sqs",
     "provider": "sqs.amazonaws.com",
-    "duration": 477000000,
+    "duration": 264000000,
     "module": "aws"
   },
-  "message": "SQS job-queue: 7027 sent, 5416 received",
+  "message": "SQS webhook-events: 1903 sent, 338 received",
   "log": {
     "level": "info"
+  },
+  "trace": {
+    "id": "IKXKKCZ9VR9"
+  },
+  "transaction": {
+    "id": "VSREMKGW3NB"
   },
   "service": {
     "name": "sqs",
@@ -77,8 +83,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-3",
-    "ephemeral_id": "9l6jtvnfs2d"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "k93jxoobta"
   },
   "input": {
     "type": "aws-cloudwatch"

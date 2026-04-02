@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "eu-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "identitycenter"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "iam_identity_center": {
-      "event_type": "RevokeAccess",
-      "user_name": "alice@corp.com",
-      "application_name": "Slack",
-      "permission_set": "PowerUserAccess",
-      "account_id": "738291046572",
+      "event_type": "AssignPermissionSet",
+      "user_name": "bob@corp.com",
+      "application_name": "Salesforce",
+      "permission_set": "ReadOnlyAccess",
+      "account_id": "293847561023",
       "mfa_authenticated": true
     },
     "s3": {
       "bucket": {
-        "name": "aws-identitycenter-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-identitycenter-logs-738291046572"
+        "name": "aws-identitycenter-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-identitycenter-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/738291046572/identitycenter/ap-northeast-1/2026/04/01/identitycenter_7RP26EHROO.log.gz"
+        "key": "AWSLogs/293847561023/identitycenter/eu-south-1/2026/04/02/identitycenter_77MZB7F4SHL.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/identitycenter/logs",
-      "log_stream": "ap-northeast-1/tlk5gwms",
-      "ingestion_time": "2026-04-01T12:55:20.477Z"
+      "log_stream": "eu-south-1/6pg9lb6v",
+      "ingestion_time": "2026-04-02T20:50:22.382Z"
     }
   },
   "user": {
-    "name": "alice@corp.com"
+    "name": "bob@corp.com"
   },
   "source": {
-    "ip": "20.161.26.238"
+    "ip": "117.238.68.154"
   },
   "event": {
-    "action": "RevokeAccess",
+    "action": "AssignPermissionSet",
     "outcome": "success",
     "category": "authentication",
     "dataset": "aws.identitycenter",
     "provider": "sso.amazonaws.com",
     "module": "aws"
   },
-  "message": "IAM Identity Center RevokeAccess: alice@corp.com -> Slack",
+  "message": "IAM Identity Center AssignPermissionSet: bob@corp.com -> Salesforce",
   "log": {
     "level": "info"
   },
@@ -68,8 +68,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-1",
-    "ephemeral_id": "equkha9jayo"
+    "name": "filebeat-aws-eu-south-1",
+    "ephemeral_id": "cr1pwncb2qp"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "il-central-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,17 +13,15 @@
   },
   "aws": {
     "codecommit": {
-      "repository_name": "api-service",
-      "repository_arn": "arn:aws:codecommit:ap-northeast-1:501938274650:api-service",
-      "event_type": "PullRequestMerged",
-      "reference_name": "feature/new-auth",
-      "commit_id": "f02nz3i9p3",
-      "author": "carol",
-      "files_changed": 42,
-      "lines_added": 289,
-      "lines_deleted": 88,
-      "pull_request_id": "116",
-      "merge_strategy": "three-way"
+      "repository_name": "shared-libs",
+      "repository_arn": "arn:aws:codecommit:il-central-1:501938274650:shared-libs",
+      "event_type": "ReferenceCreated",
+      "reference_name": "main",
+      "commit_id": "bsyq2d43q9c",
+      "author": "bob",
+      "files_changed": 10,
+      "lines_added": 61,
+      "lines_deleted": 69
     },
     "s3": {
       "bucket": {
@@ -31,27 +29,27 @@
         "arn": "arn:aws:s3:::aws-codecommit-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/501938274650/codecommit/ap-northeast-1/2026/04/01/codecommit_1TSMCKYPEWT.log.gz"
+        "key": "AWSLogs/501938274650/codecommit/il-central-1/2026/04/02/codecommit_GGAFOIR118W.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/codecommit/logs",
-      "log_stream": "ap-northeast-1/02hf6afk",
-      "ingestion_time": "2026-04-01T12:55:20.514Z"
+      "log_stream": "il-central-1/ea4k10l2",
+      "ingestion_time": "2026-04-02T20:50:22.417Z"
     }
   },
   "user": {
-    "name": "carol"
+    "name": "bob"
   },
   "event": {
-    "action": "PullRequestMerged",
+    "action": "ReferenceCreated",
     "outcome": "success",
     "category": ["configuration", "file"],
     "dataset": "aws.codecommit",
     "provider": "codecommit.amazonaws.com",
     "module": "aws"
   },
-  "message": "CodeCommit PullRequestMerged: api-service/feature/new-auth",
+  "message": "CodeCommit ReferenceCreated: shared-libs/main",
   "log": {
     "level": "info"
   },
@@ -70,8 +68,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-1",
-    "ephemeral_id": "25l9m8q8hbxi"
+    "name": "filebeat-aws-il-central-1",
+    "ephemeral_id": "ihxx6b5oj7m"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "controltower"
@@ -13,27 +13,27 @@
   },
   "aws": {
     "controltower": {
-      "operation_id": "kne03tmoken",
-      "action": "RegisterOrganizationalUnit",
-      "account_id": "738291046572",
-      "organizational_unit": "Workloads",
-      "guardrail_compliance": "NOT_APPLICABLE",
-      "landing_zone_version": "3.3",
-      "status": "IN_PROGRESS"
+      "operation_id": "0pmojggsirr",
+      "action": "CreateManagedAccount",
+      "account_id": "814726593401",
+      "organizational_unit": "Sandbox",
+      "guardrail_compliance": "COMPLIANT",
+      "landing_zone_version": "3.1",
+      "status": "SUCCEEDED"
     },
     "s3": {
       "bucket": {
-        "name": "aws-controltower-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-controltower-logs-738291046572"
+        "name": "aws-controltower-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-controltower-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/738291046572/controltower/ca-central-1/2026/04/01/controltower_QDAKXLKSZBB.log.gz"
+        "key": "AWSLogs/814726593401/controltower/ap-southeast-4/2026/04/02/controltower_8NI5DJ2YG9Q.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/controltower/logs",
-      "log_stream": "ca-central-1/em893ovr",
-      "ingestion_time": "2026-04-01T12:55:20.526Z"
+      "log_stream": "ap-southeast-4/k8q9yt94",
+      "ingestion_time": "2026-04-02T20:50:22.429Z"
     }
   },
   "event": {
@@ -41,10 +41,10 @@
     "category": ["configuration", "iam"],
     "dataset": "aws.controltower",
     "provider": "controltower.amazonaws.com",
-    "duration": 333000000000,
+    "duration": 288000000000,
     "module": "aws"
   },
-  "message": "Control Tower RegisterOrganizationalUnit: IN_PROGRESS",
+  "message": "Control Tower CreateManagedAccount: SUCCEEDED",
   "log": {
     "level": "info"
   },
@@ -63,8 +63,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ca-central-1",
-    "ephemeral_id": "mq9lg2zsj6g"
+    "name": "filebeat-aws-ap-southeast-4",
+    "ephemeral_id": "hmsmcf82kns"
   },
   "input": {
     "type": "aws-cloudwatch"

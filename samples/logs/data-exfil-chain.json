@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "me-central-1",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,35 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "hyubc9r7cyf"
+      "DetectorId": "onxlxt590ll"
     },
     "guardduty": {
       "schema_version": "2.0",
       "account_id": "293847561023",
-      "region": "il-central-1",
+      "region": "me-central-1",
       "partition": "aws",
-      "id": "7emm92fh2oc",
-      "arn": "arn:aws:guardduty:il-central-1:293847561023:detector/hyubc9r7cyf/finding/7emm92fh2oc",
+      "id": "teqidv9s9hl",
+      "arn": "arn:aws:guardduty:me-central-1:293847561023:detector/onxlxt590ll/finding/teqidv9s9hl",
       "type": "Exfiltration:S3/MaliciousIPCaller",
       "title": "S3 object accessed from a known malicious IP",
-      "description": "S3 bucket hr-confidential-561023 was accessed by 190.163.143.218, an IP associated with known threat actors",
-      "created_at": "2026-04-01T12:55:20.199Z",
-      "updated_at": "2026-04-01T12:55:20.199Z",
+      "description": "S3 bucket analytics-output-561023 was accessed by 64.111.202.126, an IP associated with known threat actors",
+      "created_at": "2026-04-02T20:50:22.062Z",
+      "updated_at": "2026-04-02T20:50:22.062Z",
       "severity": {
         "code": 7,
         "value": "High"
       },
-      "confidence": 78.7725642720249,
+      "confidence": 83.0425769776555,
       "resource": {
         "type": "S3Bucket",
         "s3_bucket_detail": {
-          "name": "hr-confidential-561023",
+          "name": "analytics-output-561023",
           "type": "Destination"
         }
       },
       "service": {
-        "detector_id": "hyubc9r7cyf",
-        "count": 1885,
+        "detector_id": "onxlxt590ll",
+        "count": 456,
         "archived": false,
         "action": {
           "action_type": "AWS_API_CALL",
@@ -49,17 +49,17 @@
             "api": "GetObject",
             "caller_type": "Remote IP",
             "remote_ip_details": {
-              "ip_address_v4": "190.163.143.218"
+              "ip_address_v4": "64.111.202.126"
             }
           }
         }
       },
       "metrics": {
         "FindingCount": {
-          "sum": 6
+          "sum": 20
         },
         "HighSeverityFindingCount": {
-          "sum": 2
+          "sum": 3
         }
       }
     },
@@ -69,17 +69,17 @@
         "arn": "arn:aws:s3:::aws-data-exfil-chain-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/293847561023/data-exfil-chain/il-central-1/2026/04/01/data-exfil-chain_TCCHXATES.log.gz"
+        "key": "AWSLogs/293847561023/data-exfil-chain/me-central-1/2026/04/02/data-exfil-chain_EJ2X8CP4UW5.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/data-exfil-chain/logs",
-      "log_stream": "il-central-1/wi53pyuf",
-      "ingestion_time": "2026-04-01T12:55:20.479Z"
+      "log_stream": "me-central-1/3wu2zo8b",
+      "ingestion_time": "2026-04-02T20:50:22.384Z"
     }
   },
   "source": {
-    "ip": "190.163.143.218"
+    "ip": "64.111.202.126"
   },
   "rule": {
     "category": "exfiltration",
@@ -97,7 +97,7 @@
     "indicator": [
       {
         "type": "ip",
-        "value": "190.163.143.218"
+        "value": "64.111.202.126"
       }
     ]
   },
@@ -111,13 +111,13 @@
     "provider": "guardduty.amazonaws.com",
     "module": "aws"
   },
-  "message": "GuardDuty [HIGH]: Exfiltration:S3/MaliciousIPCaller — s3://hr-confidential-561023 from 190.163.143.218",
+  "message": "GuardDuty [HIGH]: Exfiltration:S3/MaliciousIPCaller — s3://analytics-output-561023 from 64.111.202.126",
   "log": {
     "level": "error"
   },
   "error": {
     "code": "ExfiltrationDetected",
-    "message": "S3 data exfiltration from hr-confidential-561023",
+    "message": "S3 data exfiltration from analytics-output-561023",
     "type": "security"
   },
   "service": {
@@ -135,8 +135,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-il-central-1",
-    "ephemeral_id": "9ajnsd71qf7"
+    "name": "filebeat-aws-me-central-1",
+    "ephemeral_id": "vg7p4trl58m"
   },
   "input": {
     "type": "http_endpoint"

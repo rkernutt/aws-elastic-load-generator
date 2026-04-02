@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "config"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "dimensions": {
-      "ConfigRuleName": "s3-bucket-public-read-prohibited",
-      "ResourceType": "AWS::EC2::Instance"
+      "ConfigRuleName": "cloudtrail-enabled",
+      "ResourceType": "AWS::IAM::User"
     },
     "config": {
-      "rule_name": "s3-bucket-public-read-prohibited",
-      "compliance_type": "NON_COMPLIANT",
-      "resource_type": "AWS::EC2::Instance",
-      "resource_id": "sg-q58eyr0o",
+      "rule_name": "cloudtrail-enabled",
+      "compliance_type": "INSUFFICIENT_DATA",
+      "resource_type": "AWS::IAM::User",
+      "resource_id": "db-o3qdwy5s",
       "annotation": "Public access enabled",
       "metrics": {
         "ComplianceByConfigRule": {
@@ -33,23 +33,23 @@
           "sum": 0
         },
         "ConfigurationItemsRecorded": {
-          "sum": 10
+          "sum": 29
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-config-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-config-logs-814726593401"
+        "name": "aws-config-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-config-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/814726593401/config/eu-west-2/2026/04/01/config_UE1KWX69XV9.log.gz"
+        "key": "AWSLogs/164820739518/config/us-east-1/2026/04/02/config_E1TGUNR4IX.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/config/logs",
-      "log_stream": "eu-west-2/we0wai6r",
-      "ingestion_time": "2026-04-01T12:55:20.476Z"
+      "log_stream": "us-east-1/0ma5ljyw",
+      "ingestion_time": "2026-04-02T20:50:22.381Z"
     }
   },
   "event": {
@@ -59,13 +59,13 @@
     "provider": "config.amazonaws.com",
     "module": "aws"
   },
-  "message": "Config rule FAILED: s3-bucket-public-read-prohibited",
+  "message": "Config rule FAILED: cloudtrail-enabled",
   "log": {
     "level": "warn"
   },
   "error": {
     "code": "NonCompliant",
-    "message": "Config rule s3-bucket-public-read-prohibited failed",
+    "message": "Config rule cloudtrail-enabled failed",
     "type": "compliance"
   },
   "service": {
@@ -83,8 +83,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-2",
-    "ephemeral_id": "chhhr58fmd6"
+    "name": "filebeat-aws-us-east-1",
+    "ephemeral_id": "9j24tzd3a0u"
   },
   "input": {
     "type": "http_endpoint"

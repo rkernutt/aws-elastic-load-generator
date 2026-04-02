@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "us-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "iotcore"
@@ -16,26 +16,26 @@
       "Protocol": "WSS"
     },
     "iotcore": {
-      "client_id": "gateway-prod-1",
-      "thing_name": "gateway-prod-1",
+      "client_id": "robot-arm-7",
+      "thing_name": "robot-arm-7",
       "thing_group": "fleet",
-      "action": "PUBLISH",
-      "topic": "telemetry/metrics",
+      "action": "CONNECT",
+      "topic": "cmd/device/update",
       "protocol": "WSS",
       "qos": 1,
-      "message_bytes": 10559,
-      "policy_name": "FleetPolicy",
+      "message_bytes": 25128,
+      "policy_name": "SensorPolicy",
       "structured_logging": true,
       "rules_evaluated": 5,
       "metrics": {
         "Connect.Success": {
-          "sum": 374
+          "sum": 938
         },
         "Connect.Failure": {
           "sum": 0
         },
         "PublishIn.Success": {
-          "sum": 1645
+          "sum": 2528
         },
         "PublishIn.ClientError": {
           "sum": 0
@@ -44,74 +44,74 @@
           "sum": 0
         },
         "PublishOut.Success": {
-          "sum": 9807
+          "sum": 3204
         },
         "Publish.Success": {
-          "sum": 1945
+          "sum": 3536
         },
         "Publish.Failure": {
           "sum": 0
         },
         "Subscribe.Success": {
-          "sum": 3223
+          "sum": 513
         },
         "Subscribe.Failure": {
           "sum": 0
         },
         "Unsubscribe.Success": {
-          "sum": 412
+          "sum": 404
         },
         "Ping.Success": {
-          "sum": 8460
+          "sum": 4149
         },
         "Throttle.Success": {
-          "sum": 165
+          "sum": 35
         },
         "RulesMatched": {
-          "sum": 991
+          "sum": 877
         },
         "RulesFailed": {
           "sum": 0
         },
         "RulesNotMatched": {
-          "sum": 4
+          "sum": 90
         },
         "TopicMatch": {
-          "sum": 8838
+          "sum": 5428
         },
         "ClientConnections": {
-          "avg": 38490
+          "avg": 40184
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-iotcore-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-iotcore-logs-814726593401"
+        "name": "aws-iotcore-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-iotcore-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/814726593401/iotcore/af-south-1/2026/04/01/iotcore_BUNQ9WUOZBL.log.gz"
+        "key": "AWSLogs/501938274650/iotcore/us-west-2/2026/04/02/iotcore_5A5WZLWYE0H.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/iotcore/logs",
-      "log_stream": "af-south-1/rgd60qg1",
-      "ingestion_time": "2026-04-01T12:55:20.523Z"
+      "log_stream": "us-west-2/pkayncfg",
+      "ingestion_time": "2026-04-02T20:50:22.427Z"
     }
   },
   "source": {
-    "ip": "82.179.55.216"
+    "ip": "89.83.128.252"
   },
   "event": {
-    "action": "PUBLISH",
+    "action": "CONNECT",
     "outcome": "success",
     "category": ["network", "process"],
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com",
-    "duration": 136000000,
+    "duration": 150000000,
     "module": "aws"
   },
-  "message": "{\"clientId\":\"gateway-prod-1\",\"action\":\"PUBLISH\",\"topic\":\"telemetry/metrics\",\"message\":\"IoT Core PUBLISH: gateway-prod-1 on telemetry/metrics\",\"timestamp\":\"2026-04-01T12:55:20.199Z\"}",
+  "message": "{\"clientId\":\"robot-arm-7\",\"action\":\"CONNECT\",\"topic\":\"cmd/device/update\",\"message\":\"IoT Core CONNECT: robot-arm-7 on cmd/device/update\",\"timestamp\":\"2026-04-02T20:50:22.062Z\"}",
   "log": {
     "level": "info"
   },
@@ -130,8 +130,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-af-south-1",
-    "ephemeral_id": "x19jb15qn9h"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "i3e0pfxr0j"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "eu-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "iotdefender"
@@ -13,34 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "CheckName": "DEVICE_CERTIFICATE_EXPIRING"
+      "CheckName": "LOGGING_DISABLED"
     },
     "iotdefender": {
-      "thing_name": "camera-lobby",
-      "audit_check_name": "DEVICE_CERTIFICATE_EXPIRING",
-      "finding_id": "40dcagvkkyp",
-      "severity": "LOW",
-      "violation_id": "h91bs3owscb",
+      "thing_name": "valve-plant-2",
+      "audit_check_name": "LOGGING_DISABLED",
+      "finding_id": "lsb0l42k5wh",
+      "severity": "HIGH",
+      "violation_id": "1dn8qz09yzb",
       "violation_type": "authorization-failure",
       "security_profile_name": "factory-floor-profile",
       "behavior_name": "msg-size",
-      "current_value": 737,
-      "threshold_value": 11,
-      "consecutive_datapoints_to_alarm": 5
+      "current_value": 321,
+      "threshold_value": 80,
+      "consecutive_datapoints_to_alarm": 2
     },
     "s3": {
       "bucket": {
-        "name": "aws-iotdefender-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-iotdefender-logs-293847561023"
+        "name": "aws-iotdefender-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-iotdefender-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/iotdefender/ap-southeast-1/2026/04/01/iotdefender_YPN5VYUPOTC.log.gz"
+        "key": "AWSLogs/814726593401/iotdefender/eu-south-1/2026/04/02/iotdefender_54KKZZ67WIU.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/iotdefender/logs",
-      "log_stream": "ap-southeast-1/bkad3has",
-      "ingestion_time": "2026-04-01T12:55:20.534Z"
+      "log_stream": "eu-south-1/if2i2atw",
+      "ingestion_time": "2026-04-02T20:50:22.437Z"
     }
   },
   "event": {
@@ -49,12 +49,12 @@
     "category": ["intrusion_detection", "vulnerability"],
     "dataset": "aws.iotdefender",
     "provider": "iot.amazonaws.com",
-    "duration": 226000000000,
+    "duration": 211000000000,
     "module": "aws"
   },
-  "message": "IoT Defender LOW [camera-lobby]: DEVICE_CERTIFICATE_EXPIRING",
+  "message": "IoT Defender HIGH [valve-plant-2]: LOGGING_DISABLED",
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "service": {
     "name": "iotdefender",
@@ -71,8 +71,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-1",
-    "ephemeral_id": "dddvbyrw7kt"
+    "name": "filebeat-aws-eu-south-1",
+    "ephemeral_id": "j4xyp2mw2s"
   },
   "input": {
     "type": "aws-cloudwatch"

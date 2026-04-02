@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
     "region": "ca-west-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "proton"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "dev-env",
-      "ServiceName": "frontend-service"
+      "EnvironmentName": "prod-env",
+      "ServiceName": "data-pipeline"
     },
     "proton": {
-      "environment_name": "dev-env",
-      "service_name": "frontend-service",
+      "environment_name": "prod-env",
+      "service_name": "data-pipeline",
       "service_instance_name": "v2-instance",
-      "template_name": "ecs-service-template",
+      "template_name": "fargate-env-template",
       "template_major_version": "3",
       "deployment_status": "SUCCEEDED",
-      "component": "service_instance"
+      "component": "environment"
     },
     "s3": {
       "bucket": {
-        "name": "aws-proton-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-proton-logs-501938274650"
+        "name": "aws-proton-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-proton-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/501938274650/proton/ca-west-1/2026/04/01/proton_IEN5DOPTHKG.log.gz"
+        "key": "AWSLogs/164820739518/proton/ca-west-1/2026/04/02/proton_29HAAEIVFUJ.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/proton/logs",
-      "log_stream": "ca-west-1/poo6fjoi",
-      "ingestion_time": "2026-04-01T12:55:20.533Z"
+      "log_stream": "ca-west-1/yy4casfk",
+      "ingestion_time": "2026-04-02T20:50:22.437Z"
     }
   },
   "event": {
-    "action": "CreateService",
+    "action": "UpdateEnvironment",
     "outcome": "success",
     "category": ["configuration"],
     "dataset": "aws.proton",
     "provider": "proton.amazonaws.com",
-    "duration": 40000000000,
+    "duration": 44000000000,
     "module": "aws"
   },
-  "message": "Proton service_instance frontend-service CreateService SUCCEEDED",
+  "message": "Proton environment data-pipeline UpdateEnvironment SUCCEEDED",
   "log": {
     "level": "info"
   },
@@ -69,7 +69,7 @@
     "type": "filebeat",
     "version": "8.18.0",
     "name": "filebeat-aws-ca-west-1",
-    "ephemeral_id": "579z65zpsae"
+    "ephemeral_id": "ovlw3bwpcmj"
   },
   "input": {
     "type": "aws-cloudwatch"

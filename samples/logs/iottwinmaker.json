@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "eu-west-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "iottwinmaker"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "WorkspaceId": "smart-building-ws"
+      "WorkspaceId": "oil-refinery-ws"
     },
     "iottwinmaker": {
-      "workspace_id": "smart-building-ws",
-      "entity_id": "entity-pp9nnflc",
-      "entity_name": "ConveyorBelt-01",
-      "component_type_id": "com.example.pressure",
-      "property_name": "Pressure",
-      "property_value": 201.26941455348646,
-      "scene_id": "scene-c03pc71e",
-      "sync_source": "IOT_DEVICE_DATA",
+      "workspace_id": "oil-refinery-ws",
+      "entity_id": "entity-4p1tklrf",
+      "entity_name": "ServerRack-B4",
+      "component_type_id": "com.example.temperature",
+      "property_name": "Vibration",
+      "property_value": 222.36971992102394,
+      "scene_id": "scene-spq3j0qs",
+      "sync_source": "CUSTOM",
       "update_reason": "CONNECTIVITY_CHANGE"
     },
     "s3": {
       "bucket": {
-        "name": "aws-iottwinmaker-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-iottwinmaker-logs-814726593401"
+        "name": "aws-iottwinmaker-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-iottwinmaker-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/814726593401/iottwinmaker/ap-northeast-2/2026/04/01/iottwinmaker_YYOPXOAIEIM.log.gz"
+        "key": "AWSLogs/738291046572/iottwinmaker/eu-west-3/2026/04/02/iottwinmaker_8QSLPEX8NGY.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/iottwinmaker/logs",
-      "log_stream": "ap-northeast-2/e3v14vss",
-      "ingestion_time": "2026-04-01T12:55:20.524Z"
+      "log_stream": "eu-west-3/3e6k8fdt",
+      "ingestion_time": "2026-04-02T20:50:22.428Z"
     }
   },
   "event": {
-    "action": "CreateScene",
+    "action": "GetPropertyValue",
     "outcome": "success",
     "category": ["iot", "process"],
     "dataset": "aws.iottwinmaker",
     "provider": "iottwinmaker.amazonaws.com",
     "module": "aws"
   },
-  "message": "IoT TwinMaker CreateScene: workspace=smart-building-ws, entity=ConveyorBelt-01, Pressure=201.26941455348646",
+  "message": "IoT TwinMaker GetPropertyValue: workspace=oil-refinery-ws, entity=ServerRack-B4, Vibration=222.36971992102394",
   "log": {
     "level": "info"
   },
@@ -68,8 +68,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-2",
-    "ephemeral_id": "h2jo3t1l2if"
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "1a2b64eh2v1"
   },
   "input": {
     "type": "aws-cloudwatch"

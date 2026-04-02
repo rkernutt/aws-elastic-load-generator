@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "systemsmanager"
@@ -13,20 +13,19 @@
   },
   "aws": {
     "ssm": {
-      "command_id": "17j4ammo-qd07-wjek",
-      "document_name": "AWS-ApplyPatchBaseline",
-      "instance_id": "i-46arrns4bi7",
-      "action": "PutParameter",
-      "execution_status": "Success",
-      "response_code": 0,
-      "parameter_name": "/prod/db/password",
+      "command_id": "tg6e6san-sxh1-s5ww",
+      "document_name": "AWS-ConfigureAWSPackage",
+      "instance_id": "i-clatnkc9g1",
+      "action": "SendCommand",
+      "execution_status": "Failed",
+      "response_code": 127,
       "structured_logging": false,
       "metrics": {
         "CommandsSucceeded": {
-          "sum": 1
+          "sum": 0
         },
         "CommandsFailed": {
-          "sum": 0
+          "sum": 1
         },
         "CommandsTimedOut": {
           "sum": 0
@@ -38,39 +37,44 @@
           "sum": 1
         },
         "SessionDuration": {
-          "avg": 484
+          "avg": 848
         },
         "PatchComplianceCount": {
-          "avg": 111
+          "avg": 266
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-ssm-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-ssm-logs-293847561023"
+        "name": "aws-ssm-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-ssm-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/ssm/eu-north-1/2026/04/01/ssm_KZHFFDN3OI.log.gz"
+        "key": "AWSLogs/814726593401/ssm/eu-west-3/2026/04/02/ssm_EYPDYR14HZU.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/ssm/logs",
-      "log_stream": "eu-north-1/azha6b43",
-      "ingestion_time": "2026-04-01T12:55:20.525Z"
+      "log_stream": "eu-west-3/sb5pyk19",
+      "ingestion_time": "2026-04-02T20:50:22.429Z"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": ["process", "configuration", "host"],
     "dataset": "aws.ssm",
     "provider": "ssm.amazonaws.com",
-    "duration": 20000000000,
+    "duration": 141000000000,
     "module": "aws"
   },
-  "message": "SSM PutParameter on i-46arrns4bi7: AWS-ApplyPatchBaseline",
+  "message": "SSM SendCommand FAILED on i-clatnkc9g1: exit code 2",
+  "error": {
+    "code": "SSMError",
+    "message": "SSM command failed",
+    "type": "process"
+  },
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "service": {
     "name": "ssm",
@@ -87,8 +91,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-north-1",
-    "ephemeral_id": "om9hi79sooo"
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "if1haoxe83s"
   },
   "input": {
     "type": "aws-cloudwatch"

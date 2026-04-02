@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "pcs"
@@ -13,34 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterId": "pcs-1i4n7w6w",
-      "QueueName": "batch"
+      "ClusterId": "pcs-2q23d5w2",
+      "QueueName": "high-priority"
     },
     "pcs": {
-      "cluster_id": "pcs-1i4n7w6w",
+      "cluster_id": "pcs-2q23d5w2",
       "scheduler": "slurm",
-      "queue_name": "batch",
-      "job_id": "job-450066",
-      "job_state": "COMPLETED",
+      "queue_name": "high-priority",
+      "job_id": "job-407662",
+      "job_state": "RUNNING",
       "metrics": {
-        "running_jobs": 305,
-        "pending_jobs": 10,
-        "compute_nodes_active": 300
+        "running_jobs": 103,
+        "pending_jobs": 152,
+        "compute_nodes_active": 719
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-parallelcomputing-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-parallelcomputing-logs-738291046572"
+        "name": "aws-parallelcomputing-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-parallelcomputing-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/738291046572/parallelcomputing/ap-southeast-3/2026/04/01/parallelcomputing_SRJ8MBOGJAK.log.gz"
+        "key": "AWSLogs/293847561023/parallelcomputing/ap-northeast-3/2026/04/02/parallelcomputing_XLRT9JVS17.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/parallelcomputing/logs",
-      "log_stream": "ap-southeast-3/xs6uak0o",
-      "ingestion_time": "2026-04-01T12:55:20.470Z"
+      "log_stream": "ap-northeast-3/ihpeimwm",
+      "ingestion_time": "2026-04-02T20:50:22.375Z"
     }
   },
   "event": {
@@ -48,7 +48,7 @@
     "category": ["process"],
     "dataset": "aws.pcs",
     "provider": "pcs.amazonaws.com",
-    "duration": 3439000000,
+    "duration": 513000000,
     "module": "aws"
   },
   "data_stream": {
@@ -56,13 +56,13 @@
     "dataset": "aws.pcs",
     "namespace": "default"
   },
-  "message": "PCS cluster pcs-1i4n7w6w: 305 running, 10 pending, 300 nodes active",
+  "message": "PCS cluster pcs-2q23d5w2: 103 running, 152 pending, 719 nodes active",
   "log": {
     "level": "info"
   },
   "host": {
-    "name": "ip-6-216-248-122.ec2.internal",
-    "hostname": "parallelcomputing-a3a8ks46"
+    "name": "ip-104-129-205-134.ec2.internal",
+    "hostname": "parallelcomputing-urh0c52q"
   },
   "service": {
     "name": "parallelcomputing",
@@ -74,8 +74,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-3",
-    "ephemeral_id": "yvrz7h27ut"
+    "name": "filebeat-aws-ap-northeast-3",
+    "ephemeral_id": "9diggp7i5y4"
   },
   "input": {
     "type": "aws-cloudwatch"

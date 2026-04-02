@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "fargate"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "api-backend",
+      "ServiceName": "worker",
       "ClusterName": "batch-workers-cluster",
-      "TaskDefinitionFamily": "api-backend"
+      "TaskDefinitionFamily": "worker"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 60
+          "avg": 52
         },
         "CPUReservation": {
-          "avg": 18.116963381279
+          "avg": 18.89167568331759
         },
         "MemoryUtilization": {
-          "avg": 35.4765024897784
+          "avg": 20.866968742723685
         },
         "MemoryReservation": {
-          "avg": 40.62502546446281
+          "avg": 42.58526639995297
         },
         "GPUReservation": {
           "avg": 0
@@ -38,31 +38,31 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-fargate-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-fargate-logs-738291046572"
+        "name": "aws-fargate-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-fargate-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/738291046572/fargate/me-central-1/2026/04/01/fargate_DWBCN7SD8Y.log.gz"
+        "key": "AWSLogs/501938274650/fargate/ap-northeast-1/2026/04/02/fargate_6J1Z85MQLUH.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/fargate/logs",
-      "log_stream": "me-central-1/kefywjr2",
-      "ingestion_time": "2026-04-01T12:55:20.469Z"
+      "log_stream": "ap-northeast-1/5l8ijvyf",
+      "ingestion_time": "2026-04-02T20:50:22.374Z"
     }
   },
   "container": {
-    "id": "xoz5o7ph898",
-    "name": "api-backend",
+    "id": "9t162ppm2b",
+    "name": "worker",
     "image": {
-      "name": "myrepo/api-backend:latest",
+      "name": "myrepo/worker:latest",
       "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 46202,
-    "name": "api-backend"
+    "pid": 60309,
+    "name": "worker"
   },
   "log": {
     "level": "info"
@@ -72,13 +72,13 @@
     "category": ["process", "container"],
     "dataset": "aws.ecs_fargate",
     "provider": "ecs.amazonaws.com",
-    "duration": 2015000000000,
+    "duration": 1638000000000,
     "module": "aws"
   },
-  "message": "Task registered with load balancer",
+  "message": "{\"cluster\":\"batch-workers-cluster\",\"taskId\":\"nmtvnnmd6gm\",\"taskDefinition\":\"worker:13\",\"container\":\"worker\",\"level\":\"info\",\"message\":\"Task deregistered gracefully\",\"timestamp\":\"2026-04-02T20:50:22.062Z\"}",
   "host": {
-    "name": "ip-232-186-80-197.ec2.internal",
-    "hostname": "fargate-er4t66lo"
+    "name": "ip-199-158-15-79.ec2.internal",
+    "hostname": "fargate-tjzoiav9"
   },
   "service": {
     "name": "fargate",
@@ -95,8 +95,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-central-1",
-    "ephemeral_id": "b8ywdcuaz6v"
+    "name": "filebeat-aws-ap-northeast-1",
+    "ephemeral_id": "yp3epfg8tgc"
   },
   "input": {
     "type": "aws-cloudwatch"

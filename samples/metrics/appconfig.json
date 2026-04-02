@@ -1,0 +1,60 @@
+{
+  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "ecs": {
+    "version": "8.11.0"
+  },
+  "cloud": {
+    "provider": "aws",
+    "region": "ap-south-2",
+    "account": {
+      "id": "501938274650",
+      "name": "globex-security-tooling"
+    }
+  },
+  "agent": {
+    "type": "metricbeat",
+    "version": "8.18.0",
+    "name": "metricbeat-aws-ap-south-2",
+    "ephemeral_id": "atrdb0lhdot"
+  },
+  "aws": {
+    "appconfig": {
+      "metrics": {
+        "RequestCount": {
+          "avg": 971306,
+          "sum": 971306,
+          "count": 1
+        },
+        "ErrorCount": {
+          "avg": 4866,
+          "sum": 4866,
+          "count": 1
+        },
+        "SuccessCount": {
+          "avg": 847657,
+          "sum": 847657,
+          "count": 1
+        }
+      },
+      "dimensions": {
+        "Region": "us-east-1"
+      }
+    }
+  },
+  "metricset": {
+    "name": "appconfig",
+    "period": 60000
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "aws.appconfig",
+    "namespace": "default"
+  },
+  "input": {
+    "type": "aws-cloudwatch"
+  },
+  "event": {
+    "dataset": "aws.appconfig",
+    "module": "aws"
+  }
+}

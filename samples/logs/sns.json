@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "sns"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "dimensions": {
-      "TopicName": "user-alerts"
+      "TopicName": "deployment-events"
     },
     "sns": {
       "metrics": {
         "NumberOfMessagesPublished": {
-          "sum": 6770
+          "sum": 5535
         },
         "NumberOfNotificationsDelivered": {
-          "sum": 6770
+          "sum": 5535
         },
         "NumberOfNotificationsFailed": {
           "sum": 0
@@ -42,7 +42,7 @@
           "sum": 0
         },
         "PublishSize": {
-          "avg": 171056
+          "avg": 25871
         },
         "SMSSuccessRate": {},
         "SMSMonthToDateSpentUSD": {
@@ -52,17 +52,17 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-sns-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-sns-logs-814726593401"
+        "name": "aws-sns-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-sns-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/814726593401/sns/eu-west-2/2026/04/01/sns_8POHYER4QEM.log.gz"
+        "key": "AWSLogs/293847561023/sns/ap-northeast-1/2026/04/02/sns_ECK6PWMC89V.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/sns/logs",
-      "log_stream": "eu-west-2/6ot3hf96",
-      "ingestion_time": "2026-04-01T12:55:20.512Z"
+      "log_stream": "ap-northeast-1/2wqhoik8",
+      "ingestion_time": "2026-04-02T20:50:22.415Z"
     }
   },
   "event": {
@@ -70,10 +70,10 @@
     "category": ["process"],
     "dataset": "aws.sns",
     "provider": "sns.amazonaws.com",
-    "duration": 73185198.29775374,
+    "duration": 364657063.0390289,
     "module": "aws"
   },
-  "message": "SNS delivered: user-alerts -> sqs (21264B)",
+  "message": "SNS delivered: deployment-events -> email (38442B)",
   "log": {
     "level": "info"
   },
@@ -92,8 +92,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-2",
-    "ephemeral_id": "dt7zge2e5jm"
+    "name": "filebeat-aws-ap-northeast-1",
+    "ephemeral_id": "mdqr89gtnr"
   },
   "input": {
     "type": "aws-cloudwatch"

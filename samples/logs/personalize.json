@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "personalize"
@@ -14,52 +14,46 @@
   "aws": {
     "dimensions": {
       "CampaignArn": "personalized-ranking",
-      "Operation": "GetRecommendations"
+      "Operation": "CreateSolution"
     },
     "personalize": {
       "campaign_name": "personalized-ranking",
-      "action": "GetRecommendations",
-      "user_id": "user-hwp3b5um",
-      "num_results_returned": 0,
-      "recipe": "aws-similar-items",
-      "solution_version": "2.0.0",
-      "duration_ms": 1454,
-      "error_code": "ResourceNotFoundException"
+      "action": "CreateSolution",
+      "user_id": "user-yvqn7ysc",
+      "num_results_returned": 23,
+      "recipe": "aws-hrnn",
+      "solution_version": "1.1.2",
+      "duration_ms": 99
     },
     "s3": {
       "bucket": {
-        "name": "aws-personalize-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-personalize-logs-738291046572"
+        "name": "aws-personalize-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-personalize-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/738291046572/personalize/il-central-1/2026/04/01/personalize_EO75SSAACQE.log.gz"
+        "key": "AWSLogs/501938274650/personalize/ap-northeast-2/2026/04/02/personalize_GKER2Q0EC7U.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/personalize/logs",
-      "log_stream": "il-central-1/bobi3j05",
-      "ingestion_time": "2026-04-01T12:55:20.521Z"
+      "log_stream": "ap-northeast-2/sujp8f90",
+      "ingestion_time": "2026-04-02T20:50:22.425Z"
     }
   },
   "user": {
-    "name": "user-hwp3b5um"
+    "name": "user-yvqn7ysc"
   },
   "event": {
-    "duration": 1454105431.3164992,
-    "outcome": "failure",
+    "duration": 98628399.6464012,
+    "outcome": "success",
     "category": ["process"],
     "dataset": "aws.personalize",
     "provider": "personalize.amazonaws.com",
     "module": "aws"
   },
-  "message": "Personalize GetRecommendations FAILED for personalized-ranking",
+  "message": "Personalize CreateSolution: 23 recs for user-yvqn7ysc in 99ms",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "PersonalizeError",
-    "message": "Personalize operation failed",
-    "type": "ml"
+    "level": "info"
   },
   "service": {
     "name": "personalize",
@@ -76,8 +70,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-il-central-1",
-    "ephemeral_id": "qm2qhsl4vcn"
+    "name": "filebeat-aws-ap-northeast-2",
+    "ephemeral_id": "gbxicoflay8"
   },
   "input": {
     "type": "aws-cloudwatch"

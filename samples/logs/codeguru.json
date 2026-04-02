@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "eu-south-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "codeguru"
@@ -14,29 +14,29 @@
   "aws": {
     "codeguru": {
       "product": "Reviewer",
-      "repository_name": "frontend-app",
-      "association_id": "qswp2f61tx",
-      "finding_id": "nfxh15uju3d",
-      "category": "Logging",
+      "repository_name": "backend-api",
+      "association_id": "smgnu5nku2h",
+      "finding_id": "ohy78sixddd",
+      "category": "AWSBestPractices",
       "severity": "High",
-      "finding_description": "AWSBestPractices:S3BucketMissingServerSideEncryption",
-      "code_file": "lambda_function.py",
-      "line_number": 29,
-      "pull_request_id": 191
+      "finding_description": "Security:TaintedDataUsedInSecurityCheck",
+      "code_file": "server/routes.js",
+      "line_number": 127,
+      "pull_request_id": 74
     },
     "s3": {
       "bucket": {
-        "name": "aws-codeguru-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-codeguru-logs-293847561023"
+        "name": "aws-codeguru-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-codeguru-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/codeguru/ap-southeast-2/2026/04/01/codeguru_ZUB9UYSPTE.log.gz"
+        "key": "AWSLogs/814726593401/codeguru/eu-south-2/2026/04/02/codeguru_0DHW8S0MNBSM.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/codeguru/logs",
-      "log_stream": "ap-southeast-2/10nh0ag7",
-      "ingestion_time": "2026-04-01T12:55:20.514Z"
+      "log_stream": "eu-south-2/u5wlx415",
+      "ingestion_time": "2026-04-02T20:50:22.418Z"
     }
   },
   "event": {
@@ -46,7 +46,7 @@
     "provider": "codeguru.amazonaws.com",
     "module": "aws"
   },
-  "message": "CodeGuru Reviewer [frontend-app] High: AWSBestPractices",
+  "message": "CodeGuru Reviewer [backend-api] High: Security",
   "log": {
     "level": "warn"
   },
@@ -65,8 +65,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-2",
-    "ephemeral_id": "t9t70r6715"
+    "name": "filebeat-aws-eu-south-2",
+    "ephemeral_id": "t3ny5xudr8"
   },
   "input": {
     "type": "aws-cloudwatch"

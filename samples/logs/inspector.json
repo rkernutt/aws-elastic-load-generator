@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "us-east-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "inspector2"
@@ -16,33 +16,27 @@
       "Severity": "INFORMATIONAL"
     },
     "inspector2": {
-      "finding_id": "arn:aws:inspector2:me-south-1:293847561023:finding/efvgw6co-0fo1-59zc-1jxt-u7b7cil9jbm",
-      "finding_type": "PACKAGE_VULNERABILITY",
-      "finding_status": "ACTIVE",
+      "finding_id": "arn:aws:inspector2:us-east-2:814726593401:finding/85n3hkih-tkuo-dvs5-8jcf-g0czpxpgvpw",
+      "finding_type": "CODE_VULNERABILITY",
+      "finding_status": "SUPPRESSED",
       "severity": "INFORMATIONAL",
-      "severity_score": 3.5,
-      "exploitability": "FUNCTIONAL",
-      "resource_type": "AWS_ECR_CONTAINER_IMAGE",
-      "resource_id": "293847561023.dkr.ecr.me-south-1.amazonaws.com/my-repo:latest",
-      "first_observed_at": "2026-03-05T12:55:20.199Z",
-      "last_observed_at": "2026-04-01T12:55:20.199Z",
-      "package_vulnerability": {
-        "cve_id": "CVE-2022-93315",
-        "source": "GHSA",
-        "cvss3_score": 3.5108227633686258,
-        "vulnerable_packages": [
-          {
-            "name": "jackson-databind",
-            "version": "1.14.9",
-            "fixed_in_version": "3.14.20",
-            "package_manager": "PYTHON"
-          }
-        ],
-        "related_vulnerabilities": []
+      "severity_score": 0.4,
+      "exploitability": "PROOF_OF_CONCEPT",
+      "resource_type": "AWS_LAMBDA_FUNCTION",
+      "resource_id": "arn:aws:lambda:us-east-2:814726593401:function:my-fn",
+      "first_observed_at": "2026-03-29T20:50:22.062Z",
+      "last_observed_at": "2026-04-02T20:50:22.062Z",
+      "code_vulnerability": {
+        "cwes": ["CWE-20"],
+        "detector_name": "CodeGuru Detector",
+        "file_path": {
+          "name": "handler.js",
+          "line_number": 233
+        }
       },
       "metrics": {
         "TotalFindings": {
-          "sum": 100
+          "sum": 97
         },
         "CriticalFindings": {
           "sum": 0
@@ -54,38 +48,33 @@
           "sum": 0
         },
         "LowFindings": {
-          "sum": 16
+          "sum": 14
         },
         "CoveredResources": {
-          "avg": 417
+          "avg": 1711
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-inspector-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-inspector-logs-293847561023"
+        "name": "aws-inspector-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-inspector-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/inspector/me-south-1/2026/04/01/inspector_B5B9VGL5PT9.log.gz"
+        "key": "AWSLogs/814726593401/inspector/us-east-2/2026/04/02/inspector_FLDGCT6RK9.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/inspector/logs",
-      "log_stream": "me-south-1/9d00ep1a",
-      "ingestion_time": "2026-04-01T12:55:20.476Z"
+      "log_stream": "us-east-2/4c98cb08",
+      "ingestion_time": "2026-04-02T20:50:22.381Z"
     }
   },
   "vulnerability": {
     "severity": "INFORMATIONAL",
-    "id": "CVE-2022-93315",
     "score": {
-      "base": 3.5108227633686258
+      "base": 0.376600767404897
     }
-  },
-  "package": {
-    "name": "jackson-databind",
-    "version": "1.14.9"
   },
   "event": {
     "outcome": "success",
@@ -95,7 +84,7 @@
     "provider": "inspector2.amazonaws.com",
     "module": "aws"
   },
-  "message": "Inspector2 [INFORMATIONAL]: CVE-2022-93315 in jackson-databind 1.14.9 on AWS_ECR_CONTAINER_IMAGE (fix: 3.14.20)",
+  "message": "Inspector2 [INFORMATIONAL]: CODE_VULNERABILITY detected on AWS_LAMBDA_FUNCTION",
   "log": {
     "level": "info"
   },
@@ -114,8 +103,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-south-1",
-    "ephemeral_id": "1k441do8s07"
+    "name": "filebeat-aws-us-east-2",
+    "ephemeral_id": "vhnizv4mv4k"
   },
   "input": {
     "type": "http_endpoint"

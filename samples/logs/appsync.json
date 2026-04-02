@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "us-east-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "appsync"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "appsync": {
-      "api_id": "UQ561SKZ1Z",
-      "api_name": "mobile-api",
-      "operation_type": "subscription",
+      "api_id": "EGH8F02Z0TR",
+      "api_name": "partner-api",
+      "operation_type": "mutation",
       "operation_name": "updateInventory",
-      "data_source_type": "AWS_LAMBDA",
-      "duration_ms": 259,
+      "data_source_type": "HTTP",
+      "duration_ms": 399,
       "status_code": 200,
       "metrics": {
         "RequestCount": {
-          "sum": 2685
+          "sum": 3708
         },
         "4XXError": {
           "sum": 0
@@ -31,24 +31,24 @@
           "sum": 0
         },
         "Latency": {
-          "avg": 259.2829356658333,
-          "p99": 464.2
+          "avg": 399.2597517219182,
+          "p99": 1171.1
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-appsync-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-appsync-logs-164820739518"
+        "name": "aws-appsync-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-appsync-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/164820739518/appsync/eu-central-1/2026/04/01/appsync_3Q2UUGX8JX1.log.gz"
+        "key": "AWSLogs/501938274650/appsync/us-east-2/2026/04/02/appsync_HFFUI7P1AQS.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/appsync/logs",
-      "log_stream": "eu-central-1/sprdzxxg",
-      "ingestion_time": "2026-04-01T12:55:20.513Z"
+      "log_stream": "us-east-2/3t11y9mj",
+      "ingestion_time": "2026-04-02T20:50:22.416Z"
     }
   },
   "http": {
@@ -57,14 +57,14 @@
     }
   },
   "event": {
-    "duration": 259282935.6658333,
+    "duration": 399259751.72191817,
     "outcome": "success",
     "category": "api",
     "dataset": "aws.appsync",
     "provider": "appsync.amazonaws.com",
     "module": "aws"
   },
-  "message": "AppSync subscription.updateInventory: 259ms [mobile-api]",
+  "message": "AppSync mutation.updateInventory: 399ms [partner-api]",
   "log": {
     "level": "info"
   },
@@ -83,8 +83,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-1",
-    "ephemeral_id": "atl2wmpuofw"
+    "name": "filebeat-aws-us-east-2",
+    "ephemeral_id": "4scdpzz81e6"
   },
   "input": {
     "type": "aws-cloudwatch"

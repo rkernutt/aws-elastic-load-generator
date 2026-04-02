@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "us-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "appstream"
@@ -13,48 +13,54 @@
   },
   "aws": {
     "appstream": {
-      "stack_name": "data-analytics",
+      "stack_name": "secure-access",
       "fleet_name": "on-demand-fleet",
-      "user_id": "user_o1ggzkz9@company.com",
-      "session_id": "yx8hvhf3ayo",
-      "event_type": "CAPACITY_CHANGED",
+      "user_id": "user_q3ys8oeo@company.com",
+      "session_id": "g90v5s71pou",
+      "event_type": "CLIPBOARD_COPY",
       "instance_type": "stream.memory.xlarge",
       "idle_disconnect_timeout_minutes": 60,
-      "max_user_duration_hours": 12
+      "max_user_duration_hours": 2,
+      "error_code": "IAM_SERVICE_ROLE_ERROR"
     },
     "s3": {
       "bucket": {
-        "name": "aws-appstream-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-appstream-logs-293847561023"
+        "name": "aws-appstream-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-appstream-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/293847561023/appstream/eu-south-1/2026/04/01/appstream_LTSQVW8P4BH.log.gz"
+        "key": "AWSLogs/738291046572/appstream/us-west-2/2026/04/02/appstream_L5P50KUNMB.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/appstream/logs",
-      "log_stream": "eu-south-1/tobvbu23",
-      "ingestion_time": "2026-04-01T12:55:20.530Z"
+      "log_stream": "us-west-2/yc1p8ik9",
+      "ingestion_time": "2026-04-02T20:50:22.434Z"
     }
   },
   "user": {
-    "name": "user_o1ggzkz9@company.com"
+    "name": "user_q3ys8oeo@company.com"
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": ["host", "session"],
     "dataset": "aws.appstream",
     "provider": "appstream2.amazonaws.com",
-    "duration": 233000000,
+    "duration": 11789000000,
     "module": "aws"
   },
-  "message": "AppStream CAPACITY_CHANGED: user_o1ggzkz9@company.com [data-analytics]",
+  "message": "AppStream secure-access CLIPBOARD_COPY FAILED: Fleet at capacity:",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "USER_NOT_AUTHORIZED",
+    "message": "AppStream operation failed",
+    "type": "session"
   },
   "host": {
-    "name": "ip-101-48-134-186.ec2.internal",
-    "hostname": "appstream-22uvgl0l"
+    "name": "ip-158-234-74-106.ec2.internal",
+    "hostname": "appstream-q8lri23g"
   },
   "service": {
     "name": "appstream",
@@ -71,8 +77,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-1",
-    "ephemeral_id": "tlzh821vpy"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "81v01z8uw05"
   },
   "input": {
     "type": "aws-cloudwatch"

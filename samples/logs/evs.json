@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "ap-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "evs"
@@ -13,33 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentId": "evs-yotw271l"
+      "EnvironmentId": "evs-7ct1l3mv"
     },
     "evs": {
-      "environment_id": "evs-yotw271l",
-      "vcenter_hostname": "vcenter-7ljfbn.internal",
+      "environment_id": "evs-7ct1l3mv",
+      "vcenter_hostname": "vcenter-70uq55.internal",
       "esxi_version": "8.0.3",
-      "host_count": 4,
-      "vsan_datastore_id": "datastore-493",
+      "host_count": 19,
+      "vsan_datastore_id": "datastore-430",
       "metrics": {
-        "hosts_online": 4,
-        "vsan_capacity_used_tb": 13.474668803601276,
-        "vcpu_allocation_ratio": 6.676017402530728
+        "hosts_online": 19,
+        "vsan_capacity_used_tb": 52.107866341491906,
+        "vcpu_allocation_ratio": 1.2294869650465239
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-evs-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-evs-logs-293847561023"
+        "name": "aws-evs-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-evs-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/evs/sa-east-1/2026/04/01/evs_95CAQ4SEWP.log.gz"
+        "key": "AWSLogs/814726593401/evs/ap-south-1/2026/04/02/evs_HIS2G4VDXBJ.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/evs/logs",
-      "log_stream": "sa-east-1/nee0cx39",
-      "ingestion_time": "2026-04-01T12:55:20.470Z"
+      "log_stream": "ap-south-1/0scubzve",
+      "ingestion_time": "2026-04-02T20:50:22.375Z"
     }
   },
   "event": {
@@ -47,7 +47,7 @@
     "category": ["host"],
     "dataset": "aws.evs",
     "provider": "evs.amazonaws.com",
-    "duration": 311000000,
+    "duration": 949000000,
     "module": "aws"
   },
   "data_stream": {
@@ -55,13 +55,13 @@
     "dataset": "aws.evs",
     "namespace": "default"
   },
-  "message": "EVS environment evs-yotw271l: 4/4 hosts, vSAN=13.5TB, vCPU ratio=6.7",
+  "message": "EVS environment evs-7ct1l3mv: 19/19 hosts, vSAN=52.1TB, vCPU ratio=1.2",
   "log": {
     "level": "info"
   },
   "host": {
-    "name": "ip-164-2-230-195.ec2.internal",
-    "hostname": "evs-2nvustye"
+    "name": "ip-151-67-43-70.ec2.internal",
+    "hostname": "evs-pb70aih2"
   },
   "service": {
     "name": "evs",
@@ -73,8 +73,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-sa-east-1",
-    "ephemeral_id": "yk00nxaegdq"
+    "name": "filebeat-aws-ap-south-1",
+    "ephemeral_id": "2rw7zbug583"
   },
   "input": {
     "type": "aws-cloudwatch"

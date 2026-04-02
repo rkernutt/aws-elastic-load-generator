@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "incident-manager"
@@ -13,40 +13,40 @@
   },
   "aws": {
     "incident_manager": {
-      "response_plan": "database-outage",
-      "incident_id": "inc-kg6ezlcw6k",
-      "event_type": "AddTimeline",
-      "impact": 1,
-      "status": "OPEN",
-      "title": "database outage — auto-detected",
-      "runbook_arn": "arn:aws:ssm:us-west-1:293847561023:automation-definition/database-outage-runbook",
-      "engagements": 3,
-      "timeline_events": 4,
+      "response_plan": "security-breach",
+      "incident_id": "inc-b983biyw6t",
+      "event_type": "CreateIncident",
+      "impact": 5,
+      "status": "RESOLVED",
+      "title": "security breach — auto-detected",
+      "runbook_arn": "arn:aws:ssm:us-east-1:164820739518:automation-definition/security-breach-runbook",
+      "engagements": 5,
+      "timeline_events": 19,
       "related_items": 4,
-      "duration_minutes": 80
+      "duration_minutes": 27
     },
     "s3": {
       "bucket": {
-        "name": "aws-incidentmanager-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-incidentmanager-logs-293847561023"
+        "name": "aws-incidentmanager-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-incidentmanager-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/293847561023/incidentmanager/us-west-1/2026/04/01/incidentmanager_6CYJIUBXCYX.log.gz"
+        "key": "AWSLogs/164820739518/incidentmanager/us-east-1/2026/04/02/incidentmanager_IBQ5TZ9FHB.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/incidentmanager/logs",
-      "log_stream": "us-west-1/f8bub3bq",
-      "ingestion_time": "2026-04-01T12:55:20.481Z"
+      "log_stream": "us-east-1/pzy7xk2y",
+      "ingestion_time": "2026-04-02T20:50:22.385Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 9844294766,
+    "duration": 26987700615,
     "module": "aws",
     "dataset": "aws.incidentmanager"
   },
-  "message": "Incident Manager: AddTimeline on incident database-outage",
+  "message": "Incident Manager: CreateIncident on incident security-breach",
   "service": {
     "name": "incidentmanager",
     "type": "aws"
@@ -65,8 +65,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-west-1",
-    "ephemeral_id": "96tfi5iym5"
+    "name": "filebeat-aws-us-east-1",
+    "ephemeral_id": "3gvyi8n1p7u"
   },
   "input": {
     "type": "http_endpoint"

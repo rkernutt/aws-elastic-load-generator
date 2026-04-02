@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "DatastoreId": "oebbw7id-iztu-j4v2-jwkm-z0630tkwchc",
-      "ResourceType": "Observation"
+      "DatastoreId": "djbhdgra-2si2-5ecl-0z3g-no7be9zbipo",
+      "ResourceType": "DiagnosticReport"
     },
     "healthlake": {
-      "datastore_id": "oebbw7id-iztu-j4v2-jwkm-z0630tkwchc",
-      "datastore_name": "ehr-primary",
-      "resource_type": "Observation",
+      "datastore_id": "djbhdgra-2si2-5ecl-0z3g-no7be9zbipo",
+      "datastore_name": "diagnostics-lake",
+      "resource_type": "DiagnosticReport",
       "operation": "StartFHIRImportJob",
-      "request_id": "RVWDDYBF-P2QQ-PJXR-5UR7-6LNSRA2O7J4",
+      "request_id": "C37UT7NL-L34B-RVX2-RT07-2D10WJ14YB9",
       "response_code": 200,
-      "import_job_id": "import-vsrlmy7nxo9",
+      "import_job_id": "import-lhfi07xy7t",
       "fhir_version": "R4"
     },
     "s3": {
@@ -32,13 +32,13 @@
         "arn": "arn:aws:s3:::aws-healthlake-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/164820739518/healthlake/af-south-1/2026/04/01/healthlake_NGE066TD6G.log.gz"
+        "key": "AWSLogs/164820739518/healthlake/ap-east-1/2026/04/02/healthlake_UROWBS8LCI.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/healthlake/logs",
-      "log_stream": "af-south-1/ab2dfmj9",
-      "ingestion_time": "2026-04-01T12:55:20.522Z"
+      "log_stream": "ap-east-1/xuiv93uy",
+      "ingestion_time": "2026-04-02T20:50:22.426Z"
     }
   },
   "log": {
@@ -50,10 +50,10 @@
     "category": ["process", "database"],
     "dataset": "aws.healthlake",
     "provider": "healthlake.amazonaws.com",
-    "duration": 270000000,
+    "duration": 463000000,
     "module": "aws"
   },
-  "message": "HealthLake StartFHIRImportJob: datastore=ehr-primary, resource=Observation, 270ms",
+  "message": "HealthLake StartFHIRImportJob: datastore=diagnostics-lake, resource=DiagnosticReport, 463ms",
   "service": {
     "name": "healthlake",
     "type": "aws"
@@ -69,8 +69,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-af-south-1",
-    "ephemeral_id": "r5ykx942slp"
+    "name": "filebeat-aws-ap-east-1",
+    "ephemeral_id": "noa082hh49n"
   },
   "input": {
     "type": "aws-cloudwatch"

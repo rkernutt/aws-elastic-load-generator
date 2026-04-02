@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "freertos"
@@ -14,37 +14,37 @@
   "aws": {
     "freertos": {
       "thing_name": "actuator-03",
-      "event_type": "MQTT_CONNECT",
+      "event_type": "SHADOW_UPDATE",
       "board": "Infineon-PSoC6",
-      "firmware_version": "2.3.6",
-      "heap_free_bytes": 24765,
-      "stack_high_water_mark": 3413,
-      "uptime_seconds": 838538,
-      "mqtt_messages_sent": 7967,
-      "mqtt_messages_received": 1606
+      "firmware_version": "1.6.12",
+      "heap_free_bytes": 39500,
+      "stack_high_water_mark": 186,
+      "uptime_seconds": 160489,
+      "mqtt_messages_sent": 4456,
+      "mqtt_messages_received": 3600
     },
     "s3": {
       "bucket": {
-        "name": "aws-freertos-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-freertos-logs-738291046572"
+        "name": "aws-freertos-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-freertos-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/738291046572/freertos/eu-west-1/2026/04/01/freertos_G6CNEU8RD55.log.gz"
+        "key": "AWSLogs/814726593401/freertos/ap-southeast-3/2026/04/02/freertos_TFY2IGUVL7.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/freertos/logs",
-      "log_stream": "eu-west-1/tjz0yvbg",
-      "ingestion_time": "2026-04-01T12:55:20.525Z"
+      "log_stream": "ap-southeast-3/tnbyx4ft",
+      "ingestion_time": "2026-04-02T20:50:22.428Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 2892325,
+    "duration": 758249,
     "module": "aws",
     "dataset": "aws.freertos"
   },
-  "message": "FreeRTOS actuator-03: MQTT_CONNECT OK (Infineon-PSoC6)",
+  "message": "FreeRTOS actuator-03: SHADOW_UPDATE OK (Infineon-PSoC6)",
   "service": {
     "name": "freertos",
     "type": "aws"
@@ -63,8 +63,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-1",
-    "ephemeral_id": "0m5w9m7zire"
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "us5uaw8x7c"
   },
   "input": {
     "type": "aws-cloudwatch"

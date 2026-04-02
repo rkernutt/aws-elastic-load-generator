@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "organizations"
@@ -13,36 +13,36 @@
   },
   "aws": {
     "organizations": {
-      "action": "MoveAccount",
-      "account_id": "814726593401",
-      "account_name": "prod-workloads",
+      "action": "CreateOrganizationalUnit",
+      "account_id": "293847561023",
+      "account_name": "sandbox-dev",
       "organizational_unit": "Infrastructure"
     },
     "s3": {
       "bucket": {
-        "name": "aws-organizations-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-organizations-logs-814726593401"
+        "name": "aws-organizations-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-organizations-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/814726593401/organizations/us-east-1/2026/04/01/organizations_P3RQ9BWVICM.log.gz"
+        "key": "AWSLogs/293847561023/organizations/us-east-1/2026/04/02/organizations_VO4Z0N148I.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/organizations/logs",
-      "log_stream": "us-east-1/fadtzn16",
-      "ingestion_time": "2026-04-01T12:55:20.526Z"
+      "log_stream": "us-east-1/7qprap6s",
+      "ingestion_time": "2026-04-02T20:50:22.430Z"
     }
   },
   "event": {
-    "action": "MoveAccount",
+    "action": "CreateOrganizationalUnit",
     "outcome": "success",
     "category": ["configuration", "iam"],
     "dataset": "aws.organizations",
     "provider": "organizations.amazonaws.com",
-    "duration": 1986000000,
+    "duration": 1219000000,
     "module": "aws"
   },
-  "message": "Organizations MoveAccount: Workloads",
+  "message": "Organizations CreateOrganizationalUnit: Sandbox",
   "log": {
     "level": "info"
   },
@@ -62,7 +62,7 @@
     "type": "filebeat",
     "version": "8.18.0",
     "name": "filebeat-aws-us-east-1",
-    "ephemeral_id": "qm624lqnzr"
+    "ephemeral_id": "mumxbyq4r09"
   },
   "input": {
     "type": "aws-cloudwatch"

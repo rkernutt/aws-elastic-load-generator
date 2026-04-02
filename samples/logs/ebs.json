@@ -1,12 +1,12 @@
 {
-  "@timestamp": "2026-04-01T12:55:20.199Z",
+  "@timestamp": "2026-04-02T20:50:22.062Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
-    "availability_zone": "ap-southeast-4a",
+    "region": "eu-south-1",
+    "availability_zone": "eu-south-1b",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "ebs"
@@ -14,72 +14,66 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-00tqygkel4l9",
+      "VolumeId": "vol-7nzo7l3ckz",
       "VolumeType": "gp3"
     },
     "ebs": {
-      "volume_id": "vol-00tqygkel4l9",
+      "volume_id": "vol-7nzo7l3ckz",
       "volume_type": "gp3",
-      "size_gb": 50,
-      "attached_instance": "i-0g2bs8xsbcz7",
-      "device": "/dev/sdf",
-      "iops_consumed": 6625,
-      "provisioned_iops": 13970,
-      "throughput_mbps": 167.44802730511807,
-      "queue_depth": 7,
-      "latency_ms": 3.8880003960394407,
-      "read_ops": 232,
-      "write_ops": 2794,
-      "read_bytes": 224152443,
-      "write_bytes": 23869112,
-      "event_type": "performance",
+      "size_gb": 200,
+      "availability_zone": "eu-south-1b",
+      "previous_state": "available",
+      "current_state": "in-use",
+      "attached_instance": "i-ja8wdgsgtgf",
+      "device": "/dev/sdg",
+      "event_type": "state_change",
       "metrics": {
         "VolumeReadOps": {
-          "avg": 7460
+          "avg": 7070
         },
         "VolumeWriteOps": {
-          "avg": 9428
+          "avg": 4520
         },
         "VolumeReadBytes": {
-          "avg": 224132425
+          "avg": 88990459
         },
         "VolumeWriteBytes": {
-          "avg": 306738051
+          "avg": 390519929
         },
         "VolumeTotalReadTime": {
-          "sum": 8.368327834880803
+          "sum": 3.7468311921571384
         },
         "VolumeTotalWriteTime": {
-          "sum": 9.12203392943831
+          "sum": 3.820938486847869
         },
         "VolumeIdleTime": {
-          "sum": 11.71529571299785
+          "sum": 48.29630569100449
         },
         "VolumeQueueLength": {
-          "avg": 8
+          "avg": 6
         },
         "VolumeThroughputPercentage": {
-          "avg": 48.6422085678961
+          "avg": 41.49735004969975
         },
         "VolumeConsumedReadWriteOps": {
-          "avg": 4316
+          "avg": 2728
         },
         "BurstBalance": {}
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-ebs-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-ebs-logs-293847561023"
+        "name": "aws-ebs-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-ebs-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/293847561023/ebs/ap-southeast-4/2026/04/01/ebs_GT3A0VKTANB.log.gz"
+        "key": "AWSLogs/164820739518/ebs/eu-south-1/2026/04/02/ebs_N8NFO0AWUP9.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/ebs/logs",
-      "log_stream": "ap-southeast-4/zgtrkj1c",
-      "ingestion_time": "2026-04-01T12:55:20.482Z"
+      "log_stream": "eu-south-1/cmwtc12s",
+      "ingestion_time": "2026-04-02T20:50:22.387Z"
     }
   },
   "event": {
@@ -87,10 +81,10 @@
     "category": ["host", "file"],
     "dataset": "aws.ebs",
     "provider": "ec2.amazonaws.com",
-    "duration": 3697000000,
+    "duration": 1059000000,
     "module": "aws"
   },
-  "message": "EBS vol-00tqygkel4l9 performance: 6625 IOPS, 167.4 MB/s, latency 3.89ms",
+  "message": "EBS volume vol-7nzo7l3ckz state change: available -> in-use on i-ja8wdgsgtgf (/dev/sdg)",
   "log": {
     "level": "info"
   },
@@ -109,8 +103,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-4",
-    "ephemeral_id": "ftzjp9cylq5"
+    "name": "filebeat-aws-eu-south-1",
+    "ephemeral_id": "494pg7x0zxk"
   },
   "input": {
     "type": "aws-cloudwatch"
