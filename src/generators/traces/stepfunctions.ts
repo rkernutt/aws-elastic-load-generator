@@ -161,6 +161,7 @@ export function generateStepFunctionsTrace(ts, er) {
     telemetry: telemetry,
     cloud: cloudBlock,
     event: { outcome: isErr ? "failure" : "success" },
+    message: isErr ? "Execution failed" : "Execution succeeded",
     data_stream: { type: "traces", dataset: "apm", namespace: "default" },
   };
 

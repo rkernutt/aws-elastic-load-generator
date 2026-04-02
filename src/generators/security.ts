@@ -1851,7 +1851,7 @@ function generateCloudTrailLog(ts: string, er: number): EcsDocument {
           session_context: sessionContext,
         },
         ...(resources ? { resources } : {}),
-        ...(reqParams ? { request_parameters: reqParams } : {}),
+        request_parameters: reqParams ?? "null",
         response_elements: isErr
           ? responseElements
           : eventName === "RunInstances" || eventName === "CreateBucket"

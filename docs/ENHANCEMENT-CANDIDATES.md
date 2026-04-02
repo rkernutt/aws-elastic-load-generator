@@ -1,8 +1,10 @@
 # Services to Review for Further Enhancements
 
-> **Last updated:** 2026-03-17 (v8.0)
+> **Last updated:** 2026-04-02 (v12.0)
 
 This document lists services that could benefit from **Glue-style enhancements**: explicit job/run lifecycle signals in logs, richer observability metrics (CloudWatch/Spark-style), and framework-specific log message patterns.
+
+**Implemented in v12.0:** Step Functions `message` field added to trace transaction ("Execution succeeded/failed"). CloudTrail `request_parameters` now always present (falls back to `"null"` string when no parameters apply), matching `response_elements` behaviour for full record shape consistency.
 
 **Implemented in v8.0:** Metrics mode expanded to 75 services (from 46). Cognito metrics block (SignInSuccesses, ThrottleCount, AccountTakeoverRisk, etc.). SageMaker CloudWatch endpoint metrics renamed `cloudwatch_metrics` → `cloudwatch`. Performance metrics blocks added to SNS, Athena, Fargate, Auto Scaling, Image Builder, Amazon MQ, AppSync, Bedrock. `aws.dimensions` always-present on all generators.
 
@@ -33,16 +35,16 @@ This document lists services that could benefit from **Glue-style enhancements**
 | ✅ Done (v8.0) | Bedrock       | Performance metrics block                                                |
 | ✅ Done (v8.0) | Image Builder | Performance metrics block                                                |
 | ✅ Done (v8.0) | Cognito       | Full metrics block (SignInSuccesses, ThrottleCount, etc.), dimensions    |
+| ✅ Done (v12.0) | Step Functions | `message` field on trace transaction (“Execution succeeded/failed”)     |
+| ✅ Done (v12.0) | CloudTrail    | `request_parameters` always present; full record shape complete          |
 
 **Remaining optional enhancements** (lower priority, not blocking any feature):
 
-| Service                   | Possible addition                                                                                                            |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Step Functions            | “Execution started/succeeded/failed” in message pool                                                                         |
-| Kinesis Analytics         | “Application started/checkpoint/failed” in message pool                                                                      |
-| CodePipeline / CodeDeploy | “Pipeline/Deployment started/succeeded/failed” in message pool                                                               |
-| CloudTrail                | Full record shape (eventVersion, userIdentity, requestParameters, responseElements) for tighter dashboard/rule compatibility |
-| More services             | Additional `aws.<service>.metrics` blocks for any service not yet covered                                                    |
+| Service                   | Possible addition                                                        |
+| ------------------------- | ------------------------------------------------------------------------ |
+| Kinesis Analytics         | “Application started/checkpoint/failed” in message pool (already “Application run started/failed” — wording only) |
+| CodePipeline / CodeDeploy | Already complete — “Pipeline/Deployment started/succeeded/failed” present |
+| More services             | Additional `aws.<service>.metrics` blocks for any service not yet covered |
 
 ---
 
