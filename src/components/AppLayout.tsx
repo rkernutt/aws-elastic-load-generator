@@ -126,14 +126,16 @@ export function AppLayout({
             items: [
               <EuiHeaderSectionItem key="brand">
                 <EuiFlexGroup gutterSize="m" alignItems="center" responsive={false}>
-                  {/* AWS logo — white version via CSS filter */}
+                  {/* AWS wordmark with orange smile — brand asset in public/aws-logo-header.png */}
                   <EuiFlexItem grow={false}>
-                    <EuiIcon
-                      type="logoAWS"
+                    <img
+                      src="/aws-logo-header.png"
+                      alt="Amazon Web Services"
                       style={{
-                        width: 40,
-                        height: 40,
-                        filter: "brightness(0) invert(1)",
+                        height: 32,
+                        width: "auto",
+                        display: "block",
+                        objectFit: "contain",
                       }}
                     />
                   </EuiFlexItem>
