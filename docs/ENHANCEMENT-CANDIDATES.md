@@ -35,7 +35,7 @@ This document lists services that could benefit from **Glue-style enhancements**
 | ✅ Done (v8.0)  | Bedrock        | Performance metrics block                                                |
 | ✅ Done (v8.0)  | Image Builder  | Performance metrics block                                                |
 | ✅ Done (v8.0)  | Cognito        | Full metrics block (SignInSuccesses, ThrottleCount, etc.), dimensions    |
-| ✅ Done (v12.0) | Step Functions | `message` field on trace transaction (“Execution succeeded/failed”)     |
+| ✅ Done (v12.0) | Step Functions | `message` field on trace transaction (“Execution succeeded/failed”)      |
 | ✅ Done (v12.0) | CloudTrail     | `request_parameters` always present; full record shape complete          |
 
 **Remaining optional enhancements** (lower priority, not blocking any feature):
