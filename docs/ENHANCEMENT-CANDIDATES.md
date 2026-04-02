@@ -18,33 +18,32 @@ This document lists services that could benefit from **Glue-style enhancements**
 
 ## Summary
 
-| Status         | Service       | Notes                                                                    |
-| -------------- | ------------- | ------------------------------------------------------------------------ |
-| ✅ Done (v7.4) | EMR           | run_state, message pool, metrics block                                   |
-| ✅ Done (v7.4) | Batch         | message pool lifecycle signals, elapsedTime in metrics                   |
-| ✅ Done (v7.4) | CodeBuild     | “Build started/succeeded/failed” message pool, phase-level messages      |
-| ✅ Done (v7.4) | SageMaker     | job-type lifecycle messages (Training/Processing/Endpoint/Pipeline/etc.) |
-| ✅ Done (v7.4) | Athena        | “Query started/succeeded/failed” message pool, metrics block             |
-| ✅ Done (v7.4) | DataBrew      | run_state, message pool, metrics block                                   |
-| ✅ Done (v7.4) | AppFlow       | message pool, metrics block                                              |
-| ✅ Done (v8.0) | SNS           | Performance metrics block                                                |
-| ✅ Done (v8.0) | Fargate       | Performance metrics block                                                |
-| ✅ Done (v8.0) | Auto Scaling  | Performance metrics block                                                |
-| ✅ Done (v8.0) | Amazon MQ     | Performance metrics block                                                |
-| ✅ Done (v8.0) | AppSync       | Performance metrics block                                                |
-| ✅ Done (v8.0) | Bedrock       | Performance metrics block                                                |
-| ✅ Done (v8.0) | Image Builder | Performance metrics block                                                |
-| ✅ Done (v8.0) | Cognito       | Full metrics block (SignInSuccesses, ThrottleCount, etc.), dimensions    |
+| Status          | Service        | Notes                                                                    |
+| --------------- | -------------- | ------------------------------------------------------------------------ |
+| ✅ Done (v7.4)  | EMR            | run_state, message pool, metrics block                                   |
+| ✅ Done (v7.4)  | Batch          | message pool lifecycle signals, elapsedTime in metrics                   |
+| ✅ Done (v7.4)  | CodeBuild      | “Build started/succeeded/failed” message pool, phase-level messages      |
+| ✅ Done (v7.4)  | SageMaker      | job-type lifecycle messages (Training/Processing/Endpoint/Pipeline/etc.) |
+| ✅ Done (v7.4)  | Athena         | “Query started/succeeded/failed” message pool, metrics block             |
+| ✅ Done (v7.4)  | DataBrew       | run_state, message pool, metrics block                                   |
+| ✅ Done (v7.4)  | AppFlow        | message pool, metrics block                                              |
+| ✅ Done (v8.0)  | SNS            | Performance metrics block                                                |
+| ✅ Done (v8.0)  | Fargate        | Performance metrics block                                                |
+| ✅ Done (v8.0)  | Auto Scaling   | Performance metrics block                                                |
+| ✅ Done (v8.0)  | Amazon MQ      | Performance metrics block                                                |
+| ✅ Done (v8.0)  | AppSync        | Performance metrics block                                                |
+| ✅ Done (v8.0)  | Bedrock        | Performance metrics block                                                |
+| ✅ Done (v8.0)  | Image Builder  | Performance metrics block                                                |
+| ✅ Done (v8.0)  | Cognito        | Full metrics block (SignInSuccesses, ThrottleCount, etc.), dimensions    |
 | ✅ Done (v12.0) | Step Functions | `message` field on trace transaction (“Execution succeeded/failed”)     |
-| ✅ Done (v12.0) | CloudTrail    | `request_parameters` always present; full record shape complete          |
+| ✅ Done (v12.0) | CloudTrail     | `request_parameters` always present; full record shape complete          |
 
 **Remaining optional enhancements** (lower priority, not blocking any feature):
 
-| Service                   | Possible addition                                                        |
-| ------------------------- | ------------------------------------------------------------------------ |
-| Kinesis Analytics         | “Application started/checkpoint/failed” in message pool (already “Application run started/failed” — wording only) |
-| CodePipeline / CodeDeploy | Already complete — “Pipeline/Deployment started/succeeded/failed” present |
-| More services             | Additional `aws.<service>.metrics` blocks for any service not yet covered |
+| Service           | Possible addition                                                      |
+| ----------------- | ---------------------------------------------------------------------- |
+| Kinesis Analytics | Wording only — “Application run started/failed” already present        |
+| More services     | Additional `aws.<service>.metrics` blocks for services not yet covered |
 
 ---
 
