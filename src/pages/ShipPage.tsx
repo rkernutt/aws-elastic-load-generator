@@ -13,6 +13,7 @@ import {
   EuiSpacer,
   EuiTitle,
 } from "@elastic/eui";
+import { ScheduleSection } from "../components/ScheduleSection";
 
 interface ShipPageProps {
   status: "running" | "done" | "aborted" | null;
@@ -28,9 +29,10 @@ interface ShipPageProps {
   logsPerService: number;
   dryRun: boolean;
   scheduleEnabled: boolean;
+  scheduleTotalRuns: number;
+  scheduleIntervalMin: number;
   scheduleActive: boolean;
   scheduleCurrentRun: number;
-  scheduleTotalRuns: number;
   nextRunAt: Date | null;
   countdown: number;
   canShip: boolean;
@@ -38,6 +40,11 @@ interface ShipPageProps {
   onStop: () => void;
   onPreview: () => void;
   onDryRunChange: (checked: boolean) => void;
+  onScheduleEnabledChange: (checked: boolean) => void;
+  onScheduleTotalRunsChange: (n: number) => void;
+  onScheduleIntervalMinChange: (n: number) => void;
+  /** Return to Start to pick another data type and run the wizard again */
+  onRestartWizard: () => void;
   preview: string | null;
 }
 
@@ -55,9 +62,10 @@ export function ShipPage({
   logsPerService,
   dryRun,
   scheduleEnabled,
+  scheduleTotalRuns,
+  scheduleIntervalMin,
   scheduleActive,
   scheduleCurrentRun,
-  scheduleTotalRuns,
   nextRunAt,
   countdown,
   canShip,
@@ -65,6 +73,10 @@ export function ShipPage({
   onStop,
   onPreview,
   onDryRunChange,
+  onScheduleEnabledChange,
+  onScheduleTotalRunsChange,
+  onScheduleIntervalMinChange,
+  onRestartWizard,
   preview,
 }: ShipPageProps) {
   const isRunning = status === "running";
@@ -82,6 +94,24 @@ export function ShipPage({
         <h2>Ship &amp; Monitor</h2>
       </EuiTitle>
       <EuiSpacer size="m" />
+
+      <EuiPanel paddingSize="m">
+        <EuiTitle size="xs">
+          <h3>Shipping schedule</h3>
+        </EuiTitle>
+        <EuiSpacer size="s" />
+        <ScheduleSection
+          scheduleEnabled={scheduleEnabled}
+          scheduleTotalRuns={scheduleTotalRuns}
+          scheduleIntervalMin={scheduleIntervalMin}
+          onScheduleEnabledChange={onScheduleEnabledChange}
+          onScheduleTotalRunsChange={onScheduleTotalRunsChange}
+          onScheduleIntervalMinChange={onScheduleIntervalMinChange}
+          showTitle={false}
+        />
+      </EuiPanel>
+
+      <EuiSpacer size="l" />
 
       {/* Action buttons */}
       <EuiFlexGroup gutterSize="m" alignItems="center" responsive={false} wrap>
@@ -185,6 +215,15 @@ export function ShipPage({
               {progress.sent.toLocaleString()} documents indexed
               {progress.errors > 0 && ` with ${progress.errors} errors`}.
             </p>
+            <EuiSpacer size="s" />
+            <p>
+              Would you like to ship more data types? Go back to <strong>Start</strong> to choose
+              logs, metrics, or traces and step through the wizard again.
+            </p>
+            <EuiSpacer size="s" />
+            <EuiButton iconType="home" onClick={onRestartWizard}>
+              Back to Start
+            </EuiButton>
           </EuiCallOut>
         </>
       )}

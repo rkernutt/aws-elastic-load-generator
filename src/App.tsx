@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import { rand, randTs, stripNulls, enrichDocument } from "./helpers";
 import { GENERATORS } from "./generators";
 import { TRACE_SERVICES } from "./generators/traces/services";
@@ -23,11 +23,11 @@ import {
 } from "./utils/validation";
 import { loadAndScrubSavedConfig, toPersistedStorageObject } from "./utils/persistedConfig";
 import { AppLayout } from "./components/AppLayout";
+import { WizardFooter } from "./components/WizardFooter";
 import { ShipPage } from "./pages/ShipPage";
 import { ConnectionPage } from "./pages/ConnectionPage";
 import { ServicesPage } from "./pages/ServicesPage";
 import { ConfigPage } from "./pages/ConfigPage";
-import { SchedulePage } from "./pages/SchedulePage";
 import { AnomaliesPage } from "./pages/AnomaliesPage";
 import { ActivityPage } from "./pages/ActivityPage";
 import { SetupPage } from "./pages/SetupPage";
@@ -126,6 +126,13 @@ export default function App() {
   const isTracesMode = eventType === "traces";
   const indexPrefix = eventType === "metrics" ? metricsIndexPrefix : logsIndexPrefix;
   const setIndexPrefix = eventType === "metrics" ? setMetricsIndexPrefix : setLogsIndexPrefix;
+
+  const connectionStepComplete = useMemo(() => {
+    const urlOk = validateElasticUrl(elasticUrl).valid;
+    const keyOk = validateApiKey(apiKey).valid;
+    const prefixOk = isTracesMode || validateIndexPrefix(indexPrefix).valid;
+    return urlOk && keyOk && prefixOk;
+  }, [elasticUrl, apiKey, indexPrefix, isTracesMode]);
 
   // Auto-derive Kibana URL from ES URL for cloud deployments (.es. → .kb.)
   const effectiveKibanaUrl =
@@ -1013,6 +1020,21 @@ export default function App() {
 
   const pct = progress.total > 0 ? Math.round((progress.sent / progress.total) * 100) : 0;
   const totalSelected = isTracesMode ? selectedTraceServices.length : selectedServices.length;
+
+  const wizardCanGoNext = useMemo(() => {
+    switch (activePage) {
+      case "connection":
+        return connectionStepComplete;
+      case "setup":
+        return true;
+      case "services":
+      case "config":
+        return totalSelected > 0;
+      default:
+        return false;
+    }
+  }, [activePage, connectionStepComplete, totalSelected]);
+
   const totalServices = isTracesMode
     ? TRACE_SERVICES.length
     : eventType === "metrics"
@@ -1041,10 +1063,23 @@ export default function App() {
     ? parseFloat(((estimatedDocs * 3) / 1024).toFixed(1))
     : parseFloat(((estimatedDocs * 1.5) / 1024).toFixed(1));
 
+  const restartWizard = useCallback(() => {
+    setStatus(null);
+    setProgress({ sent: 0, total: 0, errors: 0, phase: "main" });
+    setActivePage("connection");
+  }, []);
+
   return (
     <AppLayout
       activePage={activePage}
       onNavigate={setActivePage}
+      footer={
+        <WizardFooter
+          activePage={activePage}
+          onNavigate={setActivePage}
+          canGoNext={wizardCanGoNext}
+        />
+      }
       status={status}
       totalSelected={totalSelected}
       totalServices={totalServices}
@@ -1070,9 +1105,10 @@ export default function App() {
           logsPerService={logsPerService}
           dryRun={dryRun}
           scheduleEnabled={scheduleEnabled}
+          scheduleTotalRuns={scheduleTotalRuns}
+          scheduleIntervalMin={scheduleIntervalMin}
           scheduleActive={scheduleActive}
           scheduleCurrentRun={scheduleCurrentRun}
-          scheduleTotalRuns={scheduleTotalRuns}
           nextRunAt={nextRunAt}
           countdown={countdown}
           canShip={canShip}
@@ -1083,6 +1119,10 @@ export default function App() {
           }}
           onPreview={generatePreview}
           onDryRunChange={setDryRun}
+          onScheduleEnabledChange={setScheduleEnabled}
+          onScheduleTotalRunsChange={setScheduleTotalRuns}
+          onScheduleIntervalMinChange={setScheduleIntervalMin}
+          onRestartWizard={restartWizard}
           preview={preview}
         />
       )}
@@ -1228,17 +1268,6 @@ export default function App() {
           onBatchSizeChange={setBatchSize}
           onBatchDelayMsChange={setBatchDelayMs}
           onInjectAnomaliesChange={setInjectAnomalies}
-        />
-      )}
-
-      {activePage === "schedule" && (
-        <SchedulePage
-          scheduleEnabled={scheduleEnabled}
-          scheduleTotalRuns={scheduleTotalRuns}
-          scheduleIntervalMin={scheduleIntervalMin}
-          onScheduleEnabledChange={setScheduleEnabled}
-          onScheduleTotalRunsChange={setScheduleTotalRuns}
-          onScheduleIntervalMinChange={setScheduleIntervalMin}
         />
       )}
 

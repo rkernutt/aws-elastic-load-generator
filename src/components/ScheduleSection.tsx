@@ -8,23 +8,29 @@ import {
   EuiTitle,
 } from "@elastic/eui";
 
-interface SchedulePageProps {
+export interface ScheduleSectionProps {
   scheduleEnabled: boolean;
   scheduleTotalRuns: number;
   scheduleIntervalMin: number;
   onScheduleEnabledChange: (val: boolean) => void;
   onScheduleTotalRunsChange: (val: number) => void;
   onScheduleIntervalMinChange: (val: number) => void;
+  /** When false, hides the section title (e.g. when embedded on Ship page). */
+  showTitle?: boolean;
 }
 
-export function SchedulePage({
+/**
+ * Scheduled shipping controls — shared by Ship page (primary) and optional standalone views.
+ */
+export function ScheduleSection({
   scheduleEnabled,
   scheduleTotalRuns,
   scheduleIntervalMin,
   onScheduleEnabledChange,
   onScheduleTotalRunsChange,
   onScheduleIntervalMinChange,
-}: SchedulePageProps) {
+  showTitle = true,
+}: ScheduleSectionProps) {
   const totalMinutes = scheduleTotalRuns * scheduleIntervalMin;
   const hours = Math.floor(totalMinutes / 60);
   const mins = totalMinutes % 60;
@@ -32,16 +38,19 @@ export function SchedulePage({
 
   return (
     <>
-      <EuiTitle size="s">
-        <h2>Scheduling</h2>
-      </EuiTitle>
-      <EuiSpacer size="m" />
+      {showTitle && (
+        <>
+          <EuiTitle size="s">
+            <h2>Scheduling</h2>
+          </EuiTitle>
+          <EuiSpacer size="m" />
+        </>
+      )}
 
-      <EuiCallOut title="Scheduled shipping mode" color="primary" iconType="clock" size="s">
+      <EuiCallOut title="Scheduled shipping" color="primary" iconType="clock" size="s">
         <p>
-          When enabled, clicking Ship will automatically repeat the shipping process at the
-          configured interval. This is useful for generating continuous data over time to build
-          realistic time-series patterns.
+          When enabled, Ship (or Start Schedule) repeats at the interval below. Useful for steady
+          load over time.
         </p>
       </EuiCallOut>
 
@@ -88,7 +97,7 @@ export function SchedulePage({
 
       <EuiText size="s" color="subdued">
         <p>
-          <strong>Estimated total time:</strong> {scheduleTotalRuns} runs x {scheduleIntervalMin}{" "}
+          <strong>Estimated total span:</strong> {scheduleTotalRuns} runs × {scheduleIntervalMin}{" "}
           min = <strong>{timeStr}</strong>
         </p>
       </EuiText>

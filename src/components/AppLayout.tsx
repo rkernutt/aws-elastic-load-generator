@@ -18,6 +18,8 @@ interface AppLayoutProps {
   activePage: string;
   onNavigate: (page: string) => void;
   children: React.ReactNode;
+  /** Optional footer below main content (wizard “Next”, etc.) */
+  footer?: React.ReactNode;
   status: "running" | "done" | "aborted" | null;
   totalSelected: number;
   totalServices: number;
@@ -42,7 +44,6 @@ const STEP_IDS = STEPS.map((s) => s.id);
 
 /** Secondary nav items below the wizard */
 const EXTRA_NAV = [
-  { id: "schedule", label: "Scheduling", icon: "clock" },
   { id: "anomalies", label: "Anomalies", icon: "bug" },
   { id: "log", label: "Activity Log", icon: "list" },
 ] as const;
@@ -51,6 +52,7 @@ export function AppLayout({
   activePage,
   onNavigate,
   children,
+  footer,
   status,
   totalSelected,
   totalServices,
@@ -208,6 +210,7 @@ export function AppLayout({
           <EuiStepsHorizontal steps={stepStatuses} />
           <EuiSpacer size="m" />
           {children}
+          {footer}
         </EuiPageTemplate.Section>
       </EuiPageTemplate>
     </div>
