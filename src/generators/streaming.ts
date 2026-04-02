@@ -161,12 +161,12 @@ function generateKinesisAnalyticsLog(ts: string, er: number): EcsDocument {
   const lagMs = randInt(0, isErr ? 60000 : 1000);
   const kinesisAnalyticsMsgs = isErr
     ? [
-        "Application run failed",
+        "Application failed",
         "Checkpoint failed",
         `Kinesis Analytics ${app} error: ${rand(["CheckpointFailure", "KPU_LIMIT_EXCEEDED", "OOM"])}`,
       ]
     : [
-        "Application run started",
+        "Application started",
         "Checkpoint completed",
         `Kinesis Analytics ${app}: ${rps} rec/s, lag ${randInt(0, 500)}ms`,
       ];

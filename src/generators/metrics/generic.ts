@@ -100,6 +100,19 @@ const TEMPLATE_MAP: Record<string, string> = {
   qbusiness: "analytics",
   comprehendmedical: "analytics",
   networkmanager: "management",
+  // v12.0 — confirmed CloudWatch metric emitters
+  mskconnect: "analytics",
+  mwaa: "analytics",
+  cleanrooms: "analytics",
+  kendra: "analytics",
+  healthlake: "analytics",
+  iottwinmaker: "iot",
+  iotfleetwise: "iot",
+  fis: "management",
+  managedgrafana: "management",
+  appconfig: "management",
+  licensemanager: "management",
+  deadlinecloud: "management",
 };
 
 /**

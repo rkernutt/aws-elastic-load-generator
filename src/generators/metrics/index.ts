@@ -215,6 +215,20 @@ const GENERIC_SERVICE_IDS = [
   "panorama",
   "freertos",
   "cloudwatchrum",
+  // v12.0 — services with confirmed CloudWatch metric emission
+  "vpclattice",
+  "mskconnect",
+  "mwaa",
+  "kendra",
+  "iottwinmaker",
+  "iotfleetwise",
+  "fis",
+  "managedgrafana",
+  "appconfig",
+  "cleanrooms",
+  "healthlake",
+  "deadlinecloud",
+  "licensemanager",
 ];
 
 const GENERIC_GENERATORS = Object.fromEntries(
