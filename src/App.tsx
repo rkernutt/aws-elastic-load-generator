@@ -1,10 +1,10 @@
 import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import { rand, randTs, stripNulls, enrichDocument } from "./helpers";
-import { GENERATORS } from "./generators";
 import { TRACE_SERVICES } from "./generators/traces/services";
 
-// Lazy-load heavy generator chunks — only downloaded on first use (logs mode = no download).
+// Lazy-load all three generator chunks — only downloaded on first use.
 // The browser module cache ensures each chunk is fetched at most once per session.
+const loadLogGenerators = () => import("./generators").then((m) => m.GENERATORS);
 const loadMetricsGenerators = () =>
   import("./generators/metrics").then((m) => m.METRICS_GENERATORS);
 const loadTraceGenerators = () => import("./generators/traces").then((m) => m.TRACE_GENERATORS);
@@ -398,6 +398,7 @@ export default function App() {
           return;
         }
       }
+      const GENERATORS = await loadLogGenerators();
       const result = GENERATORS[svc](new Date().toISOString(), errorRate);
       if (Array.isArray(result)) {
         const row = stripNulls(result[0]) as LooseDoc;
@@ -698,6 +699,7 @@ export default function App() {
       }
 
       /** ── Logs / Metrics mode ──────────────────────────────────────────────── */
+      const GENERATORS = eventType === "logs" ? await loadLogGenerators() : null;
       const METRICS_GENERATORS = eventType === "metrics" ? await loadMetricsGenerators() : null;
       setProgress({ sent: 0, total: 0, errors: 0, phase: "main" });
       addLog(
@@ -726,7 +728,7 @@ export default function App() {
               .flat()
               .map((d) => stripNulls(d))
           : Array.from({ length: logsPerService }, () => {
-              const result = GENERATORS[svc](randTs(startDate, endDate), errorRate);
+              const result = GENERATORS![svc](randTs(startDate, endDate), errorRate);
               if (Array.isArray(result)) {
                 return result.map((d) => stripNulls(d));
               }
@@ -851,9 +853,9 @@ export default function App() {
                 return out;
               });
             }).flat() as LooseDoc[];
-          } else if (GENERATORS[svc]) {
+          } else if (GENERATORS?.[svc]) {
             injDocs = Array.from({ length: injCount }, () => {
-              const result = GENERATORS[svc](randTs(injStart, injEnd), 1.0);
+              const result = GENERATORS![svc](randTs(injStart, injEnd), 1.0);
               return (
                 Array.isArray(result)
                   ? result

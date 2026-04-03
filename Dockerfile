@@ -4,9 +4,9 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Install dependencies first (layer cache friendly); copy scripts so postinstall (copy-icons) can run
-COPY package.json ./
+COPY package.json package-lock.json ./
 COPY scripts ./scripts
-RUN npm install
+RUN npm ci
 
 # Copy source and build
 COPY . .
