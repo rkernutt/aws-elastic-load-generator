@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "sagemaker"
@@ -13,62 +13,59 @@
   },
   "aws": {
     "dimensions": {
-      "TrainingJobName": "lstm-timeseries-hyperparametertuning-9eycby",
-      "JobType": "HyperparameterTuning"
+      "TrainingJobName": "lstm-timeseries-endpoint-9awhyb",
+      "JobType": "Endpoint"
     },
     "sagemaker": {
-      "domain_id": "d-651wom0naw",
-      "domain_name": "risk-models",
-      "user_profile": "alice-ds",
+      "domain_id": "d-b7v3vladt3",
+      "domain_name": "ds-platform",
+      "user_profile": "bob-ml",
       "job": {
-        "name": "lstm-timeseries-hyperparametertuning-9eycby",
-        "type": "HyperparameterTuning",
-        "arn": "arn:aws:sagemaker:af-south-1:293847561023:training-job/lstm-timeseries-hyperparametertuning-9eycby"
+        "name": "lstm-timeseries-endpoint-9awhyb",
+        "type": "Endpoint",
+        "arn": "arn:aws:sagemaker:sa-east-1:738291046572:training-job/lstm-timeseries-endpoint-9awhyb"
       },
       "model": {
         "name": "lstm-timeseries",
-        "version": 11
+        "version": 18
       },
       "pipeline": {
         "name": "model-training-pipeline",
-        "execution_id": "pipe-cykmqydcblc"
+        "execution_id": "pipe-kra61leh44j"
       },
       "instance": {
-        "type": "ml.p3.2xlarge",
+        "type": "ml.m5.xlarge",
         "count": 2
       },
       "metrics": {
-        "training_loss": 0.5478,
-        "accuracy": 0.8871,
-        "epoch": 57,
-        "gpu_utilization_pct": 49,
-        "cpu_utilization_pct": 52
+        "gpu_utilization_pct": 64,
+        "cpu_utilization_pct": 47
       },
       "studio": {
-        "space_name": "cv-team",
-        "app_type": "RStudio",
-        "app_name": "default",
-        "lifecycle_config": true,
+        "space_name": "risk-models",
+        "app_type": "JupyterLab",
+        "app_name": "instance-bbmp8x8a",
+        "lifecycle_config": false,
         "continuous_logging": false
       },
       "cloudwatch_metrics": {
         "Invocations": {
-          "sum": 226
+          "sum": 4002
         },
         "ModelLatency": {
-          "avg": 71
+          "avg": 129
         },
         "GPUUtilization": {
-          "avg": 57
+          "avg": 48
         },
         "CPUUtilization": {
-          "avg": 62
+          "avg": 57
         },
         "DiskUtilization": {
-          "avg": 49
+          "avg": 52
         },
         "MemoryUtilization": {
-          "avg": 65
+          "avg": 53
         },
         "Invocations4XXError": {
           "sum": 0
@@ -80,35 +77,35 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-sagemaker-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-sagemaker-logs-293847561023"
+        "name": "aws-sagemaker-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-sagemaker-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/293847561023/sagemaker/af-south-1/2026/04/02/sagemaker_UND70MNFW9.log.gz"
+        "key": "AWSLogs/738291046572/sagemaker/sa-east-1/2026/04/13/sagemaker_LQ43OHS1MJ.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/sagemaker/logs",
-      "log_stream": "af-south-1/1hsxqfdk",
-      "ingestion_time": "2026-04-02T20:50:22.422Z"
+      "log_stream": "sa-east-1/sf42w67e",
+      "ingestion_time": "2026-04-13T11:01:16.273Z"
     }
   },
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "user": {
-    "name": "alice-ds"
+    "name": "bob-ml"
   },
   "event": {
-    "action": "LifecycleConfigOnStart",
-    "duration": 10842864268586.89,
+    "action": "AppReady",
+    "duration": 12558856583659.865,
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.sagemaker",
     "provider": "sagemaker.amazonaws.com",
     "module": "aws"
   },
-  "message": "Spot instance interruption, checkpointing...",
+  "message": "Epoch 12/50 - loss: 0.2341, val_loss: 0.2518, accuracy: 0.9124",
   "service": {
     "name": "sagemaker",
     "type": "aws"
@@ -124,8 +121,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-af-south-1",
-    "ephemeral_id": "myy7r8n5nre"
+    "name": "filebeat-aws-sa-east-1",
+    "ephemeral_id": "pmz41ammbj"
   },
   "input": {
     "type": "aws-cloudwatch"

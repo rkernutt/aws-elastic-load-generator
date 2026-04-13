@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "privatelink"
@@ -13,26 +13,26 @@
   },
   "aws": {
     "privatelink": {
-      "endpoint_id": "vpce-vdjaco8qus8",
-      "service_name": "com.amazonaws.vpce.eu-south-1.execute-api",
-      "endpoint_type": "GatewayLoadBalancer",
-      "vpc_id": "vpc-f4i98u1a",
+      "endpoint_id": "vpce-6017lv4r1fj",
+      "service_name": "com.amazonaws.vpce.sa-east-1.s3",
+      "endpoint_type": "Gateway",
+      "vpc_id": "vpc-vjyunnnq",
       "state": "available",
       "private_dns_enabled": true
     },
     "s3": {
       "bucket": {
-        "name": "aws-privatelink-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-privatelink-logs-293847561023"
+        "name": "aws-privatelink-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-privatelink-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/privatelink/eu-south-1/2026/04/02/privatelink_839CVVHSL3O.log.gz"
+        "key": "AWSLogs/814726593401/privatelink/sa-east-1/2026/04/13/privatelink_2JQDTG6PCMY.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/privatelink/logs",
-      "log_stream": "eu-south-1/u0y09mqe",
-      "ingestion_time": "2026-04-02T20:50:22.378Z"
+      "log_stream": "sa-east-1/7nvnn43a",
+      "ingestion_time": "2026-04-13T11:01:16.227Z"
     }
   },
   "event": {
@@ -42,7 +42,7 @@
     "provider": "ec2.amazonaws.com",
     "module": "aws"
   },
-  "message": "PrivateLink endpoint vpce-vdjaco8qus8 for com.amazonaws.vpce.eu-south-1.execute-api: available",
+  "message": "PrivateLink endpoint vpce-6017lv4r1fj for com.amazonaws.vpce.sa-east-1.s3: available",
   "log": {
     "level": "info"
   },
@@ -61,8 +61,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-1",
-    "ephemeral_id": "yjmkz4zjpu"
+    "name": "filebeat-aws-sa-east-1",
+    "ephemeral_id": "waotlrusgcp"
   },
   "input": {
     "type": "aws-cloudwatch"

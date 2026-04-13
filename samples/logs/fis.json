@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "fis"
@@ -13,42 +13,42 @@
   },
   "aws": {
     "dimensions": {
-      "ExperimentTemplateId": "EXTU75Y5HPR"
+      "ExperimentTemplateId": "EXTFD6AM89N"
     },
     "fis": {
-      "experiment_id": "EXP2Z40M4VR",
-      "experiment_template_id": "EXTU75Y5HPR",
+      "experiment_id": "EXPAD7R92AU",
+      "experiment_template_id": "EXTFD6AM89N",
       "experiment_name": "cpu-stress-test",
       "experiment_state": "pending",
-      "target_resource_type": "Lambda functions",
-      "action_type": "aws:ec2:stop-instances",
-      "stop_condition": "none",
-      "role_arn": "arn:aws:iam::814726593401:role/FISRole-cpu-stress-test"
+      "target_resource_type": "RDS clusters",
+      "action_type": "aws:network-acl:replace-entries",
+      "stop_condition": "aws:cloudwatch:alarm",
+      "role_arn": "arn:aws:iam::164820739518:role/FISRole-cpu-stress-test"
     },
     "s3": {
       "bucket": {
-        "name": "aws-fis-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-fis-logs-814726593401"
+        "name": "aws-fis-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-fis-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/814726593401/fis/ca-west-1/2026/04/02/fis_Z53M3GQ80EC.log.gz"
+        "key": "AWSLogs/164820739518/fis/ap-northeast-1/2026/04/13/fis_ZNNNYZ2SYUO.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/fis/logs",
-      "log_stream": "ca-west-1/1hlbdjz2",
-      "ingestion_time": "2026-04-02T20:50:22.431Z"
+      "log_stream": "ap-northeast-1/zdlm4334",
+      "ingestion_time": "2026-04-13T11:01:16.290Z"
     }
   },
   "event": {
-    "action": "TagResource",
+    "action": "GetExperiment",
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.fis",
     "provider": "fis.amazonaws.com",
     "module": "aws"
   },
-  "message": "FIS TagResource: exp=EXP2Z40M4VR (cpu-stress-test) state=pending, target=Lambda functions",
+  "message": "FIS GetExperiment: exp=EXPAD7R92AU (cpu-stress-test) state=pending, target=RDS clusters",
   "log": {
     "level": "info"
   },
@@ -67,8 +67,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ca-west-1",
-    "ephemeral_id": "j40tuh3h0u9"
+    "name": "filebeat-aws-ap-northeast-1",
+    "ephemeral_id": "95v24n93vxs"
   },
   "input": {
     "type": "aws-cloudwatch"

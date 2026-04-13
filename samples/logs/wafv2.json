@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "eu-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "wafv2"
@@ -13,24 +13,24 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "regional-waf",
-      "Rule": "SQLi_Args",
-      "Region": "ap-south-2"
+      "WebACL": "prod-api-acl",
+      "Rule": "GeoBlockRule",
+      "Region": "eu-west-1"
     },
     "waf": {
-      "id": "j77hokavlhe",
-      "arn": "arn:aws:wafv2:ap-south-2:814726593401:regional/webacl/regional-waf/1zckge6k-4y1w-ueru-tn8a-lm4cpsjvcu",
+      "id": "hi1zmd2vwps",
+      "arn": "arn:aws:wafv2:eu-west-1:293847561023:regional/webacl/prod-api-acl/kboxfgdn-askl-ow1v-6kyv-or6qpjz6rss",
       "format_version": "1",
       "source": {
         "name": "CF",
-        "id": "814726593401-app/regional-waf/afnklah98x"
+        "id": "293847561023-app/prod-api-acl/62bq954mj36"
       },
       "rule_group_list": [
         {
-          "ruleGroupId": "AWSManagedRulesWindowsRuleSet",
+          "ruleGroupId": "AWSManagedRulesLinuxRuleSet",
           "terminatingRule": {
             "action": "BLOCK",
-            "ruleId": "SQLi_Args",
+            "ruleId": "GeoBlockRule",
             "ruleMatchDetails": []
           },
           "nonTerminatingMatchingRules": []
@@ -82,39 +82,39 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-wafv2-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-wafv2-logs-814726593401"
+        "name": "aws-wafv2-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-wafv2-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/814726593401/wafv2/ap-south-2/2026/04/02/wafv2_OGWH7AWR6J.log.gz"
+        "key": "AWSLogs/293847561023/wafv2/eu-west-1/2026/04/13/wafv2_GOBOC0JKSOT.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/wafv2/logs",
-      "log_stream": "ap-south-2/dv20fw0a",
-      "ingestion_time": "2026-04-02T20:50:22.438Z"
+      "log_stream": "eu-west-1/g4zs7ljl",
+      "ingestion_time": "2026-04-13T11:01:16.301Z"
     }
   },
   "source": {
-    "ip": "148.40.246.150",
+    "ip": "102.15.124.222",
     "geo": {
       "country_iso_code": "US",
       "country_name": "United States",
-      "city_name": "New York",
+      "city_name": "Ashburn",
       "location": {
-        "lat": 40.7128,
-        "lon": -74.006
+        "lat": 39.0438,
+        "lon": -77.4874
       }
     }
   },
   "http": {
     "request": {
       "method": "PATCH",
-      "bytes": 4875
+      "bytes": 6637
     }
   },
   "url": {
-    "path": "/api/v1/users"
+    "path": "/api/v1/auth/login"
   },
   "user_agent": {
     "original": "Go-http-client/1.1"
@@ -127,7 +127,7 @@
     "provider": "wafv2.amazonaws.com",
     "module": "aws"
   },
-  "message": "WAFv2 BLOCK [regional-waf] 148.40.246.150: AWSManagedRulesWindowsRuleSet/SQLi_Args",
+  "message": "WAFv2 BLOCK [prod-api-acl] 102.15.124.222: AWSManagedRulesLinuxRuleSet/GeoBlockRule",
   "log": {
     "level": "warn"
   },
@@ -151,8 +151,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-south-2",
-    "ephemeral_id": "0si0atziy6va"
+    "name": "filebeat-aws-eu-west-1",
+    "ephemeral_id": "rhbmrtepw9"
   },
   "input": {
     "type": "aws-s3"

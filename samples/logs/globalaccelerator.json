@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "eu-south-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "globalaccelerator"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "globalaccelerator": {
-      "accelerator_arn": "arn:aws:globalaccelerator::164820739518:accelerator/zmwvczf0",
+      "accelerator_arn": "arn:aws:globalaccelerator::738291046572:accelerator/e01vasd8",
       "listener_port": 443,
       "protocol": "TCP",
-      "endpoint_group_region": "ap-south-2",
-      "endpoint_id": "eu-west-2-alb",
+      "endpoint_group_region": "me-south-1",
+      "endpoint_id": "us-east-1-nlb",
       "endpoint_health": "HEALTHY",
-      "client_ip": "143.222.43.104",
-      "rtt_ms": 74,
-      "processing_time_ms": 11
+      "client_ip": "157.135.176.124",
+      "rtt_ms": 8,
+      "processing_time_ms": 5
     },
     "s3": {
       "bucket": {
-        "name": "aws-globalaccelerator-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-globalaccelerator-logs-164820739518"
+        "name": "aws-globalaccelerator-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-globalaccelerator-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/164820739518/globalaccelerator/eu-central-2/2026/04/02/globalaccelerator_TGPBX18CM9P.log.gz"
+        "key": "AWSLogs/738291046572/globalaccelerator/eu-south-1/2026/04/13/globalaccelerator_Y4K4IIAX2RE.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/globalaccelerator/logs",
-      "log_stream": "eu-central-2/mwh81hty",
-      "ingestion_time": "2026-04-02T20:50:22.377Z"
+      "log_stream": "eu-south-1/6t6lhlvw",
+      "ingestion_time": "2026-04-13T11:01:16.226Z"
     }
   },
   "event": {
@@ -43,10 +43,10 @@
     "category": "network",
     "dataset": "aws.globalaccelerator",
     "provider": "globalaccelerator.amazonaws.com",
-    "duration": 74000000,
+    "duration": 8000000,
     "module": "aws"
   },
-  "message": "Global Accelerator: eu-west-2-alb healthy, RTT 74ms",
+  "message": "Global Accelerator: us-east-1-nlb healthy, RTT 8ms",
   "log": {
     "level": "info"
   },
@@ -65,8 +65,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-2",
-    "ephemeral_id": "2blulkj8zq6"
+    "name": "filebeat-aws-eu-south-1",
+    "ephemeral_id": "qznrw9uvsdq"
   },
   "input": {
     "type": "aws-cloudwatch"

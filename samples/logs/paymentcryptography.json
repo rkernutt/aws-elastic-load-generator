@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "me-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "paymentcryptography"
@@ -14,42 +14,42 @@
   "aws": {
     "dimensions": {
       "KeyAlgorithm": "AES_128",
-      "Operation": "EncryptData"
+      "Operation": "GenerateMac"
     },
     "paymentcryptography": {
-      "key_arn": "arn:aws:payment-cryptography:ap-northeast-1:293847561023:key/8P9BK250Z04",
+      "key_arn": "arn:aws:payment-cryptography:me-central-1:164820739518:key/B0WV2DU78Q9",
       "key_alias": "alias/payment-pin-key",
       "key_algorithm": "AES_128",
-      "key_usage": "TR31_B0_BASE_DERIVATION_KEY",
-      "operation": "EncryptData",
+      "key_usage": "TR31_C0_CARD_VERIFICATION_KEY",
+      "operation": "GenerateMac",
       "key_state": "CREATE_COMPLETE",
       "exportable": false,
-      "key_check_value": "G070QN"
+      "key_check_value": "CR5YR9"
     },
     "s3": {
       "bucket": {
-        "name": "aws-paymentcryptography-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-paymentcryptography-logs-293847561023"
+        "name": "aws-paymentcryptography-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-paymentcryptography-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/293847561023/paymentcryptography/ap-northeast-1/2026/04/02/paymentcryptography_2WEKLU5XU73.log.gz"
+        "key": "AWSLogs/164820739518/paymentcryptography/me-central-1/2026/04/13/paymentcryptography_VJM5FKF39EB.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/paymentcryptography/logs",
-      "log_stream": "ap-northeast-1/w690xl5q",
-      "ingestion_time": "2026-04-02T20:50:22.385Z"
+      "log_stream": "me-central-1/pr251v35",
+      "ingestion_time": "2026-04-13T11:01:16.239Z"
     }
   },
   "event": {
-    "action": "ExportKey",
+    "action": "DecryptData",
     "outcome": "success",
     "category": ["authentication"],
     "dataset": "aws.paymentcryptography",
     "provider": "payment-cryptography.amazonaws.com",
     "module": "aws"
   },
-  "message": "Payment Cryptography EncryptData using AES_128 (B0)",
+  "message": "Payment Cryptography GenerateMac using AES_128 (C0)",
   "log": {
     "level": "info"
   },
@@ -68,8 +68,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-1",
-    "ephemeral_id": "m0ad27f874b"
+    "name": "filebeat-aws-me-central-1",
+    "ephemeral_id": "vrfrqoitk1"
   },
   "input": {
     "type": "aws-cloudwatch"

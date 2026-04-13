@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "amplify"
@@ -13,49 +13,43 @@
   },
   "aws": {
     "amplify": {
-      "app_id": "UQTATZGFMT",
-      "app_name": "docs-site",
-      "branch_name": "production",
-      "job_id": "2",
+      "app_id": "HUGM6EGI63",
+      "app_name": "mobile-backend",
+      "branch_name": "develop",
+      "job_id": "599",
       "job_type": "RETRY",
-      "build_status": "TIMED_OUT",
-      "duration_seconds": 1561,
-      "commit_id": "vqw0j65zhs",
-      "commit_message": "feat: add auth",
-      "framework": "Next.js",
-      "error_message": "Build script failed"
+      "build_status": "RUNNING",
+      "duration_seconds": 380,
+      "commit_id": "iqhilcxz78i",
+      "commit_message": "fix: payment bug",
+      "framework": "React"
     },
     "s3": {
       "bucket": {
-        "name": "aws-amplify-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-amplify-logs-738291046572"
+        "name": "aws-amplify-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-amplify-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/738291046572/amplify/ap-south-2/2026/04/02/amplify_8W6UREVLLZI.log.gz"
+        "key": "AWSLogs/164820739518/amplify/eu-west-2/2026/04/13/amplify_34WZZ15IXIU.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/amplify/logs",
-      "log_stream": "ap-south-2/cw6ehlgb",
-      "ingestion_time": "2026-04-02T20:50:22.418Z"
+      "log_stream": "eu-west-2/axlfauco",
+      "ingestion_time": "2026-04-13T11:01:16.262Z"
     }
   },
   "event": {
-    "duration": 1561000000000,
-    "outcome": "failure",
+    "duration": 380000000000,
+    "outcome": "success",
     "category": ["process"],
     "dataset": "aws.amplify",
     "provider": "amplify.amazonaws.com",
     "module": "aws"
   },
-  "message": "Amplify build FAILED: docs-site/production - Build script failed",
+  "message": "Amplify build RUNNING: mobile-backend/develop in 380s",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "BuildFailed",
-    "message": "Amplify build failed",
-    "type": "build"
+    "level": "info"
   },
   "service": {
     "name": "amplify",
@@ -72,8 +66,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-south-2",
-    "ephemeral_id": "jn1h1geatgm"
+    "name": "filebeat-aws-eu-west-2",
+    "ephemeral_id": "j3pl2ujsy8"
   },
   "input": {
     "type": "aws-cloudwatch"

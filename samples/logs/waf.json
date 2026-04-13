@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ca-central-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "WebACL": "api-waf",
-      "Rule": "IPRateBasedRule",
-      "Region": "us-east-1"
+      "WebACL": "admin-waf",
+      "Rule": "GeoBlockRule",
+      "Region": "ca-central-1"
     },
     "waf": {
-      "id": "yghefb1ef2l",
-      "arn": "arn:aws:wafv2:us-east-1:501938274650:regional/webacl/api-waf/vgnk4ffu-rj16-pl03-1bk4-phkv25cs5nf",
+      "id": "8eq20mm6rx3",
+      "arn": "arn:aws:wafv2:ca-central-1:501938274650:regional/webacl/admin-waf/2qep2zuj-hmaf-ws0d-af77-e9lsb0zq8po",
       "format_version": "1",
       "source": {
         "name": "ALB",
-        "id": "501938274650-app/api-waf/7j6ll00aj8u"
+        "id": "501938274650-app/admin-waf/5cxq05lk4uv"
       },
       "rule_group_list": [
         {
-          "ruleGroupId": "IPRateBasedRule",
+          "ruleGroupId": "GeoBlockRule",
           "nonTerminatingMatchingRules": []
         }
       ],
@@ -37,7 +37,7 @@
         "headers": [
           {
             "name": "User-Agent",
-            "value": "Go-http-client/1.1"
+            "value": "curl/7.68.0"
           },
           {
             "name": "Host",
@@ -76,54 +76,54 @@
         "arn": "arn:aws:s3:::aws-waf-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/501938274650/waf/us-east-1/2026/04/02/waf_AOM5MQAJSOO.log.gz"
+        "key": "AWSLogs/501938274650/waf/ca-central-1/2026/04/13/waf_T27RX557YH.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/waf/logs",
-      "log_stream": "us-east-1/emjtvkcn",
-      "ingestion_time": "2026-04-02T20:50:22.376Z"
+      "log_stream": "ca-central-1/e1d7j9rz",
+      "ingestion_time": "2026-04-13T11:01:16.224Z"
     }
   },
   "rule": {
-    "id": "SizeRestrictions_BODY",
-    "ruleset": "IPRateBasedRule"
+    "id": "RateLimit_IP",
+    "ruleset": "GeoBlockRule"
   },
   "http": {
     "request": {
-      "method": "PUT",
-      "bytes": 4748
+      "method": "POST",
+      "bytes": 4277
     }
   },
   "url": {
-    "path": "/api/v1/auth/login"
+    "path": "/api/v1/orders"
   },
   "source": {
-    "ip": "102.218.113.4",
+    "ip": "140.127.57.25",
     "geo": {
-      "country_iso_code": "US",
-      "country_name": "United States",
-      "city_name": "New York",
+      "country_iso_code": "CA",
+      "country_name": "Canada",
+      "city_name": "Toronto",
       "location": {
-        "lat": 40.7128,
-        "lon": -74.006
+        "lat": 43.6532,
+        "lon": -79.3832
       }
     }
   },
   "client": {
-    "ip": "102.218.113.4",
+    "ip": "140.127.57.25",
     "geo": {
-      "country_iso_code": "US",
-      "country_name": "United States",
-      "city_name": "New York",
+      "country_iso_code": "CA",
+      "country_name": "Canada",
+      "city_name": "Toronto",
       "location": {
-        "lat": 40.7128,
-        "lon": -74.006
+        "lat": 43.6532,
+        "lon": -79.3832
       }
     }
   },
   "user_agent": {
-    "original": "Go-http-client/1.1"
+    "original": "curl/7.68.0"
   },
   "event": {
     "action": "allow",
@@ -131,10 +131,10 @@
     "category": ["intrusion_detection", "network"],
     "dataset": "aws.waf",
     "provider": "wafv2.amazonaws.com",
-    "duration": 15000000,
+    "duration": 22000000,
     "module": "aws"
   },
-  "message": "WAF ALLOWED request - Rule: IPRateBasedRule",
+  "message": "WAF ALLOWED request - Rule: GeoBlockRule",
   "log": {
     "level": "info"
   },
@@ -153,8 +153,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-1",
-    "ephemeral_id": "4m193z3berl"
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "jp1rawxfzz8"
   },
   "input": {
     "type": "aws-s3"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "elasticbeanstalk"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "api-service-production",
-      "InstanceId": "i-wjyu319qwtc"
+      "EnvironmentName": "worker-app-production",
+      "InstanceId": "i-kmw0fr02nbf"
     },
     "elasticbeanstalk": {
-      "application": "api-service",
-      "environment": "api-service-production",
-      "structured_logging": true,
-      "platform": "Docker",
-      "version_label": "v38",
+      "application": "worker-app",
+      "environment": "worker-app-production",
+      "structured_logging": false,
+      "platform": "Node.js 18",
+      "version_label": "v103",
       "metrics": {
         "ApplicationRequests2xx": {
           "sum": 1
@@ -36,28 +36,28 @@
           "sum": 0
         },
         "ApplicationLatencyP10": {
-          "avg": 6.246266305706153
+          "avg": 23.708933549777957
         },
         "ApplicationLatencyP50": {
-          "avg": 13.684209940990556
+          "avg": 54.25758037245703
         },
         "ApplicationLatencyP75": {
-          "avg": 24.635540174855997
+          "avg": 89.9021732333564
         },
         "ApplicationLatencyP85": {
-          "avg": 28.378663236800524
+          "avg": 127.52153196609501
         },
         "ApplicationLatencyP90": {
-          "avg": 35.73749685572036
+          "avg": 178.5570403059112
         },
         "ApplicationLatencyP95": {
-          "avg": 68.8982180227535
+          "avg": 224.37386564545486
         },
         "ApplicationLatencyP99": {
-          "avg": 90.3124812637049
+          "avg": 435.11667268282383
         },
         "ApplicationLatencyP99.9": {
-          "avg": 166.68487349693606
+          "avg": 830.4469396708587
         },
         "ApplicationRequests": {
           "sum": 1
@@ -72,7 +72,7 @@
           "avg": 0
         },
         "InstancesOk": {
-          "avg": 9
+          "avg": 10
         },
         "EnvironmentHealth": {
           "avg": 20
@@ -81,22 +81,22 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-elasticbeanstalk-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-elasticbeanstalk-logs-738291046572"
+        "name": "aws-elasticbeanstalk-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-elasticbeanstalk-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/738291046572/elasticbeanstalk/eu-south-1/2026/04/02/elasticbeanstalk_GB4NNNU3BTB.log.gz"
+        "key": "AWSLogs/501938274650/elasticbeanstalk/ca-central-1/2026/04/13/elasticbeanstalk_N78MBT30T7I.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/elasticbeanstalk/logs",
-      "log_stream": "eu-south-1/0zm3f153",
-      "ingestion_time": "2026-04-02T20:50:22.373Z"
+      "log_stream": "ca-central-1/q1dgo6vh",
+      "ingestion_time": "2026-04-13T11:01:16.221Z"
     }
   },
   "http": {
     "response": {
-      "status_code": 200
+      "status_code": 201
     }
   },
   "log": {
@@ -107,13 +107,13 @@
     "outcome": "success",
     "dataset": "aws.elasticbeanstalk",
     "provider": "elasticbeanstalk.amazonaws.com",
-    "duration": 64000000000,
+    "duration": 8000000000,
     "module": "aws"
   },
-  "message": "{\"application\":\"api-service\",\"environment\":\"api-service-production\",\"status\":200,\"message\":\"Auto Scaling event: +2 instances\",\"timestamp\":\"2026-04-02T20:50:22.062Z\"}",
+  "message": "Deployment completed successfully",
   "host": {
-    "name": "ip-212-100-160-85.ec2.internal",
-    "hostname": "elasticbeanstalk-b65x01xt"
+    "name": "ip-124-174-27-24.ec2.internal",
+    "hostname": "elasticbeanstalk-knc7vtmp"
   },
   "service": {
     "name": "elasticbeanstalk",
@@ -130,8 +130,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-1",
-    "ephemeral_id": "pwu5nchh9d"
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "fr233coyjjr"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "dataexchange"
@@ -13,51 +13,46 @@
   },
   "aws": {
     "dimensions": {
-      "DataSetId": "zxeozzyj-11kh-1ttc-sp3q-qz602x050x"
+      "DataSetId": "2gzf9prc-gbjo-d8gu-n8t6-l4mxj32ypcg"
     },
     "dataexchange": {
-      "dataset_id": "zxeozzyj-11kh-1ttc-sp3q-qz602x050x",
-      "dataset_name": "Financial-Market-Feed",
+      "dataset_id": "2gzf9prc-gbjo-d8gu-n8t6-l4mxj32ypcg",
+      "dataset_name": "Healthcare-Claims",
       "data_set_type": "S3",
-      "revision_id": "g2vey2gu-rb38-jn48-lyf0-2u9eoiutw1g",
-      "job_id": "l5p7803g-9z6y-eswv-4300-1kx83smiga1",
-      "job_type": "EXPORT_ASSETS_TO_S3",
-      "job_status": "CANCELLED",
-      "provider_account_id": "501938274650",
-      "subscriber_account_id": "814726593401",
-      "asset_count": 96
+      "revision_id": "yrzn72ft-xahd-3h5i-xenh-jxq50jkgus",
+      "job_id": "rrz9ttm6-6gvb-ojix-y3va-rq3q2q9jzsp",
+      "job_type": "IMPORT_ASSET_FROM_API_GATEWAY",
+      "job_status": "COMPLETED",
+      "provider_account_id": "814726593401",
+      "subscriber_account_id": "293847561023",
+      "asset_count": 173
     },
     "s3": {
       "bucket": {
-        "name": "aws-dataexchange-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-dataexchange-logs-814726593401"
+        "name": "aws-dataexchange-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-dataexchange-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/814726593401/dataexchange/ap-northeast-1/2026/04/02/dataexchange_UWMZNHBI2S.log.gz"
+        "key": "AWSLogs/293847561023/dataexchange/eu-west-3/2026/04/13/dataexchange_4NG27VQFWU5.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/dataexchange/logs",
-      "log_stream": "ap-northeast-1/yytpzw9b",
-      "ingestion_time": "2026-04-02T20:50:22.422Z"
+      "log_stream": "eu-west-3/v3xj689g",
+      "ingestion_time": "2026-04-13T11:01:16.271Z"
     }
   },
   "event": {
     "action": "StartJob",
-    "outcome": "failure",
+    "outcome": "success",
     "category": ["process"],
     "dataset": "aws.dataexchange",
     "provider": "dataexchange.amazonaws.com",
     "module": "aws"
   },
-  "message": "Data Exchange Financial-Market-Feed: job CANCELLED",
+  "message": "Data Exchange Healthcare-Claims: IMPORT_ASSET_FROM_API_GATEWAY COMPLETED, 173 assets",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ResourceNotFoundException",
-    "message": "Data Exchange job failed",
-    "type": "process"
+    "level": "info"
   },
   "service": {
     "name": "dataexchange",
@@ -74,8 +69,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-1",
-    "ephemeral_id": "jvtyc8nmd5"
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "bs88udlwxld"
   },
   "input": {
     "type": "aws-cloudwatch"

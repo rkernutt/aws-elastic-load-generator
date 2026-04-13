@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "eu-south-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "appflow"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "FlowName": "zendesk-export"
+      "FlowName": "hubspot-sync"
     },
     "appflow": {
-      "flow_name": "zendesk-export",
-      "flow_arn": "arn:aws:appflow:eu-south-2:164820739518:flow/zendesk-export",
-      "source_connector_type": "Salesforce",
-      "destination_connector_type": "S3",
-      "trigger_type": "OnDemand",
+      "flow_name": "hubspot-sync",
+      "flow_arn": "arn:aws:appflow:eu-south-1:501938274650:flow/hubspot-sync",
+      "source_connector_type": "Slack",
+      "destination_connector_type": "Salesforce",
+      "trigger_type": "Scheduled",
       "execution_status": "ExecutionSuccessful",
-      "records_processed": 959929,
-      "duration_ms": 13630,
+      "records_processed": 820007,
+      "duration_ms": 38561,
       "metrics": {
         "RecordsProcessed": {
-          "sum": 959929
+          "sum": 820007
         },
         "DurationMs": {
-          "avg": 13630
+          "avg": 38561
         },
         "ExecutionSuccessCount": {
           "sum": 1
@@ -41,17 +41,17 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-appflow-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-appflow-logs-164820739518"
+        "name": "aws-appflow-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-appflow-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/164820739518/appflow/eu-south-2/2026/04/02/appflow_XYFFB8CXTE.log.gz"
+        "key": "AWSLogs/501938274650/appflow/eu-south-1/2026/04/13/appflow_BMSFSF7QHMN.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/appflow/logs",
-      "log_stream": "eu-south-2/kcjxhlt5",
-      "ingestion_time": "2026-04-02T20:50:22.421Z"
+      "log_stream": "eu-south-1/97wxux4h",
+      "ingestion_time": "2026-04-13T11:01:16.269Z"
     }
   },
   "event": {
@@ -59,10 +59,10 @@
     "category": ["process"],
     "dataset": "aws.appflow",
     "provider": "appflow.amazonaws.com",
-    "duration": 13630000000,
+    "duration": 38561000000,
     "module": "aws"
   },
-  "message": "Flow run succeeded",
+  "message": "Flow run started",
   "log": {
     "level": "info"
   },
@@ -81,8 +81,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-2",
-    "ephemeral_id": "3hu8x0175e3"
+    "name": "filebeat-aws-eu-south-1",
+    "ephemeral_id": "dp17ct18ry"
   },
   "input": {
     "type": "aws-cloudwatch"

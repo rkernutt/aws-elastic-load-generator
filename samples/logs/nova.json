@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "bedrock"
@@ -13,35 +13,35 @@
   },
   "aws": {
     "dimensions": {
-      "ModelId": "amazon.nova-pro-v1:0",
-      "ModelTier": "pro"
+      "ModelId": "amazon.nova-micro-v1:0",
+      "ModelTier": "micro"
     },
     "nova": {
-      "model_id": "amazon.nova-pro-v1:0",
-      "model_tier": "pro",
-      "modality": "document",
-      "input_token_count": 5295,
-      "output_token_count": 1208,
+      "model_id": "amazon.nova-micro-v1:0",
+      "model_tier": "micro",
+      "modality": "text",
+      "input_token_count": 7622,
+      "output_token_count": 1377,
       "cache_read_input_token_count": 0,
-      "total_token_count": 6503,
-      "invocation_latency_ms": 1198,
+      "total_token_count": 8999,
+      "invocation_latency_ms": 567,
       "streaming": false,
-      "use_case": "code-generation",
+      "use_case": "document-qa",
       "guardrail_action": "NONE",
-      "stop_reason": "max_tokens",
+      "stop_reason": "stop_sequence",
       "metrics": {
         "Invocations": {
-          "sum": 366
+          "sum": 757
         },
         "InvocationLatency": {
-          "avg": 1198,
-          "p99": 2995
+          "avg": 567,
+          "p99": 1418
         },
         "InputTokenCount": {
-          "sum": 5295
+          "sum": 7622
         },
         "OutputTokenCount": {
-          "sum": 1208
+          "sum": 1377
         },
         "CacheReadInputTokenCount": {
           "sum": 0
@@ -53,17 +53,17 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-nova-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-nova-logs-814726593401"
+        "name": "aws-nova-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-nova-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/814726593401/nova/ap-east-1/2026/04/02/nova_G9FT15RLFFV.log.gz"
+        "key": "AWSLogs/164820739518/nova/sa-east-1/2026/04/13/nova_DEENXC16U4.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/nova/logs",
-      "log_stream": "ap-east-1/ua4luwac",
-      "ingestion_time": "2026-04-02T20:50:22.426Z"
+      "log_stream": "sa-east-1/p49aaiil",
+      "ingestion_time": "2026-04-13T11:01:16.279Z"
     }
   },
   "event": {
@@ -71,10 +71,10 @@
     "category": ["process"],
     "dataset": "aws.nova",
     "provider": "bedrock.amazonaws.com",
-    "duration": 1198000000,
+    "duration": 567000000,
     "module": "aws"
   },
-  "message": "Nova pro 5295->1208 tokens 1.20s",
+  "message": "Nova micro 7622->1377 tokens 0.57s",
   "log": {
     "level": "info"
   },
@@ -93,8 +93,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-east-1",
-    "ephemeral_id": "alfdtid7osp"
+    "name": "filebeat-aws-sa-east-1",
+    "ephemeral_id": "hoqjsq8bi18"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "ca-west-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,13 +13,13 @@
   },
   "aws": {
     "ram": {
-      "resource_share_arn": "arn:aws:ram:me-south-1:814726593401:resource-share/9d7jdr5g4et",
+      "resource_share_arn": "arn:aws:ram:ca-west-1:814726593401:resource-share/3p7t9z6ml0b",
       "resource_share_name": "resolver-rules-share",
-      "resource_type": "ec2:TransitGateway",
-      "action": "AssociateResourceShare",
+      "resource_type": "ec2:Subnet",
+      "action": "DisassociateResourceShare",
       "principal": "814726593401",
-      "allow_external_principals": true,
-      "status": "ACTIVE"
+      "allow_external_principals": false,
+      "status": "PENDING"
     },
     "s3": {
       "bucket": {
@@ -27,25 +27,25 @@
         "arn": "arn:aws:s3:::aws-ram-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/814726593401/ram/me-south-1/2026/04/02/ram_XZ6Q2EOC0GK.log.gz"
+        "key": "AWSLogs/814726593401/ram/ca-west-1/2026/04/13/ram_NICZ4KQM85.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/ram/logs",
-      "log_stream": "me-south-1/d9qblput",
-      "ingestion_time": "2026-04-02T20:50:22.430Z"
+      "log_stream": "ca-west-1/muimjz8z",
+      "ingestion_time": "2026-04-13T11:01:16.288Z"
     }
   },
   "event": {
-    "action": "AssociateResourceShare",
+    "action": "DisassociateResourceShare",
     "outcome": "success",
     "category": ["configuration", "iam"],
     "dataset": "aws.ram",
     "provider": "ram.amazonaws.com",
-    "duration": 354000000,
+    "duration": 70000000,
     "module": "aws"
   },
-  "message": "RAM AssociateResourceShare: ec2:TransitGateway shared with account 814726593401",
+  "message": "RAM DisassociateResourceShare: ec2:Subnet shared with account 814726593401",
   "log": {
     "level": "info"
   },
@@ -64,8 +64,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-south-1",
-    "ephemeral_id": "v0erastclx7"
+    "name": "filebeat-aws-ca-west-1",
+    "ephemeral_id": "b66gtt9sbfe"
   },
   "input": {
     "type": "aws-cloudwatch"

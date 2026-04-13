@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "f843e2c0a1d219d9f28908220289e034"
+    "id": "24159015f3a49a7d0ca188a949935773"
   },
   "transaction": {
-    "id": "f5a475dfbc633d77",
-    "name": "POST /orders",
+    "id": "6247a7b4ddd99886",
+    "name": "PUT /orders/{id}",
     "type": "request",
     "duration": {
-      "us": 1008000
+      "us": 1210000
     },
     "result": "HTTP 2xx",
     "sampled": true,
@@ -23,24 +23,24 @@
   },
   "http": {
     "request": {
-      "method": "POST"
+      "method": "PUT"
     },
     "response": {
-      "status_code": 200
+      "status_code": 204
     }
   },
   "url": {
-    "path": "/orders"
+    "path": "/orders/13f9c52f"
   },
   "labels": {
-    "container_id": "52d9cfa1f362",
-    "task_id": "arn:aws:ecs:us-west-2:123456789012:task/prod-services-cluster/ee90976d75aabcc4a7fa54344cd4287c",
+    "container_id": "76a2747ae897",
+    "task_id": "arn:aws:ecs:ap-southeast-3:345678901234:task/prod-services-cluster/e2e38d4cb26f7d77f7eb4d0a43489732",
     "cluster_name": "prod-services-cluster",
-    "task_definition": "order-service:33"
+    "task_definition": "order-service:18"
   },
   "service": {
     "name": "order-service",
-    "environment": "staging",
+    "environment": "dev",
     "version": "1.0.0",
     "language": {
       "name": "nodejs"
@@ -70,10 +70,10 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "ecs"

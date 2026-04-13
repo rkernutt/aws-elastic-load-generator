@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "us-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "codeartifact"
@@ -14,46 +14,40 @@
   "aws": {
     "codeartifact": {
       "domain_name": "platform",
-      "repository_name": "maven-central",
+      "repository_name": "nuget-store",
       "package_format": "maven",
-      "package_name": "api-client",
-      "package_version": "2.2.3",
-      "action": "PublishPackageVersion",
-      "download_size_bytes": 11404644,
-      "upstream_repository": "npm-upstream",
-      "error_code": "ResourceAlreadyExistsException"
+      "package_name": "shared-components",
+      "package_version": "2.1.10",
+      "action": "GetPackageVersionAsset",
+      "download_size_bytes": 39905371,
+      "upstream_repository": "npm-upstream"
     },
     "s3": {
       "bucket": {
-        "name": "aws-codeartifact-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-codeartifact-logs-814726593401"
+        "name": "aws-codeartifact-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-codeartifact-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/814726593401/codeartifact/eu-west-1/2026/04/02/codeartifact_Y1LADEW163B.log.gz"
+        "key": "AWSLogs/501938274650/codeartifact/us-west-2/2026/04/13/codeartifact_FUA0UIJSE7R.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/codeartifact/logs",
-      "log_stream": "eu-west-1/88qbmsif",
-      "ingestion_time": "2026-04-02T20:50:22.417Z"
+      "log_stream": "us-west-2/ghyicglo",
+      "ingestion_time": "2026-04-13T11:01:16.262Z"
     }
   },
   "event": {
-    "action": "PublishPackageVersion",
-    "outcome": "failure",
+    "action": "GetPackageVersionAsset",
+    "outcome": "success",
     "category": ["package", "process"],
     "dataset": "aws.codeartifact",
     "provider": "codeartifact.amazonaws.com",
     "module": "aws"
   },
-  "message": "CodeArtifact PublishPackageVersion FAILED: api-client@2.2.3 in platform/maven-central",
+  "message": "CodeArtifact GetPackageVersionAsset: shared-components@2.1.10 [maven] in platform/nuget-store",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ResourceNotFoundException",
-    "message": "CodeArtifact operation failed",
-    "type": "package"
+    "level": "info"
   },
   "service": {
     "name": "codeartifact",
@@ -70,8 +64,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-1",
-    "ephemeral_id": "qqtk2t6yspj"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "ppaibloaekd"
   },
   "input": {
     "type": "aws-cloudwatch"

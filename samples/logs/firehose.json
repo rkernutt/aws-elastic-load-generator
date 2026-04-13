@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "firehose"
@@ -13,49 +13,49 @@
   },
   "aws": {
     "dimensions": {
-      "DeliveryStreamName": "logs-to-s3"
+      "DeliveryStreamName": "clickstream-backup"
     },
     "firehose": {
-      "delivery_stream_name": "logs-to-s3",
+      "delivery_stream_name": "clickstream-backup",
       "destination": "Redshift",
-      "incoming_records": 25747,
-      "incoming_bytes": 35479366,
+      "incoming_records": 10091,
+      "incoming_bytes": 20121454,
       "delivery_success": true,
-      "delivery_records": 25747,
-      "data_freshness_seconds": 284,
+      "delivery_records": 10091,
+      "data_freshness_seconds": 129,
       "metrics": {
         "DeliveryToS3.Bytes": {
-          "sum": 76895928
+          "sum": 5471516
         },
         "DeliveryToS3.DataFreshness": {
-          "avg": 2469
+          "avg": 201
         },
         "DeliveryToS3.Records": {
-          "sum": 3668
+          "sum": 919
         },
         "DeliveryToS3.Success": {
           "avg": 1
         },
         "IncomingBytes": {
-          "sum": 72783317
+          "sum": 88278816
         },
         "IncomingRecords": {
-          "sum": 2342
+          "sum": 6869
         },
         "BackupToS3.Bytes": {
-          "sum": 34418
+          "sum": 930878
         },
         "BackupToS3.Records": {
-          "sum": 169
+          "sum": 938
         },
         "BackupToS3.Success": {
           "avg": 1
         },
         "DataReadFromKinesisStream.Bytes": {
-          "sum": 77672823
+          "sum": 1170325
         },
         "DataReadFromKinesisStream.Records": {
-          "sum": 7710
+          "sum": 8111
         },
         "ThrottledGetRecords": {
           "sum": 0
@@ -67,17 +67,17 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-firehose-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-firehose-logs-164820739518"
+        "name": "aws-firehose-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-firehose-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/164820739518/firehose/us-west-2/2026/04/02/firehose_36KOLMMKDY5.log.gz"
+        "key": "AWSLogs/814726593401/firehose/ap-southeast-3/2026/04/13/firehose_97R064L0K8I.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/firehose/logs",
-      "log_stream": "us-west-2/nfobxtd0",
-      "ingestion_time": "2026-04-02T20:50:22.414Z"
+      "log_stream": "ap-southeast-3/edyslxyv",
+      "ingestion_time": "2026-04-13T11:01:16.257Z"
     }
   },
   "event": {
@@ -85,10 +85,10 @@
     "category": ["process"],
     "dataset": "aws.firehose",
     "provider": "firehose.amazonaws.com",
-    "duration": 40000000000,
+    "duration": 14000000000,
     "module": "aws"
   },
-  "message": "Firehose logs-to-s3: 25747 records delivered",
+  "message": "Firehose clickstream-backup: 10091 records delivered",
   "log": {
     "level": "info"
   },
@@ -107,8 +107,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-west-2",
-    "ephemeral_id": "4u0u8gwrz3h"
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "ax0imk57pz4"
   },
   "input": {
     "type": "aws-firehose"

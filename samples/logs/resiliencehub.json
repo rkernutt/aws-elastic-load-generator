@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "resiliencehub"
@@ -13,33 +13,33 @@
   },
   "aws": {
     "resiliencehub": {
-      "app_arn": "arn:aws:resiliencehub:af-south-1:293847561023:app/zepl3tlbi7",
-      "app_name": "customer-portal",
-      "operation": "CreateRecommendationTemplate",
-      "resiliency_score": 23,
+      "app_arn": "arn:aws:resiliencehub:sa-east-1:164820739518:app/g9lgp05zbrl",
+      "app_name": "inventory-service",
+      "operation": "PublishRecommendations",
+      "resiliency_score": 28,
       "compliance_status": "POLICY_BREACHED",
-      "current_rto_seconds": 3423,
-      "target_rto_seconds": 1711,
-      "current_rpo_seconds": 412,
-      "target_rpo_seconds": 206,
-      "tier": "Non-Critical",
-      "disruption_type": "AZ",
-      "recommendation_count": 2,
-      "error_code": "ThrottlingException"
+      "current_rto_seconds": 900,
+      "target_rto_seconds": 450,
+      "current_rpo_seconds": 2788,
+      "target_rpo_seconds": 1394,
+      "tier": "Core",
+      "disruption_type": "Region",
+      "recommendation_count": 20,
+      "error_code": "ValidationException"
     },
     "s3": {
       "bucket": {
-        "name": "aws-resiliencehub-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-resiliencehub-logs-293847561023"
+        "name": "aws-resiliencehub-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-resiliencehub-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/293847561023/resiliencehub/af-south-1/2026/04/02/resiliencehub_4F7AJMGTX8J.log.gz"
+        "key": "AWSLogs/164820739518/resiliencehub/sa-east-1/2026/04/13/resiliencehub_19W3QHKNILUI.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/resiliencehub/logs",
-      "log_stream": "af-south-1/1v157cnm",
-      "ingestion_time": "2026-04-02T20:50:22.431Z"
+      "log_stream": "sa-east-1/2e1t1kk2",
+      "ingestion_time": "2026-04-13T11:01:16.289Z"
     }
   },
   "event": {
@@ -47,10 +47,10 @@
     "category": ["process", "configuration"],
     "dataset": "aws.resiliencehub",
     "provider": "resiliencehub.amazonaws.com",
-    "duration": 131000000000,
+    "duration": 49000000000,
     "module": "aws"
   },
-  "message": "Resilience Hub customer-portal POLICY BREACHED [Non-Critical]: score=23, RTO 3423s exceeds target",
+  "message": "Resilience Hub inventory-service POLICY BREACHED [Core]: score=28, RTO 900s exceeds target",
   "log": {
     "level": "warn"
   },
@@ -74,8 +74,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-af-south-1",
-    "ephemeral_id": "20p8aeofi25"
+    "name": "filebeat-aws-sa-east-1",
+    "ephemeral_id": "c8njdawmph"
   },
   "input": {
     "type": "aws-cloudwatch"

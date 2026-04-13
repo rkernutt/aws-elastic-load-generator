@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "me-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "artifact"
@@ -13,32 +13,32 @@
   },
   "aws": {
     "dimensions": {
-      "ReportName": "GDPR-DPA",
-      "ReportCategory": "Agreement"
+      "ReportName": "SOC2-Type-II",
+      "ReportCategory": "Regulation"
     },
     "artifact": {
-      "report_name": "GDPR-DPA",
-      "report_arn": "arn:aws:artifact:::report/gdpr-dpa",
-      "report_category": "Agreement",
+      "report_name": "SOC2-Type-II",
+      "report_arn": "arn:aws:artifact:::report/soc2-type-ii",
+      "report_category": "Regulation",
       "report_period": "2025-H1",
-      "agreement_name": "Business-Associate-Agreement",
+      "agreement_name": "GDPR-Data-Processing-Addendum",
       "agreement_type": "CUSTOM",
-      "accessed_by": "globex-shared-services",
+      "accessed_by": "globex-security-tooling",
       "download_format": "PDF"
     },
     "s3": {
       "bucket": {
-        "name": "aws-artifact-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-artifact-logs-164820739518"
+        "name": "aws-artifact-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-artifact-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/164820739518/artifact/ap-northeast-1/2026/04/02/artifact_QGV2M15U87.log.gz"
+        "key": "AWSLogs/501938274650/artifact/me-central-1/2026/04/13/artifact_DJURJCI1PGM.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/artifact/logs",
-      "log_stream": "ap-northeast-1/yuhcdb69",
-      "ingestion_time": "2026-04-02T20:50:22.385Z"
+      "log_stream": "me-central-1/cjh7t8fs",
+      "ingestion_time": "2026-04-13T11:01:16.239Z"
     }
   },
   "event": {
@@ -49,12 +49,12 @@
     "provider": "artifact.amazonaws.com",
     "module": "aws"
   },
-  "message": "Artifact: GetTermsForReport — GDPR-DPA (Agreement)",
+  "message": "Artifact: GetTermsForReport — SOC2-Type-II (Regulation)",
   "log": {
     "level": "info"
   },
   "user": {
-    "name": "globex-shared-services"
+    "name": "globex-security-tooling"
   },
   "service": {
     "name": "artifact",
@@ -71,8 +71,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-1",
-    "ephemeral_id": "081657k7nwo3"
+    "name": "filebeat-aws-me-central-1",
+    "ephemeral_id": "ejehwd8ikn"
   },
   "input": {
     "type": "http_endpoint"

@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-west-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,45 +13,51 @@
   },
   "aws": {
     "dimensions": {
-      "Severity": "INFORMATIONAL"
+      "Severity": "HIGH"
     },
     "inspector2": {
-      "finding_id": "arn:aws:inspector2:us-east-2:814726593401:finding/85n3hkih-tkuo-dvs5-8jcf-g0czpxpgvpw",
-      "finding_type": "CODE_VULNERABILITY",
-      "finding_status": "SUPPRESSED",
-      "severity": "INFORMATIONAL",
-      "severity_score": 0.4,
-      "exploitability": "PROOF_OF_CONCEPT",
+      "finding_id": "arn:aws:inspector2:eu-west-1:814726593401:finding/ef3xikvm-qwnt-g1h0-70ws-36b95sc9mhx",
+      "finding_type": "PACKAGE_VULNERABILITY",
+      "finding_status": "ACTIVE",
+      "severity": "HIGH",
+      "severity_score": 8.8,
+      "exploitability": "FUNCTIONAL",
       "resource_type": "AWS_LAMBDA_FUNCTION",
-      "resource_id": "arn:aws:lambda:us-east-2:814726593401:function:my-fn",
-      "first_observed_at": "2026-03-29T20:50:22.062Z",
-      "last_observed_at": "2026-04-02T20:50:22.062Z",
-      "code_vulnerability": {
-        "cwes": ["CWE-20"],
-        "detector_name": "CodeGuru Detector",
-        "file_path": {
-          "name": "handler.js",
-          "line_number": 233
-        }
+      "resource_id": "arn:aws:lambda:eu-west-1:814726593401:function:my-fn",
+      "first_observed_at": "2026-03-20T11:01:15.944Z",
+      "last_observed_at": "2026-04-13T11:01:15.944Z",
+      "package_vulnerability": {
+        "cve_id": "CVE-2022-59278",
+        "source": "NVD",
+        "cvss3_score": 8.782943253259079,
+        "vulnerable_packages": [
+          {
+            "name": "curl",
+            "version": "1.18.10",
+            "fixed_in_version": "1.2.16",
+            "package_manager": "JAVA"
+          }
+        ],
+        "related_vulnerabilities": ["CVE-2021-15474"]
       },
       "metrics": {
         "TotalFindings": {
-          "sum": 97
+          "sum": 190
         },
         "CriticalFindings": {
           "sum": 0
         },
         "HighFindings": {
-          "sum": 0
+          "sum": 23
         },
         "MediumFindings": {
           "sum": 0
         },
         "LowFindings": {
-          "sum": 14
+          "sum": 0
         },
         "CoveredResources": {
-          "avg": 1711
+          "avg": 551
         }
       }
     },
@@ -61,32 +67,42 @@
         "arn": "arn:aws:s3:::aws-inspector-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/814726593401/inspector/us-east-2/2026/04/02/inspector_FLDGCT6RK9.log.gz"
+        "key": "AWSLogs/814726593401/inspector/eu-west-1/2026/04/13/inspector_JOY068ANI3.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/inspector/logs",
-      "log_stream": "us-east-2/4c98cb08",
-      "ingestion_time": "2026-04-02T20:50:22.381Z"
+      "log_stream": "eu-west-1/48e1fzbl",
+      "ingestion_time": "2026-04-13T11:01:16.231Z"
     }
   },
   "vulnerability": {
-    "severity": "INFORMATIONAL",
+    "severity": "HIGH",
+    "id": "CVE-2022-59278",
     "score": {
-      "base": 0.376600767404897
+      "base": 8.782943253259079
     }
   },
+  "package": {
+    "name": "curl",
+    "version": "1.18.10"
+  },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": ["vulnerability"],
     "type": ["info"],
     "dataset": "aws.inspector2",
     "provider": "inspector2.amazonaws.com",
     "module": "aws"
   },
-  "message": "Inspector2 [INFORMATIONAL]: CODE_VULNERABILITY detected on AWS_LAMBDA_FUNCTION",
+  "message": "Inspector2 [HIGH]: CVE-2022-59278 in curl 1.18.10 on AWS_LAMBDA_FUNCTION (fix: 1.2.16)",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "CVE-2022-59278",
+    "message": "HIGH vulnerability: curl",
+    "type": "vulnerability"
   },
   "service": {
     "name": "inspector",
@@ -103,8 +119,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-2",
-    "ephemeral_id": "vhnizv4mv4k"
+    "name": "filebeat-aws-eu-west-1",
+    "ephemeral_id": "wg06uyg7qu"
   },
   "input": {
     "type": "http_endpoint"

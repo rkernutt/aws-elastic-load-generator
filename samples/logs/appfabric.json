@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
     "region": "ap-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "appfabric"
@@ -14,50 +14,50 @@
   "aws": {
     "dimensions": {
       "AppBundle": "prod-bundle",
-      "Application": "Microsoft365"
+      "Application": "Jira"
     },
     "appfabric": {
-      "app_bundle_arn": "arn:aws:appfabric:ap-east-1:501938274650:appbundle/prod-bundle",
-      "application": "Microsoft365",
-      "event_type": "userCreated",
-      "normalized_user": "user-60NA6LM9@example.com",
-      "source_ip": "127.130.165.83",
+      "app_bundle_arn": "arn:aws:appfabric:ap-east-1:164820739518:appbundle/prod-bundle",
+      "application": "Jira",
+      "event_type": "settingChanged",
+      "normalized_user": "user-A0H2I49A@example.com",
+      "source_ip": "210.255.233.63",
       "ingestion_status": "ACTIVE",
-      "tenant_id": "tenant-1X7314AT",
-      "ocsf_class": "AUTHENTICATION"
+      "tenant_id": "tenant-83BDWSCY",
+      "ocsf_class": "FILE_ACTIVITY"
     },
     "s3": {
       "bucket": {
-        "name": "aws-appfabric-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-appfabric-logs-501938274650"
+        "name": "aws-appfabric-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-appfabric-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/501938274650/appfabric/ap-east-1/2026/04/02/appfabric_I1YN5XMM6C8.log.gz"
+        "key": "AWSLogs/164820739518/appfabric/ap-east-1/2026/04/13/appfabric_SIHRLXN7F9O.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/appfabric/logs",
-      "log_stream": "ap-east-1/jo4fhbx6",
-      "ingestion_time": "2026-04-02T20:50:22.422Z"
+      "log_stream": "ap-east-1/3qkqozj3",
+      "ingestion_time": "2026-04-13T11:01:16.272Z"
     }
   },
   "event": {
-    "action": "NormalizeEvent",
+    "action": "UpdateIngestion",
     "outcome": "success",
     "category": ["audit"],
     "dataset": "aws.appfabric",
     "provider": "appfabric.amazonaws.com",
     "module": "aws"
   },
-  "message": "AppFabric Microsoft365: userCreated by user-60NA6LM9@example.com normalized as OCSF AUTHENTICATION",
+  "message": "AppFabric Jira: settingChanged by user-A0H2I49A@example.com normalized as OCSF FILE_ACTIVITY",
   "log": {
     "level": "info"
   },
   "user": {
-    "email": "user-60NA6LM9@example.com"
+    "email": "user-A0H2I49A@example.com"
   },
   "source": {
-    "ip": "127.130.165.83"
+    "ip": "210.255.233.63"
   },
   "service": {
     "name": "appfabric",
@@ -75,7 +75,7 @@
     "type": "filebeat",
     "version": "8.18.0",
     "name": "filebeat-aws-ap-east-1",
-    "ephemeral_id": "yp5vv50s16"
+    "ephemeral_id": "7oins1arvc"
   },
   "input": {
     "type": "http_endpoint"

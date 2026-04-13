@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "aurora"
@@ -14,59 +14,59 @@
   "aws": {
     "aurora": {
       "cluster_id": "prod-aurora-cluster",
-      "instance_id": "prod-aurora-cluster-instance-1",
+      "instance_id": "prod-aurora-cluster-instance-5",
       "engine": "aurora-postgresql",
       "engine_version": "15.4",
-      "replica_lag_seconds": 4.274973916900933,
-      "db_connections": 322,
+      "replica_lag_seconds": 3.0835055379786764,
+      "db_connections": 428,
       "max_connections": 1000,
       "failover_in_progress": false,
       "metrics": {
         "AuroraBinlogReplicaLag": {
-          "avg": 2
+          "avg": 0
         },
         "AuroraGlobalDBReplicatedWriteIO": {
-          "sum": 13952799
+          "sum": 51926927
         },
         "AuroraGlobalDBDataTransferBytes": {
-          "sum": 426437543
+          "sum": 450453278
         },
         "AuroraGlobalDBProgressLag": {
-          "avg": 767
+          "avg": 25
         },
         "BacktrackChangeRecordsCreationRate": {
-          "avg": 3699
+          "avg": 2086
         },
         "BacktrackChangeRecordsStored": {
-          "avg": 138543692
+          "avg": 788466094
         },
         "BacktrackWindowActual": {
-          "avg": 81005
+          "avg": 53303
         },
         "BacktrackWindowAlert": {
           "avg": 0
         },
         "ServerlessDatabaseCapacity": {
-          "avg": 83.00239600890771
+          "avg": 35.3612608145663
         },
         "ACUUtilization": {
-          "avg": 23.823994789291987
+          "avg": 45.95615174659476
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-aurora-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-aurora-logs-501938274650"
+        "name": "aws-aurora-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-aurora-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/501938274650/aurora/eu-west-3/2026/04/02/aurora_AL7HA8R81W9.log.gz"
+        "key": "AWSLogs/814726593401/aurora/ap-northeast-1/2026/04/13/aurora_58G5BFB6C7F.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/aurora/logs",
-      "log_stream": "eu-west-3/3wflnj41",
-      "ingestion_time": "2026-04-02T20:50:22.412Z"
+      "log_stream": "ap-northeast-1/u5kmibr0",
+      "ingestion_time": "2026-04-13T11:01:16.254Z"
     }
   },
   "event": {
@@ -74,10 +74,10 @@
     "category": ["database"],
     "dataset": "aws.aurora",
     "provider": "rds.amazonaws.com",
-    "duration": 55000000000,
+    "duration": 45000000000,
     "module": "aws"
   },
-  "message": "Global Database replication lag: 0.8s",
+  "message": "Cluster endpoint updated",
   "log": {
     "level": "info"
   },
@@ -96,8 +96,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-3",
-    "ephemeral_id": "pfq70a76wpg"
+    "name": "filebeat-aws-ap-northeast-1",
+    "ephemeral_id": "j4x6rx5ef9n"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "eu-south-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "textract"
@@ -13,35 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "GetDocumentAnalysis"
+      "Operation": "StartDocumentAnalysis"
     },
     "textract": {
-      "operation": "GetDocumentAnalysis",
-      "document_type": "receipt",
-      "job_id": "qznggwyx9oo",
-      "job_status": "FAILED",
-      "pages_processed": 0,
-      "blocks_detected": 0,
-      "words_detected": 0,
+      "operation": "StartDocumentAnalysis",
+      "document_type": "bank-statement",
+      "job_id": "xsxumm7f3qp",
+      "pages_processed": 47,
+      "blocks_detected": 8178,
+      "words_detected": 18424,
       "form_key_value_pairs": 0,
       "tables_detected": 0,
-      "confidence_mean": 97.47090496998456,
-      "error_code": "BadDocumentException",
+      "confidence_mean": 96.0061228001356,
       "metrics": {
         "DocumentsProcessed": {
           "sum": 1
         },
         "ThrottledRequests": {
-          "sum": 1
-        },
-        "ResponseTime": {
-          "avg": 17917.283367481126
-        },
-        "SuccessfulRequests": {
           "sum": 0
         },
+        "ResponseTime": {
+          "avg": 1026.5959980232456
+        },
+        "SuccessfulRequests": {
+          "sum": 1
+        },
         "UserErrorRequests": {
-          "sum": 5
+          "sum": 0
         },
         "ServerErrorRequests": {
           "sum": 0
@@ -50,34 +48,29 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-textract-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-textract-logs-501938274650"
+        "name": "aws-textract-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-textract-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/501938274650/textract/ca-west-1/2026/04/02/textract_VD75NV1B9ZI.log.gz"
+        "key": "AWSLogs/738291046572/textract/eu-south-1/2026/04/13/textract_5OBQ7T0FH13.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/textract/logs",
-      "log_stream": "ca-west-1/sas9kzfg",
-      "ingestion_time": "2026-04-02T20:50:22.423Z"
+      "log_stream": "eu-south-1/bonwyuis",
+      "ingestion_time": "2026-04-13T11:01:16.274Z"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": ["process", "file"],
     "dataset": "aws.textract",
     "provider": "textract.amazonaws.com",
     "module": "aws"
   },
-  "message": "Textract GetDocumentAnalysis FAILED on receipt: Unsupported format",
+  "message": "Textract StartDocumentAnalysis: bank-statement, 47 pages, 17249 words",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "TextractError",
-    "message": "Textract operation failed",
-    "type": "ml"
+    "level": "info"
   },
   "service": {
     "name": "textract",
@@ -94,8 +87,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ca-west-1",
-    "ephemeral_id": "x85ly54d2e"
+    "name": "filebeat-aws-eu-south-1",
+    "ephemeral_id": "4qckwtdbkmd"
   },
   "input": {
     "type": "aws-cloudwatch"

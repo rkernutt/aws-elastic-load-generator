@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "sa-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "sqs"
@@ -13,41 +13,41 @@
   },
   "aws": {
     "dimensions": {
-      "QueueName": "webhook-events"
+      "QueueName": "email-queue"
     },
     "sqs": {
       "queue": {
-        "name": "webhook-events"
+        "name": "email-queue"
       },
       "oldest_message_age": {
-        "sec": 245
+        "sec": 11
       },
       "messages": {
-        "delayed": 417,
-        "not_visible": 649,
-        "visible": 973,
-        "deleted": 77,
-        "received": 338,
-        "sent": 1903
+        "delayed": 4,
+        "not_visible": 60,
+        "visible": 626,
+        "deleted": 153,
+        "received": 3487,
+        "sent": 4420
       },
-      "empty_receives": 27,
+      "empty_receives": 9,
       "sent_message_size": {
-        "bytes": 30959
+        "bytes": 25490
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-sqs-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-sqs-logs-814726593401"
+        "name": "aws-sqs-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-sqs-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/814726593401/sqs/us-west-2/2026/04/02/sqs_ASKRUCTQMLQ.log.gz"
+        "key": "AWSLogs/501938274650/sqs/sa-east-1/2026/04/13/sqs_KZIF9W330JH.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/sqs/logs",
-      "log_stream": "us-west-2/moz9wfgv",
-      "ingestion_time": "2026-04-02T20:50:22.414Z"
+      "log_stream": "sa-east-1/2op7ssqx",
+      "ingestion_time": "2026-04-13T11:01:16.257Z"
     }
   },
   "event": {
@@ -55,18 +55,12 @@
     "category": ["process"],
     "dataset": "aws.sqs",
     "provider": "sqs.amazonaws.com",
-    "duration": 264000000,
+    "duration": 393000000,
     "module": "aws"
   },
-  "message": "SQS webhook-events: 1903 sent, 338 received",
+  "message": "SQS email-queue: 4420 sent, 3487 received",
   "log": {
     "level": "info"
-  },
-  "trace": {
-    "id": "IKXKKCZ9VR9"
-  },
-  "transaction": {
-    "id": "VSREMKGW3NB"
   },
   "service": {
     "name": "sqs",
@@ -83,8 +77,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-west-2",
-    "ephemeral_id": "k93jxoobta"
+    "name": "filebeat-aws-sa-east-1",
+    "ephemeral_id": "rusj113828"
   },
   "input": {
     "type": "aws-cloudwatch"

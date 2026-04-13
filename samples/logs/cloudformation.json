@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "me-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "cloudformation"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "cloudformation": {
-      "stack_name": "rds-cluster",
-      "stack_id": "arn:aws:cloudformation:ap-northeast-3:738291046572:stack/rds-cluster/g8hrymb5",
+      "stack_name": "prod-web-stack",
+      "stack_id": "arn:aws:cloudformation:me-south-1:501938274650:stack/prod-web-stack/sgipfxzl",
       "action": "DELETE_STACK",
       "stack_status": "DELETE_COMPLETE",
-      "resource_type": "AWS::RDS::DBInstance",
+      "resource_type": "AWS::ECS::Service",
       "logical_resource_id": "DatabaseCluster",
       "drift_status": "IN_SYNC",
-      "structured_logging": true,
+      "structured_logging": false,
       "metrics": {
         "TotalStack": {
-          "avg": 105
+          "avg": 421
         },
         "ErroredStack": {
           "avg": 0
@@ -32,26 +32,26 @@
           "avg": 0
         },
         "DeletedStack": {
-          "avg": 27
+          "avg": 21
         },
         "StackInstancesDeployed": {
-          "avg": 8012
+          "avg": 577
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-cloudformation-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-cloudformation-logs-738291046572"
+        "name": "aws-cloudformation-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-cloudformation-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/738291046572/cloudformation/ap-northeast-3/2026/04/02/cloudformation_K5I3XO7JHK.log.gz"
+        "key": "AWSLogs/501938274650/cloudformation/me-south-1/2026/04/13/cloudformation_5HVCI49YLSS.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/cloudformation/logs",
-      "log_stream": "ap-northeast-3/9y5rbhox",
-      "ingestion_time": "2026-04-02T20:50:22.429Z"
+      "log_stream": "me-south-1/746ecqxc",
+      "ingestion_time": "2026-04-13T11:01:16.285Z"
     }
   },
   "event": {
@@ -59,10 +59,10 @@
     "category": ["configuration", "process"],
     "dataset": "aws.cloudformation",
     "provider": "cloudformation.amazonaws.com",
-    "duration": 361000000000,
+    "duration": 98000000000,
     "module": "aws"
   },
-  "message": "{\"stackName\":\"rds-cluster\",\"action\":\"DELETE_STACK\",\"stackStatus\":\"DELETE_COMPLETE\",\"resourceType\":\"AWS::RDS::DBInstance\",\"message\":\"CloudFormation rds-cluster: DELETE_STACK -> DELETE_COMPLETE\",\"timestamp\":\"2026-04-02T20:50:22.062Z\"}",
+  "message": "CloudFormation prod-web-stack: DELETE_STACK -> DELETE_COMPLETE",
   "log": {
     "level": "info"
   },
@@ -81,8 +81,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-3",
-    "ephemeral_id": "5ibnzsyczj7"
+    "name": "filebeat-aws-me-south-1",
+    "ephemeral_id": "di3tfxshm34"
   },
   "input": {
     "type": "aws-cloudwatch"

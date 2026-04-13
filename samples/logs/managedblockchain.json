@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "managedblockchain"
@@ -13,30 +13,29 @@
   },
   "aws": {
     "managedblockchain": {
-      "network_id": "n-0FJN0EHLMYEN",
+      "network_id": "n-GUDPE0ISHT",
       "network_name": "financial-consortium",
       "framework": "Ethereum",
       "framework_version": "Ethereum",
-      "member_id": "m-NYGYBPPEC6",
-      "member_name": "Auditor",
-      "node_id": "nd-YYVCHNTRN9",
-      "event_type": "VoteCompleted",
-      "proposal_id": "F0P8Z0B5L4N",
+      "member_id": "m-EP9ROLPDUMH",
+      "member_name": "Company-A",
+      "node_id": "nd-HBJKA3V2HM7",
+      "event_type": "ChannelCreated",
       "status": "SUCCEEDED"
     },
     "s3": {
       "bucket": {
-        "name": "aws-managedblockchain-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-managedblockchain-logs-164820739518"
+        "name": "aws-managedblockchain-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-managedblockchain-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/164820739518/managedblockchain/me-central-1/2026/04/02/managedblockchain_56FQHN76CDN.log.gz"
+        "key": "AWSLogs/814726593401/managedblockchain/eu-west-3/2026/04/13/managedblockchain_RE5TXFIY4CG.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/managedblockchain/logs",
-      "log_stream": "me-central-1/479x1dl1",
-      "ingestion_time": "2026-04-02T20:50:22.436Z"
+      "log_stream": "eu-west-3/zzelostt",
+      "ingestion_time": "2026-04-13T11:01:16.300Z"
     }
   },
   "event": {
@@ -44,10 +43,10 @@
     "category": ["process", "database"],
     "dataset": "aws.blockchain",
     "provider": "managedblockchain.amazonaws.com",
-    "duration": 2019000000,
+    "duration": 876000000,
     "module": "aws"
   },
-  "message": "ManagedBlockchain VoteCompleted [Ethereum]: 1yr9gv1srpl...",
+  "message": "ManagedBlockchain ChannelCreated [Ethereum]: ssdjrmjaf0o...",
   "log": {
     "level": "info"
   },
@@ -66,8 +65,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-central-1",
-    "ephemeral_id": "o4qysk2uc2d"
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "yfbshbcr4e"
   },
   "input": {
     "type": "aws-cloudwatch"

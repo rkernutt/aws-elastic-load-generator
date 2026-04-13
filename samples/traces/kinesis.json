@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "7074e4cee542568ddd40ddd81982036d"
+    "id": "8460787295eb182d51a9d602b06f9638"
   },
   "transaction": {
-    "id": "a2f958a8a9d1a006",
-    "name": "financial-transactions-stream process",
+    "id": "4fc9389bae587f4a",
+    "name": "metrics-stream process",
     "type": "messaging",
     "duration": {
-      "us": 6313000
+      "us": 4961000
     },
     "result": "success",
     "sampled": true,
@@ -22,23 +22,23 @@
     }
   },
   "labels": {
-    "stream_name": "financial-transactions-stream",
-    "stream_arn": "arn:aws:kinesis:af-south-1:234567890123:stream/financial-transactions-stream",
-    "shard_id": "shardId-000000000003",
-    "sequence_number_range": "49499...49463",
-    "record_count": "329",
-    "iterator_age_ms": "21270"
+    "stream_name": "metrics-stream",
+    "stream_arn": "arn:aws:kinesis:us-east-1:234567890123:stream/metrics-stream",
+    "shard_id": "shardId-000000000004",
+    "sequence_number_range": "49973...49740",
+    "record_count": "433",
+    "iterator_age_ms": "19710"
   },
   "service": {
-    "name": "financial-events-processor",
+    "name": "metrics-rollup",
     "environment": "production",
     "version": "1.0.0",
     "language": {
-      "name": "java"
+      "name": "python"
     },
     "runtime": {
-      "name": "java21",
-      "version": "21.0.3"
+      "name": "python3.11",
+      "version": "3.11.7"
     },
     "framework": {
       "name": "AWS Kinesis"
@@ -46,22 +46,22 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "1.6.0"
+    "version": "0.6.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "java",
-      "version": "2.12.0"
+      "language": "python",
+      "version": "1.29.0"
     },
     "distro": {
       "name": "elastic",
-      "version": "1.6.0"
+      "version": "0.6.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "us-east-1",
     "account": {
       "id": "234567890123",
       "name": "staging-aws"

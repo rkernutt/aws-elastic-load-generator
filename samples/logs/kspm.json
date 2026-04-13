@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -9,33 +9,33 @@
     "provider": "aws",
     "region": "us-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     }
   },
   "orchestrator": {
     "cluster": {
-      "id": "prod-eks-cluster",
-      "name": "prod-eks-cluster"
+      "id": "staging-eks",
+      "name": "staging-eks"
     },
     "type": "kubernetes",
-    "namespace": "production"
+    "namespace": "default"
   },
   "resource": {
-    "id": "prod-eks-cluster/production/pod/cron-21afl",
-    "name": "pod/cron-21afl",
+    "id": "staging-eks/default/pod/worker-1l6v8",
+    "name": "pod/worker-1l6v8",
     "sub_type": "Pod",
     "type": "k8s_object"
   },
   "rule": {
-    "id": "cis_eks_4_4",
-    "name": "Minimize containers wishing to share the host IPC namespace",
-    "section": "4.4",
+    "id": "cis_eks_4_6",
+    "name": "Minimize the admission of root containers",
+    "section": "4.6",
     "tags": ["Pod Security"],
     "benchmark": {
       "id": "cis_eks",
       "version": "v1.4.0",
-      "rule_number": "4.4",
+      "rule_number": "4.6",
       "posture_type": "kspm"
     }
   },
@@ -52,7 +52,7 @@
     "provider": "elastic_kspm",
     "module": "aws"
   },
-  "message": "KSPM [CIS EKS / 4.4] passed: Minimize containers wishing to share the host IPC namespace [prod-eks-cluster]",
+  "message": "KSPM [CIS EKS / 4.6] passed: Minimize the admission of root containers [staging-eks]",
   "log": {
     "level": "info"
   },
@@ -67,7 +67,7 @@
     "type": "filebeat",
     "version": "8.18.0",
     "name": "filebeat-aws-us-west-2",
-    "ephemeral_id": "vkcvnrenfgr"
+    "ephemeral_id": "en6zqpiovy"
   },
   "input": {
     "type": "http_endpoint"
@@ -75,17 +75,17 @@
   "aws": {
     "s3": {
       "bucket": {
-        "name": "aws-kspm-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-kspm-logs-293847561023"
+        "name": "aws-kspm-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-kspm-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/kspm/us-west-2/2026/04/02/kspm_00CNP7747AUSO.log.gz"
+        "key": "AWSLogs/814726593401/kspm/us-west-2/2026/04/13/kspm_XXNZNPPECXG.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/kspm/logs",
-      "log_stream": "us-west-2/t038t8vx",
-      "ingestion_time": "2026-04-02T20:50:22.383Z"
+      "log_stream": "us-west-2/1g8yw053",
+      "ingestion_time": "2026-04-13T11:01:16.236Z"
     }
   }
 }

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "securityhub"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "ComplianceStandard": "cis-aws-foundations-benchmark",
-      "ControlId": "RDS.1"
+      "ComplianceStandard": "pci-dss",
+      "ControlId": "IAM.2"
     },
     "securityhub_findings": {
-      "id": "V2LSSWJG-AY0C-EITF-0A9I-AFA6ZYU1Z8",
-      "aws_account_id": "293847561023",
-      "region": "eu-west-2",
+      "id": "PH2GOQWK-29XI-C8YJ-WW3D-S93YY4C2YBL",
+      "aws_account_id": "814726593401",
+      "region": "eu-south-1",
       "description": "Control passed.",
-      "created_at": "2026-04-02T16:08:29.716Z",
-      "first_observed_at": "2026-04-02T16:08:29.716Z",
-      "last_observed_at": "2026-04-02T20:50:22.062Z",
+      "created_at": "2026-04-12T14:20:06.777Z",
+      "first_observed_at": "2026-04-12T14:20:06.777Z",
+      "last_observed_at": "2026-04-13T11:01:15.944Z",
       "generator": {
-        "id": "RDS.1"
+        "id": "IAM.2"
       },
-      "types": ["Threat Detections/Tactics/Impact"],
+      "types": ["Software and Configuration Checks/Vulnerabilities/CVE"],
       "compliance": {
-        "security_control_id": "RDS.1",
+        "security_control_id": "IAM.2",
         "status": "PASSED"
       },
       "severity": {
@@ -37,40 +37,40 @@
         "normalized": 0
       },
       "workflow": {
-        "status": "RESOLVED"
+        "status": "NOTIFIED"
       },
       "record_state": "ARCHIVED",
       "product": {
-        "arn": "arn:aws:securityhub:eu-west-2::product/aws/securityhub",
+        "arn": "arn:aws:securityhub:eu-south-1::product/aws/securityhub",
         "name": "Security Hub"
       },
       "criticality": 4,
-      "confidence": 87
+      "confidence": 86
     },
     "s3": {
       "bucket": {
-        "name": "aws-securityhub-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-securityhub-logs-293847561023"
+        "name": "aws-securityhub-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-securityhub-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/securityhub/eu-west-2/2026/04/02/securityhub_RR32PRM1N3M.log.gz"
+        "key": "AWSLogs/814726593401/securityhub/eu-south-1/2026/04/13/securityhub_Y68EYBMCP98.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/securityhub/logs",
-      "log_stream": "eu-west-2/g8yn8nm6",
-      "ingestion_time": "2026-04-02T20:50:22.380Z"
+      "log_stream": "eu-south-1/r3dfmk36",
+      "ingestion_time": "2026-04-13T11:01:16.230Z"
     }
   },
   "rule": {
-    "id": "RDS.1",
-    "name": "RDS.1 — MFA not enabled for root"
+    "id": "IAM.2",
+    "name": "IAM.2 — VPC flow logs disabled"
   },
   "event": {
     "kind": "alert",
     "severity": 4,
     "outcome": "success",
-    "category": ["vulnerability"],
+    "category": ["compliance"],
     "type": ["info"],
     "dataset": "aws.securityhub_findings",
     "provider": "securityhub.amazonaws.com",
@@ -95,8 +95,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-2",
-    "ephemeral_id": "d3jomsfcm4d"
+    "name": "filebeat-aws-eu-south-1",
+    "ephemeral_id": "abzsd8t99bw"
   },
   "input": {
     "type": "http_endpoint"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "codepipeline"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "PipelineName": "infra-pipeline"
+      "PipelineName": "hotfix-pipeline"
     },
     "codepipeline": {
-      "pipeline_name": "infra-pipeline",
-      "pipeline_arn": "arn:aws:codepipeline:af-south-1:293847561023:infra-pipeline",
-      "execution_id": "zkpkd2nl-opk0-aer8-eai2-7ea0g428wv4",
-      "stage_name": "Production",
-      "action_name": "Lambda",
+      "pipeline_name": "hotfix-pipeline",
+      "pipeline_arn": "arn:aws:codepipeline:eu-central-2:814726593401:hotfix-pipeline",
+      "execution_id": "0k1bsa2y-dt8d-n1rk-3z8u-e4ktkph2gso",
+      "stage_name": "Staging",
+      "action_name": "Source",
       "state": "Succeeded",
-      "revision_id": "0g5yaxrunmxq",
-      "structured_logging": false,
+      "revision_id": "2jb6d3b089j",
+      "structured_logging": true,
       "metrics": {
         "PipelineExecutionAttempts": {
           "sum": 1
@@ -47,17 +47,17 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-codepipeline-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-codepipeline-logs-293847561023"
+        "name": "aws-codepipeline-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-codepipeline-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/codepipeline/af-south-1/2026/04/02/codepipeline_8ATTOXC49NN.log.gz"
+        "key": "AWSLogs/814726593401/codepipeline/eu-central-2/2026/04/13/codepipeline_WW8MM92MAKK.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/codepipeline/logs",
-      "log_stream": "af-south-1/s17rgwkc",
-      "ingestion_time": "2026-04-02T20:50:22.416Z"
+      "log_stream": "eu-central-2/ojfn0oma",
+      "ingestion_time": "2026-04-13T11:01:16.261Z"
     }
   },
   "event": {
@@ -65,10 +65,10 @@
     "category": ["process", "configuration"],
     "dataset": "aws.codepipeline",
     "provider": "codepipeline.amazonaws.com",
-    "duration": 115000000000,
+    "duration": 26000000000,
     "module": "aws"
   },
-  "message": "Pipeline execution started",
+  "message": "{\"pipeline\":\"hotfix-pipeline\",\"executionId\":\"0k1bsa2y-dt8d-n1rk-3z8u-e4ktkph2gso\",\"stage\":\"Staging\",\"state\":\"Succeeded\",\"timestamp\":\"2026-04-13T11:01:15.944Z\"}",
   "log": {
     "level": "info"
   },
@@ -87,8 +87,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-af-south-1",
-    "ephemeral_id": "newhrg2965"
+    "name": "filebeat-aws-eu-central-2",
+    "ephemeral_id": "577agd91k99"
   },
   "input": {
     "type": "aws-cloudwatch"

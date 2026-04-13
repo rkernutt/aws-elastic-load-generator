@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "eu-west-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "keyspaces"
@@ -14,38 +14,38 @@
   "aws": {
     "keyspaces": {
       "keyspace_name": "user_data",
-      "table_name": "inventory",
-      "operation": "DELETE",
-      "read_capacity_units": 26.19174244911644,
-      "write_capacity_units": 24.913160105155313,
-      "rows_returned": 0,
-      "duration_ms": 42,
+      "table_name": "users",
+      "operation": "SELECT",
+      "read_capacity_units": 31.679442776994,
+      "write_capacity_units": 16.545571380466885,
+      "rows_returned": 82,
+      "duration_ms": 179,
       "cql_version": "3.11.2"
     },
     "s3": {
       "bucket": {
-        "name": "aws-keyspaces-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-keyspaces-logs-738291046572"
+        "name": "aws-keyspaces-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-keyspaces-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/738291046572/keyspaces/ap-southeast-4/2026/04/02/keyspaces_WQKOZVJNPP8.log.gz"
+        "key": "AWSLogs/164820739518/keyspaces/eu-west-3/2026/04/13/keyspaces_IR11GN6BGON.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/keyspaces/logs",
-      "log_stream": "ap-southeast-4/rnvs0mlo",
-      "ingestion_time": "2026-04-02T20:50:22.413Z"
+      "log_stream": "eu-west-3/79mdethb",
+      "ingestion_time": "2026-04-13T11:01:16.255Z"
     }
   },
   "event": {
-    "duration": 42327403.632723086,
+    "duration": 179219952.22248825,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.keyspaces",
     "provider": "cassandra.amazonaws.com",
     "module": "aws"
   },
-  "message": "Keyspaces DELETE on user_data.inventory: 42ms",
+  "message": "Keyspaces SELECT on user_data.users: 179ms",
   "log": {
     "level": "info"
   },
@@ -64,8 +64,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-4",
-    "ephemeral_id": "n7hcisusre"
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "9fivwp8cwda"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-1",
+    "region": "us-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "pinpoint"
@@ -13,32 +13,32 @@
   },
   "aws": {
     "pinpoint": {
-      "application_id": "qfsj0kl2boj",
-      "event_type": "_custom.purchase",
-      "channel": "EMAIL",
-      "campaign_id": "0iur6z4tnm4g",
-      "campaign_name": "churn-prevention",
-      "journey_id": "6fs3bbckvw6",
-      "segment_id": "qxsjvyzy25c",
-      "endpoint_id": "user_kxl51owk93",
-      "message_id": "tdpaixom18l",
+      "application_id": "s7flbrt7adf",
+      "event_type": "_email.send",
+      "channel": "IN_APP",
+      "campaign_id": "37ypqjv5ln8",
+      "campaign_name": "welcome-series",
+      "journey_id": "3sxjwtjnojh",
+      "segment_id": "j9v4jmwuyhq",
+      "endpoint_id": "user_zb5rae09vn",
+      "message_id": "gy8wsrzoqrf",
       "delivery_status": "SUCCESSFUL",
-      "destination": "user_kxl51owk93@example.com",
-      "iso_country_code": "US"
+      "destination": "user_zb5rae09vn",
+      "iso_country_code": "FR"
     },
     "s3": {
       "bucket": {
-        "name": "aws-pinpoint-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-pinpoint-logs-293847561023"
+        "name": "aws-pinpoint-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-pinpoint-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/pinpoint/eu-west-1/2026/04/02/pinpoint_PT3CEWA94I.log.gz"
+        "key": "AWSLogs/814726593401/pinpoint/us-west-1/2026/04/13/pinpoint_3SP5L0PQAA5.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/pinpoint/logs",
-      "log_stream": "eu-west-1/i8cd74m8",
-      "ingestion_time": "2026-04-02T20:50:22.435Z"
+      "log_stream": "us-west-1/htbfpfs2",
+      "ingestion_time": "2026-04-13T11:01:16.297Z"
     }
   },
   "event": {
@@ -46,10 +46,10 @@
     "category": ["process"],
     "dataset": "aws.pinpoint",
     "provider": "mobiletargeting.amazonaws.com",
-    "duration": 372000000,
+    "duration": 1938000000,
     "module": "aws"
   },
-  "message": "Pinpoint _custom.purchase [churn-prevention]: user_kxl51owk93 via EMAIL",
+  "message": "Pinpoint _email.send [welcome-series]: user_zb5rae09vn via IN_APP",
   "log": {
     "level": "info"
   },
@@ -68,8 +68,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-1",
-    "ephemeral_id": "7durt4t0gup"
+    "name": "filebeat-aws-us-west-1",
+    "ephemeral_id": "886i10irbh"
   },
   "input": {
     "type": "aws-cloudwatch"

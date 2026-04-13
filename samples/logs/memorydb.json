@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "memorydb"
@@ -13,40 +13,40 @@
   },
   "aws": {
     "memorydb": {
-      "cluster_name": "session-store",
-      "node_name": "session-store-0001-001",
+      "cluster_name": "leaderboard",
+      "node_name": "leaderboard-0001-001",
       "engine_version": "7.1",
-      "command": "SET",
-      "latency_us": 11.611186039567764,
-      "cache_hit_rate": 85.73378420601462,
-      "connected_clients": 194,
-      "used_memory_mb": 8861,
-      "replication_lag_ms": 20
+      "command": "INCR",
+      "latency_us": 42.4503804295413,
+      "cache_hit_rate": 90.43858974231678,
+      "connected_clients": 429,
+      "used_memory_mb": 2290,
+      "replication_lag_ms": 44
     },
     "s3": {
       "bucket": {
-        "name": "aws-memorydb-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-memorydb-logs-293847561023"
+        "name": "aws-memorydb-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-memorydb-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/293847561023/memorydb/eu-west-2/2026/04/02/memorydb_16GH9TCZDP7.log.gz"
+        "key": "AWSLogs/501938274650/memorydb/ap-northeast-1/2026/04/13/memorydb_248GBZ29YNZ.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/memorydb/logs",
-      "log_stream": "eu-west-2/90xsgt3c",
-      "ingestion_time": "2026-04-02T20:50:22.413Z"
+      "log_stream": "ap-northeast-1/0dn3r3ad",
+      "ingestion_time": "2026-04-13T11:01:16.256Z"
     }
   },
   "event": {
-    "duration": 11611.186039567765,
+    "duration": 42450.3804295413,
     "outcome": "success",
     "category": "database",
     "dataset": "aws.memorydb",
     "provider": "memory-db.amazonaws.com",
     "module": "aws"
   },
-  "message": "MemoryDB session-store SET: 11.61us",
+  "message": "MemoryDB leaderboard INCR: 42.45us",
   "log": {
     "level": "info"
   },
@@ -65,8 +65,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-2",
-    "ephemeral_id": "6wqltf2rfra"
+    "name": "filebeat-aws-ap-northeast-1",
+    "ephemeral_id": "0ewy3djmmfu6"
   },
   "input": {
     "type": "aws-cloudwatch"

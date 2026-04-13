@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "us-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "batch"
@@ -13,29 +13,29 @@
   },
   "aws": {
     "dimensions": {
-      "JobQueue": "report-generation-queue"
+      "JobQueue": "nightly-etl-queue"
     },
     "batch": {
       "job": {
-        "name": "report-generation",
-        "id": "im8yfjd6-86l1",
+        "name": "nightly-etl",
+        "id": "3xyt46ry-1isq",
         "status": "SUCCEEDED"
       },
-      "job_queue": "report-generation-queue",
-      "compute_environment": "ce-ondemand",
+      "job_queue": "nightly-etl-queue",
+      "compute_environment": "ce-spot",
       "structured_logging": true,
       "metrics": {
         "PendingJobCount": {
-          "avg": 55
+          "avg": 77
         },
         "RunnableJobCount": {
-          "avg": 4
+          "avg": 6
         },
         "StartingJobCount": {
-          "avg": 16
+          "avg": 8
         },
         "RunningJobCount": {
-          "avg": 92
+          "avg": 35
         },
         "SucceededJobCount": {
           "sum": 1
@@ -44,34 +44,34 @@
           "sum": 0
         },
         "CPUReserved": {
-          "avg": 22.467571650393698
+          "avg": 22.169874817309367
         },
         "GPUReserved": {
           "avg": 0
         },
         "MemoryReserved": {
-          "avg": 87.58064867826825
+          "avg": 63.47767511790812
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-batch-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-batch-logs-814726593401"
+        "name": "aws-batch-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-batch-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/814726593401/batch/us-west-1/2026/04/02/batch_TWVVZPQH8J.log.gz"
+        "key": "AWSLogs/738291046572/batch/us-west-2/2026/04/13/batch_BDIH92SXYIN.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/batch/logs",
-      "log_stream": "us-west-1/zthrjx1c",
-      "ingestion_time": "2026-04-02T20:50:22.373Z"
+      "log_stream": "us-west-2/cfsv1mgb",
+      "ingestion_time": "2026-04-13T11:01:16.220Z"
     }
   },
   "process": {
-    "pid": 30116,
-    "name": "bash",
+    "pid": 43687,
+    "name": "java",
     "exit_code": 0
   },
   "log": {
@@ -82,13 +82,13 @@
     "outcome": "success",
     "dataset": "aws.batch",
     "provider": "batch.amazonaws.com",
-    "duration": 2433000000000,
+    "duration": 2670000000000,
     "module": "aws"
   },
-  "message": "{\"jobId\":\"im8yfjd6-86l1\",\"jobName\":\"report-generation\",\"jobQueue\":\"report-generation-queue\",\"level\":\"info\",\"message\":\"Container started on ECS instance\",\"timestamp\":\"2026-04-02T20:50:22.062Z\",\"arrayIndex\":4}",
+  "message": "{\"jobId\":\"3xyt46ry-1isq\",\"jobName\":\"nightly-etl\",\"jobQueue\":\"nightly-etl-queue\",\"level\":\"info\",\"message\":\"Job submitted to queue\",\"timestamp\":\"2026-04-13T11:01:15.944Z\",\"arrayIndex\":31}",
   "host": {
-    "name": "ip-78-173-178-168.ec2.internal",
-    "hostname": "batch-61p3uonb"
+    "name": "ip-175-24-90-51.ec2.internal",
+    "hostname": "batch-ye8jot82"
   },
   "service": {
     "name": "batch",
@@ -105,8 +105,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-west-1",
-    "ephemeral_id": "hfj48c7o58m"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "fpllp7zfz76"
   },
   "input": {
     "type": "aws-cloudwatch"

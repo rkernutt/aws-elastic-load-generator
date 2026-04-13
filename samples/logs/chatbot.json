@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "sa-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "chatbot"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "ChannelConfiguration": "security-alerts",
+      "ChannelConfiguration": "deploy-notifications",
       "ChannelType": "MicrosoftTeams"
     },
     "chatbot": {
-      "channel_configuration_name": "security-alerts",
+      "channel_configuration_name": "deploy-notifications",
       "channel_type": "MicrosoftTeams",
-      "notification_type": "CloudWatchAlarm",
-      "workspace_id": "TSC6ZFFDV",
-      "channel_id": "C7N244MRX",
+      "notification_type": "SecurityHubFinding",
+      "workspace_id": "THP8W33SW",
+      "channel_id": "C2HVTQ57O",
       "delivery_status": "Delivered",
-      "message_id": "vlpn91cu-vy66-ewr9-14ls-a5fmljgvij8",
-      "sns_topic_arn": "arn:aws:sns:us-west-2:164820739518:cloudwatchalarm-topic"
+      "message_id": "cvibrn6l-1pvt-cmz1-sb1s-w2ii9z66xj",
+      "sns_topic_arn": "arn:aws:sns:sa-east-1:501938274650:securityhubfinding-topic"
     },
     "s3": {
       "bucket": {
-        "name": "aws-chatbot-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-chatbot-logs-164820739518"
+        "name": "aws-chatbot-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-chatbot-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/164820739518/chatbot/us-west-2/2026/04/02/chatbot_YZA708BAPY.log.gz"
+        "key": "AWSLogs/501938274650/chatbot/sa-east-1/2026/04/13/chatbot_43FEOJYS4Z8.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/chatbot/logs",
-      "log_stream": "us-west-2/u63wzucq",
-      "ingestion_time": "2026-04-02T20:50:22.432Z"
+      "log_stream": "sa-east-1/7rmozm0k",
+      "ingestion_time": "2026-04-13T11:01:16.292Z"
     }
   },
   "event": {
-    "action": "ChannelTest",
+    "action": "BotInvitation",
     "outcome": "success",
     "category": ["configuration"],
     "dataset": "aws.chatbot",
     "provider": "chatbot.amazonaws.com",
     "module": "aws"
   },
-  "message": "Chatbot security-alerts: CloudWatchAlarm delivered to MicrosoftTeams",
+  "message": "Chatbot deploy-notifications: SecurityHubFinding delivered to MicrosoftTeams",
   "log": {
     "level": "info"
   },
@@ -68,8 +68,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-west-2",
-    "ephemeral_id": "tfemvm6ltcj"
+    "name": "filebeat-aws-sa-east-1",
+    "ephemeral_id": "2b0qefoj4gc"
   },
   "input": {
     "type": "aws-cloudwatch"

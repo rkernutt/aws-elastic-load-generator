@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "ap-southeast-3",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "panorama": {
-      "device_id": "device-xatmr44sonh",
-      "device_name": "factory-edge-01",
-      "event_type": "DescribeDevice",
-      "application_name": "people-counter",
-      "status": "DEPLOYMENT_FAILED",
-      "inference_fps": 0.2716416643133729,
-      "camera_streams": 2,
-      "gpu_utilization_pct": 64.46305939289508,
-      "uptime_hours": 332.7769827786056
+      "device_id": "device-ozvscpbvd9s",
+      "device_name": "retail-cam-hub",
+      "event_type": "CreateNodeFromTemplateJob",
+      "application_name": "vehicle-tracker",
+      "status": "RUNNING",
+      "inference_fps": 9.416038440872738,
+      "camera_streams": 1,
+      "gpu_utilization_pct": 29.83590159152063,
+      "uptime_hours": 293.78807564984476
     },
     "s3": {
       "bucket": {
@@ -29,22 +29,22 @@
         "arn": "arn:aws:s3:::aws-panorama-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/501938274650/panorama/me-central-1/2026/04/02/panorama_1JT5WCK7H1L.log.gz"
+        "key": "AWSLogs/501938274650/panorama/ap-southeast-3/2026/04/13/panorama_G7YRE8DLNDA.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/panorama/logs",
-      "log_stream": "me-central-1/4khe71fl",
-      "ingestion_time": "2026-04-02T20:50:22.428Z"
+      "log_stream": "ap-southeast-3/qj5bedht",
+      "ingestion_time": "2026-04-13T11:01:16.284Z"
     }
   },
   "event": {
-    "outcome": "failure",
-    "duration": 477917910,
+    "outcome": "success",
+    "duration": 372299937,
     "module": "aws",
     "dataset": "aws.panorama"
   },
-  "message": "Panorama factory-edge-01: DescribeDevice failed — Camera stream unreachable",
+  "message": "Panorama retail-cam-hub: CreateNodeFromTemplateJob (people-counter, 18.6 FPS)",
   "service": {
     "name": "panorama",
     "type": "aws"
@@ -63,8 +63,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-central-1",
-    "ephemeral_id": "zw436rm4odk"
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "wcn3pe0mr9q"
   },
   "input": {
     "type": "aws-cloudwatch"

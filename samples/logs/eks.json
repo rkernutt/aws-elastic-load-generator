@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "ap-southeast-4",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,52 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "prod-cluster-ap-northeast-3",
-      "NodeName": "ip-89-117-254-140.ap-northeast-3.compute.internal",
+      "ClusterName": "prod-cluster-ap-southeast-4",
+      "NodeName": "ip-25-4-48-114.ap-southeast-4.compute.internal",
       "Namespace": "monitoring",
-      "PodName": "worker-n4y3f-n60mf"
+      "PodName": "api-57tt3-3cw7s"
     },
     "eks": {
       "structured_logging": true,
       "cluster": {
-        "name": "prod-cluster-ap-northeast-3"
+        "name": "prod-cluster-ap-southeast-4"
       },
       "node": {
-        "name": "ip-89-117-254-140.ap-northeast-3.compute.internal"
+        "name": "ip-25-4-48-114.ap-southeast-4.compute.internal"
       },
       "metrics": {
         "cluster_failed_node_count": {
           "avg": 0
         },
         "node_cpu_utilization": {
-          "avg": 49.79282404507227
+          "avg": 78.27464954379279
         },
         "node_memory_utilization": {
-          "avg": 45.903311614564714
+          "avg": 40.68175430412296
         },
         "node_network_total_bytes": {
-          "sum": 728155321
+          "sum": 903463851
         },
         "node_filesystem_utilization": {
-          "avg": 29.096044267608047
+          "avg": 26.56892491256739
         },
         "pod_cpu_utilization": {
-          "avg": 55.74951414191403
+          "avg": 7.941229161413263
         },
         "pod_memory_utilization": {
-          "avg": 67.85479784309172
+          "avg": 9.516027689026615
         },
         "pod_network_rx_bytes": {
-          "sum": 2528669
+          "sum": 3505873
         },
         "pod_network_tx_bytes": {
-          "sum": 67063953
+          "sum": 41820410
         },
         "node_count": {
-          "avg": 38
+          "avg": 13
         },
         "pod_count": {
-          "avg": 385
+          "avg": 332
         }
       }
     },
@@ -68,33 +68,33 @@
         "arn": "arn:aws:s3:::aws-eks-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/164820739518/eks/ap-northeast-3/2026/04/02/eks_5VNO9500QAD.log.gz"
+        "key": "AWSLogs/164820739518/eks/ap-southeast-4/2026/04/13/eks_TRFCVD0VN5.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/eks/logs",
-      "log_stream": "ap-northeast-3/qp77gfdg",
-      "ingestion_time": "2026-04-02T20:50:22.372Z"
+      "log_stream": "ap-southeast-4/iqjewj8y",
+      "ingestion_time": "2026-04-13T11:01:16.220Z"
     }
   },
   "container": {
-    "id": "ftd32adr8at",
-    "name": "worker",
+    "id": "2w7dtpy52jo",
+    "name": "api",
     "image": {
-      "name": "k8s.gcr.io/worker:v1.27.5"
+      "name": "k8s.gcr.io/api:v1.26.3"
     },
     "runtime": "containerd"
   },
   "kubernetes": {
     "namespace": "monitoring",
     "pod": {
-      "name": "worker-n4y3f-n60mf"
+      "name": "api-57tt3-3cw7s"
     },
     "container": {
-      "name": "worker"
+      "name": "api"
     },
     "labels": {
-      "app": "worker",
+      "app": "api",
       "env": "prod"
     }
   },
@@ -106,13 +106,13 @@
     "outcome": "success",
     "dataset": "aws.eks",
     "provider": "eks.amazonaws.com",
-    "duration": 597000000000,
+    "duration": 76000000000,
     "module": "aws"
   },
-  "message": "{\"cluster\":\"prod-cluster-ap-northeast-3\",\"namespace\":\"monitoring\",\"pod\":\"worker-n4y3f-n60mf\",\"level\":\"warn\",\"message\":\"Evicted pod due to disk pressure\",\"timestamp\":\"2026-04-02T20:50:22.062Z\",\"stream\":\"stderr\"}",
+  "message": "{\"cluster\":\"prod-cluster-ap-southeast-4\",\"namespace\":\"monitoring\",\"pod\":\"api-57tt3-3cw7s\",\"level\":\"warn\",\"message\":\"Evicted pod due to disk pressure\",\"timestamp\":\"2026-04-13T11:01:15.944Z\",\"stream\":\"stderr\"}",
   "host": {
-    "name": "ip-109-69-234-158.ec2.internal",
-    "hostname": "eks-0ov2ty0l"
+    "name": "ip-177-46-237-7.ec2.internal",
+    "hostname": "eks-915d7p08"
   },
   "service": {
     "name": "eks",
@@ -129,8 +129,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-3",
-    "ephemeral_id": "mvm3uem89ve"
+    "name": "filebeat-aws-ap-southeast-4",
+    "ephemeral_id": "ux7oszkld6k"
   },
   "input": {
     "type": "aws-cloudwatch"

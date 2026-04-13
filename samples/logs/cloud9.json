@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "me-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "cloud9"
@@ -13,37 +13,37 @@
   },
   "aws": {
     "cloud9": {
-      "environment_id": "env-985uadkuonf",
-      "environment_name": "lambda-editor",
-      "event_type": "UpdateEnvironment",
-      "instance_type": "t3.micro",
-      "connection_type": "CONNECT_SSH",
-      "auto_stop_minutes": 240,
-      "members": 2,
+      "environment_id": "env-54bmwpxnwl9",
+      "environment_name": "dev-workspace",
+      "event_type": "DeleteEnvironment",
+      "instance_type": "t3.medium",
+      "connection_type": "CONNECT_SSM",
+      "auto_stop_minutes": 30,
+      "members": 3,
       "platform": "amazonlinux-2"
     },
     "s3": {
       "bucket": {
-        "name": "aws-cloud9-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-cloud9-logs-501938274650"
+        "name": "aws-cloud9-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-cloud9-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/501938274650/cloud9/eu-central-2/2026/04/02/cloud9_8SYOSDTDXIO.log.gz"
+        "key": "AWSLogs/293847561023/cloud9/me-central-1/2026/04/13/cloud9_SOVT1K3MQU.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/cloud9/logs",
-      "log_stream": "eu-central-2/p2ax8g0d",
-      "ingestion_time": "2026-04-02T20:50:22.419Z"
+      "log_stream": "me-central-1/ptk3rnn0",
+      "ingestion_time": "2026-04-13T11:01:16.265Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 11679248,
+    "duration": 16681446,
     "module": "aws",
     "dataset": "aws.cloud9"
   },
-  "message": "Cloud9 lambda-editor: UpdateEnvironment completed",
+  "message": "Cloud9 dev-workspace: DeleteEnvironment completed",
   "service": {
     "name": "cloud9",
     "type": "aws"
@@ -62,8 +62,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-2",
-    "ephemeral_id": "0j9edphhdjvf"
+    "name": "filebeat-aws-me-central-1",
+    "ephemeral_id": "hhswrau8md"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "private5g"
@@ -13,33 +13,33 @@
   },
   "aws": {
     "dimensions": {
-      "NetworkSiteId": "site-frke2dkc"
+      "NetworkSiteId": "site-pjcny3v5"
     },
     "private5g": {
-      "network_arn": "arn:aws:private5g:ap-northeast-1:164820739518:network/net-u41kbqjk",
-      "network_site_id": "site-frke2dkc",
-      "device_identifier": "device-vbze3kuh2u",
-      "order_id": "order-3h1ibigf",
-      "radio_unit_status": "PROVISIONED",
+      "network_arn": "arn:aws:private5g:eu-west-3:814726593401:network/net-cl45ylii",
+      "network_site_id": "site-pjcny3v5",
+      "device_identifier": "device-zv0mxk2lgq",
+      "order_id": "order-5eddlqb6",
+      "radio_unit_status": "ACTIVE",
       "metrics": {
-        "activated_device_identifiers": 39,
-        "radio_units_online": 8,
-        "throughput_mbps": 801.5130977351346
+        "activated_device_identifiers": 11,
+        "radio_units_online": 10,
+        "throughput_mbps": 753.9038284569406
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-private5g-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-private5g-logs-164820739518"
+        "name": "aws-private5g-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-private5g-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/164820739518/private5g/ap-northeast-1/2026/04/02/private5g_728AZI7JW1N.log.gz"
+        "key": "AWSLogs/814726593401/private5g/eu-west-3/2026/04/13/private5g_6AUQES8FEQG.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/private5g/logs",
-      "log_stream": "ap-northeast-1/8pbxdntx",
-      "ingestion_time": "2026-04-02T20:50:22.379Z"
+      "log_stream": "eu-west-3/n8yonn93",
+      "ingestion_time": "2026-04-13T11:01:16.230Z"
     }
   },
   "event": {
@@ -47,7 +47,7 @@
     "category": ["network"],
     "dataset": "aws.private5g",
     "provider": "private5g.amazonaws.com",
-    "duration": 123000000,
+    "duration": 311000000,
     "module": "aws"
   },
   "data_stream": {
@@ -55,7 +55,7 @@
     "dataset": "aws.private5g",
     "namespace": "default"
   },
-  "message": "Private 5G site site-frke2dkc: 8 radio units online, 801.5Mbps",
+  "message": "Private 5G site site-pjcny3v5: 10 radio units online, 753.9Mbps",
   "log": {
     "level": "info"
   },
@@ -69,8 +69,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-1",
-    "ephemeral_id": "td620ffum9c"
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "qrqs0qy67mo"
   },
   "input": {
     "type": "aws-cloudwatch"

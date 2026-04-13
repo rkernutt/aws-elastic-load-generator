@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
     "region": "ap-northeast-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "verified-access"
@@ -13,46 +13,46 @@
   },
   "aws": {
     "dimensions": {
-      "ApplicationId": "va-app-hzxmp8wv"
+      "ApplicationId": "va-app-ehtu8i01"
     },
     "verifiedaccess": {
-      "endpoint_id": "vae-d7jxkd3vpbw",
-      "group_id": "vag-zc8tuhhlr5",
-      "instance_id": "vai-y2znzrpifs",
-      "policy_name": "require-mfa",
+      "endpoint_id": "vae-nofyu2f2bs",
+      "group_id": "vag-e4gk5woq4wp",
+      "instance_id": "vai-k0oconuedi",
+      "policy_name": "require-mfa-and-device",
       "trust_provider_type": "oidc-okta",
       "device_posture": "COMPLIANT",
       "verdict": "allow",
-      "http_method": "DELETE",
-      "http_path": "/api/v2/events",
+      "http_method": "PUT",
+      "http_path": "/api/v1/users",
       "http_status": 200,
-      "request_id": "93owi0e3-zk6m-egx1-0nmf-5n7mwd6c95i",
-      "connection_id": "OX2BL5W0XVG",
-      "session_id": "AZ9Y5KF841D",
-      "sni_hostname": "dev-tools.internal.example.com",
-      "application_name": "dev-tools"
+      "request_id": "wqgkjsxs-o6nc-pzt5-xawd-rwrwf7nz7qr",
+      "connection_id": "9NS3G2QKZ6",
+      "session_id": "3AWWJBUTHBP",
+      "sni_hostname": "internal-dashboard.internal.example.com",
+      "application_name": "internal-dashboard"
     },
     "s3": {
       "bucket": {
-        "name": "aws-verifiedaccess-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-verifiedaccess-logs-501938274650"
+        "name": "aws-verifiedaccess-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-verifiedaccess-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/501938274650/verifiedaccess/ap-northeast-1/2026/04/02/verifiedaccess_THVK30G2J8L.log.gz"
+        "key": "AWSLogs/814726593401/verifiedaccess/ap-northeast-1/2026/04/13/verifiedaccess_ELESYX1W42T.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/verifiedaccess/logs",
-      "log_stream": "ap-northeast-1/wkg54j57",
-      "ingestion_time": "2026-04-02T20:50:22.382Z"
+      "log_stream": "ap-northeast-1/xktu8m84",
+      "ingestion_time": "2026-04-13T11:01:16.235Z"
     }
   },
   "user": {
-    "email": "contractor@partner.com",
-    "name": "contractor"
+    "email": "bob@example.com",
+    "name": "bob"
   },
   "source": {
-    "ip": "69.137.147.96"
+    "ip": "33.126.41.241"
   },
   "event": {
     "outcome": "success",
@@ -60,10 +60,10 @@
     "type": ["allowed"],
     "dataset": "aws.verifiedaccess",
     "provider": "verified-access.amazonaws.com",
-    "duration": 190000000,
+    "duration": 85000000,
     "module": "aws"
   },
-  "message": "Verified Access allowed: contractor@partner.com -> dev-tools (COMPLIANT)",
+  "message": "Verified Access allowed: bob@example.com -> internal-dashboard (COMPLIANT)",
   "log": {
     "level": "info"
   },
@@ -83,7 +83,7 @@
     "type": "filebeat",
     "version": "8.18.0",
     "name": "filebeat-aws-ap-northeast-1",
-    "ephemeral_id": "nw86ny5ftwi"
+    "ephemeral_id": "rs61ugddqkb"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "codebuild"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "ProjectName": "test-runner",
-      "BuildId": "test-runner:l1a5jenx-47k8"
+      "ProjectName": "release-build",
+      "BuildId": "release-build:hcor4oo4-bh9g"
     },
     "codebuild": {
-      "project_name": "test-runner",
-      "build_id": "test-runner:l1a5jenx-47k8",
+      "project_name": "release-build",
+      "build_id": "release-build:hcor4oo4-bh9g",
       "build_status": "SUCCEEDED",
-      "current_phase": "INSTALL",
-      "duration_seconds": 294,
-      "queued_duration_seconds": 23,
-      "build_number": 1791,
-      "initiator": "github-webhook",
-      "source_version": "3cnu7xtn3pq",
+      "current_phase": "POST_BUILD",
+      "duration_seconds": 755,
+      "queued_duration_seconds": 22,
+      "build_number": 4771,
+      "initiator": "manual",
+      "source_version": "dy18x8ysvzg",
       "structured_logging": true,
       "metrics": {
         "Builds": {
@@ -38,40 +38,40 @@
           "sum": 0
         },
         "Duration": {
-          "avg": 294
+          "avg": 755
         },
         "QueuedDuration": {
-          "avg": 29
+          "avg": 4
         },
         "BuildDuration": {
-          "avg": 294
+          "avg": 755
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-codebuild-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-codebuild-logs-293847561023"
+        "name": "aws-codebuild-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-codebuild-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/293847561023/codebuild/ap-southeast-1/2026/04/02/codebuild_TSWDY2C0FI.log.gz"
+        "key": "AWSLogs/164820739518/codebuild/ap-northeast-2/2026/04/13/codebuild_XSGMDN5MYDJ.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/codebuild/logs",
-      "log_stream": "ap-southeast-1/hewfm5ww",
-      "ingestion_time": "2026-04-02T20:50:22.416Z"
+      "log_stream": "ap-northeast-2/1036dkpn",
+      "ingestion_time": "2026-04-13T11:01:16.260Z"
     }
   },
   "event": {
-    "duration": 294000000000,
+    "duration": 755000000000,
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.codebuild",
     "provider": "codebuild.amazonaws.com",
     "module": "aws"
   },
-  "message": "{\"buildId\":\"test-runner:l1a5jenx-47k8\",\"project\":\"test-runner\",\"phase\":\"INSTALL\",\"status\":\"SUCCEEDED\",\"durationSeconds\":294,\"timestamp\":\"2026-04-02T20:50:22.062Z\"}",
+  "message": "{\"buildId\":\"release-build:hcor4oo4-bh9g\",\"project\":\"release-build\",\"phase\":\"POST_BUILD\",\"status\":\"SUCCEEDED\",\"durationSeconds\":755,\"timestamp\":\"2026-04-13T11:01:15.944Z\"}",
   "log": {
     "level": "info"
   },
@@ -90,8 +90,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-1",
-    "ephemeral_id": "vkurhf6luid"
+    "name": "filebeat-aws-ap-northeast-2",
+    "ephemeral_id": "u5p04b4pvie"
   },
   "input": {
     "type": "aws-cloudwatch"

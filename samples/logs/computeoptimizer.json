@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "eu-north-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "computeoptimizer"
@@ -13,41 +13,41 @@
   },
   "aws": {
     "computeoptimizer": {
-      "resource_type": "ECS_SERVICE_FARGATE",
-      "resource_arn": "arn:aws:ec2:eu-west-3:164820739518:instance/i-namh83421bc",
-      "finding": "OVERPROVISIONED",
+      "resource_type": "EC2_INSTANCE",
+      "resource_arn": "arn:aws:ec2:eu-north-1:814726593401:instance/i-7cf3858zlmj",
+      "finding": "OPTIMIZED",
       "current_configuration": {
-        "instance_type": "t3.medium",
-        "vcpu": 13,
-        "memory_gb": 50
+        "instance_type": "r5.large",
+        "vcpu": 21,
+        "memory_gb": 90
       },
       "recommended_configuration": {
-        "instance_type": "r5.medium",
-        "vcpu": 6,
-        "memory_gb": 23
+        "instance_type": "m5.large",
+        "vcpu": 5,
+        "memory_gb": 40
       },
-      "estimated_monthly_savings_usd": 465.5415989443225,
-      "estimated_monthly_savings_percent": 45.67560736237858,
-      "lookback_period_days": 32,
+      "estimated_monthly_savings_usd": 0,
+      "estimated_monthly_savings_percent": 0,
+      "lookback_period_days": 14,
       "utilization": {
-        "cpu_max": 29.432859466805912,
-        "memory_max": 19.427721201219256
+        "cpu_max": 70.3907907249973,
+        "memory_max": 17.515327861683552
       },
-      "performance_risk": "VeryLow"
+      "performance_risk": "Low"
     },
     "s3": {
       "bucket": {
-        "name": "aws-computeoptimizer-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-computeoptimizer-logs-164820739518"
+        "name": "aws-computeoptimizer-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-computeoptimizer-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/164820739518/computeoptimizer/eu-west-3/2026/04/02/computeoptimizer_XB5VXCABLOL.log.gz"
+        "key": "AWSLogs/814726593401/computeoptimizer/eu-north-1/2026/04/13/computeoptimizer_C2XGBCR6U88.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/computeoptimizer/logs",
-      "log_stream": "eu-west-3/p7vb03xr",
-      "ingestion_time": "2026-04-02T20:50:22.430Z"
+      "log_stream": "eu-north-1/4aattarn",
+      "ingestion_time": "2026-04-13T11:01:16.288Z"
     }
   },
   "event": {
@@ -55,10 +55,10 @@
     "category": ["configuration", "process"],
     "dataset": "aws.computeoptimizer",
     "provider": "compute-optimizer.amazonaws.com",
-    "duration": 23000000000,
+    "duration": 39000000000,
     "module": "aws"
   },
-  "message": "Compute Optimizer: ECS_SERVICE_FARGATE OVERPROVISIONED — downsize t3.medium→r5.medium, save 466/mo",
+  "message": "Compute Optimizer: EC2_INSTANCE OPTIMIZED (r5.large)",
   "log": {
     "level": "info"
   },
@@ -77,8 +77,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-3",
-    "ephemeral_id": "wi48xdcn7r"
+    "name": "filebeat-aws-eu-north-1",
+    "ephemeral_id": "40a79dww5ww"
   },
   "input": {
     "type": "http_endpoint"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "vpclattice"
@@ -13,48 +13,48 @@
   },
   "aws": {
     "dimensions": {
-      "ServiceName": "auth-svc",
+      "ServiceName": "notification-svc",
       "ServiceNetworkName": "prod-service-network"
     },
     "vpclattice": {
-      "service_name": "auth-svc",
-      "service_arn": "arn:aws:vpc-lattice:us-east-1:738291046572:service/auth-svc-33o6pqad",
+      "service_name": "notification-svc",
+      "service_arn": "arn:aws:vpc-lattice:sa-east-1:293847561023:service/notification-svc-4b467go5",
       "service_network_name": "prod-service-network",
-      "target_group_id": "tg-19p81hf27qd",
-      "source_vpc_id": "vpc-q07lt4fy",
-      "destination_vpc_id": "vpc-exba6enq",
-      "request_method": "POST",
+      "target_group_id": "tg-qhscxf6wcl",
+      "source_vpc_id": "vpc-ospk42iq",
+      "destination_vpc_id": "vpc-zzojxbrz",
+      "request_method": "PATCH",
       "response_code": 200,
-      "response_time_ms": 113,
-      "bytes_received": 64744,
-      "bytes_sent": 64047,
+      "response_time_ms": 487,
+      "bytes_received": 25417,
+      "bytes_sent": 19132,
       "tls_cipher_suite": "TLS_AES_128_GCM_SHA256"
     },
     "s3": {
       "bucket": {
-        "name": "aws-vpclattice-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-vpclattice-logs-738291046572"
+        "name": "aws-vpclattice-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-vpclattice-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/738291046572/vpclattice/us-east-1/2026/04/02/vpclattice_QE9K434JOE.log.gz"
+        "key": "AWSLogs/293847561023/vpclattice/sa-east-1/2026/04/13/vpclattice_EKYL12GLQVM.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/vpclattice/logs",
-      "log_stream": "us-east-1/7kmu4742",
-      "ingestion_time": "2026-04-02T20:50:22.378Z"
+      "log_stream": "sa-east-1/9ueasm67",
+      "ingestion_time": "2026-04-13T11:01:16.228Z"
     }
   },
   "event": {
-    "action": "RequestAccepted",
+    "action": "AuthPolicyCheck",
     "outcome": "success",
     "category": ["network"],
     "dataset": "aws.vpclattice",
     "provider": "vpc-lattice.amazonaws.com",
-    "duration": 113000000,
+    "duration": 487000000,
     "module": "aws"
   },
-  "message": "VPC Lattice auth-svc: POST 200 113ms",
+  "message": "VPC Lattice notification-svc: PATCH 200 487ms",
   "log": {
     "level": "info"
   },
@@ -73,8 +73,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-1",
-    "ephemeral_id": "fy8cxyt28ht"
+    "name": "filebeat-aws-sa-east-1",
+    "ephemeral_id": "xihasayzvk"
   },
   "input": {
     "type": "aws-cloudwatch"

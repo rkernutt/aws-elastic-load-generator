@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ca-west-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "translate"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "SourceLanguage": "es",
-      "TargetLanguage": "fr"
+      "SourceLanguage": "ru",
+      "TargetLanguage": "ja"
     },
     "translate": {
-      "source_language_code": "es",
-      "target_language_code": "fr",
-      "characters_translated": 208724,
+      "source_language_code": "ru",
+      "target_language_code": "ja",
+      "characters_translated": 123609,
       "applied_terminology": "tech-glossary",
       "formality": "FORMAL",
-      "duration_ms": 901,
+      "duration_ms": 89,
       "metrics": {
         "SuccessfulRequestCount": {
           "sum": 1
@@ -37,37 +37,37 @@
           "sum": 0
         },
         "CharacterCount": {
-          "sum": 2506
+          "sum": 2134
         },
         "ResponseTime": {
-          "avg": 224.53168082374367
+          "avg": 181.46280037457996
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-translate-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-translate-logs-814726593401"
+        "name": "aws-translate-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-translate-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/814726593401/translate/us-east-2/2026/04/02/translate_8O9DAJXXE1B.log.gz"
+        "key": "AWSLogs/501938274650/translate/ca-west-1/2026/04/13/translate_K9A93NVMKL.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/translate/logs",
-      "log_stream": "us-east-2/tl2fyckb",
-      "ingestion_time": "2026-04-02T20:50:22.424Z"
+      "log_stream": "ca-west-1/kj84gqxg",
+      "ingestion_time": "2026-04-13T11:01:16.275Z"
     }
   },
   "event": {
-    "duration": 900534641.4476911,
+    "duration": 89224939.85301583,
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.translate",
     "provider": "translate.amazonaws.com",
     "module": "aws"
   },
-  "message": "Translate es->fr: 208,724 chars in 901ms",
+  "message": "Translate ru->ja: 123,609 chars in 89ms",
   "log": {
     "level": "info"
   },
@@ -86,8 +86,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-2",
-    "ephemeral_id": "wg3j8jhbf2n"
+    "name": "filebeat-aws-ca-west-1",
+    "ephemeral_id": "kz51iswvxki"
   },
   "input": {
     "type": "aws-cloudwatch"

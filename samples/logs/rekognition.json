@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "sa-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "rekognition"
@@ -17,12 +17,12 @@
     },
     "rekognition": {
       "operation": "IndexFaces",
-      "input_source": "Video",
-      "image_bytes": 100614,
-      "duration_ms": 975,
-      "labels_detected": 15,
-      "faces_detected": 9,
-      "max_confidence": 84.37411803415687,
+      "input_source": "Base64Image",
+      "image_bytes": 3970269,
+      "duration_ms": 204,
+      "labels_detected": 35,
+      "faces_detected": 6,
+      "max_confidence": 84.84404832749775,
       "confidence_threshold": 70,
       "metrics": {
         "SuccessfulRequestCount": {
@@ -38,34 +38,34 @@
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 481.8612006862386
+          "avg": 436.69262713583265
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-rekognition-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-rekognition-logs-738291046572"
+        "name": "aws-rekognition-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-rekognition-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/738291046572/rekognition/ap-northeast-2/2026/04/02/rekognition_TD7VQPXA4WN.log.gz"
+        "key": "AWSLogs/814726593401/rekognition/sa-east-1/2026/04/13/rekognition_7O15TKKCX54.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/rekognition/logs",
-      "log_stream": "ap-northeast-2/566vlzwq",
-      "ingestion_time": "2026-04-02T20:50:22.423Z"
+      "log_stream": "sa-east-1/o4vfuprj",
+      "ingestion_time": "2026-04-13T11:01:16.274Z"
     }
   },
   "event": {
-    "duration": 974990457.309642,
+    "duration": 203731921.24605107,
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.rekognition",
     "provider": "rekognition.amazonaws.com",
     "module": "aws"
   },
-  "message": "Rekognition IndexFaces: 26 results, 84.4% confidence",
+  "message": "Rekognition IndexFaces: 50 results, 84.8% confidence",
   "log": {
     "level": "info"
   },
@@ -84,8 +84,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-2",
-    "ephemeral_id": "pctkkhcmyo"
+    "name": "filebeat-aws-sa-east-1",
+    "ephemeral_id": "eet8bfka9y7"
   },
   "input": {
     "type": "aws-cloudwatch"

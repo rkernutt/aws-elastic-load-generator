@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "ca-central-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,18 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "WorkspaceId": "oil-refinery-ws"
+      "WorkspaceId": "factory-floor-ws"
     },
     "iottwinmaker": {
-      "workspace_id": "oil-refinery-ws",
-      "entity_id": "entity-4p1tklrf",
-      "entity_name": "ServerRack-B4",
-      "component_type_id": "com.example.temperature",
-      "property_name": "Vibration",
-      "property_value": 222.36971992102394,
-      "scene_id": "scene-spq3j0qs",
-      "sync_source": "CUSTOM",
-      "update_reason": "CONNECTIVITY_CHANGE"
+      "workspace_id": "factory-floor-ws",
+      "entity_id": "entity-sf5hqs14",
+      "entity_name": "WindTurbine-12",
+      "component_type_id": "com.example.vibration",
+      "property_name": "Temperature",
+      "scene_id": "scene-ln5g0890",
+      "sync_source": "SITEWISE",
+      "update_reason": "VALUE_CHANGED"
     },
     "s3": {
       "bucket": {
@@ -32,26 +31,31 @@
         "arn": "arn:aws:s3:::aws-iottwinmaker-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/738291046572/iottwinmaker/eu-west-3/2026/04/02/iottwinmaker_8QSLPEX8NGY.log.gz"
+        "key": "AWSLogs/738291046572/iottwinmaker/ca-central-1/2026/04/13/iottwinmaker_C7L7PW89F0L.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/iottwinmaker/logs",
-      "log_stream": "eu-west-3/3e6k8fdt",
-      "ingestion_time": "2026-04-02T20:50:22.428Z"
+      "log_stream": "ca-central-1/tvfhznjn",
+      "ingestion_time": "2026-04-13T11:01:16.283Z"
     }
   },
   "event": {
-    "action": "GetPropertyValue",
-    "outcome": "success",
+    "action": "ExecuteQuery",
+    "outcome": "failure",
     "category": ["iot", "process"],
     "dataset": "aws.iottwinmaker",
     "provider": "iottwinmaker.amazonaws.com",
     "module": "aws"
   },
-  "message": "IoT TwinMaker GetPropertyValue: workspace=oil-refinery-ws, entity=ServerRack-B4, Vibration=222.36971992102394",
+  "message": "IoT TwinMaker ExecuteQuery FAILED [factory-floor-ws/WindTurbine-12]: Workspace limit exceeded",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ResourceNotFoundException",
+    "message": "IoT TwinMaker operation failed",
+    "type": "iot"
   },
   "service": {
     "name": "iottwinmaker",
@@ -68,8 +72,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-3",
-    "ephemeral_id": "1a2b64eh2v1"
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "i73fr3u1m3a"
   },
   "input": {
     "type": "aws-cloudwatch"

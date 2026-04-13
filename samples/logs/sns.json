@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "sns"
@@ -13,18 +13,18 @@
   },
   "aws": {
     "dimensions": {
-      "TopicName": "deployment-events"
+      "TopicName": "user-alerts"
     },
     "sns": {
       "metrics": {
         "NumberOfMessagesPublished": {
-          "sum": 5535
+          "sum": 6794
         },
         "NumberOfNotificationsDelivered": {
-          "sum": 5535
+          "sum": 3619
         },
         "NumberOfNotificationsFailed": {
-          "sum": 0
+          "sum": 3175
         },
         "NumberOfNotificationsFilteredOut": {
           "sum": 0
@@ -36,13 +36,13 @@
           "sum": 0
         },
         "NumberOfNotificationsRedrivenToDlq": {
-          "sum": 0
+          "sum": 4
         },
         "NumberOfNotificationsFailedToRedriveToDlq": {
           "sum": 0
         },
         "PublishSize": {
-          "avg": 25871
+          "avg": 85179
         },
         "SMSSuccessRate": {},
         "SMSMonthToDateSpentUSD": {
@@ -52,30 +52,35 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-sns-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-sns-logs-293847561023"
+        "name": "aws-sns-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-sns-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/sns/ap-northeast-1/2026/04/02/sns_ECK6PWMC89V.log.gz"
+        "key": "AWSLogs/814726593401/sns/eu-west-3/2026/04/13/sns_J8AB2AAJPRA.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/sns/logs",
-      "log_stream": "ap-northeast-1/2wqhoik8",
-      "ingestion_time": "2026-04-02T20:50:22.415Z"
+      "log_stream": "eu-west-3/qff5ihr9",
+      "ingestion_time": "2026-04-13T11:01:16.258Z"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": ["process"],
     "dataset": "aws.sns",
     "provider": "sns.amazonaws.com",
-    "duration": 364657063.0390289,
+    "duration": 8595854479.626362,
     "module": "aws"
   },
-  "message": "SNS delivered: deployment-events -> email (38442B)",
+  "message": "SNS delivery FAILED: user-alerts -> http: Lambda error",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "ThrottledException",
+    "message": "SNS delivery failed",
+    "type": "messaging"
   },
   "service": {
     "name": "sns",
@@ -92,8 +97,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-1",
-    "ephemeral_id": "mdqr89gtnr"
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "sgu26v4xhq"
   },
   "input": {
     "type": "aws-cloudwatch"

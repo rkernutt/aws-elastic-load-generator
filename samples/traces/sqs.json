@@ -1,20 +1,20 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "d7b8205f7de0ccfe326b9c5ad66d15bd"
+    "id": "c97eeb0258d3df9f528ef0dfd6bc5ce6"
   },
   "transaction": {
-    "id": "51e3c67dcfe0a605",
-    "name": "order-queue-dlq.fifo process",
+    "id": "706023c1340e5670",
+    "name": "inventory-updates-queue process",
     "type": "messaging",
     "duration": {
-      "us": 2543000
+      "us": 2762000
     },
-    "result": "success",
+    "result": "failure",
     "sampled": true,
     "span_count": {
       "started": 2,
@@ -22,22 +22,22 @@
     }
   },
   "labels": {
-    "queue_name": "order-queue-dlq.fifo",
-    "queue_url": "https://sqs.af-south-1.amazonaws.com/123456789012/order-queue-dlq.fifo",
-    "message_count": "3",
-    "approximate_first_receive_delay_seconds": "76",
-    "parent_trace_id": "f7bf326a9b12274b653e1a02a96c5462"
+    "queue_name": "inventory-updates-queue",
+    "queue_url": "https://sqs.us-west-1.amazonaws.com/234567890123/inventory-updates-queue",
+    "message_count": "10",
+    "approximate_first_receive_delay_seconds": "109",
+    "parent_trace_id": "0908f005099eaa688e1433f99ffd9171"
   },
   "service": {
-    "name": "dead-letter-processor",
-    "environment": "dev",
+    "name": "inventory-updates-consumer",
+    "environment": "production",
     "version": "1.0.0",
     "language": {
-      "name": "python"
+      "name": "nodejs"
     },
     "runtime": {
-      "name": "python3.11",
-      "version": "3.12.0"
+      "name": "nodejs20.x",
+      "version": "20.6.3"
     },
     "framework": {
       "name": "AWS SQS"
@@ -45,32 +45,32 @@
   },
   "agent": {
     "name": "otlp",
-    "version": "0.6.0"
+    "version": "1.4.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "python",
-      "version": "1.29.0"
+      "language": "nodejs",
+      "version": "1.30.1"
     },
     "distro": {
       "name": "elastic",
-      "version": "0.6.0"
+      "version": "1.4.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "us-west-1",
     "account": {
-      "id": "123456789012",
-      "name": "prod-aws"
+      "id": "234567890123",
+      "name": "staging-aws"
     },
     "service": {
       "name": "sqs"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "module": "aws",
     "dataset": "aws.sqs"
   },

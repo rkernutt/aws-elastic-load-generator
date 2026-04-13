@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "eu-west-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,19 +13,20 @@
   },
   "aws": {
     "migrationhub": {
-      "application_id": "app-ejx2dsd2v3c",
+      "application_id": "app-go8sharr0ur",
       "application_name": "web-tier-migration",
-      "server_id": "d-server-416NCNMVHLR",
-      "server_name": "server-g7g6r3a6",
-      "migration_status": "MIGRATION_IN_PROGRESS",
-      "migration_tool": "ATADATA",
-      "progress_update_stream": "SMS-stream",
+      "server_id": "d-server-M992Y5YLG0A",
+      "server_name": "server-nxcijwd3",
+      "migration_status": "NOT_STARTED",
+      "migration_tool": "Carbonite",
+      "progress_update_stream": "MGN-stream",
       "task": {
-        "status": "IN_PROGRESS",
-        "progress_percent": 85,
-        "total_objects": 654,
-        "replicated_objects": 22
-      }
+        "status": "FAILED",
+        "progress_percent": 48,
+        "total_objects": 797,
+        "replicated_objects": 114
+      },
+      "error_code": "ResourceNotFoundException"
     },
     "s3": {
       "bucket": {
@@ -33,26 +34,31 @@
         "arn": "arn:aws:s3:::aws-migrationhub-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/814726593401/migrationhub/me-south-1/2026/04/02/migrationhub_SYMA9CQ069.log.gz"
+        "key": "AWSLogs/814726593401/migrationhub/eu-west-1/2026/04/13/migrationhub_CWPXJ5Q168U.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/migrationhub/logs",
-      "log_stream": "me-south-1/jf3gyhtc",
-      "ingestion_time": "2026-04-02T20:50:22.431Z"
+      "log_stream": "eu-west-1/w2s28aot",
+      "ingestion_time": "2026-04-13T11:01:16.289Z"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": ["process", "configuration"],
     "dataset": "aws.migrationhub",
     "provider": "mgh.amazonaws.com",
-    "duration": 84174000000000,
+    "duration": 54605000000000,
     "module": "aws"
   },
-  "message": "Migration Hub web-tier-migration [ATADATA]: MIGRATION_IN_PROGRESS — server-g7g6r3a6",
+  "message": "Migration Hub web-tier-migration FAILED [Carbonite]: Agent offline:",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "MigrationFailed",
+    "message": "Migration Hub task failed",
+    "type": "migration"
   },
   "service": {
     "name": "migrationhub",
@@ -69,8 +75,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-south-1",
-    "ephemeral_id": "4fsxd7lvtk1"
+    "name": "filebeat-aws-eu-west-1",
+    "ephemeral_id": "ytjhu06o02f"
   },
   "input": {
     "type": "aws-cloudwatch"

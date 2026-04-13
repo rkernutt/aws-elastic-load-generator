@@ -1,55 +1,133 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "ca-central-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
-      "name": "elasticache-global"
+      "name": "elasticache"
     }
   },
   "aws": {
-    "elasticacheglobal": {
-      "global_datastore_name": "global-leaderboard",
-      "event_type": "IncreaseNodeGroupCount",
-      "primary_region": "ap-southeast-2",
-      "secondary_regions": ["eu-west-1", "ap-northeast-1", "us-west-2"],
-      "replication_lag_ms": 16.709474951769675,
-      "cross_region_bandwidth_mbps": 239.85385506798087,
-      "global_node_groups": 1,
-      "status": "available"
+    "dimensions": {
+      "CacheClusterId": "prod-redis-2",
+      "CacheNodeId": "0002",
+      "ReplicationGroupId": "prod-cache"
+    },
+    "elasticache": {
+      "cluster_id": "prod-redis-2",
+      "node_id": "0002",
+      "engine": "redis",
+      "engine_version": "7.1.0",
+      "replication_group_id": "prod-cache",
+      "command": "ZRANGE",
+      "latency_us": 39.92336664537538,
+      "cache_hit": true,
+      "connected_clients": 252,
+      "used_memory_mb": 8068,
+      "metrics": {
+        "BytesUsedForCache": {
+          "avg": 7940040441
+        },
+        "CacheHits": {
+          "sum": 79373
+        },
+        "CacheMisses": {
+          "sum": 72
+        },
+        "CacheHitRate": {
+          "avg": 0.9311836221383659
+        },
+        "CurrConnections": {
+          "avg": 17
+        },
+        "NewConnections": {
+          "sum": 75
+        },
+        "Evictions": {
+          "sum": 0
+        },
+        "Reclaimed": {
+          "sum": 11
+        },
+        "ReplicationBytes": {
+          "avg": 619429
+        },
+        "ReplicationLag": {
+          "avg": 1
+        },
+        "SaveInProgress": {
+          "avg": 0
+        },
+        "CurrItems": {
+          "avg": 831636
+        },
+        "NewItems": {
+          "sum": 2191
+        },
+        "NetworkBytesIn": {
+          "avg": 41455396
+        },
+        "NetworkBytesOut": {
+          "avg": 9925244
+        },
+        "CPUUtilization": {
+          "avg": 16.252511807290922
+        },
+        "EngineCPUUtilization": {
+          "avg": 15.637155720810146
+        },
+        "FreeableMemory": {
+          "avg": 7091634624
+        },
+        "SwapUsage": {
+          "avg": 11630257
+        },
+        "DatabaseMemoryUsagePercentage": {
+          "avg": 67.41352209591656
+        },
+        "TrafficBasedCmdsLatency": {
+          "avg": 0.400235505521158
+        }
+      }
     },
     "s3": {
       "bucket": {
-        "name": "aws-elasticache-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-elasticache-logs-814726593401"
+        "name": "aws-elasticache-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-elasticache-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/814726593401/elasticache/ap-southeast-2/2026/04/02/elasticache_SRQ36YZXPB.log.gz"
+        "key": "AWSLogs/164820739518/elasticache/ca-central-1/2026/04/13/elasticache_ORJOVXBLR5.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/elasticache/logs",
-      "log_stream": "ap-southeast-2/evgt1op8",
-      "ingestion_time": "2026-04-02T20:50:22.411Z"
+      "log_stream": "ca-central-1/3vaomkuq",
+      "ingestion_time": "2026-04-13T11:01:16.252Z"
     }
   },
-  "event": {
-    "outcome": "success",
-    "duration": 26396579,
-    "module": "aws",
-    "dataset": "aws.elasticache"
+  "db": {
+    "type": "keyvalue",
+    "operation": "ZRANGE"
   },
-  "message": "ElastiCache Global global-leaderboard: IncreaseNodeGroupCount completed",
+  "event": {
+    "duration": 39923.36664537538,
+    "outcome": "success",
+    "category": ["database", "network"],
+    "dataset": "aws.elasticache",
+    "provider": "elasticache.amazonaws.com",
+    "module": "aws"
+  },
+  "message": "Redis ZRANGE 39.92us",
+  "log": {
+    "level": "info"
+  },
   "service": {
     "name": "elasticache",
     "type": "aws"
-  },
-  "log": {
-    "level": "info"
   },
   "ecs": {
     "version": "8.11.0"
@@ -62,8 +140,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-2",
-    "ephemeral_id": "3b6f79feuqb"
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "qc5ze8bkwrr"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "neptune-graph"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "GraphId": "g-y0f70uybq"
+      "GraphId": "g-52jwverq3"
     },
     "neptuneanalytics": {
-      "graph_id": "g-y0f70uybq",
-      "query_id": "query-11bs2wbe",
-      "algorithm": "BetweennessCentrality",
+      "graph_id": "g-52jwverq3",
+      "query_id": "query-9e8ufan0",
+      "algorithm": "LouvainCommunityDetection",
       "metrics": {
-        "nodes_processed": 527404,
-        "edges_processed": 1667673,
-        "duration_ms": 38888
+        "nodes_processed": 3168855,
+        "edges_processed": 16744551,
+        "duration_ms": 2186
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-neptuneanalytics-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-neptuneanalytics-logs-164820739518"
+        "name": "aws-neptuneanalytics-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-neptuneanalytics-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/164820739518/neptuneanalytics/me-central-1/2026/04/02/neptuneanalytics_3BY7W4HN3Z5.log.gz"
+        "key": "AWSLogs/738291046572/neptuneanalytics/eu-west-1/2026/04/13/neptuneanalytics_MVOYN821NNA.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/neptuneanalytics/logs",
-      "log_stream": "me-central-1/33k4xqpi",
-      "ingestion_time": "2026-04-02T20:50:22.413Z"
+      "log_stream": "eu-west-1/ok0zk0n8",
+      "ingestion_time": "2026-04-13T11:01:16.256Z"
     }
   },
   "event": {
@@ -45,7 +45,7 @@
     "category": ["database"],
     "dataset": "aws.neptuneanalytics",
     "provider": "neptune-graph.amazonaws.com",
-    "duration": 38888000000,
+    "duration": 2186000000,
     "module": "aws"
   },
   "data_stream": {
@@ -53,7 +53,7 @@
     "dataset": "aws.neptuneanalytics",
     "namespace": "default"
   },
-  "message": "Neptune Analytics graph g-y0f70uybq: BetweennessCentrality processed 527404 nodes, 1667673 edges in 38888ms",
+  "message": "Neptune Analytics graph g-52jwverq3: LouvainCommunityDetection processed 3168855 nodes, 16744551 edges in 2186ms",
   "log": {
     "level": "info"
   },
@@ -67,8 +67,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-central-1",
-    "ephemeral_id": "cavppbpc2wt"
+    "name": "filebeat-aws-eu-west-1",
+    "ephemeral_id": "ozgohe5cnnk"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "sa-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "location"
@@ -17,42 +17,36 @@
     },
     "locationservice": {
       "operation": "CalculateRoute",
-      "route_calculator": "walking-calculator",
-      "distance_meters": 278557,
-      "duration_seconds": 820,
-      "error_code": "ThrottlingException"
+      "route_calculator": "truck-router",
+      "distance_meters": 399643,
+      "duration_seconds": 10921
     },
     "s3": {
       "bucket": {
-        "name": "aws-locationservice-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-locationservice-logs-814726593401"
+        "name": "aws-locationservice-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-locationservice-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/814726593401/locationservice/us-east-1/2026/04/02/locationservice_6R4ZXCC42FW.log.gz"
+        "key": "AWSLogs/501938274650/locationservice/sa-east-1/2026/04/13/locationservice_VCYG35XG8Q.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/locationservice/logs",
-      "log_stream": "us-east-1/mhiz4s4d",
-      "ingestion_time": "2026-04-02T20:50:22.436Z"
+      "log_stream": "sa-east-1/ohpn0v2s",
+      "ingestion_time": "2026-04-13T11:01:16.299Z"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": ["process", "network"],
     "dataset": "aws.location",
     "provider": "geo.amazonaws.com",
-    "duration": 823000000,
+    "duration": 346000000,
     "module": "aws"
   },
-  "message": "Location Service CalculateRoute FAILED: Invalid coordinates:",
+  "message": "Location Service CalculateRoute: geofence check",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ResourceNotFoundException",
-    "message": "Location Service failed",
-    "type": "geo"
+    "level": "info"
   },
   "service": {
     "name": "locationservice",
@@ -69,8 +63,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-1",
-    "ephemeral_id": "owu3lbbxgsc"
+    "name": "filebeat-aws-sa-east-1",
+    "ephemeral_id": "fy5cano79kw"
   },
   "input": {
     "type": "aws-cloudwatch"

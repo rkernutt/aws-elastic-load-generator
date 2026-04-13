@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "deadlinecloud"
@@ -13,51 +13,51 @@
   },
   "aws": {
     "dimensions": {
-      "FarmId": "farm-gigica9t8d",
-      "QueueId": "queue-b4r1tpqae1h"
+      "FarmId": "farm-oelmldabqm9",
+      "QueueId": "queue-eyz6c4j4d0b"
     },
     "deadlinecloud": {
-      "farm_id": "farm-gigica9t8d",
-      "farm_name": "vfx-render-farm",
-      "queue_id": "queue-b4r1tpqae1h",
+      "farm_id": "farm-oelmldabqm9",
+      "farm_name": "post-production",
+      "queue_id": "queue-eyz6c4j4d0b",
       "queue_name": "compositing",
-      "job_id": "job-kap94c609bf",
-      "job_name": "grade_master",
-      "task_id": "task-exkwu7dxv3t",
-      "task_status": "QUEUED",
-      "job_status": "ARCHIVED",
-      "worker_hostname": "render-worker-cpu-02.ap-south-2.compute.internal",
-      "frame_start": 5,
-      "frame_end": 33,
-      "duration_seconds": 911,
-      "renderer": "V-Ray",
-      "priority": 59
+      "job_id": "job-459ob054jz3",
+      "job_name": "motion_blur_final",
+      "task_id": "task-zv5j65y1wdc",
+      "task_status": "RUNNING",
+      "job_status": "IN_PROGRESS",
+      "worker_hostname": "render-worker-cpu-01.ap-southeast-3.compute.internal",
+      "frame_start": 187,
+      "frame_end": 218,
+      "duration_seconds": 1498,
+      "renderer": "Arnold",
+      "priority": 33
     },
     "s3": {
       "bucket": {
-        "name": "aws-deadlinecloud-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-deadlinecloud-logs-293847561023"
+        "name": "aws-deadlinecloud-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-deadlinecloud-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/293847561023/deadlinecloud/ap-south-2/2026/04/02/deadlinecloud_C4JSJ0SKKA.log.gz"
+        "key": "AWSLogs/501938274650/deadlinecloud/ap-southeast-3/2026/04/13/deadlinecloud_4DJJTSOG2KK.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/deadlinecloud/logs",
-      "log_stream": "ap-south-2/goz184tp",
-      "ingestion_time": "2026-04-02T20:50:22.434Z"
+      "log_stream": "ap-southeast-3/pdsiqy39",
+      "ingestion_time": "2026-04-13T11:01:16.295Z"
     }
   },
   "event": {
-    "action": "StartJob",
+    "action": "CreateJob",
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.deadlinecloud",
     "provider": "deadline.amazonaws.com",
-    "duration": 911000000000,
+    "duration": 1498000000000,
     "module": "aws"
   },
-  "message": "Deadline Cloud StartJob: farm=vfx-render-farm queue=compositing job=grade_master frames 5-33 QUEUED",
+  "message": "Deadline Cloud CreateJob: farm=post-production queue=compositing job=motion_blur_final frames 187-218 RUNNING",
   "log": {
     "level": "info"
   },
@@ -76,8 +76,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-south-2",
-    "ephemeral_id": "ydh3972ee2"
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "iajicrkbey"
   },
   "input": {
     "type": "aws-cloudwatch"

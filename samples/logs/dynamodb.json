@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "dynamodb"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "TableName": "sessions",
-      "Operation": "BatchGetItem"
+      "TableName": "orders",
+      "Operation": "TransactGetItems"
     },
     "dynamodb": {
-      "table_name": "sessions",
-      "operation": "BatchGetItem",
-      "consumed_read_capacity_units": 15.639298124818927,
-      "consumed_write_capacity_units": 45.26427096142804,
-      "items_count": 789,
-      "structured_logging": false,
+      "table_name": "orders",
+      "operation": "TransactGetItems",
+      "consumed_read_capacity_units": 9.321521941317489,
+      "consumed_write_capacity_units": 35.52817482410506,
+      "items_count": 632,
+      "structured_logging": true,
       "metrics": {
         "AccountMaxReads": {
-          "max": 367910
+          "max": 516368
         },
         "AccountMaxWrites": {
-          "max": 631440
+          "max": 783428
         },
         "AccountMaxTableLevelReads": {
-          "max": 16486
+          "max": 37079
         },
         "AccountMaxTableLevelWrites": {
-          "max": 96111
+          "max": 87099
         },
         "AccountProvisionedReadCapacityUtilization": {
-          "avg": 45.03658257085853
+          "avg": 55.441201684264854
         },
         "ConsumedReadCapacityUnits": {
-          "sum": 832
+          "sum": 823
         },
         "ConsumedWriteCapacityUnits": {
-          "sum": 360
+          "sum": 438
         },
         "ProvisionedReadCapacityUnits": {
-          "avg": 2460
+          "avg": 5173
         },
         "ProvisionedWriteCapacityUnits": {
-          "avg": 943
+          "avg": 381
         },
         "ReadThrottleEvents": {
           "sum": 0
@@ -64,8 +64,8 @@
           "sum": 0
         },
         "SuccessfulRequestLatency": {
-          "avg": 3.121916462804747,
-          "max": 2.1163019057152215
+          "avg": 2.197484326003168,
+          "max": 13.9266598828524
         },
         "ThrottledRequests": {
           "sum": 0
@@ -74,31 +74,31 @@
           "sum": 0
         },
         "ReturnedItemCount": {
-          "avg": 230
+          "avg": 238
         },
         "ReturnedBytes": {
-          "avg": 471324
+          "avg": 315127
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-dynamodb-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-dynamodb-logs-814726593401"
+        "name": "aws-dynamodb-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-dynamodb-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/814726593401/dynamodb/eu-central-1/2026/04/02/dynamodb_63TFQYWR1K4.log.gz"
+        "key": "AWSLogs/501938274650/dynamodb/us-east-1/2026/04/13/dynamodb_6J7LDVENXRL.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/dynamodb/logs",
-      "log_stream": "eu-central-1/ys5au0y9",
-      "ingestion_time": "2026-04-02T20:50:22.411Z"
+      "log_stream": "us-east-1/odyw72ih",
+      "ingestion_time": "2026-04-13T11:01:16.252Z"
     }
   },
   "db": {
-    "name": "sessions",
-    "operation": "BatchGetItem",
+    "name": "orders",
+    "operation": "TransactGetItems",
     "type": "nosql"
   },
   "event": {
@@ -107,18 +107,18 @@
     "type": ["access"],
     "dataset": "aws.dynamodb",
     "provider": "dynamodb.amazonaws.com",
-    "duration": 39000000,
+    "duration": 33000000,
     "module": "aws"
   },
-  "message": "DynamoDB BatchGetItem sessions: consumed 15.639298124818927 RCU, 45.26427096142804 WCU",
+  "message": "{\"table\":\"orders\",\"operation\":\"TransactGetItems\",\"consumedReadCapacityUnits\":9.321521941317489,\"consumedWriteCapacityUnits\":35.52817482410506,\"timestamp\":\"2026-04-13T11:01:15.944Z\"}",
   "log": {
     "level": "info"
   },
   "trace": {
-    "id": "CF7YDJ4R5KF"
+    "id": "QK7B4LUHXZS"
   },
   "transaction": {
-    "id": "GOXVRS3Z36O"
+    "id": "916820OQZMF"
   },
   "service": {
     "name": "dynamodb",
@@ -135,8 +135,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-1",
-    "ephemeral_id": "fu0p5zdju26"
+    "name": "filebeat-aws-us-east-1",
+    "ephemeral_id": "pfsgwfe75dc"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
     "region": "ap-southeast-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "macie"
@@ -13,67 +13,72 @@
   },
   "aws": {
     "dimensions": {
-      "BucketName": "raw-uploads-ap-southeast-3"
+      "BucketName": "backup-bucket-ap-southeast-3"
     },
     "macie": {
-      "finding_id": "ctxdqw8g-sgpr-636y",
-      "finding_type": "none",
-      "severity": "INFORMATIONAL",
+      "finding_id": "1xo0nv3o-trew-6uvz",
+      "finding_type": "Policy:IAMUser/S3BucketPublic",
+      "severity": "LOW",
       "s3_bucket": {
-        "name": "raw-uploads-ap-southeast-3",
-        "arn": "arn:aws:s3:::raw-uploads-ap-southeast-3"
+        "name": "backup-bucket-ap-southeast-3",
+        "arn": "arn:aws:s3:::backup-bucket-ap-southeast-3"
       },
       "s3_bucket_full": {
-        "name": "raw-uploads-ap-southeast-3",
-        "arn": "arn:aws:s3:::raw-uploads-ap-southeast-3",
-        "owner_id": "h0t2w9bn4ir",
+        "name": "backup-bucket-ap-southeast-3",
+        "arn": "arn:aws:s3:::backup-bucket-ap-southeast-3",
+        "owner_id": "y5cep5owwb",
         "default_server_side_encryption": {
-          "encryption_type": "aws:kms"
+          "encryption_type": "AES256"
         },
         "tags": [
           {
             "key": "Environment",
-            "value": "dev"
+            "value": "prod"
           }
         ],
         "public_access": {
-          "effective_permission": "NOT_PUBLIC",
-          "block_public_acls": true,
-          "block_public_policy": true,
-          "ignore_public_acls": true,
-          "restrict_public_buckets": true
+          "effective_permission": "PUBLIC",
+          "block_public_acls": false,
+          "block_public_policy": false,
+          "ignore_public_acls": false,
+          "restrict_public_buckets": false
         }
       },
-      "occurrences": 0,
-      "sensitive_data_categories": [],
-      "data_identifiers": []
+      "occurrences": 7001,
+      "sensitive_data_categories": ["MEDICAL"],
+      "data_identifiers": ["SSN_US"]
     },
     "s3": {
       "bucket": {
-        "name": "aws-macie-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-macie-logs-738291046572"
+        "name": "aws-macie-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-macie-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/738291046572/macie/ap-southeast-3/2026/04/02/macie_G22ZEPFRBFE.log.gz"
+        "key": "AWSLogs/293847561023/macie/ap-southeast-3/2026/04/13/macie_1W06BAK0PGX.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/macie/logs",
-      "log_stream": "ap-southeast-3/6jt9uwjn",
-      "ingestion_time": "2026-04-02T20:50:22.380Z"
+      "log_stream": "ap-southeast-3/icdkn8ly",
+      "ingestion_time": "2026-04-13T11:01:16.231Z"
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "success",
-    "category": ["vulnerability"],
+    "outcome": "failure",
+    "category": ["intrusion_detection"],
     "dataset": "aws.macie",
     "provider": "macie2.amazonaws.com",
     "module": "aws"
   },
-  "message": "Macie scan complete: no sensitive data found",
+  "message": "Macie detected sensitive data in s3://backup-bucket-ap-southeast-3: Policy:IAMUser/S3BucketPublic",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "SensitiveDataFound",
+    "message": "Sensitive data in s3://backup-bucket-ap-southeast-3",
+    "type": "data"
   },
   "service": {
     "name": "macie",
@@ -91,7 +96,7 @@
     "type": "filebeat",
     "version": "8.18.0",
     "name": "filebeat-aws-ap-southeast-3",
-    "ephemeral_id": "jy70l215cj"
+    "ephemeral_id": "an6780p1fqg"
   },
   "input": {
     "type": "http_endpoint"

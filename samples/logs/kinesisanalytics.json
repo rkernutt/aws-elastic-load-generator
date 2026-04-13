@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-southeast-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "kinesisanalytics"
@@ -14,34 +14,34 @@
   "aws": {
     "kinesisanalytics": {
       "application_name": "real-time-metrics",
-      "application_arn": "arn:aws:kinesisanalytics:il-central-1:501938274650:application/real-time-metrics",
-      "runtime": "FLINK-1_15",
-      "records_per_second": 5237,
-      "input_watermark_lag_ms": 807,
+      "application_arn": "arn:aws:kinesisanalytics:ap-southeast-2:814726593401:application/real-time-metrics",
+      "runtime": "SQL-1_0",
+      "records_per_second": 7384,
+      "input_watermark_lag_ms": 557,
       "checkpointing_enabled": true,
-      "last_checkpoint_duration_ms": 1494,
-      "kpu_count": 23,
-      "structured_logging": true,
+      "last_checkpoint_duration_ms": 287,
+      "kpu_count": 9,
+      "structured_logging": false,
       "metrics": {
-        "records_in_per_second": 5237,
-        "input_watermark_lag_ms": 807,
-        "kpu_utilization_pct": 58,
-        "checkpoint_duration_ms": 767
+        "records_in_per_second": 7384,
+        "input_watermark_lag_ms": 557,
+        "kpu_utilization_pct": 33,
+        "checkpoint_duration_ms": 1003
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-kinesisanalytics-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-kinesisanalytics-logs-501938274650"
+        "name": "aws-kinesisanalytics-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-kinesisanalytics-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/501938274650/kinesisanalytics/il-central-1/2026/04/02/kinesisanalytics_11B8TM49N6PO.log.gz"
+        "key": "AWSLogs/814726593401/kinesisanalytics/ap-southeast-2/2026/04/13/kinesisanalytics_WG1QK8V497A.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/kinesisanalytics/logs",
-      "log_stream": "il-central-1/x9jgoas9",
-      "ingestion_time": "2026-04-02T20:50:22.416Z"
+      "log_stream": "ap-southeast-2/e07trc7o",
+      "ingestion_time": "2026-04-13T11:01:16.259Z"
     }
   },
   "event": {
@@ -49,10 +49,10 @@
     "category": "process",
     "dataset": "aws.kinesisanalytics",
     "provider": "kinesisanalytics.amazonaws.com",
-    "duration": 1044000000,
+    "duration": 483000000,
     "module": "aws"
   },
-  "message": "{\"applicationName\":\"real-time-metrics\",\"recordsPerSecond\":5237,\"inputWatermarkLagMs\":807,\"level\":\"info\",\"message\":\"Kinesis Analytics real-time-metrics: 5237 rec/s, lag 413ms\",\"timestamp\":\"2026-04-02T20:50:22.062Z\"}",
+  "message": "Kinesis Analytics real-time-metrics: 7384 rec/s, lag 16ms",
   "log": {
     "level": "info"
   },
@@ -71,8 +71,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-il-central-1",
-    "ephemeral_id": "2gcvspihx8j"
+    "name": "filebeat-aws-ap-southeast-2",
+    "ephemeral_id": "4t3lnwl5bpn"
   },
   "input": {
     "type": "aws-cloudwatch"

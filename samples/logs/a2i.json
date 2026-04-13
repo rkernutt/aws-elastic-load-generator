@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "us-east-2",
     "account": {
       "id": "293847561023",
       "name": "globex-staging"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "FlowDefinitionArn": "arn:aws:sagemaker:il-central-1:293847561023:flow-definition/id-verification",
-      "Operation": "ConditionThresholdBreached"
+      "FlowDefinitionArn": "arn:aws:sagemaker:us-east-2:293847561023:flow-definition/medical-review",
+      "Operation": "TaskTimedOut"
     },
     "a2i": {
-      "flow_definition_arn": "arn:aws:sagemaker:il-central-1:293847561023:flow-definition/id-verification",
-      "human_loop_name": "loop-2cos9mg4eph",
-      "human_loop_status": "InProgress",
+      "flow_definition_arn": "arn:aws:sagemaker:us-east-2:293847561023:flow-definition/medical-review",
+      "human_loop_name": "loop-wc9duv6d6mo",
+      "human_loop_status": "Failed",
       "input_content_type": "image/jpeg",
       "condition_threshold": 0.85,
       "human_review_required": true,
-      "reviewer_count": 1,
+      "reviewer_count": 2,
       "task_count": 1,
       "task_completed": 1,
       "confidence_threshold_breach": true
@@ -34,27 +34,27 @@
         "arn": "arn:aws:s3:::aws-a2i-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/293847561023/a2i/il-central-1/2026/04/02/a2i_N8N96RZ3YKD.log.gz"
+        "key": "AWSLogs/293847561023/a2i/us-east-2/2026/04/13/a2i_IXPHKJE3N9S.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/a2i/logs",
-      "log_stream": "il-central-1/poyhfp8h",
-      "ingestion_time": "2026-04-02T20:50:22.425Z"
+      "log_stream": "us-east-2/jghh8rrw",
+      "ingestion_time": "2026-04-13T11:01:16.279Z"
     }
   },
   "log": {
     "level": "warn"
   },
   "event": {
-    "action": "ConditionThresholdBreached",
+    "action": "TaskTimedOut",
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.a2i",
     "provider": "sagemaker.amazonaws.com",
     "module": "aws"
   },
-  "message": "A2I ConditionThresholdBreached: loop=loop-2cos9mg4eph, status=InProgress, confidence=0.67<0.85 REVIEW REQUIRED",
+  "message": "A2I TaskTimedOut: loop=loop-wc9duv6d6mo, status=Failed, confidence=0.77<0.85 REVIEW REQUIRED",
   "service": {
     "name": "a2i",
     "type": "aws"
@@ -70,8 +70,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-il-central-1",
-    "ephemeral_id": "xdwq5f2ory"
+    "name": "filebeat-aws-us-east-2",
+    "ephemeral_id": "kk8eku8mba"
   },
   "input": {
     "type": "aws-cloudwatch"

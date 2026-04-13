@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "eu-west-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "q-developer"
@@ -13,42 +13,41 @@
   },
   "aws": {
     "dimensions": {
-      "SubscriptionId": "sub-nzfk2wi2yi",
+      "SubscriptionId": "sub-i4351ektbr",
       "Ide": "AWS Cloud9"
     },
     "qdeveloper": {
-      "subscription_id": "sub-nzfk2wi2yi",
+      "subscription_id": "sub-i4351ektbr",
       "ide": "AWS Cloud9",
-      "language": "python",
-      "feature": "chat",
+      "language": "rust",
+      "feature": "review",
       "metrics": {
-        "suggestions_accepted": 0,
-        "suggestions_rejected": 185,
-        "active_users": 83
-      },
-      "error_code": "CompletionTimeout"
+        "suggestions_accepted": 129,
+        "suggestions_rejected": 13,
+        "active_users": 274
+      }
     },
     "s3": {
       "bucket": {
-        "name": "aws-qdeveloper-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-qdeveloper-logs-293847561023"
+        "name": "aws-qdeveloper-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-qdeveloper-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/293847561023/qdeveloper/ap-southeast-2/2026/04/02/qdeveloper_WQHFXYDHD2.log.gz"
+        "key": "AWSLogs/501938274650/qdeveloper/eu-west-1/2026/04/13/qdeveloper_8I8QZWTOD8A.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/qdeveloper/logs",
-      "log_stream": "ap-southeast-2/9fs7ave5",
-      "ingestion_time": "2026-04-02T20:50:22.418Z"
+      "log_stream": "eu-west-1/ieuy5jh9",
+      "ingestion_time": "2026-04-13T11:01:16.264Z"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": ["process"],
     "dataset": "aws.qdeveloper",
     "provider": "q.amazonaws.com",
-    "duration": 8868000000,
+    "duration": 856000000,
     "module": "aws"
   },
   "data_stream": {
@@ -56,14 +55,9 @@
     "dataset": "aws.qdeveloper",
     "namespace": "default"
   },
-  "message": "Q Developer chat CompletionTimeout for python in AWS Cloud9",
+  "message": "Q Developer review: 129 accepted, 13 rejected (rust/AWS Cloud9)",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "CompletionTimeout",
-    "message": "Q Developer chat failed for python",
-    "type": "process"
+    "level": "info"
   },
   "service": {
     "name": "qdeveloper",
@@ -75,8 +69,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-2",
-    "ephemeral_id": "8cqptn9eewu"
+    "name": "filebeat-aws-eu-west-1",
+    "ephemeral_id": "kxb3qxp2ttb"
   },
   "input": {
     "type": "aws-cloudwatch"

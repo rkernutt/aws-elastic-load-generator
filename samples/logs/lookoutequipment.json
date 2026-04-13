@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "ca-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "lookoutequipment"
@@ -13,38 +13,38 @@
   },
   "aws": {
     "lookoutequipment": {
-      "model_name": "pump-anomaly-detector",
-      "event_type": "ImportDataset",
-      "inference_scheduler": "pump-anomaly-detector-scheduler",
+      "model_name": "turbine-vibration-model",
+      "event_type": "StartInferenceScheduler",
+      "inference_scheduler": "turbine-vibration-model-scheduler",
       "anomaly_detected": false,
       "anomalous_sensors": [],
-      "diagnostics_score": 0.1489783680275022,
-      "data_points_ingested": 14013,
-      "inference_latency_ms": 432,
-      "dataset_arn": "arn:aws:lookoutequipment:ap-southeast-2:293847561023:dataset/pump-anomaly-detector-data"
+      "diagnostics_score": 0.8257346709846016,
+      "data_points_ingested": 49566,
+      "inference_latency_ms": 500,
+      "dataset_arn": "arn:aws:lookoutequipment:ca-central-1:814726593401:dataset/turbine-vibration-model-data"
     },
     "s3": {
       "bucket": {
-        "name": "aws-lookoutequipment-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-lookoutequipment-logs-293847561023"
+        "name": "aws-lookoutequipment-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-lookoutequipment-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/lookoutequipment/ap-southeast-2/2026/04/02/lookoutequipment_96VGIE9TIL9.log.gz"
+        "key": "AWSLogs/814726593401/lookoutequipment/ca-central-1/2026/04/13/lookoutequipment_LEVNV9OA24M.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/lookoutequipment/logs",
-      "log_stream": "ap-southeast-2/5e6w5rwc",
-      "ingestion_time": "2026-04-02T20:50:22.427Z"
+      "log_stream": "ca-central-1/ys3532f7",
+      "ingestion_time": "2026-04-13T11:01:16.281Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 4729204,
+    "duration": 4607015,
     "module": "aws",
     "dataset": "aws.lookoutequipment"
   },
-  "message": "Lookout Equipment pump-anomaly-detector: ImportDataset completed normally",
+  "message": "Lookout Equipment turbine-vibration-model: StartInferenceScheduler completed normally",
   "service": {
     "name": "lookoutequipment",
     "type": "aws"
@@ -63,8 +63,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-2",
-    "ephemeral_id": "vqgsbyyvxm"
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "6xckwrks0xm"
   },
   "input": {
     "type": "aws-cloudwatch"

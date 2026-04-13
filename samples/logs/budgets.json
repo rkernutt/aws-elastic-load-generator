@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-west-3",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "budgets"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "budgets": {
-      "budget_name": "ec2-prod",
-      "budget_type": "USAGE",
-      "time_period": "MONTHLY",
+      "budget_name": "dev-sandbox",
+      "budget_type": "COST",
+      "time_period": "QUARTERLY",
       "currency": "USD",
-      "budget_limit": 1959.41,
-      "actual_spend": 978.12,
-      "forecasted_spend": 945.1,
+      "budget_limit": 5116.82,
+      "actual_spend": 2108.4,
+      "forecasted_spend": 2590.83,
       "threshold_exceeded": false,
-      "threshold_percentage": 60,
-      "notification_type": "FORECASTED",
-      "subscribers": "ops@company.com"
+      "threshold_percentage": 70,
+      "notification_type": "ACTUAL",
+      "subscribers": "finance@company.com"
     },
     "s3": {
       "bucket": {
-        "name": "aws-budgets-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-budgets-logs-501938274650"
+        "name": "aws-budgets-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-budgets-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/501938274650/budgets/us-east-2/2026/04/02/budgets_AKUJZZKD26H.log.gz"
+        "key": "AWSLogs/164820739518/budgets/eu-west-3/2026/04/13/budgets_E52N5WAA9ZU.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/budgets/logs",
-      "log_stream": "us-east-2/2qszd6pa",
-      "ingestion_time": "2026-04-02T20:50:22.431Z"
+      "log_stream": "eu-west-3/2wiw7nqu",
+      "ingestion_time": "2026-04-13T11:01:16.290Z"
     }
   },
   "event": {
@@ -48,7 +48,7 @@
     "duration": 4000000000,
     "module": "aws"
   },
-  "message": "Budget OK: ec2-prod at 978/1959 (50%)",
+  "message": "Budget OK: dev-sandbox at 2108/5117 (41%)",
   "log": {
     "level": "info"
   },
@@ -67,8 +67,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-2",
-    "ephemeral_id": "x6aon3ugg5a"
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "bepf1mp193"
   },
   "input": {
     "type": "http_endpoint"

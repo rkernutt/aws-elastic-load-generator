@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-south-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "workmail"
@@ -13,49 +13,48 @@
   },
   "aws": {
     "dimensions": {
-      "OrganizationId": "m-8v93d2"
+      "OrganizationId": "m-ge9ggx"
     },
     "workmail": {
-      "organization_id": "m-8v93d2",
-      "mailbox_id": "mailbox-25erzx83eo",
-      "action": "EmailBounced",
+      "organization_id": "m-ge9ggx",
+      "mailbox_id": "mailbox-nkd2rp4ras",
+      "action": "Logout",
       "metrics": {
-        "emails_delivered": 0,
-        "emails_bounced": 51,
-        "active_users": 485
-      },
-      "error_code": "DeliveryFailure"
+        "emails_delivered": 228,
+        "emails_bounced": 0,
+        "active_users": 77
+      }
     },
     "s3": {
       "bucket": {
-        "name": "aws-workmail-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-workmail-logs-501938274650"
+        "name": "aws-workmail-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-workmail-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/501938274650/workmail/us-east-1/2026/04/02/workmail_DGIDAO20UNI.log.gz"
+        "key": "AWSLogs/738291046572/workmail/eu-south-2/2026/04/13/workmail_T6S7AF4OGVA.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/workmail/logs",
-      "log_stream": "us-east-1/dgutbeee",
-      "ingestion_time": "2026-04-02T20:50:22.434Z"
+      "log_stream": "eu-south-2/yal2vtlm",
+      "ingestion_time": "2026-04-13T11:01:16.296Z"
     }
   },
   "email": {
     "from": {
-      "address": "bob@globex.example.com"
+      "address": "frank@globex.example.com"
     },
     "to": {
-      "address": "bob@globex.example.com"
+      "address": "frank@globex.example.com"
     }
   },
   "event": {
-    "action": "EmailBounced",
-    "outcome": "failure",
+    "action": "Logout",
+    "outcome": "success",
     "category": ["email"],
     "dataset": "aws.workmail",
     "provider": "workmail.amazonaws.com",
-    "duration": 471000000,
+    "duration": 42000000,
     "module": "aws"
   },
   "data_stream": {
@@ -63,14 +62,9 @@
     "dataset": "aws.workmail",
     "namespace": "default"
   },
-  "message": "WorkMail org m-8v93d2: DeliveryFailure for EmailBounced",
+  "message": "WorkMail org m-ge9ggx: Logout from frank@globex.example.com to frank@globex.example.com",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "DeliveryFailure",
-    "message": "WorkMail email delivery failed in organization m-8v93d2",
-    "type": "email"
+    "level": "info"
   },
   "service": {
     "name": "workmail",
@@ -82,8 +76,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-1",
-    "ephemeral_id": "xzf1d6ntf0a"
+    "name": "filebeat-aws-eu-south-2",
+    "ephemeral_id": "hafss4xo6x7"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "ap-south-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "systemsmanager"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "ssm": {
-      "command_id": "tg6e6san-sxh1-s5ww",
+      "command_id": "m5qc7s5e-6d3y-18ot",
       "document_name": "AWS-ConfigureAWSPackage",
-      "instance_id": "i-clatnkc9g1",
+      "instance_id": "i-42aog8dgokt",
       "action": "SendCommand",
-      "execution_status": "Failed",
-      "response_code": 127,
-      "structured_logging": false,
+      "execution_status": "Success",
+      "response_code": 0,
+      "structured_logging": true,
       "metrics": {
         "CommandsSucceeded": {
-          "sum": 0
+          "sum": 1
         },
         "CommandsFailed": {
-          "sum": 1
+          "sum": 0
         },
         "CommandsTimedOut": {
           "sum": 0
@@ -37,44 +37,39 @@
           "sum": 1
         },
         "SessionDuration": {
-          "avg": 848
+          "avg": 48
         },
         "PatchComplianceCount": {
-          "avg": 266
+          "avg": 53
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-ssm-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-ssm-logs-814726593401"
+        "name": "aws-ssm-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-ssm-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/814726593401/ssm/eu-west-3/2026/04/02/ssm_EYPDYR14HZU.log.gz"
+        "key": "AWSLogs/738291046572/ssm/ap-south-2/2026/04/13/ssm_5ES8SIQF0XD.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/ssm/logs",
-      "log_stream": "eu-west-3/sb5pyk19",
-      "ingestion_time": "2026-04-02T20:50:22.429Z"
+      "log_stream": "ap-south-2/btq6olz3",
+      "ingestion_time": "2026-04-13T11:01:16.285Z"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": ["process", "configuration", "host"],
     "dataset": "aws.ssm",
     "provider": "ssm.amazonaws.com",
-    "duration": 141000000000,
+    "duration": 27000000000,
     "module": "aws"
   },
-  "message": "SSM SendCommand FAILED on i-clatnkc9g1: exit code 2",
-  "error": {
-    "code": "SSMError",
-    "message": "SSM command failed",
-    "type": "process"
-  },
+  "message": "{\"commandId\":\"m5qc7s5e-6d3y-18ot\",\"documentName\":\"AWS-ConfigureAWSPackage\",\"instanceId\":\"i-42aog8dgokt\",\"action\":\"SendCommand\",\"status\":\"Success\",\"timestamp\":\"2026-04-13T11:01:15.944Z\"}",
   "log": {
-    "level": "error"
+    "level": "info"
   },
   "service": {
     "name": "ssm",
@@ -91,8 +86,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-3",
-    "ephemeral_id": "if1haoxe83s"
+    "name": "filebeat-aws-ap-south-2",
+    "ephemeral_id": "mgmvpcdh2ts"
   },
   "input": {
     "type": "aws-cloudwatch"

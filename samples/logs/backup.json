@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "backup"
@@ -13,27 +13,27 @@
   },
   "aws": {
     "backup": {
-      "backup_job_id": "6jd7273u-q7e0-5j5z",
+      "backup_job_id": "j8stserq-egr9-qwz2",
       "backup_plan_name": "compliance-backup",
-      "resource_type": "FSx",
+      "resource_type": "EC2",
       "backup_vault_name": "Default",
       "status": "COMPLETED",
-      "backup_size_gb": 1314.8527473243346,
+      "backup_size_gb": 1731.4568457033238,
       "lifecycle_delete_after_days": 90
     },
     "s3": {
       "bucket": {
-        "name": "aws-backup-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-backup-logs-164820739518"
+        "name": "aws-backup-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-backup-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/164820739518/backup/il-central-1/2026/04/02/backup_4FV8291NWRS.log.gz"
+        "key": "AWSLogs/814726593401/backup/ap-southeast-4/2026/04/13/backup_F14XKCMDU9.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/backup/logs",
-      "log_stream": "il-central-1/9mh4f1e9",
-      "ingestion_time": "2026-04-02T20:50:22.411Z"
+      "log_stream": "ap-southeast-4/xwukwsk5",
+      "ingestion_time": "2026-04-13T11:01:16.251Z"
     }
   },
   "event": {
@@ -41,10 +41,10 @@
     "category": ["process"],
     "dataset": "aws.backup",
     "provider": "backup.amazonaws.com",
-    "duration": 4476000000000,
+    "duration": 6032000000000,
     "module": "aws"
   },
-  "message": "AWS Backup COMPLETED: fsx/fs-prod -> Default (1314.9GB)",
+  "message": "AWS Backup COMPLETED: rds/prod-db -> prod-vault (1731.5GB)",
   "log": {
     "level": "info"
   },
@@ -63,8 +63,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-il-central-1",
-    "ephemeral_id": "jbj54t5x13n"
+    "name": "filebeat-aws-ap-southeast-4",
+    "ephemeral_id": "c4wi18chyy"
   },
   "input": {
     "type": "aws-cloudwatch"

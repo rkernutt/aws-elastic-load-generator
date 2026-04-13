@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "il-central-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "clientvpn"
@@ -13,50 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "Endpoint": "cvpn-endpoint-9elh7or63qq"
+      "Endpoint": "cvpn-endpoint-li3s3jt29v"
     },
     "clientvpn": {
-      "endpoint_id": "cvpn-endpoint-9elh7or63qq",
-      "connection_id": "cvpn-connection-gh2tn349d3j",
-      "username": "globex-security-tooling",
-      "source_ip": "38.237.99.75",
-      "assigned_ip": "10.160.44.158",
-      "egress_bytes": 10043273,
-      "ingress_bytes": 4649379,
-      "connection_duration_seconds": 78104,
+      "endpoint_id": "cvpn-endpoint-li3s3jt29v",
+      "connection_id": "cvpn-connection-rdaf8fovr89",
+      "username": "globex-staging",
+      "source_ip": "164.186.91.215",
+      "assigned_ip": "10.227.129.235",
+      "egress_bytes": 2998645,
+      "ingress_bytes": 4975296,
+      "connection_duration_seconds": 50482,
       "termination_reason": "User disconnected"
     },
     "s3": {
       "bucket": {
-        "name": "aws-clientvpn-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-clientvpn-logs-738291046572"
+        "name": "aws-clientvpn-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-clientvpn-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/738291046572/clientvpn/il-central-1/2026/04/02/clientvpn_3GYLU89NM19.log.gz"
+        "key": "AWSLogs/814726593401/clientvpn/ca-central-1/2026/04/13/clientvpn_G5VI02KQMCC.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/clientvpn/logs",
-      "log_stream": "il-central-1/mj2ymt8u",
-      "ingestion_time": "2026-04-02T20:50:22.379Z"
+      "log_stream": "ca-central-1/vx55nqjp",
+      "ingestion_time": "2026-04-13T11:01:16.229Z"
     }
   },
   "event": {
-    "action": "connected",
+    "action": "disconnected",
     "outcome": "success",
     "category": ["network", "authentication"],
     "dataset": "aws.clientvpn",
     "provider": "clientvpn.amazonaws.com",
-    "duration": 78104000000000,
+    "duration": 50482000000000,
     "module": "aws"
   },
   "source": {
-    "ip": "38.237.99.75"
+    "ip": "164.186.91.215"
   },
   "user": {
-    "name": "globex-security-tooling"
+    "name": "globex-staging"
   },
-  "message": "Client VPN globex-security-tooling connected from 38.237.99.75",
+  "message": "Client VPN globex-staging disconnected from 164.186.91.215",
   "log": {
     "level": "info"
   },
@@ -75,8 +75,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-il-central-1",
-    "ephemeral_id": "z9etyeazcp"
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "22vtlelgjafh"
   },
   "input": {
     "type": "aws-cloudwatch"

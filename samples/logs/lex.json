@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "ap-northeast-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "lex"
@@ -14,33 +14,33 @@
   "aws": {
     "dimensions": {
       "BotName": "customer-service-bot",
-      "Operation": "GetHelp"
+      "Operation": "CancelOrder"
     },
     "lex": {
-      "bot_id": "H14UPI387G",
+      "bot_id": "C2GCASBPLV",
       "bot_name": "customer-service-bot",
-      "bot_version": "DRAFT",
-      "locale_id": "en_US",
-      "session_id": "9pslzccc07",
+      "bot_version": "2",
+      "locale_id": "en_GB",
+      "session_id": "mv15akg5pk8",
       "input_transcript": "I want to order a product",
-      "intent_name": "GetHelp",
-      "intent_nlu_confidence_score": 0.9539910572427244,
+      "intent_name": "CancelOrder",
+      "intent_nlu_confidence_score": 0.6879786205141689,
       "dialog_state": "Fulfilled",
-      "sentiment": "NEUTRAL"
+      "sentiment": "NEGATIVE"
     },
     "s3": {
       "bucket": {
-        "name": "aws-lex-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-lex-logs-164820739518"
+        "name": "aws-lex-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-lex-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/164820739518/lex/me-south-1/2026/04/02/lex_712E6RX6SQR.log.gz"
+        "key": "AWSLogs/501938274650/lex/ap-northeast-2/2026/04/13/lex_E52IRBCY63U.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/lex/logs",
-      "log_stream": "me-south-1/gi10uawt",
-      "ingestion_time": "2026-04-02T20:50:22.425Z"
+      "log_stream": "ap-northeast-2/pr8kzo35",
+      "ingestion_time": "2026-04-13T11:01:16.277Z"
     }
   },
   "event": {
@@ -50,9 +50,9 @@
     "provider": "lex.amazonaws.com",
     "module": "aws"
   },
-  "message": "Lex customer-service-bot: intent=GetHelp (95%)",
+  "message": "Lex customer-service-bot: intent=CancelOrder (69%)",
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "service": {
     "name": "lex",
@@ -69,8 +69,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-south-1",
-    "ephemeral_id": "xiafq3sw0rb"
+    "name": "filebeat-aws-ap-northeast-2",
+    "ephemeral_id": "sf00cqjtfq"
   },
   "input": {
     "type": "aws-cloudwatch"

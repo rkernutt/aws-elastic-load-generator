@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "eu-central-1",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,16 +13,16 @@
   },
   "aws": {
     "kinesis_video": {
-      "stream_name": "warehouse-feed",
-      "stream_arn": "arn:aws:kinesisvideo:eu-central-2:814726593401:stream/warehouse-feed",
-      "event_type": "GetClip",
-      "fragment_number": "16220521M5A",
-      "producer_timestamp_ms": 1775163022428,
-      "server_timestamp_ms": 1775163022594,
-      "ingestion_rate_mbps": 5.768045218670805,
-      "fragment_duration_ms": 2148,
+      "stream_name": "lobby-cam-01",
+      "stream_arn": "arn:aws:kinesisvideo:eu-central-1:814726593401:stream/lobby-cam-01",
+      "event_type": "GetMedia",
+      "fragment_number": "O1AZ102M09I",
+      "producer_timestamp_ms": 1776078076284,
+      "server_timestamp_ms": 1776078076323,
+      "ingestion_rate_mbps": 8.160507761043323,
+      "fragment_duration_ms": 4283,
       "resolution": "1280x720",
-      "codec": "H.265"
+      "codec": "H.264"
     },
     "s3": {
       "bucket": {
@@ -30,22 +30,22 @@
         "arn": "arn:aws:s3:::aws-kinesisvideo-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/814726593401/kinesisvideo/eu-central-2/2026/04/02/kinesisvideo_AL0N7VVOR2.log.gz"
+        "key": "AWSLogs/814726593401/kinesisvideo/eu-central-1/2026/04/13/kinesisvideo_SQBZQ2BMPR.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/kinesisvideo/logs",
-      "log_stream": "eu-central-2/6jy92kkb",
-      "ingestion_time": "2026-04-02T20:50:22.428Z"
+      "log_stream": "eu-central-1/flf9pwje",
+      "ingestion_time": "2026-04-13T11:01:16.284Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 2744299,
+    "duration": 1243919,
     "module": "aws",
     "dataset": "aws.kinesisvideo"
   },
-  "message": "Kinesis Video warehouse-feed: GetClip (7.0 Mbps)",
+  "message": "Kinesis Video lobby-cam-01: GetMedia (2.7 Mbps)",
   "service": {
     "name": "kinesisvideo",
     "type": "aws"
@@ -64,8 +64,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-2",
-    "ephemeral_id": "q88fw1cucu"
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "zeqomc0afco"
   },
   "input": {
     "type": "aws-cloudwatch"

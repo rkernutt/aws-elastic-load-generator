@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "eu-central-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,19 +13,19 @@
   },
   "aws": {
     "dimensions": {
-      "PartnerName": "Supplier-Corp",
-      "DocumentType": "X12_820"
+      "PartnerName": "RetailChain-Inc",
+      "DocumentType": "X12_204"
     },
     "b2bi": {
-      "partnership_id": "ps-93IXXX71W87",
-      "partner_name": "Supplier-Corp",
-      "transaction_id": "txn-CDT9PDYC63Q",
-      "document_type": "X12_820",
+      "partnership_id": "ps-ZV51XQFGT2M",
+      "partner_name": "RetailChain-Inc",
+      "transaction_id": "txn-IJMTWNC5MV",
+      "document_type": "X12_204",
       "processing_status": "DELIVERED",
-      "transformer_id": "tr-U9DCHQ2JDSN",
-      "input_file_size_bytes": 5012,
-      "transaction_count": 258,
-      "interchange_control_number": 961696997
+      "transformer_id": "tr-PLUO8Q7XXUL",
+      "input_file_size_bytes": 509695,
+      "transaction_count": 118,
+      "interchange_control_number": 216427337
     },
     "s3": {
       "bucket": {
@@ -33,24 +33,24 @@
         "arn": "arn:aws:s3:::aws-b2bi-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/501938274650/b2bi/ap-southeast-2/2026/04/02/b2bi_H7HFP5XTVQ8.log.gz"
+        "key": "AWSLogs/501938274650/b2bi/eu-central-1/2026/04/13/b2bi_52BNW4QTB8B.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/b2bi/logs",
-      "log_stream": "ap-southeast-2/ixa25t7w",
-      "ingestion_time": "2026-04-02T20:50:22.422Z"
+      "log_stream": "eu-central-1/3qp92clq",
+      "ingestion_time": "2026-04-13T11:01:16.272Z"
     }
   },
   "event": {
-    "action": "CompleteTransformation",
+    "action": "CreateTransformer",
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.b2bi",
     "provider": "b2bi.amazonaws.com",
     "module": "aws"
   },
-  "message": "B2B Data Interchange X12_820 from Supplier-Corp: DELIVERED (258 transactions)",
+  "message": "B2B Data Interchange X12_204 from RetailChain-Inc: DELIVERED (118 transactions)",
   "log": {
     "level": "info"
   },
@@ -69,8 +69,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-2",
-    "ephemeral_id": "epyfdh29g4"
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "ws1ty9v1t6n"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "us-east-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "dsql"
@@ -13,41 +13,42 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterId": "dsql-6h98bm8wjv",
+      "ClusterId": "dsql-r0x16f3pry",
       "RegionMode": "primary"
     },
     "auroradsql": {
-      "cluster_id": "dsql-6h98bm8wjv",
-      "linked_cluster_arns": ["arn:aws:dsql:us-east-1:814726593401:cluster/dsql-xkldokia"],
-      "transaction_id": "txn-bpytuy0mpaq",
+      "cluster_id": "dsql-r0x16f3pry",
+      "linked_cluster_arns": ["arn:aws:dsql:us-east-1:164820739518:cluster/dsql-21qcgywe"],
+      "transaction_id": "txn-4ahesuojpdb",
       "region_mode": "primary",
       "metrics": {
-        "transactions_per_sec": 6565.674209977317,
-        "storage_used_gb": 36.85125746547151,
+        "transactions_per_sec": 0,
+        "storage_used_gb": 300.6293872073229,
         "replication_lag_ms": 0
-      }
+      },
+      "error_code": "TransactionAborted"
     },
     "s3": {
       "bucket": {
-        "name": "aws-auroradsql-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-auroradsql-logs-814726593401"
+        "name": "aws-auroradsql-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-auroradsql-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/814726593401/auroradsql/eu-south-1/2026/04/02/auroradsql_P5DSWOENXNP.log.gz"
+        "key": "AWSLogs/164820739518/auroradsql/us-east-1/2026/04/13/auroradsql_6NRNN10GL8N.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/auroradsql/logs",
-      "log_stream": "eu-south-1/qzmyoap3",
-      "ingestion_time": "2026-04-02T20:50:22.414Z"
+      "log_stream": "us-east-1/g2rffufq",
+      "ingestion_time": "2026-04-13T11:01:16.256Z"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": ["database"],
     "dataset": "aws.auroradsql",
     "provider": "dsql.amazonaws.com",
-    "duration": 164000000,
+    "duration": 3118000000,
     "module": "aws"
   },
   "data_stream": {
@@ -55,9 +56,14 @@
     "dataset": "aws.auroradsql",
     "namespace": "default"
   },
-  "message": "Aurora DSQL cluster dsql-6h98bm8wjv: 6566 TPS, storage=36.9GB, replication_lag=0ms",
+  "message": "Aurora DSQL cluster dsql-r0x16f3pry: TransactionAborted (primary)",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "TransactionAborted",
+    "message": "Aurora DSQL transaction failed on cluster dsql-r0x16f3pry",
+    "type": "database"
   },
   "service": {
     "name": "auroradsql",
@@ -69,8 +75,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-1",
-    "ephemeral_id": "16268vpf1jcj"
+    "name": "filebeat-aws-us-east-1",
+    "ephemeral_id": "dqrdmjh3b7"
   },
   "input": {
     "type": "aws-cloudwatch"

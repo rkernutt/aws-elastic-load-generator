@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "us-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "securityir"
@@ -13,46 +13,46 @@
   },
   "aws": {
     "dimensions": {
-      "CaseId": "case-7am37n1t",
-      "Severity": "CRITICAL"
+      "CaseId": "case-cvelwylh",
+      "Severity": "LOW"
     },
     "securityir": {
-      "case_id": "case-7am37n1t",
-      "case_title": "Credential compromise",
+      "case_id": "case-cvelwylh",
+      "case_title": "S3 data exposure",
       "case_status": "POST_INCIDENT",
-      "severity": "CRITICAL",
-      "impacted_account_count": 7,
-      "impacted_services": "RDS,Secrets Manager",
-      "resolver_type": "THIRD_PARTY",
+      "severity": "LOW",
+      "impacted_account_count": 1,
+      "impacted_services": "ECS,ECR",
+      "resolver_type": "AWS",
       "engagement_type": "INVESTIGATION",
-      "case_arn": "arn:aws:security-ir:sa-east-1:293847561023:case/case-7am37n1t"
+      "case_arn": "arn:aws:security-ir:us-west-2:738291046572:case/case-cvelwylh"
     },
     "s3": {
       "bucket": {
-        "name": "aws-securityir-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-securityir-logs-293847561023"
+        "name": "aws-securityir-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-securityir-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/293847561023/securityir/sa-east-1/2026/04/02/securityir_BCO40IMMO2F.log.gz"
+        "key": "AWSLogs/738291046572/securityir/us-west-2/2026/04/13/securityir_K06O24FLPZ.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/securityir/logs",
-      "log_stream": "sa-east-1/4bygt57y",
-      "ingestion_time": "2026-04-02T20:50:22.384Z"
+      "log_stream": "us-west-2/sh950hyf",
+      "ingestion_time": "2026-04-13T11:01:16.238Z"
     }
   },
   "event": {
-    "action": "UpdateResolverType",
+    "action": "CreateCase",
     "outcome": "success",
     "category": ["intrusion_detection", "process"],
     "dataset": "aws.securityir",
     "provider": "security-ir.amazonaws.com",
     "module": "aws"
   },
-  "message": "Security IR UpdateResolverType: case=case-7am37n1t severity=CRITICAL status=POST_INCIDENT",
+  "message": "Security IR CreateCase: case=case-cvelwylh severity=LOW status=POST_INCIDENT",
   "log": {
-    "level": "error"
+    "level": "warn"
   },
   "service": {
     "name": "securityir",
@@ -69,8 +69,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-sa-east-1",
-    "ephemeral_id": "gxrxpjhfifh"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "mh26gnec16e"
   },
   "input": {
     "type": "http_endpoint"

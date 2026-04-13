@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-central-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "IndexId": "g2hqrj98-g0b0-lw4j-7b8y-gwmx82vm0we",
-      "Operation": "CreateDataSource"
+      "IndexId": "gcbyidzq-atuy-hcki-csoa-yqvzmkrhll",
+      "Operation": "SyncJobFailed"
     },
     "kendra": {
-      "index_id": "g2hqrj98-g0b0-lw4j-7b8y-gwmx82vm0we",
-      "index_name": "company-wiki",
-      "result_count": 5,
-      "response_time_ms": 1009,
-      "document_count": 322837,
-      "data_source_id": "ds-e3174q0x23",
-      "data_source_type": "S3"
+      "index_id": "gcbyidzq-atuy-hcki-csoa-yqvzmkrhll",
+      "index_name": "support-articles",
+      "result_count": 0,
+      "response_time_ms": 7409,
+      "document_count": 30245,
+      "data_source_id": "ds-3q1l61qlpj",
+      "data_source_type": "Confluence"
     },
     "s3": {
       "bucket": {
@@ -31,28 +31,33 @@
         "arn": "arn:aws:s3:::aws-kendra-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/738291046572/kendra/us-east-2/2026/04/02/kendra_8ZB9VEHRFNY.log.gz"
+        "key": "AWSLogs/738291046572/kendra/eu-central-1/2026/04/13/kendra_MNCETI7V8Z.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/kendra/logs",
-      "log_stream": "us-east-2/hxupr9mg",
-      "ingestion_time": "2026-04-02T20:50:22.425Z"
+      "log_stream": "eu-central-1/a2y32j23",
+      "ingestion_time": "2026-04-13T11:01:16.278Z"
     }
   },
   "log": {
-    "level": "info"
+    "level": "error"
   },
   "event": {
-    "action": "CreateDataSource",
-    "outcome": "success",
+    "action": "SyncJobFailed",
+    "outcome": "failure",
     "category": ["process"],
     "dataset": "aws.kendra",
     "provider": "kendra.amazonaws.com",
-    "duration": 1009000000,
+    "duration": 7409000000,
     "module": "aws"
   },
-  "message": "Kendra CreateDataSource: index=company-wiki",
+  "message": "Kendra SyncJobFailed FAILED [support-articles]: Throttled",
+  "error": {
+    "code": "InternalServerException",
+    "message": "Kendra operation failed",
+    "type": "search"
+  },
   "service": {
     "name": "kendra",
     "type": "aws"
@@ -68,8 +73,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-2",
-    "ephemeral_id": "87llhdtbopp"
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "bzqppsuhek7"
   },
   "input": {
     "type": "aws-cloudwatch"

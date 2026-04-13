@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-3",
+    "region": "me-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "appconfig"
@@ -14,31 +14,31 @@
   "aws": {
     "dimensions": {
       "Application": "AdminPortal",
-      "Environment": "dev"
+      "Environment": "qa"
     },
     "appconfig": {
       "application_name": "AdminPortal",
-      "environment_name": "dev",
-      "configuration_profile": "RateLimits",
-      "deployment_number": 107,
-      "deployment_strategy": "AllAtOnce",
-      "growth_factor": 50,
+      "environment_name": "qa",
+      "configuration_profile": "AppSettings",
+      "deployment_number": 241,
+      "deployment_strategy": "Linear50PercentEvery30Seconds",
+      "growth_factor": 33,
       "percentage_complete": 100,
-      "state": "DEPLOYING"
+      "state": "VALIDATING"
     },
     "s3": {
       "bucket": {
-        "name": "aws-appconfig-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-appconfig-logs-293847561023"
+        "name": "aws-appconfig-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-appconfig-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/293847561023/appconfig/ap-northeast-3/2026/04/02/appconfig_RYAUAOQVCOS.log.gz"
+        "key": "AWSLogs/501938274650/appconfig/me-south-1/2026/04/13/appconfig_N9PO50SQH3R.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/appconfig/logs",
-      "log_stream": "ap-northeast-3/6xpaljl5",
-      "ingestion_time": "2026-04-02T20:50:22.432Z"
+      "log_stream": "me-south-1/lr38czlv",
+      "ingestion_time": "2026-04-13T11:01:16.292Z"
     }
   },
   "event": {
@@ -49,7 +49,7 @@
     "provider": "appconfig.amazonaws.com",
     "module": "aws"
   },
-  "message": "AppConfig AdminPortal/dev: RateLimits deployment #107 DEPLOYING",
+  "message": "AppConfig AdminPortal/qa: AppSettings deployment #241 VALIDATING",
   "log": {
     "level": "info"
   },
@@ -68,8 +68,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-3",
-    "ephemeral_id": "ypayoomv44d"
+    "name": "filebeat-aws-me-south-1",
+    "ephemeral_id": "9p5oy1z5ufo"
   },
   "input": {
     "type": "aws-cloudwatch"

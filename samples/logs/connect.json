@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "ca-west-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,23 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "xxae1nlm-3t1z-8vc2-7u8b-yxvr2ip14bg",
+      "InstanceId": "0s0jiup4-io46-kgmx-1j9o-x5ygq9d6a2d",
       "MetricGroup": "Queue"
     },
     "connect": {
-      "instance_id": "xxae1nlm-3t1z-8vc2-7u8b-yxvr2ip14bg",
-      "contact_id": "t1cb3yor-sdyq-tm40",
-      "channel": "CHAT",
-      "initiation_method": "TASK",
-      "queue_name": "Sales",
-      "agent_id": "agent-alice",
-      "duration_seconds": 859,
-      "hold_duration_seconds": 45,
-      "queue_wait_time_seconds": 83,
-      "disconnect_reason": "AGENT_DISCONNECT",
-      "sentiment_overall": "POSITIVE",
-      "contact_lens_enabled": false,
-      "lex_bot_interacted": false,
+      "instance_id": "0s0jiup4-io46-kgmx-1j9o-x5ygq9d6a2d",
+      "contact_id": "fs09m3lk-yff6-2efw",
+      "channel": "VOICE",
+      "initiation_method": "DISCONNECT",
+      "queue_name": "Priority-Enterprise",
+      "duration_seconds": 367,
+      "hold_duration_seconds": 22,
+      "queue_wait_time_seconds": 219,
+      "disconnect_reason": "EXPIRED",
+      "sentiment_overall": "MIXED",
+      "contact_lens_enabled": true,
+      "lex_bot_interacted": true,
       "metrics": {
         "ContactsQueued": {
           "sum": 1
@@ -44,19 +43,19 @@
           "sum": 0
         },
         "AverageHandleTime": {
-          "avg": 859
+          "avg": 367
         },
         "AverageAfterContactWorkTime": {
-          "avg": 120
+          "avg": 293
         },
         "AverageQueueAnswerTime": {
-          "avg": 116
+          "avg": 8
         },
         "ServiceLevel": {
-          "avg": 66.5609051659636
+          "avg": 98.468098811094
         },
         "OccupancyTime": {
-          "avg": 67.70440815483909
+          "avg": 64.41029996362417
         }
       }
     },
@@ -66,26 +65,26 @@
         "arn": "arn:aws:s3:::aws-connect-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/738291046572/connect/us-east-1/2026/04/02/connect_I1BS1XFA15G.log.gz"
+        "key": "AWSLogs/738291046572/connect/ca-west-1/2026/04/13/connect_VHQFNSZ5OW.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/connect/logs",
-      "log_stream": "us-east-1/wqo2vzr3",
-      "ingestion_time": "2026-04-02T20:50:22.434Z"
+      "log_stream": "ca-west-1/hyno2qyb",
+      "ingestion_time": "2026-04-13T11:01:16.294Z"
     }
   },
   "event": {
-    "duration": 859000000000,
+    "duration": 367000000000,
     "outcome": "success",
     "category": ["host", "session"],
     "dataset": "aws.connect",
     "provider": "connect.amazonaws.com",
     "module": "aws"
   },
-  "message": "Connect TASK: Sales agent=agent-alice, 859s, POSITIVE",
+  "message": "Connect DISCONNECT: Priority-Enterprise, 367s, MIXED",
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "service": {
     "name": "connect",
@@ -102,8 +101,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-1",
-    "ephemeral_id": "kiq1no7fxg"
+    "name": "filebeat-aws-ca-west-1",
+    "ephemeral_id": "kisujleug9i"
   },
   "input": {
     "type": "aws-cloudwatch"

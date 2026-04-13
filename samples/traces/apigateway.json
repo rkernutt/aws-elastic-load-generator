@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "a9d2587885a9c32a336e84c2163b33c4"
+    "id": "f0911b770b303f38822897ec5446bc44"
   },
   "transaction": {
-    "id": "d2b4d1c69a2bfc1e",
-    "name": "GET /api/v2/stream",
+    "id": "ee550848b6bf5e8f",
+    "name": "POST /webhooks/{hookId}",
     "type": "request",
     "duration": {
-      "us": 274000
+      "us": 1121000
     },
     "result": "HTTP 2xx",
     "sampled": true,
@@ -23,23 +23,23 @@
   },
   "http": {
     "request": {
-      "method": "GET"
+      "method": "POST"
     },
     "response": {
-      "status_code": 204
+      "status_code": 200
     }
   },
   "url": {
-    "path": "/api/v2/stream",
-    "domain": "f6a7b8c9d0.execute-api.af-south-1.amazonaws.com"
+    "path": "/webhooks/3b1ecb0a",
+    "domain": "b8c9d0e1f2.execute-api.eu-north-1.amazonaws.com"
   },
   "labels": {
-    "api_id": "f6a7b8c9d0",
-    "api_type": "HTTP"
+    "api_id": "b8c9d0e1f2",
+    "api_type": "WebSocket"
   },
   "service": {
-    "name": "api-stream",
-    "environment": "production",
+    "name": "api-webhooks",
+    "environment": "staging",
     "version": "1.0.0",
     "language": {
       "name": "nodejs"
@@ -69,7 +69,7 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "eu-north-1",
     "account": {
       "id": "123456789012",
       "name": "prod-aws"

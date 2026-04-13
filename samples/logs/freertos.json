@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "us-west-2",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "freertos"
@@ -13,38 +13,38 @@
   },
   "aws": {
     "freertos": {
-      "thing_name": "actuator-03",
-      "event_type": "SHADOW_UPDATE",
-      "board": "Infineon-PSoC6",
-      "firmware_version": "1.6.12",
-      "heap_free_bytes": 39500,
-      "stack_high_water_mark": 186,
-      "uptime_seconds": 160489,
-      "mqtt_messages_sent": 4456,
-      "mqtt_messages_received": 3600
+      "thing_name": "industrial-plc",
+      "event_type": "MQTT_CONNECT",
+      "board": "STM32L4",
+      "firmware_version": "2.2.13",
+      "heap_free_bytes": 643,
+      "stack_high_water_mark": 3963,
+      "uptime_seconds": 331107,
+      "mqtt_messages_sent": 7745,
+      "mqtt_messages_received": 1448
     },
     "s3": {
       "bucket": {
-        "name": "aws-freertos-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-freertos-logs-814726593401"
+        "name": "aws-freertos-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-freertos-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/814726593401/freertos/ap-southeast-3/2026/04/02/freertos_TFY2IGUVL7.log.gz"
+        "key": "AWSLogs/501938274650/freertos/us-west-2/2026/04/13/freertos_CVFAXSBLV5P.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/freertos/logs",
-      "log_stream": "ap-southeast-3/tnbyx4ft",
-      "ingestion_time": "2026-04-02T20:50:22.428Z"
+      "log_stream": "us-west-2/mi46plfn",
+      "ingestion_time": "2026-04-13T11:01:16.285Z"
     }
   },
   "event": {
-    "outcome": "success",
-    "duration": 758249,
+    "outcome": "failure",
+    "duration": 2446190,
     "module": "aws",
     "dataset": "aws.freertos"
   },
-  "message": "FreeRTOS actuator-03: SHADOW_UPDATE OK (Infineon-PSoC6)",
+  "message": "FreeRTOS industrial-plc: MQTT_CONNECT failed — Flash write error",
   "service": {
     "name": "freertos",
     "type": "aws"
@@ -63,8 +63,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-3",
-    "ephemeral_id": "us5uaw8x7c"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "b8sgpzxv2q"
   },
   "input": {
     "type": "aws-cloudwatch"

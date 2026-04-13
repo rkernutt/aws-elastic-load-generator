@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-central-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "ses"
@@ -13,23 +13,27 @@
   },
   "aws": {
     "dimensions": {
-      "ses:configuration-set": "default",
-      "ses:from-domain": "company.com",
-      "ses:to-country": "AU",
-      "ses:to-isp": "AOL"
+      "ses:configuration-set": "transactional",
+      "ses:from-domain": "app.io",
+      "ses:to-country": "JP",
+      "ses:to-isp": "Other"
     },
     "ses": {
-      "message_id": "ke1sxk5ofs9.5rq7b81h0u@us-east-2.amazonses.com",
-      "event_type": "Click",
-      "from_address": "alerts@company.com",
-      "destination": "user_b6kmxl@outlook.com",
-      "bounce": {},
+      "message_id": "5dztxkb6y7f.3qya2gd5l7@eu-central-2.amazonses.com",
+      "event_type": "Bounce",
+      "from_address": "no-reply@app.io",
+      "destination": "user_revqzc@gmail.com",
+      "configuration_set": "transactional",
+      "bounce": {
+        "bounce_type": "Transient",
+        "bounce_sub_type": "MailboxFull"
+      },
       "complaint": {},
-      "sending_account_id": "501938274650",
+      "sending_account_id": "738291046572",
       "delivery": {
-        "recipients": ["user_b6kmxl@outlook.com"],
-        "timestamp": "2026-04-02T20:50:22.062Z",
-        "processing_time_ms": 1400,
+        "recipients": ["user_revqzc@gmail.com"],
+        "timestamp": "2026-04-13T11:01:15.944Z",
+        "processing_time_ms": 1712,
         "smtp_response": "250 2.0.0 OK"
       },
       "metrics": {
@@ -49,7 +53,7 @@
           "sum": 0
         },
         "Open": {
-          "sum": 0
+          "sum": 1
         },
         "Click": {
           "sum": 1
@@ -64,30 +68,35 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-ses-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-ses-logs-501938274650"
+        "name": "aws-ses-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-ses-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/501938274650/ses/us-east-2/2026/04/02/ses_9XADYK19INP.log.gz"
+        "key": "AWSLogs/738291046572/ses/eu-central-2/2026/04/13/ses_9EUKXPXHL6U.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/ses/logs",
-      "log_stream": "us-east-2/5y0jve7g",
-      "ingestion_time": "2026-04-02T20:50:22.435Z"
+      "log_stream": "eu-central-2/yjdj3ika",
+      "ingestion_time": "2026-04-13T11:01:16.297Z"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": ["email", "process"],
     "dataset": "aws.ses",
     "provider": "email.amazonaws.com",
-    "duration": 1822000000,
+    "duration": 2398000000,
     "module": "aws"
   },
-  "message": "SES Click: alerts@company.com -> user_b6kmxl@outlook.com",
+  "message": "SES Bounce [Transient/MailboxFull]: user_revqzc@gmail.com",
   "log": {
-    "level": "info"
+    "level": "warn"
+  },
+  "error": {
+    "code": "SESDeliveryFailure",
+    "message": "SES delivery failed",
+    "type": "email"
   },
   "service": {
     "name": "ses",
@@ -104,8 +113,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-2",
-    "ephemeral_id": "d90ei8s3ran"
+    "name": "filebeat-aws-eu-central-2",
+    "ephemeral_id": "ogzdv1gqyb"
   },
   "input": {
     "type": "aws-cloudwatch"

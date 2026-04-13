@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "ap-southeast-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "autoscaling"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "AutoScalingGroupName": "api-asg"
+      "AutoScalingGroupName": "web-asg"
     },
     "autoscaling": {
-      "group_name": "api-asg",
-      "activity_id": "bsh8zveq-fsdf-0vz8",
+      "group_name": "web-asg",
+      "activity_id": "i15f6vmg-xmn2-9ee5",
       "action_type": "Launch",
-      "instance_id": "i-vidh2bc0g7p",
-      "instance_type": "c5.2xlarge",
-      "desired_capacity": 11,
+      "instance_id": "i-iz0ymsoo18l",
+      "instance_type": "t3.medium",
+      "desired_capacity": 8,
       "min_size": 2,
       "max_size": 50,
-      "current_capacity": 11,
-      "cause": "Unhealthy instance replaced",
-      "status_code": "Successful",
-      "launch_template": "web-lt:5",
+      "current_capacity": 3,
+      "cause": "Scale out triggered: capacity below desired",
+      "status_code": "Failed",
+      "launch_template": "api-lt:3",
       "metrics": {
         "GroupMinSize": {
           "avg": 2
@@ -36,37 +36,37 @@
           "avg": 50
         },
         "GroupDesiredCapacity": {
-          "avg": 11
+          "avg": 8
         },
         "GroupInServiceInstances": {
-          "avg": 11
+          "avg": 3
         },
         "GroupPendingInstances": {
-          "avg": 0
+          "avg": 3
         },
         "GroupStandbyInstances": {
-          "avg": 0
+          "avg": 2
         },
         "GroupTerminatingInstances": {
           "avg": 0
         },
         "GroupTotalInstances": {
-          "avg": 11
+          "avg": 8
         },
         "GroupInServiceCapacity": {
-          "avg": 11
+          "avg": 3
         },
         "GroupPendingCapacity": {
-          "avg": 0
+          "avg": 3
         },
         "GroupStandbyCapacity": {
-          "avg": 0
+          "avg": 2
         },
         "GroupTerminatingCapacity": {
           "avg": 0
         },
         "GroupTotalCapacity": {
-          "avg": 11
+          "avg": 8
         },
         "WarmPoolMinSize": {
           "avg": 0
@@ -90,30 +90,35 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-autoscaling-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-autoscaling-logs-738291046572"
+        "name": "aws-autoscaling-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-autoscaling-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/738291046572/autoscaling/ap-east-1/2026/04/02/autoscaling_58YN02G05VI.log.gz"
+        "key": "AWSLogs/814726593401/autoscaling/ap-southeast-3/2026/04/13/autoscaling_SO0FCSOTEO.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/autoscaling/logs",
-      "log_stream": "ap-east-1/6dozx0jn",
-      "ingestion_time": "2026-04-02T20:50:22.374Z"
+      "log_stream": "ap-southeast-3/blz5bua9",
+      "ingestion_time": "2026-04-13T11:01:16.222Z"
     }
   },
   "event": {
     "category": ["host"],
-    "outcome": "success",
+    "outcome": "failure",
     "dataset": "aws.autoscaling",
     "provider": "autoscaling.amazonaws.com",
-    "duration": 525000000000,
+    "duration": 404000000000,
     "module": "aws"
   },
-  "message": "AutoScaling api-asg: Launch instance",
+  "message": "AutoScaling web-asg: Launch FAILED - No capacity",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "VpcLimitExceeded",
+    "message": "AutoScaling web-asg: Launch FAILED - No capacity",
+    "type": "host"
   },
   "service": {
     "name": "autoscaling",
@@ -130,8 +135,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-east-1",
-    "ephemeral_id": "v1zch24nbc"
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "camp3aq7bcv"
   },
   "input": {
     "type": "aws-cloudwatch"

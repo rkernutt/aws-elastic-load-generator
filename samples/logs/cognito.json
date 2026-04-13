@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-central-1",
+    "region": "us-west-2",
     "account": {
       "id": "814726593401",
       "name": "globex-production"
@@ -13,24 +13,41 @@
   },
   "aws": {
     "dimensions": {
-      "UserPool": "me-central-1_ELABNBVJ4",
-      "UserPoolClient": "mobile-users-web"
+      "UserPool": "us-west-2_ERSSW8PX2",
+      "UserPoolClient": "us-users-web"
     },
     "cognito": {
-      "user_pool_id": "me-central-1_ELABNBVJ4",
-      "user_pool_name": "mobile-users",
-      "event_type": "ForgotPassword",
-      "username": "user-ww4a0d7o@example.com",
-      "source_ip": "60.71.231.247",
+      "user_pool_id": "us-west-2_ERSSW8PX2",
+      "user_pool_name": "us-users",
+      "event_type": "ImpossibleTravel",
+      "username": "user-u8mp37q0@example.com",
+      "source_ip": "179.203.34.114",
+      "mfa_type": "SMS_MFA",
+      "risk_type": "ImpossibleTravel",
+      "advanced_security": {
+        "risk_level": "MEDIUM",
+        "risk_decision": "MFA",
+        "compromised_credentials_detected": false,
+        "impossible_travel": true,
+        "previous_location": {
+          "ip": "200.148.67.156",
+          "country": "FR"
+        },
+        "current_location": {
+          "ip": "151.75.109.245",
+          "country": "NG"
+        },
+        "time_between_events_seconds": 80
+      },
       "metrics": {
         "SignInSuccesses": {
-          "sum": 1826
+          "sum": 8084
         },
         "SignInAttempts": {
-          "sum": 1826
+          "sum": 8084
         },
         "TokenRefreshSuccesses": {
-          "sum": 37961
+          "sum": 29334
         },
         "SignUpSuccesses": {
           "sum": 0
@@ -39,7 +56,7 @@
           "sum": 0
         },
         "CallCount": {
-          "sum": 7181
+          "sum": 49516
         },
         "ThrottleCount": {
           "sum": 0
@@ -58,32 +75,32 @@
         "arn": "arn:aws:s3:::aws-cognito-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/814726593401/cognito/me-central-1/2026/04/02/cognito_JZZOLVRKQBM.log.gz"
+        "key": "AWSLogs/814726593401/cognito/us-west-2/2026/04/13/cognito_6TGZDS0NDC7.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/cognito/logs",
-      "log_stream": "me-central-1/glvcw2d4",
-      "ingestion_time": "2026-04-02T20:50:22.381Z"
+      "log_stream": "us-west-2/tltvzlzb",
+      "ingestion_time": "2026-04-13T11:01:16.232Z"
     }
   },
   "user": {
-    "name": "user-ww4a0d7o@example.com"
+    "name": "user-u8mp37q0@example.com"
   },
   "source": {
-    "ip": "102.128.231.68"
+    "ip": "121.155.228.39"
   },
   "event": {
-    "action": "ForgotPassword",
+    "action": "ImpossibleTravel",
     "outcome": "success",
     "category": ["authentication"],
     "dataset": "aws.cognito",
     "provider": "cognito-idp.amazonaws.com",
     "module": "aws"
   },
-  "message": "Cognito ForgotPassword success [mobile-users]",
+  "message": "Cognito ImpossibleTravel detected [MEDIUM]: decision=MFA pool=us-users",
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "service": {
     "name": "cognito",
@@ -100,8 +117,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-central-1",
-    "ephemeral_id": "660d83y8hna"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "t0zhw9gl93"
   },
   "input": {
     "type": "aws-cloudwatch"

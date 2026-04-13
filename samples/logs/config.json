@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "us-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "config"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "dimensions": {
-      "ConfigRuleName": "cloudtrail-enabled",
-      "ResourceType": "AWS::IAM::User"
+      "ConfigRuleName": "restricted-ssh",
+      "ResourceType": "AWS::EC2::SecurityGroup"
     },
     "config": {
-      "rule_name": "cloudtrail-enabled",
+      "rule_name": "restricted-ssh",
       "compliance_type": "INSUFFICIENT_DATA",
-      "resource_type": "AWS::IAM::User",
-      "resource_id": "db-o3qdwy5s",
-      "annotation": "Public access enabled",
+      "resource_type": "AWS::EC2::SecurityGroup",
+      "resource_id": "sg-uvigsitw",
+      "annotation": "Resource is not compliant",
       "metrics": {
         "ComplianceByConfigRule": {
           "avg": 0
@@ -33,23 +33,23 @@
           "sum": 0
         },
         "ConfigurationItemsRecorded": {
-          "sum": 29
+          "sum": 10
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-config-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-config-logs-164820739518"
+        "name": "aws-config-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-config-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/164820739518/config/us-east-1/2026/04/02/config_E1TGUNR4IX.log.gz"
+        "key": "AWSLogs/293847561023/config/us-west-1/2026/04/13/config_7F12WRATESO.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/config/logs",
-      "log_stream": "us-east-1/0ma5ljyw",
-      "ingestion_time": "2026-04-02T20:50:22.381Z"
+      "log_stream": "us-west-1/up5antdp",
+      "ingestion_time": "2026-04-13T11:01:16.232Z"
     }
   },
   "event": {
@@ -59,13 +59,13 @@
     "provider": "config.amazonaws.com",
     "module": "aws"
   },
-  "message": "Config rule FAILED: cloudtrail-enabled",
+  "message": "Config rule FAILED: restricted-ssh",
   "log": {
     "level": "warn"
   },
   "error": {
     "code": "NonCompliant",
-    "message": "Config rule cloudtrail-enabled failed",
+    "message": "Config rule restricted-ssh failed",
     "type": "compliance"
   },
   "service": {
@@ -83,8 +83,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-1",
-    "ephemeral_id": "9j24tzd3a0u"
+    "name": "filebeat-aws-us-west-1",
+    "ephemeral_id": "r0fe81fskr"
   },
   "input": {
     "type": "http_endpoint"

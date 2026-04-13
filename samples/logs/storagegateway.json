@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "us-west-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "storagegateway"
@@ -13,77 +13,77 @@
   },
   "aws": {
     "dimensions": {
-      "GatewayId": "sgw-1f8p5b0d",
+      "GatewayId": "sgw-61a88scy",
       "GatewayName": "prod-sgw-backup"
     },
     "storagegateway": {
-      "gateway_id": "sgw-1f8p5b0d",
+      "gateway_id": "sgw-61a88scy",
       "gateway_name": "prod-sgw-backup",
-      "gateway_type": "VOLUME",
-      "cache_used_percent": 46,
-      "upload_buffer_used_percent": 7,
-      "cloud_bytes_uploaded": 138530105,
+      "gateway_type": "FILE_FSX",
+      "cache_used_percent": 62,
+      "upload_buffer_used_percent": 5,
+      "cloud_bytes_uploaded": 458352644,
       "metrics": {
         "CacheHit.Percent": {
-          "avg": 81.00071198738681
+          "avg": 94.49752959462171
         },
         "CacheMiss.Percent": {
-          "avg": 19
+          "avg": 5.5
         },
         "CacheUsed.Percent": {
-          "avg": 30.100759584238173
+          "avg": 13.519730493553324
         },
         "CloudBytesDownloaded": {
-          "sum": 593267127
+          "sum": 956256141
         },
         "CloudBytesUploaded": {
-          "sum": 120860715
+          "sum": 851175714
         },
         "CloudDownloadLatency": {
-          "avg": 3092.854162764259
+          "avg": 1119.1958182902165
         },
         "ReadBytes": {
-          "sum": 340086744
+          "sum": 40637608
         },
         "WriteBytes": {
-          "sum": 890337001
+          "sum": 456063847
         },
         "QueuedWrites": {
-          "avg": 497
+          "avg": 429
         },
         "UploadBufferUsed": {
-          "avg": 36946366
+          "avg": 849938006
         },
         "UploadBufferFree": {
-          "avg": 316390294
+          "avg": 410481675
         },
         "CacheHits": {
-          "sum": 60166
+          "sum": 33972
         },
         "CacheMisses": {
-          "sum": 502
+          "sum": 583
         },
         "CachePercentDirty": {
-          "avg": 16.72996475933224
+          "avg": 8.713409120907727
         },
         "CachePercentUsed": {
-          "avg": 48.5946672389334
+          "avg": 76.82637390948176
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-storagegateway-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-storagegateway-logs-164820739518"
+        "name": "aws-storagegateway-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-storagegateway-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/164820739518/storagegateway/me-south-1/2026/04/02/storagegateway_12F9Y4RWLRGD.log.gz"
+        "key": "AWSLogs/293847561023/storagegateway/us-west-1/2026/04/13/storagegateway_JQEKNLDSD5.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/storagegateway/logs",
-      "log_stream": "me-south-1/ruusy9nj",
-      "ingestion_time": "2026-04-02T20:50:22.411Z"
+      "log_stream": "us-west-1/fyxi3g5k",
+      "ingestion_time": "2026-04-13T11:01:16.252Z"
     }
   },
   "event": {
@@ -91,12 +91,12 @@
     "category": ["host", "file"],
     "dataset": "aws.storagegateway",
     "provider": "storagegateway.amazonaws.com",
-    "duration": 551000000,
+    "duration": 1944000000,
     "module": "aws"
   },
-  "message": "Cache disk usage above 80%",
+  "message": "Volume snapshot complete",
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "service": {
     "name": "storagegateway",
@@ -113,8 +113,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-south-1",
-    "ephemeral_id": "zsy79bzrrjq"
+    "name": "filebeat-aws-us-west-1",
+    "ephemeral_id": "h3gbwa86eh"
   },
   "input": {
     "type": "aws-cloudwatch"

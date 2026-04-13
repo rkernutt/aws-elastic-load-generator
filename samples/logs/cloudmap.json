@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
     "region": "eu-central-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "cloudmap"
@@ -13,44 +13,44 @@
   },
   "aws": {
     "dimensions": {
-      "Namespace": "internal-services",
-      "ServiceName": "checkout"
+      "Namespace": "staging-namespace",
+      "ServiceName": "payment"
     },
     "cloudmap": {
-      "namespace": "internal-services",
-      "service_name": "checkout",
-      "instance_id": "i-5bgptnr96eo",
-      "operation": "RegisterInstance",
-      "health_status": "ALL",
-      "instances_returned": 2,
-      "query_type": "DNS",
+      "namespace": "staging-namespace",
+      "service_name": "payment",
+      "instance_id": "i-c6ldbax4fhg",
+      "operation": "DeregisterInstance",
+      "health_status": "HEALTHY",
+      "instances_returned": 8,
+      "query_type": "API",
       "ttl": 15
     },
     "s3": {
       "bucket": {
-        "name": "aws-cloudmap-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-cloudmap-logs-738291046572"
+        "name": "aws-cloudmap-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-cloudmap-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/738291046572/cloudmap/eu-central-2/2026/04/02/cloudmap_EVL70LCUZLJ.log.gz"
+        "key": "AWSLogs/164820739518/cloudmap/eu-central-2/2026/04/13/cloudmap_7P4SO44067P.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/cloudmap/logs",
-      "log_stream": "eu-central-2/zv47329v",
-      "ingestion_time": "2026-04-02T20:50:22.379Z"
+      "log_stream": "eu-central-2/gycyhhzw",
+      "ingestion_time": "2026-04-13T11:01:16.229Z"
     }
   },
   "event": {
-    "action": "HealthStatusChange",
+    "action": "DeregisterInstance",
     "outcome": "success",
     "category": ["network"],
     "dataset": "aws.cloudmap",
     "provider": "cloudmap.amazonaws.com",
-    "duration": 136000000,
+    "duration": 299000000,
     "module": "aws"
   },
-  "message": "Cloud Map checkout: RegisterInstance returned 2 instances",
+  "message": "Cloud Map payment: DeregisterInstance returned 8 instances",
   "log": {
     "level": "info"
   },
@@ -70,7 +70,7 @@
     "type": "filebeat",
     "version": "8.18.0",
     "name": "filebeat-aws-eu-central-2",
-    "ephemeral_id": "jk73n1iw9rg"
+    "ephemeral_id": "s9zwpg5dh0a"
   },
   "input": {
     "type": "aws-cloudwatch"

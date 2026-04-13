@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "simspaceweaver"
@@ -13,43 +13,42 @@
   },
   "aws": {
     "dimensions": {
-      "SimulationId": "sim-izzy1l290i",
-      "DomainName": "Traffic"
+      "SimulationId": "sim-e0y0983r8z",
+      "DomainName": "Agents"
     },
     "simspaceweaver": {
-      "simulation_id": "sim-izzy1l290i",
+      "simulation_id": "sim-e0y0983r8z",
       "app_name": "battlefield-sim",
-      "domain_name": "Traffic",
-      "clock_tick_ms": 998,
-      "simulation_status": "FAILED",
+      "domain_name": "Agents",
+      "clock_tick_ms": 684,
+      "simulation_status": "RUNNING",
       "metrics": {
-        "entities_count": 0,
-        "compute_workers": 0,
-        "clock_lag_ms": 2284
-      },
-      "error_code": "ClockDesyncError"
+        "entities_count": 32314,
+        "compute_workers": 66,
+        "clock_lag_ms": 25
+      }
     },
     "s3": {
       "bucket": {
-        "name": "aws-simspaceweaver-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-simspaceweaver-logs-738291046572"
+        "name": "aws-simspaceweaver-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-simspaceweaver-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/738291046572/simspaceweaver/eu-north-1/2026/04/02/simspaceweaver_93C9BRAKOSM.log.gz"
+        "key": "AWSLogs/164820739518/simspaceweaver/ap-southeast-4/2026/04/13/simspaceweaver_XB18B85KPU7.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/simspaceweaver/logs",
-      "log_stream": "eu-north-1/zb5gb4lc",
-      "ingestion_time": "2026-04-02T20:50:22.375Z"
+      "log_stream": "ap-southeast-4/vqkbb728",
+      "ingestion_time": "2026-04-13T11:01:16.223Z"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": ["process"],
     "dataset": "aws.simspaceweaver",
     "provider": "simspaceweaver.amazonaws.com",
-    "duration": 998000000,
+    "duration": 684000000,
     "module": "aws"
   },
   "data_stream": {
@@ -57,18 +56,13 @@
     "dataset": "aws.simspaceweaver",
     "namespace": "default"
   },
-  "message": "SimSpace Weaver simulation sim-izzy1l290i: ClockDesyncError in domain Traffic",
+  "message": "SimSpace Weaver sim-e0y0983r8z [battlefield-sim]: status=RUNNING, entities=32314, lag=25ms",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "ClockDesyncError",
-    "message": "SimSpace Weaver simulation sim-izzy1l290i failed",
-    "type": "process"
+    "level": "info"
   },
   "host": {
-    "name": "ip-184-224-196-171.ec2.internal",
-    "hostname": "simspaceweaver-fvae3cpj"
+    "name": "ip-120-229-124-45.ec2.internal",
+    "hostname": "simspaceweaver-424aui8w"
   },
   "service": {
     "name": "simspaceweaver",
@@ -80,8 +74,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-north-1",
-    "ephemeral_id": "lyrrwomp4d"
+    "name": "filebeat-aws-ap-southeast-4",
+    "ephemeral_id": "zcj7kb37w2m"
   },
   "input": {
     "type": "aws-cloudwatch"

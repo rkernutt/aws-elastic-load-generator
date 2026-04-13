@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "workspaces"
@@ -13,18 +13,18 @@
   },
   "aws": {
     "dimensions": {
-      "DirectoryId": "d-gvvfvwbxky",
-      "WorkspaceId": "ws-biqeogikez"
+      "DirectoryId": "d-cowobrocwr",
+      "WorkspaceId": "ws-mhnd1mxecu"
     },
     "workspaces": {
-      "workspace_id": "ws-biqeogikez",
-      "user_name": "david",
-      "bundle_type": "Standard",
+      "workspace_id": "ws-mhnd1mxecu",
+      "user_name": "carol",
+      "bundle_type": "Graphics",
       "workspace_state": "AVAILABLE",
-      "action": "Connect",
+      "action": "StopWorkspace",
       "compute_type": "PERFORMANCE",
       "running_mode": "AUTO_STOP",
-      "client_ip": "202.188.97.215",
+      "client_ip": "20.155.53.224",
       "client_os": "Ubuntu 22.04",
       "metrics": {
         "Available": {
@@ -34,13 +34,13 @@
           "sum": 0
         },
         "ConnectionSuccess": {
-          "sum": 1
+          "sum": 0
         },
         "ConnectionFailure": {
           "sum": 0
         },
         "ConnectionAttempt": {
-          "sum": 1
+          "sum": 0
         },
         "UserConnected": {
           "sum": 0
@@ -55,41 +55,41 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-workspaces-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-workspaces-logs-738291046572"
+        "name": "aws-workspaces-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-workspaces-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/738291046572/workspaces/ap-south-1/2026/04/02/workspaces_R4YVF8ZGBKD.log.gz"
+        "key": "AWSLogs/164820739518/workspaces/eu-west-1/2026/04/13/workspaces_KM0DLU8RYR.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/workspaces/logs",
-      "log_stream": "ap-south-1/uum4srmh",
-      "ingestion_time": "2026-04-02T20:50:22.433Z"
+      "log_stream": "eu-west-1/qpfteia7",
+      "ingestion_time": "2026-04-13T11:01:16.294Z"
     }
   },
   "user": {
-    "name": "david"
+    "name": "carol"
   },
   "source": {
-    "ip": "188.249.251.224"
+    "ip": "147.42.2.93"
   },
   "event": {
-    "action": "Connect",
+    "action": "StopWorkspace",
     "outcome": "success",
     "category": ["host", "session"],
     "dataset": "aws.workspaces",
     "provider": "workspaces.amazonaws.com",
-    "duration": 4964000000,
+    "duration": 2526000000,
     "module": "aws"
   },
-  "message": "WorkSpaces Connect: david on ws-biqeogikez [AVAILABLE]",
+  "message": "WorkSpaces StopWorkspace: carol on ws-mhnd1mxecu [AVAILABLE]",
   "log": {
     "level": "info"
   },
   "host": {
-    "name": "ip-11-227-8-181.ec2.internal",
-    "hostname": "workspaces-k7y63p5h"
+    "name": "ip-17-17-73-116.ec2.internal",
+    "hostname": "workspaces-ydswot9v"
   },
   "service": {
     "name": "workspaces",
@@ -106,8 +106,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-south-1",
-    "ephemeral_id": "y7vhumseo0h"
+    "name": "filebeat-aws-eu-west-1",
+    "ephemeral_id": "45t2fd3dbld"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-3",
+    "region": "us-east-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "mediaconvert"
@@ -13,21 +13,21 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "MP4"
+      "Operation": "HLS"
     },
     "mediaconvert": {
-      "job_id": "7324010144-6ajnsl",
-      "queue_arn": "arn:aws:mediaconvert:eu-west-3:738291046572:queues/premium",
+      "job_id": "5716696342-kao6sw",
+      "queue_arn": "arn:aws:mediaconvert:us-east-2:164820739518:queues/Default",
       "job_status": "COMPLETE",
-      "output_group_type": "MP4",
-      "input_file": "s3://media-input/broadcast/live.mxf",
-      "input_duration_minutes": 118.39035788640759,
-      "video_codec": "MPEG2",
-      "audio_codec": "MP3",
-      "width": 1280,
-      "height": 720,
-      "bitrate_kbps": 5000,
-      "duration_seconds": 581,
+      "output_group_type": "HLS",
+      "input_file": "s3://uploads/user-video.mp4",
+      "input_duration_minutes": 113.28503971679754,
+      "video_codec": "H_264",
+      "audio_codec": "AC3",
+      "width": 3840,
+      "height": 2160,
+      "bitrate_kbps": 1500,
+      "duration_seconds": 1726,
       "metrics": {
         "JobsCompletedCount": {
           "sum": 1
@@ -36,37 +36,37 @@
           "sum": 0
         },
         "StandbyTime": {
-          "avg": 112
+          "avg": 193
         },
         "TranscodingTime": {
-          "avg": 581
+          "avg": 1726
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-mediaconvert-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-mediaconvert-logs-738291046572"
+        "name": "aws-mediaconvert-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-mediaconvert-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/738291046572/mediaconvert/eu-west-3/2026/04/02/mediaconvert_Z053RR243C.log.gz"
+        "key": "AWSLogs/164820739518/mediaconvert/us-east-2/2026/04/13/mediaconvert_MLO7J9WWPA.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/mediaconvert/logs",
-      "log_stream": "eu-west-3/f1zntn1w",
-      "ingestion_time": "2026-04-02T20:50:22.433Z"
+      "log_stream": "us-east-2/91jpi21z",
+      "ingestion_time": "2026-04-13T11:01:16.293Z"
     }
   },
   "event": {
-    "duration": 581000000000,
+    "duration": 1726000000000,
     "outcome": "success",
     "category": ["process"],
     "dataset": "aws.mediaconvert",
     "provider": "mediaconvert.amazonaws.com",
     "module": "aws"
   },
-  "message": "MediaConvert job 7324010144-6ajnsl COMPLETE: 118.4 min -> MP4",
+  "message": "MediaConvert job 5716696342-kao6sw COMPLETE: 113.3 min -> HLS",
   "log": {
     "level": "info"
   },
@@ -85,8 +85,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-3",
-    "ephemeral_id": "ggzg3bteozw"
+    "name": "filebeat-aws-us-east-2",
+    "ephemeral_id": "tkou5tmjfw9"
   },
   "input": {
     "type": "aws-cloudwatch"

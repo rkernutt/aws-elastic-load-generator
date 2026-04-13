@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "us-west-2",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,17 +13,17 @@
   },
   "aws": {
     "dimensions": {
-      "EventBusName": "custom-events",
+      "EventBusName": "default",
       "RuleName": "user-signup-trigger"
     },
     "eventbridge": {
-      "event_bus": "custom-events",
+      "event_bus": "default",
       "rule": "user-signup-trigger",
-      "source": "custom.app",
+      "source": "com.partner.events",
       "detail_type": "Health Event",
-      "targets_invoked": 2,
+      "targets_invoked": 3,
       "targets_failed": 0,
-      "event_id": "ag8ohmx5-bjzv-sxdh-20ty-6ekjm8v6vwa",
+      "event_id": "8zx32wgp-3gho-prn9-4w77-q8cdesqn5pa",
       "structured_logging": true,
       "metrics": {
         "Invocations": {
@@ -36,7 +36,7 @@
           "sum": 1
         },
         "MatchedEvents": {
-          "sum": 45
+          "sum": 44
         },
         "ThrottledRules": {
           "sum": 0
@@ -52,25 +52,25 @@
         "arn": "arn:aws:s3:::aws-eventbridge-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/738291046572/eventbridge/ap-northeast-2/2026/04/02/eventbridge_J1124KWINQ.log.gz"
+        "key": "AWSLogs/738291046572/eventbridge/us-west-2/2026/04/13/eventbridge_2CSLIY1TITT.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/eventbridge/logs",
-      "log_stream": "ap-northeast-2/bkhsbx8b",
-      "ingestion_time": "2026-04-02T20:50:22.415Z"
+      "log_stream": "us-west-2/apuhgy6x",
+      "ingestion_time": "2026-04-13T11:01:16.258Z"
     }
   },
   "event": {
     "outcome": "success",
     "category": ["process"],
-    "type": ["creation"],
+    "type": ["change"],
     "dataset": "aws.eventbridge",
     "provider": "events.amazonaws.com",
-    "duration": 191000000,
+    "duration": 198000000,
     "module": "aws"
   },
-  "message": "{\"id\":\"ag8ohmx5-bjzv-sxdh-20ty-6ekjm8v6vwa\",\"source\":\"custom.app\",\"detailType\":\"Object Created\",\"rule\":\"user-signup-trigger\",\"eventBus\":\"custom-events\",\"message\":\"EventBridge event routed: custom.app -> user-signup-trigger\",\"timestamp\":\"2026-04-02T20:50:22.062Z\"}",
+  "message": "{\"id\":\"8zx32wgp-3gho-prn9-4w77-q8cdesqn5pa\",\"source\":\"com.partner.events\",\"detailType\":\"Health Event\",\"rule\":\"user-signup-trigger\",\"eventBus\":\"default\",\"message\":\"EventBridge event routed: com.partner.events -> user-signup-trigger\",\"timestamp\":\"2026-04-13T11:01:15.944Z\"}",
   "log": {
     "level": "info"
   },
@@ -89,8 +89,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-2",
-    "ephemeral_id": "g7mx2swlczg"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "1eszoa45mq8"
   },
   "input": {
     "type": "aws-cloudwatch"

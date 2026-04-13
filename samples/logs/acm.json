@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
     "region": "me-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "acm"
@@ -13,45 +13,40 @@
   },
   "aws": {
     "acm": {
-      "certificate_arn": "arn:aws:acm:me-central-1:293847561023:certificate/emk6n9hy-a17c",
-      "domain_name": "www.example.com",
-      "status": "REVOKED",
+      "certificate_arn": "arn:aws:acm:me-central-1:814726593401:certificate/aqm9bs8y-txpk",
+      "domain_name": "*.internal.corp",
+      "status": "ISSUED",
       "type": "AMAZON_ISSUED",
-      "days_to_expiry": 16,
-      "key_algorithm": "RSA_2048",
-      "validation_method": "EMAIL",
-      "renewal_status": "FAILED"
+      "days_to_expiry": 59,
+      "key_algorithm": "EC_prime256v1",
+      "validation_method": "DNS",
+      "renewal_status": "SUCCESS"
     },
     "s3": {
       "bucket": {
-        "name": "aws-acm-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-acm-logs-293847561023"
+        "name": "aws-acm-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-acm-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/acm/me-central-1/2026/04/02/acm_DY0T0H6TYLI.log.gz"
+        "key": "AWSLogs/814726593401/acm/me-central-1/2026/04/13/acm_2P0AQAAEL.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/acm/logs",
-      "log_stream": "me-central-1/r33hh5z3",
-      "ingestion_time": "2026-04-02T20:50:22.382Z"
+      "log_stream": "me-central-1/ur3hvrlb",
+      "ingestion_time": "2026-04-13T11:01:16.233Z"
     }
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": "network",
     "dataset": "aws.acm",
     "provider": "acm.amazonaws.com",
     "module": "aws"
   },
-  "message": "ACM certificate for www.example.com: REVOKED",
+  "message": "ACM certificate for *.internal.corp: ISSUED, 59d remaining",
   "log": {
-    "level": "error"
-  },
-  "error": {
-    "code": "REVOKED",
-    "message": "Certificate www.example.com: REVOKED",
-    "type": "certificate"
+    "level": "info"
   },
   "service": {
     "name": "acm",
@@ -69,7 +64,7 @@
     "type": "filebeat",
     "version": "8.18.0",
     "name": "filebeat-aws-me-central-1",
-    "ephemeral_id": "e0bg320wrp5"
+    "ephemeral_id": "r2y0d9wgt7r"
   },
   "input": {
     "type": "aws-cloudwatch"

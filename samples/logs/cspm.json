@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "data_stream": {
     "dataset": "cloud_security_posture.findings",
     "namespace": "default",
@@ -7,53 +7,46 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     }
   },
   "resource": {
-    "id": "arn:aws:iam::814726593401:user/carol",
-    "name": "carol",
-    "sub_type": "iam-user",
-    "type": "cloud-identity-management"
+    "id": "arn:aws:ec2:ap-northeast-3:293847561023:security-group/sg-nxh79ikg",
+    "name": "sg-nxh79ikg",
+    "sub_type": "security-group",
+    "type": "cloud-network"
   },
   "rule": {
-    "id": "cis_1_2",
-    "name": "Ensure MFA enabled for all IAM users with console access",
-    "section": "1.2",
-    "tags": ["IAM"],
+    "id": "cis_4_1",
+    "name": "Ensure no security group allows unrestricted SSH inbound",
+    "section": "4.1",
+    "tags": ["Networking"],
     "benchmark": {
       "id": "cis_aws",
       "version": "v1.5.0",
-      "rule_number": "1.2",
+      "rule_number": "4.1",
       "posture_type": "cspm"
-    },
-    "impact": "Non-compliance with CIS AWS 1.2 may expose account to unauthorized access.",
-    "remediation": "Remediate per CIS AWS Foundations Benchmark v1.5.0 section 1.2."
+    }
   },
   "result": {
-    "evaluation": "failed"
+    "evaluation": "passed"
   },
-  "severity": "high",
+  "severity": "none",
   "event": {
     "kind": "state",
     "category": ["configuration"],
     "type": ["info"],
-    "outcome": "failure",
+    "outcome": "success",
     "dataset": "cloud_security_posture.findings",
     "provider": "elastic_cspm",
     "module": "aws"
   },
-  "message": "CSPM [CIS AWS 1.5 / 1.2] failed: Ensure MFA enabled for all IAM users with console access",
+  "message": "CSPM [CIS AWS 1.5 / 4.1] passed: Ensure no security group allows unrestricted SSH inbound",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "CIS_CIS_1_2",
-    "message": "CSPM check failed: Ensure MFA enabled for all IAM users with console access",
-    "type": "compliance"
+    "level": "info"
   },
   "service": {
     "name": "cspm",
@@ -65,8 +58,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-north-1",
-    "ephemeral_id": "zsw5vykk1q"
+    "name": "filebeat-aws-ap-northeast-3",
+    "ephemeral_id": "jxr3feyvddq"
   },
   "input": {
     "type": "http_endpoint"
@@ -74,17 +67,17 @@
   "aws": {
     "s3": {
       "bucket": {
-        "name": "aws-cspm-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-cspm-logs-814726593401"
+        "name": "aws-cspm-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-cspm-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/814726593401/cspm/eu-north-1/2026/04/02/cspm_93D7J7P752.log.gz"
+        "key": "AWSLogs/293847561023/cspm/ap-northeast-3/2026/04/13/cspm_1NW4DPHLGEA.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/cspm/logs",
-      "log_stream": "eu-north-1/rxqj7icy",
-      "ingestion_time": "2026-04-02T20:50:22.383Z"
+      "log_stream": "ap-northeast-3/b404nj6h",
+      "ingestion_time": "2026-04-13T11:01:16.236Z"
     }
   }
 }

@@ -1,29 +1,30 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "eu-central-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "ec2"
     },
     "instance": {
-      "id": "i-08s5ytmwxauu"
+      "id": "i-rq2m7gxsbr"
     }
   },
   "aws": {
     "dimensions": {
-      "InstanceId": "i-08s5ytmwxauu",
-      "InstanceType": "c5.2xlarge",
-      "ImageId": "ami-uqgyw8ol"
+      "InstanceId": "i-rq2m7gxsbr",
+      "InstanceType": "r5.large",
+      "ImageId": "ami-8j813t46",
+      "AutoScalingGroupName": "web-asg"
     },
     "ec2": {
       "instance": {
         "image": {
-          "id": "ami-p707c601"
+          "id": "ami-yg30tz9j"
         },
         "state": {
           "name": "running",
@@ -33,54 +34,54 @@
           "state": "disabled"
         },
         "core": {
-          "count": 8
+          "count": 2
         },
-        "type": "c5.2xlarge",
+        "type": "r5.large",
         "threads_per_core": 2,
         "private": {
-          "ip": "107.121.95.113",
-          "dns_name": "ip-216-251-83-64.ap-south-2.compute.internal"
+          "ip": "240.167.135.199",
+          "dns_name": "ip-154-132-129-184.ap-southeast-2.compute.internal"
         },
         "public": {
-          "ip": "138.223.97.188",
-          "dns_name": "ec2-1-36-18-202.compute-1.amazonaws.com"
+          "ip": "160.44.167.208",
+          "dns_name": "ec2-2-182-36-200.compute-1.amazonaws.com"
         }
       },
       "cpu": {
         "total": {
-          "pct": 0.2901
+          "pct": 0.1735
         },
-        "credit_usage": 2.6229359909249164,
-        "credit_balance": 276.43277910241113,
+        "credit_usage": 1.1172943315413209,
+        "credit_balance": 238.20554585615145,
         "surplus_credit_balance": 0,
         "surplus_credits_charged": 0
       },
       "network": {
         "in": {
-          "bytes": 627725578,
-          "bytes_per_sec": 578621.9535521884,
-          "packets": 279163,
-          "packets_per_sec": 2179.7941840316003
+          "bytes": 776391555,
+          "bytes_per_sec": 608712.9312447425,
+          "packets": 298623,
+          "packets_per_sec": 7824.34120753532
         },
         "out": {
-          "bytes": 46970067,
-          "bytes_per_sec": 79339.16874181457,
-          "packets": 55378,
-          "packets_per_sec": 6571.733589881043
+          "bytes": 988946625,
+          "bytes_per_sec": 157231.70207329295,
+          "packets": 146196,
+          "packets_per_sec": 9745.614474431979
         }
       },
       "diskio": {
         "read": {
-          "bytes": 69254603,
-          "bytes_per_sec": 432986.5981676546,
-          "count": 7596,
-          "count_per_sec": 897.7945193039441
+          "bytes": 550815978,
+          "bytes_per_sec": 497711.30600974266,
+          "count": 465,
+          "count_per_sec": 732.1406379004303
         },
         "write": {
-          "bytes": 776309357,
-          "bytes_per_sec": 340439.73139880446,
-          "count": 1387,
-          "count_per_sec": 692.0878615035402
+          "bytes": 701265814,
+          "bytes_per_sec": 421844.52856188425,
+          "count": 9742,
+          "count_per_sec": 618.2187855651615
         }
       },
       "status": {
@@ -91,48 +92,48 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-ec2-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-ec2-logs-501938274650"
+        "name": "aws-ec2-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-ec2-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/501938274650/ec2/eu-south-2/2026/04/02/ec2_P3DPFHJK6AK.log.gz"
+        "key": "AWSLogs/738291046572/ec2/eu-central-2/2026/04/13/ec2_ORQGHYONJWR.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/ec2/logs",
-      "log_stream": "eu-south-2/cb4y3jwl",
-      "ingestion_time": "2026-04-02T20:50:22.371Z"
+      "log_stream": "eu-central-2/4apywqo9",
+      "ingestion_time": "2026-04-13T11:01:16.218Z"
     }
   },
   "host": {
-    "hostname": "ec2-yu7luc7f",
+    "hostname": "ec2-b03g67hq",
     "os": {
       "type": "linux",
-      "kernel": "5.10.170-65.amzn2.x86_64",
+      "kernel": "5.10.133-151.amzn2.x86_64",
       "version": "2"
     },
-    "architecture": "arm64",
+    "architecture": "x86_64",
     "cpu": {
-      "count": 16,
-      "usage": 0.29013144761988213
+      "count": 4,
+      "usage": 0.1734572830301833
     },
     "disk": {
       "read": {
-        "bytes": 736807007
+        "bytes": 345666065
       },
       "write": {
-        "bytes": 680172998
+        "bytes": 71368362
       }
     },
     "network": {
       "ingress": {
-        "bytes": 724290012
+        "bytes": 492249589
       },
       "egress": {
-        "bytes": 246372280
+        "bytes": 748381150
       }
     },
-    "name": "ip-22-234-52-99.ec2.internal"
+    "name": "ip-240-205-241-79.ec2.internal"
   },
   "log": {
     "level": "info"
@@ -143,10 +144,10 @@
     "outcome": "success",
     "dataset": "aws.ec2",
     "provider": "ec2.amazonaws.com",
-    "duration": 3125000000000,
+    "duration": 628000000000,
     "module": "aws"
   },
-  "message": "{\"instanceId\":\"i-08s5ytmwxauu\",\"instanceType\":\"c5.2xlarge\",\"level\":\"info\",\"message\":\"cloud-init: Cloud-init v. 22.2.2 running 'init-local'\",\"timestamp\":\"2026-04-02T20:50:22.062Z\",\"component\":\"syslog\"}",
+  "message": "cloud-init: modules done",
   "service": {
     "name": "ec2",
     "type": "aws"
@@ -162,8 +163,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-2",
-    "ephemeral_id": "5iuxlr1ozr6"
+    "name": "filebeat-aws-eu-central-2",
+    "ephemeral_id": "29t1cccoy19"
   },
   "input": {
     "type": "aws-cloudwatch"

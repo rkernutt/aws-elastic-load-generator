@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "me-south-1",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,17 +13,16 @@
   },
   "aws": {
     "dimensions": {
-      "AnalyzerName": "analyzer-ap-northeast-2"
+      "AnalyzerName": "analyzer-me-south-1"
     },
     "access_analyzer": {
-      "finding_id": "6d2vdmv0-8j1f-igms",
-      "analyzer_name": "analyzer-ap-northeast-2",
-      "finding_type": "EXTERNAL_ACCESS",
-      "finding_description": "Internet-accessible resource",
-      "resource_type": "AWS::Lambda::Function",
-      "resource_arn": "arn:aws:s3:::dev-bucket",
-      "principal": "*",
-      "status": "ARCHIVED"
+      "finding_id": "7ppellid-0cqa-0hzv",
+      "analyzer_name": "analyzer-me-south-1",
+      "finding_type": "none",
+      "finding_description": "No external access",
+      "resource_type": "AWS::KMS::Key",
+      "resource_arn": "arn:aws:s3:::staging-bucket",
+      "status": "RESOLVED"
     },
     "s3": {
       "bucket": {
@@ -31,31 +30,26 @@
         "arn": "arn:aws:s3:::aws-accessanalyzer-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/501938274650/accessanalyzer/ap-northeast-2/2026/04/02/accessanalyzer_657BFDUQTVW.log.gz"
+        "key": "AWSLogs/501938274650/accessanalyzer/me-south-1/2026/04/13/accessanalyzer_NZYJMM5MCL.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/accessanalyzer/logs",
-      "log_stream": "ap-northeast-2/lzbedy02",
-      "ingestion_time": "2026-04-02T20:50:22.381Z"
+      "log_stream": "me-south-1/wc1h61ef",
+      "ingestion_time": "2026-04-13T11:01:16.232Z"
     }
   },
   "event": {
-    "kind": "alert",
-    "outcome": "failure",
+    "kind": "event",
+    "outcome": "success",
     "category": ["configuration", "iam"],
     "dataset": "aws.access_analyzer",
     "provider": "access-analyzer.amazonaws.com",
     "module": "aws"
   },
-  "message": "IAM Access Analyzer: external access found on AWS::KMS::Key",
+  "message": "Access Analyzer: no external access paths detected",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "ExternalAccess",
-    "message": "External access path detected",
-    "type": "access"
+    "level": "info"
   },
   "service": {
     "name": "accessanalyzer",
@@ -72,8 +66,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-2",
-    "ephemeral_id": "slw35xpccv"
+    "name": "filebeat-aws-me-south-1",
+    "ephemeral_id": "18mt8z4rldq"
   },
   "input": {
     "type": "http_endpoint"

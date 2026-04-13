@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "eu-west-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "ecs"
@@ -13,22 +13,22 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "prod-cluster",
-      "ServiceName": "api-backend"
+      "ClusterName": "workers",
+      "ServiceName": "auth-service"
     },
     "ecs": {
       "metrics": {
         "CPUUtilization": {
-          "avg": 39.29865131210983
+          "avg": 2.037064341675919
         },
         "CPUReservation": {
-          "avg": 52.259735714468384
+          "avg": 57.05251160689386
         },
         "MemoryUtilization": {
-          "avg": 18.89538570380161
+          "avg": 18.222174132108776
         },
         "MemoryReservation": {
-          "avg": 24.232578487564364
+          "avg": 22.279080162622016
         },
         "GPUReservation": {
           "avg": 0
@@ -37,31 +37,31 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-ecs-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-ecs-logs-501938274650"
+        "name": "aws-ecs-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-ecs-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/501938274650/ecs/sa-east-1/2026/04/02/ecs_N3M9O6IEMG.log.gz"
+        "key": "AWSLogs/738291046572/ecs/eu-west-1/2026/04/13/ecs_MXY4ZDHYBQG.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/ecs/logs",
-      "log_stream": "sa-east-1/hy83dlgl",
-      "ingestion_time": "2026-04-02T20:50:22.370Z"
+      "log_stream": "eu-west-1/wurkxlvl",
+      "ingestion_time": "2026-04-13T11:01:16.218Z"
     }
   },
   "container": {
-    "id": "rfboqiu8mgk",
-    "name": "api-backend",
+    "id": "vg3gfcvhtw",
+    "name": "auth-service",
     "image": {
-      "name": "golang:1.24",
-      "tag": "1.24"
+      "name": "java:latest",
+      "tag": "latest"
     },
     "runtime": "docker"
   },
   "process": {
-    "pid": 63562,
-    "name": "api-backend"
+    "pid": 62248,
+    "name": "auth-service"
   },
   "log": {
     "level": "info"
@@ -71,17 +71,17 @@
     "outcome": "success",
     "dataset": "aws.ecs",
     "provider": "ecs.amazonaws.com",
-    "duration": 2153000000000,
+    "duration": 215000000000,
     "module": "aws"
   },
-  "message": "Health check passed",
+  "message": "{\"cluster\":\"workers\",\"service\":\"auth-service\",\"taskId\":\"ubek0xeuw2k\",\"container\":\"auth-service\",\"level\":\"info\",\"message\":\"Task started\",\"timestamp\":\"2026-04-13T11:01:15.944Z\"}",
   "service": {
-    "name": "api-backend",
+    "name": "auth-service",
     "type": "ecs"
   },
   "host": {
-    "name": "ip-156-161-218-209.ec2.internal",
-    "hostname": "ecs-fr7hsqjr"
+    "name": "ip-113-201-156-110.ec2.internal",
+    "hostname": "ecs-egv2h57o"
   },
   "ecs": {
     "version": "8.11.0"
@@ -94,8 +94,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-sa-east-1",
-    "ephemeral_id": "109xnezh1lkl"
+    "name": "filebeat-aws-eu-west-1",
+    "ephemeral_id": "1geqcjel26x"
   },
   "input": {
     "type": "aws-cloudwatch"

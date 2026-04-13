@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "af-south-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "polly"
@@ -13,23 +13,23 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "ListSpeechSynthesisTasks"
+      "Operation": "SynthesizeSpeech"
     },
     "polly": {
-      "voice_id": "Brian",
+      "voice_id": "Mizuki",
       "engine": "neural",
-      "operation": "ListSpeechSynthesisTasks",
-      "language_code": "en-GB",
-      "output_format": "ogg_vorbis",
-      "text_type": "ssml",
-      "characters_synthesized": 6673,
-      "sample_rate": "24000",
+      "operation": "SynthesizeSpeech",
+      "language_code": "fr-FR",
+      "output_format": "pcm",
+      "text_type": "text",
+      "characters_synthesized": 93633,
+      "sample_rate": "8000",
       "metrics": {
         "RequestCharacters": {
-          "sum": 881
+          "sum": 2034
         },
         "ResponseLatency": {
-          "avg": 437.0705740944011
+          "avg": 117.84404393356138
         },
         "2XXCount": {
           "sum": 1
@@ -44,17 +44,17 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-polly-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-polly-logs-293847561023"
+        "name": "aws-polly-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-polly-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/293847561023/polly/ap-south-2/2026/04/02/polly_L92OTIIQO18.log.gz"
+        "key": "AWSLogs/164820739518/polly/af-south-1/2026/04/13/polly_VE08CM46Y2I.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/polly/logs",
-      "log_stream": "ap-south-2/d0afb2m6",
-      "ingestion_time": "2026-04-02T20:50:22.424Z"
+      "log_stream": "af-south-1/1umte5p9",
+      "ingestion_time": "2026-04-13T11:01:16.276Z"
     }
   },
   "event": {
@@ -64,7 +64,7 @@
     "provider": "polly.amazonaws.com",
     "module": "aws"
   },
-  "message": "Polly SynthesizeSpeech: Brian (neural), 6673 chars",
+  "message": "Polly SynthesizeSpeech: Mizuki (neural), 93633 chars",
   "log": {
     "level": "info"
   },
@@ -83,8 +83,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-south-2",
-    "ephemeral_id": "6zoyfxe7ypd"
+    "name": "filebeat-aws-af-south-1",
+    "ephemeral_id": "56m1vmpdnf6"
   },
   "input": {
     "type": "aws-cloudwatch"

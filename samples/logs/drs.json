@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-north-1",
+    "region": "ap-southeast-4",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "drs"
@@ -13,44 +13,49 @@
   },
   "aws": {
     "dimensions": {
-      "SourceServerId": "s-cxj5x3gn1zu"
+      "SourceServerId": "s-ktrbkyn7sga"
     },
     "drs": {
-      "source_server_id": "s-cxj5x3gn1zu",
-      "source_hostname": "app-server-03",
-      "replication_status": "InProgress",
-      "lag_duration_seconds": 22,
-      "data_replication_state": "InProgress",
-      "ebs_volume_count": 3,
-      "staging_area": "us-east-1",
-      "recovery_point_objective_seconds": 47
+      "source_server_id": "s-ktrbkyn7sga",
+      "source_hostname": "db-primary",
+      "replication_status": "Paused",
+      "lag_duration_seconds": 72,
+      "data_replication_state": "Disconnected",
+      "ebs_volume_count": 6,
+      "staging_area": "us-west-2",
+      "recovery_point_objective_seconds": 87
     },
     "s3": {
       "bucket": {
-        "name": "aws-drs-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-drs-logs-738291046572"
+        "name": "aws-drs-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-drs-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/738291046572/drs/eu-north-1/2026/04/02/drs_8Q7DGWUTD3O.log.gz"
+        "key": "AWSLogs/501938274650/drs/ap-southeast-4/2026/04/13/drs_GEQZQ6ENCXC.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/drs/logs",
-      "log_stream": "eu-north-1/ymv6em1y",
-      "ingestion_time": "2026-04-02T20:50:22.432Z"
+      "log_stream": "ap-southeast-4/ovqh93xv",
+      "ingestion_time": "2026-04-13T11:01:16.292Z"
     }
   },
   "event": {
-    "action": "SourceServerDisconnected",
-    "outcome": "success",
+    "action": "ReplicationStateChange",
+    "outcome": "failure",
     "category": ["host"],
     "dataset": "aws.drs",
     "provider": "drs.amazonaws.com",
     "module": "aws"
   },
-  "message": "DRS app-server-03: replication InProgress, RPO 47s",
+  "message": "DRS db-primary (s-ktrbkyn7sga): replication Paused, lag 72s",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ResourceNotFoundException",
+    "message": "DRS replication failure",
+    "type": "host"
   },
   "service": {
     "name": "drs",
@@ -67,8 +72,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-north-1",
-    "ephemeral_id": "wunffpd8rmm"
+    "name": "filebeat-aws-ap-southeast-4",
+    "ephemeral_id": "e252fndxgx6"
   },
   "input": {
     "type": "aws-cloudwatch"

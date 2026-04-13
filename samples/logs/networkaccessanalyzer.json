@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "me-south-1",
+    "region": "ap-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "network-access-analyzer"
@@ -13,40 +13,40 @@
   },
   "aws": {
     "network_access_analyzer": {
-      "scope_id": "naa-scope-i3p362oo",
-      "scope_name": "transit-gateway-routes",
-      "analysis_id": "naa-analysis-hlgxrqq2nv",
+      "scope_id": "naa-scope-7ztjae36",
+      "scope_name": "cross-vpc-access",
+      "analysis_id": "naa-analysis-fkq7ngyi1i4",
       "finding_type": "InternetAccess",
-      "finding_count": 3,
-      "resources_analyzed": 146,
-      "paths_found": 1,
-      "source_vpc": "vpc-348cqe0x",
-      "destination_resource": "arn:aws:ec2:me-south-1:814726593401:instance/i-76rfim7h0id",
+      "finding_count": 2,
+      "resources_analyzed": 114,
+      "paths_found": 5,
+      "source_vpc": "vpc-mvunbdrp",
+      "destination_resource": "arn:aws:ec2:ap-south-1:164820739518:instance/i-rhmobi8id5",
       "protocol": "icmp",
-      "port_range": "348-47046"
+      "port_range": "890-20118"
     },
     "s3": {
       "bucket": {
-        "name": "aws-networkaccessanalyzer-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-networkaccessanalyzer-logs-814726593401"
+        "name": "aws-networkaccessanalyzer-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-networkaccessanalyzer-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/814726593401/networkaccessanalyzer/me-south-1/2026/04/02/networkaccessanalyzer_L9Q841NEJDO.log.gz"
+        "key": "AWSLogs/164820739518/networkaccessanalyzer/ap-south-1/2026/04/13/networkaccessanalyzer_U79HB7HE0B8.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/networkaccessanalyzer/logs",
-      "log_stream": "me-south-1/k68oaam0",
-      "ingestion_time": "2026-04-02T20:50:22.385Z"
+      "log_stream": "ap-south-1/8u9m6n5h",
+      "ingestion_time": "2026-04-13T11:01:16.240Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 61437407,
+    "duration": 67657659,
     "module": "aws",
     "dataset": "aws.networkaccessanalyzer"
   },
-  "message": "Network Access Analyzer: transit-gateway-routes analysis complete (147 resources)",
+  "message": "Network Access Analyzer: cross-vpc-access analysis complete (416 resources)",
   "service": {
     "name": "networkaccessanalyzer",
     "type": "aws"
@@ -65,8 +65,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-me-south-1",
-    "ephemeral_id": "i0a0wvguzw"
+    "name": "filebeat-aws-ap-south-1",
+    "ephemeral_id": "87m3gk72dan"
   },
   "input": {
     "type": "http_endpoint"

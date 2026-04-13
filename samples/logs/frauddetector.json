@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ca-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "frauddetector"
@@ -13,40 +13,40 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "card-fraud-detector"
+      "DetectorId": "account-takeover"
     },
     "frauddetector": {
-      "detector_id": "card-fraud-detector",
-      "detector_version_id": "1",
-      "event_id": "kezg3ao9ja",
-      "event_type": "online_purchase",
+      "detector_id": "account-takeover",
+      "detector_version_id": "2",
+      "event_id": "j6fv57ynyd",
+      "event_type": "account_registration",
       "entity_type": "customer",
-      "entity_id": "entity_3vd4jsvoto",
-      "outcomes": ["APPROVE"],
-      "risk_score": 307,
+      "entity_id": "entity_inml1kj473",
+      "outcomes": ["REVIEW"],
+      "risk_score": 516,
       "model_scores": {
-        "card-fraud-detector": 307
+        "account-takeover": 516
       },
-      "used_rules": ["review-medium"],
-      "ip_address": "123.53.187.175",
+      "used_rules": ["block-high-risk"],
+      "ip_address": "115.49.204.97",
       "event_variables": {
-        "billing_postal": "88008",
+        "billing_postal": "27762",
         "phone_verified": "true"
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-frauddetector-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-frauddetector-logs-293847561023"
+        "name": "aws-frauddetector-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-frauddetector-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/293847561023/frauddetector/af-south-1/2026/04/02/frauddetector_D5OX73SA0FA.log.gz"
+        "key": "AWSLogs/501938274650/frauddetector/ca-central-1/2026/04/13/frauddetector_EDIQSJYTCGK.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/frauddetector/logs",
-      "log_stream": "af-south-1/zgy2csel",
-      "ingestion_time": "2026-04-02T20:50:22.435Z"
+      "log_stream": "ca-central-1/2btuq0st",
+      "ingestion_time": "2026-04-13T11:01:16.298Z"
     }
   },
   "event": {
@@ -54,10 +54,10 @@
     "category": ["intrusion_detection", "process"],
     "dataset": "aws.frauddetector",
     "provider": "frauddetector.amazonaws.com",
-    "duration": 57000000,
+    "duration": 234000000,
     "module": "aws"
   },
-  "message": "Fraud Detector APPROVE [card-fraud-detector]: entity entity_3vd4jsvoto score 307/1000",
+  "message": "Fraud Detector REVIEW [account-takeover]: entity entity_inml1kj473 score 516/1000",
   "log": {
     "level": "info"
   },
@@ -76,8 +76,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-af-south-1",
-    "ephemeral_id": "nsgruwbx8dk"
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "livvuakzxp"
   },
   "input": {
     "type": "http_endpoint"

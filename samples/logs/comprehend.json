@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-2",
+    "region": "ap-south-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "comprehend"
@@ -13,15 +13,15 @@
   },
   "aws": {
     "dimensions": {
-      "Operation": "StartEntitiesDetectionJob"
+      "Operation": "DetectPiiEntities"
     },
     "comprehend": {
-      "operation": "StartEntitiesDetectionJob",
-      "language_code": "ja",
-      "text_bytes": 88923,
+      "operation": "DetectPiiEntities",
+      "language_code": "de",
+      "text_bytes": 50393,
       "entities_detected": 0,
       "key_phrases_detected": 0,
-      "pii_entities_detected": 0,
+      "pii_entities_detected": 8,
       "metrics": {
         "NumberOfSuccessfulRequest": {
           "sum": 1
@@ -30,23 +30,23 @@
           "sum": 0
         },
         "ResponseTime": {
-          "avg": 162.7332765772831
+          "avg": 116.88219811071568
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-comprehend-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-comprehend-logs-293847561023"
+        "name": "aws-comprehend-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-comprehend-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/293847561023/comprehend/us-west-2/2026/04/02/comprehend_MKYY6KE2AFQ.log.gz"
+        "key": "AWSLogs/814726593401/comprehend/ap-south-2/2026/04/13/comprehend_2TM8AFLYGUU.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/comprehend/logs",
-      "log_stream": "us-west-2/w6wbzses",
-      "ingestion_time": "2026-04-02T20:50:22.423Z"
+      "log_stream": "ap-south-2/qwv3wq86",
+      "ingestion_time": "2026-04-13T11:01:16.275Z"
     }
   },
   "event": {
@@ -56,7 +56,7 @@
     "provider": "comprehend.amazonaws.com",
     "module": "aws"
   },
-  "message": "Comprehend StartEntitiesDetectionJob: lang=ja",
+  "message": "Comprehend DetectPiiEntities: lang=de",
   "log": {
     "level": "info"
   },
@@ -75,8 +75,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-west-2",
-    "ephemeral_id": "qec1th507t9"
+    "name": "filebeat-aws-ap-south-2",
+    "ephemeral_id": "v5ew7hv8y8"
   },
   "input": {
     "type": "aws-cloudwatch"

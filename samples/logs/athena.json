@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-southeast-4",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,34 +13,35 @@
   },
   "aws": {
     "athena": {
-      "query_id": "ax7snpmw-fwxa-8k3c-vkhv",
-      "workgroup": "primary",
-      "database": "analytics",
-      "state": "SUCCEEDED",
-      "duration_seconds": 39.979809146415704,
-      "data_scanned_bytes": 5971748593,
-      "data_scanned_mb": 5695,
+      "query_id": "ezufq514-yd9a-l89v-rpdy",
+      "workgroup": "bi-users",
+      "database": "staging",
+      "state": "FAILED",
+      "duration_seconds": 136.42644152502896,
+      "data_scanned_bytes": 0,
+      "data_scanned_mb": 0,
       "engine_version": "Athena engine version 3",
       "structured_logging": true,
+      "error_code": "TABLE_NOT_FOUND",
       "metrics": {
         "DataScannedInBytes": {
-          "sum": 5971748593
+          "sum": 0
         },
         "EngineExecutionTimeInMillis": {
-          "avg": 39980,
-          "max": 59970
+          "avg": 136426,
+          "max": 204640
         },
         "ProcessedBytes": {
-          "sum": 5971748593
+          "sum": 0
         },
         "QueryQueueTimeInMillis": {
-          "avg": 341
+          "avg": 416
         },
         "TotalExecutionTimeInMillis": {
-          "avg": 39980
+          "avg": 136426
         },
         "QueryPlanningTimeInMillis": {
-          "avg": 124
+          "avg": 145
         }
       }
     },
@@ -50,30 +51,35 @@
         "arn": "arn:aws:s3:::aws-athena-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/738291046572/athena/af-south-1/2026/04/02/athena_VDAJZPYZQZH.log.gz"
+        "key": "AWSLogs/738291046572/athena/ap-southeast-4/2026/04/13/athena_YPVFJHH93DL.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/athena/logs",
-      "log_stream": "af-south-1/sjm1x0y6",
-      "ingestion_time": "2026-04-02T20:50:22.420Z"
+      "log_stream": "ap-southeast-4/chprpels",
+      "ingestion_time": "2026-04-13T11:01:16.267Z"
     }
   },
   "db": {
-    "statement": "CREATE TABLE analytics.daily_summary AS SELECT * FROM raw.events",
+    "statement": "SELECT user_id, sum(revenue) FROM transactions WHERE dt >= '2024-01-01' GROUP BY 1",
     "type": "sql"
   },
   "event": {
-    "duration": 39979809146.4157,
-    "outcome": "success",
+    "duration": 136426441525.02896,
+    "outcome": "failure",
     "category": ["database", "process"],
     "dataset": "aws.athena",
     "provider": "athena.amazonaws.com",
     "module": "aws"
   },
-  "message": "{\"queryId\":\"ax7snpmw-fwxa-8k3c-vkhv\",\"workgroup\":\"primary\",\"database\":\"analytics\",\"state\":\"SUCCEEDED\",\"durationSeconds\":39.979809146415704,\"dataScannedBytes\":5971748593,\"timestamp\":\"2026-04-02T20:50:22.062Z\"}",
+  "message": "{\"queryId\":\"ezufq514-yd9a-l89v-rpdy\",\"workgroup\":\"bi-users\",\"database\":\"staging\",\"state\":\"FAILED\",\"durationSeconds\":136.42644152502896,\"dataScannedBytes\":0,\"timestamp\":\"2026-04-13T11:01:15.944Z\"}",
   "log": {
-    "level": "warn"
+    "level": "error"
+  },
+  "error": {
+    "code": "QUERY_TIMED_OUT",
+    "message": "Athena query failed",
+    "type": "db"
   },
   "service": {
     "name": "athena",
@@ -90,8 +96,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-af-south-1",
-    "ephemeral_id": "7szfjhyhp6"
+    "name": "filebeat-aws-ap-southeast-4",
+    "ephemeral_id": "3jw88vs8rlw"
   },
   "input": {
     "type": "aws-cloudwatch"

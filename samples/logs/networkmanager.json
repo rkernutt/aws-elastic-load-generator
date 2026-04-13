@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-west-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "networkmanager"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "networkmanager": {
-      "global_network_id": "network-y1t7ohv2t9",
-      "global_network_name": "enterprise-wan",
-      "event_type": "LINK_STATUS_UP",
-      "device_id": "device-nv6hgy1bz7",
-      "link_id": "link-xvjokvql1oc",
-      "site_id": "site-mkbvstlf3s",
-      "site_name": "branch-tokyo",
-      "bandwidth_mbps": 10,
-      "provider": "NTT",
+      "global_network_id": "network-52liotal8gc",
+      "global_network_name": "global-network-prod",
+      "event_type": "ROUTE_ANALYSIS_COMPLETE",
+      "device_id": "device-de15fkadw7j",
+      "link_id": "link-jbcczqdlf0i",
+      "site_id": "site-zsk1yabqv5",
+      "site_name": "dc-us-east",
+      "bandwidth_mbps": 500,
+      "provider": "Zayo",
       "type": "vpn",
       "state": "UP"
     },
     "s3": {
       "bucket": {
-        "name": "aws-networkmanager-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-networkmanager-logs-738291046572"
+        "name": "aws-networkmanager-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-networkmanager-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/738291046572/networkmanager/us-east-2/2026/04/02/networkmanager_MW8QI73IPI.log.gz"
+        "key": "AWSLogs/814726593401/networkmanager/eu-west-1/2026/04/13/networkmanager_BHFM5312W1A.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/networkmanager/logs",
-      "log_stream": "us-east-2/lmew250z",
-      "ingestion_time": "2026-04-02T20:50:22.378Z"
+      "log_stream": "eu-west-1/8t0v6zte",
+      "ingestion_time": "2026-04-13T11:01:16.227Z"
     }
   },
   "event": {
@@ -47,7 +47,7 @@
     "provider": "networkmanager.amazonaws.com",
     "module": "aws"
   },
-  "message": "Network Manager LINK_STATUS_UP [enterprise-wan]: branch-tokyo link UP",
+  "message": "Network Manager ROUTE_ANALYSIS_COMPLETE [global-network-prod]: branch-tokyo link UP",
   "log": {
     "level": "info"
   },
@@ -66,8 +66,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-2",
-    "ephemeral_id": "45crsmods1n"
+    "name": "filebeat-aws-eu-west-1",
+    "ephemeral_id": "lxl1py9x8s"
   },
   "input": {
     "type": "aws-cloudwatch"

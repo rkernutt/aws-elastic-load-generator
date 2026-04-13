@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
     "region": "ap-northeast-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "codedeploy"
@@ -13,18 +13,18 @@
   },
   "aws": {
     "dimensions": {
-      "DeploymentGroupName": "prod",
-      "ApplicationName": "background-jobs"
+      "DeploymentGroupName": "canary",
+      "ApplicationName": "api-service"
     },
     "codedeploy": {
-      "application_name": "background-jobs",
-      "deployment_group": "prod",
-      "deployment_id": "d-Q3H06OAL5",
-      "deployment_type": "BLUE_GREEN",
-      "lifecycle_event": "BeforeInstall",
+      "application_name": "api-service",
+      "deployment_group": "canary",
+      "deployment_id": "d-MP2CGC6AQ",
+      "deployment_type": "IN_PLACE",
+      "lifecycle_event": "BeforeAllowTraffic",
       "event_status": "Succeeded",
-      "duration_seconds": 376,
-      "instances_succeeded": 8,
+      "duration_seconds": 550,
+      "instances_succeeded": 7,
       "instances_failed": 0,
       "metrics": {
         "DeploymentAttempts": {
@@ -40,10 +40,10 @@
           "sum": 0
         },
         "DeploymentDuration": {
-          "avg": 376
+          "avg": 550
         },
         "InstanceSuccesses": {
-          "sum": 6
+          "sum": 3
         },
         "InstanceFailures": {
           "sum": 0
@@ -52,28 +52,28 @@
     },
     "s3": {
       "bucket": {
-        "name": "aws-codedeploy-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-codedeploy-logs-814726593401"
+        "name": "aws-codedeploy-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-codedeploy-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/814726593401/codedeploy/ap-northeast-3/2026/04/02/codedeploy_69VA21XOZ8R.log.gz"
+        "key": "AWSLogs/293847561023/codedeploy/ap-northeast-3/2026/04/13/codedeploy_F036SAEZ0U.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/codedeploy/logs",
-      "log_stream": "ap-northeast-3/l9oku032",
-      "ingestion_time": "2026-04-02T20:50:22.417Z"
+      "log_stream": "ap-northeast-3/v4tukx0m",
+      "ingestion_time": "2026-04-13T11:01:16.261Z"
     }
   },
   "event": {
-    "duration": 376000000000,
+    "duration": 550000000000,
     "outcome": "success",
     "category": ["process", "configuration"],
     "dataset": "aws.codedeploy",
     "provider": "codedeploy.amazonaws.com",
     "module": "aws"
   },
-  "message": "CodeDeploy background-jobs deployment SUCCEEDED in 376s",
+  "message": "Deployment succeeded",
   "log": {
     "level": "info"
   },
@@ -93,7 +93,7 @@
     "type": "filebeat",
     "version": "8.18.0",
     "name": "filebeat-aws-ap-northeast-3",
-    "ephemeral_id": "o2yleux3w3a"
+    "ephemeral_id": "m4370kru60a"
   },
   "input": {
     "type": "aws-cloudwatch"

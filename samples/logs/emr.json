@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-1",
+    "region": "ap-northeast-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,93 +13,93 @@
   },
   "aws": {
     "dimensions": {
-      "JobFlowId": "j-FZ0PFFKG0GR"
+      "JobFlowId": "j-YKUW8DEV6E"
     },
     "emr": {
-      "cluster_id": "j-FZ0PFFKG0GR",
-      "cluster_name": "clickstream-processing-cluster",
+      "cluster_id": "j-YKUW8DEV6E",
+      "cluster_name": "etl-daily-aggregation-cluster",
       "application": "spark",
-      "release": "emr-6.15.0",
-      "instance_group": "CORE",
-      "executor_count": 32,
+      "release": "emr-6.12.0",
+      "instance_group": "TASK",
+      "executor_count": 22,
       "job": {
-        "name": "clickstream-processing",
-        "id": "application_1775163022419_5485",
+        "name": "etl-daily-aggregation",
+        "id": "application_1776078076265_7823",
         "run_state": "SUCCEEDED"
       },
       "structured_logging": false,
       "metrics": {
-        "executor_count": 32,
-        "running_step_count": 4,
+        "executor_count": 22,
+        "running_step_count": 5,
         "failed_step_count": 0,
-        "hdfs_utilization_pct": 75,
-        "yarn_memory_used_mb": 2163,
-        "elapsedTime": 2851000,
-        "numCompletedTasks": 223,
+        "hdfs_utilization_pct": 25,
+        "yarn_memory_used_mb": 41607,
+        "elapsedTime": 2272000,
+        "numCompletedTasks": 77,
         "numFailedTasks": 0,
-        "jvm_heap_usage": 0.89,
-        "gc_time_ms": 40896,
-        "numberAllExecutors": 35
+        "jvm_heap_usage": 0.75,
+        "gc_time_ms": 28888,
+        "numberAllExecutors": 41
       }
     },
     "elasticmapreduce": {
       "metrics": {
         "S3BytesWritten": {
-          "sum": 140322985141
+          "sum": 428694128031
         },
         "S3BytesRead": {
-          "sum": 348680659556
+          "sum": 80956145304
         },
         "HDFSUtilization": {
-          "avg": 75
+          "avg": 25
         },
         "HDFSBytesRead": {
-          "sum": 39382457367
+          "sum": 76412564703
         },
         "HDFSBytesWritten": {
-          "sum": 1824671981
+          "sum": 92271467614
         },
         "TotalNodesRunning": {
-          "avg": 33
+          "avg": 23
         },
         "YARNMemoryAvailablePercentage": {
-          "avg": 38.934048505531855
+          "avg": 65.97060739006096
         },
         "CoreNodesRunning": {
-          "avg": 22
+          "avg": 8
         },
         "CoreNodesPending": {
           "avg": 0
         },
         "TaskNodesRunning": {
-          "avg": 21
+          "avg": 17
         },
         "LiveDataNodes": {
-          "avg": 13
+          "avg": 14
         },
         "CapacityRemainingGB": {
-          "avg": 4739.5098306163345
+          "avg": 2788.7353270636327
         },
         "MemoryAvailableMB": {
-          "sum": 2163
+          "sum": 41607
         },
         "MemoryReservedMB": {
-          "avg": 17343
+          "avg": 25304
         },
         "MemoryTotalMB": {
-          "sum": 32040
+          "sum": 20697
         },
         "ContainersPending": {
           "avg": 0
         },
         "ContainerPendingRatio": {
-          "avg": 0.18276833967693795
+          "avg": 0.38166517709685
         },
         "ContainersAllocated": {
-          "avg": 55
+          "avg": 42
         },
         "AppsCompleted": {
-          "sum": 31
+          "sum": 41
         },
         "AppsFailed": {
           "sum": 0
@@ -108,10 +108,10 @@
           "sum": 0
         },
         "AppsPending": {
-          "avg": 2
+          "avg": 3
         },
         "AppsRunning": {
-          "avg": 2
+          "avg": 1
         }
       }
     },
@@ -121,13 +121,13 @@
         "arn": "arn:aws:s3:::aws-emr-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/501938274650/emr/ap-southeast-1/2026/04/02/emr_T3IEP0N7IO.log.gz"
+        "key": "AWSLogs/501938274650/emr/ap-northeast-2/2026/04/13/emr_GQNCDFNM68V.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/emr/logs",
-      "log_stream": "ap-southeast-1/fetph3ex",
-      "ingestion_time": "2026-04-02T20:50:22.419Z"
+      "log_stream": "ap-northeast-2/wf31g7i7",
+      "ingestion_time": "2026-04-13T11:01:16.266Z"
     }
   },
   "process": {
@@ -141,10 +141,10 @@
     "category": ["process"],
     "dataset": "aws.emr",
     "provider": "elasticmapreduce.amazonaws.com",
-    "duration": 2851000000000,
+    "duration": 2272000000000,
     "module": "aws"
   },
-  "message": "Job submitted to YARN ResourceManager",
+  "message": "Shuffle read: 4.5 GB, Shuffle write: 3.6 GB",
   "service": {
     "name": "emr",
     "type": "aws"
@@ -160,8 +160,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-1",
-    "ephemeral_id": "z3ckanvkrmr"
+    "name": "filebeat-aws-ap-northeast-2",
+    "ephemeral_id": "vz4igznj74l"
   },
   "input": {
     "type": "aws-cloudwatch"

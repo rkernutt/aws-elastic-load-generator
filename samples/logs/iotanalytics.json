@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "eu-west-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "iotanalytics"
@@ -13,44 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "ChannelName": "temperature-channel",
-      "PipelineName": "filter-pipeline"
+      "ChannelName": "metrics-channel",
+      "PipelineName": "device-registry-enrich"
     },
     "iotanalytics": {
-      "channel_name": "temperature-channel",
-      "pipeline_name": "filter-pipeline",
-      "dataset_name": "fleet-summary",
-      "messages_processed": 60046,
-      "bytes_processed": 3242484,
+      "channel_name": "metrics-channel",
+      "pipeline_name": "device-registry-enrich",
+      "dataset_name": "daily-aggregates",
+      "messages_processed": 90,
+      "bytes_processed": 37170,
       "activity_name": "selectAttributes",
-      "pipeline_status": "SUCCEEDED"
+      "pipeline_status": "REPROCESSING_FAILED",
+      "error_message": "Pipeline activity failed"
     },
     "s3": {
       "bucket": {
-        "name": "aws-iotanalytics-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-iotanalytics-logs-293847561023"
+        "name": "aws-iotanalytics-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-iotanalytics-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/293847561023/iotanalytics/ap-southeast-3/2026/04/02/iotanalytics_OFYJ2O3BEU.log.gz"
+        "key": "AWSLogs/164820739518/iotanalytics/eu-west-3/2026/04/13/iotanalytics_9YQWCQRQR4S.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/iotanalytics/logs",
-      "log_stream": "ap-southeast-3/2mb4iues",
-      "ingestion_time": "2026-04-02T20:50:22.427Z"
+      "log_stream": "eu-west-3/tmc4t2kf",
+      "ingestion_time": "2026-04-13T11:01:16.283Z"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": ["process"],
     "dataset": "aws.iotanalytics",
     "provider": "iotanalytics.amazonaws.com",
-    "duration": 27490000000,
+    "duration": 7902000000,
     "module": "aws"
   },
-  "message": "IoT Analytics: 60,046 messages via filter-pipeline",
+  "message": "IoT Analytics FAILED in device-registry-enrich: Lambda timeout",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "PipelineError",
+    "message": "IoT Analytics pipeline failed",
+    "type": "iot"
   },
   "service": {
     "name": "iotanalytics",
@@ -67,8 +73,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-3",
-    "ephemeral_id": "cbehekgqawa"
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "3vu4k9r7m05"
   },
   "input": {
     "type": "aws-cloudwatch"

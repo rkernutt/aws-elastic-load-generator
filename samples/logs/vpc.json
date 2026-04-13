@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "af-south-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "vpc"
@@ -13,39 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "VpcId": "vpc-jy00zpqm"
+      "VpcId": "vpc-k7fu92j7"
     },
     "vpcflow": {
       "version": "2",
-      "account_id": "164820739518",
-      "interface_id": "eni-ykt6nvgn",
+      "account_id": "814726593401",
+      "interface_id": "eni-wwrb56cn",
       "action": "ACCEPT",
       "log_status": "OK",
-      "instance_id": "i-yvqpyedl5dh",
-      "pkt_srcaddr": "189.177.252.229",
-      "pkt_dstaddr": "88.149.64.122",
-      "vpc_id": "vpc-jy00zpqm",
-      "subnet_id": "subnet-tszhy54a",
+      "instance_id": "i-d1e840bedqp",
+      "pkt_srcaddr": "212.117.202.12",
+      "pkt_dstaddr": "245.24.212.117",
+      "vpc_id": "vpc-k7fu92j7",
+      "subnet_id": "subnet-0879gt7g",
       "type": "IPv4"
     },
     "s3": {
       "bucket": {
-        "name": "aws-vpc-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-vpc-logs-164820739518"
+        "name": "aws-vpc-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-vpc-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/164820739518/vpc/ap-east-1/2026/04/02/vpc_ENK0BYTJ9I9.log.gz"
+        "key": "AWSLogs/814726593401/vpc/af-south-1/2026/04/13/vpc_CNGQB0O9J69.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/vpc/logs",
-      "log_stream": "ap-east-1/xw407o4t",
-      "ingestion_time": "2026-04-02T20:50:22.369Z"
+      "log_stream": "af-south-1/mrbf8637",
+      "ingestion_time": "2026-04-13T11:01:16.217Z"
     }
   },
   "source": {
-    "ip": "189.177.252.229",
-    "port": 31646,
+    "ip": "212.117.202.12",
+    "port": 17991,
+    "geo": {
+      "country_iso_code": "ZA",
+      "country_name": "South Africa",
+      "city_name": "Johannesburg",
+      "location": {
+        "lat": -26.2041,
+        "lon": 28.0473
+      }
+    }
+  },
+  "destination": {
+    "ip": "245.24.212.117",
+    "port": 443,
     "geo": {
       "country_iso_code": "SE",
       "country_name": "Sweden",
@@ -56,23 +69,10 @@
       }
     }
   },
-  "destination": {
-    "ip": "88.149.64.122",
-    "port": 5432,
-    "geo": {
-      "country_iso_code": "US",
-      "country_name": "United States",
-      "city_name": "Ashburn",
-      "location": {
-        "lat": 39.0438,
-        "lon": -77.4874
-      }
-    }
-  },
   "network": {
     "transport": "tcp",
-    "bytes": 8316,
-    "packets": 84,
+    "bytes": 5588,
+    "packets": 11,
     "direction": "inbound"
   },
   "event": {
@@ -82,10 +82,10 @@
     "type": ["connection"],
     "dataset": "aws.vpcflow",
     "provider": "ec2.amazonaws.com",
-    "duration": 357000000,
+    "duration": 55000000,
     "module": "aws"
   },
-  "message": "2 164820739518 eni-ykt6nvgn 189.177.252.229 88.149.64.122 31646 5432 6 84 8316 1775163022 1775163028 ACCEPT OK",
+  "message": "2 814726593401 eni-wwrb56cn 212.117.202.12 245.24.212.117 17991 443 6 11 5588 1776078075 1776078097 ACCEPT OK",
   "log": {
     "level": "info"
   },
@@ -104,8 +104,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-east-1",
-    "ephemeral_id": "680qnc6pk2s"
+    "name": "filebeat-aws-af-south-1",
+    "ephemeral_id": "xysk3kqfwrl"
   },
   "input": {
     "type": "aws-s3"

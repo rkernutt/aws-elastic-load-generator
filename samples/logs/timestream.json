@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "af-south-1",
+    "region": "ap-southeast-3",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,12 +13,13 @@
   },
   "aws": {
     "timestream": {
-      "database_name": "application-telemetry",
-      "table_name": "sensor_readings",
-      "operation": "Query",
+      "database_name": "financial-ticks",
+      "table_name": "cpu_metrics",
+      "operation": "DescribeTable",
       "records_ingested": 0,
-      "rows_returned": 1286,
-      "duration_ms": 648
+      "rows_returned": 0,
+      "duration_ms": 1559,
+      "error_code": "ThrottlingException"
     },
     "s3": {
       "bucket": {
@@ -26,26 +27,31 @@
         "arn": "arn:aws:s3:::aws-timestream-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/164820739518/timestream/af-south-1/2026/04/02/timestream_0R6U3EK4O7CI.log.gz"
+        "key": "AWSLogs/164820739518/timestream/ap-southeast-3/2026/04/13/timestream_TBKLKFWYK3J.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/timestream/logs",
-      "log_stream": "af-south-1/0td7uoff",
-      "ingestion_time": "2026-04-02T20:50:22.413Z"
+      "log_stream": "ap-southeast-3/3ll03gcp",
+      "ingestion_time": "2026-04-13T11:01:16.254Z"
     }
   },
   "event": {
-    "duration": 647816682.10843,
-    "outcome": "success",
+    "duration": 1558848444.9266994,
+    "outcome": "failure",
     "category": "database",
     "dataset": "aws.timestream",
     "provider": "timestream.amazonaws.com",
     "module": "aws"
   },
-  "message": "Timestream Query on application-telemetry.sensor_readings: 648ms",
+  "message": "Timestream DescribeTable FAILED on financial-ticks.cpu_metrics: Throttling",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ResourceNotFoundException",
+    "message": "Timestream operation failed",
+    "type": "db"
   },
   "service": {
     "name": "timestream",
@@ -62,8 +68,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-af-south-1",
-    "ephemeral_id": "iybrrar3vmj"
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "ophi1qc8wv"
   },
   "input": {
     "type": "aws-cloudwatch"

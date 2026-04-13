@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ap-southeast-3",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -14,17 +14,17 @@
   "aws": {
     "dimensions": {
       "FleetId": "executive-fleet",
-      "CampaignName": "battery-monitoring"
+      "CampaignName": "engine-diagnostics"
     },
     "iotfleetwise": {
       "fleet_id": "executive-fleet",
-      "vehicle_id": "VIN-CBYSNXNE6PO",
-      "campaign_name": "battery-monitoring",
+      "vehicle_id": "VIN-XOVUHSKEGSM",
+      "campaign_name": "engine-diagnostics",
       "campaign_status": "RUNNING",
       "signal_name": "Vehicle.Powertrain.TractionBattery.StateOfCharge",
-      "signal_value": 62.284571947551136,
+      "signal_value": 30.24757345990533,
       "collection_scheme": "EVENT_BASED",
-      "compression": "SNAPPY",
+      "compression": "OFF",
       "data_destination": "S3"
     },
     "s3": {
@@ -33,13 +33,13 @@
         "arn": "arn:aws:s3:::aws-iotfleetwise-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/164820739518/iotfleetwise/us-east-2/2026/04/02/iotfleetwise_MA7PLA69HZQ.log.gz"
+        "key": "AWSLogs/164820739518/iotfleetwise/ap-southeast-3/2026/04/13/iotfleetwise_ZWR7V8AGQOM.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/iotfleetwise/logs",
-      "log_stream": "us-east-2/aa3yqb3t",
-      "ingestion_time": "2026-04-02T20:50:22.428Z"
+      "log_stream": "ap-southeast-3/eambi0gt",
+      "ingestion_time": "2026-04-13T11:01:16.283Z"
     }
   },
   "event": {
@@ -50,7 +50,7 @@
     "provider": "iotfleetwise.amazonaws.com",
     "module": "aws"
   },
-  "message": "IoT FleetWise UpdateCampaign: fleet=executive-fleet, vehicle=VIN-CBYSNXNE6PO, campaign=battery-monitoring RUNNING",
+  "message": "IoT FleetWise UpdateCampaign: fleet=executive-fleet, vehicle=VIN-XOVUHSKEGSM, campaign=engine-diagnostics RUNNING",
   "log": {
     "level": "info"
   },
@@ -69,8 +69,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-2",
-    "ephemeral_id": "fzb2wh89o0r"
+    "name": "filebeat-aws-ap-southeast-3",
+    "ephemeral_id": "t3c0pql5u"
   },
   "input": {
     "type": "aws-cloudwatch"

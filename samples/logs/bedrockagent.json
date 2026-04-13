@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "us-west-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -13,36 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "AgentId": "T7YR77F5L1XG",
+      "AgentId": "TD9GXKB83VIJ",
       "Operation": "InvokeAgent"
     },
     "bedrockagent": {
-      "agent_id": "T7YR77F5L1XG",
+      "agent_id": "TD9GXKB83VIJ",
       "agent_alias_id": "TSTALIASID",
-      "session_id": "pagnsripsx",
+      "session_id": "u8yubkpz5m",
       "action": "InvokeAgent",
-      "input_token_count": 308,
-      "output_token_count": 187,
-      "invocation_latency_ms": 2298,
-      "orchestration_trace": {
-        "model_invocation": {
-          "model_arn": "arn:aws:bedrock:ap-southeast-4::foundation-model/anthropic.claude-3-5-sonnet-v2"
-        }
-      },
-      "guardrail_action": "INTERVENED",
+      "input_token_count": 1385,
+      "output_token_count": 1061,
+      "invocation_latency_ms": 4610,
+      "guardrail_action": "NONE",
       "metrics": {
         "Invocations": {
-          "sum": 141
+          "sum": 185
         },
         "InvocationLatency": {
-          "avg": 2298,
-          "p99": 4596
+          "avg": 4610,
+          "p99": 9220
         },
         "InputTokenCount": {
-          "sum": 308
+          "sum": 1385
         },
         "OutputTokenCount": {
-          "sum": 187
+          "sum": 1061
         }
       }
     },
@@ -52,13 +47,13 @@
         "arn": "arn:aws:s3:::aws-bedrockagent-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/501938274650/bedrockagent/ap-southeast-4/2026/04/02/bedrockagent_IUDLLUH9767.log.gz"
+        "key": "AWSLogs/501938274650/bedrockagent/us-west-2/2026/04/13/bedrockagent_I2D1JVP2GCQ.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/bedrockagent/logs",
-      "log_stream": "ap-southeast-4/ng32fv1a",
-      "ingestion_time": "2026-04-02T20:50:22.423Z"
+      "log_stream": "us-west-2/30okpu9i",
+      "ingestion_time": "2026-04-13T11:01:16.274Z"
     }
   },
   "event": {
@@ -66,10 +61,10 @@
     "category": ["process"],
     "dataset": "aws.bedrockagent",
     "provider": "bedrock-agent-runtime.amazonaws.com",
-    "duration": 2297619989.1743617,
+    "duration": 4609688601.794921,
     "module": "aws"
   },
-  "message": "Bedrock Agent T7YR77F5L1XG: InvokeAgent 308→187 tokens 2.30s",
+  "message": "Bedrock Agent TD9GXKB83VIJ: InvokeAgent 1385→1061 tokens 4.61s",
   "log": {
     "level": "info"
   },
@@ -88,8 +83,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-4",
-    "ephemeral_id": "7ombtzagry5"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "13fi4l9syy9"
   },
   "input": {
     "type": "aws-cloudwatch"

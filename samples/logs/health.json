@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ap-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "health"
@@ -13,43 +13,48 @@
   },
   "aws": {
     "health": {
-      "event_arn": "arn:aws:health:ap-southeast-4::event/s3/nhdgxw6b/9qubzcydkin",
-      "event_type_code": "AWS_S3_API_ISSUE",
-      "event_type_category": "scheduledChange",
-      "service": "S3",
-      "region": "ap-southeast-4",
-      "status_code": "closed",
+      "event_arn": "arn:aws:health:ap-east-1::event/route53/qzcyxl0f/rxxgcbidxi",
+      "event_type_code": "AWS_ROUTE53_MAINTENANCE_SCHEDULED",
+      "event_type_category": "accountNotification",
+      "service": "Route53",
+      "region": "global",
+      "status_code": "open",
       "event_scope": "PUBLIC",
-      "affected_entities_count": 47,
-      "description": "S3 Increased error rates in ap-southeast-4"
+      "affected_entities_count": 3,
+      "description": "Route53 Degraded performance in ap-east-1"
     },
     "s3": {
       "bucket": {
-        "name": "aws-health-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-health-logs-501938274650"
+        "name": "aws-health-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-health-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/501938274650/health/ap-southeast-4/2026/04/02/health_2700SEUROGO.log.gz"
+        "key": "AWSLogs/738291046572/health/ap-east-1/2026/04/13/health_APX2RE2MYVT.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/health/logs",
-      "log_stream": "ap-southeast-4/kcpay06t",
-      "ingestion_time": "2026-04-02T20:50:22.429Z"
+      "log_stream": "ap-east-1/vkrun9j8",
+      "ingestion_time": "2026-04-13T11:01:16.286Z"
     }
   },
   "event": {
     "kind": "alert",
-    "outcome": "success",
+    "outcome": "failure",
     "category": ["configuration"],
     "dataset": "aws.health",
     "provider": "health.amazonaws.com",
-    "duration": 430000000000,
+    "duration": 5470000000000,
     "module": "aws"
   },
-  "message": "AWS Health: S3 event resolved in ap-southeast-4",
+  "message": "AWS Health: Route53 service issue in ap-east-1 - Increased errors",
+  "error": {
+    "code": "HealthIssue",
+    "message": "AWS Health service issue",
+    "type": "configuration"
+  },
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "service": {
     "name": "health",
@@ -66,8 +71,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-4",
-    "ephemeral_id": "7ui0oe55po"
+    "name": "filebeat-aws-ap-east-1",
+    "ephemeral_id": "cj5j0vluaor"
   },
   "input": {
     "type": "aws-cloudwatch"

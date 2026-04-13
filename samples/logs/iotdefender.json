@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
+    "region": "ap-southeast-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "iotdefender"
@@ -16,31 +16,31 @@
       "CheckName": "LOGGING_DISABLED"
     },
     "iotdefender": {
-      "thing_name": "valve-plant-2",
+      "thing_name": "controller-a4",
       "audit_check_name": "LOGGING_DISABLED",
-      "finding_id": "lsb0l42k5wh",
+      "finding_id": "bwvh7m7df3",
       "severity": "HIGH",
-      "violation_id": "1dn8qz09yzb",
+      "violation_id": "33gk2ubv0h",
       "violation_type": "authorization-failure",
-      "security_profile_name": "factory-floor-profile",
-      "behavior_name": "msg-size",
-      "current_value": 321,
-      "threshold_value": 80,
-      "consecutive_datapoints_to_alarm": 2
+      "security_profile_name": "baseline-security-profile",
+      "behavior_name": "data-bytes-out",
+      "current_value": 802,
+      "threshold_value": 44,
+      "consecutive_datapoints_to_alarm": 4
     },
     "s3": {
       "bucket": {
-        "name": "aws-iotdefender-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-iotdefender-logs-814726593401"
+        "name": "aws-iotdefender-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-iotdefender-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/814726593401/iotdefender/eu-south-1/2026/04/02/iotdefender_54KKZZ67WIU.log.gz"
+        "key": "AWSLogs/738291046572/iotdefender/ap-southeast-1/2026/04/13/iotdefender_DNAAGYJL00D.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/iotdefender/logs",
-      "log_stream": "eu-south-1/if2i2atw",
-      "ingestion_time": "2026-04-02T20:50:22.437Z"
+      "log_stream": "ap-southeast-1/lx4l92j7",
+      "ingestion_time": "2026-04-13T11:01:16.301Z"
     }
   },
   "event": {
@@ -49,10 +49,10 @@
     "category": ["intrusion_detection", "vulnerability"],
     "dataset": "aws.iotdefender",
     "provider": "iot.amazonaws.com",
-    "duration": 211000000000,
+    "duration": 281000000000,
     "module": "aws"
   },
-  "message": "IoT Defender HIGH [valve-plant-2]: LOGGING_DISABLED",
+  "message": "IoT Defender HIGH [controller-a4]: LOGGING_DISABLED",
   "log": {
     "level": "warn"
   },
@@ -71,8 +71,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-1",
-    "ephemeral_id": "j4xyp2mw2s"
+    "name": "filebeat-aws-ap-southeast-1",
+    "ephemeral_id": "7knctd74r95"
   },
   "input": {
     "type": "aws-cloudwatch"

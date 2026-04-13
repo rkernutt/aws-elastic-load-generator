@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-2",
+    "region": "us-east-1",
     "account": {
       "id": "164820739518",
       "name": "globex-shared-services"
@@ -13,14 +13,14 @@
   },
   "aws": {
     "datasync": {
-      "task_arn": "arn:aws:datasync:eu-central-2:164820739518:task/task-x5lbzkeomks",
-      "source_location_uri": "s3://source-bucket",
+      "task_arn": "arn:aws:datasync:us-east-1:164820739518:task/task-mfde9e92esq",
+      "source_location_uri": "nfs://on-prem-server/data",
       "destination_location_uri": "s3://prod-backup",
       "status": "SUCCESS",
-      "files_transferred": 824013,
-      "bytes_transferred": 756509855040,
+      "files_transferred": 20121,
+      "bytes_transferred": 9066844536,
       "files_failed": 0,
-      "duration_seconds": 1343
+      "duration_seconds": 356
     },
     "s3": {
       "bucket": {
@@ -28,13 +28,13 @@
         "arn": "arn:aws:s3:::aws-datasync-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/164820739518/datasync/eu-central-2/2026/04/02/datasync_R5GLOG0179R.log.gz"
+        "key": "AWSLogs/164820739518/datasync/us-east-1/2026/04/13/datasync_7EKSAGZKA9D.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/datasync/logs",
-      "log_stream": "eu-central-2/ko9lx7j5",
-      "ingestion_time": "2026-04-02T20:50:22.410Z"
+      "log_stream": "us-east-1/873ugh6q",
+      "ingestion_time": "2026-04-13T11:01:16.251Z"
     }
   },
   "event": {
@@ -42,10 +42,10 @@
     "category": ["file"],
     "dataset": "aws.datasync",
     "provider": "datasync.amazonaws.com",
-    "duration": 1343000000000,
+    "duration": 356000000000,
     "module": "aws"
   },
-  "message": "DataSync: 824,013 files transferred from s3:",
+  "message": "DataSync: 20,121 files transferred from nfs:",
   "log": {
     "level": "info"
   },
@@ -64,8 +64,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-2",
-    "ephemeral_id": "coveabw9n7l"
+    "name": "filebeat-aws-us-east-1",
+    "ephemeral_id": "hebn0s2wn5"
   },
   "input": {
     "type": "aws-cloudwatch"

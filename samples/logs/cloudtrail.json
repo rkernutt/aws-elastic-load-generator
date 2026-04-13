@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-3",
+    "region": "ap-northeast-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "cloudtrail"
@@ -13,81 +13,88 @@
   },
   "aws": {
     "dimensions": {
-      "EventName": "ModifyInstanceAttribute",
-      "EventSource": "ec2.amazonaws.com"
+      "EventName": "CreateFunction20150331",
+      "EventSource": "lambda.amazonaws.com"
     },
     "cloudtrail": {
       "event_version": "1.09",
       "event_category": "Management",
       "event_type": "AwsApiCall",
-      "request_id": "3v8mqnp0-y042-p88o-soyi-hk31xt9cstn",
+      "request_id": "8kvv58du-wkdh-as5n-gqyt-t113qr0vq2c",
       "api_version": "2012-10-17",
       "management_event": true,
       "read_only": false,
-      "recipient_account_id": "293847561023",
-      "aws_region": "ap-southeast-3",
+      "recipient_account_id": "738291046572",
+      "aws_region": "ap-northeast-1",
       "user_identity": {
         "type": "AWSService",
-        "principal_id": "293847561023:carol",
-        "arn": "arn:aws:iam::293847561023:user/carol",
-        "account_id": "293847561023",
-        "access_key_id": "AKIAONOHKLCN73",
+        "principal_id": "738291046572:bob",
+        "arn": "arn:aws:iam::738291046572:user/bob",
+        "account_id": "738291046572",
+        "access_key_id": "AKIAMRQN98OPETQ",
         "session_context": {
           "session_issuer": {
             "type": "Role",
-            "principal_id": "AROA5X1DUSMKY59",
-            "arn": "arn:aws:iam::293847561023:role/service-role/execution-role",
-            "account_id": "293847561023",
+            "principal_id": "AROAJB6P33GRLYR",
+            "arn": "arn:aws:iam::738291046572:role/service-role/execution-role",
+            "account_id": "738291046572",
             "user_name": "execution-role"
           },
           "web_id_federation_data": {},
           "attributes": {
-            "creation_date": "2026-04-02T19:53:31.062Z",
-            "mfa_authenticated": "true"
+            "creation_date": "2026-04-13T10:45:26.944Z",
+            "mfa_authenticated": "false"
           }
         }
       },
+      "resources": [
+        {
+          "arn": "arn:aws:lambda:ap-northeast-1:738291046572:function:fn-nbiu8a",
+          "account_id": "738291046572",
+          "type": "AWS::Lambda::Function"
+        }
+      ],
       "request_parameters": "null",
       "response_elements": "null"
     },
     "s3": {
       "bucket": {
-        "name": "aws-cloudtrail-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-cloudtrail-logs-293847561023"
+        "name": "aws-cloudtrail-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-cloudtrail-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/293847561023/cloudtrail/ap-southeast-3/2026/04/02/cloudtrail_311DU85AH48.log.gz"
+        "key": "AWSLogs/738291046572/cloudtrail/ap-northeast-1/2026/04/13/cloudtrail_I7YKNJ7S7DR.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/cloudtrail/logs",
-      "log_stream": "ap-southeast-3/hyhn6os1",
-      "ingestion_time": "2026-04-02T20:50:22.370Z"
+      "log_stream": "ap-northeast-1/l1rp6ct2",
+      "ingestion_time": "2026-04-13T11:01:16.217Z"
     }
   },
   "user": {
-    "name": "carol"
+    "name": "bob"
   },
   "source": {
-    "ip": "116.77.217.211",
+    "ip": "90.70.177.28",
     "geo": {
-      "country_iso_code": "IN",
-      "city_name": "Sydney"
+      "country_iso_code": "AU",
+      "city_name": "Ashburn"
     }
   },
   "user_agent": {
-    "original": "Go-http-client/1.1"
+    "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
-    "action": "ModifyInstanceAttribute",
+    "action": "CreateFunction20150331",
     "outcome": "success",
     "category": ["configuration"],
-    "type": ["change"],
+    "type": ["creation"],
     "dataset": "aws.cloudtrail",
     "provider": "cloudtrail.amazonaws.com",
     "module": "aws"
   },
-  "message": "CloudTrail: ModifyInstanceAttribute by carol from 116.77.217.211 - Success",
+  "message": "CloudTrail: CreateFunction20150331 by bob from 90.70.177.28 - Success",
   "log": {
     "level": "info"
   },
@@ -106,8 +113,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-3",
-    "ephemeral_id": "m2d09t8u1fr"
+    "name": "filebeat-aws-ap-northeast-1",
+    "ephemeral_id": "jft0k43jjuq"
   },
   "input": {
     "type": "aws-s3"

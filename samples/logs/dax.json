@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "ap-south-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "dax"
@@ -13,46 +13,52 @@
   },
   "aws": {
     "dimensions": {
-      "ClusterName": "analytics-dax",
-      "NodeId": "analytics-dax-a"
+      "ClusterName": "session-dax",
+      "NodeId": "session-dax-c"
     },
     "dax": {
-      "cluster_name": "analytics-dax",
-      "node_id": "analytics-dax-a",
+      "cluster_name": "session-dax",
+      "node_id": "session-dax-c",
       "operation": "BatchGetItem",
-      "cache_hit": true,
-      "item_size_bytes": 34541,
-      "request_latency_ms": 48,
-      "consumed_read_capacity_units": 2.9,
-      "table_name": "inventory"
+      "cache_hit": false,
+      "item_size_bytes": 88630,
+      "request_latency_ms": 3216,
+      "consumed_read_capacity_units": 3.4,
+      "table_name": "users",
+      "error_code": "RequestLimitExceeded"
     },
     "s3": {
       "bucket": {
-        "name": "aws-dax-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-dax-logs-293847561023"
+        "name": "aws-dax-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-dax-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/293847561023/dax/us-east-2/2026/04/02/dax_7OUFO6H12Y6.log.gz"
+        "key": "AWSLogs/501938274650/dax/ap-south-2/2026/04/13/dax_8KAD7IR5BDI.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/dax/logs",
-      "log_stream": "us-east-2/cvwliuer",
-      "ingestion_time": "2026-04-02T20:50:22.413Z"
+      "log_stream": "ap-south-2/xygtizaa",
+      "ingestion_time": "2026-04-13T11:01:16.255Z"
     }
   },
   "event": {
-    "action": "NodeRestart",
-    "outcome": "success",
+    "action": "CacheHit",
+    "outcome": "failure",
     "category": ["database"],
     "dataset": "aws.dax",
     "provider": "dax.amazonaws.com",
-    "duration": 48000000,
+    "duration": 3216000000,
     "module": "aws"
   },
-  "message": "DAX analytics-dax: BatchGetItem CACHE_HIT 48ms",
+  "message": "DAX session-dax: BatchGetItem failed — RequestLimitExceeded",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "RequestLimitExceeded",
+    "message": "DAX BatchGetItem failed",
+    "type": "database"
   },
   "service": {
     "name": "dax",
@@ -69,8 +75,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-2",
-    "ephemeral_id": "gblzya343a8"
+    "name": "filebeat-aws-ap-south-2",
+    "ephemeral_id": "rafk8xy0pw"
   },
   "input": {
     "type": "aws-cloudwatch"

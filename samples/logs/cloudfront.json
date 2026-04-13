@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "cloudfront"
@@ -13,56 +13,56 @@
   },
   "aws": {
     "dimensions": {
-      "DistributionId": "EUMTYTTV729I",
+      "DistributionId": "EULU1VHYHJO",
       "Region": "Global"
     },
     "cloudfront": {
-      "domain": "dr8gr4pvmtag.cloudfront.net",
-      "edge_location": "IAD89",
-      "edge_result_type": "Redirect",
-      "edge_response_result_type": "Miss",
-      "edge_detailed_result_type": "Miss",
-      "time_to_first_byte": 0.2321695965040378,
-      "cookies": "session=abc123"
+      "domain": "dgmfrtdr969.cloudfront.net",
+      "edge_location": "SYD4",
+      "edge_result_type": "RefreshHit",
+      "edge_response_result_type": "Hit",
+      "edge_detailed_result_type": "Redirect",
+      "time_to_first_byte": 0.29034504440966086,
+      "cookies": "user=guest"
     },
     "s3": {
       "bucket": {
-        "name": "aws-cloudfront-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-cloudfront-logs-164820739518"
+        "name": "aws-cloudfront-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-cloudfront-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/164820739518/cloudfront/us-east-1/2026/04/02/cloudfront_0T6QBT3HMNB.log.gz"
+        "key": "AWSLogs/501938274650/cloudfront/us-east-1/2026/04/13/cloudfront_7UMFQT79T4O.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/cloudfront/logs",
-      "log_stream": "us-east-1/mfkvt7hs",
-      "ingestion_time": "2026-04-02T20:50:22.376Z"
+      "log_stream": "us-east-1/g64qj6fl",
+      "ingestion_time": "2026-04-13T11:01:16.224Z"
     }
   },
   "http": {
     "request": {
       "method": "GET",
-      "bytes": 891
+      "bytes": 786
     },
     "response": {
       "status_code": 200,
-      "bytes": 411866
+      "bytes": 365746
     }
   },
   "url": {
-    "path": "/index.html",
-    "domain": "dg6fpml3mp7o.cloudfront.net"
+    "path": "/fonts/inter.woff2",
+    "domain": "d99be0lytr5.cloudfront.net"
   },
   "client": {
-    "ip": "46.159.209.95",
+    "ip": "133.53.126.187",
     "geo": {
-      "country_iso_code": "CN",
-      "country_name": "China",
-      "city_name": "Beijing",
+      "country_iso_code": "US",
+      "country_name": "United States",
+      "city_name": "Ashburn",
       "location": {
-        "lat": 39.9042,
-        "lon": 116.4074
+        "lat": 39.0438,
+        "lon": -77.4874
       }
     }
   },
@@ -72,10 +72,10 @@
     "type": ["access"],
     "dataset": "aws.cloudfront_logs",
     "provider": "cloudfront.amazonaws.com",
-    "duration": 232169597,
+    "duration": 290345044,
     "module": "aws"
   },
-  "message": "GET /index.html 200 [IAD89]",
+  "message": "GET /fonts/inter.woff2 200 [SYD4]",
   "log": {
     "level": "info"
   },
@@ -95,7 +95,7 @@
     "type": "filebeat",
     "version": "8.18.0",
     "name": "filebeat-aws-us-east-1",
-    "ephemeral_id": "54cmetfmaot"
+    "ephemeral_id": "cbsmvs3884p"
   },
   "input": {
     "type": "aws-s3"

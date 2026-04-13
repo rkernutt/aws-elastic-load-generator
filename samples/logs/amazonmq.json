@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "ap-south-1",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "amazonmq"
@@ -13,90 +13,95 @@
   },
   "aws": {
     "amazonmq": {
-      "broker_id": "b-9rnde5fs-n5no",
-      "broker_name": "order-processor",
+      "broker_id": "b-2ttmj7i3-7pja",
+      "broker_name": "events-broker",
       "broker_engine": "ActiveMQ",
       "engine_version": "5.17.6",
       "deployment_mode": "SINGLE_INSTANCE",
-      "queue_name": "payment.queue",
-      "messages_in": 511,
-      "messages_out": 4567,
-      "queue_depth": 78,
-      "broker_memory_percent": 67,
+      "queue_name": "dlq.orders",
+      "messages_in": 3908,
+      "messages_out": 1899,
+      "queue_depth": 476559,
+      "broker_memory_percent": 80,
       "metrics": {
         "ConsumerCount": {
-          "avg": 61
+          "avg": 27
         },
         "ProducerCount": {
-          "avg": 1
+          "avg": 17
         },
         "QueueSize": {
-          "avg": 1700
+          "avg": 3453
         },
         "EnqueueCount": {
-          "sum": 2868
+          "sum": 4758
         },
         "DequeueCount": {
-          "sum": 2725
+          "sum": 5271
         },
         "InFlightCount": {
-          "avg": 262
+          "avg": 343
         },
         "DispatchCount": {
-          "sum": 386
+          "sum": 7935
         },
         "ExpiredCount": {
-          "sum": 36
+          "sum": 87
         },
         "NetworkConnectorStarted": {
           "sum": 0
         },
         "HeapUsage": {
-          "avg": 65.82649985564399
+          "avg": 64.77742622821452
         },
         "StorePercentUsage": {
-          "avg": 64.62987013153925
+          "avg": 56.53628622453518
         },
         "TotalEnqueueCount": {
-          "sum": 380104
+          "sum": 600325
         },
         "TotalDequeueCount": {
-          "sum": 818160
+          "sum": 588935
         },
         "TotalConsumerCount": {
-          "avg": 8
+          "avg": 63
         },
         "TotalProducerCount": {
-          "avg": 7
+          "avg": 14
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-amazonmq-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-amazonmq-logs-814726593401"
+        "name": "aws-amazonmq-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-amazonmq-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/814726593401/amazonmq/eu-south-2/2026/04/02/amazonmq_SCCTP3KJMOM.log.gz"
+        "key": "AWSLogs/293847561023/amazonmq/ap-south-1/2026/04/13/amazonmq_FME1O8I6RQ.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/amazonmq/logs",
-      "log_stream": "eu-south-2/sdlwji62",
-      "ingestion_time": "2026-04-02T20:50:22.415Z"
+      "log_stream": "ap-south-1/uv68ajef",
+      "ingestion_time": "2026-04-13T11:01:16.259Z"
     }
   },
   "event": {
-    "outcome": "success",
+    "outcome": "failure",
     "category": ["process", "network"],
     "dataset": "aws.amazonmq",
     "provider": "mq.amazonaws.com",
-    "duration": 685623081.0414978,
+    "duration": 12922703721.573626,
     "module": "aws"
   },
-  "message": "Broker memory usage: 78%",
+  "message": "Message redelivery limit: DLQ",
   "log": {
-    "level": "warn"
+    "level": "error"
+  },
+  "error": {
+    "code": "BrokerError",
+    "message": "Message redelivery limit: DLQ",
+    "type": "messaging"
   },
   "service": {
     "name": "amazonmq",
@@ -113,8 +118,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-2",
-    "ephemeral_id": "4ydjqdox6zu"
+    "name": "filebeat-aws-ap-south-1",
+    "ephemeral_id": "yxaddfdw5hp"
   },
   "input": {
     "type": "aws-cloudwatch"

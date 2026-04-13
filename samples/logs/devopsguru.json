@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-2",
+    "region": "eu-central-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "devopsguru"
@@ -13,12 +13,12 @@
   },
   "aws": {
     "devopsguru": {
-      "insight_id": "5yqjvdn0rel",
+      "insight_id": "klozrl3ith",
       "insight_type": "REACTIVE",
-      "severity": "LOW",
+      "severity": "HIGH",
       "resource_collection": {
         "cloud_formation": {
-          "stack_names": ["prod-stack"]
+          "stack_names": ["api-stack"]
         },
         "tags": [
           {
@@ -27,28 +27,28 @@
           }
         ]
       },
-      "anomaly_id": "upkdm6tfb8",
-      "anomaly_description": "Unusual increase in Lambda error rate",
-      "anomaly_sources": ["rds-prod"],
-      "start_time": "2026-04-02T20:08:56.289Z",
-      "end_time": "2026-04-02T20:50:22.437Z",
+      "anomaly_id": "ergsbu9huk",
+      "anomaly_description": "ElastiCache eviction rate spike",
+      "anomaly_sources": ["lambda-api"],
+      "start_time": "2026-04-13T10:29:17.612Z",
+      "end_time": "2026-04-13T11:01:16.300Z",
       "status": "CLOSED",
-      "recommendation": "Review alarm thresholds",
+      "recommendation": "Scale up resource",
       "ssm_ops_items": []
     },
     "s3": {
       "bucket": {
-        "name": "aws-devopsguru-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-devopsguru-logs-501938274650"
+        "name": "aws-devopsguru-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-devopsguru-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/501938274650/devopsguru/us-east-2/2026/04/02/devopsguru_9XPSXO8JWEF.log.gz"
+        "key": "AWSLogs/164820739518/devopsguru/eu-central-2/2026/04/13/devopsguru_IL73Z7ZG6ZO.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/devopsguru/logs",
-      "log_stream": "us-east-2/7u64livz",
-      "ingestion_time": "2026-04-02T20:50:22.437Z"
+      "log_stream": "eu-central-2/svbq53ff",
+      "ingestion_time": "2026-04-13T11:01:16.300Z"
     }
   },
   "event": {
@@ -56,12 +56,12 @@
     "category": ["process", "configuration", "vulnerability"],
     "dataset": "aws.devopsguru",
     "provider": "devops-guru.amazonaws.com",
-    "duration": 697000000000,
+    "duration": 582000000000,
     "module": "aws"
   },
-  "message": "DevOps Guru REACTIVE insight [LOW]: Unusual increase in Lambda error rate",
+  "message": "DevOps Guru REACTIVE insight [HIGH]: ElastiCache eviction rate spike",
   "log": {
-    "level": "info"
+    "level": "warn"
   },
   "service": {
     "name": "devopsguru",
@@ -78,8 +78,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-2",
-    "ephemeral_id": "rlpzuzm8ym"
+    "name": "filebeat-aws-eu-central-2",
+    "ephemeral_id": "x9euzkj4zmc"
   },
   "input": {
     "type": "aws-cloudwatch"

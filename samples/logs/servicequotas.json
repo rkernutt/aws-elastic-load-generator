@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "servicequotas"
@@ -13,28 +13,28 @@
   },
   "aws": {
     "servicequotas": {
-      "service_code": "vpc",
-      "quota_code": "L-6YV7KARL",
-      "quota_name": "Roles per account",
-      "quota_value": 10000,
-      "current_utilization": 7205,
-      "utilization_percent": 72,
+      "service_code": "iam",
+      "quota_code": "L-NUY2HLEO",
+      "quota_name": "VPCs per region",
+      "quota_value": 5000,
+      "current_utilization": 3980,
+      "utilization_percent": 80,
       "adjustable": false,
-      "applied_level": "ACCOUNT"
+      "applied_level": "RESOURCE"
     },
     "s3": {
       "bucket": {
-        "name": "aws-servicequotas-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-servicequotas-logs-293847561023"
+        "name": "aws-servicequotas-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-servicequotas-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/293847561023/servicequotas/eu-central-1/2026/04/02/servicequotas_I0V59H4BA6P.log.gz"
+        "key": "AWSLogs/501938274650/servicequotas/ap-northeast-3/2026/04/13/servicequotas_X068NCZWDON.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/servicequotas/logs",
-      "log_stream": "eu-central-1/yi1zggeb",
-      "ingestion_time": "2026-04-02T20:50:22.430Z"
+      "log_stream": "ap-northeast-3/i6uwg780",
+      "ingestion_time": "2026-04-13T11:01:16.288Z"
     }
   },
   "event": {
@@ -42,10 +42,10 @@
     "category": ["configuration"],
     "dataset": "aws.servicequotas",
     "provider": "servicequotas.amazonaws.com",
-    "duration": 128000000,
+    "duration": 418000000,
     "module": "aws"
   },
-  "message": "Service Quotas: vpc Roles per account at 7205/10000 (72%)",
+  "message": "Service Quotas: iam VPCs per region at 3980/5000 (80%)",
   "log": {
     "level": "info"
   },
@@ -64,8 +64,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-1",
-    "ephemeral_id": "rj6bdnabmm"
+    "name": "filebeat-aws-ap-northeast-3",
+    "ephemeral_id": "gbcveug4zk"
   },
   "input": {
     "type": "http_endpoint"

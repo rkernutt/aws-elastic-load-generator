@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "ca-central-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "verifiedpermissions"
@@ -13,43 +13,43 @@
   },
   "aws": {
     "dimensions": {
-      "PolicyStoreId": "EFxH6LTC5II9FJA"
+      "PolicyStoreId": "EFxH5E3VTSAJISP"
     },
     "verifiedpermissions": {
-      "policy_store_id": "EFxH6LTC5II9FJA",
+      "policy_store_id": "EFxH5E3VTSAJISP",
       "principal_entity_type": "User",
-      "principal_entity_id": "user-Z8FLA9MB",
+      "principal_entity_id": "user-5JSA3JNO",
       "action_id": "InvokeAPI",
-      "resource_type": "Endpoint",
+      "resource_type": "Document",
       "decision": "ALLOW",
-      "determining_policies": 4,
+      "determining_policies": 3,
       "errors_count": 0,
-      "evaluation_time_ms": 50
+      "evaluation_time_ms": 36
     },
     "s3": {
       "bucket": {
-        "name": "aws-verifiedpermissions-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-verifiedpermissions-logs-293847561023"
+        "name": "aws-verifiedpermissions-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-verifiedpermissions-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/293847561023/verifiedpermissions/ap-south-2/2026/04/02/verifiedpermissions_CVSANO4H9QW.log.gz"
+        "key": "AWSLogs/164820739518/verifiedpermissions/ca-central-1/2026/04/13/verifiedpermissions_KE7JD9FTFAS.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/verifiedpermissions/logs",
-      "log_stream": "ap-south-2/kl0d41mf",
-      "ingestion_time": "2026-04-02T20:50:22.385Z"
+      "log_stream": "ca-central-1/nrfmzcdo",
+      "ingestion_time": "2026-04-13T11:01:16.239Z"
     }
   },
   "event": {
-    "action": "IsAuthorized",
+    "action": "IsAuthorizedWithToken",
     "outcome": "success",
     "category": ["authentication", "iam"],
     "dataset": "aws.verifiedpermissions",
     "provider": "verifiedpermissions.amazonaws.com",
     "module": "aws"
   },
-  "message": "Verified Permissions ALLOW: User/user-Z8FLA9MB → InvokeAPI",
+  "message": "Verified Permissions ALLOW: User/user-5JSA3JNO → InvokeAPI",
   "log": {
     "level": "info"
   },
@@ -68,8 +68,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-south-2",
-    "ephemeral_id": "07j81xclq124"
+    "name": "filebeat-aws-ca-central-1",
+    "ephemeral_id": "vqdnhsmxol"
   },
   "input": {
     "type": "aws-cloudwatch"

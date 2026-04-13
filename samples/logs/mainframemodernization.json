@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-west-1",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "m2"
@@ -13,34 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "ApplicationId": "app-ws4loo",
-      "EnvironmentId": "env-lozr59yw"
+      "ApplicationId": "app-rjx2op",
+      "EnvironmentId": "env-23sk5h2e"
     },
     "m2": {
-      "application_id": "app-ws4loo",
-      "environment_id": "env-lozr59yw",
+      "application_id": "app-rjx2op",
+      "environment_id": "env-23sk5h2e",
       "engine_type": "microfocus",
-      "deployment_id": "deploy-3wo8ck2n",
-      "batch_job_status": "Succeeded",
+      "deployment_id": "deploy-naf0pljr",
+      "batch_job_status": "Running",
       "metrics": {
-        "batch_jobs_running": 11,
-        "online_transactions_per_sec": 215.92379585046515,
-        "cpu_utilization": 38.974447338530354
+        "batch_jobs_running": 15,
+        "online_transactions_per_sec": 439.18707474236123,
+        "cpu_utilization": 57.70509150307672
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-mainframemodernization-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-mainframemodernization-logs-738291046572"
+        "name": "aws-mainframemodernization-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-mainframemodernization-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/738291046572/mainframemodernization/us-west-1/2026/04/02/mainframemodernization_FIL9426VE96.log.gz"
+        "key": "AWSLogs/814726593401/mainframemodernization/eu-west-2/2026/04/13/mainframemodernization_6AEAKZWCYQR.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/mainframemodernization/logs",
-      "log_stream": "us-west-1/exfv6208",
-      "ingestion_time": "2026-04-02T20:50:22.374Z"
+      "log_stream": "eu-west-2/8uv90edc",
+      "ingestion_time": "2026-04-13T11:01:16.222Z"
     }
   },
   "event": {
@@ -48,7 +48,7 @@
     "category": ["process"],
     "dataset": "aws.m2",
     "provider": "m2.amazonaws.com",
-    "duration": 2815000000,
+    "duration": 4618000000,
     "module": "aws"
   },
   "data_stream": {
@@ -56,13 +56,13 @@
     "dataset": "aws.m2",
     "namespace": "default"
   },
-  "message": "Mainframe Modernization app-ws4loo: batch_status=Succeeded, tps=216, cpu=39.0%",
+  "message": "Mainframe Modernization app-rjx2op: batch_status=Running, tps=439, cpu=57.7%",
   "log": {
     "level": "info"
   },
   "host": {
-    "name": "ip-243-163-55-12.ec2.internal",
-    "hostname": "mainframemodernization-h2zzm6wq"
+    "name": "ip-86-20-126-220.ec2.internal",
+    "hostname": "mainframemodernization-q1is80p1"
   },
   "service": {
     "name": "mainframemodernization",
@@ -74,8 +74,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-west-1",
-    "ephemeral_id": "w9c5zoa3ca"
+    "name": "filebeat-aws-eu-west-2",
+    "ephemeral_id": "ic0hst548g9"
   },
   "input": {
     "type": "aws-cloudwatch"

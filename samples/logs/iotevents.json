@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-central-1",
+    "region": "us-west-2",
     "account": {
       "id": "501938274650",
       "name": "globex-security-tooling"
@@ -14,18 +14,19 @@
   "aws": {
     "dimensions": {
       "DetectorModelName": "temperature-alert-model",
-      "KeyValue": "unit-01"
+      "KeyValue": "zone-B"
     },
     "iotevents": {
       "detector_model_name": "temperature-alert-model",
-      "detector_id": "unit-01",
-      "key_value": "unit-01",
-      "event_name": "TriggerFired",
-      "from_state": "Alarm",
-      "to_state": "Normal",
+      "detector_id": "zone-B",
+      "key_value": "zone-B",
+      "event_name": "AlarmReset",
+      "from_state": "Acknowledged",
+      "to_state": "Warning",
       "input_name": "CommandInput",
-      "action_type": "SQS",
-      "timer_name": "idleTimer"
+      "action_type": "SetVariable",
+      "timer_name": "alarmTimer",
+      "condition_expression": "$input.SensorInput.temperature > 85"
     },
     "s3": {
       "bucket": {
@@ -33,13 +34,13 @@
         "arn": "arn:aws:s3:::aws-iotevents-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/501938274650/iotevents/ca-central-1/2026/04/02/iotevents_UGWSP4XJ8SK.log.gz"
+        "key": "AWSLogs/501938274650/iotevents/us-west-2/2026/04/13/iotevents_9AGQ7U7XKSF.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/iotevents/logs",
-      "log_stream": "ca-central-1/k3pfzbvv",
-      "ingestion_time": "2026-04-02T20:50:22.437Z"
+      "log_stream": "us-west-2/p1b2bi66",
+      "ingestion_time": "2026-04-13T11:01:16.301Z"
     }
   },
   "event": {
@@ -47,10 +48,10 @@
     "category": ["process"],
     "dataset": "aws.iotevents",
     "provider": "iotevents.amazonaws.com",
-    "duration": 294000000,
+    "duration": 209000000,
     "module": "aws"
   },
-  "message": "IoT Events temperature-alert-model/unit-01: Alarm → Normal [TriggerFired]",
+  "message": "IoT Events temperature-alert-model/zone-B: Acknowledged → Warning [AlarmReset]",
   "log": {
     "level": "info"
   },
@@ -69,8 +70,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ca-central-1",
-    "ephemeral_id": "r7q6p68tygq"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "pb5gyibca6o"
   },
   "input": {
     "type": "aws-cloudwatch"

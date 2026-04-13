@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "eu-south-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "cloudshell"
@@ -13,36 +13,36 @@
   },
   "aws": {
     "cloudshell": {
-      "environment_id": "env-gz6nkhn3",
-      "event_type": "StopEnvironment",
-      "shell_type": "bash",
-      "session_duration_seconds": 3337,
-      "storage_used_mb": 559,
-      "user_arn": "arn:aws:iam::738291046572:user/developer",
+      "environment_id": "env-4kbztgw0",
+      "event_type": "StartEnvironment",
+      "shell_type": "zsh",
+      "session_duration_seconds": 1336,
+      "storage_used_mb": 814,
+      "user_arn": "arn:aws:iam::293847561023:user/readonly",
       "network_mode": "vpc"
     },
     "s3": {
       "bucket": {
-        "name": "aws-cloudshell-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-cloudshell-logs-738291046572"
+        "name": "aws-cloudshell-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-cloudshell-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/738291046572/cloudshell/ap-east-1/2026/04/02/cloudshell_YHOYSQ194IB.log.gz"
+        "key": "AWSLogs/293847561023/cloudshell/eu-south-1/2026/04/13/cloudshell_6GCTRA5IMO6.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/cloudshell/logs",
-      "log_stream": "ap-east-1/pjmm3bt8",
-      "ingestion_time": "2026-04-02T20:50:22.419Z"
+      "log_stream": "eu-south-1/28pvn2bw",
+      "ingestion_time": "2026-04-13T11:01:16.264Z"
     }
   },
   "event": {
-    "outcome": "success",
-    "duration": 2081900,
+    "outcome": "failure",
+    "duration": 4378224,
     "module": "aws",
     "dataset": "aws.cloudshell"
   },
-  "message": "CloudShell: StopEnvironment completed",
+  "message": "CloudShell: StartEnvironment failed — Storage limit reached",
   "service": {
     "name": "cloudshell",
     "type": "aws"
@@ -61,8 +61,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-east-1",
-    "ephemeral_id": "h77qtuajiqh"
+    "name": "filebeat-aws-eu-south-1",
+    "ephemeral_id": "di9j994d3ev"
   },
   "input": {
     "type": "aws-cloudwatch"

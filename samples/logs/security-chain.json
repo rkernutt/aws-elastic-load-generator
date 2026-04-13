@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "ap-east-1",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "guardduty"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "DetectorId": "v9g4ftlyv8i"
+      "DetectorId": "n8mb2rl95bs"
     },
     "guardduty": {
       "schema_version": "2.0",
-      "account_id": "738291046572",
-      "region": "ap-southeast-4",
+      "account_id": "501938274650",
+      "region": "ap-east-1",
       "partition": "aws",
-      "id": "vbhh6ntu5gl",
-      "arn": "arn:aws:guardduty:ap-southeast-4:738291046572:detector/v9g4ftlyv8i/finding/vbhh6ntu5gl",
-      "type": "Recon:EC2/PortScan",
-      "title": "EC2 PortScan",
-      "description": "GuardDuty detected suspicious activity: Recon:EC2/PortScan",
-      "created_at": "2026-04-02T20:50:22.062Z",
-      "updated_at": "2026-04-02T20:50:22.062Z",
+      "id": "6a7sep5mote",
+      "arn": "arn:aws:guardduty:ap-east-1:501938274650:detector/n8mb2rl95bs/finding/6a7sep5mote",
+      "type": "UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom",
+      "title": "IAMUser MaliciousIPCaller Custom",
+      "description": "GuardDuty detected suspicious activity: UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom",
+      "created_at": "2026-04-13T11:01:15.944Z",
+      "updated_at": "2026-04-13T11:01:15.944Z",
       "severity": {
-        "code": 4,
-        "value": "Medium"
+        "code": 7,
+        "value": "High"
       },
-      "confidence": 71.37053890963134,
+      "confidence": 75.44644430050856,
       "resource": {
         "type": "AccessKey"
       },
       "service": {
-        "detector_id": "v9g4ftlyv8i",
-        "count": 76,
+        "detector_id": "n8mb2rl95bs",
+        "count": 24,
         "archived": false,
         "action": {
           "action_type": "AWS_API_CALL"
@@ -45,38 +45,38 @@
       },
       "metrics": {
         "FindingCount": {
-          "sum": 24
+          "sum": 30
         },
         "HighSeverityFindingCount": {
-          "sum": 0
+          "sum": 7
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-security-chain-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-security-chain-logs-738291046572"
+        "name": "aws-security-chain-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-security-chain-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/738291046572/security-chain/ap-southeast-4/2026/04/02/security-chain_WDV3TQTLRLC.log.gz"
+        "key": "AWSLogs/501938274650/security-chain/ap-east-1/2026/04/13/security-chain_W477H76R6GD.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/security-chain/logs",
-      "log_stream": "ap-southeast-4/54e0c6b1",
-      "ingestion_time": "2026-04-02T20:50:22.383Z"
+      "log_stream": "ap-east-1/uansf4ig",
+      "ingestion_time": "2026-04-13T11:01:16.236Z"
     }
   },
   "source": {
-    "ip": "126.190.105.198"
+    "ip": "168.74.32.48"
   },
   "rule": {
     "category": "intrusion_detection",
-    "name": "Recon:EC2/PortScan"
+    "name": "UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom"
   },
   "event": {
     "kind": "alert",
-    "severity": 4,
+    "severity": 7,
     "outcome": "failure",
     "category": ["intrusion_detection"],
     "type": ["indicator"],
@@ -84,13 +84,13 @@
     "provider": "guardduty.amazonaws.com",
     "module": "aws"
   },
-  "message": "GuardDuty finding [MEDIUM]: Recon:EC2/PortScan",
+  "message": "GuardDuty finding [HIGH]: UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom",
   "log": {
-    "level": "warn"
+    "level": "error"
   },
   "error": {
     "code": "ThreatFinding",
-    "message": "GuardDuty finding: Recon:EC2/PortScan",
+    "message": "GuardDuty finding: UnauthorizedAccess:IAMUser/MaliciousIPCaller.Custom",
     "type": "security"
   },
   "service": {
@@ -108,8 +108,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-4",
-    "ephemeral_id": "srymw5h9cxo"
+    "name": "filebeat-aws-ap-east-1",
+    "ephemeral_id": "x1n38zr4q"
   },
   "input": {
     "type": "http_endpoint"

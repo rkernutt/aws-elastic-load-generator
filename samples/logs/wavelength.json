@@ -1,61 +1,61 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-northeast-2",
+    "region": "eu-west-2",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "wavelength"
     },
-    "availability_zone": "ap-northeast-2-wl1-sel-wlz-1",
+    "availability_zone": "eu-west-2-wl1-lon-wlz-1",
     "instance": {
-      "id": "i-sfc43q5v7b"
+      "id": "i-s25cuen72fr"
     }
   },
   "aws": {
     "dimensions": {
-      "WavelengthZone": "ap-northeast-2-wl1-sel-wlz-1",
-      "InstanceId": "i-sfc43q5v7b",
-      "CarrierGatewayId": "cagw-vr9a437oh7k"
+      "WavelengthZone": "eu-west-2-wl1-lon-wlz-1",
+      "InstanceId": "i-s25cuen72fr",
+      "CarrierGatewayId": "cagw-rsw4gfdek19"
     },
     "wavelength": {
-      "zone": "ap-northeast-2-wl1-sel-wlz-1",
-      "carrier": "SKT",
-      "city": "Seoul",
-      "instance_id": "i-sfc43q5v7b",
-      "instance_type": "r5.large",
-      "carrier_gateway_id": "cagw-vr9a437oh7k",
-      "subnet_id": "subnet-9xk4c5yaeet",
-      "carrier_ip": "115.35.109.147",
-      "ue_ip": "134.166.141.45",
-      "bandwidth_allowance_gbps": 1,
+      "zone": "eu-west-2-wl1-lon-wlz-1",
+      "carrier": "Vodafone",
+      "city": "London",
+      "instance_id": "i-s25cuen72fr",
+      "instance_type": "t3.medium",
+      "carrier_gateway_id": "cagw-rsw4gfdek19",
+      "subnet_id": "subnet-bh0101s00hh",
+      "carrier_ip": "52.76.184.176",
+      "ue_ip": "202.178.95.3",
+      "bandwidth_allowance_gbps": 4,
       "network": {
-        "uplink_mbps": 462.49879339961024,
-        "downlink_mbps": 911.9095631960313,
-        "latency_ms": 3.8185600049947435,
-        "packet_loss_pct": 0.09687316396245244
+        "uplink_mbps": 356.67126603319593,
+        "downlink_mbps": 72.94882573757836,
+        "latency_ms": 3.225311453439124,
+        "packet_loss_pct": 0.09486109269483727
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-wavelength-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-wavelength-logs-738291046572"
+        "name": "aws-wavelength-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-wavelength-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/738291046572/wavelength/ap-northeast-2/2026/04/02/wavelength_DWRUERIU8IF.log.gz"
+        "key": "AWSLogs/814726593401/wavelength/eu-west-2/2026/04/13/wavelength_ROQIZJ5Q32.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/wavelength/logs",
-      "log_stream": "ap-northeast-2/i042us6k",
-      "ingestion_time": "2026-04-02T20:50:22.372Z"
+      "log_stream": "eu-west-2/vt965si7",
+      "ingestion_time": "2026-04-13T11:01:16.219Z"
     }
   },
   "source": {
-    "ip": "134.166.141.45"
+    "ip": "202.178.95.3"
   },
   "event": {
     "action": "BandwidthThrottled",
@@ -63,16 +63,16 @@
     "category": ["network", "host"],
     "dataset": "aws.wavelength",
     "provider": "ec2.amazonaws.com",
-    "duration": 443000000,
+    "duration": 152000000,
     "module": "aws"
   },
-  "message": "Wavelength [Seoul/SKT] i-sfc43q5v7b (r5.large) UL=462Mbps DL=912Mbps lat=3.8ms",
+  "message": "Wavelength [London/Vodafone] i-s25cuen72fr (t3.medium) UL=357Mbps DL=73Mbps lat=3.2ms",
   "log": {
     "level": "info"
   },
   "host": {
-    "name": "ip-185-87-18-58.ec2.internal",
-    "hostname": "wavelength-m9fufi6r"
+    "name": "ip-97-25-241-102.ec2.internal",
+    "hostname": "wavelength-f2p19u7d"
   },
   "service": {
     "name": "wavelength",
@@ -89,8 +89,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-northeast-2",
-    "ephemeral_id": "kbxarvlmbmj"
+    "name": "filebeat-aws-eu-west-2",
+    "ephemeral_id": "o1ne5qfneqj"
   },
   "input": {
     "type": "aws-cloudwatch"

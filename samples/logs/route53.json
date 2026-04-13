@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
     "region": "us-east-1",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "route53"
@@ -13,56 +13,51 @@
   },
   "aws": {
     "dimensions": {
-      "HostedZoneId": "ZM73LJKELFD",
+      "HostedZoneId": "ZXMEJ8FTT2F",
       "Region": "us-east-1"
     },
     "route53": {
-      "hosted_zone_id": "ZM73LJKELFD",
-      "edge_location": "IAD96",
-      "edns_client_subnet": "138.216.0.0/24"
+      "hosted_zone_id": "ZXMEJ8FTT2F",
+      "edge_location": "IAD74",
+      "edns_client_subnet": "82.167.0.0/24"
     },
     "s3": {
       "bucket": {
-        "name": "aws-route53-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-route53-logs-293847561023"
+        "name": "aws-route53-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-route53-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/293847561023/route53/us-east-1/2026/04/02/route53_U4SUV8DGG1.log.gz"
+        "key": "AWSLogs/164820739518/route53/us-east-1/2026/04/13/route53_845TCI14T6G.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/route53/logs",
-      "log_stream": "us-east-1/w25fb4lo",
-      "ingestion_time": "2026-04-02T20:50:22.376Z"
+      "log_stream": "us-east-1/q8m2a06x",
+      "ingestion_time": "2026-04-13T11:01:16.225Z"
     }
   },
   "dns": {
     "question": {
-      "name": "www.example.com",
-      "type": "CNAME"
+      "name": "db.internal",
+      "type": "TXT"
     },
-    "response_code": "REFUSED"
+    "response_code": "NOERROR"
   },
   "client": {
-    "ip": "201.19.38.37"
+    "ip": "223.142.3.193"
   },
   "event": {
-    "outcome": "failure",
+    "outcome": "success",
     "category": ["network"],
     "type": ["protocol"],
     "dataset": "aws.route53",
     "provider": "route53.amazonaws.com",
-    "duration": 436000000,
+    "duration": 50000000,
     "module": "aws"
   },
-  "message": "2026-04-02T20:50:22.062Z 7QX8TCXU ip4 201.19.38.37 53 AAAA api.example.com. REFUSED",
+  "message": "2026-04-13T11:01:15.944Z D0BLL1EV ip6 223.142.3.193 53 A api.example.com. NOERROR",
   "log": {
-    "level": "warn"
-  },
-  "error": {
-    "code": "REFUSED",
-    "message": "DNS query failed: REFUSED",
-    "type": "network"
+    "level": "info"
   },
   "service": {
     "name": "route53",
@@ -80,7 +75,7 @@
     "type": "filebeat",
     "version": "8.18.0",
     "name": "filebeat-aws-us-east-1",
-    "ephemeral_id": "fuv4y51m5l"
+    "ephemeral_id": "208nhhnmunmi"
   },
   "input": {
     "type": "aws-cloudwatch"

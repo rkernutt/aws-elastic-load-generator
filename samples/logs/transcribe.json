@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "eu-west-3",
     "account": {
-      "id": "814726593401",
-      "name": "globex-production"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "transcribe"
@@ -14,18 +14,18 @@
   "aws": {
     "dimensions": {
       "Operation": "TranscriptionJob",
-      "LanguageCode": "en-GB"
+      "LanguageCode": "fr-FR"
     },
     "transcribe": {
-      "transcription_job_name": "transcribe-nfig72il",
+      "transcription_job_name": "transcribe-h578wqer",
       "transcription_job_status": "COMPLETED",
-      "language_code": "en-GB",
-      "media_format": "mp3",
-      "media_uri": "s3://audio-bucket/transcribe-nfig72il.mp3",
-      "audio_duration_minutes": 8.758719843208834,
-      "word_count": 1314,
+      "language_code": "fr-FR",
+      "media_format": "wav",
+      "media_uri": "s3://audio-bucket/transcribe-h578wqer.mp3",
+      "audio_duration_minutes": 107.73725464150756,
+      "word_count": 16161,
       "vocabulary_name": "legal-terminology",
-      "speaker_count": 2,
+      "speaker_count": 1,
       "content_redaction_enabled": true,
       "metrics": {
         "TranscriptionJobsCompleted": {
@@ -35,26 +35,26 @@
           "sum": 0
         },
         "TranscriptionJobsPending": {
-          "avg": 2
+          "avg": 5
         },
         "TranscriptionJobsRunning": {
-          "avg": 4
+          "avg": 5
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-transcribe-logs-814726593401",
-        "arn": "arn:aws:s3:::aws-transcribe-logs-814726593401"
+        "name": "aws-transcribe-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-transcribe-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/814726593401/transcribe/eu-west-2/2026/04/02/transcribe_Y7T3Z33RESG.log.gz"
+        "key": "AWSLogs/738291046572/transcribe/eu-west-3/2026/04/13/transcribe_H7ZIWT1BXSJ.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/transcribe/logs",
-      "log_stream": "eu-west-2/ws4lnoeb",
-      "ingestion_time": "2026-04-02T20:50:22.424Z"
+      "log_stream": "eu-west-3/n235ku84",
+      "ingestion_time": "2026-04-13T11:01:16.276Z"
     }
   },
   "event": {
@@ -64,7 +64,7 @@
     "provider": "transcribe.amazonaws.com",
     "module": "aws"
   },
-  "message": "Transcribe job transcribe-nfig72il: 8.8 min audio (en-GB)",
+  "message": "Transcribe job transcribe-h578wqer: 107.7 min audio (fr-FR)",
   "log": {
     "level": "info"
   },
@@ -83,8 +83,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-2",
-    "ephemeral_id": "738tmy1235q"
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "sv1my1bkcgc"
   },
   "input": {
     "type": "aws-cloudwatch"

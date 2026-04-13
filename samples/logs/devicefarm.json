@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
     "region": "us-west-2",
     "account": {
-      "id": "293847561023",
-      "name": "globex-staging"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "devicefarm"
@@ -13,34 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "ProjectArn": "arn:aws:devicefarm:us-west-2:293847561023:project:5K0MGC9T-83CV-HKFR-5I3P-IJT9XHT3CIP"
+      "ProjectArn": "arn:aws:devicefarm:us-west-2:164820739518:project:MZ020Z15-BTQI-F85T-CB5B-LW7O2U1K6NB"
     },
     "devicefarm": {
       "project_name": "Mobile-Regression",
-      "project_arn": "arn:aws:devicefarm:us-west-2:293847561023:project:5K0MGC9T-83CV-HKFR-5I3P-IJT9XHT3CIP",
-      "run_name": "Nightly-Full-Suite",
-      "run_status": "SCHEDULED",
-      "device_platform": "IOS",
+      "project_arn": "arn:aws:devicefarm:us-west-2:164820739518:project:MZ020Z15-BTQI-F85T-CB5B-LW7O2U1K6NB",
+      "run_name": "Accessibility-Scan",
+      "run_status": "PENDING",
+      "device_platform": "ANDROID",
       "device_model": "iPhone 14",
-      "total_tests": 292,
-      "passed_tests": 234,
-      "failed_tests": 58,
-      "test_type": "APPIUM_PYTHON",
+      "total_tests": 25,
+      "passed_tests": 20,
+      "failed_tests": 5,
+      "test_type": "BUILTIN_FUZZ",
       "billing_method": "UNMETERED"
     },
     "s3": {
       "bucket": {
-        "name": "aws-devicefarm-logs-293847561023",
-        "arn": "arn:aws:s3:::aws-devicefarm-logs-293847561023"
+        "name": "aws-devicefarm-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-devicefarm-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/293847561023/devicefarm/us-west-2/2026/04/02/devicefarm_EDMUUZ169CK.log.gz"
+        "key": "AWSLogs/164820739518/devicefarm/us-west-2/2026/04/13/devicefarm_GYAT2KQWNX.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/devicefarm/logs",
-      "log_stream": "us-west-2/37mqy26u",
-      "ingestion_time": "2026-04-02T20:50:22.418Z"
+      "log_stream": "us-west-2/0fmkat5s",
+      "ingestion_time": "2026-04-13T11:01:16.264Z"
     }
   },
   "event": {
@@ -51,7 +51,7 @@
     "provider": "devicefarm.amazonaws.com",
     "module": "aws"
   },
-  "message": "Device Farm CreateDevicePool: project=Mobile-Regression, run=Nightly-Full-Suite SCHEDULED (234/292 passed)",
+  "message": "Device Farm CreateDevicePool: project=Mobile-Regression, run=Accessibility-Scan PENDING (20/25 passed)",
   "log": {
     "level": "warn"
   },
@@ -71,7 +71,7 @@
     "type": "filebeat",
     "version": "8.18.0",
     "name": "filebeat-aws-us-west-2",
-    "ephemeral_id": "xkm81e9sp4l"
+    "ephemeral_id": "70qekb3duh"
   },
   "input": {
     "type": "aws-cloudwatch"

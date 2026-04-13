@@ -1,12 +1,12 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-1",
-    "availability_zone": "eu-south-1b",
+    "region": "ap-southeast-1",
+    "availability_zone": "ap-southeast-1b",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "814726593401",
+      "name": "globex-production"
     },
     "service": {
       "name": "ebs"
@@ -14,66 +14,74 @@
   },
   "aws": {
     "dimensions": {
-      "VolumeId": "vol-7nzo7l3ckz",
-      "VolumeType": "gp3"
+      "VolumeId": "vol-3b8hccfndrg",
+      "VolumeType": "sc1"
     },
     "ebs": {
-      "volume_id": "vol-7nzo7l3ckz",
-      "volume_type": "gp3",
-      "size_gb": 200,
-      "availability_zone": "eu-south-1b",
-      "previous_state": "available",
-      "current_state": "in-use",
-      "attached_instance": "i-ja8wdgsgtgf",
-      "device": "/dev/sdg",
-      "event_type": "state_change",
+      "volume_id": "vol-3b8hccfndrg",
+      "volume_type": "sc1",
+      "size_gb": 500,
+      "attached_instance": "i-8zmiwr2mmfp",
+      "device": "/dev/nvme0n1",
+      "iops_consumed": 1605,
+      "throughput_mbps": 337.13387503643014,
+      "queue_depth": 6,
+      "latency_ms": 2.4814131911272295,
+      "burst_balance_percent": 75,
+      "read_ops": 3992,
+      "write_ops": 678,
+      "read_bytes": 158308969,
+      "write_bytes": 494017569,
+      "event_type": "performance",
       "metrics": {
         "VolumeReadOps": {
-          "avg": 7070
+          "avg": 6844
         },
         "VolumeWriteOps": {
-          "avg": 4520
+          "avg": 6344
         },
         "VolumeReadBytes": {
-          "avg": 88990459
+          "avg": 101297871
         },
         "VolumeWriteBytes": {
-          "avg": 390519929
+          "avg": 193734579
         },
         "VolumeTotalReadTime": {
-          "sum": 3.7468311921571384
+          "sum": 7.275221152569761
         },
         "VolumeTotalWriteTime": {
-          "sum": 3.820938486847869
+          "sum": 7.731678652089148
         },
         "VolumeIdleTime": {
-          "sum": 48.29630569100449
+          "sum": 56.99469960271521
         },
         "VolumeQueueLength": {
-          "avg": 6
+          "avg": 8
         },
         "VolumeThroughputPercentage": {
-          "avg": 41.49735004969975
+          "avg": 45.98719300616117
         },
         "VolumeConsumedReadWriteOps": {
-          "avg": 2728
+          "avg": 1500
         },
-        "BurstBalance": {}
+        "BurstBalance": {
+          "avg": 73
+        }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-ebs-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-ebs-logs-164820739518"
+        "name": "aws-ebs-logs-814726593401",
+        "arn": "arn:aws:s3:::aws-ebs-logs-814726593401"
       },
       "object": {
-        "key": "AWSLogs/164820739518/ebs/eu-south-1/2026/04/02/ebs_N8NFO0AWUP9.log.gz"
+        "key": "AWSLogs/814726593401/ebs/ap-southeast-1/2026/04/13/ebs_D3E2WGRFVD9.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/ebs/logs",
-      "log_stream": "eu-south-1/cmwtc12s",
-      "ingestion_time": "2026-04-02T20:50:22.387Z"
+      "log_stream": "ap-southeast-1/9vgfh0r1",
+      "ingestion_time": "2026-04-13T11:01:16.241Z"
     }
   },
   "event": {
@@ -81,10 +89,10 @@
     "category": ["host", "file"],
     "dataset": "aws.ebs",
     "provider": "ec2.amazonaws.com",
-    "duration": 1059000000,
+    "duration": 2274000000,
     "module": "aws"
   },
-  "message": "EBS volume vol-7nzo7l3ckz state change: available -> in-use on i-ja8wdgsgtgf (/dev/sdg)",
+  "message": "EBS vol-3b8hccfndrg performance: 1605 IOPS, 337.1 MB/s, latency 2.48ms",
   "log": {
     "level": "info"
   },
@@ -103,8 +111,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-1",
-    "ephemeral_id": "494pg7x0zxk"
+    "name": "filebeat-aws-ap-southeast-1",
+    "ephemeral_id": "fkwx6t0e7ps"
   },
   "input": {
     "type": "aws-cloudwatch"

@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-south-2",
+    "region": "eu-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "lookoutvision"
@@ -13,31 +13,31 @@
   },
   "aws": {
     "dimensions": {
-      "ProjectName": "turbine-blade-check",
-      "ModelVersion": "4.0"
+      "ProjectName": "circuit-board-inspection",
+      "ModelVersion": "5.0"
     },
     "lookoutvision": {
-      "project_name": "turbine-blade-check",
-      "model_version": "4.0",
-      "model_arn": "arn:aws:lookoutvision:ap-south-2:164820739518:model/turbine-blade-check/4.0",
-      "event_type": "StopModel",
-      "image_source": "camera-stream",
+      "project_name": "circuit-board-inspection",
+      "model_version": "5.0",
+      "model_arn": "arn:aws:lookoutvision:eu-central-1:738291046572:model/circuit-board-inspection/5.0",
+      "event_type": "DescribeModelPackagingJob",
+      "image_source": "local-file",
       "is_anomalous": false,
-      "confidence": 0.915042595451598
+      "confidence": 0.9623194365618998
     },
     "s3": {
       "bucket": {
-        "name": "aws-lookoutvision-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-lookoutvision-logs-164820739518"
+        "name": "aws-lookoutvision-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-lookoutvision-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/164820739518/lookoutvision/ap-south-2/2026/04/02/lookoutvision_PVIC2CQC6WG.log.gz"
+        "key": "AWSLogs/738291046572/lookoutvision/eu-central-1/2026/04/13/lookoutvision_D7AG5ECJSKO.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/lookoutvision/logs",
-      "log_stream": "ap-south-2/c6edh1by",
-      "ingestion_time": "2026-04-02T20:50:22.426Z"
+      "log_stream": "eu-central-1/jipmb6qh",
+      "ingestion_time": "2026-04-13T11:01:16.280Z"
     }
   },
   "event": {
@@ -45,10 +45,10 @@
     "category": ["process"],
     "dataset": "aws.lookoutvision",
     "provider": "lookoutvision.amazonaws.com",
-    "duration": 233000000,
+    "duration": 181000000,
     "module": "aws"
   },
-  "message": "Lookout for Vision [turbine-blade-check] OK confidence=0.915 233ms",
+  "message": "Lookout for Vision [circuit-board-inspection] OK confidence=0.962 181ms",
   "log": {
     "level": "info"
   },
@@ -67,8 +67,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-south-2",
-    "ephemeral_id": "si8vvwvg3is"
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "gz9cm8y915e"
   },
   "input": {
     "type": "aws-cloudwatch"

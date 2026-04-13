@@ -1,18 +1,18 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.065Z",
+  "@timestamp": "2026-04-13T11:01:15.947Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "2345f01d73ca5733c20fc3dfc6210d60"
+    "id": "cc37e6984011040f9904c0b5db11441e"
   },
   "transaction": {
-    "id": "e45e7e9947fafafb",
+    "id": "b85cb2f54f6ab7d1",
     "name": "pipeline-sqs-handler",
     "type": "messaging",
     "duration": {
-      "us": 791000
+      "us": 962000
     },
     "result": "success",
     "sampled": true,
@@ -22,10 +22,10 @@
     },
     "faas": {
       "name": "pipeline-sqs-handler",
-      "id": "arn:aws:lambda:eu-central-1:234567890123:function:pipeline-sqs-handler",
+      "id": "arn:aws:lambda:us-east-1:345678901234:function:pipeline-sqs-handler",
       "version": "$LATEST",
       "coldstart": false,
-      "execution": "ca284074-c9e2-c29d-8244-d18b606d543b",
+      "execution": "b427d0cc-6e5a-5d20-c3bb-2128b40db5d2",
       "trigger": {
         "type": "pubsub"
       }
@@ -33,17 +33,17 @@
   },
   "faas": {
     "name": "pipeline-sqs-handler",
-    "id": "arn:aws:lambda:eu-central-1:234567890123:function:pipeline-sqs-handler",
+    "id": "arn:aws:lambda:us-east-1:345678901234:function:pipeline-sqs-handler",
     "version": "$LATEST",
     "coldstart": false,
-    "execution": "ca284074-c9e2-c29d-8244-d18b606d543b",
+    "execution": "b427d0cc-6e5a-5d20-c3bb-2128b40db5d2",
     "trigger": {
       "type": "pubsub"
     }
   },
   "service": {
     "name": "pipeline-sqs-handler",
-    "environment": "production",
+    "environment": "staging",
     "version": "1.0.0",
     "language": {
       "name": "python"
@@ -73,10 +73,10 @@
   },
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "us-east-1",
     "account": {
-      "id": "234567890123",
-      "name": "staging-aws"
+      "id": "345678901234",
+      "name": "dev-aws"
     },
     "service": {
       "name": "lambda"
@@ -85,8 +85,8 @@
   "labels": {
     "s3_notification_prefix": "raw/",
     "sqs_queue": "s3-lake-notifications-prod",
-    "landing_bucket": "staging-aws-landing-raw",
-    "sqs_message_id": "6dc21682-c105-11eb-85bf-f58eba94763e"
+    "landing_bucket": "dev-aws-landing-raw",
+    "sqs_message_id": "7cf27526-9b1a-c78d-021f-e5a9c70ad3f0"
   },
   "event": {
     "outcome": "success",

@@ -1,69 +1,69 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "processor": {
     "name": "transaction",
     "event": "transaction"
   },
   "trace": {
-    "id": "9e6d4ebf5a0bf684338e253775f53583"
+    "id": "1ec6dae798b808d63bd0579e49264513"
   },
   "transaction": {
-    "id": "1341b9d8ff0b2a22",
-    "name": "security.finding process",
+    "id": "6307331368dede0d",
+    "name": "order.created process",
     "type": "messaging",
     "duration": {
-      "us": 139000
+      "us": 321000
     },
     "result": "success",
     "sampled": true,
     "span_count": {
-      "started": 2,
+      "started": 1,
       "dropped": 0
     }
   },
   "labels": {
-    "rule_name": "security.finding",
-    "event_bus_name": "default",
-    "event_source": "aws.securityhub",
-    "detail_type": "Security Hub Findings - Imported",
+    "rule_name": "order.created",
+    "event_bus_name": "custom-events",
+    "event_source": "com.myapp.orders",
+    "detail_type": "Order Created",
     "matched_rule_count": "2"
   },
   "service": {
-    "name": "security.finding",
-    "environment": "dev",
+    "name": "order.created",
+    "environment": "staging",
     "version": "1.0.0",
     "language": {
-      "name": "python"
+      "name": "nodejs"
     },
     "runtime": {
-      "name": "CPython",
-      "version": "3.12.3"
+      "name": "node",
+      "version": "20.15.1"
     },
     "framework": {
-      "name": "FastAPI"
+      "name": "Express"
     }
   },
   "agent": {
     "name": "otlp",
-    "version": "0.6.0"
+    "version": "1.4.0"
   },
   "telemetry": {
     "sdk": {
       "name": "opentelemetry",
-      "language": "python",
-      "version": "1.29.0"
+      "language": "nodejs",
+      "version": "1.30.1"
     },
     "distro": {
       "name": "elastic",
-      "version": "0.6.0"
+      "version": "1.4.0"
     }
   },
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-4",
+    "region": "us-east-1",
     "account": {
-      "id": "345678901234",
-      "name": "dev-aws"
+      "id": "123456789012",
+      "name": "prod-aws"
     },
     "service": {
       "name": "events"

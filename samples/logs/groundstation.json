@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-southeast-2",
+    "region": "me-central-1",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "groundstation"
@@ -13,34 +13,34 @@
   },
   "aws": {
     "dimensions": {
-      "GroundStationId": "Dubbo",
-      "ContactId": "contact-oj7t8372xb"
+      "GroundStationId": "AWS_GROUND_STATION_US_EAST_1",
+      "ContactId": "contact-gssbkslm36"
     },
     "groundstation": {
-      "contact_id": "contact-oj7t8372xb",
-      "ground_station_id": "Dubbo",
-      "satellite_arn": "arn:aws:groundstation::164820739518:satellite/satellite-h5ec8j8i",
-      "mission_profile_id": "profile-foxrlpza",
-      "contact_status": "COMPLETED",
+      "contact_id": "contact-gssbkslm36",
+      "ground_station_id": "AWS_GROUND_STATION_US_EAST_1",
+      "satellite_arn": "arn:aws:groundstation::501938274650:satellite/satellite-vxvy1xms",
+      "mission_profile_id": "profile-zsg9pbf3",
+      "contact_status": "SCHEDULED",
       "metrics": {
-        "data_received_mb": 4413.033788238349,
-        "elevation_degrees": 46.60628493875711,
-        "contact_duration_sec": 1767
+        "data_received_mb": 426.4785779950492,
+        "elevation_degrees": 41.037073198562474,
+        "contact_duration_sec": 1218
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-groundstation-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-groundstation-logs-164820739518"
+        "name": "aws-groundstation-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-groundstation-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/164820739518/groundstation/ap-southeast-2/2026/04/02/groundstation_TEANU7XHIQN.log.gz"
+        "key": "AWSLogs/501938274650/groundstation/me-central-1/2026/04/13/groundstation_TRB06JFUE2.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/groundstation/logs",
-      "log_stream": "ap-southeast-2/h2mq13hu",
-      "ingestion_time": "2026-04-02T20:50:22.428Z"
+      "log_stream": "me-central-1/feywybrp",
+      "ingestion_time": "2026-04-13T11:01:16.284Z"
     }
   },
   "event": {
@@ -48,7 +48,7 @@
     "category": ["network"],
     "dataset": "aws.groundstation",
     "provider": "groundstation.amazonaws.com",
-    "duration": 1767000000000,
+    "duration": 1218000000000,
     "module": "aws"
   },
   "data_stream": {
@@ -56,7 +56,7 @@
     "dataset": "aws.groundstation",
     "namespace": "default"
   },
-  "message": "Ground Station Dubbo: contact contact-oj7t8372xb COMPLETED, received=4413.0MB, elevation=46.6°",
+  "message": "Ground Station AWS_GROUND_STATION_US_EAST_1: contact contact-gssbkslm36 SCHEDULED, received=426.5MB, elevation=41.0°",
   "log": {
     "level": "info"
   },
@@ -70,8 +70,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-southeast-2",
-    "ephemeral_id": "mic0yeuefrt"
+    "name": "filebeat-aws-me-central-1",
+    "ephemeral_id": "2454rh8s64u"
   },
   "input": {
     "type": "aws-cloudwatch"

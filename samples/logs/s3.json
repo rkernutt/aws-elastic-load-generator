@@ -1,209 +1,57 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "sa-east-1",
+    "region": "eu-central-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
-      "name": "s3"
+      "name": "s3-intelligent-tiering"
     }
   },
   "aws": {
-    "dimensions": {
-      "BucketName": "artifacts-sa-east-1",
-      "StorageType": "GlacierStorage",
-      "FilterId": "prefix-filter",
-      "aws_account_number": "501938274650",
-      "aws_region": "sa-east-1",
-      "bucket_name": "artifacts-sa-east-1",
-      "record_type": "BUCKET",
-      "storage_class": "STANDARD"
-    },
-    "s3access": {
-      "bucket_owner": "501938274650",
-      "bucket": "artifacts-sa-east-1",
-      "remote_ip": "188.227.156.89",
-      "requester": "AIDA4WMB07E69MW",
-      "request_id": "XLM7YRCTXSI",
-      "operation": "REST.DELETE.OBJECT",
-      "key": "exports/z1izdil3.parquet",
-      "request_uri": "/artifacts-sa-east-1/exports/z1izdil3.parquet",
-      "http_status": 204,
-      "error_code": "-",
-      "bytes_sent": 540924188,
-      "object_size": "-",
-      "total_time": 145,
-      "turn_around_time": 116,
-      "referrer": "-",
-      "user_agent": "Go-http-client/1.1",
-      "host_id": "Q9B1J0MH9KB+20WY2J",
-      "signature_version": "SigV4",
-      "cipher_suite": "ECDHE-RSA-AES128-GCM-SHA256",
-      "authentication_type": "AuthHeader",
-      "host_header": "artifacts-sa-east-1.s3.sa-east-1.amazonaws.com",
-      "tls_version": "TLSv1.2"
+    "s3_intelligent_tiering": {
+      "bucket_name": "analytics-archive",
+      "event_type": "ArchiveRestore",
+      "from_tier": "ARCHIVE_INSTANT_ACCESS",
+      "to_tier": "FREQUENT_ACCESS",
+      "objects_transitioned": 8864,
+      "bytes_transitioned": 1949590878,
+      "monitoring_enabled": true,
+      "archive_access_days": 90,
+      "deep_archive_days": 180,
+      "cost_savings_pct": 41.73982074185784
     },
     "s3": {
       "bucket": {
-        "name": "artifacts-sa-east-1",
-        "arn": "arn:aws:s3:::artifacts-sa-east-1"
+        "name": "aws-s3-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-s3-logs-164820739518"
       },
       "object": {
-        "key": "exports/z1izdil3.parquet",
-        "size": 986279812,
-        "etag": "4yry9zgbh69"
-      },
-      "operation": "REST.DELETE.OBJECT",
-      "request_id": "XLM7YRCTXSI",
-      "metrics": {
-        "BucketSizeBytes": {
-          "avg": 932118859464
-        },
-        "NumberOfObjects": {
-          "avg": 596778
-        },
-        "AllRequests": {
-          "sum": 72377
-        },
-        "GetRequests": {
-          "sum": 42468
-        },
-        "PutRequests": {
-          "sum": 2029
-        },
-        "DeleteRequests": {
-          "sum": 916
-        },
-        "HeadRequests": {
-          "sum": 1297
-        },
-        "PostRequests": {
-          "sum": 701
-        },
-        "ListRequests": {
-          "sum": 2581
-        },
-        "BytesDownloaded": {
-          "sum": 8544280591
-        },
-        "BytesUploaded": {
-          "sum": 165063793
-        },
-        "4xxErrors": {
-          "sum": 0
-        },
-        "5xxErrors": {
-          "sum": 0
-        },
-        "FirstByteLatency": {
-          "avg": 96.23413057328081,
-          "p99": 196.04086662777885
-        },
-        "TotalRequestLatency": {
-          "avg": 79.39985183825829,
-          "p99": 1960.183816416593
-        }
-      }
-    },
-    "s3_request": {
-      "uploaded": {
-        "bytes": 771961939
-      },
-      "downloaded": {
-        "bytes": 4832679354
-      },
-      "requests": {
-        "total": 42855,
-        "get": 23539,
-        "put": 4911,
-        "delete": 656,
-        "head": 4003,
-        "post": 297,
-        "select": 310,
-        "list": 1137,
-        "select_scanned": {
-          "bytes": 73155368
-        },
-        "select_returned": {
-          "bytes": 81577170
-        }
-      },
-      "errors": {
-        "4xx": 0,
-        "5xx": 0
-      },
-      "latency": {
-        "total_request": {
-          "ms": 331.34560242286335
-        },
-        "first_byte": {
-          "ms": 28.34942605862241
-        }
-      }
-    },
-    "s3_daily_storage": {
-      "bucket": {
-        "size": {
-          "bytes": 628994992101
-        }
-      },
-      "number_of_objects": 369945
-    },
-    "s3_storage_lens": {
-      "metrics": {
-        "StorageBytes": {
-          "avg": 742565085413
-        },
-        "ObjectCount": {
-          "avg": 945018
-        },
-        "DeleteMarkerObjectCount": {
-          "avg": 804
-        },
-        "CurrentVersionStorageBytes": {
-          "avg": 72038292566
-        },
-        "IncompleteMultipartUploadStorageBytes": {
-          "avg": 32325413
-        }
+        "key": "AWSLogs/164820739518/s3/eu-central-1/2026/04/13/s3_PR92QA57WYS.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/s3/logs",
-      "log_stream": "sa-east-1/0y7ht5nf",
-      "ingestion_time": "2026-04-02T20:50:22.386Z"
+      "log_stream": "eu-central-1/xk5pvjyt",
+      "ingestion_time": "2026-04-13T11:01:16.240Z"
     }
-  },
-  "http": {
-    "response": {
-      "status_code": 204,
-      "bytes": 540924188
-    }
-  },
-  "client": {
-    "ip": "188.227.156.89"
-  },
-  "user_agent": {
-    "original": "Go-http-client/1.1"
   },
   "event": {
     "outcome": "success",
-    "category": ["web", "file"],
-    "dataset": "aws.s3",
-    "provider": "s3.amazonaws.com",
-    "duration": 145000000,
-    "module": "aws"
+    "duration": 10600270,
+    "module": "aws",
+    "dataset": "aws.s3access"
   },
-  "message": "{\"bucket\":\"artifacts-sa-east-1\",\"key\":\"exports/z1izdil3.parquet\",\"operation\":\"REST.DELETE.OBJECT\",\"http_status\":204,\"request_id\":\"XLM7YRCTXSI\",\"bytes_sent\":540924188,\"total_time_ms\":145,\"timestamp\":\"2026-04-02T20:50:22.062Z\"}",
-  "log": {
-    "level": "info"
-  },
+  "message": "S3 Intelligent-Tiering analytics-archive: 2392 objects ARCHIVE_INSTANT_ACCESS → FREQUENT_ACCESS",
   "service": {
     "name": "s3",
     "type": "aws"
+  },
+  "log": {
+    "level": "info"
   },
   "ecs": {
     "version": "8.11.0"
@@ -216,8 +64,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-sa-east-1",
-    "ephemeral_id": "xluoy41izid"
+    "name": "filebeat-aws-eu-central-1",
+    "ephemeral_id": "7wruj802cxk"
   },
   "input": {
     "type": "aws-s3"

@@ -1,111 +1,107 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "ap-east-1",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "293847561023",
+      "name": "globex-staging"
     },
     "service": {
       "name": "apigateway"
     }
   },
+  "trace": {
+    "id": "1-gpyeocpu-814i2q1f0wf"
+  },
   "aws": {
     "dimensions": {
-      "ApiName": "internal-api",
-      "Stage": "v1",
-      "Method": "GET",
-      "Resource": "/api/v1/search"
+      "ApiName": "prod-api",
+      "Stage": "staging",
+      "Method": "POST",
+      "Resource": "/api/v2/events"
     },
     "apigateway": {
-      "request_id": "ncrcwi98-qgln",
-      "api_id": "c4so8405cw",
-      "domain_name": "c4so8405cw.execute-api.us-west-2.amazonaws.com",
-      "stage": "v1",
-      "http_method": "GET",
-      "resource_path": "/api/v1/search",
+      "request_id": "olf1i0fi-lpkk",
+      "api_id": "gwm4xvhh9e",
+      "domain_name": "gwm4xvhh9e.execute-api.us-east-1.amazonaws.com",
+      "stage": "staging",
+      "http_method": "POST",
+      "resource_path": "/api/v2/events",
       "protocol": "HTTP/1.1",
-      "route_key": "GET /api/v1/search",
-      "status": 201,
-      "response_length": 7386,
-      "ip_address": "200.46.102.30",
-      "user": "api-user",
+      "route_key": "POST /api/v2/events",
+      "status": 204,
+      "response_length": 3717,
+      "ip_address": "30.19.250.51",
+      "caller": "arn:aws:iam::293847561023:user/api-user",
+      "connection_id": "NY1TJS17NT",
       "event_type": "CONNECT",
-      "request_time": "2026-04-02T20:50:22.062Z",
+      "request_time": "2026-04-13T11:01:15.944Z",
       "api_type": "REST",
-      "integration_latency": 570,
-      "cache_hit": true,
-      "cache_miss": false,
+      "integration_latency": 203,
       "metrics": {
         "Count": {
           "sum": 1
         },
         "Latency": {
-          "avg": 658,
-          "p99": 1974
+          "avg": 320,
+          "p99": 960
         },
         "IntegrationLatency": {
-          "avg": 570
+          "avg": 203
         },
         "4XXError": {
           "sum": 0
         },
         "5XXError": {
           "sum": 0
-        },
-        "CacheHitCount": {
-          "sum": 1
-        },
-        "CacheMissCount": {
-          "sum": 0
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-apigateway-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-apigateway-logs-501938274650"
+        "name": "aws-apigateway-logs-293847561023",
+        "arn": "arn:aws:s3:::aws-apigateway-logs-293847561023"
       },
       "object": {
-        "key": "AWSLogs/501938274650/apigateway/eu-central-1/2026/04/02/apigateway_VDR5Q5IG37.log.gz"
+        "key": "AWSLogs/293847561023/apigateway/ap-east-1/2026/04/13/apigateway_BJ5WI85EC5Q.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/apigateway/logs",
-      "log_stream": "eu-central-1/pief2a9e",
-      "ingestion_time": "2026-04-02T20:50:22.368Z"
+      "log_stream": "ap-east-1/ko05gibd",
+      "ingestion_time": "2026-04-13T11:01:16.216Z"
     }
   },
   "http": {
     "request": {
-      "method": "GET",
-      "id": "ncrcwi98-qgln",
-      "bytes": 2842
+      "method": "POST",
+      "id": "olf1i0fi-lpkk",
+      "bytes": 4654
     },
     "response": {
-      "status_code": 201,
-      "bytes": 8733
+      "status_code": 204,
+      "bytes": 9520
     }
   },
   "url": {
-    "path": "/api/v1/search",
-    "domain": "c4so8405cw.execute-api.eu-central-1.amazonaws.com"
+    "path": "/api/v2/events",
+    "domain": "gwm4xvhh9e.execute-api.ap-east-1.amazonaws.com"
   },
   "client": {
-    "ip": "137.198.244.79",
+    "ip": "16.144.188.157",
     "geo": {
-      "country_iso_code": "AU",
-      "country_name": "Australia",
-      "region_name": "Sydney",
-      "city_name": "Sydney"
+      "country_iso_code": "DE",
+      "country_name": "Germany",
+      "region_name": "Frankfurt",
+      "city_name": "Frankfurt"
     }
   },
   "user_agent": {
     "original": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
   },
   "event": {
-    "duration": 658000000,
+    "duration": 320000000,
     "outcome": "success",
     "category": ["web"],
     "type": ["access"],
@@ -113,7 +109,7 @@
     "provider": "apigateway.amazonaws.com",
     "module": "aws"
   },
-  "message": "GET /api/v1/search 201 658ms",
+  "message": "POST /api/v2/events 204 320ms",
   "log": {
     "level": "info"
   },
@@ -132,8 +128,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-1",
-    "ephemeral_id": "e6acqvanrzi"
+    "name": "filebeat-aws-ap-east-1",
+    "ephemeral_id": "dno8haq4d1o"
   },
   "input": {
     "type": "aws-cloudwatch"

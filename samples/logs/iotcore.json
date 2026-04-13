@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
     "region": "us-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "iotcore"
@@ -13,107 +13,113 @@
   },
   "aws": {
     "dimensions": {
-      "Protocol": "WSS"
+      "Protocol": "MQTT-SN"
     },
     "iotcore": {
-      "client_id": "robot-arm-7",
-      "thing_name": "robot-arm-7",
+      "client_id": "thermostat-floor-3",
+      "thing_name": "thermostat-floor-3",
       "thing_group": "fleet",
-      "action": "CONNECT",
-      "topic": "cmd/device/update",
-      "protocol": "WSS",
+      "action": "PUBLISH",
+      "topic": "dt/factory/sensors/temperature",
+      "protocol": "MQTT-SN",
       "qos": 1,
-      "message_bytes": 25128,
-      "policy_name": "SensorPolicy",
-      "structured_logging": true,
-      "rules_evaluated": 5,
+      "message_bytes": 26112,
+      "policy_name": "FleetPolicy",
+      "structured_logging": false,
+      "error_code": "ThrottlingException",
+      "rules_evaluated": 2,
       "metrics": {
         "Connect.Success": {
-          "sum": 938
+          "sum": 419
         },
         "Connect.Failure": {
-          "sum": 0
+          "sum": 2
         },
         "PublishIn.Success": {
-          "sum": 2528
+          "sum": 6429
         },
         "PublishIn.ClientError": {
-          "sum": 0
+          "sum": 351
         },
         "PublishIn.ServerError": {
-          "sum": 0
+          "sum": 86
         },
         "PublishOut.Success": {
-          "sum": 3204
+          "sum": 8224
         },
         "Publish.Success": {
-          "sum": 3536
+          "sum": 4667
         },
         "Publish.Failure": {
-          "sum": 0
+          "sum": 503
         },
         "Subscribe.Success": {
-          "sum": 513
+          "sum": 4500
         },
         "Subscribe.Failure": {
-          "sum": 0
+          "sum": 63
         },
         "Unsubscribe.Success": {
-          "sum": 404
+          "sum": 749
         },
         "Ping.Success": {
-          "sum": 4149
+          "sum": 5121
         },
         "Throttle.Success": {
-          "sum": 35
+          "sum": 77
         },
         "RulesMatched": {
-          "sum": 877
+          "sum": 478
         },
         "RulesFailed": {
-          "sum": 0
+          "sum": 86
         },
         "RulesNotMatched": {
-          "sum": 90
+          "sum": 60
         },
         "TopicMatch": {
-          "sum": 5428
+          "sum": 3711
         },
         "ClientConnections": {
-          "avg": 40184
+          "avg": 28275
         }
       }
     },
     "s3": {
       "bucket": {
-        "name": "aws-iotcore-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-iotcore-logs-501938274650"
+        "name": "aws-iotcore-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-iotcore-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/501938274650/iotcore/us-west-2/2026/04/02/iotcore_5A5WZLWYE0H.log.gz"
+        "key": "AWSLogs/164820739518/iotcore/us-west-2/2026/04/13/iotcore_HIB74AZOM2H.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/iotcore/logs",
-      "log_stream": "us-west-2/pkayncfg",
-      "ingestion_time": "2026-04-02T20:50:22.427Z"
+      "log_stream": "us-west-2/4y156hyd",
+      "ingestion_time": "2026-04-13T11:01:16.282Z"
     }
   },
   "source": {
-    "ip": "89.83.128.252"
+    "ip": "145.240.215.17"
   },
   "event": {
-    "action": "CONNECT",
-    "outcome": "success",
+    "action": "PUBLISH",
+    "outcome": "failure",
     "category": ["network", "process"],
     "dataset": "aws.iot",
     "provider": "iot.amazonaws.com",
-    "duration": 150000000,
+    "duration": 1515000000,
     "module": "aws"
   },
-  "message": "{\"clientId\":\"robot-arm-7\",\"action\":\"CONNECT\",\"topic\":\"cmd/device/update\",\"message\":\"IoT Core CONNECT: robot-arm-7 on cmd/device/update\",\"timestamp\":\"2026-04-02T20:50:22.062Z\"}",
+  "message": "IoT Core PUBLISH FAILED for thermostat-floor-3: Unauthorized",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "ThrottlingException",
+    "message": "IoT Core operation failed",
+    "type": "iot"
   },
   "service": {
     "name": "iotcore",
@@ -131,7 +137,7 @@
     "type": "filebeat",
     "version": "8.18.0",
     "name": "filebeat-aws-us-west-2",
-    "ephemeral_id": "i3e0pfxr0j"
+    "ephemeral_id": "w62sra87gz"
   },
   "input": {
     "type": "aws-cloudwatch"

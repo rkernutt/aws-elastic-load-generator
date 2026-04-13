@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-west-2",
     "account": {
-      "id": "501938274650",
-      "name": "globex-security-tooling"
+      "id": "738291046572",
+      "name": "globex-development"
     },
     "service": {
       "name": "servicecatalog"
@@ -13,43 +13,44 @@
   },
   "aws": {
     "servicecatalog": {
-      "operation": "UpdateProvisionedProduct",
-      "product_name": "EKS Cluster",
-      "product_id": "prod-BYY9KRCUYFF",
-      "portfolio_id": "port-LZJK0DTXPZL",
-      "provisioned_product_name": "eks-cluster-oavaat",
-      "record_id": "rec-RLURC457Q9F",
-      "status": "SUCCEEDED",
-      "requester_arn": "arn:aws:iam::501938274650:user/developer-alice"
+      "operation": "AssociatePrincipal",
+      "product_name": "RDS PostgreSQL",
+      "product_id": "prod-V8XFPUF82SK",
+      "portfolio_id": "port-F90VF7ELHP",
+      "provisioned_product_name": "rds-postgresql-m4f2s9",
+      "record_id": "rec-Q6CZXN5RPYA",
+      "status": "AVAILABLE",
+      "requester_arn": "arn:aws:iam::738291046572:user/team-lead-bob",
+      "launch_role": "arn:aws:iam::123456789:role/ServiceCatalogLaunchRole"
     },
     "s3": {
       "bucket": {
-        "name": "aws-servicecatalog-logs-501938274650",
-        "arn": "arn:aws:s3:::aws-servicecatalog-logs-501938274650"
+        "name": "aws-servicecatalog-logs-738291046572",
+        "arn": "arn:aws:s3:::aws-servicecatalog-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/501938274650/servicecatalog/eu-west-2/2026/04/02/servicecatalog_R0MPNTSA7F.log.gz"
+        "key": "AWSLogs/738291046572/servicecatalog/us-west-2/2026/04/13/servicecatalog_BI2XV7VYOBG.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/servicecatalog/logs",
-      "log_stream": "eu-west-2/4wqnkmrw",
-      "ingestion_time": "2026-04-02T20:50:22.431Z"
+      "log_stream": "us-west-2/viwj4opd",
+      "ingestion_time": "2026-04-13T11:01:16.289Z"
     }
   },
   "user": {
-    "name": "developer-alice"
+    "name": "team-lead-bob"
   },
   "event": {
-    "action": "UpdateProvisionedProduct",
+    "action": "AssociatePrincipal",
     "outcome": "success",
     "category": ["configuration", "process"],
     "dataset": "aws.servicecatalog",
     "provider": "servicecatalog.amazonaws.com",
-    "duration": 427000000000,
+    "duration": 96000000000,
     "module": "aws"
   },
-  "message": "ServiceCatalog UpdateProvisionedProduct: developer-alice → EKS Cluster [SUCCEEDED]",
+  "message": "ServiceCatalog AssociatePrincipal: team-lead-bob → RDS PostgreSQL [AVAILABLE]",
   "log": {
     "level": "info"
   },
@@ -68,8 +69,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-2",
-    "ephemeral_id": "r4mw2ock1k"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "q5rjvlduzfs"
   },
   "input": {
     "type": "aws-cloudwatch"

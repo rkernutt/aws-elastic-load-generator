@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-central-1",
+    "region": "sa-east-1",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,42 +13,42 @@
   },
   "aws": {
     "dimensions": {
-      "FileSystemId": "fs-tryjyiasdwb"
+      "FileSystemId": "fs-0zr2c9mykosk"
     },
     "fsx": {
-      "file_system_id": "fs-tryjyiasdwb",
-      "file_system_type": "NETAPP_ONTAP",
-      "deployment_type": "MULTI_AZ_1",
-      "storage_capacity_gb": 2400,
+      "file_system_id": "fs-0zr2c9mykosk",
+      "file_system_type": "OPENZFS",
+      "deployment_type": "SINGLE_AZ_2",
+      "storage_capacity_gb": 9600,
       "throughput_capacity_mbps": 512,
-      "storage_used_percent": 35,
+      "storage_used_percent": 47,
       "metrics": {
         "DataReadBytes": {
-          "sum": 82184498
+          "sum": 643081825
         },
         "DataWriteBytes": {
-          "sum": 932501221
+          "sum": 400895633
         },
         "DataReadOperations": {
-          "sum": 5246
+          "sum": 3882
         },
         "DataWriteOperations": {
-          "sum": 8077
+          "sum": 518
         },
         "MetadataOperations": {
-          "sum": 3527
+          "sum": 81
         },
         "FreeStorageCapacity": {
-          "avg": 88664360879
+          "avg": 27023444372
         },
         "StorageCapacity": {
-          "avg": 920398314251
+          "avg": 223836236429
         },
         "CPUUtilization": {
-          "avg": 51.89820771821629
+          "avg": 77.79712158089819
         },
         "NetworkThroughputUtilization": {
-          "avg": 68.39184025036573
+          "avg": 42.224871139262454
         }
       }
     },
@@ -58,13 +58,13 @@
         "arn": "arn:aws:s3:::aws-fsx-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/738291046572/fsx/eu-central-1/2026/04/02/fsx_4X6CC7RSC7.log.gz"
+        "key": "AWSLogs/738291046572/fsx/sa-east-1/2026/04/13/fsx_XNTKBEN2VJB.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/fsx/logs",
-      "log_stream": "eu-central-1/hqcz4laf",
-      "ingestion_time": "2026-04-02T20:50:22.387Z"
+      "log_stream": "sa-east-1/kw19pgn2",
+      "ingestion_time": "2026-04-13T11:01:16.242Z"
     }
   },
   "event": {
@@ -72,12 +72,12 @@
     "category": ["host", "file"],
     "dataset": "aws.fsx",
     "provider": "fsx.amazonaws.com",
-    "duration": 3813000000,
+    "duration": 1675000000,
     "module": "aws"
   },
-  "message": "Backup RPO threshold approaching",
+  "message": "Storage capacity scaling complete",
   "log": {
-    "level": "warn"
+    "level": "info"
   },
   "service": {
     "name": "fsx",
@@ -94,8 +94,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-central-1",
-    "ephemeral_id": "af5p0aa0idl"
+    "name": "filebeat-aws-sa-east-1",
+    "ephemeral_id": "c2pkightc7p"
   },
   "input": {
     "type": "aws-cloudwatch"

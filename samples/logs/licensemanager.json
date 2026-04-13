@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-south-2",
+    "region": "ap-northeast-3",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "licensemanager"
@@ -17,40 +17,45 @@
     },
     "licensemanager": {
       "license_configuration_name": "Oracle-SE2-vCPU",
-      "license_configuration_arn": "arn:aws:license-manager:eu-south-2:164820739518:license-configuration:8E3UDD6JOK9",
-      "resource_type": "EC2_INSTANCE",
-      "consumed_licenses": 281,
-      "licensed_count": 950,
-      "utilization_percentage": 30,
-      "rule_type": "vCPU",
-      "status": "Active"
+      "license_configuration_arn": "arn:aws:license-manager:ap-northeast-3:501938274650:license-configuration:LMQJ35B3BT",
+      "resource_type": "RDS",
+      "consumed_licenses": 210,
+      "licensed_count": 451,
+      "utilization_percentage": 47,
+      "rule_type": "Cores",
+      "status": "Disabled"
     },
     "s3": {
       "bucket": {
-        "name": "aws-licensemanager-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-licensemanager-logs-164820739518"
+        "name": "aws-licensemanager-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-licensemanager-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/164820739518/licensemanager/eu-south-2/2026/04/02/licensemanager_MEA8JCWIRZ.log.gz"
+        "key": "AWSLogs/501938274650/licensemanager/ap-northeast-3/2026/04/13/licensemanager_72NN6NPEMH7.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/licensemanager/logs",
-      "log_stream": "eu-south-2/jv2i413x",
-      "ingestion_time": "2026-04-02T20:50:22.432Z"
+      "log_stream": "ap-northeast-3/bt9p0qp4",
+      "ingestion_time": "2026-04-13T11:01:16.292Z"
     }
   },
   "event": {
-    "action": "CheckOutLicense",
-    "outcome": "success",
+    "action": "AssociateResource",
+    "outcome": "failure",
     "category": ["configuration"],
     "dataset": "aws.licensemanager",
     "provider": "license-manager.amazonaws.com",
     "module": "aws"
   },
-  "message": "License Manager Oracle-SE2-vCPU: 281/950 (30%) EC2_INSTANCE",
+  "message": "License Manager Oracle-SE2-vCPU: limit exceeded (210/451)",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "LicenseUsageException",
+    "message": "License Manager limit exceeded",
+    "type": "configuration"
   },
   "service": {
     "name": "licensemanager",
@@ -67,8 +72,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-south-2",
-    "ephemeral_id": "auerdcisi5c"
+    "name": "filebeat-aws-ap-northeast-3",
+    "ephemeral_id": "kb9pc7he7gq"
   },
   "input": {
     "type": "aws-cloudwatch"

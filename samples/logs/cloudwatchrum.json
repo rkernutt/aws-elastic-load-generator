@@ -1,8 +1,8 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "eu-west-2",
+    "region": "us-west-2",
     "account": {
       "id": "738291046572",
       "name": "globex-development"
@@ -13,17 +13,23 @@
   },
   "aws": {
     "cloudwatch_rum": {
-      "app_monitor_name": "checkout-flow",
-      "app_monitor_id": "th4yfnzprp",
-      "event_type": "com.amazon.rum.js_error_event",
-      "page_url": "https://checkout-flow.example.com/search",
-      "browser": "Chrome 120",
-      "os": "Windows 11",
-      "device_type": "tablet",
-      "country": "GB",
-      "session_id": "nf9rvk02v9i",
-      "error_message": "ReferenceError: config is not defined",
-      "error_type": "js_error"
+      "app_monitor_name": "mobile-web",
+      "app_monitor_id": "4jjchlp40ra",
+      "event_type": "com.amazon.rum.performance_navigation_event",
+      "page_url": "https://mobile-web.example.com/products",
+      "browser": "Safari 17",
+      "os": "macOS 14",
+      "device_type": "desktop",
+      "country": "IN",
+      "session_id": "n94pcap65nc",
+      "web_vitals": {
+        "lcp_ms": 2408.458834923851,
+        "fid_ms": 23.66576775507067,
+        "cls": 0.03881435884760205,
+        "fcp_ms": 1232.7188250139527,
+        "ttfb_ms": 148.58914363933587,
+        "inp_ms": 49.107530206581856
+      }
     },
     "s3": {
       "bucket": {
@@ -31,22 +37,22 @@
         "arn": "arn:aws:s3:::aws-cloudwatchrum-logs-738291046572"
       },
       "object": {
-        "key": "AWSLogs/738291046572/cloudwatchrum/eu-west-2/2026/04/02/cloudwatchrum_D502P7SXJXI.log.gz"
+        "key": "AWSLogs/738291046572/cloudwatchrum/us-west-2/2026/04/13/cloudwatchrum_7DSNAFUWY4H.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/cloudwatchrum/logs",
-      "log_stream": "eu-west-2/y55i9d1k",
-      "ingestion_time": "2026-04-02T20:50:22.433Z"
+      "log_stream": "us-west-2/mo2bzd76",
+      "ingestion_time": "2026-04-13T11:01:16.293Z"
     }
   },
   "event": {
     "outcome": "success",
-    "duration": 2545142,
+    "duration": 7470296,
     "module": "aws",
     "dataset": "aws.cloudwatch_rum"
   },
-  "message": "RUM checkout-flow: js_error_event (LCP 2440ms)",
+  "message": "RUM mobile-web: performance_navigation_event (LCP 2408ms)",
   "service": {
     "name": "cloudwatchrum",
     "type": "aws"
@@ -65,8 +71,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-eu-west-2",
-    "ephemeral_id": "gahdkgynhkd"
+    "name": "filebeat-aws-us-west-2",
+    "ephemeral_id": "0i9kcuvl88en"
   },
   "input": {
     "type": "http_endpoint"

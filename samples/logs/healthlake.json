@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ap-east-1",
+    "region": "eu-central-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "healthlake"
@@ -13,47 +13,46 @@
   },
   "aws": {
     "dimensions": {
-      "DatastoreId": "djbhdgra-2si2-5ecl-0z3g-no7be9zbipo",
-      "ResourceType": "DiagnosticReport"
+      "DatastoreId": "o79vjz7h-iiiy-8xb4-x8kv-mira7472n4g",
+      "ResourceType": "Observation"
     },
     "healthlake": {
-      "datastore_id": "djbhdgra-2si2-5ecl-0z3g-no7be9zbipo",
-      "datastore_name": "diagnostics-lake",
-      "resource_type": "DiagnosticReport",
-      "operation": "StartFHIRImportJob",
-      "request_id": "C37UT7NL-L34B-RVX2-RT07-2D10WJ14YB9",
+      "datastore_id": "o79vjz7h-iiiy-8xb4-x8kv-mira7472n4g",
+      "datastore_name": "clinical-trials",
+      "resource_type": "Observation",
+      "operation": "SearchWithGet",
+      "request_id": "M4OHM7LC-WI1O-YRRP-OD2N-LOYMAY0A47B",
       "response_code": 200,
-      "import_job_id": "import-lhfi07xy7t",
       "fhir_version": "R4"
     },
     "s3": {
       "bucket": {
-        "name": "aws-healthlake-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-healthlake-logs-164820739518"
+        "name": "aws-healthlake-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-healthlake-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/164820739518/healthlake/ap-east-1/2026/04/02/healthlake_UROWBS8LCI.log.gz"
+        "key": "AWSLogs/501938274650/healthlake/eu-central-2/2026/04/13/healthlake_J9O3KDIDZMH.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/healthlake/logs",
-      "log_stream": "ap-east-1/xuiv93uy",
-      "ingestion_time": "2026-04-02T20:50:22.426Z"
+      "log_stream": "eu-central-2/hi2ndnwz",
+      "ingestion_time": "2026-04-13T11:01:16.279Z"
     }
   },
   "log": {
     "level": "info"
   },
   "event": {
-    "action": "StartFHIRImportJob",
+    "action": "SearchWithGet",
     "outcome": "success",
     "category": ["process", "database"],
     "dataset": "aws.healthlake",
     "provider": "healthlake.amazonaws.com",
-    "duration": 463000000,
+    "duration": 303000000,
     "module": "aws"
   },
-  "message": "HealthLake StartFHIRImportJob: datastore=diagnostics-lake, resource=DiagnosticReport, 463ms",
+  "message": "HealthLake SearchWithGet: datastore=clinical-trials, resource=Observation, 303ms",
   "service": {
     "name": "healthlake",
     "type": "aws"
@@ -69,8 +68,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ap-east-1",
-    "ephemeral_id": "noa082hh49n"
+    "name": "filebeat-aws-eu-central-2",
+    "ephemeral_id": "4duqkjxi9xs"
   },
   "input": {
     "type": "aws-cloudwatch"

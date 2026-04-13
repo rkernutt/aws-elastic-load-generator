@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "us-east-1",
+    "region": "eu-west-3",
     "account": {
-      "id": "738291046572",
-      "name": "globex-development"
+      "id": "164820739518",
+      "name": "globex-shared-services"
     },
     "service": {
       "name": "trustedadvisor"
@@ -13,25 +13,25 @@
   },
   "aws": {
     "trustedadvisor": {
-      "check_name": "MFA on Root Account",
-      "category": "security",
+      "check_name": "Idle Load Balancers",
+      "category": "cost_optimizing",
       "status": "ok",
       "affected_resource": "arn:aws:s3:::my-bucket",
       "flagged_resources": 0
     },
     "s3": {
       "bucket": {
-        "name": "aws-trustedadvisor-logs-738291046572",
-        "arn": "arn:aws:s3:::aws-trustedadvisor-logs-738291046572"
+        "name": "aws-trustedadvisor-logs-164820739518",
+        "arn": "arn:aws:s3:::aws-trustedadvisor-logs-164820739518"
       },
       "object": {
-        "key": "AWSLogs/738291046572/trustedadvisor/us-east-1/2026/04/02/trustedadvisor_MX7UBTNVFY.log.gz"
+        "key": "AWSLogs/164820739518/trustedadvisor/eu-west-3/2026/04/13/trustedadvisor_A0H6ELALIUH.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/trustedadvisor/logs",
-      "log_stream": "us-east-1/hfu5yefd",
-      "ingestion_time": "2026-04-02T20:50:22.429Z"
+      "log_stream": "eu-west-3/ps4z0bnj",
+      "ingestion_time": "2026-04-13T11:01:16.286Z"
     }
   },
   "event": {
@@ -40,10 +40,10 @@
     "category": ["configuration", "vulnerability"],
     "dataset": "aws.trustedadvisor",
     "provider": "trustedadvisor.amazonaws.com",
-    "duration": 16000000000,
+    "duration": 20000000000,
     "module": "aws"
   },
-  "message": "Trusted Advisor OK: MFA on Root Account",
+  "message": "Trusted Advisor OK: Idle Load Balancers",
   "log": {
     "level": "info"
   },
@@ -62,8 +62,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-us-east-1",
-    "ephemeral_id": "znv9vepgsa"
+    "name": "filebeat-aws-eu-west-3",
+    "ephemeral_id": "fgv5ch05sbh"
   },
   "input": {
     "type": "http_endpoint"

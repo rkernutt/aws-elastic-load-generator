@@ -1,11 +1,11 @@
 {
-  "@timestamp": "2026-04-02T20:50:22.062Z",
+  "@timestamp": "2026-04-13T11:01:15.944Z",
   "cloud": {
     "provider": "aws",
-    "region": "ca-west-1",
+    "region": "ap-south-2",
     "account": {
-      "id": "164820739518",
-      "name": "globex-shared-services"
+      "id": "501938274650",
+      "name": "globex-security-tooling"
     },
     "service": {
       "name": "proton"
@@ -13,45 +13,50 @@
   },
   "aws": {
     "dimensions": {
-      "EnvironmentName": "prod-env",
-      "ServiceName": "data-pipeline"
+      "EnvironmentName": "sandbox-env",
+      "ServiceName": "api-service"
     },
     "proton": {
-      "environment_name": "prod-env",
-      "service_name": "data-pipeline",
+      "environment_name": "sandbox-env",
+      "service_name": "api-service",
       "service_instance_name": "v2-instance",
-      "template_name": "fargate-env-template",
-      "template_major_version": "3",
-      "deployment_status": "SUCCEEDED",
-      "component": "environment"
+      "template_name": "k8s-env-template",
+      "template_major_version": "2",
+      "deployment_status": "UPDATE_FAILED",
+      "component": "service"
     },
     "s3": {
       "bucket": {
-        "name": "aws-proton-logs-164820739518",
-        "arn": "arn:aws:s3:::aws-proton-logs-164820739518"
+        "name": "aws-proton-logs-501938274650",
+        "arn": "arn:aws:s3:::aws-proton-logs-501938274650"
       },
       "object": {
-        "key": "AWSLogs/164820739518/proton/ca-west-1/2026/04/02/proton_29HAAEIVFUJ.log.gz"
+        "key": "AWSLogs/501938274650/proton/ap-south-2/2026/04/13/proton_B848P9QTY15.log.gz"
       }
     },
     "cloudwatch": {
       "log_group": "/aws/proton/logs",
-      "log_stream": "ca-west-1/yy4casfk",
-      "ingestion_time": "2026-04-02T20:50:22.437Z"
+      "log_stream": "ap-south-2/zrvbzwdq",
+      "ingestion_time": "2026-04-13T11:01:16.300Z"
     }
   },
   "event": {
-    "action": "UpdateEnvironment",
-    "outcome": "success",
+    "action": "DeployServiceInstance",
+    "outcome": "failure",
     "category": ["configuration"],
     "dataset": "aws.proton",
     "provider": "proton.amazonaws.com",
-    "duration": 44000000000,
+    "duration": 260000000000,
     "module": "aws"
   },
-  "message": "Proton environment data-pipeline UpdateEnvironment SUCCEEDED",
+  "message": "Proton service api-service deployment FAILED on k8s-env-template",
   "log": {
-    "level": "info"
+    "level": "error"
+  },
+  "error": {
+    "code": "UPDATE_FAILED",
+    "message": "Proton deployment failed for api-service",
+    "type": "configuration"
   },
   "service": {
     "name": "proton",
@@ -68,8 +73,8 @@
   "agent": {
     "type": "filebeat",
     "version": "8.18.0",
-    "name": "filebeat-aws-ca-west-1",
-    "ephemeral_id": "ovlw3bwpcmj"
+    "name": "filebeat-aws-ap-south-2",
+    "ephemeral_id": "u6o27uf201i"
   },
   "input": {
     "type": "aws-cloudwatch"
