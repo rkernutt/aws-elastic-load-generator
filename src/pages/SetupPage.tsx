@@ -137,6 +137,10 @@ export function SetupPage({ elasticUrl, kibanaUrl, apiKey, onInstallComplete }: 
     () => new Set(ML_JOB_FILES.map((f) => f.group))
   );
 
+  const [selectedDashboards, setSelectedDashboards] = useState<Set<string>>(
+    () => new Set(DASHBOARDS.map((d) => d.title))
+  );
+
   // ── Install state ──────────────────────────────────────────────────────────
   const [isInstalling, setIsInstalling] = useState(false);
   const [isDone, setIsDone] = useState(false);
@@ -235,11 +239,12 @@ export function SetupPage({ elasticUrl, kibanaUrl, apiKey, onInstallComplete }: 
   };
 
   const installDashboards = async () => {
-    addLog(`Installing ${DASHBOARDS.length} dashboards…`);
+    const toInstall = DASHBOARDS.filter((d) => selectedDashboards.has(d.title));
+    addLog(`Installing ${toInstall.length} dashboard${toInstall.length !== 1 ? "s" : ""}…`);
     const kb = kibanaUrl.replace(/\/$/, "");
     let ok = 0;
     let fail = 0;
-    for (const dash of DASHBOARDS) {
+    for (const dash of toInstall) {
       const { id: _id, spaces: _spaces, ...body } = dash;
       try {
         await proxyCall({
@@ -418,14 +423,27 @@ export function SetupPage({ elasticUrl, kibanaUrl, apiKey, onInstallComplete }: 
       <InstallerRow
         label="Custom Dashboards"
         badge="Kibana"
-        description={`Installs ${DASHBOARDS.length} pre-built Kibana dashboards for AWS service monitoring. Requires Kibana 9.4+ (Dashboards API).`}
+        description={`Installs pre-built Kibana dashboards for AWS service monitoring. ${selectedDashboards.size} of ${DASHBOARDS.length} selected. Requires Kibana 9.4+ (Dashboards API).`}
         enabled={enableDashboards}
         onToggle={setEnableDashboards}
       >
         <EuiSpacer size="s" />
         <EuiText size="xs" color="subdued">
-          All {DASHBOARDS.length} dashboards will be installed. Requires Kibana 9.4+.
+          <strong>Select dashboards to install:</strong>
         </EuiText>
+        <EuiSpacer size="xs" />
+        <EuiFlexGroup gutterSize="s" wrap responsive={false}>
+          {DASHBOARDS.map((d) => (
+            <EuiFlexItem grow={false} key={d.title}>
+              <EuiCheckbox
+                id={`dashboard-${d.title}`}
+                label={<EuiCode>{d.title}</EuiCode>}
+                checked={selectedDashboards.has(d.title)}
+                onChange={() => setSelectedDashboards((prev) => toggleGroup(prev, d.title))}
+              />
+            </EuiFlexItem>
+          ))}
+        </EuiFlexGroup>
       </InstallerRow>
 
       <EuiSpacer size="m" />
