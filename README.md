@@ -1,3 +1,5 @@
+# NOW SUPERSEDED - https://github.com/rkernutt/cloud-to-elastic-load-generator
+
 # ⚡ AWS → Elastic Load Generator
 
 A web UI for bulk-generating realistic AWS logs and metrics and shipping them directly to an Elastic deployment via the Elasticsearch Bulk API. Covers **211 AWS services** across **15 service groups**, all using **ECS (Elastic Common Schema)** field naming. An additional 10 sub-services (e.g. RDS Proxy, S3 Intelligent-Tiering, SageMaker Pipelines) are included as random event variants within their parent generators and covered by dedicated ingest pipelines, dashboards, and ML jobs.
