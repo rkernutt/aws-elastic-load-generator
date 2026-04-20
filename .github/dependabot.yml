@@ -19,3 +19,17 @@ updates:
       types:
         patterns:
           - "@types/*"
+    # @elastic/eui v114.0.0 only supports React 17/18 and TypeScript <6.
+    # Ignore majors that EUI's peer deps reject so Dependabot stops
+    # opening failing PRs. Revisit once EUI adds React 19 / TS 6 support.
+    ignore:
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
