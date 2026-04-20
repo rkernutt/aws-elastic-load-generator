@@ -111,7 +111,8 @@ export default function App() {
   const [scheduleActive, setScheduleActive] = useState(false);
   const [scheduleCurrentRun, setScheduleCurrentRun] = useState(0);
   const [nextRunAt, setNextRunAt] = useState<Date | null>(null);
-  const [countdown, setCountdown] = useState(0);
+  const [nowTick, setNowTick] = useState(() => Date.now());
+  const countdown = nextRunAt ? Math.max(0, Math.ceil((nextRunAt.getTime() - nowTick) / 1000)) : 0;
   const [validationErrors, setValidationErrors] = useState({
     elasticUrl: "",
     apiKey: "",
@@ -226,14 +227,8 @@ export default function App() {
 
   // ─── Scheduled mode countdown ────────────────────────────────────────────────
   useEffect(() => {
-    if (!nextRunAt) {
-      setCountdown(0);
-      return;
-    }
-    const tick = () =>
-      setCountdown(Math.max(0, Math.ceil((nextRunAt.getTime() - Date.now()) / 1000)));
-    tick();
-    const id = setInterval(tick, 1000);
+    if (!nextRunAt) return;
+    const id = setInterval(() => setNowTick(Date.now()), 1000);
     return () => clearInterval(id);
   }, [nextRunAt]);
 
